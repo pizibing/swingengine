@@ -1,0 +1,53 @@
+//----------------------------------------------------------------------------
+// 名称:skin material effect类专用的VS,PS.
+// 说明:由GPU进行蒙皮顶点计算.所依附的node必须带有material state对象.
+// 作者:Sun Che
+// 时间:20080904
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+void v_SkinMaterial
+(
+    in float4        kModelPosition  : POSITION,
+    in float3        kModelNormal    : NORMAL,
+    in float4        kBlendWeight    : TEXCOORD0,
+    in float4        kBlendIndices   : TEXCOORD1,
+    out float4       kClipPosition   : POSITION,
+    out float4       kDiffuseColor   : COLOR,
+    uniform float4x4 VPMatrix,
+    uniform float4   MaterialDiffuse,
+    uniform float4x4 SkinMatrix[32])
+{
+    float3 kWorldNormal;
+    
+    // 获取骨骼索引
+    int iBone1 = kBlendIndices.x;
+    int iBone2 = kBlendIndices.y;
+    int iBone3 = kBlendIndices.z;
+    int iBone4 = kBlendIndices.w;
+	
+    // 顶点蒙皮动画世界空间变换
+    kClipPosition = mul(kModelPosition, SkinMatrix[iBone1])*kBlendWeight.x +
+                    mul(kModelPosition, SkinMatrix[iBone2])*kBlendWeight.y + 
+                    mul(kModelPosition, SkinMatrix[iBone3])*kBlendWeight.z +
+                    mul(kModelPosition, SkinMatrix[iBone4])*kBlendWeight.w;
+    // 顶点世界空间到齐次设备空间变换
+    kClipPosition = mul(kClipPosition, VPMatrix);
+    
+    // 世界空间顶点法线 
+    kWorldNormal = mul(kModelNormal, (float3x3)SkinMatrix[iBone1])*kBlendWeight.x + 
+                   mul(kModelNormal, (float3x3)SkinMatrix[iBone2])*kBlendWeight.y +
+                   mul(kModelNormal, (float3x3)SkinMatrix[iBone3])*kBlendWeight.z +
+                   mul(kModelNormal, (float3x3)SkinMatrix[iBone4])*kBlendWeight.w;
+    kWorldNormal = normalize(kWorldNormal);
+	
+    kDiffuseColor = MaterialDiffuse;	
+}
+//----------------------------------------------------------------------------
+void p_SkinMaterial
+(
+    in float4    kDiffuseColor : COLOR,
+    out float4   kPixelColor   : COLOR)
+{
+    kPixelColor = kDiffuseColor;
+}
+//----------------------------------------------------------------------------

@@ -1,0 +1,56 @@
+//----------------------------------------------------------------------------
+void v_ITexture
+(
+    in float4        kModelPosition  : POSITION,
+    in float2        kInBaseTCoord   : TEXCOORD0,
+    out float4       kClipPosition   : POSITION,
+    out float2       kOutBaseTCoord  : TEXCOORD0,
+    uniform float4x4 WVPMatrix
+)
+{
+    kClipPosition = mul(kModelPosition, WVPMatrix);
+    kOutBaseTCoord = kInBaseTCoord;
+}
+//----------------------------------------------------------------------------
+interface ITexture 
+{
+    float3 GetColor(float2 kUV);
+};
+//----------------------------------------------------------------------------
+struct ImageTexture : ITexture 
+{
+    uniform sampler2D kSampler;
+
+    float3 GetColor(float2 kUV)
+    {
+        return tex2D(kSampler, kUV).xyz;
+    }
+};
+//----------------------------------------------------------------------------
+struct ConstantTexture : ITexture 
+{
+    uniform float3 kColor;
+
+    float3 GetColor(float2 kUV)
+    {
+        return kColor;
+    }
+};
+//----------------------------------------------------------------------------
+void p_ITexture
+(  
+    in float2        kBaseTCoord : TEXCOORD0,
+    out float4       kPixelColor : COLOR,
+    uniform ITexture aTextures[]
+)
+{
+    float3 kColor = 1.0f;
+
+    for( int i = 0; i < aTextures.length; i++ )
+    {
+        kColor *= aTextures[i].GetColor(kBaseTCoord);
+    }
+
+    kPixelColor = float4(min(kColor, 1.0f), 1.0f);
+}
+//----------------------------------------------------------------------------

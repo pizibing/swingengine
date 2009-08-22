@@ -1,0 +1,17 @@
+//----------------------------------------------------------------------------
+void p_ScreenSpaceAOBlur
+(
+    in float2         kBaseTCoord  : TEXCOORD0,
+    out float4        kPixelColor  : COLOR0,
+    uniform sampler2D BaseSampler,
+    uniform float2    TexelKernel[16]
+)
+{
+    // Each pixel has equal blur weight.
+    kPixelColor.rgba = 0.0f;
+    for( int i = 0; i < 16; i++ )
+    {    
+        kPixelColor += tex2D(BaseSampler, kBaseTCoord + TexelKernel[i].xy)*0.0625f;
+    }
+}
+//----------------------------------------------------------------------------

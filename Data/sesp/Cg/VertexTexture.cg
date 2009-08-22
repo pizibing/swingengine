@@ -1,0 +1,31 @@
+//----------------------------------------------------------------------------
+// 名称:vertex texture类专用的VS,PS.
+// 说明:注意shader profile的要求,
+//     编译为DX9 asm vertex shader时,需要vs_3_0,
+//     编译为OpenGL asm vertex shader时,需要vp40.
+// 作者:Sun Che
+// 时间:20090302
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+void v_VertexTexture
+(
+    in float4         kModelPosition  : POSITION,
+    in float2         kInBaseTCoord : TEXCOORD0,
+    out float4        kClipPosition : POSITION,
+    out float4        kVertexColor : COLOR,
+    uniform sampler2D BaseSampler, 
+    uniform float4x4  WVPMatrix)
+{
+    kClipPosition = mul(kModelPosition, WVPMatrix);
+
+    kVertexColor = tex2D(BaseSampler, kInBaseTCoord);
+}
+//----------------------------------------------------------------------------
+void p_VertexTexture
+(
+    in float4  kInPixelColor : COLOR,
+    out float4 kPixelColor : COLOR)
+{
+    kPixelColor = kInPixelColor;
+}
+//----------------------------------------------------------------------------

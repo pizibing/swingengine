@@ -1,0 +1,34 @@
+//----------------------------------------------------------------------------
+void p_GaussianBlur
+(
+    in float2         kBaseTCoord  : TEXCOORD0,
+    out float4        kPixelColor  : COLOR0,
+    uniform sampler2D BaseSampler,
+    uniform float2    TexelKernel[13]
+)
+{
+    float BlurWeights[13] = 
+    {
+        0.002216,
+        0.008764,
+        0.026995,
+        0.064759,
+        0.120985,
+        0.176033,
+        0.199471,
+        0.176033,
+        0.120985,
+        0.064759,
+        0.026995,
+        0.008764,
+        0.002216
+    };
+
+    kPixelColor.rgba = 0.0f;
+    for( int i = 0; i < 13; i++ )
+    {    
+        kPixelColor += tex2D(BaseSampler, kBaseTCoord + TexelKernel[i].xy)*
+            BlurWeights[i];
+    }
+}
+//----------------------------------------------------------------------------

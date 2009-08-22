@@ -1,0 +1,80 @@
+// Vertex shader input variables.
+attribute vec4 SE_ModelPosition;
+attribute vec3 SE_ModelNormal;
+attribute vec2 SE_TexCoord0;
+
+// Vertex shader output variables.
+varying vec2 kBaseTCoord;
+varying float fLightIntensity;
+
+const float c_zero = 0.0;
+const float c_one = 1.0;
+
+// Renderer constants.
+uniform mat4 WVPMatrix;
+uniform vec3 CameraModelPosition;
+uniform vec4 Light0ModelPosition;
+uniform vec4 Light0ModelDirection;
+uniform vec4 Light0Attenuation;
+
+// User constants.
+uniform float v_fSpecularContribution;
+uniform float v_fScaleFactor;
+
+//----------------------------------------------------------------------------
+void main()
+{
+    // Compute model space view direction vector.
+    vec3 kViewDirectionM = CameraModelPosition - SE_ModelPosition.xyz;
+    kViewDirectionM = normalize(kViewDirectionM);
+    
+    // Compute model space light0 direction vector and attenuation factor.
+    vec3 kLightDirectionM;
+    float fAttFactor = c_one;
+    if( Light0ModelPosition.w != c_zero )
+    {
+        // This is a point or spot light.
+        
+        kLightDirectionM = Light0ModelPosition.xyz - SE_ModelPosition.xyz;
+        
+        vec3 kAttDist;
+        kAttDist.x = c_one;
+        kAttDist.z = dot(kLightDirectionM, kLightDirectionM);
+        kAttDist.y = sqrt(kAttDist.z);
+        fAttFactor = Light0Attenuation.w/dot(kAttDist, Light0Attenuation.xyz);
+        
+        kLightDirectionM = normalize(kLightDirectionM);
+    }
+    else
+    {
+        // This is a directional light.
+        
+        kLightDirectionM = -Light0ModelDirection.xyz;
+    }
+    
+    // Compute light0 reflection vector.
+    vec3 kReflectDirectionM = reflect(-kLightDirectionM, SE_ModelNormal);
+
+    // Compute diffuse factor.
+    float fDiffFactor = max(dot(kLightDirectionM, SE_ModelNormal), c_zero);
+    
+    // Compute specular factor.
+    float fSpecFactor = c_zero;
+    if( fDiffFactor > c_zero )
+    {
+        fSpecFactor = max(dot(kReflectDirectionM, kViewDirectionM), c_zero);
+        fSpecFactor = pow(fSpecFactor, 16.0);
+    }
+    
+    // Compute light0's final contribution.
+    float fDiffuseContribution  = c_one - v_fSpecularContribution;
+    fLightIntensity = fDiffuseContribution*fDiffFactor*2.0 +
+        v_fSpecularContribution*fSpecFactor;
+    
+    // Transform the position from model space to clip space.
+    gl_Position = WVPMatrix*SE_ModelPosition;
+
+    // Scale the texture coord.
+    kBaseTCoord = SE_TexCoord0*v_fScaleFactor;
+}
+//----------------------------------------------------------------------------

@@ -1,0 +1,88 @@
+//----------------------------------------------------------------------------
+void v_ScreenSpaceAO
+(
+    in float4        kModelPosition  : POSITION,
+    in float2        kInBaseTCoord   : TEXCOORD0,
+    out float4       kClipPosition   : POSITION,
+    out float2       kOutBaseTCoord  : TEXCOORD0,
+    uniform float4x4 WVPMatrix)
+{
+    kClipPosition = mul(kModelPosition, WVPMatrix);
+    kOutBaseTCoord = kInBaseTCoord;
+}
+//----------------------------------------------------------------------------
+void p_ScreenSpaceAO
+(
+    // 4x4 texture containing 16 random vectors
+    uniform sampler2D kRotSampler4x4,
+    // scene depth target containing normalized from 0 to 1 linear depth
+    uniform sampler2D kSceneDepthSampler,
+    // texture coordinates of current pixel
+    in float2 kBaseTCoord : TEXCOORD0,
+    // dimensions of the screen
+    uniform float2 kScreenSize,
+    // far clipping plane distance in meters
+    uniform float fFarClipDist,
+    out float4 kPixelColor : COLOR
+)
+{
+    const float3 avKernel[8] = 
+    {
+        normalize(float3(-1.0f, -1.0f, -1.0f)),
+        normalize(float3(-1.0f, -1.0f,  1.0f)),
+        normalize(float3(-1.0f,  1.0f, -1.0f)),
+        normalize(float3(-1.0f,  1.0f,  1.0f)),
+        normalize(float3( 1.0f, -1.0f, -1.0f)),
+        normalize(float3( 1.0f, -1.0f,  1.0f)),
+        normalize(float3( 1.0f,  1.0f, -1.0f)),
+        normalize(float3( 1.0f,  1.0f,  1.0f))
+    };
+    
+    // get rotation vector,rotation is tiled every 4 screen pixels
+    float2 kRotationTC = kBaseTCoord * kScreenSize / 4 + 256;
+    float3 kVecRotation = tex2D(kRotSampler4x4, kRotationTC).rgb*2.0f - 1.0f;
+    
+    // get depth of current pixel and convert into meters
+    float fSceneDepthP = tex2D(kSceneDepthSampler, kBaseTCoord).r * fFarClipDist;
+    
+    // parameters affecting offset points number and distribution
+    const int iSamplesNum = 16;
+    const float fOffsetScaleStep = 1.0f + 2.4f/iSamplesNum;
+    float fOffsetScale = 0.01f;
+    
+    float fAccessibility = 0;
+    
+    // sample area and accumulate accessibility
+    for( int i = 0; i < iSamplesNum; i++ )
+    {        
+        // here we use cube corners and give it different lengths
+        fOffsetScale *= fOffsetScaleStep;
+        float3 kVecOffset = avKernel[i % 8] * fOffsetScale;
+        
+        // reflect offset vector by rotation vector
+        float3 kVecRotatedOffset = reflect(kVecOffset, kVecRotation);
+        
+        // get center pixel 3d coordinates in screen space
+        float3 kSamplePos = float3(kBaseTCoord, fSceneDepthP);
+        
+        // shift coordinates by offset vector (range convert and width depth value)
+        kSamplePos += float3(kVecRotatedOffset.xy, kVecRotatedOffset.z * fSceneDepthP * 2.0f);
+        
+        // read scene depth at sampling point and convert into meters
+        float fSceneDepthS = tex2D(kSceneDepthSampler, kSamplePos.xy).r * fFarClipDist;
+        
+        // check if depths of both pixels are close enough and sampling point should affect our center pixel
+        float fRangeIsInvalid = saturate(((fSceneDepthP - fSceneDepthS) / fSceneDepthS));
+        
+        // accumulate accessibility, use default of 0.5 if right computations are not possible
+        fAccessibility += lerp(fSceneDepthS > kSamplePos.z, 0.5f, fRangeIsInvalid);
+    }
+    
+    // get average value
+    fAccessibility = fAccessibility / iSamplesNum;
+    
+    // amplify and saturate if necessary
+    kPixelColor.rgb = saturate(fAccessibility*fAccessibility + fAccessibility);
+    kPixelColor.a = 1.0f;
+}
+//----------------------------------------------------------------------------

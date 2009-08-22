@@ -1,0 +1,94 @@
+precision mediump float;
+
+// Vertex shader output variables.
+varying vec2 kBaseTCoord;
+varying float fLightIntensity;
+
+#define TWO_PI 6.28318
+const float c_zero = 0.0;
+const float c_half = 0.5;
+const float c_one = 1.0;
+const float c_four = 4.0;
+
+// User constants.
+uniform vec4  p_kModelColor;
+uniform float p_fColAdjust;
+uniform float p_fPercentage;
+uniform float p_fSamplesPerCell;
+uniform float p_fRO1;
+uniform float p_fRandomScale;
+uniform float p_fRandomRotate;
+
+// Samplers.
+uniform sampler2D p_s0GlyphSampler;
+uniform sampler2D p_s1RandomSampler;
+
+//----------------------------------------------------------------------------
+void main()
+{
+    vec4 kColor = p_kModelColor;
+    vec2 kCell = floor(kBaseTCoord);
+    vec2 kOffset = kBaseTCoord - kCell;
+   
+    for( int i = -1; i <= int(p_fRandomRotate); i++ )
+    {
+        for( int j = -1; j <= int(p_fRandomRotate); j++ )
+        {
+            vec2 kCurrentCell = kCell + vec2(float(i), float(j));
+            vec2 kCurrentOffset = kOffset - vec2(float(i), float(j));
+
+            vec2 kRandomUV = kCurrentCell * vec2(p_fRO1);
+         
+            for( int k = 0; k < int(p_fSamplesPerCell); k++ )
+            {
+                vec4 kRandom = texture2D(p_s1RandomSampler, kRandomUV);
+                kRandomUV += kRandom.ba;
+               
+                if( kRandom.r < p_fPercentage )
+                {
+                    vec2 kGlyphIndex;
+                    mat2 kRotator;
+                    vec2 kIndex;
+                    float fRotationAngle, fCosRot, fSinRot;
+                    
+                    kIndex.s = floor(kRandom.b * c_four);
+                    kIndex.t = floor(p_fColAdjust * c_four);
+                    
+                    if( p_fRandomRotate == c_one )
+                    {
+                        fRotationAngle = TWO_PI * kRandom.g;
+                        fCosRot = cos(fRotationAngle);
+                        fSinRot = sin(fRotationAngle);
+                        kRotator[0] = vec2(fCosRot, fSinRot);
+                        kRotator[1] = vec2(-fSinRot, fCosRot);
+                        kGlyphIndex = -kRotator * 
+                              (kCurrentOffset - kRandom.rg);
+                    }
+                    else
+                    {
+                        kGlyphIndex = kCurrentOffset - kRandom.rg;
+                    }
+
+                    if( p_fRandomScale == c_one )
+                    {
+                        kGlyphIndex /= vec2(c_half*kRandom.r + c_half);
+                    }
+
+                    kGlyphIndex = 
+                        (clamp(kGlyphIndex, c_zero, c_one) + kIndex)/c_four;
+            
+                    vec4 kImage = texture2D(p_s0GlyphSampler, kGlyphIndex);
+
+                    if( kImage.r != 1.0 )
+                    {
+                        kColor.rgb = mix(kRandom.rgb*0.7, kColor.rgb,
+                                            kImage.r);
+                    }
+                }
+            }
+        }
+    }
+   
+    gl_FragColor = kColor * fLightIntensity;
+}
+//----------------------------------------------------------------------------

@@ -1,0 +1,74 @@
+//----------------------------------------------------------------------------
+// 名称:shadow map effect类专用的VS,PS.
+// 说明:
+// 作者:Sun Che
+// 时间:20090225
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+void v_ProjectedDepth
+(
+    in float4        kModelPosition : POSITION,
+    out float4       kClipPosition : POSITION,
+    out float        fDepth : TEXCOORD0,
+    uniform float4x4 WVPMatrix
+)
+{
+    // Transform the position from model space to clip space.
+    kClipPosition = mul(kModelPosition, WVPMatrix);
+
+    // Save the normalized distance from the light source.
+    fDepth = kClipPosition.z/kClipPosition.w;
+}
+//----------------------------------------------------------------------------
+void p_ProjectedDepth
+(
+    in float   fDepth : TEXCOORD0,
+    out float  fPixelColor : COLOR
+)
+{
+    fPixelColor = fDepth;
+}
+//----------------------------------------------------------------------------
+void v_ShadowMap
+(
+    in float4        kModelPosition : POSITION,
+    out float4       kClipPosition : POSITION,
+    out float4       kProjectedTCoord : TEXCOORD0,
+    uniform float4x4 WVPMatrix,
+    uniform float4x4 ProjectorMatrix
+)
+{
+    // Transform the position from model space to clip space.
+    kClipPosition = mul(kModelPosition, WVPMatrix);
+
+    // Compute the projected texture coordinates.
+    kProjectedTCoord = mul(kModelPosition, ProjectorMatrix);
+}
+//----------------------------------------------------------------------------
+void p_ShadowMap
+(
+    in float4         kProjectedTCoord : TEXCOORD0,
+    out float4        kPixelColor : COLOR,
+    uniform float     DepthBias,
+    uniform sampler2D ColorSampler,
+    uniform sampler2D DepthSampler
+)
+{
+    float4 kTempTCoord = kProjectedTCoord;
+    kTempTCoord.y = kTempTCoord.w - kTempTCoord.y;
+    float4 kColor = tex2Dproj(ColorSampler, kTempTCoord);
+    float fDepth = tex2Dproj(DepthSampler, kTempTCoord);
+
+    float fPointDepth = kProjectedTCoord.z/kProjectedTCoord.w;
+    float fBiasedDiff = fPointDepth - fDepth - DepthBias;
+    if( fBiasedDiff >= 0.0f )
+    {
+        kPixelColor.rgb = 0.3f;
+        kPixelColor.a = kColor.a;
+    }
+    else
+    {
+        kPixelColor = kColor;
+    }
+}
+//----------------------------------------------------------------------------

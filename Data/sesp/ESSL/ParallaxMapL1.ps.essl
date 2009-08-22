@@ -1,0 +1,75 @@
+precision highp float;
+
+// Vertex shader output variables. 
+varying vec2 kBaseTCoord;
+varying vec3 kViewDirectionTBN;
+varying vec4 kLightDirectionTBN; // w component is attenuation factor.
+
+const float c_zero = 0.0;
+const float c_one = 1.0;
+const float c_two = 2.0;
+
+// Renderer constants.
+uniform vec4 MaterialDiffuse;  // MaterialDiffuse.a is transparency.
+uniform vec4 MaterialSpecular; // MaterialSpecular.a is specular power.
+uniform vec3 Light0Ambient;
+uniform vec3 Light0Diffuse;
+uniform vec3 Light0Specular;
+
+// Samplers.
+uniform sampler2D p_s0BaseSampler;
+uniform sampler2D p_s1NormalSampler;
+uniform sampler2D p_s2HeightSampler;
+
+//----------------------------------------------------------------------------
+void main()
+{
+    float fScale = 0.04;
+    float fBias = 0.02;
+    
+    // Fetch heightmap color.
+    float fHeight = fScale*texture2D(p_s2HeightSampler, kBaseTCoord).r - fBias;
+   
+    // Normalize the view direction and light0 direction.
+    vec3 kViewDirection = normalize(kViewDirectionTBN);
+    vec3 kLightDirection = normalize(kLightDirectionTBN.xyz);
+    
+    // Compute new texture coord.
+    vec2 kCorrectedTCoord = kBaseTCoord + fHeight*kViewDirection.xy;
+    
+    // Fetch basemap color.
+    vec4 kBaseColor = texture2D(p_s0BaseSampler, kCorrectedTCoord);
+    
+    // Fetch the TBN space normal from normal map.
+    vec3 kNormal = texture2D(p_s1NormalSampler, kCorrectedTCoord).xyz;
+    
+    // Scale and bias from [0,1] to [-1,1] and normalize.
+    kNormal = normalize(c_two*kNormal - c_one);
+    
+    // Compute N dot L.
+    float fNdL = dot(kNormal, kLightDirection);
+    
+    // Compute reflection vector.
+    vec3 kReflection = (c_two*fNdL*kNormal) - kLightDirection;
+    
+    // Compute R dot V.
+    float fRdV = max(c_zero, dot(kReflection, kViewDirection));
+    
+    // Compute ambient component.
+    vec3 kAmbient = Light0Ambient * kBaseColor.rgb;
+    
+    // Compute diffuse component.
+    fNdL = max(c_zero, fNdL);
+    vec3 kDiffuse = fNdL * Light0Diffuse * kBaseColor.rgb;
+    
+    // Compute specular component.
+    vec3 kSpecular = pow(fRdV, MaterialSpecular.a) * Light0Specular;
+    
+    // Compute the sum of light0's components, and multiply it with computed
+    // attenuation factor.
+    vec3 kFinalColor = kLightDirectionTBN.w*(kAmbient + kDiffuse + kSpecular);
+    
+    // Output the final color,with material's transparency.
+    gl_FragColor = vec4(kFinalColor, MaterialDiffuse.a);
+}
+//----------------------------------------------------------------------------

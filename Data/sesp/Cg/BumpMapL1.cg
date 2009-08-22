@@ -1,0 +1,129 @@
+//----------------------------------------------------------------------------
+// 名称:bumpmap with 1 light effect类专用的VS,PS.
+// 说明:注意T,B,N中,B向量可以预先计算并存储在VB中,也可以在VS中计算.
+// 作者:Sun Che
+// 时间:20090218
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+void v_BumpMapL1
+(
+    in float4        kModelPosition  : POSITION,
+    in float3        kModelNormal : NORMAL,
+    in float2        kInBaseTCoord : TEXCOORD0,
+    in float3        kModelTangent : TEXCOORD1,
+    in float3        kModelBiTangent : TEXCOORD2,
+    out float4       kClipPosition : POSITION,
+    out float2       kOutBaseTCoord : TEXCOORD0,
+    out float4       kTangentLight : TEXCOORD1,
+    out float3       kTangentView : TEXCOORD2,
+    
+    // Renderer constants.
+    uniform float4x4 WVPMatrix,
+    uniform float3   CameraModelPosition,
+    uniform float4   Light0ModelPosition,
+    uniform float4   Light0ModelDirection,
+    uniform float4   Light0Attenuation
+)
+{
+    // Compute model space view direction vector.
+    float3 kViewDirectionM = CameraModelPosition - kModelPosition.xyz;
+    
+    // Compute model space light0 direction vector and attenuation factor.
+    float3 kLightDirectionM;
+    float fAttFactor = 1.0f;
+    if( Light0ModelPosition.w != 0.0f )
+    {
+        // This is a point or spot light.
+        
+        kLightDirectionM = Light0ModelPosition.xyz - kModelPosition.xyz;
+        
+        float3 kAttDist;
+        kAttDist.x = 1.0f;
+        kAttDist.z = dot(kLightDirectionM, kLightDirectionM);
+        kAttDist.y = sqrt(kAttDist.z);
+        fAttFactor = Light0Attenuation.w/dot(kAttDist, Light0Attenuation.xyz);
+    }
+    else
+    {
+        // This is a directional light.
+        
+        kLightDirectionM = -Light0ModelDirection.xyz;
+    }
+    
+    // Create the TBN matrix.
+    // CAUTION: this is a ROW major ordered matrix.
+    float3x3 kMatTBN = float3x3(kModelTangent, kModelBiTangent, kModelNormal);
+    
+    // Transform the view and light0 vectors from model space to TBN space,
+    // and store the attenuation factor in kTangentLight.w.
+    kTangentView = mul(kMatTBN, kViewDirectionM);
+    float3 kTempLightDirection = mul(kMatTBN, kLightDirectionM);
+    kTangentLight = float4(kTempLightDirection, fAttFactor);
+    
+    // Transform the position from model space to clip space.
+    kClipPosition = mul(kModelPosition, WVPMatrix);
+    
+    // Pass through the texture coord.
+    kOutBaseTCoord = kInBaseTCoord;
+}
+//----------------------------------------------------------------------------
+void p_BumpMapL1
+(
+    in float2         kBaseTCoord : TEXCOORD0,
+    in float4         kTangentLight : TEXCOORD1,
+    in float3         kTangentView : TEXCOORD2,
+    out float4        kPixelColor : COLOR,
+    
+    // Renderer constants.
+    uniform float4 MaterialDiffuse,  // MaterialDiffuse.a is transparency.
+    uniform float4 MaterialSpecular, // MaterialSpecular.a is specular power.
+    uniform float3 Light0Ambient,
+    uniform float3 Light0Diffuse,
+    uniform float3 Light0Specular,
+
+    // Samplers.
+    uniform sampler2D BaseSampler,
+    uniform sampler2D NormalSampler
+)
+{
+    // Fetch basemap color.
+    float4 kBaseColor = tex2D(BaseSampler, kBaseTCoord);
+    
+    // Fetch the TBN space normal from normal map.
+    float3 kNormal = tex2D(NormalSampler, kBaseTCoord).xyz;
+    
+    // Scale and bias from [0,1] to [-1,1] and normalize.
+    kNormal = normalize(2.0f*kNormal - 1.0f);
+    
+    // Normalize the view direction and light0 direction.
+    float3 kViewDirection = normalize(kTangentView);
+    float3 kLightDirection = normalize(kTangentLight.xyz);
+    
+    // Compute N dot L.
+    float fNdL = dot(kNormal, kLightDirection);
+    
+    // Compute reflection vector.
+    vec3 kReflection = (2.0f*fNdL*kNormal) - kLightDirection;
+    
+    // Compute R dot V.
+    float fRdV = max(0.0f, dot(kReflection, kViewDirection));
+    
+    // Compute ambient component.
+    float3 kAmbient = Light0Ambient * kBaseColor.rgb;
+    
+    // Compute diffuse component.
+    fNdL = max(0.0f, fNdL);
+    float3 kDiffuse = fNdL * Light0Diffuse * kBaseColor.rgb;
+    
+    // Compute specular component.
+    float3 kSpecular = pow(fRdV, MaterialSpecular.a) * Light0Specular;
+    
+    // Compute the sum of light0's components, and multiply it with computed
+    // attenuation factor.
+    float3 kFinalColor = kTangentLight.w * (kAmbient + kDiffuse + 
+        kSpecular);
+    
+    // Output the final color,with material's transparency.
+    kPixelColor = float4(kFinalColor, MaterialDiffuse.a);
+}
+//----------------------------------------------------------------------------

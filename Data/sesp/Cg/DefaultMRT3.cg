@@ -1,0 +1,17 @@
+//----------------------------------------------------------------------------
+void p_DefaultMRT3
+(
+    in float2         kBaseTCoord  : TEXCOORD0,
+    out float4        kPixelColor0 : COLOR0,
+    out float4        kPixelColor1 : COLOR1,
+    out float4        kPixelColor2 : COLOR2,
+    uniform sampler2D BaseSampler)
+{
+    float3 kLuminanceConv = { 0.2125f, 0.7154f, 0.0721f };
+
+    kPixelColor0 = tex2D(BaseSampler, kBaseTCoord);
+    kPixelColor1.rgb = 1.0f - kPixelColor0.rgb;
+    kPixelColor1.a = kPixelColor0.a;
+    kPixelColor2 = dot((float3)kPixelColor0, kLuminanceConv);
+}
+//----------------------------------------------------------------------------

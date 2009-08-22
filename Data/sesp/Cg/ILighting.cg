@@ -1,0 +1,407 @@
+//----------------------------------------------------------------------------
+// Shared functions.
+//----------------------------------------------------------------------------
+void GetDirectionalLightFactors
+(
+    float3    kModelPosition,
+    float3    kModelNormal,
+    float3    kCameraPosition,
+    float3    kLightDirection,
+    float     fSpecularExponent,
+    out float fDiffuseFactor,
+    out float fSpecularFactor)
+{
+    float fDiff, fSpec;
+
+    fDiff = dot(kModelNormal, -kLightDirection);
+    if( fDiff > 0.0f )
+    {
+        float3 kViewVector = normalize(kCameraPosition - kModelPosition);
+        float3 kHalfVector = normalize(kViewVector - kLightDirection);
+        fSpec = dot(kModelNormal, kHalfVector);
+        if( fSpec > 0.0f )
+        {
+            fSpec = pow(fSpec, fSpecularExponent);
+        }
+        else
+        {
+            fSpec = 0.0f;
+        }
+    }
+    else
+    {
+        fDiff = 0.0f;
+        fSpec = 0.0f;
+    }
+    
+    fDiffuseFactor = fDiff;
+    fSpecularFactor = fSpec;
+}
+//----------------------------------------------------------------------------
+void GetPointLightFactors
+(
+    float3    kModelPosition,
+    float3    kModelNormal,
+    float3    kCameraPosition,
+    float3    kLightPosition,
+    float     fSpecularExponent,
+    out float fDiffuseFactor,
+    out float fSpecularFactor)
+{
+    float fDiff, fSpec;
+
+    float3 kVertexDirection = normalize(kModelPosition - kLightPosition);
+    fDiff = dot(kModelNormal, -kVertexDirection);
+    if( fDiff > 0.0f )
+    {
+        float3 kViewVector = normalize(kCameraPosition - kModelPosition);
+        float3 kHalfVector = normalize(kViewVector - kVertexDirection);
+        fSpec = dot(kModelNormal, kHalfVector);
+        if( fSpec > 0.0f )
+        {
+            fSpec = pow(fSpec, fSpecularExponent);
+        }
+        else
+        {
+            fSpec = 0.0f;
+        }
+    }
+    else
+    {
+        fDiff = 0.0f;
+        fSpec = 0.0f;
+    }
+
+    fDiffuseFactor = fDiff;
+    fSpecularFactor = fSpec;
+}
+//----------------------------------------------------------------------------
+void GetSpotLightFactors
+(
+    float3    kModelPosition,
+    float3    kModelNormal,
+    float3    kCameraPosition,
+    float3    kLightPosition,
+    float     fSpecularExponent,
+    float3    kSpotAxis,
+    float     fSpotCosAngle,
+    float     fSpotExponent,
+    out float fDiffuseFactor,
+    out float fSpecularFactor,
+    out float fSpotFactor)
+{
+    float fDiff, fSpec, fSpot;
+
+    float3 kVertexDirection = normalize(kModelPosition - kLightPosition);
+    float fVertexCosAngle = dot(kSpotAxis, kVertexDirection);
+    if( fVertexCosAngle >= fSpotCosAngle )
+    {
+        fDiff = dot(kModelNormal, -kVertexDirection);
+        if( fDiff > 0.0f )
+        {
+            float3 kViewVector = normalize(kCameraPosition - kModelPosition);
+            float3 kHalfVector = normalize(kViewVector - kVertexDirection);
+            fSpec = dot(kModelNormal, kHalfVector);
+            if( fSpec > 0.0f )
+            {
+                fSpec = pow(fSpec, fSpecularExponent);
+            }
+            else
+            {
+                fSpec = 0.0f;
+            }
+            fSpot = pow(fVertexCosAngle, fSpotExponent);
+        }
+        else
+        {
+            fDiff = 0.0f;
+            fSpec = 0.0f;
+            fSpot = 0.0f;
+        }
+    }
+    else
+    {
+        fDiff = 0.0f;
+        fSpec = 0.0f;
+        fSpot = 0.0f;
+    }
+
+    fDiffuseFactor = fDiff;
+    fSpecularFactor = fSpec;
+    fSpotFactor = fSpot;
+}
+//----------------------------------------------------------------------------
+float GetAttenuation
+(
+    float3x3 kWMatrix,
+    float3   kModelPos,
+    float3   kLightPos, 
+    float4   kAttenuation)
+{
+    // Attenuate the color (x=constant, y=linear, z=quadratic, w=intensity).
+    // Attenuation is not active when the x component is zero.  The distance
+    // must be computed in *world* coordinates.  The distance in camera
+    // coordinates is not correct when the WVP matrix has nonunit scaling
+    // factors.
+    
+    float3 kVertexModelDir = kModelPos - kLightPos;
+    float3 kVertexWorldDir = mul(kVertexModelDir, kWMatrix);
+    float fDistance = sqrt(
+        kVertexWorldDir.x*kVertexWorldDir.x +
+        kVertexWorldDir.y*kVertexWorldDir.y +
+        kVertexWorldDir.z*kVertexWorldDir.z);
+
+    float fAttn = kAttenuation.w/(kAttenuation.x + fDistance*(kAttenuation.y
+        + fDistance*kAttenuation.z));
+    
+    return fAttn;
+}
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+interface ILight
+{
+    // input parameters come from geometry's data.
+    float3 GetColor(float3   kModelPosition, 
+                    float3   kModelNormal, 
+                    float3x3 kWMatrix, 
+                    float3   kCameraModelPosition, 
+                    float3   kMaterialAmbient, 
+                    float4   kMaterialDiffuse, 
+                    float4   kMaterialSpecular);
+};
+//----------------------------------------------------------------------------
+struct AmbientLight : ILight 
+{
+    // ambient light's renderer constants.
+    uniform float3 Ambient;
+    uniform float4 Attenuation;
+
+    float3 GetColor(float3   kModelPosition, 
+                    float3   kModelNormal, 
+                    float3x3 kWMatrix, 
+                    float3   kCameraModelPosition, 
+                    float3   kMaterialAmbient, 
+                    float4   kMaterialDiffuse, 
+                    float4   kMaterialSpecular)
+    {
+        float3 kLAmb = Attenuation.w * Ambient;
+        float3 kColor = kMaterialAmbient * kLAmb;
+
+        return kColor;
+    }
+};
+//----------------------------------------------------------------------------
+struct DirectionalLight : ILight 
+{
+    // directional light's renderer constants.
+    uniform float3 ModelDirection;
+    uniform float3 Ambient;
+    uniform float3 Diffuse;
+    uniform float3 Specular;
+    uniform float4 Attenuation;
+
+    float3 GetColor(float3   kModelPosition, 
+                    float3   kModelNormal, 
+                    float3x3 kWMatrix, 
+                    float3   kCameraModelPosition, 
+                    float3   kMaterialAmbient, 
+                    float4   kMaterialDiffuse, 
+                    float4   kMaterialSpecular)
+    {
+        float fDiff, fSpec;
+        GetDirectionalLightFactors(kModelPosition, kModelNormal,
+            kCameraModelPosition, ModelDirection, kMaterialSpecular.a,
+            fDiff, fSpec);
+
+        float3 kColor = kMaterialAmbient * Ambient;
+        if( fDiff > 0.0f )
+        {
+            kColor += fDiff * kMaterialDiffuse.rgb * Diffuse;
+            if( fSpec > 0.0f )
+            {
+                kColor += fSpec * kMaterialSpecular.rgb * Specular;
+            }
+        }
+
+        kColor *= Attenuation.w;
+
+        return kColor;
+    }
+};
+//----------------------------------------------------------------------------
+struct PointLight : ILight 
+{
+    // point light's renderer constants.
+    uniform float3 ModelPosition;
+    uniform float3 Ambient;
+    uniform float3 Diffuse;
+    uniform float3 Specular;
+    uniform float4 Attenuation;
+
+    float3 GetColor(float3   kModelPosition, 
+                    float3   kModelNormal, 
+                    float3x3 kWMatrix, 
+                    float3   kCameraModelPosition, 
+                    float3   kMaterialAmbient, 
+                    float4   kMaterialDiffuse, 
+                    float4   kMaterialSpecular)
+    {
+        float fDiff, fSpec;
+        GetPointLightFactors(kModelPosition, kModelNormal,
+            kCameraModelPosition, ModelPosition, kMaterialSpecular.a,
+            fDiff, fSpec);
+
+        float fAttn = GetAttenuation(kWMatrix, kModelPosition,
+            ModelPosition, Attenuation);
+
+        float3 kColor = kMaterialAmbient * Ambient;
+        if( fDiff > 0.0f )
+        {
+            kColor += fDiff * kMaterialDiffuse.xyz * Diffuse;
+            if( fSpec > 0.0f )
+            {
+                kColor += fSpec * kMaterialSpecular.xyz * Specular;
+            }
+        }
+
+        kColor *= fAttn;
+
+        return kColor;
+    }
+};
+//----------------------------------------------------------------------------
+struct SpotLight : ILight 
+{
+    // spot light's renderer constants.
+    uniform float3 ModelPosition;
+    uniform float3 ModelDirection;
+    uniform float3 Ambient;
+    uniform float3 Diffuse;
+    uniform float3 Specular;
+    uniform float4 SpotCutoff;
+    uniform float4 Attenuation;
+
+    float3 GetColor(float3   kModelPosition, 
+                    float3   kModelNormal, 
+                    float3x3 kWMatrix, 
+                    float3   kCameraModelPosition, 
+                    float3   kMaterialAmbient, 
+                    float4   kMaterialDiffuse, 
+                    float4   kMaterialSpecular)
+    {
+        float fDiff, fSpec, fSpot;
+        GetSpotLightFactors(kModelPosition, kModelNormal,
+            kCameraModelPosition, ModelPosition, kMaterialSpecular.a,
+            ModelDirection, SpotCutoff.y, SpotCutoff.w, fDiff,
+            fSpec, fSpot);
+
+        float fAttn = GetAttenuation(kWMatrix, kModelPosition,
+            ModelPosition, Attenuation);
+
+        float3 kColor = kMaterialAmbient * Ambient;
+        if( fSpot > 0.0f )
+        {
+            if( fDiff > 0.0f )
+            {
+                kColor += (fSpot*fDiff) * kMaterialDiffuse.rgb * Diffuse;
+                if( fSpec > 0.0f )
+                {
+                    kColor += (fSpot*fSpec) * kMaterialSpecular.rgb * Specular;
+                }
+            }
+        }
+    
+        kColor *= fAttn;
+
+        return kColor;
+    }
+};
+//----------------------------------------------------------------------------
+// per-vertex lighting.
+//----------------------------------------------------------------------------
+void v_ILighting
+(
+    in float4        kModelPosition  : POSITION,
+    in float3        kModelNormal    : NORMAL,
+    out float4       kClipPosition   : POSITION,
+    out float4       kVertexColor    : COLOR0,
+    uniform float4x4 WVPMatrix,
+    uniform float4x4 WMatrix,
+    uniform float3   CameraModelPosition,
+    uniform float3   MaterialEmissive,
+    uniform float3   MaterialAmbient,
+    uniform float4   MaterialDiffuse,
+    uniform float4   MaterialSpecular,
+    uniform ILight   LightArray[]
+)
+{
+    kClipPosition = mul(kModelPosition, WVPMatrix);
+
+    float3 kColor = MaterialEmissive;
+    for( int i = 0; i < LightArray.length; i++ )
+    {
+        kColor += LightArray[i].GetColor(kModelPosition.xyz, kModelNormal, 
+            (float3x3)WMatrix, CameraModelPosition, MaterialAmbient, 
+            MaterialDiffuse, MaterialSpecular);
+    }
+
+    kVertexColor.rgb = kColor;
+    kVertexColor.a = MaterialDiffuse.a;
+}
+//----------------------------------------------------------------------------
+void p_LightingPassThrough4
+(
+    in float4  kInPixelColor : COLOR0,
+    out float4 kPixelColor : COLOR0
+)
+{
+    kPixelColor = kInPixelColor;
+}
+//----------------------------------------------------------------------------
+void v_LightingPassThrough
+(
+    in float4        kModelPosition    : POSITION,
+    in float3        kModelNormal      : NORMAL,
+    out float4       kClipPosition     : POSITION,
+    out float3       kOutModelPosition : TEXCOORD0,
+    out float3       kOutModelNormal   : TEXCOORD1,
+    uniform float4x4 WVPMatrix
+)
+{
+    kClipPosition = mul(kModelPosition, WVPMatrix);
+    kOutModelPosition = kModelPosition.xyz;
+    kOutModelNormal = kModelNormal;
+}
+//----------------------------------------------------------------------------
+// per-pixel lighting.
+//----------------------------------------------------------------------------
+void p_ILighting
+(
+    in float3        kModelPosition  : TEXCOORD0,
+    in float3        kModelNormal    : TEXCOORD1,
+    out float4       kPixelColor     : COLOR0,
+    uniform float4x4 WMatrix,
+    uniform float3   CameraModelPosition,
+    uniform float3   MaterialEmissive,
+    uniform float3   MaterialAmbient,
+    uniform float4   MaterialDiffuse,
+    uniform float4   MaterialSpecular,
+    uniform ILight   LightArray[]
+)
+{
+    kModelNormal = normalize(kModelNormal);
+
+    float3 kColor = MaterialEmissive;
+
+    for( int i = 0; i < LightArray.length; i++ )
+    {
+        kColor += LightArray[i].GetColor(kModelPosition, kModelNormal, 
+            (float3x3)WMatrix, CameraModelPosition, MaterialAmbient, 
+            MaterialDiffuse, MaterialSpecular);
+    }
+
+    kPixelColor.rgb = kColor;
+    kPixelColor.a = MaterialDiffuse.a;
+}
+//----------------------------------------------------------------------------

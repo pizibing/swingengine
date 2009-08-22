@@ -1,0 +1,39 @@
+//----------------------------------------------------------------------------
+void v_ColorNormalDepth
+(
+    in float4        kModelPosition : POSITION,
+    in float3        kModelNormal   : NORMAL,
+    out float4       kClipPosition  : POSITION,
+    out float3       kViewNormal    : TEXCOORD0,
+    out float        fDepth         : TEXCOORD1,
+    uniform float4x4 WVPMatrix,
+    uniform float4x4 WVMatrix,
+    uniform float    fFarClipDist
+)
+{
+    kClipPosition = mul(kModelPosition, WVPMatrix);
+
+    kViewNormal = mul(kModelNormal, (float3x3)WVMatrix);
+
+    float4 kViewPosition = mul(kModelPosition, WVMatrix);
+    fDepth = kViewPosition.z / fFarClipDist;
+}
+//----------------------------------------------------------------------------
+void p_ColorNormalDepth
+(
+    in float3         kViewNormal    : TEXCOORD0,
+    in float          fInDepth       : TEXCOORD1,
+    out float4        kColor         : COLOR0,
+    out float4        kNormal        : COLOR1,
+    out float4        kDepth         : COLOR2
+)
+{
+    kViewNormal = normalize(kViewNormal);
+
+    kColor = 0.0f;
+    kNormal.rgb = kViewNormal*0.5f + 0.5f;
+    kNormal.a = 1.0f;
+    kDepth.rgb = fInDepth;
+    kDepth.a = 1.0f;
+}
+//----------------------------------------------------------------------------

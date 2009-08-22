@@ -1,0 +1,16 @@
+attribute highp vec4 SE_ModelPosition;
+attribute mediump vec2 SE_TexCoord0;
+
+varying mediump vec2 kBaseTCoord;
+
+uniform highp mat4 WVPMatrix;
+
+//----------------------------------------------------------------------------
+void main()
+{
+    // Transform the position from model space to clip space.
+    gl_Position = WVPMatrix*SE_ModelPosition;
+
+    kBaseTCoord = SE_TexCoord0;
+}
+//----------------------------------------------------------------------------

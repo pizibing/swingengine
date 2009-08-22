@@ -1,0 +1,139 @@
+precision mediump float;
+
+const float c_zero = 0.0;
+const float c_one = 1.0;
+
+varying mediump vec2 kBaseTCoord;
+
+uniform vec3 TexelKernelStep;
+uniform sampler2D p_BaseSampler;
+
+//----------------------------------------------------------------------------
+void main()
+{
+    float BlurWeights[13]; 
+    BlurWeights[0]  = 0.002216;
+    BlurWeights[1]  = 0.008764;
+    BlurWeights[2]  = 0.026995;
+    BlurWeights[3]  = 0.064759;
+    BlurWeights[4]  = 0.120985;
+    BlurWeights[5]  = 0.176033;
+    BlurWeights[6]  = 0.199471;
+    BlurWeights[7]  = 0.176033;
+    BlurWeights[8]  = 0.120985;
+    BlurWeights[9]  = 0.064759;
+    BlurWeights[10] = 0.026995;
+    BlurWeights[11] = 0.008764;
+    BlurWeights[12] = 0.002216;
+
+    vec2 kTemp = vec2(c_zero, c_zero);
+    gl_FragColor.rgba = vec4(c_zero, c_zero, c_zero, c_zero);
+
+    if( TexelKernelStep.z == c_zero )
+    {        
+        kTemp.x = -6.0*TexelKernelStep.x;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[0];
+        
+        kTemp.x = -5.0*TexelKernelStep.x;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[1];
+            
+        kTemp.x = -4.0*TexelKernelStep.x;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[2];
+            
+        kTemp.x = -3.0*TexelKernelStep.x;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[3];
+           
+        kTemp.x = -2.0*TexelKernelStep.x;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[4];
+        
+        kTemp.x = -1.0*TexelKernelStep.x;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[5];
+            
+        gl_FragColor += texture2D(p_BaseSampler, kBaseTCoord) *
+            BlurWeights[6];
+            
+        kTemp.x = 1.0*TexelKernelStep.x;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[7];
+        
+        kTemp.x = 2.0*TexelKernelStep.x;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[8];
+            
+        kTemp.x = 3.0*TexelKernelStep.x;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[9];
+            
+        kTemp.x = 4.0*TexelKernelStep.x;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[10];
+           
+        kTemp.x = 5.0*TexelKernelStep.x;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[11];
+        
+        kTemp.x = 6.0*TexelKernelStep.x;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[12];
+    }
+    else
+    {
+        kTemp.y = -6.0*TexelKernelStep.y;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[0];
+        
+        kTemp.y = -5.0*TexelKernelStep.y;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[1];
+            
+        kTemp.y = -4.0*TexelKernelStep.y;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[2];
+            
+        kTemp.y = -3.0*TexelKernelStep.y;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[3];
+           
+        kTemp.y = -2.0*TexelKernelStep.y;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[4];
+        
+        kTemp.y = -1.0*TexelKernelStep.y;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[5];
+            
+        gl_FragColor += texture2D(p_BaseSampler, kBaseTCoord) *
+            BlurWeights[6];
+            
+        kTemp.y = 1.0*TexelKernelStep.y;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[7];
+        
+        kTemp.y = 2.0*TexelKernelStep.y;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[8];
+            
+        kTemp.y = 3.0*TexelKernelStep.y;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[9];
+            
+        kTemp.y = 4.0*TexelKernelStep.y;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[10];
+           
+        kTemp.y = 5.0*TexelKernelStep.y;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[11];
+        
+        kTemp.y = 6.0*TexelKernelStep.y;
+        gl_FragColor += texture2D(p_BaseSampler, (kBaseTCoord + kTemp)) *
+            BlurWeights[12];
+    }
+}
+//----------------------------------------------------------------------------
