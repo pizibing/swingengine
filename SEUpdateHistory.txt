@@ -1,0 +1,163 @@
+2008 0901 2200
+Geometry类中的m_spLEffect应该被写入stream,因为spatial基类中m_Effect数组成员均在stream中,
+m_Effect[0]潜在可能是m_spLEffect所引用的LightingEffect.
+
+2008 0903 1739
+对于任意单位四元数q1,q2,由于q1,-q1表示同样的旋转变换，因此存在可能性：q1 => RotationMatrix => -q1。
+如果在3ds max中获取的原始旋转关键桢为q1,q2,经过暂存过程q1=>RotationMatrix1,q2=>RotationMatrix2,
+则最终结果有可能成为-q1,q2或q1,-q2.假设q1,q2夹角alpha<180度,则q1,q2间的插值动画应为旋转一个<180度的增量,
+但-q1,q2间的插值动画为旋转一个360度-alpha的增量.
+因此在max导出插件SEMax8ExportAnimation.cpp的BuildKeyFrameController函数中,在获取四元数旋转关键桢时,
+做了简单处理,防止以上问题产生.有待进一步测试.
+
+2008 0922 1821
+由于OpenGL Renderer使用的shader model profile为arbvp1,arbfp1,最多允许24个蒙皮矩阵,
+因此我们的Skin*Effect系列effect全部迁就该profile,蒙皮矩阵数组数量SM_COUNT定义为22,
+以后考虑支持vp40,fp40,需检测相关OpenGL extensions.
+NV_fragment_program3 extension:
+www.opengl.org/registry/specs/NV/vertex_program3.txt 
+www.opengl.org/registry/specs/ARB/vertex_program.txt 
+NV_fragment_program2 extension:
+www.opengl.org/registry/specs/NV/fragment_program2.txt 
+
+2008 0927 2126
+OpenGL Renderer加入vp40,fp40的支持.对应的extension为EXT 304,EXT 306.
+Renderer基类加入相关支持函数,由Renderer派生类实现,检测当前支持的最高级别shader program profile.
+// vertex program profile信息.
+virtual int GetVProfile(void) const;
+// pixel program profile信息.
+virtual int GetPProfile(void) const;
+DX9 Renderer目前仍支持vs_2_0,ps_2_0,以后考虑支持vs_3_0,ps_3_0.
+所有effect类所使用的asm shader program文件,都应该提供以上对应profile的版本,由系统检测出当前最高级别profile后,
+装载相应的.profile.sesp文件.目前系统在运行时刻,只装载显卡支持的最高级别profile的shader program.
+
+2008 1219 0925
+Picking system的改进,当DoPick函数遍历场景视图时,所有与射线相交的TriMesh叶子节点都试图动态new出PickRecord来记录
+具体的相交点信息,最后产生的PickResult数组需要由应用程序迭代释放所有PickRecord,考虑到DoPick调用次数的频繁性,
+将动态new/delete操作改为内存池操作.
+在TriMesh私有成员中加入:
+// PickRecord内存池相关参数.
+inline PickRecord* AllocatePickRecord(void);
+static std::vector<PickRecord> ms_PickRecordPool;
+static int ms_iMaxCount, ms_iGrowBy, ms_iCount;
+应用程序接口:
+// PickRecord内存池,避免调用DoPick函数时的频繁动态new和delete操作.
+// 应用程序初始化时,负责调用InitializePickRecordPool函数.
+// 应用程序终止时,负责调用TerminatePickRecordPool函数.
+// 应用程序调用DoPick函数遍历场景视图前,应先调用ResetPickRecordPool函数.
+static void InitializePickRecordPool(int iMaxCount = 32, int iGrowBy = 32);
+static void TerminatePickRecordPool(void);
+static void ResetPickRecordPool(void);
+为什么不用Initialize和Terminate宏来调用InitializePickRecordPool和TerminatePickRecordPool?
+因为Main::Terminate调用时,渲染器已经被释放,而渲染器释放的消息没有通知到同时派生自object和Bindable的派生类对象,
+(主要是与渲染器相关联的资源对象,如VBuffer和IBuffer等).因此Main::Terminate运行时刻调用TerminatePickRecordPool
+来对PickRecord的IObject智能指针减引用时,IObject(通常为TriMesh及其派生类)的VBuffer和IBuffer成员析构时无法正确通知
+渲染器(因为已经释放,对渲染器的指针引用成为野指针).
+// 待实现.
+PickRecord的IOject指针是否应改为普通指针,从而在TerminatePickRecordPool时无需对相关资源减引用?
+渲染器是否应保留与其榜定的Bindable派生类指针,从而在渲染器释放时,能迭代通知所有Bindable派生类?
+目前在Main::Terminate里调用的各类Terminate函数,这些Object派生类都不能是Bindable派生类.
+
+2009 0219 1455
+TriMesh类中加入GenerateTangents函数，用于支持生成模型空间T,B,N规范正交基.目前只支持把T,B向量储存在VB的3维纹理坐标通道中.
+4维纹理坐标通道尚未实现.注意T,B,N的生成依赖于指定的一组顶点2维纹理坐标,T,B轴就是纹理空间的S,T轴.如果指定的2维纹理坐标
+是左手坐标系的,则生成的T,B,N规范正交基也是左手坐标系.否则为右手坐标系.
+目前GenerateTangents函数没有在UpdateGS体系中,在geometry拓扑改变后,无法自动刷新,需要由用户手动调用.
+当大量使用带有T,B,N数据的TriMesh时,注意内存占用与计算速度的取舍问题.
+
+2009 0222 1612
+Image类加入Image::IT_L8,Image::IT_L16格式的支持,L表示Luminance,为表示图像亮度的灰阶图,每个像素存储一个8位单字节或者16位双字节数据.
+相应的在DX9和OpenGL渲染器的OnLoadTexture中,加入相关的L8,L16纹理格式的创建支持代码.
+Image::IT_L8目前用于parallax map的高度图采样.
+
+2009 0303 1046
+ShaderEffect系统加入对DX9 vs_3_0/ps_3_0的支持,通过查询设备能力,填充渲染器的m_iMaxVShaderProfile/m_iMaxPShaderProfile成员,
+目前shader程序装载时,系统首先试图装载符合当前渲染器最高渲染能力的shader profile程序,如果找不到对应的最高版本shader程序,则
+通过一次fall back操作，试图装载较低版本的shader profile,如果仍然找不到较低版本的shader程序,则返回装载失败.
+目前系统支持的shader profile包括:DX9的vs_2_0/ps_2_0,vs_3_0/ps_3_0,OpenGL的arbvp1/arbfp1,vp40/fp40.
+
+2009 0303 1056
+DX9的vs_3_0和OpenGL的vp40所新增的功能中,都包含了vertex shader texture sampler,因此在ShaderEffect系统中加入开启/关闭vs所需纹理资源的功能,
+从而使vs,ps成为了完全对等的shader程序,都包含了开启shader程序,设置shader变量,开启shader所需纹理的操作.
+由于DX9的SetTexture()函数要求vertex shader纹理的sampler索引号为D3DVERTEXTEXTURESAMPLER0 - D3DVERTEXTEXTURESAMPLER4,允许最大4个sampler同时使用,
+所以在Renderer基类的EnableTexture/DisableTexture,OnEnableTexture/OnDisableTexture函数中,加入bool参数bIsVTexture,从而使渲染器派生类可以根据情况,
+正确设置图形API.
+
+2009 0310 1331
+FrameBuffer类更新,支持MRT(multiple render targets)能力,在渲染器初始化后,渲染器查询设备能力,设置成员变量m_iMaxRenderTargets,
+对于当前的设备来说,DX9通常为4,OpenGL2.0通常为8.
+在FrameBuffer类中,现在可以添加多个Texture对象用作render target,每个texture都要设置为offscreen texture,且要有同样的纹理尺寸和像素深度(像素数据位数).
+OpenGL允许把texture的image数据装载到显存作为默认数据,DX9中目前不支持为声明为D3DUSAGE_RENDERTARGET的texture装载数据.
+FrameBuffer类支持嵌套调用,即:
+FrameBuffer A,B;
+A.Enable();
+  rendering code...
+  B.Enable();
+    rendering code...
+  B.Disable();
+  rendering code...
+A.Disable();
+
+2009 0418
+Swing Engine Shader System更新,从之前使用基于asm shader文件的系统,改为使用基于Cg shader文件的系统.
+目前在SEFoundation,SEDX9Renderer,SEOpenGLRenderer项目中引入了Cg runtime SDK的支持.
+同时在应用程序中必须链接相关Cg runtime运行时库,从而使程序可以正确编译链接.
+基于Cg的shader系统的优点:
+1 引擎的Renderer管线在装载解析shader中的in,out,uniform等类型变量时,实现了shader平台,语言,以及profile的无关性,
+因为我们只需针对Cg语法中的相关数据类型进行解析,并生成渲染器常量,用户自定义常量和sampler(引擎不再需要支持DX9中的数值常量了,Cg D3D9 EXT会帮我们设置)
+(例如D3D10中,asm shader暴露给最终用户时发生的关键字类型,命名方式等改变,这将造成我们的asm shader解析器变得庞大而复杂,从而使跨平台跨shader版本的维护代价过高).
+2 开发shader时的edit-compile-load-view result过程被精简,去掉了输出并部署asm shader文件的过程,达到类似HLSL/GLSL的shader开发过程.
+3 最为重要的是,我们利用Cg的高级语言特性,shader interface,详情参考GPU gems1 Chapter 32. An Introduction to Shader Interfaces.利用该语言特性,
+shader system实现了动态shader拼接能力,shader可以在装载时刻,按照用户所指定的方式拼接shader函数接口,实现shader动态函数和动态数组.从而使以前比较
+难处理的multi-lighting,multi-texture等效果,从multi-pass渲染变为single-pass渲染,从而大大提高渲染效率.此外动态shader系统也更好的支持了引擎的material effect系统.
+基于Cg的shader系统的缺点:
+1 引擎基础库中带有Cg core lib的API代码,引擎渲染器层带有Cg renderer EXT lib的API代码,需要详细了解Cg runtime SDK并维护这些代码.
+2 Cg runtime SDK目前还存在较多bug,使用时应仔细测试那些可能产生问题的代码并总结错误产生的前提条件.
+目前Cg Toolkit版本为2.2
+
+注意:Cg runtime采用类似OpenGL的编程机制,以C语言和Cg context状态机为基础,在release版本中应该去掉实时检测runtime error的功能,从而提高渲染效率.
+
+目前尚未解决的问题:尚未了解多个Cg context之间的资源共享问题,Cg context在D3D环境下与D3D device的榜定所产生的资源共享问题,多渲染器程序的测试问题.
+
+如何使用目前的Dynamic Shader System?
+目前的Cg-based shader系统兼容之前的shader effect系统,但不兼容之前的asm shader文件系统.之前的所有shader effect可以正常工作.
+目前在指定shader来源时,除了要指定shader文件名,还需要指定shader文件中的vs/ps函数入口名.如果有shader动态接口,则还需要指定所需动态接口类型和数量.
+在shader类中,加入了InterfaceDescriptorPtr m_spInterfaces成员变量,InterfaceDescriptor是新引入的类,用于支持用户描述的shader动态接口,帮助shader文件解析器正确
+识别并拼接出shader文件中的shader interface和动态数组size.
+注意:目前引擎尚不支持shader interface嵌套所产生的树形结构,即,在shader interface中不允许继续定义sub shader interface,将来根据实际需求,考虑支持这个Cg语言特性.
+
+2009 0420
+在String Tree中注释掉输出VB,IB元素的功能,因为在windows控件输出一个含有多个顶点,三角面索引的Geometry会非常费时,不便于debug.
+
+2009 0507
+DX9的Framebuffer类中,是否还有必要支持ID3DXRenderToSurface这个接口?
+注意该接口必须在D3D9设备lost时调用OnLostDevice成员函数,否则设备将无法正常reset,参考D3D SDK文档:
+ID3DXRenderToSurface::OnLostDevice
+Use this method to release all references to video memory resources and delete all stateblocks. This method should be called whenever a device is lost or before resetting a device.
+
+HRESULT OnLostDevice();
+Parameters
+None.
+
+Return Values
+If the method succeeds, the return value is S_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
+
+Remarks
+This method should be called whenever the device is lost or before the user calls IDirect3DDevice9::Reset. Even if the device was not actually lost, ID3DXRenderToSurface::OnLostDevice is responsible for freeing stateblocks and other resources that may need to be released before resetting the device. As a result, the font object cannot be used again before calling IDirect3DDevice9::Reset and then ID3DXRenderToSurface::OnResetDevice.
+
+Requirements
+Header: Declared in D3dx9core.h. 
+
+Library: Use D3dx9.lib. 
+
+
+
+
+
+
+
+
+
+
+
+

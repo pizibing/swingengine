@@ -1,0 +1,391 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		528241130E9E4A0700629212 /* SEOpenGLApplicationPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 528241110E9E4A0700629212 /* SEOpenGLApplicationPCH.h */; };
+		528241150E9E4A0700629212 /* SEOpenGLApplicationPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 528241110E9E4A0700629212 /* SEOpenGLApplicationPCH.h */; };
+		528241230E9E4A4C00629212 /* SEAglApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 528241160E9E4A4C00629212 /* SEAglApplication.cpp */; };
+		528241240E9E4A4C00629212 /* SEApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 528241170E9E4A4C00629212 /* SEApplication.cpp */; };
+		528241250E9E4A4C00629212 /* SEApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 528241180E9E4A4C00629212 /* SEApplication.h */; };
+		528241260E9E4A4C00629212 /* SEApplicationMCR.h in Headers */ = {isa = PBXBuildFile; fileRef = 528241190E9E4A4C00629212 /* SEApplicationMCR.h */; };
+		528241270E9E4A4C00629212 /* SEConsoleApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5282411A0E9E4A4C00629212 /* SEConsoleApplication.cpp */; };
+		528241280E9E4A4C00629212 /* SEConsoleApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 5282411B0E9E4A4C00629212 /* SEConsoleApplication.h */; };
+		528241290E9E4A4C00629212 /* SEWindowApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5282411C0E9E4A4C00629212 /* SEWindowApplication.cpp */; };
+		5282412A0E9E4A4C00629212 /* SEWindowApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 5282411D0E9E4A4C00629212 /* SEWindowApplication.h */; };
+		5282412B0E9E4A4C00629212 /* SEWindowApplication2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5282411F0E9E4A4C00629212 /* SEWindowApplication2.cpp */; };
+		5282412C0E9E4A4C00629212 /* SEWindowApplication2.h in Headers */ = {isa = PBXBuildFile; fileRef = 528241200E9E4A4C00629212 /* SEWindowApplication2.h */; };
+		5282412D0E9E4A4C00629212 /* SEWindowApplication3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 528241210E9E4A4C00629212 /* SEWindowApplication3.cpp */; };
+		5282412E0E9E4A4C00629212 /* SEWindowApplication3.h in Headers */ = {isa = PBXBuildFile; fileRef = 528241220E9E4A4C00629212 /* SEWindowApplication3.h */; };
+		5282412F0E9E4A4C00629212 /* SEAglApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 528241160E9E4A4C00629212 /* SEAglApplication.cpp */; };
+		528241300E9E4A4C00629212 /* SEApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 528241170E9E4A4C00629212 /* SEApplication.cpp */; };
+		528241310E9E4A4C00629212 /* SEApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 528241180E9E4A4C00629212 /* SEApplication.h */; };
+		528241320E9E4A4C00629212 /* SEApplicationMCR.h in Headers */ = {isa = PBXBuildFile; fileRef = 528241190E9E4A4C00629212 /* SEApplicationMCR.h */; };
+		528241330E9E4A4C00629212 /* SEConsoleApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5282411A0E9E4A4C00629212 /* SEConsoleApplication.cpp */; };
+		528241340E9E4A4C00629212 /* SEConsoleApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 5282411B0E9E4A4C00629212 /* SEConsoleApplication.h */; };
+		528241350E9E4A4C00629212 /* SEWindowApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5282411C0E9E4A4C00629212 /* SEWindowApplication.cpp */; };
+		528241360E9E4A4C00629212 /* SEWindowApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 5282411D0E9E4A4C00629212 /* SEWindowApplication.h */; };
+		528241370E9E4A4C00629212 /* SEWindowApplication2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5282411F0E9E4A4C00629212 /* SEWindowApplication2.cpp */; };
+		528241380E9E4A4C00629212 /* SEWindowApplication2.h in Headers */ = {isa = PBXBuildFile; fileRef = 528241200E9E4A4C00629212 /* SEWindowApplication2.h */; };
+		528241390E9E4A4C00629212 /* SEWindowApplication3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 528241210E9E4A4C00629212 /* SEWindowApplication3.cpp */; };
+		5282413A0E9E4A4C00629212 /* SEWindowApplication3.h in Headers */ = {isa = PBXBuildFile; fileRef = 528241220E9E4A4C00629212 /* SEWindowApplication3.h */; };
+		52A055560F89B3AF00004535 /* SEOpenGLApplicationPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52A055550F89B3AF00004535 /* SEOpenGLApplicationPCH.cpp */; };
+		52A055570F89B3AF00004535 /* SEOpenGLApplicationPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52A055550F89B3AF00004535 /* SEOpenGLApplicationPCH.cpp */; };
+		52AFFB5E0FF8B7270008BD07 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFB5D0FF8B7270008BD07 /* OpenAL.framework */; };
+		52AFFB5F0FF8B7270008BD07 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFB5D0FF8B7270008BD07 /* OpenAL.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		528240F80E9E486800629212 /* libSEAglApplicationd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEAglApplicationd.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		528241010E9E487A00629212 /* libSEAglApplication.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEAglApplication.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		528241110E9E4A0700629212 /* SEOpenGLApplicationPCH.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEOpenGLApplicationPCH.h; sourceTree = "<group>"; };
+		528241160E9E4A4C00629212 /* SEAglApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEAglApplication.cpp; path = SEOpenGLApplication/SEAglApplication.cpp; sourceTree = "<group>"; };
+		528241170E9E4A4C00629212 /* SEApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEApplication.cpp; path = SEOpenGLApplication/SEApplication.cpp; sourceTree = "<group>"; };
+		528241180E9E4A4C00629212 /* SEApplication.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEApplication.h; path = SEOpenGLApplication/SEApplication.h; sourceTree = "<group>"; };
+		528241190E9E4A4C00629212 /* SEApplicationMCR.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEApplicationMCR.h; path = SEOpenGLApplication/SEApplicationMCR.h; sourceTree = "<group>"; };
+		5282411A0E9E4A4C00629212 /* SEConsoleApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEConsoleApplication.cpp; path = SEOpenGLApplication/SEConsoleApplication.cpp; sourceTree = "<group>"; };
+		5282411B0E9E4A4C00629212 /* SEConsoleApplication.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEConsoleApplication.h; path = SEOpenGLApplication/SEConsoleApplication.h; sourceTree = "<group>"; };
+		5282411C0E9E4A4C00629212 /* SEWindowApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEWindowApplication.cpp; path = SEOpenGLApplication/SEWindowApplication.cpp; sourceTree = "<group>"; };
+		5282411D0E9E4A4C00629212 /* SEWindowApplication.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEWindowApplication.h; path = SEOpenGLApplication/SEWindowApplication.h; sourceTree = "<group>"; };
+		5282411E0E9E4A4C00629212 /* SEWindowApplication.inl */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = text; name = SEWindowApplication.inl; path = SEOpenGLApplication/SEWindowApplication.inl; sourceTree = "<group>"; };
+		5282411F0E9E4A4C00629212 /* SEWindowApplication2.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEWindowApplication2.cpp; path = SEOpenGLApplication/SEWindowApplication2.cpp; sourceTree = "<group>"; };
+		528241200E9E4A4C00629212 /* SEWindowApplication2.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEWindowApplication2.h; path = SEOpenGLApplication/SEWindowApplication2.h; sourceTree = "<group>"; };
+		528241210E9E4A4C00629212 /* SEWindowApplication3.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEWindowApplication3.cpp; path = SEOpenGLApplication/SEWindowApplication3.cpp; sourceTree = "<group>"; };
+		528241220E9E4A4C00629212 /* SEWindowApplication3.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEWindowApplication3.h; path = SEOpenGLApplication/SEWindowApplication3.h; sourceTree = "<group>"; };
+		528241630E9E5DC700629212 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		528241640E9E5DE300629212 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
+		528241650E9E5E0400629212 /* DrawSprocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DrawSprocket.framework; path = /System/Library/Frameworks/DrawSprocket.framework; sourceTree = "<absolute>"; };
+		52A055550F89B3AF00004535 /* SEOpenGLApplicationPCH.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = SEOpenGLApplicationPCH.cpp; sourceTree = "<group>"; };
+		52AFFB5D0FF8B7270008BD07 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		528240F60E9E486800629212 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52AFFB5E0FF8B7270008BD07 /* OpenAL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		528240FF0E9E487A00629212 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52AFFB5F0FF8B7270008BD07 /* OpenAL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		528240E10E9E47FE00629212 = {
+			isa = PBXGroup;
+			children = (
+				5282410E0E9E497A00629212 /* Sources */,
+				528241620E9E5D8900629212 /* Frameworks */,
+				528240F90E9E486800629212 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		528240F90E9E486800629212 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				528240F80E9E486800629212 /* libSEAglApplicationd.a */,
+				528241010E9E487A00629212 /* libSEAglApplication.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5282410E0E9E497A00629212 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				5282410F0E9E499A00629212 /* SEOpenGLApplication */,
+				528241110E9E4A0700629212 /* SEOpenGLApplicationPCH.h */,
+				52A055550F89B3AF00004535 /* SEOpenGLApplicationPCH.cpp */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		5282410F0E9E499A00629212 /* SEOpenGLApplication */ = {
+			isa = PBXGroup;
+			children = (
+				528241160E9E4A4C00629212 /* SEAglApplication.cpp */,
+				528241170E9E4A4C00629212 /* SEApplication.cpp */,
+				528241180E9E4A4C00629212 /* SEApplication.h */,
+				528241190E9E4A4C00629212 /* SEApplicationMCR.h */,
+				5282411A0E9E4A4C00629212 /* SEConsoleApplication.cpp */,
+				5282411B0E9E4A4C00629212 /* SEConsoleApplication.h */,
+				5282411C0E9E4A4C00629212 /* SEWindowApplication.cpp */,
+				5282411D0E9E4A4C00629212 /* SEWindowApplication.h */,
+				5282411E0E9E4A4C00629212 /* SEWindowApplication.inl */,
+				5282411F0E9E4A4C00629212 /* SEWindowApplication2.cpp */,
+				528241200E9E4A4C00629212 /* SEWindowApplication2.h */,
+				528241210E9E4A4C00629212 /* SEWindowApplication3.cpp */,
+				528241220E9E4A4C00629212 /* SEWindowApplication3.h */,
+			);
+			name = SEOpenGLApplication;
+			sourceTree = "<group>";
+		};
+		528241620E9E5D8900629212 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				52AFFB5D0FF8B7270008BD07 /* OpenAL.framework */,
+				528241650E9E5E0400629212 /* DrawSprocket.framework */,
+				528241640E9E5DE300629212 /* AGL.framework */,
+				528241630E9E5DC700629212 /* Carbon.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		528240F40E9E486800629212 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				528241130E9E4A0700629212 /* SEOpenGLApplicationPCH.h in Headers */,
+				528241250E9E4A4C00629212 /* SEApplication.h in Headers */,
+				528241260E9E4A4C00629212 /* SEApplicationMCR.h in Headers */,
+				528241280E9E4A4C00629212 /* SEConsoleApplication.h in Headers */,
+				5282412A0E9E4A4C00629212 /* SEWindowApplication.h in Headers */,
+				5282412C0E9E4A4C00629212 /* SEWindowApplication2.h in Headers */,
+				5282412E0E9E4A4C00629212 /* SEWindowApplication3.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		528240FD0E9E487A00629212 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				528241150E9E4A0700629212 /* SEOpenGLApplicationPCH.h in Headers */,
+				528241310E9E4A4C00629212 /* SEApplication.h in Headers */,
+				528241320E9E4A4C00629212 /* SEApplicationMCR.h in Headers */,
+				528241340E9E4A4C00629212 /* SEConsoleApplication.h in Headers */,
+				528241360E9E4A4C00629212 /* SEWindowApplication.h in Headers */,
+				528241380E9E4A4C00629212 /* SEWindowApplication2.h in Headers */,
+				5282413A0E9E4A4C00629212 /* SEWindowApplication3.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		528240F70E9E486800629212 /* Debug */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 528240FC0E9E486900629212 /* Build configuration list for PBXNativeTarget "Debug" */;
+			buildPhases = (
+				528240F40E9E486800629212 /* Headers */,
+				528240F50E9E486800629212 /* Sources */,
+				528240F60E9E486800629212 /* Frameworks */,
+				528241700E9E600C00629212 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Debug;
+			productName = Debug;
+			productReference = 528240F80E9E486800629212 /* libSEAglApplicationd.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		528241000E9E487A00629212 /* Release */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 528241040E9E489E00629212 /* Build configuration list for PBXNativeTarget "Release" */;
+			buildPhases = (
+				528240FD0E9E487A00629212 /* Headers */,
+				528240FE0E9E487A00629212 /* Sources */,
+				528240FF0E9E487A00629212 /* Frameworks */,
+				528241720E9E604D00629212 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Release;
+			productName = Release;
+			productReference = 528241010E9E487A00629212 /* libSEAglApplication.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		528240E30E9E47FE00629212 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 528240E60E9E47FE00629212 /* Build configuration list for PBXProject "SE_Agl_Application" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 0;
+			mainGroup = 528240E10E9E47FE00629212;
+			productRefGroup = 528240F90E9E486800629212 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				528240F70E9E486800629212 /* Debug */,
+				528241000E9E487A00629212 /* Release */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		528241700E9E600C00629212 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkDebug.sh;
+		};
+		528241720E9E604D00629212 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkRelease.sh;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		528240F50E9E486800629212 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				528241230E9E4A4C00629212 /* SEAglApplication.cpp in Sources */,
+				528241240E9E4A4C00629212 /* SEApplication.cpp in Sources */,
+				528241270E9E4A4C00629212 /* SEConsoleApplication.cpp in Sources */,
+				528241290E9E4A4C00629212 /* SEWindowApplication.cpp in Sources */,
+				5282412B0E9E4A4C00629212 /* SEWindowApplication2.cpp in Sources */,
+				5282412D0E9E4A4C00629212 /* SEWindowApplication3.cpp in Sources */,
+				52A055560F89B3AF00004535 /* SEOpenGLApplicationPCH.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		528240FE0E9E487A00629212 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5282412F0E9E4A4C00629212 /* SEAglApplication.cpp in Sources */,
+				528241300E9E4A4C00629212 /* SEApplication.cpp in Sources */,
+				528241330E9E4A4C00629212 /* SEConsoleApplication.cpp in Sources */,
+				528241350E9E4A4C00629212 /* SEWindowApplication.cpp in Sources */,
+				528241370E9E4A4C00629212 /* SEWindowApplication2.cpp in Sources */,
+				528241390E9E4A4C00629212 /* SEWindowApplication3.cpp in Sources */,
+				52A055570F89B3AF00004535 /* SEOpenGLApplicationPCH.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		528240E40E9E47FE00629212 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Default;
+		};
+		528240FA0E9E486900629212 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEOpenGLApplicationPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_STYLE = STATIC;
+				PREBINDING = NO;
+				PRODUCT_NAME = SEAglApplicationd;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/DebugStatic";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		528241020E9E487A00629212 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEOpenGLApplicationPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_STYLE = STATIC;
+				PREBINDING = NO;
+				PRODUCT_NAME = SEAglApplication;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Release";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		528240E60E9E47FE00629212 /* Build configuration list for PBXProject "SE_Agl_Application" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528240E40E9E47FE00629212 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		528240FC0E9E486900629212 /* Build configuration list for PBXNativeTarget "Debug" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528240FA0E9E486900629212 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		528241040E9E489E00629212 /* Build configuration list for PBXNativeTarget "Release" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528241020E9E487A00629212 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 528240E30E9E47FE00629212 /* Project object */;
+}

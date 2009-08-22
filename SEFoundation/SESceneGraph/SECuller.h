@@ -1,0 +1,131 @@
+// Swing Engine Version 1 Source Code 
+// Most of techniques in the engine are mainly based on David Eberly's
+// Wild Magic 4 open-source code.The author of Swing Engine learned a lot
+// from Eberly's experience of architecture and algorithm.
+// Several sub-systems are totally new,and others are re-implimented or
+// re-organized based on Wild Magic 4's sub-systems.
+// Copyright (c) 2007-2010.  All Rights Reserved
+//
+// Eberly's permission:
+// Geometric Tools, Inc.
+// http://www.geometrictools.com
+// Copyright (c) 1998-2006.  All Rights Reserved
+//
+// This library is free software; you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 2.1 of the License, or (at
+// your option) any later version.  The license is available for reading at
+// the location:
+// http://www.gnu.org/copyleft/lgpl.html
+
+#ifndef Swing_Culler_H
+#define Swing_Culler_H
+
+#include "SEFoundationLIB.h"
+#include "SEPlatforms.h"
+#include "SECamera.h"
+#include "SEPlane3.h"
+#include "SESpatial.h"
+#include "SEUnculledSet.h"
+
+namespace Swing
+{
+
+//----------------------------------------------------------------------------
+// 名称:场景视图对象剔除器类
+// 说明:
+// 作者:Sun Che
+// 时间:20080707
+//----------------------------------------------------------------------------
+class SE_FOUNDATION_API Culler
+{
+public:
+    // 前两个参数用于创建潜在可视听对象集容器.
+    // 如果没有传递camera,稍后应在使用ComputeUnculledSet之前,
+    // 通过SetCamera设置camera.
+    Culler(int iMaxCount = 0, int iGrowBy = 0, const Camera* pCamera = 0);
+    virtual ~Culler(void);
+
+    // 访问camera,frustum copy,潜在可视听对象容器.
+    inline void SetCamera(const Camera* pCamera);
+    inline const Camera* GetCamera(void) const;
+    void SetFrustum(const float* afFrustum);
+    inline const float* GetFrustum(void) const;
+    inline UnculledSet& GetVisibleSet(void);
+    inline UnculledSet& GetAudibleSet(void);
+
+    // 基类默认行为是根据传入参数创建一个UnculledObject,
+    // 并将其添加到UnculledObject数组末尾.
+    // 派生类可以重载此函数,比如UnculledObject数组可以被维护为有序数组,
+    // 从而使渲染状态改变最小化,
+    // 或者也可以成为一个对象unique list供portal系统使用.
+    virtual void Insert(Spatial* pObject, Effect* pGlobalEffect,
+        bool bIsAudible = false);
+
+    // 世界空间剔除平面堆栈访问.
+    // 用户可以在截投体平面基础上添加用户自定义平面,
+    // PushPlane传入参数必须是世界空间平面.
+    enum { US_MAX_PLANE_COUNT = 32 };
+    inline int GetPlaneCount(void) const;
+    inline const Plane3f* GetPlanes(void) const;
+    inline void SetPlaneState(unsigned int uiPlaneState);
+    inline unsigned int GetPlaneState(void) const;
+    inline void PushPlane(const Plane3f& rPlane);
+    inline void PopPlane(void);
+
+    // 把对象的世界空间BV和各个剔除平面比较,
+    // 并记录各个平面与之比较的结果,供剔除系统在场景剔除遍历过程中使用.
+    // 只有Spatial类需要调用这个函数.
+    bool IsInFrustum(const BoundingVolume* pBound);
+
+    // 支持Portal::GetUnculledSet.
+    bool IsInFrustum(int iVertexCount, const Vector3f* aVertex,
+        bool bIgnoreNearPlane);
+
+    // 把对象的世界空间BV和各个剔除平面比较,
+    // 只判断该对象是否在frustum中,不记录比较结果.
+    // 支持RoamTerrainPage::Simplify.
+    bool IsSingleInFrustum(const BoundingVolume* pBound) const;
+
+    // 支持BspNode::GetUnculledSet.
+    // 判断截投体与平面的位置情况,
+    // 在平面正半空间返回+1,负半空间返回-1,相交返回0.
+    // 传入平面为世界空间平面.
+    int OnWhichSide(const Plane3f& rPlane) const;
+
+    // 剔除系统入口.
+    // 通过遍历传入的场景视图树,创建潜在可视听对象集合.
+    void ComputeUnculledSet(Spatial* pScene);
+
+protected:
+    // 剔除系统需要知道当前摄像机的相关信息.
+    const Camera* m_pCamera;
+
+    // 传入摄像机截投体参数的拷贝值.
+    // 这将允许各种子系统在剔除过程中(比如portal系统),
+    // 改变截投体参数而不影响当前摄像机.
+    float m_Frustum[Camera::VF_COUNT];
+
+    // 世界空间平面数组,包含6个截投体平面,允许26个用户自定义平面.
+    // m_uiPlaneState的32位对应32个剔除平面的状态,
+    // 状态位为1时表明该平面应该参与剔除比较,为0时不用参与.
+    // 这样做的目的在于提高剔除系统的效率,
+    // 比如某父节点的BV完全处于某平面的一个半空间内,
+    // 则可断定其所有子节点也均处在该平面的该半空间内,
+    // 从而避免子节点的重复性剔除比较.
+    int m_iPlaneCount;
+    Plane3f m_aPlane[US_MAX_PLANE_COUNT];
+    unsigned int m_uiPlaneState;
+
+    // 调用ComputeUnculledSet后产生的潜在可视对象集合.
+    UnculledSet m_VisibleSet;
+
+    // 调用ComputeUnculledSet后产生的潜在可听对象集合.
+    UnculledSet m_AudibleSet;
+};
+
+#include "SECuller.inl"
+
+}
+
+#endif

@@ -1,0 +1,548 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		52898A590E9DB9D5000BBA95 /* SEOpenGLRendererLIB.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898A560E9DB9D5000BBA95 /* SEOpenGLRendererLIB.h */; };
+		52898A5A0E9DB9D5000BBA95 /* SEOpenGLRendererPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A570E9DB9D5000BBA95 /* SEOpenGLRendererPCH.cpp */; };
+		52898A5B0E9DB9D5000BBA95 /* SEOpenGLRendererPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898A580E9DB9D5000BBA95 /* SEOpenGLRendererPCH.h */; };
+		52898A5C0E9DB9D5000BBA95 /* SEOpenGLRendererLIB.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898A560E9DB9D5000BBA95 /* SEOpenGLRendererLIB.h */; };
+		52898A5D0E9DB9D5000BBA95 /* SEOpenGLRendererPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A570E9DB9D5000BBA95 /* SEOpenGLRendererPCH.cpp */; };
+		52898A5E0E9DB9D5000BBA95 /* SEOpenGLRendererPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898A580E9DB9D5000BBA95 /* SEOpenGLRendererPCH.h */; };
+		52898A740E9DBA29000BBA95 /* SEAglRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A5F0E9DBA29000BBA95 /* SEAglRenderer.cpp */; };
+		52898A750E9DBA29000BBA95 /* SEAglRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898A600E9DBA29000BBA95 /* SEAglRenderer.h */; };
+		52898A760E9DBA29000BBA95 /* SEOpenGLAlphaState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A610E9DBA29000BBA95 /* SEOpenGLAlphaState.cpp */; };
+		52898A770E9DBA29000BBA95 /* SEOpenGLBitmapFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898A620E9DBA29000BBA95 /* SEOpenGLBitmapFont.h */; };
+		52898A780E9DBA29000BBA95 /* SEOpenGLCullState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A630E9DBA29000BBA95 /* SEOpenGLCullState.cpp */; };
+		52898A790E9DBA29000BBA95 /* SEOpenGLDrawBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A640E9DBA29000BBA95 /* SEOpenGLDrawBuffer.cpp */; };
+		52898A7A0E9DBA29000BBA95 /* SEOpenGLDrawElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A650E9DBA29000BBA95 /* SEOpenGLDrawElements.cpp */; };
+		52898A7B0E9DBA29000BBA95 /* SEOpenGLDrawText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A660E9DBA29000BBA95 /* SEOpenGLDrawText.cpp */; };
+		52898A7C0E9DBA29000BBA95 /* SEOpenGLFrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A670E9DBA29000BBA95 /* SEOpenGLFrameBuffer.cpp */; };
+		52898A7D0E9DBA29000BBA95 /* SEOpenGLFrameBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898A680E9DBA29000BBA95 /* SEOpenGLFrameBuffer.h */; };
+		52898A7E0E9DBA29000BBA95 /* SEOpenGLPolygonOffsetState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A690E9DBA29000BBA95 /* SEOpenGLPolygonOffsetState.cpp */; };
+		52898A7F0E9DBA29000BBA95 /* SEOpenGLRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A6A0E9DBA29000BBA95 /* SEOpenGLRenderer.cpp */; };
+		52898A800E9DBA29000BBA95 /* SEOpenGLRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898A6B0E9DBA29000BBA95 /* SEOpenGLRenderer.h */; };
+		52898A810E9DBA29000BBA95 /* SEOpenGLResources.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898A6C0E9DBA29000BBA95 /* SEOpenGLResources.h */; };
+		52898A820E9DBA29000BBA95 /* SEOpenGLResourcesED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A6D0E9DBA29000BBA95 /* SEOpenGLResourcesED.cpp */; };
+		52898A830E9DBA29000BBA95 /* SEOpenGLResourcesLR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A6E0E9DBA29000BBA95 /* SEOpenGLResourcesLR.cpp */; };
+		52898A840E9DBA29000BBA95 /* SEOpenGLStencilState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A6F0E9DBA29000BBA95 /* SEOpenGLStencilState.cpp */; };
+		52898A850E9DBA29000BBA95 /* SEOpenGLTransformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A700E9DBA29000BBA95 /* SEOpenGLTransformation.cpp */; };
+		52898A860E9DBA29000BBA95 /* SEOpenGLVerdanaS16B0I0.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A710E9DBA29000BBA95 /* SEOpenGLVerdanaS16B0I0.cpp */; };
+		52898A870E9DBA29000BBA95 /* SEOpenGLWireframeState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A720E9DBA29000BBA95 /* SEOpenGLWireframeState.cpp */; };
+		52898A880E9DBA29000BBA95 /* SEOpenGLZBufferState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A730E9DBA29000BBA95 /* SEOpenGLZBufferState.cpp */; };
+		52898A890E9DBA29000BBA95 /* SEAglRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A5F0E9DBA29000BBA95 /* SEAglRenderer.cpp */; };
+		52898A8A0E9DBA29000BBA95 /* SEAglRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898A600E9DBA29000BBA95 /* SEAglRenderer.h */; };
+		52898A8B0E9DBA29000BBA95 /* SEOpenGLAlphaState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A610E9DBA29000BBA95 /* SEOpenGLAlphaState.cpp */; };
+		52898A8C0E9DBA29000BBA95 /* SEOpenGLBitmapFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898A620E9DBA29000BBA95 /* SEOpenGLBitmapFont.h */; };
+		52898A8D0E9DBA29000BBA95 /* SEOpenGLCullState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A630E9DBA29000BBA95 /* SEOpenGLCullState.cpp */; };
+		52898A8E0E9DBA29000BBA95 /* SEOpenGLDrawBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A640E9DBA29000BBA95 /* SEOpenGLDrawBuffer.cpp */; };
+		52898A8F0E9DBA29000BBA95 /* SEOpenGLDrawElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A650E9DBA29000BBA95 /* SEOpenGLDrawElements.cpp */; };
+		52898A900E9DBA29000BBA95 /* SEOpenGLDrawText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A660E9DBA29000BBA95 /* SEOpenGLDrawText.cpp */; };
+		52898A910E9DBA29000BBA95 /* SEOpenGLFrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A670E9DBA29000BBA95 /* SEOpenGLFrameBuffer.cpp */; };
+		52898A920E9DBA29000BBA95 /* SEOpenGLFrameBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898A680E9DBA29000BBA95 /* SEOpenGLFrameBuffer.h */; };
+		52898A930E9DBA29000BBA95 /* SEOpenGLPolygonOffsetState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A690E9DBA29000BBA95 /* SEOpenGLPolygonOffsetState.cpp */; };
+		52898A940E9DBA29000BBA95 /* SEOpenGLRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A6A0E9DBA29000BBA95 /* SEOpenGLRenderer.cpp */; };
+		52898A950E9DBA29000BBA95 /* SEOpenGLRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898A6B0E9DBA29000BBA95 /* SEOpenGLRenderer.h */; };
+		52898A960E9DBA29000BBA95 /* SEOpenGLResources.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898A6C0E9DBA29000BBA95 /* SEOpenGLResources.h */; };
+		52898A970E9DBA29000BBA95 /* SEOpenGLResourcesED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A6D0E9DBA29000BBA95 /* SEOpenGLResourcesED.cpp */; };
+		52898A980E9DBA29000BBA95 /* SEOpenGLResourcesLR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A6E0E9DBA29000BBA95 /* SEOpenGLResourcesLR.cpp */; };
+		52898A990E9DBA29000BBA95 /* SEOpenGLStencilState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A6F0E9DBA29000BBA95 /* SEOpenGLStencilState.cpp */; };
+		52898A9A0E9DBA29000BBA95 /* SEOpenGLTransformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A700E9DBA29000BBA95 /* SEOpenGLTransformation.cpp */; };
+		52898A9B0E9DBA29000BBA95 /* SEOpenGLVerdanaS16B0I0.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A710E9DBA29000BBA95 /* SEOpenGLVerdanaS16B0I0.cpp */; };
+		52898A9C0E9DBA29000BBA95 /* SEOpenGLWireframeState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A720E9DBA29000BBA95 /* SEOpenGLWireframeState.cpp */; };
+		52898A9D0E9DBA29000BBA95 /* SEOpenGLZBufferState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52898A730E9DBA29000BBA95 /* SEOpenGLZBufferState.cpp */; };
+		52898AA50E9DBA8F000BBA95 /* SEglExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898AA00E9DBA8F000BBA95 /* SEglExtensions.h */; };
+		52898AA60E9DBA8F000BBA95 /* SEglPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898AA10E9DBA8F000BBA95 /* SEglPlugin.h */; };
+		52898AA70E9DBA8F000BBA95 /* SEglUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898AA20E9DBA8F000BBA95 /* SEglUtility.h */; };
+		52898AAA0E9DBA8F000BBA95 /* SEglExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898AA00E9DBA8F000BBA95 /* SEglExtensions.h */; };
+		52898AAB0E9DBA8F000BBA95 /* SEglPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898AA10E9DBA8F000BBA95 /* SEglPlugin.h */; };
+		52898AAC0E9DBA8F000BBA95 /* SEglUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = 52898AA20E9DBA8F000BBA95 /* SEglUtility.h */; };
+		529A7D290FD2307F00F6F38F /* SEglExtensions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529A7D280FD2307F00F6F38F /* SEglExtensions.cpp */; };
+		529A7D2A0FD2307F00F6F38F /* SEglExtensions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529A7D280FD2307F00F6F38F /* SEglExtensions.cpp */; };
+		529A7D3D0FD2327C00F6F38F /* SEaglExtensions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529A7D3C0FD2327C00F6F38F /* SEaglExtensions.cpp */; };
+		529A7D3E0FD2327C00F6F38F /* SEaglExtensions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529A7D3C0FD2327C00F6F38F /* SEaglExtensions.cpp */; };
+		529A81930FD42ACA00F6F38F /* SwingOpenGLRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 529A81920FD42ACA00F6F38F /* SwingOpenGLRenderer.h */; };
+		529A81940FD42ACA00F6F38F /* SwingOpenGLRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 529A81920FD42ACA00F6F38F /* SwingOpenGLRenderer.h */; };
+		529A819D0FD42B3400F6F38F /* SEOpenGLProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529A81960FD42B3400F6F38F /* SEOpenGLProgram.cpp */; };
+		529A819E0FD42B3400F6F38F /* SEOpenGLProgram.h in Headers */ = {isa = PBXBuildFile; fileRef = 529A81970FD42B3400F6F38F /* SEOpenGLProgram.h */; };
+		529A819F0FD42B3400F6F38F /* SEOpenGLProgramInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529A81980FD42B3400F6F38F /* SEOpenGLProgramInterface.cpp */; };
+		529A81A00FD42B3400F6F38F /* SEOpenGLProgramInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 529A81990FD42B3400F6F38F /* SEOpenGLProgramInterface.h */; };
+		529A81A10FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529A819B0FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.cpp */; };
+		529A81A20FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.h in Headers */ = {isa = PBXBuildFile; fileRef = 529A819C0FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.h */; };
+		529A81A30FD42B3400F6F38F /* SEOpenGLProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529A81960FD42B3400F6F38F /* SEOpenGLProgram.cpp */; };
+		529A81A40FD42B3400F6F38F /* SEOpenGLProgram.h in Headers */ = {isa = PBXBuildFile; fileRef = 529A81970FD42B3400F6F38F /* SEOpenGLProgram.h */; };
+		529A81A50FD42B3400F6F38F /* SEOpenGLProgramInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529A81980FD42B3400F6F38F /* SEOpenGLProgramInterface.cpp */; };
+		529A81A60FD42B3400F6F38F /* SEOpenGLProgramInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 529A81990FD42B3400F6F38F /* SEOpenGLProgramInterface.h */; };
+		529A81A70FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529A819B0FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.cpp */; };
+		529A81A80FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.h in Headers */ = {isa = PBXBuildFile; fileRef = 529A819C0FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.h */; };
+		52A0551B0F89AF8D00004535 /* SEOpenGLRendererRegister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52A055190F89AF8D00004535 /* SEOpenGLRendererRegister.cpp */; };
+		52A0551C0F89AF8D00004535 /* SEOpenGLRendererRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A0551A0F89AF8D00004535 /* SEOpenGLRendererRegister.h */; };
+		52A0551D0F89AF8D00004535 /* SEOpenGLRendererRegister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52A055190F89AF8D00004535 /* SEOpenGLRendererRegister.cpp */; };
+		52A0551E0F89AF8D00004535 /* SEOpenGLRendererRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A0551A0F89AF8D00004535 /* SEOpenGLRendererRegister.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		528989660E9DB4E7000BBA95 /* libSEAglRendererd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEAglRendererd.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5289896F0E9DB4FD000BBA95 /* libSEAglRenderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEAglRenderer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		52898A470E9DB897000BBA95 /* DrawSprocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DrawSprocket.framework; path = /System/Library/Frameworks/DrawSprocket.framework; sourceTree = "<absolute>"; };
+		52898A480E9DB8B5000BBA95 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
+		52898A490E9DB8CD000BBA95 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		52898A560E9DB9D5000BBA95 /* SEOpenGLRendererLIB.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEOpenGLRendererLIB.h; sourceTree = "<group>"; };
+		52898A570E9DB9D5000BBA95 /* SEOpenGLRendererPCH.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = SEOpenGLRendererPCH.cpp; sourceTree = "<group>"; };
+		52898A580E9DB9D5000BBA95 /* SEOpenGLRendererPCH.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEOpenGLRendererPCH.h; sourceTree = "<group>"; };
+		52898A5F0E9DBA29000BBA95 /* SEAglRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEAglRenderer.cpp; path = SEOpenGLRendering/SEAglRenderer.cpp; sourceTree = "<group>"; };
+		52898A600E9DBA29000BBA95 /* SEAglRenderer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEAglRenderer.h; path = SEOpenGLRendering/SEAglRenderer.h; sourceTree = "<group>"; };
+		52898A610E9DBA29000BBA95 /* SEOpenGLAlphaState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLAlphaState.cpp; path = SEOpenGLRendering/SEOpenGLAlphaState.cpp; sourceTree = "<group>"; };
+		52898A620E9DBA29000BBA95 /* SEOpenGLBitmapFont.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEOpenGLBitmapFont.h; path = SEOpenGLRendering/SEOpenGLBitmapFont.h; sourceTree = "<group>"; };
+		52898A630E9DBA29000BBA95 /* SEOpenGLCullState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLCullState.cpp; path = SEOpenGLRendering/SEOpenGLCullState.cpp; sourceTree = "<group>"; };
+		52898A640E9DBA29000BBA95 /* SEOpenGLDrawBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLDrawBuffer.cpp; path = SEOpenGLRendering/SEOpenGLDrawBuffer.cpp; sourceTree = "<group>"; };
+		52898A650E9DBA29000BBA95 /* SEOpenGLDrawElements.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLDrawElements.cpp; path = SEOpenGLRendering/SEOpenGLDrawElements.cpp; sourceTree = "<group>"; };
+		52898A660E9DBA29000BBA95 /* SEOpenGLDrawText.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLDrawText.cpp; path = SEOpenGLRendering/SEOpenGLDrawText.cpp; sourceTree = "<group>"; };
+		52898A670E9DBA29000BBA95 /* SEOpenGLFrameBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLFrameBuffer.cpp; path = SEOpenGLRendering/SEOpenGLFrameBuffer.cpp; sourceTree = "<group>"; };
+		52898A680E9DBA29000BBA95 /* SEOpenGLFrameBuffer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEOpenGLFrameBuffer.h; path = SEOpenGLRendering/SEOpenGLFrameBuffer.h; sourceTree = "<group>"; };
+		52898A690E9DBA29000BBA95 /* SEOpenGLPolygonOffsetState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLPolygonOffsetState.cpp; path = SEOpenGLRendering/SEOpenGLPolygonOffsetState.cpp; sourceTree = "<group>"; };
+		52898A6A0E9DBA29000BBA95 /* SEOpenGLRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLRenderer.cpp; path = SEOpenGLRendering/SEOpenGLRenderer.cpp; sourceTree = "<group>"; };
+		52898A6B0E9DBA29000BBA95 /* SEOpenGLRenderer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEOpenGLRenderer.h; path = SEOpenGLRendering/SEOpenGLRenderer.h; sourceTree = "<group>"; };
+		52898A6C0E9DBA29000BBA95 /* SEOpenGLResources.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEOpenGLResources.h; path = SEOpenGLRendering/SEOpenGLResources.h; sourceTree = "<group>"; };
+		52898A6D0E9DBA29000BBA95 /* SEOpenGLResourcesED.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLResourcesED.cpp; path = SEOpenGLRendering/SEOpenGLResourcesED.cpp; sourceTree = "<group>"; };
+		52898A6E0E9DBA29000BBA95 /* SEOpenGLResourcesLR.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLResourcesLR.cpp; path = SEOpenGLRendering/SEOpenGLResourcesLR.cpp; sourceTree = "<group>"; };
+		52898A6F0E9DBA29000BBA95 /* SEOpenGLStencilState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLStencilState.cpp; path = SEOpenGLRendering/SEOpenGLStencilState.cpp; sourceTree = "<group>"; };
+		52898A700E9DBA29000BBA95 /* SEOpenGLTransformation.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLTransformation.cpp; path = SEOpenGLRendering/SEOpenGLTransformation.cpp; sourceTree = "<group>"; };
+		52898A710E9DBA29000BBA95 /* SEOpenGLVerdanaS16B0I0.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLVerdanaS16B0I0.cpp; path = SEOpenGLRendering/SEOpenGLVerdanaS16B0I0.cpp; sourceTree = "<group>"; };
+		52898A720E9DBA29000BBA95 /* SEOpenGLWireframeState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLWireframeState.cpp; path = SEOpenGLRendering/SEOpenGLWireframeState.cpp; sourceTree = "<group>"; };
+		52898A730E9DBA29000BBA95 /* SEOpenGLZBufferState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLZBufferState.cpp; path = SEOpenGLRendering/SEOpenGLZBufferState.cpp; sourceTree = "<group>"; };
+		52898AA00E9DBA8F000BBA95 /* SEglExtensions.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEglExtensions.h; path = SEglExtensions/SEglExtensions.h; sourceTree = "<group>"; };
+		52898AA10E9DBA8F000BBA95 /* SEglPlugin.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEglPlugin.h; path = SEglExtensions/SEglPlugin.h; sourceTree = "<group>"; };
+		52898AA20E9DBA8F000BBA95 /* SEglUtility.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEglUtility.h; path = SEglExtensions/SEglUtility.h; sourceTree = "<group>"; };
+		529A7D280FD2307F00F6F38F /* SEglExtensions.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEglExtensions.cpp; path = SEglExtensions/SEglExtensions.cpp; sourceTree = "<group>"; };
+		529A7D3C0FD2327C00F6F38F /* SEaglExtensions.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEaglExtensions.cpp; path = SEglExtensions/SEaglExtensions.cpp; sourceTree = "<group>"; };
+		529A81920FD42ACA00F6F38F /* SwingOpenGLRenderer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SwingOpenGLRenderer.h; sourceTree = "<group>"; };
+		529A81960FD42B3400F6F38F /* SEOpenGLProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLProgram.cpp; path = SEOpenGLShaders/SEOpenGLProgram.cpp; sourceTree = "<group>"; };
+		529A81970FD42B3400F6F38F /* SEOpenGLProgram.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEOpenGLProgram.h; path = SEOpenGLShaders/SEOpenGLProgram.h; sourceTree = "<group>"; };
+		529A81980FD42B3400F6F38F /* SEOpenGLProgramInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLProgramInterface.cpp; path = SEOpenGLShaders/SEOpenGLProgramInterface.cpp; sourceTree = "<group>"; };
+		529A81990FD42B3400F6F38F /* SEOpenGLProgramInterface.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEOpenGLProgramInterface.h; path = SEOpenGLShaders/SEOpenGLProgramInterface.h; sourceTree = "<group>"; };
+		529A819A0FD42B3400F6F38F /* SEOpenGLProgramInterface.inl */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = text; name = SEOpenGLProgramInterface.inl; path = SEOpenGLShaders/SEOpenGLProgramInterface.inl; sourceTree = "<group>"; };
+		529A819B0FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenGLProgramInterfaceCatalog.cpp; path = SEOpenGLShaders/SEOpenGLProgramInterfaceCatalog.cpp; sourceTree = "<group>"; };
+		529A819C0FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEOpenGLProgramInterfaceCatalog.h; path = SEOpenGLShaders/SEOpenGLProgramInterfaceCatalog.h; sourceTree = "<group>"; };
+		52A055190F89AF8D00004535 /* SEOpenGLRendererRegister.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = SEOpenGLRendererRegister.cpp; sourceTree = "<group>"; };
+		52A0551A0F89AF8D00004535 /* SEOpenGLRendererRegister.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEOpenGLRendererRegister.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		528989640E9DB4E7000BBA95 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5289896D0E9DB4FD000BBA95 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5289894F0E9DB486000BBA95 = {
+			isa = PBXGroup;
+			children = (
+				52898A450E9DB7FB000BBA95 /* Sources */,
+				52898A460E9DB80F000BBA95 /* Frameworks */,
+				528989670E9DB4E7000BBA95 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		528989670E9DB4E7000BBA95 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				528989660E9DB4E7000BBA95 /* libSEAglRendererd.a */,
+				5289896F0E9DB4FD000BBA95 /* libSEAglRenderer.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		52898A450E9DB7FB000BBA95 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				529A81950FD42AFF00F6F38F /* SEOpenGLShaders */,
+				52898A550E9DB968000BBA95 /* SEOpenGLRendering */,
+				52898A540E9DB945000BBA95 /* SEglExtensions */,
+				52898A560E9DB9D5000BBA95 /* SEOpenGLRendererLIB.h */,
+				52898A570E9DB9D5000BBA95 /* SEOpenGLRendererPCH.cpp */,
+				52898A580E9DB9D5000BBA95 /* SEOpenGLRendererPCH.h */,
+				52A0551A0F89AF8D00004535 /* SEOpenGLRendererRegister.h */,
+				52A055190F89AF8D00004535 /* SEOpenGLRendererRegister.cpp */,
+				529A81920FD42ACA00F6F38F /* SwingOpenGLRenderer.h */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		52898A460E9DB80F000BBA95 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				52898A470E9DB897000BBA95 /* DrawSprocket.framework */,
+				52898A480E9DB8B5000BBA95 /* AGL.framework */,
+				52898A490E9DB8CD000BBA95 /* Carbon.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		52898A540E9DB945000BBA95 /* SEglExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				529A7D3C0FD2327C00F6F38F /* SEaglExtensions.cpp */,
+				529A7D280FD2307F00F6F38F /* SEglExtensions.cpp */,
+				52898AA00E9DBA8F000BBA95 /* SEglExtensions.h */,
+				52898AA10E9DBA8F000BBA95 /* SEglPlugin.h */,
+				52898AA20E9DBA8F000BBA95 /* SEglUtility.h */,
+			);
+			name = SEglExtensions;
+			sourceTree = "<group>";
+		};
+		52898A550E9DB968000BBA95 /* SEOpenGLRendering */ = {
+			isa = PBXGroup;
+			children = (
+				52898A5F0E9DBA29000BBA95 /* SEAglRenderer.cpp */,
+				52898A600E9DBA29000BBA95 /* SEAglRenderer.h */,
+				52898A610E9DBA29000BBA95 /* SEOpenGLAlphaState.cpp */,
+				52898A620E9DBA29000BBA95 /* SEOpenGLBitmapFont.h */,
+				52898A630E9DBA29000BBA95 /* SEOpenGLCullState.cpp */,
+				52898A640E9DBA29000BBA95 /* SEOpenGLDrawBuffer.cpp */,
+				52898A650E9DBA29000BBA95 /* SEOpenGLDrawElements.cpp */,
+				52898A660E9DBA29000BBA95 /* SEOpenGLDrawText.cpp */,
+				52898A670E9DBA29000BBA95 /* SEOpenGLFrameBuffer.cpp */,
+				52898A680E9DBA29000BBA95 /* SEOpenGLFrameBuffer.h */,
+				52898A690E9DBA29000BBA95 /* SEOpenGLPolygonOffsetState.cpp */,
+				52898A6A0E9DBA29000BBA95 /* SEOpenGLRenderer.cpp */,
+				52898A6B0E9DBA29000BBA95 /* SEOpenGLRenderer.h */,
+				52898A6C0E9DBA29000BBA95 /* SEOpenGLResources.h */,
+				52898A6D0E9DBA29000BBA95 /* SEOpenGLResourcesED.cpp */,
+				52898A6E0E9DBA29000BBA95 /* SEOpenGLResourcesLR.cpp */,
+				52898A6F0E9DBA29000BBA95 /* SEOpenGLStencilState.cpp */,
+				52898A700E9DBA29000BBA95 /* SEOpenGLTransformation.cpp */,
+				52898A710E9DBA29000BBA95 /* SEOpenGLVerdanaS16B0I0.cpp */,
+				52898A720E9DBA29000BBA95 /* SEOpenGLWireframeState.cpp */,
+				52898A730E9DBA29000BBA95 /* SEOpenGLZBufferState.cpp */,
+			);
+			name = SEOpenGLRendering;
+			sourceTree = "<group>";
+		};
+		529A81950FD42AFF00F6F38F /* SEOpenGLShaders */ = {
+			isa = PBXGroup;
+			children = (
+				529A81960FD42B3400F6F38F /* SEOpenGLProgram.cpp */,
+				529A81970FD42B3400F6F38F /* SEOpenGLProgram.h */,
+				529A81980FD42B3400F6F38F /* SEOpenGLProgramInterface.cpp */,
+				529A81990FD42B3400F6F38F /* SEOpenGLProgramInterface.h */,
+				529A819A0FD42B3400F6F38F /* SEOpenGLProgramInterface.inl */,
+				529A819B0FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.cpp */,
+				529A819C0FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.h */,
+			);
+			name = SEOpenGLShaders;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		528989620E9DB4E7000BBA95 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52898A590E9DB9D5000BBA95 /* SEOpenGLRendererLIB.h in Headers */,
+				52898A5B0E9DB9D5000BBA95 /* SEOpenGLRendererPCH.h in Headers */,
+				52898A750E9DBA29000BBA95 /* SEAglRenderer.h in Headers */,
+				52898A770E9DBA29000BBA95 /* SEOpenGLBitmapFont.h in Headers */,
+				52898A7D0E9DBA29000BBA95 /* SEOpenGLFrameBuffer.h in Headers */,
+				52898A800E9DBA29000BBA95 /* SEOpenGLRenderer.h in Headers */,
+				52898A810E9DBA29000BBA95 /* SEOpenGLResources.h in Headers */,
+				52898AA50E9DBA8F000BBA95 /* SEglExtensions.h in Headers */,
+				52898AA60E9DBA8F000BBA95 /* SEglPlugin.h in Headers */,
+				52898AA70E9DBA8F000BBA95 /* SEglUtility.h in Headers */,
+				52A0551C0F89AF8D00004535 /* SEOpenGLRendererRegister.h in Headers */,
+				529A81930FD42ACA00F6F38F /* SwingOpenGLRenderer.h in Headers */,
+				529A819E0FD42B3400F6F38F /* SEOpenGLProgram.h in Headers */,
+				529A81A00FD42B3400F6F38F /* SEOpenGLProgramInterface.h in Headers */,
+				529A81A20FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5289896B0E9DB4FD000BBA95 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52898A5C0E9DB9D5000BBA95 /* SEOpenGLRendererLIB.h in Headers */,
+				52898A5E0E9DB9D5000BBA95 /* SEOpenGLRendererPCH.h in Headers */,
+				52898A8A0E9DBA29000BBA95 /* SEAglRenderer.h in Headers */,
+				52898A8C0E9DBA29000BBA95 /* SEOpenGLBitmapFont.h in Headers */,
+				52898A920E9DBA29000BBA95 /* SEOpenGLFrameBuffer.h in Headers */,
+				52898A950E9DBA29000BBA95 /* SEOpenGLRenderer.h in Headers */,
+				52898A960E9DBA29000BBA95 /* SEOpenGLResources.h in Headers */,
+				52898AAA0E9DBA8F000BBA95 /* SEglExtensions.h in Headers */,
+				52898AAB0E9DBA8F000BBA95 /* SEglPlugin.h in Headers */,
+				52898AAC0E9DBA8F000BBA95 /* SEglUtility.h in Headers */,
+				52A0551E0F89AF8D00004535 /* SEOpenGLRendererRegister.h in Headers */,
+				529A81940FD42ACA00F6F38F /* SwingOpenGLRenderer.h in Headers */,
+				529A81A40FD42B3400F6F38F /* SEOpenGLProgram.h in Headers */,
+				529A81A60FD42B3400F6F38F /* SEOpenGLProgramInterface.h in Headers */,
+				529A81A80FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		528989650E9DB4E7000BBA95 /* Debug */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5289896A0E9DB4E8000BBA95 /* Build configuration list for PBXNativeTarget "Debug" */;
+			buildPhases = (
+				528989620E9DB4E7000BBA95 /* Headers */,
+				528989630E9DB4E7000BBA95 /* Sources */,
+				528989640E9DB4E7000BBA95 /* Frameworks */,
+				52A6CA2F0E9E0D6400AA33B7 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Debug;
+			productName = Debug;
+			productReference = 528989660E9DB4E7000BBA95 /* libSEAglRendererd.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		5289896E0E9DB4FD000BBA95 /* Release */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 528989740E9DB508000BBA95 /* Build configuration list for PBXNativeTarget "Release" */;
+			buildPhases = (
+				5289896B0E9DB4FD000BBA95 /* Headers */,
+				5289896C0E9DB4FD000BBA95 /* Sources */,
+				5289896D0E9DB4FD000BBA95 /* Frameworks */,
+				52A6CA3D0E9E0F7C00AA33B7 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Release;
+			productName = Release;
+			productReference = 5289896F0E9DB4FD000BBA95 /* libSEAglRenderer.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		528989510E9DB486000BBA95 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 528989540E9DB486000BBA95 /* Build configuration list for PBXProject "SE_Agl_Renderer" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 0;
+			mainGroup = 5289894F0E9DB486000BBA95;
+			productRefGroup = 528989670E9DB4E7000BBA95 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				528989650E9DB4E7000BBA95 /* Debug */,
+				5289896E0E9DB4FD000BBA95 /* Release */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		52A6CA2F0E9E0D6400AA33B7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkDebug.sh;
+		};
+		52A6CA3D0E9E0F7C00AA33B7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkRelease.sh;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		528989630E9DB4E7000BBA95 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52898A5A0E9DB9D5000BBA95 /* SEOpenGLRendererPCH.cpp in Sources */,
+				52898A740E9DBA29000BBA95 /* SEAglRenderer.cpp in Sources */,
+				52898A760E9DBA29000BBA95 /* SEOpenGLAlphaState.cpp in Sources */,
+				52898A780E9DBA29000BBA95 /* SEOpenGLCullState.cpp in Sources */,
+				52898A790E9DBA29000BBA95 /* SEOpenGLDrawBuffer.cpp in Sources */,
+				52898A7A0E9DBA29000BBA95 /* SEOpenGLDrawElements.cpp in Sources */,
+				52898A7B0E9DBA29000BBA95 /* SEOpenGLDrawText.cpp in Sources */,
+				52898A7C0E9DBA29000BBA95 /* SEOpenGLFrameBuffer.cpp in Sources */,
+				52898A7E0E9DBA29000BBA95 /* SEOpenGLPolygonOffsetState.cpp in Sources */,
+				52898A7F0E9DBA29000BBA95 /* SEOpenGLRenderer.cpp in Sources */,
+				52898A820E9DBA29000BBA95 /* SEOpenGLResourcesED.cpp in Sources */,
+				52898A830E9DBA29000BBA95 /* SEOpenGLResourcesLR.cpp in Sources */,
+				52898A840E9DBA29000BBA95 /* SEOpenGLStencilState.cpp in Sources */,
+				52898A850E9DBA29000BBA95 /* SEOpenGLTransformation.cpp in Sources */,
+				52898A860E9DBA29000BBA95 /* SEOpenGLVerdanaS16B0I0.cpp in Sources */,
+				52898A870E9DBA29000BBA95 /* SEOpenGLWireframeState.cpp in Sources */,
+				52898A880E9DBA29000BBA95 /* SEOpenGLZBufferState.cpp in Sources */,
+				52A0551B0F89AF8D00004535 /* SEOpenGLRendererRegister.cpp in Sources */,
+				529A7D290FD2307F00F6F38F /* SEglExtensions.cpp in Sources */,
+				529A7D3D0FD2327C00F6F38F /* SEaglExtensions.cpp in Sources */,
+				529A819D0FD42B3400F6F38F /* SEOpenGLProgram.cpp in Sources */,
+				529A819F0FD42B3400F6F38F /* SEOpenGLProgramInterface.cpp in Sources */,
+				529A81A10FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5289896C0E9DB4FD000BBA95 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52898A5D0E9DB9D5000BBA95 /* SEOpenGLRendererPCH.cpp in Sources */,
+				52898A890E9DBA29000BBA95 /* SEAglRenderer.cpp in Sources */,
+				52898A8B0E9DBA29000BBA95 /* SEOpenGLAlphaState.cpp in Sources */,
+				52898A8D0E9DBA29000BBA95 /* SEOpenGLCullState.cpp in Sources */,
+				52898A8E0E9DBA29000BBA95 /* SEOpenGLDrawBuffer.cpp in Sources */,
+				52898A8F0E9DBA29000BBA95 /* SEOpenGLDrawElements.cpp in Sources */,
+				52898A900E9DBA29000BBA95 /* SEOpenGLDrawText.cpp in Sources */,
+				52898A910E9DBA29000BBA95 /* SEOpenGLFrameBuffer.cpp in Sources */,
+				52898A930E9DBA29000BBA95 /* SEOpenGLPolygonOffsetState.cpp in Sources */,
+				52898A940E9DBA29000BBA95 /* SEOpenGLRenderer.cpp in Sources */,
+				52898A970E9DBA29000BBA95 /* SEOpenGLResourcesED.cpp in Sources */,
+				52898A980E9DBA29000BBA95 /* SEOpenGLResourcesLR.cpp in Sources */,
+				52898A990E9DBA29000BBA95 /* SEOpenGLStencilState.cpp in Sources */,
+				52898A9A0E9DBA29000BBA95 /* SEOpenGLTransformation.cpp in Sources */,
+				52898A9B0E9DBA29000BBA95 /* SEOpenGLVerdanaS16B0I0.cpp in Sources */,
+				52898A9C0E9DBA29000BBA95 /* SEOpenGLWireframeState.cpp in Sources */,
+				52898A9D0E9DBA29000BBA95 /* SEOpenGLZBufferState.cpp in Sources */,
+				52A0551D0F89AF8D00004535 /* SEOpenGLRendererRegister.cpp in Sources */,
+				529A7D2A0FD2307F00F6F38F /* SEglExtensions.cpp in Sources */,
+				529A7D3E0FD2327C00F6F38F /* SEaglExtensions.cpp in Sources */,
+				529A81A30FD42B3400F6F38F /* SEOpenGLProgram.cpp in Sources */,
+				529A81A50FD42B3400F6F38F /* SEOpenGLProgramInterface.cpp in Sources */,
+				529A81A70FD42B3400F6F38F /* SEOpenGLProgramInterfaceCatalog.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		528989520E9DB486000BBA95 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			name = Default;
+		};
+		528989680E9DB4E8000BBA95 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEOpenGLRendererPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INSTALL_PATH = /usr/local/lib;
+				LD_MAP_FILE_PATH = "$(TARGET_TEMP_DIR)/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt";
+				LIBRARY_STYLE = STATIC;
+				PREBINDING = NO;
+				PRODUCT_NAME = SEAglRendererd;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Debug";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		528989700E9DB4FD000BBA95 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEOpenGLRendererPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_STYLE = STATIC;
+				PREBINDING = NO;
+				PRODUCT_NAME = SEAglRenderer;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Release";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		528989540E9DB486000BBA95 /* Build configuration list for PBXProject "SE_Agl_Renderer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528989520E9DB486000BBA95 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		5289896A0E9DB4E8000BBA95 /* Build configuration list for PBXNativeTarget "Debug" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528989680E9DB4E8000BBA95 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		528989740E9DB508000BBA95 /* Build configuration list for PBXNativeTarget "Release" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528989700E9DB4FD000BBA95 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 528989510E9DB486000BBA95 /* Project object */;
+}

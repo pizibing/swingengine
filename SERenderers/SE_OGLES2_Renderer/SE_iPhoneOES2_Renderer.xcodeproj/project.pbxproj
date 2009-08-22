@@ -1,0 +1,517 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		52753A9C0FDA22FF008A29C0 /* SEOGLES1AlphaState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A870FDA22FF008A29C0 /* SEOGLES1AlphaState.cpp */; };
+		52753A9E0FDA22FF008A29C0 /* SEOGLES1CullState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A890FDA22FF008A29C0 /* SEOGLES1CullState.cpp */; };
+		52753A9F0FDA22FF008A29C0 /* SEOGLES1DrawBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A8A0FDA22FF008A29C0 /* SEOGLES1DrawBuffer.cpp */; };
+		52753AA00FDA22FF008A29C0 /* SEOGLES1DrawElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A8B0FDA22FF008A29C0 /* SEOGLES1DrawElements.cpp */; };
+		52753AA10FDA22FF008A29C0 /* SEOGLES1DrawText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A8C0FDA22FF008A29C0 /* SEOGLES1DrawText.cpp */; };
+		52753AA20FDA22FF008A29C0 /* SEOGLES1FrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A8D0FDA22FF008A29C0 /* SEOGLES1FrameBuffer.cpp */; };
+		52753AA30FDA22FF008A29C0 /* SEOGLES1FrameBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52753A8E0FDA22FF008A29C0 /* SEOGLES1FrameBuffer.h */; };
+		52753AA40FDA22FF008A29C0 /* SEOGLES1PolygonOffsetState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A8F0FDA22FF008A29C0 /* SEOGLES1PolygonOffsetState.cpp */; };
+		52753AA50FDA22FF008A29C0 /* SEOGLES1Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A900FDA22FF008A29C0 /* SEOGLES1Renderer.cpp */; };
+		52753AA60FDA22FF008A29C0 /* SEOGLES1Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52753A910FDA22FF008A29C0 /* SEOGLES1Renderer.h */; };
+		52753AA70FDA22FF008A29C0 /* SEOGLES1Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = 52753A920FDA22FF008A29C0 /* SEOGLES1Resources.h */; };
+		52753AA80FDA22FF008A29C0 /* SEOGLES1ResourcesED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A930FDA22FF008A29C0 /* SEOGLES1ResourcesED.cpp */; };
+		52753AA90FDA22FF008A29C0 /* SEOGLES1ResourcesLR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A940FDA22FF008A29C0 /* SEOGLES1ResourcesLR.cpp */; };
+		52753AAA0FDA22FF008A29C0 /* SEOGLES1StencilState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A950FDA22FF008A29C0 /* SEOGLES1StencilState.cpp */; };
+		52753AAB0FDA22FF008A29C0 /* SEOGLES1Transformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A960FDA22FF008A29C0 /* SEOGLES1Transformation.cpp */; };
+		52753AAD0FDA22FF008A29C0 /* SEOGLES1WireframeState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A980FDA22FF008A29C0 /* SEOGLES1WireframeState.cpp */; };
+		52753AAE0FDA22FF008A29C0 /* SEOGLES1ZBufferState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A990FDA22FF008A29C0 /* SEOGLES1ZBufferState.cpp */; };
+		52753AB10FDA22FF008A29C0 /* SEOGLES1AlphaState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A870FDA22FF008A29C0 /* SEOGLES1AlphaState.cpp */; };
+		52753AB30FDA22FF008A29C0 /* SEOGLES1CullState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A890FDA22FF008A29C0 /* SEOGLES1CullState.cpp */; };
+		52753AB40FDA22FF008A29C0 /* SEOGLES1DrawBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A8A0FDA22FF008A29C0 /* SEOGLES1DrawBuffer.cpp */; };
+		52753AB50FDA22FF008A29C0 /* SEOGLES1DrawElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A8B0FDA22FF008A29C0 /* SEOGLES1DrawElements.cpp */; };
+		52753AB60FDA22FF008A29C0 /* SEOGLES1DrawText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A8C0FDA22FF008A29C0 /* SEOGLES1DrawText.cpp */; };
+		52753AB70FDA22FF008A29C0 /* SEOGLES1FrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A8D0FDA22FF008A29C0 /* SEOGLES1FrameBuffer.cpp */; };
+		52753AB80FDA22FF008A29C0 /* SEOGLES1FrameBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52753A8E0FDA22FF008A29C0 /* SEOGLES1FrameBuffer.h */; };
+		52753AB90FDA22FF008A29C0 /* SEOGLES1PolygonOffsetState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A8F0FDA22FF008A29C0 /* SEOGLES1PolygonOffsetState.cpp */; };
+		52753ABA0FDA22FF008A29C0 /* SEOGLES1Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A900FDA22FF008A29C0 /* SEOGLES1Renderer.cpp */; };
+		52753ABB0FDA22FF008A29C0 /* SEOGLES1Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52753A910FDA22FF008A29C0 /* SEOGLES1Renderer.h */; };
+		52753ABC0FDA22FF008A29C0 /* SEOGLES1Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = 52753A920FDA22FF008A29C0 /* SEOGLES1Resources.h */; };
+		52753ABD0FDA22FF008A29C0 /* SEOGLES1ResourcesED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A930FDA22FF008A29C0 /* SEOGLES1ResourcesED.cpp */; };
+		52753ABE0FDA22FF008A29C0 /* SEOGLES1ResourcesLR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A940FDA22FF008A29C0 /* SEOGLES1ResourcesLR.cpp */; };
+		52753ABF0FDA22FF008A29C0 /* SEOGLES1StencilState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A950FDA22FF008A29C0 /* SEOGLES1StencilState.cpp */; };
+		52753AC00FDA22FF008A29C0 /* SEOGLES1Transformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A960FDA22FF008A29C0 /* SEOGLES1Transformation.cpp */; };
+		52753AC20FDA22FF008A29C0 /* SEOGLES1WireframeState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A980FDA22FF008A29C0 /* SEOGLES1WireframeState.cpp */; };
+		52753AC30FDA22FF008A29C0 /* SEOGLES1ZBufferState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753A990FDA22FF008A29C0 /* SEOGLES1ZBufferState.cpp */; };
+		52753ACA0FDA231F008A29C0 /* SEOGLES1RendererLIB.h in Headers */ = {isa = PBXBuildFile; fileRef = 52753AC40FDA231F008A29C0 /* SEOGLES1RendererLIB.h */; };
+		52753ACB0FDA231F008A29C0 /* SEOGLES1RendererPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753AC50FDA231F008A29C0 /* SEOGLES1RendererPCH.cpp */; };
+		52753ACC0FDA231F008A29C0 /* SEOGLES1RendererPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 52753AC60FDA231F008A29C0 /* SEOGLES1RendererPCH.h */; };
+		52753ACD0FDA231F008A29C0 /* SEOGLES1RendererRegister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753AC70FDA231F008A29C0 /* SEOGLES1RendererRegister.cpp */; };
+		52753ACE0FDA231F008A29C0 /* SEOGLES1RendererRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = 52753AC80FDA231F008A29C0 /* SEOGLES1RendererRegister.h */; };
+		52753ACF0FDA231F008A29C0 /* SwingOGLES1Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52753AC90FDA231F008A29C0 /* SwingOGLES1Renderer.h */; };
+		52753AD00FDA231F008A29C0 /* SEOGLES1RendererLIB.h in Headers */ = {isa = PBXBuildFile; fileRef = 52753AC40FDA231F008A29C0 /* SEOGLES1RendererLIB.h */; };
+		52753AD10FDA231F008A29C0 /* SEOGLES1RendererPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753AC50FDA231F008A29C0 /* SEOGLES1RendererPCH.cpp */; };
+		52753AD20FDA231F008A29C0 /* SEOGLES1RendererPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 52753AC60FDA231F008A29C0 /* SEOGLES1RendererPCH.h */; };
+		52753AD30FDA231F008A29C0 /* SEOGLES1RendererRegister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52753AC70FDA231F008A29C0 /* SEOGLES1RendererRegister.cpp */; };
+		52753AD40FDA231F008A29C0 /* SEOGLES1RendererRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = 52753AC80FDA231F008A29C0 /* SEOGLES1RendererRegister.h */; };
+		52753AD50FDA231F008A29C0 /* SwingOGLES1Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52753AC90FDA231F008A29C0 /* SwingOGLES1Renderer.h */; };
+		52753AE20FDA29A1008A29C0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52753ADE0FDA29A1008A29C0 /* Foundation.framework */; };
+		52753AE30FDA29A1008A29C0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52753ADF0FDA29A1008A29C0 /* OpenGLES.framework */; };
+		52753AE40FDA29A1008A29C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52753AE00FDA29A1008A29C0 /* QuartzCore.framework */; };
+		52753AE50FDA29A1008A29C0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52753AE10FDA29A1008A29C0 /* UIKit.framework */; };
+		52753AE60FDA29A1008A29C0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52753ADE0FDA29A1008A29C0 /* Foundation.framework */; };
+		52753AE70FDA29A1008A29C0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52753ADF0FDA29A1008A29C0 /* OpenGLES.framework */; };
+		52753AE80FDA29A1008A29C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52753AE00FDA29A1008A29C0 /* QuartzCore.framework */; };
+		52753AE90FDA29A1008A29C0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52753AE10FDA29A1008A29C0 /* UIKit.framework */; };
+		527905660FE5166A0009059A /* SEOGLES1MaterialState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527905650FE5166A0009059A /* SEOGLES1MaterialState.cpp */; };
+		527905670FE5166A0009059A /* SEOGLES1MaterialState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527905650FE5166A0009059A /* SEOGLES1MaterialState.cpp */; };
+		527EA2670FE3D49D002BE0DA /* SEOGLES1LightingState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527EA2660FE3D49D002BE0DA /* SEOGLES1LightingState.cpp */; };
+		527EA2680FE3D49D002BE0DA /* SEOGLES1LightingState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527EA2660FE3D49D002BE0DA /* SEOGLES1LightingState.cpp */; };
+		528F8E910FDBF469005DEB1D /* SEEAGLView.h in Headers */ = {isa = PBXBuildFile; fileRef = 528F8E8F0FDBF469005DEB1D /* SEEAGLView.h */; };
+		528F8E920FDBF469005DEB1D /* SEEAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F8E900FDBF469005DEB1D /* SEEAGLView.m */; };
+		528F8E930FDBF469005DEB1D /* SEEAGLView.h in Headers */ = {isa = PBXBuildFile; fileRef = 528F8E8F0FDBF469005DEB1D /* SEEAGLView.h */; };
+		528F8E940FDBF469005DEB1D /* SEEAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F8E900FDBF469005DEB1D /* SEEAGLView.m */; };
+		528F8EAD0FDC01C3005DEB1D /* SEiPhoneOES1Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 528F8EAB0FDC01C3005DEB1D /* SEiPhoneOES1Renderer.mm */; };
+		528F8EAE0FDC01C3005DEB1D /* SEiPhoneOES1Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 528F8EAC0FDC01C3005DEB1D /* SEiPhoneOES1Renderer.h */; };
+		528F8EAF0FDC01C3005DEB1D /* SEiPhoneOES1Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 528F8EAB0FDC01C3005DEB1D /* SEiPhoneOES1Renderer.mm */; };
+		528F8EB00FDC01C3005DEB1D /* SEiPhoneOES1Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 528F8EAC0FDC01C3005DEB1D /* SEiPhoneOES1Renderer.h */; };
+		52941BD50FDF5CB200121272 /* SEOGLES1FixedEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52941BD30FDF5CB200121272 /* SEOGLES1FixedEffect.cpp */; };
+		52941BD60FDF5CB200121272 /* SEOGLES1FixedEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = 52941BD40FDF5CB200121272 /* SEOGLES1FixedEffect.h */; };
+		52941BD70FDF5CB200121272 /* SEOGLES1FixedEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52941BD30FDF5CB200121272 /* SEOGLES1FixedEffect.cpp */; };
+		52941BD80FDF5CB200121272 /* SEOGLES1FixedEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = 52941BD40FDF5CB200121272 /* SEOGLES1FixedEffect.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		52753A870FDA22FF008A29C0 /* SEOGLES1AlphaState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1AlphaState.cpp; path = SEOGLES1Rendering/SEOGLES1AlphaState.cpp; sourceTree = "<group>"; };
+		52753A890FDA22FF008A29C0 /* SEOGLES1CullState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1CullState.cpp; path = SEOGLES1Rendering/SEOGLES1CullState.cpp; sourceTree = "<group>"; };
+		52753A8A0FDA22FF008A29C0 /* SEOGLES1DrawBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1DrawBuffer.cpp; path = SEOGLES1Rendering/SEOGLES1DrawBuffer.cpp; sourceTree = "<group>"; };
+		52753A8B0FDA22FF008A29C0 /* SEOGLES1DrawElements.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1DrawElements.cpp; path = SEOGLES1Rendering/SEOGLES1DrawElements.cpp; sourceTree = "<group>"; };
+		52753A8C0FDA22FF008A29C0 /* SEOGLES1DrawText.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1DrawText.cpp; path = SEOGLES1Rendering/SEOGLES1DrawText.cpp; sourceTree = "<group>"; };
+		52753A8D0FDA22FF008A29C0 /* SEOGLES1FrameBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1FrameBuffer.cpp; path = SEOGLES1Rendering/SEOGLES1FrameBuffer.cpp; sourceTree = "<group>"; };
+		52753A8E0FDA22FF008A29C0 /* SEOGLES1FrameBuffer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEOGLES1FrameBuffer.h; path = SEOGLES1Rendering/SEOGLES1FrameBuffer.h; sourceTree = "<group>"; };
+		52753A8F0FDA22FF008A29C0 /* SEOGLES1PolygonOffsetState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1PolygonOffsetState.cpp; path = SEOGLES1Rendering/SEOGLES1PolygonOffsetState.cpp; sourceTree = "<group>"; };
+		52753A900FDA22FF008A29C0 /* SEOGLES1Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1Renderer.cpp; path = SEOGLES1Rendering/SEOGLES1Renderer.cpp; sourceTree = "<group>"; };
+		52753A910FDA22FF008A29C0 /* SEOGLES1Renderer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEOGLES1Renderer.h; path = SEOGLES1Rendering/SEOGLES1Renderer.h; sourceTree = "<group>"; };
+		52753A920FDA22FF008A29C0 /* SEOGLES1Resources.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEOGLES1Resources.h; path = SEOGLES1Rendering/SEOGLES1Resources.h; sourceTree = "<group>"; };
+		52753A930FDA22FF008A29C0 /* SEOGLES1ResourcesED.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1ResourcesED.cpp; path = SEOGLES1Rendering/SEOGLES1ResourcesED.cpp; sourceTree = "<group>"; };
+		52753A940FDA22FF008A29C0 /* SEOGLES1ResourcesLR.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1ResourcesLR.cpp; path = SEOGLES1Rendering/SEOGLES1ResourcesLR.cpp; sourceTree = "<group>"; };
+		52753A950FDA22FF008A29C0 /* SEOGLES1StencilState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1StencilState.cpp; path = SEOGLES1Rendering/SEOGLES1StencilState.cpp; sourceTree = "<group>"; };
+		52753A960FDA22FF008A29C0 /* SEOGLES1Transformation.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1Transformation.cpp; path = SEOGLES1Rendering/SEOGLES1Transformation.cpp; sourceTree = "<group>"; };
+		52753A980FDA22FF008A29C0 /* SEOGLES1WireframeState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1WireframeState.cpp; path = SEOGLES1Rendering/SEOGLES1WireframeState.cpp; sourceTree = "<group>"; };
+		52753A990FDA22FF008A29C0 /* SEOGLES1ZBufferState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1ZBufferState.cpp; path = SEOGLES1Rendering/SEOGLES1ZBufferState.cpp; sourceTree = "<group>"; };
+		52753AC40FDA231F008A29C0 /* SEOGLES1RendererLIB.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEOGLES1RendererLIB.h; sourceTree = "<group>"; };
+		52753AC50FDA231F008A29C0 /* SEOGLES1RendererPCH.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = SEOGLES1RendererPCH.cpp; sourceTree = "<group>"; };
+		52753AC60FDA231F008A29C0 /* SEOGLES1RendererPCH.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEOGLES1RendererPCH.h; sourceTree = "<group>"; };
+		52753AC70FDA231F008A29C0 /* SEOGLES1RendererRegister.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = SEOGLES1RendererRegister.cpp; sourceTree = "<group>"; };
+		52753AC80FDA231F008A29C0 /* SEOGLES1RendererRegister.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEOGLES1RendererRegister.h; sourceTree = "<group>"; };
+		52753AC90FDA231F008A29C0 /* SwingOGLES1Renderer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SwingOGLES1Renderer.h; sourceTree = "<group>"; };
+		52753ADE0FDA29A1008A29C0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		52753ADF0FDA29A1008A29C0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		52753AE00FDA29A1008A29C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		52753AE10FDA29A1008A29C0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		527905650FE5166A0009059A /* SEOGLES1MaterialState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1MaterialState.cpp; path = SEOGLES1Rendering/SEOGLES1MaterialState.cpp; sourceTree = "<group>"; };
+		527EA2660FE3D49D002BE0DA /* SEOGLES1LightingState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1LightingState.cpp; path = SEOGLES1Rendering/SEOGLES1LightingState.cpp; sourceTree = "<group>"; };
+		528989660E9DB4E7000BBA95 /* libSEiPhoneOES1Rendererd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOES1Rendererd.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5289896F0E9DB4FD000BBA95 /* libSEiPhoneOES1Renderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOES1Renderer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		528F8E8F0FDBF469005DEB1D /* SEEAGLView.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEEAGLView.h; path = SEOGLES1Rendering/SEEAGLView.h; sourceTree = "<group>"; };
+		528F8E900FDBF469005DEB1D /* SEEAGLView.m */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.objc; name = SEEAGLView.m; path = SEOGLES1Rendering/SEEAGLView.m; sourceTree = "<group>"; };
+		528F8EAB0FDC01C3005DEB1D /* SEiPhoneOES1Renderer.mm */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.objcpp; name = SEiPhoneOES1Renderer.mm; path = SEOGLES1Rendering/SEiPhoneOES1Renderer.mm; sourceTree = "<group>"; };
+		528F8EAC0FDC01C3005DEB1D /* SEiPhoneOES1Renderer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEiPhoneOES1Renderer.h; path = SEOGLES1Rendering/SEiPhoneOES1Renderer.h; sourceTree = "<group>"; };
+		52941BD30FDF5CB200121272 /* SEOGLES1FixedEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES1FixedEffect.cpp; path = SEOGLES1FixedEffects/SEOGLES1FixedEffect.cpp; sourceTree = "<group>"; };
+		52941BD40FDF5CB200121272 /* SEOGLES1FixedEffect.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEOGLES1FixedEffect.h; path = SEOGLES1FixedEffects/SEOGLES1FixedEffect.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		528989640E9DB4E7000BBA95 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52753AE20FDA29A1008A29C0 /* Foundation.framework in Frameworks */,
+				52753AE30FDA29A1008A29C0 /* OpenGLES.framework in Frameworks */,
+				52753AE40FDA29A1008A29C0 /* QuartzCore.framework in Frameworks */,
+				52753AE50FDA29A1008A29C0 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5289896D0E9DB4FD000BBA95 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52753AE60FDA29A1008A29C0 /* Foundation.framework in Frameworks */,
+				52753AE70FDA29A1008A29C0 /* OpenGLES.framework in Frameworks */,
+				52753AE80FDA29A1008A29C0 /* QuartzCore.framework in Frameworks */,
+				52753AE90FDA29A1008A29C0 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5289894F0E9DB486000BBA95 = {
+			isa = PBXGroup;
+			children = (
+				52898A450E9DB7FB000BBA95 /* Sources */,
+				52898A460E9DB80F000BBA95 /* Frameworks */,
+				528989670E9DB4E7000BBA95 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		528989670E9DB4E7000BBA95 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				528989660E9DB4E7000BBA95 /* libSEiPhoneOES1Rendererd.a */,
+				5289896F0E9DB4FD000BBA95 /* libSEiPhoneOES1Renderer.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		52898A450E9DB7FB000BBA95 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				52898A550E9DB968000BBA95 /* SEOGLES1Rendering */,
+				52941BD20FDF5BA900121272 /* SEOGLES1FixedEffects */,
+				52753AC40FDA231F008A29C0 /* SEOGLES1RendererLIB.h */,
+				52753AC50FDA231F008A29C0 /* SEOGLES1RendererPCH.cpp */,
+				52753AC60FDA231F008A29C0 /* SEOGLES1RendererPCH.h */,
+				52753AC70FDA231F008A29C0 /* SEOGLES1RendererRegister.cpp */,
+				52753AC80FDA231F008A29C0 /* SEOGLES1RendererRegister.h */,
+				52753AC90FDA231F008A29C0 /* SwingOGLES1Renderer.h */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		52898A460E9DB80F000BBA95 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				52753ADE0FDA29A1008A29C0 /* Foundation.framework */,
+				52753ADF0FDA29A1008A29C0 /* OpenGLES.framework */,
+				52753AE00FDA29A1008A29C0 /* QuartzCore.framework */,
+				52753AE10FDA29A1008A29C0 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		52898A550E9DB968000BBA95 /* SEOGLES1Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				528F8EAB0FDC01C3005DEB1D /* SEiPhoneOES1Renderer.mm */,
+				528F8EAC0FDC01C3005DEB1D /* SEiPhoneOES1Renderer.h */,
+				528F8E8F0FDBF469005DEB1D /* SEEAGLView.h */,
+				528F8E900FDBF469005DEB1D /* SEEAGLView.m */,
+				527905650FE5166A0009059A /* SEOGLES1MaterialState.cpp */,
+				527EA2660FE3D49D002BE0DA /* SEOGLES1LightingState.cpp */,
+				52753A870FDA22FF008A29C0 /* SEOGLES1AlphaState.cpp */,
+				52753A890FDA22FF008A29C0 /* SEOGLES1CullState.cpp */,
+				52753A8A0FDA22FF008A29C0 /* SEOGLES1DrawBuffer.cpp */,
+				52753A8B0FDA22FF008A29C0 /* SEOGLES1DrawElements.cpp */,
+				52753A8C0FDA22FF008A29C0 /* SEOGLES1DrawText.cpp */,
+				52753A8D0FDA22FF008A29C0 /* SEOGLES1FrameBuffer.cpp */,
+				52753A8E0FDA22FF008A29C0 /* SEOGLES1FrameBuffer.h */,
+				52753A8F0FDA22FF008A29C0 /* SEOGLES1PolygonOffsetState.cpp */,
+				52753A900FDA22FF008A29C0 /* SEOGLES1Renderer.cpp */,
+				52753A910FDA22FF008A29C0 /* SEOGLES1Renderer.h */,
+				52753A920FDA22FF008A29C0 /* SEOGLES1Resources.h */,
+				52753A930FDA22FF008A29C0 /* SEOGLES1ResourcesED.cpp */,
+				52753A940FDA22FF008A29C0 /* SEOGLES1ResourcesLR.cpp */,
+				52753A950FDA22FF008A29C0 /* SEOGLES1StencilState.cpp */,
+				52753A960FDA22FF008A29C0 /* SEOGLES1Transformation.cpp */,
+				52753A980FDA22FF008A29C0 /* SEOGLES1WireframeState.cpp */,
+				52753A990FDA22FF008A29C0 /* SEOGLES1ZBufferState.cpp */,
+			);
+			name = SEOGLES1Rendering;
+			sourceTree = "<group>";
+		};
+		52941BD20FDF5BA900121272 /* SEOGLES1FixedEffects */ = {
+			isa = PBXGroup;
+			children = (
+				52941BD30FDF5CB200121272 /* SEOGLES1FixedEffect.cpp */,
+				52941BD40FDF5CB200121272 /* SEOGLES1FixedEffect.h */,
+			);
+			name = SEOGLES1FixedEffects;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		528989620E9DB4E7000BBA95 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52753AA30FDA22FF008A29C0 /* SEOGLES1FrameBuffer.h in Headers */,
+				52753AA60FDA22FF008A29C0 /* SEOGLES1Renderer.h in Headers */,
+				52753AA70FDA22FF008A29C0 /* SEOGLES1Resources.h in Headers */,
+				52753ACA0FDA231F008A29C0 /* SEOGLES1RendererLIB.h in Headers */,
+				52753ACC0FDA231F008A29C0 /* SEOGLES1RendererPCH.h in Headers */,
+				52753ACE0FDA231F008A29C0 /* SEOGLES1RendererRegister.h in Headers */,
+				52753ACF0FDA231F008A29C0 /* SwingOGLES1Renderer.h in Headers */,
+				528F8E910FDBF469005DEB1D /* SEEAGLView.h in Headers */,
+				528F8EAE0FDC01C3005DEB1D /* SEiPhoneOES1Renderer.h in Headers */,
+				52941BD60FDF5CB200121272 /* SEOGLES1FixedEffect.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5289896B0E9DB4FD000BBA95 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52753AB80FDA22FF008A29C0 /* SEOGLES1FrameBuffer.h in Headers */,
+				52753ABB0FDA22FF008A29C0 /* SEOGLES1Renderer.h in Headers */,
+				52753ABC0FDA22FF008A29C0 /* SEOGLES1Resources.h in Headers */,
+				52753AD00FDA231F008A29C0 /* SEOGLES1RendererLIB.h in Headers */,
+				52753AD20FDA231F008A29C0 /* SEOGLES1RendererPCH.h in Headers */,
+				52753AD40FDA231F008A29C0 /* SEOGLES1RendererRegister.h in Headers */,
+				52753AD50FDA231F008A29C0 /* SwingOGLES1Renderer.h in Headers */,
+				528F8E930FDBF469005DEB1D /* SEEAGLView.h in Headers */,
+				528F8EB00FDC01C3005DEB1D /* SEiPhoneOES1Renderer.h in Headers */,
+				52941BD80FDF5CB200121272 /* SEOGLES1FixedEffect.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		528989650E9DB4E7000BBA95 /* Debug */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5289896A0E9DB4E8000BBA95 /* Build configuration list for PBXNativeTarget "Debug" */;
+			buildPhases = (
+				528989620E9DB4E7000BBA95 /* Headers */,
+				528989630E9DB4E7000BBA95 /* Sources */,
+				528989640E9DB4E7000BBA95 /* Frameworks */,
+				52A6CA2F0E9E0D6400AA33B7 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Debug;
+			productName = Debug;
+			productReference = 528989660E9DB4E7000BBA95 /* libSEiPhoneOES1Rendererd.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		5289896E0E9DB4FD000BBA95 /* Release */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 528989740E9DB508000BBA95 /* Build configuration list for PBXNativeTarget "Release" */;
+			buildPhases = (
+				5289896B0E9DB4FD000BBA95 /* Headers */,
+				5289896C0E9DB4FD000BBA95 /* Sources */,
+				5289896D0E9DB4FD000BBA95 /* Frameworks */,
+				52A6CA3D0E9E0F7C00AA33B7 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Release;
+			productName = Release;
+			productReference = 5289896F0E9DB4FD000BBA95 /* libSEiPhoneOES1Renderer.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		528989510E9DB486000BBA95 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 528989540E9DB486000BBA95 /* Build configuration list for PBXProject "SE_iPhoneOES1_Renderer" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 0;
+			mainGroup = 5289894F0E9DB486000BBA95;
+			productRefGroup = 528989670E9DB4E7000BBA95 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				528989650E9DB4E7000BBA95 /* Debug */,
+				5289896E0E9DB4FD000BBA95 /* Release */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		52A6CA2F0E9E0D6400AA33B7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkDebug.sh;
+		};
+		52A6CA3D0E9E0F7C00AA33B7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkRelease.sh;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		528989630E9DB4E7000BBA95 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52753A9C0FDA22FF008A29C0 /* SEOGLES1AlphaState.cpp in Sources */,
+				52753A9E0FDA22FF008A29C0 /* SEOGLES1CullState.cpp in Sources */,
+				52753A9F0FDA22FF008A29C0 /* SEOGLES1DrawBuffer.cpp in Sources */,
+				52753AA00FDA22FF008A29C0 /* SEOGLES1DrawElements.cpp in Sources */,
+				52753AA10FDA22FF008A29C0 /* SEOGLES1DrawText.cpp in Sources */,
+				52753AA20FDA22FF008A29C0 /* SEOGLES1FrameBuffer.cpp in Sources */,
+				52753AA40FDA22FF008A29C0 /* SEOGLES1PolygonOffsetState.cpp in Sources */,
+				52753AA50FDA22FF008A29C0 /* SEOGLES1Renderer.cpp in Sources */,
+				52753AA80FDA22FF008A29C0 /* SEOGLES1ResourcesED.cpp in Sources */,
+				52753AA90FDA22FF008A29C0 /* SEOGLES1ResourcesLR.cpp in Sources */,
+				52753AAA0FDA22FF008A29C0 /* SEOGLES1StencilState.cpp in Sources */,
+				52753AAB0FDA22FF008A29C0 /* SEOGLES1Transformation.cpp in Sources */,
+				52753AAD0FDA22FF008A29C0 /* SEOGLES1WireframeState.cpp in Sources */,
+				52753AAE0FDA22FF008A29C0 /* SEOGLES1ZBufferState.cpp in Sources */,
+				52753ACB0FDA231F008A29C0 /* SEOGLES1RendererPCH.cpp in Sources */,
+				52753ACD0FDA231F008A29C0 /* SEOGLES1RendererRegister.cpp in Sources */,
+				528F8E920FDBF469005DEB1D /* SEEAGLView.m in Sources */,
+				528F8EAD0FDC01C3005DEB1D /* SEiPhoneOES1Renderer.mm in Sources */,
+				52941BD50FDF5CB200121272 /* SEOGLES1FixedEffect.cpp in Sources */,
+				527EA2670FE3D49D002BE0DA /* SEOGLES1LightingState.cpp in Sources */,
+				527905660FE5166A0009059A /* SEOGLES1MaterialState.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5289896C0E9DB4FD000BBA95 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52753AB10FDA22FF008A29C0 /* SEOGLES1AlphaState.cpp in Sources */,
+				52753AB30FDA22FF008A29C0 /* SEOGLES1CullState.cpp in Sources */,
+				52753AB40FDA22FF008A29C0 /* SEOGLES1DrawBuffer.cpp in Sources */,
+				52753AB50FDA22FF008A29C0 /* SEOGLES1DrawElements.cpp in Sources */,
+				52753AB60FDA22FF008A29C0 /* SEOGLES1DrawText.cpp in Sources */,
+				52753AB70FDA22FF008A29C0 /* SEOGLES1FrameBuffer.cpp in Sources */,
+				52753AB90FDA22FF008A29C0 /* SEOGLES1PolygonOffsetState.cpp in Sources */,
+				52753ABA0FDA22FF008A29C0 /* SEOGLES1Renderer.cpp in Sources */,
+				52753ABD0FDA22FF008A29C0 /* SEOGLES1ResourcesED.cpp in Sources */,
+				52753ABE0FDA22FF008A29C0 /* SEOGLES1ResourcesLR.cpp in Sources */,
+				52753ABF0FDA22FF008A29C0 /* SEOGLES1StencilState.cpp in Sources */,
+				52753AC00FDA22FF008A29C0 /* SEOGLES1Transformation.cpp in Sources */,
+				52753AC20FDA22FF008A29C0 /* SEOGLES1WireframeState.cpp in Sources */,
+				52753AC30FDA22FF008A29C0 /* SEOGLES1ZBufferState.cpp in Sources */,
+				52753AD10FDA231F008A29C0 /* SEOGLES1RendererPCH.cpp in Sources */,
+				52753AD30FDA231F008A29C0 /* SEOGLES1RendererRegister.cpp in Sources */,
+				528F8E940FDBF469005DEB1D /* SEEAGLView.m in Sources */,
+				528F8EAF0FDC01C3005DEB1D /* SEiPhoneOES1Renderer.mm in Sources */,
+				52941BD70FDF5CB200121272 /* SEOGLES1FixedEffect.cpp in Sources */,
+				527EA2680FE3D49D002BE0DA /* SEOGLES1LightingState.cpp in Sources */,
+				527905670FE5166A0009059A /* SEOGLES1MaterialState.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		528989520E9DB486000BBA95 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				COPY_PHASE_STRIP = YES;
+				SDKROOT = iphonesimulator2.0;
+			};
+			name = Default;
+		};
+		528989680E9DB4E8000BBA95 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEOGLES1RendererPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INSTALL_PATH = /usr/local/lib;
+				LD_MAP_FILE_PATH = "$(TARGET_TEMP_DIR)/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt";
+				LIBRARY_STYLE = STATIC;
+				PREBINDING = NO;
+				PRODUCT_NAME = SEiPhoneOES1Rendererd;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Debug";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		528989700E9DB4FD000BBA95 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEOGLES1RendererPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_STYLE = STATIC;
+				PREBINDING = NO;
+				PRODUCT_NAME = SEiPhoneOES1Renderer;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Release";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		528989540E9DB486000BBA95 /* Build configuration list for PBXProject "SE_iPhoneOES1_Renderer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528989520E9DB486000BBA95 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		5289896A0E9DB4E8000BBA95 /* Build configuration list for PBXNativeTarget "Debug" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528989680E9DB4E8000BBA95 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		528989740E9DB508000BBA95 /* Build configuration list for PBXNativeTarget "Release" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528989700E9DB4FD000BBA95 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 528989510E9DB486000BBA95 /* Project object */;
+}

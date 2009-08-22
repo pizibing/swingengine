@@ -1,0 +1,464 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		52AFF9B70FF8A9A50008BD07 /* SEAudioBindable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9AA0FF8A9A50008BD07 /* SEAudioBindable.cpp */; };
+		52AFF9B80FF8A9A50008BD07 /* SEAudioBindable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9AB0FF8A9A50008BD07 /* SEAudioBindable.h */; };
+		52AFF9B90FF8A9A50008BD07 /* SEAudioRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9AC0FF8A9A50008BD07 /* SEAudioRenderer.cpp */; };
+		52AFF9BA0FF8A9A50008BD07 /* SEAudioRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9AD0FF8A9A50008BD07 /* SEAudioRenderer.h */; };
+		52AFF9BB0FF8A9A50008BD07 /* SEListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9AF0FF8A9A50008BD07 /* SEListener.cpp */; };
+		52AFF9BC0FF8A9A50008BD07 /* SEListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9B00FF8A9A50008BD07 /* SEListener.h */; };
+		52AFF9BD0FF8A9A50008BD07 /* SEWave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9B20FF8A9A50008BD07 /* SEWave.cpp */; };
+		52AFF9BE0FF8A9A50008BD07 /* SEWave.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9B30FF8A9A50008BD07 /* SEWave.h */; };
+		52AFF9BF0FF8A9A50008BD07 /* SEWaveCatalog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9B50FF8A9A50008BD07 /* SEWaveCatalog.cpp */; };
+		52AFF9C00FF8A9A50008BD07 /* SEWaveCatalog.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9B60FF8A9A50008BD07 /* SEWaveCatalog.h */; };
+		52AFF9C10FF8A9A50008BD07 /* SEAudioBindable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9AA0FF8A9A50008BD07 /* SEAudioBindable.cpp */; };
+		52AFF9C20FF8A9A50008BD07 /* SEAudioBindable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9AB0FF8A9A50008BD07 /* SEAudioBindable.h */; };
+		52AFF9C30FF8A9A50008BD07 /* SEAudioRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9AC0FF8A9A50008BD07 /* SEAudioRenderer.cpp */; };
+		52AFF9C40FF8A9A50008BD07 /* SEAudioRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9AD0FF8A9A50008BD07 /* SEAudioRenderer.h */; };
+		52AFF9C50FF8A9A50008BD07 /* SEListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9AF0FF8A9A50008BD07 /* SEListener.cpp */; };
+		52AFF9C60FF8A9A50008BD07 /* SEListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9B00FF8A9A50008BD07 /* SEListener.h */; };
+		52AFF9C70FF8A9A50008BD07 /* SEWave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9B20FF8A9A50008BD07 /* SEWave.cpp */; };
+		52AFF9C80FF8A9A50008BD07 /* SEWave.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9B30FF8A9A50008BD07 /* SEWave.h */; };
+		52AFF9C90FF8A9A50008BD07 /* SEWaveCatalog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9B50FF8A9A50008BD07 /* SEWaveCatalog.cpp */; };
+		52AFF9CA0FF8A9A50008BD07 /* SEWaveCatalog.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9B60FF8A9A50008BD07 /* SEWaveCatalog.h */; };
+		52AFF9CD0FF8A9B90008BD07 /* SEWaveVersion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9CB0FF8A9B90008BD07 /* SEWaveVersion.cpp */; };
+		52AFF9CE0FF8A9B90008BD07 /* SEWaveVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9CC0FF8A9B90008BD07 /* SEWaveVersion.h */; };
+		52AFF9CF0FF8A9B90008BD07 /* SEWaveVersion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9CB0FF8A9B90008BD07 /* SEWaveVersion.cpp */; };
+		52AFF9D00FF8A9B90008BD07 /* SEWaveVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9CC0FF8A9B90008BD07 /* SEWaveVersion.h */; };
+		52AFF9D60FF8A9CF0008BD07 /* SESound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9D10FF8A9CF0008BD07 /* SESound.cpp */; };
+		52AFF9D70FF8A9CF0008BD07 /* SESound.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9D20FF8A9CF0008BD07 /* SESound.h */; };
+		52AFF9D80FF8A9CF0008BD07 /* SESoundBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9D30FF8A9CF0008BD07 /* SESoundBuffer.cpp */; };
+		52AFF9D90FF8A9CF0008BD07 /* SESoundBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9D40FF8A9CF0008BD07 /* SESoundBuffer.h */; };
+		52AFF9DA0FF8A9CF0008BD07 /* SESound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9D10FF8A9CF0008BD07 /* SESound.cpp */; };
+		52AFF9DB0FF8A9CF0008BD07 /* SESound.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9D20FF8A9CF0008BD07 /* SESound.h */; };
+		52AFF9DC0FF8A9CF0008BD07 /* SESoundBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9D30FF8A9CF0008BD07 /* SESoundBuffer.cpp */; };
+		52AFF9DD0FF8A9CF0008BD07 /* SESoundBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9D40FF8A9CF0008BD07 /* SESoundBuffer.h */; };
+		52AFF9E40FF8A9F60008BD07 /* SEAudioLIB.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9DE0FF8A9F60008BD07 /* SEAudioLIB.h */; };
+		52AFF9E50FF8A9F60008BD07 /* SEAudioPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9DF0FF8A9F60008BD07 /* SEAudioPCH.cpp */; };
+		52AFF9E60FF8A9F60008BD07 /* SEAudioPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9E00FF8A9F60008BD07 /* SEAudioPCH.h */; };
+		52AFF9E70FF8A9F60008BD07 /* SEAudioRegister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9E10FF8A9F60008BD07 /* SEAudioRegister.cpp */; };
+		52AFF9E80FF8A9F60008BD07 /* SEAudioRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9E20FF8A9F60008BD07 /* SEAudioRegister.h */; };
+		52AFF9E90FF8A9F60008BD07 /* SwingAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9E30FF8A9F60008BD07 /* SwingAudio.h */; };
+		52AFF9EA0FF8A9F60008BD07 /* SEAudioLIB.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9DE0FF8A9F60008BD07 /* SEAudioLIB.h */; };
+		52AFF9EB0FF8A9F60008BD07 /* SEAudioPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9DF0FF8A9F60008BD07 /* SEAudioPCH.cpp */; };
+		52AFF9EC0FF8A9F60008BD07 /* SEAudioPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9E00FF8A9F60008BD07 /* SEAudioPCH.h */; };
+		52AFF9ED0FF8A9F60008BD07 /* SEAudioRegister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9E10FF8A9F60008BD07 /* SEAudioRegister.cpp */; };
+		52AFF9EE0FF8A9F60008BD07 /* SEAudioRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9E20FF8A9F60008BD07 /* SEAudioRegister.h */; };
+		52AFF9EF0FF8A9F60008BD07 /* SwingAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFF9E30FF8A9F60008BD07 /* SwingAudio.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		527D1FCE0F878EEA00D08FC3 /* libSEAudio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEAudio.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		52AFF9AA0FF8A9A50008BD07 /* SEAudioBindable.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEAudioBindable.cpp; path = SEAudioRendering/SEAudioBindable.cpp; sourceTree = "<group>"; };
+		52AFF9AB0FF8A9A50008BD07 /* SEAudioBindable.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEAudioBindable.h; path = SEAudioRendering/SEAudioBindable.h; sourceTree = "<group>"; };
+		52AFF9AC0FF8A9A50008BD07 /* SEAudioRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEAudioRenderer.cpp; path = SEAudioRendering/SEAudioRenderer.cpp; sourceTree = "<group>"; };
+		52AFF9AD0FF8A9A50008BD07 /* SEAudioRenderer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEAudioRenderer.h; path = SEAudioRendering/SEAudioRenderer.h; sourceTree = "<group>"; };
+		52AFF9AE0FF8A9A50008BD07 /* SEAudioRenderer.inl */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = text; name = SEAudioRenderer.inl; path = SEAudioRendering/SEAudioRenderer.inl; sourceTree = "<group>"; };
+		52AFF9AF0FF8A9A50008BD07 /* SEListener.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEListener.cpp; path = SEAudioRendering/SEListener.cpp; sourceTree = "<group>"; };
+		52AFF9B00FF8A9A50008BD07 /* SEListener.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEListener.h; path = SEAudioRendering/SEListener.h; sourceTree = "<group>"; };
+		52AFF9B10FF8A9A50008BD07 /* SEListener.inl */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = text; name = SEListener.inl; path = SEAudioRendering/SEListener.inl; sourceTree = "<group>"; };
+		52AFF9B20FF8A9A50008BD07 /* SEWave.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEWave.cpp; path = SEAudioRendering/SEWave.cpp; sourceTree = "<group>"; };
+		52AFF9B30FF8A9A50008BD07 /* SEWave.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEWave.h; path = SEAudioRendering/SEWave.h; sourceTree = "<group>"; };
+		52AFF9B40FF8A9A50008BD07 /* SEWave.inl */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = text; name = SEWave.inl; path = SEAudioRendering/SEWave.inl; sourceTree = "<group>"; };
+		52AFF9B50FF8A9A50008BD07 /* SEWaveCatalog.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEWaveCatalog.cpp; path = SEAudioRendering/SEWaveCatalog.cpp; sourceTree = "<group>"; };
+		52AFF9B60FF8A9A50008BD07 /* SEWaveCatalog.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEWaveCatalog.h; path = SEAudioRendering/SEWaveCatalog.h; sourceTree = "<group>"; };
+		52AFF9CB0FF8A9B90008BD07 /* SEWaveVersion.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEWaveVersion.cpp; path = SEObjectSystem/SEWaveVersion.cpp; sourceTree = "<group>"; };
+		52AFF9CC0FF8A9B90008BD07 /* SEWaveVersion.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEWaveVersion.h; path = SEObjectSystem/SEWaveVersion.h; sourceTree = "<group>"; };
+		52AFF9D10FF8A9CF0008BD07 /* SESound.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SESound.cpp; path = SESceneGraph/SESound.cpp; sourceTree = "<group>"; };
+		52AFF9D20FF8A9CF0008BD07 /* SESound.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SESound.h; path = SESceneGraph/SESound.h; sourceTree = "<group>"; };
+		52AFF9D30FF8A9CF0008BD07 /* SESoundBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SESoundBuffer.cpp; path = SESceneGraph/SESoundBuffer.cpp; sourceTree = "<group>"; };
+		52AFF9D40FF8A9CF0008BD07 /* SESoundBuffer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SESoundBuffer.h; path = SESceneGraph/SESoundBuffer.h; sourceTree = "<group>"; };
+		52AFF9D50FF8A9CF0008BD07 /* SESoundBuffer.inl */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = text; name = SESoundBuffer.inl; path = SESceneGraph/SESoundBuffer.inl; sourceTree = "<group>"; };
+		52AFF9DE0FF8A9F60008BD07 /* SEAudioLIB.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEAudioLIB.h; sourceTree = "<group>"; };
+		52AFF9DF0FF8A9F60008BD07 /* SEAudioPCH.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = SEAudioPCH.cpp; sourceTree = "<group>"; };
+		52AFF9E00FF8A9F60008BD07 /* SEAudioPCH.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEAudioPCH.h; sourceTree = "<group>"; };
+		52AFF9E10FF8A9F60008BD07 /* SEAudioRegister.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = SEAudioRegister.cpp; sourceTree = "<group>"; };
+		52AFF9E20FF8A9F60008BD07 /* SEAudioRegister.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEAudioRegister.h; sourceTree = "<group>"; };
+		52AFF9E30FF8A9F60008BD07 /* SwingAudio.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SwingAudio.h; sourceTree = "<group>"; };
+		D2AAC046055464E500DB518D /* libSEAudiod.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEAudiod.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		527D1FCC0F878EEA00D08FC3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D289987405E68DCB004EDB86 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* SEPhysics */ = {
+			isa = PBXGroup;
+			children = (
+				08FB7795FE84155DC02AAC07 /* Source */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = SEPhysics;
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				52AFF9A90FF8A9320008BD07 /* SEAudioRendering */,
+				52AFF9A80FF8A92F0008BD07 /* SEObjectSystem */,
+				52AFF9A70FF8A92B0008BD07 /* SESceneGraph */,
+				52AFF9DE0FF8A9F60008BD07 /* SEAudioLIB.h */,
+				52AFF9DF0FF8A9F60008BD07 /* SEAudioPCH.cpp */,
+				52AFF9E00FF8A9F60008BD07 /* SEAudioPCH.h */,
+				52AFF9E10FF8A9F60008BD07 /* SEAudioRegister.cpp */,
+				52AFF9E20FF8A9F60008BD07 /* SEAudioRegister.h */,
+				52AFF9E30FF8A9F60008BD07 /* SwingAudio.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC046055464E500DB518D /* libSEAudiod.a */,
+				527D1FCE0F878EEA00D08FC3 /* libSEAudio.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		52AFF9A70FF8A92B0008BD07 /* SESceneGraph */ = {
+			isa = PBXGroup;
+			children = (
+				52AFF9D10FF8A9CF0008BD07 /* SESound.cpp */,
+				52AFF9D20FF8A9CF0008BD07 /* SESound.h */,
+				52AFF9D30FF8A9CF0008BD07 /* SESoundBuffer.cpp */,
+				52AFF9D40FF8A9CF0008BD07 /* SESoundBuffer.h */,
+				52AFF9D50FF8A9CF0008BD07 /* SESoundBuffer.inl */,
+			);
+			name = SESceneGraph;
+			sourceTree = "<group>";
+		};
+		52AFF9A80FF8A92F0008BD07 /* SEObjectSystem */ = {
+			isa = PBXGroup;
+			children = (
+				52AFF9CB0FF8A9B90008BD07 /* SEWaveVersion.cpp */,
+				52AFF9CC0FF8A9B90008BD07 /* SEWaveVersion.h */,
+			);
+			name = SEObjectSystem;
+			sourceTree = "<group>";
+		};
+		52AFF9A90FF8A9320008BD07 /* SEAudioRendering */ = {
+			isa = PBXGroup;
+			children = (
+				52AFF9AA0FF8A9A50008BD07 /* SEAudioBindable.cpp */,
+				52AFF9AB0FF8A9A50008BD07 /* SEAudioBindable.h */,
+				52AFF9AC0FF8A9A50008BD07 /* SEAudioRenderer.cpp */,
+				52AFF9AD0FF8A9A50008BD07 /* SEAudioRenderer.h */,
+				52AFF9AE0FF8A9A50008BD07 /* SEAudioRenderer.inl */,
+				52AFF9AF0FF8A9A50008BD07 /* SEListener.cpp */,
+				52AFF9B00FF8A9A50008BD07 /* SEListener.h */,
+				52AFF9B10FF8A9A50008BD07 /* SEListener.inl */,
+				52AFF9B20FF8A9A50008BD07 /* SEWave.cpp */,
+				52AFF9B30FF8A9A50008BD07 /* SEWave.h */,
+				52AFF9B40FF8A9A50008BD07 /* SEWave.inl */,
+				52AFF9B50FF8A9A50008BD07 /* SEWaveCatalog.cpp */,
+				52AFF9B60FF8A9A50008BD07 /* SEWaveCatalog.h */,
+			);
+			name = SEAudioRendering;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		527D1FCA0F878EEA00D08FC3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52AFF9C20FF8A9A50008BD07 /* SEAudioBindable.h in Headers */,
+				52AFF9C40FF8A9A50008BD07 /* SEAudioRenderer.h in Headers */,
+				52AFF9C60FF8A9A50008BD07 /* SEListener.h in Headers */,
+				52AFF9C80FF8A9A50008BD07 /* SEWave.h in Headers */,
+				52AFF9CA0FF8A9A50008BD07 /* SEWaveCatalog.h in Headers */,
+				52AFF9D00FF8A9B90008BD07 /* SEWaveVersion.h in Headers */,
+				52AFF9DB0FF8A9CF0008BD07 /* SESound.h in Headers */,
+				52AFF9DD0FF8A9CF0008BD07 /* SESoundBuffer.h in Headers */,
+				52AFF9EA0FF8A9F60008BD07 /* SEAudioLIB.h in Headers */,
+				52AFF9EC0FF8A9F60008BD07 /* SEAudioPCH.h in Headers */,
+				52AFF9EE0FF8A9F60008BD07 /* SEAudioRegister.h in Headers */,
+				52AFF9EF0FF8A9F60008BD07 /* SwingAudio.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2AAC043055464E500DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52AFF9B80FF8A9A50008BD07 /* SEAudioBindable.h in Headers */,
+				52AFF9BA0FF8A9A50008BD07 /* SEAudioRenderer.h in Headers */,
+				52AFF9BC0FF8A9A50008BD07 /* SEListener.h in Headers */,
+				52AFF9BE0FF8A9A50008BD07 /* SEWave.h in Headers */,
+				52AFF9C00FF8A9A50008BD07 /* SEWaveCatalog.h in Headers */,
+				52AFF9CE0FF8A9B90008BD07 /* SEWaveVersion.h in Headers */,
+				52AFF9D70FF8A9CF0008BD07 /* SESound.h in Headers */,
+				52AFF9D90FF8A9CF0008BD07 /* SESoundBuffer.h in Headers */,
+				52AFF9E40FF8A9F60008BD07 /* SEAudioLIB.h in Headers */,
+				52AFF9E60FF8A9F60008BD07 /* SEAudioPCH.h in Headers */,
+				52AFF9E80FF8A9F60008BD07 /* SEAudioRegister.h in Headers */,
+				52AFF9E90FF8A9F60008BD07 /* SwingAudio.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		527D1FCD0F878EEA00D08FC3 /* Release */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 527D1FD10F878F0900D08FC3 /* Build configuration list for PBXNativeTarget "Release" */;
+			buildPhases = (
+				527D1FCA0F878EEA00D08FC3 /* Headers */,
+				527D1FCB0F878EEA00D08FC3 /* Sources */,
+				527D1FCC0F878EEA00D08FC3 /* Frameworks */,
+				52A054D50F89ACB200004535 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Release;
+			productName = Release;
+			productReference = 527D1FCE0F878EEA00D08FC3 /* libSEAudio.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		D2AAC045055464E500DB518D /* Debug */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91EB08733DB70010E9CD /* Build configuration list for PBXNativeTarget "Debug" */;
+			buildPhases = (
+				D2AAC043055464E500DB518D /* Headers */,
+				D2AAC044055464E500DB518D /* Sources */,
+				D289987405E68DCB004EDB86 /* Frameworks */,
+				52A054C90F89AC5300004535 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Debug;
+			productName = SEPhysics;
+			productReference = D2AAC046055464E500DB518D /* libSEAudiod.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "SEAudio" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* SEPhysics */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2AAC045055464E500DB518D /* Debug */,
+				527D1FCD0F878EEA00D08FC3 /* Release */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		52A054C90F89AC5300004535 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkDebug.sh;
+		};
+		52A054D50F89ACB200004535 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkRelease.sh;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		527D1FCB0F878EEA00D08FC3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52AFF9C10FF8A9A50008BD07 /* SEAudioBindable.cpp in Sources */,
+				52AFF9C30FF8A9A50008BD07 /* SEAudioRenderer.cpp in Sources */,
+				52AFF9C50FF8A9A50008BD07 /* SEListener.cpp in Sources */,
+				52AFF9C70FF8A9A50008BD07 /* SEWave.cpp in Sources */,
+				52AFF9C90FF8A9A50008BD07 /* SEWaveCatalog.cpp in Sources */,
+				52AFF9CF0FF8A9B90008BD07 /* SEWaveVersion.cpp in Sources */,
+				52AFF9DA0FF8A9CF0008BD07 /* SESound.cpp in Sources */,
+				52AFF9DC0FF8A9CF0008BD07 /* SESoundBuffer.cpp in Sources */,
+				52AFF9EB0FF8A9F60008BD07 /* SEAudioPCH.cpp in Sources */,
+				52AFF9ED0FF8A9F60008BD07 /* SEAudioRegister.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2AAC044055464E500DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52AFF9B70FF8A9A50008BD07 /* SEAudioBindable.cpp in Sources */,
+				52AFF9B90FF8A9A50008BD07 /* SEAudioRenderer.cpp in Sources */,
+				52AFF9BB0FF8A9A50008BD07 /* SEListener.cpp in Sources */,
+				52AFF9BD0FF8A9A50008BD07 /* SEWave.cpp in Sources */,
+				52AFF9BF0FF8A9A50008BD07 /* SEWaveCatalog.cpp in Sources */,
+				52AFF9CD0FF8A9B90008BD07 /* SEWaveVersion.cpp in Sources */,
+				52AFF9D60FF8A9CF0008BD07 /* SESound.cpp in Sources */,
+				52AFF9D80FF8A9CF0008BD07 /* SESoundBuffer.cpp in Sources */,
+				52AFF9E50FF8A9F60008BD07 /* SEAudioPCH.cpp in Sources */,
+				52AFF9E70FF8A9F60008BD07 /* SEAudioRegister.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91EC08733DB70010E9CD /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(NATIVE_ARCH)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEAudioPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_DEBUG,
+					SE_USE_PRECOMPILED_HEADERS,
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../SDK/Include";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_STYLE = STATIC;
+				ONLY_ACTIVE_ARCH = NO;
+				PREBINDING = NO;
+				PRODUCT_NAME = SEAudiod;
+				SDKROOT = "";
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Debug";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		1DEB91F008733DB70010E9CD /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				PREBINDING = YES;
+				SDKROOT = "";
+			};
+			name = Default;
+		};
+		527D1FCF0F878EEB00D08FC3 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(NATIVE_ARCH)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEAudioPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					SE_USE_PRECOMPILED_HEADERS,
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../SDK/Include";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_STYLE = STATIC;
+				ONLY_ACTIVE_ARCH = NO;
+				PREBINDING = NO;
+				PRODUCT_NAME = SEAudio;
+				SDKROOT = "";
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Release";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91EB08733DB70010E9CD /* Build configuration list for PBXNativeTarget "Debug" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91EC08733DB70010E9CD /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "SEAudio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91F008733DB70010E9CD /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		527D1FD10F878F0900D08FC3 /* Build configuration list for PBXNativeTarget "Release" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				527D1FCF0F878EEB00D08FC3 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

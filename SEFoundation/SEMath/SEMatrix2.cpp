@@ -1,0 +1,610 @@
+// Swing Engine Version 1 Source Code 
+// Most of techniques in the engine are mainly based on David Eberly's
+// Wild Magic 4 open-source code.The author of Swing Engine learned a lot
+// from Eberly's experience of architecture and algorithm.
+// Several sub-systems are totally new,and others are re-implimented or
+// re-organized based on Wild Magic 4's sub-systems.
+// Copyright (c) 2007-2010.  All Rights Reserved
+//
+// Eberly's permission:
+// Geometric Tools, Inc.
+// http://www.geometrictools.com
+// Copyright (c) 1998-2006.  All Rights Reserved
+//
+// This library is free software; you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 2.1 of the License, or (at
+// your option) any later version.  The license is available for reading at
+// the location:
+// http://www.gnu.org/copyleft/lgpl.html
+
+#include "SEFoundationPCH.h"
+#include "SEMatrix2.h"
+
+using namespace Swing;
+
+//----------------------------------------------------------------------------
+// 单精度2阶方阵类
+//----------------------------------------------------------------------------
+
+const Matrix2f Matrix2f::ZERO(
+    0.0f, 0.0f, 
+    0.0f, 0.0f);
+const Matrix2f Matrix2f::IDENTITY(
+    1.0f, 0.0f, 
+    0.0f, 1.0f);
+
+//----------------------------------------------------------------------------
+Matrix2f::Matrix2f()
+{
+    Zero();
+}
+//----------------------------------------------------------------------------
+Matrix2f::Matrix2f(const Matrix2f& rMat)
+{
+    memcpy(m_fData, rMat.m_fData, 4*sizeof(float));
+}
+//----------------------------------------------------------------------------
+Matrix2f::Matrix2f(float fM11, float fM12, float fM21, float fM22)
+{
+    m_fData[0][0] = fM11;
+    m_fData[0][1] = fM12;
+    m_fData[1][0] = fM21;
+    m_fData[1][1] = fM22;
+}
+//----------------------------------------------------------------------------
+Matrix2f::Matrix2f(const Vector2f& rVecU, const Vector2f& rVecV, bool bIsRow)
+{
+    if( bIsRow )
+	{
+        m_fData[0][0] = rVecU[0];
+        m_fData[0][1] = rVecU[1];
+        m_fData[1][0] = rVecV[0];
+        m_fData[1][1] = rVecV[1];
+    }
+	else
+    {
+        m_fData[0][0] = rVecU[0];
+        m_fData[0][1] = rVecV[0];
+        m_fData[1][0] = rVecU[1];
+        m_fData[1][1] = rVecV[1];
+	}
+}
+//----------------------------------------------------------------------------
+Matrix2f::Matrix2f(float fM11, float fM22)
+{
+    Diagonal(fM11, fM22);
+}
+//----------------------------------------------------------------------------
+Matrix2f::Matrix2f(float fAngle)
+{
+    FromAngle(fAngle);
+}
+//----------------------------------------------------------------------------
+Matrix2f::Matrix2f(const Vector2f& rVecU, const Vector2f& rVecV)
+{
+    TensorProduct(rVecU, rVecV);
+}
+//----------------------------------------------------------------------------
+Matrix2f::operator const float*() const
+{
+    return &m_fData[0][0];
+}
+//----------------------------------------------------------------------------
+Matrix2f::operator float*()
+{
+    return &m_fData[0][0];
+}
+//----------------------------------------------------------------------------
+const float* Matrix2f::operator[](int iCurRow) const
+{
+    return &m_fData[iCurRow][0];
+}
+//----------------------------------------------------------------------------
+float* Matrix2f::operator[](int iCurRow)
+{
+    return &m_fData[iCurRow][0];
+}
+//----------------------------------------------------------------------------
+float Matrix2f::operator()(int iCurRow, int iCurCol) const
+{
+    return m_fData[iCurRow][iCurCol];
+}
+//----------------------------------------------------------------------------
+float& Matrix2f::operator()(int iCurRow, int iCurCol)
+{
+    return m_fData[iCurRow][iCurCol];
+}
+//----------------------------------------------------------------------------
+Matrix2f& Matrix2f::operator=(const Matrix2f& rMat)
+{
+    memcpy(m_fData, rMat.m_fData, 4*sizeof(float));
+
+    return *this;
+}
+//----------------------------------------------------------------------------
+bool Matrix2f::operator==(const Matrix2f& rMat) const
+{
+    return CompareData(rMat) == 0;
+}
+//----------------------------------------------------------------------------
+bool Matrix2f::operator!=(const Matrix2f& rMat) const
+{
+    return CompareData(rMat) != 0;
+}
+//----------------------------------------------------------------------------
+bool Matrix2f::operator<(const Matrix2f& rMat) const
+{
+    return CompareData(rMat) < 0;
+}
+//----------------------------------------------------------------------------
+bool Matrix2f::operator<=(const Matrix2f& rMat) const
+{
+    return CompareData(rMat) <= 0;
+}
+//----------------------------------------------------------------------------
+bool Matrix2f::operator>(const Matrix2f& rMat) const
+{
+    return CompareData(rMat) > 0;
+}
+//----------------------------------------------------------------------------
+bool Matrix2f::operator>=(const Matrix2f& rMat) const
+{
+    return CompareData(rMat) >= 0;
+}
+//----------------------------------------------------------------------------
+Matrix2f Matrix2f::operator+(const Matrix2f& rRhsMat) const
+{
+    Matrix2f ResMat;
+
+    ResMat.M11 = M11 + rRhsMat.M11;
+    ResMat.M12 = M12 + rRhsMat.M12;
+
+    ResMat.M21 = M21 + rRhsMat.M21;
+    ResMat.M22 = M22 + rRhsMat.M22;
+
+    return ResMat;
+}
+//----------------------------------------------------------------------------
+Matrix2f Matrix2f::operator-(const Matrix2f& rRhsMat) const
+{
+    Matrix2f ResMat;
+
+    ResMat.M11 = M11 - rRhsMat.M11;
+    ResMat.M12 = M12 - rRhsMat.M12;
+
+    ResMat.M21 = M21 - rRhsMat.M21;
+    ResMat.M22 = M22 - rRhsMat.M22;
+
+    return ResMat;
+}
+//----------------------------------------------------------------------------
+Matrix2f Matrix2f::operator*(const Matrix2f& rRhsMat) const
+{
+    Matrix2f ResMat;
+
+    ResMat.M11 = M11*rRhsMat.M11 + M12*rRhsMat.M21;
+    ResMat.M12 = M11*rRhsMat.M12 + M12*rRhsMat.M22;
+
+    ResMat.M21 = M21*rRhsMat.M11 + M22*rRhsMat.M21;
+    ResMat.M22 = M21*rRhsMat.M12 + M22*rRhsMat.M22;
+
+    return ResMat;
+}
+//----------------------------------------------------------------------------
+Matrix2f Matrix2f::operator*(float fScalar) const
+{
+    Matrix2f ResMat;
+
+    ResMat.M11 = M11 * fScalar;
+    ResMat.M12 = M12 * fScalar;
+
+    ResMat.M21 = M21 * fScalar;
+    ResMat.M22 = M22 * fScalar;
+
+    return ResMat;
+}
+//----------------------------------------------------------------------------
+Matrix2f Matrix2f::operator/(float fScalar) const
+{
+    // 注意除数不能为0
+    Matrix2f ResMat;
+    float fInvScalar = 1.0f / fScalar;
+
+    ResMat.M11 = M11 * fInvScalar;
+    ResMat.M12 = M12 * fInvScalar;
+
+    ResMat.M21 = M21 * fInvScalar;
+    ResMat.M22 = M22 * fInvScalar;
+
+    return ResMat;
+}
+//----------------------------------------------------------------------------
+Matrix2f Matrix2f::operator-() const
+{
+    Matrix2f ResMat;
+
+    ResMat.M11 = -M11;
+    ResMat.M12 = -M12;
+
+    ResMat.M21 = -M21;
+    ResMat.M22 = -M22;
+
+    return ResMat;
+}
+//----------------------------------------------------------------------------
+Matrix2f& Matrix2f::operator+=(const Matrix2f& rRhsMat)
+{
+	M11 += rRhsMat.M11;
+    M12 += rRhsMat.M12;
+
+    M21 += rRhsMat.M21;
+    M22 += rRhsMat.M22;
+
+    return *this;
+}
+//----------------------------------------------------------------------------
+Matrix2f& Matrix2f::operator-=(const Matrix2f& rRhsMat)
+{
+	M11 -= rRhsMat.M11;
+    M12 -= rRhsMat.M12;
+
+    M21 -= rRhsMat.M21;
+    M22 -= rRhsMat.M22;
+
+    return *this;
+}
+//----------------------------------------------------------------------------
+Matrix2f& Matrix2f::operator*=(float fScalar)
+{
+	M11 *= fScalar;
+    M12 *= fScalar;
+
+    M21 *= fScalar;
+    M22 *= fScalar;
+
+    return *this;
+}
+//----------------------------------------------------------------------------
+Matrix2f& Matrix2f::operator/=(float fScalar)
+{
+    // 注意除数不能为0
+    float fInvScalar = 1.0f / fScalar;
+	M11 *= fInvScalar;
+    M12 *= fInvScalar;
+
+    M21 *= fInvScalar;
+    M22 *= fInvScalar;
+
+    return *this;
+}
+//----------------------------------------------------------------------------
+Vector2f Matrix2f::operator*(const Vector2f& rRhsVec) const
+{
+    Vector2f ResVec;
+    
+    ResVec[0] = M11*rRhsVec[0] + M12*rRhsVec[1];
+    ResVec[1] = M21*rRhsVec[0] + M22*rRhsVec[1];
+
+    return ResVec;
+}
+//----------------------------------------------------------------------------
+void Matrix2f::Transpose()
+{
+    Matrix2f tempMat;
+	GetTranspose(tempMat);
+	*this = tempMat;
+}
+//----------------------------------------------------------------------------
+void Matrix2f::Inverse()
+{
+    Matrix2f tempMat;
+	GetInverse(tempMat);
+	*this = tempMat;
+}
+//----------------------------------------------------------------------------
+Matrix2f Swing::operator*(float fLhsScalar, const Matrix2f& rRhsMat)
+{
+    return rRhsMat * fLhsScalar;
+}
+//----------------------------------------------------------------------------
+Vector2f Swing::operator*(const Vector2f& rVecV, const Matrix2f& rMat)
+{
+    return Vector2f(
+                   rVecV[0]*rMat[0][0] + rVecV[1]*rMat[1][0],
+                   rVecV[0]*rMat[0][1] + rVecV[1]*rMat[1][1]);
+}
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+// 双精度2阶方阵类
+//----------------------------------------------------------------------------
+
+const Matrix2d Matrix2d::ZERO(
+    0.0, 0.0, 
+    0.0, 0.0);
+const Matrix2d Matrix2d::IDENTITY(
+    1.0, 0.0, 
+    0.0, 1.0);
+
+//----------------------------------------------------------------------------
+Matrix2d::Matrix2d()
+{
+    Zero();
+}
+//----------------------------------------------------------------------------
+Matrix2d::Matrix2d(const Matrix2d& rMat)
+{
+    memcpy(m_dData, rMat.m_dData, 4*sizeof(double));
+}
+//----------------------------------------------------------------------------
+Matrix2d::Matrix2d(double dM11, double dM12, double dM21, double dM22)
+{
+    m_dData[0][0] = dM11;
+    m_dData[0][1] = dM12;
+    m_dData[1][0] = dM21;
+    m_dData[1][1] = dM22;
+}
+//----------------------------------------------------------------------------
+Matrix2d::Matrix2d(const Vector2d& rVecU, const Vector2d& rVecV, bool bIsRow)
+{
+    if( bIsRow )
+	{
+        m_dData[0][0] = rVecU[0];
+        m_dData[0][1] = rVecU[1];
+        m_dData[1][0] = rVecV[0];
+        m_dData[1][1] = rVecV[1];
+    }
+	else
+    {
+        m_dData[0][0] = rVecU[0];
+        m_dData[0][1] = rVecV[0];
+        m_dData[1][0] = rVecU[1];
+        m_dData[1][1] = rVecV[1];
+	}
+}
+//----------------------------------------------------------------------------
+Matrix2d::Matrix2d(double dM11, double dM22)
+{
+    Diagonal(dM11, dM22);
+}
+//----------------------------------------------------------------------------
+Matrix2d::Matrix2d(double dAngle)
+{
+    FromAngle(dAngle);
+}
+//----------------------------------------------------------------------------
+Matrix2d::Matrix2d(const Vector2d& rVecU, const Vector2d& rVecV)
+{
+    TensorProduct(rVecU, rVecV);
+}
+//----------------------------------------------------------------------------
+Matrix2d::operator const double*() const
+{
+    return &m_dData[0][0];
+}
+//----------------------------------------------------------------------------
+Matrix2d::operator double*()
+{
+    return &m_dData[0][0];
+}
+//----------------------------------------------------------------------------
+const double* Matrix2d::operator[](int iCurRow) const
+{
+    return &m_dData[iCurRow][0];
+}
+//----------------------------------------------------------------------------
+double* Matrix2d::operator[](int iCurRow)
+{
+    return &m_dData[iCurRow][0];
+}
+//----------------------------------------------------------------------------
+double Matrix2d::operator()(int iCurRow, int iCurCol) const
+{
+    return m_dData[iCurRow][iCurCol];
+}
+//----------------------------------------------------------------------------
+double& Matrix2d::operator()(int iCurRow, int iCurCol)
+{
+    return m_dData[iCurRow][iCurCol];
+}
+//----------------------------------------------------------------------------
+Matrix2d& Matrix2d::operator=(const Matrix2d& rMat)
+{
+    memcpy(m_dData, rMat.m_dData, 4*sizeof(double));
+
+    return *this;
+}
+//----------------------------------------------------------------------------
+bool Matrix2d::operator==(const Matrix2d& rMat) const
+{
+    return CompareData(rMat) == 0;
+}
+//----------------------------------------------------------------------------
+bool Matrix2d::operator!=(const Matrix2d& rMat) const
+{
+    return CompareData(rMat) != 0;
+}
+//----------------------------------------------------------------------------
+bool Matrix2d::operator<(const Matrix2d& rMat) const
+{
+    return CompareData(rMat) < 0;
+}
+//----------------------------------------------------------------------------
+bool Matrix2d::operator<=(const Matrix2d& rMat) const
+{
+    return CompareData(rMat) <= 0;
+}
+//----------------------------------------------------------------------------
+bool Matrix2d::operator>(const Matrix2d& rMat) const
+{
+    return CompareData(rMat) > 0;
+}
+//----------------------------------------------------------------------------
+bool Matrix2d::operator>=(const Matrix2d& rMat) const
+{
+    return CompareData(rMat) >= 0;
+}
+//----------------------------------------------------------------------------
+Matrix2d Matrix2d::operator+(const Matrix2d& rRhsMat) const
+{
+    Matrix2d ResMat;
+
+    ResMat.M11 = M11 + rRhsMat.M11;
+    ResMat.M12 = M12 + rRhsMat.M12;
+
+    ResMat.M21 = M21 + rRhsMat.M21;
+    ResMat.M22 = M22 + rRhsMat.M22;
+
+    return ResMat;
+}
+//----------------------------------------------------------------------------
+Matrix2d Matrix2d::operator-(const Matrix2d& rRhsMat) const
+{
+    Matrix2d ResMat;
+
+    ResMat.M11 = M11 - rRhsMat.M11;
+    ResMat.M12 = M12 - rRhsMat.M12;
+
+    ResMat.M21 = M21 - rRhsMat.M21;
+    ResMat.M22 = M22 - rRhsMat.M22;
+
+    return ResMat;
+}
+//----------------------------------------------------------------------------
+Matrix2d Matrix2d::operator*(const Matrix2d& rRhsMat) const
+{
+    Matrix2d ResMat;
+
+    ResMat.M11 = M11*rRhsMat.M11 + M12*rRhsMat.M21;
+    ResMat.M12 = M11*rRhsMat.M12 + M12*rRhsMat.M22;
+
+    ResMat.M21 = M21*rRhsMat.M11 + M22*rRhsMat.M21;
+    ResMat.M22 = M21*rRhsMat.M12 + M22*rRhsMat.M22;
+
+    return ResMat;
+}
+//----------------------------------------------------------------------------
+Matrix2d Matrix2d::operator*(double dScalar) const
+{
+    Matrix2d ResMat;
+
+    ResMat.M11 = M11 * dScalar;
+    ResMat.M12 = M12 * dScalar;
+
+    ResMat.M21 = M21 * dScalar;
+    ResMat.M22 = M22 * dScalar;
+
+    return ResMat;
+}
+//----------------------------------------------------------------------------
+Matrix2d Matrix2d::operator/(double dScalar) const
+{
+    // 注意除数不能为0
+    Matrix2d ResMat;
+    double dInvScalar = 1.0 / dScalar;
+
+    ResMat.M11 = M11 * dInvScalar;
+    ResMat.M12 = M12 * dInvScalar;
+
+    ResMat.M21 = M21 * dInvScalar;
+    ResMat.M22 = M22 * dInvScalar;
+
+    return ResMat;
+}
+//----------------------------------------------------------------------------
+Matrix2d Matrix2d::operator-() const
+{
+    Matrix2d ResMat;
+
+    ResMat.M11 = -M11;
+    ResMat.M12 = -M12;
+
+    ResMat.M21 = -M21;
+    ResMat.M22 = -M22;
+
+    return ResMat;
+}
+//----------------------------------------------------------------------------
+Matrix2d& Matrix2d::operator+=(const Matrix2d& rRhsMat)
+{
+	M11 += rRhsMat.M11;
+    M12 += rRhsMat.M12;
+
+    M21 += rRhsMat.M21;
+    M22 += rRhsMat.M22;
+
+    return *this;
+}
+//----------------------------------------------------------------------------
+Matrix2d& Matrix2d::operator-=(const Matrix2d& rRhsMat)
+{
+	M11 -= rRhsMat.M11;
+    M12 -= rRhsMat.M12;
+
+    M21 -= rRhsMat.M21;
+    M22 -= rRhsMat.M22;
+
+    return *this;
+}
+//----------------------------------------------------------------------------
+Matrix2d& Matrix2d::operator*=(double dScalar)
+{
+	M11 *= dScalar;
+    M12 *= dScalar;
+
+    M21 *= dScalar;
+    M22 *= dScalar;
+
+    return *this;
+}
+//----------------------------------------------------------------------------
+Matrix2d& Matrix2d::operator/=(double dScalar)
+{
+    // 注意除数不能为0
+    double dInvScalar = 1.0 / dScalar;
+	M11 *= dInvScalar;
+    M12 *= dInvScalar;
+
+    M21 *= dInvScalar;
+    M22 *= dInvScalar;
+
+    return *this;
+}
+//----------------------------------------------------------------------------
+Vector2d Matrix2d::operator*(const Vector2d& rRhsVec) const
+{
+    Vector2d ResVec;
+    
+    ResVec[0] = M11*rRhsVec[0] + M12*rRhsVec[1];
+    ResVec[1] = M21*rRhsVec[0] + M22*rRhsVec[1];
+
+    return ResVec;
+}
+//----------------------------------------------------------------------------
+void Matrix2d::Transpose()
+{
+    Matrix2d tempMat;
+	GetTranspose(tempMat);
+	*this = tempMat;
+}
+//----------------------------------------------------------------------------
+void Matrix2d::Inverse()
+{
+    Matrix2d tempMat;
+	GetInverse(tempMat);
+	*this = tempMat;
+}
+//----------------------------------------------------------------------------
+Matrix2d Swing::operator*(double dLhsScalar, const Matrix2d& rRhsMat)
+{
+    return rRhsMat * dLhsScalar;
+}
+//----------------------------------------------------------------------------
+Vector2d Swing::operator*(const Vector2d& rVecV, const Matrix2d& rMat)
+{
+    return Vector2d(
+                   rVecV[0]*rMat[0][0] + rVecV[1]*rMat[1][0],
+                   rVecV[0]*rMat[0][1] + rVecV[1]*rMat[1][1]);
+}
+//----------------------------------------------------------------------------

@@ -1,0 +1,406 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		529EB6F80FD8C58D00EAF517 /* SEiPhoneApplicationPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB6F60FD8C58D00EAF517 /* SEiPhoneApplicationPCH.cpp */; };
+		529EB6F90FD8C58D00EAF517 /* SEiPhoneApplicationPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB6F70FD8C58D00EAF517 /* SEiPhoneApplicationPCH.h */; };
+		529EB6FA0FD8C58D00EAF517 /* SEiPhoneApplicationPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB6F60FD8C58D00EAF517 /* SEiPhoneApplicationPCH.cpp */; };
+		529EB6FB0FD8C58D00EAF517 /* SEiPhoneApplicationPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB6F70FD8C58D00EAF517 /* SEiPhoneApplicationPCH.h */; };
+		529EB70B0FD8C5A500EAF517 /* SEApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB6FC0FD8C5A500EAF517 /* SEApplication.cpp */; };
+		529EB70C0FD8C5A500EAF517 /* SEApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB6FD0FD8C5A500EAF517 /* SEApplication.h */; };
+		529EB70F0FD8C5A500EAF517 /* SEApplicationMCR.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7000FD8C5A500EAF517 /* SEApplicationMCR.h */; };
+		529EB7100FD8C5A500EAF517 /* SEConsoleApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7010FD8C5A500EAF517 /* SEConsoleApplication.cpp */; };
+		529EB7110FD8C5A500EAF517 /* SEConsoleApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7020FD8C5A500EAF517 /* SEConsoleApplication.h */; };
+		529EB7120FD8C5A500EAF517 /* SEiPhoneApplication.mm in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7030FD8C5A500EAF517 /* SEiPhoneApplication.mm */; };
+		529EB7130FD8C5A500EAF517 /* SEWindowApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7040FD8C5A500EAF517 /* SEWindowApplication.cpp */; };
+		529EB7140FD8C5A500EAF517 /* SEWindowApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7050FD8C5A500EAF517 /* SEWindowApplication.h */; };
+		529EB7150FD8C5A500EAF517 /* SEWindowApplication2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7070FD8C5A500EAF517 /* SEWindowApplication2.cpp */; };
+		529EB7160FD8C5A500EAF517 /* SEWindowApplication2.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7080FD8C5A500EAF517 /* SEWindowApplication2.h */; };
+		529EB7170FD8C5A500EAF517 /* SEWindowApplication3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7090FD8C5A500EAF517 /* SEWindowApplication3.cpp */; };
+		529EB7180FD8C5A500EAF517 /* SEWindowApplication3.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB70A0FD8C5A500EAF517 /* SEWindowApplication3.h */; };
+		529EB7190FD8C5A500EAF517 /* SEApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB6FC0FD8C5A500EAF517 /* SEApplication.cpp */; };
+		529EB71A0FD8C5A500EAF517 /* SEApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB6FD0FD8C5A500EAF517 /* SEApplication.h */; };
+		529EB71D0FD8C5A500EAF517 /* SEApplicationMCR.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7000FD8C5A500EAF517 /* SEApplicationMCR.h */; };
+		529EB71E0FD8C5A500EAF517 /* SEConsoleApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7010FD8C5A500EAF517 /* SEConsoleApplication.cpp */; };
+		529EB71F0FD8C5A500EAF517 /* SEConsoleApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7020FD8C5A500EAF517 /* SEConsoleApplication.h */; };
+		529EB7200FD8C5A500EAF517 /* SEiPhoneApplication.mm in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7030FD8C5A500EAF517 /* SEiPhoneApplication.mm */; };
+		529EB7210FD8C5A500EAF517 /* SEWindowApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7040FD8C5A500EAF517 /* SEWindowApplication.cpp */; };
+		529EB7220FD8C5A500EAF517 /* SEWindowApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7050FD8C5A500EAF517 /* SEWindowApplication.h */; };
+		529EB7230FD8C5A500EAF517 /* SEWindowApplication2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7070FD8C5A500EAF517 /* SEWindowApplication2.cpp */; };
+		529EB7240FD8C5A500EAF517 /* SEWindowApplication2.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7080FD8C5A500EAF517 /* SEWindowApplication2.h */; };
+		529EB7250FD8C5A500EAF517 /* SEWindowApplication3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7090FD8C5A500EAF517 /* SEWindowApplication3.cpp */; };
+		529EB7260FD8C5A500EAF517 /* SEWindowApplication3.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB70A0FD8C5A500EAF517 /* SEWindowApplication3.h */; };
+		529EB7290FD8C74100EAF517 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EB7270FD8C74100EAF517 /* Foundation.framework */; };
+		529EB72A0FD8C74100EAF517 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EB7280FD8C74100EAF517 /* UIKit.framework */; };
+		529EB72B0FD8C74100EAF517 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EB7270FD8C74100EAF517 /* Foundation.framework */; };
+		529EB72C0FD8C74100EAF517 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EB7280FD8C74100EAF517 /* UIKit.framework */; };
+		52A217B50FDD03E600D49C41 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A217B30FDD03E600D49C41 /* OpenGLES.framework */; };
+		52A217B60FDD03E600D49C41 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A217B40FDD03E600D49C41 /* QuartzCore.framework */; };
+		52A217B70FDD03E600D49C41 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A217B30FDD03E600D49C41 /* OpenGLES.framework */; };
+		52A217B80FDD03E600D49C41 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A217B40FDD03E600D49C41 /* QuartzCore.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		528240F80E9E486800629212 /* libSEiPhoneApplicationd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneApplicationd.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		528241010E9E487A00629212 /* libSEiPhoneApplication.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneApplication.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		529EB6F60FD8C58D00EAF517 /* SEiPhoneApplicationPCH.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = SEiPhoneApplicationPCH.cpp; sourceTree = "<group>"; };
+		529EB6F70FD8C58D00EAF517 /* SEiPhoneApplicationPCH.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEiPhoneApplicationPCH.h; sourceTree = "<group>"; };
+		529EB6FC0FD8C5A500EAF517 /* SEApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEApplication.cpp; path = SEiPhoneApplication/SEApplication.cpp; sourceTree = "<group>"; };
+		529EB6FD0FD8C5A500EAF517 /* SEApplication.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEApplication.h; path = SEiPhoneApplication/SEApplication.h; sourceTree = "<group>"; };
+		529EB7000FD8C5A500EAF517 /* SEApplicationMCR.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEApplicationMCR.h; path = SEiPhoneApplication/SEApplicationMCR.h; sourceTree = "<group>"; };
+		529EB7010FD8C5A500EAF517 /* SEConsoleApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEConsoleApplication.cpp; path = SEiPhoneApplication/SEConsoleApplication.cpp; sourceTree = "<group>"; };
+		529EB7020FD8C5A500EAF517 /* SEConsoleApplication.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEConsoleApplication.h; path = SEiPhoneApplication/SEConsoleApplication.h; sourceTree = "<group>"; };
+		529EB7030FD8C5A500EAF517 /* SEiPhoneApplication.mm */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.objcpp; name = SEiPhoneApplication.mm; path = SEiPhoneApplication/SEiPhoneApplication.mm; sourceTree = "<group>"; };
+		529EB7040FD8C5A500EAF517 /* SEWindowApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEWindowApplication.cpp; path = SEiPhoneApplication/SEWindowApplication.cpp; sourceTree = "<group>"; };
+		529EB7050FD8C5A500EAF517 /* SEWindowApplication.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEWindowApplication.h; path = SEiPhoneApplication/SEWindowApplication.h; sourceTree = "<group>"; };
+		529EB7060FD8C5A500EAF517 /* SEWindowApplication.inl */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = text; name = SEWindowApplication.inl; path = SEiPhoneApplication/SEWindowApplication.inl; sourceTree = "<group>"; };
+		529EB7070FD8C5A500EAF517 /* SEWindowApplication2.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEWindowApplication2.cpp; path = SEiPhoneApplication/SEWindowApplication2.cpp; sourceTree = "<group>"; };
+		529EB7080FD8C5A500EAF517 /* SEWindowApplication2.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEWindowApplication2.h; path = SEiPhoneApplication/SEWindowApplication2.h; sourceTree = "<group>"; };
+		529EB7090FD8C5A500EAF517 /* SEWindowApplication3.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEWindowApplication3.cpp; path = SEiPhoneApplication/SEWindowApplication3.cpp; sourceTree = "<group>"; };
+		529EB70A0FD8C5A500EAF517 /* SEWindowApplication3.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEWindowApplication3.h; path = SEiPhoneApplication/SEWindowApplication3.h; sourceTree = "<group>"; };
+		529EB7270FD8C74100EAF517 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		529EB7280FD8C74100EAF517 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		52A217B30FDD03E600D49C41 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		52A217B40FDD03E600D49C41 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		528240F60E9E486800629212 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				529EB7290FD8C74100EAF517 /* Foundation.framework in Frameworks */,
+				529EB72A0FD8C74100EAF517 /* UIKit.framework in Frameworks */,
+				52A217B50FDD03E600D49C41 /* OpenGLES.framework in Frameworks */,
+				52A217B60FDD03E600D49C41 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		528240FF0E9E487A00629212 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				529EB72B0FD8C74100EAF517 /* Foundation.framework in Frameworks */,
+				529EB72C0FD8C74100EAF517 /* UIKit.framework in Frameworks */,
+				52A217B70FDD03E600D49C41 /* OpenGLES.framework in Frameworks */,
+				52A217B80FDD03E600D49C41 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		528240E10E9E47FE00629212 = {
+			isa = PBXGroup;
+			children = (
+				5282410E0E9E497A00629212 /* Sources */,
+				528241620E9E5D8900629212 /* Frameworks */,
+				528240F90E9E486800629212 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		528240F90E9E486800629212 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				528240F80E9E486800629212 /* libSEiPhoneApplicationd.a */,
+				528241010E9E487A00629212 /* libSEiPhoneApplication.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5282410E0E9E497A00629212 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				5282410F0E9E499A00629212 /* SEiPhoneApplication */,
+				529EB6F60FD8C58D00EAF517 /* SEiPhoneApplicationPCH.cpp */,
+				529EB6F70FD8C58D00EAF517 /* SEiPhoneApplicationPCH.h */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		5282410F0E9E499A00629212 /* SEiPhoneApplication */ = {
+			isa = PBXGroup;
+			children = (
+				529EB6FC0FD8C5A500EAF517 /* SEApplication.cpp */,
+				529EB6FD0FD8C5A500EAF517 /* SEApplication.h */,
+				529EB7000FD8C5A500EAF517 /* SEApplicationMCR.h */,
+				529EB7010FD8C5A500EAF517 /* SEConsoleApplication.cpp */,
+				529EB7020FD8C5A500EAF517 /* SEConsoleApplication.h */,
+				529EB7030FD8C5A500EAF517 /* SEiPhoneApplication.mm */,
+				529EB7040FD8C5A500EAF517 /* SEWindowApplication.cpp */,
+				529EB7050FD8C5A500EAF517 /* SEWindowApplication.h */,
+				529EB7060FD8C5A500EAF517 /* SEWindowApplication.inl */,
+				529EB7070FD8C5A500EAF517 /* SEWindowApplication2.cpp */,
+				529EB7080FD8C5A500EAF517 /* SEWindowApplication2.h */,
+				529EB7090FD8C5A500EAF517 /* SEWindowApplication3.cpp */,
+				529EB70A0FD8C5A500EAF517 /* SEWindowApplication3.h */,
+			);
+			name = SEiPhoneApplication;
+			sourceTree = "<group>";
+		};
+		528241620E9E5D8900629212 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				52A217B30FDD03E600D49C41 /* OpenGLES.framework */,
+				52A217B40FDD03E600D49C41 /* QuartzCore.framework */,
+				529EB7270FD8C74100EAF517 /* Foundation.framework */,
+				529EB7280FD8C74100EAF517 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		528240F40E9E486800629212 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				529EB6F90FD8C58D00EAF517 /* SEiPhoneApplicationPCH.h in Headers */,
+				529EB70C0FD8C5A500EAF517 /* SEApplication.h in Headers */,
+				529EB70F0FD8C5A500EAF517 /* SEApplicationMCR.h in Headers */,
+				529EB7110FD8C5A500EAF517 /* SEConsoleApplication.h in Headers */,
+				529EB7140FD8C5A500EAF517 /* SEWindowApplication.h in Headers */,
+				529EB7160FD8C5A500EAF517 /* SEWindowApplication2.h in Headers */,
+				529EB7180FD8C5A500EAF517 /* SEWindowApplication3.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		528240FD0E9E487A00629212 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				529EB6FB0FD8C58D00EAF517 /* SEiPhoneApplicationPCH.h in Headers */,
+				529EB71A0FD8C5A500EAF517 /* SEApplication.h in Headers */,
+				529EB71D0FD8C5A500EAF517 /* SEApplicationMCR.h in Headers */,
+				529EB71F0FD8C5A500EAF517 /* SEConsoleApplication.h in Headers */,
+				529EB7220FD8C5A500EAF517 /* SEWindowApplication.h in Headers */,
+				529EB7240FD8C5A500EAF517 /* SEWindowApplication2.h in Headers */,
+				529EB7260FD8C5A500EAF517 /* SEWindowApplication3.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		528240F70E9E486800629212 /* Debug */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 528240FC0E9E486900629212 /* Build configuration list for PBXNativeTarget "Debug" */;
+			buildPhases = (
+				528240F40E9E486800629212 /* Headers */,
+				528240F50E9E486800629212 /* Sources */,
+				528240F60E9E486800629212 /* Frameworks */,
+				528241700E9E600C00629212 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Debug;
+			productName = Debug;
+			productReference = 528240F80E9E486800629212 /* libSEiPhoneApplicationd.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		528241000E9E487A00629212 /* Release */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 528241040E9E489E00629212 /* Build configuration list for PBXNativeTarget "Release" */;
+			buildPhases = (
+				528240FD0E9E487A00629212 /* Headers */,
+				528240FE0E9E487A00629212 /* Sources */,
+				528240FF0E9E487A00629212 /* Frameworks */,
+				528241720E9E604D00629212 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Release;
+			productName = Release;
+			productReference = 528241010E9E487A00629212 /* libSEiPhoneApplication.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		528240E30E9E47FE00629212 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 528240E60E9E47FE00629212 /* Build configuration list for PBXProject "SE_iPhone_Application" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 0;
+			mainGroup = 528240E10E9E47FE00629212;
+			productRefGroup = 528240F90E9E486800629212 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				528240F70E9E486800629212 /* Debug */,
+				528241000E9E487A00629212 /* Release */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		528241700E9E600C00629212 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkDebug.sh;
+		};
+		528241720E9E604D00629212 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkRelease.sh;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		528240F50E9E486800629212 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				529EB6F80FD8C58D00EAF517 /* SEiPhoneApplicationPCH.cpp in Sources */,
+				529EB70B0FD8C5A500EAF517 /* SEApplication.cpp in Sources */,
+				529EB7100FD8C5A500EAF517 /* SEConsoleApplication.cpp in Sources */,
+				529EB7120FD8C5A500EAF517 /* SEiPhoneApplication.mm in Sources */,
+				529EB7130FD8C5A500EAF517 /* SEWindowApplication.cpp in Sources */,
+				529EB7150FD8C5A500EAF517 /* SEWindowApplication2.cpp in Sources */,
+				529EB7170FD8C5A500EAF517 /* SEWindowApplication3.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		528240FE0E9E487A00629212 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				529EB6FA0FD8C58D00EAF517 /* SEiPhoneApplicationPCH.cpp in Sources */,
+				529EB7190FD8C5A500EAF517 /* SEApplication.cpp in Sources */,
+				529EB71E0FD8C5A500EAF517 /* SEConsoleApplication.cpp in Sources */,
+				529EB7200FD8C5A500EAF517 /* SEiPhoneApplication.mm in Sources */,
+				529EB7210FD8C5A500EAF517 /* SEWindowApplication.cpp in Sources */,
+				529EB7230FD8C5A500EAF517 /* SEWindowApplication2.cpp in Sources */,
+				529EB7250FD8C5A500EAF517 /* SEWindowApplication3.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		528240E40E9E47FE00629212 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				COPY_PHASE_STRIP = NO;
+				SDKROOT = iphonesimulator2.0;
+			};
+			name = Default;
+		};
+		528240FA0E9E486900629212 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEiPhoneApplicationPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_STYLE = STATIC;
+				PREBINDING = NO;
+				PRODUCT_NAME = SEiPhoneApplicationd;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/DebugStatic";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		528241020E9E487A00629212 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEiPhoneApplicationPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_STYLE = STATIC;
+				PREBINDING = NO;
+				PRODUCT_NAME = SEiPhoneApplication;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/ReleaseStatic";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		528240E60E9E47FE00629212 /* Build configuration list for PBXProject "SE_iPhone_Application" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528240E40E9E47FE00629212 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		528240FC0E9E486900629212 /* Build configuration list for PBXNativeTarget "Debug" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528240FA0E9E486900629212 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		528241040E9E489E00629212 /* Build configuration list for PBXNativeTarget "Release" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528241020E9E487A00629212 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 528240E30E9E47FE00629212 /* Project object */;
+}

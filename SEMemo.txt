@@ -1,0 +1,133 @@
+2008 0916 2113
+Accumulation Buffer与Scene Antialiasing,参考OpenGL Programming Guide 5th Edition p482
+
+2008 0922 1814
+关于GPU Skinning,蒙皮矩阵数组大小取决于目标shader model,每个矩阵使用4个连续的常量寄存器,
+对于DirectX profile vs_2_0,vs_3_0,最大常量寄存器数为256,理想情况下允许64个蒙皮矩阵.
+对于OpenGL profile arbvp1,最大常量寄存器数为96,理想情况下允许24个蒙皮矩阵.
+
+2008 1225 1610
+目前的Ray与Triangle相交检测,使用了标准算法,在解线性方程组Q + t*D = b0*E1 + b1*E2时,用了三次叉积运算,
+而参照Real-Time Rendering 3th Edition,p746,在外界提供了三角面法线的情况下,我们可以将三次叉积运算缩减到一次.
+今后应修改IntrRay3Triangle3中的相关算法.
+
+2008 1225 1618
+目前的Collision系统使用了Bounding Volume tree子系统(简称BVT子系统).而该子系统只能针对一般情况下的网格
+(不包含使用GPU进行skinning和morph的网格)生成BVT.
+
+2009 0122 1950
+在使用牛顿法估算convex function的解时,注意使用的numerical minimizer算法,在SEDistance.cpp中line192,line316.
+
+2009 0122 1951
+Vector3到Triangle3距离,Vector3到Rectangle3距离,Line3到Box3距离的算法细节尚未明晰.待相关数学原理明晰后再解决.
+
+2009 0306 1114
+智能指针所指对象不需要显示的通过SmartPointer<type> = 0来企图释放,智能指针对象自身析构时会对所指对象减引用.
+除非是在application层的用户应用程序派生类的智能指针成员对象,则需要在application层的OnTerminate函数中显示的进行
+SmartPointer<type> = 0,因为application派生类中的智能指针成员对象的生存周期大于系统的Object级内存泄漏检测开始时间.
+
+2009 0306 1119
+注意,目前取消了Image的power of two检测，为了支持任意尺寸的backbuffer及其对应的offscreen texture(render target),
+同时需要注意的是,offscreen texture(render target)的尺寸不能大于backbuffer的尺寸.
+在OpenGL 2.0规范中,取消了power of two的限制,可以创建任意尺寸的texture和offscreen texture.
+在DirectX9.0规范中,D3DXCreateTextureFromFile/D3DXCreateTextureFromFileEx总是默认创建power of two的纹理,
+D3DXCreateTextureFromFileEx函数可以通过指定D3DX_DEFAULT_NONPOW2来试图创建符合原始图形文件尺寸的任意尺寸纹理,
+D3DCAPS9::TextureCaps决定了当前设备的纹理能力.
+以下摘自SDK文档:
+TextureCaps 
+Miscellaneous texture-mapping capabilities. This member can be one or more of the following flags. 
+D3DPTEXTURECAPS_ALPHA 
+Alpha in texture pixels is supported. 
+D3DPTEXTURECAPS_ALPHAPALETTE 
+Device can draw alpha from texture palettes. 
+D3DPTEXTURECAPS_CUBEMAP 
+Supports cube textures. 
+D3DPTEXTURECAPS_CUBEMAP_POW2 
+Device requires that cube texture maps have dimensions specified as powers of two. 
+D3DPTEXTURECAPS_MIPCUBEMAP 
+Device supports mipmapped cube textures. 
+D3DPTEXTURECAPS_MIPMAP 
+Device supports mipmapped textures. 
+D3DPTEXTURECAPS_MIPVOLUMEMAP 
+Device supports mipmapped volume textures. 
+D3DPTEXTURECAPS_NONPOW2CONDITIONAL 
+D3DPTEXTURECAPS_POW2 is also set, conditionally supports the use of 2D textures with dimensions that are not powers of two. A device that exposes this capability can use such a texture if all of the following requirements are met.
+
+The texture addressing mode for the texture stage is set to D3DTADDRESS_CLAMP. 
+Texture wrapping for the texture stage is disabled (D3DRS_WRAP n set to 0). 
+Mipmapping is not in use (use magnification filter only). 
+Texture formats must not be D3DFMT_DXT1 through D3DFMT_DXT5. 
+If this flag is not set, and D3DPTEXTURECAPS_POW2 is also not set, then unconditional support is provided for 2D textures with dimensions that are not powers of two.
+
+A texture that is not a power of two cannot be set at a stage that will be read based on a shader computation (such as the bem - ps and texm3x3 - ps instructions in pixel shaders versions 1_0 to 1_3). For example, these textures can be used to store bumps that will be fed into texture reads, but not the environment maps that are used in texbem - ps, texbeml - ps, and texm3x3spec - ps. This means that a texture with dimensions that are not powers of two cannot be addressed or sampled using texture coordinates computed within the shader. This type of operation is known as a dependent read and cannot be performed on these types of textures.
+
+D3DPTEXTURECAPS_NOPROJECTEDBUMPENV 
+Device does not support a projected bump-environment loopkup operation in programmable and fixed function shaders. 
+D3DPTEXTURECAPS_PERSPECTIVE 
+Perspective correction texturing is supported. 
+D3DPTEXTURECAPS_POW2 
+If D3DPTEXTURECAPS_NONPOW2CONDITIONAL is not set, all textures must have widths and heights specified as powers of two. This requirement does not apply to either cube textures or volume textures.
+
+If D3DPTEXTURECAPS_NONPOW2CONDITIONAL is also set, conditionally supports the use of 2D textures with dimensions that are not powers of two. See D3DPTEXTURECAPS_NONPOW2CONDITIONAL description.
+
+If this flag is not set, and D3DPTEXTURECAPS_NONPOW2CONDITIONAL is also not set, then unconditional support is provided for 2D textures with dimensions that are not powers of two.
+
+20090423 1940
+目前已知Cg runtime bug:
+saturate函数会引起编译后的程序由cgD3D9LoadProgram产生Unknown error. 库版本为Cg toolkit2.2 February2009
+
+20090706 2255
+注意含有指针成员的类的拷贝构造和赋值运算符重载问题.
+目前RendererConstant,UserConstant,SamplerInformation类都允许携带用户自定义数据指针,应注意实现带有指针成员的类拷贝构造函数.
+从而明确定义当拷贝构造发生时,指针成员的具体行为,目前这三个类都应该采用指针成员的内存动态分配策略.从而避免产生因类对象析构等原因
+释放自定义数据指针造成的共享指针内存非法.
+Program类虽然也含有自定义数据指针,但如果可以确定在使用过程中该类不会发生拷贝构造或对象赋值,则暂时无需实现明确定义的拷贝构造函数.
+
+20090815 2300
+关于VC编译器warning C4251
+1:情况一
+如果类的定义里面仅含有 编译器内置的类型变量, int, float 等等. 或者成员函数仅使用了这些变量作为参数, 那么很简单.
+直接
+class __declspec(dllexport) YourClass
+{
+}
+就行了.
+
+2:情况二
+如果类内部使用了别的类, 那么别的类最好也导出, 不然, 首先编译的时候会出现编译警告:
+ warning C4251: needs to have dll-interface 
+意思是,你使用另外的一些类型/接口, 但是这些类型或接口没有导出. 当你的client使用这些类型/接口的时候, 会出错!
+class __declspec(dllexport) YourClass
+{
+   YourAnatherClass m_data; // 这里会 出现 warning 4251. 如果YourAnatherClass 没有导出的话.
+}
+解决办法就是: 在YourAnatherClass定义的地方加上
+class __declspec(dllexport) YourAnatherClass 
+{
+}
+如上, 当你的YourAnatherClass没有导出的时候, dll的使用方会出现链接错误
+
+3:情况三
+当类的内部使用了STL模板的时候, 也会出现C4251警告, 情况会有所不同
+class __declspec(dllexport) YourClass
+{
+   vector<int> m_data; // 这里会 出现 warning 4251. 因为vector<int>类型没有被导出
+}
+上面的使用模板(无论是stl模板,还是自定义模板)的代码,编译dll时会出现C4251警告, 但是dll的使用方, 却不会出现链接错误!!!
+这个因为, dll的使用方那里也有一套模板的定义, 当他们使用那个vector<int>的时候, 虽没有导出, 但是用户自己也有一套STL模板(或者是自定义的模板),用户会利用自己的模板实例化这个dll中没有导出的东西!
+
+所以, 对于因为使用STL(或模板)出现的c4251警告, 关闭之即可
+#pragma warning(push)
+#pragma warning(disable:4251)
+//your declarations that cause 4251
+#pragma warning(pop)
+
+若想不使用通过关闭警告的方式关闭警告, 那么就这样
+1)对于用户自定义的模板
+   template class DLLImportExportMacro SomeTemplate<int>;
+   SomeTemplate<int> y;
+2)对于STL的模板
+     template class DLLImportExportMacro std::allocator<int>
+     template class DLLImportExportMacro std::vector<int,
+      std::allocator<int> >;
+     vector<int> m_data;

@@ -1,0 +1,163 @@
+// Swing Engine Version 1 Source Code 
+// Most of techniques in the engine are mainly based on David Eberly's
+// Wild Magic 4 open-source code.The author of Swing Engine learned a lot
+// from Eberly's experience of architecture and algorithm.
+// Several sub-systems are totally new,and others are re-implimented or
+// re-organized based on Wild Magic 4's sub-systems.
+// Copyright (c) 2007-2010.  All Rights Reserved
+//
+// Eberly's permission:
+// Geometric Tools, Inc.
+// http://www.geometrictools.com
+// Copyright (c) 1998-2006.  All Rights Reserved
+//
+// This library is free software; you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 2.1 of the License, or (at
+// your option) any later version.  The license is available for reading at
+// the location:
+// http://www.gnu.org/copyleft/lgpl.html
+
+#include "SEFoundationPCH.h"
+#include "SEDistTriangle3Triangle3.h"
+#include "SEDistSegment3Triangle3.h"
+
+using namespace Swing;
+
+//----------------------------------------------------------------------------
+DistTriangle3Triangle3f::DistTriangle3Triangle3f(const Triangle3f& rTriangle0, 
+    const Triangle3f& rTriangle1)
+    :
+    m_pTriangle0(&rTriangle0),
+    m_pTriangle1(&rTriangle1)
+{
+}
+//----------------------------------------------------------------------------
+const Triangle3f& DistTriangle3Triangle3f::GetTriangle0() const
+{
+    return *m_pTriangle0;
+}
+//----------------------------------------------------------------------------
+const Triangle3f& DistTriangle3Triangle3f::GetTriangle1() const
+{
+    return *m_pTriangle1;
+}
+//----------------------------------------------------------------------------
+float DistTriangle3Triangle3f::Get()
+{
+    float fSqrDist = GetSquared();
+
+    return Math<float>::Sqrt(fSqrDist);
+}
+//----------------------------------------------------------------------------
+float DistTriangle3Triangle3f::GetSquared()
+{
+    // 把triangle0的各边和triangle1进行比较.
+    float fSqrDist = Math<float>::MAX_REAL, fSqrDistTmp;
+    Segment3f tempSeg;
+    float fRatio;
+    int i0, i1;
+    for( i0 = 2, i1 = 0; i1 < 3; i0 = i1++ )
+    {
+        tempSeg.Origin = 0.5f*(m_pTriangle0->V[i0] + m_pTriangle0->V[i1]);
+        tempSeg.Direction = m_pTriangle0->V[i1] - m_pTriangle0->V[i0];
+        tempSeg.Extent = 0.5f*tempSeg.Direction.Normalize();
+        DistSegment3Triangle3f tempSTDist(tempSeg, *m_pTriangle1);
+        fSqrDistTmp = tempSTDist.GetSquared();
+        if( fSqrDistTmp < fSqrDist )
+        {
+            m_ClosestPoint0 = tempSTDist.GetClosestPoint0();
+            m_ClosestPoint1 = tempSTDist.GetClosestPoint1();
+            fSqrDist = fSqrDistTmp;
+
+            fRatio = tempSTDist.GetSegmentParameter()/tempSeg.Extent;
+            m_afTriangleBary0[i0] = 0.5f*(1.0f - fRatio);
+            m_afTriangleBary0[i1] = 1.0f - m_afTriangleBary0[i0];
+            m_afTriangleBary0[3 - i0 - i1] = 0.0f;
+            m_afTriangleBary1[0] = tempSTDist.GetTriangleBary(0);
+            m_afTriangleBary1[1] = tempSTDist.GetTriangleBary(1);
+            m_afTriangleBary1[2] = tempSTDist.GetTriangleBary(2);
+
+            if( fSqrDist <= Math<float>::ZERO_TOLERANCE )
+            {
+                return 0.0f;
+            }
+        }
+    }
+
+    // 把triangle1的各边和triangle0进行比较.
+    for( i0 = 2, i1 = 0; i1 < 3; i0 = i1++ )
+    {
+        tempSeg.Origin = 0.5f*(m_pTriangle1->V[i0] + m_pTriangle1->V[i1]);
+        tempSeg.Direction = m_pTriangle1->V[i1] - m_pTriangle1->V[i0];
+        tempSeg.Extent = 0.5f*tempSeg.Direction.Normalize();
+        DistSegment3Triangle3f tempSTDist(tempSeg, *m_pTriangle0);
+        fSqrDistTmp = tempSTDist.GetSquared();
+        if( fSqrDistTmp < fSqrDist )
+        {
+            m_ClosestPoint0 = tempSTDist.GetClosestPoint0();
+            m_ClosestPoint1 = tempSTDist.GetClosestPoint1();
+            fSqrDist = fSqrDistTmp;
+
+            fRatio = tempSTDist.GetSegmentParameter()/tempSeg.Extent;
+            m_afTriangleBary1[i0] = 0.5f*(1.0f - fRatio);
+            m_afTriangleBary1[i1] = 1.0f - m_afTriangleBary1[i0];
+            m_afTriangleBary1[3 - i0 - i1] = 0.0f;
+            m_afTriangleBary0[0] = tempSTDist.GetTriangleBary(0);
+            m_afTriangleBary0[1] = tempSTDist.GetTriangleBary(1);
+            m_afTriangleBary0[2] = tempSTDist.GetTriangleBary(2);
+
+            if( fSqrDist <= Math<float>::ZERO_TOLERANCE )
+            {
+                return 0.0f;
+            }
+        }
+    }
+
+    return fSqrDist;
+}
+//----------------------------------------------------------------------------
+float DistTriangle3Triangle3f::Get(float fT, const Vector3f& rVelocity0, 
+    const Vector3f& rVelocity1)
+{
+    Vector3f vec3fMV00 = m_pTriangle0->V[0] + fT*rVelocity0;
+    Vector3f vec3fMV01 = m_pTriangle0->V[1] + fT*rVelocity0;
+    Vector3f vec3fMV02 = m_pTriangle0->V[2] + fT*rVelocity0;
+    Vector3f vec3fMV10 = m_pTriangle1->V[0] + fT*rVelocity1;
+    Vector3f vec3fMV11 = m_pTriangle1->V[1] + fT*rVelocity1;
+    Vector3f vec3fMV12 = m_pTriangle1->V[2] + fT*rVelocity1;
+    Triangle3f tempMTriangle0(vec3fMV00, vec3fMV01, vec3fMV02);
+    Triangle3f tempMTriangle1(vec3fMV10, vec3fMV11, vec3fMV12);
+
+    return DistTriangle3Triangle3f(tempMTriangle0, tempMTriangle1).Get();
+}
+//----------------------------------------------------------------------------
+float DistTriangle3Triangle3f::GetSquared(float fT, 
+    const Vector3f& rVelocity0, const Vector3f& rVelocity1)
+{
+    Vector3f vec3fMV00 = m_pTriangle0->V[0] + fT*rVelocity0;
+    Vector3f vec3fMV01 = m_pTriangle0->V[1] + fT*rVelocity0;
+    Vector3f vec3fMV02 = m_pTriangle0->V[2] + fT*rVelocity0;
+    Vector3f vec3fMV10 = m_pTriangle1->V[0] + fT*rVelocity1;
+    Vector3f vec3fMV11 = m_pTriangle1->V[1] + fT*rVelocity1;
+    Vector3f vec3fMV12 = m_pTriangle1->V[2] + fT*rVelocity1;
+    Triangle3f tempMTriangle0(vec3fMV00, vec3fMV01, vec3fMV02);
+    Triangle3f tempMTriangle1(vec3fMV10, vec3fMV11, vec3fMV12);
+
+    return DistTriangle3Triangle3f(tempMTriangle0, tempMTriangle1).GetSquared();
+}
+//----------------------------------------------------------------------------
+float DistTriangle3Triangle3f::GetTriangleBary0(int i) const
+{
+    SE_ASSERT( 0 <= i && i < 3 );
+
+    return m_afTriangleBary0[i];
+}
+//----------------------------------------------------------------------------
+float DistTriangle3Triangle3f::GetTriangleBary1(int i) const
+{
+    SE_ASSERT( 0 <= i && i < 3 );
+
+    return m_afTriangleBary1[i];
+}
+//----------------------------------------------------------------------------

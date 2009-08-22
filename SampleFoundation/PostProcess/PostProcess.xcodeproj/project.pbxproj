@@ -1,0 +1,362 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3C6FBB33083E5FB60068AA05 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6FBB32083E5FB60068AA05 /* AGL.framework */; };
+		3C6FBB34083E5FB60068AA05 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6FBB32083E5FB60068AA05 /* AGL.framework */; };
+		3C6FBB46083E5FCE0068AA05 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6FBB45083E5FCE0068AA05 /* Carbon.framework */; };
+		3C6FBB47083E5FCE0068AA05 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6FBB45083E5FCE0068AA05 /* Carbon.framework */; };
+		3C6FBB4D083E5FE20068AA05 /* DrawSprocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6FBB4C083E5FE20068AA05 /* DrawSprocket.framework */; };
+		3C6FBB4E083E5FE20068AA05 /* DrawSprocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6FBB4C083E5FE20068AA05 /* DrawSprocket.framework */; };
+		3C6FBC6C083E6E1B0068AA05 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6FBC6B083E6E1B0068AA05 /* OpenGL.framework */; };
+		3C6FBC6D083E6E1B0068AA05 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6FBC6B083E6E1B0068AA05 /* OpenGL.framework */; };
+		52A0557E0F89B6CF00004535 /* libSEAglApplicationd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0557A0F89B6CF00004535 /* libSEAglApplicationd.a */; };
+		52A0557F0F89B6CF00004535 /* libSEAglRendererd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0557B0F89B6CF00004535 /* libSEAglRendererd.a */; };
+		52A055800F89B6CF00004535 /* libSEFoundationd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0557C0F89B6CF00004535 /* libSEFoundationd.a */; };
+		52A055810F89B6CF00004535 /* libSEPhysicsd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0557D0F89B6CF00004535 /* libSEPhysicsd.a */; };
+		52A055860F89B7AA00004535 /* libSEAglApplication.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A055820F89B7AA00004535 /* libSEAglApplication.a */; };
+		52A055870F89B7AA00004535 /* libSEAglRenderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A055830F89B7AA00004535 /* libSEAglRenderer.a */; };
+		52A055880F89B7AA00004535 /* libSEFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A055840F89B7AA00004535 /* libSEFoundation.a */; };
+		52A055890F89B7AA00004535 /* libSEPhysics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A055850F89B7AA00004535 /* libSEPhysics.a */; };
+		52A0558E0F89B81400004535 /* Cg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0558D0F89B81400004535 /* Cg.framework */; };
+		52A0558F0F89B81400004535 /* Cg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0558D0F89B81400004535 /* Cg.framework */; };
+		52A056500F89C38E00004535 /* PostProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52A0564E0F89C38E00004535 /* PostProcess.cpp */; };
+		52A056510F89C38E00004535 /* PostProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52A0564E0F89C38E00004535 /* PostProcess.cpp */; };
+		52AFFCB20FF8CA360008BD07 /* libSEAalRendererd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFCB00FF8CA360008BD07 /* libSEAalRendererd.a */; };
+		52AFFCB30FF8CA370008BD07 /* libSEAudiod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFCB10FF8CA360008BD07 /* libSEAudiod.a */; };
+		52AFFCB60FF8CA680008BD07 /* libSEAalRenderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFCB40FF8CA680008BD07 /* libSEAalRenderer.a */; };
+		52AFFCB70FF8CA680008BD07 /* libSEAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFCB50FF8CA680008BD07 /* libSEAudio.a */; };
+		52AFFCB90FF8CA870008BD07 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFCB80FF8CA870008BD07 /* OpenAL.framework */; };
+		52AFFCBA0FF8CA870008BD07 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFCB80FF8CA870008BD07 /* OpenAL.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3C6FBB32083E5FB60068AA05 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
+		3C6FBB45083E5FCE0068AA05 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		3C6FBB4C083E5FE20068AA05 /* DrawSprocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DrawSprocket.framework; path = /System/Library/Frameworks/DrawSprocket.framework; sourceTree = "<absolute>"; };
+		3C6FBC6B083E6E1B0068AA05 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		52A0557A0F89B6CF00004535 /* libSEAglApplicationd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAglApplicationd.a; path = ../../SDK/Lib/libSEAglApplicationd.a; sourceTree = SOURCE_ROOT; };
+		52A0557B0F89B6CF00004535 /* libSEAglRendererd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAglRendererd.a; path = ../../SDK/Lib/libSEAglRendererd.a; sourceTree = SOURCE_ROOT; };
+		52A0557C0F89B6CF00004535 /* libSEFoundationd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEFoundationd.a; path = ../../SDK/Lib/libSEFoundationd.a; sourceTree = SOURCE_ROOT; };
+		52A0557D0F89B6CF00004535 /* libSEPhysicsd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEPhysicsd.a; path = ../../SDK/Lib/libSEPhysicsd.a; sourceTree = SOURCE_ROOT; };
+		52A055820F89B7AA00004535 /* libSEAglApplication.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAglApplication.a; path = ../../SDK/Lib/libSEAglApplication.a; sourceTree = SOURCE_ROOT; };
+		52A055830F89B7AA00004535 /* libSEAglRenderer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAglRenderer.a; path = ../../SDK/Lib/libSEAglRenderer.a; sourceTree = SOURCE_ROOT; };
+		52A055840F89B7AA00004535 /* libSEFoundation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEFoundation.a; path = ../../SDK/Lib/libSEFoundation.a; sourceTree = SOURCE_ROOT; };
+		52A055850F89B7AA00004535 /* libSEPhysics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEPhysics.a; path = ../../SDK/Lib/libSEPhysics.a; sourceTree = SOURCE_ROOT; };
+		52A0558D0F89B81400004535 /* Cg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cg.framework; path = /Library/Frameworks/Cg.framework; sourceTree = "<absolute>"; };
+		52A0564E0F89C38E00004535 /* PostProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = PostProcess.cpp; sourceTree = "<group>"; };
+		52A0564F0F89C38E00004535 /* PostProcess.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = PostProcess.h; sourceTree = "<group>"; };
+		52AFFCB00FF8CA360008BD07 /* libSEAalRendererd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAalRendererd.a; path = ../../SDK/Lib/libSEAalRendererd.a; sourceTree = SOURCE_ROOT; };
+		52AFFCB10FF8CA360008BD07 /* libSEAudiod.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAudiod.a; path = ../../SDK/Lib/libSEAudiod.a; sourceTree = SOURCE_ROOT; };
+		52AFFCB40FF8CA680008BD07 /* libSEAalRenderer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAalRenderer.a; path = ../../SDK/Lib/libSEAalRenderer.a; sourceTree = SOURCE_ROOT; };
+		52AFFCB50FF8CA680008BD07 /* libSEAudio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAudio.a; path = ../../SDK/Lib/libSEAudio.a; sourceTree = SOURCE_ROOT; };
+		52AFFCB80FF8CA870008BD07 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		748AA4CC07F4624400486586 /* DefaultShaderAglDebSta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DefaultShaderAglDebSta.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		748AA4DA07F4631800486586 /* DefaultShaderAglRelSta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DefaultShaderAglRelSta.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		748AA4CA07F4624400486586 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C6FBB33083E5FB60068AA05 /* AGL.framework in Frameworks */,
+				3C6FBB46083E5FCE0068AA05 /* Carbon.framework in Frameworks */,
+				3C6FBB4D083E5FE20068AA05 /* DrawSprocket.framework in Frameworks */,
+				3C6FBC6C083E6E1B0068AA05 /* OpenGL.framework in Frameworks */,
+				52A0557E0F89B6CF00004535 /* libSEAglApplicationd.a in Frameworks */,
+				52A0557F0F89B6CF00004535 /* libSEAglRendererd.a in Frameworks */,
+				52A055800F89B6CF00004535 /* libSEFoundationd.a in Frameworks */,
+				52A055810F89B6CF00004535 /* libSEPhysicsd.a in Frameworks */,
+				52A0558F0F89B81400004535 /* Cg.framework in Frameworks */,
+				52AFFCB20FF8CA360008BD07 /* libSEAalRendererd.a in Frameworks */,
+				52AFFCB30FF8CA370008BD07 /* libSEAudiod.a in Frameworks */,
+				52AFFCBA0FF8CA870008BD07 /* OpenAL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		748AA4D807F4631800486586 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C6FBB34083E5FB60068AA05 /* AGL.framework in Frameworks */,
+				3C6FBB47083E5FCE0068AA05 /* Carbon.framework in Frameworks */,
+				3C6FBB4E083E5FE20068AA05 /* DrawSprocket.framework in Frameworks */,
+				3C6FBC6D083E6E1B0068AA05 /* OpenGL.framework in Frameworks */,
+				52A055860F89B7AA00004535 /* libSEAglApplication.a in Frameworks */,
+				52A055870F89B7AA00004535 /* libSEAglRenderer.a in Frameworks */,
+				52A055880F89B7AA00004535 /* libSEFoundation.a in Frameworks */,
+				52A055890F89B7AA00004535 /* libSEPhysics.a in Frameworks */,
+				52A0558E0F89B81400004535 /* Cg.framework in Frameworks */,
+				52AFFCB60FF8CA680008BD07 /* libSEAalRenderer.a in Frameworks */,
+				52AFFCB70FF8CA680008BD07 /* libSEAudio.a in Frameworks */,
+				52AFFCB90FF8CA870008BD07 /* OpenAL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7432C2B407F8766A00ABC141 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				52AFFCB00FF8CA360008BD07 /* libSEAalRendererd.a */,
+				52AFFCB10FF8CA360008BD07 /* libSEAudiod.a */,
+				52A0557A0F89B6CF00004535 /* libSEAglApplicationd.a */,
+				52A0557B0F89B6CF00004535 /* libSEAglRendererd.a */,
+				52A0557C0F89B6CF00004535 /* libSEFoundationd.a */,
+				52A0557D0F89B6CF00004535 /* libSEPhysicsd.a */,
+			);
+			name = Debug;
+			sourceTree = "<group>";
+		};
+		7432C2B707F8767000ABC141 /* Release */ = {
+			isa = PBXGroup;
+			children = (
+				52AFFCB40FF8CA680008BD07 /* libSEAalRenderer.a */,
+				52AFFCB50FF8CA680008BD07 /* libSEAudio.a */,
+				52A055820F89B7AA00004535 /* libSEAglApplication.a */,
+				52A055830F89B7AA00004535 /* libSEAglRenderer.a */,
+				52A055840F89B7AA00004535 /* libSEFoundation.a */,
+				52A055850F89B7AA00004535 /* libSEPhysics.a */,
+			);
+			name = Release;
+			sourceTree = "<group>";
+		};
+		748AA4BE07F4621A00486586 = {
+			isa = PBXGroup;
+			children = (
+				748AA50C07F465A200486586 /* Sources */,
+				748AA4F707F4641600486586 /* Libraries */,
+				748AA4E207F463F300486586 /* Frameworks */,
+				748AA4CD07F4624400486586 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		748AA4CD07F4624400486586 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				748AA4CC07F4624400486586 /* DefaultShaderAglDebSta.app */,
+				748AA4DA07F4631800486586 /* DefaultShaderAglRelSta.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		748AA4E207F463F300486586 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				52AFFCB80FF8CA870008BD07 /* OpenAL.framework */,
+				52A0558D0F89B81400004535 /* Cg.framework */,
+				3C6FBC6B083E6E1B0068AA05 /* OpenGL.framework */,
+				3C6FBB4C083E5FE20068AA05 /* DrawSprocket.framework */,
+				3C6FBB45083E5FCE0068AA05 /* Carbon.framework */,
+				3C6FBB32083E5FB60068AA05 /* AGL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		748AA4F707F4641600486586 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				7432C2B407F8766A00ABC141 /* Debug */,
+				7432C2B707F8767000ABC141 /* Release */,
+			);
+			name = Libraries;
+			sourceTree = SOURCE_ROOT;
+		};
+		748AA50C07F465A200486586 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				52A0564E0F89C38E00004535 /* PostProcess.cpp */,
+				52A0564F0F89C38E00004535 /* PostProcess.h */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		748AA4CB07F4624400486586 /* Agl Debug */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C4B939708674C10001A085C /* Build configuration list for PBXNativeTarget "Agl Debug" */;
+			buildPhases = (
+				748AA4C807F4624400486586 /* Resources */,
+				748AA4C907F4624400486586 /* Sources */,
+				748AA4CA07F4624400486586 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Agl Debug";
+			productName = DefaultShaderStaDeb;
+			productReference = 748AA4CC07F4624400486586 /* DefaultShaderAglDebSta.app */;
+			productType = "com.apple.product-type.application";
+		};
+		748AA4D907F4631800486586 /* Agl Release */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C4B939A08674C10001A085C /* Build configuration list for PBXNativeTarget "Agl Release" */;
+			buildPhases = (
+				748AA4D607F4631800486586 /* Resources */,
+				748AA4D707F4631800486586 /* Sources */,
+				748AA4D807F4631800486586 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Agl Release";
+			productName = DefaultShaderStaRel;
+			productReference = 748AA4DA07F4631800486586 /* DefaultShaderAglRelSta.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		748AA4C207F4621A00486586 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 3C4B93AC08674C10001A085C /* Build configuration list for PBXProject "PostProcess" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 0;
+			mainGroup = 748AA4BE07F4621A00486586;
+			productRefGroup = 748AA4CD07F4624400486586 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				748AA4CB07F4624400486586 /* Agl Debug */,
+				748AA4D907F4631800486586 /* Agl Release */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		748AA4C807F4624400486586 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		748AA4D607F4631800486586 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		748AA4C907F4624400486586 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52A056500F89C38E00004535 /* PostProcess.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		748AA4D707F4631800486586 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52A056510F89C38E00004535 /* PostProcess.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3C4B939908674C10001A085C /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				LIBRARY_SEARCH_PATHS = (
+					"${SRCROOT}/../../SDK/Library/Debug",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../SDK/Lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../SDK/Lib\"";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				PRODUCT_NAME = DefaultShaderAglDebSta;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		3C4B939C08674C10001A085C /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = YES;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				LIBRARY_SEARCH_PATHS = (
+					"${SRCROOT}/../../SDK/Library/Release",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../SDK/Lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../SDK/Lib\"";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				PRODUCT_NAME = DefaultShaderAglRelSta;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		3C4B93AE08674C10001A085C /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3C4B939708674C10001A085C /* Build configuration list for PBXNativeTarget "Agl Debug" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C4B939908674C10001A085C /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		3C4B939A08674C10001A085C /* Build configuration list for PBXNativeTarget "Agl Release" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C4B939C08674C10001A085C /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		3C4B93AC08674C10001A085C /* Build configuration list for PBXProject "PostProcess" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C4B93AE08674C10001A085C /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 748AA4C207F4621A00486586 /* Project object */;
+}

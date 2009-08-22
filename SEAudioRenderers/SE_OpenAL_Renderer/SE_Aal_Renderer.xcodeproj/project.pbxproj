@@ -1,0 +1,398 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		52AFFA3B0FF8AE6A0008BD07 /* SEAalRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA310FF8AE6A0008BD07 /* SEAalRenderer.cpp */; };
+		52AFFA3C0FF8AE6A0008BD07 /* SEAalRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA320FF8AE6A0008BD07 /* SEAalRenderer.h */; };
+		52AFFA3D0FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA330FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp */; };
+		52AFFA3E0FF8AE6A0008BD07 /* SEOpenALRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA340FF8AE6A0008BD07 /* SEOpenALRenderer.cpp */; };
+		52AFFA3F0FF8AE6A0008BD07 /* SEOpenALRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA350FF8AE6A0008BD07 /* SEOpenALRenderer.h */; };
+		52AFFA400FF8AE6A0008BD07 /* SEOpenALResources.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA360FF8AE6A0008BD07 /* SEOpenALResources.h */; };
+		52AFFA410FF8AE6A0008BD07 /* SEOpenALResourcesED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA370FF8AE6A0008BD07 /* SEOpenALResourcesED.cpp */; };
+		52AFFA420FF8AE6A0008BD07 /* SEOpenALResourcesLR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA380FF8AE6A0008BD07 /* SEOpenALResourcesLR.cpp */; };
+		52AFFA430FF8AE6A0008BD07 /* SEOpenALResourcesU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA390FF8AE6A0008BD07 /* SEOpenALResourcesU.cpp */; };
+		52AFFA440FF8AE6A0008BD07 /* SEOpenALTransformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA3A0FF8AE6A0008BD07 /* SEOpenALTransformation.cpp */; };
+		52AFFA450FF8AE6A0008BD07 /* SEAalRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA310FF8AE6A0008BD07 /* SEAalRenderer.cpp */; };
+		52AFFA460FF8AE6A0008BD07 /* SEAalRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA320FF8AE6A0008BD07 /* SEAalRenderer.h */; };
+		52AFFA470FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA330FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp */; };
+		52AFFA480FF8AE6A0008BD07 /* SEOpenALRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA340FF8AE6A0008BD07 /* SEOpenALRenderer.cpp */; };
+		52AFFA490FF8AE6A0008BD07 /* SEOpenALRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA350FF8AE6A0008BD07 /* SEOpenALRenderer.h */; };
+		52AFFA4A0FF8AE6A0008BD07 /* SEOpenALResources.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA360FF8AE6A0008BD07 /* SEOpenALResources.h */; };
+		52AFFA4B0FF8AE6A0008BD07 /* SEOpenALResourcesED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA370FF8AE6A0008BD07 /* SEOpenALResourcesED.cpp */; };
+		52AFFA4C0FF8AE6A0008BD07 /* SEOpenALResourcesLR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA380FF8AE6A0008BD07 /* SEOpenALResourcesLR.cpp */; };
+		52AFFA4D0FF8AE6A0008BD07 /* SEOpenALResourcesU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA390FF8AE6A0008BD07 /* SEOpenALResourcesU.cpp */; };
+		52AFFA4E0FF8AE6A0008BD07 /* SEOpenALTransformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA3A0FF8AE6A0008BD07 /* SEOpenALTransformation.cpp */; };
+		52AFFA550FF8AE940008BD07 /* SEOpenALRendererLIB.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA4F0FF8AE940008BD07 /* SEOpenALRendererLIB.h */; };
+		52AFFA560FF8AE940008BD07 /* SEOpenALRendererPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA500FF8AE940008BD07 /* SEOpenALRendererPCH.cpp */; };
+		52AFFA570FF8AE940008BD07 /* SEOpenALRendererPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA510FF8AE940008BD07 /* SEOpenALRendererPCH.h */; };
+		52AFFA580FF8AE940008BD07 /* SEOpenALRendererRegister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA520FF8AE940008BD07 /* SEOpenALRendererRegister.cpp */; };
+		52AFFA590FF8AE940008BD07 /* SEOpenALRendererRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA530FF8AE940008BD07 /* SEOpenALRendererRegister.h */; };
+		52AFFA5A0FF8AE940008BD07 /* SwingOpenALRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA540FF8AE940008BD07 /* SwingOpenALRenderer.h */; };
+		52AFFA5B0FF8AE940008BD07 /* SEOpenALRendererLIB.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA4F0FF8AE940008BD07 /* SEOpenALRendererLIB.h */; };
+		52AFFA5C0FF8AE940008BD07 /* SEOpenALRendererPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA500FF8AE940008BD07 /* SEOpenALRendererPCH.cpp */; };
+		52AFFA5D0FF8AE940008BD07 /* SEOpenALRendererPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA510FF8AE940008BD07 /* SEOpenALRendererPCH.h */; };
+		52AFFA5E0FF8AE940008BD07 /* SEOpenALRendererRegister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA520FF8AE940008BD07 /* SEOpenALRendererRegister.cpp */; };
+		52AFFA5F0FF8AE940008BD07 /* SEOpenALRendererRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA530FF8AE940008BD07 /* SEOpenALRendererRegister.h */; };
+		52AFFA600FF8AE940008BD07 /* SwingOpenALRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA540FF8AE940008BD07 /* SwingOpenALRenderer.h */; };
+		52AFFB2D0FF8AECF0008BD07 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFB2C0FF8AECF0008BD07 /* OpenAL.framework */; };
+		52AFFB2E0FF8AECF0008BD07 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFB2C0FF8AECF0008BD07 /* OpenAL.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		528989660E9DB4E7000BBA95 /* libSEAalRendererd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEAalRendererd.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5289896F0E9DB4FD000BBA95 /* libSEAalRenderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEAalRenderer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		52AFFA310FF8AE6A0008BD07 /* SEAalRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEAalRenderer.cpp; path = SEOpenALRendering/SEAalRenderer.cpp; sourceTree = "<group>"; };
+		52AFFA320FF8AE6A0008BD07 /* SEAalRenderer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEAalRenderer.h; path = SEOpenALRendering/SEAalRenderer.h; sourceTree = "<group>"; };
+		52AFFA330FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenALElementsPS.cpp; path = SEOpenALRendering/SEOpenALElementsPS.cpp; sourceTree = "<group>"; };
+		52AFFA340FF8AE6A0008BD07 /* SEOpenALRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenALRenderer.cpp; path = SEOpenALRendering/SEOpenALRenderer.cpp; sourceTree = "<group>"; };
+		52AFFA350FF8AE6A0008BD07 /* SEOpenALRenderer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEOpenALRenderer.h; path = SEOpenALRendering/SEOpenALRenderer.h; sourceTree = "<group>"; };
+		52AFFA360FF8AE6A0008BD07 /* SEOpenALResources.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEOpenALResources.h; path = SEOpenALRendering/SEOpenALResources.h; sourceTree = "<group>"; };
+		52AFFA370FF8AE6A0008BD07 /* SEOpenALResourcesED.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenALResourcesED.cpp; path = SEOpenALRendering/SEOpenALResourcesED.cpp; sourceTree = "<group>"; };
+		52AFFA380FF8AE6A0008BD07 /* SEOpenALResourcesLR.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenALResourcesLR.cpp; path = SEOpenALRendering/SEOpenALResourcesLR.cpp; sourceTree = "<group>"; };
+		52AFFA390FF8AE6A0008BD07 /* SEOpenALResourcesU.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenALResourcesU.cpp; path = SEOpenALRendering/SEOpenALResourcesU.cpp; sourceTree = "<group>"; };
+		52AFFA3A0FF8AE6A0008BD07 /* SEOpenALTransformation.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenALTransformation.cpp; path = SEOpenALRendering/SEOpenALTransformation.cpp; sourceTree = "<group>"; };
+		52AFFA4F0FF8AE940008BD07 /* SEOpenALRendererLIB.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEOpenALRendererLIB.h; sourceTree = "<group>"; };
+		52AFFA500FF8AE940008BD07 /* SEOpenALRendererPCH.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = SEOpenALRendererPCH.cpp; sourceTree = "<group>"; };
+		52AFFA510FF8AE940008BD07 /* SEOpenALRendererPCH.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEOpenALRendererPCH.h; sourceTree = "<group>"; };
+		52AFFA520FF8AE940008BD07 /* SEOpenALRendererRegister.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = SEOpenALRendererRegister.cpp; sourceTree = "<group>"; };
+		52AFFA530FF8AE940008BD07 /* SEOpenALRendererRegister.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEOpenALRendererRegister.h; sourceTree = "<group>"; };
+		52AFFA540FF8AE940008BD07 /* SwingOpenALRenderer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SwingOpenALRenderer.h; sourceTree = "<group>"; };
+		52AFFB2C0FF8AECF0008BD07 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		528989640E9DB4E7000BBA95 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52AFFB2D0FF8AECF0008BD07 /* OpenAL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5289896D0E9DB4FD000BBA95 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52AFFB2E0FF8AECF0008BD07 /* OpenAL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5289894F0E9DB486000BBA95 = {
+			isa = PBXGroup;
+			children = (
+				52898A450E9DB7FB000BBA95 /* Sources */,
+				52898A460E9DB80F000BBA95 /* Frameworks */,
+				528989670E9DB4E7000BBA95 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		528989670E9DB4E7000BBA95 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				528989660E9DB4E7000BBA95 /* libSEAalRendererd.a */,
+				5289896F0E9DB4FD000BBA95 /* libSEAalRenderer.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		52898A450E9DB7FB000BBA95 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				52898A550E9DB968000BBA95 /* SEOpenALRendering */,
+				52AFFA4F0FF8AE940008BD07 /* SEOpenALRendererLIB.h */,
+				52AFFA500FF8AE940008BD07 /* SEOpenALRendererPCH.cpp */,
+				52AFFA510FF8AE940008BD07 /* SEOpenALRendererPCH.h */,
+				52AFFA520FF8AE940008BD07 /* SEOpenALRendererRegister.cpp */,
+				52AFFA530FF8AE940008BD07 /* SEOpenALRendererRegister.h */,
+				52AFFA540FF8AE940008BD07 /* SwingOpenALRenderer.h */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		52898A460E9DB80F000BBA95 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				52AFFB2C0FF8AECF0008BD07 /* OpenAL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		52898A550E9DB968000BBA95 /* SEOpenALRendering */ = {
+			isa = PBXGroup;
+			children = (
+				52AFFA310FF8AE6A0008BD07 /* SEAalRenderer.cpp */,
+				52AFFA320FF8AE6A0008BD07 /* SEAalRenderer.h */,
+				52AFFA330FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp */,
+				52AFFA340FF8AE6A0008BD07 /* SEOpenALRenderer.cpp */,
+				52AFFA350FF8AE6A0008BD07 /* SEOpenALRenderer.h */,
+				52AFFA360FF8AE6A0008BD07 /* SEOpenALResources.h */,
+				52AFFA370FF8AE6A0008BD07 /* SEOpenALResourcesED.cpp */,
+				52AFFA380FF8AE6A0008BD07 /* SEOpenALResourcesLR.cpp */,
+				52AFFA390FF8AE6A0008BD07 /* SEOpenALResourcesU.cpp */,
+				52AFFA3A0FF8AE6A0008BD07 /* SEOpenALTransformation.cpp */,
+			);
+			name = SEOpenALRendering;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		528989620E9DB4E7000BBA95 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52AFFA3C0FF8AE6A0008BD07 /* SEAalRenderer.h in Headers */,
+				52AFFA3F0FF8AE6A0008BD07 /* SEOpenALRenderer.h in Headers */,
+				52AFFA400FF8AE6A0008BD07 /* SEOpenALResources.h in Headers */,
+				52AFFA550FF8AE940008BD07 /* SEOpenALRendererLIB.h in Headers */,
+				52AFFA570FF8AE940008BD07 /* SEOpenALRendererPCH.h in Headers */,
+				52AFFA590FF8AE940008BD07 /* SEOpenALRendererRegister.h in Headers */,
+				52AFFA5A0FF8AE940008BD07 /* SwingOpenALRenderer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5289896B0E9DB4FD000BBA95 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52AFFA460FF8AE6A0008BD07 /* SEAalRenderer.h in Headers */,
+				52AFFA490FF8AE6A0008BD07 /* SEOpenALRenderer.h in Headers */,
+				52AFFA4A0FF8AE6A0008BD07 /* SEOpenALResources.h in Headers */,
+				52AFFA5B0FF8AE940008BD07 /* SEOpenALRendererLIB.h in Headers */,
+				52AFFA5D0FF8AE940008BD07 /* SEOpenALRendererPCH.h in Headers */,
+				52AFFA5F0FF8AE940008BD07 /* SEOpenALRendererRegister.h in Headers */,
+				52AFFA600FF8AE940008BD07 /* SwingOpenALRenderer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		528989650E9DB4E7000BBA95 /* Debug */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5289896A0E9DB4E8000BBA95 /* Build configuration list for PBXNativeTarget "Debug" */;
+			buildPhases = (
+				528989620E9DB4E7000BBA95 /* Headers */,
+				528989630E9DB4E7000BBA95 /* Sources */,
+				528989640E9DB4E7000BBA95 /* Frameworks */,
+				52A6CA2F0E9E0D6400AA33B7 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Debug;
+			productName = Debug;
+			productReference = 528989660E9DB4E7000BBA95 /* libSEAalRendererd.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		5289896E0E9DB4FD000BBA95 /* Release */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 528989740E9DB508000BBA95 /* Build configuration list for PBXNativeTarget "Release" */;
+			buildPhases = (
+				5289896B0E9DB4FD000BBA95 /* Headers */,
+				5289896C0E9DB4FD000BBA95 /* Sources */,
+				5289896D0E9DB4FD000BBA95 /* Frameworks */,
+				52A6CA3D0E9E0F7C00AA33B7 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Release;
+			productName = Release;
+			productReference = 5289896F0E9DB4FD000BBA95 /* libSEAalRenderer.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		528989510E9DB486000BBA95 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 528989540E9DB486000BBA95 /* Build configuration list for PBXProject "SE_Aal_Renderer" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 0;
+			mainGroup = 5289894F0E9DB486000BBA95;
+			productRefGroup = 528989670E9DB4E7000BBA95 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				528989650E9DB4E7000BBA95 /* Debug */,
+				5289896E0E9DB4FD000BBA95 /* Release */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		52A6CA2F0E9E0D6400AA33B7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkDebug.sh;
+		};
+		52A6CA3D0E9E0F7C00AA33B7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkRelease.sh;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		528989630E9DB4E7000BBA95 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52AFFA3B0FF8AE6A0008BD07 /* SEAalRenderer.cpp in Sources */,
+				52AFFA3D0FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp in Sources */,
+				52AFFA3E0FF8AE6A0008BD07 /* SEOpenALRenderer.cpp in Sources */,
+				52AFFA410FF8AE6A0008BD07 /* SEOpenALResourcesED.cpp in Sources */,
+				52AFFA420FF8AE6A0008BD07 /* SEOpenALResourcesLR.cpp in Sources */,
+				52AFFA430FF8AE6A0008BD07 /* SEOpenALResourcesU.cpp in Sources */,
+				52AFFA440FF8AE6A0008BD07 /* SEOpenALTransformation.cpp in Sources */,
+				52AFFA560FF8AE940008BD07 /* SEOpenALRendererPCH.cpp in Sources */,
+				52AFFA580FF8AE940008BD07 /* SEOpenALRendererRegister.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5289896C0E9DB4FD000BBA95 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52AFFA450FF8AE6A0008BD07 /* SEAalRenderer.cpp in Sources */,
+				52AFFA470FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp in Sources */,
+				52AFFA480FF8AE6A0008BD07 /* SEOpenALRenderer.cpp in Sources */,
+				52AFFA4B0FF8AE6A0008BD07 /* SEOpenALResourcesED.cpp in Sources */,
+				52AFFA4C0FF8AE6A0008BD07 /* SEOpenALResourcesLR.cpp in Sources */,
+				52AFFA4D0FF8AE6A0008BD07 /* SEOpenALResourcesU.cpp in Sources */,
+				52AFFA4E0FF8AE6A0008BD07 /* SEOpenALTransformation.cpp in Sources */,
+				52AFFA5C0FF8AE940008BD07 /* SEOpenALRendererPCH.cpp in Sources */,
+				52AFFA5E0FF8AE940008BD07 /* SEOpenALRendererRegister.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		528989520E9DB486000BBA95 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			name = Default;
+		};
+		528989680E9DB4E8000BBA95 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEOpenALRendererPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INSTALL_PATH = /usr/local/lib;
+				LD_MAP_FILE_PATH = "$(TARGET_TEMP_DIR)/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt";
+				LIBRARY_STYLE = STATIC;
+				PREBINDING = NO;
+				PRODUCT_NAME = SEAalRendererd;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Debug";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		528989700E9DB4FD000BBA95 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEOpenALRendererPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_STYLE = STATIC;
+				PREBINDING = NO;
+				PRODUCT_NAME = SEAalRenderer;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Release";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		528989540E9DB486000BBA95 /* Build configuration list for PBXProject "SE_Aal_Renderer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528989520E9DB486000BBA95 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		5289896A0E9DB4E8000BBA95 /* Build configuration list for PBXNativeTarget "Debug" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528989680E9DB4E8000BBA95 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		528989740E9DB508000BBA95 /* Build configuration list for PBXNativeTarget "Release" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				528989700E9DB4FD000BBA95 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 528989510E9DB486000BBA95 /* Project object */;
+}

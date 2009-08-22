@@ -1,0 +1,279 @@
+//----------------------------------------------------------------------------
+所有shader程序中,下列实例名都会在程序装载后被引擎识别,成为Renderer Constant,
+因此用户无需在渲染时刻实时手动设置这些shader constant.
+    "WMatrix"
+    "VMatrix"
+    "PMatrix"
+    "WVMatrix"
+    "VPMatrix"
+    "WVPMatrix"
+    "WMatrixT"
+    "VMatrixT"
+    "PMatrixT"
+    "WVMatrixT"
+    "VPMatrixT"
+    "WVPMatrixT"
+    "WMatrixI"
+    "VMatrixI"
+    "PMatrixI"
+    "WVMatrixI"
+    "VPMatrixI"
+    "WVPMatrixI"
+    "WMatrixIT"
+    "VMatrixIT"
+    "PMatrixIT"
+    "WVMatrixIT"
+    "VPMatrixIT"
+    "WVPMatrixIT"
+
+    "MaterialEmissive"
+    "MaterialAmbient"
+    "MaterialDiffuse"
+    "MaterialSpecular"
+
+    "CameraModelPosition"
+    "CameraModelDirection"
+    "CameraModelUp"
+    "CameraModelRight"
+    "CameraWorldPosition"
+    "CameraWorldDirection"
+    "CameraWorldUp"
+    "CameraWorldRight"
+
+    "ProjectorModelPosition"
+    "ProjectorModelDirection"
+    "ProjectorModelUp"
+    "ProjectorModelRight"
+    "ProjectorWorldPosition"
+    "ProjectorWorldDirection"
+    "ProjectorWorldUp"
+    "ProjectorWorldRight"
+    "ProjectorMatrix"
+
+    "Light0ModelPosition"
+    "Light0ModelDirection"
+    "Light0WorldPosition"
+    "Light0WorldDirection"
+    "Light0Ambient"
+    "Light0Diffuse"
+    "Light0Specular"
+    "Light0SpotCutoff"
+    "Light0Attenuation"
+
+    "Light1ModelPosition"
+    "Light1ModelDirection"
+    "Light1WorldPosition"
+    "Light1WorldDirection"
+    "Light1Ambient"
+    "Light1Diffuse"
+    "Light1Specular"
+    "Light1SpotCutoff"
+    "Light1Attenuation"
+
+    "Light2ModelPosition"
+    "Light2ModelDirection"
+    "Light2WorldPosition"
+    "Light2WorldDirection"
+    "Light2Ambient"
+    "Light2Diffuse"
+    "Light2Specular"
+    "Light2SpotCutoff"
+    "Light2Attenuation"
+
+    "Light3ModelPosition"
+    "Light3ModelDirection"
+    "Light3WorldPosition"
+    "Light3WorldDirection"
+    "Light3Ambient"
+    "Light3Diffuse"
+    "Light3Specular"
+    "Light3SpotCutoff"
+    "Light3Attenuation"
+
+    "Light4ModelPosition"
+    "Light4ModelDirection"
+    "Light4WorldPosition"
+    "Light4WorldDirection"
+    "Light4Ambient"
+    "Light4Diffuse"
+    "Light4Specular"
+    "Light4SpotCutoff"
+    "Light4Attenuation"
+
+    "Light5ModelPosition"
+    "Light5ModelDirection"
+    "Light5WorldPosition"
+    "Light5WorldDirection"
+    "Light5Ambient"
+    "Light5Diffuse"
+    "Light5Specular"
+    "Light5SpotCutoff"
+    "Light5Attenuation"
+
+    "Light6ModelPosition"
+    "Light6ModelDirection"
+    "Light6WorldPosition"
+    "Light6WorldDirection"
+    "Light6Ambient"
+    "Light6Diffuse"
+    "Light6Specular"
+    "Light6SpotCutoff"
+    "Light6Attenuation"
+
+    "Light7ModelPosition"
+    "Light7ModelDirection"
+    "Light7WorldPosition"
+    "Light7WorldDirection"
+    "Light7Ambient"
+    "Light7Diffuse"
+    "Light7Specular"
+    "Light7SpotCutoff"
+    "Light7Attenuation"
+
+    "LightArray[0].ModelPosition"
+    "LightArray[0].ModelDirection"
+    "LightArray[0].WorldPosition"
+    "LightArray[0].WorldDirection"
+    "LightArray[0].Ambient"
+    "LightArray[0].Diffuse"
+    "LightArray[0].Specular"
+    "LightArray[0].SpotCutoff"
+    "LightArray[0].Attenuation"
+
+    "LightArray[1].ModelPosition"
+    "LightArray[1].ModelDirection"
+    "LightArray[1].WorldPosition"
+    "LightArray[1].WorldDirection"
+    "LightArray[1].Ambient"
+    "LightArray[1].Diffuse"
+    "LightArray[1].Specular"
+    "LightArray[1].SpotCutoff"
+    "LightArray[1].Attenuation"
+
+    "LightArray[2].ModelPosition"
+    "LightArray[2].ModelDirection"
+    "LightArray[2].WorldPosition"
+    "LightArray[2].WorldDirection"
+    "LightArray[2].Ambient"
+    "LightArray[2].Diffuse"
+    "LightArray[2].Specular"
+    "LightArray[2].SpotCutoff"
+    "LightArray[2].Attenuation"
+
+    "LightArray[3].ModelPosition"
+    "LightArray[3].ModelDirection"
+    "LightArray[3].WorldPosition"
+    "LightArray[3].WorldDirection"
+    "LightArray[3].Ambient"
+    "LightArray[3].Diffuse"
+    "LightArray[3].Specular"
+    "LightArray[3].SpotCutoff"
+    "LightArray[3].Attenuation"
+
+    "LightArray[4].ModelPosition"
+    "LightArray[4].ModelDirection"
+    "LightArray[4].WorldPosition"
+    "LightArray[4].WorldDirection"
+    "LightArray[4].Ambient"
+    "LightArray[4].Diffuse"
+    "LightArray[4].Specular"
+    "LightArray[4].SpotCutoff"
+    "LightArray[4].Attenuation"
+
+    "LightArray[5].ModelPosition"
+    "LightArray[5].ModelDirection"
+    "LightArray[5].WorldPosition"
+    "LightArray[5].WorldDirection"
+    "LightArray[5].Ambient"
+    "LightArray[5].Diffuse"
+    "LightArray[5].Specular"
+    "LightArray[5].SpotCutoff"
+    "LightArray[5].Attenuation"
+
+    "LightArray[6].ModelPosition"
+    "LightArray[6].ModelDirection"
+    "LightArray[6].WorldPosition"
+    "LightArray[6].WorldDirection"
+    "LightArray[6].Ambient"
+    "LightArray[6].Diffuse"
+    "LightArray[6].Specular"
+    "LightArray[6].SpotCutoff"
+    "LightArray[6].Attenuation"
+
+    "LightArray[7].ModelPosition"
+    "LightArray[7].ModelDirection"
+    "LightArray[7].WorldPosition"
+    "LightArray[7].WorldDirection"
+    "LightArray[7].Ambient"
+    "LightArray[7].Diffuse"
+    "LightArray[7].Specular"
+    "LightArray[7].SpotCutoff"
+    "LightArray[7].Attenuation"
+
+    "LightCount"
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+// Cg Convention:
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+// ESSL Convention:
+//----------------------------------------------------------------------------
+Vertex Shader:
+顶点属性必须按照下列顺序出现在VS中,并且应按下列方式命名:
+"SE_ModelPosition"
+"SE_ModelNormal"
+"SE_Color0"
+"SE_Color1"
+"SE_TexCoord0"
+"SE_TexCoord1"
+    .
+    .
+    .
+"SE_TexCoordN"
+引擎按照这个默认顺序进行ESSL的attribute location绑定,同时为了正确设置
+Vertexbuffer的input attribute,引擎装载ESSL程序时,按照这些默认名字搜索
+ESSL attribute.
+
+VS的sampler实例应使用"v_"作为前缀开头.因为引擎试图通过判断实例名的
+前缀来获得sampler使用者是VS还是PS.
+
+由于ESSL shader compiler会根据sampler实例名对其排序并分配默认sampler location,
+同时由于引擎的C++层认可排序后的默认sampler location.
+因此为了避免出现用户期望的排序顺序与shader代码中的书写顺序不一致,在使用多个
+sampler时,应按照v_s0XXX,v_s1XXX...v_snXXX的方式命名.
+
+VS的user constant实例应使用"v_"作为前缀开头.因为引擎试图通过判断实例名的
+前缀来获得user constant使用者是VS还是PS.
+注意:随意命名的user constant实例将会被默认为使用者是VS.
+
+Pixel Shader:
+PS的sampler实例应使用"p_"作为前缀开头.因为引擎试图通过判断实例名的
+前缀来获得sampler使用者是VS还是PS.
+
+由于ESSL shader compiler会根据sampler实例名对其排序并分配默认sampler location,
+同时由于引擎的C++层认可排序后的默认sampler location.
+因此为了避免出现用户期望的排序顺序与shader代码中的书写顺序不一致,在使用多个
+sampler时,应按照p_s0XXX,p_s1XXX...p_snXXX的方式命名.
+
+PS的user constant实例应使用"p_"作为前缀开头.因为引擎试图通过判断实例名的
+前缀来获得user constant使用者是VS还是PS.
+注意:随意命名的user constant实例将会被默认为使用者是VS.
+
+关于sampler命名的例子:
+某fragment shader中,用户所期望的sampler location:
+uniform sampler2D p_BaseSampler;   // texture unit0
+uniform sampler2D p_NormalSampler; // texture unit1
+uniform sampler2D p_HeightSampler; // texture unit2
+而实际上,在装载时刻,ESSL shader compiler对其按照实例名重新排序后分配默认
+sampler location:
+uniform sampler2D p_BaseSampler;   // texture unit0
+uniform sampler2D p_NormalSampler; // texture unit2
+uniform sampler2D p_HeightSampler; // texture unit1, 因为"H"字母顺序大于"N"
+因此应改为:
+uniform sampler2D p_s0BaseSampler;   // texture unit0
+uniform sampler2D p_s1NormalSampler; // texture unit1
+uniform sampler2D p_s2HeightSampler; // texture unit2
+//----------------------------------------------------------------------------

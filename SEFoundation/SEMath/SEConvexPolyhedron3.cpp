@@ -1,0 +1,222 @@
+// Swing Engine Version 1 Source Code 
+// Most of techniques in the engine are mainly based on David Eberly's
+// Wild Magic 4 open-source code.The author of Swing Engine learned a lot
+// from Eberly's experience of architecture and algorithm.
+// Several sub-systems are totally new,and others are re-implimented or
+// re-organized based on Wild Magic 4's sub-systems.
+// Copyright (c) 2007-2010.  All Rights Reserved
+//
+// Eberly's permission:
+// Geometric Tools, Inc.
+// http://www.geometrictools.com
+// Copyright (c) 1998-2006.  All Rights Reserved
+//
+// This library is free software; you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 2.1 of the License, or (at
+// your option) any later version.  The license is available for reading at
+// the location:
+// http://www.gnu.org/copyleft/lgpl.html
+
+#include "SEFoundationPCH.h"
+#include "SEConvexPolyhedron3.h"
+
+using namespace Swing;
+
+//----------------------------------------------------------------------------
+ConvexPolyhedron3f::ConvexPolyhedron3f(int iVCount, Vector3f* aVertex, 
+    int iTCount, int* aiIndex, Plane3f* aPlane, bool bOwner)
+    :
+    Polyhedron3f(iVCount, aVertex, iTCount, aiIndex, bOwner)
+{
+    if( aPlane )
+    {
+        m_aPlane = aPlane;
+        m_bPlaneOwner = bOwner;
+    }
+    else
+    {
+        m_aPlane = SE_NEW Plane3f[m_iTCount];
+        m_bPlaneOwner = true;
+        UpdatePlanes();
+    }
+}
+//----------------------------------------------------------------------------
+ConvexPolyhedron3f::ConvexPolyhedron3f(const ConvexPolyhedron3f& rPoly)
+    :
+    Polyhedron3f(rPoly)
+{
+    m_aPlane = 0;
+    m_bPlaneOwner = false;
+    *this = rPoly;
+}
+//----------------------------------------------------------------------------
+ConvexPolyhedron3f::~ConvexPolyhedron3f()
+{
+    if( m_bPlaneOwner )
+    {
+        SE_DELETE[] m_aPlane;
+    }
+}
+//----------------------------------------------------------------------------
+ConvexPolyhedron3f& ConvexPolyhedron3f::operator=(
+    const ConvexPolyhedron3f& rPoly)
+{
+    Polyhedron3f::operator=(rPoly);
+
+    if( m_bPlaneOwner )
+    {
+        SE_DELETE[] m_aPlane;
+    }
+
+    m_bPlaneOwner = rPoly.m_bPlaneOwner;
+
+    if( m_bPlaneOwner )
+    {
+        m_aPlane = SE_NEW Plane3f[m_iTCount];
+        size_t uiSize = m_iTCount * sizeof(Plane3f);
+        System::SE_Memcpy(m_aPlane, uiSize, rPoly.m_aPlane, uiSize);
+    }
+    else
+    {
+        m_aPlane = rPoly.m_aPlane;
+    }
+
+    m_TModified = rPoly.m_TModified;
+
+    return *this;
+}
+//----------------------------------------------------------------------------
+const Plane3f* ConvexPolyhedron3f::GetPlanes() const
+{
+    return m_aPlane;
+}
+//----------------------------------------------------------------------------
+const Plane3f& ConvexPolyhedron3f::GetPlane(int i) const
+{
+    SE_ASSERT( 0 <= i && i < m_iTCount );
+
+    return m_aPlane[i];
+}
+//----------------------------------------------------------------------------
+void ConvexPolyhedron3f::SetVertex(int i, const Vector3f& rV)
+{
+    Polyhedron3f::SetVertex(i, rV);
+
+    const int* piIndex = m_aiIndex;
+    for( int j = 0; j < m_iTCount; j++ )
+    {
+        int iV0 = *piIndex++;
+        int iV1 = *piIndex++;
+        int iV2 = *piIndex++;
+        if( i == iV0 || i == iV1 || i == iV2 )
+        {
+            m_TModified.insert(j);
+        }
+    }
+}
+//----------------------------------------------------------------------------
+void ConvexPolyhedron3f::UpdatePlane(int i, const Vector3f& rAverage)
+{
+    int iBase = 3 * i;
+    int iV0 = m_aiIndex[iBase++];
+    int iV1 = m_aiIndex[iBase++];
+    int iV2 = m_aiIndex[iBase];
+
+    Vector3f& rV0 = m_aVertex[iV0];
+    Vector3f& rV1 = m_aVertex[iV1];
+    Vector3f& rV2 = m_aVertex[iV2];
+
+    Vector3f vec3fDiff = rAverage - rV0;
+    Vector3f vec3fE1 = rV1 - rV0;
+    Vector3f vec3fE2 = rV2 - rV0;
+    Vector3f vec3fNormal = vec3fE2.Cross(vec3fE1);
+    float fLength = vec3fNormal.GetLength();
+    if( fLength > Mathf::ZERO_TOLERANCE )
+    {
+        vec3fNormal /= fLength;
+        float fDot = vec3fNormal.Dot(vec3fDiff);
+        SE_ASSERT( fDot >= 0.0f );
+
+        if( fDot < 0.0f )
+        {
+            vec3fNormal = -vec3fNormal;
+        }
+    }
+    else
+    {
+        // 三角面是退化的.  
+        // 用一个指向平均顶点中心的向量代替法线.
+        vec3fNormal = vec3fDiff;
+        vec3fNormal.Normalize();
+    }
+
+    // 法线指向多面体内部.
+    m_aPlane[i] = Plane3f(vec3fNormal, vec3fNormal.Dot(rV0));
+}
+//----------------------------------------------------------------------------
+void ConvexPolyhedron3f::UpdatePlanes()
+{
+    Vector3f vec3fAverage = this->ComputeVertexAverage();
+    int i;
+
+    if( m_TModified.empty() )
+    {
+        for( i = 0; i < m_iTCount; i++ )
+        {
+            UpdatePlane(i, vec3fAverage);
+        }
+    }
+    else
+    {
+        std::set<int>::iterator tempIter = m_TModified.begin();
+        for( /**/; tempIter != m_TModified.end(); tempIter++ )
+        {
+            i = *tempIter;
+            UpdatePlane(i, vec3fAverage);
+        }
+    }
+}
+//----------------------------------------------------------------------------
+bool ConvexPolyhedron3f::IsConvex(float fThreshold) const
+{
+    float fMax = -Mathf::MAX_REAL, fMin = Mathf::MAX_REAL;
+    for( int j = 0; j < m_iTCount; j++ )
+    {
+        const Plane3f& rPlane = m_aPlane[j];
+        for( int i = 0; i < m_iVCount; i++ )
+        {
+            float fDistance = rPlane.GetDistance(m_aVertex[i]);
+            if( fDistance < fMin )
+            {
+                fMin = fDistance;
+            }
+            if( fDistance > fMax )
+            {
+                fMax = fDistance;
+            }
+            if( fDistance < fThreshold )
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+//----------------------------------------------------------------------------
+bool ConvexPolyhedron3f::ContainsPoint(const Vector3f& rP, 
+    float fThreshold) const
+{
+    for( int i = 0; i < m_iTCount; i++ )
+    {
+        float fDistance = m_aPlane[i].GetDistance(rP);
+        if( fDistance < fThreshold )
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+//----------------------------------------------------------------------------
