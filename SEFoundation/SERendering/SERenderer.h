@@ -155,15 +155,6 @@ public:
     // 2D渲染.
     virtual void Draw(const unsigned char* aucBuffer) = 0;
 
-    // 渲染器能力限制检测.
-    inline int GetMaxLights(void) const;
-    inline int GetMaxColors(void) const;
-    inline int GetMaxTCoords(void) const;
-    inline int GetMaxVShaderImages(void) const;
-    inline int GetMaxGShaderImages(void) const;
-    inline int GetMaxPShaderImages(void) const;
-    inline int GetMaxStencilIndices(void) const;
-    inline int GetMaxUserClipPlanes(void) const;
     // vertex shader profile信息.
     enum
     {
@@ -175,19 +166,19 @@ public:
         SFTVP1,   // Software
         MAX_VP_TYPES
     };
-    inline int GetMaxVShaderProfile(void) const;
+
     // geometry shader profile信息.
     // geometry shader stage是一个可选的管线stage,
     // 当前只有DirectX10,OpenGL2及以上版本支持.
     enum
     {
-        GS_UNSUPPORTED, // not supported by current renderer
+        GS_UNSUPPORTED, // Unsupported by current renderer
         GS_4_0,         // DirectX10
         GLSLG,          // OpenGL
         SFTGP1,         // Software
         MAX_GP_TYPES
     };
-    inline int GetMaxGShaderProfile(void) const;
+
     // pixel shader profile信息.
     enum
     {
@@ -199,6 +190,18 @@ public:
         SFTFP1,    // Software
         MAX_PP_TYPES
     };
+
+    // 渲染器能力限制检测.
+    inline int GetMaxLights(void) const;
+    inline int GetMaxColors(void) const;
+    inline int GetMaxTCoords(void) const;
+    inline int GetMaxVShaderImages(void) const;
+    inline int GetMaxGShaderImages(void) const;
+    inline int GetMaxPShaderImages(void) const;
+    inline int GetMaxStencilIndices(void) const;
+    inline int GetMaxUserClipPlanes(void) const;
+    inline int GetMaxVShaderProfile(void) const;
+    inline int GetMaxGShaderProfile(void) const;
     inline int GetMaxPShaderProfile(void) const;
     inline int GetMaxRenderTargets(void) const;
 
