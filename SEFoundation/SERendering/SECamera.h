@@ -73,7 +73,7 @@ public:
     inline Vector3f GetUVector(void) const;
     inline Vector3f GetDVector(void) const;
 
-    // view frustum参数枚举
+    // view frustum参数枚举.
     enum
     {
         VF_DMIN     = 0,  // near
@@ -85,31 +85,31 @@ public:
         VF_COUNT = 6
     };
 
-    // 设置view frustum参数
+    // 设置view frustum参数.
     void SetFrustum(float fRMin, float fRMax, float fUMin, float fUMax,
         float fDMin, float fDMax);
 
     void SetFrustum(const float* pFrustum);
 
     // 对称view frustum(umin = -umax, rmin = -rmax),
-    // 可以使用U轴方向FOV(field of view),aspect ratio,Dmin,Dmax表示
+    // 可以使用U轴方向FOV(field of view),aspect ratio,Dmin,Dmax表示.
     void SetFrustum(float fUpFovDegrees, float fAspectRatio, float fDMin,
         float fDMax);
 
-    // 获取view frustum参数
+    // 获取view frustum参数.
     void GetFrustum(float& rRMin, float& rRMax, float& rUMin,
         float& rUMax, float& rDMin, float& rDMax) const;
 
-    // 获取view frustum参数
+    // 获取view frustum参数.
     inline const float* GetFrustum(void) const;
 
     // 获取view frustum参数,
     // 检测是否为对称view frustum,
-    // 返回值为true时,获取值才合法
+    // 返回值为true时,获取值才合法.
     bool GetFrustum(float& rUpFovDegrees, float& rAspectRatio,
         float& rDMin, float& rDMax) const;
 
-    // 获取view frustum参数
+    // 获取view frustum参数.
     inline float GetDMin(void) const;
     inline float GetDMax(void) const;
     inline float GetUMin(void) const;
@@ -122,12 +122,12 @@ public:
     // TO DO.  Stream this member
     bool Perspective;
 
-    // viewport (区间为[0,1]^2)
+    // viewport (区间为[0,1]^2).
     void SetViewport(float fLeft, float fRight, float fTop, float fBottom);
     void GetViewport(float& rLeft, float& rRight, float& rTop,
         float& rBottom);
 
-    // depth range (区间为[0,1])
+    // depth range (区间为[0,1]).
     void SetDepthRange(float fNear, float fFar);
     void GetDepthRange(float& rNear, float& rFar);
 
@@ -141,17 +141,17 @@ public:
         const;
 
 protected:
-    // 摄像机E;R,U,D的世界坐标系表示
+    // 摄像机E;R,U,D的世界坐标系表示.
     Vector3f m_Location, m_RVector, m_UVector, m_DVector;
 
-    // 截投体参数(near, far, bottom, top, left, right)
+    // 截投体参数(near, far, bottom, top, left, right).
     float m_Frustum[VF_COUNT];
 
     // 视口参数,
     // 暂时使用OpenGL风格,以后改为DirectX风格.
     float m_fPortL, m_fPortR, m_fPortT, m_fPortB;
 
-    // 深度范围参数
+    // 深度范围参数.
     float m_fPortN, m_fPortF;
 
     // 当前摄像机所属的渲染器.
