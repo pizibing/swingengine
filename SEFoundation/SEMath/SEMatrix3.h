@@ -21,30 +21,41 @@
 #ifndef Swing_Matrix3_H
 #define Swing_Matrix3_H
 
-// 矩阵存储方式采用行优先方式.
-// 注意DirectX采用行优先方式,OpenGL采用列优先方式.
-// 例如,DirectX中给定一个矩阵M,OpenGL中与之对应的矩阵是M^T
+// Matrices in Swing Engine are stored in row-major order.
+// CAUTION: By default, DirectX uses row-major order, OpenGL uses column-major
+// order. For example, given a matrix M in DirectX, the corresponding matrix
+// in OpenGL is M^T.
 
-// 矩阵运算采用向右连接的方式.例如,给定一个矩阵M和一个向量V,向量乘以矩阵是
-// V*M.V被看作行向量.有些图形API采用M*V的形式,此时V被看作列向量,此时的M实际
-// 上是V*M情况时的M的转置矩阵.一系列连续的矩阵变换可表示为V' = V*M0*M1...Mn,
-// 有些图形API采用向左连接的方式,此时V' = Mn...M1*M0*V.
-// 注意DirectX采用向右连接的方式,OpenGL采用向左连接的方式.
-// 例如,DirectX中给定矩阵M1,M2,OpenGL中与它们对应的是M1^T,M2^T,
-// M1*M2对应(M1*M2)^T = M2^T*M1^T.
+// Matrix operation is concatenated from left to right. Say, given a matrix
+// M and a vector V, V multiply M equals V*M, V is viewed as a row vector. 
+// Some graphics APIs express the multiplication as M'*V', in which cases 
+// V' equals V but is viewed as a column vector, and M' is the transpose of M.
+// So a sequence of transformation should be expressed as V' = V*M0*M1...Mn,
+// Others graphics APIs express the operation from right to left, in which 
+// cases the sequence of transformation should be expressed as V' = Mn...M1*M0*V.
+// CAUTION: DirectX uses the rule of from left to right, OpenGL uses the rule of
+// from right to left.
+// Say, in DirectX, given M1 and M2, the equivalent items in OpenGL are M1^T, 
+// M2^T, ^T means transpose operation.
+// M1*M2 is equivalent to (M1*M2)^T = M2^T*M1^T.
 
-// 旋转矩阵特性,参考<<Quaternions and rotation sequences by Jack B. Kuipers>>.
-// 正交矩阵是形如: A*A^T = I的矩阵,即A^T = A^(-1),且det^2(A) = det^2(A^T) = 1.
-// 旋转矩阵的充要条件(iff):
-// 旋转矩阵是正交矩阵,并且其行列式的值必为+1.
-// 正交矩阵的逆矩阵是其转置矩阵.为避免求逆,可用行向量左乘其转置矩阵达到逆变换
-// 的目的.
-// 实际上,转置也可以避免,只要用等价的列向量右乘该矩阵,就达到了不求逆不转置进行
-// 逆变换的目的.
+// Features of rotation matrix are referenced from:
+// <<Quaternions and rotation sequences>>by Jack B. Kuipers.
+// Orthogonal matrix is in the form of the matrix looks like: 
+// A*A^T = I, A^T = A^(-1), and det^2(A) = det^2(A^T) = 1.
+// iff(if and only if condition) of rotation matrix:
+// Rotation matrix is orthogonal matrix, and it's determinant always equals +1.
+// The inverse matrix of orthogonal matrix equals it's transpose matrix.
+// In order to avoid the inverse operation, we could multiply a row vector on 
+// the left side of the transpose matrix.
+// But after a more deep looking, we can see that even the transpose itself
+// could be avoided too. To achieve this goal, we simply apply a column vector
+// which is equivalent to the original row vector on the right side of the 
+// original rotation matrix.
 
-// 如果使用行向量左乘进行变换,
-// 如果规定t > 0时为绕轴顺时针旋转,
-// 则X,Y,Z轴旋转矩阵为:
+// If we apply a row vector on the left side of a rotation matrix,
+// If we define that when t > 0, the rotation about an axis is clockwise order,
+// then the rotations about X,Y,Z axises are:
 //   RX =    1       0       0
 //           0     cos(t)  sin(t)
 //           0    -sin(t)  cos(t)
@@ -57,9 +68,9 @@
 //        -sin(t)  cos(t)    0
 //           0       0       1
 //
-// 如果使用列向量右乘进行变换,
-// 如果规定t > 0时为绕轴逆时针旋转,
-// 则X,Y,Z轴旋转矩阵为:
+// If we apply a column vector on the right side of a rotation matrix,
+// If we define that when t > 0, the rotation about an axis is counter-clockwise 
+// order, then the rotations about X,Y,Z axises are:
 //   RX' =   1       0       0
 //           0     cos(t)  -sin(t)
 //           0     sin(t) cos(t)
@@ -72,10 +83,11 @@
 //         sin(t)  cos(t)    0
 //           0       0       1
 //
-// 我们使用:
-// (1) 左手坐标系
-// (2) 绕任意轴旋转theta度,theta > 0时为顺时针旋转
-// (3) 3维向量叉积方向使用左手原则
+// Swing Engine uses these rules:
+// (1) Left-hand based coordinate system.
+// (2) Rotation about an arbitrary axis with a angle theta, the order is 
+//     clockwise when theta > 0.
+// (3) Direction of cross product of 3D vectors is based on Left-hand rule.
 
 #include "SEFoundationLIB.h"
 #include "SEVector3.h"
