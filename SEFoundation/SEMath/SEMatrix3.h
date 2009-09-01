@@ -39,7 +39,7 @@
 // M2^T, ^T means transpose operation.
 // M1*M2 is equivalent to (M1*M2)^T = M2^T*M1^T.
 
-// Features of rotation matrix are referenced from:
+// Some natures of rotation matrix are referenced from:
 // <<Quaternions and rotation sequences>>by Jack B. Kuipers.
 // Orthogonal matrix is in the form of the matrix looks like: 
 // A*A^T = I, A^T = A^(-1), and det^2(A) = det^2(A^T) = 1.
