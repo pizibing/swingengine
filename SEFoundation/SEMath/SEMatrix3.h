@@ -39,8 +39,8 @@
 // M2^T, ^T means transpose operation.
 // M1*M2 is equivalent to (M1*M2)^T = M2^T*M1^T.
 
-// Some natures of rotation matrix are referenced from:
-// <<Quaternions and rotation sequences>>by Jack B. Kuipers.
+// Some natures of rotation matrix are referenced from this book:
+// <<Quaternions and rotation sequences>> by Jack B. Kuipers.
 // Orthogonal matrix is in the form of the matrix looks like: 
 // A*A^T = I, A^T = A^(-1), and det^2(A) = det^2(A^T) = 1.
 // iff(if and only if condition) of rotation matrix:
@@ -55,7 +55,7 @@
 
 // If we apply a row vector on the left side of a rotation matrix,
 // If we define that when t > 0, the rotation about an axis is clockwise order,
-// then the rotations about X,Y,Z axises are:
+// then the rotations about X,Y,Z axes are:
 //   RX =    1       0       0
 //           0     cos(t)  sin(t)
 //           0    -sin(t)  cos(t)
@@ -70,7 +70,7 @@
 //
 // If we apply a column vector on the right side of a rotation matrix,
 // If we define that when t > 0, the rotation about an axis is counter-clockwise 
-// order, then the rotations about X,Y,Z axises are:
+// order, then the rotations about X,Y,Z axes are:
 //   RX' =   1       0       0
 //           0     cos(t)  -sin(t)
 //           0     sin(t) cos(t)
@@ -85,7 +85,7 @@
 //
 // Swing Engine uses these rules:
 // (1) Left-hand based coordinate system.
-// (2) Rotation about an arbitrary axis with a angle theta, the order is 
+// (2) Rotation about an arbitrary axis with an angle theta, the order is 
 //     clockwise when theta > 0.
 // (3) Direction of cross product of 3D vectors is based on Left-hand rule.
 
@@ -96,10 +96,10 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:单精度3阶方阵类
-// 说明:
-// 作者:Sun Che
-// 时间:20070512
+// Name: single precision floating-point 3x3 matrix class
+// Description:
+// Author: Sun Che
+// Date: 20070512
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API Matrix3f
 {
@@ -257,10 +257,10 @@ private:
 };
 
 //----------------------------------------------------------------------------
-// 名称:双精度3阶方阵类
-// 说明:
-// 作者:Sun Che
-// 时间:20090517
+// Name: double precision floating-point 3x3 matrix class
+// Description:
+// Author: Sun Che
+// Date: 20090517
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API Matrix3d
 {
