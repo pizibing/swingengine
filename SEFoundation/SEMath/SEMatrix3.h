@@ -130,12 +130,12 @@ public:
     Matrix3f(void);
     Matrix3f(const Matrix3f& rMat);
     Matrix3f(float fM11, float fM12, float fM13,
-            float fM21, float fM22, float fM23,
-            float fM31, float fM32, float fM33);
-    // 默认用行向量构建矩阵
+             float fM21, float fM22, float fM23,
+             float fM31, float fM32, float fM33);
+    // By defalut, construct a row-major order matrix.
     Matrix3f(const Vector3f& rVecU, const Vector3f& rVecV, 
         const Vector3f& rVecW, bool bIsRow = true);
-    // 创建对角矩阵
+    // Construct a diagonal matrix.
     Matrix3f(float fM11, float fM22, float fM33);
     // 创建绕任意轴旋转矩阵,弧度制,fAngle > 0为顺时针旋转,旋转轴必须为单位向量
     Matrix3f(const Vector3f& rAxisVec, float fAngle);
