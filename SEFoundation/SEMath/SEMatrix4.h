@@ -21,17 +21,23 @@
 #ifndef Swing_Matrix4_H
 #define Swing_Matrix4_H
 
-// 矩阵存储方式采用行优先方式.
-// 注意DirectX采用行优先方式,OpenGL采用列优先方式.
-// 例如,DirectX中给定一个矩阵M,OpenGL中与之对应的矩阵是M^T
+// Matrices in Swing Engine are stored in row-major order.
+// CAUTION: By default, DirectX uses row-major order, OpenGL uses column-major
+// order. For example, given a matrix M in DirectX, the corresponding matrix
+// in OpenGL is M^T.
 
-// 矩阵运算采用向右连接的方式.例如,给定一个矩阵M和一个向量V,向量乘以矩阵是
-// V*M.V被看作行向量.有些图形API采用M*V的形式,此时V被看作列向量,此时的M实际
-// 上是V*M情况时的M的转置矩阵.一系列连续的矩阵变换可表示为V' = V*M0*M1...Mn,
-// 有些图形API采用向左连接的方式,此时V' = Mn...M1*M0*V.
-// 注意DirectX采用向右连接的方式,OpenGL采用向左连接的方式.
-// 例如,DirectX中给定矩阵M1,M2,OpenGL中与它们对应的是M1^T,M2^T,
-// M1*M2对应(M1*M2)^T = M2^T*M1^T.
+// Matrix operation is concatenated from left to right. Say, given a matrix
+// M and a vector V, V multiply M equals V*M, V is viewed as a row vector. 
+// Some graphics APIs express the multiplication as M'*V', in which cases 
+// V' equals V but is viewed as a column vector, and M' is the transpose of M.
+// So a sequence of transformation should be expressed as V' = V*M0*M1...Mn,
+// Others graphics APIs express the operation from right to left, in which 
+// cases the sequence of transformation should be expressed as V' = Mn...M1*M0*V.
+// CAUTION: DirectX uses the rule of from left to right, OpenGL uses the rule of
+// from right to left.
+// Say, in DirectX, given M1 and M2, the equivalent items in OpenGL are M1^T, 
+// M2^T, ^T means transpose operation.
+// M1*M2 is equivalent to (M1*M2)^T = M2^T*M1^T.
 
 #include "SEFoundationLIB.h"
 #include "SEVector4.h"
