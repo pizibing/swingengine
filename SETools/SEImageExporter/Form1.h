@@ -20,8 +20,6 @@
 
 #pragma once
 
-using namespace System::Runtime::InteropServices;
-
 extern ImageExporterApp g_ImageExporterApp;
 
 namespace SEImageExporter_VC80
@@ -32,6 +30,7 @@ namespace SEImageExporter_VC80
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Runtime::InteropServices;
 
 	/// <summary>
 	/// Form1 ժҪ
@@ -131,6 +130,7 @@ namespace SEImageExporter_VC80
 
 		}
 #pragma endregion
+
 	private: 
 		System::Void button1_Click(System::Object^, System::EventArgs^)
 		{
