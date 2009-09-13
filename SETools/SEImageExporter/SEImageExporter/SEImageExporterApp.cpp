@@ -29,7 +29,7 @@ using namespace Swing;
 ImageExporterApp::ImageExporterApp()
 {
     m_spImage = 0;
-    m_bOpenFile = 0;
+    m_bOpenFile = false;
 }
 //----------------------------------------------------------------------------
 ImageExporterApp::~ImageExporterApp()
