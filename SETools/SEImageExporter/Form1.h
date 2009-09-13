@@ -120,12 +120,12 @@ namespace SEImageExporter_VC80
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(752, 516);
+			this->ClientSize = System::Drawing::Size(784, 562);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->SceneWindow);
 			this->Name = L"Form1";
-			this->Text = L"ImageExportor";
+			this->Text = L"Swing Engine Image Exportor";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->SceneWindow))->EndInit();
 			this->ResumeLayout(false);
 
