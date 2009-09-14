@@ -55,8 +55,6 @@ public:
     Swing::TriMeshPtr m_spMesh;
     Swing::WireframeStatePtr m_spWireframe;
 
-    static HRESULT ms_hResult;
-    LPDIRECT3DTEXTURE9 m_pDXTex;
     Swing::ImagePtr m_spImage;
 
     bool m_bOpenFile;

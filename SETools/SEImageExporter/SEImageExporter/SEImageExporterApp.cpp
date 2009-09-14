@@ -20,8 +20,7 @@
 
 #include "stdafx.h"
 #include "SEImageExporterApp.h"
-
-HRESULT ImageExporterApp::ms_hResult = 0;
+#include "SEImageConverter.h"
 
 using namespace Swing;
 
@@ -121,127 +120,22 @@ void ImageExporterApp::OnSave(const char* acFilename)
 void ImageExporterApp::OpenFile(const char* acFilename)
 {
     IDirect3DDevice9* pDXDevice = ((DX9Renderer*)AppRenderer)->GetDevice();
-    ms_hResult = D3DXCreateTextureFromFile(pDXDevice, acFilename, &m_pDXTex);
-    assert( SUCCEEDED(ms_hResult) );
-
-    D3DSURFACE_DESC tempDesc;
-    m_pDXTex->GetLevelDesc(0, &tempDesc);
-
-    int iWidth = tempDesc.Width;
-    int iHeight = tempDesc.Height;
-    int eFormat = D3DFMT_UNKNOWN;
-    int iBytesPerPixel = 0;
-    switch( tempDesc.Format )
-    {
-        case D3DFMT_R8G8B8:
-        {
-            eFormat = Image::IT_RGB888;
-            iBytesPerPixel = 3;
-
-            break;
-        }
-        case D3DFMT_A8R8G8B8:
-        case D3DFMT_X8R8G8B8:
-        {
-            eFormat = Image::IT_RGBA8888;
-            iBytesPerPixel = 4;
-
-            break;
-        }
-        case D3DFMT_L8:
-        {
-            eFormat = Image::IT_L8;
-            iBytesPerPixel = 1;
-
-            break;
-        }
-        case D3DFMT_L16:
-        {
-            eFormat = Image::IT_L16;
-            iBytesPerPixel = 2;
-
-            break;
-        }
-        default:
-        {
-            // 尚未支持的情况.
-            SE_ASSERT( 0 );
-            break;
-        }
-    }
-    int iCount = iWidth * iHeight;
-    int iByteCount = iCount * iBytesPerPixel;
-    unsigned char* aucDst = SE_NEW unsigned char[iByteCount];
-    unsigned char* pDst, * pSrc;
-
-    D3DLOCKED_RECT tempLockRect;
-    ms_hResult = m_pDXTex->LockRect(0, &tempLockRect, 0, 0);
-    SE_ASSERT( SUCCEEDED(ms_hResult) );
-    pSrc = (unsigned char*)tempLockRect.pBits;
-    pDst = aucDst;
-    int i, iBase = 0;
-    switch( eFormat )
-    {
-        case Image::IT_RGB888:
-        {
-            for( i = 0; i < iCount; i++, iBase += 3 )
-            {
-                pDst[iBase    ] = pSrc[iBase + 2];
-                pDst[iBase + 1] = pSrc[iBase + 1];
-                pDst[iBase + 2] = pSrc[iBase    ];
-            }
-
-            break;
-        }
-        case Image::IT_RGBA8888:
-        {
-            for( i = 0; i < iCount; i++, iBase += 4 )
-            {
-                pDst[iBase    ] = pSrc[iBase + 2];
-                pDst[iBase + 1] = pSrc[iBase + 1];
-                pDst[iBase + 2] = pSrc[iBase    ];
-                pDst[iBase + 3] = pSrc[iBase + 3];
-            }
-
-            break;
-        }
-        case Image::IT_L8:
-        {
-            for( i = 0; i < iCount; i++, iBase += 1 )
-            {
-                pDst[iBase] = pSrc[iBase];
-            }
-
-            break;
-        }
-        case Image::IT_L16:
-        {
-            for( i = 0; i < iCount; i++, iBase += 2 )
-            {
-                pDst[iBase    ] = pSrc[iBase    ];
-                pDst[iBase + 1] = pSrc[iBase + 1];
-            }
-
-            break;
-        }
-        default:
-        {
-            // 尚未支持的情况.
-            SE_ASSERT( 0 );
-            break;
-        }
-    }
-    ms_hResult = m_pDXTex->UnlockRect(0);
-    SE_ASSERT( SUCCEEDED(ms_hResult) );
-    SE_DX9_SAFE_RELEASE(m_pDXTex);
+    ImageConverter* pConverter = SE_NEW ImageConverter(pDXDevice);
 
     if( m_spImage )
     {
         ImageCatalog::GetActive()->Remove(m_spImage);
     }
     m_spImage = 0;
-    m_spImage = SE_NEW Image((Image::FormatMode)eFormat, iWidth, iHeight, 
-        aucDst, acFilename, true);
+
+    m_spImage = pConverter->CreateImageFromFile(acFilename);
+    if( m_spImage )
+    {
+        ImageCatalog::GetActive()->Insert(m_spImage);
+    }
+
+    SE_DELETE pConverter;
+
     m_spMesh->DetachAllEffects();
     m_spMesh->AttachEffect(SE_NEW TextureEffect(acFilename));
 }
