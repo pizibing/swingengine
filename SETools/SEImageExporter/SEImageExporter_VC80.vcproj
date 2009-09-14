@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80d.lib SEDX9Renderer80d.lib cg.lib cgD3D9.lib"
+				AdditionalDependencies="SEFoundation80d.lib SEToolsCommon80d.lib SEDX9Renderer80d.lib cg.lib cgD3D9.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug"
 				GenerateDebugInformation="true"
