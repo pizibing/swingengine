@@ -1,0 +1,96 @@
+// Swing Engine Version 1 Source Code 
+// Most of techniques in the engine are mainly based on David Eberly's
+// Wild Magic 4 open-source code.The author of Swing Engine learned a lot
+// from Eberly's experience of architecture and algorithm.
+// Several sub-systems are totally new,and others are re-implimented or
+// re-organized based on Wild Magic 4's sub-systems.
+// Copyright (c) 2007-2010.  All Rights Reserved
+//
+// Eberly's permission:
+// Geometric Tools, Inc.
+// http://www.geometrictools.com
+// Copyright (c) 1998-2006.  All Rights Reserved
+//
+// This library is free software; you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 2.1 of the License, or (at
+// your option) any later version.  The license is available for reading at
+// the location:
+// http://www.gnu.org/copyleft/lgpl.html
+
+#include "stdafx.h"
+#include "SEColladaImporterApp.h"
+
+using namespace Swing;
+
+//----------------------------------------------------------------------------
+ColladaImporterApp::ColladaImporterApp()
+{
+    m_bOpenFile = false;
+}
+//----------------------------------------------------------------------------
+ColladaImporterApp::~ColladaImporterApp()
+{
+}
+//----------------------------------------------------------------------------
+void ColladaImporterApp::OnIdle()
+{
+    AppCuller.ComputeUnculledSet(AppScene);
+
+    if( m_bOpenFile )
+    {
+        OpenFile(m_acFilename);
+        m_bOpenFile = false;
+    }
+
+    AppRenderer->ClearBuffers();
+    if( AppRenderer->BeginScene() )
+    {
+        AppRenderer->DrawScene(AppCuller.GetVisibleSet());
+
+        AppRenderer->EndScene();
+    }
+    AppRenderer->DisplayBackBuffer();
+}
+//----------------------------------------------------------------------------
+void ColladaImporterApp::CreateScene()
+{
+    AppScene = SE_NEW Node;
+    AppWireframe = SE_NEW WireframeState;
+    AppWireframe->Enabled = false;
+    AppScene->AttachGlobalState(AppWireframe);
+
+    AppScene->UpdateGS();
+    AppScene->UpdateRS();
+
+    AppCuller.SetCamera(AppCamera);
+    AppCuller.ComputeUnculledSet(AppScene);
+
+    m_pColladaScene = SE_NEW ColladaScene(
+        ((DX9Renderer*)AppRenderer)->GetDevice());
+}
+//----------------------------------------------------------------------------
+void ColladaImporterApp::DestroyScene()
+{
+    AppScene = 0;
+    AppWireframe = 0;
+
+    SE_DELETE m_pColladaScene;
+}
+//----------------------------------------------------------------------------
+void ColladaImporterApp::OnSave(const char*)
+{
+}
+//----------------------------------------------------------------------------
+void ColladaImporterApp::OpenFile(const char*)
+{
+}
+//----------------------------------------------------------------------------
+void ColladaImporterApp::OnOpenFile(const char* acFilename)
+{
+    m_bOpenFile = true;
+    Swing::System::SE_Strcpy(m_acFilename, 256, acFilename);
+
+    m_pColladaScene->Load(acFilename);
+}
+//----------------------------------------------------------------------------
