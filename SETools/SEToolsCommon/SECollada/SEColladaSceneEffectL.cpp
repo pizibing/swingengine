@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ShaderEffect* ColladaScene::GetEffect(const char* acName)
+ColladaEffect* ColladaScene::GetEffect(const char* acName)
 {
     if( !acName )
     {
@@ -54,7 +54,7 @@ bool ColladaScene::LoadEffectLibrary(domLibrary_effectsRef spLib)
     return true;
 }
 //----------------------------------------------------------------------------
-ShaderEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
+ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
 {
     if( !spDomEffect )
     {
@@ -67,7 +67,7 @@ ShaderEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
         return 0;
     }
 
-    ShaderEffect* pEffect = GetEffect((const char*)strEffectID);
+    ColladaEffect* pEffect = GetEffect((const char*)strEffectID);
     // This effect is already in our effect catalog.
     if( pEffect )
     {
@@ -140,20 +140,29 @@ ShaderEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
                 // All of them assume the texture is in the diffuse component 
                 // for now.
 
-				//domProfile_COMMON::domTechnique::domConstant *constant = technique->getConstant();
-				//if (constant)
-				//	ReadConstant(newEffect, &shader, constant);
-				//domProfile_COMMON::domTechnique::domLambert *lambert = technique->getLambert();
-				//if (lambert)
-				//	ReadLambert(newEffect, &shader, lambert);
-				//domProfile_COMMON::domTechnique::domPhong *phong = technique->getPhong();
-				//if (phong)
-				//	ReadPhong(newEffect, &shader, phong);
+                domProfile_COMMON::domTechnique::domConstant* pDomConstant = 
+                    pDomTechnique->getConstant();
+                if( pDomConstant )
+                {
+                    ParseConstant(pEffect, pDomConstant);
+                }
+                domProfile_COMMON::domTechnique::domLambert* pDomLambert = 
+                    pDomTechnique->getLambert();
+                if( pDomLambert )
+                {
+                    ParseLambert(pEffect, pDomLambert);
+                }
+                domProfile_COMMON::domTechnique::domPhong* pDomPhong = 
+                    pDomTechnique->getPhong();
+                if( pDomPhong )
+                {
+                    ParsePhong(pEffect, pDomPhong);
+                }
                 domProfile_COMMON::domTechnique::domBlinn* pDomBlinn = 
                     pDomTechnique->getBlinn();
                 if( pDomBlinn )
                 {
-                    ParseBlinn((ColladaEffect*)pEffect, pDomBlinn);
+                    ParseBlinn(pEffect, pDomBlinn);
                 }
 
 			//	domCommon_newparam_type_Array newparam_array = common->getNewparam_array();
@@ -183,6 +192,60 @@ ShaderEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
     }
 
     return 0;
+}
+//----------------------------------------------------------------------------
+float ColladaScene::GetFloat(domCommon_float_or_param_type* pParam)
+{
+    if( pParam->getFloat() )
+    {
+        return (float)pParam->getFloat()->getValue();
+    }
+
+    return 0.0f;
+}
+//----------------------------------------------------------------------------
+ColorRGB ColladaScene::GetColor(
+    domCommon_color_or_texture_type_complexType* pParam)
+{
+    if( pParam->getColor() )
+	{
+        domFx_color_common& rDomColor = pParam->getColor()->getValue();
+
+        return ColorRGB((float)rDomColor[0], (float)rDomColor[1], 
+            (float)rDomColor[2]);
+	}
+
+    return ColorRGB::SE_RGB_BLACK;
+}
+//----------------------------------------------------------------------------
+void ColladaScene::ParseConstant(ColladaEffect* pEffect, 
+    domProfile_COMMON::domTechnique::domConstant* pDomConstant)
+{
+    domCommon_color_or_texture_type* pDomParam = pDomConstant->getEmission();
+    if( pDomParam )
+    {
+        pEffect->Material->Emissive = GetColor(pDomParam);
+    }
+}
+//----------------------------------------------------------------------------
+void ColladaScene::ParseLambert(ColladaEffect* pEffect, 
+    domProfile_COMMON::domTechnique::domLambert* pDomLambert)
+{
+    domCommon_color_or_texture_type* pDomParam = pDomLambert->getEmission();
+    if( pDomParam )
+    {
+        pEffect->Material->Emissive = GetColor(pDomParam);
+    }
+}
+//----------------------------------------------------------------------------
+void ColladaScene::ParsePhong(ColladaEffect* pEffect, 
+    domProfile_COMMON::domTechnique::domPhong* pDomPhong)
+{
+    domCommon_color_or_texture_type* pDomParam = pDomPhong->getEmission();
+    if( pDomParam )
+    {
+        pEffect->Material->Emissive = GetColor(pDomParam);
+    }
 }
 //----------------------------------------------------------------------------
 void ColladaScene::ParseBlinn(ColladaEffect* pEffect, 

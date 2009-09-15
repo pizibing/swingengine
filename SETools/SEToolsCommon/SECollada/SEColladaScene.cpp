@@ -337,17 +337,3 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     return 0;
 }
 //----------------------------------------------------------------------------
-ColorRGB ColladaScene::GetColor(
-    domCommon_color_or_texture_type_complexType* pParam)
-{
-    if( pParam->getColor() )
-	{
-        domFx_color_common& rDomColor = pParam->getColor()->getValue();
-
-        return ColorRGB((float)rDomColor[0], (float)rDomColor[1], 
-            (float)rDomColor[2]);
-	}
-
-    return ColorRGB::SE_RGB_BLACK;
-}
-//----------------------------------------------------------------------------

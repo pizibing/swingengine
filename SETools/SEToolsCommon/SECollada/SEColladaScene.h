@@ -77,7 +77,7 @@ public:
     void Load(const char* acFilename);
 
     Image* GetImage(const char* acName);
-    ShaderEffect* GetEffect(const char* acName);
+    ColladaEffect* GetEffect(const char* acName);
 
 private:
     // Triangulation.
@@ -94,7 +94,7 @@ private:
     bool LoadAnimationLibrary(domLibrary_animationsRef spLib);
 
     Image* LoadImage(domImageRef spDomImage);
-    ShaderEffect* LoadEffect(domEffectRef spDomEffect);
+    ColladaEffect* LoadEffect(domEffectRef spDomEffect);
     Light* LoadLight(domLightRef spDomLight);
     Camera* LoadCamera(domCameraRef spDomCamera);
     MaterialState* LoadMaterial(domMaterialRef spDomMaterial);
@@ -103,16 +103,24 @@ private:
     //Texture* LoadTexture(domTextureRef spDomTexture);
     //Animation* LoadAnimation(domAnimationRef spDomAnimation);
     //Skin* LoadSkin(domSkinRef spDomSkin);
-    Node*          LoadNode(domNodeRef spDomNode, Node* pParentNode);
+    Node* LoadNode(domNodeRef spDomNode, Node* pParentNode);
     //Morph* LoadMorph(domMorphRef spDomMorph);
     //Controller* LoadController(domControllerRef spDomController);
 
     ColorRGB GetColor(domCommon_color_or_texture_type_complexType* pParam);
+    float GetFloat(domCommon_float_or_param_type* pParam);
+
+    void ParseConstant(ColladaEffect* pEffect, 
+        domProfile_COMMON::domTechnique::domConstant* pDomConstant);
+    void ParseLambert(ColladaEffect* pEffect, 
+        domProfile_COMMON::domTechnique::domLambert* pDomLambert);
+    void ParsePhong(ColladaEffect* pEffect, 
+        domProfile_COMMON::domTechnique::domPhong* pDomPhong);
     void ParseBlinn(ColladaEffect* pEffect, 
         domProfile_COMMON::domTechnique::domBlinn* pDomblinn);
 
     std::vector<ImagePtr> m_Images;
-    std::vector<ShaderEffectPtr> m_Effects;
+    std::vector<ColladaEffectPtr> m_Effects;
     //std::vector<Geometry*> Geometries;
     //std::vector<Light*> Lights;
     //std::vector<Camera*> Cameras;
