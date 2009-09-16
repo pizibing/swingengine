@@ -317,6 +317,14 @@
 			Name="SECollada"
 			>
 			<File
+				RelativePath=".\SECollada\SEColladaAnimation.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SECollada\SEColladaAnimation.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SECollada\SEColladaEffect.cpp"
 				>
 			</File>
@@ -338,6 +346,10 @@
 			</File>
 			<File
 				RelativePath=".\SECollada\SEColladaScene.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SECollada\SEColladaSceneAnimationL.cpp"
 				>
 			</File>
 			<File

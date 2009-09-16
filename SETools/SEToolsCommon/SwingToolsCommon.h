@@ -28,6 +28,7 @@
 #include "SEColladaScene.h"
 #include "SEColladaEffect.h"
 #include "SEColladaMaterial.h"
+#include "SEColladaAnimation.h"
 
 // Tool System
 #include "SEToolsUtility.h"
