@@ -50,7 +50,7 @@ void ColladaScene::Load(const char* acFilename)
     }
 
     // Get the DOM interface for later use.
-    domCOLLADA* pDOM = m_pDAE->getDom(acFilename);
+    domCOLLADA* pDom = m_pDAE->getDom(acFilename);
 
     // Do triangulation work unconditionally at the very beginning.
     ToolSystem::SE_DebugOutput("Begin conditioning of triangulation");
@@ -58,9 +58,9 @@ void ColladaScene::Load(const char* acFilename)
     ToolSystem::SE_DebugOutput("Finish conditioning of triangulation");
 
     // Get current coordinate frame orientation.
-    if( pDOM->getAsset()->getUp_axis() )
+    if( pDom->getAsset()->getUp_axis() )
     {
-        domAsset::domUp_axis* pUp = pDOM->getAsset()->getUp_axis();
+        domAsset::domUp_axis* pUp = pDom->getAsset()->getUp_axis();
         switch( pUp->getValue() )
         {
         case UPAXISTYPE_X_UP:
@@ -84,25 +84,33 @@ void ColladaScene::Load(const char* acFilename)
     }
 
     // Load all the image libraries.
-    int iImageLibCount = (int)pDOM->getLibrary_images_array().getCount();
+    int iImageLibCount = (int)pDom->getLibrary_images_array().getCount();
     for( int i = 0; i < iImageLibCount; i++ )
     {
-        LoadImageLibrary(pDOM->getLibrary_images_array()[i]);			
+        LoadImageLibrary(pDom->getLibrary_images_array()[i]);			
     }
 
     // Load all the effect libraries.
-    int iEffectLibCount = (int)pDOM->getLibrary_effects_array().getCount();
+    int iEffectLibCount = (int)pDom->getLibrary_effects_array().getCount();
     for( int i = 0; i < iEffectLibCount; i++ )
     {
-        LoadEffectLibrary(pDOM->getLibrary_effects_array()[i]);			
+        LoadEffectLibrary(pDom->getLibrary_effects_array()[i]);			
     }
 
     // Load all the material libraries.
     int iMaterialLibCount = 
-        (int)pDOM->getLibrary_materials_array().getCount();
+        (int)pDom->getLibrary_materials_array().getCount();
     for( int i = 0; i < iMaterialLibCount; i++ )
     {
-        LoadMaterialLibrary(pDOM->getLibrary_materials_array()[i]);			
+        LoadMaterialLibrary(pDom->getLibrary_materials_array()[i]);			
+    }
+
+    // Load all the animation libraries.
+    int iAnimationLibCount = 
+        (int)pDom->getLibrary_animations_array().getCount();
+    for( int i = 0; i < iAnimationLibCount; i++ )
+    {
+        LoadAnimationLibrary(pDom->getLibrary_animations_array()[i] );			
     }
 }
 //----------------------------------------------------------------------------
@@ -303,11 +311,6 @@ void ColladaScene::Triangulate(DAE* pDAE)
             pDomMesh->removeChildElement(pDomPolylist);
         }
     }
-}
-//----------------------------------------------------------------------------
-bool ColladaScene::LoadAnimationLibrary(domLibrary_animationsRef spLib)
-{
-   return true;
 }
 //----------------------------------------------------------------------------
 Light* ColladaScene::LoadLight(domLightRef spDomLight)

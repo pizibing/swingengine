@@ -27,6 +27,7 @@
 #include "SwingFoundation.h"
 #include "SEColladaEffect.h"
 #include "SEColladaMaterial.h"
+#include "SEColladaAnimation.h"
 
 namespace Swing
 {
@@ -104,6 +105,8 @@ private:
     Image* LoadImage(domImageRef spDomImage);
     ColladaEffect* LoadEffect(domEffectRef spDomEffect);
     ColladaMaterial* LoadMaterial(domMaterialRef spDomMaterial);
+    ColladaAnimation* LoadAnimation(domAnimationRef spDomAnimation);
+
     Light* LoadLight(domLightRef spDomLight);
     Camera* LoadCamera(domCameraRef spDomCamera);
     void ParseGeometry(Geometry* pGeometry, domGeometry* pDomGeometry);
@@ -137,13 +140,13 @@ private:
     std::vector<ImagePtr> m_Images;
     std::vector<ColladaEffectPtr> m_Effects;
     std::vector<ColladaMaterialPtr> m_Materials;
+    std::vector<ColladaAnimationPtr> m_Animations;
     //std::vector<Geometry*> Geometries;
     //std::vector<Light*> Lights;
     //std::vector<Camera*> Cameras;
     //std::vector<Texture*> Textures;
     //std::vector<Shader*> Shaders;
     //std::vector<Controller*> Controllers;
-    //std::vector<Animation*> Animations;
     //std::map<std::string, Node*> Nodes;
 
     DAE* m_pDAE;
