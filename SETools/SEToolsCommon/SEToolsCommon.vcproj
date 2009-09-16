@@ -340,6 +340,10 @@
 				RelativePath=".\SECollada\SEColladaSceneImageL.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\SECollada\SEColladaSceneMaterialL.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="SEToolSystem"
