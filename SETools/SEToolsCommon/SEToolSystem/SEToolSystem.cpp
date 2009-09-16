@@ -28,18 +28,27 @@ using namespace Swing;
 void ToolSystem::SE_DebugOutput(const char* acFormat, ...)
 {
 #if defined(_DEBUG)
-    va_list	tempArgs;
-    char tempStr[4096]; 
+    //va_list tempArgs;
+    //char tempStr[4096]; 
 
-    String tempFormat((int)strlen(acFormat), acFormat);
-    tempFormat += "\n";
+    //String tempFormat((int)strlen(acFormat), acFormat);
+    //tempFormat += "\n";
 
-    va_start(tempArgs, tempFormat);
-    vsprintf_s(tempStr, 4096, tempFormat, tempArgs);
-    va_end(tempArgs);
+    //va_start(tempArgs, tempFormat);
+    //vsprintf_s(tempStr, 4095, tempFormat, tempArgs);
+    //va_end(tempArgs);
 
-    OutputDebugString(tempStr);
-    std::cout << tempStr << std::endl;
+    //OutputDebugString(tempStr);
+    //std::cout << tempStr << std::endl;
+
+	//va_list tempArgs;
+	//char tempBuffer[1024];
+
+	//va_start(tempArgs, acFormat);
+	//vsprintf_s(tempBuffer, 1024, acFormat, tempArgs);
+	//va_end(tempArgs);
+
+	//std::cout << tempBuffer << std::endl;
 #else
     (void)acFormat;
 #endif

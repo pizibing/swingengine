@@ -24,8 +24,102 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
+ColladaMaterial* ColladaScene::GetMaterial(const char* acName)
+{
+    if( !acName )
+    {
+        return 0;
+    }
+
+    for( int i = 0; i < (int)m_Materials.size(); i++ )
+    {
+        if( strcmp(m_Materials[i]->GetName(), acName) == 0 )
+        {
+            return m_Materials[i];
+        }
+    }
+
+    return 0;
+}
+//----------------------------------------------------------------------------
 bool ColladaScene::LoadMaterialLibrary(domLibrary_materialsRef spLib)
 {
-    return true;
+    ToolSystem::SE_DebugOutput("ColladaScene::Loading Material Library");
+
+    int iMaterialCount = (int)spLib->getMaterial_array().getCount();
+    for( int i = 0; i < iMaterialCount; i++ )
+    {
+        LoadMaterial(spLib->getMaterial_array()[i]);
+    }
+
+    return true; 
+}
+//----------------------------------------------------------------------------
+ColladaMaterial* ColladaScene::LoadMaterial(domMaterialRef spDomMaterial)
+{
+    if( !spDomMaterial )
+    {
+        return 0;
+    }
+
+    xsID strMaterialID = spDomMaterial->getId();
+    if( !strMaterialID )
+    {
+        return 0;
+    }
+
+    ColladaMaterial* pMaterial = GetMaterial(strMaterialID);
+    // This material is already in our material catalog.
+    if( pMaterial )
+    {
+        return pMaterial;
+    }
+
+    ToolSystem::SE_DebugOutput("Add new material %s", strMaterialID);
+
+    domMaterial* pDomMaterial = (domMaterial*)spDomMaterial;
+    if( pDomMaterial ) 
+    {
+        domInstance_effect* pDomInstanceEffect = 
+            pDomMaterial->getInstance_effect();
+        if( !pDomInstanceEffect )
+        {
+            return 0;
+        }
+
+        domElement* pDomElement = pDomInstanceEffect->getUrl().getElement();
+        if( !pDomElement )
+        {
+            return 0;
+        }
+
+        // Find the effect that the material is refering to.
+        ColladaEffect* pEffect = LoadEffect((domEffect*)pDomElement);
+        if( pEffect )
+        {
+            ColladaMaterial* pMaterial = SE_NEW ColladaMaterial;
+            pMaterial->SetName(strMaterialID);
+            pMaterial->Effect = pEffect;
+            ToolSystem::SE_DebugOutput(
+                "Attaching effect %s to material %s \n", pEffect->GetName(), 
+                pMaterial->GetName()); 
+            m_Materials.push_back(pMaterial);
+
+            return pMaterial; 	
+        } 
+        else
+        {
+            std::string strOutput = "No effect %s for old-style matrial %s ";
+            strOutput += "(no problem if there is a cfx version of this ";
+            strOutput += "material)";
+
+            ToolSystem::SE_DebugOutput(strOutput.c_str(), 
+                pDomElement->getID(), strMaterialID);
+
+            return 0;
+        }
+    }
+
+    return 0;
 }
 //----------------------------------------------------------------------------

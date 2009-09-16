@@ -143,10 +143,10 @@ void ColladaScene::CreateTrianglesFromPolylist(domMesh* pDomMesh,
     int iInputCount = (int)GetMaxOffset(pDomPolylist->getInput_array()) + 1;
     int iPrimitiveCount = (int)(pDomPolylist->getVcount()->getValue().getCount());
 
-	unsigned int uiOffset = 0;
+    unsigned int uiOffset = 0;
     unsigned int uiTrianglesProcessed = 0;
 
-	// Triangulate all the primitives, this generates all the triangles in a 
+    // Triangulate all the primitives, this generates all the triangles in a 
     // single <p> element.
     for( int j = 0; j < iPrimitiveCount; j++ )
     {
@@ -316,11 +316,6 @@ Light* ColladaScene::LoadLight(domLightRef spDomLight)
 }
 //----------------------------------------------------------------------------
 Camera* ColladaScene::LoadCamera(domCameraRef spDomCamera)
-{
-    return 0;
-}
-//----------------------------------------------------------------------------
-MaterialState* ColladaScene::LoadMaterial(domMaterialRef spDomMaterial)
 {
     return 0;
 }

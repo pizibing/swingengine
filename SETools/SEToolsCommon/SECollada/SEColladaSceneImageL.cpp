@@ -39,12 +39,13 @@ Image* ColladaScene::GetImage(const char* acName)
         }
     }
 
-	return 0;
+    return 0;
 }
 //----------------------------------------------------------------------------
 bool ColladaScene::LoadImageLibrary(domLibrary_imagesRef spLib)
 {
     ToolSystem::SE_DebugOutput("ColladaScene::Loading Image Library" );
+
     int iImageCount = (int)spLib->getImage_array().getCount();
     for( int i = 0; i < iImageCount; i++ )
     {
@@ -74,7 +75,7 @@ Image* ColladaScene::LoadImage(domImageRef spDomImage)
         return pImage;
     }
 
-    ToolSystem::SE_DebugOutput("Add new image %s", strImageID);
+    //ToolSystem::SE_DebugOutput("Add new image %s", strImageID);
 
     domImage* pDomImage = (domImage*)spDomImage;
     if( pDomImage )

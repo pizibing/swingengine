@@ -29,6 +29,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaEffect, ShaderEffect);
 //----------------------------------------------------------------------------
 ColladaEffect::ColladaEffect(void)
 {
+    Material = SE_NEW MaterialState;
 }
 //----------------------------------------------------------------------------
 ColladaEffect::~ColladaEffect(void)

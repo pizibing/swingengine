@@ -325,6 +325,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SECollada\SEColladaMaterial.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SECollada\SEColladaMaterial.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SECollada\SEColladaScene.cpp"
 				>
 			</File>

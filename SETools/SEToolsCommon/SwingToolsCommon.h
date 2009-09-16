@@ -27,6 +27,7 @@
 // Collada
 #include "SEColladaScene.h"
 #include "SEColladaEffect.h"
+#include "SEColladaMaterial.h"
 
 // Tool System
 #include "SEToolsUtility.h"

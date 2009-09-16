@@ -39,12 +39,13 @@ ColladaEffect* ColladaScene::GetEffect(const char* acName)
         }
     }
 
-	return 0;
+    return 0;
 }
 //----------------------------------------------------------------------------
 bool ColladaScene::LoadEffectLibrary(domLibrary_effectsRef spLib)
 {
     ToolSystem::SE_DebugOutput("ColladaScene::Loading Effect Library" );
+
     int iEffectCount = (int)spLib->getEffect_array().getCount();
     for( int i = 0; i < iEffectCount; i++ )
     {
@@ -75,7 +76,7 @@ ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
     }
 
     ToolSystem::SE_DebugOutput("Add new effect %s", strEffectID);
-	
+    
     domEffect* pDomEffect = (domEffect*)spDomEffect;
     if( pDomEffect )
     {
@@ -176,7 +177,7 @@ ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
                     xsNCName strNewParamSID = pDomNewparamArray[j]->getSid();
                     tempNewParams[strNewParamSID] = pDomNewparamArray[j];
                 }
-				
+                
                 // TODO: 
                 // Take only the texture from diffuse for now.
                 Image* pImage;
@@ -186,7 +187,7 @@ ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
                 {
                     pEffect->Textures.push_back(pImage);
                 }
-				
+                
                 // Handle an effect with no texture.
                 m_Effects.push_back(pEffect);
 
@@ -217,12 +218,12 @@ ColorRGB ColladaScene::GetColor(
     domCommon_color_or_texture_type_complexType* pParam)
 {
     if( pParam->getColor() )
-	{
+    {
         domFx_color_common& rDomColor = pParam->getColor()->getValue();
 
         return ColorRGB((float)rDomColor[0], (float)rDomColor[1], 
             (float)rDomColor[2]);
-	}
+    }
 
     return ColorRGB::SE_RGB_BLACK;
 }

@@ -26,6 +26,7 @@
 #include "SEImageConverter.h"
 #include "SwingFoundation.h"
 #include "SEColladaEffect.h"
+#include "SEColladaMaterial.h"
 
 namespace Swing
 {
@@ -84,6 +85,7 @@ public:
 
     Image* GetImage(const char* acName);
     ColladaEffect* GetEffect(const char* acName);
+    ColladaMaterial* GetMaterial(const char* acName);
 
 private:
     // Triangulation.
@@ -101,9 +103,9 @@ private:
 
     Image* LoadImage(domImageRef spDomImage);
     ColladaEffect* LoadEffect(domEffectRef spDomEffect);
+    ColladaMaterial* LoadMaterial(domMaterialRef spDomMaterial);
     Light* LoadLight(domLightRef spDomLight);
     Camera* LoadCamera(domCameraRef spDomCamera);
-    MaterialState* LoadMaterial(domMaterialRef spDomMaterial);
     void ParseGeometry(Geometry* pGeometry, domGeometry* pDomGeometry);
     Geometry* LoadGeometry(domGeometryRef spDomGeometry);
     //Texture* LoadTexture(domTextureRef spDomTexture);
@@ -134,10 +136,10 @@ private:
 
     std::vector<ImagePtr> m_Images;
     std::vector<ColladaEffectPtr> m_Effects;
+    std::vector<ColladaMaterialPtr> m_Materials;
     //std::vector<Geometry*> Geometries;
     //std::vector<Light*> Lights;
     //std::vector<Camera*> Cameras;
-    //std::vector<Material*> Materials;
     //std::vector<Texture*> Textures;
     //std::vector<Shader*> Shaders;
     //std::vector<Controller*> Controllers;
