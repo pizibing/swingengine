@@ -39,6 +39,12 @@ namespace Swing
 class ColladaShaderElements
 {
 public:
+    ColladaShaderElements(void)
+    { 
+        memset(this, 0, sizeof(ColladaShaderElements));
+    }
+    ~ColladaShaderElements(void){}
+
     domCommon_color_or_texture_type* Emission;
     domCommon_color_or_texture_type* Ambient;
     domCommon_color_or_texture_type* Diffuse;
@@ -49,7 +55,7 @@ public:
     domCommon_float_or_param_type* Reflectivity;
     domCommon_color_or_texture_type_complexType* Transparent;
     domCommon_float_or_param_type* Transarency;
-    domCommon_float_or_param_type* Index_of_refaction;
+    domCommon_float_or_param_type* IndexOfRefaction;
 };
 
 //----------------------------------------------------------------------------
@@ -109,14 +115,21 @@ private:
 
     ColorRGB GetColor(domCommon_color_or_texture_type_complexType* pParam);
     float GetFloat(domCommon_float_or_param_type* pParam);
+    Image* GetTextureFromShaderElement(
+        std::map<std::string, domCommon_newparam_type*>& rNewParams, 
+        domCommon_color_or_texture_type* pShaderElement);
 
     void ParseConstant(ColladaEffect* pEffect, 
+        ColladaShaderElements* pShaderElements,
         domProfile_COMMON::domTechnique::domConstant* pDomConstant);
     void ParseLambert(ColladaEffect* pEffect, 
+        ColladaShaderElements* pShaderElements,
         domProfile_COMMON::domTechnique::domLambert* pDomLambert);
     void ParsePhong(ColladaEffect* pEffect, 
+        ColladaShaderElements* pShaderElements,
         domProfile_COMMON::domTechnique::domPhong* pDomPhong);
     void ParseBlinn(ColladaEffect* pEffect, 
+        ColladaShaderElements* pShaderElements,
         domProfile_COMMON::domTechnique::domBlinn* pDomblinn);
 
     std::vector<ImagePtr> m_Images;

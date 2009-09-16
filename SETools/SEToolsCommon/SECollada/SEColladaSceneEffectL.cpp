@@ -95,7 +95,7 @@ ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
         int iProfileCount = 
             (int)pDomEffect->getFx_profile_abstract_array().getCount(); 
 
-        // Scan the profiles to find the profile_COMMON.
+        // Just scan the profiles to find the profile_COMMON for now.
         for( int i = 0; i < iProfileCount; i++ )
         {
             domFx_profile_abstract* pDomProfile = 
@@ -140,48 +140,57 @@ ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
                 // All of them assume the texture is in the diffuse component 
                 // for now.
 
+                ColladaShaderElements tempShaderElements;
                 domProfile_COMMON::domTechnique::domConstant* pDomConstant = 
                     pDomTechnique->getConstant();
                 if( pDomConstant )
                 {
-                    ParseConstant(pEffect, pDomConstant);
+                    ParseConstant(pEffect, &tempShaderElements, pDomConstant);
                 }
                 domProfile_COMMON::domTechnique::domLambert* pDomLambert = 
                     pDomTechnique->getLambert();
                 if( pDomLambert )
                 {
-                    ParseLambert(pEffect, pDomLambert);
+                    ParseLambert(pEffect, &tempShaderElements, pDomLambert);
                 }
                 domProfile_COMMON::domTechnique::domPhong* pDomPhong = 
                     pDomTechnique->getPhong();
                 if( pDomPhong )
                 {
-                    ParsePhong(pEffect, pDomPhong);
+                    ParsePhong(pEffect, &tempShaderElements, pDomPhong);
                 }
                 domProfile_COMMON::domTechnique::domBlinn* pDomBlinn = 
                     pDomTechnique->getBlinn();
                 if( pDomBlinn )
                 {
-                    ParseBlinn(pEffect, pDomBlinn);
+                    ParseBlinn(pEffect, &tempShaderElements, pDomBlinn);
                 }
 
-			//	domCommon_newparam_type_Array newparam_array = common->getNewparam_array();
-			//	std::map<string, domCommon_newparam_type*> NewParams;
-			//	size_t uiNewParamCount = newparam_array.getCount();
-			//	for (CrtUInt i = 0; i < uiNewParamCount; i++) 
-			//	{
-			//		NewParams[newparam_array[i]->getSid()] = newparam_array[i];
-			//	}
-			//	
-			//	// TODO: take only the texture from diffuse for now
-			//	CrtImage * image;
-			//	image = GetTextureFromShader(NewParams, shader.diffuse);
-			//	if (image)
-			//		newEffect->Textures.push_back(image);
-			//	
-			//	// Handle an effect with no texture
-			//	Effects.push_back(newEffect);
-			//	return newEffect; 	
+                // Hash the newparam elements of the technique for later use.
+                domCommon_newparam_type_Array pDomNewparamArray = 
+                    pDomTechnique->getNewparam_array();
+                std::map<std::string, domCommon_newparam_type*> tempNewParams;
+                int iNewParamCount = (int)pDomNewparamArray.getCount();
+                for( int j = 0; j < iNewParamCount; j++ )
+                {
+                    xsNCName strNewParamSID = pDomNewparamArray[j]->getSid();
+                    tempNewParams[strNewParamSID] = pDomNewparamArray[j];
+                }
+				
+                // TODO: 
+                // Take only the texture from diffuse for now.
+                Image* pImage;
+                pImage = GetTextureFromShaderElement(tempNewParams, 
+                    tempShaderElements.Diffuse);
+                if( pImage )
+                {
+                    pEffect->Textures.push_back(pImage);
+                }
+				
+                // Handle an effect with no texture.
+                m_Effects.push_back(pEffect);
+
+                return pEffect;
             } 
             else 
             {
@@ -218,49 +227,319 @@ ColorRGB ColladaScene::GetColor(
     return ColorRGB::SE_RGB_BLACK;
 }
 //----------------------------------------------------------------------------
+Image* ColladaScene::GetTextureFromShaderElement(
+    std::map<std::string, domCommon_newparam_type*>& rNewParams, 
+    domCommon_color_or_texture_type* pShaderElement)
+{
+    if( !pShaderElement )
+    {
+        return 0;
+    }
+
+    domCommon_color_or_texture_type::domTexture* pDomTextureElement = 
+        pShaderElement->getTexture();
+    if( !pDomTextureElement )
+    {
+        return 0;
+    }
+
+    // If we can not find the newparam of sampler from our hash map,
+    // then we try to solve it by using DAE runtime helper functions.
+    std::string strSamplerSID = pDomTextureElement->getTexture();
+    domCommon_newparam_type* pDomNewParam = rNewParams[strSamplerSID];
+    if( !pDomNewParam )
+    {
+        xsIDREF tempIDRef(strSamplerSID.c_str());
+        tempIDRef.setContainer(pShaderElement);
+        tempIDRef.resolveElement();
+        domImage* pDomImage = (domImage*)tempIDRef.getElement();
+
+        return LoadImage(pDomImage);
+    }
+
+    std::string strSurfaceSID = 
+        pDomNewParam->getSampler2D()->getSource()->getValue();
+
+    pDomNewParam = rNewParams[strSurfaceSID];
+    domFx_surface_init_common* pDomSurfaceInit = 
+        pDomNewParam->getSurface()->getFx_surface_init_common();
+    if( !pDomSurfaceInit )
+    {
+        return 0;
+    }
+
+    xsIDREF& rIDRef = pDomSurfaceInit->getInit_from_array()[0]->getValue();
+    rIDRef.resolveElement();
+    domImage* pDomImage = (domImage*)rIDRef.getElement();
+
+    return LoadImage(pDomImage);
+}
+//----------------------------------------------------------------------------
 void ColladaScene::ParseConstant(ColladaEffect* pEffect, 
+    ColladaShaderElements* pShaderElements,
     domProfile_COMMON::domTechnique::domConstant* pDomConstant)
 {
-    domCommon_color_or_texture_type* pDomParam = pDomConstant->getEmission();
-    if( pDomParam )
+    pShaderElements->Emission = pDomConstant->getEmission();
+    if( pShaderElements->Emission )
     {
-        pEffect->Material->Emissive = GetColor(pDomParam);
+        pEffect->Material->Emissive = GetColor(pShaderElements->Emission);
+    }
+
+    pShaderElements->Reflective = pDomConstant->getReflective();
+    if( pShaderElements->Reflective )
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Material->Reflective = 
+        //     GetColor(pShaderElements->Reflective);
+    }
+
+    pShaderElements->Reflectivity = pDomConstant->getReflectivity();
+    if( pShaderElements->Reflectivity )
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Material->Reflectivity = 
+        //     GetFloat(pShaderElements->Reflectivity);
+    }
+
+    pShaderElements->Transparent = pDomConstant->getTransparent();
+    if( pShaderElements->Transparent ) 
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Transparent = GetColor(pShaderElements->Transparent);
+    }
+
+    pShaderElements->Transarency = pDomConstant->getTransparency();
+    if( pShaderElements->Transarency )
+    {
+        pEffect->Material->Alpha = GetFloat(pShaderElements->Transarency);
+    }
+
+    pShaderElements->IndexOfRefaction = pDomConstant->getIndex_of_refraction();
+    if( pShaderElements->IndexOfRefaction )
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Material->RefractiveIndex = 
+        //     GetFloat(pShaderElements->IndexOfRefaction);
     }
 }
 //----------------------------------------------------------------------------
 void ColladaScene::ParseLambert(ColladaEffect* pEffect, 
+    ColladaShaderElements* pShaderElements,
     domProfile_COMMON::domTechnique::domLambert* pDomLambert)
 {
-    domCommon_color_or_texture_type* pDomParam = pDomLambert->getEmission();
-    if( pDomParam )
+    pShaderElements->Emission = pDomLambert->getEmission();
+    if( pShaderElements->Emission )
     {
-        pEffect->Material->Emissive = GetColor(pDomParam);
+        pEffect->Material->Emissive = GetColor(pShaderElements->Emission);
+    }
+
+    pShaderElements->Ambient = pDomLambert->getAmbient();
+    if( pShaderElements->Ambient )
+    {
+        pEffect->Material->Ambient = GetColor(pShaderElements->Ambient);
+    }
+
+    pShaderElements->Diffuse = pDomLambert->getDiffuse();
+    if( pShaderElements->Diffuse )
+    {
+        pEffect->Material->Diffuse = GetColor(pShaderElements->Diffuse);
+    }
+
+    pShaderElements->Reflective = pDomLambert->getReflective();
+    if( pShaderElements->Reflective )
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Material->Reflective = 
+        //     GetColor(pShaderElements->Reflective);
+    }
+
+    pShaderElements->Reflectivity = pDomLambert->getReflectivity();
+    if( pShaderElements->Reflectivity )
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Material->Reflectivity = 
+        //     GetFloat(pShaderElements->Reflectivity);
+    }
+
+    pShaderElements->Transparent = pDomLambert->getTransparent();
+    if( pShaderElements->Transparent ) 
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Transparent = GetColor(pShaderElements->Transparent);
+    }
+
+    pShaderElements->Transarency = pDomLambert->getTransparency();
+    if( pShaderElements->Transarency )
+    {
+        pEffect->Material->Alpha = GetFloat(pShaderElements->Transarency);
+    }
+
+    pShaderElements->IndexOfRefaction = pDomLambert->getIndex_of_refraction();
+    if( pShaderElements->IndexOfRefaction )
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Material->RefractiveIndex = 
+        //     GetFloat(pShaderElements->IndexOfRefaction);
     }
 }
 //----------------------------------------------------------------------------
 void ColladaScene::ParsePhong(ColladaEffect* pEffect, 
+    ColladaShaderElements* pShaderElements,
     domProfile_COMMON::domTechnique::domPhong* pDomPhong)
 {
-    domCommon_color_or_texture_type* pDomParam = pDomPhong->getEmission();
-    if( pDomParam )
+    pShaderElements->Emission = pDomPhong->getEmission();
+    if( pShaderElements->Emission )
     {
-        pEffect->Material->Emissive = GetColor(pDomParam);
+        pEffect->Material->Emissive = GetColor(pShaderElements->Emission);
+    }
+
+    pShaderElements->Ambient = pDomPhong->getAmbient();
+    if( pShaderElements->Ambient )
+    {
+        pEffect->Material->Ambient = GetColor(pShaderElements->Ambient);
+    }
+
+    pShaderElements->Diffuse = pDomPhong->getDiffuse();
+    if( pShaderElements->Diffuse )
+    {
+        pEffect->Material->Diffuse = GetColor(pShaderElements->Diffuse);
+    }
+
+    pShaderElements->Specular = pDomPhong->getSpecular();
+    if( pShaderElements->Specular )
+    {
+        pEffect->Material->Specular = GetColor(pShaderElements->Specular);
+    }
+
+    pShaderElements->Shininess = pDomPhong->getShininess();
+    if( pShaderElements->Shininess )
+    {
+        pEffect->Material->Shininess = GetFloat(pShaderElements->Shininess);
+    }
+
+    pShaderElements->Reflective = pDomPhong->getReflective();
+    if( pShaderElements->Reflective )
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Material->Reflective = 
+        //     GetColor(pShaderElements->Reflective);
+    }
+
+    pShaderElements->Reflectivity = pDomPhong->getReflectivity();
+    if( pShaderElements->Reflectivity )
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Material->Reflectivity = 
+        //     GetFloat(pShaderElements->Reflectivity);
+    }
+
+    pShaderElements->Transparent = pDomPhong->getTransparent();
+    if( pShaderElements->Transparent ) 
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Transparent = GetColor(pShaderElements->Transparent);
+    }
+
+    pShaderElements->Transarency = pDomPhong->getTransparency();
+    if( pShaderElements->Transarency )
+    {
+        pEffect->Material->Alpha = GetFloat(pShaderElements->Transarency);
+    }
+
+    pShaderElements->IndexOfRefaction = pDomPhong->getIndex_of_refraction();
+    if( pShaderElements->IndexOfRefaction )
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Material->RefractiveIndex = 
+        //     GetFloat(pShaderElements->IndexOfRefaction);
     }
 }
 //----------------------------------------------------------------------------
 void ColladaScene::ParseBlinn(ColladaEffect* pEffect, 
+    ColladaShaderElements* pShaderElements,
     domProfile_COMMON::domTechnique::domBlinn* pDomblinn)
 {
-    domCommon_color_or_texture_type* pDomParam = pDomblinn->getEmission();
-    if( pDomParam )
+    pShaderElements->Emission = pDomblinn->getEmission();
+    if( pShaderElements->Emission )
     {
-        pEffect->Material->Emissive = GetColor(pDomParam);
+        pEffect->Material->Emissive = GetColor(pShaderElements->Emission);
     }
 
-    pDomParam = pDomblinn->getAmbient();
-    if( pDomParam )
+    pShaderElements->Ambient = pDomblinn->getAmbient();
+    if( pShaderElements->Ambient )
     {
-        pEffect->Material->Ambient = GetColor(pDomParam);
+        pEffect->Material->Ambient = GetColor(pShaderElements->Ambient);
+    }
+
+    pShaderElements->Diffuse = pDomblinn->getDiffuse();
+    if( pShaderElements->Diffuse )
+    {
+        pEffect->Material->Diffuse = GetColor(pShaderElements->Diffuse);
+    }
+
+    pShaderElements->Specular = pDomblinn->getSpecular();
+    if( pShaderElements->Specular )
+    {
+        pEffect->Material->Specular = GetColor(pShaderElements->Specular);
+    }
+
+    pShaderElements->Shininess = pDomblinn->getShininess();
+    if( pShaderElements->Shininess )
+    {
+        pEffect->Material->Shininess = GetFloat(pShaderElements->Shininess);
+    }
+
+    pShaderElements->Reflective = pDomblinn->getReflective();
+    if( pShaderElements->Reflective )
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Material->Reflective = 
+        //     GetColor(pShaderElements->Reflective);
+    }
+
+    pShaderElements->Reflectivity = pDomblinn->getReflectivity();
+    if( pShaderElements->Reflectivity )
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Material->Reflectivity = 
+        //     GetFloat(pShaderElements->Reflectivity);
+    }
+
+    pShaderElements->Transparent = pDomblinn->getTransparent();
+    if( pShaderElements->Transparent ) 
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Transparent = GetColor(pShaderElements->Transparent);
+    }
+
+    pShaderElements->Transarency = pDomblinn->getTransparency();
+    if( pShaderElements->Transarency )
+    {
+        pEffect->Material->Alpha = GetFloat(pShaderElements->Transarency);
+    }
+
+    pShaderElements->IndexOfRefaction = pDomblinn->getIndex_of_refraction();
+    if( pShaderElements->IndexOfRefaction )
+    {
+        // TODO:
+        // We don't have this parameter for now.
+        // pEffect->Material->RefractiveIndex = 
+        //     GetFloat(pShaderElements->IndexOfRefaction);
     }
 }
 //----------------------------------------------------------------------------

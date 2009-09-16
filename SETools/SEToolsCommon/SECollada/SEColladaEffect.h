@@ -44,6 +44,7 @@ public:
     ~ColladaEffect(void);
 
     MaterialStatePtr Material;
+    std::vector<ImagePtr> Textures;
 };
 
 typedef SmartPointer<ColladaEffect> ColladaEffectPtr;

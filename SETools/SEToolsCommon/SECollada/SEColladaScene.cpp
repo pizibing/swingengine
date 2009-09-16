@@ -96,6 +96,14 @@ void ColladaScene::Load(const char* acFilename)
     {
         LoadEffectLibrary(pDOM->getLibrary_effects_array()[i]);			
     }
+
+    // Load all the material libraries.
+    int iMaterialLibCount = 
+        (int)pDOM->getLibrary_materials_array().getCount();
+    for( int i = 0; i < iMaterialLibCount; i++ )
+    {
+        LoadMaterialLibrary(pDOM->getLibrary_materials_array()[i]);			
+    }
 }
 //----------------------------------------------------------------------------
 unsigned int ColladaScene::GetMaxOffset(
@@ -295,11 +303,6 @@ void ColladaScene::Triangulate(DAE* pDAE)
             pDomMesh->removeChildElement(pDomPolylist);
         }
     }
-}
-//----------------------------------------------------------------------------
-bool ColladaScene::LoadMaterialLibrary(domLibrary_materialsRef spLib)
-{
-    return true;
 }
 //----------------------------------------------------------------------------
 bool ColladaScene::LoadAnimationLibrary(domLibrary_animationsRef spLib)
