@@ -23,6 +23,45 @@
 
 using namespace Swing;
 
+SE_IMPLEMENT_RTTI(Swing, ColladaAnimationSource, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaAnimationSource, Object);
+
+//----------------------------------------------------------------------------
+ColladaAnimationSource::ColladaAnimationSource(void)
+{
+}
+//----------------------------------------------------------------------------
+ColladaAnimationSource::~ColladaAnimationSource(void)
+{
+}
+//----------------------------------------------------------------------------
+
+SE_IMPLEMENT_RTTI(Swing, ColladaAnimationSampler, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaAnimationSampler, Object);
+
+//----------------------------------------------------------------------------
+ColladaAnimationSampler::ColladaAnimationSampler(void)
+{
+}
+//----------------------------------------------------------------------------
+ColladaAnimationSampler::~ColladaAnimationSampler(void)
+{
+}
+//----------------------------------------------------------------------------
+
+SE_IMPLEMENT_RTTI(Swing, ColladaAnimationChannel, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaAnimationChannel, Object);
+
+//----------------------------------------------------------------------------
+ColladaAnimationChannel::ColladaAnimationChannel(void)
+{
+}
+//----------------------------------------------------------------------------
+ColladaAnimationChannel::~ColladaAnimationChannel(void)
+{
+}
+//----------------------------------------------------------------------------
+
 SE_IMPLEMENT_RTTI(Swing, ColladaAnimation, Object);
 SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaAnimation, Object);
 

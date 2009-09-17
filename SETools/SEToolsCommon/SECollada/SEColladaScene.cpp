@@ -65,17 +65,17 @@ void ColladaScene::Load(const char* acFilename)
         {
         case UPAXISTYPE_X_UP:
             ToolSystem::SE_DebugOutput("Right-handed system with X upward");
-            m_eOrientationMode = OM_XUp;
+            m_eOrientationMode = OM_X_UP;
             break;
 
         case UPAXISTYPE_Y_UP:
             ToolSystem::SE_DebugOutput("Right-handed system with Y upward");
-            m_eOrientationMode = OM_YUp;
+            m_eOrientationMode = OM_Y_UP;
             break;
 
         case UPAXISTYPE_Z_UP:
             ToolSystem::SE_DebugOutput("Right-handed system with Z upward");
-            m_eOrientationMode = OM_ZUp;
+            m_eOrientationMode = OM_Z_UP;
             break;
 
         default:

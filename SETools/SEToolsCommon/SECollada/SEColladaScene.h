@@ -75,9 +75,9 @@ public:
     // Current coordinate frame orientation mode, depending on the DCC tools.
     enum OrientationMode
     {
-	    OM_YUp,
-	    OM_ZUp,
-	    OM_XUp
+	    OM_Y_UP,
+	    OM_Z_UP,
+	    OM_X_UP
     };
 
     // Load a COLLADA DOM file, then create a Swing Engine scene graph base on
@@ -106,6 +106,11 @@ private:
     ColladaEffect* LoadEffect(domEffectRef spDomEffect);
     ColladaMaterial* LoadMaterial(domMaterialRef spDomMaterial);
     ColladaAnimation* LoadAnimation(domAnimationRef spDomAnimation);
+    ColladaAnimationSource* LoadAnimationSource(domSourceRef spDomSource);
+    ColladaAnimationSampler* LoadAnimationSampler(
+        ColladaAnimation* pAnimation, domSamplerRef spDomSampler);
+    ColladaAnimationChannel* LoadAnimationChannel(
+        ColladaAnimation* pAnimation, domChannelRef spDomChannel);
 
     Light* LoadLight(domLightRef spDomLight);
     Camera* LoadCamera(domCameraRef spDomCamera);
