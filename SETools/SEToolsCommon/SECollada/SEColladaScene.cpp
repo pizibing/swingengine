@@ -112,6 +112,23 @@ void ColladaScene::Load(const char* acFilename)
     {
         LoadAnimationLibrary(pDom->getLibrary_animations_array()[i] );			
     }
+
+    // Find the scene we want.
+    domCOLLADA::domSceneRef spDomScene = pDom->getScene();
+    daeElement* pDefaultScene = 0;
+    if( spDomScene )
+    {
+        domInstanceWithExtraRef spInstanceVisualScene = 
+            spDomScene->getInstance_visual_scene();
+        if( spInstanceVisualScene )
+        {
+            pDefaultScene = spInstanceVisualScene->getUrl().getElement();
+        }
+    }
+    if( pDefaultScene )
+    {
+        LoadScene((domVisual_scene*)pDefaultScene);
+    }
 }
 //----------------------------------------------------------------------------
 unsigned int ColladaScene::GetMaxOffset(
@@ -313,27 +330,41 @@ void ColladaScene::Triangulate(DAE* pDAE)
     }
 }
 //----------------------------------------------------------------------------
+bool ColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
+{
+    // Create the scene root.
+    // Save the scene name instead of scene id.
+    m_spSceneRoot = SE_NEW Node;
+    xsNCName strSceneName = spDomVisualScene->getName();
+    m_spSceneRoot->SetName(strSceneName);
+
+    ToolSystem::SE_DebugOutput("ColladaScene::Loading Collada Scene %s", 
+        (const char*)strSceneName);
+
+    // Recurse through the scene, load and add nodes.
+    domNode_Array& rDomNodeArray = spDomVisualScene->getNode_array();
+    int iTopLevelNodeCount = (int)rDomNodeArray.getCount();
+    for( int i = 0; i < iTopLevelNodeCount; i++ )
+    {
+        Node* pNode = LoadNode(rDomNodeArray[i], m_spSceneRoot);
+        if( pNode )
+        {
+            const char* acNodeName = (const char*)pNode->GetName();
+            m_Nodes[acNodeName] = pNode;
+        }
+    }
+    // Finally add the scene root node.
+    m_Nodes[strSceneName] = m_spSceneRoot;
+
+    return true;
+}
+//----------------------------------------------------------------------------
 Light* ColladaScene::LoadLight(domLightRef spDomLight)
 {
     return 0;
 }
 //----------------------------------------------------------------------------
 Camera* ColladaScene::LoadCamera(domCameraRef spDomCamera)
-{
-    return 0;
-}
-//----------------------------------------------------------------------------
-void ColladaScene::ParseGeometry(Geometry* pGeometry, 
-    domGeometry* pDomGeometry)
-{
-}
-//----------------------------------------------------------------------------
-Geometry* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
-{
-    return 0;
-}
-//----------------------------------------------------------------------------
-Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
 {
     return 0;
 }

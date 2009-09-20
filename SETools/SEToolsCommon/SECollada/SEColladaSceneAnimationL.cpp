@@ -239,62 +239,65 @@ ColladaAnimationChannel* ColladaScene::LoadAnimationChannel(
         return 0;
     }
 
-    //// parse member
-    //if (new_channel->TargetMemberStr[0] != '\0')
-    //{
-    //	const CrtChar * target_member = new_channel->TargetMemberStr;
-    //	if ( CrtICmp( target_member, "AXIS" ) ||
-    //		 CrtICmp( target_member, "ANGLE" ) )
-    //	{
-    //		domRotate * rotate = (domRotate *) element;
-    //		if (rotate->getValue()[0] == 1)
-    //		{	// rotate x axis
-    //			animation->HasRotation = CrtTrue;
-    //			new_channel->SetTarget(eRotXAxis);
-    //			new_channel->NumElementTargets = 1; 
-    //		} 
-    //		else if (rotate->getValue()[1] == 1) 
-    //		{	// rotate y axis
-    //			animation->HasRotation = CrtTrue;
-    //			new_channel->SetTarget(eRotYAxis);
-    //			new_channel->NumElementTargets = 1; 
-    //		} 
-    //		else if (rotate->getValue()[2] == 1) 
-    //		{	// rotate z axis
-    //			animation->HasRotation = CrtTrue;
-    //			new_channel->SetTarget(eRotZAxis);
-    //			new_channel->NumElementTargets = 1; 
-    //		}
-    //	}
-    //	else if ( CrtICmp( target_member, "X" )) 		 
-    //	{
-    //		new_channel->SetTarget(eAnimTargetX); 
-    //		new_channel->NumElementTargets = 1; 
-    //	}
-    //	else if ( CrtICmp( target_member, "Y" ) )		 
-    //	{
-    //		new_channel->SetTarget(eAnimTargetY); 
-    //		new_channel->NumElementTargets = 1; 
-    //	}
-    //	else if ( CrtICmp( target_member, "Z" ) )		 
-    //	{
-    //		new_channel->SetTarget(eAnimTargetZ); 
-    //		new_channel->NumElementTargets = 1; 
-    //	}
-    //	else if ( (*target_member)>='0' && (*target_member)<='9')		 
-    //	{
-    //		new_channel->SetTarget(eSource); 
-    //		new_channel->NumElementTargets = 1; 
-    //	}
-    //	else
-    //	{
-    //		new_channel->SetTarget(eAnimTargetXYZ);
-    //		new_channel->NumElementTargets = 3; 
-    //	}
-    //}
-    //animation->NumAnimChannels = new_channel->NumElementTargets;
-    //return new_channel;
-    return 0;
+    // Parse target member type.
+    if( pChannel->TargetMember != String("") )
+    {
+        const char* acTargetMember = pChannel->TargetMember;
+        if( strcmp(acTargetMember, "AXIS") == 0 ||
+            strcmp(acTargetMember, "ANGLE") == 0 )
+        {
+            domRotate* pDomRotate = (domRotate*)pDomElement;
+            if( pDomRotate->getValue()[0] == 1 )
+            {
+                // Rotate x axis.
+                pAnimation->HasRotation = true;
+                pChannel->TargetType = AT_R_X_AXIS;
+                pChannel->NumElementTargets = 1;
+            }
+            else if( pDomRotate->getValue()[1] == 1 ) 
+            {
+                // Rotate y axis.
+                pAnimation->HasRotation = true;
+                pChannel->TargetType = AT_R_Y_AXIS;
+                pChannel->NumElementTargets = 1; 
+            }
+            else if( pDomRotate->getValue()[2] == 1 ) 
+            {
+                // Rotate z axis.
+                pAnimation->HasRotation = true;
+                pChannel->TargetType = AT_R_Z_AXIS;
+                pChannel->NumElementTargets = 1; 
+            }
+        }
+        else if( strcmp(acTargetMember, "X") == 0 )
+        {
+            pChannel->TargetType = AT_TARGET_X;
+            pChannel->NumElementTargets = 1;
+        }
+        else if( strcmp(acTargetMember, "Y") == 0 ) 
+        {
+            pChannel->TargetType = AT_TARGET_Y;
+            pChannel->NumElementTargets = 1;
+        }
+        else if( strcmp(acTargetMember, "Z") == 0 )
+        {
+            pChannel->TargetType = AT_TARGET_Z;
+            pChannel->NumElementTargets = 1;
+        }
+        else if( (*acTargetMember) >= '0' && (*acTargetMember) <= '9' )
+        {
+            pChannel->TargetType = AT_SOURCE;
+            pChannel->NumElementTargets = 1;
+        }
+        else
+        {
+            pChannel->TargetType = AT_TARGET_XYZ;
+            pChannel->NumElementTargets = 3;
+        }
+    }
+    pAnimation->NumAnimChannels = pChannel->NumElementTargets;
+
+    return pChannel;
 }
 //----------------------------------------------------------------------------
 ColladaAnimation* ColladaScene::LoadAnimation(domAnimationRef spDomAnimation)
@@ -358,23 +361,26 @@ ColladaAnimation* ColladaScene::LoadAnimation(domAnimationRef spDomAnimation)
             }
         }
 
-    //	if (newAnim->Channels.size() > 0)
-    //	{
-    //		newAnim->GenerateKeys(); 
-    //		Animations.push_back(newAnim);
-    //		// also get it's last key time and first key time 
-    //		if( newAnim->GetEndTime() > LastKeyTime )
-    //			LastKeyTime = newAnim->GetEndTime(); 
-    //	} 
-    //	else
-    //	{
-    //		CrtPrint("No Channel found in this animation\n");
-    //		CrtDelete(newAnim);
+        if( pAnimation->Channels.size() > 0 )
+        {
+            pAnimation->GenerateKeys();
+            m_Animations.push_back(pAnimation);
 
-    //		return 0;
-    //	}
+            //// Also get it's last key time and first key time.
+            //if( pAnimation->EndTime > LastKeyTime )
+            //{
+            //    LastKeyTime = pAnimation->EndTime;
+            //}
+        }
+        else
+        {
+            ToolSystem::SE_DebugOutput("No Channel found in this animation");
+            SE_DELETE pAnimation;
 
-    //	return newAnim;
+            return 0;
+        }
+
+        return pAnimation;
     }
 
     return 0;

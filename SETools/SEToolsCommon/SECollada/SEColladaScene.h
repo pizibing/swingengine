@@ -142,20 +142,23 @@ private:
         ColladaShaderElements* pShaderElements,
         domProfile_COMMON::domTechnique::domBlinn* pDomblinn);
 
+    bool LoadScene(domVisual_sceneRef spDomVisualScene);
+
     std::vector<ImagePtr> m_Images;
     std::vector<ColladaEffectPtr> m_Effects;
     std::vector<ColladaMaterialPtr> m_Materials;
     std::vector<ColladaAnimationPtr> m_Animations;
+    std::map<std::string, NodePtr> m_Nodes;
     //std::vector<Geometry*> Geometries;
     //std::vector<Light*> Lights;
     //std::vector<Camera*> Cameras;
     //std::vector<Texture*> Textures;
     //std::vector<Shader*> Shaders;
     //std::vector<Controller*> Controllers;
-    //std::map<std::string, Node*> Nodes;
 
     DAE* m_pDAE;
     ImageConverter* m_pImageConverter;
+    NodePtr m_spSceneRoot;
 
     OrientationMode m_eOrientationMode;
 };

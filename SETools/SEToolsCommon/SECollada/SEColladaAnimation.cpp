@@ -74,3 +74,54 @@ ColladaAnimation::~ColladaAnimation(void)
 {
 }
 //----------------------------------------------------------------------------
+void ColladaAnimation::GenerateKeys()
+{
+    ToolSystem::SE_DebugOutput("Generating Keys for Animation Channel %s", 
+        (const char*)GetName());
+
+    // Generate key frames for the channels in this animation.
+    ColladaAnimationChannel* pChannel = Channels[0];
+
+    // Allocating for generic key channels.
+    AnimKeySets = SE_NEW ColladaKeySet[NumAnimChannels];
+
+    int iAnimSet = 0; 
+    for( int i = 0; i < (int)Channels.size(); i++ )
+    {
+        pChannel = Channels[i];
+        ColladaAnimationSource* pInputSource = pChannel->InputSource;
+        ColladaAnimationSource* pOutputSource = pChannel->OutputSource;
+        int NumKeys = pInputSource->Source->GetCount();
+        
+        // New way.
+        for ( int j = 0; j < pChannel->NumElementTargets; j++ )
+        {
+            AnimKeySets[iAnimSet + j].AllocateKeys(NumKeys);
+        }
+        
+        // Set the actual key info.
+        for( int i = 0 ; i < NumKeys; i++ )
+        {
+            // Fill in all the keys for each anim key set.
+            int numCh = pChannel->NumElementTargets;
+
+            for( int ch = 0; ch < pChannel->NumElementTargets; ch ++ )
+            {
+                AnimKeySets[iAnimSet + ch].Time[i] = (*pInputSource->Source)[i];
+                AnimKeySets[iAnimSet + ch].Keys[i] = (*pOutputSource->Source)[i*numCh + ch];
+                
+                if( AnimKeySets[iAnimSet + ch].Time[i] > EndTime )
+                {
+                    EndTime = AnimKeySets[iAnimSet + ch].Time[i];
+                }
+
+                // Set the animKey in the channel for later interpolation.
+                pChannel->Keys[ch] = &AnimKeySets[iAnimSet + ch];
+            }
+        }
+
+        // Update the current iAnimSet.
+        iAnimSet += pChannel->NumElementTargets;
+    }
+}
+//----------------------------------------------------------------------------

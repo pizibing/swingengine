@@ -231,6 +231,10 @@ public:
     bool FoundTarget;
 
     std::vector<ColladaAnimationChannelPtr> Channels;
+
+private:
+	friend class ColladaScene;
+	void GenerateKeys(void);
 };
 
 typedef SmartPointer<ColladaAnimation> ColladaAnimationPtr;
