@@ -357,11 +357,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SECollada\SEColladaSceneGeometryL.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SECollada\SEColladaSceneImageL.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\SECollada\SEColladaSceneMaterialL.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SECollada\SEColladaSceneNodeL.cpp"
 				>
 			</File>
 		</Filter>
