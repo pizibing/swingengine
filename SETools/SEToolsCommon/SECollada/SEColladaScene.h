@@ -75,9 +75,21 @@ public:
     // Current coordinate frame orientation mode, depending on the DCC tools.
     enum OrientationMode
     {
-	    OM_Y_UP,
-	    OM_Z_UP,
-	    OM_X_UP
+        OM_Y_UP,
+        OM_Z_UP,
+        OM_X_UP
+    };
+
+    // Node's transformation type.
+    enum TransformType
+    {
+        TT_SCALE,
+        TT_ROTATE,
+        TT_TRANSLATE,
+        TT_MATRIX,
+        TT_LOOKAT,
+        TT_SKEW,
+        TT_UNKNOWN
     };
 
     // Load a COLLADA DOM file, then create a Swing Engine scene graph base on
@@ -87,6 +99,8 @@ public:
     Image* GetImage(const char* acName);
     ColladaEffect* GetEffect(const char* acName);
     ColladaMaterial* GetMaterial(const char* acName);
+    Node* GetNode(const char* acName);
+    TriMesh* GetGeometry(const char* acName);
 
 private:
     // Triangulation.
@@ -105,6 +119,7 @@ private:
     Image* LoadImage(domImageRef spDomImage);
     ColladaEffect* LoadEffect(domEffectRef spDomEffect);
     ColladaMaterial* LoadMaterial(domMaterialRef spDomMaterial);
+
     ColladaAnimation* LoadAnimation(domAnimationRef spDomAnimation);
     ColladaAnimationSource* LoadAnimationSource(domSourceRef spDomSource);
     ColladaAnimationSampler* LoadAnimationSampler(
@@ -112,14 +127,19 @@ private:
     ColladaAnimationChannel* LoadAnimationChannel(
         ColladaAnimation* pAnimation, domChannelRef spDomChannel);
 
+    TransformType GetTransformType(char* acType);
+    void GetLocalTransformation(Node* pNode, domNodeRef spDomNode);
+    Node* LoadNode(domNodeRef spDomNode, Node* pParentNode);
+
     Light* LoadLight(domLightRef spDomLight);
     Camera* LoadCamera(domCameraRef spDomCamera);
-    void ParseGeometry(Geometry* pGeometry, domGeometry* pDomGeometry);
-    Geometry* LoadGeometry(domGeometryRef spDomGeometry);
+    void ParseGeometry(TriMesh*& rpMesh, domGeometry* pDomGeometry);
+    TriMesh* LoadGeometry(domGeometryRef spDomGeometry);
+    TriMesh* LoadInstanceGeometry(domInstance_geometryRef splib);
+
     //Texture* LoadTexture(domTextureRef spDomTexture);
     //Animation* LoadAnimation(domAnimationRef spDomAnimation);
     //Skin* LoadSkin(domSkinRef spDomSkin);
-    Node* LoadNode(domNodeRef spDomNode, Node* pParentNode);
     //Morph* LoadMorph(domMorphRef spDomMorph);
     //Controller* LoadController(domControllerRef spDomController);
 
@@ -149,7 +169,7 @@ private:
     std::vector<ColladaMaterialPtr> m_Materials;
     std::vector<ColladaAnimationPtr> m_Animations;
     std::map<std::string, NodePtr> m_Nodes;
-    //std::vector<Geometry*> Geometries;
+    std::vector<TriMeshPtr> m_Geometries;
     //std::vector<Light*> Lights;
     //std::vector<Camera*> Cameras;
     //std::vector<Texture*> Textures;
