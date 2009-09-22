@@ -31,6 +31,7 @@
 #include "SEColladaEffect.h"
 #include "SEColladaMaterial.h"
 #include "SEColladaAnimation.h"
+#include "SEColladaInputArray.h"
 
 // Tool System
 #include "SEToolsUtility.h"

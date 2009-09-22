@@ -333,6 +333,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SECollada\SEColladaInputArray.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SECollada\SEColladaInputArray.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SECollada\SEColladaInputArray.inl"
+				>
+			</File>
+			<File
 				RelativePath=".\SECollada\SEColladaMaterial.cpp"
 				>
 			</File>
