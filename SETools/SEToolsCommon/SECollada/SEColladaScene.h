@@ -34,7 +34,7 @@ namespace Swing
 
 //----------------------------------------------------------------------------
 // Name:COLLADA Shader Elements class
-// Description:
+// Description:a helper class
 // Author:Sun Che
 // Date:20090914
 //----------------------------------------------------------------------------
@@ -100,7 +100,7 @@ public:
     ColladaEffect* GetEffect(const char* acName);
     ColladaMaterial* GetMaterial(const char* acName);
     Node* GetNode(const char* acName);
-    TriMesh* GetGeometry(const char* acName);
+    Node* GetGeometry(const char* acName);
 
 private:
     // Triangulation.
@@ -133,9 +133,11 @@ private:
 
     Light* LoadLight(domLightRef spDomLight);
     Camera* LoadCamera(domCameraRef spDomCamera);
-    void ParseGeometry(TriMesh*& rpMesh, domGeometry* pDomGeometry);
-    TriMesh* LoadGeometry(domGeometryRef spDomGeometry);
-    TriMesh* LoadInstanceGeometry(domInstance_geometryRef splib);
+
+    TriMesh* BuildTriangles(domTriangles* pDomTriangles);
+    void ParseGeometry(Node*& rpMeshRoot, domGeometry* pDomGeometry);
+    Node* LoadGeometry(domGeometryRef spDomGeometry);
+    Node* LoadInstanceGeometry(domInstance_geometryRef splib);
 
     //Texture* LoadTexture(domTextureRef spDomTexture);
     //Animation* LoadAnimation(domAnimationRef spDomAnimation);
@@ -169,7 +171,7 @@ private:
     std::vector<ColladaMaterialPtr> m_Materials;
     std::vector<ColladaAnimationPtr> m_Animations;
     std::map<std::string, NodePtr> m_Nodes;
-    std::vector<TriMeshPtr> m_Geometries;
+    std::vector<NodePtr> m_Geometries;
     //std::vector<Light*> Lights;
     //std::vector<Camera*> Cameras;
     //std::vector<Texture*> Textures;

@@ -244,19 +244,19 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     int iInstanceGeometryCount = (int)rInstanceGeometryArray.getCount();
     for( int i = 0; i < iInstanceGeometryCount; i++ )
     {
-        TriMesh* pMesh = LoadInstanceGeometry(rInstanceGeometryArray[i]);
-        if ( !pMesh )
+        Node* pMeshRoot = LoadInstanceGeometry(rInstanceGeometryArray[i]);
+        if ( !pMeshRoot )
         {
             continue;
         }
 
-        pNode->AttachChild(pMesh);
-        m_Geometries.push_back(pMesh);
+        pNode->AttachChild(pMeshRoot);
+        m_Geometries.push_back(pMeshRoot);
     }
 
     //// Process Instance Controllers 
     //size_t uiInstanceControllerCount = node->getInstance_controller_array().getCount();
-    //for (CrtUInt i = 0; i < uiInstanceControllerCount; i++)
+    //for (int i = 0; i < uiInstanceControllerCount; i++)
     //{
     //	domInstance_controller *icontroller  = node->getInstance_controller_array()[i];
     //	CrtInstanceController * instanceController = ReadInstanceController(icontroller);
@@ -270,7 +270,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
 
     //// Process Instance Lights 
     //size_t uiInstanceLightCount = node->getInstance_light_array().getCount();
-    //for (CrtUInt i = 0; i < uiInstanceLightCount; i++)
+    //for (int i = 0; i < uiInstanceLightCount; i++)
     //{
     //	CrtInstanceLight * instanceLight = ReadInstanceLight(node->getInstance_light_array()[i]);
     //	if (instanceLight) 
@@ -283,7 +283,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
 
     //// Process Instance Cameras 
     //size_t uiInstanceCameraCount = node->getInstance_camera_array().getCount();
-    //for (CrtUInt i = 0; i < uiInstanceCameraCount; i++)
+    //for (int i = 0; i < uiInstanceCameraCount; i++)
     //{	
     //	CrtInstanceCamera *instanceCamera = ReadInstanceCamera(node->getInstance_camera_array()[i]);
     //	if (instanceCamera) 
@@ -298,7 +298,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
 
     //// read children 
     //size_t uiChildNodeCount = node->getNode_array().getCount();
-    //for (CrtUInt i = 0; i < uiChildNodeCount; i++)
+    //for (int i = 0; i < uiChildNodeCount; i++)
     //{
     //	// read in each child an recursively it's children 
     //	CrtNode * readnode  = ReadNode( node->getNode_array()[i], crtNode );
@@ -308,7 +308,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
 
     //// read children <instance_nodes>, can be 0 or more 
     //size_t uiChildInstanceNodeCount = node->getInstance_node_array().getCount();
-    //for (CrtUInt i = 0; i < uiChildInstanceNodeCount; i++)
+    //for (int i = 0; i < uiChildInstanceNodeCount; i++)
     //{
     //	// read in each child an recursively it's children 
     //	domInstance_node * instance_node = node->getInstance_node_array()[i];

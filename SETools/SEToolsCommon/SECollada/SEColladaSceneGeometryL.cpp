@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-TriMesh* ColladaScene::GetGeometry(const char* acName)
+Node* ColladaScene::GetGeometry(const char* acName)
 {
     if( !acName )
     {
@@ -42,11 +42,102 @@ TriMesh* ColladaScene::GetGeometry(const char* acName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::ParseGeometry(TriMesh*& rpMesh, domGeometry* pDomGeometry)
+TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
 {
+	//CrtTriangles * triangles = CrtNew(CrtTriangles);
+	//// triangles count
+	//triangles->count = (int) dom_triangles->getCount();
+	//GrowVertexData(geometry, triangles->count * 3);
+	//// resolve Material	
+	//daeString str_material = dom_triangles->getMaterial();
+	//if (str_material)
+	//	CrtCpy(triangles->MaterialName, str_material);
+	//
+	//// prepare data
+	//triangles->geometry = geometry;
+	//domInputLocalOffset_Array & inputs = dom_triangles->getInput_array();
+	//CrtOffsets offsets(inputs);
+
+	//// set index, they all have the same index since we process deindexer conditioner
+	//domListOfUInts P = dom_triangles->getP()->getValue();
+	//triangles->indexes = CrtNewData(int, triangles->count * 3);
+	//for (int ivertex=0; ivertex< triangles->count * 3; ivertex++)
+	//{
+	//	triangles->indexes[ivertex] = SetVertexData(offsets, geometry, P, ivertex);
+	//}
+
+	return 0;
 }
 //----------------------------------------------------------------------------
-TriMesh* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
+void ColladaScene::ParseGeometry(Node*& rpMeshRoot, domGeometry* pDomGeometry)
+{
+    domMesh* pDomMesh = pDomGeometry->getMesh();
+    xsID strGeometryID = pDomGeometry->getId();
+    rpMeshRoot = SE_NEW Node;
+    rpMeshRoot->SetName((const char*)strGeometryID);
+
+    // Not sure if we should get primitives by groups or by whatever comes 
+    // first, I think it shouldn't matter, let's confirm later.
+
+    // <polylist> element.
+    int iPolylistCount = (int)pDomMesh->getPolylist_array().getCount();
+    for( int i = 0; i< iPolylistCount; i++ )
+    {
+        // TODO:
+        // Support this.
+    }
+
+    // <polygons> element.
+    int iPolygonsCount = (int)pDomMesh->getPolygons_array().getCount();
+    for( int i = 0; i < iPolygonsCount; i++ )
+    {
+        // TODO:
+        // Support this.
+    }
+
+    // <triangles> element.
+	domTriangles_Array& rDomTrianglesArray = pDomMesh->getTriangles_array();
+    int iTrianglesCount = (int)rDomTrianglesArray.getCount();
+    for( int i = 0; i < iTrianglesCount; i++ )
+    {
+        TriMesh* pSubMesh = BuildTriangles(rDomTrianglesArray[i]);
+        rpMeshRoot->AttachChild(pSubMesh);
+    }
+
+    // <tristrips> element.
+    int iTriStripsCount = (int)pDomMesh->getTristrips_array().getCount();
+    for( int i = 0; i < iTriStripsCount ; i++ )
+    {
+        // TODO:
+        // Support this.
+    }
+
+    // <trifans> element.
+    int iTriFansCount = (int)pDomMesh->getTrifans_array().getCount();
+    for( int i = 0; i< iTriFansCount ; i++ )
+    {
+        // TODO:
+        // Support this.
+    }
+
+    // <lines> element.
+    int iLinesCount = (int)pDomMesh->getLines_array().getCount();
+    for( int i = 0; i < iLinesCount ; i++)
+    {
+        // TODO:
+        // Support this.
+    }
+
+    int iLineStripsCount = (int)pDomMesh->getLinestrips_array().getCount();
+    for( int i = 0; i< iLineStripsCount ; i++ )
+    {
+        // TODO:
+        // Support this.
+    }
+
+}
+//----------------------------------------------------------------------------
+Node* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
 {
     xsID strGeometryID = spDomGeometry->getId();
     if( !strGeometryID )
@@ -54,11 +145,11 @@ TriMesh* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
         return 0;
     }
 
-    TriMesh* pMesh = GetGeometry(strGeometryID);
+    Node* pMeshRoot = GetGeometry(strGeometryID);
     // This geometry is already in our geometry catalog.
-    if( pMesh )
+    if( pMeshRoot )
     {
-        return pMesh;
+        return pMeshRoot;
     }
 
     ToolSystem::SE_DebugOutput("Add new geometry %s", strGeometryID);
@@ -96,13 +187,14 @@ TriMesh* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
         return 0;
     }
 
-    ParseGeometry(pMesh, spDomGeometry);
+    // We only support <mesh> element for now.
+    ParseGeometry(pMeshRoot, spDomGeometry);
 
-    m_Geometries.push_back(pMesh);
-    return pMesh;
+    m_Geometries.push_back(pMeshRoot);
+    return pMeshRoot;
 }
 //----------------------------------------------------------------------------
-TriMesh* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef splib)
+Node* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef splib)
 {
     // Find the <geometry> which the <instance_geometry> is pointing to 
     // (there can be only one) by searching the Geometries list in the scene.
@@ -116,8 +208,8 @@ TriMesh* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef splib)
         return 0;
     }
 
-    TriMesh* pMesh = LoadGeometry((domGeometry*)pDomElement);
-    if( !pMesh )
+    Node* pMeshRoot = LoadGeometry((domGeometry*)pDomElement);
+    if( !pMeshRoot )
     {
         return 0;
     }
@@ -135,7 +227,7 @@ TriMesh* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef splib)
     //	{
     //		// Get the <instance_material>s
     //		domInstance_material_Array &instanceMaterialArray = techniqueCommon->getInstance_material_array();
-    //		for(CrtUInt j = 0; j < instanceMaterialArray.getCount(); j++)
+    //		for(int j = 0; j < instanceMaterialArray.getCount(); j++)
     //		{
     //			CrtInstanceMaterial * newiMaterial = ReadInstanceMaterial(instanceMaterialArray[j]);
     //			newCrtInstanceGeometry->MaterialInstances.push_back(newiMaterial);
@@ -143,7 +235,6 @@ TriMesh* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef splib)
     //	}
     //}
 
-    //return newCrtInstanceGeometry;
-    return 0;
+    return pMeshRoot;
 }
 //----------------------------------------------------------------------------
