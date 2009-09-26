@@ -111,6 +111,11 @@ private:
         domPolylist* pDomPolylist);
     void Triangulate(DAE* pDAE);
 
+    // Transform the input DCC coordinate to Swing Engine coordinate.
+    // Say, from a right-handed based system to Swing Engine left-handed based
+    // system.
+    Vector3f GetTransformedVector(float fX, float fY, float fZ);
+
     bool LoadMaterialLibrary(domLibrary_materialsRef spLib);
     bool LoadImageLibrary(domLibrary_imagesRef spLib);
     bool LoadEffectLibrary(domLibrary_effectsRef spLib);

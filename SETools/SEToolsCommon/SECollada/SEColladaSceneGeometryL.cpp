@@ -44,29 +44,54 @@ Node* ColladaScene::GetGeometry(const char* acName)
 //----------------------------------------------------------------------------
 TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
 {
-	//CrtTriangles * triangles = CrtNew(CrtTriangles);
-	//// triangles count
-	//triangles->count = (int) dom_triangles->getCount();
-	//GrowVertexData(geometry, triangles->count * 3);
-	//// resolve Material	
-	//daeString str_material = dom_triangles->getMaterial();
-	//if (str_material)
-	//	CrtCpy(triangles->MaterialName, str_material);
-	//
-	//// prepare data
-	//triangles->geometry = geometry;
-	//domInputLocalOffset_Array & inputs = dom_triangles->getInput_array();
-	//CrtOffsets offsets(inputs);
+    xsNCName strMaterial = pDomTriangles->getMaterial();
+    if( strMaterial )
+    {
+        // TODO:
+    }
 
-	//// set index, they all have the same index since we process deindexer conditioner
-	//domListOfUInts P = dom_triangles->getP()->getValue();
-	//triangles->indexes = CrtNewData(int, triangles->count * 3);
-	//for (int ivertex=0; ivertex< triangles->count * 3; ivertex++)
-	//{
-	//	triangles->indexes[ivertex] = SetVertexData(offsets, geometry, P, ivertex);
-	//}
+    int iTriangleCount = (int)pDomTriangles->getCount();
+    int iIndexCount = 3*iTriangleCount;
 
-	return 0;
+    // Get vertex buffer source data.
+    domInputLocalOffset_Array& rDomInputs = pDomTriangles->getInput_array();
+    ColladaInputArray tempOffsets(rDomInputs);
+    domListOfFloats* pDomPositionData = tempOffsets.GetPositionData();
+    int iVCount = (int)pDomPositionData->getCount()/3;
+    domListOfFloats* pDomNormalData = tempOffsets.GetNormalData();
+
+    // Get index source data.
+    domListOfUInts& rDomListOfUInts = pDomTriangles->getP()->getValue();
+
+    Vector3f* aNormal = SE_NEW Vector3f[iVCount];
+    int iStride = tempOffsets.GetMaxOffset();
+    int iVertexOffset = tempOffsets.GetPositionOffset();
+    int iNormalOffset = tempOffsets.GetNormalOffset();
+    // Recompute vertex normal by averaging contributions of trangles share 
+    // the same vertex.
+    if( iNormalOffset > -1 )
+    {
+        int iBase, iVIndex, iNIndex;
+        for( int i = 0; i < iIndexCount; i++ )
+        {
+            iBase = i*iStride;
+            iVIndex = (int)rDomListOfUInts[iBase + iVertexOffset];
+            iNIndex = (int)rDomListOfUInts[iBase + iNormalOffset];
+
+            // Get a normal from normal source.
+            float fX = (float)(*pDomNormalData)[3*iNIndex    ];
+            float fY = (float)(*pDomNormalData)[3*iNIndex + 1];
+            float fZ = (float)(*pDomNormalData)[3*iNIndex + 2];
+
+            // Get a Swing Engine normal vector and do averaging.
+            Vector3f vec3fNormal = GetTransformedVector(fX, fY, fZ);
+            aNormal[iVIndex] += vec3fNormal;
+        }
+    }
+
+    SE_DELETE[] aNormal;
+
+    return 0;
 }
 //----------------------------------------------------------------------------
 void ColladaScene::ParseGeometry(Node*& rpMeshRoot, domGeometry* pDomGeometry)
@@ -96,12 +121,17 @@ void ColladaScene::ParseGeometry(Node*& rpMeshRoot, domGeometry* pDomGeometry)
     }
 
     // <triangles> element.
-	domTriangles_Array& rDomTrianglesArray = pDomMesh->getTriangles_array();
+    domTriangles_Array& rDomTrianglesArray = pDomMesh->getTriangles_array();
     int iTrianglesCount = (int)rDomTrianglesArray.getCount();
     for( int i = 0; i < iTrianglesCount; i++ )
     {
+        // Each <triangles> element is a sub mesh of the current geometry,
+        // the sub mesh could has its own material(effect) for rendering.
         TriMesh* pSubMesh = BuildTriangles(rDomTrianglesArray[i]);
-        rpMeshRoot->AttachChild(pSubMesh);
+        if( pSubMesh )
+        {
+            rpMeshRoot->AttachChild(pSubMesh);
+        }
     }
 
     // <tristrips> element.

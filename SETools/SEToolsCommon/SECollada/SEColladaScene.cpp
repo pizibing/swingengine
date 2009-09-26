@@ -330,6 +330,40 @@ void ColladaScene::Triangulate(DAE* pDAE)
     }
 }
 //----------------------------------------------------------------------------
+Vector3f ColladaScene::GetTransformedVector(float fX, float fY, float fZ)
+{
+    Vector3f vec3fRes;
+
+    // COLLADA uses right-handed based system, now we only have these three 
+    // situation to deal with. The result vector is a left-handed based 
+    // Swing Engine vector.
+    switch(m_eOrientationMode)
+    {
+    case OM_Y_UP:
+        vec3fRes.X = fX;
+        vec3fRes.Y = fY;
+        vec3fRes.Z = -fZ;
+        break;
+
+    case OM_Z_UP:
+        vec3fRes.X = fX;
+        vec3fRes.Y = fZ;
+        vec3fRes.Z = fY;
+        break;
+
+    case OM_X_UP:
+        vec3fRes.X = -fY;
+        vec3fRes.Y = fX;
+        vec3fRes.Z = -fZ;
+        break;
+
+    default:
+        SE_ASSERT( false );
+    }
+
+    return vec3fRes;
+}
+//----------------------------------------------------------------------------
 bool ColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
 {
     // Create the scene root.
