@@ -28,6 +28,7 @@
 #include "SEColladaEffect.h"
 #include "SEColladaMaterial.h"
 #include "SEColladaAnimation.h"
+#include "SEColladaUnimaterialMesh.h"
 
 namespace Swing
 {
@@ -139,6 +140,9 @@ private:
     Light* LoadLight(domLightRef spDomLight);
     Camera* LoadCamera(domCameraRef spDomCamera);
 
+    void PackVertices(ColladaUnimaterialMesh* pUniMesh,
+        domListOfFloats* pDomPositionData, domListOfUInts& rDomIndexData, 
+        int iIndexCount, int iStride, int iPositionOffset, Vector3f* aNormal);
     TriMesh* BuildTriangles(domTriangles* pDomTriangles);
     void ParseGeometry(Node*& rpMeshRoot, domGeometry* pDomGeometry);
     Node* LoadGeometry(domGeometryRef spDomGeometry);

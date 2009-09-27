@@ -332,9 +332,9 @@ TriMesh* ColladaUnimaterialMesh::ToTriMesh()
     }
 
     if( !m_spSEMaterialState && !m_spTState )
-	{
+    {
         pSEEffect = new DefaultShaderEffect;
-	}
+    }
 
     if( pSEEffect )
     {

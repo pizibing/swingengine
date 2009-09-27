@@ -20,8 +20,10 @@
 
 #include "SEToolsCommonPCH.h"
 #include "SEColladaScene.h"
+#include <set>
 
 using namespace Swing;
+using namespace std;
 
 //----------------------------------------------------------------------------
 Node* ColladaScene::GetGeometry(const char* acName)
@@ -42,12 +44,83 @@ Node* ColladaScene::GetGeometry(const char* acName)
     return 0;
 }
 //----------------------------------------------------------------------------
+void ColladaScene::PackVertices(ColladaUnimaterialMesh* pUniMesh,
+    domListOfFloats* pDomPositionData, domListOfUInts& rDomIndexData, 
+    int iIndexCount, int iStride, int iPositionOffset, Vector3f* aNormal)
+{
+    // 当前部分所使用的顶点索引,set确保顶点唯一性.
+    set<int> tempVIndexSet;
+    int iBase, iVIndex;
+    for( int i = 0; i < iIndexCount; i++ )
+    {
+        iBase = i*iStride;
+        iVIndex = (int)rDomIndexData[iBase + iPositionOffset];
+        tempVIndexSet.insert(iVIndex);
+    }
+
+    // 全局网格顶点索引是顶点在整个COLLADA网格顶点资源数组(pDomPositionData)中
+    // 的索引.建立一个全局网格顶点索引的反向映射表,
+    // 针对当前使用同一材质的子网格,建立一个子网格顶点资源数组,
+    // 该顶点数组下标0到n,表示n+1个不重复的顶点),
+    // 建立反向映射数组(数组下标0到m,表示顶点的全局网格顶点索引,m为最大索引值).
+    // STL set类默认把插入的元素按照增序排列存储,
+    // 因此当前set中末尾元素必定为当前子网格的最大全局网格顶点索引.
+    // 如果tempVIndexSet[i] = j,则aiVMap[j] = i.
+    // 如果是当前子网格没有用到的全局网格顶点索引,则aiVMap[j] = -1.
+    int iVMax = *tempVIndexSet.rbegin();
+    int* aiVMap = SE_NEW int[iVMax + 1];
+    memset(aiVMap, 0xFF, (iVMax + 1)*sizeof(int));
+
+    int iVCount = (int)tempVIndexSet.size();
+    pUniMesh->VCount() = iVCount;
+    pUniMesh->Vertex() = SE_NEW Vector3f[iVCount];
+    pUniMesh->Normal() = SE_NEW Vector3f[iVCount];
+
+    set<int>::iterator tempIter = tempVIndexSet.begin();
+    for( int i = 0; i < (int)tempVIndexSet.size(); i++, tempIter++ )
+    {
+        int j = *tempIter;
+        aiVMap[j] = i;
+
+        float fX = (float)(*pDomPositionData)[3*j    ];
+        float fY = (float)(*pDomPositionData)[3*j + 1];
+        float fZ = (float)(*pDomPositionData)[3*j + 2];
+        Vector3f vec3fPosition = GetTransformedVector(fX, fY, fZ);
+
+        pUniMesh->Vertex()[i].X = vec3fPosition.X;
+        pUniMesh->Vertex()[i].Y = vec3fPosition.Y;
+        pUniMesh->Vertex()[i].Z = vec3fPosition.Z;
+        pUniMesh->Normal()[i].X = aNormal[j].X;
+        pUniMesh->Normal()[i].Y = aNormal[j].Z;
+        pUniMesh->Normal()[i].Z = aNormal[j].Y;
+    }
+
+    // 建立子网格面顶点索引.
+    pUniMesh->FCount() = iIndexCount/3;
+    pUniMesh->Face() = SE_NEW int[iIndexCount];
+    for( int i = 0; i < iIndexCount; i++ )
+    {
+        iBase = i*iStride;
+        iVIndex = (int)rDomIndexData[iBase + iPositionOffset];
+        pUniMesh->Face()[i] = aiVMap[iVIndex];
+    }
+    delete[] aiVMap;
+}
+//----------------------------------------------------------------------------
 TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
 {
-    xsNCName strMaterial = pDomTriangles->getMaterial();
-    if( strMaterial )
+    xsNCName strMaterialName = pDomTriangles->getMaterial();
+    ColladaMaterial* pSubMeshMaterial = 0;
+    if( strMaterialName )
     {
-        // TODO:
+        pSubMeshMaterial = GetMaterial((const char*)strMaterialName);
+    }
+
+    // Create a uni-material sub-mesh.
+    ColladaUnimaterialMesh* pSubMesh = SE_NEW ColladaUnimaterialMesh;
+    if( pSubMeshMaterial )
+    {
+        pSubMesh->MState() = pSubMeshMaterial->Material;
     }
 
     int iTriangleCount = (int)pDomTriangles->getCount();
@@ -62,26 +135,30 @@ TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
     int iStride = tempOffsets.GetMaxOffset();
     int iPositionOffset = tempOffsets.GetPositionOffset();
     int iNormalOffset = tempOffsets.GetNormalOffset();
+    int iTexCoordOffset = tempOffsets.GetTexCoord0Offset();
 
     // Get index source data.
-    domListOfUInts& rDomListOfUInts = pDomTriangles->getP()->getValue();
+    domListOfUInts& rDomIndexData = pDomTriangles->getP()->getValue();
 
     Vector3f* aNormal = SE_NEW Vector3f[iVCount];
     // Recompute vertex normal by averaging contributions of trangles share 
     // the same vertex.
+    // TODO:
+    // Impliment importer option.
     if( iNormalOffset > -1 )
     {
         int iBase, iVIndex, iNIndex;
+        float fX, fY, fZ;
         for( int i = 0; i < iIndexCount; i++ )
         {
             iBase = i*iStride;
-            iVIndex = (int)rDomListOfUInts[iBase + iPositionOffset];
-            iNIndex = (int)rDomListOfUInts[iBase + iNormalOffset];
+            iVIndex = (int)rDomIndexData[iBase + iPositionOffset];
+            iNIndex = (int)rDomIndexData[iBase + iNormalOffset];
 
             // Get a normal from normal source.
-            float fX = (float)(*pDomNormalData)[3*iNIndex    ];
-            float fY = (float)(*pDomNormalData)[3*iNIndex + 1];
-            float fZ = (float)(*pDomNormalData)[3*iNIndex + 2];
+            fX = (float)(*pDomNormalData)[3*iNIndex    ];
+            fY = (float)(*pDomNormalData)[3*iNIndex + 1];
+            fZ = (float)(*pDomNormalData)[3*iNIndex + 2];
 
             // Get a Swing Engine normal vector and do averaging by using it.
             Vector3f vec3fNormal = GetTransformedVector(fX, fY, fZ);
@@ -89,9 +166,25 @@ TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
         }
     }
 
-    SE_DELETE[] aNormal;
+    // Pack vertex data for the mesh.
+    PackVertices(pSubMesh, pDomPositionData, rDomIndexData, iIndexCount, 
+        iStride, iPositionOffset, aNormal);
 
-    return 0;
+    // Pack texture cooradinate data for the mesh.
+    // TODO:
+    // Impliment importer option.
+    if( iTexCoordOffset > -1 )
+    {
+        //PackTextures();
+    }
+
+    // Generate a Swing Engine TriMesh object based on the COLLADA sub-mesh.
+    TriMesh* pResMesh = pSubMesh->ToTriMesh();
+
+    SE_DELETE[] aNormal;
+    SE_DELETE pSubMesh;
+
+    return pResMesh;
 }
 //----------------------------------------------------------------------------
 void ColladaScene::ParseGeometry(Node*& rpMeshRoot, domGeometry* pDomGeometry)
