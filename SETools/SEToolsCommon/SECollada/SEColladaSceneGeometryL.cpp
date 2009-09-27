@@ -57,16 +57,16 @@ TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
     domInputLocalOffset_Array& rDomInputs = pDomTriangles->getInput_array();
     ColladaInputArray tempOffsets(rDomInputs);
     domListOfFloats* pDomPositionData = tempOffsets.GetPositionData();
-    int iVCount = (int)pDomPositionData->getCount()/3;
     domListOfFloats* pDomNormalData = tempOffsets.GetNormalData();
+    int iVCount = (int)pDomPositionData->getCount()/3;
+    int iStride = tempOffsets.GetMaxOffset();
+    int iPositionOffset = tempOffsets.GetPositionOffset();
+    int iNormalOffset = tempOffsets.GetNormalOffset();
 
     // Get index source data.
     domListOfUInts& rDomListOfUInts = pDomTriangles->getP()->getValue();
 
     Vector3f* aNormal = SE_NEW Vector3f[iVCount];
-    int iStride = tempOffsets.GetMaxOffset();
-    int iVertexOffset = tempOffsets.GetPositionOffset();
-    int iNormalOffset = tempOffsets.GetNormalOffset();
     // Recompute vertex normal by averaging contributions of trangles share 
     // the same vertex.
     if( iNormalOffset > -1 )
@@ -75,7 +75,7 @@ TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
         for( int i = 0; i < iIndexCount; i++ )
         {
             iBase = i*iStride;
-            iVIndex = (int)rDomListOfUInts[iBase + iVertexOffset];
+            iVIndex = (int)rDomListOfUInts[iBase + iPositionOffset];
             iNIndex = (int)rDomListOfUInts[iBase + iNormalOffset];
 
             // Get a normal from normal source.
@@ -83,7 +83,7 @@ TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
             float fY = (float)(*pDomNormalData)[3*iNIndex + 1];
             float fZ = (float)(*pDomNormalData)[3*iNIndex + 2];
 
-            // Get a Swing Engine normal vector and do averaging.
+            // Get a Swing Engine normal vector and do averaging by using it.
             Vector3f vec3fNormal = GetTransformedVector(fX, fY, fZ);
             aNormal[iVIndex] += vec3fNormal;
         }
