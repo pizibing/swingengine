@@ -32,6 +32,7 @@
 #include "SEColladaMaterial.h"
 #include "SEColladaAnimation.h"
 #include "SEColladaInputArray.h"
+#include "SEColladaUnimaterialMesh.h"
 
 // Tool System
 #include "SEToolsUtility.h"
