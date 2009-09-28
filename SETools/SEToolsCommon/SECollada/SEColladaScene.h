@@ -100,6 +100,7 @@ public:
     Image* GetImage(const char* acName);
     ColladaEffect* GetEffect(const char* acName);
     ColladaMaterial* GetMaterial(const char* acName);
+    ColladaInstanceMaterial* GetInstanceMaterial(const char* acName);
     Node* GetNode(const char* acName);
     Node* GetGeometry(const char* acName);
 
@@ -143,10 +144,15 @@ private:
     void PackVertices(ColladaUnimaterialMesh* pUniMesh,
         domListOfFloats* pDomPositionData, domListOfUInts& rDomIndexData, 
         int iIndexCount, int iStride, int iPositionOffset, Vector3f* aNormal);
+    void PackTextures(ColladaUnimaterialMesh* pUniMesh,
+        domListOfFloats* pDomTCoordData, domListOfUInts& rDomIndexData, 
+        int iIndexCount, int iStride, int iTCoordOffset);
     TriMesh* BuildTriangles(domTriangles* pDomTriangles);
     void ParseGeometry(Node*& rpMeshRoot, domGeometry* pDomGeometry);
     Node* LoadGeometry(domGeometryRef spDomGeometry);
     Node* LoadInstanceGeometry(domInstance_geometryRef splib);
+    ColladaInstanceMaterial* LoadInstanceMaterial(
+        domInstance_materialRef splib);
 
     //Texture* LoadTexture(domTextureRef spDomTexture);
     //Animation* LoadAnimation(domAnimationRef spDomAnimation);
@@ -178,6 +184,7 @@ private:
     std::vector<ImagePtr> m_Images;
     std::vector<ColladaEffectPtr> m_Effects;
     std::vector<ColladaMaterialPtr> m_Materials;
+    std::vector<ColladaInstanceMaterialPtr> m_InstanceMaterials;
     std::vector<ColladaAnimationPtr> m_Animations;
     std::map<std::string, NodePtr> m_Nodes;
     std::vector<NodePtr> m_Geometries;

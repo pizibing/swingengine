@@ -30,7 +30,7 @@ namespace Swing
 //----------------------------------------------------------------------------
 // Name:COLLADA Input Array class
 // Description: A helper class to deal with COLLADA <input> elements which
-//     represent mesh vertex buffer data.
+//     represent mesh's vertex buffer source data.
 // Author:Sun Che
 // Date:20090922
 //----------------------------------------------------------------------------
@@ -43,11 +43,11 @@ public:
     inline int GetMaxOffset(void) const;
     inline int GetPositionOffset(void) const;
     inline int GetNormalOffset(void) const;
-    inline int GetTexCoord0Offset(void) const;
+    inline int GetTCoordOffset(void) const;
 
     inline domListOfFloats* GetPositionData(void);
     inline domListOfFloats* GetNormalData(void);
-    inline domListOfFloats* GetTexCoord0Data(void);
+    inline domListOfFloats* GetTCoordData(void);
 
 private:
     ColladaInputArray(void);
@@ -58,11 +58,11 @@ private:
     int m_iMaxOffset;
     int m_iPosition;
     int m_iNormal;
-    int m_iTexCoord0;
+    int m_iTCoord;
 
     domListOfFloats* m_pDomPositionData;
     domListOfFloats* m_pDomNormalData;
-    domListOfFloats* m_pDomTexCoord0Data;
+    domListOfFloats* m_pDomTCoordData;
 };
 
 #include "SEColladaInputArray.inl"

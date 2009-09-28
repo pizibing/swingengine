@@ -27,11 +27,26 @@ SE_IMPLEMENT_RTTI(Swing, ColladaMaterial, Object);
 SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaMaterial, Object);
 
 //----------------------------------------------------------------------------
-ColladaMaterial::ColladaMaterial(void)
+ColladaMaterial::ColladaMaterial()
 {
 }
 //----------------------------------------------------------------------------
-ColladaMaterial::~ColladaMaterial(void)
+ColladaMaterial::~ColladaMaterial()
+{
+}
+//----------------------------------------------------------------------------
+
+SE_IMPLEMENT_RTTI(Swing, ColladaInstanceMaterial, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaInstanceMaterial, Object);
+
+//----------------------------------------------------------------------------
+ColladaInstanceMaterial::ColladaInstanceMaterial()
+{
+    TargetName = "";
+    TargetMaterial = 0;
+}
+//----------------------------------------------------------------------------
+ColladaInstanceMaterial::~ColladaInstanceMaterial()
 {
 }
 //----------------------------------------------------------------------------

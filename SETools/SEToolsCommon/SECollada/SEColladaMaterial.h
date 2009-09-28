@@ -23,7 +23,10 @@
 
 #include "SEToolsCommonLIB.h"
 #include "SEToolsUtility.h"
-#include "SwingFoundation.h"
+#include "SEObject.h"
+#include "SEMaterialState.h"
+#include "SEImage.h"
+#include "SEString.h"
 #include "SEColladaEffect.h"
 
 namespace Swing
@@ -50,6 +53,33 @@ public:
 };
 
 typedef SmartPointer<ColladaMaterial> ColladaMaterialPtr;
+
+//----------------------------------------------------------------------------
+// Name:COLLADA Instance Material class
+// Description: A helper class that holds a symbolic name used by a sub-mesh
+//     as a material name, the class also holds a target which is pointing to
+//     a COLLADA material object.
+// Author:Sun Che
+// Date:20090928
+//----------------------------------------------------------------------------
+class ColladaInstanceMaterial : public Object
+{
+    SE_DECLARE_RTTI;
+    SE_DECLARE_NAME_ID;
+
+public:
+    ColladaInstanceMaterial(void);
+    ~ColladaInstanceMaterial(void);
+
+    // We store symbol attribute of <instance_material> as 
+    // the name of ColladaInstanceMaterial object.  
+
+    // These represent the material we are referencing from.
+    String	TargetName;
+    ColladaMaterial* TargetMaterial;
+};
+
+typedef SmartPointer<ColladaInstanceMaterial> ColladaInstanceMaterialPtr;
 
 }
 

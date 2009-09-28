@@ -42,6 +42,24 @@ ColladaMaterial* ColladaScene::GetMaterial(const char* acName)
     return 0;
 }
 //----------------------------------------------------------------------------
+ColladaInstanceMaterial* ColladaScene::GetInstanceMaterial(const char* acName)
+{
+    if( !acName )
+    {
+        return 0;
+    }
+
+    for( int i = 0; i < (int)m_InstanceMaterials.size(); i++ )
+    {
+        if( strcmp(m_InstanceMaterials[i]->GetName(), acName) == 0 )
+        {
+            return m_InstanceMaterials[i];
+        }
+    }
+
+    return 0;
+}
+//----------------------------------------------------------------------------
 bool ColladaScene::LoadMaterialLibrary(domLibrary_materialsRef spLib)
 {
     ToolSystem::SE_DebugOutput("ColladaScene::Loading Material Library");
@@ -121,5 +139,35 @@ ColladaMaterial* ColladaScene::LoadMaterial(domMaterialRef spDomMaterial)
     }
 
     return 0;
+}
+//----------------------------------------------------------------------------
+ColladaInstanceMaterial* ColladaScene::LoadInstanceMaterial(
+    domInstance_materialRef splib)
+{
+    ColladaInstanceMaterial* pInstanceMaterial = 
+        SE_NEW ColladaInstanceMaterial;
+
+    xsNCName strSymbol = splib->getSymbol();
+    daeString strTarget = splib->getTarget().getID();
+    pInstanceMaterial->SetName((const char*)strSymbol);
+    pInstanceMaterial->TargetName = (const char*)strTarget;
+
+    domElement* pDomElement = splib->getTarget().getElement();
+    if( pDomElement )
+    {
+        // Add or find this material object.
+        ColladaMaterial* pMaterial = LoadMaterial((domMaterial*)pDomElement);
+        if( pMaterial )
+        {
+            pInstanceMaterial->TargetMaterial = pMaterial;
+        }
+        else
+        {
+            ToolSystem::SE_DebugOutput("Couldn't find target material:%s",
+                (const char*)pInstanceMaterial->TargetName);
+        }
+    }
+
+    return pInstanceMaterial;
 }
 //----------------------------------------------------------------------------

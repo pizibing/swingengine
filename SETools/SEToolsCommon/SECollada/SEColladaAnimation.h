@@ -23,7 +23,9 @@
 
 #include "SEToolsCommonLIB.h"
 #include "SEToolsUtility.h"
-#include "SwingFoundation.h"
+#include "SEObject.h"
+#include "SEString.h"
+#include "SEFloatArray.h"
 
 namespace Swing
 {

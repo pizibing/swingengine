@@ -34,9 +34,9 @@ inline int ColladaInputArray::GetNormalOffset() const
     return m_iNormal;
 }
 //----------------------------------------------------------------------------
-inline int ColladaInputArray::GetTexCoord0Offset() const
+inline int ColladaInputArray::GetTCoordOffset() const
 {
-    return m_iTexCoord0;
+    return m_iTCoord;
 }
 //----------------------------------------------------------------------------
 inline domListOfFloats* ColladaInputArray::GetPositionData()
@@ -49,8 +49,8 @@ inline domListOfFloats* ColladaInputArray::GetNormalData()
     return m_pDomNormalData;
 }
 //----------------------------------------------------------------------------
-inline domListOfFloats* ColladaInputArray::GetTexCoord0Data()
+inline domListOfFloats* ColladaInputArray::GetTCoordData()
 {
-    return m_pDomTexCoord0Data;
+    return m_pDomTCoordData;
 }
 //----------------------------------------------------------------------------

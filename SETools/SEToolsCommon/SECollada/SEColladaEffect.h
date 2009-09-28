@@ -23,7 +23,9 @@
 
 #include "SEToolsCommonLIB.h"
 #include "SEToolsUtility.h"
-#include "SwingFoundation.h"
+#include "SEShaderEffect.h"
+#include "SEMaterialState.h"
+#include "SEImage.h"
 
 namespace Swing
 {

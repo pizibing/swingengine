@@ -86,7 +86,6 @@ void ColladaScene::PackVertices(ColladaUnimaterialMesh* pUniMesh,
         float fY = (float)(*pDomPositionData)[3*j + 1];
         float fZ = (float)(*pDomPositionData)[3*j + 2];
         Vector3f vec3fPosition = GetTransformedVector(fX, fY, fZ);
-
         pUniMesh->Vertex()[i].X = vec3fPosition.X;
         pUniMesh->Vertex()[i].Y = vec3fPosition.Y;
         pUniMesh->Vertex()[i].Z = vec3fPosition.Z;
@@ -107,20 +106,76 @@ void ColladaScene::PackVertices(ColladaUnimaterialMesh* pUniMesh,
     delete[] aiVMap;
 }
 //----------------------------------------------------------------------------
+void ColladaScene::PackTextures(ColladaUnimaterialMesh* pUniMesh,
+    domListOfFloats* pDomTCoordData, domListOfUInts& rDomIndexData, 
+    int iIndexCount, int iStride, int iTCoordOffset)
+{
+    // 当前部分所使用的纹理坐标索引,set确保纹理坐标唯一性.
+    set<int> tempTIndexSet;
+    int iBase, iTIndex;
+    for( int i = 0; i < iIndexCount; i++ )
+    {
+        iBase = i*iStride;
+        iTIndex = (int)rDomIndexData[iBase + iTCoordOffset];
+        tempTIndexSet.insert(iTIndex);
+    }
+
+    // 全局网格纹理坐标索引是纹理坐标在整个COLLADA网格纹理坐标资源数组中的索引.
+    // 建立一个全局网格纹理坐标索引的反向映射表,
+    // 针对当前使用同一材质的子网格,建立一个子网格纹理坐标资源数组,
+    // 该纹理坐标数组下标0到n,表示n+1个不重复的纹理坐标),
+    // 建立反向映射数组(数组下标0到m,表示纹理坐标的全局网格纹理坐标索引,m为最大
+    // 索引值).
+    // STL set类默认把插入的元素按照增序排列存储,
+    // 因此当前set中末尾元素必定为当前子网格的最大全局网格纹理坐标索引.
+    // 如果tempTIndexSet[i] = j,则aiTMap[j] = i.
+    // 如果是当前子网格没有用到的全局网格纹理坐标索引,则aTMap[j] = -1.
+    int iTMax = *tempTIndexSet.rbegin();
+    int* aiTMap = new int[iTMax + 1];
+    memset(aiTMap, 0xFF, (iTMax + 1)*sizeof(int));
+
+    int iTCount = (int)tempTIndexSet.size();
+    pUniMesh->TCount() = iTCount;
+    pUniMesh->Texture() = new Vector2f[iTCount];
+
+    set<int>::iterator tempIter = tempTIndexSet.begin();
+    for( int i = 0; i < (int)tempTIndexSet.size(); i++, tempIter++ )
+    {
+        int j = *tempIter;
+        aiTMap[j] = i;
+
+        float fX = (float)(*pDomTCoordData)[2*j    ];
+        float fY = (float)(*pDomTCoordData)[2*j + 1];
+        pUniMesh->Texture()[i].X = fX;
+        pUniMesh->Texture()[i].Y = fY;
+    }
+
+    // 建立子网格面纹理坐标索引.
+    pUniMesh->TFace() = SE_NEW int[iIndexCount];
+    for( int i = 0; i < iIndexCount; i++ )
+    {
+        iBase = i*iStride;
+        iTIndex = (int)rDomIndexData[iBase + iTCoordOffset];
+        pUniMesh->TFace()[i] = aiTMap[iTIndex];
+    }
+    delete[] aiTMap;
+}
+//----------------------------------------------------------------------------
 TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
 {
-    xsNCName strMaterialName = pDomTriangles->getMaterial();
-    ColladaMaterial* pSubMeshMaterial = 0;
-    if( strMaterialName )
+    // Try to find an instance material object used by this sub-mesh.
+    xsNCName strIMaterialName = pDomTriangles->getMaterial();
+    ColladaInstanceMaterial* pSubMeshIMaterial = 0;
+    if( strIMaterialName )
     {
-        pSubMeshMaterial = GetMaterial((const char*)strMaterialName);
+        pSubMeshIMaterial = GetInstanceMaterial((const char*)strIMaterialName);
     }
 
     // Create a uni-material sub-mesh.
     ColladaUnimaterialMesh* pSubMesh = SE_NEW ColladaUnimaterialMesh;
-    if( pSubMeshMaterial )
+    if( pSubMeshIMaterial )
     {
-        pSubMesh->MState() = pSubMeshMaterial->Material;
+        pSubMesh->MState() = pSubMeshIMaterial->TargetMaterial->Material;
     }
 
     int iTriangleCount = (int)pDomTriangles->getCount();
@@ -131,20 +186,21 @@ TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
     ColladaInputArray tempOffsets(rDomInputs);
     domListOfFloats* pDomPositionData = tempOffsets.GetPositionData();
     domListOfFloats* pDomNormalData = tempOffsets.GetNormalData();
+    domListOfFloats* pDomTCoordData = tempOffsets.GetTCoordData();
     int iVCount = (int)pDomPositionData->getCount()/3;
     int iStride = tempOffsets.GetMaxOffset();
     int iPositionOffset = tempOffsets.GetPositionOffset();
     int iNormalOffset = tempOffsets.GetNormalOffset();
-    int iTexCoordOffset = tempOffsets.GetTexCoord0Offset();
+    int iTCoordOffset = tempOffsets.GetTCoordOffset();
 
     // Get index source data.
     domListOfUInts& rDomIndexData = pDomTriangles->getP()->getValue();
 
-    Vector3f* aNormal = SE_NEW Vector3f[iVCount];
     // Recompute vertex normal by averaging contributions of trangles share 
     // the same vertex.
     // TODO:
     // Impliment importer option.
+    Vector3f* aNormal = SE_NEW Vector3f[iVCount];
     if( iNormalOffset > -1 )
     {
         int iBase, iVIndex, iNIndex;
@@ -170,12 +226,17 @@ TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
     PackVertices(pSubMesh, pDomPositionData, rDomIndexData, iIndexCount, 
         iStride, iPositionOffset, aNormal);
 
-    // Pack texture cooradinate data for the mesh.
+    // TODO:
+    // if DCC has vertex color data for the mesh, maybe we should pack it.
+    // Then impliment importer option.
+
+    // Pack texture coordinate data for the mesh.
     // TODO:
     // Impliment importer option.
-    if( iTexCoordOffset > -1 )
+    if( iTCoordOffset > -1 )
     {
-        //PackTextures();
+        PackTextures(pSubMesh, pDomTCoordData, rDomIndexData, iIndexCount, 
+            iStride, iTCoordOffset);
     }
 
     // Generate a Swing Engine TriMesh object based on the COLLADA sub-mesh.
@@ -313,12 +374,45 @@ Node* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
     // We only support <mesh> element for now.
     ParseGeometry(pMeshRoot, spDomGeometry);
 
-    m_Geometries.push_back(pMeshRoot);
+    if( pMeshRoot )
+    {
+        m_Geometries.push_back(pMeshRoot);
+    }
+
     return pMeshRoot;
 }
 //----------------------------------------------------------------------------
 Node* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef splib)
 {
+    // Get all instance materials used by this instance geometry object.
+    // Each instance material points to a material object in our material 
+    // catalog.
+    domBind_material* pDomBindMaterial =  splib->getBind_material();
+    if( pDomBindMaterial )
+    {
+        // Get the <technique_common> element.
+        domBind_material::domTechnique_common* pDomTechniqueCommon = 
+            pDomBindMaterial->getTechnique_common();
+        if( pDomTechniqueCommon )
+        {
+            // Get all <instance_material> elements.
+            domInstance_material_Array& rDomInstanceMaterialArray = 
+                pDomTechniqueCommon->getInstance_material_array();
+
+            int iIMaterialCount = (int)rDomInstanceMaterialArray.getCount();
+            for( int i = 0; i < iIMaterialCount; i++ )
+            {
+                ColladaInstanceMaterial* pInstanceMaterial = 
+                    LoadInstanceMaterial(rDomInstanceMaterialArray[i]);
+
+                if( pInstanceMaterial )
+                {
+                    m_InstanceMaterials.push_back(pInstanceMaterial);
+                }
+            }
+        }
+    }
+
     // Find the <geometry> which the <instance_geometry> is pointing to 
     // (there can be only one) by searching the Geometries list in the scene.
     xsAnyURI& rUrlType  = splib->getUrl();
@@ -332,32 +426,6 @@ Node* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef splib)
     }
 
     Node* pMeshRoot = LoadGeometry((domGeometry*)pDomElement);
-    if( !pMeshRoot )
-    {
-        return 0;
-    }
-
-    //CrtInstanceGeometry *newCrtInstanceGeometry = CrtNew(CrtInstanceGeometry);
-    //CrtAssert("No memory\n", newCrtInstanceGeometry!=NULL);
-    //newCrtInstanceGeometry->AbstractGeometry = geo;
-
-    //domBind_material *bindMaterial =  lib->getBind_material();
-    //if(bindMaterial)
-    //{
-    //	// Get the <technique_common>
-    //	domBind_material::domTechnique_common *techniqueCommon = bindMaterial->getTechnique_common();
-    //	if(techniqueCommon)
-    //	{
-    //		// Get the <instance_material>s
-    //		domInstance_material_Array &instanceMaterialArray = techniqueCommon->getInstance_material_array();
-    //		for(int j = 0; j < instanceMaterialArray.getCount(); j++)
-    //		{
-    //			CrtInstanceMaterial * newiMaterial = ReadInstanceMaterial(instanceMaterialArray[j]);
-    //			newCrtInstanceGeometry->MaterialInstances.push_back(newiMaterial);
-    //		}
-    //	}
-    //}
-
     return pMeshRoot;
 }
 //----------------------------------------------------------------------------

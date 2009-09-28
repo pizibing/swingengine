@@ -29,11 +29,10 @@ ColladaInputArray::ColladaInputArray(domInputLocalOffset_Array& rDomInputs)
     m_iMaxOffset = 0;
     m_iPosition = -1;
     m_iNormal = -1;
-    m_iTexCoord0 = -1;
-
+    m_iTCoord = -1;
     m_pDomPositionData = 0;
     m_pDomNormalData = 0;
-    m_pDomTexCoord0Data = 0;
+    m_pDomTCoordData = 0;
 
     SetInputs(rDomInputs);
 }
@@ -68,8 +67,8 @@ void ColladaInputArray::SetInputs(domInputLocalOffset_Array& rDomInputs)
         } 
         else if( strcmp("TEXCOORD", strSemantic) == 0 )
         {
-            m_iTexCoord0 = iCurrentOffset;
-            m_pDomTexCoord0Data = &pDomSource->getFloat_array()->getValue();
+            m_iTCoord = iCurrentOffset;
+            m_pDomTCoordData = &pDomSource->getFloat_array()->getValue();
         }
     }
     m_iMaxOffset += 1;
@@ -98,8 +97,8 @@ void ColladaInputArray::SetInputs(domInputLocalOffset_Array& rDomInputs)
         } 
         else if( strcmp("TEXCOORD", strSemantic) == 0 )
         {
-            m_pDomTexCoord0Data = &pDomSource->getFloat_array()->getValue();
-            m_iTexCoord0 = m_iPosition;
+            m_pDomTCoordData = &pDomSource->getFloat_array()->getValue();
+            m_iTCoord = m_iPosition;
         }
     }
 }
