@@ -238,7 +238,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
 
     GetLocalTransformation(pNode, spDomNode);
 
-    // Process Instance Geometries.
+    // Process instance geometries.
     domInstance_geometry_Array& rInstanceGeometryArray = 
         spDomNode->getInstance_geometry_array();
     int iInstanceGeometryCount = (int)rInstanceGeometryArray.getCount();
@@ -254,72 +254,51 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
         m_Geometries.push_back(pMeshRoot);
     }
 
-    //// Process Instance Controllers 
-    //size_t uiInstanceControllerCount = node->getInstance_controller_array().getCount();
-    //for (int i = 0; i < uiInstanceControllerCount; i++)
-    //{
-    //	domInstance_controller *icontroller  = node->getInstance_controller_array()[i];
-    //	CrtInstanceController * instanceController = ReadInstanceController(icontroller);
-    //	if (instanceController==NULL) //if instance Controller can not be created, skip to the next one
-    //		continue;
+    // TODO:
+    // Process instance controllers.
 
-    //	instanceController->Parent = crtNode;
-    //	crtNode->InstanceControllers.push_back(instanceController);
-    //	ControllerInstances.push_back(instanceController);
-    //}
+    // TODO:
+    // Process instance lights.
 
-    //// Process Instance Lights 
-    //size_t uiInstanceLightCount = node->getInstance_light_array().getCount();
-    //for (int i = 0; i < uiInstanceLightCount; i++)
-    //{
-    //	CrtInstanceLight * instanceLight = ReadInstanceLight(node->getInstance_light_array()[i]);
-    //	if (instanceLight) 
-    //	{
-    //		instanceLight->Parent = crtNode;
-    //		crtNode->InstanceLights.push_back(instanceLight);
-    //		LightInstances.push_back(instanceLight);
-    //	}
-    //}
+    // TODO:
+    // Process instance cameras.
 
-    //// Process Instance Cameras 
-    //size_t uiInstanceCameraCount = node->getInstance_camera_array().getCount();
-    //for (int i = 0; i < uiInstanceCameraCount; i++)
-    //{	
-    //	CrtInstanceCamera *instanceCamera = ReadInstanceCamera(node->getInstance_camera_array()[i]);
-    //	if (instanceCamera) 
-    //	{
-    //		instanceCamera->Parent = crtNode;
-    //		CameraInstances.push_back(instanceCamera);
-    //	}
-    //}
+    // Add current node to Swing Engine scene graph.
+    pParentNode->AttachChild(pNode);
 
-    //// add to parent 
-    //parentNode->AddChild( crtNode ); 
+    // Load all children, can be zero or more.
+    int iChildNodeCount = (int)spDomNode->getNode_array().getCount();
+    for( int i = 0; i < iChildNodeCount; i++ )
+    {
+        // Load each child an recursively it's children.
+        Node* pChildNode = LoadNode(spDomNode->getNode_array()[i], pNode);
+        if( pChildNode )
+        {
+            String strChildName = pChildNode->GetName();
+            m_Nodes[(const char*)strChildName] = pChildNode;
+        }
+    }
 
-    //// read children 
-    //size_t uiChildNodeCount = node->getNode_array().getCount();
-    //for (int i = 0; i < uiChildNodeCount; i++)
-    //{
-    //	// read in each child an recursively it's children 
-    //	CrtNode * readnode  = ReadNode( node->getNode_array()[i], crtNode );
-    //	if (readnode) 
-    //		Nodes[readnode->GetId()] = readnode;
-    //}
-
-    //// read children <instance_nodes>, can be 0 or more 
-    //size_t uiChildInstanceNodeCount = node->getInstance_node_array().getCount();
-    //for (int i = 0; i < uiChildInstanceNodeCount; i++)
-    //{
-    //	// read in each child an recursively it's children 
-    //	domInstance_node * instance_node = node->getInstance_node_array()[i];
-    //	domNode * urlnode = (domNode*) (domElement*) instance_node->getUrl().getElement();
-    //	if (urlnode) 
-    //	{
-    //		CrtNode * readnode = ReadNode( urlnode, crtNode );
-    //		if (readnode) 
-    //			Nodes[readnode->GetId()] = readnode;
-    //	}
-    //}
+    // Load all children <instance_nodes>, can be zero or more.
+    domInstance_node_Array& rInstanceNodeArray = 
+        spDomNode->getInstance_node_array();
+    int iChildInstanceNodeCount = (int)rInstanceNodeArray.getCount();
+    for( int i = 0; i < iChildInstanceNodeCount; i++ )
+    {
+        // Load each child an recursively it's children.
+        domInstance_node* pDomInstanceNode = rInstanceNodeArray[i];
+        domNodeRef spDomChildNode = 
+            (domNode*)(domElement*)pDomInstanceNode->getUrl().getElement();
+        if( spDomChildNode ) 
+        {
+            Node* pChildNode = LoadNode(spDomChildNode, pNode);
+            if( pChildNode )
+            {
+                String strChildName = pChildNode->GetName();
+                m_Nodes[(const char*)strChildName] = pChildNode;
+            }
+        }
+    }
 
     return pNode;
 }
