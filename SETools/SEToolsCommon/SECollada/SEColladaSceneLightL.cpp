@@ -181,7 +181,7 @@ Light* ColladaScene::LoadInstanceLight(
     if( !pDomElement )
     {
         // This instance light is not found, skip to the next one.
-        ToolSystem::SE_DebugOutput("Can't find this light: %s", 
+        ToolSystem::SE_DebugOutput("Can't find this light:%s", 
             (const char*)rUrlType.getURI());
 
         return 0;

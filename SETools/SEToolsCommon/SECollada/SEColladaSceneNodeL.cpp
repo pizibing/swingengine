@@ -221,9 +221,9 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
         return 0;
     }
 
-    xsID strNodeName = spDomNode->getId();
-    const char* acNodeName = (const char*)strNodeName;
-    Node* pNode = GetNode(acNodeName);
+    xsID strNodeID = spDomNode->getId();
+    const char* acNodeID = (const char*)strNodeID;
+    Node* pNode = GetNode(acNodeID);
     if( pNode )
     {
         // This node is already in our node catalog.
@@ -231,11 +231,11 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     }
 
     ToolSystem::SE_DebugOutput("ColladaScene::Loading Scene Node %s", 
-        acNodeName);
+        acNodeID);
 
-    // Create a Swing Engine node.
+    // Create a Swing Engine node to handle the COLLADA node's information.
     pNode = SE_NEW Node;
-    pNode->SetName(acNodeName);
+    pNode->SetName(acNodeID);
 
     GetLocalTransformation(pNode, spDomNode);
 
@@ -259,6 +259,10 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     // Process instance controllers.
 
     // Process instance lights.
+    // We should set orientation(position,direction) for spot light,
+    // and set position for point light based on their parent node's 
+    // orientation. But now we haven't finished building of Swing 
+    // Engine scene graph, so the process is delayed.
     domInstance_light_Array& rDomInstanceLightArray = 
         spDomNode->getInstance_light_array();
     int iInstanceLightCount = (int)rDomInstanceLightArray.getCount();
@@ -272,8 +276,18 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
         }
     }
 
-    // TODO:
     // Process instance cameras.
+    domInstance_camera_Array& rDomInstanceCameraArray = 
+        spDomNode->getInstance_camera_array();
+    int iInstanceCameraCount = (int)rDomInstanceCameraArray.getCount();
+    for( int i = 0; i < iInstanceCameraCount; i++ )
+    {
+        Camera* pCamera = LoadInstanceCamera(rDomInstanceCameraArray[i]);
+        if( pCamera )
+        {
+            m_Cameras.push_back(pCamera);
+        }
+    }
 
     // Add current node to Swing Engine scene graph.
     pParentNode->AttachChild(pNode);
