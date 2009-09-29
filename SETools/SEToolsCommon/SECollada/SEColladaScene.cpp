@@ -393,13 +393,3 @@ bool ColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
     return true;
 }
 //----------------------------------------------------------------------------
-Light* ColladaScene::LoadLight(domLightRef spDomLight)
-{
-    return 0;
-}
-//----------------------------------------------------------------------------
-Camera* ColladaScene::LoadCamera(domCameraRef spDomCamera)
-{
-    return 0;
-}
-//----------------------------------------------------------------------------

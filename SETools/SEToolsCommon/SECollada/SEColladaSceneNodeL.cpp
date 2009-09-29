@@ -224,15 +224,16 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     xsID strNodeName = spDomNode->getId();
     const char* acNodeName = (const char*)strNodeName;
     Node* pNode = GetNode(acNodeName);
-    // This node is already in our node catalog.
     if( pNode )
     {
+        // This node is already in our node catalog.
         return pNode;
     }
 
     ToolSystem::SE_DebugOutput("ColladaScene::Loading Scene Node %s", 
         acNodeName);
 
+    // Create a Swing Engine node.
     pNode = SE_NEW Node;
     pNode->SetName(acNodeName);
 
@@ -257,8 +258,19 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     // TODO:
     // Process instance controllers.
 
-    // TODO:
     // Process instance lights.
+    domInstance_light_Array& rDomInstanceLightArray = 
+        spDomNode->getInstance_light_array();
+    int iInstanceLightCount = (int)rDomInstanceLightArray.getCount();
+    for( int i = 0; i < iInstanceLightCount; i++ )
+    {
+        Light* pLight = LoadInstanceLight(rDomInstanceLightArray[i]);
+        if( pLight ) 
+        {
+            pNode->AttachLight(pLight);
+            m_Lights.push_back(pLight);
+        }
+    }
 
     // TODO:
     // Process instance cameras.

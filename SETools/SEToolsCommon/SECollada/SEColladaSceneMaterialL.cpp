@@ -87,9 +87,9 @@ ColladaMaterial* ColladaScene::LoadMaterial(domMaterialRef spDomMaterial)
     }
 
     ColladaMaterial* pMaterial = GetMaterial(strMaterialID);
-    // This material is already in our material catalog.
     if( pMaterial )
     {
+        // This material is already in our material catalog.
         return pMaterial;
     }
 

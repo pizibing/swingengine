@@ -330,9 +330,9 @@ Node* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
     }
 
     Node* pMeshRoot = GetGeometry(strGeometryID);
-    // This geometry is already in our geometry catalog.
     if( pMeshRoot )
     {
+        // This geometry is already in our geometry catalog.
         return pMeshRoot;
     }
 

@@ -103,6 +103,7 @@ public:
     ColladaInstanceMaterial* GetInstanceMaterial(const char* acName);
     Node* GetNode(const char* acName);
     Node* GetGeometry(const char* acName);
+    Light* GetLight(const char* acName);
 
 private:
     // Triangulation.
@@ -139,6 +140,7 @@ private:
     Node* LoadNode(domNodeRef spDomNode, Node* pParentNode);
 
     Light* LoadLight(domLightRef spDomLight);
+    Light* LoadInstanceLight(domInstance_lightRef spDomInstanceLight);
     Camera* LoadCamera(domCameraRef spDomCamera);
 
     void PackVertices(ColladaUnimaterialMesh* pUniMesh,
@@ -188,7 +190,7 @@ private:
     std::vector<ColladaAnimationPtr> m_Animations;
     std::map<std::string, NodePtr> m_Nodes;
     std::vector<NodePtr> m_Geometries;
-    //std::vector<Light*> Lights;
+    std::vector<LightPtr> m_Lights;
     //std::vector<Camera*> Cameras;
     //std::vector<Texture*> Textures;
     //std::vector<Shader*> Shaders;

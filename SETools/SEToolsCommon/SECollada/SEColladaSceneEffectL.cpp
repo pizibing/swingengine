@@ -69,9 +69,9 @@ ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
     }
 
     ColladaEffect* pEffect = GetEffect((const char*)strEffectID);
-    // This effect is already in our effect catalog.
     if( pEffect )
     {
+        // This effect is already in our effect catalog.
         return pEffect;
     }
 

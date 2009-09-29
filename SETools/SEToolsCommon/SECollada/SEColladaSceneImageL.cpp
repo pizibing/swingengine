@@ -69,9 +69,9 @@ Image* ColladaScene::LoadImage(domImageRef spDomImage)
     }
 
     Image* pImage = GetImage((const char*)strImageID);
-    // This image is already in our image catalog.
     if( pImage )
     {
+        // This image is already in our image catalog.
         return pImage;
     }
 
