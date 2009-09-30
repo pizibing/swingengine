@@ -154,7 +154,8 @@ Light* ColladaScene::LoadLight(domLightRef spDomLight)
             }
             if( pDomSpot->getFalloff_angle() )
             {
-                float fAngle = 
+                // COLLADA uses degree, Swing Engine uses radians.
+                float fAngle = Math<float>::DEG_TO_RAD * 
                     (float)(pDomSpot->getFalloff_angle()->getValue());
                 pLight->SetAngle(fAngle);
             }

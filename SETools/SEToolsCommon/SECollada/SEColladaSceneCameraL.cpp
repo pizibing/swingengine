@@ -66,55 +66,123 @@ Camera* ColladaScene::LoadCamera(domCameraRef spDomCamera)
         pCamera = SE_NEW Camera;
         pCamera->SetName((const char*)strCameraID);
 
-    //	// Get the optics
-    //	domCamera::domOptics *cameraOptics = CameraElement->getOptics();
-    //	
-    //	// Get the optics common profile technique
-    //	domCamera::domOptics::domTechnique_common *cameraCommonTechnique = cameraOptics->getTechnique_common();
-    //	
-    //	// Get the get the perspective and orthographic common profiles (if they exist)
-    //	domCamera::domOptics::domTechnique_common::domPerspective *cameraPerspective = cameraCommonTechnique->getPerspective();
-    //	domCamera::domOptics::domTechnique_common::domOrthographic *cameraOrthographic = cameraCommonTechnique->getOrthographic();
-    //	
-    //	// Setup camera parameters, note we have to check if a parameter is there before doing getValue
-    //	// Parameters not in the COLLADA data will be left at the CrtCamera defaults
-    //	if(cameraPerspective)
-    //	{
-    //		if(cameraPerspective->getXfov())
-    //			newCam->SetXFov((float)(cameraPerspective->getXfov()->getValue()));
-    //		if(cameraPerspective->getYfov())
-    //			newCam->SetYFov((float)(cameraPerspective->getYfov()->getValue()));
-    //		if(cameraPerspective->getAspect_ratio())
-    //			newCam->SetAspect((float)(cameraPerspective->getAspect_ratio()->getValue()));
-    //		if(cameraPerspective->getZnear())
-    //			newCam->SetZNear((float)(cameraPerspective->getZnear()->getValue()));
-    //		if(cameraPerspective->getZfar())
-    //			newCam->SetZFar((float)(cameraPerspective->getZfar()->getValue()));
-    //		// !!!GAC force Znear to be >= 1.0 to avoid rendering problems
-    //		if( newCam->GetZNear() < 1.0f)
-    //			newCam->SetZNear(1.0f);
-    //	}
-    //	if(cameraOrthographic)
-    //	{
-    //		// Setup orthographic camera
-    //		CrtPrint("Support for orthograph cameras incomplete, this camera will probably look odd\n");
-    //		if(cameraOrthographic->getXmag())
-    //			newCam->SetXMag((float)(cameraOrthographic->getXmag()->getValue()));
-    //		if(cameraOrthographic->getYmag())
-    //			newCam->SetYMag((float)(cameraOrthographic->getYmag()->getValue()));
-    //		if(cameraOrthographic->getAspect_ratio())
-    //			newCam->SetAspect((float)(cameraOrthographic->getAspect_ratio()->getValue()));
-    //		if(cameraOrthographic->getZnear())
-    //			newCam->SetZNear((float)(cameraOrthographic->getZnear()->getValue()));
-    //		if(cameraOrthographic->getZfar())
-    //			newCam->SetZFar((float)(cameraOrthographic->getZfar()->getValue()));
-    //		// !!!GAC force Znear to be >= 1.0 to avoid rendering problems
-    //		if( newCam->GetZNear() < 1.0f)
-    //			newCam->SetZNear(1.0f);
-    //	}
+        // Get the optics.
+        domCamera::domOptics* pDomCameraOptics = pDomCamera->getOptics();
+        SE_ASSERT( pDomCameraOptics );
+        
+        // Get the optics common profile technique.
+        domCamera::domOptics::domTechnique_common* pDomCameraCommonTechnique = 
+            pDomCameraOptics->getTechnique_common();
+        SE_ASSERT( pDomCameraCommonTechnique );
+
+        // Get the perspective and orthographic common profiles(if they exist).
+        DomCameraPerspective* pDomPerspective = 
+            pDomCameraCommonTechnique->getPerspective();
+        DomCameraOrthographic* pDomOrthographic = 
+            pDomCameraCommonTechnique->getOrthographic();
+        
+        // Setup camera parameters, note we have to check if a parameter is 
+        // there before doing getValue. Parameters not in the COLLADA data 
+        // will be left at the Swing Engine camera defaults.
+        float fFovx = Math<float>::ATan(0.5f) * Mathf::RAD_TO_DEG * 2.0f;
+        float fFovy = fFovx;
+        float fRMin = -0.5f;
+        float fRMax = 0.5f;
+        float fUMin = -0.5f;
+        float fUMax = 0.5f;
+        float fAspectRatio = 1.0f;
+        float fZNear = 1.0f;
+        float fZFar = 2.0f;
+        if( pDomPerspective )
+        {
+            if( pDomPerspective->getAspect_ratio() )
+            {
+                fAspectRatio = 
+                    (float)(pDomPerspective->getAspect_ratio()->getValue());
+            }
+            if( pDomPerspective->getXfov() )
+            {
+                fFovx = (float)(pDomPerspective->getXfov()->getValue());
+
+                // Here we should adjust fovy base on fovx.
+                float fTanHalfFovx = Math<float>::Tan(0.5f*fFovx);
+                float fTanHalfFovy = fTanHalfFovx / fAspectRatio;
+                fFovy = 2.0f * Math<float>::ATan(fTanHalfFovy);
+            }
+            if( pDomPerspective->getYfov() )
+            {
+                fFovy = (float)(pDomPerspective->getYfov()->getValue());
+            }
+            if( pDomPerspective->getZnear() )
+            {
+                fZNear = (float)(pDomPerspective->getZnear()->getValue());
+            }
+            if( pDomPerspective->getZfar() )
+            {
+                fZFar = (float)(pDomPerspective->getZfar()->getValue());
+            }
+
+            // Force ZNear to be >= 1.0 to avoid rendering problems.
+            if( fZNear < 1.0f )
+            {
+                fZNear = 1.0f;
+            }
+            if( fZNear >= fZFar )
+            {
+                fZFar = fZNear + 1.0f;
+            }
+
+            pCamera->SetFrustum(fFovy, fAspectRatio, fZNear, fZFar);
+        }
+        else if( pDomOrthographic )
+        {
+            if( pDomOrthographic->getAspect_ratio() )
+            {
+                fAspectRatio = 
+                    (float)(pDomOrthographic->getAspect_ratio()->getValue());
+            }
+            if( pDomOrthographic->getXmag() )
+            {
+                fRMax = (float)(pDomOrthographic->getXmag()->getValue());
+                fRMin = -fRMax;
+                fUMax = fRMax / fAspectRatio;
+                fUMin = -fUMax;
+            }
+            if( pDomOrthographic->getYmag() )
+            {
+                fUMax = (float)(pDomOrthographic->getYmag()->getValue());
+                fUMin = -fUMax;
+                fRMax = fUMax * fAspectRatio;
+                fRMin = -fRMax;
+            }
+            if( pDomOrthographic->getZnear() )
+            {
+                fZNear = (float)(pDomOrthographic->getZnear()->getValue());
+            }
+            if( pDomOrthographic->getZfar() )
+            {
+                fZFar = (float)(pDomOrthographic->getZfar()->getValue());
+            }
+
+            // Force ZNear to be >= 1.0 to avoid rendering problems.
+            if( fZNear < 1.0f )
+            {
+                fZNear = 1.0f;
+            }
+            if( fZNear >= fZFar )
+            {
+                fZFar = fZNear + 1.0f;
+            }
+
+            pCamera->SetFrustum(fRMin, fRMax, fUMin, fUMax, fZNear, fZFar);
+        }
+        else
+        {
+            // Unknown camera type.
+            SE_ASSERT( false );
+        }
 
         m_Cameras.push_back(pCamera);
-
         return pCamera;
     }
 

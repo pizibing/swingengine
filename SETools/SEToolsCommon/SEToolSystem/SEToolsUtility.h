@@ -21,6 +21,7 @@
 #ifndef Swing_ToolsUtility_H
 #define Swing_ToolsUtility_H
 
+// DirectX9 headers.
 #include <d3d9.h>
 #include <d3dx9tex.h>
 #include <dxerr9.h>
@@ -28,6 +29,7 @@
 // 避免非Unicode文件中的无法表示字符警告.
 #pragma warning(disable:4819)
 
+// COLLADA headers.
 #include "dae.h"
 #include "dae/daeSIDResolver.h"
 #include "dae/domAny.h"
@@ -35,5 +37,10 @@
 #include "dom/domConstants.h"
 #include "dom/domElements.h"
 #include "dom/domProfile_COMMON.h"
+
+typedef domCamera::domOptics DomCameraOptics;
+typedef DomCameraOptics::domTechnique_common DomCameraOpticsTechCommon;
+typedef DomCameraOpticsTechCommon::domPerspective DomCameraPerspective;
+typedef DomCameraOpticsTechCommon::domOrthographic DomCameraOrthographic;
 
 #endif
