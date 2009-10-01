@@ -113,7 +113,7 @@ void ColladaScene::Load(const char* acFilename)
         LoadAnimationLibrary(pDom->getLibrary_animations_array()[i] );			
     }
 
-    // Find the scene we want.
+    // Find the scene we want and load it.
     domCOLLADA::domSceneRef spDomScene = pDom->getScene();
     daeElement* pDefaultScene = 0;
     if( spDomScene )
@@ -366,7 +366,7 @@ Vector3f ColladaScene::GetTransformedVector(float fX, float fY, float fZ)
 //----------------------------------------------------------------------------
 bool ColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
 {
-    // Create the scene root.
+    // Create Swing Engine scene graph's root.
     // Save the scene name instead of scene id.
     m_spSceneRoot = SE_NEW Node;
     xsNCName strSceneName = spDomVisualScene->getName();

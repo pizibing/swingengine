@@ -260,9 +260,10 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
 
     // Process instance lights.
     // We should set orientation(position,direction) for spot light,
-    // and set position for point light based on their parent node's 
+    // and set position for point light base on their parent node's 
     // orientation. But now we haven't finished building of Swing 
-    // Engine scene graph, so the process is delayed.
+    // Engine scene graph, so the process of assigning orientation 
+    // is delayed.
     domInstance_light_Array& rDomInstanceLightArray = 
         spDomNode->getInstance_light_array();
     int iInstanceLightCount = (int)rDomInstanceLightArray.getCount();
@@ -277,6 +278,10 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     }
 
     // Process instance cameras.
+    // We should set orientation(E,R,U,D) for camera base on its parent
+    // node's orientation. But now we haven't finished building of 
+    // Swing Engine scene graph, so the process of assigning orientation 
+    // is delayed.
     domInstance_camera_Array& rDomInstanceCameraArray = 
         spDomNode->getInstance_camera_array();
     int iInstanceCameraCount = (int)rDomInstanceCameraArray.getCount();
