@@ -29,6 +29,8 @@
 #include "SEColladaMaterial.h"
 #include "SEColladaAnimation.h"
 #include "SEColladaUnimaterialMesh.h"
+#include "SEColladaInstanceLight.h"
+#include "SEColladaInstanceCamera.h"
 
 namespace Swing
 {
@@ -141,9 +143,11 @@ private:
     Node* LoadNode(domNodeRef spDomNode, Node* pParentNode);
 
     Light* LoadLight(domLightRef spDomLight);
-    Light* LoadInstanceLight(domInstance_lightRef spDomInstanceLight);
+    ColladaInstanceLight* LoadInstanceLight(Node* pParentNode, 
+        domInstance_lightRef spDomInstanceLight);
     Camera* LoadCamera(domCameraRef spDomCamera);
-    Camera* LoadInstanceCamera(domInstance_cameraRef spDomInstanceCamera);
+    ColladaInstanceCamera* LoadInstanceCamera(Node* pParentNode, 
+        domInstance_cameraRef spDomInstanceCamera);
 
     void PackVertices(ColladaUnimaterialMesh* pUniMesh,
         domListOfFloats* pDomPositionData, domListOfUInts& rDomIndexData, 
@@ -189,6 +193,8 @@ private:
     std::vector<ColladaEffectPtr> m_Effects;
     std::vector<ColladaMaterialPtr> m_Materials;
     std::vector<ColladaInstanceMaterialPtr> m_InstanceMaterials;
+    std::vector<ColladaInstanceLightPtr> m_InstanceLights;
+    std::vector<ColladaInstanceCameraPtr> m_InstanceCameras;
     std::vector<ColladaAnimationPtr> m_Animations;
     std::map<std::string, NodePtr> m_Nodes;
     std::vector<NodePtr> m_Geometries;

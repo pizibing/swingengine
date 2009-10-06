@@ -348,6 +348,22 @@
 					>
 				</File>
 				<File
+					RelativePath=".\SECollada\SEColladaInstanceCamera.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\SECollada\SEColladaInstanceCamera.h"
+					>
+				</File>
+				<File
+					RelativePath=".\SECollada\SEColladaInstanceLight.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\SECollada\SEColladaInstanceLight.h"
+					>
+				</File>
+				<File
 					RelativePath=".\SECollada\SEColladaMaterial.cpp"
 					>
 				</File>

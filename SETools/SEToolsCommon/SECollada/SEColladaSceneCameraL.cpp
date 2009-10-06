@@ -189,14 +189,14 @@ Camera* ColladaScene::LoadCamera(domCameraRef spDomCamera)
     return 0;
 }
 //----------------------------------------------------------------------------
-Camera* ColladaScene::LoadInstanceCamera(
+ColladaInstanceCamera* ColladaScene::LoadInstanceCamera(Node* pParentNode, 
     domInstance_cameraRef spDomInstanceCamera)
 {
     xsAnyURI& rUrlType  = spDomInstanceCamera->getUrl();
     domElement* pDomElement = (domElement*) rUrlType.getElement();
     if( !pDomElement )
     {
-        // This instance light is not found, skip to the next one.
+        // This instance camera is not found, skip to the next one.
         ToolSystem::SE_DebugOutput("Can't find this camera:%s", 
             rUrlType.getURI());
 
@@ -204,7 +204,18 @@ Camera* ColladaScene::LoadInstanceCamera(
     }
 
     Camera* pCamera = LoadCamera((domCamera*)pDomElement);
+    if( pCamera )
+    {
+        // We should make a copy of the original camera because each
+        // instance of that camera has its own transformation based on its
+        // parent node's transformation.
+        Camera* pNewCamera = (Camera*)(Object*)pCamera->Copy();
+        ColladaInstanceCamera* pInstanceCamera = 
+            SE_NEW ColladaInstanceCamera(pParentNode, pNewCamera);
 
-    return pCamera;
+        return pInstanceCamera;
+    }
+
+    return 0;
 }
 //----------------------------------------------------------------------------

@@ -174,7 +174,7 @@ Light* ColladaScene::LoadLight(domLightRef spDomLight)
     return 0;
 }
 //----------------------------------------------------------------------------
-Light* ColladaScene::LoadInstanceLight(
+ColladaInstanceLight* ColladaScene::LoadInstanceLight(Node* pParentNode, 
     domInstance_lightRef spDomInstanceLight)
 {
     xsAnyURI& rUrlType  = spDomInstanceLight->getUrl();
@@ -189,7 +189,15 @@ Light* ColladaScene::LoadInstanceLight(
     }
 
     Light* pLight = LoadLight((domLight*)pDomElement);
+    if( pLight )
+    {
+        Light* pNewLight = (Light*)(Object*)pLight->Copy();
+        ColladaInstanceLight* pInstanceLight = 
+            SE_NEW ColladaInstanceLight(pParentNode, pNewLight);
 
-    return pLight;
+        return pInstanceLight;
+    }
+
+    return 0;
 }
 //----------------------------------------------------------------------------

@@ -269,11 +269,13 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     int iInstanceLightCount = (int)rDomInstanceLightArray.getCount();
     for( int i = 0; i < iInstanceLightCount; i++ )
     {
-        Light* pLight = LoadInstanceLight(rDomInstanceLightArray[i]);
-        if( pLight ) 
+        ColladaInstanceLight* pInstanceLight = 
+            LoadInstanceLight(pNode, rDomInstanceLightArray[i]);
+        if( pInstanceLight ) 
         {
+            Light* pLight = pInstanceLight->GetLight();
             pNode->AttachLight(pLight);
-            m_Lights.push_back(pLight);
+            m_InstanceLights.push_back(pInstanceLight);
         }
     }
 
@@ -287,10 +289,11 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     int iInstanceCameraCount = (int)rDomInstanceCameraArray.getCount();
     for( int i = 0; i < iInstanceCameraCount; i++ )
     {
-        Camera* pCamera = LoadInstanceCamera(rDomInstanceCameraArray[i]);
-        if( pCamera )
+        ColladaInstanceCamera* pInstanceCamera = 
+            LoadInstanceCamera(pNode, rDomInstanceCameraArray[i]);
+        if( pInstanceCamera )
         {
-            m_Cameras.push_back(pCamera);
+            m_InstanceCameras.push_back(pInstanceCamera);
         }
     }
 
