@@ -191,7 +191,13 @@ ColladaInstanceLight* ColladaScene::LoadInstanceLight(Node* pParentNode,
     Light* pLight = LoadLight((domLight*)pDomElement);
     if( pLight )
     {
-        Light* pNewLight = (Light*)(Object*)pLight->Copy();
+        // We should make a copy of the original light because each
+        // instance of that light has its own transformation based on its
+        // parent node's transformation.
+        ObjectPtr spObject = pLight->Copy();
+        Light* pNewLight = DynamicCast<Light>(spObject);
+        SE_ASSERT( pNewLight );
+
         ColladaInstanceLight* pInstanceLight = 
             SE_NEW ColladaInstanceLight(pParentNode, pNewLight);
 

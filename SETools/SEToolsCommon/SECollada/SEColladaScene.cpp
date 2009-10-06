@@ -387,8 +387,13 @@ bool ColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
             m_Nodes[acNodeName] = pNode;
         }
     }
+
     // Finally add the scene root node.
     m_Nodes[strSceneName] = m_spSceneRoot;
+
+    // Update Swing Engine scene graph.
+    m_spSceneRoot->UpdateRS();
+    m_spSceneRoot->UpdateGS();
 
     return true;
 }

@@ -209,7 +209,10 @@ ColladaInstanceCamera* ColladaScene::LoadInstanceCamera(Node* pParentNode,
         // We should make a copy of the original camera because each
         // instance of that camera has its own transformation based on its
         // parent node's transformation.
-        Camera* pNewCamera = (Camera*)(Object*)pCamera->Copy();
+        ObjectPtr spObject = pCamera->Copy();
+        Camera* pNewCamera = DynamicCast<Camera>(spObject);
+        SE_ASSERT( pNewCamera );
+
         ColladaInstanceCamera* pInstanceCamera = 
             SE_NEW ColladaInstanceCamera(pParentNode, pNewCamera);
 
