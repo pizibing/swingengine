@@ -131,3 +131,9 @@ class __declspec(dllexport) YourClass
      template class DLLImportExportMacro std::vector<int,
       std::allocator<int> >;
      vector<int> m_data;
+
+2009 1006 2202
+对于返回值为智能指针的函数,一定要使用智能指针来接收返回值,例如:
+ObjectPtr DoSomething(...);
+ObjectPtr spObject = DoSomething(...);
+这将保证返回值所指向的对象的引用计数大于等于1,从而不会造成内存空间因为引用计数变为零时的意外释放.
