@@ -26,7 +26,6 @@ using namespace Swing;
 //----------------------------------------------------------------------------
 ColladaImporterApp::ColladaImporterApp()
 {
-    m_bOpenFile = false;
 }
 //----------------------------------------------------------------------------
 ColladaImporterApp::~ColladaImporterApp()
@@ -36,12 +35,6 @@ ColladaImporterApp::~ColladaImporterApp()
 void ColladaImporterApp::OnIdle()
 {
     AppCuller.ComputeUnculledSet(AppScene);
-
-    if( m_bOpenFile )
-    {
-        OpenFile(m_acFilename);
-        m_bOpenFile = false;
-    }
 
     AppRenderer->ClearBuffers();
     if( AppRenderer->BeginScene() )
@@ -78,19 +71,19 @@ void ColladaImporterApp::DestroyScene()
     SE_DELETE m_pColladaScene;
 }
 //----------------------------------------------------------------------------
-void ColladaImporterApp::OnSave(const char*)
+void ColladaImporterApp::OnSave(const char* acFilename)
 {
-}
-//----------------------------------------------------------------------------
-void ColladaImporterApp::OpenFile(const char*)
-{
+    Stream tempOStream;
+    tempOStream.Insert(AppScene);
+    tempOStream.Save(acFilename);
 }
 //----------------------------------------------------------------------------
 void ColladaImporterApp::OnOpenFile(const char* acFilename)
 {
-    m_bOpenFile = true;
     Swing::System::SE_Strcpy(m_acFilename, 256, acFilename);
 
     m_pColladaScene->Load(acFilename);
+    Node* pSceneRoot = m_pColladaScene->GetScene();
+    AppScene->AttachChild(pSceneRoot);
 }
 //----------------------------------------------------------------------------

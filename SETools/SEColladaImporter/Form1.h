@@ -95,6 +95,7 @@ namespace SEColladaImporter {
 			this->button2->TabIndex = 1;
 			this->button2->Text = L"Save As";
 			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &Form1::button2_Click);
 			// 
 			// Form1
 			// 
@@ -131,6 +132,25 @@ namespace SEColladaImporter {
 				g_ColladaImporterApp.OnOpenFile(acFilename);
 			}
 		}
-	};
+	private: 
+		System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) 
+		{
+			SaveFileDialog^ pDialog = gcnew SaveFileDialog;
+			pDialog->InitialDirectory = "D:\\";
+			pDialog->Filter = "seof|*.seof";
+			pDialog->FilterIndex = 1;
+			pDialog->RestoreDirectory = true;
+			pDialog->ShowDialog();
+
+			// 把System::String对象转换为char指针.
+			char* acFilename = (char*)(void*)Marshal::StringToHGlobalAnsi(pDialog->FileName);
+
+			size_t iLen = strlen(acFilename);
+			if( strncmp(acFilename, "", iLen) != 0 )
+			{
+				g_ColladaImporterApp.OnSave(acFilename);
+			}
+		}
+};
 }
 

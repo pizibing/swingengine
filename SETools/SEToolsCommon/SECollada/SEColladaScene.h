@@ -99,6 +99,9 @@ public:
     // COLLADA runtime scene graph.
     void Load(const char* acFilename);
 
+    // Get scene graph root node.
+    Node* GetScene(void);
+
     Image* GetImage(const char* acName);
     ColladaEffect* GetEffect(const char* acName);
     ColladaMaterial* GetMaterial(const char* acName);

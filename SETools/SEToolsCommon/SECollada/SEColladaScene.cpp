@@ -131,6 +131,11 @@ void ColladaScene::Load(const char* acFilename)
     }
 }
 //----------------------------------------------------------------------------
+Node* ColladaScene::GetScene()
+{
+    return m_spSceneRoot;
+}
+//----------------------------------------------------------------------------
 unsigned int ColladaScene::GetMaxOffset(
     domInputLocalOffset_Array& rInputArray)
 {

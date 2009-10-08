@@ -58,9 +58,7 @@ public:
     Swing::WireframeStatePtr AppWireframe;
 
 private:
-    bool m_bOpenFile;
     char m_acFilename[256];
-    void OpenFile(const char* acFilename);
 
     Swing::ColladaScene* m_pColladaScene;
 };

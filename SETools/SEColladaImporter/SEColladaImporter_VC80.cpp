@@ -100,7 +100,7 @@ int main(array<System::String ^> ^)
     float fUMax = 0.4125f/*0.309375f*/ * fDMin;
     float fUMin = -fUMax;
     pCamera->SetFrustum(fRMin, fRMax, fUMin, fUMax, fDMin, fDMax);
-    Swing::Vector3f tempCLoc(0.0f, 0.0f, -3.0f);
+    Swing::Vector3f tempCLoc(0.0f, 0.0f, -80.0f);
     Swing::Vector3f tempCDir(0.0f, 0.0f, 1.0f);
     Swing::Vector3f tempCUp(0.0f, 1.0f, 0.0f);
     Swing::Vector3f tempCRight = tempCUp.Cross(tempCDir);
