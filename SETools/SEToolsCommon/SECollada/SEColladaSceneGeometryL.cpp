@@ -94,14 +94,27 @@ void ColladaScene::PackVertices(ColladaUnimaterialMesh* pUniMesh,
         pUniMesh->Normal()[i].Z = aNormal[j].Y;
     }
 
-    // 建立子网格面顶点索引.
+    // Build sub-mesh index buffer for faces of vertices.
+    // For each triangle, we swap COLLADA counter-clockwise order to
+    // Swing Engine clockwise order. Say, V0,V1,V2 to V0, V2, V1.
     pUniMesh->FCount() = iIndexCount/3;
     pUniMesh->Face() = SE_NEW int[iIndexCount];
-    for( int i = 0; i < iIndexCount; i++ )
+    for( int i = 0; i < pUniMesh->FCount(); i++ )
     {
-        iBase = i*iStride;
+        int iIndex = 3*i;
+        iBase = iIndex*iStride;
         iVIndex = (int)rDomIndexData[iBase + iPositionOffset];
-        pUniMesh->Face()[i] = aiVMap[iVIndex];
+        pUniMesh->Face()[iIndex] = aiVMap[iVIndex];
+
+        iIndex++;
+        iBase = iIndex*iStride;
+        iVIndex = (int)rDomIndexData[iBase + iPositionOffset];
+        pUniMesh->Face()[iIndex + 1] = aiVMap[iVIndex];
+
+        iIndex++;
+        iBase = iIndex*iStride;
+        iVIndex = (int)rDomIndexData[iBase + iPositionOffset];
+        pUniMesh->Face()[iIndex - 1] = aiVMap[iVIndex];
     }
     delete[] aiVMap;
 }
@@ -150,13 +163,26 @@ void ColladaScene::PackTextures(ColladaUnimaterialMesh* pUniMesh,
         pUniMesh->Texture()[i].Y = fY;
     }
 
-    // 建立子网格面纹理坐标索引.
+    // Build sub-mesh index buffer for faces of TCoords.
+    // For each triangle, we swap COLLADA counter-clockwise order to
+    // Swing Engine clockwise order. Say, V0,V1,V2 to V0, V2, V1.
     pUniMesh->TFace() = SE_NEW int[iIndexCount];
-    for( int i = 0; i < iIndexCount; i++ )
+    for( int i = 0; i < pUniMesh->FCount(); i++ )
     {
-        iBase = i*iStride;
+        int iIndex = 3*i;
+        iBase = iIndex*iStride;
         iTIndex = (int)rDomIndexData[iBase + iTCoordOffset];
-        pUniMesh->TFace()[i] = aiTMap[iTIndex];
+        pUniMesh->TFace()[iIndex] = aiTMap[iTIndex];
+
+        iIndex++;
+        iBase = iIndex*iStride;
+        iTIndex = (int)rDomIndexData[iBase + iTCoordOffset];
+        pUniMesh->TFace()[iIndex + 1] = aiTMap[iTIndex];
+
+        iIndex++;
+        iBase = iIndex*iStride;
+        iTIndex = (int)rDomIndexData[iBase + iTCoordOffset];
+        pUniMesh->TFace()[iIndex - 1] = aiTMap[iTIndex];
     }
     delete[] aiTMap;
 }
