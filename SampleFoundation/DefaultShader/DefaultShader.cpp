@@ -151,5 +151,17 @@ void DefaultShader::CreateScene()
 
     DefaultShaderEffect* pEffect = SE_NEW DefaultShaderEffect;
     m_spMesh->AttachEffect(pEffect);
+
+    Stream tempStream;
+    const char* acPath = System::SE_GetPath("cube.seof", System::SM_READ);
+    SE_ASSERT( acPath );
+    bool bLoaded = tempStream.Load(acPath);
+    SE_ASSERT( bLoaded );
+    (void)bLoaded;
+
+    Node* pSceneLoaded = DynamicCast<Node>(tempStream.GetObjectAt(0));
+    pSceneLoaded->AttachGlobalState(m_spWireframe);
+    pSceneLoaded->Local.SetUniformScale(0.1f);
+    m_spScene->AttachChild(pSceneLoaded);
 }
 //----------------------------------------------------------------------------
