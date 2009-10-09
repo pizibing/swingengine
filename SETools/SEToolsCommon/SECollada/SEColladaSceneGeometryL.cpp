@@ -199,9 +199,13 @@ TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
 
     // Create a uni-material sub-mesh.
     ColladaUnimaterialMesh* pSubMesh = SE_NEW ColladaUnimaterialMesh;
-    if( pSubMeshIMaterial )
+    if( pSubMeshIMaterial && pSubMeshIMaterial->TargetMaterial )
     {
-        pSubMesh->MState() = pSubMeshIMaterial->TargetMaterial->Material;
+        pSubMesh->MState() = pSubMeshIMaterial->TargetMaterial->GetMState();
+
+        // TODO:
+        // Just grab the first texture as a diffuse texture for now.
+        pSubMesh->TState() = pSubMeshIMaterial->TargetMaterial->GetTexture(0);
     }
 
     int iTriangleCount = (int)pDomTriangles->getCount();

@@ -44,12 +44,17 @@ class SE_TOOLS_COMMON_API ColladaMaterial : public Object
     SE_DECLARE_NAME_ID;
 
 public:
-    ColladaMaterial(void);
+    ColladaMaterial(ColladaEffect* pEffect);
     ~ColladaMaterial(void);
 
-    ColladaEffectPtr Effect;
-    MaterialStatePtr Material;
-    std::vector<ImagePtr> Textures;
+    // Wrapper functions to access effect's member data.
+    MaterialState* GetMState(void);
+    Texture* GetTexture(int i);
+
+private:
+    ColladaMaterial(void);
+
+    ColladaEffectPtr m_spEffect;
 };
 
 typedef SmartPointer<ColladaMaterial> ColladaMaterialPtr;

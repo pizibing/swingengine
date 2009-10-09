@@ -25,7 +25,7 @@
 #include "SEToolsUtility.h"
 #include "SEShaderEffect.h"
 #include "SEMaterialState.h"
-#include "SEImage.h"
+#include "SETexture.h"
 
 namespace Swing
 {
@@ -46,7 +46,7 @@ public:
     ~ColladaEffect(void);
 
     MaterialStatePtr Material;
-    std::vector<ImagePtr> Textures;
+    std::vector<TexturePtr> Textures;
 };
 
 typedef SmartPointer<ColladaEffect> ColladaEffectPtr;

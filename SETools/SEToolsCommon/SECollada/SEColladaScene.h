@@ -102,7 +102,9 @@ public:
     // Get scene graph root node.
     Node* GetScene(void);
 
+    int GetImageCount(void) const;
     Image* GetImage(const char* acName);
+    Image* GetImage(int i);
     ColladaEffect* GetEffect(const char* acName);
     ColladaMaterial* GetMaterial(const char* acName);
     ColladaInstanceMaterial* GetInstanceMaterial(const char* acName);
@@ -173,7 +175,7 @@ private:
 
     ColorRGB GetColor(domCommon_color_or_texture_type_complexType* pParam);
     float GetFloat(domCommon_float_or_param_type* pParam);
-    Image* GetTextureFromShaderElement(
+    Texture* GetTextureFromShaderElement(
         std::map<std::string, domCommon_newparam_type*>& rNewParams, 
         domCommon_color_or_texture_type* pShaderElement);
 

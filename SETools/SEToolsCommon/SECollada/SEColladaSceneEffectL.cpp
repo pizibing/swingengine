@@ -180,12 +180,11 @@ ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
                 
                 // TODO: 
                 // Take only the texture from diffuse for now.
-                Image* pImage;
-                pImage = GetTextureFromShaderElement(tempNewParams, 
+                Texture* pTexture = GetTextureFromShaderElement(tempNewParams, 
                     tempShaderElements.Diffuse);
-                if( pImage )
+                if( pTexture )
                 {
-                    pEffect->Textures.push_back(pImage);
+                    pEffect->Textures.push_back(pTexture);
                 }
                 
                 // Handle an effect with no texture.
@@ -228,7 +227,7 @@ ColorRGB ColladaScene::GetColor(
     return ColorRGB::SE_RGB_BLACK;
 }
 //----------------------------------------------------------------------------
-Image* ColladaScene::GetTextureFromShaderElement(
+Texture* ColladaScene::GetTextureFromShaderElement(
     std::map<std::string, domCommon_newparam_type*>& rNewParams, 
     domCommon_color_or_texture_type* pShaderElement)
 {
@@ -255,7 +254,11 @@ Image* ColladaScene::GetTextureFromShaderElement(
         tempIDRef.resolveElement();
         domImage* pDomImage = (domImage*)tempIDRef.getElement();
 
-        return LoadImage(pDomImage);
+        Image* pImage = LoadImage(pDomImage);
+        SE_ASSERT( pImage );
+        Texture* pTexture = SE_NEW Texture(pImage);
+
+        return pTexture;
     }
 
     std::string strSurfaceSID = 
@@ -273,7 +276,11 @@ Image* ColladaScene::GetTextureFromShaderElement(
     rIDRef.resolveElement();
     domImage* pDomImage = (domImage*)rIDRef.getElement();
 
-    return LoadImage(pDomImage);
+    Image* pImage = LoadImage(pDomImage);
+    SE_ASSERT( pImage );
+    Texture* pTexture = SE_NEW Texture(pImage);
+
+    return pTexture;
 }
 //----------------------------------------------------------------------------
 void ColladaScene::ParseConstant(ColladaEffect* pEffect, 

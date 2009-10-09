@@ -305,7 +305,7 @@ TriMesh* ColladaUnimaterialMesh::ToTriMesh()
             // 待实现.
             // 当拆分网格后如何处理多重纹理?
             String tempFName = m_spTState->GetImage()->GetName();
-            // 减去".seif"长度
+            // 减去".seif"长度.
             size_t uiLength = strlen((const char*)tempFName) - 5;
             char tempBuffer[64];
             System::SE_Strncpy(tempBuffer, 64, (const char*)tempFName, 
@@ -325,7 +325,7 @@ TriMesh* ColladaUnimaterialMesh::ToTriMesh()
         }
     }
 
-    // 理论上不可能出现这种情况
+    // 理论上不可能出现这种情况.
     if( !m_spSEMaterialState && m_spTState )
     {
         assert( false );

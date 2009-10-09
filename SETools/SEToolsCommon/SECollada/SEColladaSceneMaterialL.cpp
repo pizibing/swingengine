@@ -115,9 +115,8 @@ ColladaMaterial* ColladaScene::LoadMaterial(domMaterialRef spDomMaterial)
         ColladaEffect* pEffect = LoadEffect((domEffect*)pDomElement);
         if( pEffect )
         {
-            ColladaMaterial* pMaterial = SE_NEW ColladaMaterial;
+            ColladaMaterial* pMaterial = SE_NEW ColladaMaterial(pEffect);
             pMaterial->SetName(strMaterialID);
-            pMaterial->Effect = pEffect;
             ToolSystem::SE_DebugOutput(
                 "Attaching effect %s to material %s \n", pEffect->GetName(), 
                 pMaterial->GetName()); 

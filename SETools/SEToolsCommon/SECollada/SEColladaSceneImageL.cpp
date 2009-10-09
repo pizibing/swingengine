@@ -24,6 +24,11 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
+int ColladaScene::GetImageCount() const
+{
+    return (int)m_Images.size();
+}
+//----------------------------------------------------------------------------
 Image* ColladaScene::GetImage(const char* acName)
 {
     if( !acName )
@@ -37,6 +42,16 @@ Image* ColladaScene::GetImage(const char* acName)
         {
             return m_Images[i];
         }
+    }
+
+    return 0;
+}
+//----------------------------------------------------------------------------
+Image* ColladaScene::GetImage(int i)
+{
+    if( 0 <= i && i <= (int)m_Images.size() - 1 )
+    {
+        return m_Images[i];
     }
 
     return 0;
@@ -75,7 +90,7 @@ Image* ColladaScene::LoadImage(domImageRef spDomImage)
         return pImage;
     }
 
-    //ToolSystem::SE_DebugOutput("Add new image %s", strImageID);
+    ToolSystem::SE_DebugOutput("Add new image %s", strImageID);
 
     domImage* pDomImage = (domImage*)spDomImage;
     if( pDomImage )

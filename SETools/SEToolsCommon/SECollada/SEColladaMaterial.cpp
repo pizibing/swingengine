@@ -27,12 +27,37 @@ SE_IMPLEMENT_RTTI(Swing, ColladaMaterial, Object);
 SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaMaterial, Object);
 
 //----------------------------------------------------------------------------
+ColladaMaterial::ColladaMaterial(ColladaEffect* pEffect)
+{
+    m_spEffect = pEffect;
+}
+//----------------------------------------------------------------------------
 ColladaMaterial::ColladaMaterial()
 {
 }
 //----------------------------------------------------------------------------
 ColladaMaterial::~ColladaMaterial()
 {
+}
+//----------------------------------------------------------------------------
+MaterialState* ColladaMaterial::GetMState()
+{
+    if( m_spEffect )
+    {
+        return m_spEffect->Material;
+    }
+
+    return 0;
+}
+//----------------------------------------------------------------------------
+Texture* ColladaMaterial::GetTexture(int i)
+{
+    if( 0 <= i && i <= (int)m_spEffect->Textures.size() - 1 )
+    {
+        return m_spEffect->Textures[i];
+    }
+
+    return 0;
 }
 //----------------------------------------------------------------------------
 
