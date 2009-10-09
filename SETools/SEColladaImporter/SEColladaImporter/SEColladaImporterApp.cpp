@@ -76,6 +76,14 @@ void ColladaImporterApp::OnSave(const char* acFilename)
     Stream tempOStream;
     tempOStream.Insert(AppScene);
     tempOStream.Save(acFilename);
+
+    int iImageCount = m_pColladaScene->GetImageCount();
+    for( int i = 0; i < iImageCount; i++ )
+    {
+        Image* pImage = m_pColladaScene->GetImage(i);
+        const char* acFilename = (const char*)pImage->GetName();
+        pImage->Save(acFilename);
+    }
 }
 //----------------------------------------------------------------------------
 void ColladaImporterApp::OnOpenFile(const char* acFilename)
