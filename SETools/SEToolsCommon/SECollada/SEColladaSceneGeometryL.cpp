@@ -116,7 +116,7 @@ void ColladaScene::PackVertices(ColladaUnimaterialMesh* pUniMesh,
         iVIndex = (int)rDomIndexData[iBase + iPositionOffset];
         pUniMesh->Face()[iIndex - 1] = aiVMap[iVIndex];
     }
-    delete[] aiVMap;
+    SE_DELETE[] aiVMap;
 }
 //----------------------------------------------------------------------------
 void ColladaScene::PackTextures(ColladaUnimaterialMesh* pUniMesh,
@@ -144,12 +144,12 @@ void ColladaScene::PackTextures(ColladaUnimaterialMesh* pUniMesh,
     // 如果tempTIndexSet[i] = j,则aiTMap[j] = i.
     // 如果是当前子网格没有用到的全局网格纹理坐标索引,则aTMap[j] = -1.
     int iTMax = *tempTIndexSet.rbegin();
-    int* aiTMap = new int[iTMax + 1];
+    int* aiTMap = SE_NEW int[iTMax + 1];
     memset(aiTMap, 0xFF, (iTMax + 1)*sizeof(int));
 
     int iTCount = (int)tempTIndexSet.size();
     pUniMesh->TCount() = iTCount;
-    pUniMesh->Texture() = new Vector2f[iTCount];
+    pUniMesh->Texture() = SE_NEW Vector2f[iTCount];
 
     set<int>::iterator tempIter = tempTIndexSet.begin();
     for( int i = 0; i < (int)tempTIndexSet.size(); i++, tempIter++ )
@@ -160,7 +160,7 @@ void ColladaScene::PackTextures(ColladaUnimaterialMesh* pUniMesh,
         float fX = (float)(*pDomTCoordData)[2*j    ];
         float fY = (float)(*pDomTCoordData)[2*j + 1];
         pUniMesh->Texture()[i].X = fX;
-        pUniMesh->Texture()[i].Y = fY;
+        pUniMesh->Texture()[i].Y = 1.0f - fY;
     }
 
     // Build sub-mesh index buffer for faces of TCoords.
@@ -184,7 +184,7 @@ void ColladaScene::PackTextures(ColladaUnimaterialMesh* pUniMesh,
         iTIndex = (int)rDomIndexData[iBase + iTCoordOffset];
         pUniMesh->TFace()[iIndex - 1] = aiTMap[iTIndex];
     }
-    delete[] aiTMap;
+    SE_DELETE[] aiTMap;
 }
 //----------------------------------------------------------------------------
 TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
@@ -268,6 +268,9 @@ TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
         PackTextures(pSubMesh, pDomTCoordData, rDomIndexData, iIndexCount, 
             iStride, iTCoordOffset);
     }
+
+    // Generate the final uni-material sub-mesh before calling ToTriMesh().
+    pSubMesh->DuplicateGeometry();
 
     // Generate a Swing Engine TriMesh object based on the COLLADA sub-mesh.
     TriMesh* pResMesh = pSubMesh->ToTriMesh();

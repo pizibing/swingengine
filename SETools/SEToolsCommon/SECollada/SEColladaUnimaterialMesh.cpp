@@ -112,7 +112,7 @@ void ColladaUnimaterialMesh::DuplicateGeometry()
     // 建立一个当前网格的顶点属性数组,
     // 该数组表明了当前网格的每个顶点被平面索引的次数,
     // 每个顶点每次被平面索引时,可能使用不同的顶点颜色和纹理坐标.
-    vector<VertexAttr>* aVArray = new vector<VertexAttr>[m_iVCount];
+    vector<VertexAttr>* aVArray = SE_NEW vector<VertexAttr>[m_iVCount];
     int i;
     for( i = 0; i < 3*m_iFCount; i++ )
     {
@@ -149,19 +149,19 @@ void ColladaUnimaterialMesh::DuplicateGeometry()
     }
 
     // 分配Swing Engine几何体所需数据.
-    Vector3f* aNewVertex = new Vector3f[iNewVCount];
-    Vector3f* aNewNormal = new Vector3f[iNewVCount];
+    Vector3f* aNewVertex = SE_NEW Vector3f[iNewVCount];
+    Vector3f* aNewNormal = SE_NEW Vector3f[iNewVCount];
 
-    ColorRGB* aNewColor = NULL;
+    ColorRGB* aNewColor = 0;
     if( m_iCCount > 0 )
     {
-        aNewColor = new ColorRGB[iNewVCount];
+        aNewColor = SE_NEW ColorRGB[iNewVCount];
     }
 
-    Vector2f* aNewTexture = NULL;
+    Vector2f* aNewTexture = 0;
     if( m_iTCount > 0 )
     {
-        aNewTexture = new Vector2f[iNewVCount];
+        aNewTexture = SE_NEW Vector2f[iNewVCount];
     }
 
     int j, k;
@@ -197,8 +197,8 @@ void ColladaUnimaterialMesh::DuplicateGeometry()
     {
         int iThreeI = 3 * i;
         int* aiVIndex = m_aiFace + iThreeI;
-        int* aiCIndex = ( m_iCCount > 0 ? m_aiCFace + iThreeI : NULL );
-        int* aiTIndex = ( m_iTCount > 0 ? m_aiTFace + iThreeI : NULL );
+        int* aiCIndex = ( m_iCCount > 0 ? m_aiCFace + iThreeI : 0 );
+        int* aiTIndex = ( m_iTCount > 0 ? m_aiTFace + iThreeI : 0 );
 
         for( j = 0; j < 3; j++ )
         {
@@ -231,11 +231,11 @@ void ColladaUnimaterialMesh::DuplicateGeometry()
         }
     }
 
-    delete[] m_aVertex;
-    delete[] m_aNormal;
-    delete[] m_aColor;
-    delete[] m_aTexture;
-    delete[] m_aiTFace;
+    SE_DELETE[] m_aVertex;
+    SE_DELETE[] m_aNormal;
+    SE_DELETE[] m_aColor;
+    SE_DELETE[] m_aTexture;
+    SE_DELETE[] m_aiTFace;
 
     m_iVCount = iNewVCount;
     m_aVertex = aNewVertex;
@@ -243,7 +243,7 @@ void ColladaUnimaterialMesh::DuplicateGeometry()
     m_aColor = aNewColor;
     m_aTexture = aNewTexture;
 
-    delete[] aVArray;
+    SE_DELETE[] aVArray;
 }
 //----------------------------------------------------------------------------
 TriMesh* ColladaUnimaterialMesh::ToTriMesh()
@@ -264,7 +264,7 @@ TriMesh* ColladaUnimaterialMesh::ToTriMesh()
         tempSEAttr.SetTCoordChannels(0, 2);
     }
 
-    VertexBuffer* pSEVBuffer = new VertexBuffer(tempSEAttr, m_iVCount);
+    VertexBuffer* pSEVBuffer = SE_NEW VertexBuffer(tempSEAttr, m_iVCount);
     for( int i = 0; i < m_iVCount; i++ )
     {
         (*(Vector3f*)pSEVBuffer->PositionTuple(i)) = m_aVertex[i];
@@ -284,13 +284,13 @@ TriMesh* ColladaUnimaterialMesh::ToTriMesh()
     }
 
     // 创建所需Swing Engine IB.
-    IndexBuffer* pSEIBuffer = new IndexBuffer(3 * m_iFCount);
+    IndexBuffer* pSEIBuffer = SE_NEW IndexBuffer(3 * m_iFCount);
     int* pSEIBufferData = pSEIBuffer->GetData();
     memcpy(pSEIBufferData, m_aiFace, 3*m_iFCount*sizeof(int));
 
-    TriMesh* pSEMesh = new TriMesh(pSEVBuffer, pSEIBuffer);
+    TriMesh* pSEMesh = SE_NEW TriMesh(pSEVBuffer, pSEIBuffer);
 
-    Effect* pSEEffect = NULL;
+    Effect* pSEEffect = 0;
 
     // 根据Swing Engine网格所带材质和纹理,为其添加effect.
     // 目前导出器支持的材质和纹理effect是:
@@ -304,23 +304,28 @@ TriMesh* ColladaUnimaterialMesh::ToTriMesh()
         {
             // 待实现.
             // 当拆分网格后如何处理多重纹理?
-            String tempFName = m_spTState->GetImage()->GetName();
-            // 减去".seif"长度.
-            size_t uiLength = strlen((const char*)tempFName) - 5;
-            char tempBuffer[64];
-            System::SE_Strncpy(tempBuffer, 64, (const char*)tempFName, 
-                uiLength);
-            tempBuffer[uiLength] = 0;
-            pSEEffect = new MaterialTextureEffect(tempBuffer);
+            Image* pImage = m_spTState->GetImage();
+            SE_ASSERT( pImage );
+            if( pImage )
+            {
+                String tempFName = pImage->GetName();
+                // 减去".seif"长度.
+                size_t uiLength = strlen((const char*)tempFName) - 5;
+                char tempBuffer[64];
+                System::SE_Strncpy(tempBuffer, 64, (const char*)tempFName, 
+                    uiLength);
+                tempBuffer[uiLength] = 0;
+                pSEEffect = SE_NEW MaterialTextureEffect(tempBuffer);
+            }
         }
         else
         {
-            pSEEffect = new MaterialEffect();
+            pSEEffect = SE_NEW MaterialEffect();
 
-            assert( !m_aTexture );
+            SE_ASSERT( !m_aTexture );
             if( m_aTexture )
             {
-                delete[] m_aTexture;
+                SE_DELETE[] m_aTexture;
             }
         }
     }
@@ -328,12 +333,12 @@ TriMesh* ColladaUnimaterialMesh::ToTriMesh()
     // 理论上不可能出现这种情况.
     if( !m_spSEMaterialState && m_spTState )
     {
-        assert( false );
+        SE_ASSERT( false );
     }
 
     if( !m_spSEMaterialState && !m_spTState )
     {
-        pSEEffect = new DefaultShaderEffect;
+        pSEEffect = SE_NEW DefaultShaderEffect;
     }
 
     if( pSEEffect )

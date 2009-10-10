@@ -100,12 +100,16 @@ Image* ColladaScene::LoadImage(domImageRef spDomImage)
         strImageFileName = cdom::uriToFilePath(tempImageFileURI.str());
 
         // Load the actual image by image file name.
+        // TODO:
+        // This is the working dir of the running application.
         pImage = m_pImageConverter->CreateImageFromFile(
             strImageFileName.c_str());
 
         if( pImage )
         {
-            pImage->SetName((const char*)strImageID);
+            String tempImageName = (const char*)strImageID;
+            tempImageName += ".seif";
+            pImage->SetName(tempImageName);
             m_Images.push_back(pImage);
 
             return pImage;
