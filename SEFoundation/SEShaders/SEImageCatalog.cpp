@@ -37,22 +37,22 @@ ImageCatalog::ImageCatalog(const String& rName)
     // 由于有些图形管线不支持1D image,
     // 因此创建一个默认2x2 image,用于无法找到指定资源时提醒用户.
     unsigned char* pData = SE_NEW unsigned char[16];
-    pData[0] = 0;
-    pData[1] = 255;
-    pData[2] = 255;
-    pData[3] = 255;
+    pData[0] = 255;
+    pData[1] = 0;
+    pData[2] = 0;
+    pData[3] = 0;
     pData[4] = 255;
     pData[5] = 0;
-    pData[6] = 255;
-    pData[7] = 255;
+    pData[6] = 0;
+    pData[7] = 0;
     pData[8] = 255;
-    pData[9] = 255;
+    pData[9] = 0;
     pData[10] = 0;
-    pData[11] = 255;
+    pData[11] = 0;
     pData[12] = 255;
-    pData[13] = 255;
-    pData[14] = 255;
-    pData[15] = 255;
+    pData[13] = 0;
+    pData[14] = 0;
+    pData[15] = 0;
 
     m_spDefaultImage = SE_NEW Image(Image::IT_RGBA8888, 2, 2, pData,
         ms_DefaultString);
