@@ -101,12 +101,19 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
                 SE_ASSERT( rDomFloat3.getCount() == 3 );
                 
                 // Get the scale data.
-                Vector3f vec3fScale;
-                vec3fScale.X = (float)rDomFloat3[0];
-                vec3fScale.Y = (float)rDomFloat3[1];
-                vec3fScale.Z = (float)rDomFloat3[2];
+                Vector3f vec3fScale = GetTransformedVector((float)rDomFloat3[0],
+                    (float)rDomFloat3[1], (float)rDomFloat3[2]);
 
-                pTransform->SetScale(vec3fScale);
+                // Is this an uniform scale?
+                if( vec3fScale.X == vec3fScale.Y && 
+                    vec3fScale.Y == vec3fScale.Z )
+                {
+                    pTransform->SetUniformScale(vec3fScale.X);
+                }
+                else
+                {
+                    pTransform->SetScale(vec3fScale);
+                }
 
                 acSID = (char*)pDomScale->getSid();
                 if( acSID )
@@ -129,11 +136,10 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
                 SE_ASSERT( rDomFloat4.getCount() == 4 );
 
                 // Get the rotation data.
-                Vector3f vec3fRotAxis;
-                vec3fRotAxis.X = (float)rDomFloat4[0];
-                vec3fRotAxis.Y = (float)rDomFloat4[1];
-                vec3fRotAxis.Z = (float)rDomFloat4[2];
-                float fRotAngle = (float)rDomFloat4[3];
+                Vector3f vec3fRotAxis = GetTransformedVector(
+                    (float)rDomFloat4[0], (float)rDomFloat4[1], 
+                    (float)rDomFloat4[2]);
+                float fRotAngle = -(float)rDomFloat4[3];
 
                 Matrix3f mat3fR(vec3fRotAxis, fRotAngle);
                 pTransform->SetRotate(mat3fR);
@@ -159,10 +165,8 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
                 SE_ASSERT( rDomFloat3.getCount() == 3 );
 
                 // Get the transation data.
-                Vector3f vec3fTrans;
-                vec3fTrans.X = (float)rDomFloat3[0];
-                vec3fTrans.Y = (float)rDomFloat3[1];
-                vec3fTrans.Z = (float)rDomFloat3[2];
+                Vector3f vec3fTrans = GetTransformedVector((float)rDomFloat3[0],
+                    (float)rDomFloat3[1], (float)rDomFloat3[2]);
 
                 pTransform->SetTranslate(vec3fTrans);
 
@@ -180,25 +184,26 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
         case TT_MATRIX:
             {
                 // TODO:
-                // Support this transform.
+                // Support this transformation.
             }
             break;
 
         case TT_LOOKAT:
             {
                 // TODO:
-                // Support this transform.
+                // Support this transformation.
             }
             break;
 
         case TT_SKEW:
-            // TODO:
-            // Support this transform.
-            ToolSystem::SE_DebugOutput("Skew transforms not supported yet");
-            continue;
+            {
+                // TODO:
+                // Support this transformation.
+            }
+            break;
 
         case TT_UNKNOWN:
-            // If it's not a transform, it's an instance or something else 
+            // If it's not a transformation, it's an instance or something else 
             // that will be handled later.
             continue; 
         }

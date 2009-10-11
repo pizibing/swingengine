@@ -340,7 +340,7 @@ Vector3f ColladaScene::GetTransformedVector(float fX, float fY, float fZ)
     Vector3f vec3fRes;
 
     // COLLADA uses right-handed based system, now we only have these three 
-    // situation to deal with. The result vector is a left-handed based 
+    // situations to deal with. The result vector is a left-handed based 
     // Swing Engine vector.
     switch(m_eOrientationMode)
     {
