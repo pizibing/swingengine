@@ -60,18 +60,3 @@ Texture* ColladaMaterial::GetTexture(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-
-SE_IMPLEMENT_RTTI(Swing, ColladaInstanceMaterial, Object);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaInstanceMaterial, Object);
-
-//----------------------------------------------------------------------------
-ColladaInstanceMaterial::ColladaInstanceMaterial()
-{
-    TargetName = "";
-    TargetMaterial = 0;
-}
-//----------------------------------------------------------------------------
-ColladaInstanceMaterial::~ColladaInstanceMaterial()
-{
-}
-//----------------------------------------------------------------------------

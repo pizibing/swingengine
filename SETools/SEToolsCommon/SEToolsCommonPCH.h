@@ -35,6 +35,7 @@
 #include "SEColladaUnimaterialMesh.h"
 #include "SEColladaInstanceLight.h"
 #include "SEColladaInstanceCamera.h"
+#include "SEColladaInstanceMaterial.h"
 
 // Tool System
 #include "SEToolsUtility.h"

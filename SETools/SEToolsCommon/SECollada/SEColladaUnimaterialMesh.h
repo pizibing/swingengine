@@ -84,22 +84,22 @@ public:
 
 private:
     int m_iVCount;
-    Swing::Vector3f* m_aVertex;
-    Swing::Vector3f* m_aNormal;
+    Vector3f* m_aVertex;
+    Vector3f* m_aNormal;
 
     int m_iCCount;
-    Swing::ColorRGB* m_aColor;
+    ColorRGB* m_aColor;
 
     int m_iTCount;
-    Swing::Vector2f* m_aTexture;
+    Vector2f* m_aTexture;
 
     int m_iFCount;
     int* m_aiFace;
     int* m_aiCFace;
     int* m_aiTFace;
 
-    Swing::MaterialStatePtr m_spSEMaterialState;
-    Swing::TexturePtr m_spTState;
+    MaterialStatePtr m_spSEMaterialState;
+    TexturePtr m_spTState;
 };
 
 }

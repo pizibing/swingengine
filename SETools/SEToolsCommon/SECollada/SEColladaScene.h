@@ -31,6 +31,7 @@
 #include "SEColladaUnimaterialMesh.h"
 #include "SEColladaInstanceLight.h"
 #include "SEColladaInstanceCamera.h"
+#include "SEColladaInstanceMaterial.h"
 
 namespace Swing
 {
