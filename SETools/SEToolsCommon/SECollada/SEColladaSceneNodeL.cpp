@@ -203,8 +203,8 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
             break;
 
         case TT_UNKNOWN:
-            // If it's not a transformation, it's an instance or something else 
-            // that will be handled later.
+            // If it's not a transformation, it's an instance or something 
+            // else that will be handled later.
             continue; 
         }
     }
@@ -260,8 +260,25 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
         m_Geometries.push_back(pMeshRoot);
     }
 
-    // TODO:
     // Process instance controllers.
+    domInstance_controller_Array& rInstanceControllerArray = 
+        spDomNode->getInstance_controller_array();
+    int iInstanceControllerCount = (int)rInstanceControllerArray.getCount();
+    for( int i = 0; i < iInstanceControllerCount; i++ )
+    {
+        domInstance_controller* pDomIController = rInstanceControllerArray[i];
+        //CrtInstanceController* instanceController = 
+        //    LoadInstanceController(pDomIController);
+
+        //// If instance controller can not be created, skip to the next one.
+        //if( instanceController==NULL )
+        //    continue;
+
+        //instanceController->Parent = crtNode;
+        //crtNode->InstanceControllers.push_back(instanceController);
+        //ControllerInstances.push_back(instanceController);
+    }
+
 
     // Process instance lights.
     // We should set orientation(position,direction) for spot light,

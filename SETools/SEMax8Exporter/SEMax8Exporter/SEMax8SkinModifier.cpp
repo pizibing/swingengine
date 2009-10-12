@@ -82,7 +82,7 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
         }
     }
 
-    // 为对应Max网格的所有Swing Engine子网格创建蒙皮控制器或蒙皮修改器.
+    // 为对应Max网格的所有Swing Engine子网格创建蒙皮控制器或蒙皮Effect.
     int* aiVerticesPerBone = new int[iBoneCount];
     for( int iM = 0; iM < (int)aSEMeshes.size(); iM++ )
     {
