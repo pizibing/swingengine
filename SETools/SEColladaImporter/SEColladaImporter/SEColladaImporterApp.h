@@ -55,6 +55,7 @@ public:
     Swing::Culler AppCuller;
 
     Swing::NodePtr AppScene;
+    Swing::NodePtr SceneLoaded;
     Swing::WireframeStatePtr AppWireframe;
 
 private:

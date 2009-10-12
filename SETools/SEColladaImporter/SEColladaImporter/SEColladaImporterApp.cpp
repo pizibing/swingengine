@@ -66,6 +66,7 @@ void ColladaImporterApp::CreateScene()
 void ColladaImporterApp::DestroyScene()
 {
     AppScene = 0;
+    SceneLoaded = 0;
     AppWireframe = 0;
 
     SE_DELETE m_pColladaScene;
@@ -74,7 +75,7 @@ void ColladaImporterApp::DestroyScene()
 void ColladaImporterApp::OnSave(const char* acFilename)
 {
     Stream tempOStream;
-    tempOStream.Insert(AppScene);
+    tempOStream.Insert(SceneLoaded);
     tempOStream.Save(acFilename);
 
     int iImageCount = m_pColladaScene->GetImageCount();
@@ -91,7 +92,7 @@ void ColladaImporterApp::OnOpenFile(const char* acFilename)
     Swing::System::SE_Strcpy(m_acFilename, 256, acFilename);
 
     m_pColladaScene->Load(acFilename);
-    Node* pSceneRoot = m_pColladaScene->GetScene();
-    AppScene->AttachChild(pSceneRoot);
+    SceneLoaded = m_pColladaScene->GetScene();
+    AppScene->AttachChild(SceneLoaded);
 }
 //----------------------------------------------------------------------------

@@ -287,6 +287,8 @@ void ColladaScene::ParseGeometry(Node*& rpMeshRoot, domGeometry* pDomGeometry)
     xsID strGeometryID = pDomGeometry->getId();
     rpMeshRoot = SE_NEW Node;
     rpMeshRoot->SetName((const char*)strGeometryID);
+    const size_t uiBufferSize = 64;
+    char acMeshName[uiBufferSize];
 
     // Not sure if we should get primitives by groups or by whatever comes 
     // first, I think it shouldn't matter, let's confirm later.
@@ -312,11 +314,14 @@ void ColladaScene::ParseGeometry(Node*& rpMeshRoot, domGeometry* pDomGeometry)
     int iTrianglesCount = (int)rDomTrianglesArray.getCount();
     for( int i = 0; i < iTrianglesCount; i++ )
     {
-        // Each <triangles> element is a sub mesh of the current geometry,
-        // the sub mesh could has its own material(effect) for rendering.
+        // Each <triangles> element is a sub-mesh of the current geometry,
+        // the sub-mesh could has its own material(effect) for rendering.
         TriMesh* pSubMesh = BuildTriangles(rDomTrianglesArray[i]);
         if( pSubMesh )
         {
+            System::SE_Sprintf(acMeshName, uiBufferSize, "%s_Triangles%d", 
+                (const char*)strGeometryID, i);
+            pSubMesh->SetName(acMeshName);
             rpMeshRoot->AttachChild(pSubMesh);
         }
     }
