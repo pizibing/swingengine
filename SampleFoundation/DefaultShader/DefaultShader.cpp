@@ -153,7 +153,7 @@ void DefaultShader::CreateScene()
     m_spMesh->AttachEffect(pEffect);
 
     Stream tempStream;
-    const char* acPath = System::SE_GetPath("TransformTest1.seof", System::SM_READ);
+    const char* acPath = System::SE_GetPath("boy.seof", System::SM_READ);
     SE_ASSERT( acPath );
     bool bLoaded = tempStream.Load(acPath);
     SE_ASSERT( bLoaded );
