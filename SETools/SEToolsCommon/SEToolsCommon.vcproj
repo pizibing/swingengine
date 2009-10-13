@@ -356,6 +356,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\SECollada\SEColladaInstanceController.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\SECollada\SEColladaInstanceController.h"
+					>
+				</File>
+				<File
 					RelativePath=".\SECollada\SEColladaInstanceLight.cpp"
 					>
 				</File>
@@ -405,6 +413,10 @@
 				</File>
 				<File
 					RelativePath=".\SECollada\SEColladaSceneCameraL.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\SECollada\SEColladaSceneControllerL.cpp"
 					>
 				</File>
 				<File

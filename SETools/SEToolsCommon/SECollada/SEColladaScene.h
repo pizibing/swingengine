@@ -32,6 +32,7 @@
 #include "SEColladaInstanceLight.h"
 #include "SEColladaInstanceCamera.h"
 #include "SEColladaInstanceMaterial.h"
+#include "SEColladaInstanceController.h"
 
 namespace Swing
 {
@@ -164,11 +165,12 @@ private:
     TriMesh* BuildTriangles(domTriangles* pDomTriangles);
     void ParseGeometry(Node*& rpMeshRoot, domGeometry* pDomGeometry);
     Node* LoadGeometry(domGeometryRef spDomGeometry);
-    Node* LoadInstanceGeometry(domInstance_geometryRef splib);
+    Node* LoadInstanceGeometry(domInstance_geometryRef spLib);
     ColladaInstanceMaterial* LoadInstanceMaterial(
-        domInstance_materialRef splib);
+        domInstance_materialRef spLib);
 
-    //Texture* LoadTexture(domTextureRef spDomTexture);
+	Node* LoadInstanceController(domInstance_controllerRef spLib);
+
     //Animation* LoadAnimation(domAnimationRef spDomAnimation);
     //Skin* LoadSkin(domSkinRef spDomSkin);
     //Morph* LoadMorph(domMorphRef spDomMorph);
@@ -206,9 +208,7 @@ private:
     std::vector<NodePtr> m_Geometries;
     std::vector<LightPtr> m_Lights;
     std::vector<CameraPtr> m_Cameras;
-    //std::vector<Texture*> Textures;
-    //std::vector<Shader*> Shaders;
-    //std::vector<Controller*> Controllers;
+    std::vector<ColladaInstanceControllerPtr> m_InstanceControllers;
 
     DAE* m_pDAE;
     ImageConverter* m_pImageConverter;

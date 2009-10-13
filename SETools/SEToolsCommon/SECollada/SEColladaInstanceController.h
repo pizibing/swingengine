@@ -18,30 +18,37 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#ifndef Swing_ToolsCommonPCH_H
-#define Swing_ToolsCommonPCH_H
+#ifndef Swing_ColladaInstanceController_H
+#define Swing_ColladaInstanceController_H
 
-#ifdef SE_USE_PRECOMPILED_HEADERS
-
-// Image
-#include "SEImageConverter.h"
-
-// Collada
-#include "SEColladaScene.h"
-#include "SEColladaEffect.h"
-#include "SEColladaMaterial.h"
-#include "SEColladaAnimation.h"
-#include "SEColladaInputArray.h"
-#include "SEColladaUnimaterialMesh.h"
-#include "SEColladaInstanceLight.h"
-#include "SEColladaInstanceCamera.h"
-#include "SEColladaInstanceMaterial.h"
-#include "SEColladaInstanceController.h"
-
-// Tool System
+#include "SEToolsCommonLIB.h"
 #include "SEToolsUtility.h"
-#include "SEToolSystem.h"
+#include "SEObject.h"
 
-#endif
+namespace Swing
+{
+
+//----------------------------------------------------------------------------
+// Name:COLLADA Instance Controller class
+// Description: A helper class.
+// Author:Sun Che
+// Date:20091013
+//----------------------------------------------------------------------------
+class ColladaInstanceController : public Object
+{
+    SE_DECLARE_RTTI;
+    SE_DECLARE_NAME_ID;
+
+public:
+    ColladaInstanceController(void);
+    ~ColladaInstanceController(void);
+
+    domController* Controller;
+    domNode* SkeletonRoot;
+};
+
+typedef SmartPointer<ColladaInstanceController> ColladaInstanceControllerPtr;
+
+}
 
 #endif

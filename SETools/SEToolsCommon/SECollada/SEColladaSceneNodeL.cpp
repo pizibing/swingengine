@@ -251,7 +251,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     for( int i = 0; i < iInstanceGeometryCount; i++ )
     {
         Node* pMeshRoot = LoadInstanceGeometry(rInstanceGeometryArray[i]);
-        if ( !pMeshRoot )
+        if( !pMeshRoot )
         {
             continue;
         }
@@ -261,31 +261,30 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     }
 
     // Process instance controllers.
+    // Instance controller is similar to instance geometry, a controller
+    // is a skinned geometry instance controlled by a node hierarchy called 
+    // skeleton.
     domInstance_controller_Array& rInstanceControllerArray = 
         spDomNode->getInstance_controller_array();
     int iInstanceControllerCount = (int)rInstanceControllerArray.getCount();
     for( int i = 0; i < iInstanceControllerCount; i++ )
     {
-        domInstance_controller* pDomIController = rInstanceControllerArray[i];
-        //CrtInstanceController* instanceController = 
-        //    LoadInstanceController(pDomIController);
+        Node* pMeshRoot = LoadInstanceController(rInstanceControllerArray[i]);
+        if( !pMeshRoot )
+        {
+            continue;
+        }
 
-        //// If instance controller can not be created, skip to the next one.
-        //if( instanceController==NULL )
-        //    continue;
-
-        //instanceController->Parent = crtNode;
-        //crtNode->InstanceControllers.push_back(instanceController);
-        //ControllerInstances.push_back(instanceController);
+        pNode->AttachChild(pMeshRoot);
+        m_Geometries.push_back(pMeshRoot);
     }
 
 
     // Process instance lights.
-    // We should set orientation(position,direction) for spot light,
-    // and set position for point light base on their parent node's 
-    // orientation. But now we haven't finished building of Swing 
-    // Engine scene graph, so the process of assigning orientation 
-    // is delayed.
+    // We should set orientation(position,direction) for spot light, and set 
+    // position for point light base on their parent node's orientation. But 
+    // now we haven't finished building of Swing Engine scene graph, so the 
+    // process of assigning orientation is delayed.
     domInstance_light_Array& rDomInstanceLightArray = 
         spDomNode->getInstance_light_array();
     int iInstanceLightCount = (int)rDomInstanceLightArray.getCount();
@@ -302,10 +301,9 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     }
 
     // Process instance cameras.
-    // We should set orientation(E,R,U,D) for camera base on its parent
-    // node's orientation. But now we haven't finished building of 
-    // Swing Engine scene graph, so the process of assigning orientation 
-    // is delayed.
+    // We should set orientation(E,R,U,D) for camera base on its parent node's
+    // orientation. But now we haven't finished building of Swing Engine scene
+    // graph, so the process of assigning orientation is delayed.
     domInstance_camera_Array& rDomInstanceCameraArray = 
         spDomNode->getInstance_camera_array();
     int iInstanceCameraCount = (int)rDomInstanceCameraArray.getCount();

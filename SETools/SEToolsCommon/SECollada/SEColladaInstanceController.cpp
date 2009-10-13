@@ -18,30 +18,20 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#ifndef Swing_ToolsCommonPCH_H
-#define Swing_ToolsCommonPCH_H
-
-#ifdef SE_USE_PRECOMPILED_HEADERS
-
-// Image
-#include "SEImageConverter.h"
-
-// Collada
-#include "SEColladaScene.h"
-#include "SEColladaEffect.h"
-#include "SEColladaMaterial.h"
-#include "SEColladaAnimation.h"
-#include "SEColladaInputArray.h"
-#include "SEColladaUnimaterialMesh.h"
-#include "SEColladaInstanceLight.h"
-#include "SEColladaInstanceCamera.h"
-#include "SEColladaInstanceMaterial.h"
+#include "SEToolsCommonPCH.h"
 #include "SEColladaInstanceController.h"
 
-// Tool System
-#include "SEToolsUtility.h"
-#include "SEToolSystem.h"
+using namespace Swing;
 
-#endif
+SE_IMPLEMENT_RTTI(Swing, ColladaInstanceController, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaInstanceController, Object);
 
-#endif
+//----------------------------------------------------------------------------
+ColladaInstanceController::ColladaInstanceController()
+{
+}
+//----------------------------------------------------------------------------
+ColladaInstanceController::~ColladaInstanceController()
+{
+}
+//----------------------------------------------------------------------------

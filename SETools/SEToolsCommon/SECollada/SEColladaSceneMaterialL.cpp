@@ -141,17 +141,17 @@ ColladaMaterial* ColladaScene::LoadMaterial(domMaterialRef spDomMaterial)
 }
 //----------------------------------------------------------------------------
 ColladaInstanceMaterial* ColladaScene::LoadInstanceMaterial(
-    domInstance_materialRef splib)
+    domInstance_materialRef spLib)
 {
     ColladaInstanceMaterial* pInstanceMaterial = 
         SE_NEW ColladaInstanceMaterial;
 
-    xsNCName strSymbol = splib->getSymbol();
-    daeString strTarget = splib->getTarget().getID();
+    xsNCName strSymbol = spLib->getSymbol();
+    daeString strTarget = spLib->getTarget().getID();
     pInstanceMaterial->SetName((const char*)strSymbol);
     pInstanceMaterial->TargetName = (const char*)strTarget;
 
-    domElement* pDomElement = splib->getTarget().getElement();
+    domElement* pDomElement = spLib->getTarget().getElement();
     if( pDomElement )
     {
         // Add or find this material object.

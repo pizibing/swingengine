@@ -420,12 +420,12 @@ Node* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
     return pMeshRoot;
 }
 //----------------------------------------------------------------------------
-Node* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef splib)
+Node* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef spLib)
 {
     // Get all instance materials used by this instance geometry object.
     // Each instance material points to a material object in our material 
     // catalog.
-    domBind_material* pDomBindMaterial =  splib->getBind_material();
+    domBind_material* pDomBindMaterial =  spLib->getBind_material();
     if( pDomBindMaterial )
     {
         // Get the <technique_common> element.
@@ -453,7 +453,7 @@ Node* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef splib)
 
     // Find the <geometry> which the <instance_geometry> is pointing to 
     // (there can be only one) by searching the Geometries list in the scene.
-    xsAnyURI& rUrlType  = splib->getUrl();
+    xsAnyURI& rUrlType  = spLib->getUrl();
     rUrlType.resolveElement();
     domElement* pDomElement = (domElement*)rUrlType.getElement();
 

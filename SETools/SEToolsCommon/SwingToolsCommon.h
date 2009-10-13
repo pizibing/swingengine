@@ -34,6 +34,7 @@
 #include "SEColladaInstanceLight.h"
 #include "SEColladaInstanceCamera.h"
 #include "SEColladaInstanceMaterial.h"
+#include "SEColladaInstanceController.h"
 
 // Tool System
 #include "SEToolsUtility.h"
