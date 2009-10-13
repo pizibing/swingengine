@@ -167,15 +167,15 @@ ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
                     ParseBlinn(pEffect, &tempShaderElements, pDomBlinn);
                 }
 
-                // Hash the newparam elements of the technique for later use.
-                domCommon_newparam_type_Array pDomNewparamArray = 
-                    pDomTechnique->getNewparam_array();
+                // Hash the newparam elements of the profile for later use.
+                domCommon_newparam_type_Array& rDomNewparamArray = 
+                    pDomProfileCommon->getNewparam_array();
                 std::map<std::string, domCommon_newparam_type*> tempNewParams;
-                int iNewParamCount = (int)pDomNewparamArray.getCount();
+                int iNewParamCount = (int)rDomNewparamArray.getCount();
                 for( int j = 0; j < iNewParamCount; j++ )
                 {
-                    xsNCName strNewParamSID = pDomNewparamArray[j]->getSid();
-                    tempNewParams[strNewParamSID] = pDomNewparamArray[j];
+                    xsNCName strNewParamSID = rDomNewparamArray[j]->getSid();
+                    tempNewParams[strNewParamSID] = rDomNewparamArray[j];
                 }
                 
                 // TODO: 
