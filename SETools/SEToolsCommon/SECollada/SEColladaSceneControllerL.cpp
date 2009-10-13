@@ -26,10 +26,6 @@ using namespace Swing;
 //----------------------------------------------------------------------------
 Node* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
 {
-	ColladaInstanceController* pIController = 
-		SE_NEW ColladaInstanceController;
-	m_InstanceControllers.push_back(pIController);
-
     // Get all instance materials used by this instance controller object.
     // Each instance material points to a material object in our material 
     // catalog.
@@ -59,30 +55,106 @@ Node* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
         }
     }
 
-	// Try to find the controller that encapsulates the geometry object.
-	xsAnyURI& rUrlType  = spLib->getUrl();
-	domElement* pDomElement = rUrlType.getElement();
-	domController* pDomController = (domController*)pDomElement;
-	pIController->Controller = pDomController;
+    // Create a instance controller to hold the relationship between the 
+    // geometry and the controller.
+    ColladaInstanceController* pIController = 
+        SE_NEW ColladaInstanceController;
 
-	// Try to find the skeleton root that will be used to control the 
-	// geometry object. There could be more than one skeleton root, but 
-	// for now we just support one.
-	domInstance_controller::domSkeleton_Array& rDomSkeletonArray = 
-		spLib->getSkeleton_array();
-	if( rDomSkeletonArray.getCount() > 1 )
-	{
-		ToolSystem::SE_DebugOutput("There are more than one skeleton");
-	}
-	if( rDomSkeletonArray.getCount() > 0 )
-	{
-		domNode* pDomSkeletonRoot = 
-			(domNode*)(domElement*)rDomSkeletonArray[0]->getValue(
-			).getElement();
+    // Find the controller that encapsulates the geometry object.
+    // Then load the geometry object.
+    xsAnyURI& rUrlType = spLib->getUrl();
+    domElement* pDomElement = rUrlType.getElement();
+    domController* pDomController = (domController*)pDomElement;
+    Node* pMeshRoot = 0;
+    if( pDomController )
+    {
+        pIController->Controller = pDomController;
 
-		pIController->SkeletonRoot = pDomSkeletonRoot;
-	}
+        // There are two kinds of controller in COLLADA(<skin> and <morph>).
+        // Each one of them has a source attribute that points to the 
+        // geometry object. So the controller must be one of these two cases.
 
-	return 0;
+        domElement* pDomSource = 0;
+        domSkin* pDomSkin = pDomController->getSkin();
+        domMorph* pDomMorph = pDomController->getMorph();
+        if( pDomSkin )
+        {
+            pDomSource = pDomSkin->getSource().getElement();
+            if( !pDomSource )
+            {
+                // Skin source not found.
+                SE_ASSERT( false );
+                SE_DELETE pIController;
+                return 0;
+            }
+
+            if( pDomSource->getElementType() != COLLADA_TYPE::GEOMETRY )
+            {   
+                // Skin source is not geometry.
+                SE_ASSERT( false );
+                SE_DELETE pIController;
+                return 0;
+            }
+
+            // Load the geometry.
+            pMeshRoot = LoadGeometry((domGeometry*)pDomSource);
+            if( !pMeshRoot )	
+            {		
+                // Target geometry is not found.
+                SE_ASSERT( false );
+                SE_DELETE pIController;
+                return 0;
+            }
+        }
+        else if( pDomMorph )
+        {
+            pDomSource = pDomMorph->getSource().getElement();
+            if( !pDomSource )
+            {
+                // Morph source not found.
+                SE_ASSERT( false );
+                SE_DELETE pIController;
+                return 0;
+            }
+
+            // Load the geometry.
+            pMeshRoot = LoadGeometry((domGeometry*)pDomSource);
+            if( !pMeshRoot )	
+            {		
+                // Target geometry is not found.
+                SE_ASSERT( false );
+                SE_DELETE pIController;
+                return 0;
+            }
+        }
+    }
+    else
+    {
+        SE_ASSERT( false );
+        SE_DELETE pIController;
+        return 0;
+    }
+
+    // Try to find the skeleton root that will be used to control the 
+    // geometry object. There could be more than one skeleton root, but 
+    // for now we just support one.
+    domInstance_controller::domSkeleton_Array& rDomSkeletonArray = 
+        spLib->getSkeleton_array();
+    if( rDomSkeletonArray.getCount() > 1 )
+    {
+        ToolSystem::SE_DebugOutput("There are more than one skeleton");
+    }
+    if( rDomSkeletonArray.getCount() > 0 )
+    {
+        domNode* pDomSkeletonRoot = 
+            (domNode*)(domElement*)rDomSkeletonArray[0]->getValue(
+            ).getElement();
+
+        pIController->SkeletonRoot = pDomSkeletonRoot;
+    }
+
+    m_InstanceControllers.push_back(pIController);
+
+    return pMeshRoot;
 }
 //----------------------------------------------------------------------------
