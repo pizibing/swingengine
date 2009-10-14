@@ -83,8 +83,8 @@ void MultitextureEffect::Configure()
 {
     if( m_iTextureCount == 1 )
     {
-        m_VShader[0] = SE_NEW VertexShader("Texture");
-        m_PShader[0] = SE_NEW PixelShader("Texture");
+        m_VShader[0] = SE_NEW VertexShader("Texture.v_Texture");
+        m_PShader[0] = SE_NEW PixelShader("Texture.p_Texture");
         m_PShader[0]->SetTextureCount(1);
         m_PShader[0]->SetImageName(0, m_aImageName[0]);
 

@@ -38,8 +38,10 @@ TerrainEffect::TerrainEffect(const char* acBaseName,
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("BaseMulDetailFogExpSqr");
-    m_PShader[0] = SE_NEW PixelShader("BaseMulDetailFogExpSqr");
+    m_VShader[0] = SE_NEW VertexShader(
+        "BaseMulDetailFogExpSqr.v_BaseMulDetailFogExpSqr");
+    m_PShader[0] = SE_NEW PixelShader(
+        "BaseMulDetailFogExpSqr.p_BaseMulDetailFogExpSqr");
 
     m_PShader[0]->SetTextureCount(2);
     m_PShader[0]->SetImageName(0, acBaseName);

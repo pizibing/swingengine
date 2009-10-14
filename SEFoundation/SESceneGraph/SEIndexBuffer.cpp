@@ -109,7 +109,7 @@ int IndexBuffer::GetDiskUsed(const StreamVersion& rVersion) const
         m_iICount*sizeof(m_pIndex[0]);
 }
 //----------------------------------------------------------------------------
-StringTree* IndexBuffer::SaveStrings(const char* pTitle)
+StringTree* IndexBuffer::SaveStrings(const char*)
 {
     StringTree* pTree = SE_NEW StringTree;
 
@@ -119,7 +119,7 @@ StringTree* IndexBuffer::SaveStrings(const char* pTitle)
     // children
     pTree->Append(Object::SaveStrings());
     // this is very slow.
-    pTree->Append(Format(pTitle, m_iICount, m_pIndex));
+    //pTree->Append(Format(pTitle, m_iICount, m_pIndex));
 
     return pTree;
 }
