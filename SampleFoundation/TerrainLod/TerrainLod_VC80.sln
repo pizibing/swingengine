@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TerrainLod_VC80", "TerrainLod_VC80.vcproj", "{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Dx10 Debug|Win32 = Dx10 Debug|Win32
+		Dx9 Debug|Win32 = Dx9 Debug|Win32
+		Dx9 Release|Win32 = Dx9 Release|Win32
+		Wgl Debug|Win32 = Wgl Debug|Win32
+		Wgl Release|Win32 = Wgl Release|Win32
+		WglES2 Debug|Win32 = WglES2 Debug|Win32
+		WglES2 Release|Win32 = WglES2 Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Dx10 Debug|Win32.ActiveCfg = Dx10 Debug|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Dx10 Debug|Win32.Build.0 = Dx10 Debug|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Dx9 Debug|Win32.ActiveCfg = Dx9 Debug|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Dx9 Debug|Win32.Build.0 = Dx9 Debug|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Dx9 Release|Win32.ActiveCfg = Dx9 Release|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Dx9 Release|Win32.Build.0 = Dx9 Release|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Wgl Debug|Win32.ActiveCfg = Wgl Debug|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Wgl Debug|Win32.Build.0 = Wgl Debug|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Wgl Release|Win32.ActiveCfg = Wgl Release|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Wgl Release|Win32.Build.0 = Wgl Release|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.WglES2 Debug|Win32.ActiveCfg = WglES2 Debug|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.WglES2 Debug|Win32.Build.0 = WglES2 Debug|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.WglES2 Release|Win32.ActiveCfg = WglES2 Release|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.WglES2 Release|Win32.Build.0 = WglES2 Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
