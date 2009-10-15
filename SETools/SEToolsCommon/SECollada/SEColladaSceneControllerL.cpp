@@ -156,8 +156,197 @@ Node* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
     return pMeshRoot;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::ProcessSkin(ColladaInstanceController*)
+void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
 {
+    SE_ASSERT( pIController );
+
+    Node* pMeshRoot = pIController->GetMeshRoot();
+    domController* pDomController = pIController->GetController();
+    domNode* pDomSkeletonRoot = pIController->GetSkeletonRoot();
+    SE_ASSERT( pMeshRoot && pDomController && pDomSkeletonRoot );
+
+    // Get COLLADA skinned geometry.
+    domSkin* pDomSkin = pDomController->getSkin();
+    SE_ASSERT( pDomSkin );
+    domGeometry* pDomGeometry = 
+        (domGeometry*)(domElement*)pDomSkin->getSource().getElement();
+    SE_ASSERT( pDomGeometry );
+
+    // Get COLLADA skinned geometry's position data.
+    domMesh* pDomMesh = pDomGeometry->getMesh();
+    SE_ASSERT( pDomMesh );
+    domVertices* pDomVertices = pDomMesh->getVertices();
+    SE_ASSERT( pDomVertices );
+    domListOfFloats* pDomPositionData = 0;
+    domInputLocal_Array& rDomVerticesInputs = pDomVertices->getInput_array();
+    for( int i = 0; i < (int)rDomVerticesInputs.getCount(); i++ )
+    {
+        domSource* pDomSource = 
+            (domSource*)(domElement*)rDomVerticesInputs[i]->getSource(
+            ).getElement();
+
+        xsNMTOKEN strSemantic = rDomVerticesInputs[i]->getSemantic();
+        if( strcmp("POSITION", strSemantic) == 0 )
+        {
+            pDomPositionData = &pDomSource->getFloat_array()->getValue();
+            break;
+        }
+    }
+    SE_ASSERT( pDomPositionData );
+
+    // Get COLLADA JOINT source and INV_BIND_MATRIX source.
+    domSkin::domJoints* pDomJoints = pDomSkin->getJoints();
+    domInputLocal_Array& rDomJointsInputs = pDomJoints->getInput_array();
+    domSource* pDomJointSource = 0;
+    domSource* pDomIBMatrixSource = 0;
+    for( int i = 0; i < (int)rDomJointsInputs.getCount(); i++ )
+    {
+        domSource* pDomSource = 
+            (domSource*)(domElement*)rDomJointsInputs[i]->getSource(
+            ).getElement();
+
+        xsNMTOKEN strSemantic = rDomJointsInputs[i]->getSemantic();
+        if( strcmp("JOINT", strSemantic) == 0 )
+        {
+            pDomJointSource = pDomSource;
+        }
+        else if( strcmp("INV_BIND_MATRIX", strSemantic) == 0 )
+        {
+            pDomIBMatrixSource = pDomSource;
+        }
+    }
+    SE_ASSERT( pDomJointSource && pDomIBMatrixSource );
+
+    // Get COLLADA WEIGHT source.
+    domSkin::domVertex_weights* pDomVertexWeights = 
+        pDomSkin->getVertex_weights();
+    domInputLocalOffset_Array& rDomVertexWeightsInputs = 
+        pDomVertexWeights->getInput_array();
+    domSource* pDomWeightsSource = 0;
+    for( int i = 0; i < (int)rDomVertexWeightsInputs.getCount(); i++ )
+    {
+        domSource* pDomSource = 
+            (domSource*)(domElement*)rDomVertexWeightsInputs[i]->getSource(
+            ).getElement();
+
+        xsNMTOKEN strSemantic = rDomVertexWeightsInputs[i]->getSemantic();
+        if( strcmp("WEIGHT", strSemantic) == 0 )
+        {
+            pDomWeightsSource = pDomSource;
+        }
+    }
+
+    // Get all bone nodes applied to the mesh from Swing Engine scene graph.
+    // There are two cases here:
+    // (1) If we got a COLLADA <name_array>, then we should use SID as the key
+    //     for searching.
+    // (2) If we got a COLLADA <IDREF_array>, then we should use ID as the key
+    //     for searching.
+    domName_array* pDomNameArray = pDomJointSource->getName_array();
+    domIDREF_array* pDomIDREFArray = pDomJointSource->getIDREF_array();
+    int iBoneCount = 0;
+    Node** apSEBones = 0;
+    if( pDomNameArray )
+    {
+        // TODO:
+        // Support SID case.
+        iBoneCount = (int)pDomNameArray->getCount();
+    }
+    else if( pDomIDREFArray )
+    {
+        iBoneCount = (int)pDomIDREFArray->getCount();
+        apSEBones = SE_NEW Node*[iBoneCount];
+
+        for( int iB = 0; iB < iBoneCount; iB++ )
+        {
+            const char* acBoneName = 
+                (const char*)pDomIDREFArray->getValue()[iB].getID();
+
+            Object* pBone = m_spSceneRoot->GetObjectByName(acBoneName);
+            SE_ASSERT( pBone );
+            apSEBones[iB] = StaticCast<Node>(pBone);
+        }
+    }
+    else
+    {
+        // Should never go to here.
+        SE_ASSERT( false );
+    }
+
+    // Get all inverse binding matrices applied to the mesh.
+    Transformation* apOffset = SE_NEW Transformation[iBoneCount];
+    domListOfFloats* pDomIBMatrixData = &pDomIBMatrixSource->getFloat_array(
+        )->getValue();
+    for( int iB = 0; iB < iBoneCount; iB++ )
+    {
+        int iBase = 16*iB;
+
+        float fM00, fM01, fM02, fM10, fM11, fM12, fM20, fM21, fM22;
+        fM00 = (float)(*pDomIBMatrixData)[iBase     ];
+        fM01 = (float)(*pDomIBMatrixData)[iBase +  1];
+        fM02 = (float)(*pDomIBMatrixData)[iBase +  2];
+        fM10 = (float)(*pDomIBMatrixData)[iBase +  4];
+        fM11 = (float)(*pDomIBMatrixData)[iBase +  5];
+        fM12 = (float)(*pDomIBMatrixData)[iBase +  6];
+        fM20 = (float)(*pDomIBMatrixData)[iBase +  8];
+        fM21 = (float)(*pDomIBMatrixData)[iBase +  9];
+        fM22 = (float)(*pDomIBMatrixData)[iBase + 10];
+
+        Vector3f vec3fRow0, vec3fRow1, vec3fRow2;
+        vec3fRow0 = GetTransformedVector(fM00, fM01, fM02);
+        vec3fRow1 = GetTransformedVector(fM10, fM11, fM12);
+        vec3fRow2 = GetTransformedVector(fM20, fM21, fM22);
+
+        Matrix3f mat3fM(vec3fRow0, vec3fRow1, vec3fRow2);
+
+        float fT0, fT1, fT2;
+        fT0 = (float)(*pDomIBMatrixData)[iBase +  3];
+        fT1 = (float)(*pDomIBMatrixData)[iBase +  7];
+        fT2 = (float)(*pDomIBMatrixData)[iBase + 11];
+
+        Vector3f vec3fT = GetTransformedVector(fT0, fT1, fT2);
+
+        apOffset[iB].SetMatrix(mat3fM);
+        apOffset[iB].SetTranslate(vec3fT);
+    }
+
+    // Create skin effect for each sub-mesh.
+    int iVertexCount = (int)pDomPositionData->getCount()/3;
+    for( int i = 0; i < pMeshRoot->GetCount(); i++ )
+    {
+        TriMesh* pSubMesh = StaticCast<TriMesh>(pMeshRoot->GetChild(i));
+
+        int iActiveVertexCount = pSubMesh->VBuffer->GetVertexCount();
+        std::vector<int> tempVIArray;
+        int iAV, iV;
+        for( iAV = 0; iAV < iActiveVertexCount; iAV++ )
+        {
+            for( iV = 0; iV < iVertexCount; iV++ )
+            {
+                float fX, fY, fZ;
+                fX = (float)(*pDomPositionData)[3*iV    ];
+                fY = (float)(*pDomPositionData)[3*iV + 1];
+                fZ = (float)(*pDomPositionData)[3*iV + 2];
+                Vector3f vec3fCurPos = GetTransformedVector(fX, fY, fZ);
+
+                if( vec3fCurPos.X == 
+                    (*(Vector3f*)pSubMesh->VBuffer->PositionTuple(iAV)).X
+                &&  vec3fCurPos.Y == 
+                    (*(Vector3f*)pSubMesh->VBuffer->PositionTuple(iAV)).Z
+                &&  vec3fCurPos.Z == 
+                    (*(Vector3f*)pSubMesh->VBuffer->PositionTuple(iAV)).Y )
+                {
+                    tempVIArray.push_back(iV);
+                    break;
+                }
+            }
+        }
+    }
+
+    if( apSEBones )
+    {
+        SE_DELETE[] apSEBones;
+    }
 }
 //----------------------------------------------------------------------------
 void ColladaScene::ProcessMorph(ColladaInstanceController*)
