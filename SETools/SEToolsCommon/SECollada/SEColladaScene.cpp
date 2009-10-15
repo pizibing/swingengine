@@ -113,6 +113,7 @@ void ColladaScene::Load(const char* acFilename)
         LoadAnimationLibrary(pDom->getLibrary_animations_array()[i] );			
     }
 
+    // Swing Engine scene graph creation pass.
     // Find the scene we want and load it.
     domCOLLADA::domSceneRef spDomScene = pDom->getScene();
     daeElement* pDefaultScene = 0;
@@ -129,6 +130,11 @@ void ColladaScene::Load(const char* acFilename)
     {
         LoadScene((domVisual_scene*)pDefaultScene);
     }
+
+    // Apply all the controllers to the scene graph.
+    // TODO:
+    // Impliment controller option.
+    ApplyControllers();
 }
 //----------------------------------------------------------------------------
 Node* ColladaScene::GetScene()
@@ -401,5 +407,24 @@ bool ColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
     m_spSceneRoot->UpdateGS();
 
     return true;
+}
+//----------------------------------------------------------------------------
+void ColladaScene::ApplyControllers()
+{
+    int iInstanceControllerCount = (int)m_InstanceControllers.size();
+    for( int i = 0; i < iInstanceControllerCount; i++ )
+    {
+        ColladaInstanceController* pIController = m_InstanceControllers[i];
+        ColladaInstanceController::ControllerType eControllerType = 
+            pIController->GetControllerType();
+        if( eControllerType == ColladaInstanceController::CT_SKIN )
+        {
+            ProcessSkin(pIController);
+        }
+        else if( eControllerType == ColladaInstanceController::CT_MORPH )
+        {
+            ProcessMorph(pIController);
+        }
+    }
 }
 //----------------------------------------------------------------------------

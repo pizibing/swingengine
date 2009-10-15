@@ -57,8 +57,9 @@ Node* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
 
     // Create a instance controller to hold the relationship between the 
     // geometry and the controller.
-    ColladaInstanceController* pIController = 
-        SE_NEW ColladaInstanceController;
+    ColladaInstanceController* pIController = 0;
+    ColladaInstanceController::ControllerType eControllerType = 
+        ColladaInstanceController::CT_UNKNOWN;
 
     // Find the controller that encapsulates the geometry object.
     // Then load the geometry object.
@@ -68,8 +69,6 @@ Node* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
     Node* pMeshRoot = 0;
     if( pDomController )
     {
-        pIController->Controller = pDomController;
-
         // There are two kinds of controller in COLLADA(<skin> and <morph>).
         // Each one of them has a source attribute that points to the 
         // geometry object. So the controller must be one of these two cases.
@@ -84,7 +83,6 @@ Node* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
             {
                 // Skin source not found.
                 SE_ASSERT( false );
-                SE_DELETE pIController;
                 return 0;
             }
 
@@ -92,7 +90,6 @@ Node* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
             {   
                 // Skin source is not geometry.
                 SE_ASSERT( false );
-                SE_DELETE pIController;
                 return 0;
             }
 
@@ -102,9 +99,10 @@ Node* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
             {		
                 // Target geometry is not found.
                 SE_ASSERT( false );
-                SE_DELETE pIController;
                 return 0;
             }
+
+            eControllerType = ColladaInstanceController::CT_SKIN;
         }
         else if( pDomMorph )
         {
@@ -113,7 +111,6 @@ Node* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
             {
                 // Morph source not found.
                 SE_ASSERT( false );
-                SE_DELETE pIController;
                 return 0;
             }
 
@@ -123,15 +120,15 @@ Node* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
             {		
                 // Target geometry is not found.
                 SE_ASSERT( false );
-                SE_DELETE pIController;
                 return 0;
             }
+
+            eControllerType = ColladaInstanceController::CT_MORPH;
         }
     }
     else
     {
         SE_ASSERT( false );
-        SE_DELETE pIController;
         return 0;
     }
 
@@ -140,21 +137,30 @@ Node* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
     // for now we just support one.
     domInstance_controller::domSkeleton_Array& rDomSkeletonArray = 
         spLib->getSkeleton_array();
+    domNode* pDomSkeletonRoot = 0;
     if( rDomSkeletonArray.getCount() > 1 )
     {
         ToolSystem::SE_DebugOutput("There are more than one skeleton");
     }
     if( rDomSkeletonArray.getCount() > 0 )
     {
-        domNode* pDomSkeletonRoot = 
+        pDomSkeletonRoot = 
             (domNode*)(domElement*)rDomSkeletonArray[0]->getValue(
             ).getElement();
-
-        pIController->SkeletonRoot = pDomSkeletonRoot;
     }
 
+    pIController = SE_NEW ColladaInstanceController(eControllerType,
+        pDomController, pDomSkeletonRoot, pMeshRoot);
     m_InstanceControllers.push_back(pIController);
 
     return pMeshRoot;
+}
+//----------------------------------------------------------------------------
+void ColladaScene::ProcessSkin(ColladaInstanceController*)
+{
+}
+//----------------------------------------------------------------------------
+void ColladaScene::ProcessMorph(ColladaInstanceController*)
+{
 }
 //----------------------------------------------------------------------------

@@ -27,11 +27,41 @@ SE_IMPLEMENT_RTTI(Swing, ColladaInstanceController, Object);
 SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaInstanceController, Object);
 
 //----------------------------------------------------------------------------
+ColladaInstanceController::ColladaInstanceController(ControllerType eType,
+    domController* pController, domNode* pSkeletonRoot, Node* pMeshRoot)
+{
+    m_eControllerType = eType;
+    m_pController = pController;
+    m_pSkeletonRoot = pSkeletonRoot;
+    m_pMeshRoot = pMeshRoot;
+}
+//----------------------------------------------------------------------------
 ColladaInstanceController::ColladaInstanceController()
 {
 }
 //----------------------------------------------------------------------------
 ColladaInstanceController::~ColladaInstanceController()
 {
+}
+//----------------------------------------------------------------------------
+ColladaInstanceController::ControllerType 
+ColladaInstanceController::GetControllerType() const
+{
+    return m_eControllerType;
+}
+//----------------------------------------------------------------------------
+domController* ColladaInstanceController::GetController()
+{
+    return m_pController;
+}
+//----------------------------------------------------------------------------
+domNode* ColladaInstanceController::GetSkeletonRoot()
+{
+    return m_pSkeletonRoot;
+}
+//----------------------------------------------------------------------------
+Node* ColladaInstanceController::GetMeshRoot()
+{
+    return m_pMeshRoot;
 }
 //----------------------------------------------------------------------------

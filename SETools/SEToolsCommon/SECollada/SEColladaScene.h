@@ -197,6 +197,10 @@ private:
 
     bool LoadScene(domVisual_sceneRef spDomVisualScene);
 
+    void ApplyControllers(void);
+    void ProcessSkin(ColladaInstanceController* pIController);
+    void ProcessMorph(ColladaInstanceController* pIController);
+
     std::vector<ImagePtr> m_Images;
     std::vector<ColladaEffectPtr> m_Effects;
     std::vector<ColladaMaterialPtr> m_Materials;

@@ -24,6 +24,7 @@
 #include "SEToolsCommonLIB.h"
 #include "SEToolsUtility.h"
 #include "SEObject.h"
+#include "SENode.h"
 
 namespace Swing
 {
@@ -40,11 +41,30 @@ class ColladaInstanceController : public Object
     SE_DECLARE_NAME_ID;
 
 public:
-    ColladaInstanceController(void);
+    enum ControllerType
+	{
+		CT_SKIN,
+		CT_MORPH,
+        CT_UNKNOWN
+	};
+
+    ColladaInstanceController(ControllerType eType, domController* pController, 
+        domNode* pSkeletonRoot, Node* pMeshRoot);
     ~ColladaInstanceController(void);
 
-    domController* Controller;
-    domNode* SkeletonRoot;
+    // Member access.
+    ControllerType GetControllerType(void) const;
+    domController* GetController(void);
+    domNode* GetSkeletonRoot(void);
+    Node* GetMeshRoot(void);
+
+private:
+    ColladaInstanceController(void);
+
+    ControllerType m_eControllerType;
+    domController* m_pController;
+    domNode* m_pSkeletonRoot;
+    Node* m_pMeshRoot;
 };
 
 typedef SmartPointer<ColladaInstanceController> ColladaInstanceControllerPtr;

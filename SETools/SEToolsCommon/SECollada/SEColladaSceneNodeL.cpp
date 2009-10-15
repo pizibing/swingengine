@@ -261,9 +261,13 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     }
 
     // Process instance controllers.
-    // Instance controller is similar to instance geometry, a controller
-    // is a skinned geometry instance controlled by a node hierarchy called 
-    // skeleton.
+    // Instance controller is similar to instance geometry. A skin controller
+    // is a skinned geometry controlled by a node hierarchy called skeleton.
+    // We should set bone index, bone weight, and skeleton node reference for
+    // skinned geometry. But now we haven't finished building of Swing Engine
+    // scene graph, so the process of assigning skinning data is delayed.
+    // TODO:
+    // Support morph controller.
     domInstance_controller_Array& rInstanceControllerArray = 
         spDomNode->getInstance_controller_array();
     int iInstanceControllerCount = (int)rInstanceControllerArray.getCount();
