@@ -116,6 +116,28 @@ public:
     Camera* ColladaScene::GetCamera(const char* acName);
 
 private:
+    class BoneWeight
+    {
+    public:
+        BoneWeight(void)
+        {
+            BoneID = -1;
+            Weight = 0.0f;
+        }
+
+        bool operator == (const BoneWeight& rBoneWeight) const
+        {
+            return Weight == rBoneWeight.Weight;
+        }
+        bool operator < (const BoneWeight& rBoneWeight) const
+		{
+            return Weight < rBoneWeight.Weight;
+		}
+
+        int BoneID;
+        float Weight;
+    };
+
     // Triangulation.
     unsigned int GetMaxOffset(domInputLocalOffset_Array& rInputArray);
     void CreateTrianglesFromPolygons(domMesh* pDomMesh, 

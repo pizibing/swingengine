@@ -194,6 +194,9 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
     }
     SE_ASSERT( pDomPositionData );
 
+    // How many vertices are there in the COLLADA mesh's position source?
+    int iVertexCount = (int)pDomPositionData->getCount()/3;
+
     // Get COLLADA JOINT source and INV_BIND_MATRIX source.
     domSkin::domJoints* pDomJoints = pDomSkin->getJoints();
     domInputLocal_Array& rDomJointsInputs = pDomJoints->getInput_array();
@@ -217,12 +220,15 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
     }
     SE_ASSERT( pDomJointSource && pDomIBMatrixSource );
 
-    // Get COLLADA WEIGHT source.
+    // Get COLLADA WEIGHT source/data, JOINT offset, and WEIGHT offset.
     domSkin::domVertex_weights* pDomVertexWeights = 
         pDomSkin->getVertex_weights();
     domInputLocalOffset_Array& rDomVertexWeightsInputs = 
         pDomVertexWeights->getInput_array();
     domSource* pDomWeightsSource = 0;
+    domListOfFloats* pDomWeightsData = 0;
+    int iJointOffset = -1;
+    int iWeightOffset = -1;
     for( int i = 0; i < (int)rDomVertexWeightsInputs.getCount(); i++ )
     {
         domSource* pDomSource = 
@@ -230,14 +236,21 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
             ).getElement();
 
         xsNMTOKEN strSemantic = rDomVertexWeightsInputs[i]->getSemantic();
-        if( strcmp("WEIGHT", strSemantic) == 0 )
+        if( strcmp("JOINT", strSemantic) == 0 )
+        {
+            iJointOffset = (int)rDomVertexWeightsInputs[i]->getOffset();
+        }
+        else if( strcmp("WEIGHT", strSemantic) == 0 )
         {
             pDomWeightsSource = pDomSource;
+            iWeightOffset = (int)rDomVertexWeightsInputs[i]->getOffset();
         }
     }
+    SE_ASSERT( pDomWeightsSource && iJointOffset > -1 && iWeightOffset > -1 );
+    pDomWeightsData = &pDomWeightsSource->getFloat_array()->getValue();
 
     // Get all bone nodes applied to the mesh from Swing Engine scene graph.
-    // There are two cases here:
+    // There are two cases:
     // (1) If we got a COLLADA <name_array>, then we should use SID as the key
     //     for searching.
     // (2) If we got a COLLADA <IDREF_array>, then we should use ID as the key
@@ -274,7 +287,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
     }
 
     // Get all inverse binding matrices applied to the mesh.
-    Transformation* apOffset = SE_NEW Transformation[iBoneCount];
+    Transformation* aOffset = SE_NEW Transformation[iBoneCount];
     domListOfFloats* pDomIBMatrixData = &pDomIBMatrixSource->getFloat_array(
         )->getValue();
     for( int iB = 0; iB < iBoneCount; iB++ )
@@ -306,16 +319,43 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
 
         Vector3f vec3fT = GetTransformedVector(fT0, fT1, fT2);
 
-        apOffset[iB].SetMatrix(mat3fM);
-        apOffset[iB].SetTranslate(vec3fT);
+        aOffset[iB].SetMatrix(mat3fM);
+        aOffset[iB].SetTranslate(vec3fT);
+    }
+
+    // Get vertex's bone weights table.
+    int iVertexWeightsCount = (int)pDomVertexWeights->getCount();
+    SE_ASSERT( iVertexWeightsCount == iVertexCount );
+    domSkin::domVertex_weights::domVcount* pDomVCount = 
+        pDomVertexWeights->getVcount();
+    domSkin::domVertex_weights::domV* pDomV = pDomVertexWeights->getV();
+    domListOfUInts& rDomVCountData = pDomVCount->getValue();
+    domListOfInts& rDomVData = pDomV->getValue();
+    std::vector<BoneWeight>* aBWArray = 
+        SE_NEW std::vector<BoneWeight>[iVertexWeightsCount];
+    int iCurVBase = 0;
+    for( int i = 0; i < iVertexWeightsCount; i++ )
+    {
+        // For each vertex, get its bones index and bone weights.
+        int iVertexBoneCount = (int)rDomVCountData[i];
+        for( int j = 0; j < iVertexBoneCount; j++ )
+        {
+            BoneWeight tempBW;
+            tempBW.BoneID = (int)rDomVData[iCurVBase + iJointOffset];
+            int iWeightID = (int)rDomVData[iCurVBase + iWeightOffset];
+            tempBW.Weight = (float)(*pDomWeightsData)[iWeightID];
+
+            aBWArray[i].push_back(tempBW);
+            iCurVBase += 2;
+        }
     }
 
     // Create skin effect for each sub-mesh.
-    int iVertexCount = (int)pDomPositionData->getCount()/3;
     for( int i = 0; i < pMeshRoot->GetCount(); i++ )
     {
         TriMesh* pSubMesh = StaticCast<TriMesh>(pMeshRoot->GetChild(i));
 
+        // Get all vertex indices used by this sub-mesh.
         int iActiveVertexCount = pSubMesh->VBuffer->GetVertexCount();
         std::vector<int> tempVIArray;
         int iAV, iV;
@@ -324,9 +364,10 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
             for( iV = 0; iV < iVertexCount; iV++ )
             {
                 float fX, fY, fZ;
-                fX = (float)(*pDomPositionData)[3*iV    ];
-                fY = (float)(*pDomPositionData)[3*iV + 1];
-                fZ = (float)(*pDomPositionData)[3*iV + 2];
+                int iBase = 3*iV;
+                fX = (float)(*pDomPositionData)[iBase    ];
+                fY = (float)(*pDomPositionData)[iBase + 1];
+                fZ = (float)(*pDomPositionData)[iBase + 2];
                 Vector3f vec3fCurPos = GetTransformedVector(fX, fY, fZ);
 
                 if( vec3fCurPos.X == 
@@ -347,6 +388,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
     {
         SE_DELETE[] apSEBones;
     }
+    SE_DELETE[] aBWArray;
 }
 //----------------------------------------------------------------------------
 void ColladaScene::ProcessMorph(ColladaInstanceController*)
