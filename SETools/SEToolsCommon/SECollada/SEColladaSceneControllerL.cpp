@@ -258,7 +258,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
     domName_array* pDomNameArray = pDomJointSource->getName_array();
     domIDREF_array* pDomIDREFArray = pDomJointSource->getIDREF_array();
     int iBoneCount = 0;
-    Node** apSEBones = 0;
+    Node** apBones = 0;
     if( pDomNameArray )
     {
         // TODO:
@@ -268,7 +268,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
     else if( pDomIDREFArray )
     {
         iBoneCount = (int)pDomIDREFArray->getCount();
-        apSEBones = SE_NEW Node*[iBoneCount];
+        apBones = SE_NEW Node*[iBoneCount];
 
         for( int iB = 0; iB < iBoneCount; iB++ )
         {
@@ -278,7 +278,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
             // Try to find this bone node in Swing Engine scene graph.
             Object* pBone = m_spSceneRoot->GetObjectByName(acBoneName);
             SE_ASSERT( pBone );
-            apSEBones[iB] = StaticCast<Node>(pBone);
+            apBones[iB] = StaticCast<Node>(pBone);
         }
     }
     else
@@ -288,7 +288,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
     }
 
     // Get all inverse binding matrices applied to the mesh.
-    Transformation* aOffset = SE_NEW Transformation[iBoneCount];
+    Transformation* aOffsets = SE_NEW Transformation[iBoneCount];
     domListOfFloats* pDomIBMatrixData = &pDomIBMatrixSource->getFloat_array(
         )->getValue();
     for( int iB = 0; iB < iBoneCount; iB++ )
@@ -321,8 +321,8 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
         Vector3f vec3fT = GetTransformedVector(fT0, fT1, fT2);
 
         // Maybe MT form is enough for our usage.
-        aOffset[iB].SetMatrix(mat3fM);
-        aOffset[iB].SetTranslate(vec3fT);
+        aOffsets[iB].SetMatrix(mat3fM);
+        aOffsets[iB].SetTranslate(vec3fT);
     }
 
     // Get vertex's bone weights table.
@@ -443,23 +443,25 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
             continue;
         }
 
-        // Create active bone array for skin effect.
-        Node** apSEActiveBones = SE_NEW Node*[iActiveBoneCount];
+        // Create active bone nodes array and offsets array for skin effect.
+        Node** apActiveBones = SE_NEW Node*[iActiveBoneCount];
+        Transformation* aActiveOffsets = SE_NEW Transformation[iActiveBoneCount];
 
-        // Get active bone nodes that affect this sub-mesh.
+        // Get active bone nodes and their offsets.
         std::vector<int> tempBIArray(iBoneCount);
         int k = 0;
         for( int iB = 0; iB < iBoneCount; iB++ )
         {
             if( aiVerticesPerBone[iB] > 0 )
             {
-                apSEActiveBones[k] = apSEBones[iB];
+                apActiveBones[k] = apBones[iB];
+                aActiveOffsets[k] = aOffsets[iB];
                 tempBIArray[iB] = k;
                 k++;
             }
         }
 
-        // Decide which effect we should use.
+        // Decide which kind of effect we should create.
         // TODO:
         // Impliment a flexible skin effect system.
         SkinEffect eSkinEffect = SE_DEFAULT;
@@ -488,11 +490,8 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
         }
     }
 
-    if( apSEBones )
-    {
-        SE_DELETE[] apSEBones;
-    }
-    SE_DELETE[] aOffset;
+    SE_DELETE[] apBones;
+    SE_DELETE[] aOffsets;
     SE_DELETE[] aBWArray;
     SE_DELETE[] aiVerticesPerBone;
 }
