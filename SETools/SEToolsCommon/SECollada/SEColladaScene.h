@@ -97,6 +97,14 @@ public:
         TT_UNKNOWN
     };
 
+    enum SkinEffect
+    {
+        SE_DEFAULT,
+        SE_MATERIAL,
+        SE_MATERIALTEXTURE,
+        SE_UNKNOWN
+    };
+
     // Load a COLLADA DOM file, then create a Swing Engine scene graph base on
     // COLLADA runtime scene graph.
     void Load(const char* acFilename);
@@ -130,9 +138,9 @@ private:
             return Weight == rBoneWeight.Weight;
         }
         bool operator < (const BoneWeight& rBoneWeight) const
-		{
+        {
             return Weight < rBoneWeight.Weight;
-		}
+        }
 
         int BoneID;
         float Weight;
@@ -191,7 +199,7 @@ private:
     ColladaInstanceMaterial* LoadInstanceMaterial(
         domInstance_materialRef spLib);
 
-	Node* LoadInstanceController(domInstance_controllerRef spLib);
+    Node* LoadInstanceController(domInstance_controllerRef spLib);
 
     //Animation* LoadAnimation(domAnimationRef spDomAnimation);
     //Skin* LoadSkin(domSkinRef spDomSkin);

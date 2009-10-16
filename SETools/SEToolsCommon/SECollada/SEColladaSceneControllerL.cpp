@@ -275,6 +275,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
             const char* acBoneName = 
                 (const char*)pDomIDREFArray->getValue()[iB].getID();
 
+            // Try to find this bone node in Swing Engine scene graph.
             Object* pBone = m_spSceneRoot->GetObjectByName(acBoneName);
             SE_ASSERT( pBone );
             apSEBones[iB] = StaticCast<Node>(pBone);
@@ -319,11 +320,17 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
 
         Vector3f vec3fT = GetTransformedVector(fT0, fT1, fT2);
 
+        // Maybe MT form is enough for our usage.
         aOffset[iB].SetMatrix(mat3fM);
         aOffset[iB].SetTranslate(vec3fT);
     }
 
     // Get vertex's bone weights table.
+    // Each vertex could be influenced by any number of bones, say,
+    // a number that is greater than four.
+    // But Swing Engine's max vertex bone number is four, so we should
+    // do some work here to get the most greatest weights of four bones,
+    // and normalize these values to ensure the sum of them is 1.0.
     int iVertexWeightsCount = (int)pDomVertexWeights->getCount();
     SE_ASSERT( iVertexWeightsCount == iVertexCount );
     domSkin::domVertex_weights::domVcount* pDomVCount = 
@@ -348,12 +355,33 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
             aBWArray[i].push_back(tempBW);
             iCurVBase += 2;
         }
+
+        // Sort base on weight value in reversed order(big to small).
+        // Then keep the greatest four weights.
+        sort(aBWArray[i].rbegin(), aBWArray[i].rend());
+        while( aBWArray[i].size() > 4 )
+        {
+            aBWArray[i].pop_back();
+        }
+
+        // Normalization.
+        float fNorm = 0.0f;
+        for( int j = 0; j < (int)aBWArray[i].size(); j++ )
+        {
+            fNorm += aBWArray[i][j].Weight;
+        }
+        float fInvNorm = 1.0f/fNorm;
+        for( int j = 0; j < (int)aBWArray[i].size(); j++ )
+        {
+            aBWArray[i][j].Weight *= fInvNorm;
+        }
     }
 
-    // Create skin effect for each sub-mesh.
-    for( int i = 0; i < pMeshRoot->GetCount(); i++ )
+    // Create skin effect for each sub-mesh(if it is influenced by any bones).
+    int* aiVerticesPerBone = SE_NEW int[iBoneCount];
+    for( int iM = 0; iM < pMeshRoot->GetCount(); iM++ )
     {
-        TriMesh* pSubMesh = StaticCast<TriMesh>(pMeshRoot->GetChild(i));
+        TriMesh* pSubMesh = StaticCast<TriMesh>(pMeshRoot->GetChild(iM));
 
         // Get all vertex indices used by this sub-mesh.
         int iActiveVertexCount = pSubMesh->VBuffer->GetVertexCount();
@@ -382,13 +410,91 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
                 }
             }
         }
+
+        // Get the number of vertex influenced by each bone.
+        int iVertexIndexCount = (int)tempVIArray.size();
+        SE_ASSERT( iVertexIndexCount == iActiveVertexCount );
+        memset(aiVerticesPerBone, 0, sizeof(int)*iBoneCount);
+        for( int i = 0; i < iVertexIndexCount; i++ )
+        {
+            int iVertexID = tempVIArray[i];
+            for( int j = 0; j < (int)aBWArray[iVertexID].size(); j++ )
+            {
+                int iB = aBWArray[iVertexID][j].BoneID;
+                aiVerticesPerBone[iB]++;
+            }
+        }
+
+        // It is possible that the current sub-mesh just uses a subset of the 
+        // original bone set, we count the number of bones in the subset here.
+        int iActiveBoneCount = 0;
+        for( int iB = 0; iB < iBoneCount; iB++ )
+        {
+            if( aiVerticesPerBone[iB] > 0 )
+            {
+                iActiveBoneCount++;
+            }
+        }
+        SE_ASSERT( iActiveBoneCount > 0 );
+        if( iActiveBoneCount == 0 )
+        {
+            // The current sub-mesh is not influenced by any bones, so we
+            // skip to next one.
+            continue;
+        }
+
+        // Create active bone array for skin effect.
+        Node** apSEActiveBones = SE_NEW Node*[iActiveBoneCount];
+
+        // Get active bone nodes that affect this sub-mesh.
+        std::vector<int> tempBIArray(iBoneCount);
+        int k = 0;
+        for( int iB = 0; iB < iBoneCount; iB++ )
+        {
+            if( aiVerticesPerBone[iB] > 0 )
+            {
+                apSEActiveBones[k] = apSEBones[iB];
+                tempBIArray[iB] = k;
+                k++;
+            }
+        }
+
+        // Decide which effect we should use.
+        // TODO:
+        // Impliment a flexible skin effect system.
+        SkinEffect eSkinEffect = SE_DEFAULT;
+        Effect* pSaveEffect = 0;
+        for( int i = 0; i < pSubMesh->GetEffectCount(); i++ )
+        {
+            Effect* pTempEffect = pSubMesh->GetEffect(i);
+            if( DynamicCast<MaterialEffect>(pTempEffect) )
+            {
+                eSkinEffect = SE_MATERIAL;
+                pSaveEffect = pTempEffect;
+                break;
+            }
+            else if( DynamicCast<MaterialTextureEffect>(pTempEffect) )
+            {
+                eSkinEffect = SE_MATERIALTEXTURE;
+                pSaveEffect = pTempEffect;
+                break;
+            }
+            else if( DynamicCast<DefaultShaderEffect>(pTempEffect ))
+            {
+                eSkinEffect = SE_DEFAULT;
+                pSaveEffect = pTempEffect;
+                break;
+            }
+        }
     }
 
     if( apSEBones )
     {
         SE_DELETE[] apSEBones;
     }
+    SE_DELETE[] aOffset;
     SE_DELETE[] aBWArray;
+    SE_DELETE[] aiVerticesPerBone;
 }
 //----------------------------------------------------------------------------
 void ColladaScene::ProcessMorph(ColladaInstanceController*)
