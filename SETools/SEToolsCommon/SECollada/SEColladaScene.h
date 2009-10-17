@@ -112,6 +112,7 @@ public:
     // Get scene graph root node.
     Node* GetScene(void);
 
+    // Member access.
     int GetImageCount(void) const;
     Image* GetImage(const char* acName);
     Image* GetImage(int i);
@@ -121,7 +122,7 @@ public:
     Node* GetNode(const char* acName);
     Node* GetGeometry(const char* acName);
     Light* GetLight(const char* acName);
-    Camera* ColladaScene::GetCamera(const char* acName);
+    Camera* GetCamera(const char* acName);
 
 private:
     class BoneWeight
@@ -146,7 +147,10 @@ private:
         float Weight;
     };
 
-    // Triangulation.
+    // Entry point.
+    bool LoadScene(domVisual_sceneRef spDomVisualScene);
+
+    // COLLADA mesh Triangulation.
     unsigned int GetMaxOffset(domInputLocalOffset_Array& rInputArray);
     void CreateTrianglesFromPolygons(domMesh* pDomMesh, 
         domPolygons* pDomPolygons);
@@ -159,33 +163,14 @@ private:
     // system.
     Vector3f GetTransformedVector(float fX, float fY, float fZ);
 
-    bool LoadMaterialLibrary(domLibrary_materialsRef spLib);
-    bool LoadImageLibrary(domLibrary_imagesRef spLib);
-    bool LoadEffectLibrary(domLibrary_effectsRef spLib);
-    bool LoadAnimationLibrary(domLibrary_animationsRef spLib);
-
-    Image* LoadImage(domImageRef spDomImage);
-    ColladaEffect* LoadEffect(domEffectRef spDomEffect);
-    ColladaMaterial* LoadMaterial(domMaterialRef spDomMaterial);
-
-    ColladaAnimation* LoadAnimation(domAnimationRef spDomAnimation);
-    ColladaAnimationSource* LoadAnimationSource(domSourceRef spDomSource);
-    ColladaAnimationSampler* LoadAnimationSampler(
-        ColladaAnimation* pAnimation, domSamplerRef spDomSampler);
-    ColladaAnimationChannel* LoadAnimationChannel(
-        ColladaAnimation* pAnimation, domChannelRef spDomChannel);
-
+    // Node stuff.
+    Node* LoadNode(domNodeRef spDomNode, Node* pParentNode);
     TransformType GetTransformType(char* acType);
     void GetLocalTransformation(Node* pNode, domNodeRef spDomNode);
-    Node* LoadNode(domNodeRef spDomNode, Node* pParentNode);
 
-    Light* LoadLight(domLightRef spDomLight);
-    ColladaInstanceLight* LoadInstanceLight(Node* pParentNode, 
-        domInstance_lightRef spDomInstanceLight);
-    Camera* LoadCamera(domCameraRef spDomCamera);
-    ColladaInstanceCamera* LoadInstanceCamera(Node* pParentNode, 
-        domInstance_cameraRef spDomInstanceCamera);
-
+    // Geometry stuff.
+    Node* LoadGeometry(domGeometryRef spDomGeometry);
+    Node* LoadInstanceGeometry(domInstance_geometryRef spLib);
     void PackVertices(ColladaUnimaterialMesh* pUniMesh,
         domListOfFloats* pDomPositionData, domListOfUInts& rDomIndexData, 
         int iIndexCount, int iStride, int iPositionOffset, Vector3f* aNormal);
@@ -194,24 +179,39 @@ private:
         int iIndexCount, int iStride, int iTCoordOffset);
     TriMesh* BuildTriangles(domTriangles* pDomTriangles);
     void ParseGeometry(Node*& rpMeshRoot, domGeometry* pDomGeometry);
-    Node* LoadGeometry(domGeometryRef spDomGeometry);
-    Node* LoadInstanceGeometry(domInstance_geometryRef spLib);
+
+    // Image stuff.
+    bool LoadImageLibrary(domLibrary_imagesRef spLib);
+    Image* LoadImage(domImageRef spDomImage);
+
+    // Material stuff.
+    bool LoadMaterialLibrary(domLibrary_materialsRef spLib);
+    ColladaMaterial* LoadMaterial(domMaterialRef spDomMaterial);
     ColladaInstanceMaterial* LoadInstanceMaterial(
         domInstance_materialRef spLib);
 
-    Node* LoadInstanceController(domInstance_controllerRef spLib);
-
-    //Animation* LoadAnimation(domAnimationRef spDomAnimation);
-    //Skin* LoadSkin(domSkinRef spDomSkin);
-    //Morph* LoadMorph(domMorphRef spDomMorph);
-    //Controller* LoadController(domControllerRef spDomController);
-
+    // Effect stuff.
+    bool LoadEffectLibrary(domLibrary_effectsRef spLib);
+    ColladaEffect* LoadEffect(domEffectRef spDomEffect);
     ColorRGB GetColor(domCommon_color_or_texture_type_complexType* pParam);
     float GetFloat(domCommon_float_or_param_type* pParam);
     Texture* GetTextureFromShaderElement(
         std::map<std::string, domCommon_newparam_type*>& rNewParams, 
         domCommon_color_or_texture_type* pShaderElement);
 
+    // Animation stuff.
+    bool LoadAnimationLibrary(domLibrary_animationsRef spLib);
+    ColladaAnimation* LoadAnimation(domAnimationRef spDomAnimation);
+    ColladaAnimationSource* LoadAnimationSource(domSourceRef spDomSource);
+    ColladaAnimationSampler* LoadAnimationSampler(
+        ColladaAnimation* pAnimation, domSamplerRef spDomSampler);
+    ColladaAnimationChannel* LoadAnimationChannel(
+        ColladaAnimation* pAnimation, domChannelRef spDomChannel);
+
+    // Light stuff.
+    Light* LoadLight(domLightRef spDomLight);
+    ColladaInstanceLight* LoadInstanceLight(Node* pParentNode, 
+        domInstance_lightRef spDomInstanceLight);
     void ParseConstant(ColladaEffect* pEffect, 
         ColladaShaderElements* pShaderElements,
         domProfile_COMMON::domTechnique::domConstant* pDomConstant);
@@ -225,11 +225,21 @@ private:
         ColladaShaderElements* pShaderElements,
         domProfile_COMMON::domTechnique::domBlinn* pDomblinn);
 
-    bool LoadScene(domVisual_sceneRef spDomVisualScene);
+    // Camera stuff.
+    Camera* LoadCamera(domCameraRef spDomCamera);
+    ColladaInstanceCamera* LoadInstanceCamera(Node* pParentNode, 
+        domInstance_cameraRef spDomInstanceCamera);
 
+    // Controller stuff.
+    Node* LoadInstanceController(domInstance_controllerRef spLib);
     void ApplyControllers(void);
     void ProcessSkin(ColladaInstanceController* pIController);
     void ProcessMorph(ColladaInstanceController* pIController);
+
+    DAE* m_pDAE;
+    ImageConverter* m_pImageConverter;
+    NodePtr m_spSceneRoot;
+    OrientationMode m_eOrientationMode;
 
     std::vector<ImagePtr> m_Images;
     std::vector<ColladaEffectPtr> m_Effects;
@@ -243,12 +253,6 @@ private:
     std::vector<LightPtr> m_Lights;
     std::vector<CameraPtr> m_Cameras;
     std::vector<ColladaInstanceControllerPtr> m_InstanceControllers;
-
-    DAE* m_pDAE;
-    ImageConverter* m_pImageConverter;
-    NodePtr m_spSceneRoot;
-
-    OrientationMode m_eOrientationMode;
 };
 
 }
