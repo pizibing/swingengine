@@ -398,12 +398,8 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
                 fZ = (float)(*pDomPositionData)[iBase + 2];
                 Vector3f vec3fCurPos = GetTransformedVector(fX, fY, fZ);
 
-                if( vec3fCurPos.X == 
-                    (*(Vector3f*)pSubMesh->VBuffer->PositionTuple(iAV)).X
-                &&  vec3fCurPos.Y == 
-                    (*(Vector3f*)pSubMesh->VBuffer->PositionTuple(iAV)).Z
-                &&  vec3fCurPos.Z == 
-                    (*(Vector3f*)pSubMesh->VBuffer->PositionTuple(iAV)).Y )
+                if( vec3fCurPos == 
+                    (*(Vector3f*)pSubMesh->VBuffer->PositionTuple(iAV)) )
                 {
                     tempVIArray.push_back(iV);
                     break;
@@ -444,6 +440,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
         }
 
         // Create active bone nodes array and offsets array for skin effect.
+        // These data will be released by skin effect.
         Node** apActiveBones = SE_NEW Node*[iActiveBoneCount];
         Transformation* aActiveOffsets = SE_NEW Transformation[iActiveBoneCount];
 
@@ -488,6 +485,127 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
                 break;
             }
         }
+
+        // Create a new vertex buffer for the sub-mesh and replace the old
+        // one with it.
+        Attributes tempAttr;
+        switch( eSkinEffect )
+        {
+        case SE_DEFAULT:
+            tempAttr.SetPositionChannels(3);
+            tempAttr.SetTCoordChannels(0, 4); // BlendWeight
+            tempAttr.SetTCoordChannels(1, 4); // BlendIndices
+            break;
+
+        case SE_MATERIAL:
+            tempAttr.SetPositionChannels(3);
+            tempAttr.SetNormalChannels(3);
+            tempAttr.SetTCoordChannels(0, 4); // BlendWeight
+            tempAttr.SetTCoordChannels(1, 4); // BlendIndices
+            break;
+
+        case SE_MATERIALTEXTURE:
+            tempAttr.SetPositionChannels(3);
+            tempAttr.SetNormalChannels(3);
+            tempAttr.SetTCoordChannels(0, 2); // BaseTexture
+            tempAttr.SetTCoordChannels(1, 4); // BlendWeight
+            tempAttr.SetTCoordChannels(2, 4); // BlendIndices
+            break;
+
+        default :
+            SE_ASSERT( false );
+            break;
+        }
+        VertexBuffer* pVBNew = SE_NEW VertexBuffer(tempAttr, 
+            iActiveVertexCount);
+        int iChannels;
+        float* afData = pVBNew->GetData();
+        pSubMesh->VBuffer->BuildCompatibleArray(tempAttr, false, iChannels, 
+            afData);
+        SE_ASSERT( iChannels == pVBNew->GetChannelCount() );
+        pSubMesh->VBuffer = pVBNew;
+
+        // Assign bone index and bone weight values for the vertex buffer.
+        SE_ASSERT( iVertexIndexCount == pVBNew->GetVertexCount() );
+        for( int i = 0; i < iVertexIndexCount; i++ )
+        {
+            // Point to destination address.
+            float* pWeights = 0;
+            float* pIndices = 0;
+            switch( eSkinEffect )
+            {
+            case SE_DEFAULT:
+                pWeights = pSubMesh->VBuffer->TCoordTuple(0, i);
+                pIndices = pSubMesh->VBuffer->TCoordTuple(1, i);
+                break;
+
+            case SE_MATERIAL:
+                pWeights = pSubMesh->VBuffer->TCoordTuple(0, i);
+                pIndices = pSubMesh->VBuffer->TCoordTuple(1, i);
+                break;
+
+            case SE_MATERIALTEXTURE:
+                pWeights = pSubMesh->VBuffer->TCoordTuple(1, i);
+                pIndices = pSubMesh->VBuffer->TCoordTuple(2, i);
+                break;
+
+            default :
+                SE_ASSERT( false );
+                break;
+            }
+
+            // CAUTION:
+            // We already make sure that iVertexBoneCount <= 4, otherwise 
+            // the following operation is unsafe.
+            int iVertexID = tempVIArray[i];
+            int iVertexBoneCount = (int)aBWArray[iVertexID].size();
+            for( int j = 0; j < iVertexBoneCount; j++ )
+            {
+                int iCurBoneID = aBWArray[iVertexID][j].BoneID;
+                int iCurActiveBoneID = tempBIArray[iCurBoneID];
+                float fCurBoneWeight = aBWArray[iVertexID][j].Weight;
+
+                *pWeights++ = fCurBoneWeight;
+                *pIndices++ = (float)iCurActiveBoneID;
+            }
+        }
+
+        // Create the skin effect we want and attach it to the sub-mesh.
+        Effect* pNewEffect = 0;
+        String tempImageName;
+        switch( eSkinEffect )
+        {
+        case SE_DEFAULT:
+            pNewEffect = SE_NEW SkinDefaultEffect(iActiveBoneCount, 
+                apActiveBones, aActiveOffsets);
+            break;
+
+        case SE_MATERIAL:
+            pNewEffect = SE_NEW SkinMaterialEffect(iActiveBoneCount, 
+                apActiveBones, aActiveOffsets);
+            break;
+
+        case SE_MATERIALTEXTURE:
+            {
+                MaterialTextureEffect* pMTEffect = 
+                    DynamicCast<MaterialTextureEffect>(pSaveEffect);
+                tempImageName = pMTEffect->GetPImageName(0, 0);
+
+                pNewEffect = SE_NEW SkinMaterialTextureEffect(
+                    tempImageName, iActiveBoneCount, apActiveBones, 
+                    aActiveOffsets);
+            }
+            break;
+
+        default :
+            SE_ASSERT( false );
+            break;
+        }
+        if( pSaveEffect )
+        {
+            pSubMesh->DetachEffect(pSaveEffect);
+        }
+        pSubMesh->AttachEffect(pNewEffect);
     }
 
     SE_DELETE[] apBones;
