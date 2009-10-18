@@ -71,20 +71,20 @@ void DefaultShader::OnTerminate()
 //----------------------------------------------------------------------------
 void DefaultShader::OnIdle()
 {
-    // 旋转我们的box.
-    static double dCurTime = 0.0f;
-    static double dLastTime = 0.0f;
-    static float fAngel = 0.0f;
-    static float fR = 15.0f;
-    dCurTime = System::SE_GetTime();
-    if( dCurTime - dLastTime > 0.01f )
-    {
-        dLastTime = dCurTime;
+    //// 旋转我们的box.
+    //static double dCurTime = 0.0f;
+    //static double dLastTime = 0.0f;
+    //static float fAngel = 0.0f;
+    //static float fR = 15.0f;
+    //dCurTime = System::SE_GetTime();
+    //if( dCurTime - dLastTime > 0.01f )
+    //{
+    //    dLastTime = dCurTime;
 
-        Matrix3f mat3fRot(Vector3f::UNIT_Z, -0.01f);
-        m_spMesh->Local.SetRotate(m_spMesh->Local.GetRotate()*mat3fRot);
-        m_spMesh->UpdateGS();
-    }
+    //    Matrix3f mat3fRot(Vector3f::UNIT_Z, -0.01f);
+    //    m_spMesh->Local.SetRotate(m_spMesh->Local.GetRotate()*mat3fRot);
+    //    m_spMesh->UpdateGS();
+    //}
 
     MeasureTime();
 
@@ -146,7 +146,7 @@ void DefaultShader::CreateScene()
     Attributes tempAttr;
     tempAttr.SetPositionChannels(3);
     StandardMesh tempSM(tempAttr);
-    m_spMesh = tempSM.Box(2.0f, 2.0f, 2.0f);
+    m_spMesh = tempSM.Box(4.0f, 1.0f, 2.0f);
     //m_spScene->AttachChild(m_spMesh);
 
     DefaultShaderEffect* pEffect = SE_NEW DefaultShaderEffect;
@@ -161,7 +161,6 @@ void DefaultShader::CreateScene()
 
     Node* pSceneLoaded = DynamicCast<Node>(tempStream.GetObjectAt(0));
     pSceneLoaded->AttachGlobalState(m_spWireframe);
-    //pSceneLoaded->Local.SetUniformScale(0.1f);
     m_spScene->AttachChild(pSceneLoaded);
 }
 //----------------------------------------------------------------------------
