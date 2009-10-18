@@ -306,19 +306,23 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
         fM21 = (float)(*pDomIBMatrixData)[iBase +  9];
         fM22 = (float)(*pDomIBMatrixData)[iBase + 10];
 
-        Vector3f vec3fRow0, vec3fRow1, vec3fRow2;
-        vec3fRow0 = GetTransformedVector(fM00, fM01, fM02);
-        vec3fRow1 = GetTransformedVector(fM10, fM11, fM12);
-        vec3fRow2 = GetTransformedVector(fM20, fM21, fM22);
+        //Vector3f vec3fRow0, vec3fRow1, vec3fRow2;
+        //vec3fRow0 = GetTransformedVector(fM00, fM01, fM02);
+        //vec3fRow1 = GetTransformedVector(fM10, fM11, fM12);
+        //vec3fRow2 = GetTransformedVector(fM20, fM21, fM22);
+		Vector3f vec3fRow0(fM00, fM01, fM02);
+		Vector3f vec3fRow1(fM10, fM11, fM12);
+		Vector3f vec3fRow2(fM20, fM21, fM22);
 
-        Matrix3f mat3fM(vec3fRow0, vec3fRow1, vec3fRow2);
+        Matrix3f mat3fM(vec3fRow0, vec3fRow1, vec3fRow2, false);
 
         float fT0, fT1, fT2;
         fT0 = (float)(*pDomIBMatrixData)[iBase +  3];
         fT1 = (float)(*pDomIBMatrixData)[iBase +  7];
         fT2 = (float)(*pDomIBMatrixData)[iBase + 11];
 
-        Vector3f vec3fT = GetTransformedVector(fT0, fT1, fT2);
+        //Vector3f vec3fT = GetTransformedVector(fT0, fT1, fT2);
+		Vector3f vec3fT(fT0, fT1, fT2);
 
         // Maybe MT form is enough for our usage.
         aOffsets[iB].SetMatrix(mat3fM);

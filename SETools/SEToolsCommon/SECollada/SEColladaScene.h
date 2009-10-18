@@ -167,6 +167,7 @@ private:
     Node* LoadNode(domNodeRef spDomNode, Node* pParentNode);
     TransformType GetTransformType(char* acType);
     void GetLocalTransformation(Node* pNode, domNodeRef spDomNode);
+    TriMesh* CreateJointMesh(const char* acJointName, float fSize = 0.25f);
 
     // Geometry stuff.
     Node* LoadGeometry(domGeometryRef spDomGeometry);

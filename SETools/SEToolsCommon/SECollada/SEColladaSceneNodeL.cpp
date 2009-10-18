@@ -139,7 +139,7 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
                 Vector3f vec3fRotAxis = GetTransformedVector(
                     (float)rDomFloat4[0], (float)rDomFloat4[1], 
                     (float)rDomFloat4[2]);
-                float fRotAngle = -(float)rDomFloat4[3];
+                float fRotAngle = -(float)rDomFloat4[3]*Math<float>::DEG_TO_RAD;
 
                 Matrix3f mat3fR(vec3fRotAxis, fRotAngle);
                 pTransform->SetRotate(mat3fR);
@@ -213,7 +213,9 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
     for( int i = iTransCount - 1; i >= 0 ; i-- )
     {
         Transformation* pTransformation = tempTransSequence[i];
-        pNode->Local.Product(pNode->Local, *pTransformation);
+        Transformation tempTrans;
+        tempTrans.Product(pNode->Local, *pTransformation);
+        pNode->Local = tempTrans;
 
         SE_DELETE pTransformation;
     }
@@ -243,6 +245,14 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     pNode->SetName(acNodeID);
 
     GetLocalTransformation(pNode, spDomNode);
+
+    // Process joint.
+    domNodeType eNodeType = spDomNode->getType();
+    if( eNodeType == NODETYPE_JOINT )
+    {
+        TriMesh* pJointMesh = CreateJointMesh(acNodeID);
+        pNode->AttachChild(pJointMesh);
+    }
 
     // Process instance geometries.
     domInstance_geometry_Array& rInstanceGeometryArray = 
@@ -359,5 +369,23 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     }
 
     return pNode;
+}
+//----------------------------------------------------------------------------
+TriMesh* ColladaScene::CreateJointMesh(const char* acJointName, float fSize)
+{
+    SE_ASSERT( acJointName );
+    SE_ASSERT( fSize >= 0.0f );
+
+    String strJointName("JOINT");
+    strJointName += acJointName;
+
+    Attributes tempAttr;
+    tempAttr.SetPositionChannels(3);
+    StandardMesh tempSM(tempAttr);
+    TriMesh* pJointMesh = tempSM.Box(fSize, fSize, fSize);
+    pJointMesh->SetName(strJointName);
+    pJointMesh->AttachEffect(SE_NEW DefaultShaderEffect);
+
+    return pJointMesh;
 }
 //----------------------------------------------------------------------------
