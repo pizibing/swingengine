@@ -162,5 +162,13 @@ void DefaultShader::CreateScene()
     Node* pSceneLoaded = DynamicCast<Node>(tempStream.GetObjectAt(0));
     pSceneLoaded->AttachGlobalState(m_spWireframe);
     m_spScene->AttachChild(pSceneLoaded);
+
+    // Test.
+    Object* pBone = pSceneLoaded->GetObjectByName("l_hip");
+    Node* pBoneNode = DynamicCast<Node>(pBone);
+    SE_ASSERT( pBoneNode );
+    Vector3f vec3fT = pBoneNode->Local.GetTranslate();
+    //vec3fT.X += 1.0f;
+    pBoneNode->Local.SetTranslate(vec3fT);
 }
 //----------------------------------------------------------------------------
