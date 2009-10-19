@@ -293,6 +293,50 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
         )->getValue();
     for( int iB = 0; iB < iBoneCount; iB++ )
     {
+        // Given a COLLADA homogeneous inverse binding matrix M:
+        // m00  m01  m02  t1
+        // m10  m11  m12  t2
+        // m20  m21  m22  t3
+        //   0    0    0   1
+        // in column major order.
+        //
+        // Given a Swing Engine homogeneous vector V:
+        // x
+        // y 
+        // z 
+        // w
+        // in column major order.
+        //
+        // We should construct a homogeneous matrix that could finish the 
+        // following operations:
+        // (1) Transform V back to the original DCC right-handed system,
+        //     say, V0, by using a homogeneous matrix M0:
+        // 1  0  0  0        
+        // 0  1  0  0
+        // 0  0 -1  0
+        // 0  0  0  1
+        // in column major order.
+        //
+        // (2) Transform V0 into the COLLADA binding joint's local right-
+        //     handed system, say, V1, by using M.
+        //
+        // (3) Transform V1 back to the Swing Engine binding joint's local
+        //     left-handed system, say, V2, by using a homogeneous matrix M1:
+        // 1  0  0  0        
+        // 0  1  0  0
+        // 0  0 -1  0
+        // 0  0  0  1
+        // in column major order.
+        //
+        // The final combination of these three operations will be:
+        // V2 = M1*M*M0*V.
+        // So M1*M*M0 is the matrix we want:
+        //  m00  m01 -m02  t1
+        //  m10  m11 -m12  t2
+        // -m20 -m21  m22 -t3
+        //    0    0    0   1
+        // in column major order.
+
         int iBase = 16*iB;
 
         float fM00, fM01, fM02, fM10, fM11, fM12, fM20, fM21, fM22;
@@ -306,23 +350,16 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
         fM21 = (float)(*pDomIBMatrixData)[iBase +  9];
         fM22 = (float)(*pDomIBMatrixData)[iBase + 10];
 
-        //Vector3f vec3fRow0, vec3fRow1, vec3fRow2;
-        //vec3fRow0 = GetTransformedVector(fM00, fM01, fM02);
-        //vec3fRow1 = GetTransformedVector(fM10, fM11, fM12);
-        //vec3fRow2 = GetTransformedVector(fM20, fM21, fM22);
-		Vector3f vec3fRow0(fM00, fM01, fM02);
-		Vector3f vec3fRow1(fM10, fM11, fM12);
-		Vector3f vec3fRow2(fM20, fM21, fM22);
-
+        Vector3f vec3fRow0(fM00, fM01, -fM02);
+        Vector3f vec3fRow1(fM10, fM11, -fM12);
+        Vector3f vec3fRow2(-fM20, -fM21, fM22);
         Matrix3f mat3fM(vec3fRow0, vec3fRow1, vec3fRow2, false);
 
         float fT0, fT1, fT2;
         fT0 = (float)(*pDomIBMatrixData)[iBase +  3];
         fT1 = (float)(*pDomIBMatrixData)[iBase +  7];
         fT2 = (float)(*pDomIBMatrixData)[iBase + 11];
-
-        //Vector3f vec3fT = GetTransformedVector(fT0, fT1, fT2);
-		Vector3f vec3fT(fT0, fT1, fT2);
+        Vector3f vec3fT(fT0, fT1, -fT2);
 
         // Maybe MT form is enough for our usage.
         aOffsets[iB].SetMatrix(mat3fM);

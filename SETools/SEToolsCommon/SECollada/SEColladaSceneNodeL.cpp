@@ -373,11 +373,17 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
 //----------------------------------------------------------------------------
 TriMesh* ColladaScene::CreateJointMesh(const char* acJointName, float fSize)
 {
-    SE_ASSERT( acJointName );
     SE_ASSERT( fSize >= 0.0f );
 
-    String strJointName("JOINT");
-    strJointName += acJointName;
+    String strJointName("JOINT_");
+    if( acJointName )
+    {
+        strJointName += acJointName;
+    }
+    else
+    {
+        strJointName += "unnamed";
+    }
 
     Attributes tempAttr;
     tempAttr.SetPositionChannels(3);
