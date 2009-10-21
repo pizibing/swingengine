@@ -261,9 +261,20 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
     Node** apBones = 0;
     if( pDomNameArray )
     {
-        // TODO:
-        // Support SID case.
         iBoneCount = (int)pDomNameArray->getCount();
+        apBones = SE_NEW Node*[iBoneCount];
+
+        for( int iB = 0; iB < iBoneCount; iB++ )
+        {
+            xsNCName acBoneName = pDomNameArray->getValue()[iB];
+            domNode* pDomJoint = GetDomNodeBySID(pDomSkeletonRoot, acBoneName);
+            SE_ASSERT( pDomJoint );
+
+            // Try to find this bone node in Swing Engine scene graph.
+            Node* pBone = GetBoneNodeByDomNode(pDomJoint);
+            SE_ASSERT( pBone );
+            apBones[iB] = pBone;
+        }
     }
     else if( pDomIDREFArray )
     {

@@ -252,6 +252,11 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     {
         TriMesh* pJointMesh = CreateJointMesh(acNodeID);
         pNode->AttachChild(pJointMesh);
+
+        Bone tempBone;
+        tempBone.BoneNode = pNode;
+        tempBone.BoneDomNode = (domNode*)spDomNode;
+        m_Bones.push_back(tempBone);
     }
 
     // Process instance geometries.
@@ -375,7 +380,7 @@ TriMesh* ColladaScene::CreateJointMesh(const char* acJointName, float fSize)
 {
     SE_ASSERT( fSize >= 0.0f );
 
-    String strJointName("JOINT_");
+    String strJointName("Joint_");
     if( acJointName )
     {
         strJointName += acJointName;
@@ -393,5 +398,53 @@ TriMesh* ColladaScene::CreateJointMesh(const char* acJointName, float fSize)
     pJointMesh->AttachEffect(SE_NEW DefaultShaderEffect);
 
     return pJointMesh;
+}
+//----------------------------------------------------------------------------
+domNode* ColladaScene::GetDomNodeBySID(domNodeRef spDomNode, xsNCName strSID)
+{
+    if( !spDomNode || !strSID )
+    {
+        return 0;
+    }
+
+    xsNCName strCurSID = spDomNode->getSid();
+    if( strCurSID )
+    {
+        if( strcmp((const char*)strSID, (const char*)strCurSID) == 0 )
+        {
+            return (domNode*)spDomNode;
+        }
+    }
+
+    int iChildNodeCount = (int)spDomNode->getNode_array().getCount();
+    for( int i = 0; i < iChildNodeCount; i++ )
+    {
+        domNode* pFound = GetDomNodeBySID(spDomNode->getNode_array()[i], 
+            strSID);
+        if( pFound )
+        {
+            return pFound;
+        }
+    }
+
+    return 0;
+}
+//----------------------------------------------------------------------------
+Node* ColladaScene::GetBoneNodeByDomNode(domNode* pDomNode)
+{
+    if( !pDomNode )
+    {
+        return 0;
+    }
+
+    for( int i = 0; i < (int)m_Bones.size(); i++ )
+    {
+        if( m_Bones[i].BoneDomNode == pDomNode )
+        {
+            return m_Bones[i].BoneNode;
+        }
+    }
+
+    return 0;
 }
 //----------------------------------------------------------------------------

@@ -125,6 +125,23 @@ public:
     Camera* GetCamera(const char* acName);
 
 private:
+    // This helper class holds the relationship between a Swing Engine bone node
+    // and a COLLADA joint node.
+    class Bone
+    {
+    public:
+        Bone(void)
+        {
+            BoneNode = 0;
+            BoneDomNode = 0;
+        }
+
+        Node* BoneNode;
+        domNode* BoneDomNode;
+    };
+
+    // This helper class represents the weight of a bone that is applied to a 
+    // specific vertex.
     class BoneWeight
     {
     public:
@@ -168,6 +185,8 @@ private:
     TransformType GetTransformType(char* acType);
     void GetLocalTransformation(Node* pNode, domNodeRef spDomNode);
     TriMesh* CreateJointMesh(const char* acJointName, float fSize = 0.25f);
+    domNode* GetDomNodeBySID(domNodeRef spDomNode, xsNCName strSID);
+    Node* GetBoneNodeByDomNode(domNode* pDomNode);
 
     // Geometry stuff.
     Node* LoadGeometry(domGeometryRef spDomGeometry);
@@ -254,6 +273,7 @@ private:
     std::vector<LightPtr> m_Lights;
     std::vector<CameraPtr> m_Cameras;
     std::vector<ColladaInstanceControllerPtr> m_InstanceControllers;
+    std::vector<Bone> m_Bones;
 };
 
 }
