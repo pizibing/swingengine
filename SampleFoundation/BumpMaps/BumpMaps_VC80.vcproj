@@ -64,7 +64,7 @@
 				AdditionalDependencies="SEFoundation80d.lib SEPhysics80d.lib SEDX9Renderer80d.lib SEDX9Application80d.lib cg.lib cgD3D9.lib SEAudio80d.lib SEWalRenderer80d.lib"
 				OutputFile="BumpMaps_VC80Dx9DebSta.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\SDK\Lib"
+				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/BumpMaps_VC80Dx9DebSta.pdb"
 				SubSystem="2"
