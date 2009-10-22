@@ -177,7 +177,7 @@ bool System::SE_Load(const char* pFileName, char*& rDstBuffer, int& riSize)
     riSize = FileStat.st_size;
     rDstBuffer = SE_NEW char[riSize];
     int iRead = (int)fread(rDstBuffer, sizeof(char), riSize, pFile);
-	// 如果文件不能正常关闭或者读取字节数不等于文件字节数
+    // 如果文件不能正常关闭或者读取字节数不等于文件字节数
     if( System::SE_Fclose(pFile) != 0 || iRead != riSize )
     {
         SE_ASSERT( false );
@@ -207,7 +207,7 @@ bool System::SE_Save(const char* pFileName, const char* pSrcBuffer, int iSize)
     }
 
     int iWrite = (int)fwrite(pSrcBuffer, sizeof(char), iSize, pFile);
-	// 如果文件不能正常关闭或者写入字节数不等于期望字节数
+    // 如果文件不能正常关闭或者写入字节数不等于期望字节数
     if( System::SE_Fclose(pFile) != 0 || iWrite != iSize )
     {
         SE_ASSERT( false );
@@ -234,7 +234,7 @@ bool System::SE_Append(const char* pFileName, const char* pSrcBuffer, int iSize)
     }
 
     int iWrite = (int)fwrite(pSrcBuffer, sizeof(char), iSize, pFile);
-	// 如果文件不能正常关闭或者写入字节数不等于期望字节数
+    // 如果文件不能正常关闭或者写入字节数不等于期望字节数
     if( System::SE_Fclose(pFile) != 0 || iWrite != iSize )
     {
         SE_ASSERT( false );
