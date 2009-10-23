@@ -40,49 +40,49 @@ void ColladaAnimation::GenerateKeys()
     ToolSystem::SE_DebugOutput("Generating Keys for Animation Channel %s", 
         (const char*)GetName());
 
-    // Generate key frames for the channels in this animation.
-    ColladaAnimationChannel* pChannel = Channels[0];
-
     // Allocating for generic key channels.
     AnimKeySets = SE_NEW ColladaKeySet[NumAnimChannels];
 
-    int iAnimSet = 0; 
+    // Generate key frames for all the channels in this animation.
+    int iAnimSetBase = 0;
+    ColladaAnimationChannel* pChannel = 0;
     for( int i = 0; i < (int)Channels.size(); i++ )
     {
         pChannel = Channels[i];
         ColladaAnimationSource* pInputSource = pChannel->InputSource;
         ColladaAnimationSource* pOutputSource = pChannel->OutputSource;
-        int NumKeys = pInputSource->Source->GetCount();
+        int iKeyCount = pInputSource->Source->GetCount();
         
-        // New way.
-        for ( int j = 0; j < pChannel->NumElementTargets; j++ )
+        for( int j = 0; j < pChannel->NumElementTargets; j++ )
         {
-            AnimKeySets[iAnimSet + j].AllocateKeys(NumKeys);
+            AnimKeySets[iAnimSetBase + j].AllocateKeys(iKeyCount);
         }
         
         // Set the actual key info.
-        for( int i = 0 ; i < NumKeys; i++ )
+        for( int j = 0 ; j < iKeyCount; j++ )
         {
             // Fill in all the keys for each anim key set.
-            int numCh = pChannel->NumElementTargets;
-
-            for( int ch = 0; ch < pChannel->NumElementTargets; ch ++ )
+            int iElementTargetCount = pChannel->NumElementTargets;
+            for( int k = 0; k < iElementTargetCount; k++ )
             {
-                AnimKeySets[iAnimSet + ch].Time[i] = (*pInputSource->Source)[i];
-                AnimKeySets[iAnimSet + ch].Keys[i] = (*pOutputSource->Source)[i*numCh + ch];
+                AnimKeySets[iAnimSetBase + k].Time[j] = 
+                    (*pInputSource->Source)[j];
+                AnimKeySets[iAnimSetBase + k].Keys[j] = 
+                    (*pOutputSource->Source)[j*iElementTargetCount + k];
                 
-                if( AnimKeySets[iAnimSet + ch].Time[i] > EndTime )
+                // Update animation's end time.
+                if( AnimKeySets[iAnimSetBase + k].Time[j] > EndTime )
                 {
-                    EndTime = AnimKeySets[iAnimSet + ch].Time[i];
+                    EndTime = AnimKeySets[iAnimSetBase + k].Time[j];
                 }
 
                 // Set the animKey in the channel for later interpolation.
-                pChannel->Keys[ch] = &AnimKeySets[iAnimSet + ch];
+                pChannel->Keys[k] = &AnimKeySets[iAnimSetBase + k];
             }
         }
 
-        // Update the current iAnimSet.
-        iAnimSet += pChannel->NumElementTargets;
+        // Update the current iAnimSetBase index.
+        iAnimSetBase += pChannel->NumElementTargets;
     }
 }
 //----------------------------------------------------------------------------

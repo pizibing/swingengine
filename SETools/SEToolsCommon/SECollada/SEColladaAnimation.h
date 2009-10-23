@@ -106,7 +106,7 @@ public:
     ColladaAnimation(void);
     ~ColladaAnimation(void);
 
-    // Multipule elements can be targeted by one channel.
+    // Multiple elements can be targeted by one channel.
     int	NumAnimChannels;
 
     ColladaKeySet* AnimKeySets;

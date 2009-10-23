@@ -295,7 +295,7 @@ ColladaAnimationChannel* ColladaScene::LoadAnimationChannel(
             pChannel->NumElementTargets = 3;
         }
     }
-    pAnimation->NumAnimChannels = pChannel->NumElementTargets;
+    pAnimation->NumAnimChannels += pChannel->NumElementTargets;
 
     return pChannel;
 }
@@ -365,12 +365,6 @@ ColladaAnimation* ColladaScene::LoadAnimation(domAnimationRef spDomAnimation)
         {
             pAnimation->GenerateKeys();
             m_Animations.push_back(pAnimation);
-
-            //// Also get it's last key time and first key time.
-            //if( pAnimation->EndTime > LastKeyTime )
-            //{
-            //    LastKeyTime = pAnimation->EndTime;
-            //}
         }
         else
         {
