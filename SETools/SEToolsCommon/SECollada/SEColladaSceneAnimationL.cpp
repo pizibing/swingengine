@@ -204,31 +204,31 @@ ColladaAnimationChannel* ColladaScene::LoadAnimationChannel(
     {
     case COLLADA_TYPE::TRANSLATE:
         pAnimation->HasTranslation = true;
-        pChannel->TargetType = AT_T;
+        pChannel->TargetType = ColladaAnimationChannel::AT_T;
         pChannel->NumElementTargets = 3; 
         break;
 
     case COLLADA_TYPE::ROTATE:
         pAnimation->HasRotation = true;
-        pChannel->TargetType = AT_R;
+        pChannel->TargetType = ColladaAnimationChannel::AT_R;
         pChannel->NumElementTargets = 4; 
         break;
 
     case COLLADA_TYPE::SCALE:
         pAnimation->HasScale = true;
-        pChannel->TargetType = AT_S;
+        pChannel->TargetType = ColladaAnimationChannel::AT_S;
         pChannel->NumElementTargets = 3; 
         break;
 
     case COLLADA_TYPE::SOURCE:
         pAnimation->HasSource = true;
-        pChannel->TargetType = AT_SOURCE;
+        pChannel->TargetType = ColladaAnimationChannel::AT_SOURCE;
         pChannel->NumElementTargets = 1; 
         break;
 
     case COLLADA_TYPE::MATRIX:
         pAnimation->HasMatrix = true;
-        pChannel->TargetType = AT_MATRIX;
+        pChannel->TargetType = ColladaAnimationChannel::AT_MATRIX;
         pChannel->NumElementTargets = 16; 
         break;
 
@@ -251,47 +251,47 @@ ColladaAnimationChannel* ColladaScene::LoadAnimationChannel(
             {
                 // Rotate x axis.
                 pAnimation->HasRotation = true;
-                pChannel->TargetType = AT_R_X_AXIS;
+                pChannel->TargetType = ColladaAnimationChannel::AT_R_X_AXIS;
                 pChannel->NumElementTargets = 1;
             }
             else if( pDomRotate->getValue()[1] == 1 ) 
             {
                 // Rotate y axis.
                 pAnimation->HasRotation = true;
-                pChannel->TargetType = AT_R_Y_AXIS;
+                pChannel->TargetType = ColladaAnimationChannel::AT_R_Y_AXIS;
                 pChannel->NumElementTargets = 1; 
             }
             else if( pDomRotate->getValue()[2] == 1 ) 
             {
                 // Rotate z axis.
                 pAnimation->HasRotation = true;
-                pChannel->TargetType = AT_R_Z_AXIS;
+                pChannel->TargetType = ColladaAnimationChannel::AT_R_Z_AXIS;
                 pChannel->NumElementTargets = 1; 
             }
         }
         else if( strcmp(acTargetMember, "X") == 0 )
         {
-            pChannel->TargetType = AT_TARGET_X;
+            pChannel->TargetType = ColladaAnimationChannel::AT_TARGET_X;
             pChannel->NumElementTargets = 1;
         }
         else if( strcmp(acTargetMember, "Y") == 0 ) 
         {
-            pChannel->TargetType = AT_TARGET_Y;
+            pChannel->TargetType = ColladaAnimationChannel::AT_TARGET_Y;
             pChannel->NumElementTargets = 1;
         }
         else if( strcmp(acTargetMember, "Z") == 0 )
         {
-            pChannel->TargetType = AT_TARGET_Z;
+            pChannel->TargetType = ColladaAnimationChannel::AT_TARGET_Z;
             pChannel->NumElementTargets = 1;
         }
         else if( (*acTargetMember) >= '0' && (*acTargetMember) <= '9' )
         {
-            pChannel->TargetType = AT_SOURCE;
+            pChannel->TargetType = ColladaAnimationChannel::AT_SOURCE;
             pChannel->NumElementTargets = 1;
         }
         else
         {
-            pChannel->TargetType = AT_TARGET_XYZ;
+            pChannel->TargetType = ColladaAnimationChannel::AT_TARGET_XYZ;
             pChannel->NumElementTargets = 3;
         }
     }
@@ -309,7 +309,7 @@ ColladaAnimation* ColladaScene::LoadAnimation(domAnimationRef spDomAnimation)
 
     xsID strAnimationID = spDomAnimation->getId();
 
-    ToolSystem::SE_DebugOutput("Add new Animation %s", strAnimationID);  
+    ToolSystem::SE_DebugOutput("Add new Animation %s", strAnimationID);
 
     domAnimation* pDomAnimation = (domAnimation*)spDomAnimation;
     if( pDomAnimation )

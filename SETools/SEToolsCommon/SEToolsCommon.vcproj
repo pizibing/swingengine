@@ -328,6 +328,30 @@
 					>
 				</File>
 				<File
+					RelativePath=".\SECollada\SEColladaAnimationChannel.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\SECollada\SEColladaAnimationChannel.h"
+					>
+				</File>
+				<File
+					RelativePath=".\SECollada\SEColladaAnimationSampler.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\SECollada\SEColladaAnimationSampler.h"
+					>
+				</File>
+				<File
+					RelativePath=".\SECollada\SEColladaAnimationSource.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\SECollada\SEColladaAnimationSource.h"
+					>
+				</File>
+				<File
 					RelativePath=".\SECollada\SEColladaEffect.cpp"
 					>
 				</File>

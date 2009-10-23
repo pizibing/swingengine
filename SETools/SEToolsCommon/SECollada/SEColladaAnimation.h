@@ -25,50 +25,12 @@
 #include "SEToolsUtility.h"
 #include "SEObject.h"
 #include "SEString.h"
-#include "SEFloatArray.h"
+#include "SEColladaAnimationSource.h"
+#include "SEColladaAnimationSampler.h"
+#include "SEColladaAnimationChannel.h"
 
 namespace Swing
 {
-
-//----------------------------------------------------------------------------
-// Name:COLLADA Animation Source class
-// Description:
-// Author:Sun Che
-// Date:20090917
-//----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaAnimationSource : public Object
-{
-    SE_DECLARE_RTTI;
-    SE_DECLARE_NAME_ID;
-
-public:
-    ColladaAnimationSource(void);
-    ~ColladaAnimationSource(void);
-
-    FloatArrayPtr Source;
-};
-
-typedef SmartPointer<ColladaAnimationSource> ColladaAnimationSourcePtr;
-
-//----------------------------------------------------------------------------
-// Name:COLLADA Animation Sampler class
-// Description:
-// Author:Sun Che
-// Date:20090917
-//----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaAnimationSampler : public Object
-{
-    SE_DECLARE_RTTI;
-    SE_DECLARE_NAME_ID;
-
-public:
-    ColladaAnimationSampler(void);
-    ~ColladaAnimationSampler(void);
-
-    std::map<std::string, ColladaAnimationSourcePtr> Inputs;
-};
-
-typedef SmartPointer<ColladaAnimationSampler> ColladaAnimationSamplerPtr;
 
 //----------------------------------------------------------------------------
 // Name:COLLADA Animation Key struct
@@ -129,68 +91,6 @@ struct SE_TOOLS_COMMON_API ColladaKeySet
     }
 };
 
-enum AnimationTarget
-{
-    AT_TARGET_X,
-    AT_TARGET_Y,
-    AT_TARGET_Z,
-    AT_TARGET_XYZ, 
-    AT_TARGET_ANGLE,
-
-    AT_TARGET_UNKNOWN, 
-
-    AT_S_X_AXIS,
-    AT_S_Y_AXIS,
-    AT_S_Z_AXIS,
-    AT_S,
-
-    AT_R_X_AXIS,
-    AT_R_Y_AXIS,
-    AT_R_Z_AXIS,
-    AT_R, 
-
-    AT_T_X_AXIS,
-    AT_T_Y_AXIS,
-    AT_T_Z_AXIS, 
-    AT_T, 
-
-    AT_SOURCE,
-    AT_MATRIX
-};
-
-const int MAX_KEY_SETS = 10;
-//----------------------------------------------------------------------------
-// Name:COLLADA Animation Channel class
-// Description:
-// Author:Sun Che
-// Date:20090917
-//----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaAnimationChannel : public Object
-{
-    SE_DECLARE_RTTI;
-    SE_DECLARE_NAME_ID;
-
-public:
-    ColladaAnimationChannel(void);
-    ~ColladaAnimationChannel(void);
-
-    ColladaAnimationSamplerPtr Sampler;
-    
-    String TargetID;
-    String TargetSID;
-    String TargetMember;
-
-    AnimationTarget TargetType;
-    
-    ColladaAnimationSourcePtr InputSource;
-    ColladaAnimationSourcePtr OutputSource;
-
-    ColladaKeySet* Keys[MAX_KEY_SETS];
-    int NumElementTargets;
-};
-
-typedef SmartPointer<ColladaAnimationChannel> ColladaAnimationChannelPtr;
-
 //----------------------------------------------------------------------------
 // Name:COLLADA Animation class
 // Description:
@@ -235,8 +135,8 @@ public:
     std::vector<ColladaAnimationChannelPtr> Channels;
 
 private:
-	friend class ColladaScene;
-	void GenerateKeys(void);
+    friend class ColladaScene;
+    void GenerateKeys(void);
 };
 
 typedef SmartPointer<ColladaAnimation> ColladaAnimationPtr;
