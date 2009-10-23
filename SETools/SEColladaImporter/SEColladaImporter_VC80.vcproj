@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\;.\SEColladaImporter;..\ColladaDOM\VC8\include;..\ColladaDOM\VC8\include\1.4;..\..\SDK\Include"
+				AdditionalIncludeDirectories=".\;.\SEColladaImporter;..\ColladaDOM\VC80\include;..\ColladaDOM\VC80\include\1.4;..\..\SDK\Include"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -62,7 +62,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="SEFoundation80d.lib SEDX9Renderer80d.lib SEToolsCommon80d.lib cg.lib cgD3D9.lib libcollada14dom20-sd.lib libboost_filesystem-d.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib winmm.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug;..\ColladaDOM\VC8\bin"
+				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug;..\ColladaDOM\VC80\bin"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
