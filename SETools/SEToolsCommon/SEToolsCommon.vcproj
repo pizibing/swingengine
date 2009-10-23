@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\;.\SEImage;.\SECollada;.\SEToolSystem;..\..\SDK\Include;..\ColladaDOM\VC8\include;..\ColladaDOM\VC8\include\1.4"
+				AdditionalIncludeDirectories=".\;.\SEImage;.\SECollada;.\SEToolSystem;..\..\SDK\Include;..\ColladaDOM\VC80\include;..\ColladaDOM\VC80\include\1.4"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
