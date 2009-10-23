@@ -131,10 +131,16 @@ void ColladaScene::Load(const char* acFilename)
         LoadScene((domVisual_scene*)pDefaultScene);
     }
 
-    // Apply all the controllers to the scene graph.
+    // Deferred processing of lights.
+    ProcessLights();
+
+    // Deferred processing of cameras.
+    ProcessCameras();
+
+    // Deferred processing of controllers.
     // TODO:
     // Impliment controller option.
-    ApplyControllers();
+    ProcessControllers();
 }
 //----------------------------------------------------------------------------
 Node* ColladaScene::GetScene()
@@ -407,24 +413,5 @@ bool ColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
     m_spSceneRoot->UpdateGS();
 
     return true;
-}
-//----------------------------------------------------------------------------
-void ColladaScene::ApplyControllers()
-{
-    int iInstanceControllerCount = (int)m_InstanceControllers.size();
-    for( int i = 0; i < iInstanceControllerCount; i++ )
-    {
-        ColladaInstanceController* pIController = m_InstanceControllers[i];
-        ColladaInstanceController::ControllerType eControllerType = 
-            pIController->GetControllerType();
-        if( eControllerType == ColladaInstanceController::CT_SKIN )
-        {
-            ProcessSkin(pIController);
-        }
-        else if( eControllerType == ColladaInstanceController::CT_MORPH )
-        {
-            ProcessMorph(pIController);
-        }
-    }
 }
 //----------------------------------------------------------------------------

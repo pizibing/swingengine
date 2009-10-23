@@ -222,3 +222,25 @@ ColladaInstanceCamera* ColladaScene::LoadInstanceCamera(Node* pParentNode,
     return 0;
 }
 //----------------------------------------------------------------------------
+void ColladaScene::ProcessCameras()
+{
+    for( int i = 0; i < (int)m_InstanceCameras.size(); i++ )
+    {
+        Camera* pCamera = m_InstanceCameras[i]->GetCamera();
+        Node* pParentNode = m_InstanceCameras[i]->GetParentNode();
+
+        pCamera->SetLocation(pParentNode->World.GetTranslate());
+        bool bIsSRMatrix = pParentNode->World.IsSRMatrix();
+        SE_ASSERT( bIsSRMatrix );
+        if( bIsSRMatrix )
+        {
+            Vector3f vec3fR, vec3fU, vec3fD;
+            pParentNode->World.GetRotate().GetRow(0, vec3fR);
+            pParentNode->World.GetRotate().GetRow(1, vec3fU);
+            pParentNode->World.GetRotate().GetRow(2, vec3fD);
+
+            pCamera->SetAxes(vec3fR, vec3fU, vec3fD);
+        }
+    }
+}
+//----------------------------------------------------------------------------

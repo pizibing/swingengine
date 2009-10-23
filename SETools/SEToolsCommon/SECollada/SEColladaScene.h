@@ -244,15 +244,17 @@ private:
     void ParseBlinn(ColladaEffect* pEffect, 
         ColladaShaderElements* pShaderElements,
         domProfile_COMMON::domTechnique::domBlinn* pDomblinn);
+    void ProcessLights(void);
 
     // Camera stuff.
     Camera* LoadCamera(domCameraRef spDomCamera);
     ColladaInstanceCamera* LoadInstanceCamera(Node* pParentNode, 
         domInstance_cameraRef spDomInstanceCamera);
+    void ProcessCameras(void);
 
     // Controller stuff.
     Node* LoadInstanceController(domInstance_controllerRef spLib);
-    void ApplyControllers(void);
+    void ProcessControllers(void);
     void ProcessSkin(ColladaInstanceController* pIController);
     void ProcessMorph(ColladaInstanceController* pIController);
 

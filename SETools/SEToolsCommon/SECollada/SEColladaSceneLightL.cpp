@@ -207,3 +207,26 @@ ColladaInstanceLight* ColladaScene::LoadInstanceLight(Node* pParentNode,
     return 0;
 }
 //----------------------------------------------------------------------------
+void ColladaScene::ProcessLights()
+{
+    for( int i = 0; i < (int)m_InstanceLights.size(); i++ )
+    {
+        Light* pLight = m_InstanceLights[i]->GetLight();
+        Node* pParentNode = m_InstanceLights[i]->GetParentNode();
+
+        pLight->Position = pParentNode->World.GetTranslate();
+        if( pLight->Type == Light::LT_DIRECTIONAL || 
+            pLight->Type == Light::LT_SPOT )
+        {
+            bool bIsSRMatrix = pParentNode->World.IsSRMatrix();
+            SE_ASSERT( bIsSRMatrix );
+            if( bIsSRMatrix )
+            {
+                pParentNode->World.GetRotate().GetRow(0, pLight->RVector);
+                pParentNode->World.GetRotate().GetRow(1, pLight->UVector);
+                pParentNode->World.GetRotate().GetRow(2, pLight->DVector);
+            }
+        }
+    }
+}
+//----------------------------------------------------------------------------

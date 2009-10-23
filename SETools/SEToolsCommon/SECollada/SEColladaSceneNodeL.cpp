@@ -280,7 +280,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     // is a skinned geometry controlled by a node hierarchy called skeleton.
     // We should set bone index, bone weight, and skeleton node reference for
     // skinned geometry. But now we haven't finished building of Swing Engine
-    // scene graph, so the process of assigning skinning data is delayed.
+    // scene graph, so the processing of assigning skinning data is deferred.
     // TODO:
     // Support morph controller.
     domInstance_controller_Array& rInstanceControllerArray = 
@@ -303,7 +303,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     // We should set orientation(position,direction) for spot light, and set 
     // position for point light base on their parent node's orientation. But 
     // now we haven't finished building of Swing Engine scene graph, so the 
-    // process of assigning orientation is delayed.
+    // processing of assigning orientation is deferred.
     domInstance_light_Array& rDomInstanceLightArray = 
         spDomNode->getInstance_light_array();
     int iInstanceLightCount = (int)rDomInstanceLightArray.getCount();
@@ -322,7 +322,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     // Process instance cameras.
     // We should set orientation(E,R,U,D) for camera base on its parent node's
     // orientation. But now we haven't finished building of Swing Engine scene
-    // graph, so the process of assigning orientation is delayed.
+    // graph, so the processing of assigning orientation is deferred.
     domInstance_camera_Array& rDomInstanceCameraArray = 
         spDomNode->getInstance_camera_array();
     int iInstanceCameraCount = (int)rDomInstanceCameraArray.getCount();

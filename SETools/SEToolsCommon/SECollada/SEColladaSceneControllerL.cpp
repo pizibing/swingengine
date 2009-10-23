@@ -156,6 +156,25 @@ Node* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
     return pMeshRoot;
 }
 //----------------------------------------------------------------------------
+void ColladaScene::ProcessControllers()
+{
+    int iInstanceControllerCount = (int)m_InstanceControllers.size();
+    for( int i = 0; i < iInstanceControllerCount; i++ )
+    {
+        ColladaInstanceController* pIController = m_InstanceControllers[i];
+        ColladaInstanceController::ControllerType eControllerType = 
+            pIController->GetControllerType();
+        if( eControllerType == ColladaInstanceController::CT_SKIN )
+        {
+            ProcessSkin(pIController);
+        }
+        else if( eControllerType == ColladaInstanceController::CT_MORPH )
+        {
+            ProcessMorph(pIController);
+        }
+    }
+}
+//----------------------------------------------------------------------------
 void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
 {
     SE_ASSERT( pIController );
