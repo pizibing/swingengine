@@ -39,7 +39,8 @@ Node* ColladaScene::GetNode(const char* acName)
     return m_Nodes[acName];
 }
 //----------------------------------------------------------------------------
-void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
+void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode,
+    std::vector<ColladaTransformation*>& rColladaTransSequence)
 {
     // Load the node transformations as they are to be able to 
     // handle any matrix stack configurations independant of the tools.
@@ -50,6 +51,7 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
         // Get the component type string.
         char* acSID = 0;
         Transformation* pTransform = 0;
+        ColladaTransformation* pColladaTransform = 0;
         char* acTypeName = (char*)spDomNode->getContents()[i]->getTypeName();
         ColladaTransformation::TransformType eTType = 
             ColladaTransformation::GetTransformType(acTypeName);
@@ -79,15 +81,21 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
                 {
                     pTransform->SetScale(vec3fScale);
                 }
+                tempTransSequence.push_back(pTransform);
+
+                // Create a corresponding COLLADA transformation.
+                pColladaTransform = SE_NEW ColladaTransformation;
 
                 acSID = (char*)pDomScale->getSid();
                 if( acSID )
                 {
-                    // TODO:
                     // This will be used to bind to an animation later.
+                    pColladaTransform->SetName(acSID);
                 }
-
-                tempTransSequence.push_back(pTransform);
+                pColladaTransform->TransType = eTType;
+                pColladaTransform->SRTDate = Vector4f((float)rDomFloat3[0], 
+                    (float)rDomFloat3[1], (float)rDomFloat3[2], 0.0f);
+                rColladaTransSequence.push_back(pColladaTransform);
             }
             break;
 
@@ -108,15 +116,22 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
 
                 Matrix3f mat3fR(vec3fRotAxis, fRotAngle);
                 pTransform->SetRotate(mat3fR);
+                tempTransSequence.push_back(pTransform);
+
+                // Create a corresponding COLLADA transformation.
+                pColladaTransform = SE_NEW ColladaTransformation;
 
                 acSID = (char*)pDomRotate->getSid();
                 if( acSID )
                 {
-                    // TODO:
                     // This will be used to bind to an animation later.
+                    pColladaTransform->SetName(acSID);
                 }
-                
-                tempTransSequence.push_back(pTransform);
+                pColladaTransform->TransType = eTType;
+                pColladaTransform->SRTDate = Vector4f((float)rDomFloat4[0], 
+                    (float)rDomFloat4[1], (float)rDomFloat4[2], 
+                    (float)rDomFloat4[3]);
+                rColladaTransSequence.push_back(pColladaTransform);
             }
             break;
 
@@ -134,15 +149,20 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
                     (float)rDomFloat3[1], (float)rDomFloat3[2]);
 
                 pTransform->SetTranslate(vec3fTrans);
+                tempTransSequence.push_back(pTransform);
 
+                // Create a corresponding COLLADA transformation.
+                pColladaTransform = SE_NEW ColladaTransformation;
                 acSID = (char*)pDomTranslate->getSid();
                 if( acSID )
                 {
-                    // TODO:
                     // This will be used to bind to an animation later.
+                    pColladaTransform->SetName(acSID);
                 }
-                
-                tempTransSequence.push_back(pTransform);
+                pColladaTransform->TransType = eTType;
+                pColladaTransform->SRTDate = Vector4f((float)rDomFloat3[0], 
+                    (float)rDomFloat3[1], (float)rDomFloat3[2], 0.0f);
+                rColladaTransSequence.push_back(pColladaTransform);
             }
             break;
 
@@ -150,6 +170,7 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
             {
                 // TODO:
                 // Support this transformation.
+                SE_ASSERT( false );
             }
             break;
 
@@ -157,6 +178,7 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
             {
                 // TODO:
                 // Support this transformation.
+                SE_ASSERT( false );
             }
             break;
 
@@ -164,6 +186,7 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
             {
                 // TODO:
                 // Support this transformation.
+                SE_ASSERT( false );
             }
             break;
 
@@ -209,7 +232,13 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     pNode = SE_NEW Node;
     pNode->SetName(acNodeID);
 
-    GetLocalTransformation(pNode, spDomNode);
+    // Process local transformation sequence.
+    std::vector<ColladaTransformation*> tempColladaTransSequence;
+    GetLocalTransformation(pNode, spDomNode, tempColladaTransSequence);
+    for( int i = 0; i < (int)tempColladaTransSequence.size(); i++ )
+    {
+        SE_DELETE tempColladaTransSequence[i];
+    }
 
     // Process joint.
     domNodeType eNodeType = spDomNode->getType();

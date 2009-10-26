@@ -171,7 +171,8 @@ private:
 
     // Node stuff.
     Node* LoadNode(domNodeRef spDomNode, Node* pParentNode);
-    void GetLocalTransformation(Node* pNode, domNodeRef spDomNode);
+    void GetLocalTransformation(Node* pNode, domNodeRef spDomNode, 
+        std::vector<ColladaTransformation*>& rColladaTransSequence);
     TriMesh* CreateJointMesh(const char* acJointName, float fSize = 0.25f);
     domNode* GetDomNodeBySID(domNodeRef spDomNode, xsNCName strSID);
     Node* GetBoneNodeByDomNode(domNode* pDomNode);
