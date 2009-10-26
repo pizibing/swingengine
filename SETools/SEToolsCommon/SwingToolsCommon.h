@@ -38,6 +38,7 @@
 #include "SEColladaInstanceCamera.h"
 #include "SEColladaInstanceMaterial.h"
 #include "SEColladaInstanceController.h"
+#include "SEColladaTransformation.h"
 
 // Tool System
 #include "SEToolsUtility.h"

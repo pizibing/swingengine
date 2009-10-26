@@ -27,11 +27,11 @@ SE_IMPLEMENT_RTTI(Swing, ColladaAnimationSource, Object);
 SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaAnimationSource, Object);
 
 //----------------------------------------------------------------------------
-ColladaAnimationSource::ColladaAnimationSource(void)
+ColladaAnimationSource::ColladaAnimationSource()
 {
 }
 //----------------------------------------------------------------------------
-ColladaAnimationSource::~ColladaAnimationSource(void)
+ColladaAnimationSource::~ColladaAnimationSource()
 {
 }
 //----------------------------------------------------------------------------

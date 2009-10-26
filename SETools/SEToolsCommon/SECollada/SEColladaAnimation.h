@@ -137,6 +137,8 @@ public:
 private:
     friend class ColladaScene;
     void GenerateKeys(void);
+
+    void Interp(float& rfValue, ColladaKeySet* pKeySet, float fTime);
 };
 
 typedef SmartPointer<ColladaAnimation> ColladaAnimationPtr;

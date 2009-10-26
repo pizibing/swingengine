@@ -70,7 +70,7 @@ void ColladaAnimation::GenerateKeys()
                 AnimKeySets[iAnimSetBase + k].Keys[j] = 
                     (*pOutputSource->Source)[j*iElementTargetCount + k];
                 
-                // Update animation's end time.
+                // Update animation's end fTime.
                 if( AnimKeySets[iAnimSetBase + k].Time[j] > EndTime )
                 {
                     EndTime = AnimKeySets[iAnimSetBase + k].Time[j];
@@ -83,6 +83,59 @@ void ColladaAnimation::GenerateKeys()
 
         // Update the current iAnimSetBase index.
         iAnimSetBase += pChannel->NumElementTargets;
+    }
+}
+//----------------------------------------------------------------------------
+void ColladaAnimation::Interp(float& rfValue, ColladaKeySet* pKeySet, 
+    float fTime)
+{
+    if( !pKeySet->Keys )
+    {
+        return;
+    }
+
+    if( fTime > pKeySet->Time[pKeySet->NumKeys-1] )
+    {
+        rfValue = pKeySet->Keys[pKeySet->NumKeys - 1];
+    }
+    else
+    {
+        rfValue = pKeySet->Keys[0];
+
+        // Need to first find out where the fTime lies in the keys.
+        int iNext = -1;
+        int iPrev = -1;
+        for( int i = 0; i < pKeySet->NumKeys - 1; i ++ )
+        {
+            if( fTime >= pKeySet->Time[i] && fTime < pKeySet->Time[i + 1] )
+            {
+                iPrev = i;
+                iNext = i + 1;
+                break;
+            }
+        }
+
+        if( iPrev == -1 )
+        {
+            if( fTime < pKeySet->Time[0] )
+            {
+                rfValue = pKeySet->Keys[0];
+            }
+            else
+            {
+                // If fTime is not in range just set to last key value.
+                rfValue = pKeySet->Keys[pKeySet->NumKeys - 1];
+            }
+        }
+        else
+        {	
+            float fTSize = pKeySet->Time[iNext] - pKeySet->Time[iPrev];
+            float fTDiff = fTime - pKeySet->Time[iPrev]; 
+            float fTFactor = 1 - ((fTSize - fTDiff)/fTSize);
+            
+            float fVSize = pKeySet->Keys[iNext] - pKeySet->Keys[iPrev];
+            rfValue = pKeySet->Keys[iPrev] + (fVSize*fTFactor);
+        }
     }
 }
 //----------------------------------------------------------------------------

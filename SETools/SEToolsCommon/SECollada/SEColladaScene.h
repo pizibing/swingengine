@@ -33,6 +33,7 @@
 #include "SEColladaInstanceCamera.h"
 #include "SEColladaInstanceMaterial.h"
 #include "SEColladaInstanceController.h"
+#include "SEColladaTransformation.h"
 
 namespace Swing
 {
@@ -83,18 +84,6 @@ public:
         OM_Y_UP,
         OM_Z_UP,
         OM_X_UP
-    };
-
-    // Node's transformation type.
-    enum TransformType
-    {
-        TT_SCALE,
-        TT_ROTATE,
-        TT_TRANSLATE,
-        TT_MATRIX,
-        TT_LOOKAT,
-        TT_SKEW,
-        TT_UNKNOWN
     };
 
     enum SkinEffect
@@ -167,7 +156,7 @@ private:
     // Entry point.
     bool LoadScene(domVisual_sceneRef spDomVisualScene);
 
-    // COLLADA mesh Triangulation.
+    // COLLADA mesh triangulation.
     unsigned int GetMaxOffset(domInputLocalOffset_Array& rInputArray);
     void CreateTrianglesFromPolygons(domMesh* pDomMesh, 
         domPolygons* pDomPolygons);
@@ -182,7 +171,6 @@ private:
 
     // Node stuff.
     Node* LoadNode(domNodeRef spDomNode, Node* pParentNode);
-    TransformType GetTransformType(char* acType);
     void GetLocalTransformation(Node* pNode, domNodeRef spDomNode);
     TriMesh* CreateJointMesh(const char* acJointName, float fSize = 0.25f);
     domNode* GetDomNodeBySID(domNodeRef spDomNode, xsNCName strSID);

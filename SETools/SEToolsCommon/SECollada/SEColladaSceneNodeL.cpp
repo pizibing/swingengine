@@ -39,42 +39,6 @@ Node* ColladaScene::GetNode(const char* acName)
     return m_Nodes[acName];
 }
 //----------------------------------------------------------------------------
-ColladaScene::TransformType ColladaScene::GetTransformType(char* acType)
-{
-    // Return a enum for the type of transform, things that are not transforms 
-    // like <instance_xxx> are returned as TT_UNKNOWN and will be handled by 
-    // other code.
-
-    if( strcmp(acType, "scale") == 0 )
-    {
-        return TT_SCALE;
-    }
-    else if( strcmp(acType, "rotate") == 0 )
-    {
-        return TT_ROTATE;
-    }
-    else if( strcmp(acType, "translate") == 0 )
-    {
-        return TT_TRANSLATE;
-    }
-    else if( strcmp(acType, "matrix") == 0 )
-    {
-        return TT_MATRIX;
-    }
-    else if( strcmp(acType, "lookat") == 0 )
-    {
-        return TT_LOOKAT;
-    }
-    else if( strcmp(acType, "skew") == 0 )
-    {
-        return TT_SKEW;
-    }
-    else
-    {
-        return TT_UNKNOWN;
-    }
-}
-//----------------------------------------------------------------------------
 void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
 {
     // Load the node transformations as they are to be able to 
@@ -87,11 +51,12 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
         char* acSID = 0;
         Transformation* pTransform = 0;
         char* acTypeName = (char*)spDomNode->getContents()[i]->getTypeName();
-        TransformType eTType = GetTransformType(acTypeName);
+        ColladaTransformation::TransformType eTType = 
+            ColladaTransformation::GetTransformType(acTypeName);
 
         switch( eTType )
         {
-        case TT_SCALE:
+        case ColladaTransformation::TT_SCALE:
             {
                 pTransform = SE_NEW Transformation;
 
@@ -126,7 +91,7 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
             }
             break;
 
-        case TT_ROTATE:
+        case ColladaTransformation::TT_ROTATE:
             {
                 pTransform = SE_NEW Transformation;
 
@@ -155,7 +120,7 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
             }
             break;
 
-        case TT_TRANSLATE:
+        case ColladaTransformation::TT_TRANSLATE:
             {
                 pTransform = SE_NEW Transformation;
 
@@ -181,28 +146,28 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode)
             }
             break;
 
-        case TT_MATRIX:
+        case ColladaTransformation::TT_MATRIX:
             {
                 // TODO:
                 // Support this transformation.
             }
             break;
 
-        case TT_LOOKAT:
+        case ColladaTransformation::TT_LOOKAT:
             {
                 // TODO:
                 // Support this transformation.
             }
             break;
 
-        case TT_SKEW:
+        case ColladaTransformation::TT_SKEW:
             {
                 // TODO:
                 // Support this transformation.
             }
             break;
 
-        case TT_UNKNOWN:
+        case ColladaTransformation::TT_UNKNOWN:
             // If it's not a transformation, it's an instance or something 
             // else that will be handled later.
             continue; 

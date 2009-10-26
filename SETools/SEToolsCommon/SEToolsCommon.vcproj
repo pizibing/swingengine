@@ -412,6 +412,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\SECollada\SEColladaTransformation.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\SECollada\SEColladaTransformation.h"
+					>
+				</File>
+				<File
 					RelativePath=".\SECollada\SEColladaUnimaterialMesh.cpp"
 					>
 				</File>
