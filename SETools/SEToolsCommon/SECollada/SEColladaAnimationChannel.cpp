@@ -27,11 +27,11 @@ SE_IMPLEMENT_RTTI(Swing, ColladaAnimationChannel, Object);
 SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaAnimationChannel, Object);
 
 //----------------------------------------------------------------------------
-ColladaAnimationChannel::ColladaAnimationChannel(void)
+ColladaAnimationChannel::ColladaAnimationChannel()
 {
 }
 //----------------------------------------------------------------------------
-ColladaAnimationChannel::~ColladaAnimationChannel(void)
+ColladaAnimationChannel::~ColladaAnimationChannel()
 {
 }
 //----------------------------------------------------------------------------

@@ -51,10 +51,10 @@ public:
         AT_TARGET_X,
         AT_TARGET_Y,
         AT_TARGET_Z,
-        AT_TARGET_XYZ, 
+        AT_TARGET_XYZ,
         AT_TARGET_ANGLE,
 
-        AT_TARGET_UNKNOWN, 
+        AT_TARGET_UNKNOWN,
 
         AT_S_X_AXIS,
         AT_S_Y_AXIS,
@@ -64,12 +64,12 @@ public:
         AT_R_X_AXIS,
         AT_R_Y_AXIS,
         AT_R_Z_AXIS,
-        AT_R, 
+        AT_R,
 
         AT_T_X_AXIS,
         AT_T_Y_AXIS,
-        AT_T_Z_AXIS, 
-        AT_T, 
+        AT_T_Z_AXIS,
+        AT_T,
 
         AT_SOURCE,
         AT_MATRIX

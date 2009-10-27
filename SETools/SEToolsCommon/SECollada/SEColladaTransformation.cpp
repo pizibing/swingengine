@@ -19,6 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 #include "SEToolsCommonPCH.h"
+#include "SEColladaScene.h"
 #include "SEColladaTransformation.h"
 
 using namespace Swing;
@@ -90,5 +91,77 @@ ColladaTransformation::TransformType ColladaTransformation::GetTransformType(
     {
         return TT_UNKNOWN;
     }
+}
+//----------------------------------------------------------------------------
+Transformation ColladaTransformation::ToTransformation()
+{
+    Transformation tempRes;
+
+    switch( TransType )
+    {
+    case TT_SCALE:
+        {
+            // Get the scale data.
+            Vector3f vec3fScale = ColladaScene::GetTransformedVector(
+                SRTData[0], SRTData[1], SRTData[2]);
+
+            // Is this an uniform scale?
+            if( vec3fScale.X == vec3fScale.Y && 
+                vec3fScale.Y == vec3fScale.Z )
+            {
+                tempRes.SetUniformScale(vec3fScale.X);
+            }
+            else
+            {
+                tempRes.SetScale(vec3fScale);
+            }
+        }
+        break;
+
+    case TT_ROTATE:
+        {
+            // Get the rotation data.
+            Vector3f vec3fRotAxis = ColladaScene::GetTransformedVector(
+                SRTData[0], SRTData[1], SRTData[2]);
+            float fRotAngle = -SRTData[3]*Math<float>::DEG_TO_RAD;
+
+            Matrix3f mat3fR(vec3fRotAxis, fRotAngle);
+            tempRes.SetRotate(mat3fR);
+        }
+        break;
+
+    case TT_TRANSLATE:
+        {
+            // Get the transation data.
+            Vector3f vec3fTrans = ColladaScene::GetTransformedVector(
+                SRTData[0], SRTData[1], SRTData[2]);
+
+            tempRes.SetTranslate(vec3fTrans);
+        }
+        break;
+
+    case TT_MATRIX:
+        // TODO:
+        // Support this transformation.
+        SE_ASSERT( false );
+        break;
+
+    case TT_LOOKAT:
+        // TODO:
+        // Support this transformation.
+        SE_ASSERT( false );
+        break;
+
+    case TT_SKEW:
+        // TODO:
+        // Support this transformation.
+        SE_ASSERT( false );
+        break;
+
+    default:
+        break;
+    }
+
+    return tempRes;
 }
 //----------------------------------------------------------------------------

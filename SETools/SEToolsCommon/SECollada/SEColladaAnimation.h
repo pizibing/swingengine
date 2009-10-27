@@ -91,6 +91,7 @@ struct SE_TOOLS_COMMON_API ColladaKeySet
     }
 };
 
+class ColladaTransformation;
 //----------------------------------------------------------------------------
 // Name:COLLADA Animation class
 // Description:
@@ -137,6 +138,9 @@ public:
 private:
     friend class ColladaScene;
     void GenerateKeys(void);
+
+    void AnimateChannel(ColladaTransformation* pTransform, 
+        ColladaAnimationChannel::AnimationTarget eTarget, int i, float fTime);
 
     void Interp(float& rfValue, ColladaKeySet* pKeySet, float fTime);
 };

@@ -93,7 +93,7 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode,
                     pColladaTransform->SetName(acSID);
                 }
                 pColladaTransform->TransType = eTType;
-                pColladaTransform->SRTDate = Vector4f((float)rDomFloat3[0], 
+                pColladaTransform->SRTData = Vector4f((float)rDomFloat3[0], 
                     (float)rDomFloat3[1], (float)rDomFloat3[2], 0.0f);
                 rColladaTransSequence.push_back(pColladaTransform);
             }
@@ -128,7 +128,7 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode,
                     pColladaTransform->SetName(acSID);
                 }
                 pColladaTransform->TransType = eTType;
-                pColladaTransform->SRTDate = Vector4f((float)rDomFloat4[0], 
+                pColladaTransform->SRTData = Vector4f((float)rDomFloat4[0], 
                     (float)rDomFloat4[1], (float)rDomFloat4[2], 
                     (float)rDomFloat4[3]);
                 rColladaTransSequence.push_back(pColladaTransform);
@@ -160,7 +160,7 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode,
                     pColladaTransform->SetName(acSID);
                 }
                 pColladaTransform->TransType = eTType;
-                pColladaTransform->SRTDate = Vector4f((float)rDomFloat3[0], 
+                pColladaTransform->SRTData = Vector4f((float)rDomFloat3[0], 
                     (float)rDomFloat3[1], (float)rDomFloat3[2], 0.0f);
                 rColladaTransSequence.push_back(pColladaTransform);
             }
@@ -195,6 +195,42 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode,
             // else that will be handled later.
             continue; 
         }
+
+        // Now we want to find out whether or not this transformation is 
+        // affected by a COLLADA animation object.
+        for( int j = 0; j < (int)m_Animations.size(); j++ )
+        {
+            ColladaAnimation* pAnimation = m_Animations[j];
+            if( pAnimation->FoundTarget )
+            {
+                continue;
+            }
+
+            bool bFoundTarget = false;
+            for( int k = 0; k < (int)pAnimation->Channels.size(); k++ )
+            {
+                const char* acTargetID = pAnimation->Channels[k]->TargetID;
+                const char* acTargetSID = pAnimation->Channels[k]->TargetSID;
+                const char* acNodeID = pNode->GetName();
+                if( acTargetID && acTargetSID && acNodeID && acSID )
+                {
+                    if( strcmp(acTargetID, acNodeID) == 0 &&
+                        strcmp(acTargetSID, acSID) == 0 )
+                    {
+                        pAnimation->FoundTarget = true;
+                        pColladaTransform->Animation = pAnimation;
+                        pColladaTransform->AttachChannel(k);
+                        bFoundTarget = true;
+
+                        break;
+                    }
+                }
+            }
+            if (bFoundTarget)
+            {
+                break;
+            }
+        }
     }
 
     int iTransCount = (int)tempTransSequence.size();
@@ -209,6 +245,35 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode,
     }
 }
 //----------------------------------------------------------------------------
+Transformation ColladaScene::GetLocalTransformation(
+    std::vector<ColladaTransformation*>& rSrcColladaTransSequence,
+    float fTime)
+{
+    Transformation tempRes;
+
+    // Update each animated COLLADA transformation.
+    for( int i = 0; i < (int)rSrcColladaTransSequence.size(); i++ )
+    {
+        ColladaAnimation* pAnimation = rSrcColladaTransSequence[i]->Animation;
+        if( pAnimation )
+        {
+            // A single transform may have serveral animated channels attached.
+            int iCCount = rSrcColladaTransSequence[i]->GetChannelCount();
+            for( int j = 0; j < iCCount; j++ )
+            {
+                int iChannelID = rSrcColladaTransSequence[i]->GetChannel(j);
+
+                // Interpolate the value based on the element that is to be 
+                // targeted and the key frame info attached at load time.
+                pAnimation->AnimateChannel(rSrcColladaTransSequence[i], 
+                    pAnimation->Channels[iChannelID]->TargetType, iChannelID,
+                    fTime);
+            }
+        }
+    }
+
+    return tempRes;
+}
 Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
 {
     if( !spDomNode )

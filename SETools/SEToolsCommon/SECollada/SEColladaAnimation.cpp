@@ -20,6 +20,7 @@
 
 #include "SEToolsCommonPCH.h"
 #include "SEColladaAnimation.h"
+#include "SEColladaTransformation.h"
 
 using namespace Swing;
 
@@ -27,11 +28,25 @@ SE_IMPLEMENT_RTTI(Swing, ColladaAnimation, Object);
 SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaAnimation, Object);
 
 //----------------------------------------------------------------------------
-ColladaAnimation::ColladaAnimation(void)
+ColladaAnimation::ColladaAnimation()
 {
+    NumAnimChannels = 0;
+    AnimKeySets = 0;
+    EndTime = 0.0f;
+    SampleRate = 0.0f;
+
+    Keys = 0;
+    NumKeys = 0;
+
+    HasRotation = false;
+    HasTranslation = false;
+    HasScale = false;
+    HasSource = false;
+    HasMatrix = false;
+    FoundTarget = false;
 }
 //----------------------------------------------------------------------------
-ColladaAnimation::~ColladaAnimation(void)
+ColladaAnimation::~ColladaAnimation()
 {
 }
 //----------------------------------------------------------------------------
@@ -136,6 +151,57 @@ void ColladaAnimation::Interp(float& rfValue, ColladaKeySet* pKeySet,
             float fVSize = pKeySet->Keys[iNext] - pKeySet->Keys[iPrev];
             rfValue = pKeySet->Keys[iPrev] + (fVSize*fTFactor);
         }
+    }
+}
+//----------------------------------------------------------------------------
+void ColladaAnimation::AnimateChannel(ColladaTransformation* pTransform, 
+    ColladaAnimationChannel::AnimationTarget eTarget, int i, float fTime)
+{
+    Vector4f& rSRTData = pTransform->SRTData;
+
+    switch( eTarget )
+    {
+    case ColladaAnimationChannel::AT_TARGET_X:
+    case ColladaAnimationChannel::AT_S_X_AXIS:
+    case ColladaAnimationChannel::AT_T_X_AXIS:
+        Interp(rSRTData.X, &AnimKeySets[i], fTime);
+    break;
+
+    case ColladaAnimationChannel::AT_TARGET_Y:
+    case ColladaAnimationChannel::AT_S_Y_AXIS:
+    case ColladaAnimationChannel::AT_T_Y_AXIS:
+        Interp(rSRTData.Y, &AnimKeySets[i], fTime);
+    break;
+
+    case ColladaAnimationChannel::AT_TARGET_Z:
+    case ColladaAnimationChannel::AT_S_Z_AXIS:
+    case ColladaAnimationChannel::AT_T_Z_AXIS:
+        Interp(rSRTData.Z, &AnimKeySets[i], fTime);
+    break;
+
+    case ColladaAnimationChannel::AT_R_X_AXIS:
+    case ColladaAnimationChannel::AT_R_Y_AXIS:
+    case ColladaAnimationChannel::AT_R_Z_AXIS:
+    case ColladaAnimationChannel::AT_TARGET_ANGLE:
+        Interp(rSRTData.W, &AnimKeySets[i], fTime);
+    break;
+
+    case ColladaAnimationChannel::AT_T:
+    case ColladaAnimationChannel::AT_S:
+    case ColladaAnimationChannel::AT_TARGET_XYZ:
+        Interp(rSRTData.X, &AnimKeySets[i    ], fTime);
+        Interp(rSRTData.Y, &AnimKeySets[i + 1], fTime);
+        Interp(rSRTData.Z, &AnimKeySets[i + 2], fTime);
+        break;
+
+    case ColladaAnimationChannel::AT_MATRIX:
+        // TODO:
+        // Support this transformation.
+        SE_ASSERT( false );
+        break; 
+
+    default:
+        break;
     }
 }
 //----------------------------------------------------------------------------

@@ -23,6 +23,9 @@
 
 using namespace Swing;
 
+ColladaScene::OrientationMode ColladaScene::ms_eOrientationMode = 
+    ColladaScene::OM_UNKNOWN;
+
 //----------------------------------------------------------------------------
 ColladaScene::ColladaScene(IDirect3DDevice9* pDevice)
 {
@@ -65,17 +68,17 @@ void ColladaScene::Load(const char* acFilename)
         {
         case UPAXISTYPE_X_UP:
             ToolSystem::SE_DebugOutput("Right-handed system with X upward");
-            m_eOrientationMode = OM_X_UP;
+            ms_eOrientationMode = OM_X_UP;
             break;
 
         case UPAXISTYPE_Y_UP:
             ToolSystem::SE_DebugOutput("Right-handed system with Y upward");
-            m_eOrientationMode = OM_Y_UP;
+            ms_eOrientationMode = OM_Y_UP;
             break;
 
         case UPAXISTYPE_Z_UP:
             ToolSystem::SE_DebugOutput("Right-handed system with Z upward");
-            m_eOrientationMode = OM_Z_UP;
+            ms_eOrientationMode = OM_Z_UP;
             break;
 
         default:
@@ -354,7 +357,7 @@ Vector3f ColladaScene::GetTransformedVector(float fX, float fY, float fZ)
     // COLLADA uses right-handed based system, now we only have these three 
     // situations to deal with. The result vector is a left-handed based 
     // Swing Engine vector.
-    switch(m_eOrientationMode)
+    switch(ms_eOrientationMode)
     {
     case OM_Y_UP:
         vec3fRes.X = fX;

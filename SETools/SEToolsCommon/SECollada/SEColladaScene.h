@@ -68,7 +68,7 @@ public:
 
 //----------------------------------------------------------------------------
 // Name:COLLADA Scene class
-// Description:
+// Description: This is a singleton class.
 // Author:Sun Che
 // Date:20090914
 //----------------------------------------------------------------------------
@@ -83,7 +83,8 @@ public:
     {
         OM_Y_UP,
         OM_Z_UP,
-        OM_X_UP
+        OM_X_UP,
+        OM_UNKNOWN
     };
 
     enum SkinEffect
@@ -164,15 +165,13 @@ private:
         domPolylist* pDomPolylist);
     void Triangulate(DAE* pDAE);
 
-    // Transform the input DCC coordinate to Swing Engine coordinate.
-    // Say, from a right-handed based system to Swing Engine left-handed based
-    // system.
-    Vector3f GetTransformedVector(float fX, float fY, float fZ);
-
     // Node stuff.
     Node* LoadNode(domNodeRef spDomNode, Node* pParentNode);
     void GetLocalTransformation(Node* pNode, domNodeRef spDomNode, 
         std::vector<ColladaTransformation*>& rColladaTransSequence);
+    Transformation GetLocalTransformation(
+        std::vector<ColladaTransformation*>& rSrcColladaTransSequence,
+        float fTime = 0.0f);
     TriMesh* CreateJointMesh(const char* acJointName, float fSize = 0.25f);
     domNode* GetDomNodeBySID(domNodeRef spDomNode, xsNCName strSID);
     Node* GetBoneNodeByDomNode(domNode* pDomNode);
@@ -250,7 +249,7 @@ private:
     DAE* m_pDAE;
     ImageConverter* m_pImageConverter;
     NodePtr m_spSceneRoot;
-    OrientationMode m_eOrientationMode;
+    static OrientationMode ms_eOrientationMode;
 
     std::vector<ImagePtr> m_Images;
     std::vector<ColladaEffectPtr> m_Effects;
@@ -265,6 +264,13 @@ private:
     std::vector<CameraPtr> m_Cameras;
     std::vector<ColladaInstanceControllerPtr> m_InstanceControllers;
     std::vector<Bone> m_Bones;
+
+// Internal use.
+public:
+    // Transform the input DCC coordinate to Swing Engine coordinate.Say,
+    // from a right-handed based system to Swing Engine left-handed based
+    // system.
+    static Vector3f GetTransformedVector(float fX, float fY, float fZ);
 };
 
 }

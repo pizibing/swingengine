@@ -25,6 +25,7 @@
 #include "SEToolsUtility.h"
 #include "SEObject.h"
 #include "SEColladaAnimation.h"
+#include "SETransformation.h"
 
 namespace Swing
 {
@@ -58,7 +59,8 @@ public:
     TransformType TransType;
 
     // This will be used to store scale, rotation axis, or translation.
-    Vector4f SRTDate;
+    Vector4f SRTData;
+
     // Transformation can be affected by a COLLADA animation object.
     ColladaAnimation* Animation;
 
@@ -66,6 +68,9 @@ public:
     void AttachChannel(int iID);
     int GetChannelCount(void) const;
     int GetChannel(int i) const;
+
+    // Get a Swing Engine transformation from this COLLADA transformation.
+    Transformation ToTransformation(void);
 
     static TransformType GetTransformType(char* acType);
 

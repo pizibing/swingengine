@@ -27,12 +27,12 @@ SE_IMPLEMENT_RTTI(Swing, ColladaEffect, ShaderEffect);
 SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaEffect, ShaderEffect);
 
 //----------------------------------------------------------------------------
-ColladaEffect::ColladaEffect(void)
+ColladaEffect::ColladaEffect()
 {
     Material = SE_NEW MaterialState;
 }
 //----------------------------------------------------------------------------
-ColladaEffect::~ColladaEffect(void)
+ColladaEffect::~ColladaEffect()
 {
 }
 //----------------------------------------------------------------------------
