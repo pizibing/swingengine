@@ -94,13 +94,13 @@ int main(array<System::String ^> ^)
     Swing::Camera* pCamera = SE_NEW Swing::Camera;
     pRenderer->SetCamera(pCamera);
     float fDMin = 1.0f;
-    float fDMax = 100.0f;
+    float fDMax = 1000.0f;
     float fRMax = 0.55f * fDMin;
     float fRMin = -fRMax;
     float fUMax = 0.4125f/*0.309375f*/ * fDMin;
     float fUMin = -fUMax;
     pCamera->SetFrustum(fRMin, fRMax, fUMin, fUMax, fDMin, fDMax);
-    Swing::Vector3f tempCLoc(0.0f, 0.0f, -80.0f);
+    Swing::Vector3f tempCLoc(0.0f, 5.0f, -30.0f);
     Swing::Vector3f tempCDir(0.0f, 0.0f, 1.0f);
     Swing::Vector3f tempCUp(0.0f, 1.0f, 0.0f);
     Swing::Vector3f tempCRight = tempCUp.Cross(tempCDir);

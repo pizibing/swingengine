@@ -39,19 +39,19 @@ Node* ColladaScene::GetNode(const char* acName)
     return m_Nodes[acName];
 }
 //----------------------------------------------------------------------------
-void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode,
+void ColladaScene::GetLocalTransSequence(Node* pNode, domNodeRef spDomNode,
     std::vector<ColladaTransformation*>& rColladaTransSequence)
 {
-    // Load the node transformations as they are to be able to 
-    // handle any matrix stack configurations independant of the tools.
-    std::vector<Transformation*> tempTransSequence;
+    // Get the node transformations as they are to be able to handle any 
+    // matrix stack configurations independant of the tools.
+
     int iNodeContentCount = (int)spDomNode->getContents().getCount();
     for( int i = 0; i < iNodeContentCount; i++ )
     {
-        // Get the component type string.
         char* acSID = 0;
-        Transformation* pTransform = 0;
         ColladaTransformation* pColladaTransform = 0;
+
+        // Get the component type string.
         char* acTypeName = (char*)spDomNode->getContents()[i]->getTypeName();
         ColladaTransformation::TransformType eTType = 
             ColladaTransformation::GetTransformType(acTypeName);
@@ -60,30 +60,12 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode,
         {
         case ColladaTransformation::TT_SCALE:
             {
-                pTransform = SE_NEW Transformation;
-
                 domScale* pDomScale = 
                     (domScale*)(domElement*)spDomNode->getContents()[i];
                 domFloat3& rDomFloat3 = pDomScale->getValue();
                 SE_ASSERT( rDomFloat3.getCount() == 3 );
-                
-                // Get the scale data.
-                Vector3f vec3fScale = GetTransformedVector((float)rDomFloat3[0],
-                    (float)rDomFloat3[1], (float)rDomFloat3[2]);
 
-                // Is this an uniform scale?
-                if( vec3fScale.X == vec3fScale.Y && 
-                    vec3fScale.Y == vec3fScale.Z )
-                {
-                    pTransform->SetUniformScale(vec3fScale.X);
-                }
-                else
-                {
-                    pTransform->SetScale(vec3fScale);
-                }
-                tempTransSequence.push_back(pTransform);
-
-                // Create a corresponding COLLADA transformation.
+                // Create a COLLADA transformation object.
                 pColladaTransform = SE_NEW ColladaTransformation;
 
                 acSID = (char*)pDomScale->getSid();
@@ -101,24 +83,12 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode,
 
         case ColladaTransformation::TT_ROTATE:
             {
-                pTransform = SE_NEW Transformation;
-
                 domRotate* pDomRotate = 
                     (domRotate*)(domElement*)spDomNode->getContents()[i];
                 domFloat4& rDomFloat4 = pDomRotate->getValue();
                 SE_ASSERT( rDomFloat4.getCount() == 4 );
 
-                // Get the rotation data.
-                Vector3f vec3fRotAxis = GetTransformedVector(
-                    (float)rDomFloat4[0], (float)rDomFloat4[1], 
-                    (float)rDomFloat4[2]);
-                float fRotAngle = -(float)rDomFloat4[3]*Math<float>::DEG_TO_RAD;
-
-                Matrix3f mat3fR(vec3fRotAxis, fRotAngle);
-                pTransform->SetRotate(mat3fR);
-                tempTransSequence.push_back(pTransform);
-
-                // Create a corresponding COLLADA transformation.
+                // Create a COLLADA transformation object.
                 pColladaTransform = SE_NEW ColladaTransformation;
 
                 acSID = (char*)pDomRotate->getSid();
@@ -137,21 +107,12 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode,
 
         case ColladaTransformation::TT_TRANSLATE:
             {
-                pTransform = SE_NEW Transformation;
-
                 domTranslate* pDomTranslate = 
                     (domTranslate*)(domElement*)spDomNode->getContents()[i];
                 domFloat3& rDomFloat3 = pDomTranslate->getValue();
                 SE_ASSERT( rDomFloat3.getCount() == 3 );
 
-                // Get the transation data.
-                Vector3f vec3fTrans = GetTransformedVector((float)rDomFloat3[0],
-                    (float)rDomFloat3[1], (float)rDomFloat3[2]);
-
-                pTransform->SetTranslate(vec3fTrans);
-                tempTransSequence.push_back(pTransform);
-
-                // Create a corresponding COLLADA transformation.
+                // Create a COLLADA transformation object.
                 pColladaTransform = SE_NEW ColladaTransformation;
                 acSID = (char*)pDomTranslate->getSid();
                 if( acSID )
@@ -232,48 +193,47 @@ void ColladaScene::GetLocalTransformation(Node* pNode, domNodeRef spDomNode,
             }
         }
     }
-
-    int iTransCount = (int)tempTransSequence.size();
-    for( int i = iTransCount - 1; i >= 0 ; i-- )
-    {
-        Transformation* pTransformation = tempTransSequence[i];
-        Transformation tempTrans;
-        tempTrans.Product(pNode->Local, *pTransformation);
-        pNode->Local = tempTrans;
-
-        SE_DELETE pTransformation;
-    }
 }
 //----------------------------------------------------------------------------
 Transformation ColladaScene::GetLocalTransformation(
-    std::vector<ColladaTransformation*>& rSrcColladaTransSequence,
+    std::vector<ColladaTransformation*>& rColladaTransSequence,
     float fTime)
 {
     Transformation tempRes;
 
     // Update each animated COLLADA transformation.
-    for( int i = 0; i < (int)rSrcColladaTransSequence.size(); i++ )
+    int iTransCount = (int)rColladaTransSequence.size();
+    for( int i = 0; i < iTransCount; i++ )
     {
-        ColladaAnimation* pAnimation = rSrcColladaTransSequence[i]->Animation;
+        ColladaAnimation* pAnimation = rColladaTransSequence[i]->Animation;
         if( pAnimation )
         {
             // A single transform may have serveral animated channels attached.
-            int iCCount = rSrcColladaTransSequence[i]->GetChannelCount();
-            for( int j = 0; j < iCCount; j++ )
+            int iChannelCount = rColladaTransSequence[i]->GetChannelCount();
+            for( int j = 0; j < iChannelCount; j++ )
             {
-                int iChannelID = rSrcColladaTransSequence[i]->GetChannel(j);
+                int iChannelID = rColladaTransSequence[i]->GetChannel(j);
 
                 // Interpolate the value based on the element that is to be 
-                // targeted and the key frame info attached at load time.
-                pAnimation->AnimateChannel(rSrcColladaTransSequence[i], 
+                // targeted and the key frame info attached at loading time.
+                pAnimation->AnimateChannel(rColladaTransSequence[i], 
                     pAnimation->Channels[iChannelID]->TargetType, iChannelID,
                     fTime);
             }
         }
     }
 
+    for( int i = iTransCount - 1; i >= 0 ; i-- )
+    {
+        Transformation tempTransform = 
+            rColladaTransSequence[i]->ToTransformation();
+
+        tempRes.Product(tempRes, tempTransform);
+    }
+
     return tempRes;
 }
+//----------------------------------------------------------------------------
 Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
 {
     if( !spDomNode )
@@ -299,7 +259,8 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
 
     // Process local transformation sequence.
     std::vector<ColladaTransformation*> tempColladaTransSequence;
-    GetLocalTransformation(pNode, spDomNode, tempColladaTransSequence);
+    GetLocalTransSequence(pNode, spDomNode, tempColladaTransSequence);
+    pNode->Local = GetLocalTransformation(tempColladaTransSequence, 0.7f);
     for( int i = 0; i < (int)tempColladaTransSequence.size(); i++ )
     {
         SE_DELETE tempColladaTransSequence[i];
