@@ -71,6 +71,8 @@ void DefaultShader::OnTerminate()
 //----------------------------------------------------------------------------
 void DefaultShader::OnIdle()
 {
+    MeasureTime();
+
     //// 旋转我们的box.
     //static double dCurTime = 0.0f;
     //static double dLastTime = 0.0f;
@@ -86,7 +88,8 @@ void DefaultShader::OnIdle()
     //    m_spMesh->UpdateGS();
     //}
 
-    MeasureTime();
+    m_spScene->UpdateGS(System::SE_GetTime());
+    m_Culler.ComputeUnculledSet(m_spScene);
 
     if( MoveCamera() )
     {
