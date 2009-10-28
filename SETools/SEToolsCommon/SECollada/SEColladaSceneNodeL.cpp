@@ -260,7 +260,17 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     // Process local transformation sequence.
     std::vector<ColladaTransformation*> tempColladaTransSequence;
     GetLocalTransSequence(pNode, spDomNode, tempColladaTransSequence);
-    pNode->Local = GetLocalTransformation(tempColladaTransSequence, 0.7f);
+
+    // Get node's combined local transformation base on local transformation 
+    // sequence at animation's start time(if there is any).
+    pNode->Local = GetLocalTransformation(tempColladaTransSequence, 0.0f);
+
+    // Process keyframe animation.
+    // TODO:
+    // Support keyframe animation option.
+    BuildKeyFrameController(pNode, tempColladaTransSequence);
+
+    // Release the local transformation sequence.
     for( int i = 0; i < (int)tempColladaTransSequence.size(); i++ )
     {
         SE_DELETE tempColladaTransSequence[i];

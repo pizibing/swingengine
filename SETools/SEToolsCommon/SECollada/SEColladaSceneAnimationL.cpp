@@ -20,8 +20,10 @@
 
 #include "SEToolsCommonPCH.h"
 #include "SEColladaScene.h"
+#include <set>
 
 using namespace Swing;
+using namespace std;
 
 //----------------------------------------------------------------------------
 bool ColladaScene::LoadAnimationLibrary(domLibrary_animationsRef spLib)
@@ -378,5 +380,206 @@ ColladaAnimation* ColladaScene::LoadAnimation(domAnimationRef spDomAnimation)
     }
 
     return 0;
+}
+//----------------------------------------------------------------------------
+void ColladaScene::BuildKeyFrameController(Node* pNode,
+    std::vector<ColladaTransformation*>& rColladaTransSequence)
+{
+    // Get a keyframe information set.
+    set<KeyInfo> tempKeyInfoSet;
+    float fEndTime = 0.0f;
+    int iTransCount = (int)rColladaTransSequence.size();
+    for( int i = 0; i < iTransCount; i++ )
+    {
+        ColladaAnimation* pAnimation = rColladaTransSequence[i]->Animation;
+        if( pAnimation )
+        {
+            // Swing Engine only support SRT keyframe animation.
+            ColladaTransformation::TransformType eTType = 
+                rColladaTransSequence[i]->TransType;
+            SE_ASSERT( eTType == ColladaTransformation::TT_SCALE || 
+                eTType == ColladaTransformation::TT_ROTATE || 
+                eTType == ColladaTransformation::TT_TRANSLATE );
+
+            // A single transform may have serveral animated channels attached.
+            int iChannelCount = rColladaTransSequence[i]->GetChannelCount();
+            for( int j = 0; j < iChannelCount; j++ )
+            {
+                int iChannelID = rColladaTransSequence[i]->GetChannel(j);
+                ColladaKeySet& rKeySet = pAnimation->AnimKeySets[iChannelID];
+                for( int k = 0; k < rKeySet.NumKeys; k++ )
+                {
+                    KeyInfo tempKeyInfo;
+                    tempKeyInfo.Time = rKeySet.Time[k];
+                    tempKeyInfo.Type = eTType;
+                    tempKeyInfoSet.insert(tempKeyInfo);
+                }
+            }
+
+            if( pAnimation->EndTime > fEndTime )
+            {
+                fEndTime = pAnimation->EndTime;
+            }
+        }
+    }
+
+    if( (int)tempKeyInfoSet.size() <= 0 )
+    {
+        // This node doesn't contain any keyframe animation data.
+        return;
+    }
+
+    int iScaKeyCount = 0;
+    int iRotKeyCount = 0;
+    int iTrnKeyCount = 0;
+
+    set<KeyInfo>::iterator tempIter = tempKeyInfoSet.begin();
+    for( int i = 0; i < (int)tempKeyInfoSet.size(); i++, tempIter++ )
+    {
+        switch( (*tempIter).Type )
+        {
+        case ColladaTransformation::TT_SCALE:
+            iScaKeyCount++;
+            break;
+
+        case ColladaTransformation::TT_ROTATE:
+            iRotKeyCount++;
+            break;
+
+        case ColladaTransformation::TT_TRANSLATE:
+            iTrnKeyCount++;
+            break;
+
+        default:
+            SE_ASSERT( false );
+            break;
+        }
+    }
+
+    // Create a keyframe controller that will be attached to the node,
+    // and allocate memory for it's member.
+    KeyframeController* pKFController = SE_NEW KeyframeController;
+    if( iScaKeyCount > 0 )
+    {
+        pKFController->ScaleTimes = SE_NEW FloatArray(iScaKeyCount,
+            SE_NEW float[iScaKeyCount]);
+        pKFController->ScaleData = SE_NEW FloatArray(iScaKeyCount,
+            SE_NEW float[iScaKeyCount]);
+    }
+    if( iRotKeyCount > 0 )
+    {
+        pKFController->RotationTimes = SE_NEW FloatArray(iRotKeyCount,
+            SE_NEW float[iRotKeyCount]);
+        pKFController->RotationData = SE_NEW QuaternionfArray(iRotKeyCount,
+            SE_NEW Quaternionf[iRotKeyCount]);
+    }
+    if( iTrnKeyCount > 0 )
+    {
+        pKFController->TranslationTimes = SE_NEW FloatArray(iTrnKeyCount,
+            SE_NEW float[iTrnKeyCount]);
+        pKFController->TranslationData = SE_NEW Vector3fArray(iTrnKeyCount,
+            SE_NEW Vector3f[iTrnKeyCount]);
+    }
+
+    float* pfSKey = (pKFController->ScaleData ?
+        pKFController->ScaleData->GetData() : 0);
+    float* pfSTime = (pKFController->ScaleTimes ?
+        pKFController->ScaleTimes->GetData() : 0);
+
+    Quaternionf* pRKey = (pKFController->RotationData ?
+        pKFController->RotationData->GetData() : 0);
+    float* pfRTime = (pKFController->RotationTimes ?
+        pKFController->RotationTimes->GetData() : 0);
+
+    Vector3f* pTKey = (pKFController->TranslationData ? 
+        pKFController->TranslationData->GetData() : 0);
+    float* pfTTime = (pKFController->TranslationTimes ?
+        pKFController->TranslationTimes->GetData() : 0);
+
+    float fTimeNow = -1.0f;
+    Transformation tempTransform;
+    tempIter = tempKeyInfoSet.begin();
+    for( int i = 0; i < (int)tempKeyInfoSet.size(); i++, tempIter++ )
+    {
+        KeyInfo& rInfo = *tempIter;
+
+        if( fTimeNow != rInfo.Time )
+        {
+            fTimeNow = rInfo.Time;
+            tempTransform = GetLocalTransformation(rColladaTransSequence,
+                fTimeNow);
+        }
+
+        switch( rInfo.Type )
+        {
+        case ColladaTransformation::TT_SCALE:
+            {
+                // TODO:
+                // We only support uniform scale and postive scale factor.
+                float fMax;
+                if( tempTransform.IsUniformScale() )
+                {
+                    fMax = tempTransform.GetUniformScale();
+                }
+                else
+                {
+                    fMax = Math<float>::FAbs(tempTransform.GetScale().X);
+                    float fAbs = Math<float>::FAbs(tempTransform.GetScale().Y);
+                    if( fAbs > fMax )
+                    {
+                        fMax = fAbs;
+                    }
+                    fAbs = Math<float>::FAbs(tempTransform.GetScale().Z);
+                    if( fAbs > fMax )
+                    {
+                        fMax = fAbs;
+                    }
+                }
+
+                SE_ASSERT( pfSKey );
+                SE_ASSERT( pfSTime );
+
+                *pfSKey++ = fMax;
+                *pfSTime++ = fTimeNow;
+            }
+            break;
+
+        case ColladaTransformation::TT_ROTATE:
+            // TODO:
+            // We only support SR form.
+            if( tempTransform.IsSRMatrix() )
+            {
+                SE_ASSERT( pRKey );
+                SE_ASSERT( pfRTime );
+
+                // 待检查.
+                // q和-q表示同样的旋转变换.
+                // 但为了保持q和next q之间的最小夹角,因此使其保持符号一致.
+                pRKey->FromRotationMatrix(tempTransform.GetRotate());
+                if( pRKey->W < 0.0f )
+                {
+                    *pRKey = -*pRKey;
+                }
+                pRKey++;
+                *pfRTime++ = fTimeNow;
+            }
+            break;
+
+        case ColladaTransformation::TT_TRANSLATE:
+            SE_ASSERT( pTKey );
+            SE_ASSERT( pfTTime );
+            *pTKey++ = tempTransform.GetTranslate();
+            *pfTTime++ = fTimeNow;
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    pKFController->Repeat = Controller::RT_WRAP;
+    pKFController->MinTime = 0.0f;
+    pKFController->MaxTime = fEndTime;
+    pNode->AttachController(pKFController);
 }
 //----------------------------------------------------------------------------

@@ -115,6 +115,30 @@ public:
     Camera* GetCamera(const char* acName);
 
 private:
+    // This helper class represents a specific type of transformation
+    // happened at a specific time.
+    class KeyInfo
+    {
+    public:
+        KeyInfo(void)
+        {
+            Time = 0.0f;
+            Type = ColladaTransformation::TT_UNKNOWN;
+        }
+
+        bool operator == (const KeyInfo& rKeyInfo) const
+        {
+            return (Time == rKeyInfo.Time) && (Type == rKeyInfo.Type);
+        }
+        bool operator < (const KeyInfo& rKeyInfo) const
+        {
+            return Time < rKeyInfo.Time;
+        }
+
+        float Time;
+        ColladaTransformation::TransformType Type;
+    };
+
     // This helper class holds the relationship between a Swing Engine bone node
     // and a COLLADA joint node.
     class Bone
@@ -215,6 +239,8 @@ private:
         ColladaAnimation* pAnimation, domSamplerRef spDomSampler);
     ColladaAnimationChannel* LoadAnimationChannel(
         ColladaAnimation* pAnimation, domChannelRef spDomChannel);
+    void BuildKeyFrameController(Node* pNode,
+        std::vector<ColladaTransformation*>& rColladaTransSequence);
 
     // Light stuff.
     Light* LoadLight(domLightRef spDomLight);
