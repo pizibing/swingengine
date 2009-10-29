@@ -40,7 +40,7 @@ bool Skinning::OnInitialize()
     }
 
     m_spCamera->SetFrustum(-0.55f, 0.55f, -0.4125f, 0.4125f, 1.0f, 1000.0f);
-    Vector3f tempCLoc(0.0f, 0.0f, -100.0f);
+    Vector3f tempCLoc(0.0f, 5.0f, -20.0f);
     Vector3f tempCDir(0.0f, 0.0f, 1.0f);
     Vector3f tempCUp(0.0f, 1.0f, 0.0f);
     Vector3f tempCRight = tempCUp.Cross(tempCDir);
@@ -132,13 +132,12 @@ void Skinning::CreateScene()
     m_spScene->AttachGlobalState(m_spWireframe);
 
     Stream tempStream;
-    const char* acPath = System::SE_GetPath("skin1.seof", System::SM_READ);
+    const char* acPath = System::SE_GetPath("boy.seof", System::SM_READ);
     SE_ASSERT( acPath );
     bool bLoaded = tempStream.Load(acPath);
     SE_ASSERT( bLoaded );
     (void)bLoaded;
     Node* pRoot = DynamicCast<Node>(tempStream.GetObjectAt(0));
-    pRoot->Local.SetTranslate(Vector3f(0, -35, 0));
     m_spScene->AttachChild(pRoot);
 }
 //----------------------------------------------------------------------------
