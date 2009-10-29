@@ -137,3 +137,7 @@ class __declspec(dllexport) YourClass
 ObjectPtr DoSomething(...);
 ObjectPtr spObject = DoSomething(...);
 这将保证返回值所指向的对象的引用计数大于等于1,从而不会造成内存空间因为引用计数变为零时的意外释放.
+
+2009 1029 1802
+在Mac OS X 10.6系统下,使用Versions软件checkout后,获取到的项目shell脚本文件无法被Xcode 3.2运行,Xcode提示permission denied,但从本地直接拷贝覆盖这些shell脚本文件后,
+Xcode就可以正确执行了,目前尚未查明原因.
