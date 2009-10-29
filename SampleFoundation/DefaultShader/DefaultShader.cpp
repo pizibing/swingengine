@@ -73,23 +73,20 @@ void DefaultShader::OnIdle()
 {
     MeasureTime();
 
-    //// 旋转我们的box.
-    //static double dCurTime = 0.0f;
-    //static double dLastTime = 0.0f;
-    //static float fAngel = 0.0f;
-    //static float fR = 15.0f;
-    //dCurTime = System::SE_GetTime();
-    //if( dCurTime - dLastTime > 0.01f )
-    //{
-    //    dLastTime = dCurTime;
+    // Rotate the box.
+    static double dCurTime = 0.0f;
+    static double dLastTime = 0.0f;
+    static float fAngel = 0.0f;
+    static float fR = 15.0f;
+    dCurTime = System::SE_GetTime();
+    if( dCurTime - dLastTime > 0.01f )
+    {
+        dLastTime = dCurTime;
 
-    //    Matrix3f mat3fRot(Vector3f::UNIT_Z, -0.01f);
-    //    m_spMesh->Local.SetRotate(m_spMesh->Local.GetRotate()*mat3fRot);
-    //    m_spMesh->UpdateGS();
-    //}
-
-    m_spScene->UpdateGS(System::SE_GetTime());
-    m_Culler.ComputeUnculledSet(m_spScene);
+        Matrix3f mat3fRot(Vector3f::UNIT_Z, -0.01f);
+        m_spMesh->Local.SetRotate(m_spMesh->Local.GetRotate()*mat3fRot);
+        m_spMesh->UpdateGS();
+    }
 
     if( MoveCamera() )
     {
@@ -149,29 +146,10 @@ void DefaultShader::CreateScene()
     Attributes tempAttr;
     tempAttr.SetPositionChannels(3);
     StandardMesh tempSM(tempAttr);
-    m_spMesh = tempSM.Box(4.0f, 1.0f, 2.0f);
-    //m_spScene->AttachChild(m_spMesh);
+    m_spMesh = tempSM.Box(1.0f, 1.0f, 1.0f);
+    m_spScene->AttachChild(m_spMesh);
 
     DefaultShaderEffect* pEffect = SE_NEW DefaultShaderEffect;
     m_spMesh->AttachEffect(pEffect);
-
-    Stream tempStream;
-    const char* acPath = System::SE_GetPath("boy.seof", System::SM_READ);
-    SE_ASSERT( acPath );
-    bool bLoaded = tempStream.Load(acPath);
-    SE_ASSERT( bLoaded );
-    (void)bLoaded;
-
-    Node* pSceneLoaded = DynamicCast<Node>(tempStream.GetObjectAt(0));
-    pSceneLoaded->AttachGlobalState(m_spWireframe);
-    m_spScene->AttachChild(pSceneLoaded);
-
-    // Test.
-    Object* pBone = pSceneLoaded->GetObjectByName("l_hip");
-    Node* pBoneNode = DynamicCast<Node>(pBone);
-    SE_ASSERT( pBoneNode );
-    Vector3f vec3fT = pBoneNode->Local.GetTranslate();
-    //vec3fT.X += 1.0f;
-    pBoneNode->Local.SetTranslate(vec3fT);
 }
 //----------------------------------------------------------------------------
