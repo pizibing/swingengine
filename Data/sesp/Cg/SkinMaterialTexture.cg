@@ -20,22 +20,19 @@ void v_SkinMaterialTexture
     uniform float4x4 SkinMatrix[32])
 {
     float3 kWorldNormal;
-    
-    // 获取骨骼索引
+
     int iBone1 = kBlendIndices.x;
     int iBone2 = kBlendIndices.y;
     int iBone3 = kBlendIndices.z;
     int iBone4 = kBlendIndices.w;
-	
-    // 顶点蒙皮动画世界空间变换
+
     kClipPosition = mul(kModelPosition, SkinMatrix[iBone1])*kBlendWeight.x +
                     mul(kModelPosition, SkinMatrix[iBone2])*kBlendWeight.y + 
                     mul(kModelPosition, SkinMatrix[iBone3])*kBlendWeight.z +
                     mul(kModelPosition, SkinMatrix[iBone4])*kBlendWeight.w;
-    // 顶点世界空间到齐次设备空间变换
+
     kClipPosition = mul(kClipPosition, VPMatrix);
-    
-    // 世界空间顶点法线 
+
     kWorldNormal = mul(kModelNormal, (float3x3)SkinMatrix[iBone1])*kBlendWeight.x + 
                    mul(kModelNormal, (float3x3)SkinMatrix[iBone2])*kBlendWeight.y +
                    mul(kModelNormal, (float3x3)SkinMatrix[iBone3])*kBlendWeight.z +
