@@ -19,18 +19,13 @@
 		529EBAF70FD91BD900EAF517 /* libSEFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EBAF40FD91BD900EAF517 /* libSEFoundation.a */; };
 		529EBAF80FD91BD900EAF517 /* libSEiPhoneApplication.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EBAF50FD91BD900EAF517 /* libSEiPhoneApplication.a */; };
 		529EBAF90FD91BD900EAF517 /* libSEPhysics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EBAF60FD91BD900EAF517 /* libSEPhysics.a */; };
-		529EBAFC0FD91C1700EAF517 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EBAFA0FD91C1700EAF517 /* CoreFoundation.framework */; };
-		529EBAFE0FD91C1700EAF517 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EBAFA0FD91C1700EAF517 /* CoreFoundation.framework */; };
-		529EBB020FD91C3200EAF517 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EBB000FD91C3200EAF517 /* OpenGLES.framework */; };
-		529EBB040FD91C3200EAF517 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EBB000FD91C3200EAF517 /* OpenGLES.framework */; };
-		529EBB080FD91C4B00EAF517 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EBB060FD91C4B00EAF517 /* Foundation.framework */; };
-		529EBB090FD91C4B00EAF517 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EBB070FD91C4B00EAF517 /* UIKit.framework */; };
-		529EBB0A0FD91C4B00EAF517 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EBB060FD91C4B00EAF517 /* Foundation.framework */; };
-		529EBB0B0FD91C4B00EAF517 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529EBB070FD91C4B00EAF517 /* UIKit.framework */; };
 		52A2178A0FDCF0B900D49C41 /* libSEiPhoneOES1Rendererd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A217890FDCF0B900D49C41 /* libSEiPhoneOES1Rendererd.a */; };
 		52A217920FDCF17800D49C41 /* libSEiPhoneOES1Renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A217910FDCF17800D49C41 /* libSEiPhoneOES1Renderer.a */; };
-		52B307FB0FE123DF0016E64F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B307FA0FE123DF0016E64F /* QuartzCore.framework */; };
-		52B307FC0FE123DF0016E64F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B307FA0FE123DF0016E64F /* QuartzCore.framework */; };
+		DDAED859109A958D00DEA5EC /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED858109A958D00DEA5EC /* CoreFoundation.framework */; };
+		DDAED85B109A958D00DEA5EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED85A109A958D00DEA5EC /* Foundation.framework */; };
+		DDAED85D109A958D00DEA5EC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED85C109A958D00DEA5EC /* OpenGLES.framework */; };
+		DDAED85F109A958D00DEA5EC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED85E109A958D00DEA5EC /* QuartzCore.framework */; };
+		DDAED861109A958D00DEA5EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED860109A958D00DEA5EC /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,14 +43,14 @@
 		529EBAF40FD91BD900EAF517 /* libSEFoundation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEFoundation.a; path = ../../SDK/Lib/libSEFoundation.a; sourceTree = SOURCE_ROOT; };
 		529EBAF50FD91BD900EAF517 /* libSEiPhoneApplication.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEiPhoneApplication.a; path = ../../SDK/Lib/libSEiPhoneApplication.a; sourceTree = SOURCE_ROOT; };
 		529EBAF60FD91BD900EAF517 /* libSEPhysics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEPhysics.a; path = ../../SDK/Lib/libSEPhysics.a; sourceTree = SOURCE_ROOT; };
-		529EBAFA0FD91C1700EAF517 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		529EBB000FD91C3200EAF517 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		529EBB060FD91C4B00EAF517 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		529EBB070FD91C4B00EAF517 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		52A217890FDCF0B900D49C41 /* libSEiPhoneOES1Rendererd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEiPhoneOES1Rendererd.a; path = ../../SDK/Lib/libSEiPhoneOES1Rendererd.a; sourceTree = SOURCE_ROOT; };
 		52A217910FDCF17800D49C41 /* libSEiPhoneOES1Renderer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEiPhoneOES1Renderer.a; path = ../../SDK/Lib/libSEiPhoneOES1Renderer.a; sourceTree = SOURCE_ROOT; };
-		52B307FA0FE123DF0016E64F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDAED858109A958D00DEA5EC /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		DDAED85A109A958D00DEA5EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DDAED85C109A958D00DEA5EC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		DDAED85E109A958D00DEA5EC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DDAED860109A958D00DEA5EC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,12 +61,12 @@
 				529EB92B0FD8EF1E00EAF517 /* libSEFoundationd.a in Frameworks */,
 				529EB92C0FD8EF1E00EAF517 /* libSEiPhoneApplicationd.a in Frameworks */,
 				529EB92D0FD8EF1E00EAF517 /* libSEPhysicsd.a in Frameworks */,
-				529EBAFE0FD91C1700EAF517 /* CoreFoundation.framework in Frameworks */,
-				529EBB040FD91C3200EAF517 /* OpenGLES.framework in Frameworks */,
-				529EBB0A0FD91C4B00EAF517 /* Foundation.framework in Frameworks */,
-				529EBB0B0FD91C4B00EAF517 /* UIKit.framework in Frameworks */,
 				52A2178A0FDCF0B900D49C41 /* libSEiPhoneOES1Rendererd.a in Frameworks */,
-				52B307FC0FE123DF0016E64F /* QuartzCore.framework in Frameworks */,
+				DDAED859109A958D00DEA5EC /* CoreFoundation.framework in Frameworks */,
+				DDAED85B109A958D00DEA5EC /* Foundation.framework in Frameworks */,
+				DDAED85D109A958D00DEA5EC /* OpenGLES.framework in Frameworks */,
+				DDAED85F109A958D00DEA5EC /* QuartzCore.framework in Frameworks */,
+				DDAED861109A958D00DEA5EC /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,12 +77,7 @@
 				529EBAF70FD91BD900EAF517 /* libSEFoundation.a in Frameworks */,
 				529EBAF80FD91BD900EAF517 /* libSEiPhoneApplication.a in Frameworks */,
 				529EBAF90FD91BD900EAF517 /* libSEPhysics.a in Frameworks */,
-				529EBAFC0FD91C1700EAF517 /* CoreFoundation.framework in Frameworks */,
-				529EBB020FD91C3200EAF517 /* OpenGLES.framework in Frameworks */,
-				529EBB080FD91C4B00EAF517 /* Foundation.framework in Frameworks */,
-				529EBB090FD91C4B00EAF517 /* UIKit.framework in Frameworks */,
 				52A217920FDCF17800D49C41 /* libSEiPhoneOES1Renderer.a in Frameworks */,
-				52B307FB0FE123DF0016E64F /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,11 +118,11 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				52B307FA0FE123DF0016E64F /* QuartzCore.framework */,
-				529EBB060FD91C4B00EAF517 /* Foundation.framework */,
-				529EBB070FD91C4B00EAF517 /* UIKit.framework */,
-				529EBB000FD91C3200EAF517 /* OpenGLES.framework */,
-				529EBAFA0FD91C1700EAF517 /* CoreFoundation.framework */,
+				DDAED858109A958D00DEA5EC /* CoreFoundation.framework */,
+				DDAED85A109A958D00DEA5EC /* Foundation.framework */,
+				DDAED85C109A958D00DEA5EC /* OpenGLES.framework */,
+				DDAED85E109A958D00DEA5EC /* QuartzCore.framework */,
+				DDAED860109A958D00DEA5EC /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -287,10 +277,13 @@
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = "${SRCROOT}/../../SDK/Lib";
@@ -300,7 +293,7 @@
 				PREBINDING = YES;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_NAME = HelloiPhoneDebSta;
-				SDKROOT = iphonesimulator2.0;
+				SDKROOT = iphonesimulator3.0;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -316,9 +309,11 @@
 				CODE_SIGN_IDENTITY = "";
 				DEAD_CODE_STRIPPING = YES;
 				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -329,7 +324,7 @@
 				PREBINDING = YES;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_NAME = HelloiPhoneRelSta;
-				SDKROOT = iphonesimulator2.0;
+				SDKROOT = iphonesimulator3.0;
 				SKIP_INSTALL = YES;
 				WARNING_CFLAGS = (
 					"-Wmost",
@@ -343,8 +338,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphonesimulator2.0;
+				GCC_VERSION = "";
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = Default;
 		};

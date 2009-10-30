@@ -31,8 +31,8 @@
 		52AFFC250FF8C1C40008BD07 /* libSEAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFC230FF8C1C40008BD07 /* libSEAudio.a */; };
 		52AFFC270FF8C1F60008BD07 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFC260FF8C1F60008BD07 /* OpenAL.framework */; };
 		52AFFC280FF8C1F60008BD07 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFC260FF8C1F60008BD07 /* OpenAL.framework */; };
-		748AA51107F465B300486586 /* DefaultShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 748AA50F07F465B300486586 /* DefaultShader.cpp */; };
-		748AA51307F465B300486586 /* DefaultShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 748AA50F07F465B300486586 /* DefaultShader.cpp */; };
+		DDB8BA2A109B03B7009916C0 /* Skinning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDB8BA28109B03B7009916C0 /* Skinning.cpp */; };
+		DDB8BA2B109B03B7009916C0 /* Skinning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDB8BA28109B03B7009916C0 /* Skinning.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,8 +56,8 @@
 		52AFFC260FF8C1F60008BD07 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		748AA4CC07F4624400486586 /* DefaultShaderAglDebSta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DefaultShaderAglDebSta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		748AA4DA07F4631800486586 /* DefaultShaderAglRelSta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DefaultShaderAglRelSta.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		748AA50F07F465B300486586 /* DefaultShader.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultShader.cpp; sourceTree = SOURCE_ROOT; };
-		748AA51007F465B300486586 /* DefaultShader.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DefaultShader.h; sourceTree = SOURCE_ROOT; };
+		DDB8BA28109B03B7009916C0 /* Skinning.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; path = Skinning.cpp; sourceTree = "<group>"; };
+		DDB8BA29109B03B7009916C0 /* Skinning.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; path = Skinning.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,8 +172,8 @@
 		748AA50C07F465A200486586 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				748AA50F07F465B300486586 /* DefaultShader.cpp */,
-				748AA51007F465B300486586 /* DefaultShader.h */,
+				DDB8BA28109B03B7009916C0 /* Skinning.cpp */,
+				DDB8BA29109B03B7009916C0 /* Skinning.h */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -220,7 +220,7 @@
 /* Begin PBXProject section */
 		748AA4C207F4621A00486586 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 3C4B93AC08674C10001A085C /* Build configuration list for PBXProject "DefaultShader" */;
+			buildConfigurationList = 3C4B93AC08674C10001A085C /* Build configuration list for PBXProject "Skinning" */;
 			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 0;
 			mainGroup = 748AA4BE07F4621A00486586;
@@ -256,7 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				748AA51307F465B300486586 /* DefaultShader.cpp in Sources */,
+				DDB8BA2A109B03B7009916C0 /* Skinning.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,7 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				748AA51107F465B300486586 /* DefaultShader.cpp in Sources */,
+				DDB8BA2B109B03B7009916C0 /* Skinning.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,8 +277,10 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
 				LIBRARY_SEARCH_PATHS = (
 					"${SRCROOT}/../../SDK/Library/Debug",
@@ -303,8 +305,10 @@
 				DEAD_CODE_STRIPPING = YES;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
 				LIBRARY_SEARCH_PATHS = (
 					"${SRCROOT}/../../SDK/Library/Release",
@@ -326,6 +330,7 @@
 		3C4B93AE08674C10001A085C /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_WARN_UNUSED_VARIABLE = YES;
 			};
 			name = Default;
 		};
@@ -348,7 +353,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;
 		};
-		3C4B93AC08674C10001A085C /* Build configuration list for PBXProject "DefaultShader" */ = {
+		3C4B93AC08674C10001A085C /* Build configuration list for PBXProject "Skinning" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3C4B93AE08674C10001A085C /* Default */,
