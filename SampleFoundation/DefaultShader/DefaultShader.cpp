@@ -76,8 +76,6 @@ void DefaultShader::OnIdle()
     // Rotate the box.
     static double dCurTime = 0.0f;
     static double dLastTime = 0.0f;
-    static float fAngel = 0.0f;
-    static float fR = 15.0f;
     dCurTime = System::SE_GetTime();
     if( dCurTime - dLastTime > 0.01f )
     {
