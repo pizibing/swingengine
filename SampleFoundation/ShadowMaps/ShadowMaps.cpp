@@ -445,7 +445,7 @@ void ShadowMaps::CreateFlashlight()
     float fDepthBias = 0.02f;
 
     m_spSMEffect = SE_NEW ShadowMapEffect(pProjector, "kate", 
-        Image::IT_R32, 512, 512, fDepthBias);
+        Image::IT_RGBA8888, 512, 512, fDepthBias);
 
     m_spShadowMapNode->AttachEffect(m_spSMEffect);
 }
