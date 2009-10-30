@@ -141,3 +141,7 @@ ObjectPtr spObject = DoSomething(...);
 2009 1029 1802
 在Mac OS X 10.6系统下,使用Versions软件checkout后,获取到的项目shell脚本文件无法被Xcode 3.2运行,Xcode提示permission denied,但从本地直接拷贝覆盖这些shell脚本文件后,
 Xcode就可以正确执行了,目前尚未查明原因.
+
+2009 1030 2120
+Xcode使用GCC4.x编译器时,项目生成目标的Code Generation项下,Inline Methods Hidden和Symbols Hidden by Default两个子项均应该取消勾选.
+参考: http://developer.apple.com/mac/library/documentation/DeveloperTools/Conceptual/CppRuntimeEnv/Articles/SymbolVisibility.html
