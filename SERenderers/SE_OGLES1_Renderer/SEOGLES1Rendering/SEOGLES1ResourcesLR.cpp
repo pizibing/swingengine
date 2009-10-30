@@ -184,7 +184,7 @@ void OGLES1Renderer::OnLoadTexture(ResourceIdentifier*& rpID,
     int eIType = ms_aeImageTypes[pImage->GetFormat()];
 
     bool bIsRegularImage = !pImage->IsCubeImage();
-    int eTarget;
+    int eTarget = 0;
     if( bIsRegularImage )
     {
         eTarget = ms_aeSamplerTypes[iDimension-1];
