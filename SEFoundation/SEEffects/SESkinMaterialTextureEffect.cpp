@@ -119,15 +119,19 @@ void SkinMaterialTextureEffect::OnLoadPrograms(int, Program* pVProgram,
         case Renderer::VS_2_0:
             iMaxCount = VS_2_0_COUNT;
             break;
+
         case Renderer::VS_3_0:
             iMaxCount = VS_3_0_COUNT;
             break;
+
         case Renderer::ARBVP1:
             iMaxCount = ARBVP1_COUNT;
             break;
+
         case Renderer::VP40:
             iMaxCount = VP40_COUNT;
             break;
+
         case Renderer::SFTVP1:
             iMaxCount = SFTVP1_COUNT;
             break;
