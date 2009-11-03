@@ -27,6 +27,26 @@
 		527D1FFF0F87935D00D08FC3 /* SEPhysicsPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 527D1FF70F87935D00D08FC3 /* SEPhysicsPCH.h */; };
 		527D20000F87935D00D08FC3 /* SwingPhysics.h in Headers */ = {isa = PBXBuildFile; fileRef = 527D1FF80F87935D00D08FC3 /* SwingPhysics.h */; };
 		52A054D60F89ACFE00004535 /* SEExtremalQuery3BSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527D1FE50F87933300D08FC3 /* SEExtremalQuery3BSP.cpp */; };
+		DD97775C10A018600070FC01 /* SEExtremalQuery3.h in Headers */ = {isa = PBXBuildFile; fileRef = 527D1FE40F87933300D08FC3 /* SEExtremalQuery3.h */; };
+		DD97775D10A018600070FC01 /* SEExtremalQuery3BSP.h in Headers */ = {isa = PBXBuildFile; fileRef = 527D1FE60F87933300D08FC3 /* SEExtremalQuery3BSP.h */; };
+		DD97775E10A018600070FC01 /* SEExtremalQuery3PRJ.h in Headers */ = {isa = PBXBuildFile; fileRef = 527D1FE80F87933300D08FC3 /* SEExtremalQuery3PRJ.h */; };
+		DD97775F10A018600070FC01 /* SEPhysicsLIB.h in Headers */ = {isa = PBXBuildFile; fileRef = 527D1FF50F87935D00D08FC3 /* SEPhysicsLIB.h */; };
+		DD97776010A018600070FC01 /* SEPhysicsPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 527D1FF70F87935D00D08FC3 /* SEPhysicsPCH.h */; };
+		DD97776110A018600070FC01 /* SwingPhysics.h in Headers */ = {isa = PBXBuildFile; fileRef = 527D1FF80F87935D00D08FC3 /* SwingPhysics.h */; };
+		DD97776210A018840070FC01 /* SEExtremalQuery3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527D1FE30F87933300D08FC3 /* SEExtremalQuery3.cpp */; };
+		DD97776310A018840070FC01 /* SEExtremalQuery3PRJ.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527D1FE70F87933300D08FC3 /* SEExtremalQuery3PRJ.cpp */; };
+		DD97776410A018840070FC01 /* SEPhysicsPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527D1FF60F87935D00D08FC3 /* SEPhysicsPCH.cpp */; };
+		DD97776510A018840070FC01 /* SEExtremalQuery3BSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527D1FE50F87933300D08FC3 /* SEExtremalQuery3BSP.cpp */; };
+		DD97776610A018C30070FC01 /* SEExtremalQuery3.h in Headers */ = {isa = PBXBuildFile; fileRef = 527D1FE40F87933300D08FC3 /* SEExtremalQuery3.h */; };
+		DD97776710A018C30070FC01 /* SEExtremalQuery3BSP.h in Headers */ = {isa = PBXBuildFile; fileRef = 527D1FE60F87933300D08FC3 /* SEExtremalQuery3BSP.h */; };
+		DD97776810A018C30070FC01 /* SEExtremalQuery3PRJ.h in Headers */ = {isa = PBXBuildFile; fileRef = 527D1FE80F87933300D08FC3 /* SEExtremalQuery3PRJ.h */; };
+		DD97776910A018C30070FC01 /* SEPhysicsLIB.h in Headers */ = {isa = PBXBuildFile; fileRef = 527D1FF50F87935D00D08FC3 /* SEPhysicsLIB.h */; };
+		DD97776A10A018C30070FC01 /* SEPhysicsPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 527D1FF70F87935D00D08FC3 /* SEPhysicsPCH.h */; };
+		DD97776B10A018C30070FC01 /* SwingPhysics.h in Headers */ = {isa = PBXBuildFile; fileRef = 527D1FF80F87935D00D08FC3 /* SwingPhysics.h */; };
+		DD97776C10A018E40070FC01 /* SEExtremalQuery3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527D1FE30F87933300D08FC3 /* SEExtremalQuery3.cpp */; };
+		DD97776D10A018E40070FC01 /* SEExtremalQuery3BSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527D1FE50F87933300D08FC3 /* SEExtremalQuery3BSP.cpp */; };
+		DD97776E10A018E40070FC01 /* SEExtremalQuery3PRJ.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527D1FE70F87933300D08FC3 /* SEExtremalQuery3PRJ.cpp */; };
+		DD97776F10A018E40070FC01 /* SEPhysicsPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 527D1FF60F87935D00D08FC3 /* SEPhysicsPCH.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +62,8 @@
 		527D1FF70F87935D00D08FC3 /* SEPhysicsPCH.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEPhysicsPCH.h; sourceTree = "<group>"; };
 		527D1FF80F87935D00D08FC3 /* SwingPhysics.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SwingPhysics.h; sourceTree = "<group>"; };
 		D2AAC046055464E500DB518D /* libSEPhysicsd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEPhysicsd.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD97774510A0178C0070FC01 /* libSEPhysicsd_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEPhysicsd_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD97774E10A017B40070FC01 /* libSEPhysics_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEPhysics_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +75,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D289987405E68DCB004EDB86 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD97774310A0178C0070FC01 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD97774C10A017B40070FC01 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -88,6 +124,8 @@
 			children = (
 				D2AAC046055464E500DB518D /* libSEPhysicsd.a */,
 				527D1FCE0F878EEA00D08FC3 /* libSEPhysics.a */,
+				DD97774510A0178C0070FC01 /* libSEPhysicsd_iPhoneSim.a */,
+				DD97774E10A017B40070FC01 /* libSEPhysics_iPhoneSim.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,6 +172,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DD97774110A0178C0070FC01 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD97775C10A018600070FC01 /* SEExtremalQuery3.h in Headers */,
+				DD97775D10A018600070FC01 /* SEExtremalQuery3BSP.h in Headers */,
+				DD97775E10A018600070FC01 /* SEExtremalQuery3PRJ.h in Headers */,
+				DD97775F10A018600070FC01 /* SEPhysicsLIB.h in Headers */,
+				DD97776010A018600070FC01 /* SEPhysicsPCH.h in Headers */,
+				DD97776110A018600070FC01 /* SwingPhysics.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD97774A10A017B40070FC01 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD97776610A018C30070FC01 /* SEExtremalQuery3.h in Headers */,
+				DD97776710A018C30070FC01 /* SEExtremalQuery3BSP.h in Headers */,
+				DD97776810A018C30070FC01 /* SEExtremalQuery3PRJ.h in Headers */,
+				DD97776910A018C30070FC01 /* SEPhysicsLIB.h in Headers */,
+				DD97776A10A018C30070FC01 /* SEPhysicsPCH.h in Headers */,
+				DD97776B10A018C30070FC01 /* SwingPhysics.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -173,6 +237,42 @@
 			productReference = D2AAC046055464E500DB518D /* libSEPhysicsd.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		DD97774410A0178C0070FC01 /* Debug iPhoneSim */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD97774710A017AA0070FC01 /* Build configuration list for PBXNativeTarget "Debug iPhoneSim" */;
+			buildPhases = (
+				DD97774110A0178C0070FC01 /* Headers */,
+				DD97774210A0178C0070FC01 /* Sources */,
+				DD97774310A0178C0070FC01 /* Frameworks */,
+				DD97777110A01B280070FC01 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Debug iPhoneSim";
+			productName = "Debug iPhoneSim";
+			productReference = DD97774510A0178C0070FC01 /* libSEPhysicsd_iPhoneSim.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		DD97774D10A017B40070FC01 /* Release iPhoneSim */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD97775510A017C50070FC01 /* Build configuration list for PBXNativeTarget "Release iPhoneSim" */;
+			buildPhases = (
+				DD97774A10A017B40070FC01 /* Headers */,
+				DD97774B10A017B40070FC01 /* Sources */,
+				DD97774C10A017B40070FC01 /* Frameworks */,
+				DD97777310A01B300070FC01 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Release iPhoneSim";
+			productName = "Release iPhoneSim";
+			productReference = DD97774E10A017B40070FC01 /* libSEPhysics_iPhoneSim.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -187,6 +287,8 @@
 			targets = (
 				D2AAC045055464E500DB518D /* Debug */,
 				527D1FCD0F878EEA00D08FC3 /* Release */,
+				DD97774410A0178C0070FC01 /* Debug iPhoneSim */,
+				DD97774D10A017B40070FC01 /* Release iPhoneSim */,
 			);
 		};
 /* End PBXProject section */
@@ -218,6 +320,32 @@
 			shellPath = /bin/sh;
 			shellScript = ./CopySdkRelease.sh;
 		};
+		DD97777110A01B280070FC01 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkDebug_iPhoneSim.sh;
+		};
+		DD97777310A01B300070FC01 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkRelease_iPhoneSim.sh;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -240,6 +368,28 @@
 				527D1FED0F87933300D08FC3 /* SEExtremalQuery3PRJ.cpp in Sources */,
 				527D1FFA0F87935D00D08FC3 /* SEPhysicsPCH.cpp in Sources */,
 				52A054D60F89ACFE00004535 /* SEExtremalQuery3BSP.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD97774210A0178C0070FC01 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD97776210A018840070FC01 /* SEExtremalQuery3.cpp in Sources */,
+				DD97776310A018840070FC01 /* SEExtremalQuery3PRJ.cpp in Sources */,
+				DD97776410A018840070FC01 /* SEPhysicsPCH.cpp in Sources */,
+				DD97776510A018840070FC01 /* SEExtremalQuery3BSP.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD97774B10A017B40070FC01 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD97776C10A018E40070FC01 /* SEExtremalQuery3.cpp in Sources */,
+				DD97776D10A018E40070FC01 /* SEExtremalQuery3BSP.cpp in Sources */,
+				DD97776E10A018E40070FC01 /* SEExtremalQuery3PRJ.cpp in Sources */,
+				DD97776F10A018E40070FC01 /* SEPhysicsPCH.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +486,74 @@
 			};
 			name = Default;
 		};
+		DD97774610A0178C0070FC01 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEPhysicsPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_DEBUG,
+					SE_USE_PRECOMPILED_HEADERS,
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../SDK/Include";
+				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
+				LIBRARY_STYLE = STATIC;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
+				PREBINDING = NO;
+				PRODUCT_NAME = SEPhysicsd_iPhoneSim;
+				SDKROOT = iphonesimulator3.0;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Debug_iPhoneSim";
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		DD97774F10A017B40070FC01 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEPhysicsPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					SE_USE_PRECOMPILED_HEADERS,
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../SDK/Include";
+				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
+				LIBRARY_STYLE = STATIC;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
+				PREBINDING = NO;
+				PRODUCT_NAME = SEPhysics_iPhoneSim;
+				SDKROOT = iphonesimulator3.0;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Release_iPhoneSim";
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
+			};
+			name = Default;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -359,6 +577,22 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				527D1FCF0F878EEB00D08FC3 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DD97774710A017AA0070FC01 /* Build configuration list for PBXNativeTarget "Debug iPhoneSim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD97774610A0178C0070FC01 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DD97775510A017C50070FC01 /* Build configuration list for PBXNativeTarget "Release iPhoneSim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD97774F10A017B40070FC01 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;
