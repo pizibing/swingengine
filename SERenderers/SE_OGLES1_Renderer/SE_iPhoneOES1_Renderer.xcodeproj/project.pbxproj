@@ -69,10 +69,6 @@
 		52941BD60FDF5CB200121272 /* SEOGLES1FixedEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = 52941BD40FDF5CB200121272 /* SEOGLES1FixedEffect.h */; };
 		52941BD70FDF5CB200121272 /* SEOGLES1FixedEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52941BD30FDF5CB200121272 /* SEOGLES1FixedEffect.cpp */; };
 		52941BD80FDF5CB200121272 /* SEOGLES1FixedEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = 52941BD40FDF5CB200121272 /* SEOGLES1FixedEffect.h */; };
-		DD7B92A0109A828800BF166C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD7B929F109A828800BF166C /* Foundation.framework */; };
-		DD7B92A4109A82D100BF166C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD7B92A3109A82D100BF166C /* OpenGLES.framework */; };
-		DD7B92A8109A830E00BF166C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD7B92A7109A830E00BF166C /* QuartzCore.framework */; };
-		DD7B92AA109A830E00BF166C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD7B92A9109A830E00BF166C /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,10 +116,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD7B92A0109A828800BF166C /* Foundation.framework in Frameworks */,
-				DD7B92A4109A82D100BF166C /* OpenGLES.framework in Frameworks */,
-				DD7B92A8109A830E00BF166C /* QuartzCore.framework in Frameworks */,
-				DD7B92AA109A830E00BF166C /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
