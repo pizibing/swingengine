@@ -29,32 +29,32 @@
     newSize.width = roundf(newSize.width);
     newSize.height = roundf(newSize.height);
 
-    glGetIntegerv(GL_RENDERBUFFER_BINDING_OES, (GLint *)&oldRenderbuffer);
-    glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint *)&oldFramebuffer);
+    glGetIntegerv(GL_RENDERBUFFER_BINDING, (GLint *)&oldRenderbuffer);
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, (GLint *)&oldFramebuffer);
 
-    glGenRenderbuffersOES(1, &_renderbuffer);
-    glBindRenderbufferOES(GL_RENDERBUFFER_OES, _renderbuffer);
+    glGenRenderbuffers(1, &_renderbuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, _renderbuffer);
 
-    if( ![_context renderbufferStorage:GL_RENDERBUFFER_OES 
+    if( ![_context renderbufferStorage:GL_RENDERBUFFER 
         fromDrawable:(id<EAGLDrawable>)eaglLayer] )
     {
-        glDeleteRenderbuffersOES(1, &_renderbuffer);
-        glBindRenderbufferOES(GL_RENDERBUFFER_BINDING_OES, oldRenderbuffer);
+        glDeleteRenderbuffers(1, &_renderbuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER_BINDING, oldRenderbuffer);
         return NO;
     }
 
-    glGenFramebuffersOES(1, &_framebuffer);
-    glBindFramebufferOES(GL_FRAMEBUFFER_OES, _framebuffer);
-    glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, 
-        GL_RENDERBUFFER_OES, _renderbuffer);
+    glGenFramebuffers(1, &_framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, _framebuffer);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, 
+        GL_RENDERBUFFER, _renderbuffer);
     if( _depthFormat )
     {
-        glGenRenderbuffersOES(1, &_depthBuffer);
-        glBindRenderbufferOES(GL_RENDERBUFFER_OES, _depthBuffer);
-        glRenderbufferStorageOES(GL_RENDERBUFFER_OES, _depthFormat, 
+        glGenRenderbuffers(1, &_depthBuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, _depthBuffer);
+        glRenderbufferStorage(GL_RENDERBUFFER, _depthFormat, 
             newSize.width, newSize.height);
-        glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, 
-            GL_DEPTH_ATTACHMENT_OES, GL_RENDERBUFFER_OES, _depthBuffer);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, 
+            GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _depthBuffer);
     }
 
     _size = newSize;
@@ -66,9 +66,9 @@
     }
     else
     {
-        glBindFramebufferOES(GL_FRAMEBUFFER_OES, oldFramebuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, oldFramebuffer);
     }
-    glBindRenderbufferOES(GL_RENDERBUFFER_OES, oldRenderbuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, oldRenderbuffer);
 	
     // error handling here.
 
@@ -88,14 +88,14 @@
 
     if(_depthFormat)
     {
-        glDeleteRenderbuffersOES(1, &_depthBuffer);
+        glDeleteRenderbuffers(1, &_depthBuffer);
         _depthBuffer = 0;
     }
 
-	glDeleteRenderbuffersOES(1, &_renderbuffer);
+	glDeleteRenderbuffers(1, &_renderbuffer);
     _renderbuffer = 0;
 
-    glDeleteFramebuffersOES(1, &_framebuffer);
+    glDeleteFramebuffers(1, &_framebuffer);
     _framebuffer = 0;
 
     if( oldContext != _context )
@@ -106,7 +106,7 @@
 //----------------------------------------------------------------------------
 - (id) initWithFrame:(CGRect)frame
 {
-    return [self initWithFrame:frame pixelFormat:GL_RGB565_OES depthFormat:0 
+    return [self initWithFrame:frame pixelFormat:GL_RGB565 depthFormat:0 
         preserveBackbuffer:NO];
 }
 //----------------------------------------------------------------------------
@@ -209,10 +209,10 @@
         [EAGLContext setCurrentContext:_context];
     }
 
-    glGetIntegerv(GL_RENDERBUFFER_BINDING_OES, (GLint *) &oldRenderbuffer);
-    glBindRenderbufferOES(GL_RENDERBUFFER_OES, _renderbuffer);
+    glGetIntegerv(GL_RENDERBUFFER_BINDING, (GLint *) &oldRenderbuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, _renderbuffer);
 
-    if( ![_context presentRenderbuffer:GL_RENDERBUFFER_OES] )
+    if( ![_context presentRenderbuffer:GL_RENDERBUFFER] )
     {
         printf("failed to swap renderbuffer in %s\n", __FUNCTION__);
     }

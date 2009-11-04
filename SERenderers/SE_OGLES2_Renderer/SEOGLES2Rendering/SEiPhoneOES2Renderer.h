@@ -1,8 +1,8 @@
-#ifndef Swing_iPhoneOES1_Renderer_H
-#define Swing_iPhoneOES1_Renderer_H
+#ifndef Swing_iPhoneOES2_Renderer_H
+#define Swing_iPhoneOES2_Renderer_H
 
-#include "SEOGLES1RendererLIB.h"
-#include "SEOGLES1Renderer.h"
+#include "SEOGLES2RendererLIB.h"
+#include "SEOGLES2Renderer.h"
 #include "SEEAGLView.h"
 
 // 注意:
@@ -12,21 +12,21 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:iPhone OpenGL ES1 Renderer类
+// 名称:iPhone OpenGL ES2 Renderer类
 // 说明:
 // 作者:Sun Che
-// 时间:20090607
+// 时间:20091104
 //----------------------------------------------------------------------------
-class SE_RENDERER_API iPhoneOES1Renderer : public OGLES1Renderer
+class SE_RENDERER_API iPhoneOES2Renderer : public OGLES2Renderer
 {
 public:
-    iPhoneOES1Renderer(UIWindow* pWindow, FrameBuffer::FormatType eFormat,
+    iPhoneOES2Renderer(UIWindow* pWindow, FrameBuffer::FormatType eFormat,
         FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,
         FrameBuffer::BufferingType eBuffering,
         FrameBuffer::MultisamplingType eMultisampling, int iX, int iY,
         int iWidth, int iHeight);
 
-    virtual ~iPhoneOES1Renderer(void);
+    virtual ~iPhoneOES2Renderer(void);
 
     virtual void Resize(int iWidth, int iHeight);
     virtual void ToggleFullscreen(void);

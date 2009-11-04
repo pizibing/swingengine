@@ -28,6 +28,8 @@
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #elif defined(__APPLE__)
+#include <OpenGLES/ES2/gl.h>
+#include <OpenGLES/ES2/glext.h>
 #endif
 
 #include "SEOGLES2RendererLIB.h"

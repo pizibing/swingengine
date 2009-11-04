@@ -1,20 +1,20 @@
-#include "SEiPhoneOES1Renderer.h"
+#include "SEiPhoneOES2Renderer.h"
 
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-iPhoneOES1Renderer::iPhoneOES1Renderer(UIWindow* pWindow,
+iPhoneOES2Renderer::iPhoneOES2Renderer(UIWindow* pWindow,
     FrameBuffer::FormatType eFormat, FrameBuffer::DepthType eDepth,
     FrameBuffer::StencilType eStencil, FrameBuffer::BufferingType eBuffering,
     FrameBuffer::MultisamplingType eMultisampling, int iX, int iY, int iWidth,
     int iHeight)
     :
-    OGLES1Renderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, 
+    OGLES2Renderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, 
         iWidth, iHeight)
 {
     SE_ASSERT( m_iWidth > 0 && m_iHeight > 0 );
     SE_ASSERT( pWindow );
-	
+    
     m_iSaveWidth = m_iWidth;
     m_iSaveHeight = m_iHeight;
 
@@ -53,7 +53,7 @@ iPhoneOES1Renderer::iPhoneOES1Renderer(UIWindow* pWindow,
     // 创建EAGLView及其EAGLContext.
     CGRect tempRect = [[UIScreen mainScreen] bounds];
     m_pEAGLView = [[EAGLView alloc] initWithFrame:tempRect 
-        pixelFormat:GL_RGB565_OES depthFormat:GL_DEPTH_COMPONENT16_OES 
+        pixelFormat:GL_RGB565 depthFormat:GL_DEPTH_COMPONENT16 
         preserveBackbuffer:NO];
 
     // 把EAGLView绑定给UIWindow.
@@ -63,38 +63,38 @@ iPhoneOES1Renderer::iPhoneOES1Renderer(UIWindow* pWindow,
     InitializeState();
 }
 //----------------------------------------------------------------------------
-iPhoneOES1Renderer::~iPhoneOES1Renderer()
+iPhoneOES2Renderer::~iPhoneOES2Renderer()
 {
     [m_pEAGLView release];
 }
 //----------------------------------------------------------------------------
-void iPhoneOES1Renderer::Resize(int iWidth, int iHeight)
+void iPhoneOES2Renderer::Resize(int iWidth, int iHeight)
 {
     // 待实现.
 }
 //----------------------------------------------------------------------------
-void iPhoneOES1Renderer::ToggleFullscreen()
+void iPhoneOES2Renderer::ToggleFullscreen()
 {
     // 待实现.
 }
 //----------------------------------------------------------------------------
-void iPhoneOES1Renderer::DisplayBackBuffer()
+void iPhoneOES2Renderer::DisplayBackBuffer()
 {
     [m_pEAGLView swapBuffers];
 }
 //----------------------------------------------------------------------------
-int iPhoneOES1Renderer::LoadFont(const char*, int, bool, bool)
+int iPhoneOES2Renderer::LoadFont(const char*, int, bool, bool)
 {
     // 待实现.
     return 0;
 }
 //----------------------------------------------------------------------------
-EAGLView* iPhoneOES1Renderer::GetView()
+EAGLView* iPhoneOES2Renderer::GetView()
 {
     return m_pEAGLView;
 }
 //----------------------------------------------------------------------------
-UIWindow* iPhoneOES1Renderer::GetWindow()
+UIWindow* iPhoneOES2Renderer::GetWindow()
 {
     return m_pWindow;
 }
