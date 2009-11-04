@@ -35,10 +35,6 @@
 		529EB7240FD8C5A500EAF517 /* SEWindowApplication2.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7080FD8C5A500EAF517 /* SEWindowApplication2.h */; };
 		529EB7250FD8C5A500EAF517 /* SEWindowApplication3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7090FD8C5A500EAF517 /* SEWindowApplication3.cpp */; };
 		529EB7260FD8C5A500EAF517 /* SEWindowApplication3.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB70A0FD8C5A500EAF517 /* SEWindowApplication3.h */; };
-		DD7B92E8109A84D300BF166C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD7B92E7109A84D300BF166C /* Foundation.framework */; };
-		DD7B92EA109A84D300BF166C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD7B92E9109A84D300BF166C /* OpenGLES.framework */; };
-		DD7B92EC109A84D300BF166C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD7B92EB109A84D300BF166C /* QuartzCore.framework */; };
-		DD7B92EE109A84D300BF166C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD7B92ED109A84D300BF166C /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,10 +66,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD7B92E8109A84D300BF166C /* Foundation.framework in Frameworks */,
-				DD7B92EA109A84D300BF166C /* OpenGLES.framework in Frameworks */,
-				DD7B92EC109A84D300BF166C /* QuartzCore.framework in Frameworks */,
-				DD7B92EE109A84D300BF166C /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
