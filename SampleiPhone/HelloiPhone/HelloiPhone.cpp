@@ -8,7 +8,7 @@ SE_REGISTER_INITIALIZE(HelloiPhone);
 HelloiPhone::HelloiPhone()
     :
     WindowApplication3("HelloiPhone", 0, 0, 320, 480, 
-        ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
+        ColorRGBA(1.0f, 0.5f, 0.5f, 1.0f))
 {
 }
 //----------------------------------------------------------------------------
@@ -28,9 +28,9 @@ bool HelloiPhone::OnInitialize()
     Vector3f tempCUp(0.0f, 1.0f, 0.0f);
     Vector3f tempCRight = tempCUp.Cross(tempCDir);
     m_spCamera->SetFrame(tempCLoc, tempCRight, tempCUp, tempCDir);
-	
+    
     CreateScene();
-	
+    
     // initial update of objects.
     m_spScene->UpdateGS();
     m_spScene->UpdateRS();
@@ -59,20 +59,20 @@ void HelloiPhone::OnIdle()
     mat3fRot.FromEulerAnglesXYZ(-0.02f, 0.02f, -0.02f);
     m_spMesh->Local.SetRotate(m_spMesh->Local.GetRotate()*mat3fRot);
     m_spMesh->UpdateGS();
-	
+    
     MeasureTime();
 
     if( MoveCamera() )
     {
         m_Culler.ComputeUnculledSet(m_spScene);
     }
-	
+    
     if( MoveObject() )
     {
         m_spScene->UpdateGS();
         m_Culler.ComputeUnculledSet(m_spScene);
     }
-	
+    
     m_pRenderer->ClearBuffers();
     if( m_pRenderer->BeginScene() )
     {
@@ -81,7 +81,7 @@ void HelloiPhone::OnIdle()
         m_pRenderer->EndScene();
     }
     m_pRenderer->DisplayBackBuffer();
-	
+    
     UpdateFrameCount();
 }
 //----------------------------------------------------------------------------
@@ -104,35 +104,36 @@ void HelloiPhone::CreateScene()
     // 创建一个box.
     Attributes tempAttr;
     tempAttr.SetPositionChannels(3);
-    tempAttr.SetColorChannels(0, 3);
+	tempAttr.SetNormalChannels(3);
+    //tempAttr.SetColorChannels(0, 3);
     tempAttr.SetTCoordChannels(0, 2);
     tempAttr.SetTCoordChannels(1, 2);
     StandardMesh tempSM(tempAttr);
     m_spMesh = tempSM.Box(1.0f, 1.0f, 1.0f);
-    m_spMesh->VBuffer->ColorTuple(0, 0)[0] = 0.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 0)[1] = 0.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 0)[2] = 0.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 1)[0] = 0.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 1)[1] = 0.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 1)[2] = 1.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 2)[0] = 0.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 2)[1] = 1.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 2)[2] = 0.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 3)[0] = 0.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 3)[1] = 1.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 3)[2] = 1.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 4)[0] = 1.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 4)[1] = 0.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 4)[2] = 0.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 5)[0] = 1.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 5)[1] = 0.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 5)[2] = 1.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 6)[0] = 1.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 6)[1] = 1.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 6)[2] = 0.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 7)[0] = 1.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 7)[1] = 1.0f;
-    m_spMesh->VBuffer->ColorTuple(0, 7)[2] = 1.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 0)[0] = 0.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 0)[1] = 0.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 0)[2] = 0.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 1)[0] = 0.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 1)[1] = 0.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 1)[2] = 1.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 2)[0] = 0.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 2)[1] = 1.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 2)[2] = 0.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 3)[0] = 0.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 3)[1] = 1.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 3)[2] = 1.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 4)[0] = 1.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 4)[1] = 0.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 4)[2] = 0.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 5)[0] = 1.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 5)[1] = 0.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 5)[2] = 1.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 6)[0] = 1.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 6)[1] = 1.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 6)[2] = 0.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 7)[0] = 1.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 7)[1] = 1.0f;
+//    m_spMesh->VBuffer->ColorTuple(0, 7)[2] = 1.0f;
 
     OGLES1FixedEffect* pEffect = SE_NEW OGLES1FixedEffect(2, 0);
     pEffect->SetTexture(0, pTextureDiffuse);
