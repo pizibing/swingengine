@@ -1,0 +1,393 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		287ABCA00D7F541C00CE0163 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 287ABC9F0D7F541C00CE0163 /* Default.png */; };
+		529EBAF10FD91BB500EAF517 /* SEApplicationDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 529EBAEF0FD91BB500EAF517 /* SEApplicationDelegate.mm */; };
+		529EBAF30FD91BB500EAF517 /* SEApplicationDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 529EBAEF0FD91BB500EAF517 /* SEApplicationDelegate.mm */; };
+		DD8DD99010A26FB600619F39 /* DefaultShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8DD98E10A26FB600619F39 /* DefaultShader.cpp */; };
+		DD8DD99110A26FB600619F39 /* DefaultShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8DD98E10A26FB600619F39 /* DefaultShader.cpp */; };
+		DD8DD9D510A2759D00619F39 /* libSEiPhoneOES2Rendererd_iPhoneSim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8DD9D410A2759D00619F39 /* libSEiPhoneOES2Rendererd_iPhoneSim.a */; };
+		DD8DED3010A1127500325B82 /* libSEFoundation_iPhoneSim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8DED2C10A1127500325B82 /* libSEFoundation_iPhoneSim.a */; };
+		DD8DED3310A1127500325B82 /* libSEPhysics_iPhoneSim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8DED2F10A1127500325B82 /* libSEPhysics_iPhoneSim.a */; };
+		DD8DEE0510A112FD00325B82 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED858109A958D00DEA5EC /* CoreFoundation.framework */; };
+		DD8DEE0610A112FD00325B82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED85A109A958D00DEA5EC /* Foundation.framework */; };
+		DD8DEE0710A112FD00325B82 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED85C109A958D00DEA5EC /* OpenGLES.framework */; };
+		DD8DEE0810A112FD00325B82 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED85E109A958D00DEA5EC /* QuartzCore.framework */; };
+		DD8DEE0910A112FD00325B82 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED860109A958D00DEA5EC /* UIKit.framework */; };
+		DD95B22610A074C80028E595 /* libSEFoundationd_iPhoneSim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD95B22210A074C80028E595 /* libSEFoundationd_iPhoneSim.a */; };
+		DD95B22910A074C80028E595 /* libSEPhysicsd_iPhoneSim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD95B22510A074C80028E595 /* libSEPhysicsd_iPhoneSim.a */; };
+		DDA622D110A2B30A005C8483 /* libSEiPhoneOES2Applicationd_iPhoneSim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA622D010A2B30A005C8483 /* libSEiPhoneOES2Applicationd_iPhoneSim.a */; };
+		DDA622D410A2B347005C8483 /* libSEiPhoneOES2Application_iPhoneSim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA622D210A2B347005C8483 /* libSEiPhoneOES2Application_iPhoneSim.a */; };
+		DDA622D510A2B347005C8483 /* libSEiPhoneOES2Renderer_iPhoneSim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA622D310A2B347005C8483 /* libSEiPhoneOES2Renderer_iPhoneSim.a */; };
+		DDA622FA10A2B3E5005C8483 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA622F910A2B3E5005C8483 /* icon.png */; };
+		DDA622FB10A2B3E5005C8483 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA622F910A2B3E5005C8483 /* icon.png */; };
+		DDAED859109A958D00DEA5EC /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED858109A958D00DEA5EC /* CoreFoundation.framework */; };
+		DDAED85B109A958D00DEA5EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED85A109A958D00DEA5EC /* Foundation.framework */; };
+		DDAED85D109A958D00DEA5EC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED85C109A958D00DEA5EC /* OpenGLES.framework */; };
+		DDAED85F109A958D00DEA5EC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED85E109A958D00DEA5EC /* QuartzCore.framework */; };
+		DDAED861109A958D00DEA5EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAED860109A958D00DEA5EC /* UIKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D6058910D05DD3D006BFB54 /* DefaultShaderDebStaSim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DefaultShaderDebStaSim.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		287ABC9F0D7F541C00CE0163 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		529EBAE70FD9195F00EAF517 /* DefaultShaderRelStaSim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DefaultShaderRelStaSim.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		529EBAEE0FD91BB500EAF517 /* SEApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEApplicationDelegate.h; sourceTree = "<group>"; };
+		529EBAEF0FD91BB500EAF517 /* SEApplicationDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.objcpp; path = SEApplicationDelegate.mm; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD8DD98E10A26FB600619F39 /* DefaultShader.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultShader.cpp; sourceTree = "<group>"; };
+		DD8DD98F10A26FB600619F39 /* DefaultShader.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; path = DefaultShader.h; sourceTree = "<group>"; };
+		DD8DD9D410A2759D00619F39 /* libSEiPhoneOES2Rendererd_iPhoneSim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEiPhoneOES2Rendererd_iPhoneSim.a; path = ../../SDK/Lib/libSEiPhoneOES2Rendererd_iPhoneSim.a; sourceTree = SOURCE_ROOT; };
+		DD8DED2C10A1127500325B82 /* libSEFoundation_iPhoneSim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEFoundation_iPhoneSim.a; path = ../../SDK/Lib/libSEFoundation_iPhoneSim.a; sourceTree = SOURCE_ROOT; };
+		DD8DED2F10A1127500325B82 /* libSEPhysics_iPhoneSim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEPhysics_iPhoneSim.a; path = ../../SDK/Lib/libSEPhysics_iPhoneSim.a; sourceTree = SOURCE_ROOT; };
+		DD95B22210A074C80028E595 /* libSEFoundationd_iPhoneSim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEFoundationd_iPhoneSim.a; path = ../../SDK/Lib/libSEFoundationd_iPhoneSim.a; sourceTree = SOURCE_ROOT; };
+		DD95B22510A074C80028E595 /* libSEPhysicsd_iPhoneSim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEPhysicsd_iPhoneSim.a; path = ../../SDK/Lib/libSEPhysicsd_iPhoneSim.a; sourceTree = SOURCE_ROOT; };
+		DDA622D010A2B30A005C8483 /* libSEiPhoneOES2Applicationd_iPhoneSim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEiPhoneOES2Applicationd_iPhoneSim.a; path = ../../SDK/Lib/libSEiPhoneOES2Applicationd_iPhoneSim.a; sourceTree = SOURCE_ROOT; };
+		DDA622D210A2B347005C8483 /* libSEiPhoneOES2Application_iPhoneSim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEiPhoneOES2Application_iPhoneSim.a; path = ../../SDK/Lib/libSEiPhoneOES2Application_iPhoneSim.a; sourceTree = SOURCE_ROOT; };
+		DDA622D310A2B347005C8483 /* libSEiPhoneOES2Renderer_iPhoneSim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEiPhoneOES2Renderer_iPhoneSim.a; path = ../../SDK/Lib/libSEiPhoneOES2Renderer_iPhoneSim.a; sourceTree = SOURCE_ROOT; };
+		DDA622F910A2B3E5005C8483 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		DDAED858109A958D00DEA5EC /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		DDAED85A109A958D00DEA5EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DDAED85C109A958D00DEA5EC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		DDAED85E109A958D00DEA5EC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DDAED860109A958D00DEA5EC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDAED859109A958D00DEA5EC /* CoreFoundation.framework in Frameworks */,
+				DDAED85B109A958D00DEA5EC /* Foundation.framework in Frameworks */,
+				DDAED85D109A958D00DEA5EC /* OpenGLES.framework in Frameworks */,
+				DDAED85F109A958D00DEA5EC /* QuartzCore.framework in Frameworks */,
+				DDAED861109A958D00DEA5EC /* UIKit.framework in Frameworks */,
+				DD95B22610A074C80028E595 /* libSEFoundationd_iPhoneSim.a in Frameworks */,
+				DD95B22910A074C80028E595 /* libSEPhysicsd_iPhoneSim.a in Frameworks */,
+				DD8DD9D510A2759D00619F39 /* libSEiPhoneOES2Rendererd_iPhoneSim.a in Frameworks */,
+				DDA622D110A2B30A005C8483 /* libSEiPhoneOES2Applicationd_iPhoneSim.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		529EBAE50FD9195F00EAF517 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD8DED3010A1127500325B82 /* libSEFoundation_iPhoneSim.a in Frameworks */,
+				DD8DED3310A1127500325B82 /* libSEPhysics_iPhoneSim.a in Frameworks */,
+				DD8DEE0510A112FD00325B82 /* CoreFoundation.framework in Frameworks */,
+				DD8DEE0610A112FD00325B82 /* Foundation.framework in Frameworks */,
+				DD8DEE0710A112FD00325B82 /* OpenGLES.framework in Frameworks */,
+				DD8DEE0810A112FD00325B82 /* QuartzCore.framework in Frameworks */,
+				DD8DEE0910A112FD00325B82 /* UIKit.framework in Frameworks */,
+				DDA622D410A2B347005C8483 /* libSEiPhoneOES2Application_iPhoneSim.a in Frameworks */,
+				DDA622D510A2B347005C8483 /* libSEiPhoneOES2Renderer_iPhoneSim.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* DefaultShaderDebStaSim.app */,
+				529EBAE70FD9195F00EAF517 /* DefaultShaderRelStaSim.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				529EB80E0FD8CDB900EAF517 /* Sources */,
+				529A7E4D0FD248AB00F6F38F /* Libraries */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DDA622F910A2B3E5005C8483 /* icon.png */,
+				8D1107310486CEB800E47090 /* Info.plist */,
+				287ABC9F0D7F541C00CE0163 /* Default.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DDAED858109A958D00DEA5EC /* CoreFoundation.framework */,
+				DDAED85A109A958D00DEA5EC /* Foundation.framework */,
+				DDAED85C109A958D00DEA5EC /* OpenGLES.framework */,
+				DDAED85E109A958D00DEA5EC /* QuartzCore.framework */,
+				DDAED860109A958D00DEA5EC /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		529A7E4D0FD248AB00F6F38F /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				529EBA8F0FD910EC00EAF517 /* Debug iPhoneSim */,
+				529EBA900FD9110300EAF517 /* Release iPhoneSim */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		529EB80E0FD8CDB900EAF517 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				DD8DD98E10A26FB600619F39 /* DefaultShader.cpp */,
+				DD8DD98F10A26FB600619F39 /* DefaultShader.h */,
+				529EBAEE0FD91BB500EAF517 /* SEApplicationDelegate.h */,
+				529EBAEF0FD91BB500EAF517 /* SEApplicationDelegate.mm */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		529EBA8F0FD910EC00EAF517 /* Debug iPhoneSim */ = {
+			isa = PBXGroup;
+			children = (
+				DDA622D010A2B30A005C8483 /* libSEiPhoneOES2Applicationd_iPhoneSim.a */,
+				DD8DD9D410A2759D00619F39 /* libSEiPhoneOES2Rendererd_iPhoneSim.a */,
+				DD95B22210A074C80028E595 /* libSEFoundationd_iPhoneSim.a */,
+				DD95B22510A074C80028E595 /* libSEPhysicsd_iPhoneSim.a */,
+			);
+			name = "Debug iPhoneSim";
+			sourceTree = "<group>";
+		};
+		529EBA900FD9110300EAF517 /* Release iPhoneSim */ = {
+			isa = PBXGroup;
+			children = (
+				DDA622D210A2B347005C8483 /* libSEiPhoneOES2Application_iPhoneSim.a */,
+				DDA622D310A2B347005C8483 /* libSEiPhoneOES2Renderer_iPhoneSim.a */,
+				DD8DED2C10A1127500325B82 /* libSEFoundation_iPhoneSim.a */,
+				DD8DED2F10A1127500325B82 /* libSEPhysics_iPhoneSim.a */,
+			);
+			name = "Release iPhoneSim";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* Debug iPhoneSim */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Debug iPhoneSim" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Debug iPhoneSim";
+			productName = foo;
+			productReference = 1D6058910D05DD3D006BFB54 /* DefaultShaderDebStaSim.app */;
+			productType = "com.apple.product-type.application";
+		};
+		529EBAE60FD9195F00EAF517 /* Release iPhoneSim */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 529EBAEB0FD9195F00EAF517 /* Build configuration list for PBXNativeTarget "Release iPhoneSim" */;
+			buildPhases = (
+				529EBAE30FD9195F00EAF517 /* Resources */,
+				529EBAE40FD9195F00EAF517 /* Sources */,
+				529EBAE50FD9195F00EAF517 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Release iPhoneSim";
+			productName = Release;
+			productReference = 529EBAE70FD9195F00EAF517 /* DefaultShaderRelStaSim.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "DefaultShader" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* Debug iPhoneSim */,
+				529EBAE60FD9195F00EAF517 /* Release iPhoneSim */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				287ABCA00D7F541C00CE0163 /* Default.png in Resources */,
+				DDA622FB10A2B3E5005C8483 /* icon.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		529EBAE30FD9195F00EAF517 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDA622FA10A2B3E5005C8483 /* icon.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				529EBAF10FD91BB500EAF517 /* SEApplicationDelegate.mm in Sources */,
+				DD8DD99010A26FB600619F39 /* DefaultShader.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		529EBAE40FD9195F00EAF517 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				529EBAF30FD91BB500EAF517 /* SEApplicationDelegate.mm in Sources */,
+				DD8DD99110A26FB600619F39 /* DefaultShader.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = "${SRCROOT}/../../SDK/Lib";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../SDK/Lib\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = NO;
+				PREBINDING = YES;
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				PRODUCT_NAME = DefaultShaderDebStaSim;
+				SDKROOT = iphonesimulator3.0;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		529EBAEA0FD9195F00EAF517 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CODE_SIGN_IDENTITY = "";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = "${SRCROOT}/../../SDK/Lib";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../SDK/Lib\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				PREBINDING = YES;
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				PRODUCT_NAME = DefaultShaderRelStaSim;
+				SDKROOT = iphonesimulator3.0;
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		C01FCF4F08A954540054247B /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_VERSION = "";
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphonesimulator3.0;
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Debug iPhoneSim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		529EBAEB0FD9195F00EAF517 /* Build configuration list for PBXNativeTarget "Release iPhoneSim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				529EBAEA0FD9195F00EAF517 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "DefaultShader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
