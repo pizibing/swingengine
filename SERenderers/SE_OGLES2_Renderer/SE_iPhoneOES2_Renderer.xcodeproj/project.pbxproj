@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DDFC896210A1B4AA00C6F03F /* SEEAGLView.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC894910A1B4AA00C6F03F /* SEEAGLView.h */; };
-		DDFC896310A1B4AA00C6F03F /* SEEAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894A10A1B4AA00C6F03F /* SEEAGLView.m */; };
+		DDFC896210A1B4AA00C6F03F /* SEEAGL2View.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC894910A1B4AA00C6F03F /* SEEAGL2View.h */; };
+		DDFC896310A1B4AA00C6F03F /* SEEAGL2View.m in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894A10A1B4AA00C6F03F /* SEEAGL2View.m */; };
 		DDFC896410A1B4AA00C6F03F /* SEiPhoneOES2Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC894B10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.h */; };
 		DDFC896510A1B4AA00C6F03F /* SEiPhoneOES2Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894C10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.mm */; };
 		DDFC896610A1B4AA00C6F03F /* SEOGLES2AlphaState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894D10A1B4AA00C6F03F /* SEOGLES2AlphaState.cpp */; };
@@ -30,8 +30,8 @@
 		DDFC897610A1B4AA00C6F03F /* SEOGLES2UserResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895D10A1B4AA00C6F03F /* SEOGLES2UserResources.cpp */; };
 		DDFC897710A1B4AA00C6F03F /* SEOGLES2WireframeState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895E10A1B4AA00C6F03F /* SEOGLES2WireframeState.cpp */; };
 		DDFC897810A1B4AA00C6F03F /* SEOGLES2ZBufferState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895F10A1B4AA00C6F03F /* SEOGLES2ZBufferState.cpp */; };
-		DDFC897B10A1B4AA00C6F03F /* SEEAGLView.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC894910A1B4AA00C6F03F /* SEEAGLView.h */; };
-		DDFC897C10A1B4AA00C6F03F /* SEEAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894A10A1B4AA00C6F03F /* SEEAGLView.m */; };
+		DDFC897B10A1B4AA00C6F03F /* SEEAGL2View.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC894910A1B4AA00C6F03F /* SEEAGL2View.h */; };
+		DDFC897C10A1B4AA00C6F03F /* SEEAGL2View.m in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894A10A1B4AA00C6F03F /* SEEAGL2View.m */; };
 		DDFC897D10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC894B10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.h */; };
 		DDFC897E10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894C10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.mm */; };
 		DDFC897F10A1B4AA00C6F03F /* SEOGLES2AlphaState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894D10A1B4AA00C6F03F /* SEOGLES2AlphaState.cpp */; };
@@ -78,8 +78,8 @@
 		DD7B92A3109A82D100BF166C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		DD7B92A7109A830E00BF166C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DD7B92A9109A830E00BF166C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		DDFC894910A1B4AA00C6F03F /* SEEAGLView.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEEAGLView.h; path = SEOGLES2Rendering/SEEAGLView.h; sourceTree = "<group>"; };
-		DDFC894A10A1B4AA00C6F03F /* SEEAGLView.m */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.objc; name = SEEAGLView.m; path = SEOGLES2Rendering/SEEAGLView.m; sourceTree = "<group>"; };
+		DDFC894910A1B4AA00C6F03F /* SEEAGL2View.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEEAGL2View.h; path = SEOGLES2Rendering/SEEAGL2View.h; sourceTree = "<group>"; };
+		DDFC894A10A1B4AA00C6F03F /* SEEAGL2View.m */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.objc; name = SEEAGL2View.m; path = SEOGLES2Rendering/SEEAGL2View.m; sourceTree = "<group>"; };
 		DDFC894B10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEiPhoneOES2Renderer.h; path = SEOGLES2Rendering/SEiPhoneOES2Renderer.h; sourceTree = "<group>"; };
 		DDFC894C10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.mm */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.objcpp; name = SEiPhoneOES2Renderer.mm; path = SEOGLES2Rendering/SEiPhoneOES2Renderer.mm; sourceTree = "<group>"; };
 		DDFC894D10A1B4AA00C6F03F /* SEOGLES2AlphaState.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SEOGLES2AlphaState.cpp; path = SEOGLES2Rendering/SEOGLES2AlphaState.cpp; sourceTree = "<group>"; };
@@ -176,8 +176,8 @@
 		52898A550E9DB968000BBA95 /* SEOGLES2Rendering */ = {
 			isa = PBXGroup;
 			children = (
-				DDFC894910A1B4AA00C6F03F /* SEEAGLView.h */,
-				DDFC894A10A1B4AA00C6F03F /* SEEAGLView.m */,
+				DDFC894910A1B4AA00C6F03F /* SEEAGL2View.h */,
+				DDFC894A10A1B4AA00C6F03F /* SEEAGL2View.m */,
 				DDFC894B10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.h */,
 				DDFC894C10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.mm */,
 				DDFC894D10A1B4AA00C6F03F /* SEOGLES2AlphaState.cpp */,
@@ -219,7 +219,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDFC896210A1B4AA00C6F03F /* SEEAGLView.h in Headers */,
+				DDFC896210A1B4AA00C6F03F /* SEEAGL2View.h in Headers */,
 				DDFC896410A1B4AA00C6F03F /* SEiPhoneOES2Renderer.h in Headers */,
 				DDFC896710A1B4AA00C6F03F /* SEOGLES2BitmapFont.h in Headers */,
 				DDFC896D10A1B4AA00C6F03F /* SEOGLES2FrameBuffer.h in Headers */,
@@ -237,7 +237,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDFC897B10A1B4AA00C6F03F /* SEEAGLView.h in Headers */,
+				DDFC897B10A1B4AA00C6F03F /* SEEAGL2View.h in Headers */,
 				DDFC897D10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.h in Headers */,
 				DDFC898010A1B4AA00C6F03F /* SEOGLES2BitmapFont.h in Headers */,
 				DDFC898610A1B4AA00C6F03F /* SEOGLES2FrameBuffer.h in Headers */,
@@ -343,7 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDFC896310A1B4AA00C6F03F /* SEEAGLView.m in Sources */,
+				DDFC896310A1B4AA00C6F03F /* SEEAGL2View.m in Sources */,
 				DDFC896510A1B4AA00C6F03F /* SEiPhoneOES2Renderer.mm in Sources */,
 				DDFC896610A1B4AA00C6F03F /* SEOGLES2AlphaState.cpp in Sources */,
 				DDFC896810A1B4AA00C6F03F /* SEOGLES2CullState.cpp in Sources */,
@@ -370,7 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDFC897C10A1B4AA00C6F03F /* SEEAGLView.m in Sources */,
+				DDFC897C10A1B4AA00C6F03F /* SEEAGL2View.m in Sources */,
 				DDFC897E10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.mm in Sources */,
 				DDFC897F10A1B4AA00C6F03F /* SEOGLES2AlphaState.cpp in Sources */,
 				DDFC898110A1B4AA00C6F03F /* SEOGLES2CullState.cpp in Sources */,
