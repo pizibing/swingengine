@@ -64,11 +64,27 @@ bool WindowApplication::OnInitialize()
 {
     m_pRenderer->SetClearColor(m_BackgroundColor);
 
+#if defined(SE_USING_OES2)
+    SE_ASSERT( VertexProgramCatalog::GetActive() );
+    VertexProgramCatalog::GetActive()->SetRenderer(m_pRenderer);
+
+    SE_ASSERT( PixelProgramCatalog::GetActive() );
+    PixelProgramCatalog::GetActive()->SetRenderer(m_pRenderer);
+#endif
+
     return true;
 }
 //----------------------------------------------------------------------------
 void WindowApplication::OnTerminate()
 {
+#if defined(SE_USING_OES2)
+    SE_ASSERT( VertexProgramCatalog::GetActive() );
+    VertexProgramCatalog::GetActive()->SetRenderer(0);
+
+    SE_ASSERT( PixelProgramCatalog::GetActive() );
+    PixelProgramCatalog::GetActive()->SetRenderer(0);
+#endif
+
     SE_DELETE m_pRenderer;
     m_pRenderer = 0;
 }

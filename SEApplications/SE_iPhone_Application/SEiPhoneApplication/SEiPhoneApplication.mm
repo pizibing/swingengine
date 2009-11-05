@@ -20,7 +20,12 @@
 
 #import <UIKit/UIKit.h>
 #include "SEWindowApplication.h"
+
+#if defined(SE_USING_OES2)
+#include "SEiPhoneOES2Renderer.h"
+#else
 #include "SEiPhoneOES1Renderer.h"
+#endif
 
 using namespace Swing;
 

@@ -20,7 +20,12 @@
 
 #include "SEiPhoneApplicationPCH.h"
 #include "SEApplication.h"
+
+#if defined(SE_USING_OES2)
+#include "SEOGLES2RendererRegister.h"
+#else
 #include "SEOGLES1RendererRegister.h"
+#endif
 
 using namespace Swing;
 
@@ -79,7 +84,11 @@ int main(int iArgCount, char* apcArgument[])
 {
     // 运行Register.
     SE_Foundation_Register();
+#if defined(SE_USING_OES2)
+    SE_OGLES2Renderer_Register();
+#else
     SE_OGLES1Renderer_Register();
+#endif
 
     // 先要手动创建SE_PATH这个环境变量,指定所需资源文件的所在位置.
     System::SE_Initialize();
@@ -96,16 +105,18 @@ int main(int iArgCount, char* apcArgument[])
 
         // scene graph文件的路径.
         String tempDir;
-        tempDir = tempSEPath + String("/Data/seof"); // swing engine object file
+        tempDir = tempSEPath + String("/Data/seof");
         System::SE_InsertDirectory((const char*)tempDir);
 
         // texture image文件的路径.
         tempDir = tempSEPath + String("/Data/seif");
         System::SE_InsertDirectory((const char*)tempDir);
 
+#if defined(SE_USING_OES2)
         // shader program文件的路径.
-        //tempDir = tempSEPath + String("/Data/sesp");
-        //System::SE_InsertDirectory((const char*)tempDir);
+        tempDir = tempSEPath + String("/Data/sesp/ESSL");
+        System::SE_InsertDirectory((const char*)tempDir);
+#endif
 
         // 其他image文件路径.
         tempDir = tempSEPath + String("/Data/Im");

@@ -1,4 +1,3 @@
-#ifndef Swing_WindowApplication_H
 // Swing Engine Version 1 Source Code 
 // Most of techniques in the engine are mainly based on David Eberly's
 // Wild Magic 4 open-source code.The author of Swing Engine learned a lot
@@ -19,6 +18,7 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
+#ifndef Swing_WindowApplication_H
 #define Swing_WindowApplication_H
 
 #include "SEApplication.h"
