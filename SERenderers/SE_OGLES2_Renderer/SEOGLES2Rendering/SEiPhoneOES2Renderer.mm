@@ -20,8 +20,8 @@ iPhoneOES2Renderer::iPhoneOES2Renderer(UIWindow* pWindow,
 
     m_iX = iX;
     m_iY = iY;
-    // 稍后创建EAGLView.
-    m_pEAGLView = 0;
+    // 稍后创建EAGL2View.
+    m_pEAGL2View = 0;
     m_pWindow = pWindow;
     m_bFullScreen = false;
 
@@ -50,14 +50,14 @@ iPhoneOES2Renderer::iPhoneOES2Renderer(UIWindow* pWindow,
         // 待实现.
     }
 
-    // 创建EAGLView及其EAGLContext.
+    // 创建EAGL2View及其EAGLContext.
     CGRect tempRect = [[UIScreen mainScreen] bounds];
-    m_pEAGLView = [[EAGLView alloc] initWithFrame:tempRect 
+    m_pEAGL2View = [[EAGL2View alloc] initWithFrame:tempRect 
         pixelFormat:GL_RGB565 depthFormat:GL_DEPTH_COMPONENT16 
         preserveBackbuffer:NO];
 
-    // 把EAGLView绑定给UIWindow.
-    [m_pWindow addSubview:m_pEAGLView];
+    // 把EAGL2View绑定给UIWindow.
+    [m_pWindow addSubview:m_pEAGL2View];
 
     // 初始化OpenGL管线,获取设备能力.
     InitializeState();
@@ -65,7 +65,7 @@ iPhoneOES2Renderer::iPhoneOES2Renderer(UIWindow* pWindow,
 //----------------------------------------------------------------------------
 iPhoneOES2Renderer::~iPhoneOES2Renderer()
 {
-    [m_pEAGLView release];
+    [m_pEAGL2View release];
 }
 //----------------------------------------------------------------------------
 void iPhoneOES2Renderer::Resize(int iWidth, int iHeight)
@@ -80,7 +80,7 @@ void iPhoneOES2Renderer::ToggleFullscreen()
 //----------------------------------------------------------------------------
 void iPhoneOES2Renderer::DisplayBackBuffer()
 {
-    [m_pEAGLView swapBuffers];
+    [m_pEAGL2View swapBuffers];
 }
 //----------------------------------------------------------------------------
 int iPhoneOES2Renderer::LoadFont(const char*, int, bool, bool)
@@ -89,9 +89,9 @@ int iPhoneOES2Renderer::LoadFont(const char*, int, bool, bool)
     return 0;
 }
 //----------------------------------------------------------------------------
-EAGLView* iPhoneOES2Renderer::GetView()
+EAGL2View* iPhoneOES2Renderer::GetView()
 {
-    return m_pEAGLView;
+    return m_pEAGL2View;
 }
 //----------------------------------------------------------------------------
 UIWindow* iPhoneOES2Renderer::GetWindow()

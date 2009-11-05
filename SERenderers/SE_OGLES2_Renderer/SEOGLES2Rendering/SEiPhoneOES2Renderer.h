@@ -3,7 +3,7 @@
 
 #include "SEOGLES2RendererLIB.h"
 #include "SEOGLES2Renderer.h"
-#include "SEEAGLView.h"
+#include "SEEAGL2View.h"
 
 // 注意:
 // 这个文件包含了含有cocoa代码的头文件,因此只能被.mm文件所包含.
@@ -37,12 +37,12 @@ public:
         bool bItalic);
 
     // 窗体和view访问.
-    EAGLView* GetView(void);
+    EAGL2View* GetView(void);
     UIWindow* GetWindow(void);
 
 private:
     // 窗体和view参数.
-    EAGLView* m_pEAGLView;
+    EAGL2View* m_pEAGL2View;
     UIWindow* m_pWindow;
     Boolean m_bFullScreen;
 
