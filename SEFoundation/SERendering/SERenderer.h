@@ -391,7 +391,8 @@ protected:
     virtual void OnDisablePProgram(ResourceIdentifier* pID) = 0;
     virtual void OnEnableTexture(ResourceIdentifier* pID) = 0;
     virtual void OnDisableTexture(ResourceIdentifier* pID) = 0;
-    virtual void OnEnableVBuffer(ResourceIdentifier* pID) = 0;
+    virtual void OnEnableVBuffer(ResourceIdentifier* pID, 
+        VertexProgram* pVProgram) = 0;
     virtual void OnDisableVBuffer(ResourceIdentifier* pID) = 0;
     virtual void OnEnableIBuffer(ResourceIdentifier* pID) = 0;
     virtual void OnDisableIBuffer(ResourceIdentifier* pID) = 0;

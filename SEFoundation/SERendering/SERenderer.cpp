@@ -1633,7 +1633,7 @@ ResourceIdentifier* Renderer::EnableVBuffer(const Attributes& rIAttributes,
     }
     SE_ASSERT( pID );
 
-    OnEnableVBuffer(pID);
+    OnEnableVBuffer(pID, pVProgram);
 
     return pID;
 }
