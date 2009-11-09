@@ -176,7 +176,8 @@ void OGLES2Renderer::OnDisableTexture(ResourceIdentifier*)
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnEnableVBuffer(ResourceIdentifier* pID)
+void OGLES2Renderer::OnEnableVBuffer(ResourceIdentifier* pID, 
+    VertexProgram* pVProgram)
 {
     // Bind当前vertex buffer.
     VBufferID* pResource = (VBufferID*)pID;
@@ -186,49 +187,50 @@ void OGLES2Renderer::OnEnableVBuffer(ResourceIdentifier* pID)
     GLsizei iSize = (GLsizei)(sizeof(float)*rRAttr.GetChannelCount());
     const float* afData = 0;
     GLuint uiIndex = 0;
+    ProgramData* pVProgramData = (ProgramData*)pVProgram->UserData;
 
     if( rRAttr.HasPosition() )
     {
+        uiIndex = pVProgramData->GetPositionAttribID();
         glEnableVertexAttribArray(uiIndex);
         glVertexAttribPointer(uiIndex, rRAttr.GetPositionChannels(), GL_FLOAT,
             GL_FALSE, iSize, afData + rRAttr.GetPositionOffset());
-        uiIndex++;
     }
 
     if( rRAttr.HasNormal() )
     {
+        uiIndex = pVProgramData->GetNormalAttribID();
         glEnableVertexAttribArray(uiIndex);
         glVertexAttribPointer(uiIndex, rRAttr.GetNormalChannels(), GL_FLOAT,
             GL_FALSE, iSize, afData + rRAttr.GetNormalOffset());
-        uiIndex++;
     }
 
     if( rRAttr.HasColor(0) )
     {
+        uiIndex = pVProgramData->GetColorAttribID(0);
         glEnableVertexAttribArray(uiIndex);
         glVertexAttribPointer(uiIndex, rRAttr.GetColorChannels(0), GL_FLOAT,
             GL_FALSE, iSize, afData + rRAttr.GetColorOffset(0));
-        uiIndex++;
     }
 
     if( rRAttr.HasColor(1) )
     {
+        uiIndex = pVProgramData->GetColorAttribID(1);
         glEnableVertexAttribArray(uiIndex);
         glVertexAttribPointer(uiIndex, rRAttr.GetColorChannels(1), GL_FLOAT,
             GL_FALSE, iSize, afData + rRAttr.GetColorOffset(1));
-        uiIndex++;
     }
 
     for( int iUnit = 0; iUnit < rRAttr.GetMaxTCoords(); iUnit++ )
     {
         if( rRAttr.HasTCoord(iUnit) )
         {
+            uiIndex = pVProgramData->GetTCoordAttribID(iUnit);
             glActiveTexture(GL_TEXTURE0 + iUnit);
             glEnableVertexAttribArray(uiIndex);
             glVertexAttribPointer(uiIndex, rRAttr.GetTCoordChannels(iUnit),
                 GL_FLOAT, GL_FALSE, iSize, afData + 
                 rRAttr.GetTCoordOffset(iUnit));
-            uiIndex++;
         }
     }
 }

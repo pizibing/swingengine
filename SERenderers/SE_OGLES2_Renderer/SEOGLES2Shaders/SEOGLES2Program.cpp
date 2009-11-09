@@ -203,6 +203,7 @@ void OGLES2Program::ParseLinkedProgram(unsigned int uiProgram,
     OGLES2Program* pOGLES2VProgram = (OGLES2Program*)pVProgram;
     OGLES2Program* pOGLES2PProgram = (OGLES2Program*)pPProgram;
     Attributes& rIAttributes = pOGLES2VProgram->m_InputAttributes;
+    ProgramData* pVProgramData = (ProgramData*)pOGLES2VProgram->UserData;
     std::vector<RendererConstant>& rRCs = pOGLES2VProgram->m_RendererConstants;
     std::vector<UserConstant>& rVUCs = pOGLES2VProgram->m_UserConstants;
     std::vector<UserConstant>& rPUCs = pOGLES2PProgram->m_UserConstants;
@@ -227,9 +228,13 @@ void OGLES2Program::ParseLinkedProgram(unsigned int uiProgram,
             GLenum eType;
             int iNumFloats, iUnit;
 
-            // Get the attribute info.
+            // Get attribute info.
             glGetActiveAttrib(uiProgram, i, iMaxLen, NULL, &iSize, &eType,
                 acName);
+
+            // Get attribute location, this will be used as a binding id.
+            GLint iAttribID = glGetAttribLocation(uiProgram, acName);
+            SE_ASSERT( iAttribID > -1 );
 
             iNumFloats = 0;
             switch( eType )
@@ -256,25 +261,31 @@ void OGLES2Program::ParseLinkedProgram(unsigned int uiProgram,
             {
                 // 只支持(x,y,z) position.
                 rIAttributes.SetPositionChannels(3);
+                pVProgramData->SetPositionAttribID((unsigned int)iAttribID);
             }
             else if( tempName == OGLES2Program::ms_NormalStr )
             {
                 // 只支持(x,y,z) normals.
                 rIAttributes.SetNormalChannels(3);
+                pVProgramData->SetNormalAttribID((unsigned int)iAttribID);
             }
             else if( tempName == OGLES2Program::ms_ColorStr
                 || tempName == OGLES2Program::ms_Color0Str )
             {
                 rIAttributes.SetColorChannels(0, iNumFloats);
+                pVProgramData->SetColorAttribID(0, (unsigned int)iAttribID);
             }
             else if( tempName == OGLES2Program::ms_Color1Str )
             {
                 rIAttributes.SetColorChannels(1, iNumFloats);
+                pVProgramData->SetColorAttribID(1, (unsigned int)iAttribID);
             }
             else if( tempName.substr(0, 11) == OGLES2Program::ms_TexCoordStr )
             {
                 iUnit = (int)tempName[11] - '0';
                 rIAttributes.SetTCoordChannels(iUnit, iNumFloats);
+                pVProgramData->SetTCoordAttribID(iUnit, 
+                    (unsigned int)iAttribID);
             }
             else
             {

@@ -69,6 +69,61 @@ class SE_RENDERER_API ProgramData
 public:
     unsigned int ID;
     unsigned int Owner;
+
+    void SetPositionAttribID(unsigned int uiAttribID)
+    {
+        m_uiPositionAttribID = uiAttribID;
+    }
+    void SetNormalAttribID(unsigned int uiAttribID)
+    {
+        m_uiNormalAttribID = uiAttribID;
+    }
+    void SetColorAttribID(int iUnit, unsigned int uiAttribID)
+    {
+        int iMaxUnits = (int)m_ColorAttribIDs.size();
+        if( iUnit >= iMaxUnits )
+        {
+            m_ColorAttribIDs.resize(iUnit+1);
+        }
+
+        m_ColorAttribIDs[iUnit] = uiAttribID;
+    }
+    void SetTCoordAttribID(int iUnit, unsigned int uiAttribID)
+    {
+        int iMaxUnits = (int)m_TCoordAttribIDs.size();
+        if( iUnit >= iMaxUnits )
+        {
+            m_TCoordAttribIDs.resize(iUnit+1);
+        }
+
+        m_TCoordAttribIDs[iUnit] = uiAttribID;
+    }
+    unsigned int GetPositionAttribID(void) const
+    {
+        return m_uiPositionAttribID;
+    }
+    unsigned int GetNormalAttribID(void) const
+    {
+        return m_uiNormalAttribID;
+    }
+    unsigned int GetColorAttribID(int iUnit) const
+    {
+        SE_ASSERT( 0 <= iUnit && iUnit < (int)m_ColorAttribIDs.size() );
+
+        return m_ColorAttribIDs[iUnit];
+    }
+    unsigned int GetTCoordAttribID(int iUnit) const
+    {
+        SE_ASSERT( 0 <= iUnit && iUnit < (int)m_TCoordAttribIDs.size() );
+
+        return m_TCoordAttribIDs[iUnit];
+    }
+
+private:
+    unsigned int m_uiPositionAttribID;
+    unsigned int m_uiNormalAttribID;
+    std::vector<unsigned int> m_ColorAttribIDs;
+    std::vector<unsigned int> m_TCoordAttribIDs;
 };
 
 class SE_RENDERER_API RendererConstantID
