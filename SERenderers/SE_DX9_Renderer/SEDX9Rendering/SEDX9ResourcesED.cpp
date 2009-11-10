@@ -248,7 +248,7 @@ void DX9Renderer::OnDisableTexture(ResourceIdentifier*)
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnEnableVBuffer(ResourceIdentifier* pID)
+void DX9Renderer::OnEnableVBuffer(ResourceIdentifier* pID, VertexProgram*)
 {
     VBufferID* pResource = (VBufferID*)pID;
     ms_hResult = m_pDXDevice->SetStreamSource(0, pResource->ID, 0, 
@@ -259,7 +259,7 @@ void DX9Renderer::OnEnableVBuffer(ResourceIdentifier* pID)
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnDisableVBuffer(ResourceIdentifier*)
+void DX9Renderer::OnDisableVBuffer(ResourceIdentifier*, VertexProgram*)
 {
     // 无需任何操作.
 }
