@@ -265,7 +265,8 @@ public:
     void DisableTexture(Texture* pTexture);
     ResourceIdentifier* EnableVBuffer(const Attributes& rIAttributes,
         const Attributes& rOAttributes, VertexProgram* pVProgram = 0);
-    void DisableVBuffer(ResourceIdentifier* pID);
+    void DisableVBuffer(ResourceIdentifier* pID, 
+        VertexProgram* pVProgram = 0);
     void EnableIBuffer(void);
     void DisableIBuffer(void);
     void EnableRenderStateBlock(RenderStateBlock* pRStateBlock);
@@ -393,7 +394,8 @@ protected:
     virtual void OnDisableTexture(ResourceIdentifier* pID) = 0;
     virtual void OnEnableVBuffer(ResourceIdentifier* pID, 
         VertexProgram* pVProgram) = 0;
-    virtual void OnDisableVBuffer(ResourceIdentifier* pID) = 0;
+    virtual void OnDisableVBuffer(ResourceIdentifier* pID, 
+        VertexProgram* pVProgram) = 0;
     virtual void OnEnableIBuffer(ResourceIdentifier* pID) = 0;
     virtual void OnDisableIBuffer(ResourceIdentifier* pID) = 0;
     // DirectX 10渲染器需要重载以下函数.

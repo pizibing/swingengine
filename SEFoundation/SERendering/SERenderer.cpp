@@ -925,9 +925,9 @@ void Renderer::SetConstantLightDiffuse(int iLight, float* afData)
     Light* pLight = GetLight(iLight);
     if( pLight )
     {
-		afData[0] = pLight->Diffuse.R;
-		afData[1] = pLight->Diffuse.G;
-		afData[2] = pLight->Diffuse.B;
+        afData[0] = pLight->Diffuse.R;
+        afData[1] = pLight->Diffuse.G;
+        afData[2] = pLight->Diffuse.B;
         afData[3] = 1.0f;
     }
     else
@@ -1638,9 +1638,10 @@ ResourceIdentifier* Renderer::EnableVBuffer(const Attributes& rIAttributes,
     return pID;
 }
 //----------------------------------------------------------------------------
-void Renderer::DisableVBuffer(ResourceIdentifier* pID)
+void Renderer::DisableVBuffer(ResourceIdentifier* pID, 
+    VertexProgram* pVProgram)
 {
-    OnDisableVBuffer(pID);
+    OnDisableVBuffer(pID, pVProgram);
 }
 //----------------------------------------------------------------------------
 void Renderer::EnableIBuffer()
@@ -1831,7 +1832,7 @@ void Renderer::ApplyEffect(ShaderEffect* pEffect, bool& rbPrimaryEffect)
         DrawElements();
 
         // 关闭vertex shader程序使用的VB子集.
-        DisableVBuffer(pID);
+        DisableVBuffer(pID, pVProgram);
 
         // Keep track of the current sampler to be used in disabling the
         // textures.
