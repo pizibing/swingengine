@@ -227,7 +227,7 @@
 				AdditionalDependencies="SEFoundation80d.lib SEWglRenderer80d.lib SEWglApplication80d.lib SEPhysics80d.lib cg.lib cgGL.lib SEAudio80d.lib SEWalRenderer80d.lib"
 				OutputFile="PostProcess_VC80WglDebSta.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\SDK\Lib"
+				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/PostProcess_VC80WglDebSta.pdb"
 				SubSystem="2"
