@@ -67,7 +67,6 @@ bool ScreenSpaceAO::OnInitialize()
     InitializeCameraMotion(0.5f, 0.01f);
     InitializeObjectMotion(m_spScene);
 
-    //m_pRenderer->ToggleFullscreen();
     return true;
 }
 //----------------------------------------------------------------------------
@@ -151,6 +150,7 @@ void ScreenSpaceAO::OnIdle()
             {
                 // Render the SSAO scene to SSAO render target.
                 m_pFrameBufferSSAO->Enable();
+                m_pRenderer->ClearBuffers();
                 m_pRenderer->Draw(m_spScenePolygon4);
                 m_pFrameBufferSSAO->Disable();
             }
@@ -365,7 +365,7 @@ void ScreenSpaceAO::CreateScene()
     pVBufferScenePoly->TCoord2(1, 3) = Vector2f(0.0f, 0.0f);
     m_spScenePolygon6 = SE_NEW TriMesh(pVBufferScenePoly, pIBufferScenePoly);
 
-    // color矩形的image.
+    // Color target.
     m_spSceneImageColor = Image::GenerateColorImage(Image::IT_RGBA8888, 
         iWidth, iHeight, ColorRGBA::SE_RGBA_RED, "SceneImageColor");
     TextureEffect* pEffectScenePoly = SE_NEW TextureEffect("SceneImageColor");
@@ -376,7 +376,7 @@ void ScreenSpaceAO::CreateScene()
     m_spScenePolygon1->UpdateGS();
     m_spScenePolygon1->UpdateRS();
 
-    // normal矩形的image.
+    // Normal target.
     m_spSceneImageNormal = Image::GenerateColorImage(Image::IT_RGBA8888, 
         iWidth, iHeight, ColorRGBA::SE_RGBA_RED, "SceneImageNormal");
     pEffectScenePoly = SE_NEW TextureEffect("SceneImageNormal");
@@ -387,7 +387,7 @@ void ScreenSpaceAO::CreateScene()
     m_spScenePolygon2->UpdateGS();
     m_spScenePolygon2->UpdateRS();
 
-    // depth矩形的image.
+    // Depth target.
     m_spSceneImageDepth = Image::GenerateColorImage(Image::IT_R32, 
         iWidth, iHeight, ColorRGBA::SE_RGBA_RED, "SceneImageDepth");
     pEffectScenePoly = SE_NEW TextureEffect("SceneImageDepth");
@@ -398,7 +398,7 @@ void ScreenSpaceAO::CreateScene()
     m_spScenePolygon3->UpdateGS();
     m_spScenePolygon3->UpdateRS();
 
-    // 创建绑定纹理的RGBA frame buffer.
+    // Create the MRT(color/normal/depth).
     Texture** apTargets = SE_NEW Texture*[3];
     apTargets[0] = m_spSceneTargetColor;
     apTargets[1] = m_spSceneTargetNormal;
@@ -410,7 +410,7 @@ void ScreenSpaceAO::CreateScene()
         m_eBuffering, m_eMultisampling, m_pRenderer, 3, apTargets);
     SE_ASSERT( m_pFrameBufferSceneMRT );
 
-    // 创建SSAO random纹理.
+    // Create SSAO's random texture.
     m_spSSAORandomImage = Image::GenerateRandomImage(Image::IT_RGBA8888, 
         4, 4, 100, "SSAORandom");
     m_spSSAORandom = SE_NEW Texture(m_spSSAORandomImage);
@@ -430,15 +430,15 @@ void ScreenSpaceAO::CreateScene()
     m_pSSAOEffect->ScreenSize.Y = (float)iHeight;
     m_pSSAOEffect->FarClipDist = m_spCamera->GetDMax();
 
-    // SSAO的image.
+    // SSAO's image.
     m_spSceneImageSSAO = Image::GenerateColorImage(Image::IT_RGBA8888, 
         iWidth, iHeight, ColorRGBA::SE_RGBA_RED, "SceneImageSSAO");
-    // SSAO的render target texture.
+    // SSAO's render target texture.
     m_spSceneTargetSSAO = SE_NEW Texture(m_spSceneImageSSAO);
     m_spSceneTargetSSAO->SetFilterType(Texture::LINEAR);
     m_spSceneTargetSSAO->SetOffscreenTexture(true);
 
-    // 对SSAO纹理进行blur的polygon及其shader effect.
+    // This screen polygon will be used to blur the original SSAO target.
     ScreenSpaceAOBlurEffect* pEffectSSAOBlur = 
         SE_NEW ScreenSpaceAOBlurEffect("SceneImageSSAO");
     ScreenSpaceAOBlurEffect::GenerateTexelKernel(iWidth, iHeight);
@@ -447,7 +447,7 @@ void ScreenSpaceAO::CreateScene()
     m_spScenePolygon5->UpdateGS();
     m_spScenePolygon5->UpdateRS();
 
-    // 创建绑定纹理的SSAO frame buffer.
+    // Create SSAO's frame buffer.
     apTargets = SE_NEW Texture*[1];
     apTargets[0] = m_spSceneTargetSSAO;
     m_pRenderer->LoadTexture(m_spSceneTargetSSAO);
