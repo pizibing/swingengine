@@ -147,7 +147,7 @@ void OpenGLRenderer::OnDisableTexture(ResourceIdentifier*)
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnEnableVBuffer(ResourceIdentifier* pID)
+void OpenGLRenderer::OnEnableVBuffer(ResourceIdentifier* pID, VertexProgram*)
 {
     // Bindµ±Ç°vertex buffer.
     VBufferID* pResource = (VBufferID*)pID;
@@ -199,7 +199,7 @@ void OpenGLRenderer::OnEnableVBuffer(ResourceIdentifier* pID)
     }
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnDisableVBuffer(ResourceIdentifier* pID)
+void OpenGLRenderer::OnDisableVBuffer(ResourceIdentifier* pID, VertexProgram*)
 {
     VBufferID* pResource = (VBufferID*)pID;
     const Attributes& rRAttr = pResource->IAttr;
