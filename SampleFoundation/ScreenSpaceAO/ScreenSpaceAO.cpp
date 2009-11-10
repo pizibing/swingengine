@@ -78,7 +78,6 @@ void ScreenSpaceAO::OnTerminate()
 
     m_spScene = 0;
     m_spWireframe = 0;
-    m_spScreenCamera = 0;
 
     m_spScenePolygon1 = 0;
     m_spScenePolygon2 = 0;
@@ -106,6 +105,8 @@ void ScreenSpaceAO::OnTerminate()
     m_aspLight[3] = 0;
 
     WindowApplication3::OnTerminate();
+    // For safty reason.
+    m_spScreenCamera = 0;
 }
 //----------------------------------------------------------------------------
 void ScreenSpaceAO::OnIdle()
@@ -127,17 +128,20 @@ void ScreenSpaceAO::OnIdle()
     {
         if( m_bShowUnCombined )
         {
-            // 把场景渲染到backbuffer.
+            // Render the scene to back buffer directly.
             m_pRenderer->SetClearColor(ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
             m_pRenderer->ClearBuffers();
             m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
         }
         else
         {
-            // 把场景并行渲染到多个render targets.
+            // First, clear back buffer.
+            m_pRenderer->ClearBuffers();
+
+            // Render the scene to multiple render targets.
             m_pFrameBufferSceneMRT->Enable();
             m_pRenderer->SetClearColor(ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
-            m_pRenderer->ClearBuffers();
+            m_pRenderer->ClearBuffers();  // Clear MRT.
             m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
             m_pFrameBufferSceneMRT->Disable();
 
@@ -145,17 +149,18 @@ void ScreenSpaceAO::OnIdle()
             m_pRenderer->SetCamera(m_spScreenCamera);
             if( !m_bShowSSAO )
             {
+                // Render the SSAO scene to SSAO render target.
                 m_pFrameBufferSSAO->Enable();
                 m_pRenderer->Draw(m_spScenePolygon4);
                 m_pFrameBufferSSAO->Disable();
             }
             else
             {
+                // Render the SSAO scene to back buffer.
                 m_pRenderer->Draw(m_spScenePolygon4);
             }
 
             // SSAO target blurred.
-            m_pRenderer->SetCamera(m_spScreenCamera);
             if( !m_bShowSSAOBlurred )
             {
                 m_pFrameBufferSSAO->Enable();
@@ -171,16 +176,17 @@ void ScreenSpaceAO::OnIdle()
             {
                 m_pRenderer->Draw(m_spScenePolygon6);
             }
+
+            // Render three screen polygons to show the MRT(color/normal/
+            // depth).
+            m_pRenderer->SetCamera(m_spScreenCamera);
+            m_pRenderer->Draw(m_spScenePolygon1);
+            m_pRenderer->Draw(m_spScenePolygon2);
+            m_pRenderer->Draw(m_spScenePolygon3);
         }
 
         m_pRenderer->SetCamera(m_spCamera);
         DrawFrameRate(8, 20, ColorRGBA::SE_RGBA_WHITE);
-
-        // 在窗口左下角渲染三个屏幕矩形,每个矩形用一个render target作纹理.
-        //m_pRenderer->SetCamera(m_spScreenCamera);
-        //m_pRenderer->Draw(m_spScenePolygon1);
-        //m_pRenderer->Draw(m_spScenePolygon2);
-        //m_pRenderer->Draw(m_spScenePolygon3);
 
         m_pRenderer->EndScene();
     }
@@ -364,39 +370,42 @@ void ScreenSpaceAO::CreateScene()
         iWidth, iHeight, ColorRGBA::SE_RGBA_RED, "SceneImageColor");
     TextureEffect* pEffectScenePoly = SE_NEW TextureEffect("SceneImageColor");
     m_spSceneTargetColor = pEffectScenePoly->GetPTexture(0, 0);
+    m_spSceneTargetColor->SetImage(m_spSceneImageColor);
     m_spSceneTargetColor->SetOffscreenTexture(true);
     m_spScenePolygon1->AttachEffect(pEffectScenePoly);
     m_spScenePolygon1->UpdateGS();
     m_spScenePolygon1->UpdateRS();
-    m_pRenderer->LoadResources(m_spScenePolygon1);
 
     // normal矩形的image.
     m_spSceneImageNormal = Image::GenerateColorImage(Image::IT_RGBA8888, 
         iWidth, iHeight, ColorRGBA::SE_RGBA_RED, "SceneImageNormal");
     pEffectScenePoly = SE_NEW TextureEffect("SceneImageNormal");
     m_spSceneTargetNormal = pEffectScenePoly->GetPTexture(0, 0);
+    m_spSceneTargetNormal->SetImage(m_spSceneImageNormal);
     m_spSceneTargetNormal->SetOffscreenTexture(true);
     m_spScenePolygon2->AttachEffect(pEffectScenePoly);
     m_spScenePolygon2->UpdateGS();
     m_spScenePolygon2->UpdateRS();
-    m_pRenderer->LoadResources(m_spScenePolygon2);
 
     // depth矩形的image.
     m_spSceneImageDepth = Image::GenerateColorImage(Image::IT_R32, 
         iWidth, iHeight, ColorRGBA::SE_RGBA_RED, "SceneImageDepth");
     pEffectScenePoly = SE_NEW TextureEffect("SceneImageDepth");
     m_spSceneTargetDepth = pEffectScenePoly->GetPTexture(0, 0);
+    m_spSceneTargetDepth->SetImage(m_spSceneImageDepth);
     m_spSceneTargetDepth->SetOffscreenTexture(true);
     m_spScenePolygon3->AttachEffect(pEffectScenePoly);
     m_spScenePolygon3->UpdateGS();
     m_spScenePolygon3->UpdateRS();
-    m_pRenderer->LoadResources(m_spScenePolygon3);
 
     // 创建绑定纹理的RGBA frame buffer.
     Texture** apTargets = SE_NEW Texture*[3];
     apTargets[0] = m_spSceneTargetColor;
     apTargets[1] = m_spSceneTargetNormal;
     apTargets[2] = m_spSceneTargetDepth;
+    m_pRenderer->LoadTexture(m_spSceneTargetColor);
+    m_pRenderer->LoadTexture(m_spSceneTargetNormal);
+    m_pRenderer->LoadTexture(m_spSceneTargetDepth);
     m_pFrameBufferSceneMRT = FrameBuffer::Create(m_eFormat, m_eDepth, m_eStencil,
         m_eBuffering, m_eMultisampling, m_pRenderer, 3, apTargets);
     SE_ASSERT( m_pFrameBufferSceneMRT );
@@ -404,7 +413,7 @@ void ScreenSpaceAO::CreateScene()
     // 创建SSAO random纹理.
     m_spSSAORandomImage = Image::GenerateRandomImage(Image::IT_RGBA8888, 
         4, 4, 100, "SSAORandom");
-    m_spSSAORandom = SE_NEW Texture;
+    m_spSSAORandom = SE_NEW Texture(m_spSSAORandomImage);
     m_spSSAORandom->SetFilterType(Texture::NEAREST);
     m_spSSAORandom->SetWrapType(0, Texture::REPEAT);
     m_spSSAORandom->SetWrapType(1, Texture::REPEAT);
@@ -415,7 +424,6 @@ void ScreenSpaceAO::CreateScene()
     m_spScenePolygon4->AttachEffect(pSSAOEffect);
     m_spScenePolygon4->UpdateGS();
     m_spScenePolygon4->UpdateRS();
-    m_pRenderer->LoadResources(m_spScenePolygon4);
 
     m_pSSAOEffect = pSSAOEffect;
     m_pSSAOEffect->ScreenSize.X = (float)iWidth;
@@ -429,6 +437,7 @@ void ScreenSpaceAO::CreateScene()
     m_spSceneTargetSSAO = SE_NEW Texture(m_spSceneImageSSAO);
     m_spSceneTargetSSAO->SetFilterType(Texture::LINEAR);
     m_spSceneTargetSSAO->SetOffscreenTexture(true);
+
     // 对SSAO纹理进行blur的polygon及其shader effect.
     ScreenSpaceAOBlurEffect* pEffectSSAOBlur = 
         SE_NEW ScreenSpaceAOBlurEffect("SceneImageSSAO");
@@ -437,7 +446,14 @@ void ScreenSpaceAO::CreateScene()
     m_spScenePolygon5->AttachEffect(pEffectSSAOBlur);
     m_spScenePolygon5->UpdateGS();
     m_spScenePolygon5->UpdateRS();
-    m_pRenderer->LoadResources(m_spScenePolygon5);
+
+    // 创建绑定纹理的SSAO frame buffer.
+    apTargets = SE_NEW Texture*[1];
+    apTargets[0] = m_spSceneTargetSSAO;
+    m_pRenderer->LoadTexture(m_spSceneTargetSSAO);
+    m_pFrameBufferSSAO = FrameBuffer::Create(m_eFormat, m_eDepth, m_eStencil,
+        m_eBuffering, m_eMultisampling, m_pRenderer, 1, apTargets);
+    SE_ASSERT( m_pFrameBufferSSAO );
 
     CombineEffect* pEffectCombine = SE_NEW CombineEffect("SceneImageColor", 
         "SceneImageSSAO");
@@ -446,14 +462,6 @@ void ScreenSpaceAO::CreateScene()
     m_spScenePolygon6->AttachEffect(pEffectCombine);
     m_spScenePolygon6->UpdateGS();
     m_spScenePolygon6->UpdateRS();
-    m_pRenderer->LoadResources(m_spScenePolygon6);
-
-    // 创建绑定纹理的SSAO frame buffer.
-    apTargets = SE_NEW Texture*[1];
-    apTargets[0] = m_spSceneTargetSSAO;
-    m_pFrameBufferSSAO = FrameBuffer::Create(m_eFormat, m_eDepth, m_eStencil,
-        m_eBuffering, m_eMultisampling, m_pRenderer, 1, apTargets);
-    SE_ASSERT( m_pFrameBufferSSAO );
 
     m_spScene->AttachChild(CreateModel());
     CreateLights();
@@ -545,9 +553,9 @@ Node* ScreenSpaceAO::CreateModel()
     pMesh->GenerateNormals();
     pMesh->GenerateTangents(0, 1, 2);
     Matrix3f mat3fRot;
-	mat3fRot.FromEulerAnglesXYZ(Mathf::PI/2.0f, 0.0f, 0.0f);
-	pMesh->Local.SetRotate(mat3fRot);
-	pRoot->AttachChild(pMesh);
+    mat3fRot.FromEulerAnglesXYZ(Mathf::PI/2.0f, 0.0f, 0.0f);
+    pMesh->Local.SetRotate(mat3fRot);
+    pRoot->AttachChild(pMesh);
 
     // far wall.
     pMesh = SE_NEW TriMesh(pMesh->VBuffer, pMesh->IBuffer);
