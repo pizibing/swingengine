@@ -235,41 +235,48 @@ void OGLES2Renderer::OnEnableVBuffer(ResourceIdentifier* pID,
     }
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnDisableVBuffer(ResourceIdentifier* pID)
+void OGLES2Renderer::OnDisableVBuffer(ResourceIdentifier* pID, 
+    VertexProgram* pVProgram)
 {
     VBufferID* pResource = (VBufferID*)pID;
     const Attributes& rRAttr = pResource->IAttr;
     GLuint uiIndex = 0;
+    ProgramData* pVProgramData = (ProgramData*)pVProgram->UserData;
 
     // Unbindµ±Ç°vertex buffer.
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     if( rRAttr.HasPosition() )
     {
-        glDisableVertexAttribArray(uiIndex++);
+        uiIndex = pVProgramData->GetPositionAttribID();
+        glDisableVertexAttribArray(uiIndex);
     }
 
     if( rRAttr.HasNormal() )
     {
-        glDisableVertexAttribArray(uiIndex++);
+        uiIndex = pVProgramData->GetNormalAttribID();
+        glDisableVertexAttribArray(uiIndex);
     }
 
     if( rRAttr.HasColor(0) )
     {
-        glDisableVertexAttribArray(uiIndex++);
+        uiIndex = pVProgramData->GetColorAttribID(0);
+        glDisableVertexAttribArray(uiIndex);
     }
 
     if( rRAttr.HasColor(1) )
     {
-        glDisableVertexAttribArray(uiIndex++);
+        uiIndex = pVProgramData->GetColorAttribID(1);
+        glDisableVertexAttribArray(uiIndex);
     }
 
     for( int iUnit = 0; iUnit < rRAttr.GetMaxTCoords(); iUnit++ )
     {
         if( rRAttr.HasTCoord(iUnit) )
         {
+            uiIndex = pVProgramData->GetTCoordAttribID(iUnit);
             glActiveTexture(GL_TEXTURE0 + iUnit);
-            glDisableVertexAttribArray(uiIndex++);
+            glDisableVertexAttribArray(uiIndex);
         }
     }
 }
