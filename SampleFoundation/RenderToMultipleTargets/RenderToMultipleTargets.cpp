@@ -27,7 +27,7 @@ SE_REGISTER_INITIALIZE(RenderToMultipleTargets);
 //----------------------------------------------------------------------------
 RenderToMultipleTargets::RenderToMultipleTargets()
     :
-    WindowApplication3("RenderToMultipleTargets", 0, 0, 1024, 768, 
+    WindowApplication3("RenderToMultipleTargets", 0, 0, 800, 600, 
         ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
     m_pFrameBuffer = 0;
@@ -225,7 +225,7 @@ void RenderToMultipleTargets::CreateScene()
     m_spScenePolygon3 = SE_NEW TriMesh(pVBufferScenePoly, pIBufferScenePoly);
 
     // 三个矩形共享的image.
-    int iWidth = 1024, iHeight = 768;
+    int iWidth = m_iWidth, iHeight = m_iHeight;
     unsigned char* aucData = SE_NEW unsigned char[4*iWidth*iHeight];
     unsigned char* pucData = aucData;
     int i;
