@@ -33,7 +33,7 @@ char* ShadowMaps::ms_aacCaptions[3] =
 //----------------------------------------------------------------------------
 ShadowMaps::ShadowMaps()
     :
-    WindowApplication3("ShadowMaps", 0, 0, 1024, 768, 
+    WindowApplication3("ShadowMaps", 0, 0, 800, 600, 
         ColorRGBA(0.0f, 0.25f, 0.75f, 1.0f))
 {
     m_acCaption = 0;
@@ -299,7 +299,7 @@ void ShadowMaps::CreateScene()
     pIBufferDataScenePoly[5] = 2;
     m_spScenePolygon1 = SE_NEW TriMesh(pVBufferScenePoly, pIBufferScenePoly);
 
-    int iWidth = 1024, iHeight = 768;
+    int iWidth = m_iWidth, iHeight = m_iHeight;
     unsigned char* aucData = SE_NEW unsigned char[4*iWidth*iHeight];
     unsigned char* pucData = aucData;
     int i;
