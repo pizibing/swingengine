@@ -145,3 +145,11 @@ Xcode就可以正确执行了,目前尚未查明原因.
 2009 1030 2120
 Xcode使用GCC4.x编译器时,项目生成目标的Code Generation项下,Inline Methods Hidden和Symbols Hidden by Default两个子项均应该取消勾选.
 参考: http://developer.apple.com/mac/library/documentation/DeveloperTools/Conceptual/CppRuntimeEnv/Articles/SymbolVisibility.html
+
+2009 1111 0834
+应用程序中的用户摄像机如果在WindowApplication3::OnTerminate()之前释放,则有可能造成野指针异常(当程序退出时,如果renderer正在引用用户的摄像机对象,而该对象已经在
+WindowApplication3::OnTerminate()之前释放,由于renderer引用摄像机使用的是普通指针,则将产生野指针异常).目前为了确保安全,最好把摄像机释放代码写在
+WindowApplication3::OnTerminate()之后,或者确保程序退出时,renderer正在引用应用层提供的默认摄像机对象.可参考ScreenSpaceAO例子.
+
+2009 1111 0902
+由于OpenGL API的特殊性,在使用Framebuffer对象时,应首先调用Renderer::ClearBuffers()函数,从而确保后续渲染能够成功.可参考ScreenSpaceAO例子.
