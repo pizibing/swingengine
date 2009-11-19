@@ -66,60 +66,38 @@ inline int WindowApplication::GetWindowID() const
 //----------------------------------------------------------------------------
 inline bool WindowApplication::OnPrecreate()
 {
-    // 由派生类负责实现
+    // 由派生类负责实现.
     return true;
 }
 //----------------------------------------------------------------------------
 inline void WindowApplication::OnDisplay()
 {
-    // 由派生类负责实现
+    // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
 inline void WindowApplication::OnIdle()
 {
-    // 由派生类负责实现
+    // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-inline bool WindowApplication::OnKeyDown(unsigned char, int, int)
+inline void WindowApplication::OnTouchBegan(int iX, int iY)
 {
-    // 由派生类负责实现
-    return false;
+    // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-inline bool WindowApplication::OnKeyUp(unsigned char, int, int)
+inline void WindowApplication::OnTouchMoved(int iX, int iY)
 {
-    // 由派生类负责实现
-    return false;
+    // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-inline bool WindowApplication::OnSpecialKeyDown(int, int, int)
+inline void WindowApplication::OnTouchEnded(int iX, int iY)
 {
-    // 由派生类负责实现
-    return false;
+    // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-inline bool WindowApplication::OnSpecialKeyUp(int, int, int)
+inline void WindowApplication::OnTouchCancelled(int iX, int iY)
 {
-    // 由派生类负责实现
-    return false;
-}
-//----------------------------------------------------------------------------
-inline bool WindowApplication::OnMouseClick(int, int, int, int, unsigned int)
-{
-    // 由派生类负责实现
-    return false;
-}
-//----------------------------------------------------------------------------
-inline bool WindowApplication::OnMotion(int, int, int, unsigned int)
-{
-    // 由派生类负责实现
-    return false;
-}
-//----------------------------------------------------------------------------
-inline bool WindowApplication::OnPassiveMotion(int, int)
-{
-    // 由派生类负责实现
-    return false;
+    // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
 inline FrameBuffer::FormatType WindowApplication::GetFormat()

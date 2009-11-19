@@ -31,7 +31,7 @@ WindowApplication3::WindowApplication3(const char* acWindowTitle,
     WindowApplication(acWindowTitle, iXPosition, iYPosition, iWidth, iHeight,
         rBackgroundColor)
 {
-    // 摄像机运动
+    // Camera motion.
     m_aWorldAxis[0] = Vector3f::ZERO;
     m_aWorldAxis[1] = Vector3f::ZERO;
     m_aWorldAxis[2] = Vector3f::ZERO;
@@ -47,7 +47,7 @@ WindowApplication3::WindowApplication3(const char* acWindowTitle,
     m_bEndPressed = false;
     m_bCameraMoveable = false;
 
-    // 对象运动
+    // Object motion.
     m_iDoRoll = 0;
     m_iDoYaw = 0;
     m_iDoPitch = 0;
@@ -59,7 +59,7 @@ WindowApplication3::WindowApplication3(const char* acWindowTitle,
     m_bUseTrackBall = true;
     m_bTrackBallDown = false;
 
-    // 性能测试
+    // Performance test.
     m_dLastTime = -1.0;
     m_dAccumulatedTime = 0.0;
     m_dFrameRate = 0.0;
@@ -68,7 +68,7 @@ WindowApplication3::WindowApplication3(const char* acWindowTitle,
     m_iTimer = 30;
     m_iMaxTimer = 30;
 
-    // 辅助显示世界体系坐标轴
+    // World axis showing stuff.
     m_Origin = Vector3f::ZERO;
     m_XEnd = Vector3f::UNIT_X;
     m_YEnd = Vector3f::UNIT_Y;
@@ -133,298 +133,46 @@ void WindowApplication3::OnDisplay()
     }
 }
 //----------------------------------------------------------------------------
-bool WindowApplication3::OnKeyDown(unsigned char ucKey, int iX, int iY)
+void WindowApplication3::OnTouchBegan(int iX, int iY)
 {
-    if( WindowApplication::OnKeyDown(ucKey, iX, iY) )
+    if( !m_bUseTrackBall || !m_spMotionObject )
     {
-        return true;
-    }
-
-    switch( ucKey )
-    {
-    case 't':  // 减慢摄像机平移变换速度
-        if( m_bCameraMoveable )
-        {
-            m_fTrnSpeed /= m_fTrnSpeedFactor;
-        }
-
-        return true;
-    case 'T':  // 加快摄像机平移变换速度
-        if( m_bCameraMoveable )
-        {
-            m_fTrnSpeed *= m_fTrnSpeedFactor;
-        }
-
-        return true;
-    case 'r':  // 减慢摄像机旋转变换速度
-        if( m_bCameraMoveable )
-        {
-            m_fRotSpeed /= m_fRotSpeedFactor;
-        }
-
-        return true;
-    case 'R':  // 加快摄像机旋转变换速度
-        if( m_bCameraMoveable )
-        {
-            m_fRotSpeed *= m_fRotSpeedFactor;
-        }
-
-        return true;
-    case '?':  // 重置定时器
-        ResetTime();
-
-        return true;
-    };
-
-    return false;
-}
-//----------------------------------------------------------------------------
-bool WindowApplication3::OnSpecialKeyDown(int iKey, int, int)
-{
-    if( m_bCameraMoveable )
-    {
-        if( iKey == KEY_LEFT_ARROW )
-        {
-            m_bLArrowPressed = true;
-
-            return true;
-        }
-        if( iKey == KEY_RIGHT_ARROW )
-        {
-            m_bRArrowPressed = true;
-
-            return true;
-        }
-        if( iKey == KEY_UP_ARROW )
-        {
-            m_bUArrowPressed = true;
-
-            return true;
-        }
-        if( iKey == KEY_DOWN_ARROW )
-        {
-            m_bDArrowPressed = true;
-
-            return true;
-        }
-        if( iKey == KEY_PAGE_UP )
-        {
-            m_bPgUpPressed = true;
-
-            return true;
-        }
-        if( iKey == KEY_PAGE_DOWN )
-        {
-            m_bPgDnPressed = true;
-
-            return true;
-        }
-        if( iKey == KEY_HOME )
-        {
-            m_bHomePressed = true;
-
-            return true;
-        }
-        if( iKey == KEY_END )
-        {
-            m_bEndPressed = true;
-
-            return true;
-        }
-    }
-
-    if( m_spMotionObject )
-    {
-        if( iKey == KEY_F1 )
-        {
-            m_iDoRoll = +1;
-
-            return true;
-        }
-        if( iKey == KEY_F2 )
-        {
-            m_iDoRoll = -1;
-
-            return true;
-        }
-        if( iKey == KEY_F3 )
-        {
-            m_iDoYaw = +1;
-
-            return true;
-        }
-        if( iKey == KEY_F4 )
-        {
-            m_iDoYaw = -1;
-
-            return true;
-        }
-        if( iKey == KEY_F5 )
-        {
-            m_iDoPitch = +1;
-
-            return true;
-        }
-        if( iKey == KEY_F6 )
-        {
-            m_iDoPitch = -1;
-
-            return true;
-        }
-    }
-
-    return false;
-}
-//----------------------------------------------------------------------------
-bool WindowApplication3::OnSpecialKeyUp(int iKey, int, int)
-{
-    if( m_bCameraMoveable )
-    {
-        if( iKey == KEY_LEFT_ARROW )
-        {
-            m_bLArrowPressed = false;
-
-            return true;
-        }
-        if( iKey == KEY_RIGHT_ARROW )
-        {
-            m_bRArrowPressed = false;
-
-            return true;
-        }
-        if( iKey == KEY_UP_ARROW )
-        {
-            m_bUArrowPressed = false;
-
-            return true;
-        }
-        if( iKey == KEY_DOWN_ARROW )
-        {
-            m_bDArrowPressed = false;
-
-            return true;
-        }
-        if( iKey == KEY_PAGE_UP )
-        {
-            m_bPgUpPressed = false;
-
-            return true;
-        }
-        if( iKey == KEY_PAGE_DOWN )
-        {
-            m_bPgDnPressed = false;
-
-            return true;
-        }
-        if( iKey == KEY_HOME )
-        {
-            m_bHomePressed = false;
-
-            return true;
-        }
-        if( iKey == KEY_END )
-        {
-            m_bEndPressed = false;
-
-            return true;
-        }
-    }
-
-    if( m_spMotionObject )
-    {
-        if( iKey == KEY_F1 )
-        {
-            m_iDoRoll = 0;
-
-            return true;
-        }
-        if( iKey == KEY_F2 )
-        {
-            m_iDoRoll = 0;
-
-            return true;
-        }
-        if( iKey == KEY_F3 )
-        {
-            m_iDoYaw = 0;
-
-            return true;
-        }
-        if( iKey == KEY_F4 )
-        {
-            m_iDoYaw = 0;
-
-            return true;
-        }
-        if( iKey == KEY_F5 )
-        {
-            m_iDoPitch = 0;
-
-            return true;
-        }
-        if( iKey == KEY_F6 )
-        {
-            m_iDoPitch = 0;
-
-            return true;
-        }
-    }
-
-    return false;
-}
-//----------------------------------------------------------------------------
-bool WindowApplication3::OnMouseClick(int iButton, int iState, int iX,
-    int iY, unsigned int)
-{
-    if( !m_bUseTrackBall
-    ||  iButton != MOUSE_LEFT_BUTTON
-    ||  !m_spMotionObject )
-    {
-        return false;
+        return;
     }
 
     float fMult = 1.0f / (m_iWidth >= m_iHeight ? m_iHeight : m_iWidth);
 
-    if( iState == MOUSE_DOWN )
-    {
-        // 获取trackball托拽起始点.
-        m_bTrackBallDown = true;
-        m_SaveRotate = m_spMotionObject->Local.GetRotate();
-        m_fXTrack0 = (2*iX-m_iWidth)*fMult;
-        m_fYTrack0 = (2*(m_iHeight-1-iY)-m_iHeight)*fMult;
-    }
-    else
-    {
-        m_bTrackBallDown = false;
-    }
-
-    return true;
+    // Get trackball drag's beginning point.
+    m_bTrackBallDown = true;
+    m_SaveRotate = m_spMotionObject->Local.GetRotate();
+    m_fXTrack0 = (2*iX - m_iWidth)*fMult;
+    m_fYTrack0 = (2*(m_iHeight - 1 - iY) - m_iHeight)*fMult;
 }
 //----------------------------------------------------------------------------
-bool WindowApplication3::OnMotion(int iButton, int iX, int iY, unsigned int)
+void WindowApplication3::OnTouchMoved(int iX, int iY)
 {
-    if( !m_bUseTrackBall
-    ||  iButton != MOUSE_LEFT_BUTTON
-    ||  !m_bTrackBallDown
-    ||  !m_spMotionObject )
+    if( !m_bUseTrackBall || !m_bTrackBallDown || !m_spMotionObject )
     {
-        return false;
+        return;
     }
 
-    // 获取trackball托拽终止点.
+    // Get trackball drag's ending point.
     float fMult = 1.0f / (m_iWidth >= m_iHeight ? m_iHeight : m_iWidth);
-    m_fXTrack1 = (2*iX-m_iWidth)*fMult;
-    m_fYTrack1 = (2*(m_iHeight-1-iY)-m_iHeight)*fMult;
+    m_fXTrack1 = (2*iX - m_iWidth)*fMult;
+    m_fYTrack1 = (2*(m_iHeight - 1 - iY) - m_iHeight)*fMult;
 
-    // 更新对象的local旋转变换.
+    // Update object's local transformation.
     RotateTrackBall(m_fXTrack0, m_fYTrack0, m_fXTrack1, m_fYTrack1);
-
-    return true;
+}
+//----------------------------------------------------------------------------
+void WindowApplication3::OnTouchEnded(int, int)
+{
+    m_bTrackBallDown = false;
 }
 //----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
-// 摄像机运动
+// Camera motion.
 //----------------------------------------------------------------------------
 void WindowApplication3::InitializeCameraMotion(float fTrnSpeed,
     float fRotSpeed, float fTrnSpeedFactor, float fRotSpeedFactor)
@@ -579,7 +327,7 @@ void WindowApplication3::LookDown()
 //----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
-// 对象运动
+// Object motion.
 //----------------------------------------------------------------------------
 void WindowApplication3::InitializeObjectMotion(Spatial* pMotionObject)
 {
@@ -793,7 +541,7 @@ void WindowApplication3::RotateTrackBall(float fX0, float fY0, float fX1,
 //----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
-// 性能测试
+// Performance test.
 //----------------------------------------------------------------------------
 void WindowApplication3::ResetTime()
 {
@@ -850,11 +598,11 @@ void WindowApplication3::DrawFrameRate(int iX, int iY, const ColorRGBA& rColor)
 //----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
-// 辅助显示世界体系坐标轴
+// World axis showing stuff.
 //----------------------------------------------------------------------------
 void WindowApplication3::DrawWorldAxis(void)
 {
-	m_pRenderer->Draw(m_spWorldAxis);
+    m_pRenderer->Draw(m_spWorldAxis);
     m_pRenderer->Draw(m_iXEndScreenX + 2, m_iXEndScreenY - 2, 
         ColorRGBA::SE_RGBA_RED, "x");
     m_pRenderer->Draw(m_iYEndScreenX + 2, m_iYEndScreenY - 2, 

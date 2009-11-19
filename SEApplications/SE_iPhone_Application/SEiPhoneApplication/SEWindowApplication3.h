@@ -41,20 +41,16 @@ public:
 
     virtual ~WindowApplication3(void);
 
-    // 事件回调函数
+    // Event callback functions.
     virtual bool OnInitialize(void);
     virtual void OnTerminate(void);
     virtual void OnDisplay(void);
-    virtual bool OnKeyDown(unsigned char ucKey, int iX, int iY);
-    virtual bool OnSpecialKeyDown(int iKey, int iX, int iY);
-    virtual bool OnSpecialKeyUp(int iKey, int iX, int iY);
-    virtual bool OnMouseClick(int iButton, int iState, int iX, int iY,
-        unsigned int uiModifiers);
-    virtual bool OnMotion(int iButton, int iX, int iY,
-        unsigned int uiModifiers);
+    virtual void OnTouchBegan(int iX, int iY);
+    virtual void OnTouchMoved(int iX, int iY);
+    virtual void OnTouchEnded(int iX, int iY);
 
 protected:
-    // 摄像机运动
+    // Camera motion.
     void InitializeCameraMotion(float fTrnSpeed, float fRotSpeed,
         float fTrnSpeedFactor = 2.0f, float fRotSpeedFactor = 2.0f);
     virtual bool MoveCamera(void);
@@ -80,7 +76,7 @@ protected:
     bool m_bEndPressed;
     bool m_bCameraMoveable;
 
-    // 对象运动
+    // Object motion.
     void InitializeObjectMotion(Spatial* pMotionObject);
     bool MoveObject(void);
     void RotateTrackBall(float fX0, float fY0, float fX1, float fY1);
@@ -90,7 +86,7 @@ protected:
     Matrix3f m_SaveRotate;
     bool m_bUseTrackBall, m_bTrackBallDown;
 
-    // 性能测试
+    // Performance test.
     void ResetTime(void);
     void MeasureTime(void);
     void UpdateFrameCount(void);
@@ -98,7 +94,7 @@ protected:
     double m_dLastTime, m_dAccumulatedTime, m_dFrameRate;
     int m_iFrameCount, m_iAccumulatedFrameCount, m_iTimer, m_iMaxTimer;
 
-    // 辅助显示世界体系坐标轴
+    // World axis showing stuff.
     void DrawWorldAxis(void);
     void SetOriginScreenPos(int iX, int iY, float fT);
     int m_iOrignScreenX, m_iOrignScreenY;
