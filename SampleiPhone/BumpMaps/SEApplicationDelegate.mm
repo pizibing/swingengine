@@ -6,6 +6,50 @@ using namespace Swing;
 
 static const float gs_fFPS = 60.0f;
 
+//----------------------------------------------------------------------------
+// Touches event handlers's callback functions.
+//----------------------------------------------------------------------------
+static void OnTouchesBegan(UIView* owner, NSSet* pTouches, UIEvent* pEvent, 
+    void* pUserData)
+{
+    UITouch* pAnyTouch = [pTouches anyObject];
+    CGPoint curTouchLoc = [pAnyTouch locationInView:owner];
+    
+    WindowApplication* pTheApp = (WindowApplication*)pUserData;
+    pTheApp->OnTouchBegan((int)curTouchLoc.x, (int)curTouchLoc.y);
+}
+//----------------------------------------------------------------------------
+static void OnTouchesMoved(UIView* owner, NSSet* pTouches, UIEvent* pEvent, 
+    void* pUserData)
+{
+    UITouch* pAnyTouch = [pTouches anyObject];
+    CGPoint curTouchLoc = [pAnyTouch locationInView:owner];
+    
+    WindowApplication* pTheApp = (WindowApplication*)pUserData;
+    pTheApp->OnTouchMoved((int)curTouchLoc.x, (int)curTouchLoc.y);
+}
+//----------------------------------------------------------------------------
+static void OnTouchesEnded(UIView* owner, NSSet* pTouches, UIEvent* pEvent, 
+    void* pUserData)
+{
+    UITouch* pAnyTouch = [pTouches anyObject];
+    CGPoint curTouchLoc = [pAnyTouch locationInView:owner];
+    
+    WindowApplication* pTheApp = (WindowApplication*)pUserData;
+    pTheApp->OnTouchEnded((int)curTouchLoc.x, (int)curTouchLoc.y);
+}
+//----------------------------------------------------------------------------
+static void OnTouchesCancelled(UIView* owner, NSSet* pTouches, 
+    UIEvent* pEvent, void* pUserData)
+{
+    UITouch* pAnyTouch = [pTouches anyObject];
+    CGPoint curTouchLoc = [pAnyTouch locationInView:owner];
+    
+    WindowApplication* pTheApp = (WindowApplication*)pUserData;
+    pTheApp->OnTouchCancelled((int)curTouchLoc.x, (int)curTouchLoc.y);
+}
+//----------------------------------------------------------------------------
+
 @implementation ApplicationDelegate
 //----------------------------------------------------------------------------
 - (void) update
@@ -14,41 +58,47 @@ static const float gs_fFPS = 60.0f;
         (WindowApplication*)Application::TheApplication;
     SE_ASSERT( pTheApp );
 
-    // 应用程序实时逻辑/渲染入口函数.
+    // Application's real-time logic/rendering entry point.
     pTheApp->OnIdle();
 }
 //----------------------------------------------------------------------------
 - (void) applicationDidFinishLaunching:(UIApplication*)application
 {
-    // 确保application实例已经创建.
+    // The application instance should already been created.
     WindowApplication* pTheApp = 
         (WindowApplication*)Application::TheApplication;
-    SE_ASSERT( pTheApp );	
+    SE_ASSERT( pTheApp );   
 
-    // 待实现.
-    // 目前只支持全屏幕窗体.
-    // 申请所需大小的窗体.	
+    // Create application window.
+    // We only support a fullscreen window for now.
     CGRect rect = [[UIScreen mainScreen] bounds];
-
-    // 创建窗体.
     AppWindow = [[UIWindow alloc] initWithFrame:rect];
-
     pTheApp->SetWindowID((int)AppWindow);
 
-    // 创建渲染器.
-    pTheApp->SetRenderer(SE_NEW iPhoneOES2Renderer(AppWindow, 
+    // Create renderer.
+    iPhoneOES2Renderer* pRenderer = SE_NEW iPhoneOES2Renderer(AppWindow, 
         pTheApp->GetFormat(), pTheApp->GetDepth(), pTheApp->GetStencil(), 
         pTheApp->GetBuffering(), pTheApp->GetMultisampling(), 0, 0, 
-        rect.size.width, rect.size.height));
+        rect.size.width, rect.size.height);
+    pTheApp->SetRenderer(pRenderer);
+    
+    // Set up touches event handlers.
+    EAGL2View* pView = pRenderer->GetView();
+    [pView setUserData:(void*)pTheApp];
+    [pView setOnTouchesBegan:&OnTouchesBegan];
+    [pView setOnTouchesMoved:&OnTouchesMoved];
+    [pView setOnTouchesEnded:&OnTouchesEnded];
+    [pView setOnTouchesCancelled:&OnTouchesCancelled];
 
-    // 应用程序初始化入口函数,用于分配应用程序生存周期内的相关资源.
-    // 所有派生自Swing::Object类的派生类实例应在这里初始化.	
+    // Application's initialization entry point, all classes's instances 
+    // derived from Swing::Object class should be created here(or after that).
+    // This is the beginning of their life cycles.
     pTheApp->OnInitialize();
 
-    // 显示窗体.
+    // Show the window.
     [AppWindow makeKeyAndVisible];
 
-    // 创建用于渲染的timer,定时回调代理类的update函数.
+    // Create a timer as the trigger of real-time updating.
     [NSTimer scheduledTimerWithTimeInterval:(1.0 / gs_fFPS) target:self 
         selector:@selector(update) userInfo:nil repeats:YES];
 }
@@ -59,12 +109,12 @@ static const float gs_fFPS = 60.0f;
         (WindowApplication*)Application::TheApplication;
     SE_ASSERT( pTheApp );
 
-    // 应用程序结束运行入口函数,用于释放应用程序生存周期内的相关资源.
-    // 所有派生自Swing::Object类的派生类实例应在这里释放.
-    // 最后应用程序将释放renderer.
-    pTheApp->OnTerminate();	
+    // Application's termination entry point, all classes's instances 
+    // derived from Swing::Object class should be released here(or before that).
+    // This is the ending of their life cycles.
+    pTheApp->OnTerminate(); 
 
-    // 释放主窗体.
+    // Release the window.
     [AppWindow release];
 
     [super dealloc];

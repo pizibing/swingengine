@@ -35,7 +35,6 @@ public:
     virtual bool OnInitialize(void);
     virtual void OnTerminate(void);
     virtual void OnIdle(void);
-    virtual bool OnKeyDown(unsigned char ucKey, int iX, int iY);
 
 protected:
     void CreateScene(void);
