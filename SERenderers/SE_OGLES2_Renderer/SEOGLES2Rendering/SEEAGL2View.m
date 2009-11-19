@@ -261,7 +261,7 @@
 {
     if( onTouchesBegan )
     {
-        onTouchesBegan(touches, event, userData);
+        onTouchesBegan(self, touches, event, userData);
     }
 }
 //----------------------------------------------------------------------------
@@ -269,7 +269,7 @@
 {
     if( onTouchesMoved )
     {
-        onTouchesMoved(touches, event, userData);
+        onTouchesMoved(self, touches, event, userData);
     }
 }
 //----------------------------------------------------------------------------
@@ -277,7 +277,7 @@
 {
     if( onTouchesEnded )
     {
-        onTouchesEnded(touches, event, userData);
+        onTouchesEnded(self, touches, event, userData);
     }
 }
 //----------------------------------------------------------------------------
@@ -285,7 +285,7 @@
 {
     if( onTouchesCancelled )
     {
-        onTouchesCancelled(touches, event, userData);
+        onTouchesCancelled(self, touches, event, userData);
     }
 }
 //----------------------------------------------------------------------------

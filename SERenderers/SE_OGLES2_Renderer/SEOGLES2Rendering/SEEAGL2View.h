@@ -13,11 +13,14 @@
 @end
 
 // Prototypes of touches event handlers's callback functions.
-typedef void (*TouchesBegan)(NSSet* touches, UIEvent* event, void* userData);
-typedef void (*TouchesMoved)(NSSet* touches, UIEvent* event, void* userData);
-typedef void (*TouchesEnded)(NSSet* touches, UIEvent* event, void* userData);
-typedef void (*TouchesCancelled)(NSSet* touches, UIEvent* event, 
+typedef void (*TouchesBegan)(UIView* owner, NSSet* touches, UIEvent* event, 
     void* userData);
+typedef void (*TouchesMoved)(UIView* owner, NSSet* touches, UIEvent* event, 
+    void* userData);
+typedef void (*TouchesEnded)(UIView* owner, NSSet* touches, UIEvent* event, 
+    void* userData);
+typedef void (*TouchesCancelled)(UIView* owner, NSSet* touches, 
+    UIEvent* event, void* userData);
 
 //----------------------------------------------------------------------------
 // √˚≥∆:EAGL2View¿‡
@@ -36,7 +39,7 @@ typedef void (*TouchesCancelled)(NSSet* touches, UIEvent* event,
     TouchesEnded onTouchesEnded;
     TouchesCancelled onTouchesCancelled;
     void* userData;
-	
+    
 @private
     EAGLContext* _context;
 
