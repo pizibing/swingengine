@@ -4,9 +4,19 @@
 
 @implementation EAGL2View
 //----------------------------------------------------------------------------
-@synthesize delegate = _delegate, autoresizesSurface = _autoresize, 
-    surfaceSize = _size, framebuffer = _framebuffer, pixelFormat = _format, 
-    depthFormat = _depthFormat, context = _context;
+@synthesize onTouchesBegan;
+@synthesize onTouchesMoved;
+@synthesize onTouchesEnded;
+@synthesize onTouchesCancelled;
+@synthesize userData;
+//----------------------------------------------------------------------------
+@synthesize delegate = _delegate;
+@synthesize autoresizesSurface = _autoresize;
+@synthesize surfaceSize = _size;
+@synthesize framebuffer = _framebuffer;
+@synthesize pixelFormat = _format;
+@synthesize depthFormat = _depthFormat;
+@synthesize context = _context;
 //----------------------------------------------------------------------------
 + (Class) layerClass
 {
@@ -69,7 +79,7 @@
         glBindFramebuffer(GL_FRAMEBUFFER, oldFramebuffer);
     }
     glBindRenderbuffer(GL_RENDERBUFFER, oldRenderbuffer);
-	
+    
     // Error handling here.
 
     [_delegate didResizeEAGLSurfaceForView:self];
@@ -92,7 +102,7 @@
         _depthBuffer = 0;
     }
 
-	glDeleteRenderbuffers(1, &_renderbuffer);
+    glDeleteRenderbuffers(1, &_renderbuffer);
     _renderbuffer = 0;
 
     glDeleteFramebuffers(1, &_framebuffer);
@@ -196,7 +206,7 @@
 {
     if( ![EAGLContext setCurrentContext:nil] )
     {
-	    printf("failed to clear current context in %s\n", __FUNCTION__);
+        printf("failed to clear current context in %s\n", __FUNCTION__);
     }
 }
 //----------------------------------------------------------------------------
@@ -241,6 +251,42 @@
         _size.width, (rect.origin.y - bounds.origin.y) / bounds.size.height * 
         _size.height, rect.size.width / bounds.size.width * _size.width, 
         rect.size.height / bounds.size.height * _size.height);
+}
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+// Touches event handlers.
+//----------------------------------------------------------------------------
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if( onTouchesBegan )
+    {
+        onTouchesBegan(touches, event, userData);
+    }
+}
+//----------------------------------------------------------------------------
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if( onTouchesMoved )
+    {
+        onTouchesMoved(touches, event, userData);
+    }
+}
+//----------------------------------------------------------------------------
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if( onTouchesEnded )
+    {
+        onTouchesEnded(touches, event, userData);
+    }
+}
+//----------------------------------------------------------------------------
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if( onTouchesCancelled )
+    {
+        onTouchesCancelled(touches, event, userData);
+    }
 }
 //----------------------------------------------------------------------------
 @end
