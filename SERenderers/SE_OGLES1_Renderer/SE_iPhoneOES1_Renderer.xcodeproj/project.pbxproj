@@ -431,7 +431,7 @@
 				INSTALL_PATH = /usr/local/lib;
 				LD_MAP_FILE_PATH = "$(TARGET_TEMP_DIR)/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt";
 				LIBRARY_STYLE = STATIC;
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEiPhoneOES1Rendererd_iPhoneSim;
@@ -470,7 +470,7 @@
 				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_STYLE = STATIC;
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEiPhoneOES1Renderer_iPhoneSim;

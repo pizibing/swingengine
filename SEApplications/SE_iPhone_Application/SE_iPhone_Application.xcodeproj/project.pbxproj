@@ -486,7 +486,7 @@
 				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_STYLE = STATIC;
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEiPhoneOES1Applicationd_iPhoneSim;
@@ -525,7 +525,7 @@
 				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_STYLE = STATIC;
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEiPhoneOES1Application_iPhoneSim;
