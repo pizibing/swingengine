@@ -96,11 +96,6 @@ void Lighting::OnIdle()
     UpdateFrameCount();
 }
 //----------------------------------------------------------------------------
-bool Lighting::OnKeyDown(unsigned char ucKey, int iX, int iY)
-{
-    return true;
-}
-//----------------------------------------------------------------------------
 void Lighting::CreateLights(void)
 {
     m_aspLight[0] = SE_NEW Light(Light::LT_AMBIENT);

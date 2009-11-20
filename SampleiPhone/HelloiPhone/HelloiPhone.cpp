@@ -85,11 +85,6 @@ void HelloiPhone::OnIdle()
     UpdateFrameCount();
 }
 //----------------------------------------------------------------------------
-bool HelloiPhone::OnKeyDown(unsigned char ucKey, int iX, int iY)
-{
-    return true;
-}
-//----------------------------------------------------------------------------
 void HelloiPhone::CreateScene()
 {
     // 创建纹理资源.
