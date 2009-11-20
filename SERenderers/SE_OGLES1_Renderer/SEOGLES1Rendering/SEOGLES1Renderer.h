@@ -177,8 +177,10 @@ protected:
     virtual void OnDisablePProgram(ResourceIdentifier* pID);
     virtual void OnEnableTexture(ResourceIdentifier* pID);
     virtual void OnDisableTexture(ResourceIdentifier* pID);
-    virtual void OnEnableVBuffer(ResourceIdentifier* pID);
-    virtual void OnDisableVBuffer(ResourceIdentifier* pID);
+    virtual void OnEnableVBuffer(ResourceIdentifier* pID, 
+        VertexProgram* pVProgram);
+    virtual void OnDisableVBuffer(ResourceIdentifier* pID, 
+        VertexProgram* pVProgram);
     virtual void OnEnableIBuffer(ResourceIdentifier* pID);
     virtual void OnDisableIBuffer(ResourceIdentifier* pID);
 
@@ -189,7 +191,7 @@ protected:
     void SetWVPMatrixFixed(void);
 
     // 待实现.
-    // 不能使用display list实现文本渲染.	
+    // 不能使用display list实现文本渲染.    
     // 文本渲染
     //void DrawCharacter(const BitmapFont& rFont, char cChar);
 

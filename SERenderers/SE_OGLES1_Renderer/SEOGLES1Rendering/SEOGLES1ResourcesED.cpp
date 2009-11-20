@@ -118,7 +118,7 @@ void OGLES1Renderer::OnDisableTexture(ResourceIdentifier* pID)
     glDisable(eTarget);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnEnableVBuffer(ResourceIdentifier* pID)
+void OGLES1Renderer::OnEnableVBuffer(ResourceIdentifier* pID, VertexProgram*)
 {
     // Bind当前vertex buffer.
     VBufferID* pResource = (VBufferID*)pID;
@@ -143,7 +143,7 @@ void OGLES1Renderer::OnEnableVBuffer(ResourceIdentifier* pID)
         glNormalPointer(GL_FLOAT, iSize, afData + rRAttr.GetNormalOffset());
     }
 
-   	// OpenGL ES1只支持一组顶点颜色,因此不设置其他color channel.
+    // OpenGL ES1只支持一组顶点颜色,因此不设置其他color channel.
     if( rRAttr.HasColor(0) )
     {
         glEnableClientState(GL_COLOR_ARRAY);
@@ -164,7 +164,7 @@ void OGLES1Renderer::OnEnableVBuffer(ResourceIdentifier* pID)
     }
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnDisableVBuffer(ResourceIdentifier* pID)
+void OGLES1Renderer::OnDisableVBuffer(ResourceIdentifier* pID, VertexProgram*)
 {
     VBufferID* pResource = (VBufferID*)pID;
     const Attributes& rRAttr = pResource->IAttr;

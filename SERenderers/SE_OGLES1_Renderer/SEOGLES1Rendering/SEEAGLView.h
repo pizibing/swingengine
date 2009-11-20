@@ -32,6 +32,16 @@
 - (void) didResizeEAGLSurfaceForView:(EAGLView*)view;
 @end
 
+// Prototypes of touches event handlers's callback functions.
+typedef void (*TouchesBegan)(UIView* owner, NSSet* touches, UIEvent* event, 
+							 void* userData);
+typedef void (*TouchesMoved)(UIView* owner, NSSet* touches, UIEvent* event, 
+							 void* userData);
+typedef void (*TouchesEnded)(UIView* owner, NSSet* touches, UIEvent* event, 
+							 void* userData);
+typedef void (*TouchesCancelled)(UIView* owner, NSSet* touches, 
+								 UIEvent* event, void* userData);
+
 //----------------------------------------------------------------------------
 // 名称:EAGLView类
 // 说明:this class wraps the CAEAGLLayer from CoreAnimation into a convenient 
@@ -43,6 +53,13 @@
 //----------------------------------------------------------------------------
 @interface EAGLView : UIView
 {
+@public
+    TouchesBegan onTouchesBegan;
+    TouchesMoved onTouchesMoved;
+    TouchesEnded onTouchesEnded;
+    TouchesCancelled onTouchesCancelled;
+    void* userData;
+
 @private
     EAGLContext* _context;
 
@@ -65,6 +82,12 @@
 - (id) initWithFrame:(CGRect)frame pixelFormat:(GLuint)format;
 - (id) initWithFrame:(CGRect)frame pixelFormat:(GLuint)format 
     depthFormat:(GLuint)depth preserveBackbuffer:(BOOL)retained;
+
+@property(readwrite, assign) TouchesBegan onTouchesBegan;
+@property(readwrite, assign) TouchesMoved onTouchesMoved;
+@property(readwrite, assign) TouchesEnded onTouchesEnded;
+@property(readwrite, assign) TouchesCancelled onTouchesCancelled;
+@property(readwrite, assign) void* userData;
 
 @property(readonly) GLuint framebuffer;
 @property(readonly) GLuint pixelFormat;

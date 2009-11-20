@@ -24,9 +24,19 @@
 
 @implementation EAGLView
 //----------------------------------------------------------------------------
-@synthesize delegate = _delegate, autoresizesSurface = _autoresize, 
-    surfaceSize = _size, framebuffer = _framebuffer, pixelFormat = _format, 
-    depthFormat = _depthFormat, context = _context;
+@synthesize onTouchesBegan;
+@synthesize onTouchesMoved;
+@synthesize onTouchesEnded;
+@synthesize onTouchesCancelled;
+@synthesize userData;
+//----------------------------------------------------------------------------
+@synthesize delegate = _delegate;
+@synthesize autoresizesSurface = _autoresize;
+@synthesize surfaceSize = _size;
+@synthesize framebuffer = _framebuffer;
+@synthesize pixelFormat = _format;
+@synthesize depthFormat = _depthFormat;
+@synthesize context = _context;
 //----------------------------------------------------------------------------
 + (Class) layerClass
 {
@@ -260,6 +270,42 @@
         _size.width, (rect.origin.y - bounds.origin.y) / bounds.size.height * 
         _size.height, rect.size.width / bounds.size.width * _size.width, 
         rect.size.height / bounds.size.height * _size.height);
+}
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+// Touches event handlers.
+//----------------------------------------------------------------------------
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if( onTouchesBegan )
+    {
+        onTouchesBegan(self, touches, event, userData);
+    }
+}
+//----------------------------------------------------------------------------
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if( onTouchesMoved )
+    {
+        onTouchesMoved(self, touches, event, userData);
+    }
+}
+//----------------------------------------------------------------------------
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if( onTouchesEnded )
+    {
+        onTouchesEnded(self, touches, event, userData);
+    }
+}
+//----------------------------------------------------------------------------
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if( onTouchesCancelled )
+    {
+        onTouchesCancelled(self, touches, event, userData);
+    }
 }
 //----------------------------------------------------------------------------
 @end
