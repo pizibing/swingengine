@@ -15,24 +15,24 @@
 		3C6FBB4E083E5FE20068AA05 /* DrawSprocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6FBB4C083E5FE20068AA05 /* DrawSprocket.framework */; };
 		3C6FBC6C083E6E1B0068AA05 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6FBC6B083E6E1B0068AA05 /* OpenGL.framework */; };
 		3C6FBC6D083E6E1B0068AA05 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6FBC6B083E6E1B0068AA05 /* OpenGL.framework */; };
-		52A0557E0F89B6CF00004535 /* libSEAglApplicationd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0557A0F89B6CF00004535 /* libSEAglApplicationd.a */; };
-		52A0557F0F89B6CF00004535 /* libSEAglRendererd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0557B0F89B6CF00004535 /* libSEAglRendererd.a */; };
-		52A055800F89B6CF00004535 /* libSEFoundationd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0557C0F89B6CF00004535 /* libSEFoundationd.a */; };
-		52A055810F89B6CF00004535 /* libSEPhysicsd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0557D0F89B6CF00004535 /* libSEPhysicsd.a */; };
-		52A055860F89B7AA00004535 /* libSEAglApplication.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A055820F89B7AA00004535 /* libSEAglApplication.a */; };
-		52A055870F89B7AA00004535 /* libSEAglRenderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A055830F89B7AA00004535 /* libSEAglRenderer.a */; };
-		52A055880F89B7AA00004535 /* libSEFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A055840F89B7AA00004535 /* libSEFoundation.a */; };
-		52A055890F89B7AA00004535 /* libSEPhysics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A055850F89B7AA00004535 /* libSEPhysics.a */; };
 		52A0558E0F89B81400004535 /* Cg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0558D0F89B81400004535 /* Cg.framework */; };
 		52A0558F0F89B81400004535 /* Cg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0558D0F89B81400004535 /* Cg.framework */; };
 		52A056100F89C15400004535 /* RenderToMultipleTargets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52A0560E0F89C15400004535 /* RenderToMultipleTargets.cpp */; };
 		52A056110F89C15400004535 /* RenderToMultipleTargets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52A0560E0F89C15400004535 /* RenderToMultipleTargets.cpp */; };
-		52AFFCD60FF8CAE00008BD07 /* libSEAalRendererd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFCD40FF8CAE00008BD07 /* libSEAalRendererd.a */; };
-		52AFFCD70FF8CAE00008BD07 /* libSEAudiod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFCD50FF8CAE00008BD07 /* libSEAudiod.a */; };
-		52AFFCDA0FF8CAF60008BD07 /* libSEAalRenderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFCD80FF8CAF60008BD07 /* libSEAalRenderer.a */; };
-		52AFFCDB0FF8CAF60008BD07 /* libSEAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFCD90FF8CAF60008BD07 /* libSEAudio.a */; };
 		52AFFCDD0FF8CB060008BD07 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFCDC0FF8CB060008BD07 /* OpenAL.framework */; };
 		52AFFCDE0FF8CB060008BD07 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFCDC0FF8CB060008BD07 /* OpenAL.framework */; };
+		DD5181A110B929B00015DFE5 /* libSEAalRendererd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD51819B10B929B00015DFE5 /* libSEAalRendererd.a */; };
+		DD5181A210B929B00015DFE5 /* libSEAglApplicationd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD51819C10B929B00015DFE5 /* libSEAglApplicationd.a */; };
+		DD5181A310B929B00015DFE5 /* libSEAglRendererd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD51819D10B929B00015DFE5 /* libSEAglRendererd.a */; };
+		DD5181A410B929B00015DFE5 /* libSEAudiod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD51819E10B929B00015DFE5 /* libSEAudiod.a */; };
+		DD5181A510B929B00015DFE5 /* libSEFoundationd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD51819F10B929B00015DFE5 /* libSEFoundationd.a */; };
+		DD5181A610B929B00015DFE5 /* libSEPhysicsd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD5181A010B929B00015DFE5 /* libSEPhysicsd.a */; };
+		DD5181AD10B929C00015DFE5 /* libSEAalRenderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD5181A710B929C00015DFE5 /* libSEAalRenderer.a */; };
+		DD5181AE10B929C00015DFE5 /* libSEAglApplication.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD5181A810B929C00015DFE5 /* libSEAglApplication.a */; };
+		DD5181AF10B929C00015DFE5 /* libSEAglRenderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD5181A910B929C00015DFE5 /* libSEAglRenderer.a */; };
+		DD5181B010B929C00015DFE5 /* libSEAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD5181AA10B929C00015DFE5 /* libSEAudio.a */; };
+		DD5181B110B929C00015DFE5 /* libSEFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD5181AB10B929C00015DFE5 /* libSEFoundation.a */; };
+		DD5181B210B929C00015DFE5 /* libSEPhysics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD5181AC10B929C00015DFE5 /* libSEPhysics.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,24 +40,24 @@
 		3C6FBB45083E5FCE0068AA05 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		3C6FBB4C083E5FE20068AA05 /* DrawSprocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DrawSprocket.framework; path = /System/Library/Frameworks/DrawSprocket.framework; sourceTree = "<absolute>"; };
 		3C6FBC6B083E6E1B0068AA05 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
-		52A0557A0F89B6CF00004535 /* libSEAglApplicationd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAglApplicationd.a; path = ../../SDK/Lib/libSEAglApplicationd.a; sourceTree = SOURCE_ROOT; };
-		52A0557B0F89B6CF00004535 /* libSEAglRendererd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAglRendererd.a; path = ../../SDK/Lib/libSEAglRendererd.a; sourceTree = SOURCE_ROOT; };
-		52A0557C0F89B6CF00004535 /* libSEFoundationd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEFoundationd.a; path = ../../SDK/Lib/libSEFoundationd.a; sourceTree = SOURCE_ROOT; };
-		52A0557D0F89B6CF00004535 /* libSEPhysicsd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEPhysicsd.a; path = ../../SDK/Lib/libSEPhysicsd.a; sourceTree = SOURCE_ROOT; };
-		52A055820F89B7AA00004535 /* libSEAglApplication.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAglApplication.a; path = ../../SDK/Lib/libSEAglApplication.a; sourceTree = SOURCE_ROOT; };
-		52A055830F89B7AA00004535 /* libSEAglRenderer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAglRenderer.a; path = ../../SDK/Lib/libSEAglRenderer.a; sourceTree = SOURCE_ROOT; };
-		52A055840F89B7AA00004535 /* libSEFoundation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEFoundation.a; path = ../../SDK/Lib/libSEFoundation.a; sourceTree = SOURCE_ROOT; };
-		52A055850F89B7AA00004535 /* libSEPhysics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEPhysics.a; path = ../../SDK/Lib/libSEPhysics.a; sourceTree = SOURCE_ROOT; };
 		52A0558D0F89B81400004535 /* Cg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cg.framework; path = /Library/Frameworks/Cg.framework; sourceTree = "<absolute>"; };
 		52A0560E0F89C15400004535 /* RenderToMultipleTargets.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = RenderToMultipleTargets.cpp; sourceTree = "<group>"; };
 		52A0560F0F89C15400004535 /* RenderToMultipleTargets.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = RenderToMultipleTargets.h; sourceTree = "<group>"; };
-		52AFFCD40FF8CAE00008BD07 /* libSEAalRendererd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAalRendererd.a; path = ../../SDK/Lib/libSEAalRendererd.a; sourceTree = SOURCE_ROOT; };
-		52AFFCD50FF8CAE00008BD07 /* libSEAudiod.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAudiod.a; path = ../../SDK/Lib/libSEAudiod.a; sourceTree = SOURCE_ROOT; };
-		52AFFCD80FF8CAF60008BD07 /* libSEAalRenderer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAalRenderer.a; path = ../../SDK/Lib/libSEAalRenderer.a; sourceTree = SOURCE_ROOT; };
-		52AFFCD90FF8CAF60008BD07 /* libSEAudio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAudio.a; path = ../../SDK/Lib/libSEAudio.a; sourceTree = SOURCE_ROOT; };
 		52AFFCDC0FF8CB060008BD07 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		748AA4CC07F4624400486586 /* DefaultShaderAglDebSta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DefaultShaderAglDebSta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		748AA4DA07F4631800486586 /* DefaultShaderAglRelSta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DefaultShaderAglRelSta.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD51819B10B929B00015DFE5 /* libSEAalRendererd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAalRendererd.a; path = ../../SDK/Lib/Debug/libSEAalRendererd.a; sourceTree = SOURCE_ROOT; };
+		DD51819C10B929B00015DFE5 /* libSEAglApplicationd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAglApplicationd.a; path = ../../SDK/Lib/Debug/libSEAglApplicationd.a; sourceTree = SOURCE_ROOT; };
+		DD51819D10B929B00015DFE5 /* libSEAglRendererd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAglRendererd.a; path = ../../SDK/Lib/Debug/libSEAglRendererd.a; sourceTree = SOURCE_ROOT; };
+		DD51819E10B929B00015DFE5 /* libSEAudiod.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAudiod.a; path = ../../SDK/Lib/Debug/libSEAudiod.a; sourceTree = SOURCE_ROOT; };
+		DD51819F10B929B00015DFE5 /* libSEFoundationd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEFoundationd.a; path = ../../SDK/Lib/Debug/libSEFoundationd.a; sourceTree = SOURCE_ROOT; };
+		DD5181A010B929B00015DFE5 /* libSEPhysicsd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEPhysicsd.a; path = ../../SDK/Lib/Debug/libSEPhysicsd.a; sourceTree = SOURCE_ROOT; };
+		DD5181A710B929C00015DFE5 /* libSEAalRenderer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAalRenderer.a; path = ../../SDK/Lib/Release/libSEAalRenderer.a; sourceTree = SOURCE_ROOT; };
+		DD5181A810B929C00015DFE5 /* libSEAglApplication.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAglApplication.a; path = ../../SDK/Lib/Release/libSEAglApplication.a; sourceTree = SOURCE_ROOT; };
+		DD5181A910B929C00015DFE5 /* libSEAglRenderer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAglRenderer.a; path = ../../SDK/Lib/Release/libSEAglRenderer.a; sourceTree = SOURCE_ROOT; };
+		DD5181AA10B929C00015DFE5 /* libSEAudio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEAudio.a; path = ../../SDK/Lib/Release/libSEAudio.a; sourceTree = SOURCE_ROOT; };
+		DD5181AB10B929C00015DFE5 /* libSEFoundation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEFoundation.a; path = ../../SDK/Lib/Release/libSEFoundation.a; sourceTree = SOURCE_ROOT; };
+		DD5181AC10B929C00015DFE5 /* libSEPhysics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEPhysics.a; path = ../../SDK/Lib/Release/libSEPhysics.a; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,14 +69,14 @@
 				3C6FBB46083E5FCE0068AA05 /* Carbon.framework in Frameworks */,
 				3C6FBB4D083E5FE20068AA05 /* DrawSprocket.framework in Frameworks */,
 				3C6FBC6C083E6E1B0068AA05 /* OpenGL.framework in Frameworks */,
-				52A0557E0F89B6CF00004535 /* libSEAglApplicationd.a in Frameworks */,
-				52A0557F0F89B6CF00004535 /* libSEAglRendererd.a in Frameworks */,
-				52A055800F89B6CF00004535 /* libSEFoundationd.a in Frameworks */,
-				52A055810F89B6CF00004535 /* libSEPhysicsd.a in Frameworks */,
 				52A0558F0F89B81400004535 /* Cg.framework in Frameworks */,
-				52AFFCD60FF8CAE00008BD07 /* libSEAalRendererd.a in Frameworks */,
-				52AFFCD70FF8CAE00008BD07 /* libSEAudiod.a in Frameworks */,
 				52AFFCDE0FF8CB060008BD07 /* OpenAL.framework in Frameworks */,
+				DD5181A110B929B00015DFE5 /* libSEAalRendererd.a in Frameworks */,
+				DD5181A210B929B00015DFE5 /* libSEAglApplicationd.a in Frameworks */,
+				DD5181A310B929B00015DFE5 /* libSEAglRendererd.a in Frameworks */,
+				DD5181A410B929B00015DFE5 /* libSEAudiod.a in Frameworks */,
+				DD5181A510B929B00015DFE5 /* libSEFoundationd.a in Frameworks */,
+				DD5181A610B929B00015DFE5 /* libSEPhysicsd.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,14 +88,14 @@
 				3C6FBB47083E5FCE0068AA05 /* Carbon.framework in Frameworks */,
 				3C6FBB4E083E5FE20068AA05 /* DrawSprocket.framework in Frameworks */,
 				3C6FBC6D083E6E1B0068AA05 /* OpenGL.framework in Frameworks */,
-				52A055860F89B7AA00004535 /* libSEAglApplication.a in Frameworks */,
-				52A055870F89B7AA00004535 /* libSEAglRenderer.a in Frameworks */,
-				52A055880F89B7AA00004535 /* libSEFoundation.a in Frameworks */,
-				52A055890F89B7AA00004535 /* libSEPhysics.a in Frameworks */,
 				52A0558E0F89B81400004535 /* Cg.framework in Frameworks */,
-				52AFFCDA0FF8CAF60008BD07 /* libSEAalRenderer.a in Frameworks */,
-				52AFFCDB0FF8CAF60008BD07 /* libSEAudio.a in Frameworks */,
 				52AFFCDD0FF8CB060008BD07 /* OpenAL.framework in Frameworks */,
+				DD5181AD10B929C00015DFE5 /* libSEAalRenderer.a in Frameworks */,
+				DD5181AE10B929C00015DFE5 /* libSEAglApplication.a in Frameworks */,
+				DD5181AF10B929C00015DFE5 /* libSEAglRenderer.a in Frameworks */,
+				DD5181B010B929C00015DFE5 /* libSEAudio.a in Frameworks */,
+				DD5181B110B929C00015DFE5 /* libSEFoundation.a in Frameworks */,
+				DD5181B210B929C00015DFE5 /* libSEPhysics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,12 +105,12 @@
 		7432C2B407F8766A00ABC141 /* Debug */ = {
 			isa = PBXGroup;
 			children = (
-				52AFFCD40FF8CAE00008BD07 /* libSEAalRendererd.a */,
-				52AFFCD50FF8CAE00008BD07 /* libSEAudiod.a */,
-				52A0557A0F89B6CF00004535 /* libSEAglApplicationd.a */,
-				52A0557B0F89B6CF00004535 /* libSEAglRendererd.a */,
-				52A0557C0F89B6CF00004535 /* libSEFoundationd.a */,
-				52A0557D0F89B6CF00004535 /* libSEPhysicsd.a */,
+				DD51819B10B929B00015DFE5 /* libSEAalRendererd.a */,
+				DD51819C10B929B00015DFE5 /* libSEAglApplicationd.a */,
+				DD51819D10B929B00015DFE5 /* libSEAglRendererd.a */,
+				DD51819E10B929B00015DFE5 /* libSEAudiod.a */,
+				DD51819F10B929B00015DFE5 /* libSEFoundationd.a */,
+				DD5181A010B929B00015DFE5 /* libSEPhysicsd.a */,
 			);
 			name = Debug;
 			sourceTree = "<group>";
@@ -118,12 +118,12 @@
 		7432C2B707F8767000ABC141 /* Release */ = {
 			isa = PBXGroup;
 			children = (
-				52AFFCD80FF8CAF60008BD07 /* libSEAalRenderer.a */,
-				52AFFCD90FF8CAF60008BD07 /* libSEAudio.a */,
-				52A055820F89B7AA00004535 /* libSEAglApplication.a */,
-				52A055830F89B7AA00004535 /* libSEAglRenderer.a */,
-				52A055840F89B7AA00004535 /* libSEFoundation.a */,
-				52A055850F89B7AA00004535 /* libSEPhysics.a */,
+				DD5181A710B929C00015DFE5 /* libSEAalRenderer.a */,
+				DD5181A810B929C00015DFE5 /* libSEAglApplication.a */,
+				DD5181A910B929C00015DFE5 /* libSEAglRenderer.a */,
+				DD5181AA10B929C00015DFE5 /* libSEAudio.a */,
+				DD5181AB10B929C00015DFE5 /* libSEFoundation.a */,
+				DD5181AC10B929C00015DFE5 /* libSEPhysics.a */,
 			);
 			name = Release;
 			sourceTree = "<group>";
@@ -286,9 +286,11 @@
 					"${SRCROOT}/../../SDK/Library/Debug",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../SDK/Lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../SDK/Lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../SDK/Lib/Debug\"";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_NAME = DefaultShaderAglDebSta;
 				WARNING_CFLAGS = (
@@ -314,9 +316,11 @@
 					"${SRCROOT}/../../SDK/Library/Release",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../SDK/Lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../SDK/Lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../SDK/Lib/Release\"";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_NAME = DefaultShaderAglRelSta;
 				WARNING_CFLAGS = (

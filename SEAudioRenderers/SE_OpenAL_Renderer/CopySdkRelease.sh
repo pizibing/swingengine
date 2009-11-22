@@ -19,6 +19,6 @@ foreach rheader (${RHEADERS})
     cp -fp "${SRCROOT}"/$rheader ../../SDK/Include
 end
 
-cp -fp "${SRCROOT}"/build/Default/libSEAalRenderer.a ../../SDK/Lib/libSEAalRenderer.a
-ranlib ../../SDK/Lib/libSEAalRenderer.a
+cp -fp "${SRCROOT}"/build/Default/libSEAalRenderer.a ../../SDK/Lib/Release/libSEAalRenderer.a
+ranlib ../../SDK/Lib/Release/libSEAalRenderer.a
 

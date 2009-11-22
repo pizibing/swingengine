@@ -39,8 +39,6 @@
 		52AFFA5E0FF8AE940008BD07 /* SEOpenALRendererRegister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA520FF8AE940008BD07 /* SEOpenALRendererRegister.cpp */; };
 		52AFFA5F0FF8AE940008BD07 /* SEOpenALRendererRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA530FF8AE940008BD07 /* SEOpenALRendererRegister.h */; };
 		52AFFA600FF8AE940008BD07 /* SwingOpenALRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA540FF8AE940008BD07 /* SwingOpenALRenderer.h */; };
-		52AFFB2D0FF8AECF0008BD07 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFB2C0FF8AECF0008BD07 /* OpenAL.framework */; };
-		52AFFB2E0FF8AECF0008BD07 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFB2C0FF8AECF0008BD07 /* OpenAL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,7 +68,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52AFFB2D0FF8AECF0008BD07 /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,7 +75,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52AFFB2E0FF8AECF0008BD07 /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

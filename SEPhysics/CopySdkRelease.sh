@@ -21,5 +21,5 @@ foreach rheader (${RHEADERS})
     cp -fp "${SRCROOT}"/$rheader ../SDK/Include
 end
 
-cp -fp "${SRCROOT}"/build/Default/libSEPhysics.a ../SDK/Lib/libSEPhysics.a
-ranlib ../SDK/Lib/libSEPhysics.a
+cp -fp "${SRCROOT}"/build/Default/libSEPhysics.a ../SDK/Lib/Release/libSEPhysics.a
+ranlib ../SDK/Lib/Release/libSEPhysics.a

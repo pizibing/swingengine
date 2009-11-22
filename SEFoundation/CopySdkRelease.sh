@@ -21,5 +21,5 @@ foreach rheader (${RHEADERS})
     cp -fp "${SRCROOT}"/$rheader ../SDK/Include
 end
 
-cp -fp "${SRCROOT}"/build/Default/libSEFoundation.a ../SDK/Lib/libSEFoundation.a
-ranlib ../SDK/Lib/libSEFoundation.a
+cp -fp "${SRCROOT}"/build/Default/libSEFoundation.a ../SDK/Lib/Release/libSEFoundation.a
+ranlib ../SDK/Lib/Release/libSEFoundation.a

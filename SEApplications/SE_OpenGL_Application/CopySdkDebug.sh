@@ -19,6 +19,6 @@ foreach rheader (${RHEADERS})
     cp -fp "${SRCROOT}"/$rheader ../../SDK/Include
 end
 
-cp -fp "${SRCROOT}"/build/Default/libSEAglApplicationd.a ../../SDK/Lib/libSEAglApplicationd.a
-ranlib ../../SDK/Lib/libSEAglApplicationd.a
+cp -fp "${SRCROOT}"/build/Default/libSEAglApplicationd.a ../../SDK/Lib/Debug/libSEAglApplicationd.a
+ranlib ../../SDK/Lib/Debug/libSEAglApplicationd.a
 

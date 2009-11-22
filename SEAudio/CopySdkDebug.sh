@@ -21,5 +21,5 @@ foreach rheader (${RHEADERS})
     cp -fp "${SRCROOT}"/$rheader ../SDK/Include
 end
 
-cp -fp "${SRCROOT}"/build/Default/libSEAudiod.a ../SDK/Lib/libSEAudiod.a
-ranlib ../SDK/Lib/libSEAudiod.a
+cp -fp "${SRCROOT}"/build/Default/libSEAudiod.a ../SDK/Lib/Debug/libSEAudiod.a
+ranlib ../SDK/Lib/Debug/libSEAudiod.a

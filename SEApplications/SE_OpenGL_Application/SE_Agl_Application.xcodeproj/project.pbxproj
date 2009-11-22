@@ -35,8 +35,6 @@
 		5282413A0E9E4A4C00629212 /* SEWindowApplication3.h in Headers */ = {isa = PBXBuildFile; fileRef = 528241220E9E4A4C00629212 /* SEWindowApplication3.h */; };
 		52A055560F89B3AF00004535 /* SEOpenGLApplicationPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52A055550F89B3AF00004535 /* SEOpenGLApplicationPCH.cpp */; };
 		52A055570F89B3AF00004535 /* SEOpenGLApplicationPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52A055550F89B3AF00004535 /* SEOpenGLApplicationPCH.cpp */; };
-		52AFFB5E0FF8B7270008BD07 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFB5D0FF8B7270008BD07 /* OpenAL.framework */; };
-		52AFFB5F0FF8B7270008BD07 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52AFFB5D0FF8B7270008BD07 /* OpenAL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,7 +66,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52AFFB5E0FF8B7270008BD07 /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +73,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52AFFB5F0FF8B7270008BD07 /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,7 +318,7 @@
 				LIBRARY_STYLE = STATIC;
 				PREBINDING = NO;
 				PRODUCT_NAME = SEAglApplicationd;
-				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/DebugStatic";
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Debug";
 				SKIP_INSTALL = YES;
 				WARNING_CFLAGS = (
 					"-Wmost",
