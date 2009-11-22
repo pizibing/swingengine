@@ -19,6 +19,6 @@ foreach rheader (${RHEADERS})
     cp -fp "${SRCROOT}"/$rheader ../../SDK/Include
 end
 
-cp -fp "${SRCROOT}"/build/Default/libSEiPhoneOES2Applicationd_iPhoneSim.a ../../SDK/Lib/libSEiPhoneOES2Applicationd_iPhoneSim.a
-ranlib ../../SDK/Lib/libSEiPhoneOES2Applicationd_iPhoneSim.a
+cp -fp "${SRCROOT}"/build/Default/libSEiPhoneOES2Applicationd_iPhoneSim.a ../../SDK/Lib/Debug/libSEiPhoneOES2Applicationd_iPhoneSim.a
+ranlib ../../SDK/Lib/Debug/libSEiPhoneOES2Applicationd_iPhoneSim.a
 
