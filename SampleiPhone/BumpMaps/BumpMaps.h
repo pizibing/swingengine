@@ -39,33 +39,17 @@ public:
 protected:
     void CreateScene(void);
     void CreateLights(void);
-    Node* CreateModel(void);
-    void UpdateEffects(void);
-
+    void CreateModels(void);
+    
     NodePtr m_spScene;
-    TriMeshPtr m_spMesh;
+    NodePtr m_spModelRoot;
     WireframeStatePtr m_spWireframe;
     Culler m_Culler;
-
-    // L1     =   4 combinations
-    // L2     =  10 combinations
-    // L3     =  20 combinations
-    // L4     =  35 combinations
-    // L5     =  56 combinations
-    // L6     =  84 combinations
-    // L7     = 120 combinations
-    // L8     = 165 combinations
-    // Total  = 494 combinations
-    int m_iACount, m_iDCount, m_iPCount, m_iSCount;
-    LightPtr m_aspALight[8];
-    LightPtr m_aspDLight[8];
-    LightPtr m_aspPLight[8];
-    LightPtr m_aspSLight[8];
-
-    DefaultShaderEffectPtr m_spDefaultEffect;
-    int m_iActiveLight;
-    int m_iLightCount;
-    char m_acCaption[9];
+    
+    float m_fLight0Height;
+    ColorRGB m_Light0Color;
+    LightPtr m_spLight0;
+    LightNodePtr m_spLight0Node;
 };
 
 #endif

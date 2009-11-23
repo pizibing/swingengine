@@ -30,17 +30,10 @@ Lighting2::Lighting2()
     WindowApplication3("Lighting2", 0, 0, 320, 480, 
         ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
-    m_iACount = 0;
-    m_iDCount = 0;
-    m_iPCount = 0;
-    m_iSCount = 0;
-    m_iActiveLight = -1;
-    m_iLightCount = 0;
-    for (int i = 0; i < 8; i++)
-    {
-        m_acCaption[i] = '.';
-    }
-    m_acCaption[8] = 0;
+    m_fLight0Height = 4.0f;
+    m_fLight1Height = 4.0f;
+    m_Light0Color = ColorRGB::SE_RGB_GREEN;
+    m_Light1Color = ColorRGB::SE_RGB_RED;
 }
 //----------------------------------------------------------------------------
 bool Lighting2::OnInitialize()
@@ -76,35 +69,56 @@ bool Lighting2::OnInitialize()
 #endif
     InitializeObjectMotion(m_spScene);
 
-    // Test.
-    m_iPCount++;
-    m_iLightCount++;
-    UpdateEffects();
-
     return true;
 }
 //----------------------------------------------------------------------------
 void Lighting2::OnTerminate()
 {
     m_spScene = 0;
-    m_spMesh = 0;
+    m_spModelRoot = 0;
     m_spWireframe = 0;
-
-    for( int i = 0; i < 8; i++ )
-    {
-        m_aspALight[i] = 0;
-        m_aspDLight[i] = 0;
-        m_aspPLight[i] = 0;
-        m_aspSLight[i] = 0;
-    }
-
-    m_spDefaultEffect = 0;
+    m_spLight0 = 0;
+    m_spLight0Node = 0;
+    m_spLight1 = 0;
+    m_spLight1Node = 0;
 
     WindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void Lighting2::OnIdle()
 {
+    // Lights motion.
+    static double dCurTime = 0.0f;
+    static double dLastTime = 0.0f;
+    static float fAngel0 = 0.0f;
+    static float fAngel1 = Mathf::PI;
+    static float fRadius0 = 4.0f;
+    static float fRadius1 = 4.0f;
+    dCurTime = System::SE_GetTime();
+    if( dCurTime - dLastTime > 0.0001f )
+    {
+        dLastTime = dCurTime;
+        fAngel0 += 0.04f;
+        fAngel1 -= 0.04f;
+        Matrix3f mat3fRot;
+
+        mat3fRot.FromEulerAnglesXYZ(0.0f, -0.04f, 0.0f);
+        m_spLight0Node->Local.SetRotate(m_spLight0Node->Local.GetRotate()
+										*mat3fRot);
+        float fX = fRadius0*Mathf::Cos(fAngel0);
+        float fZ = fRadius0*Mathf::Sin(fAngel0);
+        m_spLight0Node->Local.SetTranslate(Vector3f(fX, m_fLight0Height, fZ));
+        m_spLight0Node->UpdateGS();
+
+        mat3fRot.FromEulerAnglesXYZ(0.0f, 0.04f, 0.0f);
+        m_spLight1Node->Local.SetRotate(m_spLight1Node->Local.GetRotate()
+										*mat3fRot);
+        fX = fRadius1*Mathf::Cos(fAngel1);
+        fZ = fRadius1*Mathf::Sin(fAngel1);
+        m_spLight1Node->Local.SetTranslate(Vector3f(fX, m_fLight1Height, fZ));
+        m_spLight1Node->UpdateGS();
+    }
+
     MeasureTime();
 
     if( MoveCamera() )
@@ -122,7 +136,6 @@ void Lighting2::OnIdle()
     if( m_pRenderer->BeginScene() )
     {
         m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
-        m_pRenderer->Draw(8, 16, ColorRGBA::SE_RGBA_WHITE, m_acCaption);
         DrawFrameRate(8, GetHeight()-8, ColorRGBA::SE_RGBA_WHITE);
         m_pRenderer->EndScene();
     }
@@ -143,101 +156,73 @@ void Lighting2::CreateScene()
     m_spScene->Local.SetTranslate(Vector3f(-5.0f, 0.0f, 0.0f));
 
     CreateLights();
+    CreateModels();
 
-    m_spScene->AttachChild(CreateModel());
+    m_spModelRoot->AttachLight(m_spLight0);
+    m_spModelRoot->AttachLight(m_spLight1);
+    m_spScene->AttachChild(m_spLight0Node);
+    m_spScene->AttachChild(m_spLight1Node);
+    m_spScene->AttachChild(m_spModelRoot);
+
     m_spScene->UpdateGS();
     m_spScene->UpdateRS();
-    m_spScene->GetChild(0)->Local.SetTranslate(
-        -m_spScene->WorldBound->GetCenter());
 }
 //----------------------------------------------------------------------------
 void Lighting2::CreateLights()
 {
-    int i;
-    for( i = 0; i < 8; i++ )
-    {
-        m_aspALight[i] = SE_NEW Light(Light::LT_AMBIENT);
-        m_aspDLight[i] = SE_NEW Light(Light::LT_DIRECTIONAL);
-        m_aspPLight[i] = SE_NEW Light(Light::LT_POINT);
-        m_aspSLight[i] = SE_NEW Light(Light::LT_SPOT);
-    }
+    // Create light0(point light).
+    m_spLight0 = SE_NEW Light(Light::LT_POINT);
+    m_spLight0->Ambient = m_Light0Color*0.5f;
+    m_spLight0->Diffuse = m_Light0Color;
+    m_spLight0->Specular = m_Light0Color*0.5f;
+    m_spLight0->Linear = 0.02f;
+    m_spLight0->Quadratic = 0.02f;
 
-    // ambient lights.
-    float fValue = 0.75f;
-    m_aspALight[0]->Ambient = ColorRGB(fValue, fValue, fValue);
-    m_aspALight[1]->Ambient = ColorRGB(fValue, 0.0f,  0.0f);
-    m_aspALight[2]->Ambient = ColorRGB(0.0f,  fValue, 0.0f);
-    m_aspALight[3]->Ambient = ColorRGB(0.0f,  0.0f,  fValue);
-    m_aspALight[4]->Ambient = ColorRGB(0.0f,  fValue, fValue);
-    m_aspALight[5]->Ambient = ColorRGB(fValue, 0.0f,  fValue);
-    m_aspALight[6]->Ambient = ColorRGB(fValue, fValue, 0.0f);
-    m_aspALight[7]->Ambient = ColorRGB(fValue, fValue, fValue);
+    // Create light0's node.
+    m_spLight0Node = SE_NEW LightNode(m_spLight0);
+    m_spLight0Node->Local.SetTranslate(Vector3f(0.0f, m_fLight0Height, 0.0f));
 
-    // directional lights.
-    fValue = Mathf::Sqrt(1.0f/3.0f);
-    m_aspDLight[0]->DVector = Vector3f(-fValue, -fValue, +fValue);
-    m_aspDLight[1]->DVector = Vector3f(-fValue, +fValue, +fValue);
-    m_aspDLight[2]->DVector = Vector3f(+fValue, -fValue, +fValue);
-    m_aspDLight[3]->DVector = Vector3f(+fValue, +fValue, +fValue);
-    m_aspDLight[4]->DVector = Vector3f(-fValue, -fValue, -fValue);
-    m_aspDLight[5]->DVector = Vector3f(-fValue, -fValue, +fValue);
-    m_aspDLight[6]->DVector = Vector3f(-fValue, +fValue, -fValue);
-    m_aspDLight[7]->DVector = Vector3f(-fValue, +fValue, +fValue);
-    for( i = 0; i < 8; i++ )
+    // Create a sphere to represent the light0's source.
+    Attributes tempAttr;
+    tempAttr.SetPositionChannels(3);
+    tempAttr.SetColorChannels(0, 3);
+    float fRadius = 0.2f;
+    TriMesh* pPLightSphere = StandardMesh(tempAttr).Sphere(8, 8, fRadius);
+    m_spLight0Node->AttachChild(pPLightSphere);
+    VertexBuffer* pVBuffer = pPLightSphere->VBuffer;
+    int iVCount = pVBuffer->GetVertexCount();
+    for( int i = 0; i < iVCount; i++ )
     {
-        m_aspDLight[i]->Ambient = ColorRGB::SE_RGB_WHITE*0.2f;
-        m_aspDLight[i]->Diffuse = ColorRGB::SE_RGB_WHITE;
-        m_aspDLight[i]->Specular = ColorRGB::SE_RGB_WHITE;
+        pVBuffer->Color3(0, i) = m_Light0Color;
     }
+    VertexColor3Effect* pLightSphereEffect = SE_NEW VertexColor3Effect;
+    pPLightSphere->AttachEffect(pLightSphereEffect);
 
-    // point lights.
-    fValue = 4.0f;
-    m_aspPLight[0]->Position = Vector3f(4.0f, +2.0f, -5.0f);
-    m_aspPLight[1]->Position = Vector3f(+fValue, +fValue, -fValue);
-    m_aspPLight[2]->Position = Vector3f(+fValue, -fValue, +fValue);
-    m_aspPLight[3]->Position = Vector3f(+fValue, -fValue, -fValue);
-    m_aspPLight[4]->Position = Vector3f(-fValue, +fValue, +fValue);
-    m_aspPLight[5]->Position = Vector3f(-fValue, +fValue, -fValue);
-    m_aspPLight[6]->Position = Vector3f(-fValue, -fValue, +fValue);
-    m_aspPLight[7]->Position = Vector3f(-fValue, -fValue, -fValue);
-    for( i = 0; i < 8; i++ )
-    {
-        m_aspPLight[i]->Ambient = ColorRGB::SE_RGB_WHITE*0.2f;
-        m_aspPLight[i]->Diffuse = ColorRGB::SE_RGB_WHITE;
-        m_aspPLight[i]->Specular = ColorRGB::SE_RGB_WHITE;
-        m_aspPLight[i]->Linear = 0.02f;
-        m_aspPLight[i]->Quadratic = 0.005f;
-    }
+    // Create light1(point light).
+    m_spLight1 = SE_NEW Light(Light::LT_POINT);
+    m_spLight1->Ambient = m_Light1Color*0.5f;
+    m_spLight1->Diffuse = m_Light1Color;
+    m_spLight1->Specular = m_Light1Color*0.5f;
+    m_spLight1->Linear = 0.02f;
+    m_spLight1->Quadratic = 0.02f;
 
-    // spot lights.
-    fValue = 4.0f;
-    m_aspSLight[0]->Position = Vector3f(+fValue, +fValue, +fValue);
-    m_aspSLight[1]->Position = Vector3f(+fValue, +fValue, -fValue);
-    m_aspSLight[2]->Position = Vector3f(+fValue, -fValue, +fValue);
-    m_aspSLight[3]->Position = Vector3f(+fValue, -fValue, -fValue);
-    m_aspSLight[4]->Position = Vector3f(-fValue, +fValue, +fValue);
-    m_aspSLight[5]->Position = Vector3f(-fValue, +fValue, -fValue);
-    m_aspSLight[6]->Position = Vector3f(-fValue, -fValue, +fValue);
-    m_aspSLight[7]->Position = Vector3f(-fValue, -fValue, -fValue);
-    fValue = -Mathf::Sqrt(1.0f/3.0f);
-    m_aspSLight[0]->DVector = Vector3f(+fValue, +fValue, +fValue);
-    m_aspSLight[1]->DVector = Vector3f(+fValue, +fValue, -fValue);
-    m_aspSLight[2]->DVector = Vector3f(+fValue, -fValue, +fValue);
-    m_aspSLight[3]->DVector = Vector3f(+fValue, -fValue, -fValue);
-    m_aspSLight[4]->DVector = Vector3f(-fValue, +fValue, +fValue);
-    m_aspSLight[5]->DVector = Vector3f(-fValue, +fValue, -fValue);
-    m_aspSLight[6]->DVector = Vector3f(-fValue, -fValue, +fValue);
-    m_aspSLight[7]->DVector = Vector3f(-fValue, -fValue, -fValue);
-    for( i = 0; i < 8; i++ )
+    // Create light1's node.
+    m_spLight1Node = SE_NEW LightNode(m_spLight1);
+    m_spLight1Node->Local.SetTranslate(Vector3f(0.0f, m_fLight1Height, 0.0f));
+
+    // Create a sphere to represent the light1's source.
+    pPLightSphere = StandardMesh(tempAttr).Sphere(8, 8, fRadius);
+    m_spLight1Node->AttachChild(pPLightSphere);
+    pVBuffer = pPLightSphere->VBuffer;
+    iVCount = pVBuffer->GetVertexCount();
+    for( int i = 0; i < iVCount; i++ )
     {
-        m_aspSLight[i]->Diffuse = ColorRGB::SE_RGB_WHITE;
-        m_aspSLight[i]->Specular = ColorRGB::SE_RGB_WHITE;
-        m_aspSLight[i]->Exponent = 1.0f;
-        m_aspSLight[i]->SetAngle(0.125f*Mathf::PI);
+        pVBuffer->Color3(0, i) = m_Light1Color;
     }
+    pPLightSphere->AttachEffect(pLightSphereEffect);
 }
 //----------------------------------------------------------------------------
-Node* Lighting2::CreateModel()
+void Lighting2::CreateModels()
 {
     // polished gold.
     MaterialState* pGoldMaterial = SE_NEW MaterialState;
@@ -391,44 +376,6 @@ Node* Lighting2::CreateModel()
     pMesh->Local.SetTranslate(Vector3f(1.8f, 1.0f/3.0f, -0.8f));
     pRoot->AttachChild(pMesh);
 
-    return (Node*)pRoot;
-}
-//----------------------------------------------------------------------------
-void Lighting2::UpdateEffects()
-{
-    int i;
-    for( i = 0; i < 8; i++ )
-    {
-        m_acCaption[i] = '.';
-    }
-
-    if( m_iLightCount > 0 )
-    {
-        m_spScene->DetachAllLights();
-        char* pcCaption = m_acCaption;
-        for( i = 0; i < m_iACount; i++ )
-        {
-            m_spScene->AttachLight(m_aspALight[i]);
-            *pcCaption++ = 'a';
-        }
-        for( i = 0; i < m_iDCount; i++ )
-        {
-            m_spScene->AttachLight(m_aspDLight[i]);
-            *pcCaption++ = 'd';
-        }
-        for( i = 0; i < m_iPCount; i++ )
-        {
-            m_spScene->AttachLight(m_aspPLight[i]);
-            *pcCaption++ = 'p';
-        }
-        for( i = 0; i < m_iSCount; i++ )
-        {
-            m_spScene->AttachLight(m_aspSLight[i]);
-            *pcCaption++ = 's';
-        }
-    }
-
-    m_spScene->UpdateRS();
-    m_iActiveLight = -1;
+    m_spModelRoot = pRoot;
 }
 //----------------------------------------------------------------------------
