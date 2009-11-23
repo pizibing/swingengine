@@ -29,3 +29,20 @@ void v_VertexColor4
     kVertexColor = kModelColor;
 }
 //----------------------------------------------------------------------------
+void p_VertexColor3
+(
+    in float3  kInPixelColor : COLOR,
+    out float4 kPixelColor : COLOR)
+{
+    kPixelColor.rgb = kInPixelColor;
+    kPixelColor.a = 1.0f;
+}
+//----------------------------------------------------------------------------
+void p_VertexColor4
+(
+    in float4  kInPixelColor : COLOR,
+    out float4 kPixelColor : COLOR)
+{
+    kPixelColor = kInPixelColor;
+}
+//----------------------------------------------------------------------------
