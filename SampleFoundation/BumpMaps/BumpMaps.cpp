@@ -30,8 +30,8 @@ BumpMaps::BumpMaps()
     WindowApplication3("BumpMaps", 0, 0, 640, 480, 
         ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
-    m_fLightHeight = 4.0f;
-    m_LightColor = ColorRGB::SE_RGB_WHITE;
+    m_fLight0Height = 4.0f;
+    m_Light0Color = ColorRGB::SE_RGB_WHITE;
 }
 //----------------------------------------------------------------------------
 bool BumpMaps::OnInitialize()
@@ -77,32 +77,33 @@ void BumpMaps::OnTerminate()
     m_spScene = 0;
     m_spModelRoot = 0;
     m_spWireframe = 0;
-    m_spLight = 0;
-    m_spLightNode = 0;
+    m_spLight0 = 0;
+    m_spLight0Node = 0;
 
     WindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void BumpMaps::OnIdle()
 {
-    // ÈÆyÖáÒÔ°ë¾¶RÐý×ªlight.
+    // Light0 motion.
     static double dCurTime = 0.0f;
     static double dLastTime = 0.0f;
-    static float fAngel = 0.0f;
-    static float fRadius = 4.0f;
+    static float fAngel0 = 0.0f;
+    static float fRadius0 = 4.0f;
     dCurTime = System::SE_GetTime();
     if( dCurTime - dLastTime > 0.0001f )
     {
         dLastTime = dCurTime;
-        fAngel += 0.002f;
+        fAngel0 += 0.002f;
         Matrix3f mat3fRot;
+
         mat3fRot.FromEulerAnglesXYZ(0.0f, -0.002f, 0.0f);
-        m_spLightNode->Local.SetRotate(m_spLightNode->Local.GetRotate()
+        m_spLight0Node->Local.SetRotate(m_spLight0Node->Local.GetRotate()
             *mat3fRot);
-        float fX = fRadius*Mathf::Cos(fAngel);
-        float fZ = fRadius*Mathf::Sin(fAngel);
-        m_spLightNode->Local.SetTranslate(Vector3f(fX, m_fLightHeight, fZ));
-        m_spLightNode->UpdateGS();
+        float fX = fRadius0*Mathf::Cos(fAngel0);
+        float fZ = fRadius0*Mathf::Sin(fAngel0);
+        m_spLight0Node->Local.SetTranslate(Vector3f(fX, m_fLight0Height, fZ));
+        m_spLight0Node->UpdateGS();
     }
 
     MeasureTime();
@@ -145,8 +146,8 @@ bool BumpMaps::OnKeyDown(unsigned char ucKey, int iX, int iY)
 
     switch( ucKey )
     {
-    case 'v':
-    case 'V':
+    case 's':
+    case 'S':
         TestStreaming(m_spScene, 128, 128, 640, 480, "BumpMaps.seof");
         return true;
     }
@@ -163,42 +164,43 @@ void BumpMaps::CreateScene()
     CreateModels();
     CreateLights();
 
-    m_spModelRoot->AttachLight(m_spLight);
-    m_spScene->AttachChild(m_spLightNode);
+    m_spModelRoot->AttachLight(m_spLight0);
+    m_spScene->AttachChild(m_spLight0Node);
     m_spScene->AttachChild(m_spModelRoot);
+
     m_spScene->UpdateGS();
     m_spScene->UpdateRS();
 }
 //----------------------------------------------------------------------------
 void BumpMaps::CreateLights()
 {
-    // Create a point light.
-    m_spLight = SE_NEW Light(Light::LT_POINT);
-    m_spLight->Ambient = m_LightColor*0.5f;
-    m_spLight->Diffuse = m_LightColor;
-    m_spLight->Specular = m_LightColor*0.5f;
-    m_spLight->Linear = 0.02f;
-    m_spLight->Quadratic = 0.03f;
+    // Create light0(point light).
+    m_spLight0 = SE_NEW Light(Light::LT_POINT);
+    m_spLight0->Ambient = m_Light0Color*0.5f;
+    m_spLight0->Diffuse = m_Light0Color;
+    m_spLight0->Specular = m_Light0Color*0.5f;
+    m_spLight0->Linear = 0.02f;
+    m_spLight0->Quadratic = 0.02f;
 
-    // Create a light node.
-    m_spLightNode = SE_NEW LightNode(m_spLight);
-    m_spLightNode->Local.SetTranslate(Vector3f(0.0f, m_fLightHeight, 0.0f));
+    // Create light0's node.
+    m_spLight0Node = SE_NEW LightNode(m_spLight0);
+    m_spLight0Node->Local.SetTranslate(Vector3f(0.0f, m_fLight0Height, 0.0f));
 
-    // Create a sphere to represent the light source.
+    // Create a sphere to represent the light0's source.
     Attributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetColorChannels(0, 3);
     float fRadius = 0.2f;
     TriMesh* pPLightSphere = StandardMesh(tempAttr).Sphere(8, 8, fRadius);
-    m_spLightNode->AttachChild(pPLightSphere);
+    m_spLight0Node->AttachChild(pPLightSphere);
     VertexBuffer* pVBuffer = pPLightSphere->VBuffer;
     int iVCount = pVBuffer->GetVertexCount();
-    ColorRGB tempYellow(1.0f, 1.0f, 0.0f);
     for( int i = 0; i < iVCount; i++ )
     {
-        pVBuffer->Color3(0, i) = tempYellow;
+        pVBuffer->Color3(0, i) = m_Light0Color;
     }
-    pPLightSphere->AttachEffect(SE_NEW VertexColor3Effect);
+    VertexColor3Effect* pLightSphereEffect = SE_NEW VertexColor3Effect;
+    pPLightSphere->AttachEffect(pLightSphereEffect);
 }
 //----------------------------------------------------------------------------
 void BumpMaps::CreateModels()

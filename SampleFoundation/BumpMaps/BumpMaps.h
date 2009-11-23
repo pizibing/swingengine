@@ -47,10 +47,10 @@ protected:
     WireframeStatePtr m_spWireframe;
     Culler m_Culler;
 
-    float m_fLightHeight;
-    ColorRGB m_LightColor;
-    LightPtr m_spLight;
-    LightNodePtr m_spLightNode;
+    float m_fLight0Height;
+    ColorRGB m_Light0Color;
+    LightPtr m_spLight0;
+    LightNodePtr m_spLight0Node;
 };
 
 #endif

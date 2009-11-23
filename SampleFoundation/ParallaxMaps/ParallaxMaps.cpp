@@ -30,17 +30,8 @@ ParallaxMaps::ParallaxMaps()
     WindowApplication3("ParallaxMaps", 0, 0, 640, 480, 
         ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
-    m_iACount = 0;
-    m_iDCount = 0;
-    m_iPCount = 0;
-    m_iSCount = 0;
-    m_iActiveLight = -1;
-    m_iLightCount = 0;
-    for (int i = 0; i < 8; i++)
-    {
-        m_acCaption[i] = '.';
-    }
-    m_acCaption[8] = 0;
+    m_fLight0Height = 4.0f;
+    m_Light0Color = ColorRGB::SE_RGB_WHITE;
 }
 //----------------------------------------------------------------------------
 bool ParallaxMaps::OnInitialize()
@@ -52,7 +43,7 @@ bool ParallaxMaps::OnInitialize()
 
     m_spCamera->SetFrustum(-0.55f, 0.55f, -0.4125f, 0.4125f, 1.0f, 100.0f);
     Vector3f tempCLoc(0.0f, 9.0f, -20.0f);
-    Vector3f tempCDir(0.0f, -0.5f, 1.0f);
+    Vector3f tempCDir(0.0f, -0.2f, 1.0f);
     tempCDir.Normalize();
     Vector3f tempCUp(0.0f, 1.0f, 0.0f);
     Vector3f tempCRight = tempCUp.Cross(tempCDir);
@@ -84,24 +75,37 @@ bool ParallaxMaps::OnInitialize()
 void ParallaxMaps::OnTerminate()
 {
     m_spScene = 0;
-    m_spMesh = 0;
+    m_spModelRoot = 0;
     m_spWireframe = 0;
-
-    for( int i = 0; i < 8; i++ )
-    {
-        m_aspALight[i] = 0;
-        m_aspDLight[i] = 0;
-        m_aspPLight[i] = 0;
-        m_aspSLight[i] = 0;
-    }
-
-    m_spDefaultEffect = 0;
+    m_spLight0 = 0;
+    m_spLight0Node = 0;
 
     WindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void ParallaxMaps::OnIdle()
 {
+    // Light0 motion.
+    static double dCurTime = 0.0f;
+    static double dLastTime = 0.0f;
+    static float fAngel0 = 0.0f;
+    static float fRadius0 = 4.0f;
+    dCurTime = System::SE_GetTime();
+    if( dCurTime - dLastTime > 0.0001f )
+    {
+        dLastTime = dCurTime;
+        fAngel0 += 0.002f;
+        Matrix3f mat3fRot;
+
+        mat3fRot.FromEulerAnglesXYZ(0.0f, -0.002f, 0.0f);
+        m_spLight0Node->Local.SetRotate(m_spLight0Node->Local.GetRotate()
+            *mat3fRot);
+        float fX = fRadius0*Mathf::Cos(fAngel0);
+        float fZ = fRadius0*Mathf::Sin(fAngel0);
+        m_spLight0Node->Local.SetTranslate(Vector3f(fX, m_fLight0Height, fZ));
+        m_spLight0Node->UpdateGS();
+    }
+
     MeasureTime();
 
     if( MoveCamera() )
@@ -119,7 +123,6 @@ void ParallaxMaps::OnIdle()
     if( m_pRenderer->BeginScene() )
     {
         m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
-        m_pRenderer->Draw(8, 16, ColorRGBA::SE_RGBA_WHITE, m_acCaption);
         DrawFrameRate(8, GetHeight()-8, ColorRGBA::SE_RGBA_WHITE);
         m_pRenderer->EndScene();
     }
@@ -143,127 +146,9 @@ bool ParallaxMaps::OnKeyDown(unsigned char ucKey, int iX, int iY)
 
     switch( ucKey )
     {
-    case 'A':  // remove an ambient light
-        if( m_iACount > 0 )
-        {
-            m_iACount--;
-            m_iLightCount--;
-            UpdateEffects();
-        }
-        return true;
-    case 'a':  // add an ambient light
-        if( m_iLightCount < 8 )
-        {
-            m_iACount++;
-            m_iLightCount++;
-            UpdateEffects();
-        }
-        return true;
-    case 'D':  // remove a directional light
-        if( m_iDCount > 0 )
-        {
-            m_iDCount--;
-            m_iLightCount--;
-            UpdateEffects();
-        }
-        return true;
-    case 'd':  // add a directional light
-        if( m_iLightCount < 8 )
-        {
-            m_iDCount++;
-            m_iLightCount++;
-            UpdateEffects();
-        }
-        return true;
-    case 'P':  // remove a point light
-        if( m_iPCount > 0 )
-        {
-            m_iPCount--;
-            m_iLightCount--;
-            UpdateEffects();
-        }
-        return true;
-    case 'p':  // add a point light
-        if( m_iLightCount < 8 )
-        {
-            m_iPCount++;
-            m_iLightCount++;
-            UpdateEffects();
-        }
-        return true;
-    case 'S':  // remove a spot light
-        if( m_iSCount > 0 )
-        {
-            m_iSCount--;
-            m_iLightCount--;
-            UpdateEffects();
-        }
-        return true;
-    case 's':  // add a spot light
-        if( m_iLightCount < 8 )
-        {
-            m_iSCount++;
-            m_iLightCount++;
-            UpdateEffects();
-        }
-        return true;
-    case 'v':
-    case 'V':
-        TestStreaming(m_spScene, 128, 128, 640, 480, "ParallaxMaps.seof");
-        return true;
-    }
-
-    if( m_iLightCount == 0 )
-    {
-        return false;
-    }
-
-    if( '0' <= ucKey && ucKey <= '0' + m_iLightCount - 1 )
-    {
-        m_iActiveLight = (int)ucKey - (int)'0';
-        return true;
-    }
-
-    if( m_iActiveLight < 0 || m_iActiveLight >= m_iLightCount )
-    {
-        return false;
-    }
-
-    Light* pLight = m_spScene->GetLight(m_iActiveLight);
-
-    switch( ucKey )
-    {
-    case 'i':
-        pLight->Intensity -= 0.125f;
-        if( pLight->Intensity < 0.0f )
-        {
-            pLight->Intensity = 0.0f;
-        }
-        return true;
-    case 'I':
-        pLight->Intensity += 0.125f;
-        return true;
-    case 'c':
-        pLight->Angle -= 0.1f;
-        if( pLight->Angle < 0.0f )
-        {
-            pLight->Angle = 0.0f;
-        }
-        pLight->SetAngle(pLight->Angle);
-        return true;
-    case 'C':
-        pLight->Angle += 0.1f;
-        if( pLight->Angle > Mathf::HALF_PI )
-        {
-            pLight->Angle = Mathf::HALF_PI;
-        }
-        pLight->SetAngle(pLight->Angle);
-        return true;
-    case 'e':
-        pLight->Exponent *= 0.5f;
-        return true;
-    case 'E':
-        pLight->Exponent *= 2.0f;
+    case 's':
+    case 'S':
+        TestStreaming(m_spScene, 128, 128, 640, 480, "BumpMaps.seof");
         return true;
     }
 
@@ -276,102 +161,49 @@ void ParallaxMaps::CreateScene()
     m_spWireframe = SE_NEW WireframeState;
     m_spScene->AttachGlobalState(m_spWireframe);
 
+    CreateModels();
     CreateLights();
 
-    m_spScene->AttachChild(CreateModel());
+    m_spModelRoot->AttachLight(m_spLight0);
+    m_spScene->AttachChild(m_spLight0Node);
+    m_spScene->AttachChild(m_spModelRoot);
+
     m_spScene->UpdateGS();
     m_spScene->UpdateRS();
-    m_spScene->GetChild(0)->Local.SetTranslate(
-        -m_spScene->WorldBound->GetCenter());
 }
 //----------------------------------------------------------------------------
 void ParallaxMaps::CreateLights()
 {
-    int i;
-    for( i = 0; i < 8; i++ )
-    {
-        m_aspALight[i] = SE_NEW Light(Light::LT_AMBIENT);
-        m_aspDLight[i] = SE_NEW Light(Light::LT_DIRECTIONAL);
-        m_aspPLight[i] = SE_NEW Light(Light::LT_POINT);
-        m_aspSLight[i] = SE_NEW Light(Light::LT_SPOT);
-    }
+    // Create light0(point light).
+    m_spLight0 = SE_NEW Light(Light::LT_POINT);
+    m_spLight0->Ambient = m_Light0Color*0.5f;
+    m_spLight0->Diffuse = m_Light0Color;
+    m_spLight0->Specular = m_Light0Color*0.5f;
+    m_spLight0->Linear = 0.02f;
+    m_spLight0->Quadratic = 0.02f;
 
-    // ambient lights
-    float fValue = 0.75f;
-    m_aspALight[0]->Ambient = ColorRGB(fValue, fValue, fValue);
-    m_aspALight[1]->Ambient = ColorRGB(fValue, 0.0f,  0.0f);
-    m_aspALight[2]->Ambient = ColorRGB(0.0f,  fValue, 0.0f);
-    m_aspALight[3]->Ambient = ColorRGB(0.0f,  0.0f,  fValue);
-    m_aspALight[4]->Ambient = ColorRGB(0.0f,  fValue, fValue);
-    m_aspALight[5]->Ambient = ColorRGB(fValue, 0.0f,  fValue);
-    m_aspALight[6]->Ambient = ColorRGB(fValue, fValue, 0.0f);
-    m_aspALight[7]->Ambient = ColorRGB(fValue, fValue, fValue);
+    // Create light0's node.
+    m_spLight0Node = SE_NEW LightNode(m_spLight0);
+    m_spLight0Node->Local.SetTranslate(Vector3f(0.0f, m_fLight0Height, 0.0f));
 
-    // directional lights
-    fValue = Mathf::Sqrt(1.0f/3.0f);
-    m_aspDLight[0]->DVector = Vector3f(-fValue, -fValue, +fValue);
-    m_aspDLight[1]->DVector = Vector3f(-fValue, +fValue, +fValue);
-    m_aspDLight[2]->DVector = Vector3f(+fValue, -fValue, +fValue);
-    m_aspDLight[3]->DVector = Vector3f(+fValue, +fValue, +fValue);
-    m_aspDLight[4]->DVector = Vector3f(-fValue, -fValue, -fValue);
-    m_aspDLight[5]->DVector = Vector3f(-fValue, -fValue, +fValue);
-    m_aspDLight[6]->DVector = Vector3f(-fValue, +fValue, -fValue);
-    m_aspDLight[7]->DVector = Vector3f(-fValue, +fValue, +fValue);
-    for( i = 0; i < 8; i++ )
+    // Create a sphere to represent the light0's source.
+    Attributes tempAttr;
+    tempAttr.SetPositionChannels(3);
+    tempAttr.SetColorChannels(0, 3);
+    float fRadius = 0.2f;
+    TriMesh* pPLightSphere = StandardMesh(tempAttr).Sphere(8, 8, fRadius);
+    m_spLight0Node->AttachChild(pPLightSphere);
+    VertexBuffer* pVBuffer = pPLightSphere->VBuffer;
+    int iVCount = pVBuffer->GetVertexCount();
+    for( int i = 0; i < iVCount; i++ )
     {
-        m_aspDLight[i]->Ambient = ColorRGB::SE_RGB_WHITE*0.2f;
-        m_aspDLight[i]->Diffuse = ColorRGB::SE_RGB_WHITE;
-        m_aspDLight[i]->Specular = ColorRGB::SE_RGB_WHITE;
+        pVBuffer->Color3(0, i) = m_Light0Color;
     }
-
-    // point lights
-    fValue = 4.0f;
-    m_aspPLight[0]->Position = Vector3f(0.0f, +fValue, 0.0f);
-    m_aspPLight[1]->Position = Vector3f(+fValue, +fValue, -fValue);
-    m_aspPLight[2]->Position = Vector3f(+fValue, -fValue, +fValue);
-    m_aspPLight[3]->Position = Vector3f(+fValue, -fValue, -fValue);
-    m_aspPLight[4]->Position = Vector3f(-fValue, +fValue, +fValue);
-    m_aspPLight[5]->Position = Vector3f(-fValue, +fValue, -fValue);
-    m_aspPLight[6]->Position = Vector3f(-fValue, -fValue, +fValue);
-    m_aspPLight[7]->Position = Vector3f(-fValue, -fValue, -fValue);
-    for( i = 0; i < 8; i++ )
-    {
-        m_aspPLight[i]->Ambient = ColorRGB::SE_RGB_WHITE*0.5f;
-        m_aspPLight[i]->Diffuse = ColorRGB::SE_RGB_WHITE;
-        m_aspPLight[i]->Specular = ColorRGB::SE_RGB_WHITE*0.5f;
-        m_aspPLight[i]->Linear = 0.02f;
-        m_aspPLight[i]->Quadratic = 0.01f;
-    }
-
-    // spot lights
-    fValue = 4.0f;
-    m_aspSLight[0]->Position = Vector3f(+fValue, +fValue, +fValue);
-    m_aspSLight[1]->Position = Vector3f(+fValue, +fValue, -fValue);
-    m_aspSLight[2]->Position = Vector3f(+fValue, -fValue, +fValue);
-    m_aspSLight[3]->Position = Vector3f(+fValue, -fValue, -fValue);
-    m_aspSLight[4]->Position = Vector3f(-fValue, +fValue, +fValue);
-    m_aspSLight[5]->Position = Vector3f(-fValue, +fValue, -fValue);
-    m_aspSLight[6]->Position = Vector3f(-fValue, -fValue, +fValue);
-    m_aspSLight[7]->Position = Vector3f(-fValue, -fValue, -fValue);
-    fValue = -Mathf::Sqrt(1.0f/3.0f);
-    m_aspSLight[0]->DVector = Vector3f(+fValue, +fValue, +fValue);
-    m_aspSLight[1]->DVector = Vector3f(+fValue, +fValue, -fValue);
-    m_aspSLight[2]->DVector = Vector3f(+fValue, -fValue, +fValue);
-    m_aspSLight[3]->DVector = Vector3f(+fValue, -fValue, -fValue);
-    m_aspSLight[4]->DVector = Vector3f(-fValue, +fValue, +fValue);
-    m_aspSLight[5]->DVector = Vector3f(-fValue, +fValue, -fValue);
-    m_aspSLight[6]->DVector = Vector3f(-fValue, -fValue, +fValue);
-    m_aspSLight[7]->DVector = Vector3f(-fValue, -fValue, -fValue);
-    for( i = 0; i < 8; i++ )
-    {
-        m_aspSLight[i]->Diffuse = ColorRGB::SE_RGB_WHITE;
-        m_aspSLight[i]->Specular = ColorRGB::SE_RGB_WHITE;
-        m_aspSLight[i]->Exponent = 1.0f;
-        m_aspSLight[i]->SetAngle(0.125f*Mathf::PI);
-    }
+    VertexColor3Effect* pLightSphereEffect = SE_NEW VertexColor3Effect;
+    pPLightSphere->AttachEffect(pLightSphereEffect);
 }
 //----------------------------------------------------------------------------
-Node* ParallaxMaps::CreateModel()
+void ParallaxMaps::CreateModels()
 {
     // polished gold.
     MaterialState* pGoldMaterial = SE_NEW MaterialState;
@@ -444,9 +276,9 @@ Node* ParallaxMaps::CreateModel()
     pMesh->GenerateNormals();
     pMesh->GenerateTangents(0, 1, 2);
     Matrix3f mat3fRot;
-	mat3fRot.FromEulerAnglesXYZ(Mathf::PI/2.0f, 0.0f, 0.0f);
-	pMesh->Local.SetRotate(mat3fRot);
-	pRoot->AttachChild(pMesh);
+    mat3fRot.FromEulerAnglesXYZ(Mathf::PI/2.0f, 0.0f, 0.0f);
+    pMesh->Local.SetRotate(mat3fRot);
+    pRoot->AttachChild(pMesh);
 
     // far wall.
     pMesh = SE_NEW TriMesh(pMesh->VBuffer, pMesh->IBuffer);
@@ -524,44 +356,6 @@ Node* ParallaxMaps::CreateModel()
     pMesh->Local.SetTranslate(Vector3f(1.8f, 1.0f/3.0f, -0.8f));
     pRoot->AttachChild(pMesh);
 
-    return (Node*)pRoot;
-}
-//----------------------------------------------------------------------------
-void ParallaxMaps::UpdateEffects()
-{
-    int i;
-    for( i = 0; i < 8; i++ )
-    {
-        m_acCaption[i] = '.';
-    }
-
-    if( m_iLightCount > 0 )
-    {
-        m_spScene->DetachAllLights();
-        char* pcCaption = m_acCaption;
-        for( i = 0; i < m_iACount; i++ )
-        {
-            m_spScene->AttachLight(m_aspALight[i]);
-            *pcCaption++ = 'a';
-        }
-        for( i = 0; i < m_iDCount; i++ )
-        {
-            m_spScene->AttachLight(m_aspDLight[i]);
-            *pcCaption++ = 'd';
-        }
-        for( i = 0; i < m_iPCount; i++ )
-        {
-            m_spScene->AttachLight(m_aspPLight[i]);
-            *pcCaption++ = 'p';
-        }
-        for( i = 0; i < m_iSCount; i++ )
-        {
-            m_spScene->AttachLight(m_aspSLight[i]);
-            *pcCaption++ = 's';
-        }
-    }
-
-    m_spScene->UpdateRS();
-    m_iActiveLight = -1;
+    m_spModelRoot = pRoot;
 }
 //----------------------------------------------------------------------------
