@@ -44,14 +44,24 @@ inline int WindowApplication::GetHeight() const
     return m_iHeight;
 }
 //----------------------------------------------------------------------------
+inline void WindowApplication::SetRenderer(Renderer* pRenderer)
+{
+    m_pRenderer = pRenderer;
+}
+//----------------------------------------------------------------------------
 inline Renderer* WindowApplication::GetRenderer()
 {
     return m_pRenderer;
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::SetRenderer(Renderer* pRenderer)
+inline void WindowApplication::SetAudioRenderer(AudioRenderer* pAudioRenderer)
 {
-    m_pRenderer = pRenderer;
+    m_pAudioRenderer = pAudioRenderer;
+}
+//----------------------------------------------------------------------------
+inline AudioRenderer* WindowApplication::GetAudioRenderer()
+{
+    return m_pAudioRenderer;
 }
 //----------------------------------------------------------------------------
 inline void WindowApplication::SetWindowID(int iWindowID)

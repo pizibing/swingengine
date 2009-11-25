@@ -47,6 +47,8 @@ WindowApplication::WindowApplication(const char* acWindowTitle,
     m_eStencil = FrameBuffer::ST_STENCIL_8;
     m_eBuffering = FrameBuffer::BT_BUFFERED_DOUBLE;
     m_eMultisampling = FrameBuffer::MT_SAMPLING_NONE;
+
+    m_pAudioRenderer = 0;
 }
 //----------------------------------------------------------------------------
 WindowApplication::~WindowApplication()
@@ -87,6 +89,9 @@ void WindowApplication::OnTerminate()
 
     SE_DELETE m_pRenderer;
     m_pRenderer = 0;
+
+    SE_DELETE m_pAudioRenderer;
+    m_pAudioRenderer = 0;
 }
 //----------------------------------------------------------------------------
 void WindowApplication::OnMove(int iX, int iY)

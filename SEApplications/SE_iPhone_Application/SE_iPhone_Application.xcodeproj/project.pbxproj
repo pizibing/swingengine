@@ -87,6 +87,7 @@
 		DD7B92E9109A84D300BF166C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		DD7B92EB109A84D300BF166C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DD7B92ED109A84D300BF166C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DD884BDF10BD11F500C8F20A /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		DDA6221910A2A408005C8483 /* libSEiPhoneOES2Applicationd_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOES2Applicationd_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA6222010A2A43B005C8483 /* libSEiPhoneOES2Application_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOES2Application_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -180,6 +181,7 @@
 				DD7B92E9109A84D300BF166C /* OpenGLES.framework */,
 				DD7B92EB109A84D300BF166C /* QuartzCore.framework */,
 				DD7B92ED109A84D300BF166C /* UIKit.framework */,
+				DD884BDF10BD11F500C8F20A /* OpenAL.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

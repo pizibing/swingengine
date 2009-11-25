@@ -22,6 +22,7 @@
 #define Swing_WindowApplication_H
 
 #include "SEApplication.h"
+#include "SwingAudio.h"
 
 namespace Swing
 {
@@ -52,6 +53,8 @@ public:
     inline int GetHeight(void) const;
     inline void SetRenderer(Renderer* pRenderer);
     inline Renderer* GetRenderer(void);
+    inline void SetAudioRenderer(AudioRenderer* pAudioRenderer);
+    inline AudioRenderer* GetAudioRenderer(void);
     inline void SetWindowID(int iWindowID);
     inline int GetWindowID(void) const;
 
@@ -96,8 +99,11 @@ protected:
     FrameBuffer::BufferingType m_eBuffering;
     FrameBuffer::MultisamplingType m_eMultisampling;
 
-    // The renderer(for 2D and 3D applications).
+    // Renderer(for 2D and 3D applications).
     Renderer* m_pRenderer;
+
+    // Audio renderer(for 2D and 3D applications).
+    AudioRenderer* m_pAudioRenderer;
 };
 
 #include "SEWindowApplication.inl"

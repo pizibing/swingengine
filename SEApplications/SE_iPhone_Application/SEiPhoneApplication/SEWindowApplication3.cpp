@@ -91,6 +91,9 @@ bool WindowApplication3::OnInitialize()
     m_pRenderer->SetCamera(m_spCamera);
     m_spMotionObject = 0;
 
+    m_spListener = SE_NEW Listener;
+    m_pAudioRenderer->SetListener(m_spListener);
+
     Attributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetColorChannels(0, 3);
@@ -121,6 +124,9 @@ void WindowApplication3::OnTerminate()
     m_spCamera = 0;
     m_spMotionObject = 0;
     m_spWorldAxis = 0;
+
+    m_pAudioRenderer->SetListener(0);
+    m_spListener = 0;
 
     WindowApplication::OnTerminate();
 }
@@ -254,6 +260,7 @@ void WindowApplication3::MoveForward()
     Vector3f vec3fLoc = m_spCamera->GetLocation();
     vec3fLoc += m_fTrnSpeed * m_aWorldAxis[2]; // 沿D轴方向前进
     m_spCamera->SetLocation(vec3fLoc);
+    m_spListener->SetLocation(vec3fLoc);
 }
 //----------------------------------------------------------------------------
 void WindowApplication3::MoveBackward()
@@ -261,6 +268,7 @@ void WindowApplication3::MoveBackward()
     Vector3f vec3fLoc = m_spCamera->GetLocation();
     vec3fLoc -= m_fTrnSpeed * m_aWorldAxis[2]; // 沿D轴方向后退
     m_spCamera->SetLocation(vec3fLoc);
+    m_spListener->SetLocation(vec3fLoc);
 }
 //----------------------------------------------------------------------------
 void WindowApplication3::MoveUp()
@@ -268,6 +276,7 @@ void WindowApplication3::MoveUp()
     Vector3f vec3fLoc = m_spCamera->GetLocation();
     vec3fLoc += m_fTrnSpeed * m_aWorldAxis[1]; // 沿U轴方向上升
     m_spCamera->SetLocation(vec3fLoc);
+    m_spListener->SetLocation(vec3fLoc);
 }
 //----------------------------------------------------------------------------
 void WindowApplication3::MoveDown()
@@ -275,6 +284,7 @@ void WindowApplication3::MoveDown()
     Vector3f vec3fLoc = m_spCamera->GetLocation();
     vec3fLoc -= m_fTrnSpeed * m_aWorldAxis[1]; // 沿U轴方向下降
     m_spCamera->SetLocation(vec3fLoc);
+    m_spListener->SetLocation(vec3fLoc);
 }
 //----------------------------------------------------------------------------
 void WindowApplication3::TurnLeft()
@@ -288,6 +298,9 @@ void WindowApplication3::TurnLeft()
     Vector3f tempUVector = m_spCamera->GetUVector() * mat3fIncr;
     Vector3f tempDVector = m_spCamera->GetDVector() * mat3fIncr;
     m_spCamera->SetAxes(tempRVector, tempUVector, tempDVector);
+
+    // 更新listener RUD轴.
+    m_spListener->SetAxes(tempRVector, tempUVector, tempDVector);
 }
 //----------------------------------------------------------------------------
 void WindowApplication3::TurnRight()
@@ -301,6 +314,9 @@ void WindowApplication3::TurnRight()
     Vector3f tempUVector = m_spCamera->GetUVector() * mat3fIncr;
     Vector3f tempDVector = m_spCamera->GetDVector() * mat3fIncr;
     m_spCamera->SetAxes(tempRVector, tempUVector, tempDVector);
+
+    // 更新listener RUD轴.
+    m_spListener->SetAxes(tempRVector, tempUVector, tempDVector);
 }
 //----------------------------------------------------------------------------
 void WindowApplication3::LookUp()
@@ -312,6 +328,9 @@ void WindowApplication3::LookUp()
     Vector3f tempUVector = m_spCamera->GetUVector() * mat3fIncr;
     Vector3f tempDVector = m_spCamera->GetDVector() * mat3fIncr;
     m_spCamera->SetAxes(tempRVector, tempUVector, tempDVector);
+
+    // 更新listener RUD轴.
+    m_spListener->SetAxes(tempRVector, tempUVector, tempDVector);
 }
 //----------------------------------------------------------------------------
 void WindowApplication3::LookDown()
@@ -323,6 +342,9 @@ void WindowApplication3::LookDown()
     Vector3f tempUVector = m_spCamera->GetUVector() * mat3fIncr;
     Vector3f tempDVector = m_spCamera->GetDVector() * mat3fIncr;
     m_spCamera->SetAxes(tempRVector, tempUVector, tempDVector);
+
+    // 更新listener RUD轴.
+    m_spListener->SetAxes(tempRVector, tempUVector, tempDVector);
 }
 //----------------------------------------------------------------------------
 

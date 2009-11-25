@@ -76,6 +76,9 @@ protected:
     bool m_bEndPressed;
     bool m_bCameraMoveable;
 
+    // Listener motion.
+    ListenerPtr m_spListener;
+
     // Object motion.
     void InitializeObjectMotion(Spatial* pMotionObject);
     bool MoveObject(void);
