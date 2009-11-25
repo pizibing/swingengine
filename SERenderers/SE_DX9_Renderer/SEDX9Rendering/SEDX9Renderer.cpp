@@ -192,7 +192,7 @@ DX9Renderer::DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     else
     {
         // 目前不支持的vertex shader profile.
-        SE_ASSERT( 0 );
+        SE_ASSERT( false );
     }
 
     // DirectX9不支持geometry shader.
@@ -209,7 +209,7 @@ DX9Renderer::DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     else
     {
         // 目前不支持的pixel shader profile.
-        SE_ASSERT( 0 );
+        SE_ASSERT( false );
     }
 
     m_iMaxRenderTargets = tempDeviceCaps.NumSimultaneousRTs;
@@ -272,6 +272,11 @@ DX9Renderer::~DX9Renderer()
 
     // 释放渲染器的Cg context.
     cgDestroyContext(m_CgContext);
+
+    // If this assertion is triggered, then most likely there are some Cg
+    // runtime resources haven't been released. For example, maybe a geometry
+    // object is still alive(which should be released already), and it is 
+    // using a shader effect which itself is handling a Cg shader resource.
     SE_DX9_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
