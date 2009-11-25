@@ -21,6 +21,7 @@
 #import "SEiPhoneOES2ApplicationDelegate.h"
 #include "SEWindowApplication.h"
 #include "SEiPhoneOES2Renderer.h"
+#include "SEiPhoneOpenALRenderer.h"
 
 using namespace Swing;
 
@@ -101,7 +102,11 @@ static void OnTouchesCancelled(UIView* owner, NSSet* pTouches,
         pTheApp->GetBuffering(), pTheApp->GetMultisampling(), 0, 0, 
         rect.size.width, rect.size.height);
     pTheApp->SetRenderer(pRenderer);
-    
+
+    // Create OpenAL audio renderer.
+    iPhoneOpenALRenderer* pAudioRenderer = SE_NEW iPhoneOpenALRenderer;
+    pTheApp->SetAudioRenderer(pAudioRenderer);
+
     // Set up touches event handlers.
     EAGL2View* pView = pRenderer->GetView();
     [pView setUserData:(void*)pTheApp];

@@ -77,32 +77,31 @@ void BumpMaps::OnTerminate()
     m_spWireframe = 0;
     m_spLight0 = 0;
     m_spLight0Node = 0;
-
+    
     WindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void BumpMaps::OnIdle()
 {
     // Light0 motion.
-    static double dCurTime = 0.0f;
-    static double dLastTime = 0.0f;
+    static double dCurTime = 0.0;
+    static double dLastTime = 0.0;
+    static double dDiffTime = 0.0;
     static float fAngel0 = 0.0f;
+    static float fAngel0Speed = 2.0f;
     static float fRadius0 = 4.0f;
     dCurTime = System::SE_GetTime();
-    if( dCurTime - dLastTime > 0.0001f )
-    {
-        dLastTime = dCurTime;
-        fAngel0 += 0.08f;
-        Matrix3f mat3fRot;
-        
-        mat3fRot.FromEulerAnglesXYZ(0.0f, -0.08f, 0.0f);
-        m_spLight0Node->Local.SetRotate(m_spLight0Node->Local.GetRotate()
-                                        *mat3fRot);
-        float fX = fRadius0*Mathf::Cos(fAngel0);
-        float fZ = fRadius0*Mathf::Sin(fAngel0);
-        m_spLight0Node->Local.SetTranslate(Vector3f(fX, m_fLight0Height, fZ));
-        m_spLight0Node->UpdateGS();
-    }
+    dDiffTime = dCurTime - dLastTime;
+    dLastTime = dCurTime;
+    fAngel0 += fAngel0Speed*(float)dDiffTime;
+    Matrix3f mat3fRot;
+    mat3fRot.FromEulerAnglesXYZ(0.0f, -fAngel0Speed, 0.0f);
+    m_spLight0Node->Local.SetRotate(m_spLight0Node->Local.GetRotate()
+        *mat3fRot);
+    float fX = fRadius0*Mathf::Cos(fAngel0);
+    float fZ = fRadius0*Mathf::Sin(fAngel0);
+    m_spLight0Node->Local.SetTranslate(Vector3f(fX, m_fLight0Height, fZ));
+    m_spLight0Node->UpdateGS();
 
     MeasureTime();
 

@@ -85,11 +85,6 @@ void DefaultShader::OnIdle()
     UpdateFrameCount();
 }
 //----------------------------------------------------------------------------
-bool DefaultShader::OnKeyDown(unsigned char ucKey, int iX, int iY)
-{
-    return true;
-}
-//----------------------------------------------------------------------------
 void DefaultShader::CreateScene()
 {
     m_spScene = SE_NEW Node;
