@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		52AFFA3B0FF8AE6A0008BD07 /* SEAalRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA310FF8AE6A0008BD07 /* SEAalRenderer.cpp */; };
-		52AFFA3C0FF8AE6A0008BD07 /* SEAalRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA320FF8AE6A0008BD07 /* SEAalRenderer.h */; };
 		52AFFA3D0FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA330FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp */; };
 		52AFFA3E0FF8AE6A0008BD07 /* SEOpenALRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA340FF8AE6A0008BD07 /* SEOpenALRenderer.cpp */; };
 		52AFFA3F0FF8AE6A0008BD07 /* SEOpenALRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA350FF8AE6A0008BD07 /* SEOpenALRenderer.h */; };
@@ -17,8 +15,6 @@
 		52AFFA420FF8AE6A0008BD07 /* SEOpenALResourcesLR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA380FF8AE6A0008BD07 /* SEOpenALResourcesLR.cpp */; };
 		52AFFA430FF8AE6A0008BD07 /* SEOpenALResourcesU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA390FF8AE6A0008BD07 /* SEOpenALResourcesU.cpp */; };
 		52AFFA440FF8AE6A0008BD07 /* SEOpenALTransformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA3A0FF8AE6A0008BD07 /* SEOpenALTransformation.cpp */; };
-		52AFFA450FF8AE6A0008BD07 /* SEAalRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA310FF8AE6A0008BD07 /* SEAalRenderer.cpp */; };
-		52AFFA460FF8AE6A0008BD07 /* SEAalRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA320FF8AE6A0008BD07 /* SEAalRenderer.h */; };
 		52AFFA470FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA330FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp */; };
 		52AFFA480FF8AE6A0008BD07 /* SEOpenALRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA340FF8AE6A0008BD07 /* SEOpenALRenderer.cpp */; };
 		52AFFA490FF8AE6A0008BD07 /* SEOpenALRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA350FF8AE6A0008BD07 /* SEOpenALRenderer.h */; };
@@ -39,13 +35,15 @@
 		52AFFA5E0FF8AE940008BD07 /* SEOpenALRendererRegister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFFA520FF8AE940008BD07 /* SEOpenALRendererRegister.cpp */; };
 		52AFFA5F0FF8AE940008BD07 /* SEOpenALRendererRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA530FF8AE940008BD07 /* SEOpenALRendererRegister.h */; };
 		52AFFA600FF8AE940008BD07 /* SwingOpenALRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52AFFA540FF8AE940008BD07 /* SwingOpenALRenderer.h */; };
+		DD884BEC10BD144300C8F20A /* SEiPhoneOpenALRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD884BEA10BD144300C8F20A /* SEiPhoneOpenALRenderer.cpp */; };
+		DD884BED10BD144300C8F20A /* SEiPhoneOpenALRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = DD884BEB10BD144300C8F20A /* SEiPhoneOpenALRenderer.h */; };
+		DD884BEE10BD144300C8F20A /* SEiPhoneOpenALRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD884BEA10BD144300C8F20A /* SEiPhoneOpenALRenderer.cpp */; };
+		DD884BEF10BD144300C8F20A /* SEiPhoneOpenALRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = DD884BEB10BD144300C8F20A /* SEiPhoneOpenALRenderer.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		528989660E9DB4E7000BBA95 /* libSEiPhoneOpenALRendererd_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOpenALRendererd_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5289896F0E9DB4FD000BBA95 /* libSEiPhoneOpenALRenderer_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOpenALRenderer_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		52AFFA310FF8AE6A0008BD07 /* SEAalRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEAalRenderer.cpp; path = SEOpenALRendering/SEAalRenderer.cpp; sourceTree = "<group>"; };
-		52AFFA320FF8AE6A0008BD07 /* SEAalRenderer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEAalRenderer.h; path = SEOpenALRendering/SEAalRenderer.h; sourceTree = "<group>"; };
 		52AFFA330FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenALElementsPS.cpp; path = SEOpenALRendering/SEOpenALElementsPS.cpp; sourceTree = "<group>"; };
 		52AFFA340FF8AE6A0008BD07 /* SEOpenALRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEOpenALRenderer.cpp; path = SEOpenALRendering/SEOpenALRenderer.cpp; sourceTree = "<group>"; };
 		52AFFA350FF8AE6A0008BD07 /* SEOpenALRenderer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEOpenALRenderer.h; path = SEOpenALRendering/SEOpenALRenderer.h; sourceTree = "<group>"; };
@@ -61,6 +59,8 @@
 		52AFFA530FF8AE940008BD07 /* SEOpenALRendererRegister.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEOpenALRendererRegister.h; sourceTree = "<group>"; };
 		52AFFA540FF8AE940008BD07 /* SwingOpenALRenderer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SwingOpenALRenderer.h; sourceTree = "<group>"; };
 		DD884B6610BCE25500C8F20A /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.0.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		DD884BEA10BD144300C8F20A /* SEiPhoneOpenALRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SEiPhoneOpenALRenderer.cpp; path = SEOpenALRendering/SEiPhoneOpenALRenderer.cpp; sourceTree = "<group>"; };
+		DD884BEB10BD144300C8F20A /* SEiPhoneOpenALRenderer.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEiPhoneOpenALRenderer.h; path = SEOpenALRendering/SEiPhoneOpenALRenderer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,8 +124,8 @@
 		52898A550E9DB968000BBA95 /* SEOpenALRendering */ = {
 			isa = PBXGroup;
 			children = (
-				52AFFA310FF8AE6A0008BD07 /* SEAalRenderer.cpp */,
-				52AFFA320FF8AE6A0008BD07 /* SEAalRenderer.h */,
+				DD884BEA10BD144300C8F20A /* SEiPhoneOpenALRenderer.cpp */,
+				DD884BEB10BD144300C8F20A /* SEiPhoneOpenALRenderer.h */,
 				52AFFA330FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp */,
 				52AFFA340FF8AE6A0008BD07 /* SEOpenALRenderer.cpp */,
 				52AFFA350FF8AE6A0008BD07 /* SEOpenALRenderer.h */,
@@ -145,13 +145,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52AFFA3C0FF8AE6A0008BD07 /* SEAalRenderer.h in Headers */,
 				52AFFA3F0FF8AE6A0008BD07 /* SEOpenALRenderer.h in Headers */,
 				52AFFA400FF8AE6A0008BD07 /* SEOpenALResources.h in Headers */,
 				52AFFA550FF8AE940008BD07 /* SEOpenALRendererLIB.h in Headers */,
 				52AFFA570FF8AE940008BD07 /* SEOpenALRendererPCH.h in Headers */,
 				52AFFA590FF8AE940008BD07 /* SEOpenALRendererRegister.h in Headers */,
 				52AFFA5A0FF8AE940008BD07 /* SwingOpenALRenderer.h in Headers */,
+				DD884BED10BD144300C8F20A /* SEiPhoneOpenALRenderer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,13 +159,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52AFFA460FF8AE6A0008BD07 /* SEAalRenderer.h in Headers */,
 				52AFFA490FF8AE6A0008BD07 /* SEOpenALRenderer.h in Headers */,
 				52AFFA4A0FF8AE6A0008BD07 /* SEOpenALResources.h in Headers */,
 				52AFFA5B0FF8AE940008BD07 /* SEOpenALRendererLIB.h in Headers */,
 				52AFFA5D0FF8AE940008BD07 /* SEOpenALRendererPCH.h in Headers */,
 				52AFFA5F0FF8AE940008BD07 /* SEOpenALRendererRegister.h in Headers */,
 				52AFFA600FF8AE940008BD07 /* SwingOpenALRenderer.h in Headers */,
+				DD884BEF10BD144300C8F20A /* SEiPhoneOpenALRenderer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,7 +261,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52AFFA3B0FF8AE6A0008BD07 /* SEAalRenderer.cpp in Sources */,
 				52AFFA3D0FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp in Sources */,
 				52AFFA3E0FF8AE6A0008BD07 /* SEOpenALRenderer.cpp in Sources */,
 				52AFFA410FF8AE6A0008BD07 /* SEOpenALResourcesED.cpp in Sources */,
@@ -270,6 +269,7 @@
 				52AFFA440FF8AE6A0008BD07 /* SEOpenALTransformation.cpp in Sources */,
 				52AFFA560FF8AE940008BD07 /* SEOpenALRendererPCH.cpp in Sources */,
 				52AFFA580FF8AE940008BD07 /* SEOpenALRendererRegister.cpp in Sources */,
+				DD884BEC10BD144300C8F20A /* SEiPhoneOpenALRenderer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,7 +277,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52AFFA450FF8AE6A0008BD07 /* SEAalRenderer.cpp in Sources */,
 				52AFFA470FF8AE6A0008BD07 /* SEOpenALElementsPS.cpp in Sources */,
 				52AFFA480FF8AE6A0008BD07 /* SEOpenALRenderer.cpp in Sources */,
 				52AFFA4B0FF8AE6A0008BD07 /* SEOpenALResourcesED.cpp in Sources */,
@@ -286,6 +285,7 @@
 				52AFFA4E0FF8AE6A0008BD07 /* SEOpenALTransformation.cpp in Sources */,
 				52AFFA5C0FF8AE940008BD07 /* SEOpenALRendererPCH.cpp in Sources */,
 				52AFFA5E0FF8AE940008BD07 /* SEOpenALRendererRegister.cpp in Sources */,
+				DD884BEE10BD144300C8F20A /* SEiPhoneOpenALRenderer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
