@@ -48,7 +48,7 @@ WindowApplication::WindowApplication(const char* acWindowTitle,
     m_eBuffering = FrameBuffer::BT_BUFFERED_DOUBLE;
     m_eMultisampling = FrameBuffer::MT_SAMPLING_NONE;
 
-    m_pAudioRenderer= 0;
+    m_pAudioRenderer = 0;
 }
 //----------------------------------------------------------------------------
 WindowApplication::~WindowApplication()

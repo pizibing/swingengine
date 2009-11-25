@@ -44,14 +44,14 @@ inline int WindowApplication::GetHeight() const
     return m_iHeight;
 }
 //----------------------------------------------------------------------------
-inline Renderer* WindowApplication::GetRenderer()
-{
-    return m_pRenderer;
-}
-//----------------------------------------------------------------------------
 inline void WindowApplication::SetRenderer(Renderer* pRenderer)
 {
     m_pRenderer = pRenderer;
+}
+//----------------------------------------------------------------------------
+inline Renderer* WindowApplication::GetRenderer()
+{
+    return m_pRenderer;
 }
 //----------------------------------------------------------------------------
 inline void WindowApplication::SetAudioRenderer(AudioRenderer* pAudioRenderer)
