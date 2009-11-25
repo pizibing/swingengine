@@ -57,7 +57,8 @@ OpenGLRenderer::OpenGLRenderer(FrameBuffer::FormatType eFormat,
     FrameBuffer::BufferingType eBuffering,
     FrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight)
     :
-    Renderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth, iHeight)
+    Renderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth, 
+        iHeight)
 {
 }
 //----------------------------------------------------------------------------
@@ -65,6 +66,11 @@ OpenGLRenderer::~OpenGLRenderer()
 {
     // 释放Cg context.
     cgDestroyContext(m_CgContext);
+
+    // If this assertion is triggered, then most likely there are some Cg
+    // runtime resources haven't been released. For example, maybe a geometry
+    // object is still alive(which should be released already), and it is 
+    // using a shader effect which itself is handling a Cg shader resource.
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
@@ -113,7 +119,8 @@ void OpenGLRenderer::InitializeState()
 
     // 设置lighting model.关闭lighting.
     // 待实现:  对于一个shader-based引擎,还有必要做这些吗?
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, (const float*)ColorRGBA::SE_RGBA_BLACK);
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, 
+        (const float*)ColorRGBA::SE_RGBA_BLACK);
     glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_FALSE);
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
     glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SEPARATE_SPECULAR_COLOR);
