@@ -27,6 +27,9 @@
 #include "SEOGLES1RendererRegister.h"
 #endif
 
+#include "SEAudioRegister.h"
+#include "SEOpenALRendererRegister.h"
+
 using namespace Swing;
 
 Application::EntryPoint Application::Run = 0;
@@ -84,11 +87,13 @@ int main(int iArgCount, char* apcArgument[])
 {
     // 运行Register.
     SE_Foundation_Register();
+    SE_Audio_Register();
 #if defined(SE_USING_OES2)
     SE_OGLES2Renderer_Register();
 #else
     SE_OGLES1Renderer_Register();
 #endif
+    SE_OpenALRenderer_Register();
 
     // 先要手动创建SE_PATH这个环境变量,指定所需资源文件的所在位置.
     System::SE_Initialize();
@@ -117,6 +122,10 @@ int main(int iArgCount, char* apcArgument[])
         tempDir = tempSEPath + String("/Data/sesp/ESSL");
         System::SE_InsertDirectory((const char*)tempDir);
 #endif
+
+        // wave文件的路径.
+        tempDir = tempSEPath + String("/Data/sewf");
+        System::SE_InsertDirectory((const char*)tempDir);
 
         // 其他image文件路径.
         tempDir = tempSEPath + String("/Data/Im");
