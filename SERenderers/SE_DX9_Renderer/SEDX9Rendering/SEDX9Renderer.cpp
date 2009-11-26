@@ -519,7 +519,7 @@ void DX9Renderer::EnableUserClipPlane(int i, const Plane3f& rPlane)
         -rPlane.Constant);
     Matrix4f mat4fWorldViewMatrix = m_WorldMatrix * m_ViewMatrix;
     Matrix4f mat4fWVMatrixInv;
-	mat4fWorldViewMatrix.GetInverse(mat4fWVMatrixInv);
+    mat4fWorldViewMatrix.GetInverse(mat4fWVMatrixInv);
     // Plane * ((M^(-1))^T),把平面从模型空间变换到view空间下.
     Vector4f vec4fCPlane = mat4fWVMatrixInv * vec4fMPlane;
 
