@@ -19,7 +19,7 @@ attribute highp vec4 SE_TexCoord1;
 //----------------------------------------------------------------------------
 void main()
 {
-    // Get bones id.
+    // Get bone ids.
     int iBone1 = int(SE_TexCoord1.x);
     int iBone2 = int(SE_TexCoord1.y);
     int iBone3 = int(SE_TexCoord1.z);
