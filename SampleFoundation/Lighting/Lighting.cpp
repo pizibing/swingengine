@@ -90,36 +90,35 @@ void Lighting::OnTerminate()
 void Lighting::OnIdle()
 {
     // Lights motion.
-    static double dCurTime = 0.0f;
-    static double dLastTime = 0.0f;
+    static double dCurTime = 0.0;
+    static double dLastTime = 0.0;
+    static double dDiffTime = 0.0;
     static float fAngel0 = 0.0f;
-    static float fAngel1 = Mathf::PI;
+    static float fAngel0Speed = 2.0f;
     static float fRadius0 = 4.0f;
+    static float fAngel1 = Mathf::PI;
+    static float fAngel1Speed = 2.0f;
     static float fRadius1 = 4.0f;
     dCurTime = System::SE_GetTime();
-    if( dCurTime - dLastTime > 0.0001f )
-    {
-        dLastTime = dCurTime;
-        fAngel0 += 0.002f;
-        fAngel1 -= 0.002f;
-        Matrix3f mat3fRot;
-
-        mat3fRot.FromEulerAnglesXYZ(0.0f, -0.002f, 0.0f);
-        m_spLight0Node->Local.SetRotate(m_spLight0Node->Local.GetRotate()
-            *mat3fRot);
-        float fX = fRadius0*Mathf::Cos(fAngel0);
-        float fZ = fRadius0*Mathf::Sin(fAngel0);
-        m_spLight0Node->Local.SetTranslate(Vector3f(fX, m_fLight0Height, fZ));
-        m_spLight0Node->UpdateGS();
-
-        mat3fRot.FromEulerAnglesXYZ(0.0f, 0.002f, 0.0f);
-        m_spLight1Node->Local.SetRotate(m_spLight1Node->Local.GetRotate()
-            *mat3fRot);
-        fX = fRadius1*Mathf::Cos(fAngel1);
-        fZ = fRadius1*Mathf::Sin(fAngel1);
-        m_spLight1Node->Local.SetTranslate(Vector3f(fX, m_fLight1Height, fZ));
-        m_spLight1Node->UpdateGS();
-    }
+    dDiffTime = dCurTime - dLastTime;
+    dLastTime = dCurTime;
+    fAngel0 +=fAngel0Speed*(float)dDiffTime;
+    fAngel1 -= fAngel1Speed*(float)dDiffTime;
+    Matrix3f mat3fRot;
+    mat3fRot.FromEulerAnglesXYZ(0.0f, -fAngel0Speed, 0.0f);
+    m_spLight0Node->Local.SetRotate(m_spLight0Node->Local.GetRotate()
+        *mat3fRot);
+    float fX = fRadius0*Mathf::Cos(fAngel0);
+    float fZ = fRadius0*Mathf::Sin(fAngel0);
+    m_spLight0Node->Local.SetTranslate(Vector3f(fX, m_fLight0Height, fZ));
+    m_spLight0Node->UpdateGS();
+    mat3fRot.FromEulerAnglesXYZ(0.0f, fAngel1Speed, 0.0f);
+    m_spLight1Node->Local.SetRotate(m_spLight1Node->Local.GetRotate()
+        *mat3fRot);
+    fX = fRadius1*Mathf::Cos(fAngel1);
+    fZ = fRadius1*Mathf::Sin(fAngel1);
+    m_spLight1Node->Local.SetTranslate(Vector3f(fX, m_fLight1Height, fZ));
+    m_spLight1Node->UpdateGS();
 
     MeasureTime();
 
