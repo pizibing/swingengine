@@ -18,7 +18,6 @@ const float c_one = 1.0;
 
 // Renderer constants.
 uniform mat4  WVPMatrix;
-uniform mat4  WMatrix;
 uniform vec3  CameraModelPosition;
 uniform vec3  MaterialEmissive;
 uniform vec3  MaterialAmbient;
