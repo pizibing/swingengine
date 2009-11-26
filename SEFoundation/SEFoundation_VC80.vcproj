@@ -1702,6 +1702,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEEffects\SESkinEffect.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEEffects\SESkinEffect.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEEffects\SESkinMaterialEffect.cpp"
 				>
 			</File>

@@ -22,21 +22,18 @@
 #define Swing_SkinMaterialEffect_H
 
 #include "SEFoundationLIB.h"
-#include "SEShaderEffect.h"
+#include "SESkinEffect.h"
 
 namespace Swing
 {
 
-class Node;
-class Transformation;
-
 //----------------------------------------------------------------------------
-// 名称:skin material effect类
+// 名称:Skin material effect class
 // 说明:由GPU进行蒙皮顶点计算.所依附的node必须带有material state对象.
 // 作者:Sun Che
 // 时间:20080904
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API SkinMaterialEffect : public ShaderEffect
+class SE_FOUNDATION_API SkinMaterialEffect : public SkinEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -52,25 +49,8 @@ protected:
 
     virtual void OnLoadPrograms(int iPass, Program* pVProgram,
         Program* pPProgram, Program* pGProgram);
-    virtual void OnPreApplyEffect(Renderer* pRenderer, bool bPrimaryEffect);
 
-    int m_iBoneCount;          // bc
-    Node** m_apBones;          // bones[bc]
-    Transformation* m_aOffset; // offset[bc]
-
-    // skin matrix最大数量
-    enum { SM_COUNT = 32 };
-    // 针对各profile,skin matrix实际可用数量.
-	enum 
-    { 
-        VS_2_0_COUNT = 32,
-        VS_3_0_COUNT = 32,
-        ARBVP1_COUNT = 22,
-        VP40_COUNT = 32,
-        SFTVP1_COUNT = 22
-    };
-    static Matrix4f ms_aSkinMatrix[SM_COUNT];
-    static bool ms_bSkinMatrixUCInitialized;
+    static bool ms_bUCInitialized;
 };
 
 typedef SmartPointer<SkinMaterialEffect> SkinMaterialEffectPtr;
