@@ -35,9 +35,9 @@ SE_IMPLEMENT_INITIALIZE(OGLES2Renderer);
 //----------------------------------------------------------------------------
 void OGLES2Renderer::Initialize()
 {
-	RendererConstant::OnReleaseID =
+    RendererConstant::OnReleaseID =
         &OGLES2Renderer::OnReleaseRendererConstantID;
-	UserConstant::OnReleaseID = &OGLES2Renderer::OnReleaseUserConstantID;
+    UserConstant::OnReleaseID = &OGLES2Renderer::OnReleaseUserConstantID;
     SamplerInformation::OnReleaseID = 
         &OGLES2Renderer::OnReleaseSamplerInformationID;
 
@@ -99,13 +99,13 @@ void OGLES2Renderer::InitializeState()
     m_iMaxUserClipPlanes = 26;
 
     // 获取vertex program profile.
-    m_iMaxVShaderProfile = -1;
+    m_iMaxVShaderProfile = Renderer::OES2VP1;
 
     // 获取geometry program profile.
-    m_iMaxGShaderProfile = -1;
+    m_iMaxGShaderProfile = Renderer::GS_UNSUPPORTED;
 
     // 获取fragment program profile.
-    m_iMaxPShaderProfile = -1;
+    m_iMaxPShaderProfile = Renderer::OES2FP1;
 
     // OpenGL ES2不支持MRT.	
     m_iMaxRenderTargets = 1;
