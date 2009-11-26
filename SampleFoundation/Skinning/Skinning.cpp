@@ -56,7 +56,7 @@ bool Skinning::OnInitialize()
     m_Culler.SetCamera(m_spCamera);
     m_Culler.ComputeUnculledSet(m_spScene);
 
-    InitializeCameraMotion(0.01f, 0.001f);
+    InitializeCameraMotion(0.1f, 0.01f);
     InitializeObjectMotion(m_spScene);
     return true;
 }
