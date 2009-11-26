@@ -1,0 +1,17 @@
+precision mediump float;
+
+// Vertex shader output variables. 
+varying vec4 kVertexColor;
+varying vec2 kBaseTCoord;
+
+uniform sampler2D p_BaseSampler;
+
+//----------------------------------------------------------------------------
+void main()
+{
+    vec4 kBaseColor = texture2D(p_BaseSampler, kBaseTCoord);
+
+    gl_FragColor.rgb = kBaseColor.rgb;
+    gl_FragColor.a = kVertexColor.a*kBaseColor.a;
+}
+//----------------------------------------------------------------------------

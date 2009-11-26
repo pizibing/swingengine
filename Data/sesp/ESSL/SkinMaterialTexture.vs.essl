@@ -1,0 +1,50 @@
+#define MAX_SKIN_MATRIX_COUNT 24
+
+struct SkinMatrix
+{
+    mat4 M;
+};
+
+// Renderer constants.
+uniform highp mat4 VPMatrix;
+uniform highp vec4 MaterialDiffuse;
+
+// User constants.
+uniform SkinMatrix SkinArray[MAX_SKIN_MATRIX_COUNT];
+
+// Vertex shader input variables.
+attribute highp vec4 SE_ModelPosition;
+attribute highp vec4 SE_ModelNormal;
+attribute highp vec2 SE_TexCoord0;
+attribute highp vec4 SE_TexCoord1;
+attribute highp vec4 SE_TexCoord2;
+
+// Vertex shader output variables. 
+varying vec4 kVertexColor;
+varying vec2 kBaseTCoord;
+
+//----------------------------------------------------------------------------
+void main()
+{
+    // Get bone ids.
+    int iBone1 = int(SE_TexCoord2.x);
+    int iBone2 = int(SE_TexCoord2.y);
+    int iBone3 = int(SE_TexCoord2.z);
+    int iBone4 = int(SE_TexCoord2.w);
+
+    // Get world space skinned position.
+    vec4 kWorldPosition = SkinArray[iBone1].M*SE_ModelPosition*SE_TexCoord1.x;
+    kWorldPosition += SkinArray[iBone2].M*SE_ModelPosition*SE_TexCoord1.y;
+    kWorldPosition += SkinArray[iBone3].M*SE_ModelPosition*SE_TexCoord1.z;
+    kWorldPosition += SkinArray[iBone4].M*SE_ModelPosition*SE_TexCoord1.w;
+
+    // Transform the skinned position from world space to clip space.
+    gl_Position = VPMatrix*kWorldPosition;
+
+    // Pass through diffuse color.
+    kVertexColor = MaterialDiffuse;
+
+    // Pass through texture coord.
+    kBaseTCoord = SE_TexCoord0;
+}
+//----------------------------------------------------------------------------
