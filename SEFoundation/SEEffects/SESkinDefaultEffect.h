@@ -61,12 +61,13 @@ protected:
     // skin matrix最大数量
     enum { SM_COUNT = 32 };
     // 针对各profile,skin matrix实际可用数量.
-	enum 
+    enum 
     { 
         VS_2_0_COUNT = 32,
         VS_3_0_COUNT = 32,
         ARBVP1_COUNT = 22,
         VP40_COUNT = 32,
+        OES2VP1_COUNT = 24,
         SFTVP1_COUNT = 22
     };
     static Matrix4f ms_aSkinMatrix[SM_COUNT];

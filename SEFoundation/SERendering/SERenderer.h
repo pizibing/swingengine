@@ -163,6 +163,7 @@ public:
         VS_4_0,   // DirectX10
         ARBVP1,   // OpenGL
         VP40,     // OpenGL
+        OES2VP1,  // OpenGL ES2.0
         SFTVP1,   // Software
         MAX_VP_TYPES
     };
@@ -187,6 +188,7 @@ public:
         PS_4_0,    // DirectX10
         ARBFP1,    // OpenGL
         FP40,      // OpenGL
+        OES2FP1,   // OpenGL ES2.0
         SFTFP1,    // Software
         MAX_PP_TYPES
     };

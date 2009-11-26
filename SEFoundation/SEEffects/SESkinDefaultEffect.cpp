@@ -103,38 +103,60 @@ void SkinDefaultEffect::OnLoadPrograms(int, Program* pVProgram, Program*,
 {
     if( !ms_bSkinMatrixUCInitialized )
     {
-        char tempName[15]; // "SkinMatrix[xx]"
-
         int iMaxCount = 0;
         int iVProfile = VertexProgramCatalog::GetActive()->GetProfile();
 
-        switch( iVProfile )
+        if( iVProfile == Renderer::OES2VP1  )
         {
-        case Renderer::VS_2_0:
-            iMaxCount = VS_2_0_COUNT;
-            break;
-        case Renderer::VS_3_0:
-            iMaxCount = VS_3_0_COUNT;
-            break;
-        case Renderer::ARBVP1:
-            iMaxCount = ARBVP1_COUNT;
-            break;
-        case Renderer::VP40:
-            iMaxCount = VP40_COUNT;
-            break;
-        case Renderer::SFTVP1:
-            iMaxCount = SFTVP1_COUNT;
-            break;
-        }
+            char tempName[16]; // "SkinArray[xx].M"
 
-        for( int i = 0; i < iMaxCount; i++ )
+            iMaxCount = OES2VP1_COUNT;
+            for( int i = 0; i < iMaxCount; i++ )
+            {
+                System::SE_Sprintf(tempName, 16, "SkinArray[%d].M", i);
+                UserConstant* pUC = pVProgram->GetUC(tempName);
+                SE_ASSERT( pUC );
+            
+                if( pUC )
+                {
+                    pUC->SetDataSource((float*)ms_aSkinMatrix[i]);
+                }
+            }
+        }
+        else
         {
-            System::SE_Sprintf(tempName, 15, "SkinMatrix[%d]", i);
-            UserConstant* pUC = pVProgram->GetUC(tempName);
-            SE_ASSERT( pUC );
-        
-            if( pUC )
-                pUC->SetDataSource((float*)ms_aSkinMatrix[i]);
+            char tempName[15]; // "SkinMatrix[xx]"
+
+            switch( iVProfile )
+            {
+            case Renderer::VS_2_0:
+                iMaxCount = VS_2_0_COUNT;
+                break;
+            case Renderer::VS_3_0:
+                iMaxCount = VS_3_0_COUNT;
+                break;
+            case Renderer::ARBVP1:
+                iMaxCount = ARBVP1_COUNT;
+                break;
+            case Renderer::VP40:
+                iMaxCount = VP40_COUNT;
+                break;
+            case Renderer::SFTVP1:
+                iMaxCount = SFTVP1_COUNT;
+                break;
+            }
+
+            for( int i = 0; i < iMaxCount; i++ )
+            {
+                System::SE_Sprintf(tempName, 15, "SkinMatrix[%d]", i);
+                UserConstant* pUC = pVProgram->GetUC(tempName);
+                SE_ASSERT( pUC );
+            
+                if( pUC )
+                {
+                    pUC->SetDataSource((float*)ms_aSkinMatrix[i]);
+                }
+            }
         }
 
         ms_bSkinMatrixUCInitialized = true;
