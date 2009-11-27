@@ -1411,6 +1411,14 @@
 		DD849050109F30450031E135 /* SEUnculledSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9840FF8A74A0008BD07 /* SEUnculledSet.cpp */; };
 		DD849051109F30450031E135 /* SEBumpMapL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529BC486102B1D800080D64F /* SEBumpMapL1Effect.cpp */; };
 		DD849052109F30450031E135 /* SEParallaxMapL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529BC488102B1D800080D64F /* SEParallaxMapL1Effect.cpp */; };
+		DD8B7DC610BF7766001B5D4F /* SESkinEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8B7DC410BF7766001B5D4F /* SESkinEffect.cpp */; };
+		DD8B7DC710BF7766001B5D4F /* SESkinEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8B7DC510BF7766001B5D4F /* SESkinEffect.h */; };
+		DD8B7DC810BF7766001B5D4F /* SESkinEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8B7DC410BF7766001B5D4F /* SESkinEffect.cpp */; };
+		DD8B7DC910BF7766001B5D4F /* SESkinEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8B7DC510BF7766001B5D4F /* SESkinEffect.h */; };
+		DD8B7DCA10BF7766001B5D4F /* SESkinEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8B7DC410BF7766001B5D4F /* SESkinEffect.cpp */; };
+		DD8B7DCB10BF7766001B5D4F /* SESkinEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8B7DC510BF7766001B5D4F /* SESkinEffect.h */; };
+		DD8B7DCC10BF7766001B5D4F /* SESkinEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8B7DC410BF7766001B5D4F /* SESkinEffect.cpp */; };
+		DD8B7DCD10BF7766001B5D4F /* SESkinEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8B7DC510BF7766001B5D4F /* SESkinEffect.h */; };
 		DD97754110A006970070FC01 /* SEIntersector.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC11D30E9C87DF003AD3C4 /* SEIntersector.h */; };
 		DD97754210A006970070FC01 /* SEIntrRay3Sphere3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC11D50E9C87DF003AD3C4 /* SEIntrRay3Sphere3.h */; };
 		DD97754310A006970070FC01 /* SEIntrRay3Triangle3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC11D70E9C87DF003AD3C4 /* SEIntrRay3Triangle3.h */; };
@@ -2436,6 +2444,8 @@
 		52EC13E60E9C8D9E003AD3C4 /* SEContSphere3.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEContSphere3.cpp; path = SEContainment/SEContSphere3.cpp; sourceTree = "<group>"; };
 		52EC13E70E9C8D9E003AD3C4 /* SEContSphere3.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEContSphere3.h; path = SEContainment/SEContSphere3.h; sourceTree = "<group>"; };
 		DD848E63109F29580031E135 /* libSEFoundationd_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEFoundationd_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD8B7DC410BF7766001B5D4F /* SESkinEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SESkinEffect.cpp; path = SEEffects/SESkinEffect.cpp; sourceTree = "<group>"; };
+		DD8B7DC510BF7766001B5D4F /* SESkinEffect.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SESkinEffect.h; path = SEEffects/SESkinEffect.h; sourceTree = "<group>"; };
 		DD97753E10A006510070FC01 /* libSEFoundation_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEFoundation_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -2807,6 +2817,8 @@
 		52EC11C50E9C85DB003AD3C4 /* SEEffects */ = {
 			isa = PBXGroup;
 			children = (
+				DD8B7DC410BF7766001B5D4F /* SESkinEffect.cpp */,
+				DD8B7DC510BF7766001B5D4F /* SESkinEffect.h */,
 				529BC486102B1D800080D64F /* SEBumpMapL1Effect.cpp */,
 				529BC487102B1D800080D64F /* SEBumpMapL1Effect.h */,
 				529BC488102B1D800080D64F /* SEParallaxMapL1Effect.cpp */,
@@ -3495,6 +3507,7 @@
 				52AFF98C0FF8A74A0008BD07 /* SEUnculledSet.h in Headers */,
 				529BC48F102B1D800080D64F /* SEBumpMapL1Effect.h in Headers */,
 				529BC491102B1D800080D64F /* SEParallaxMapL1Effect.h in Headers */,
+				DD8B7DC910BF7766001B5D4F /* SESkinEffect.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3750,6 +3763,7 @@
 				52AFF9890FF8A74A0008BD07 /* SEUnculledSet.h in Headers */,
 				529BC48B102B1D800080D64F /* SEBumpMapL1Effect.h in Headers */,
 				529BC48D102B1D800080D64F /* SEParallaxMapL1Effect.h in Headers */,
+				DD8B7DC710BF7766001B5D4F /* SESkinEffect.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4005,6 +4019,7 @@
 				DD848F74109F2FCF0031E135 /* SEUnculledSet.h in Headers */,
 				DD848F75109F2FCF0031E135 /* SEBumpMapL1Effect.h in Headers */,
 				DD848F76109F2FCF0031E135 /* SEParallaxMapL1Effect.h in Headers */,
+				DD8B7DCB10BF7766001B5D4F /* SESkinEffect.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4260,6 +4275,7 @@
 				DD97763610A006970070FC01 /* SEUnculledSet.h in Headers */,
 				DD97763710A006970070FC01 /* SEBumpMapL1Effect.h in Headers */,
 				DD97763810A006970070FC01 /* SEParallaxMapL1Effect.h in Headers */,
+				DD8B7DCD10BF7766001B5D4F /* SESkinEffect.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4639,6 +4655,7 @@
 				52AFF98B0FF8A74A0008BD07 /* SEUnculledSet.cpp in Sources */,
 				529BC48E102B1D800080D64F /* SEBumpMapL1Effect.cpp in Sources */,
 				529BC490102B1D800080D64F /* SEParallaxMapL1Effect.cpp in Sources */,
+				DD8B7DC810BF7766001B5D4F /* SESkinEffect.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4866,6 +4883,7 @@
 				52AFF9880FF8A74A0008BD07 /* SEUnculledSet.cpp in Sources */,
 				529BC48A102B1D800080D64F /* SEBumpMapL1Effect.cpp in Sources */,
 				529BC48C102B1D800080D64F /* SEParallaxMapL1Effect.cpp in Sources */,
+				DD8B7DC610BF7766001B5D4F /* SESkinEffect.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5093,6 +5111,7 @@
 				DD849050109F30450031E135 /* SEUnculledSet.cpp in Sources */,
 				DD849051109F30450031E135 /* SEBumpMapL1Effect.cpp in Sources */,
 				DD849052109F30450031E135 /* SEParallaxMapL1Effect.cpp in Sources */,
+				DD8B7DCA10BF7766001B5D4F /* SESkinEffect.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5320,6 +5339,7 @@
 				DD97771210A007010070FC01 /* SEUnculledSet.cpp in Sources */,
 				DD97771310A007010070FC01 /* SEBumpMapL1Effect.cpp in Sources */,
 				DD97771410A007010070FC01 /* SEParallaxMapL1Effect.cpp in Sources */,
+				DD8B7DCC10BF7766001B5D4F /* SESkinEffect.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
