@@ -118,7 +118,7 @@ WglES2Renderer::WglES2Renderer(EGLNativeWindowType hWnd,
     }
 
     // get configs.
-    if( !eglGetConfigs(m_eglDisplay, NULL, 0, &iConfigCount) )
+    if( !eglGetConfigs(m_eglDisplay, 0, 0, &iConfigCount) )
     {
         SE_ASSERT( false );
         return;
@@ -134,7 +134,7 @@ WglES2Renderer::WglES2Renderer(EGLNativeWindowType hWnd,
 
     // create a surface.
     m_eglSurface = eglCreateWindowSurface(m_eglDisplay, tempConfig, 
-        (EGLNativeWindowType)hWnd, NULL);
+        (EGLNativeWindowType)hWnd, 0);
     if( m_eglSurface == EGL_NO_SURFACE )
     {
         SE_ASSERT( false );

@@ -167,7 +167,7 @@ bool OGLES2Program::OnLoadProgram(Renderer* pRenderer,
         SE_ASSERT( ruiID != 0 );
 
         // Load the shader source.
-        glShaderSource(ruiID, 1, &acProgramText, NULL);
+        glShaderSource(ruiID, 1, &acProgramText, 0);
    
         // Compile the shader.
         glCompileShader(ruiID);
@@ -182,7 +182,7 @@ bool OGLES2Program::OnLoadProgram(Renderer* pRenderer,
             if( iInfoLen > 1 )
             {
                 char* acInfoLog = SE_NEW char[iInfoLen];
-                glGetShaderInfoLog(ruiID, iInfoLen, NULL, acInfoLog); 
+                glGetShaderInfoLog(ruiID, iInfoLen, 0, acInfoLog); 
                 SE_ASSERT( false );
                 SE_DELETE[] acInfoLog;
             }
@@ -229,7 +229,7 @@ void OGLES2Program::ParseLinkedProgram(unsigned int uiProgram,
             int iNumFloats, iUnit;
 
             // Get attribute info.
-            glGetActiveAttrib(uiProgram, i, iMaxLen, NULL, &iSize, &eType,
+            glGetActiveAttrib(uiProgram, i, iMaxLen, 0, &iSize, &eType,
                 acName);
 
             // Get attribute location, this will be used as a binding id.
@@ -315,7 +315,7 @@ void OGLES2Program::ParseLinkedProgram(unsigned int uiProgram,
             std::string tempName;
 
             // Get the uniform info.
-            glGetActiveUniform(uiProgram, i, iMaxLen, NULL, &iSize, &eType,
+            glGetActiveUniform(uiProgram, i, iMaxLen, 0, &iSize, &eType,
                 acName);
 
             iNumFloats = 0;

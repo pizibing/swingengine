@@ -393,7 +393,7 @@ bool OGLES2Renderer::OnLinkPrograms(VertexProgram* pVProgram,
         {
             char* acInfoLog = SE_NEW char[iInfoLen];
 
-            glGetProgramInfoLog(uiProgram, iInfoLen, NULL, acInfoLog);           
+            glGetProgramInfoLog(uiProgram, iInfoLen, 0, acInfoLog);           
             SE_ASSERT( false );
             SE_DELETE acInfoLog;
         }
