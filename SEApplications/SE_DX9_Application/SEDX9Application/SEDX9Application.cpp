@@ -30,7 +30,6 @@
 //#else
 #pragma comment(lib, "d3dx9.lib")
 //#endif
-#pragma comment(lib, "dxerr9.lib")
 
 // ¾²Ì¬Á´½ÓOpenAL1.0¿â.
 #pragma comment(lib, "openal32.lib")
