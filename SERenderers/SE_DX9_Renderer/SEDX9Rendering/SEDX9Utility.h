@@ -29,7 +29,7 @@
 
 #include <d3d9.h>
 #include <d3dx9tex.h>
-#include <dxerr9.h>
+
 #include <Cg/Cg.h>
 #include <Cg/cgD3D9.h>
 
