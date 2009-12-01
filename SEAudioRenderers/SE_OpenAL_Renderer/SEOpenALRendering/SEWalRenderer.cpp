@@ -30,12 +30,12 @@ WalRenderer::WalRenderer()
     m_pALContext = 0;
 
     // 创建device和context.
-    m_pALDevice = alcOpenDevice(NULL);
+    m_pALDevice = alcOpenDevice(0);
     SE_ASSERT( m_pALDevice );
 
     if( m_pALDevice )
     {
-        m_pALContext = alcCreateContext(m_pALDevice, NULL);
+        m_pALContext = alcCreateContext(m_pALDevice, 0);
         SE_ASSERT( m_pALContext );
         alcMakeContextCurrent(m_pALContext);
     }
@@ -46,7 +46,7 @@ WalRenderer::WalRenderer()
 WalRenderer::~WalRenderer()
 {
     // 释放context和device.
-    alcMakeContextCurrent(NULL);
+    alcMakeContextCurrent(0);
     alcDestroyContext(m_pALContext);
     alcCloseDevice(m_pALDevice);
 }
