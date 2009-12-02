@@ -31,11 +31,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:render state block资源类
-// 说明:用于支持DirectX 10的RenderState object资源模式,
+// Name:Render state block class
+// Description:用于支持DirectX 10的RenderState object资源模式,
 //     同时支持旧式的DirectX 9/OpenGL2的SetRenderState函数命令模式.
-// 作者:Sun Che
-// 时间:20090524
+// Author:Sun Che
+// Date:20090524
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API RenderStateBlock : public Object, public Bindable
 {

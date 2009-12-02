@@ -61,19 +61,18 @@ class UnculledSet;
 class RenderStateBlock;
 
 //----------------------------------------------------------------------------
-// 名称:渲染器基类
-// 说明:
-// 作者:Sun Che
-// 时间:20080320
+// Name:Renderer class
+// Description:Abstract renderer base class
+// Author:Sun Che
+// Date:20080320
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API Renderer
 {
 public:
-    // 虚基类.
-    // 渲染器抽象API.所有图形管线API都要实现这层.
+    // Abstract base class.
     virtual ~Renderer(void);
 
-    // RTTI信息.
+    // RTTI.
     enum
     {
         OPENGL,
@@ -84,53 +83,49 @@ public:
         SOFTWARE,
         MAX_RENDERER_TYPES
     };
-    virtual int GetType(void) const = 0; // 由渲染器派生类实现
+    virtual int GetType(void) const = 0;
 
-    // 装载shader程序时用到的渲染器标识符.
-    virtual const char* GetExtension(void) const = 0;
-    virtual char GetCommentCharacter(void) const = 0;
-
-    // 摄像机访问.
+    // Camera access.
     void SetCamera(Camera* pCamera);
     inline Camera* GetCamera(void) const;
 
-    // frame buffer参数.
+    // Frame buffer parameters.
     inline FrameBuffer::FormatType GetFormatType(void) const;
     inline FrameBuffer::DepthType GetDepthType(void) const;
     inline FrameBuffer::StencilType GetStencilType(void) const;
     inline FrameBuffer::BufferingType GetBufferingType(void) const;
     inline FrameBuffer::MultisamplingType GetMultisamplingType(void) const;
 
-    // window参数.
+    // Window parameters.
     inline int GetWidth(void) const;
     inline int GetHeight(void) const;
     virtual void Resize(int iWidth, int iHeight);
     virtual void ToggleFullscreen(void);
 
-    // back buffer clear color.
+    // Back buffer clear color.
     inline void SetClearColor(const ColorRGBA& rClearColor);
     inline const ColorRGBA& GetClearColor(void) const;
 
-    // depth buffer clear value.
+    // Depth buffer clear value.
     inline void SetClearDepth(float fClearDepth);
     inline float GetClearDepth(void) const;
 
-    // stencil buffer clear value.
+    // Stencil buffer clear value.
     inline void SetClearStencil(unsigned int uiClearValue);
     inline unsigned int GetClearStencil(void) const;
 
-    // pre-draw和post-draw,DIRECTX9 API需要.
+    // Pre-draw/Post-draw, DIRECTX9 API specific stuff.
     virtual bool BeginScene(void);
     virtual void EndScene(void);
 
-    // 全窗口buffer操作.
+    // Full window buffer operation.
     virtual void ClearBackBuffer(void) = 0;
     virtual void ClearZBuffer(void) = 0;
     virtual void ClearStencilBuffer(void) = 0;
     virtual void ClearBuffers(void) = 0;
     virtual void DisplayBackBuffer(void) = 0;
 
-    // 特定窗口buffer操作.
+    // Sub-window buffer operation.
     virtual void ClearBackBuffer(int iXPos, int iYPos, int iWidth,
         int iHeight) = 0;
     virtual void ClearZBuffer(int iXPos, int iYPos, int iWidth,
@@ -140,11 +135,11 @@ public:
     virtual void ClearBuffers(int iXPos, int iYPos, int iWidth,
         int iHeight) = 0;
 
-    // 对象渲染入口.
+    // Object rendering entrypoint.
     virtual void DrawScene(UnculledSet& rVisibleSet);
     virtual void Draw(Geometry* pGeometry);
 
-    // 文本渲染.
+    // Text rendering.
     virtual int LoadFont(const char* acFace, int iSize, bool bBold,
         bool bItalic) = 0;
     virtual void UnloadFont(int iFontID) = 0;
@@ -152,10 +147,10 @@ public:
     virtual void Draw(int iX, int iY, const ColorRGBA& rColor,
         const char* pText) = 0;
 
-    // 2D渲染.
+    // 2D rendering.
     virtual void Draw(const unsigned char* aucBuffer) = 0;
 
-    // vertex shader profile信息.
+    // Vertex shader profiles.
     enum
     {
         VS_2_0,   // DirectX9
@@ -168,9 +163,9 @@ public:
         MAX_VP_TYPES
     };
 
-    // geometry shader profile信息.
-    // geometry shader stage是一个可选的管线stage,
-    // 当前只有DirectX10,OpenGL2及以上版本支持.
+    // Geometry shader profiles.
+    // Geometry shader stage is an optional stage,
+    // DirectX10 and OpenGL3 could support it for now.
     enum
     {
         GS_UNSUPPORTED, // Unsupported by current renderer
@@ -180,7 +175,7 @@ public:
         MAX_GP_TYPES
     };
 
-    // pixel shader profile信息.
+    // Pixel shader profile.
     enum
     {
         PS_2_0,    // DirectX9
@@ -193,7 +188,7 @@ public:
         MAX_PP_TYPES
     };
 
-    // 渲染器能力限制检测.
+    // Renderer capability query.
     inline int GetMaxLights(void) const;
     inline int GetMaxColors(void) const;
     inline int GetMaxTCoords(void) const;
@@ -207,10 +202,10 @@ public:
     inline int GetMaxPShaderProfile(void) const;
     inline int GetMaxRenderTargets(void) const;
 
-    // shader compiler查询.
+    // Shader compiler existence query.
     inline bool HasShaderCompiler(void) const;
 
-    // 全局渲染状态管理.
+    // Render states management.
     virtual void SetAlphaState(AlphaState* pState);
     virtual void SetCullState(CullState* pState);
     virtual void SetMaterialState(MaterialState* pState);
@@ -304,7 +299,7 @@ public:
     inline const Matrix4f& GetProjectionMatrix(void) const;
 
 protected:
-    // 虚基类
+    // Abstract base class.
     Renderer(FrameBuffer::FormatType eFormat, FrameBuffer::DepthType eDepth,
         FrameBuffer::StencilType eStencil,
         FrameBuffer::BufferingType eBuffering,
@@ -474,7 +469,7 @@ protected:
     // 对象渲染.
     void ApplyEffect(ShaderEffect* pEffect, bool& rbPrimaryEffect);
 
-// 数据成员:
+// Data member:
 protected:
     // 设备能力与资源限制,由渲染器派生类负责检测并设置.
     int m_iMaxLights;

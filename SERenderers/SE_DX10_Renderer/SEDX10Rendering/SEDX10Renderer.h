@@ -31,20 +31,16 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:DirectX10 Renderer类
-// 说明:
-// 作者:Sun Che
-// 时间:20090519
+// Name:DirectX10 Renderer class
+// Description:
+// Author:Sun Che
+// Date:20090519
 //----------------------------------------------------------------------------
 class SE_RENDERER_API DX10Renderer : public Renderer
 {
 public:
     // RTTI.
     virtual int GetType(void) const { return Renderer::DIRECTX10; }
-
-    // 装载shader程序时所需的渲染器相关信息.
-    virtual const char* GetExtension(void) const { return "dx10"; }
-    virtual char GetCommentCharacter(void) const { return '/'; }
 
     DX10Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
         FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,
@@ -194,6 +190,12 @@ protected:
     // 字体库.
     std::vector<ID3DX10Font*> m_FontArray;
 
+    // Cg runtime相关数据.
+    CGcontext m_CgContext;
+    CGprofile m_CgLatestVProfile;
+    CGprofile m_CgLatestGProfile;
+    CGprofile m_CgLatestPProfile;
+
     // 错误检查与异常获取.
     static HRESULT ms_hResult;
 
@@ -208,12 +210,6 @@ protected:
     static DWORD ms_adwTexMinFilter[];
     static DWORD ms_adwTexMipFilter[];
     static DWORD ms_adwTexWrapMode[];
-
-    // input layout semantic names.
-    static const std::string ms_PositionStr;
-    static const std::string ms_NormalStr;
-    static const std::string ms_ColorStr;
-    static const std::string ms_TexCoordStr;
 };
 
 }

@@ -154,15 +154,26 @@ DX10Renderer::DX10Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     m_iMaxLights = 8;
     m_aspLight = SE_NEW ObjectPtr[m_iMaxLights];
 
-    // Cg runtime相关.
-    cgD3D10SetDevice(m_CgContext, m_pDX10Device);
-    SE_DEBUG_CG_PROGRAM;
-    m_LatestVProfile = cgD3D10GetLatestVertexProfile();
-    m_LatestGProfile = cgD3D10GetLatestGeometryProfile();
-    m_LatestPProfile = cgD3D10GetLatestPixelProfile();
+    // Cg runtime stuff begin.
 
-    // 创建并设置默认rasterizer state.
-    // Disable culling
+    // Create Cg context.
+    m_CgContext = cgCreateContext();
+    SE_DX10_DEBUG_CG_PROGRAM;
+    cgSetParameterSettingMode(m_CgContext, CG_DEFERRED_PARAMETER_SETTING);
+    SE_DX10_DEBUG_CG_PROGRAM;
+
+    // Bind the Cg context to the DX10 device.
+    cgD3D10SetDevice(m_CgContext, m_pDX10Device);
+    SE_DX10_DEBUG_CG_PROGRAM;
+
+    // Get latest profiles.
+    m_CgLatestVProfile = cgD3D10GetLatestVertexProfile();
+    m_CgLatestGProfile = cgD3D10GetLatestGeometryProfile();
+    m_CgLatestPProfile = cgD3D10GetLatestPixelProfile();
+
+    // Cg runtime stuff end.
+
+    // Create a default rasterizer state.
     D3D10_RASTERIZER_DESC tempRSDesc;
     tempRSDesc.FillMode = D3D10_FILL_SOLID;
     tempRSDesc.CullMode = D3D10_CULL_BACK;
@@ -190,13 +201,13 @@ DX10Renderer::DX10Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
 //----------------------------------------------------------------------------
 DX10Renderer::~DX10Renderer()
 {
-    // 释放所有字体.
+    // Release all fonts.
     for( int i = 0; i < (int)m_FontArray.size(); i++ )
     {
         UnloadFont(i);
     }
 
-    // 清理cursor.
+    // Clear cursor.
     if( !m_bCursorVisible )
     {
         ShowCursor(true);
@@ -205,8 +216,21 @@ DX10Renderer::~DX10Renderer()
     m_pDX10RasterizerState->Release();
     m_pDX10Device->ClearState();
 
+    // Cg runtime stuff begin.
+
     cgD3D10SetDevice(m_CgContext, 0);
-    SE_DEBUG_CG_PROGRAM;
+    SE_DX10_DEBUG_CG_PROGRAM;
+
+    // Release Cg context.
+    cgDestroyContext(m_CgContext);
+
+    // If this assertion is triggered, then most likely there are some Cg
+    // runtime resources haven't been released. For example, maybe a geometry
+    // object is still alive(which should be released already), and it is 
+    // using a shader effect which itself is handling a Cg shader resource.
+    SE_DX10_DEBUG_CG_PROGRAM;
+
+    // Cg runtime stuff end.
 }
 //----------------------------------------------------------------------------
 void DX10Renderer::ToggleFullscreen()

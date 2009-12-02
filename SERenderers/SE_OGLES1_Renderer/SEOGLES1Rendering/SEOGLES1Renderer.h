@@ -41,7 +41,8 @@ class OGLES1FixedEffect;
 
 //----------------------------------------------------------------------------
 // 名称:OpenGL ES1 Renderer虚基类
-// 说明:OpenGL ES1不支持可编程管线,因此所有用于支持基类shader能力的纯虚函数都为空函数.
+// 说明:OpenGL ES1不支持可编程管线,因此所有用于支持基类shader能力的纯虚函数都
+//     为空函数.
 // 作者:Sun Che
 // 时间:20090606
 //----------------------------------------------------------------------------
@@ -52,10 +53,6 @@ class SE_RENDERER_API OGLES1Renderer : public Renderer
 public:
     // RTTI.
     virtual int GetType(void) const { return Renderer::OPENGLES1; }
-
-    // 不支持的基类功能.
-    virtual const char* GetExtension(void) const { return "ogles1"; }
-    virtual char GetCommentCharacter(void) const { return '0'; }
 
     // 虚基类.
     // 在OpenGL ES1 context创建后,由派生类构造函数调用InitializeState函数.

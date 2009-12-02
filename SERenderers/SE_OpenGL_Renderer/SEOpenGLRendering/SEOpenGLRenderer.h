@@ -66,10 +66,6 @@ public:
     // RTTI.
     virtual int GetType(void) const { return Renderer::OPENGL; }
 
-    // 装载shader程序时所需的渲染器相关信息.
-    virtual const char* GetExtension(void) const { return "ogl"; }
-    virtual char GetCommentCharacter(void) const { return '#'; }
-
     // 虚基类.
     // 在OpenGL context创建后,由派生类构造函数调用InitializeState函数.
     virtual ~OpenGLRenderer(void);

@@ -56,9 +56,6 @@ public:
     // RTTI.
     virtual int GetType(void) const { return Renderer::OPENGLES2; }
 
-    virtual const char* GetExtension(void) const { return "ogles2"; }
-    virtual char GetCommentCharacter(void) const { return '0'; }
-
     // 虚基类.
     // 在OpenGL ES2 context创建后,由派生类构造函数调用InitializeState函数.
     virtual ~OGLES2Renderer(void);

@@ -224,7 +224,7 @@ DX9Renderer::DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
             sizeof(SamplerInformation*));
     }
 
-    // Cg runtime相关.
+    // Cg runtime stuff begin.
 
     // 创建渲染器的Cg context.
     m_CgContext = cgCreateContext();
@@ -237,6 +237,8 @@ DX9Renderer::DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     SE_DX9_DEBUG_CG_PROGRAM;
     m_CgLatestVProfile = cgD3D9GetLatestVertexProfile();
     m_CgLatestPProfile = cgD3D9GetLatestPixelProfile();
+
+    // Cg runtime stuff end.
 
     // 初始化全局渲染状态为引擎默认设置.
     SetGlobalState(GlobalState::Default);
@@ -253,24 +255,24 @@ DX9Renderer::DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
 //----------------------------------------------------------------------------
 DX9Renderer::~DX9Renderer()
 {
-    // 释放所有字体.
+    // Release all fonts.
     for( int i = 0; i < (int)m_FontArray.size(); i++ )
     {
         UnloadFont(i);
     }
 
-    // 清理cursor.
+    // Clear cursor.
     if( !m_bCursorVisible )
     {
         ShowCursor(true);
     }
 
-    // Cg runtime相关.
+    // Cg runtime stuff begin.
 
     cgD3D9SetDevice(0);
     SE_DX9_DEBUG_CG_PROGRAM;
 
-    // 释放渲染器的Cg context.
+    // Release Cg context.
     cgDestroyContext(m_CgContext);
 
     // If this assertion is triggered, then most likely there are some Cg
@@ -278,6 +280,8 @@ DX9Renderer::~DX9Renderer()
     // object is still alive(which should be released already), and it is 
     // using a shader effect which itself is handling a Cg shader resource.
     SE_DX9_DEBUG_CG_PROGRAM;
+
+    // Cg runtime stuff end.
 }
 //----------------------------------------------------------------------------
 void DX9Renderer::ToggleFullscreen()

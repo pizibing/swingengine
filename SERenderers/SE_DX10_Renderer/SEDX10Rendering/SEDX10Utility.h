@@ -31,6 +31,7 @@
 #include <d3d10.h>
 #include <d3dx10tex.h>
 #include <dxerr.h>
+
 #include <Cg/Cg.h>
 #include <Cg/cgD3D10.h>
 
@@ -61,6 +62,17 @@
         (p) = 0; \
     } \
 }
+//----------------------------------------------------------------------------
+#ifdef _DEBUG
+#define SE_DX10_DEBUG_CG_PROGRAM \
+{ \
+    CGerror tempError; \
+    cgGetLastErrorString(&tempError); \
+    SE_ASSERT( tempError == CG_NO_ERROR ); \
+}
+#else
+#define SE_DX10_DEBUG_CG_PROGRAM
+#endif
 //----------------------------------------------------------------------------
 
 #endif

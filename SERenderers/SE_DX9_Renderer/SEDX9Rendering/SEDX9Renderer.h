@@ -48,10 +48,6 @@ public:
     // RTTI.
     virtual int GetType(void) const { return Renderer::DIRECTX9; }
 
-    // 装载shader程序时所需的渲染器相关信息.
-    virtual const char* GetExtension(void) const { return "dx9"; }
-    virtual char GetCommentCharacter(void) const { return '/'; }
-
     DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
         FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,
         FrameBuffer::BufferingType eBuffering,
