@@ -431,3 +431,27 @@ void DX10Renderer::OnPostDrawPass(ShaderEffect*, int, bool)
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+// Cg runtime stuff.
+//----------------------------------------------------------------------------
+CGcontext DX10Renderer::GetCgContext() const
+{
+    return m_CgContext;
+}
+//----------------------------------------------------------------------------
+CGprofile DX10Renderer::GetCgLatestVertexProfile() const
+{
+    return m_CgLatestVProfile;
+}
+//----------------------------------------------------------------------------
+CGprofile DX10Renderer::GetCgLatestPixelProfile() const
+{
+    return m_CgLatestPProfile;
+}
+//----------------------------------------------------------------------------
+CGprofile DX10Renderer::GetCgLatestGeometryProfile() const
+{
+    return m_CgLatestGProfile;
+}
+//----------------------------------------------------------------------------

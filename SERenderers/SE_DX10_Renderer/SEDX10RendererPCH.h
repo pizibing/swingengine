@@ -32,6 +32,11 @@
 #include "SEDX10Resources.h"
 #include "SEDX10Utility.h"
 
+// DX10Shaders
+#include "SEDX10Program.h"
+#include "SEDX10ProgramInterface.h"
+#include "SEDX10ProgramInterfaceCatalog.h"
+
 #endif
 
 #endif

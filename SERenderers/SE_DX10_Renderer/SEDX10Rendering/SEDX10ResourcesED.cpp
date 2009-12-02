@@ -98,8 +98,9 @@ void DX10Renderer::OnEnableTexture(ResourceIdentifier* pID)
     TextureID* pResource = (TextureID*)pID;
     Texture* pTexture = pResource->TextureObject;
 
-    SamplerInformation* pSI = pTexture->GetSamplerInformation();
-    CGparameter hParam = pSI->GetParam();
+    SamplerInformation* pSI = m_apActiveSamplers[m_iCurrentSampler];
+    SamplerInformation::Type eSType = pSI->GetType();
+    CGparameter hParam = (CGparameter)pSI->GetID();
 
     cgD3D10SetSamplerStateParameter(hParam, 0);
     cgD3D10SetTextureParameter(hParam, pResource->ID);
@@ -110,8 +111,8 @@ void DX10Renderer::OnDisableTexture(ResourceIdentifier* pID)
     TextureID* pResource = (TextureID*)pID;
     Texture* pTexture = pResource->TextureObject;
 
-    SamplerInformation* pSI = pTexture->GetSamplerInformation();
-    CGparameter hParam = pSI->GetParam();
+    SamplerInformation* pSI = m_apActiveSamplers[m_iCurrentSampler];
+    CGparameter hParam = (CGparameter)pSI->GetID();
 
     cgD3D10SetTextureParameter(hParam, 0);
 }

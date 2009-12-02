@@ -25,6 +25,7 @@
 #include "SEDX10Utility.h"
 #include "SEAttributes.h"
 #include "SEBindable.h"
+#include "SEDX10ProgramInterface.h"
 
 namespace Swing
 {
@@ -78,6 +79,15 @@ public:
     ID3D10DepthStencilState* DepthStencilState;
     ID3D10RasterizerState* RasterizerState;
     RenderStateBlock* RStateBlock;
+};
+
+class SE_RENDERER_API ProgramData
+{
+public:
+    ProgramData(void){ ID = 0; }
+
+    CGprogram ID;
+    std::vector<DX10ProgramInterfacePtr> Interfaces;
 };
 
 }

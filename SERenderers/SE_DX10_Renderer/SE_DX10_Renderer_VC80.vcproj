@@ -39,7 +39,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\;.\SEDX10Rendering;..\..\SDK\Include"
+				AdditionalIncludeDirectories=".\;.\SEDX10Rendering;.\SEDX10Shaders;..\..\SDK\Include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -78,7 +78,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy /y SEDX10Rendering\*.h ..\..\SDK\Include&#x0D;&#x0A;copy /y *.h ..\..\SDK\Include&#x0D;&#x0A;"
+				CommandLine="copy /y SEDX10Rendering\*.h ..\..\SDK\Include&#x0D;&#x0A;copy /y SEDX10Shaders\*.h ..\..\SDK\Include&#x0D;&#x0A;copy /y SEDX10Shaders\*.inl ..\..\SDK\Include&#x0D;&#x0A;copy /y *.h ..\..\SDK\Include&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -105,7 +105,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\;.\SEDX10Rendering;..\..\SDK\Include"
+				AdditionalIncludeDirectories=".\;.\SEDX10Rendering;.\SEDX10Shaders;..\..\SDK\Include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -142,7 +142,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy /y SEDX10Rendering\*.h ..\..\SDK\Include&#x0D;&#x0A;copy /y *.h ..\..\SDK\Include&#x0D;&#x0A;"
+				CommandLine="copy /y SEDX10Rendering\*.h ..\..\SDK\Include&#x0D;&#x0A;copy /y SEDX10Shaders\*.h ..\..\SDK\Include&#x0D;&#x0A;copy /y SEDX10Shaders\*.inl ..\..\SDK\Include&#x0D;&#x0A;copy /y *.h ..\..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -216,6 +216,38 @@
 			</File>
 			<File
 				RelativePath=".\SEDX10Rendering\SwingDX10Rendering.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="SEDX10Shaders"
+			>
+			<File
+				RelativePath=".\SEDX10Shaders\SEDX10Program.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEDX10Shaders\SEDX10Program.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEDX10Shaders\SEDX10ProgramInterface.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEDX10Shaders\SEDX10ProgramInterface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEDX10Shaders\SEDX10ProgramInterface.inl"
+				>
+			</File>
+			<File
+				RelativePath=".\SEDX10Shaders\SEDX10ProgramInterfaceCatalog.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEDX10Shaders\SEDX10ProgramInterfaceCatalog.h"
 				>
 			</File>
 		</Filter>

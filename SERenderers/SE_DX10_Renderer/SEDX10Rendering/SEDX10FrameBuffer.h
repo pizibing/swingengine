@@ -30,10 +30,10 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:DirectX10 Framebuffer类
-// 说明:
-// 作者:Sun Che
-// 时间:20090519
+// Name:DirectX10 Framebuffer类
+// Description:
+// Author:Sun Che
+// Date:20090519
 //----------------------------------------------------------------------------
 class SE_RENDERER_API DX10FrameBuffer : public FrameBuffer
 {

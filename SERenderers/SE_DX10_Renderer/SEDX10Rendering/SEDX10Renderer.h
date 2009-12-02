@@ -89,6 +89,12 @@ public:
     // windows平台下的窗体应用程序开发中使用.
     const ID3D10Device* GetDevice(void);
 
+    // Cg runtime stuff.
+    CGcontext GetCgContext(void) const;
+    CGprofile GetCgLatestVertexProfile(void) const;
+    CGprofile GetCgLatestPixelProfile(void) const;
+    CGprofile GetCgLatestGeometryProfile(void) const;
+
 protected:
     // 设备管理.
     void OnLostDevice(void);
@@ -210,6 +216,7 @@ protected:
     static DWORD ms_adwTexMinFilter[];
     static DWORD ms_adwTexMipFilter[];
     static DWORD ms_adwTexWrapMode[];
+    static DXGI_FORMAT ms_aeImageFormat[];
 };
 
 }

@@ -25,10 +25,26 @@
 
 using namespace Swing;
 
-const std::string DX10Renderer::ms_PositionStr("POSITION");
-const std::string DX10Renderer::ms_NormalStr("NORMAL");
-const std::string DX10Renderer::ms_ColorStr("COLOR");
-const std::string DX10Renderer::ms_TexCoordStr("TEXCOORD");
+DXGI_FORMAT DX10Renderer::ms_aeImageFormat[Image::IT_COUNT] =
+{
+    DXGI_FORMAT_R8G8B8A8_UNORM,      // Image::IT_RGB888
+    DXGI_FORMAT_R8G8B8A8_UNORM,      // Image::IT_RGBA8888
+    DXGI_FORMAT_D16_UNORM,           // Image::IT_DEPTH16
+    DXGI_FORMAT_D24_UNORM_S8_UINT,   // Image::IT_DEPTH24
+    DXGI_FORMAT_D32_FLOAT,           // Image::IT_DEPTH32
+    DXGI_FORMAT_R8G8B8A8_UNORM,      // Image::IT_CUBE_RGB888
+    DXGI_FORMAT_R8G8B8A8_UNORM,      // Image::IT_CUBE_RGBA8888
+    DXGI_FORMAT_R32G32B32A32_FLOAT,  // Image::IT_RGB32
+    DXGI_FORMAT_R32G32B32A32_FLOAT,  // Image::IT_RGBA32
+    DXGI_FORMAT_R8_UNORM,            // Image::IT_L8
+    DXGI_FORMAT_R16_UNORM,           // Image::IT_L16
+    DXGI_FORMAT_R32_FLOAT,           // Image::IT_R32
+    DXGI_FORMAT_R16G16B16A16_FLOAT,  // Image::IT_RGB16F
+    DXGI_FORMAT_R16G16B16A16_FLOAT,  // Image::IT_RGBA16F
+    DXGI_FORMAT_R8G8B8A8_UNORM,      // Image::IT_RGB565
+    DXGI_FORMAT_R8G8B8A8_UNORM,      // Image::IT_RGBA5551
+    DXGI_FORMAT_R8G8B8A8_UNORM       // Image::IT_RGBA4444
+};
 
 //----------------------------------------------------------------------------
 // 资源装载与移除(主要针对显存).
@@ -37,7 +53,8 @@ void DX10Renderer::OnLoadVProgram(ResourceIdentifier*& rpID,
     VertexProgram* pVProgram)
 {
     VProgramID* pResource = SE_NEW VProgramID;
-    pResource->ID = pVProgram->GetProgram();
+    ProgramData* pData = (ProgramData*)pVProgram->UserData;
+    pResource->ID = pData->ID;
     rpID = pResource;
 
     ms_hResult = cgD3D10LoadProgram(pResource->ID, 0);
@@ -55,7 +72,8 @@ void DX10Renderer::OnLoadGProgram(ResourceIdentifier*& rpID,
     GeometryProgram* pGProgram)
 {
     GProgramID* pResource = SE_NEW GProgramID;
-    pResource->ID = pGProgram->GetProgram();
+    ProgramData* pData = (ProgramData*)pGProgram->UserData;
+    pResource->ID = pData->ID;
     rpID = pResource;
 
     ms_hResult = cgD3D10LoadProgram(pResource->ID, 0);
@@ -73,7 +91,8 @@ void DX10Renderer::OnLoadPProgram(ResourceIdentifier*& rpID,
     PixelProgram* pPProgram)
 {
     PProgramID* pResource = SE_NEW PProgramID;
-    pResource->ID = pPProgram->GetProgram();
+    ProgramData* pData = (ProgramData*)pPProgram->UserData;
+    pResource->ID = pData->ID;
     rpID = pResource;
 
     ms_hResult = cgD3D10LoadProgram(pResource->ID, 0);
@@ -95,106 +114,155 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
     pResource->TextureObject = pTexture;
     rpID = pResource;
 
-    SamplerInformation* pSI = pTexture->GetSamplerInformation();
-    SamplerInformation::Type eSType = pSI->GetType();
-    bool bDepth = pTexture->IsDepthTexture();
     bool bOffscreen = pTexture->IsOffscreenTexture();
 
     // 把image数据从系统内存装载入显存..
     const Image* pImage = pTexture->GetImage();
     SE_ASSERT( pImage );
+    int iDimension = pImage->GetDimension();
+    bool bIsRegularImage = !pImage->IsCubeImage();
 
     // DXGI_FORMAT_R8G8B8A8_UNORM按照ABGR(最低字节到最高字节)顺序储存颜色,
     // 我们按照RGBA顺序.因此必须翻转字节存储顺序.
     int iCount, iByteCount = 0;
     unsigned char* aucSrc = pImage->GetData();
     unsigned char* aucRSrc = 0;
+    bool bOwnRSrc = true;
     int i, iSrcBase = 0, iRSrcBase = 0;
-    DXGI_FORMAT eDXGIFMT = DXGI_FORMAT_UNKNOWN;
-    if( pImage->GetFormat() == Image::IT_RGB888 )
+    Image::FormatMode eFormat = pImage->GetFormat();
+    DXGI_FORMAT eDXGIFMT = ms_aeImageFormat[eFormat];
+
+    if( aucSrc )
     {
-        iCount = pImage->GetCount();
-        iByteCount = 4*iCount;
-        aucRSrc = SE_NEW unsigned char[iByteCount];
-        for( i = 0; i < iCount; i++, iSrcBase += 3, iRSrcBase += 4 )
+        switch( eFormat )
         {
-            aucRSrc[iRSrcBase    ] = 255;
-            aucRSrc[iRSrcBase + 1] = aucSrc[iSrcBase + 2];
-            aucRSrc[iRSrcBase + 2] = aucSrc[iSrcBase + 1];
-            aucRSrc[iRSrcBase + 3] = aucSrc[iSrcBase    ];
-        }
-        eDXGIFMT = DXGI_FORMAT_R8G8B8A8_UNORM;
-    }
-    else if( pImage->GetFormat() == Image::IT_RGBA8888 )
-    {
-        iCount = pImage->GetCount();
-        iByteCount = 4*iCount;
-        aucRSrc = SE_NEW unsigned char[iByteCount];
-        for( i = 0; i < iCount; i++, iSrcBase += 4 )
+        case Image::IT_RGB888:
+            // Swap R and B and pad to an RGBA image.
+            iCount = pImage->GetCount();
+            iByteCount = 4*iCount;
+            aucRSrc = SE_NEW unsigned char[iByteCount];
+            for( i = 0; i < iCount; i++, iSrcBase += 3, iRSrcBase += 4 )
+            {
+                aucRSrc[iRSrcBase    ] = aucSrc[iSrcBase + 2];
+                aucRSrc[iRSrcBase + 1] = aucSrc[iSrcBase + 1];
+                aucRSrc[iRSrcBase + 2] = aucSrc[iSrcBase    ];
+                aucRSrc[iRSrcBase + 3] = 255;
+            }
+            break;
+
+        case Image::IT_RGBA8888:
+            iCount = pImage->GetCount();
+            iByteCount = 4*iCount;
+            aucRSrc = SE_NEW unsigned char[iByteCount];
+            for( i = 0; i < iCount; i++, iSrcBase += 4, iRSrcBase += 4 )
+            {
+                aucRSrc[iRSrcBase    ] = aucSrc[iSrcBase + 2];
+                aucRSrc[iRSrcBase + 1] = aucSrc[iSrcBase + 1];
+                aucRSrc[iRSrcBase + 2] = aucSrc[iSrcBase    ];
+                aucRSrc[iRSrcBase + 3] = aucSrc[iSrcBase + 3];
+            }
+            break;
+
+        case Image::IT_CUBE_RGB888:
+            // Swap R and B and pad to an RGBA image.
+            iCount = 6*pImage->GetCount();
+            iByteCount = 4*iCount;
+            aucRSrc = SE_NEW unsigned char[iByteCount];
+            for( i = 0; i < iCount; i++, iSrcBase += 3, iRSrcBase += 4 )
+            {
+                aucRSrc[iRSrcBase    ] = aucSrc[iSrcBase + 2];
+                aucRSrc[iRSrcBase + 1] = aucSrc[iSrcBase + 1];
+                aucRSrc[iRSrcBase + 2] = aucSrc[iSrcBase    ];
+                aucRSrc[iRSrcBase + 3] = 255;
+            }
+            iByteCount = 4*pImage->GetCount();
+            break;
+
+        case Image::IT_CUBE_RGBA8888:
+            iCount = 6*pImage->GetCount();
+            iByteCount = 4*iCount;
+            aucRSrc = SE_NEW unsigned char[iByteCount];
+            for( i = 0; i < iCount; i++, iSrcBase += 4, iRSrcBase += 4 )
+            {
+                aucRSrc[iRSrcBase    ] = aucSrc[iSrcBase + 2];
+                aucRSrc[iRSrcBase + 1] = aucSrc[iSrcBase + 1];
+                aucRSrc[iRSrcBase + 2] = aucSrc[iSrcBase    ];
+                aucRSrc[iRSrcBase + 3] = aucSrc[iSrcBase + 3];
+            }
+            iByteCount = 4*pImage->GetCount();
+            break;
+
+        case Image::IT_RGB565:
         {
-            aucRSrc[iSrcBase    ] = aucSrc[iSrcBase + 3];
-            aucRSrc[iSrcBase + 1] = aucSrc[iSrcBase + 2];
-            aucRSrc[iSrcBase + 2] = aucSrc[iSrcBase + 1];
-            aucRSrc[iSrcBase + 3] = aucSrc[iSrcBase    ];
+            // Swap R and B.
+            iCount = pImage->GetCount();
+            iByteCount = 2*iCount;
+            aucRSrc = SE_NEW unsigned char[iByteCount];
+            unsigned short* ausSrc = (unsigned short*)aucSrc;
+            unsigned short* ausRSrc = (unsigned short*)aucRSrc;
+            for( i = 0; i < iCount; i++ )
+            {
+                unsigned short value = *ausSrc++;
+                unsigned short blue = value & 0x001Fu;
+                unsigned short green = value & 0x07E0u;
+                unsigned short red = value & 0xF800u;
+                value = (red >> 11) | green | (blue << 11);
+                *ausRSrc++ = value;
+            }
+            break;
         }
-        eDXGIFMT = DXGI_FORMAT_R8G8B8A8_UNORM;
-    }
-    else if( pImage->GetFormat() == Image::IT_L8 )
-    {
-        iCount = pImage->GetCount();
-        iByteCount = iCount;
-        aucRSrc = SE_NEW unsigned char[iByteCount];
-        for( i = 0; i < iCount; i++ )
+
+        case Image::IT_RGBA5551:
         {
-            aucRSrc[i] = aucSrc[i];
+            // Swap R and B.
+            iCount = pImage->GetCount();
+            iByteCount = 2*iCount;
+            aucRSrc = SE_NEW unsigned char[iByteCount];
+            unsigned short* ausSrc = (unsigned short*)aucSrc;
+            unsigned short* ausRSrc = (unsigned short*)aucRSrc;
+            for( i = 0; i < iCount; i++ )
+            {
+                unsigned short value = *ausSrc++;
+                unsigned short blue = value & 0x001Fu;
+                unsigned short green = value & 0x03E0u;
+                unsigned short red = value & 0x7C00u;
+                unsigned short alpha = value & 0x8000u;
+                value = (red >> 10) | green | (blue << 10) | alpha;
+                *ausRSrc++ = value;
+            }
+            break;
         }
-        eDXGIFMT = DXGI_FORMAT_R8_UNORM;
-    }
-    else if( pImage->GetFormat() == Image::IT_L16 )
-    {
-        iCount = pImage->GetCount();
-        iByteCount = 2*iCount;
-        aucRSrc = SE_NEW unsigned char[iByteCount];
-        for( i = 0; i < iByteCount; i++ )
+
+        case Image::IT_RGBA4444:
         {
-            aucRSrc[i] = aucSrc[i];
+            // Swap R and B.
+            iCount = pImage->GetCount();
+            iByteCount = 2*iCount;
+            aucRSrc = SE_NEW unsigned char[iByteCount];
+            unsigned short* ausSrc = (unsigned short*)aucSrc;
+            unsigned short* ausRSrc = (unsigned short*)aucRSrc;
+            for( i = 0; i < iCount; i++ )
+            {
+                unsigned short value = *ausSrc++;
+                unsigned short blue = value & 0x000Fu;
+                unsigned short green = value & 0x00F0u;
+                unsigned short red = value & 0x0F00u;
+                unsigned short alpha = value & 0xF000u;
+                value = (red >> 8) | green | (blue << 8) | alpha;
+                *ausRSrc++ = value;
+            }
+            break;
         }
-        eDXGIFMT = DXGI_FORMAT_R16_UNORM;
-    }
-    else if( pImage->GetFormat() == Image::IT_R32 )
-    {
-        iCount = pImage->GetCount();
-        iByteCount = 4*iCount;
-        aucRSrc = SE_NEW unsigned char[iByteCount];
-        for( i = 0; i < iByteCount; i++ )
-        {
-            aucRSrc[i] = aucSrc[i];
+
+        default:
+            // There is no need to preprocess depth or intensity images.  The
+            // floating-point formats and the 16/32-bit integer formats are
+            // already RGB/RGBA.
+            aucRSrc = aucSrc;
+            bOwnRSrc = false;
+            iByteCount = pImage->GetBytesPerPixel()*pImage->GetCount();
+            break;
         }
-        eDXGIFMT = DXGI_FORMAT_R32_FLOAT;
-    }
-    else if( pImage->GetFormat() == Image::IT_CUBE_RGB888 )
-    {
-        iCount = 6*pImage->GetCount();
-        // 6个面数据连续存储
-        iByteCount = 4*iCount;
-        aucRSrc = SE_NEW unsigned char[iByteCount];
-        for( i = 0; i < iCount; i++, iSrcBase += 3, iRSrcBase += 4 )
-        {
-            aucRSrc[iRSrcBase    ] = 255;
-            aucRSrc[iRSrcBase + 1] = aucSrc[iSrcBase + 2];
-            aucRSrc[iRSrcBase + 2] = aucSrc[iSrcBase + 1];
-            aucRSrc[iRSrcBase + 3] = aucSrc[iSrcBase    ];
-        }
-        // 每个面的字节数,稍后用
-        iByteCount = 4*pImage->GetCount();
-    }
-    else if( pImage->GetFormat() == Image::IT_CUBE_RGBA8888
-    || pImage->GetFormat() == Image::IT_RGB32
-    || pImage->GetFormat() == Image::IT_RGBA32)
-    {
-        // 待实现.
-        // 支持这些格式.
-        SE_ASSERT( false );
     }
 
     D3D10_BIND_FLAG eBindFlag;
@@ -205,22 +273,9 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
             D3D10_BIND_RENDER_TARGET);
         eUsage = D3D10_USAGE_DEFAULT;
     }
-    else if( bDepth )
-    {
-        eBindFlag = (D3D10_BIND_FLAG)(D3D10_BIND_SHADER_RESOURCE | 
-            D3D10_BIND_DEPTH_STENCIL);
-        eUsage = D3D10_USAGE_DEFAULT;
-    }
     else
     {
-        if( pImage->GetDimension() < 3 )
-        {
-            eBindFlag = D3D10_BIND_SHADER_RESOURCE;
-        }
-        else
-        {
-            eBindFlag = (D3D10_BIND_FLAG)0;
-        }
+        eBindFlag = D3D10_BIND_SHADER_RESOURCE;
         eUsage = D3D10_USAGE_DEFAULT;
     }
 
@@ -237,9 +292,9 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
     tempLoadInfo.MipFilter = D3DX10_FILTER_NONE;
     tempLoadInfo.pSrcInfo = 0;
 
-    switch( eSType )
+    switch( iDimension )
     {
-    case SamplerInformation::SAMPLER_1D:
+    case 1:
     {
         tempLoadInfo.Width = pImage->GetBound(0);
         tempLoadInfo.Height = 1;
@@ -254,8 +309,7 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
         pResource->ID = pDX10Texture;
         break;
     }
-    case SamplerInformation::SAMPLER_2D:
-    case SamplerInformation::SAMPLER_PROJ:
+    case 2:
     {
         tempLoadInfo.Width = pImage->GetBound(0);
         tempLoadInfo.Height = pImage->GetBound(1);
@@ -270,14 +324,7 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
         pResource->ID = pDX10Texture;
         break;
     }
-    case SamplerInformation::SAMPLER_CUBE:
-    {
-        // 待实现.
-        SE_ASSERT( false );
-
-        break;
-    }
-    case SamplerInformation::SAMPLER_3D:
+    case 3:
     {
         // 待实现.
         SE_ASSERT( false );
@@ -290,7 +337,10 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
         break;
     }
 
-    SE_DELETE[] aucRSrc;
+    if( bOwnRSrc )
+    {
+        SE_DELETE[] aucRSrc;
+    }
 }
 //----------------------------------------------------------------------------
 void DX10Renderer::OnReleaseTexture(ResourceIdentifier* pID)
@@ -314,7 +364,7 @@ void DX10Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
 
     // vertex buffer必须具备vertex position.
     D3D10_INPUT_ELEMENT_DESC* pTempDesc = SE_NEW D3D10_INPUT_ELEMENT_DESC;
-    pTempDesc->SemanticName = ms_PositionStr.c_str();
+    pTempDesc->SemanticName = "POSITION";
     pTempDesc->SemanticIndex = 0;
     pTempDesc->Format = DXGI_FORMAT_R32G32B32_FLOAT;
     pTempDesc->InputSlot = 0;
@@ -327,7 +377,7 @@ void DX10Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
     if( rIAttr.HasNormal() )
     {
         pTempDesc = SE_NEW D3D10_INPUT_ELEMENT_DESC;
-        pTempDesc->SemanticName = ms_NormalStr.c_str();
+        pTempDesc->SemanticName = "NORMAL";
         pTempDesc->SemanticIndex = 0;
         pTempDesc->Format = DXGI_FORMAT_R32G32B32_FLOAT;
         pTempDesc->InputSlot = 0;
@@ -341,7 +391,7 @@ void DX10Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
     if( rIAttr.HasColor(0) )
     {
         pTempDesc = SE_NEW D3D10_INPUT_ELEMENT_DESC;
-        pTempDesc->SemanticName = ms_ColorStr.c_str();
+        pTempDesc->SemanticName = "COLOR";
         pTempDesc->SemanticIndex = 0;
         pTempDesc->InputSlot = 0;
         pTempDesc->AlignedByteOffset = iVertexSize;
@@ -374,7 +424,7 @@ void DX10Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
     if( rIAttr.HasColor(1) )
     {
         pTempDesc = SE_NEW D3D10_INPUT_ELEMENT_DESC;
-        pTempDesc->SemanticName = ms_ColorStr.c_str();
+        pTempDesc->SemanticName = "COLOR";
         pTempDesc->SemanticIndex = 1;
         pTempDesc->InputSlot = 0;
         pTempDesc->AlignedByteOffset = iVertexSize;
@@ -410,7 +460,7 @@ void DX10Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
         if( rIAttr.HasTCoord(iUnit) )
         {
             pTempDesc = SE_NEW D3D10_INPUT_ELEMENT_DESC;
-            pTempDesc->SemanticName = ms_TexCoordStr.c_str();
+            pTempDesc->SemanticName = "TEXCOORD";
             pTempDesc->SemanticIndex = iUnit;
             pTempDesc->InputSlot = 0;
             pTempDesc->AlignedByteOffset = iVertexSize;
@@ -450,8 +500,8 @@ void DX10Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
         pIEDescs[i] = *tempDescs[i];
     }
 
-    ID3D10Blob* pVShaderBuffer = cgD3D10GetCompiledProgram(
-        pVProgram->GetProgram());
+    CGprogram hProgram = ((ProgramData*)pVProgram->UserData)->ID;
+    ID3D10Blob* pVShaderBuffer = cgD3D10GetCompiledProgram(hProgram);
     SE_ASSERT( pVShaderBuffer );
 
     ID3D10InputLayout* pDX10Layout;
