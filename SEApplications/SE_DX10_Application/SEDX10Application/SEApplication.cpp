@@ -21,6 +21,8 @@
 #include "SEDX10ApplicationPCH.h"
 #include "SEApplication.h"
 #include "SEDX10RendererRegister.h"
+#include "SEAudioRegister.h"
+#include "SEOpenALRendererRegister.h"
 
 using namespace Swing;
 
@@ -79,7 +81,9 @@ int main(int iArgCount, char* apcArgument[])
 {
     // 运行Register.
     SE_Foundation_Register();
+    SE_Audio_Register();
     SE_DX10Renderer_Register();
+    SE_OpenALRenderer_Register();
 
     // 先要手动创建SE_PATH这个环境变量,指定所需资源文件的所在位置.
     System::SE_Initialize();
@@ -104,7 +108,11 @@ int main(int iArgCount, char* apcArgument[])
         System::SE_InsertDirectory((const char*)tempDir);
 
         // shader program文件的路径.
-        tempDir = tempSEPath + String("/Data/sesp");
+        tempDir = tempSEPath + String("/Data/sesp/Cg");
+        System::SE_InsertDirectory((const char*)tempDir);
+
+        // wave文件的路径.
+        tempDir = tempSEPath + String("/Data/sewf");
         System::SE_InsertDirectory((const char*)tempDir);
 
         // 其他image文件路径.

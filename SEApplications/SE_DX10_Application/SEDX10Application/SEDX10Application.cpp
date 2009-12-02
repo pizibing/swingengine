@@ -32,9 +32,13 @@
 //#endif
 #pragma comment(lib, "dxerr.lib")
 
+// ¾²Ì¬Á´½ÓOpenAL1.0¿â.
+#pragma comment(lib, "openal32.lib")
+
 #include "SEWindowApplication.h"
 #include "SEDX10Renderer.h"
 #include "SETreeControl.h"
+#include "SEWalRenderer.h"
 
 using namespace Swing;
 

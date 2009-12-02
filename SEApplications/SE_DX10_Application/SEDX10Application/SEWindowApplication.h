@@ -22,6 +22,9 @@
 #define Swing_WindowApplication_H
 
 #include "SEApplication.h"
+#include "SwingDX10Renderer.h"
+#include "SwingAudio.h"
+
 
 namespace Swing
 {

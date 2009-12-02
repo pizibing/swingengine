@@ -57,6 +57,69 @@ DWORD DX10Renderer::ms_adwTexWrapMode[Texture::MAX_WRAP_TYPES] =
 //----------------------------------------------------------------------------
 // 资源开启与关闭.
 //----------------------------------------------------------------------------
+void DX10Renderer::SetVProgramRC(RendererConstant* pRC)
+{
+    cgSetParameterValuefr((CGparameter)pRC->GetID(), pRC->GetDataCount(), 
+        pRC->GetData());
+    SE_DX10_DEBUG_CG_PROGRAM;
+}
+//----------------------------------------------------------------------------
+void DX10Renderer::SetVProgramUC(UserConstant* pUC)
+{
+    cgSetParameterValuefr((CGparameter)pUC->GetID(), pUC->GetDataCount(), 
+        pUC->GetData());
+    SE_DX10_DEBUG_CG_PROGRAM;
+}
+//----------------------------------------------------------------------------
+void DX10Renderer::SetGProgramRC(RendererConstant* pRC)
+{
+    cgSetParameterValuefr((CGparameter)pRC->GetID(), pRC->GetDataCount(), 
+        pRC->GetData());
+    SE_DX10_DEBUG_CG_PROGRAM;
+}
+//----------------------------------------------------------------------------
+void DX10Renderer::SetGProgramUC(UserConstant* pUC)
+{
+    cgSetParameterValuefr((CGparameter)pUC->GetID(), pUC->GetDataCount(), 
+        pUC->GetData());
+    SE_DX10_DEBUG_CG_PROGRAM;
+}
+//----------------------------------------------------------------------------
+void DX10Renderer::SetPProgramRC(RendererConstant* pRC)
+{
+    cgSetParameterValuefr((CGparameter)pRC->GetID(), pRC->GetDataCount(), 
+        pRC->GetData());
+    SE_DX10_DEBUG_CG_PROGRAM;
+}
+//----------------------------------------------------------------------------
+void DX10Renderer::SetPProgramUC(UserConstant* pUC)
+{
+    cgSetParameterValuefr((CGparameter)pUC->GetID(), pUC->GetDataCount(), 
+        pUC->GetData());
+    SE_DX10_DEBUG_CG_PROGRAM;
+}
+//----------------------------------------------------------------------------
+void DX10Renderer::UpdateVProgramConstants(VertexProgram* pVProgram)
+{
+    ProgramData* pData = (ProgramData*)pVProgram->UserData;
+    cgUpdateProgramParameters(pData->ID);
+    SE_DX10_DEBUG_CG_PROGRAM;
+}
+//----------------------------------------------------------------------------
+void DX10Renderer::UpdateGProgramConstants(GeometryProgram* pGProgram)
+{
+    ProgramData* pData = (ProgramData*)pGProgram->UserData;
+    cgUpdateProgramParameters(pData->ID);
+    SE_DX10_DEBUG_CG_PROGRAM;
+}
+//----------------------------------------------------------------------------
+void DX10Renderer::UpdatePProgramConstants(PixelProgram* pPProgram)
+{
+    ProgramData* pData = (ProgramData*)pPProgram->UserData;
+    cgUpdateProgramParameters(pData->ID);
+    SE_DX10_DEBUG_CG_PROGRAM;
+}
+//----------------------------------------------------------------------------
 void DX10Renderer::OnEnableVProgram(ResourceIdentifier* pID)
 {
     VProgramID* pResource = (VProgramID*)pID;
@@ -117,7 +180,7 @@ void DX10Renderer::OnDisableTexture(ResourceIdentifier* pID)
     cgD3D10SetTextureParameter(hParam, 0);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnEnableVBuffer(ResourceIdentifier* pID)
+void DX10Renderer::OnEnableVBuffer(ResourceIdentifier* pID, VertexProgram*)
 {
     VBufferID* pResource = (VBufferID*)pID;
     m_pDX10Device->IASetVertexBuffers(0, 1, &pResource->ID, 
@@ -126,7 +189,7 @@ void DX10Renderer::OnEnableVBuffer(ResourceIdentifier* pID)
     m_pDX10Device->IASetInputLayout(pResource->Layout);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnDisableVBuffer(ResourceIdentifier*)
+void DX10Renderer::OnDisableVBuffer(ResourceIdentifier*, VertexProgram*)
 {
     // 无需任何操作.
 }

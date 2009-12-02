@@ -387,10 +387,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80d.lib SEPhysics80d.lib SEDX10Renderer80d.lib SEDX10Application80d.lib cg.lib cgD3D10.lib"
+				AdditionalDependencies="SEFoundation80d.lib SEPhysics80d.lib SEDX10Renderer80d.lib SEDX10Application80d.lib cg.lib cgD3D10.lib SEAudio80d.lib SEWalRenderer80d.lib"
 				OutputFile="DefaultShader_VC80Dx10DebSta.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\SDK\Lib"
+				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/DefaultShader_VC80Dx10DebSta.pdb"
 				SubSystem="2"

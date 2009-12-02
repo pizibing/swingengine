@@ -105,11 +105,11 @@ protected:
     void OnLostDevice(void);
     void OnResetDevice(void);
 
-    // 摄像机更新.
+    // Camera update.
     virtual void OnViewportChange(void);
     virtual void OnDepthRangeChange(void);
 
-    // 全局渲染状态管理.
+    // Render state block stuff(DirectX10 specific functions).
     void GenerateBlendState(const RenderStateBlock* pRStateBlock,
         ID3D10BlendState*& rpDX10BState);
     void GenerateDepthStencilState(const RenderStateBlock* pRStateBlock, 
@@ -117,17 +117,17 @@ protected:
     void GenerateRasterizerState(const RenderStateBlock* pRStateBlock, 
         ID3D10RasterizerState*& rpDX10RState);
 
-    // per-geometry pre/post-draw函数入口.
+    // Per-geometry pre/post-draw entrypoint.
     virtual void OnPreDrawGeometry(void);
     virtual void OnPostDrawGeometry(void);
 
-    // per-pass pre/post-draw函数入口,
+    // Per-pass pre/post-draw entrypoint.
     virtual void OnPreDrawPass(ShaderEffect* pEffect, int iPass,
         bool bPrimaryEffect);
     virtual void OnPostDrawPass(ShaderEffect* pEffect, int iPass,
         bool bPrimaryEffect);
 
-    // 渲染器派生类渲染函数入口.
+    // Rendering entrypoint.
     virtual void DrawElements(void);
 
     // 渲染器资源装载与释放.
@@ -157,6 +157,15 @@ protected:
     virtual void OnReleaseRenderStateBlock(ResourceIdentifier* pID);
 
     // 渲染器资源开启与关闭.
+    virtual void SetVProgramRC(RendererConstant* pRC);
+    virtual void SetVProgramUC(UserConstant* pUC);
+    virtual void SetGProgramRC(RendererConstant* pRC);
+    virtual void SetGProgramUC(UserConstant* pUC);
+    virtual void SetPProgramRC(RendererConstant* pRC);
+    virtual void SetPProgramUC(UserConstant* pUC);
+    virtual void UpdateVProgramConstants(VertexProgram* pVProgram);
+    virtual void UpdateGProgramConstants(GeometryProgram* pGProgram);
+    virtual void UpdatePProgramConstants(PixelProgram* pPProgram);
     virtual void OnEnableVProgram(ResourceIdentifier* pID);
     virtual void OnDisableVProgram(ResourceIdentifier* pID);
     virtual void OnEnableGProgram(ResourceIdentifier* pID);
@@ -165,8 +174,10 @@ protected:
     virtual void OnDisablePProgram(ResourceIdentifier* pID);
     virtual void OnEnableTexture(ResourceIdentifier* pID);
     virtual void OnDisableTexture(ResourceIdentifier* pID);
-    virtual void OnEnableVBuffer(ResourceIdentifier* pID);
-    virtual void OnDisableVBuffer(ResourceIdentifier* pID);
+    virtual void OnEnableVBuffer(ResourceIdentifier* pID, 
+        VertexProgram* pVProgram);
+    virtual void OnDisableVBuffer(ResourceIdentifier* pID, 
+        VertexProgram* pVProgram);
     virtual void OnEnableIBuffer(ResourceIdentifier* pID);
     virtual void OnDisableIBuffer(ResourceIdentifier* pID);
     // DirectX 10渲染器需要重载以下函数.

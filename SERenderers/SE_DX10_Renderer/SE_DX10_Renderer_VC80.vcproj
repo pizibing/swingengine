@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\..\SDK\Lib\SEDX10Renderer80d.lib"
+				OutputFile="..\..\SDK\Lib\Debug\SEDX10Renderer80d.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -126,7 +126,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\..\SDK\Lib\SEDX10Renderer80.lib"
+				OutputFile="..\..\SDK\Lib\Debug\SEDX10Renderer80.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

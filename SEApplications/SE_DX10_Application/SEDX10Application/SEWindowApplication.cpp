@@ -71,8 +71,9 @@ bool WindowApplication::OnInitialize()
     SE_ASSERT( PixelProgramCatalog::GetActive() );
     PixelProgramCatalog::GetActive()->SetRenderer(m_pRenderer);
 
-    SE_ASSERT( ProgramInterfaceCatalog::GetActive() );
-    ProgramInterfaceCatalog::GetActive()->SetRenderer(m_pRenderer);
+    SE_ASSERT( DX10ProgramInterfaceCatalog::GetActive() );
+    DX10ProgramInterfaceCatalog::GetActive()->SetRenderer(
+        (DX10Renderer*)m_pRenderer);
 
     return true;
 }
@@ -87,8 +88,8 @@ void WindowApplication::OnTerminate()
     SE_ASSERT( PixelProgramCatalog::GetActive() );
     PixelProgramCatalog::GetActive()->SetRenderer(0);
 
-    SE_ASSERT( ProgramInterfaceCatalog::GetActive() );
-    ProgramInterfaceCatalog::GetActive()->SetRenderer(0);    
+    SE_ASSERT( DX10ProgramInterfaceCatalog::GetActive() );
+    DX10ProgramInterfaceCatalog::GetActive()->SetRenderer(0);    
 
     SE_DELETE m_pRenderer;
     m_pRenderer = 0;
