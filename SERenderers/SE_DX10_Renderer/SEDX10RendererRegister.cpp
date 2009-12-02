@@ -23,6 +23,10 @@
 
 // DX10Rendering
 #include "SEDX10FrameBuffer.h"
+#include "SEDX10Renderer.h"
+// DX10Shaders
+#include "SEDX10Program.h"
+#include "SEDX10ProgramInterface.h"
 
 using namespace Swing;
 
@@ -31,6 +35,17 @@ void Swing::SE_DX10Renderer_Register()
 {
     // DX10Rendering
     SE_REGISTER_INITIALIZE(DX10FrameBuffer);
+    SE_REGISTER_INITIALIZE(DX10Renderer);
+    SE_REGISTER_INITIALIZE(DX10Program);
     SE_INVOKE_INITIALIZE(DX10FrameBuffer);
+    SE_INVOKE_INITIALIZE(DX10Renderer);
+    SE_INVOKE_INITIALIZE(DX10Program);
+
+    SE_REGISTER_TERMINATE(DX10Renderer);
+    SE_INVOKE_TERMINATE(DX10Renderer);
+
+    // DX10Shaders
+    SE_REGISTER_STREAM(DX10ProgramInterface);
+    SE_INVOKE_STREAM(DX10ProgramInterface);
 }
 //----------------------------------------------------------------------------

@@ -21,11 +21,36 @@
 #include "SEDX10RendererPCH.h"
 #include "SEDX10Renderer.h"
 #include "SECamera.h"
+#include "SEDX10Program.h"
+#include "SEDX10ProgramInterfaceCatalog.h"
 
 using namespace Swing;
 
 HRESULT DX10Renderer::ms_hResult = 0;
+DX10ProgramInterfaceCatalog* DX10Renderer::ms_pProgramInterfaceCatalog = 0;
 
+SE_IMPLEMENT_INITIALIZE(DX10Renderer);
+SE_IMPLEMENT_TERMINATE(DX10Renderer);
+
+//SE_REGISTER_INITIALIZE(DX10Renderer);
+//SE_REGISTER_TERMINATE(DX10Renderer);
+
+//----------------------------------------------------------------------------
+void DX10Renderer::Initialize()
+{
+    ms_pProgramInterfaceCatalog = SE_NEW DX10ProgramInterfaceCatalog("Main");
+    DX10ProgramInterfaceCatalog::SetActive(ms_pProgramInterfaceCatalog);
+}
+//----------------------------------------------------------------------------
+void DX10Renderer::Terminate()
+{
+    if( DX10ProgramInterfaceCatalog::GetActive() == 
+        ms_pProgramInterfaceCatalog )
+    {
+        DX10ProgramInterfaceCatalog::SetActive(0);
+    }
+    SE_DELETE ms_pProgramInterfaceCatalog;
+}
 //----------------------------------------------------------------------------
 DX10Renderer::DX10Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,

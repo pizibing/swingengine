@@ -214,10 +214,6 @@
 				RelativePath=".\SEDX10Rendering\SEDX10Utility.h"
 				>
 			</File>
-			<File
-				RelativePath=".\SEDX10Rendering\SwingDX10Rendering.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="SEDX10Shaders"
@@ -285,6 +281,10 @@
 		</File>
 		<File
 			RelativePath=".\SEDX10RendererRegister.h"
+			>
+		</File>
+		<File
+			RelativePath=".\SwingDX10Renderer.h"
 			>
 		</File>
 	</Files>

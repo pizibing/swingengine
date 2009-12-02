@@ -27,10 +27,11 @@
 #include "SEDX10RendererRegister.h"
 
 // DX10Rendering
-#include "SEDX10FrameBuffer.h"
-#include "SEDX10Renderer.h"
-#include "SEDX10Resources.h"
+#include "SEDX10RendererLIB.h"
 #include "SEDX10Utility.h"
+#include "SEDX10Resources.h"
+#include "SEDX10Renderer.h"
+#include "SEDX10FrameBuffer.h"
 
 // DX10Shaders
 #include "SEDX10Program.h"

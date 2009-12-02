@@ -18,8 +18,8 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#ifndef Swing_DX10Rendering_H
-#define Swing_DX10Rendering_H
+#ifndef Swing_DX10RendererHead_H
+#define Swing_DX10RendererHead_H
 
 // DX10Renderer Register
 #include "SEDX10RendererRegister.h"
@@ -30,5 +30,10 @@
 #include "SEDX10Resources.h"
 #include "SEDX10Renderer.h"
 #include "SEDX10FrameBuffer.h"
+
+// DX10Shaders
+#include "SEDX10Program.h"
+#include "SEDX10ProgramInterface.h"
+#include "SEDX10ProgramInterfaceCatalog.h"
 
 #endif

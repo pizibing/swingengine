@@ -30,6 +30,8 @@
 namespace Swing
 {
 
+class DX10ProgramInterfaceCatalog;
+
 //----------------------------------------------------------------------------
 // Name:DirectX10 Renderer class
 // Description:
@@ -38,6 +40,9 @@ namespace Swing
 //----------------------------------------------------------------------------
 class SE_RENDERER_API DX10Renderer : public Renderer
 {
+    SE_DECLARE_INITIALIZE;
+    SE_DECLARE_TERMINATE;
+
 public:
     // RTTI.
     virtual int GetType(void) const { return Renderer::DIRECTX10; }
@@ -204,6 +209,8 @@ protected:
 
     // 错误检查与异常获取.
     static HRESULT ms_hResult;
+
+    static DX10ProgramInterfaceCatalog* ms_pProgramInterfaceCatalog;
 
     // 引擎层参数常量与DirectX渲染器层参数常量映射表.
     static D3D10_PRIMITIVE_TOPOLOGY ms_aeObjectType[];
