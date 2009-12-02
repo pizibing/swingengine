@@ -709,10 +709,6 @@
 				RelativePath=".\SEMath\SEVectorN.inl"
 				>
 			</File>
-			<File
-				RelativePath=".\SEMath\simd.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="SENumericalAnalysis"
