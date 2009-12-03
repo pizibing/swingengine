@@ -247,6 +247,7 @@ public:
     void ReleaseVBuffer(Bindable* pVBuffer);
     void LoadIBuffer(IndexBuffer* pIBuffer);
     void ReleaseIBuffer(Bindable* pIBuffer);
+    // DirectX10 specific functions.
     void LoadRenderStateBlock(RenderStateBlock* pRStateBlock);
     void ReleaseRenderStateBlock(Bindable* pRStateBlock);
 
@@ -265,6 +266,7 @@ public:
         VertexProgram* pVProgram = 0);
     void EnableIBuffer(void);
     void DisableIBuffer(void);
+    // DirectX10 specific functions.
     void EnableRenderStateBlock(RenderStateBlock* pRStateBlock);
     void DisableRenderStateBlock(RenderStateBlock* pRStateBlock);
 
@@ -349,7 +351,7 @@ protected:
     // The main entry point to drawing in the derived-class renderers.
     virtual void DrawElements(void) = 0;
 
-    // Resource loading/releasing.
+    // Resource loading/releasing functions.
     virtual void OnLoadVProgram(ResourceIdentifier*& rpID,
         VertexProgram* pVProgram) = 0;
     virtual void OnReleaseVProgram(ResourceIdentifier* pID) = 0;
@@ -369,12 +371,12 @@ protected:
     virtual void OnLoadIBuffer(ResourceIdentifier*& rpID,
         IndexBuffer* pIBuffer) = 0;
     virtual void OnReleaseIBuffer(ResourceIdentifier* pID) = 0;
-    // DirectX 10 specific functions.
+    // DirectX10 specific functions.
     virtual void OnLoadRenderStateBlock(ResourceIdentifier*& rpID,
         RenderStateBlock* pRStateBlock);
     virtual void OnReleaseRenderStateBlock(ResourceIdentifier* pID);
 
-    // Resource enabling/disabling.
+    // Resource enabling/disabling functions.
     virtual void SetVProgramRC(RendererConstant* pRC) = 0;
     virtual void SetVProgramUC(UserConstant* pUC) = 0;
     virtual void SetGProgramRC(RendererConstant* pRC) = 0;
@@ -398,7 +400,7 @@ protected:
         VertexProgram* pVProgram) = 0;
     virtual void OnEnableIBuffer(ResourceIdentifier* pID) = 0;
     virtual void OnDisableIBuffer(ResourceIdentifier* pID) = 0;
-    // DirectX 10 specific functions.
+    // DirectX10 specific functions.
     virtual void OnEnableRenderStateBlock(ResourceIdentifier* pID);
     virtual void OnDisableRenderStateBlock(ResourceIdentifier* pID);
 
