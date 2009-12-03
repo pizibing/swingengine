@@ -62,7 +62,7 @@ class RenderStateBlock;
 
 //----------------------------------------------------------------------------
 // Name:Renderer class
-// Description:Abstract renderer base class
+// Description:Renderer abstract base class
 // Author:Sun Che
 // Date:20080320
 //----------------------------------------------------------------------------
@@ -135,7 +135,7 @@ public:
     virtual void ClearBuffers(int iXPos, int iYPos, int iWidth,
         int iHeight) = 0;
 
-    // Object rendering entrypoint.
+    // Object rendering entry point.
     virtual void DrawScene(UnculledSet& rVisibleSet);
     virtual void Draw(Geometry* pGeometry);
 
@@ -205,7 +205,7 @@ public:
     // Shader compiler existence query.
     inline bool HasShaderCompiler(void) const;
 
-    // Render states management.
+    // Render state management.
     virtual void SetAlphaState(AlphaState* pState);
     virtual void SetCullState(CullState* pState);
     virtual void SetMaterialState(MaterialState* pState);
@@ -223,11 +223,10 @@ public:
     inline void SetReverseCullFace(bool bReverseCullFace);
     inline bool GetReverseCullFace(void) const;
 
-    // 渲染器绑定资源释放函数的函数指针类型.
+    // Prototype of bindable resource release function.
     typedef void (Renderer::*ReleaseFunction)(Bindable*);
 
-    // 渲染器资源装载与释放.
-    // 把资源载入显存或从显存释放.
+    // Resource loading/releasing functions.
     void LoadAllResources(Spatial* pScene);
     void ReleaseAllResources(Spatial* pScene);
     void LoadResources(Geometry* pGeometry);
@@ -251,7 +250,7 @@ public:
     void LoadRenderStateBlock(RenderStateBlock* pRStateBlock);
     void ReleaseRenderStateBlock(Bindable* pRStateBlock);
 
-    // 资源开启与关闭.
+    // Resource enabling/disabling functions.
     void EnableVProgram(VertexProgram* pVProgram);
     void DisableVProgram(VertexProgram* pVProgram);
     void EnableGProgram(GeometryProgram* pGProgram);
@@ -269,31 +268,38 @@ public:
     void EnableRenderStateBlock(RenderStateBlock* pRStateBlock);
     void DisableRenderStateBlock(RenderStateBlock* pRStateBlock);
 
-    // 供带有lights的effects使用.
+    // For use by effects with lights.
     inline void SetLightCount(int iCount);
     inline void SetLight(int i, Light* pLight);
     inline Light* GetLight(int i);
 
-    // 供带有投影器的effects使用.
+    // For use by effects with projectors.
     inline void SetProjector(Camera* pProjector);
     inline Camera* GetProjector(void);
 
-    // color mask设置,表明哪些颜色通道允许被写入color buffer.
+    // Enable or disable which color channels will be written to the color
+    // buffer.
     virtual void SetColorMask(bool bAllowRed, bool bAllowGreen,
         bool bAllowBlue, bool bAllowAlpha);
     virtual void GetColorMask(bool& rbAllowRed, bool& rbAllowGreen,
         bool& rbAllowBlue, bool& rbAllowAlpha);
 
-    // 开启/关闭用户自定义裁减平面.
-    // 传入平面必须是模型空间平面,它在内部被变换到摄像机空间参与clip空间裁减.
+    // Include additional clip planes.  The input plane must be in model
+    // coordinates.  It is transformed internally to camera coordinates to
+    // support clipping in clip space.
     virtual void EnableUserClipPlane(int i, const Plane3f& rPlane) = 0;
     virtual void DisableUserClipPlane(int i) = 0;
 
-    // 传入变换矩阵被应用于顶点世界空间变换之后,摄像机空间变换之前.
+    // Support for model-to-world transformation management.
+    void SetWorldTransformation(void);
+    void RestoreWorldTransformation(void);
+
+    // The input transformation is applied to world-space vertices before
+    // the view matrix is applied.
     void SetPostWorldTransformation(const Matrix4f& rMatrix);
     void RestorePostWorldTransformation(void);
 
-    // 获取几何管线world矩阵,view矩阵,齐次projection矩阵.
+    // Access the current state of the matrices.
     inline const Matrix4f& GetWorldMatrix(void) const;
     inline const Matrix4f& GetViewMatrix(void) const;
     inline const Matrix4f& GetProjectionMatrix(void) const;
@@ -306,47 +312,44 @@ protected:
         FrameBuffer::MultisamplingType eMultisampling,
         int iWidth, int iHeight);
 
-    // 支持摄像机访问和相关更新操作.
-    // 当摄像机相关数据改变时,调用这些回调函数.
+    // Support for camera access and transformation setting.
     friend class Camera;
-    void OnFrameChange(void);                  // 摄像机{E:R,U,D}改变
-    void OnFrustumChange(void);                // 摄像机截投体参数改变
-    virtual void OnViewportChange(void) = 0;   // 摄像机视口参数改变
-    virtual void OnDepthRangeChange(void) = 0; // 摄像机视口深度范围参数改变
+    void OnFrameChange(void);
+    void OnFrustumChange(void);
+    virtual void OnViewportChange(void) = 0;
+    virtual void OnDepthRangeChange(void) = 0;
 
-    // 全局渲染状态管理.
+    // Global render state management.
     void SetGlobalState(GlobalStatePtr aspState[]);
     void RestoreGlobalState(GlobalStatePtr aspState[]);
 
-    // per-geometry pre/post-draw函数入口.
-    // 注意:
-    // 渲染器派生类至少应实现当前几何体的渲染状态设置.
+    // Per-geometry pre/post-draw entry point.
+    // CAUTION:
+    // Renderer derived class should implements the setup of render state for
+    // drawing a geometry.
     virtual void OnPreDrawGeometry(void) = 0;
     virtual void OnPostDrawGeometry(void) = 0;
 
-    // per-pass pre/post-draw函数入口,
-    // 由ShaderEffect类的OnPreApplyPass/OnPostApplyPass调用.
-    // 注意:
-    // 渲染器派生类至少应实现当前pass的渲染状态设置.
+    // Per-pass pre/post-draw entry point.
+    // These functions are called by ShaderEffect class's OnPreApplyPass()/
+    // OnPostApplyPass().
+    // CAUTION:
+    // Renderer derived class should implements the setup of render state for
+    // drawing a pass.
     friend class ShaderEffect;
     virtual void OnPreDrawPass(ShaderEffect* pEffect, int iPass,
         bool bPrimaryEffect) = 0;
     virtual void OnPostDrawPass(ShaderEffect* pEffect, int iPass,
         bool bPrimaryEffect) = 0;
 
-    // 设置/恢复渲染器世界变换.
-    void SetWorldTransformation(void);
-    void RestoreWorldTransformation(void);
-
-    // 设置/恢复渲染器灯光数组.
+    // Support for light array management.
     void SetLights(void);
     void RestoreLights(void);
 
-    // 渲染器派生类渲染函数入口.
+    // The main entry point to drawing in the derived-class renderers.
     virtual void DrawElements(void) = 0;
 
-    // 渲染器资源装载与释放.
-    // 针对显存,需要具体图形API负责实现.
+    // Resource loading/releasing.
     virtual void OnLoadVProgram(ResourceIdentifier*& rpID,
         VertexProgram* pVProgram) = 0;
     virtual void OnReleaseVProgram(ResourceIdentifier* pID) = 0;
@@ -366,12 +369,12 @@ protected:
     virtual void OnLoadIBuffer(ResourceIdentifier*& rpID,
         IndexBuffer* pIBuffer) = 0;
     virtual void OnReleaseIBuffer(ResourceIdentifier* pID) = 0;
-    // DirectX 10渲染器需要重载以下函数.
+    // DirectX 10 specific functions.
     virtual void OnLoadRenderStateBlock(ResourceIdentifier*& rpID,
         RenderStateBlock* pRStateBlock);
     virtual void OnReleaseRenderStateBlock(ResourceIdentifier* pID);
 
-    // 渲染器资源开启与关闭.
+    // Resource enabling/disabling.
     virtual void SetVProgramRC(RendererConstant* pRC) = 0;
     virtual void SetVProgramUC(UserConstant* pUC) = 0;
     virtual void SetGProgramRC(RendererConstant* pRC) = 0;
@@ -395,7 +398,7 @@ protected:
         VertexProgram* pVProgram) = 0;
     virtual void OnEnableIBuffer(ResourceIdentifier* pID) = 0;
     virtual void OnDisableIBuffer(ResourceIdentifier* pID) = 0;
-    // DirectX 10渲染器需要重载以下函数.
+    // DirectX 10 specific functions.
     virtual void OnEnableRenderStateBlock(ResourceIdentifier* pID);
     virtual void OnDisableRenderStateBlock(ResourceIdentifier* pID);
 
