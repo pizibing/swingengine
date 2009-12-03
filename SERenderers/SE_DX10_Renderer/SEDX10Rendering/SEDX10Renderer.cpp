@@ -132,7 +132,8 @@ DX10Renderer::DX10Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     tempDSDesc.CPUAccessFlags = 0; 
     tempDSDesc.MiscFlags = 0;
 
-    ms_hResult = m_pDX10Device->CreateTexture2D(&tempDSDesc, 0, &m_pDX10DSBuffer);
+    ms_hResult = m_pDX10Device->CreateTexture2D(&tempDSDesc, 0, 
+        &m_pDX10DSBuffer);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
     ms_hResult = m_pDX10Device->CreateDepthStencilView(m_pDX10DSBuffer, 0, 
         &m_pDX10DSView);
@@ -155,7 +156,8 @@ DX10Renderer::DX10Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     m_iFontID = LoadFont("Arial", 18, false, false);
     SE_ASSERT( m_iFontID == 0 );
 
-    // 所有支持DX10的设备都必须遵循统一的设备能力,因此DX10没有查询设备能力的支持函数.
+    // 所有支持DX10的设备都必须遵循统一的设备能力,因此DX10没有查询设备能力的
+    // 支持函数.
 
     // OpenGL只支持primary和secondary两组顶点颜色.
     // 这里让DirectX渲染器与其保持一致.
@@ -178,6 +180,17 @@ DX10Renderer::DX10Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     // Swing Engine目前只支持8.
     m_iMaxLights = 8;
     m_aspLight = SE_NEW ObjectPtr[m_iMaxLights];
+
+    m_iMaxActiveSamplerCount = m_iMaxVShaderImages + m_iMaxGShaderImages +
+        m_iMaxPShaderImages;
+    if( m_iMaxActiveSamplerCount > 0 )
+    {
+        m_apActiveSamplers =
+            SE_NEW SamplerInformation*[m_iMaxActiveSamplerCount];
+
+        memset(m_apActiveSamplers, 0, m_iMaxActiveSamplerCount*
+            sizeof(SamplerInformation*));
+    }
 
     // Cg runtime stuff begin.
 
