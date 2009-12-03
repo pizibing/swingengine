@@ -1,16 +1,17 @@
 //----------------------------------------------------------------------------
 void v_BaseMulDetailFogExpSqr
 (
-    in float4        kModelPosition : POSITION,
-    in float2        kInBaseTCoord : TEXCOORD0,
-    in float2        kInDetailTCoord : TEXCOORD1,
-    out float4       kClipPosition : POSITION,
-    out float2       kOutBaseTCoord : TEXCOORD0,
+    in float4        kModelPosition   : POSITION,
+    in float2        kInBaseTCoord    : TEXCOORD0,
+    in float2        kInDetailTCoord  : TEXCOORD1,
+    out float4       kClipPosition    : POSITION,
+    out float2       kOutBaseTCoord   : TEXCOORD0,
     out float2       kOutDetailTCoord : TEXCOORD1,
-    out float        fFogFactor : TEXCOORD2,
+    out float        fFogFactor       : TEXCOORD2,
     uniform float4x4 WVPMatrix,
     uniform float4x4 WVMatrix,
-    uniform float4   FogColorDensity)
+    uniform float4   FogColorDensity
+)
 {
     // Transform the position from model space to clip space.
     kClipPosition = mul(kModelPosition,WVPMatrix);
@@ -31,13 +32,15 @@ void v_BaseMulDetailFogExpSqr
 //----------------------------------------------------------------------------
 void p_BaseMulDetailFogExpSqr
 (
-    in float2         kBaseTCoord : TEXCOORD0,
+    in float4         kPosition     : POSITION,
+    in float2         kBaseTCoord   : TEXCOORD0,
     in float2         kDetailTCoord : TEXCOORD1,
-    in float          fFogFactor : TEXCOORD2,
-    out float4        kPixelColor : COLOR,
+    in float          fFogFactor    : TEXCOORD2,
+    out float4        kPixelColor   : COLOR,
     uniform float4    FogColorDensity,
     uniform sampler2D BaseSampler,
-    uniform sampler2D DetailSampler)
+    uniform sampler2D DetailSampler
+)
 {
     // Sample the texture images and multiply the results.
     float3 kBaseColor = tex2D(BaseSampler,kBaseTCoord).xyz;

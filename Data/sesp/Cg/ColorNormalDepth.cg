@@ -21,11 +21,12 @@ void v_ColorNormalDepth
 //----------------------------------------------------------------------------
 void p_ColorNormalDepth
 (
-    in float3         kViewNormal    : TEXCOORD0,
-    in float          fInDepth       : TEXCOORD1,
-    out float4        kColor         : COLOR0,
-    out float4        kNormal        : COLOR1,
-    out float4        kDepth         : COLOR2
+    in float4  kPosition   : POSITION,
+    in float3  kViewNormal : TEXCOORD0,
+    in float   fInDepth    : TEXCOORD1,
+    out float4 kColor      : COLOR0,
+    out float4 kNormal     : COLOR1,
+    out float4 kDepth      : COLOR2
 )
 {
     kViewNormal = normalize(kViewNormal);

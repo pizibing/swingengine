@@ -8,8 +8,8 @@
 void v_ProjectedDepth
 (
     in float4        kModelPosition : POSITION,
-    out float4       kClipPosition : POSITION,
-    out float        fDepth : TEXCOORD0,
+    out float4       kClipPosition  : POSITION,
+    out float        fDepth         : TEXCOORD0,
     uniform float4x4 WVPMatrix
 )
 {
@@ -22,7 +22,8 @@ void v_ProjectedDepth
 //----------------------------------------------------------------------------
 void p_ProjectedDepth
 (
-    in float   fDepth : TEXCOORD0,
+    in float4  kPosition   : POSITION,
+    in float   fDepth      : TEXCOORD0,
     out float  fPixelColor : COLOR
 )
 {
@@ -31,8 +32,8 @@ void p_ProjectedDepth
 //----------------------------------------------------------------------------
 void v_ShadowMap
 (
-    in float4        kModelPosition : POSITION,
-    out float4       kClipPosition : POSITION,
+    in float4        kModelPosition   : POSITION,
+    out float4       kClipPosition    : POSITION,
     out float4       kProjectedTCoord : TEXCOORD0,
     uniform float4x4 WVPMatrix,
     uniform float4x4 ProjectorMatrix
@@ -47,8 +48,9 @@ void v_ShadowMap
 //----------------------------------------------------------------------------
 void p_ShadowMap
 (
+    in float4         kPosition        : POSITION,
     in float4         kProjectedTCoord : TEXCOORD0,
-    out float4        kPixelColor : COLOR,
+    out float4        kPixelColor      : COLOR,
     uniform float     DepthBias,
     uniform sampler2D ColorSampler,
     uniform sampler2D DepthSampler

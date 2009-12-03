@@ -9,7 +9,8 @@ void GetDirectionalLightFactors
     float3    kLightDirection,
     float     fSpecularExponent,
     out float fDiffuseFactor,
-    out float fSpecularFactor)
+    out float fSpecularFactor
+)
 {
     float fDiff, fSpec;
 
@@ -46,7 +47,8 @@ void GetPointLightFactors
     float3    kLightPosition,
     float     fSpecularExponent,
     out float fDiffuseFactor,
-    out float fSpecularFactor)
+    out float fSpecularFactor
+)
 {
     float fDiff, fSpec;
 
@@ -88,7 +90,8 @@ void GetSpotLightFactors
     float     fSpotExponent,
     out float fDiffuseFactor,
     out float fSpecularFactor,
-    out float fSpotFactor)
+    out float fSpotFactor
+)
 {
     float fDiff, fSpec, fSpot;
 
@@ -136,7 +139,8 @@ float GetAttenuation
     float3x3 kWMatrix,
     float3   kModelPos,
     float3   kLightPos, 
-    float4   kAttenuation)
+    float4   kAttenuation
+)
 {
     // Attenuate the color (x=constant, y=linear, z=quadratic, w=intensity).
     // Attenuation is not active when the x component is zero.  The distance
@@ -322,10 +326,10 @@ struct SpotLight : ILight
 //----------------------------------------------------------------------------
 void v_ILighting
 (
-    in float4        kModelPosition  : POSITION,
-    in float3        kModelNormal    : NORMAL,
-    out float4       kClipPosition   : POSITION,
-    out float4       kVertexColor    : COLOR0,
+    in float4        kModelPosition : POSITION,
+    in float3        kModelNormal   : NORMAL,
+    out float4       kClipPosition  : POSITION,
+    out float4       kVertexColor   : COLOR0,
     uniform float4x4 WVPMatrix,
     uniform float4x4 WMatrix,
     uniform float3   CameraModelPosition,
@@ -352,8 +356,9 @@ void v_ILighting
 //----------------------------------------------------------------------------
 void p_LightingPassThrough4
 (
+    in float4  kPosition     : POSITION,
     in float4  kInPixelColor : COLOR0,
-    out float4 kPixelColor : COLOR0
+    out float4 kPixelColor   : COLOR0
 )
 {
     kPixelColor = kInPixelColor;
@@ -378,6 +383,7 @@ void v_LightingPassThrough
 //----------------------------------------------------------------------------
 void p_ILighting
 (
+    in float4        kPosition       : POSITION,
     in float3        kModelPosition  : TEXCOORD0,
     in float3        kModelNormal    : TEXCOORD1,
     out float4       kPixelColor     : COLOR0,

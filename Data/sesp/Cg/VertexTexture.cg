@@ -9,12 +9,13 @@
 //----------------------------------------------------------------------------
 void v_VertexTexture
 (
-    in float4         kModelPosition  : POSITION,
-    in float2         kInBaseTCoord : TEXCOORD0,
-    out float4        kClipPosition : POSITION,
-    out float4        kVertexColor : COLOR,
+    in float4         kModelPosition : POSITION,
+    in float2         kInBaseTCoord  : TEXCOORD0,
+    out float4        kClipPosition  : POSITION,
+    out float4        kVertexColor   : COLOR,
     uniform sampler2D BaseSampler, 
-    uniform float4x4  WVPMatrix)
+    uniform float4x4  WVPMatrix
+)
 {
     kClipPosition = mul(kModelPosition, WVPMatrix);
 
@@ -23,8 +24,10 @@ void v_VertexTexture
 //----------------------------------------------------------------------------
 void p_VertexTexture
 (
+    in float4  kPosition     : POSITION,
     in float4  kInPixelColor : COLOR,
-    out float4 kPixelColor : COLOR)
+    out float4 kPixelColor   : COLOR
+)
 {
     kPixelColor = kInPixelColor;
 }

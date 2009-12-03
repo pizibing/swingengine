@@ -7,15 +7,16 @@
 //----------------------------------------------------------------------------
 void v_SkinMaterial
 (
-    in float4        kModelPosition  : POSITION,
-    in float3        kModelNormal    : NORMAL,
-    in float4        kBlendWeight    : TEXCOORD0,
-    in float4        kBlendIndices   : TEXCOORD1,
-    out float4       kClipPosition   : POSITION,
-    out float4       kDiffuseColor   : COLOR,
+    in float4        kModelPosition : POSITION,
+    in float3        kModelNormal   : NORMAL,
+    in float4        kBlendWeight   : TEXCOORD0,
+    in float4        kBlendIndices  : TEXCOORD1,
+    out float4       kClipPosition  : POSITION,
+    out float4       kDiffuseColor  : COLOR,
     uniform float4x4 VPMatrix,
     uniform float4   MaterialDiffuse,
-    uniform float4x4 SkinMatrix[32])
+    uniform float4x4 SkinMatrix[32]
+)
 {
     float3 kWorldNormal;
     
@@ -45,8 +46,10 @@ void v_SkinMaterial
 //----------------------------------------------------------------------------
 void p_SkinMaterial
 (
+    in float4    kPosition     : POSITION,
     in float4    kDiffuseColor : COLOR,
-    out float4   kPixelColor   : COLOR)
+    out float4   kPixelColor   : COLOR
+)
 {
     kPixelColor = kDiffuseColor;
 }

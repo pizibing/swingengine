@@ -8,14 +8,14 @@
 void v_ParallaxMapL1
 (
     in float4        kModelPosition  : POSITION,
-    in float3        kModelNormal : NORMAL,
-    in float2        kInBaseTCoord : TEXCOORD0,
-    in float3        kModelTangent : TEXCOORD1,
+    in float3        kModelNormal    : NORMAL,
+    in float2        kInBaseTCoord   : TEXCOORD0,
+    in float3        kModelTangent   : TEXCOORD1,
     in float3        kModelBiTangent : TEXCOORD2,
-    out float4       kClipPosition : POSITION,
-    out float2       kOutBaseTCoord : TEXCOORD0,
-    out float4       kTangentLight : TEXCOORD1,
-    out float3       kTangentView : TEXCOORD2,
+    out float4       kClipPosition   : POSITION,
+    out float2       kOutBaseTCoord  : TEXCOORD0,
+    out float4       kTangentLight   : TEXCOORD1,
+    out float3       kTangentView    : TEXCOORD2,
     
     // Renderer constants.
     uniform float4x4 WVPMatrix,
@@ -69,10 +69,11 @@ void v_ParallaxMapL1
 //----------------------------------------------------------------------------
 void p_ParallaxMapL1
 (
-    in float2         kBaseTCoord : TEXCOORD0,
+    in float4         kPosition     : POSITION,
+    in float2         kBaseTCoord   : TEXCOORD0,
     in float4         kTangentLight : TEXCOORD1,
-    in float3         kTangentView : TEXCOORD2,
-    out float4        kPixelColor : COLOR,
+    in float3         kTangentView  : TEXCOORD2,
+    out float4        kPixelColor   : COLOR,
     
     // Renderer constants.
     uniform float4 MaterialDiffuse,  // MaterialDiffuse.a is transparency.

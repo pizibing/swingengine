@@ -9,7 +9,8 @@ void GetDirectionalLightFactors
     float3    kLightDirection,
     float     fSpecularExponent,
     out float fDiffuseFactor,
-    out float fSpecularFactor)
+    out float fSpecularFactor
+)
 {
     float fDiff, fSpec;
 
@@ -46,7 +47,8 @@ void GetPointLightFactors
     float3    kLightPosition,
     float     fSpecularExponent,
     out float fDiffuseFactor,
-    out float fSpecularFactor)
+    out float fSpecularFactor
+)
 {
     float fDiff, fSpec;
 
@@ -88,7 +90,8 @@ void GetSpotLightFactors
     float     fSpotExponent,
     out float fDiffuseFactor,
     out float fSpecularFactor,
-    out float fSpotFactor)
+    out float fSpotFactor
+)
 {
     float fDiff, fSpec, fSpot;
 
@@ -136,7 +139,8 @@ float GetAttenuation
     float3x3 kWMatrix,
     float3   kModelPos,
     float3   kLightPos, 
-    float4   kAttenuation)
+    float4   kAttenuation
+)
 {
     // Attenuate the color (x=constant, y=linear, z=quadratic, w=intensity).
     // Attenuation is not active when the x component is zero.  The distance
@@ -173,14 +177,15 @@ float GetAttenuation
 //----------------------------------------------------------------------------
 void v_L1a
 (
-    in float4        kModelPosition  : POSITION,
-    out float4       kClipPosition : POSITION,
-    out float4       kVertexColor : COLOR,
+    in float4        kModelPosition : POSITION,
+    out float4       kClipPosition  : POSITION,
+    out float4       kVertexColor   : COLOR,
     uniform float4x4 WVPMatrix,
     uniform float3   MaterialEmissive,
     uniform float3   MaterialAmbient,
     uniform float3   Light0Ambient,
-    uniform float4   Light0Attenuation)
+    uniform float4   Light0Attenuation
+)
 {
     // Transform the position from model space to clip space.
     kClipPosition = mul(kModelPosition,WVPMatrix);
@@ -192,10 +197,10 @@ void v_L1a
 //----------------------------------------------------------------------------
 void v_L1d
 (
-    in float4        kModelPosition  : POSITION,
-    in float3        kModelNormal : NORMAL,
-    out float4       kClipPosition : POSITION,
-    out float4       kVertexColor : COLOR,
+    in float4        kModelPosition : POSITION,
+    in float3        kModelNormal   : NORMAL,
+    out float4       kClipPosition  : POSITION,
+    out float4       kVertexColor   : COLOR,
     uniform float4x4 WVPMatrix,
     uniform float3   CameraModelPosition,
     uniform float3   MaterialEmissive,
@@ -206,7 +211,8 @@ void v_L1d
     uniform float3   Light0Ambient,
     uniform float3   Light0Diffuse,
     uniform float3   Light0Specular,
-    uniform float4   Light0Attenuation)
+    uniform float4   Light0Attenuation
+)
 {
     // Transform the position from model space to clip space.
     kClipPosition = mul(kModelPosition,WVPMatrix);
@@ -232,10 +238,10 @@ void v_L1d
 //----------------------------------------------------------------------------
 void v_L1p
 (
-    in float4        kModelPosition  : POSITION,
-    in float3        kModelNormal : NORMAL,
-    out float4       kClipPosition : POSITION,
-    out float4       kVertexColor : COLOR,
+    in float4        kModelPosition : POSITION,
+    in float3        kModelNormal   : NORMAL,
+    out float4       kClipPosition  : POSITION,
+    out float4       kVertexColor   : COLOR,
     uniform float4x4 WVPMatrix,
     uniform float4x4 WMatrix,
     uniform float3   CameraModelPosition,
@@ -247,7 +253,8 @@ void v_L1p
     uniform float3   Light0Ambient,
     uniform float3   Light0Diffuse,
     uniform float3   Light0Specular,
-    uniform float4   Light0Attenuation)
+    uniform float4   Light0Attenuation
+)
 {
     // Transform the position from model space to clip space.
     kClipPosition = mul(kModelPosition,WVPMatrix);
@@ -276,10 +283,10 @@ void v_L1p
 //----------------------------------------------------------------------------
 void v_L1s
 (
-    in float4 kModelPosition  : POSITION,
-    in float3 kModelNormal : NORMAL,
+    in float4 kModelPosition : POSITION,
+    in float3 kModelNormal   : NORMAL,
     out float4 kClipPosition : POSITION,
-    out float4 kVertexColor : COLOR,
+    out float4 kVertexColor  : COLOR,
     uniform float4x4 WVPMatrix,
     uniform float4x4 WMatrix,
     uniform float3 CameraModelPosition,
@@ -293,7 +300,8 @@ void v_L1s
     uniform float3 Light0Diffuse,
     uniform float3 Light0Specular,
     uniform float4 Light0SpotCutoff,
-    uniform float4 Light0Attenuation)
+    uniform float4 Light0Attenuation
+)
 {
     // Transform the position from model space to clip space.
     kClipPosition = mul(kModelPosition,WVPMatrix);
@@ -330,16 +338,17 @@ void v_L1s
 //----------------------------------------------------------------------------
 void v_L2aa
 (
-    in float4        kModelPosition  : POSITION,
-    out float4       kClipPosition : POSITION,
-    out float4       kVertexColor : COLOR,
+    in float4        kModelPosition : POSITION,
+    out float4       kClipPosition  : POSITION,
+    out float4       kVertexColor   : COLOR,
     uniform float4x4 WVPMatrix,
     uniform float3   MaterialEmissive,
     uniform float3   MaterialAmbient,
     uniform float3   Light0Ambient,
     uniform float4   Light0Attenuation,
     uniform float3   Light1Ambient,
-    uniform float4   Light1Attenuation)
+    uniform float4   Light1Attenuation
+)
 {
     // Transform the position from model space to clip space.
     kClipPosition = mul(kModelPosition,WVPMatrix);
@@ -354,10 +363,10 @@ void v_L2aa
 //----------------------------------------------------------------------------
 void v_L2ad
 (
-    in float4        kModelPosition  : POSITION,
-    in float3        kModelNormal : NORMAL,
-    out float4       kClipPosition : POSITION,
-    out float4       kVertexColor : COLOR,
+    in float4        kModelPosition : POSITION,
+    in float3        kModelNormal   : NORMAL,
+    out float4       kClipPosition  : POSITION,
+    out float4       kVertexColor   : COLOR,
     uniform float4x4 WVPMatrix,
     uniform float3   CameraModelPosition,
     uniform float3   MaterialEmissive,
@@ -370,7 +379,8 @@ void v_L2ad
     uniform float3   Light1Ambient,
     uniform float3   Light1Diffuse,
     uniform float3   Light1Specular,
-    uniform float4   Light1Attenuation)
+    uniform float4   Light1Attenuation
+)
 {
     // Transform the position from model space to clip space.
     kClipPosition = mul(kModelPosition,WVPMatrix);

@@ -7,12 +7,13 @@
 //----------------------------------------------------------------------------
 void v_SkinDefault
 (
-    in float4        kModelPosition  : POSITION,
-    in float4        kBlendWeight    : TEXCOORD0,
-    in float4        kBlendIndices   : TEXCOORD1,
-    out float4       kClipPosition   : POSITION,
+    in float4        kModelPosition : POSITION,
+    in float4        kBlendWeight   : TEXCOORD0,
+    in float4        kBlendIndices  : TEXCOORD1,
+    out float4       kClipPosition  : POSITION,
     uniform float4x4 VPMatrix,
-    uniform float4x4 SkinMatrix[32])
+    uniform float4x4 SkinMatrix[32]
+)
 {   
     // »ñÈ¡¹Ç÷ÀË÷Òý
     int iBone1 = kBlendIndices.x;
@@ -31,7 +32,9 @@ void v_SkinDefault
 //----------------------------------------------------------------------------
 void p_SkinDefault
 (
-    out float4        kPixelColor   : COLOR)
+    in float4    kPosition   : POSITION,
+    out float4   kPixelColor : COLOR
+)
 {
     kPixelColor.rga = 1.0f;
     kPixelColor.b = 0.0f;

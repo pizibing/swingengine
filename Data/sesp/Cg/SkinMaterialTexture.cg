@@ -7,17 +7,18 @@
 //----------------------------------------------------------------------------
 void v_SkinMaterialTexture
 (
-    in float4        kModelPosition  : POSITION,
-    in float3        kModelNormal    : NORMAL,
-    in float2        kInBaseTCoord   : TEXCOORD0,
-    in float4        kBlendWeight    : TEXCOORD1,
-    in float4        kBlendIndices   : TEXCOORD2,
-    out float4       kClipPosition   : POSITION,
-    out float4       kDiffuseColor   : COLOR,
-    out float2       kOutBaseTCoord  : TEXCOORD0,
+    in float4        kModelPosition : POSITION,
+    in float3        kModelNormal   : NORMAL,
+    in float2        kInBaseTCoord  : TEXCOORD0,
+    in float4        kBlendWeight   : TEXCOORD1,
+    in float4        kBlendIndices  : TEXCOORD2,
+    out float4       kClipPosition  : POSITION,
+    out float4       kDiffuseColor  : COLOR,
+    out float2       kOutBaseTCoord : TEXCOORD0,
     uniform float4x4 VPMatrix,
     uniform float4   MaterialDiffuse,
-    uniform float4x4 SkinMatrix[32])
+    uniform float4x4 SkinMatrix[32]
+)
 {
     float3 kWorldNormal;
 
@@ -45,10 +46,12 @@ void v_SkinMaterialTexture
 //----------------------------------------------------------------------------
 void p_SkinMaterialTexture
 (
+    in float4         kPosition     : POSITION,
     in float4         kDiffuseColor : COLOR,
     in float2         kBaseTCoord   : TEXCOORD0,
     out float4        kPixelColor   : COLOR,
-    uniform sampler2D BaseSampler)
+    uniform sampler2D BaseSampler
+)
 {
     float4 kBaseColor = tex2D(BaseSampler, kBaseTCoord);
     kPixelColor.rgb = saturate(kBaseColor.rgb + kDiffuseColor.rgb*0.1);

@@ -1,11 +1,12 @@
 //----------------------------------------------------------------------------
 void v_ScreenSpaceAO
 (
-    in float4        kModelPosition  : POSITION,
-    in float2        kInBaseTCoord   : TEXCOORD0,
-    out float4       kClipPosition   : POSITION,
-    out float2       kOutBaseTCoord  : TEXCOORD0,
-    uniform float4x4 WVPMatrix)
+    in float4        kModelPosition : POSITION,
+    in float2        kInBaseTCoord  : TEXCOORD0,
+    out float4       kClipPosition  : POSITION,
+    out float2       kOutBaseTCoord : TEXCOORD0,
+    uniform float4x4 WVPMatrix
+)
 {
     kClipPosition = mul(kModelPosition, WVPMatrix);
     kOutBaseTCoord = kInBaseTCoord;
@@ -13,6 +14,7 @@ void v_ScreenSpaceAO
 //----------------------------------------------------------------------------
 void p_ScreenSpaceAO
 (
+    in float4    kPosition : POSITION,
     // 4x4 texture containing 16 random vectors
     uniform sampler2D kRotSampler4x4,
     // scene depth target containing normalized from 0 to 1 linear depth

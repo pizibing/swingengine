@@ -14,6 +14,7 @@ void v_Texture
 //----------------------------------------------------------------------------
 void p_Texture
 (
+    in float4         kPosition   : POSITION,
     in float2         kBaseTCoord : TEXCOORD0,
     out float4        kPixelColor : COLOR0,
     uniform sampler2D BaseSampler)

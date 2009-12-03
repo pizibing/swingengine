@@ -1,14 +1,14 @@
 //----------------------------------------------------------------------------
 void v_IMaterial
 (
-    in float4        kModelPosition  : POSITION,
-    in float2        kInBaseTCoord : TEXCOORD0,
-    out float4       kClipPosition : POSITION,
-    out float4       kDiffuseColor : COLOR,
+    in float4        kModelPosition : POSITION,
+    in float2        kInBaseTCoord  : TEXCOORD0,
+    out float4       kClipPosition  : POSITION,
+    out float4       kDiffuseColor  : COLOR,
     out float2       kOutBaseTCoord : TEXCOORD0,
     uniform float4x4 WVPMatrix,
-    uniform float4   MaterialDiffuse)
-   
+    uniform float4   MaterialDiffuse
+)  
 {
     kClipPosition = mul(kModelPosition, WVPMatrix);
     kDiffuseColor = MaterialDiffuse;
@@ -32,10 +32,11 @@ struct ImageTexture : ITexture
 //----------------------------------------------------------------------------
 void p_IMaterial
 (
-    uniform ITexture aTexture[],    
-    in float2        kBaseTCoord : TEXCOORD0,
+    in float4        kPosition     : POSITION,  
+    in float2        kBaseTCoord   : TEXCOORD0,
     in float4        kDiffuseColor : COLOR,
-    out float4       kPixelColor : COLOR
+    out float4       kPixelColor   : COLOR,
+    uniform ITexture aTexture[]
 )
 {
     float3 kColor = 0;

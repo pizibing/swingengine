@@ -18,6 +18,7 @@ void v_Combine
 //----------------------------------------------------------------------------
 void p_Combine
 (
+    in float4         kPosition   : POSITION,
     in float2         kTCoord0    : TEXCOORD0,
     in float2         kTCoord1    : TEXCOORD1,
     out float4        kPixelColor : COLOR0,

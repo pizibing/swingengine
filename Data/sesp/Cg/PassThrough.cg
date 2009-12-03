@@ -1,8 +1,10 @@
 //----------------------------------------------------------------------------
 void p_PassThrough3
 (
+    in float4  kPosition     : POSITION,
     in float3  kInPixelColor : COLOR,
-    out float4 kPixelColor : COLOR)
+    out float4 kPixelColor   : COLOR
+)
 {
     kPixelColor.rgb = kInPixelColor;
     kPixelColor.a = 1.0f;
@@ -10,8 +12,10 @@ void p_PassThrough3
 //----------------------------------------------------------------------------
 void p_PassThrough4
 (
+    in float4  kPosition     : POSITION,
     in float4  kInPixelColor : COLOR,
-    out float4 kPixelColor : COLOR)
+    out float4 kPixelColor   : COLOR
+)
 {
     kPixelColor = kInPixelColor;
 }
