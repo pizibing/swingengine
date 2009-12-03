@@ -279,49 +279,48 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
         eUsage = D3D10_USAGE_DEFAULT;
     }
 
-    D3DX10_IMAGE_LOAD_INFO tempLoadInfo;
-    tempLoadInfo.FirstMipLevel  = 0;
-    // a full mipmap chain will be created.
-    tempLoadInfo.MipLevels = D3DX10_DEFAULT;
-    tempLoadInfo.Usage = eUsage;
-    tempLoadInfo.BindFlags = eBindFlag;
-    tempLoadInfo.CpuAccessFlags = 0;
-    tempLoadInfo.MiscFlags = 0;
-    tempLoadInfo.Format = eDXGIFMT;
-    tempLoadInfo.Filter = D3DX10_FILTER_NONE;
-    tempLoadInfo.MipFilter = D3DX10_FILTER_NONE;
-    tempLoadInfo.pSrcInfo = 0;
-
     switch( iDimension )
     {
     case 1:
     {
-        tempLoadInfo.Width = pImage->GetBound(0);
-        tempLoadInfo.Height = 1;
-        tempLoadInfo.Depth = 0;
-
-        ID3D10Resource* pDX10Texture;
-
-        ms_hResult = D3DX10CreateTextureFromMemory(m_pDX10Device, aucRSrc,
-            iByteCount, &tempLoadInfo, 0, &pDX10Texture, 0);
-        SE_ASSERT( SUCCEEDED(ms_hResult) );
-
-        pResource->ID = pDX10Texture;
+        // TODO.
+        SE_ASSERT( false );
         break;
     }
     case 2:
     {
-        tempLoadInfo.Width = pImage->GetBound(0);
-        tempLoadInfo.Height = pImage->GetBound(1);
-        tempLoadInfo.Depth = 0;
+        if( bIsRegularImage )
+        {
+            D3D10_TEXTURE2D_DESC tempTextureDesc;
+            tempTextureDesc.Width = pImage->GetBound(0);
+            tempTextureDesc.Height = pImage->GetBound(1);
+            tempTextureDesc.MipLevels = 1;
+            tempTextureDesc.ArraySize = 1;
+            tempTextureDesc.Format = eDXGIFMT;
+            tempTextureDesc.SampleDesc.Count = 1;
+            tempTextureDesc.SampleDesc.Quality = 0;
+            tempTextureDesc.Usage = eUsage;
+            tempTextureDesc.BindFlags = eBindFlag;
+            tempTextureDesc.CPUAccessFlags = 0;
+            tempTextureDesc.MiscFlags = 0;
+            D3D10_SUBRESOURCE_DATA tempInitData;
+            tempInitData.pSysMem = aucRSrc;
+            tempInitData.SysMemPitch = iByteCount / tempTextureDesc.Height;
+			tempInitData.SysMemSlicePitch = 0;
 
-        ID3D10Resource* pDX10Texture;
+            ID3D10Texture2D* pDX10Texture;
+            ms_hResult = m_pDX10Device->CreateTexture2D(&tempTextureDesc, 
+                &tempInitData, &pDX10Texture);
+            SE_ASSERT( SUCCEEDED(ms_hResult) );
 
-        ms_hResult = D3DX10CreateTextureFromMemory(m_pDX10Device, aucRSrc,
-            iByteCount, &tempLoadInfo, 0, &pDX10Texture, 0);
-        SE_ASSERT( SUCCEEDED(ms_hResult) );
+            pResource->ID = (ID3D10Resource*)pDX10Texture;
+        }
+        else
+        {
+            // TODO.
+            SE_ASSERT( false );
+        }
 
-        pResource->ID = pDX10Texture;
         break;
     }
     case 3:
