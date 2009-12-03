@@ -117,17 +117,17 @@ protected:
     void GenerateRasterizerState(const RenderStateBlock* pRStateBlock, 
         ID3D10RasterizerState*& rpDX10RState);
 
-    // Per-geometry pre/post-draw entrypoint.
+    // Per-geometry pre/post-draw entry point.
     virtual void OnPreDrawGeometry(void);
     virtual void OnPostDrawGeometry(void);
 
-    // Per-pass pre/post-draw entrypoint.
+    // Per-pass pre/post-draw entry point.
     virtual void OnPreDrawPass(ShaderEffect* pEffect, int iPass,
         bool bPrimaryEffect);
     virtual void OnPostDrawPass(ShaderEffect* pEffect, int iPass,
         bool bPrimaryEffect);
 
-    // Rendering entrypoint.
+    // Rendering entry point.
     virtual void DrawElements(void);
 
     // 渲染器资源装载与释放.
