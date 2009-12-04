@@ -108,7 +108,7 @@ bool Billboard::OnKeyDown(unsigned char ucKey, int iX, int iY)
     case 'W':
 		m_spWireframe->Enabled = !m_spWireframe->Enabled;
 
-#if defined(SE_USE_DX10)
+#if defined(SE_USING_DX10)
         // DX10 render state objects must be re-created based on our new states.
         m_spScene->UpdateRS();
 #endif

@@ -235,10 +235,33 @@ DX10Renderer::DX10Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     m_bCursorVisible = true;
     m_bDeviceLost = false;
     m_bBeginSceneActive = false;
+
+	// test
+	D3DX10_IMAGE_INFO fileInfo;
+	D3DX10GetImageInfoFromFile("NVIDIA.png", 0, &fileInfo, 0);
+	D3DX10_IMAGE_LOAD_INFO loadInfo;
+	loadInfo.Width          = fileInfo.Width;
+	loadInfo.Height         = fileInfo.Height;
+	loadInfo.FirstMipLevel  = 0;
+	loadInfo.MipLevels      = fileInfo.MipLevels;
+	loadInfo.Usage          = D3D10_USAGE_DEFAULT;
+	loadInfo.BindFlags      = D3D10_BIND_SHADER_RESOURCE;
+	loadInfo.CpuAccessFlags = 0;
+	loadInfo.MiscFlags      = 0;
+	loadInfo.Format         = fileInfo.Format;    
+	loadInfo.Filter         = D3DX10_FILTER_NONE;
+	loadInfo.MipFilter      = D3DX10_FILTER_NONE;
+	loadInfo.pSrcInfo       = &fileInfo;
+	ms_hResult = D3DX10CreateTextureFromFile(m_pDX10Device, "NVIDIA.png", 
+		&loadInfo, 0, &pTestTexture, 0);
+	SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
 DX10Renderer::~DX10Renderer()
 {
+	// test
+	pTestTexture->Release();
+
     // Release all fonts.
     for( int i = 0; i < (int)m_FontArray.size(); i++ )
     {

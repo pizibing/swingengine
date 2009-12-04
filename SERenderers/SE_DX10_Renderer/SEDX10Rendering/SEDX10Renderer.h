@@ -223,6 +223,9 @@ protected:
 
     static DX10ProgramInterfaceCatalog* ms_pProgramInterfaceCatalog;
 
+	// test
+    ID3D10Resource* pTestTexture;
+
     // 引擎层参数常量与DirectX渲染器层参数常量映射表.
     static D3D10_PRIMITIVE_TOPOLOGY ms_aeObjectType[];
     static D3D10_BLEND ms_aeAlphaSrcBlend[];
