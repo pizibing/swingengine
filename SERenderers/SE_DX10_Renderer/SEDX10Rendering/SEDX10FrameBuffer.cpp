@@ -374,25 +374,3 @@ void DX10FrameBuffer::CopyToTexture(int)
     //}
 }
 //----------------------------------------------------------------------------
-void DX10FrameBuffer::OnLostDevice()
-{
-    //m_pRenderToTexture->OnLostDevice();
-
-    //TerminateBuffer();
-
-    //for( int i = 0; i < m_iCount; i++ )
-    //{
-    //    m_pRenderer->ReleaseTexture(m_apTargets[i]);
-    //}
-}
-//----------------------------------------------------------------------------
-void DX10FrameBuffer::OnResetDevice()
-{
-    //for( int i = 0; i < m_iCount; i++ )
-    //{
-    //    m_pRenderer->LoadTexture(m_apTargets[i]);
-    //}
-
-    //InitializeBuffer();
-}
-//----------------------------------------------------------------------------

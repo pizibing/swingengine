@@ -56,8 +56,6 @@ public:
     virtual ~DX10Renderer(void);
 
     virtual void ToggleFullscreen(void);
-    virtual bool BeginScene(void);
-    virtual void EndScene(void);
 
     // 全窗口buffer操作.
     virtual void ClearBackBuffer(void);
@@ -101,10 +99,6 @@ public:
     CGprofile GetCgLatestGeometryProfile(void) const;
 
 protected:
-    // 设备管理.
-    void OnLostDevice(void);
-    void OnResetDevice(void);
-
     // Camera update.
     virtual void OnViewportChange(void);
     virtual void OnDepthRangeChange(void);

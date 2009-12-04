@@ -309,9 +309,6 @@ void DX10Renderer::ToggleFullscreen()
     //    m_Present.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
     //}
 
-    //OnLostDevice();
-    //OnResetDevice(); 
-
     //if( m_Present.Windowed )
     //{
     //    SetWindowPos(m_Present.hDeviceWindow, 
@@ -322,74 +319,6 @@ void DX10Renderer::ToggleFullscreen()
     //        m_rcWindow.bottom - m_rcWindow.top,
     //        SWP_NOZORDER | SWP_DRAWFRAME | SWP_SHOWWINDOW);
     //}
-}
-//----------------------------------------------------------------------------
-bool DX10Renderer::BeginScene()
-{
-    //ms_hResult = m_pDXDevice->TestCooperativeLevel();
-    //
-    //switch( ms_hResult )
-    //{
-    //case D3DERR_DEVICELOST:
-    //    if( !m_bDeviceLost )
-    //    {
-    //        m_bDeviceLost = true;
-    //        OnLostDevice();
-    //    }
-    //    return false;
-    //case D3DERR_DEVICENOTRESET:
-    //    OnResetDevice();
-    //    m_bDeviceLost = false;
-    //    break;
-    //}
-
-    //ms_hResult = m_pDXDevice->BeginScene();
-    //SE_ASSERT( SUCCEEDED(ms_hResult) );
-
-    //m_bBeginSceneActive = true;
-
-    return true;
-}
-//----------------------------------------------------------------------------
-void DX10Renderer::EndScene()
-{
-    //ms_hResult = m_pDXDevice->EndScene();
-    //SE_ASSERT( SUCCEEDED(ms_hResult) );
-
-    //m_bBeginSceneActive = false;
-}
-//----------------------------------------------------------------------------
-void DX10Renderer::OnLostDevice()
-{
-    //// release font.
-    //m_FontArray[0]->OnLostDevice();
-
-    //// release framebuffer.
-    //int iFrameBufferCount = (int)m_FrameBuffers.size();
-    //for( int i = 0; i < iFrameBufferCount; i++ )
-    //{
-    //    m_FrameBuffers[i]->OnLostDevice();
-    //}
-}
-//----------------------------------------------------------------------------
-void DX10Renderer::OnResetDevice()
-{
-    //ms_hResult = m_pDXDevice->Reset(&m_Present);
-    //SE_ASSERT( SUCCEEDED(ms_hResult) );
-
-    //// reset font.
-    //m_FontArray[0]->OnResetDevice();
-
-    //// reset framebuffer.
-    //int iFrameBufferCount = (int)m_FrameBuffers.size();
-    //for( int i = 0; i < iFrameBufferCount; i++ )
-    //{
-    //    m_FrameBuffers[i]->OnResetDevice();
-    //}
-
-    //OnFrustumChange();
-    //OnViewportChange();
-    //OnFrameChange();
 }
 //----------------------------------------------------------------------------
 void DX10Renderer::ClearBackBuffer()

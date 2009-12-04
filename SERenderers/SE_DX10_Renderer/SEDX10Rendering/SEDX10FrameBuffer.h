@@ -54,9 +54,6 @@ public:
     virtual void Disable(void);
     virtual void CopyToTexture(int i);
 
-    virtual void OnLostDevice(void);
-    virtual void OnResetDevice(void);
-
 protected:
     class TargetItem
     {
