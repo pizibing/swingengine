@@ -1,11 +1,12 @@
 //----------------------------------------------------------------------------
 void v_Texture
 (
-    in float4        kModelPosition  : POSITION,
-    in float2        kInBaseTCoord : TEXCOORD0,
-    out float4       kClipPosition : POSITION,
+    in float4        kModelPosition : POSITION,
+    in float2        kInBaseTCoord  : TEXCOORD0,
+    out float4       kClipPosition  : POSITION,
     out float2       kOutBaseTCoord : TEXCOORD0,
-    uniform float4x4 WVPMatrix)
+    uniform float4x4 WVPMatrix
+)
 {
     kClipPosition = mul(kModelPosition,WVPMatrix);
 
@@ -17,7 +18,8 @@ void p_Texture
     in float4         kPosition   : POSITION,
     in float2         kBaseTCoord : TEXCOORD0,
     out float4        kPixelColor : COLOR0,
-    uniform sampler2D BaseSampler)
+    uniform sampler2D BaseSampler
+)
 {
     kPixelColor = tex2D(BaseSampler, kBaseTCoord);
 }
