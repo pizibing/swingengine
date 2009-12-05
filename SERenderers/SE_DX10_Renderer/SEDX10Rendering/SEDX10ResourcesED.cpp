@@ -165,12 +165,8 @@ void DX10Renderer::OnEnableTexture(ResourceIdentifier* pID)
     SamplerInformation::Type eSType = pSI->GetType();
     CGparameter hParam = (CGparameter)pSI->GetID();
 
-    //cgD3D10SetTextureParameter(hParam, pResource->ID);
-    //SE_DX10_DEBUG_CG_PROGRAM;
-
-	// test
-	cgD3D10SetTextureParameter(hParam, pTestTexture);
-	SE_DX10_DEBUG_CG_PROGRAM;
+    cgD3D10SetTextureParameter(hParam, pResource->ID);
+    SE_DX10_DEBUG_CG_PROGRAM;
 
     cgD3D10SetSamplerStateParameter(hParam, 0);
     SE_DX10_DEBUG_CG_PROGRAM;
@@ -178,13 +174,13 @@ void DX10Renderer::OnEnableTexture(ResourceIdentifier* pID)
 //----------------------------------------------------------------------------
 void DX10Renderer::OnDisableTexture(ResourceIdentifier* pID)
 {
-    //TextureID* pResource = (TextureID*)pID;
-    //Texture* pTexture = pResource->TextureObject;
+    TextureID* pResource = (TextureID*)pID;
+    Texture* pTexture = pResource->TextureObject;
 
-    //SamplerInformation* pSI = m_apActiveSamplers[m_iCurrentSampler];
-    //CGparameter hParam = (CGparameter)pSI->GetID();
+    SamplerInformation* pSI = m_apActiveSamplers[m_iCurrentSampler];
+    CGparameter hParam = (CGparameter)pSI->GetID();
 
-    //cgD3D10SetTextureParameter(hParam, 0);
+    cgD3D10SetTextureParameter(hParam, 0);
 }
 //----------------------------------------------------------------------------
 void DX10Renderer::OnEnableVBuffer(ResourceIdentifier* pID, VertexProgram*)

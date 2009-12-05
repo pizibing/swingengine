@@ -143,7 +143,7 @@ void Billboard::CreateScene()
     pMesh->AttachEffect(pEffect);
 
     // floor.
-    pMesh = tempSM.Rectangle(2, 2, 5.0f, 5.0f);
+    pMesh = tempSM.Rectangle(4, 4, 5.0f, 5.0f);
     Matrix3f mat3fRot(Vector3f::UNIT_X, Mathf::PI/2.0f);
     pMesh->Local.SetRotate(mat3fRot);
     pMesh->Local.SetTranslate(Vector3f(0.0f, -1.0f, 0.0f));

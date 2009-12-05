@@ -291,6 +291,44 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
     {
         if( bIsRegularImage )
         {
+   //         D3D10_TEXTURE2D_DESC tempTextureDesc;
+   //         tempTextureDesc.Width = pImage->GetBound(0);
+   //         tempTextureDesc.Height = pImage->GetBound(1);
+   //         tempTextureDesc.MipLevels = 1;
+   //         tempTextureDesc.ArraySize = 1;
+   //         tempTextureDesc.Format = eDXGIFMT;
+   //         tempTextureDesc.SampleDesc.Count = 1;
+   //         tempTextureDesc.SampleDesc.Quality = 0;
+   //         tempTextureDesc.Usage = eUsage;
+   //         tempTextureDesc.BindFlags = eBindFlag;
+   //         if( bOffscreen )
+   //         {
+   //             tempTextureDesc.CPUAccessFlags = 0;
+   //         }
+   //         else
+   //         {
+   //             tempTextureDesc.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
+   //         }
+   //         tempTextureDesc.MiscFlags = 0;
+
+   //         ID3D10Texture2D* pDX10Texture;
+   //         ms_hResult = m_pDX10Device->CreateTexture2D(&tempTextureDesc, 
+   //             0, &pDX10Texture);
+   //         SE_ASSERT( SUCCEEDED(ms_hResult) );
+
+   //         D3D10_MAPPED_TEXTURE2D tempMappedTex;
+   //         UINT uiSubResource = D3D10CalcSubresource(0, 0, 1);
+   //         pDX10Texture->Map(uiSubResource, D3D10_MAP_WRITE_DISCARD, 0, 
+   //             &tempMappedTex);
+   //         memcpy(tempMappedTex.pData, aucSrc, iByteCount);
+   //         pDX10Texture->Unmap(uiSubResource);
+
+            //D3D10_SHADER_RESOURCE_VIEW_DESC tempView;
+            //tempView.Format = eDXGIFMT;
+            //ID3D10ShaderResourceView* pView = 0;
+            //ms_hResult = m_pDX10Device->CreateShaderResourceView(pDX10Texture, 0, &pView);
+            //SE_ASSERT( SUCCEEDED(ms_hResult) );
+
             D3D10_TEXTURE2D_DESC tempTextureDesc;
             tempTextureDesc.Width = pImage->GetBound(0);
             tempTextureDesc.Height = pImage->GetBound(1);
@@ -303,14 +341,24 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
             tempTextureDesc.BindFlags = eBindFlag;
             tempTextureDesc.CPUAccessFlags = 0;
             tempTextureDesc.MiscFlags = 0;
-            D3D10_SUBRESOURCE_DATA tempInitData;
-            tempInitData.pSysMem = aucRSrc;
-            tempInitData.SysMemPitch = iByteCount / tempTextureDesc.Height;
-			tempInitData.SysMemSlicePitch = 0;
+
+            D3D10_SUBRESOURCE_DATA tempSubResourceData;
+            tempSubResourceData.pSysMem = aucSrc;
+            tempSubResourceData.SysMemPitch = iByteCount / tempTextureDesc.Height;
+            tempSubResourceData.SysMemSlicePitch = 0;
 
             ID3D10Texture2D* pDX10Texture;
             ms_hResult = m_pDX10Device->CreateTexture2D(&tempTextureDesc, 
-                &tempInitData, &pDX10Texture);
+                &tempSubResourceData, &pDX10Texture);
+            SE_ASSERT( SUCCEEDED(ms_hResult) );
+
+            D3D10_SHADER_RESOURCE_VIEW_DESC tempViewDesc;
+            tempViewDesc.Format = tempTextureDesc.Format;
+            tempViewDesc.ViewDimension = D3D10_SRV_DIMENSION_TEXTURE2D;
+            tempViewDesc.Texture2D.MipLevels = tempTextureDesc.MipLevels;
+            tempViewDesc.Texture2D.MostDetailedMip = 0;
+            ID3D10ShaderResourceView* pView = 0;
+            ms_hResult = m_pDX10Device->CreateShaderResourceView(pDX10Texture, &tempViewDesc, &pView);
             SE_ASSERT( SUCCEEDED(ms_hResult) );
 
             pResource->ID = (ID3D10Resource*)pDX10Texture;
