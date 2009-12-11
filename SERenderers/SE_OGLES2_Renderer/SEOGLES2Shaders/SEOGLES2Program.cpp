@@ -48,8 +48,8 @@ OGLES2Program::OGLES2Program()
 }
 //----------------------------------------------------------------------------
 bool OGLES2Program::OnLoadProgram(Renderer* pRenderer, 
-    const String& rProgramName, Program* pProgram, Program::ProgramType eType, 
-    InterfaceDescriptor*)
+    const std::string& rProgramName, Program* pProgram, 
+    Program::ProgramType eType, InterfaceDescriptor*)
 {
     if( !pRenderer || !pProgram )
     {
@@ -58,9 +58,9 @@ bool OGLES2Program::OnLoadProgram(Renderer* pRenderer,
     }
 
     // ªÒ»°file name∫Õentry name.
-    size_t uiLen = strlen((const char*)rProgramName) + 1;
+	size_t uiLen = strlen(rProgramName.c_str()) + 1;
     char* acProgramName = SE_NEW char[uiLen];
-    System::SE_Strcpy(acProgramName, uiLen, (const char*)rProgramName);
+	System::SE_Strcpy(acProgramName, uiLen, rProgramName.c_str());
     char* pNextToken;
     char* acFileName = System::SE_Strtok(acProgramName, ".", pNextToken);
     char* acEntryName = System::SE_Strtok(0, ".", pNextToken);
@@ -71,7 +71,7 @@ bool OGLES2Program::OnLoadProgram(Renderer* pRenderer,
         return false;
     }
 
-    String tempType;
+    std::string tempType;
     GLenum eShaderType;
     if( eType == Program::PT_VERTEX )
     {
@@ -90,8 +90,9 @@ bool OGLES2Program::OnLoadProgram(Renderer* pRenderer,
         return false;
     }
 
-    String tempFileName = String(acFileName) + tempType + String(".essl");
-    const char* acDecorated = System::SE_GetPath((const char*)tempFileName, 
+    std::string tempFileName = std::string(acFileName) + tempType + 
+        std::string(".essl");
+    const char* acDecorated = System::SE_GetPath(tempFileName.c_str(), 
         System::SM_READ);
     SE_DELETE[] acProgramName;
     acProgramName = 0;

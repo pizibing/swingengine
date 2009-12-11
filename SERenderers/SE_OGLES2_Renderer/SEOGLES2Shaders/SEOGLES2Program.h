@@ -41,9 +41,9 @@ class SE_RENDERER_API OGLES2Program : public Program
 
 public:
     // 用于创建一个shader program对象并填充其数据.
-    static bool OnLoadProgram(Renderer* pRenderer, const String& rProgramName, 
-        Program* pProgram, Program::ProgramType eType, 
-        InterfaceDescriptor* pInterfaceDesc);
+    static bool OnLoadProgram(Renderer* pRenderer, 
+        const std::string& rProgramName, Program* pProgram, 
+        Program::ProgramType eType, InterfaceDescriptor* pInterfaceDesc);
 
     static void ParseLinkedProgram(unsigned int uiProgram, Program* pVProgram,
         Program* pPProgram);
