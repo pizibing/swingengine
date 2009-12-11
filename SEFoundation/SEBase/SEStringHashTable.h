@@ -23,7 +23,6 @@
 
 #include "SEFoundationLIB.h"
 #include "SESystem.h"
-#include "SEString.h"
 
 // TValue必须实现的函数:
 //   TValue::TValue()
