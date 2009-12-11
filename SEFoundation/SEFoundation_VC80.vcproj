@@ -306,6 +306,140 @@
 				CommandLine="copy /y SEBase\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEBase\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEMath\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEMath\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SESystem\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SESystem\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SESceneGraph\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SESceneGraph\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEObjectSystem\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEObjectSystem\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEContainment\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEContainment\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEIntersection\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEIntersection\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEApproximation\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEApproximation\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SENumericalAnalysis\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SENumericalAnalysis\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SESharedArrays\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SESharedArrays\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEControllers\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEControllers\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SERendering\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SERendering\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEShaders\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEShaders\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEEffects\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEEffects\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SETerrain\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SETerrain\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEMeshes\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEMeshes\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEComputationalGeometry\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEComputationalGeometry\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SECollision\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SECollision\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEDistance\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEDistance\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEDetail\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEDetail\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;"
 			/>
 		</Configuration>
+		<Configuration
+			Name="Debug Memory|Win32"
+			OutputDirectory="DebugMemory\VC80"
+			IntermediateDirectory="DebugMemory\VC80"
+			ConfigurationType="4"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories=".\;.\SEApproximation;.\SEBase;.\SEContainment;.\SEIntersection;.\SEMath;.\SENumericalAnalysis;.\SEObjectSystem;.\SESceneGraph;.\SESystem;.\SERendering;.\SESharedArrays;.\SEControllers;.\SEShaders;.\SEEffects;.\SETerrain;.\SEMeshes;.\SEComputationalGeometry;.\SECollision;.\SEDistance;.\SEDetail;..\SDK\Include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS;SE_MEMORY_MANAGER"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				StructMemberAlignment="0"
+				BufferSecurityCheck="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="SEFoundationPCH.h"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
+				ProgramDataBaseFileName="$(IntDir)\$(TargetName).pdb"
+				WarningLevel="4"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="..\SDK\Lib\DebugMemory\SEFoundation80d.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy /y SEBase\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEBase\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEMath\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEMath\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SESystem\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SESystem\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SESceneGraph\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SESceneGraph\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEObjectSystem\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEObjectSystem\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEContainment\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEContainment\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEIntersection\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEIntersection\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEApproximation\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEApproximation\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SENumericalAnalysis\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SENumericalAnalysis\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SESharedArrays\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SESharedArrays\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEControllers\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEControllers\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SERendering\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SERendering\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEShaders\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEShaders\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEEffects\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEEffects\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SETerrain\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SETerrain\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEMeshes\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEMeshes\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEComputationalGeometry\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEComputationalGeometry\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SECollision\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SECollision\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEDistance\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEDistance\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEDetail\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEDetail\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release Memory|Win32"
+			OutputDirectory="ReleaseMemory\VC80"
+			IntermediateDirectory="ReleaseMemory\VC80"
+			ConfigurationType="4"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories=".\;.\SEApproximation;.\SEBase;.\SEContainment;.\SEIntersection;.\SEMath;.\SENumericalAnalysis;.\SEObjectSystem;.\SESceneGraph;.\SESystem;.\SERendering;.\SESharedArrays;.\SEControllers;.\SEShaders;.\SEEffects;.\SETerrain;.\SEMeshes;.\SEComputationalGeometry;.\SECollision;.\SEDistance;.\SEDetail;..\SDK\Include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS;SE_MEMORY_MANAGER"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="SEFoundationPCH.h"
+				ProgramDataBaseFileName="$(IntDir)\$(TargetName).pdb"
+				WarningLevel="4"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="..\SDK\Lib\ReleaseMemory\SEFoundation80.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy /y SEBase\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEBase\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEMath\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEMath\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SESystem\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SESystem\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SESceneGraph\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SESceneGraph\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEObjectSystem\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEObjectSystem\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEContainment\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEContainment\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEIntersection\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEIntersection\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEApproximation\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEApproximation\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SENumericalAnalysis\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SENumericalAnalysis\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SESharedArrays\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SESharedArrays\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEControllers\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEControllers\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SERendering\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SERendering\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEShaders\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEShaders\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEEffects\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEEffects\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SETerrain\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SETerrain\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEMeshes\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEMeshes\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEComputationalGeometry\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEComputationalGeometry\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SECollision\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SECollision\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEDistance\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEDistance\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEDetail\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEDetail\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;"
+			/>
+		</Configuration>
 	</Configurations>
 	<References>
 	</References>
@@ -858,6 +992,14 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug DLL|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug Memory|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2639,6 +2781,22 @@
 			</FileConfiguration>
 			<FileConfiguration
 				Name="Release DLL|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Debug Memory|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release Memory|Win32"
 				>
 				<Tool
 					Name="VCCLCompilerTool"
