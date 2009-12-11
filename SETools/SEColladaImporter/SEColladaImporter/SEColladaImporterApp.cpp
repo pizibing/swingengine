@@ -82,7 +82,7 @@ void ColladaImporterApp::OnSave(const char* acFilename)
     for( int i = 0; i < iImageCount; i++ )
     {
         Image* pImage = m_pColladaScene->GetImage(i);
-        const char* acFilename = (const char*)pImage->GetName();
+        const char* acFilename = pImage->GetName().c_str();
         pImage->Save(acFilename);
     }
 }
