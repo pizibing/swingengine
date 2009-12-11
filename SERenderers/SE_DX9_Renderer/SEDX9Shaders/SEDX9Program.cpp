@@ -42,7 +42,7 @@ DX9Program::DX9Program()
 }
 //----------------------------------------------------------------------------
 bool DX9Program::OnLoadProgram(Renderer* pRenderer, 
-    const String& rProgramName, Program* pProgram, Program::ProgramType eType, 
+    const std::string& rProgramName, Program* pProgram, Program::ProgramType eType, 
     InterfaceDescriptor* pInterfaceDesc)
 {
     if( !pRenderer || !pProgram )
@@ -52,9 +52,9 @@ bool DX9Program::OnLoadProgram(Renderer* pRenderer,
     }
 
     // »ñÈ¡file nameºÍentry name.
-    size_t uiLen = strlen((const char*)rProgramName) + 1;
+    size_t uiLen = strlen(rProgramName.c_str()) + 1;
     char* acProgramName = SE_NEW char[uiLen];
-    System::SE_Strcpy(acProgramName, uiLen, (const char*)rProgramName);
+    System::SE_Strcpy(acProgramName, uiLen, rProgramName.c_str());
     char* pNextToken;
     char* acFileName = System::SE_Strtok(acProgramName, ".", pNextToken);
     char* acEntryName = System::SE_Strtok(0, ".", pNextToken);
@@ -65,8 +65,8 @@ bool DX9Program::OnLoadProgram(Renderer* pRenderer,
         return false;
     }
 
-    String tempFileName = String(acFileName) + String(".cg");
-    const char* pDecorated = System::SE_GetPath((const char*)tempFileName, 
+    std::string tempFileName = std::string(acFileName) + std::string(".cg");
+    const char* pDecorated = System::SE_GetPath(tempFileName.c_str(), 
         System::SM_READ);
     if( !pDecorated )
     {
@@ -129,7 +129,7 @@ bool DX9Program::OnLoadProgram(Renderer* pRenderer,
 
             CGparameter hCgUserTypeParam;
             CGparameter hCgUserInstParam = cgGetNamedParameter(rCgProgram, 
-                (const char*)pDescriptorItem->GetInstanceName());
+                pDescriptorItem->GetInstanceName().c_str());
             SE_DX9_DEBUG_CG_PROGRAM;
             SE_ASSERT( hCgUserInstParam );
 
@@ -481,7 +481,7 @@ void DX9Program::OnConfigureLighting(LightingEffect* pLEffect)
         }
     }
 
-    String aLightTypes[4] = {"AmbientLight", "DirectionalLight", "PointLight", 
+    std::string aLightTypes[4] = {"AmbientLight", "DirectionalLight", "PointLight", 
         "SpotLight"};
     int iLightType;
 

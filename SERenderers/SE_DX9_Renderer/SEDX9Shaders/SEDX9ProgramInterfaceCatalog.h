@@ -23,7 +23,6 @@
 
 #include "SEDX9RendererLIB.h"
 #include "SEDX9Utility.h"
-#include "SEString.h"
 #include "SEStringHashTable.h"
 
 namespace Swing
@@ -40,7 +39,7 @@ class DX9ProgramInterface;
 class SE_RENDERER_API DX9ProgramInterfaceCatalog
 {
 public:
-    DX9ProgramInterfaceCatalog(const String& rName);
+    DX9ProgramInterfaceCatalog(const std::string& rName);
     ~DX9ProgramInterfaceCatalog(void);
 
     // 开始时我们不知道渲染器类型,
@@ -48,19 +47,19 @@ public:
     // 应用程序层的相关函数为WindowApplication::SetRenderer
     void SetRenderer(DX9Renderer* pRenderer);
 
-    const String& GetName(void) const;
+    const std::string& GetName(void) const;
     bool Insert(DX9ProgramInterface* pProgramInterface);
     bool Remove(DX9ProgramInterface* pProgramInterface);
     DX9ProgramInterface* Find(CGprogram hCgProgram, 
-        const String& rPInterfaceName);
-    bool PrintContents(const String& rFileName) const;
+        const std::string& rPInterfaceName);
+    bool PrintContents(const std::string& rFileName) const;
 
     static void SetActive(DX9ProgramInterfaceCatalog* pActive);
     static DX9ProgramInterfaceCatalog* GetActive(void);
 
 private:
     enum { PROGRAM_MAP_SIZE = 256 };
-    String m_Name;
+    std::string m_Name;
     StringHashTable<DX9ProgramInterface*> m_Entry;
 
     DX9Renderer* m_pRenderer;

@@ -24,7 +24,6 @@
 #include "SEDX9RendererLIB.h"
 #include "SEDX9Utility.h"
 #include "SEObject.h"
-#include "SEString.h"
 
 namespace Swing
 {
@@ -44,7 +43,7 @@ class SE_RENDERER_API DX9ProgramInterface : public Object
 public:
     // 必须通过Load来创建一个实例.
     static DX9ProgramInterface* Load(CGprogram hCgProgram, CGcontext hCgContext, 
-        const String& rPInterfaceName);
+        const std::string& rPInterfaceName);
     ~DX9ProgramInterface(void);
 
     inline CGtype GetProgramInterfaceType(void) const;

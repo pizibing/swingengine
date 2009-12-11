@@ -27,7 +27,7 @@ using namespace Swing;
 DX9ProgramInterfaceCatalog* DX9ProgramInterfaceCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
-DX9ProgramInterfaceCatalog::DX9ProgramInterfaceCatalog(const String& rName)
+DX9ProgramInterfaceCatalog::DX9ProgramInterfaceCatalog(const std::string& rName)
     :
     m_Name(rName),
     m_Entry(PROGRAM_MAP_SIZE)
@@ -44,7 +44,7 @@ void DX9ProgramInterfaceCatalog::SetRenderer(DX9Renderer* pRenderer)
     m_pRenderer = pRenderer;
 }
 //----------------------------------------------------------------------------
-const String& DX9ProgramInterfaceCatalog::GetName() const
+const std::string& DX9ProgramInterfaceCatalog::GetName() const
 {
     return m_Name;
 }
@@ -58,7 +58,7 @@ bool DX9ProgramInterfaceCatalog::Insert(DX9ProgramInterface* pProgramInterface)
         return false;
     }
 
-    String tempKey(pProgramInterface->GetName());
+    std::string tempKey(pProgramInterface->GetName());
 
     // 首先在资源目录中查找
     DX9ProgramInterface** ppTempProgramInterface = 
@@ -84,7 +84,7 @@ bool DX9ProgramInterfaceCatalog::Remove(DX9ProgramInterface* pProgramInterface)
         return false;
     }
 
-    String tempKey(pProgramInterface->GetName());
+    std::string tempKey(pProgramInterface->GetName());
 
     // 首先在资源目录中查找
     DX9ProgramInterface** ppTempProgramInterface = 
@@ -96,13 +96,13 @@ bool DX9ProgramInterfaceCatalog::Remove(DX9ProgramInterface* pProgramInterface)
     }
 
     // 程序接口存在,则移除
-	m_Entry.Remove(tempKey);
+    m_Entry.Remove(tempKey);
 
     return true;
 }
 //----------------------------------------------------------------------------
 DX9ProgramInterface* DX9ProgramInterfaceCatalog::Find(CGprogram hCgProgram,
-    const String& rPInterfaceName)
+    const std::string& rPInterfaceName)
 {
     // 首先在资源目录中查找
     DX9ProgramInterface** ppTempProgramInterface = 
@@ -125,9 +125,11 @@ DX9ProgramInterface* DX9ProgramInterfaceCatalog::Find(CGprogram hCgProgram,
     return 0;
 }
 //----------------------------------------------------------------------------
-bool DX9ProgramInterfaceCatalog::PrintContents(const String& rFileName) const
+bool DX9ProgramInterfaceCatalog::PrintContents(const std::string& rFileName) 
+    const
 {
-    const char* pDecorated = System::SE_GetPath(rFileName, System::SM_WRITE);
+    const char* pDecorated = System::SE_GetPath(rFileName.c_str(), 
+        System::SM_WRITE);
 
     if( pDecorated )
     {
@@ -135,12 +137,12 @@ bool DX9ProgramInterfaceCatalog::PrintContents(const String& rFileName) const
 
         SE_ASSERT( OStream );
 
-        String tempKey;
-		DX9ProgramInterface** ppTempProgramInterface = m_Entry.GetFirst(
+        std::string tempKey;
+        DX9ProgramInterface** ppTempProgramInterface = m_Entry.GetFirst(
             &tempKey);
         while( ppTempProgramInterface )
         {
-            OStream << (const char*)tempKey << std::endl;
+            OStream << tempKey.c_str() << std::endl;
             OStream << std::endl;
             ppTempProgramInterface = m_Entry.GetNext(&tempKey);
         }

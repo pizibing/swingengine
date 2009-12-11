@@ -51,9 +51,9 @@ DX9ProgramInterface::~DX9ProgramInterface()
 }
 //----------------------------------------------------------------------------
 DX9ProgramInterface* DX9ProgramInterface::Load(CGprogram hCgProgram, 
-    CGcontext hCgContext, const String& rPInterfaceName)
+    CGcontext hCgContext, const std::string& rPInterfaceName)
 {
-    CGtype eCgType = cgGetNamedUserType(hCgProgram, rPInterfaceName);
+    CGtype eCgType = cgGetNamedUserType(hCgProgram, rPInterfaceName.c_str());
     SE_ASSERT( eCgType != CG_UNKNOWN_TYPE );
 
     if( eCgType != CG_UNKNOWN_TYPE )
