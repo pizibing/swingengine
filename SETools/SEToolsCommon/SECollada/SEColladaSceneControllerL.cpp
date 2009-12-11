@@ -643,7 +643,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
 
         // Create the skin effect we want and attach it to the sub-mesh.
         Effect* pNewEffect = 0;
-        String tempImageName;
+        std::string tempImageName;
         switch( eSkinEffect )
         {
         case SE_DEFAULT:

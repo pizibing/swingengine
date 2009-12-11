@@ -26,7 +26,6 @@
 #include "SEObject.h"
 #include "SEMaterialState.h"
 #include "SEImage.h"
-#include "SEString.h"
 #include "SEColladaEffect.h"
 
 namespace Swing

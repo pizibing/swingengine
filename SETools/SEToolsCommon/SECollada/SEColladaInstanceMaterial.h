@@ -24,7 +24,6 @@
 #include "SEToolsCommonLIB.h"
 #include "SEToolsUtility.h"
 #include "SEObject.h"
-#include "SEString.h"
 #include "SEColladaMaterial.h"
 
 namespace Swing
@@ -51,7 +50,7 @@ public:
     // the name of ColladaInstanceMaterial object.  
 
     // These represent the material we are referencing from.
-    String	TargetName;
+    std::string	TargetName;
     ColladaMaterial* TargetMaterial;
 };
 

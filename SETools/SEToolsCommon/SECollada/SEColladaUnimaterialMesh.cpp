@@ -308,11 +308,11 @@ TriMesh* ColladaUnimaterialMesh::ToTriMesh()
             SE_ASSERT( pImage );
             if( pImage )
             {
-                String tempFName = pImage->GetName();
+                std::string tempFName = pImage->GetName();
                 // ºı»•".seif"≥§∂».
-                size_t uiLength = strlen((const char*)tempFName) - 5;
+                size_t uiLength = strlen(tempFName.c_str()) - 5;
                 char tempBuffer[64];
-                System::SE_Strncpy(tempBuffer, 64, (const char*)tempFName, 
+                System::SE_Strncpy(tempBuffer, 64, tempFName.c_str(), 
                     uiLength);
                 tempBuffer[uiLength] = 0;
                 pSEEffect = SE_NEW MaterialTextureEffect(tempBuffer);

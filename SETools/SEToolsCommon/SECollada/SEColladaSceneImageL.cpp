@@ -38,7 +38,7 @@ Image* ColladaScene::GetImage(const char* acName)
 
     for( int i = 0; i < (int)m_Images.size(); i++ )
     {
-        if( strcmp(m_Images[i]->GetName(), acName) == 0 )
+        if( strcmp(m_Images[i]->GetName().c_str(), acName) == 0 )
         {
             return m_Images[i];
         }
@@ -107,7 +107,7 @@ Image* ColladaScene::LoadImage(domImageRef spDomImage)
 
         if( pImage )
         {
-            String tempImageName = (const char*)strImageID;
+            std::string tempImageName = (const char*)strImageID;
             tempImageName += ".seif";
             pImage->SetName(tempImageName);
             m_Images.push_back(pImage);

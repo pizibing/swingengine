@@ -33,7 +33,7 @@ Camera* ColladaScene::GetCamera(const char* acName)
 
     for( int i = 0; i < (int)m_Cameras.size(); i++ )
     {
-        if( strcmp(m_Cameras[i]->GetName(), acName) == 0 )
+        if( strcmp(m_Cameras[i]->GetName().c_str(), acName) == 0 )
         {
             return m_Cameras[i];
         }

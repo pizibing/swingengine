@@ -33,7 +33,7 @@ Light* ColladaScene::GetLight(const char* acName)
 
     for( int i = 0; i < (int)m_Lights.size(); i++ )
     {
-        if( strcmp(m_Lights[i]->GetName(), acName) == 0 )
+        if( strcmp(m_Lights[i]->GetName().c_str(), acName) == 0 )
         {
             return m_Lights[i];
         }

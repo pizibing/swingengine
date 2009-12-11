@@ -170,9 +170,11 @@ void ColladaScene::GetLocalTransSequence(Node* pNode, domNodeRef spDomNode,
             bool bFoundTarget = false;
             for( int k = 0; k < (int)pAnimation->Channels.size(); k++ )
             {
-                const char* acTargetID = pAnimation->Channels[k]->TargetID;
-                const char* acTargetSID = pAnimation->Channels[k]->TargetSID;
-                const char* acNodeID = pNode->GetName();
+                const char* acTargetID = 
+                    pAnimation->Channels[k]->TargetID.c_str();
+                const char* acTargetSID = 
+                    pAnimation->Channels[k]->TargetSID.c_str();
+                const char* acNodeID = pNode->GetName().c_str();
                 if( acTargetID && acTargetSID && acNodeID && acSID )
                 {
                     if( strcmp(acTargetID, acNodeID) == 0 &&
@@ -377,8 +379,8 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
         Node* pChildNode = LoadNode(spDomNode->getNode_array()[i], pNode);
         if( pChildNode )
         {
-            String strChildName = pChildNode->GetName();
-            m_Nodes[(const char*)strChildName] = pChildNode;
+            std::string strChildName = pChildNode->GetName();
+            m_Nodes[strChildName.c_str()] = pChildNode;
         }
     }
 
@@ -397,8 +399,8 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
             Node* pChildNode = LoadNode(spDomChildNode, pNode);
             if( pChildNode )
             {
-                String strChildName = pChildNode->GetName();
-                m_Nodes[(const char*)strChildName] = pChildNode;
+                std::string strChildName = pChildNode->GetName();
+                m_Nodes[strChildName.c_str()] = pChildNode;
             }
         }
     }
@@ -410,7 +412,7 @@ TriMesh* ColladaScene::CreateJointMesh(const char* acJointName, float fSize)
 {
     SE_ASSERT( fSize >= 0.0f );
 
-    String strJointName("Joint_");
+    std::string strJointName("Joint_");
     if( acJointName )
     {
         strJointName += acJointName;

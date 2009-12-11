@@ -35,7 +35,7 @@ Node* ColladaScene::GetGeometry(const char* acName)
 
     for( int i = 0; i < (int)m_Geometries.size(); i++ )
     {
-        if( strcmp(m_Geometries[i]->GetName(), acName) == 0 )
+		if( strcmp(m_Geometries[i]->GetName().c_str(), acName) == 0 )
         {
             return m_Geometries[i];
         }

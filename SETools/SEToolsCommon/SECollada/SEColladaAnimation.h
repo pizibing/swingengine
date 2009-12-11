@@ -24,7 +24,6 @@
 #include "SEToolsCommonLIB.h"
 #include "SEToolsUtility.h"
 #include "SEObject.h"
-#include "SEString.h"
 #include "SEColladaAnimationSource.h"
 #include "SEColladaAnimationSampler.h"
 #include "SEColladaAnimationChannel.h"
@@ -118,9 +117,9 @@ public:
     std::map<std::string, ColladaAnimationSamplerPtr> Samplers;
     std::map<std::string, ColladaAnimationSourcePtr> Sources;
 
-    String TargetName;
-    String TargetTransformName;
-    String TargetTransformElementName;
+    std::string TargetName;
+    std::string TargetTransformName;
+    std::string TargetTransformElementName;
 
     // Export data.
     ColladaAnimationKey* Keys;

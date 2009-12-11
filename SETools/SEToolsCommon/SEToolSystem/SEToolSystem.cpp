@@ -31,7 +31,7 @@ void ToolSystem::SE_DebugOutput(const char* acFormat, ...)
     //va_list tempArgs;
     //char tempStr[4096]; 
 
-    //String tempFormat((int)strlen(acFormat), acFormat);
+    //std::string tempFormat((int)strlen(acFormat), acFormat);
     //tempFormat += "\n";
 
     //va_start(tempArgs, tempFormat);

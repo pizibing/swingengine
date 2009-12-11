@@ -33,7 +33,7 @@ ColladaEffect* ColladaScene::GetEffect(const char* acName)
 
     for( int i = 0; i < (int)m_Effects.size(); i++ )
     {
-        if( strcmp(m_Effects[i]->GetName(), acName) == 0 )
+        if( strcmp(m_Effects[i]->GetName().c_str(), acName) == 0 )
         {
             return m_Effects[i];
         }

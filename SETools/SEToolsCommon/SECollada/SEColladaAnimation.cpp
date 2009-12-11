@@ -53,7 +53,7 @@ ColladaAnimation::~ColladaAnimation()
 void ColladaAnimation::GenerateKeys()
 {
     ToolSystem::SE_DebugOutput("Generating Keys for Animation Channel %s", 
-        (const char*)GetName());
+        GetName().c_str());
 
     // Allocating for generic key channels.
     AnimKeySets = SE_NEW ColladaKeySet[NumAnimChannels];

@@ -77,9 +77,9 @@ public:
 
     ColladaAnimationSamplerPtr Sampler;
     
-    String TargetID;
-    String TargetSID;
-    String TargetMember;
+    std::string TargetID;
+    std::string TargetSID;
+    std::string TargetMember;
 
     AnimationTarget TargetType;
     

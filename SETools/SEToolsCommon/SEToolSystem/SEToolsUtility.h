@@ -24,7 +24,6 @@
 // DirectX9 headers.
 #include <d3d9.h>
 #include <d3dx9tex.h>
-#include <dxerr9.h>
 
 // 避免非Unicode文件中的无法表示字符警告.
 #pragma warning(disable:4819)

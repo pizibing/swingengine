@@ -403,7 +403,7 @@ bool ColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
         Node* pNode = LoadNode(rDomNodeArray[i], m_spSceneRoot);
         if( pNode )
         {
-            const char* acNodeName = (const char*)pNode->GetName();
+            const char* acNodeName = pNode->GetName().c_str();
             m_Nodes[acNodeName] = pNode;
         }
     }

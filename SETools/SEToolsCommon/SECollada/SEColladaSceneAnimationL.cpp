@@ -124,16 +124,16 @@ ColladaAnimationChannel* ColladaScene::LoadAnimationChannel(
     pChannel->Sampler = pAnimation->Samplers[pDomSampler->getId()];
     
     // Get a pointer to the input source.
-    const String& rInputSourceID = 
+    const std::string& rInputSourceID = 
         pChannel->Sampler->Inputs["INPUT"]->GetName();
     ColladaAnimationSource* pInputSource = 
-        pAnimation->Sources[(const char*)rInputSourceID];
+        pAnimation->Sources[rInputSourceID.c_str()];
 
     // Get a pointer to the output source.
-    const String& rOutputSourceID = 
+    const std::string& rOutputSourceID = 
         pChannel->Sampler->Inputs["OUTPUT"]->GetName();
     ColladaAnimationSource* pOutputSource = 
-        pAnimation->Sources[(const char*)rOutputSourceID];
+        pAnimation->Sources[rOutputSourceID.c_str()];
     
     pChannel->InputSource = pInputSource;
     pChannel->OutputSource = pOutputSource;
@@ -242,9 +242,9 @@ ColladaAnimationChannel* ColladaScene::LoadAnimationChannel(
     }
 
     // Parse target member type.
-    if( pChannel->TargetMember != String("") )
+    if( pChannel->TargetMember != std::string("") )
     {
-        const char* acTargetMember = pChannel->TargetMember;
+        const char* acTargetMember = pChannel->TargetMember.c_str();
         if( strcmp(acTargetMember, "AXIS") == 0 ||
             strcmp(acTargetMember, "ANGLE") == 0 )
         {
@@ -328,7 +328,7 @@ ColladaAnimation* ColladaScene::LoadAnimation(domAnimationRef spDomAnimation)
                 LoadAnimationSource(rDomSourceArray[i]);
             if( pSource )
             {
-                const char* acSourceName = (const char*)pSource->GetName();
+                const char* acSourceName = pSource->GetName().c_str();
                 pAnimation->Sources[acSourceName] = pSource;
             }
         }
@@ -343,7 +343,7 @@ ColladaAnimation* ColladaScene::LoadAnimation(domAnimationRef spDomAnimation)
                 LoadAnimationSampler(pAnimation, rDomSamplerArray[i]);
             if( pSampler )
             {
-                const char* acSamplerName = (const char*)pSampler->GetName();
+                const char* acSamplerName = pSampler->GetName().c_str();
                 pAnimation->Samplers[acSamplerName] = pSampler;
             }
         }

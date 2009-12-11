@@ -33,7 +33,7 @@ ColladaMaterial* ColladaScene::GetMaterial(const char* acName)
 
     for( int i = 0; i < (int)m_Materials.size(); i++ )
     {
-        if( strcmp(m_Materials[i]->GetName(), acName) == 0 )
+        if( strcmp(m_Materials[i]->GetName().c_str(), acName) == 0 )
         {
             return m_Materials[i];
         }
@@ -51,7 +51,7 @@ ColladaInstanceMaterial* ColladaScene::GetInstanceMaterial(const char* acName)
 
     for( int i = 0; i < (int)m_InstanceMaterials.size(); i++ )
     {
-        if( strcmp(m_InstanceMaterials[i]->GetName(), acName) == 0 )
+        if( strcmp(m_InstanceMaterials[i]->GetName().c_str(), acName) == 0 )
         {
             return m_InstanceMaterials[i];
         }
@@ -163,7 +163,7 @@ ColladaInstanceMaterial* ColladaScene::LoadInstanceMaterial(
         else
         {
             ToolSystem::SE_DebugOutput("Couldn't find target material:%s",
-                (const char*)pInstanceMaterial->TargetName);
+                pInstanceMaterial->TargetName.c_str());
         }
     }
 
