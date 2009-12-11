@@ -108,6 +108,11 @@ char& String::operator[](int i)
 //----------------------------------------------------------------------------
 String& String::operator=(const String& rString)
 {
+    if( this == &rString )
+    {
+        return *this;
+    }
+
     m_iLength = rString.m_iLength;
     SE_DELETE[] m_pText;
     size_t uiSize = (size_t)(m_iLength + 1);
