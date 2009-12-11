@@ -35,8 +35,8 @@ float ScreenSpaceAOEffect::FarClipDist = 0.0f;
 bool ScreenSpaceAOEffect::ms_bUCInitialized = false;
 
 //----------------------------------------------------------------------------
-ScreenSpaceAOEffect::ScreenSpaceAOEffect(const String& rRandom, 
-    const String& rDepth)
+ScreenSpaceAOEffect::ScreenSpaceAOEffect(const std::string& rRandom, 
+    const std::string& rDepth)
     :
     ShaderEffect(1)
 {

@@ -42,7 +42,7 @@ class SE_FOUNDATION_API DefaultMRT3Effect : public ShaderEffect
     SE_DECLARE_STREAM;
 
 public:
-    DefaultMRT3Effect(const String& rBaseName);
+    DefaultMRT3Effect(const std::string& rBaseName);
     virtual ~DefaultMRT3Effect(void);
 
 protected:

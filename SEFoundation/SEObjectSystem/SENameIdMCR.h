@@ -26,18 +26,18 @@
 //----------------------------------------------------------------------------
 #define SE_DECLARE_NAME_ID \
 public: \
-    virtual Object* GetObjectByName(const String& rName); \
-    virtual void GetAllObjectsByName(const String& rName, \
+    virtual Object* GetObjectByName(const std::string& rName); \
+    virtual void GetAllObjectsByName(const std::string& rName, \
         std::vector<Object*>& rObjects); \
     virtual Object* GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 #define SE_IMPLEMENT_DEFAULT_NAME_ID(classname, baseclassname) \
-Object* classname::GetObjectByName(const String& rName) \
+Object* classname::GetObjectByName(const std::string& rName) \
 { \
     return baseclassname::GetObjectByName(rName); \
 } \
 \
-void classname::GetAllObjectsByName(const String& rName, \
+void classname::GetAllObjectsByName(const std::string& rName, \
     std::vector<Object*>& rObjects) \
 { \
     baseclassname::GetAllObjectsByName(rName, rObjects); \

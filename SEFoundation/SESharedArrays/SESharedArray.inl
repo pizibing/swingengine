@@ -141,13 +141,13 @@ bool SharedArray<T>::RegisterFactory()
 }
 //----------------------------------------------------------------------------
 template <class T>
-Object* SharedArray<T>::GetObjectByName(const String& rName)
+Object* SharedArray<T>::GetObjectByName(const std::string& rName)
 {
     return Object::GetObjectByName(rName);
 }
 //----------------------------------------------------------------------------
 template <class T>
-void SharedArray<T>::GetAllObjectsByName(const String& rName,
+void SharedArray<T>::GetAllObjectsByName(const std::string& rName,
     std::vector<Object*>& rObjects)
 {
     Object::GetAllObjectsByName(rName,rObjects);
@@ -208,7 +208,7 @@ StringTree* SharedArray<T>::SaveStrings(const char* pTitle)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
 
     // children
     pTree->Append(Object::SaveStrings());

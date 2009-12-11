@@ -24,12 +24,12 @@ inline Image::FormatMode Image::GetFormat() const
     return m_eFormat;
 }
 //----------------------------------------------------------------------------
-inline const String& Image::GetFormatName() const
+inline const std::string& Image::GetFormatName() const
 {
     return ms_FormatName[m_eFormat];
 }
 //----------------------------------------------------------------------------
-inline String Image::GetFormatName(int eFormat)
+inline std::string Image::GetFormatName(int eFormat)
 {
     return ms_FormatName[eFormat];
 }

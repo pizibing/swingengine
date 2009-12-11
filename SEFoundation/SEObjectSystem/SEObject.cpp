@@ -213,18 +213,18 @@ ObjectPtr Object::Copy(bool bUniqueNames) const
             Object* pObject = kLoadStream.GetOrderedObject(i);
             SE_ASSERT( pObject );
 
-            const String& rName = pObject->GetName();
-            int iLength = (int)rName.GetLength();
+            const std::string& rName = pObject->GetName();
+            int iLength = (int)rName.length();
             if( iLength > 0 )
             {
                 // object has a name, append a character to make it unique
-                const char* pName = (const char*)rName;
+                const char* pName = rName.c_str();
                 char* acNewName = SE_NEW char[iLength + 2];
                 const size_t uiSize = (size_t)(iLength + 2);
                 System::SE_Strcpy(acNewName,uiSize,pName);
                 acNewName[iLength] = NameAppend;
                 acNewName[iLength+1] = 0;
-                pObject->SetName(String(acNewName));
+                pObject->SetName(std::string(acNewName));
                 SE_DELETE[] acNewName;
             }
         }
@@ -237,7 +237,7 @@ ObjectPtr Object::Copy(bool bUniqueNames) const
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* Object::GetObjectByName(const String& rName)
+Object* Object::GetObjectByName(const std::string& rName)
 {
     if( rName == m_Name )
     {
@@ -259,7 +259,7 @@ Object* Object::GetObjectByName(const String& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Object::GetAllObjectsByName(const String& rName, std::vector<Object*>& rObjects)
+void Object::GetAllObjectsByName(const std::string& rName, std::vector<Object*>& rObjects)
 {
     if( rName == m_Name )
     {
@@ -398,7 +398,7 @@ void Object::Save(Stream& rStream) const
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
     // RTTI name用于load时的工厂函数表查找
-    rStream.Write(String(GetType().GetName()));
+    rStream.Write(std::string(GetType().GetName()));
 
     // 该内存地址用于load/link时的object unique ID
     rStream.Write((Object*)this);
@@ -423,7 +423,7 @@ int Object::GetDiskUsed(const StreamVersion&) const
 
     iUsed += sizeof(this);
 
-    iUsed += sizeof(int) + (int)m_Name.GetLength();
+    iUsed += sizeof(int) + (int)m_Name.length();
 
     iUsed += sizeof(int) + ((int)m_Controllers.size())*sizeof(ControllerPtr);
 
@@ -435,7 +435,7 @@ StringTree* Object::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("this =", this));
     pTree->Append(Format("ID   =", m_uiID));
     pTree->Append(Format("refs =", m_iReferences));

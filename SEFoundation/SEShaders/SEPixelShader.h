@@ -25,7 +25,6 @@
 #include "SEPlatforms.h"
 #include "SEShader.h"
 #include "SEPixelProgram.h"
-#include "SEString.h"
 
 namespace Swing
 {
@@ -43,7 +42,7 @@ class SE_FOUNDATION_API PixelShader : public Shader
     SE_DECLARE_STREAM;
 
 public:
-    PixelShader(const String& rShaderName);
+    PixelShader(const std::string& rShaderName);
     virtual ~PixelShader(void);
 
     PixelProgram* GetProgram(void) const;

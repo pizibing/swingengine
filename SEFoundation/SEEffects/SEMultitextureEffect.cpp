@@ -54,7 +54,7 @@ void MultitextureEffect::SetTextureCount(int iTextureCount)
 
     m_iTextureCount = iTextureCount;
     SE_DELETE[] m_aImageName;
-    m_aImageName = SE_NEW String[m_iTextureCount];
+    m_aImageName = SE_NEW std::string[m_iTextureCount];
 
     m_RStateBlocks.resize(m_iTextureCount);
     SetDefaultAlphaState();
@@ -65,14 +65,14 @@ int MultitextureEffect::GetTextureCount() const
     return m_iTextureCount;
 }
 //----------------------------------------------------------------------------
-void MultitextureEffect::SetImageName(int i, const String& rImageName)
+void MultitextureEffect::SetImageName(int i, const std::string& rImageName)
 {
     SE_ASSERT( 0 <= i && i < m_iTextureCount );
 
     m_aImageName[i] = rImageName;
 }
 //----------------------------------------------------------------------------
-const String& MultitextureEffect::GetImageName(int i) const
+const std::string& MultitextureEffect::GetImageName(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iTextureCount );
 
@@ -97,16 +97,16 @@ void MultitextureEffect::Configure()
     // In a single-effect drawing pass, texture 0 is a source to be blended
     // with a nonexistent destination.  As such, we think of the source mode
     // as SBF_ONE and the destination mode as SDF_ZERO.
-    String tempVShaderName("T0d2");
-    String tempPShaderName("T0s1d0");
+    std::string tempVShaderName("T0d2");
+    std::string tempPShaderName("T0s1d0");
     int i;
     for( i = 1; i < m_iTextureCount; i++ )
     {
         tempVShaderName += "T";
         tempPShaderName += "T";
         System::SE_Sprintf(acNumber, uiNumberSize, "%d", i);
-        tempVShaderName += String(acNumber) + String("d2");
-        tempPShaderName += String(acNumber);
+        tempVShaderName += std::string(acNumber) + std::string("d2");
+        tempPShaderName += std::string(acNumber);
 
         GlobalState* pState = m_RStateBlocks[i]->States[GlobalState::ALPHA];
         AlphaState* pAS = (AlphaState*)pState;
@@ -114,14 +114,14 @@ void MultitextureEffect::Configure()
         // Source blending mode.
         tempPShaderName += "s";
         System::SE_Sprintf(acNumber, uiNumberSize, "%d", (int)pAS->SrcBlend);
-        tempPShaderName += String(acNumber);
+        tempPShaderName += std::string(acNumber);
 
         // Destination blending mode.
         tempPShaderName += "d";
         System::SE_Sprintf(acNumber, uiNumberSize, "%d", (int)pAS->DstBlend);
-        tempPShaderName += String(acNumber);
+        tempPShaderName += std::string(acNumber);
     }
-    tempVShaderName += String("PassThrough");
+    tempVShaderName += std::string("PassThrough");
 
     m_VShader[0] = SE_NEW VertexShader(tempVShaderName);
     m_PShader[0] = SE_NEW PixelShader(tempPShaderName);
@@ -186,7 +186,7 @@ int MultitextureEffect::GetDiskUsed(const StreamVersion& rVersion) const
  
     for( int i = 0; i < m_iTextureCount; i++ )
     {
-        iSize += sizeof(int) + (int)m_aImageName[i].GetLength();
+        iSize += sizeof(int) + (int)m_aImageName[i].length();
     }
 
     return iSize;
@@ -197,7 +197,7 @@ StringTree* MultitextureEffect::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("texture quantity =", m_iTextureCount));
 
     const size_t uiTitleSize = 16;
@@ -205,7 +205,7 @@ StringTree* MultitextureEffect::SaveStrings(const char*)
     for( int i = 0; i < m_iTextureCount; i++ )
     {
         System::SE_Sprintf(acTitle, uiTitleSize, "image[%d] =", i);
-        pTree->Append(Format(acTitle, (const char*)m_aImageName[i]));
+        pTree->Append(Format(acTitle, m_aImageName[i].c_str()));
     }
 
     // children

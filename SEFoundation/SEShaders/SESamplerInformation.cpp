@@ -27,7 +27,7 @@ SamplerInformation::ReleaseID SamplerInformation::OnReleaseID = 0;
 SamplerInformation::CopyID SamplerInformation::OnCopyID = 0;
 
 //----------------------------------------------------------------------------
-SamplerInformation::SamplerInformation(const String& rName, Type eType,
+SamplerInformation::SamplerInformation(const std::string& rName, Type eType,
     void* pID)
     :
     m_Name(rName)

@@ -27,7 +27,6 @@
 #include "SEVertexShader.h"
 #include "SEGeometryShader.h"
 #include "SEPixelShader.h"
-#include "SEString.h"
 #include "SERenderStateBlock.h"
 
 namespace Swing
@@ -95,46 +94,46 @@ public:
     void SetVShader(int iPass, VertexShader* pVShader);
     VertexShader* GetVShader(int iPass);
     VertexProgram* GetVProgram(int iPass);
-    const String& GetVShaderName(int iPass) const;
+    const std::string& GetVShaderName(int iPass) const;
     int GetVConstantCount(int iPass) const;
     UserConstant* GetVConstant(int iPass, int i);
-    UserConstant* GetVConstant(int iPass, const String& rName);
+    UserConstant* GetVConstant(int iPass, const std::string& rName);
     int GetVTextureCount(int iPass) const;
     Texture* GetVTexture(int iPass, int i);
-    Texture* GetVTexture(int iPass, const String& rName);
+    Texture* GetVTexture(int iPass, const std::string& rName);
     void SetVTexture(int iPass, int i, Texture* pTexture); // 允许应用程序指定纹理共享.
-    void SetVImageName(int iPass, int i, const String& rName);
-    const String& GetVImageName(int iPass, int i) const;
+    void SetVImageName(int iPass, int i, const std::string& rName);
+    const std::string& GetVImageName(int iPass, int i) const;
 
     // geometry shader接口
     void SetGShader(int iPass, GeometryShader* pGShader);
     GeometryShader* GetGShader(int iPass);
     GeometryProgram* GetGProgram(int iPass);
-    const String& GetGShaderName(int iPass) const;
+    const std::string& GetGShaderName(int iPass) const;
     int GetGConstantCount(int iPass) const;
     UserConstant* GetGConstant(int iPass, int i);
-    UserConstant* GetGConstant(int iPass, const String& rName);
+    UserConstant* GetGConstant(int iPass, const std::string& rName);
     int GetGTextureCount(int iPass) const;
     Texture* GetGTexture(int iPass, int i);
-    Texture* GetGTexture(int iPass, const String& rName);
+    Texture* GetGTexture(int iPass, const std::string& rName);
     void SetGTexture(int iPass, int i, Texture* pTexture); // 允许应用程序指定纹理共享.
-    void SetGImageName(int iPass, int i, const String& rName);
-    const String& GetGImageName(int iPass, int i) const;
+    void SetGImageName(int iPass, int i, const std::string& rName);
+    const std::string& GetGImageName(int iPass, int i) const;
 
     // pixel shader接口
     void SetPShader(int iPass, PixelShader* pPShader);
     PixelShader* GetPShader(int iPass);
     PixelProgram* GetPProgram(int iPass);
-    const String& GetPShaderName(int iPass) const;
+    const std::string& GetPShaderName(int iPass) const;
     int GetPConstantCount(int iPass) const;
     UserConstant* GetPConstant(int iPass, int i);
-    UserConstant* GetPConstant(int iPass, const String& rName);
+    UserConstant* GetPConstant(int iPass, const std::string& rName);
     int GetPTextureCount(int iPass) const;
     Texture* GetPTexture(int iPass, int i);
-    Texture* GetPTexture(int iPass, const String& rName);
+    Texture* GetPTexture(int iPass, const std::string& rName);
     void SetPTexture(int iPass, int i, Texture* pTexture); // 允许应用程序指定纹理共享.
-    void SetPImageName(int iPass, int i, const String& rName);
-    const String& GetPImageName(int iPass, int i) const;
+    void SetPImageName(int iPass, int i, const std::string& rName);
+    const std::string& GetPImageName(int iPass, int i) const;
 
     // 待实现.
     // 目前只支持effect pass携带的alpha state.

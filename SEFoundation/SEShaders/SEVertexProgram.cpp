@@ -33,7 +33,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(VertexProgram, Program);
 
 //----------------------------------------------------------------------------
 VertexProgram* VertexProgram::Load(Renderer* pRenderer, 
-    const String& rProgramName, const String& rKey, 
+    const std::string& rProgramName, const std::string& rKey, 
     InterfaceDescriptor* pInterfaceDesc)
 {
     VertexProgram* pProgram = SE_NEW VertexProgram;

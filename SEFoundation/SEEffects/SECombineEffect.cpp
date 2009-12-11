@@ -31,7 +31,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(CombineEffect, ShaderEffect);
 //SE_REGISTER_STREAM(CombineEffect);
 
 //----------------------------------------------------------------------------
-CombineEffect::CombineEffect(const String& rTName1, const String& rTName2)
+CombineEffect::CombineEffect(const std::string& rTName1, const std::string& rTName2)
     :
     ShaderEffect(1)
 {

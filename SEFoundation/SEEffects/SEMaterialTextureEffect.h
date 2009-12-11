@@ -40,7 +40,7 @@ class SE_FOUNDATION_API MaterialTextureEffect : public ShaderEffect
     SE_DECLARE_STREAM;
 
 public:
-    MaterialTextureEffect(const String& rBaseName);
+    MaterialTextureEffect(const std::string& rBaseName);
     virtual ~MaterialTextureEffect(void);
 
 protected:

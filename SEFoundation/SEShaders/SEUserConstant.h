@@ -24,7 +24,6 @@
 #include "SEFoundationLIB.h"
 #include "SEPlatforms.h"
 #include "SESystem.h"
-#include "SEString.h"
 
 namespace Swing
 {
@@ -39,12 +38,12 @@ namespace Swing
 class SE_FOUNDATION_API UserConstant
 {
 public:
-    UserConstant(const String& rName, void* pID, int iDataCount);
+    UserConstant(const std::string& rName, void* pID, int iDataCount);
     UserConstant(const UserConstant& rUC);
     ~UserConstant(void);
 
     // 成员访问,renderer使用他们给图形API传递数据
-    inline const String& GetName(void) const;
+    inline const std::string& GetName(void) const;
     inline void* GetID(void) const;
     inline int GetDataCount(void) const;
     inline float* GetData(void) const;
@@ -66,7 +65,7 @@ public:
     static CopyID OnCopyID;
 
 private:
-    String m_Name;
+    std::string m_Name;
     void* m_pID;
     int m_iDataCount;
     float* m_pData;  // 应指向用户提供的数据区

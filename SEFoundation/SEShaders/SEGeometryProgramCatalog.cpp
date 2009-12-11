@@ -24,12 +24,12 @@
 
 using namespace Swing;
 
-const String GeometryProgramCatalog::ms_NullString("");
-const String GeometryProgramCatalog::ms_DefaultString("Default.g_Default");
+const std::string GeometryProgramCatalog::ms_NullString("");
+const std::string GeometryProgramCatalog::ms_DefaultString("Default.g_Default");
 GeometryProgramCatalog* GeometryProgramCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
-GeometryProgramCatalog::GeometryProgramCatalog(const String& rName)
+GeometryProgramCatalog::GeometryProgramCatalog(const std::string& rName)
     :
     m_Name(rName),
     m_Entry(PROGRAM_MAP_SIZE)
@@ -59,7 +59,7 @@ void GeometryProgramCatalog::SetRenderer(Renderer* pRenderer)
     }
 }
 //----------------------------------------------------------------------------
-const String& GeometryProgramCatalog::GetName() const
+const std::string& GeometryProgramCatalog::GetName() const
 {
     return m_Name;
 }
@@ -73,7 +73,7 @@ bool GeometryProgramCatalog::Insert(GeometryProgram* pProgram)
         return false;
     }
 
-    String StrProgramName(pProgram->GetName());
+    std::string StrProgramName(pProgram->GetName());
     if( StrProgramName == ms_NullString
     ||  StrProgramName == ms_DefaultString
     ||  pProgram == m_spDefaultGProgram )
@@ -104,7 +104,7 @@ bool GeometryProgramCatalog::Remove(GeometryProgram* pProgram)
         return false;
     }
 
-    String StrProgramName(pProgram->GetName());
+    std::string StrProgramName(pProgram->GetName());
     if( StrProgramName == ms_NullString
     ||  StrProgramName == ms_DefaultString
     ||  pProgram == m_spDefaultGProgram )
@@ -126,7 +126,7 @@ bool GeometryProgramCatalog::Remove(GeometryProgram* pProgram)
     return true;
 }
 //----------------------------------------------------------------------------
-GeometryProgram* GeometryProgramCatalog::Find(const String& rProgramName,
+GeometryProgram* GeometryProgramCatalog::Find(const std::string& rProgramName,
     InterfaceDescriptor* pDescriptor)
 {
     if( rProgramName == ms_NullString
@@ -136,10 +136,10 @@ GeometryProgram* GeometryProgramCatalog::Find(const String& rProgramName,
     }
 
     // 首先在资源目录中查找
-    String tempKey = rProgramName;
+    std::string tempKey = rProgramName;
     if( pDescriptor )
     {
-        String tempPostFix;
+        std::string tempPostFix;
         pDescriptor->GetDescription(tempPostFix);
         tempKey += tempPostFix;
     }
@@ -163,9 +163,10 @@ GeometryProgram* GeometryProgramCatalog::Find(const String& rProgramName,
     return StaticCast<GeometryProgram>(m_spDefaultGProgram);
 }
 //----------------------------------------------------------------------------
-bool GeometryProgramCatalog::PrintContents(const String& rFileName) const
+bool GeometryProgramCatalog::PrintContents(const std::string& rFileName) const
 {
-    const char* pDecorated = System::SE_GetPath(rFileName, System::SM_WRITE);
+    const char* pDecorated = System::SE_GetPath(rFileName.c_str(), 
+        System::SM_WRITE);
 
     if( pDecorated )
     {
@@ -173,11 +174,11 @@ bool GeometryProgramCatalog::PrintContents(const String& rFileName) const
 
         SE_ASSERT( OStream );
 
-		String StrProgramName;
+		std::string StrProgramName;
 		GeometryProgram** ppTempProgram = m_Entry.GetFirst(&StrProgramName);
         while( ppTempProgram )
         {
-            OStream << (const char*)StrProgramName << std::endl;
+            OStream << StrProgramName.c_str() << std::endl;
             OStream << std::endl;
             ppTempProgram = m_Entry.GetNext(&StrProgramName);
         }

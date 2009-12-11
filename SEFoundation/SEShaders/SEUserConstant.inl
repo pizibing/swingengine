@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline const String& UserConstant::GetName() const
+inline const std::string& UserConstant::GetName() const
 {
     return m_Name;
 }

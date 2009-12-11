@@ -42,7 +42,7 @@ class SE_FOUNDATION_API VertexTextureEffect : public ShaderEffect
     SE_DECLARE_STREAM;
 
 public:
-    VertexTextureEffect(const String& rBaseName);
+    VertexTextureEffect(const std::string& rBaseName);
     virtual ~VertexTextureEffect(void);
 
 protected:

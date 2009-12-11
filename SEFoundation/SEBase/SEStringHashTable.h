@@ -45,29 +45,29 @@ public:
 
     int GetCount(void) const;
 
-    bool Insert(const String& rKey, const TValue& rValue);
-    TValue* Find(const String& rKey) const;
-    bool Remove(const String& rKey);
+    bool Insert(const std::string& rKey, const TValue& rValue);
+    TValue* Find(const std::string& rKey) const;
+    bool Remove(const std::string& rKey);
     void RemoveAll(void);
 
-    TValue* GetFirst(String* pKey) const;
-    TValue* GetNext(String* pKey) const;
+    TValue* GetFirst(std::string* pKey) const;
+    TValue* GetNext(std::string* pKey) const;
 
 private:
     class SHTItem
     {
     public:
         SHTItem(void) : m_Key(""){}
-		~SHTItem(void){}
+        ~SHTItem(void){}
 
-	public:
-        String m_Key;
+    public:
+        std::string m_Key;
         TValue m_Value;
         SHTItem* m_pNextHashItem;
     };
 
     // ¹þÏ£º¯Êý
-    int HashFunction(const String& rKey) const;
+    int HashFunction(const std::string& rKey) const;
 
     // ¹þÏ£±í
     int m_iTableSize;

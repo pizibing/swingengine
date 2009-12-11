@@ -41,7 +41,7 @@ class SE_FOUNDATION_API ScreenSpaceAOBlurEffect : public ShaderEffect
     SE_DECLARE_STREAM;
 
 public:
-    ScreenSpaceAOBlurEffect(const String& rBaseName);
+    ScreenSpaceAOBlurEffect(const std::string& rBaseName);
     virtual ~ScreenSpaceAOBlurEffect(void);
 
     // 根据color buffer尺寸调整texel kernel.

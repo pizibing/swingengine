@@ -28,7 +28,7 @@ StringHashTable<TValue>::StringHashTable(int iTableSize)
     m_iCount = 0;
     m_iIndex = 0;
     m_pHashItem = 0;
-	m_ppTable = SE_NEW SHTItem*[m_iTableSize];
+    m_ppTable = SE_NEW SHTItem*[m_iTableSize];
     memset(m_ppTable, 0, m_iTableSize*sizeof(SHTItem*));
 }
 //----------------------------------------------------------------------------
@@ -46,10 +46,10 @@ int StringHashTable<TValue>::GetCount() const
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-bool StringHashTable<TValue>::Insert(const String& rKey, const TValue& rValue)
+bool StringHashTable<TValue>::Insert(const std::string& rKey, const TValue& rValue)
 {
     int iIndex = HashFunction(rKey);
-	SHTItem* pItem = m_ppTable[iIndex];
+    SHTItem* pItem = m_ppTable[iIndex];
 
     while( pItem )
     {
@@ -60,7 +60,7 @@ bool StringHashTable<TValue>::Insert(const String& rKey, const TValue& rValue)
         pItem = pItem->m_pNextHashItem;
     }
 
-	pItem = SE_NEW SHTItem;
+    pItem = SE_NEW SHTItem;
     pItem->m_Key = rKey;
     pItem->m_Value = rValue;
     pItem->m_pNextHashItem = m_ppTable[iIndex];
@@ -71,10 +71,10 @@ bool StringHashTable<TValue>::Insert(const String& rKey, const TValue& rValue)
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-TValue* StringHashTable<TValue>::Find(const String& rKey) const
+TValue* StringHashTable<TValue>::Find(const std::string& rKey) const
 {
     int iIndex = HashFunction(rKey);
-	SHTItem* pItem = m_ppTable[iIndex];
+    SHTItem* pItem = m_ppTable[iIndex];
 
     while( pItem )
     {
@@ -89,10 +89,10 @@ TValue* StringHashTable<TValue>::Find(const String& rKey) const
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-bool StringHashTable<TValue>::Remove(const String& rKey)
+bool StringHashTable<TValue>::Remove(const std::string& rKey)
 {
     int iIndex = HashFunction(rKey);
-	SHTItem* pItem = m_ppTable[iIndex];
+    SHTItem* pItem = m_ppTable[iIndex];
 
     if( !pItem )
     {
@@ -101,15 +101,15 @@ bool StringHashTable<TValue>::Remove(const String& rKey)
 
     if( rKey == pItem->m_Key )
     {
-		SHTItem* pSave = pItem;
+        SHTItem* pSave = pItem;
         m_ppTable[iIndex] = pItem->m_pNextHashItem;
         SE_DELETE pSave;
         m_iCount--;
         return true;
     }
 
-	SHTItem* pPrev = pItem;
-	SHTItem* pCurr = pItem->m_pNextHashItem;
+    SHTItem* pPrev = pItem;
+    SHTItem* pCurr = pItem->m_pNextHashItem;
     while( pCurr && rKey != pCurr->m_Key )
     {
         pPrev = pCurr;
@@ -136,7 +136,7 @@ void StringHashTable<TValue>::RemoveAll()
         {
             while( m_ppTable[iIndex] )
             {
-				SHTItem* pSave = m_ppTable[iIndex];
+                SHTItem* pSave = m_ppTable[iIndex];
                 m_ppTable[iIndex] = m_ppTable[iIndex]->m_pNextHashItem;
                 SE_DELETE pSave;
                 if( --m_iCount == 0 )
@@ -149,7 +149,7 @@ void StringHashTable<TValue>::RemoveAll()
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-TValue* StringHashTable<TValue>::GetFirst(String* pKey) const
+TValue* StringHashTable<TValue>::GetFirst(std::string* pKey) const
 {
     if( m_iCount > 0 )
     {
@@ -168,7 +168,7 @@ TValue* StringHashTable<TValue>::GetFirst(String* pKey) const
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-TValue* StringHashTable<TValue>::GetNext(String* pKey) const
+TValue* StringHashTable<TValue>::GetNext(std::string* pKey) const
 {
     if( m_iCount > 0 )
     {
@@ -194,10 +194,10 @@ TValue* StringHashTable<TValue>::GetNext(String* pKey) const
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-int StringHashTable<TValue>::HashFunction(const String& rKey) const
+int StringHashTable<TValue>::HashFunction(const std::string& rKey) const
 {
     int iHiKey = 0, iLoKey = 0;
-    for( int i = 0; i < (int)rKey.GetLength(); i++ )
+    for( int i = 0; i < (int)rKey.length(); i++ )
     {
         if( i & 1 )
         {

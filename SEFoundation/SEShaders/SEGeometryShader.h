@@ -25,7 +25,6 @@
 #include "SEPlatforms.h"
 #include "SEShader.h"
 #include "SEGeometryProgram.h"
-#include "SEString.h"
 
 namespace Swing
 {
@@ -43,7 +42,7 @@ class SE_FOUNDATION_API GeometryShader : public Shader
     SE_DECLARE_STREAM;
 
 public:
-    GeometryShader(const String& rShaderName);
+    GeometryShader(const std::string& rShaderName);
     virtual ~GeometryShader(void);
 
     GeometryProgram* GetProgram(void) const;

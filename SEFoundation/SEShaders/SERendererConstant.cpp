@@ -29,7 +29,7 @@ SE_IMPLEMENT_TERMINATE(RendererConstant);
 //SE_REGISTER_INITIALIZE(RendererConstant);
 //SE_REGISTER_TERMINATE(RendererConstant);
 
-String RendererConstant::ms_StringMap[RendererConstant::MAX_TYPES+1] =
+std::string RendererConstant::ms_StringMap[RendererConstant::MAX_TYPES+1] =
 {
     "WMatrix",
     "VMatrix",
@@ -303,12 +303,12 @@ RendererConstant::~RendererConstant()
     }
 }
 //----------------------------------------------------------------------------
-const String& RendererConstant::GetName(Type eType)
+const std::string& RendererConstant::GetName(Type eType)
 {
     return ms_StringMap[eType];
 }
 //----------------------------------------------------------------------------
-RendererConstant::Type RendererConstant::GetType(const String& rName)
+RendererConstant::Type RendererConstant::GetType(const std::string& rName)
 {
     Type* pType = ms_pTypeMap->Find(rName);
 

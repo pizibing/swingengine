@@ -76,7 +76,7 @@ void LightNode::UpdateWorldData(double dAppTime)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* LightNode::GetObjectByName(const String& rName)
+Object* LightNode::GetObjectByName(const std::string& rName)
 {
     Object* pFound = Node::GetObjectByName(rName);
     if( pFound )
@@ -96,7 +96,7 @@ Object* LightNode::GetObjectByName(const String& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void LightNode::GetAllObjectsByName(const String& rName,
+void LightNode::GetAllObjectsByName(const std::string& rName,
     std::vector<Object*>& rObjects)
 {
     Node::GetAllObjectsByName(rName, rObjects);
@@ -190,7 +190,7 @@ StringTree* LightNode::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
 
     // children
     pTree->Append(Node::SaveStrings());

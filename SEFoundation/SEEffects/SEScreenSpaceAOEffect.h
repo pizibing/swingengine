@@ -41,7 +41,7 @@ class SE_FOUNDATION_API ScreenSpaceAOEffect : public ShaderEffect
     SE_DECLARE_STREAM;
 
 public:
-    ScreenSpaceAOEffect(const String& rRandom, const String& rDepth);
+    ScreenSpaceAOEffect(const std::string& rRandom, const std::string& rDepth);
     virtual ~ScreenSpaceAOEffect(void);
 
     static Vector2f ScreenSize;

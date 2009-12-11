@@ -198,7 +198,7 @@ StringTree* SphereBV::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("center =", m_Sphere.Center));
     pTree->Append(Format("radius =", m_Sphere.Radius));
 

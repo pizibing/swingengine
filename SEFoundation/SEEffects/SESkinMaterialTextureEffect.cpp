@@ -33,7 +33,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(SkinMaterialTextureEffect, SkinEffect);
 bool SkinMaterialTextureEffect::ms_bUCInitialized = false;
 
 //----------------------------------------------------------------------------
-SkinMaterialTextureEffect::SkinMaterialTextureEffect(const String& rBaseName,
+SkinMaterialTextureEffect::SkinMaterialTextureEffect(const std::string& rBaseName,
     int iBoneCount, Node** apBones, Transformation* aOffset)
     :
     SkinEffect(iBoneCount, apBones, aOffset)

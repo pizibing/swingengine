@@ -54,7 +54,6 @@
 namespace Swing
 {
 
-class String;
 //----------------------------------------------------------------------------
 // 名称:系统类
 // 说明:
@@ -164,7 +163,7 @@ private:
     enum { SYSTEM_MAX_PATH = 1024, SYSTEM_MAX_ENVVAR = 1024 };
     static char Path[SYSTEM_MAX_PATH];
     static char EnvVar[SYSTEM_MAX_ENVVAR];
-    static std::vector<String>* Directories;   // 系统维护的目录列表
+    static std::vector<std::string>* Directories;   // 系统维护的目录列表
 
 public:
     static char SE_PATH[SYSTEM_MAX_ENVVAR];

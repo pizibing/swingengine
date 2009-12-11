@@ -31,7 +31,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(VertexTextureEffect, ShaderEffect);
 //SE_REGISTER_STREAM(VertexTextureEffect);
 
 //----------------------------------------------------------------------------
-VertexTextureEffect::VertexTextureEffect(const String& rBaseName)
+VertexTextureEffect::VertexTextureEffect(const std::string& rBaseName)
     :
     ShaderEffect(1)
 {

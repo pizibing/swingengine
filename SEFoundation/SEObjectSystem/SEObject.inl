@@ -68,12 +68,12 @@ const T* DynamicCast(const Object* pObject)
     return pObject && pObject->IsDerived(T::TYPE) ? (const T*)pObject : 0;
 }
 //----------------------------------------------------------------------------
-inline void Object::SetName(const String& rName)
+inline void Object::SetName(const std::string& rName)
 {
     m_Name = rName;
 }
 //----------------------------------------------------------------------------
-inline const String& Object::GetName() const
+inline const std::string& Object::GetName() const
 {
     return m_Name;
 }

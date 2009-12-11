@@ -399,7 +399,7 @@ Spatial::PickRecord* Spatial::GetClosest(PickArray& rResults)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* Spatial::GetObjectByName(const String& rName)
+Object* Spatial::GetObjectByName(const std::string& rName)
 {
     Object* pFound = Object::GetObjectByName(rName);
     if( pFound )
@@ -456,7 +456,7 @@ Object* Spatial::GetObjectByName(const String& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Spatial::GetAllObjectsByName(const String& rName,
+void Spatial::GetAllObjectsByName(const std::string& rName,
     std::vector<Object*>& rObjects)
 {
     Object::GetAllObjectsByName(rName, rObjects);
@@ -759,7 +759,7 @@ StringTree* Spatial::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
 
     if( Local.IsSRMatrix() )
     {

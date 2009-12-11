@@ -31,7 +31,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(PixelShader, Shader);
 //SE_REGISTER_STREAM(PixelShader);
 
 //----------------------------------------------------------------------------
-PixelShader::PixelShader(const String& rShaderName)
+PixelShader::PixelShader(const std::string& rShaderName)
     :
     Shader(rShaderName)
 {

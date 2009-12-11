@@ -53,7 +53,7 @@ int Image::ms_BytesPerPixel[Image::IT_COUNT] =
     2   // IT_RGBA4444
 };
 
-String Image::ms_FormatName[Image::IT_COUNT] =
+std::string Image::ms_FormatName[Image::IT_COUNT] =
 {
     "IT_RGB888",
     "IT_RGBA8888",
@@ -234,8 +234,9 @@ Image* Image::Load(const char* pImageName)
 {
     SE_ASSERT( pImageName );
 
-    String strFileName = String(pImageName) + String(".seif");
-    const char* pDecorated = System::SE_GetPath(strFileName, System::SM_READ);
+    std::string strFileName = std::string(pImageName) + std::string(".seif");
+    const char* pDecorated = System::SE_GetPath(strFileName.c_str(), 
+        System::SM_READ);
     if( !pDecorated )
     {
         return 0;
@@ -568,8 +569,8 @@ StringTree* Image::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
-    pTree->Append(Format("format =", (const char*)ms_FormatName[m_eFormat]));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
+    pTree->Append(Format("format =", ms_FormatName[m_eFormat].c_str()));
     pTree->Append(Format("dimension = ", m_iDimension));
 
     const size_t uiTitleSize = 16;

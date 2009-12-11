@@ -31,7 +31,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(GeometryShader, Shader);
 //SE_REGISTER_STREAM(GeometryShader);
 
 //----------------------------------------------------------------------------
-GeometryShader::GeometryShader(const String& rShaderName)
+GeometryShader::GeometryShader(const std::string& rShaderName)
     :
     Shader(rShaderName)
 {

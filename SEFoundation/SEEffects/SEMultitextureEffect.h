@@ -23,7 +23,6 @@
 
 #include "SEFoundationLIB.h"
 #include "SEShaderEffect.h"
-#include "SEString.h"
 
 namespace Swing
 {
@@ -54,8 +53,8 @@ public:
     // program for the current set of textures.
     void SetTextureCount(int iTextureCount);
     int GetTextureCount(void) const;
-    void SetImageName(int i, const String& rImageName);
-    const String& GetImageName(int i) const;
+    void SetImageName(int i, const std::string& rImageName);
+    const std::string& GetImageName(int i) const;
     void Configure(void);
 
 protected:
@@ -63,7 +62,7 @@ protected:
     MultitextureEffect(void);
 
     int m_iTextureCount;
-    String* m_aImageName;
+    std::string* m_aImageName;
 };
 
 typedef SmartPointer<MultitextureEffect> MultitextureEffectPtr;

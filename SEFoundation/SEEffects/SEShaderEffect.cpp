@@ -154,7 +154,7 @@ VertexProgram* ShaderEffect::GetVProgram(int iPass)
     return m_VShader[iPass]->GetProgram();
 }
 //----------------------------------------------------------------------------
-const String& ShaderEffect::GetVShaderName(int iPass) const
+const std::string& ShaderEffect::GetVShaderName(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -185,7 +185,7 @@ UserConstant* ShaderEffect::GetVConstant(int iPass, int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-UserConstant* ShaderEffect::GetVConstant(int iPass, const String& rName)
+UserConstant* ShaderEffect::GetVConstant(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -208,7 +208,7 @@ Texture* ShaderEffect::GetVTexture(int iPass, int i)
     return m_VShader[iPass]->GetTexture(i);
 }
 //----------------------------------------------------------------------------
-Texture* ShaderEffect::GetVTexture(int iPass, const String& rName)
+Texture* ShaderEffect::GetVTexture(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -222,14 +222,14 @@ void ShaderEffect::SetVTexture(int iPass, int i, Texture* pTexture)
     m_VShader[iPass]->SetTexture(i, pTexture);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetVImageName(int iPass, int i, const String& rName)
+void ShaderEffect::SetVImageName(int iPass, int i, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_VShader[iPass]->SetImageName(i, rName);
 }
 //----------------------------------------------------------------------------
-const String& ShaderEffect::GetVImageName(int iPass, int i) const
+const std::string& ShaderEffect::GetVImageName(int iPass, int i) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -257,7 +257,7 @@ GeometryProgram* ShaderEffect::GetGProgram(int iPass)
     return m_GShader[iPass]->GetProgram();
 }
 //----------------------------------------------------------------------------
-const String& ShaderEffect::GetGShaderName(int iPass) const
+const std::string& ShaderEffect::GetGShaderName(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -288,7 +288,7 @@ UserConstant* ShaderEffect::GetGConstant(int iPass, int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-UserConstant* ShaderEffect::GetGConstant(int iPass, const String& rName)
+UserConstant* ShaderEffect::GetGConstant(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -311,7 +311,7 @@ Texture* ShaderEffect::GetGTexture(int iPass, int i)
     return m_GShader[iPass]->GetTexture(i);
 }
 //----------------------------------------------------------------------------
-Texture* ShaderEffect::GetGTexture(int iPass, const String& rName)
+Texture* ShaderEffect::GetGTexture(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -325,14 +325,14 @@ void ShaderEffect::SetGTexture(int iPass, int i, Texture* pTexture)
     m_GShader[iPass]->SetTexture(i, pTexture);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetGImageName(int iPass, int i, const String& rName)
+void ShaderEffect::SetGImageName(int iPass, int i, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_GShader[iPass]->SetImageName(i, rName);
 }
 //----------------------------------------------------------------------------
-const String& ShaderEffect::GetGImageName(int iPass, int i) const
+const std::string& ShaderEffect::GetGImageName(int iPass, int i) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -360,7 +360,7 @@ PixelProgram* ShaderEffect::GetPProgram(int iPass)
     return m_PShader[iPass]->GetProgram();
 }
 //----------------------------------------------------------------------------
-const String& ShaderEffect::GetPShaderName(int iPass) const
+const std::string& ShaderEffect::GetPShaderName(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -391,7 +391,7 @@ UserConstant* ShaderEffect::GetPConstant(int iPass, int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-UserConstant* ShaderEffect::GetPConstant(int iPass, const String& rName)
+UserConstant* ShaderEffect::GetPConstant(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -416,7 +416,7 @@ Texture* ShaderEffect::GetPTexture(int iPass, int i)
     return m_PShader[iPass]->GetTexture(i);
 }
 //----------------------------------------------------------------------------
-Texture* ShaderEffect::GetPTexture(int iPass, const String& rName)
+Texture* ShaderEffect::GetPTexture(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -430,14 +430,14 @@ void ShaderEffect::SetPTexture(int iPass, int i, Texture* pTexture)
     m_PShader[iPass]->SetTexture(i, pTexture);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetPImageName(int iPass, int i, const String& rName)
+void ShaderEffect::SetPImageName(int iPass, int i, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_PShader[iPass]->SetImageName(i, rName);
 }
 //----------------------------------------------------------------------------
-const String& ShaderEffect::GetPImageName(int iPass, int i) const
+const std::string& ShaderEffect::GetPImageName(int iPass, int i) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -549,7 +549,7 @@ void ShaderEffect::LoadPrograms(int iPass, Renderer* pRenderer)
         // 如果当前pass指定了geometry程序,
         // 则需确保vertex程序输出属性和geometry程序输入属性兼容,
         // geometry程序输出属性与pixel程序输入属性兼容.
-        String StrDefault("Default");
+        std::string StrDefault("Default");
         const Attributes& rVOAttributes = spVProgram->GetOutputAttributes();
         const Attributes& rPIAttributes = spPProgram->GetInputAttributes();
         if( !rVOAttributes.Matches(rPIAttributes, false, true, true, true) )
@@ -768,7 +768,7 @@ void ShaderEffect::ReleaseResources(Renderer* pRenderer, Geometry*)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* ShaderEffect::GetObjectByName(const String& rName)
+Object* ShaderEffect::GetObjectByName(const std::string& rName)
 {
     Object* pFound = Effect::GetObjectByName(rName);
     if( pFound )
@@ -809,7 +809,7 @@ Object* ShaderEffect::GetObjectByName(const String& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::GetAllObjectsByName(const String& rName,
+void ShaderEffect::GetAllObjectsByName(const std::string& rName,
     std::vector<Object*>& rObjects)
 {
     Effect::GetAllObjectsByName(rName, rObjects);
@@ -1021,7 +1021,7 @@ StringTree* ShaderEffect::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("pass count =", m_iPassCount));
 
     // children

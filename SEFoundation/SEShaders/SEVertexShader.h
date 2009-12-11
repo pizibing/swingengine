@@ -25,7 +25,6 @@
 #include "SEPlatforms.h"
 #include "SEShader.h"
 #include "SEVertexProgram.h"
-#include "SEString.h"
 
 namespace Swing
 {
@@ -43,7 +42,7 @@ class SE_FOUNDATION_API VertexShader : public Shader
     SE_DECLARE_STREAM;
 
 public:
-    VertexShader(const String& rShaderName);
+    VertexShader(const std::string& rShaderName);
     virtual ~VertexShader(void);
 
     VertexProgram* GetProgram(void) const;

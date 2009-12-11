@@ -76,7 +76,7 @@ Vector2f ScreenSpaceAOBlurEffect::ms_aPixelKernel[
 bool ScreenSpaceAOBlurEffect::ms_bTexelKernelUCInitialized = false;
 
 //----------------------------------------------------------------------------
-ScreenSpaceAOBlurEffect::ScreenSpaceAOBlurEffect(const String& rBaseName)
+ScreenSpaceAOBlurEffect::ScreenSpaceAOBlurEffect(const std::string& rBaseName)
     :
     ShaderEffect(1)
 {

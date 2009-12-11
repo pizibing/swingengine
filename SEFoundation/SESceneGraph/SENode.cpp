@@ -298,7 +298,7 @@ void Node::DoPick(const Ray3f& rRay, PickArray& rResults)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* Node::GetObjectByName(const String& rName)
+Object* Node::GetObjectByName(const std::string& rName)
 {
     Object* pFound = Spatial::GetObjectByName(rName);
     if( pFound )
@@ -322,7 +322,7 @@ Object* Node::GetObjectByName(const String& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Node::GetAllObjectsByName(const String& rName,
+void Node::GetAllObjectsByName(const std::string& rName,
     std::vector<Object*>& rObjects)
 {
     Spatial::GetAllObjectsByName(rName, rObjects);
@@ -458,7 +458,7 @@ StringTree* Node::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("child count =", (int)m_Child.size()));
 
     // children

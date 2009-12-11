@@ -79,11 +79,11 @@ DescriptorItem* InterfaceDescriptor::GetItem(int i) const
     return m_DescriptorItems[i];
 }
 //----------------------------------------------------------------------------
-void InterfaceDescriptor::GetDescription(String& rDesc) const
+void InterfaceDescriptor::GetDescription(std::string& rDesc) const
 {
     for( int i = 0; i < (int)m_DescriptorItems.size(); i++ )
     {
-        String tempItemDesc;
+        std::string tempItemDesc;
         m_DescriptorItems[i]->GetDescription(tempItemDesc);
         rDesc += tempItemDesc;
     }
@@ -175,7 +175,7 @@ StringTree* InterfaceDescriptor::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
 
     // children
     pTree->Append(Object::SaveStrings());

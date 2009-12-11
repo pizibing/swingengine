@@ -25,7 +25,6 @@
 #include "SEPlatforms.h"
 #include "SEObject.h"
 #include "SEMainMCR.h"
-#include "SEString.h"
 #include "SEStringHashTable.h"
 #include "SERenderer.h"
 #include "SEInterfaceDescriptor.h"
@@ -44,7 +43,7 @@ class VertexProgram;
 class SE_FOUNDATION_API VertexProgramCatalog
 {
 public:
-    VertexProgramCatalog(const String& rName);
+    VertexProgramCatalog(const std::string& rName);
     ~VertexProgramCatalog(void);
 
     // 开始时我们不知道渲染器类型,
@@ -52,12 +51,12 @@ public:
     // 应用程序层的相关函数为WindowApplication::SetRenderer
     void SetRenderer(Renderer* pRenderer);
 
-    const String& GetName(void) const;
+    const std::string& GetName(void) const;
     bool Insert(VertexProgram* pProgram);
     bool Remove(VertexProgram* pProgram);
-    VertexProgram* Find(const String& rProgramName,
+    VertexProgram* Find(const std::string& rProgramName,
         InterfaceDescriptor* pDescriptor = 0);
-    bool PrintContents(const String& rFileName) const;
+    bool PrintContents(const std::string& rFileName) const;
     int GetProfile(void) const;
 
     static void SetActive(VertexProgramCatalog* pActive);
@@ -65,14 +64,14 @@ public:
 
 private:
     enum { PROGRAM_MAP_SIZE = 256 };
-    String m_Name;
+    std::string m_Name;
     StringHashTable<VertexProgram*> m_Entry;
     ObjectPtr m_spDefaultVProgram;
 
     Renderer* m_pRenderer;
 
-    static const String ms_NullString;
-    static const String ms_DefaultString;
+    static const std::string ms_NullString;
+    static const std::string ms_DefaultString;
     static VertexProgramCatalog* ms_pActive;
 };
 

@@ -162,7 +162,7 @@ void Particles::GetUnculledSet(Culler& rCuller, bool bNoCull)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* Particles::GetObjectByName(const String& rName)
+Object* Particles::GetObjectByName(const std::string& rName)
 {
     Object* pFound = TriMesh::GetObjectByName(rName);
     if( pFound )
@@ -191,7 +191,7 @@ Object* Particles::GetObjectByName(const String& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Particles::GetAllObjectsByName(const String& rName,
+void Particles::GetAllObjectsByName(const std::string& rName,
     std::vector<Object*>& rObjects)
 {
     TriMesh::GetAllObjectsByName(rName, rObjects);
@@ -324,7 +324,7 @@ StringTree* Particles::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("size adjust =", SizeAdjust));
     pTree->Append(Format("active count =", m_iActiveCount));
 

@@ -31,7 +31,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(MaterialTextureEffect, ShaderEffect);
 //SE_REGISTER_STREAM(MaterialTextureEffect);
 
 //----------------------------------------------------------------------------
-MaterialTextureEffect::MaterialTextureEffect(const String& rBaseName)
+MaterialTextureEffect::MaterialTextureEffect(const std::string& rBaseName)
     :
     ShaderEffect(1)
 {

@@ -259,7 +259,7 @@ bool KeyframeController::Update(double dAppTime)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* KeyframeController::GetObjectByName(const String& rName)
+Object* KeyframeController::GetObjectByName(const std::string& rName)
 {
     Object* pFound = Controller::GetObjectByName(rName);
     if( pFound )
@@ -324,7 +324,7 @@ Object* KeyframeController::GetObjectByName(const String& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void KeyframeController::GetAllObjectsByName(const String& rName,
+void KeyframeController::GetAllObjectsByName(const std::string& rName,
     std::vector<Object*>& rObjects)
 {
     Controller::GetAllObjectsByName(rName, rObjects);
@@ -554,7 +554,7 @@ StringTree* KeyframeController::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
 
     // children
     pTree->Append(Controller::SaveStrings());

@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline const String& SamplerInformation::GetName() const
+inline const std::string& SamplerInformation::GetName() const
 {
     return m_Name;
 }

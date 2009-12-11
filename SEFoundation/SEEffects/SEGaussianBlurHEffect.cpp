@@ -65,7 +65,7 @@ Vector2f GaussianBlurHEffect::ms_aPixelKernelH[KERNEL_COUNT] =
 bool GaussianBlurHEffect::ms_bTexelKernelUCInitialized = false;
 
 //----------------------------------------------------------------------------
-GaussianBlurHEffect::GaussianBlurHEffect(const String& rBaseName)
+GaussianBlurHEffect::GaussianBlurHEffect(const std::string& rBaseName)
     :
     ShaderEffect(1)
 {

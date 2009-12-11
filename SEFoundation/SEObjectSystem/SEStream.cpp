@@ -143,12 +143,12 @@ bool Stream::Load(char* pBuffer, int iSize)
     m_pBuffer = pBuffer;
 
     // 装载unique object列表
-    String StrTopLevel(ms_pTopLevel);
+    std::string StrTopLevel(ms_pTopLevel);
     Object* pObject;
     while( m_iBufferNext < m_iBufferSize )
     {
         // 期望遇到"Top Level"或RTTI name
-        String StrTemp;
+        std::string StrTemp;
         Read(StrTemp);
         bool bTopLevel = (StrTemp == StrTopLevel);
         if( bTopLevel )
@@ -157,7 +157,8 @@ bool Stream::Load(char* pBuffer, int iSize)
             Read(StrTemp);
         }
 
-        SE_ASSERT( StrTemp.GetLength() >= 7 ); // RTTI name必须是"Swing.xxx"
+        // RTTI name必须是"Swing.xxx"
+        SE_ASSERT( ((int)StrTemp.length()) >= 7 );
 
         // 根据RTTI name,找到即将读取的object的工厂函数
         FactoryFunction* pFactory = Object::ms_pFactory->Find(StrTemp);
@@ -223,8 +224,8 @@ bool Stream::Save(char*& rpBuffer, int& riSize)
     }
 
     // 统计所有对象的磁盘字节数
-    String StrTopLevel(ms_pTopLevel);
-    int iTLGetDiskUsed = sizeof(int) + (int)StrTopLevel.GetLength();
+    std::string StrTopLevel(ms_pTopLevel);
+    int iTLGetDiskUsed = sizeof(int) + (int)StrTopLevel.length();
     m_iBufferSize = ((int)m_pTopLevel.size())*iTLGetDiskUsed;
     for( i = 0; i < (int)m_Ordered.size(); i++ )
     {
@@ -639,7 +640,7 @@ void Stream::Read(int iCount, double* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void Stream::Read(String& rValue)
+void Stream::Read(std::string& rValue)
 {
     int iLength;
     Read(iLength);
@@ -650,15 +651,15 @@ void Stream::Read(String& rValue)
         m_iBufferNext += iLength;
         SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 
-        rValue = String(iLength, pText);
+        rValue.assign(pText, iLength);
     }
     else
     {
-        rValue = String(0);
+        rValue.clear();
     }
 }
 //----------------------------------------------------------------------------
-void Stream::Read(int iCount, String* pValue)
+void Stream::Read(int iCount, std::string* pValue)
 {
     for( int i = 0; i < iCount; i++ )
     {
@@ -1072,13 +1073,13 @@ void Stream::Write(int iCount, const double* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void Stream::Write(const String& rValue)
+void Stream::Write(const std::string& rValue)
 {
-    Write(rValue.GetLength());
-    Write(rValue.GetLength(), (const char*)rValue);
+    Write((int)rValue.length());
+    Write((int)rValue.length(), rValue.c_str());
 }
 //----------------------------------------------------------------------------
-void Stream::Write(int iCount, const String* pValue)
+void Stream::Write(int iCount, const std::string* pValue)
 {
     for( int i = 0; i < iCount; i++ )
     {

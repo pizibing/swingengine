@@ -40,7 +40,6 @@
 #include "SEVector2.h"
 #include "SEVector3.h"
 #include "SEVector4.h"
-#include "SEString.h"
 
 namespace Swing
 {
@@ -177,8 +176,8 @@ public:
     void Read(double& rValue);
     void Read(int iCount, double* pValue);
 
-    void Read(String& rValue);
-    void Read(int iCount, String* pValue);
+    void Read(std::string& rValue);
+    void Read(int iCount, std::string* pValue);
     void Read(ColorRGB& rValue);
     void Read(int iCount, ColorRGB* pValue);
     void Read(ColorRGBA& rValue);
@@ -229,8 +228,8 @@ public:
     void Write(double dValue);
     void Write(int iCount, const double* pValue);
 
-    void Write(const String& rValue);
-    void Write(int iCount, const String* pValue);
+    void Write(const std::string& rValue);
+    void Write(int iCount, const std::string* pValue);
     void Write(const ColorRGB& rValue);
     void Write(int iCount, const ColorRGB* pValue);
     void Write(const ColorRGBA& rValue);

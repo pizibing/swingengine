@@ -24,7 +24,6 @@
 #include "SEFoundationLIB.h"
 #include "SEPlatforms.h"
 #include "SEMain.h"
-#include "SEString.h"
 #include "SEStringHashTable.h"
 
 namespace Swing
@@ -273,8 +272,8 @@ public:
     inline float* GetData(void) const;
 
     // 枚举值和字符串之间的映射.
-    static const String& GetName(Type eType);
-    static Type GetType(const String& rName);
+    static const std::string& GetName(Type eType);
+    static Type GetType(const std::string& rName);
 
     // 如果用户实现了自定义数据,则应实现自定义数据的释放过程.
     typedef void (*ReleaseID)(void*);
@@ -292,7 +291,7 @@ private:
     float m_afData[16];     // 最大数据存储,避免动态分配
 
     // 根据类型查找该渲染器常量的名字.
-    static String ms_StringMap[MAX_TYPES+1];
+    static std::string ms_StringMap[MAX_TYPES+1];
 
     // 根据名字查找该渲染器常量的类型.
     static StringHashTable<Type>* ms_pTypeMap;

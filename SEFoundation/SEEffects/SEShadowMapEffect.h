@@ -41,7 +41,7 @@ class ShadowMapEffect : public Effect
     SE_DECLARE_STREAM;
 
 public:
-    ShadowMapEffect(Camera* pProjector, const String& rProjectionImage, 
+    ShadowMapEffect(Camera* pProjector, const std::string& rProjectionImage, 
         Image::FormatMode eDepthFormat, int iDepthWidth, int iDepthHeight, 
         float fDepthBias);
 

@@ -25,7 +25,6 @@
 #include "SEPlatforms.h"
 #include "SEObject.h"
 #include "SEMainMCR.h"
-#include "SEString.h"
 #include "SEStringHashTable.h"
 
 namespace Swing
@@ -42,26 +41,26 @@ class Image;
 class SE_FOUNDATION_API ImageCatalog
 {
 public:
-    ImageCatalog(const String& rName);
+    ImageCatalog(const std::string& rName);
     ~ImageCatalog(void);
 
-    const String& GetName(void) const;
+    const std::string& GetName(void) const;
     bool Insert(Image* pImage);
     bool Remove(Image* pImage);
-    Image* Find(const String& rImageName);
-    bool PrintContents(const String& rFileName) const;
+    Image* Find(const std::string& rImageName);
+    bool PrintContents(const std::string& rFileName) const;
 
     static void SetActive(ImageCatalog* pActive);
     static ImageCatalog* GetActive(void);
 
 private:
     enum { IMAGE_MAP_SIZE = 256 };
-    String m_Name;
+    std::string m_Name;
     StringHashTable<Image*> m_Entry;
     ObjectPtr m_spDefaultImage;
 
-    static const String ms_NullString;
-    static const String ms_DefaultString;
+    static const std::string ms_NullString;
+    static const std::string ms_DefaultString;
     static ImageCatalog* ms_pActive;
 };
 

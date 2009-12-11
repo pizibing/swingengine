@@ -31,7 +31,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(TextureEffect, ShaderEffect);
 //SE_REGISTER_STREAM(TextureEffect);
 
 //----------------------------------------------------------------------------
-TextureEffect::TextureEffect(const String& rBaseName)
+TextureEffect::TextureEffect(const std::string& rBaseName)
     :
     ShaderEffect(1)
 {

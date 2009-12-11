@@ -610,7 +610,7 @@ StringTree* VertexBuffer::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE,(const char*)GetName()));
+	pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("vertex count = ", m_iVertexCount));
     pTree->Append(Format("vertex size = ", m_iVertexSize));
 

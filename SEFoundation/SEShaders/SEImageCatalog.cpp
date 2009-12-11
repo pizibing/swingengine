@@ -24,12 +24,12 @@
 
 using namespace Swing;
 
-const String ImageCatalog::ms_NullString("");
-const String ImageCatalog::ms_DefaultString("Default");
+const std::string ImageCatalog::ms_NullString("");
+const std::string ImageCatalog::ms_DefaultString("Default");
 ImageCatalog* ImageCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
-ImageCatalog::ImageCatalog(const String& rName)
+ImageCatalog::ImageCatalog(const std::string& rName)
     :
     m_Name(rName),
     m_Entry(IMAGE_MAP_SIZE)
@@ -55,14 +55,14 @@ ImageCatalog::ImageCatalog(const String& rName)
     pData[15] = 0;
 
     m_spDefaultImage = SE_NEW Image(Image::IT_RGBA8888, 2, 2, pData,
-        ms_DefaultString);
+        ms_DefaultString.c_str());
 }
 //----------------------------------------------------------------------------
 ImageCatalog::~ImageCatalog()
 {
 }
 //----------------------------------------------------------------------------
-const String& ImageCatalog::GetName() const
+const std::string& ImageCatalog::GetName() const
 {
     return m_Name;
 }
@@ -76,7 +76,7 @@ bool ImageCatalog::Insert(Image* pImage)
         return false;
     }
 
-    String StrImageName(pImage->GetName());
+    std::string StrImageName(pImage->GetName());
     if( StrImageName == ms_NullString
     ||  StrImageName == ms_DefaultString
     ||  pImage == m_spDefaultImage )
@@ -107,7 +107,7 @@ bool ImageCatalog::Remove(Image* pImage)
         return false;
     }
 
-    String StrImageName(pImage->GetName());
+    std::string StrImageName(pImage->GetName());
     if( StrImageName == ms_NullString
     ||  StrImageName == ms_DefaultString
     ||  pImage == m_spDefaultImage )
@@ -129,7 +129,7 @@ bool ImageCatalog::Remove(Image* pImage)
     return true;
 }
 //----------------------------------------------------------------------------
-Image* ImageCatalog::Find(const String& rImageName)
+Image* ImageCatalog::Find(const std::string& rImageName)
 {
     if( rImageName == ms_NullString 
     ||  rImageName == ms_DefaultString )
@@ -146,7 +146,7 @@ Image* ImageCatalog::Find(const String& rImageName)
     }
 
     // 在磁盘中查找
-    Image* pImage = Image::Load(rImageName);
+    Image* pImage = Image::Load(rImageName.c_str());
     if( pImage )
     {
         // 该资源存在,且已经在Load后被加入资源目录,不用再次调用Insert函数
@@ -157,9 +157,10 @@ Image* ImageCatalog::Find(const String& rImageName)
     return StaticCast<Image>(m_spDefaultImage);
 }
 //----------------------------------------------------------------------------
-bool ImageCatalog::PrintContents(const String& rFileName) const
+bool ImageCatalog::PrintContents(const std::string& rFileName) const
 {
-    const char* pDecorated = System::SE_GetPath(rFileName, System::SM_WRITE);
+    const char* pDecorated = System::SE_GetPath(rFileName.c_str(), 
+        System::SM_WRITE);
 
     if( pDecorated )
     {
@@ -167,12 +168,12 @@ bool ImageCatalog::PrintContents(const String& rFileName) const
 
         SE_ASSERT( OStream );
 
-        String StrImageName;
-		Image** ppTempImage = m_Entry.GetFirst(&StrImageName);
+        std::string StrImageName;
+        Image** ppTempImage = m_Entry.GetFirst(&StrImageName);
         while( ppTempImage )
         {
             Image* pImage = *ppTempImage;
-            OStream << (const char*)StrImageName << ":" << std::endl;
+            OStream << StrImageName.c_str() << ":" << std::endl;
             OStream << "    dimension = " << pImage->GetDimension()
                 << std::endl;
             for( int i = 0; i < pImage->GetDimension(); i++ )
@@ -180,9 +181,10 @@ bool ImageCatalog::PrintContents(const String& rFileName) const
                 OStream << "    bound(" << i << ") = " << pImage->GetBound(i)
                     << std::endl;
             }
-            OStream << "    format = " << (const char*)(pImage->GetFormatName()) << std::endl;
+            OStream << "    format = " << pImage->GetFormatName().c_str() << 
+                std::endl;
             OStream << std::endl;
-			ppTempImage = m_Entry.GetNext(&StrImageName);
+            ppTempImage = m_Entry.GetNext(&StrImageName);
         }
         OStream.close();
 

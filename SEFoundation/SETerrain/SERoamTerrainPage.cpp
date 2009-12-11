@@ -153,7 +153,7 @@ float RoamTerrainPage::GetHeight(float fX, float fZ) const
             iPatchY = m_iPatchesPerSide - 1;
         if( iPatchY < 0 )
             iPatchY = 0;
-	
+    
         // 判断所处base triangle.
         float fPatchLBX = (float)(iPatchX * m_iPatchSizeM1);
         float fPatchLBY = (float)(iPatchY * m_iPatchSizeM1);
@@ -240,7 +240,7 @@ float RoamTerrainPage::GetHeight(float fX, float fZ) const
 
         float fdLAHeight = Left3.Z - Apex3.Z;
         float fdRAHeight = Right3.Z - Apex3.Z;
-		
+        
         // 模型空间z变换回世界空间的y.
         fTempHeight = Apex3.Z + fCdA*fInvCurTriSpacing*fdLAHeight + 
             fCdB*fInvCurTriSpacing*fdRAHeight;
@@ -272,7 +272,7 @@ float RoamTerrainPage::GetHeight(float fX, float fZ) const
         {
             float fdTopHeight = fLTHeight - fRTHeight;
             float fdRightHeight = fRBHeight - fRTHeight;
-			
+            
             fTempHeight = fRTHeight + (1.0f - fdX)*fdTopHeight + (1.0f - fdY)*fdRightHeight;
         }
     }
@@ -288,7 +288,7 @@ void RoamTerrainPage::InitializeDerivedData()
     m_fTextureSpacing = 1.0f / (float)m_iSizeM1;
     m_fMultiplier = (m_fMaxElevation - m_fMinElevation) / 65535.0f;
     m_iPatchesPerSide = m_iSizeM1 / m_iPatchSizeM1;
-	m_iMaxIndexCount = 6 * m_iSizeM1 * m_iSizeM1;
+    m_iMaxIndexCount = 6 * m_iSizeM1 * m_iSizeM1;
     m_bNeedsTessellation = true;
     m_bNeedsResetIB = true;
 
@@ -323,12 +323,12 @@ void RoamTerrainPage::ResetPatches()
 
     SE_ASSERT( m_pTerrain );
 
-	for( int iPatchY = 0; iPatchY < m_iPatchesPerSide; iPatchY++ )
+    for( int iPatchY = 0; iPatchY < m_iPatchesPerSide; iPatchY++ )
     {
         for( int iPatchX = 0; iPatchX < m_iPatchesPerSide; iPatchX++ )
-		{			
+        {			
             m_Patches[iPatchY][iPatchX].Reset();
-			
+            
             // 待实现.
             // patch剔除.
 
@@ -513,7 +513,7 @@ void RoamTerrainPage::GetUnculledSet(Culler& rCuller, bool bNoCull)
                 FrameVariance = 1.0f;
         }
     }
-	else
+    else
     {
         // 重建非LOD状态的IB.
         if( m_bNeedsResetIB )
@@ -641,7 +641,7 @@ StringTree* RoamTerrainPage::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("size =", m_iSize));
     pTree->Append(Format("origin =", m_Origin));
     pTree->Append(Format("min elevation =", m_fMinElevation));

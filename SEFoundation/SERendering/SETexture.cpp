@@ -178,7 +178,7 @@ StringTree* Texture::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("filter = ", ms_pFilterType[m_eFType]));
 
     const size_t uiTitleSize = 16;

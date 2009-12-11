@@ -39,14 +39,14 @@ DescriptorItem::~DescriptorItem()
 {
 }
 //----------------------------------------------------------------------------
-void DescriptorItem::AttachTypeName(const String& rTypeName)
+void DescriptorItem::AttachTypeName(const std::string& rTypeName)
 {
     m_TypeNames.push_back(rTypeName);
 }
 //----------------------------------------------------------------------------
-void DescriptorItem::DetachTypeName(const String& rTypeName)
+void DescriptorItem::DetachTypeName(const std::string& rTypeName)
 {
-    std::vector<String>::iterator pIter;
+    std::vector<std::string>::iterator pIter;
     for( pIter = m_TypeNames.begin(); pIter != m_TypeNames.end(); pIter++ )
     {
         if( *pIter == rTypeName )
@@ -67,14 +67,14 @@ void DescriptorItem::DetachTypeName(int i)
     m_TypeNames.pop_back();
 }
 //----------------------------------------------------------------------------
-const String& DescriptorItem::GetTypeName(int i) const
+const std::string& DescriptorItem::GetTypeName(int i) const
 {
     SE_ASSERT( i >= 0 && i < (int)m_TypeNames.size() );
 
     return m_TypeNames[i];
 }
 //----------------------------------------------------------------------------
-void DescriptorItem::GetDescription(String& rDesc) const
+void DescriptorItem::GetDescription(std::string& rDesc) const
 {
     rDesc = m_InstanceName;
     rDesc += "[";
@@ -144,13 +144,13 @@ void DescriptorItem::Save(Stream& rStream) const
 int DescriptorItem::GetDiskUsed(const StreamVersion& rVersion) const
 {
     int iSize = Object::GetDiskUsed(rVersion) + sizeof(char) +
-        sizeof(int) + (int)m_InstanceName.GetLength();
+        sizeof(int) + (int)m_InstanceName.length();
 
     int iCount = (int)m_TypeNames.size();
     iSize += sizeof(int);
     for( int i = 0; i < iCount; i++ )
     {
-        iSize += sizeof(int) + (int)m_TypeNames[i].GetLength();
+        iSize += sizeof(int) + (int)m_TypeNames[i].length();
     }
 
     return iSize;
@@ -161,16 +161,16 @@ StringTree* DescriptorItem::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("instance is array =", IsArray));
-    pTree->Append(Format("instance name =", (const char*)m_InstanceName));
+    pTree->Append(Format("instance name =", m_InstanceName.c_str()));
 
     const size_t uiTitleSize = 16;
     char acTitle[uiTitleSize];
     for( int i = 0; i < (int)m_TypeNames.size(); i++ )
     {
         System::SE_Sprintf(acTitle, uiTitleSize, "type name[%d] =", i);
-        pTree->Append(Format(acTitle, (const char*)m_TypeNames[i]));
+        pTree->Append(Format(acTitle, m_TypeNames[i].c_str()));
     }
 
     // children

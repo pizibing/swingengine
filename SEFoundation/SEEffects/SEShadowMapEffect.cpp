@@ -33,7 +33,7 @@ SE_IMPLEMENT_STREAM(ShadowMapEffect);
 
 //----------------------------------------------------------------------------
 ShadowMapEffect::ShadowMapEffect(Camera* pProjector,
-    const String& rProjectionImage, Image::FormatMode eDepthFormat, 
+    const std::string& rProjectionImage, Image::FormatMode eDepthFormat, 
     int iDepthWidth, int iDepthHeight, float fDepthBias)
     :
     m_spProjector(pProjector)
@@ -187,7 +187,7 @@ void ShadowMapEffect::Draw(Renderer* pRenderer, Spatial*, int iMin, int iMax,
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* ShadowMapEffect::GetObjectByName(const String& rName)
+Object* ShadowMapEffect::GetObjectByName(const std::string& rName)
 {
     Object* pFound = Effect::GetObjectByName(rName);
     if( pFound )
@@ -234,7 +234,7 @@ Object* ShadowMapEffect::GetObjectByName(const String& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void ShadowMapEffect::GetAllObjectsByName(const String& rName,
+void ShadowMapEffect::GetAllObjectsByName(const std::string& rName,
     std::vector<Object*>& rObjects)
 {
     Effect::GetAllObjectsByName(rName, rObjects);
@@ -411,7 +411,7 @@ StringTree* ShadowMapEffect::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("depth bias =", m_afDepthBias[0]));
 
     // children

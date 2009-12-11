@@ -69,7 +69,6 @@
 #include "SEHashTable.h"
 #include "SEHashSet.h"
 #include "SEStringHashTable.h"
-#include "SEString.h"
 
 // Scene Graph
 #include "SETransformation.h"

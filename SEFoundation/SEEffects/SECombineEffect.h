@@ -41,7 +41,7 @@ class SE_FOUNDATION_API CombineEffect : public ShaderEffect
     SE_DECLARE_STREAM;
 
 public:
-    CombineEffect(const String& rTName1, const String& rTName2);
+    CombineEffect(const std::string& rTName1, const std::string& rTName2);
     virtual ~CombineEffect(void);
 
 protected:

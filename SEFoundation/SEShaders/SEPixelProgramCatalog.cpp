@@ -24,12 +24,12 @@
 
 using namespace Swing;
 
-const String PixelProgramCatalog::ms_NullString("");
-const String PixelProgramCatalog::ms_DefaultString("Default.p_Default");
+const std::string PixelProgramCatalog::ms_NullString("");
+const std::string PixelProgramCatalog::ms_DefaultString("Default.p_Default");
 PixelProgramCatalog* PixelProgramCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
-PixelProgramCatalog::PixelProgramCatalog(const String& rName)
+PixelProgramCatalog::PixelProgramCatalog(const std::string& rName)
     :
     m_Name(rName),
     m_Entry(PROGRAM_MAP_SIZE)
@@ -59,7 +59,7 @@ void PixelProgramCatalog::SetRenderer(Renderer* pRenderer)
     }
 }
 //----------------------------------------------------------------------------
-const String& PixelProgramCatalog::GetName() const
+const std::string& PixelProgramCatalog::GetName() const
 {
     return m_Name;
 }
@@ -73,7 +73,7 @@ bool PixelProgramCatalog::Insert(PixelProgram* pProgram)
         return false;
     }
 
-    String StrProgramName(pProgram->GetName());
+    std::string StrProgramName(pProgram->GetName());
     if( StrProgramName == ms_NullString
     ||  StrProgramName == ms_DefaultString
     ||  pProgram == m_spDefaultPProgram )
@@ -104,7 +104,7 @@ bool PixelProgramCatalog::Remove(PixelProgram* pProgram)
         return false;
     }
 
-    String StrProgramName(pProgram->GetName());
+    std::string StrProgramName(pProgram->GetName());
     if( StrProgramName == ms_NullString
     ||  StrProgramName == ms_DefaultString
     ||  pProgram == m_spDefaultPProgram )
@@ -126,7 +126,7 @@ bool PixelProgramCatalog::Remove(PixelProgram* pProgram)
     return true;
 }
 //----------------------------------------------------------------------------
-PixelProgram* PixelProgramCatalog::Find(const String& rProgramName,
+PixelProgram* PixelProgramCatalog::Find(const std::string& rProgramName,
     InterfaceDescriptor* pDescriptor)
 {
     if( rProgramName == ms_NullString
@@ -136,10 +136,10 @@ PixelProgram* PixelProgramCatalog::Find(const String& rProgramName,
     }
 
     // 首先在资源目录中查找
-    String tempKey = rProgramName;
+    std::string tempKey = rProgramName;
     if( pDescriptor )
     {
-        String tempPostFix;
+        std::string tempPostFix;
         pDescriptor->GetDescription(tempPostFix);
         tempKey += tempPostFix;
     }
@@ -163,9 +163,10 @@ PixelProgram* PixelProgramCatalog::Find(const String& rProgramName,
     return StaticCast<PixelProgram>(m_spDefaultPProgram);
 }
 //----------------------------------------------------------------------------
-bool PixelProgramCatalog::PrintContents(const String& rFileName) const
+bool PixelProgramCatalog::PrintContents(const std::string& rFileName) const
 {
-    const char* pDecorated = System::SE_GetPath(rFileName, System::SM_WRITE);
+    const char* pDecorated = System::SE_GetPath(rFileName.c_str(), 
+        System::SM_WRITE);
 
     if( pDecorated )
     {
@@ -173,11 +174,11 @@ bool PixelProgramCatalog::PrintContents(const String& rFileName) const
 
         SE_ASSERT( OStream );
 
-        String StrProgramName;
+        std::string StrProgramName;
 		PixelProgram** ppTempProgram = m_Entry.GetFirst(&StrProgramName);
         while( ppTempProgram )
         {
-            OStream << (const char*)StrProgramName << std::endl;
+            OStream << StrProgramName.c_str() << std::endl;
             OStream << std::endl;
             ppTempProgram = m_Entry.GetNext(&StrProgramName);
         }

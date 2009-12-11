@@ -31,7 +31,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(VertexShader, Shader);
 //SE_REGISTER_STREAM(VertexShader);
 
 //----------------------------------------------------------------------------
-VertexShader::VertexShader(const String& rShaderName)
+VertexShader::VertexShader(const std::string& rShaderName)
     :
     Shader(rShaderName)
 {

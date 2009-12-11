@@ -24,7 +24,6 @@
 #include "SEFoundationLIB.h"
 #include "SEPlatforms.h"
 #include "SESystem.h"
-#include "SEString.h"
 
 namespace Swing
 {
@@ -55,11 +54,11 @@ public:
     //
     // 当有了新的类似fx文件的文件系统后,filter模式和wrap模式将由文件指定,
     // 因此要有新的模块来支持读取模式并提供给纹理对象的功能
-    SamplerInformation(const String& rName, Type eType, void* pID);
+    SamplerInformation(const std::string& rName, Type eType, void* pID);
     SamplerInformation(const SamplerInformation& rSI);
     ~SamplerInformation(void);
 
-    inline const String& GetName(void) const;
+    inline const std::string& GetName(void) const;
     inline Type GetType(void) const;
     inline void* GetID(void) const;
     inline int GetDimension(void) const;
@@ -74,7 +73,7 @@ public:
     static CopyID OnCopyID;
 
 private:
-    String m_Name;
+    std::string m_Name;
     Type m_eType;
     int m_iDimension;
     void* m_pID;

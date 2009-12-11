@@ -488,18 +488,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\SEBase\SEString.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\SEBase\SEString.h"
-				>
-			</File>
-			<File
-				RelativePath=".\SEBase\SEString.inl"
-				>
-			</File>
-			<File
 				RelativePath=".\SEBase\SEStringHashTable.h"
 				>
 			</File>

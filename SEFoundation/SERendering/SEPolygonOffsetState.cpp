@@ -118,7 +118,7 @@ StringTree* PolygonOffsetState::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("fill enabled =", FillEnabled));
     pTree->Append(Format("line enabled =", LineEnabled));
     pTree->Append(Format("point enabled =", PointEnabled));

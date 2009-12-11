@@ -321,7 +321,7 @@ StringTree* Camera::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("location =", m_Location));
     pTree->Append(Format("r vector =", m_RVector));
     pTree->Append(Format("u vector =", m_UVector));

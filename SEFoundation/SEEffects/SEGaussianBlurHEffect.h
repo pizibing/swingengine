@@ -41,7 +41,7 @@ class SE_FOUNDATION_API GaussianBlurHEffect : public ShaderEffect
     SE_DECLARE_STREAM;
 
 public:
-    GaussianBlurHEffect(const String& rBaseName);
+    GaussianBlurHEffect(const std::string& rBaseName);
     virtual ~GaussianBlurHEffect(void);
 
     // 根据color buffer尺寸调整texel kernel.

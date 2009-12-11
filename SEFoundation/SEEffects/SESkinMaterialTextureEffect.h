@@ -40,7 +40,7 @@ class SE_FOUNDATION_API SkinMaterialTextureEffect : public SkinEffect
     SE_DECLARE_STREAM;
 
 public:
-    SkinMaterialTextureEffect(const String& rBaseName, int iBoneCount, 
+    SkinMaterialTextureEffect(const std::string& rBaseName, int iBoneCount, 
         Node** apBones, Transformation* aOffset);
     virtual ~SkinMaterialTextureEffect(void);
 

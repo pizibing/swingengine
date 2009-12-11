@@ -45,7 +45,7 @@ const std::string Program::ms_Color3Str("COLOR3");
 const std::string Program::ms_TexCoordStr("TEXCOORD");
 
 //----------------------------------------------------------------------------
-bool Program::Load(Renderer* pRenderer, const String& rProgramName, 
+bool Program::Load(Renderer* pRenderer, const std::string& rProgramName, 
     Program* pProgram, ProgramType eType, InterfaceDescriptor* pInterfaceDesc)
 {
     SE_ASSERT( OnLoadProgram );
@@ -104,7 +104,7 @@ UserConstant* Program::GetUC(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-UserConstant* Program::GetUC(const String& rName)
+UserConstant* Program::GetUC(const std::string& rName)
 {
     for( int i = 0; i < (int)m_UserConstants.size(); i++ )
     {
@@ -127,7 +127,7 @@ SamplerInformation* Program::GetSI(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-SamplerInformation* Program::GetSI(const String& rName)
+SamplerInformation* Program::GetSI(const std::string& rName)
 {
     for( int i = 0; i < (int)m_SamplerInformation.size(); i++ )
     {

@@ -26,7 +26,6 @@
 #include "SEObject.h"
 #include "SEProgram.h"
 #include "SETexture.h"
-#include "SEString.h"
 #include "SEInterfaceDescriptor.h"
 
 namespace Swing
@@ -48,18 +47,18 @@ public:
     // 虚基类
     virtual ~Shader(void);
 
-    inline const String& GetShaderName(void) const;
+    inline const std::string& GetShaderName(void) const;
 
     // 访问textures和image names
     void SetTextureCount(int iCount);
     inline int GetTextureCount(void) const;
     Texture* GetTexture(int i);
-    Texture* GetTexture(const String& rName);
+    Texture* GetTexture(const std::string& rName);
     const Texture* GetTexture(int i) const;
-    const Texture* GetTexture(const String& rName) const;
+    const Texture* GetTexture(const std::string& rName) const;
     void SetTexture(int i, Texture* pTexture);  // 用于纹理资源共享
-    void SetImageName(int i, const String& rName);
-    const String& GetImageName(int i) const;
+    void SetImageName(int i, const std::string& rName);
+    const std::string& GetImageName(int i) const;
 
     // 访问interface descriptor.
     inline void SetInterfaceDescriptor(InterfaceDescriptor* pDescriptor);
@@ -70,11 +69,11 @@ protected:
     Shader(void);
 
     // 构造函数由派生类调用
-    Shader(const String& rShaderName);
+    Shader(const std::string& rShaderName);
 
 protected:
     // shader名字是shader程序的唯一标识
-    String m_ShaderName;
+    std::string m_ShaderName;
 
     // shader程序,依赖于具体图形API(DirectX,OpenGL)
     ProgramPtr m_spProgram;
@@ -91,7 +90,7 @@ protected:
 
     // 该shader程序实例所使用的image名字,
     // 这些texture对象存储着实际的images和samplers
-    std::vector<String> m_ImageNames;
+    std::vector<std::string> m_ImageNames;
     std::vector<TexturePtr> m_Textures;
 
 // 内部使用

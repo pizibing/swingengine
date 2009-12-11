@@ -41,7 +41,7 @@ class SE_FOUNDATION_API TextureEffect : public ShaderEffect
     SE_DECLARE_STREAM;
 
 public:
-    TextureEffect(const String& rBaseName);
+    TextureEffect(const std::string& rBaseName);
     virtual ~TextureEffect(void);
 
 protected:

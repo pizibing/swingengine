@@ -31,7 +31,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(DefaultMRT3Effect, ShaderEffect);
 //SE_REGISTER_STREAM(DefaultMRT3Effect);
 
 //----------------------------------------------------------------------------
-DefaultMRT3Effect::DefaultMRT3Effect(const String& rBaseName)
+DefaultMRT3Effect::DefaultMRT3Effect(const std::string& rBaseName)
     :
     ShaderEffect(1)
 {

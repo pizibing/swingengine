@@ -33,7 +33,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(PixelProgram, Program);
 
 //----------------------------------------------------------------------------
 PixelProgram* PixelProgram::Load(Renderer* pRenderer, 
-    const String& rProgramName, const String& rKey, 
+    const std::string& rProgramName, const std::string& rKey, 
     InterfaceDescriptor* pInterfaceDesc)
 {
     PixelProgram* pProgram = SE_NEW PixelProgram;

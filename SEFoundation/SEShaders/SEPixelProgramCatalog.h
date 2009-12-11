@@ -25,7 +25,6 @@
 #include "SEPlatforms.h"
 #include "SEObject.h"
 #include "SEMainMCR.h"
-#include "SEString.h"
 #include "SEStringHashTable.h"
 #include "SERenderer.h"
 #include "SEInterfaceDescriptor.h"
@@ -44,7 +43,7 @@ class PixelProgram;
 class SE_FOUNDATION_API PixelProgramCatalog
 {
 public:
-    PixelProgramCatalog(const String& rName);
+    PixelProgramCatalog(const std::string& rName);
     ~PixelProgramCatalog(void);
 
     // 开始时我们不知道渲染器类型,
@@ -52,12 +51,12 @@ public:
     // 应用程序层的相关函数为WindowApplication::SetRenderer
     void SetRenderer(Renderer* pRenderer);
 
-    const String& GetName(void) const;
+    const std::string& GetName(void) const;
     bool Insert(PixelProgram* pProgram);
     bool Remove(PixelProgram* pProgram);
-    PixelProgram* Find(const String& rProgramName, 
+    PixelProgram* Find(const std::string& rProgramName, 
         InterfaceDescriptor* pDescriptor = 0);
-    bool PrintContents(const String& rFileName) const;
+    bool PrintContents(const std::string& rFileName) const;
     int GetProfile(void) const;
 
     static void SetActive(PixelProgramCatalog* pActive);
@@ -65,14 +64,14 @@ public:
 
 private:
     enum { PROGRAM_MAP_SIZE = 256 };
-    String m_Name;
+    std::string m_Name;
     StringHashTable<PixelProgram*> m_Entry;
     ObjectPtr m_spDefaultPProgram;
 
     Renderer* m_pRenderer;
 
-    static const String ms_NullString;
-    static const String ms_DefaultString;
+    static const std::string ms_NullString;
+    static const std::string ms_DefaultString;
     static PixelProgramCatalog* ms_pActive;
 };
 

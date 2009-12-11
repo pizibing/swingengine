@@ -131,7 +131,7 @@ StringTree* TerrainEffect::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     ColorRGB tempColor(ms_afFogColorDensity[0], ms_afFogColorDensity[1],
         ms_afFogColorDensity[2]);
     pTree->Append(Format("fog color =", tempColor));

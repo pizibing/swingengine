@@ -248,7 +248,7 @@ StringTree* ParticleController::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("sys lin speed =", SystemLinearSpeed));
     pTree->Append(Format("sys ang speed =", SystemAngularSpeed));
     pTree->Append(Format("sys lin axis =", SystemLinearAxis));

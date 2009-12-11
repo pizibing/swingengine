@@ -194,7 +194,7 @@ StringTree* Polyline::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("active quantity =", m_iActiveCount));
     pTree->Append(Format("closed =", m_bClosed));
     pTree->Append(Format("contiguous =", m_bContiguous));

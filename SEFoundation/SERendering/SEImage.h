@@ -25,7 +25,6 @@
 #include "SEPlatforms.h"
 #include "SEObject.h"
 #include "SEColorRGBA.h"
-#include "SEString.h"
 
 namespace Swing
 {
@@ -114,8 +113,8 @@ public:
     virtual ~Image(void);
 
     inline FormatMode GetFormat(void) const;
-    inline const String& GetFormatName(void) const;
-    inline static String GetFormatName(int eFormat);
+    inline const std::string& GetFormatName(void) const;
+    inline static std::string GetFormatName(int eFormat);
     inline bool IsDepthImage(void) const;
     inline bool IsCubeImage(void) const;
     inline int GetBytesPerPixel(void) const;
@@ -170,7 +169,7 @@ protected:
     bool m_bIsInCatalog;
 
     static int ms_BytesPerPixel[IT_COUNT];
-    static String ms_FormatName[IT_COUNT];
+    static std::string ms_FormatName[IT_COUNT];
 };
 
 typedef SmartPointer<Image> ImagePtr;

@@ -24,7 +24,6 @@
 #include "SEFoundationLIB.h"
 #include "SEPlatforms.h"
 #include "SEProgram.h"
-#include "SEString.h"
 #include "SEInterfaceDescriptor.h"
 
 namespace Swing
@@ -44,8 +43,8 @@ class SE_FOUNDATION_API VertexProgram : public Program
 
 public:
     // 必须通过Load来创建一个实例.
-    static VertexProgram* Load(Renderer* pRenderer, const String& rProgramName, 
-        const String& rKey, InterfaceDescriptor* pInterfaceDesc = 0);
+    static VertexProgram* Load(Renderer* pRenderer, const std::string& rProgramName, 
+        const std::string& rKey, InterfaceDescriptor* pInterfaceDesc = 0);
     virtual ~VertexProgram(void);
 
 protected:

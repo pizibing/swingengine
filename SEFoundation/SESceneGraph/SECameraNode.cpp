@@ -77,7 +77,7 @@ void CameraNode::UpdateWorldData(double dAppTime)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* CameraNode::GetObjectByName(const String& rName)
+Object* CameraNode::GetObjectByName(const std::string& rName)
 {
     Object* pFound = Node::GetObjectByName(rName);
     if( pFound )
@@ -97,7 +97,7 @@ Object* CameraNode::GetObjectByName(const String& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void CameraNode::GetAllObjectsByName(const String& rName,
+void CameraNode::GetAllObjectsByName(const std::string& rName,
     std::vector<Object*>& rObjects)
 {
     Node::GetAllObjectsByName(rName, rObjects);
@@ -191,7 +191,7 @@ StringTree* CameraNode::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
 
     // children
     pTree->Append(Node::SaveStrings());

@@ -25,7 +25,6 @@
 #include "SEPlatforms.h"
 #include "SESystem.h"
 #include "SEObject.h"
-#include "SEString.h"
 #include "SEDescriptorItem.h"
 
 namespace Swing
@@ -54,7 +53,7 @@ public:
     DescriptorItem* GetItem(int i) const;
 
     // 获取接口描述.
-    void GetDescription(String& rDesc) const;
+    void GetDescription(std::string& rDesc) const;
 
 protected:
     std::vector<DescriptorItemPtr> m_DescriptorItems;

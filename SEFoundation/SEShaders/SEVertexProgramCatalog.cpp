@@ -24,12 +24,12 @@
 
 using namespace Swing;
 
-const String VertexProgramCatalog::ms_NullString("");
-const String VertexProgramCatalog::ms_DefaultString("Default.v_Default");
+const std::string VertexProgramCatalog::ms_NullString("");
+const std::string VertexProgramCatalog::ms_DefaultString("Default.v_Default");
 VertexProgramCatalog* VertexProgramCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
-VertexProgramCatalog::VertexProgramCatalog(const String& rName)
+VertexProgramCatalog::VertexProgramCatalog(const std::string& rName)
     :
     m_Name(rName),
     m_Entry(PROGRAM_MAP_SIZE)
@@ -59,7 +59,7 @@ void VertexProgramCatalog::SetRenderer(Renderer* pRenderer)
     }
 }
 //----------------------------------------------------------------------------
-const String& VertexProgramCatalog::GetName() const
+const std::string& VertexProgramCatalog::GetName() const
 {
     return m_Name;
 }
@@ -73,7 +73,7 @@ bool VertexProgramCatalog::Insert(VertexProgram* pProgram)
         return false;
     }
 
-    String StrProgramName(pProgram->GetName());
+    std::string StrProgramName(pProgram->GetName());
     if( StrProgramName == ms_NullString
     ||  StrProgramName == ms_DefaultString
     ||  pProgram == m_spDefaultVProgram )
@@ -104,7 +104,7 @@ bool VertexProgramCatalog::Remove(VertexProgram* pProgram)
         return false;
     }
 
-    String StrProgramName(pProgram->GetName());
+    std::string StrProgramName(pProgram->GetName());
     if( StrProgramName == ms_NullString
     ||  StrProgramName == ms_DefaultString
     ||  pProgram == m_spDefaultVProgram )
@@ -126,7 +126,7 @@ bool VertexProgramCatalog::Remove(VertexProgram* pProgram)
     return true;
 }
 //----------------------------------------------------------------------------
-VertexProgram* VertexProgramCatalog::Find(const String& rProgramName,
+VertexProgram* VertexProgramCatalog::Find(const std::string& rProgramName,
     InterfaceDescriptor* pDescriptor)
 {
     if( rProgramName == ms_NullString
@@ -136,10 +136,10 @@ VertexProgram* VertexProgramCatalog::Find(const String& rProgramName,
     }
 
     // 首先在资源目录中查找
-    String tempKey = rProgramName;
+    std::string tempKey = rProgramName;
     if( pDescriptor )
     {
-        String tempPostFix;
+        std::string tempPostFix;
         pDescriptor->GetDescription(tempPostFix);
         tempKey += tempPostFix;
     }
@@ -163,9 +163,10 @@ VertexProgram* VertexProgramCatalog::Find(const String& rProgramName,
     return StaticCast<VertexProgram>(m_spDefaultVProgram);
 }
 //----------------------------------------------------------------------------
-bool VertexProgramCatalog::PrintContents(const String& rFileName) const
+bool VertexProgramCatalog::PrintContents(const std::string& rFileName) const
 {
-    const char* pDecorated = System::SE_GetPath(rFileName, System::SM_WRITE);
+    const char* pDecorated = System::SE_GetPath(rFileName.c_str(), 
+        System::SM_WRITE);
 
     if( pDecorated )
     {
@@ -173,11 +174,11 @@ bool VertexProgramCatalog::PrintContents(const String& rFileName) const
 
         SE_ASSERT( OStream );
 
-		String StrProgramName;
+		std::string StrProgramName;
 		VertexProgram** ppTempProgram = m_Entry.GetFirst(&StrProgramName);
         while( ppTempProgram )
         {
-            OStream << (const char*)StrProgramName << std::endl;
+            OStream << StrProgramName.c_str() << std::endl;
             OStream << std::endl;
             ppTempProgram = m_Entry.GetNext(&StrProgramName);
         }

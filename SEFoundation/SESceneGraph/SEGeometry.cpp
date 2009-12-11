@@ -183,7 +183,7 @@ Geometry::PickRecord::PickRecord(Geometry* pIObject, float fT)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* Geometry::GetObjectByName(const String& rName)
+Object* Geometry::GetObjectByName(const std::string& rName)
 {
     Object* pFound = Spatial::GetObjectByName(rName);
     if( pFound )
@@ -221,7 +221,7 @@ Object* Geometry::GetObjectByName(const String& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Geometry::GetAllObjectsByName(const String& rName,
+void Geometry::GetAllObjectsByName(const std::string& rName,
     std::vector<Object*>& rObjects)
 {
     Spatial::GetAllObjectsByName(rName, rObjects);
@@ -390,7 +390,7 @@ StringTree* Geometry::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("lighting mode =", (int)LightingMode));
 
     // children

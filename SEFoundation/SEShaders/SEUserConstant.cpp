@@ -35,7 +35,7 @@ UserConstant::ReleaseID UserConstant::OnReleaseID = 0;
 UserConstant::CopyID UserConstant::OnCopyID = 0;
 
 //----------------------------------------------------------------------------
-UserConstant::UserConstant(const String& rName, void* pID, int iDataCount)
+UserConstant::UserConstant(const std::string& rName, void* pID, int iDataCount)
     :
     m_Name(rName)
 {

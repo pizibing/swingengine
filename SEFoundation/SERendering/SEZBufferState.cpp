@@ -124,7 +124,7 @@ StringTree* ZBufferState::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("enabled =", Enabled));
     pTree->Append(Format("writable = ", Writable));
     pTree->Append(Format("compare = ", ms_pCompareMode[Compare]));

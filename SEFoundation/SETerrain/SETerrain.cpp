@@ -447,7 +447,7 @@ StringTree* Terrain::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("rows =", m_iRows));
     pTree->Append(Format("cols =", m_iCols));
     pTree->Append(Format("size =", m_iSize));

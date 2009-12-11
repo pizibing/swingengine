@@ -35,7 +35,7 @@ Shader::Shader()
 {
 }
 //----------------------------------------------------------------------------
-Shader::Shader(const String& rShaderName)
+Shader::Shader(const std::string& rShaderName)
     :
     m_ShaderName(rShaderName)
 {
@@ -68,7 +68,7 @@ Texture* Shader::GetTexture(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-Texture* Shader::GetTexture(const String& rName)
+Texture* Shader::GetTexture(const std::string& rName)
 {
     for( int i = 0; i < (int)m_Textures.size(); i++ )
     {
@@ -91,7 +91,7 @@ const Texture* Shader::GetTexture(int i) const
     return 0;
 }
 //----------------------------------------------------------------------------
-const Texture* Shader::GetTexture(const String& rName) const
+const Texture* Shader::GetTexture(const std::string& rName) const
 {
     for( int i = 0; i < (int)m_Textures.size(); i++ )
     {
@@ -117,7 +117,7 @@ void Shader::SetTexture(int i, Texture* pTexture)
     }
 }
 //----------------------------------------------------------------------------
-void Shader::SetImageName(int i, const String& rName)
+void Shader::SetImageName(int i, const std::string& rName)
 {
     int iCount = (int)m_ImageNames.size();
     if( i >= iCount )
@@ -128,7 +128,7 @@ void Shader::SetImageName(int i, const String& rName)
     m_ImageNames[i] = rName;
 }
 //----------------------------------------------------------------------------
-const String& Shader::GetImageName(int i) const
+const std::string& Shader::GetImageName(int i) const
 {
     SE_ASSERT( 0 <= i && i < (int)m_ImageNames.size() );
 
@@ -289,14 +289,14 @@ void Shader::Save(Stream& rStream) const
 int Shader::GetDiskUsed(const StreamVersion& rVersion) const
 {
     int iSize = Object::GetDiskUsed(rVersion) +
-        sizeof(int) + (int)m_ShaderName.GetLength() + sizeof(m_spInterfaces);
+        sizeof(int) + (int)m_ShaderName.length() + sizeof(m_spInterfaces);
 
     int iCount = (int)m_ImageNames.size();
     iSize += sizeof(int);
     int i;
     for( i = 0; i < iCount; i++ )
     {
-        iSize += sizeof(int) + (int)m_ImageNames[i].GetLength();
+        iSize += sizeof(int) + (int)m_ImageNames[i].length();
     }
 
     iCount = (int)m_Textures.size();
@@ -310,8 +310,8 @@ StringTree* Shader::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
-    pTree->Append(Format("shader name =", (const char*)m_ShaderName));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
+    pTree->Append(Format("shader name =", m_ShaderName.c_str()));
 
     const size_t uiTitleSize = 16;
     char acTitle[uiTitleSize];
@@ -319,7 +319,7 @@ StringTree* Shader::SaveStrings(const char*)
     for( i = 0; i < (int)m_ImageNames.size(); i++ )
     {
         System::SE_Sprintf(acTitle, uiTitleSize, "image[%d] =", i);
-        pTree->Append(Format(acTitle, (const char*)m_ImageNames[i]));
+        pTree->Append(Format(acTitle, m_ImageNames[i].c_str()));
     }
 
     // children

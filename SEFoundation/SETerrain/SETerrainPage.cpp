@@ -235,7 +235,7 @@ StringTree* TerrainPage::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("size =", m_iSize));
     pTree->Append(Format("origin =", m_Origin));
     pTree->Append(Format("min elevation =", m_fMinElevation));

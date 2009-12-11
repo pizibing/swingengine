@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline const String& Shader::GetShaderName() const
+inline const std::string& Shader::GetShaderName() const
 {
     return m_ShaderName;
 }

@@ -77,15 +77,15 @@ public:
 
 // Name-IDϵͳ
 public:
-    inline void SetName(const String& rName);
-    inline const String& GetName(void) const;
+    inline void SetName(const std::string& rName);
+    inline const std::string& GetName(void) const;
     inline unsigned int GetID(void) const;
     inline static unsigned int GetNextID(void);
-    virtual Object* GetObjectByName(const String& rName);
-    virtual void GetAllObjectsByName(const String& rName, std::vector<Object*>& rObjects);
+    virtual Object* GetObjectByName(const std::string& rName);
+    virtual void GetAllObjectsByName(const std::string& rName, std::vector<Object*>& rObjects);
     virtual Object* GetObjectByID(unsigned int uiID);
 private:
-    String m_Name;
+    std::string m_Name;
     unsigned int m_uiID;
     static unsigned int ms_uiNextID;
 

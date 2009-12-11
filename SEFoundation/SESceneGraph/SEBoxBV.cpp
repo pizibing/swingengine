@@ -212,7 +212,7 @@ StringTree* BoxBV::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("center =", m_Box.Center));
     pTree->Append(Format("axis0 =", m_Box.Axis[0]));
     pTree->Append(Format("axis1 =", m_Box.Axis[1]));

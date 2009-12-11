@@ -77,7 +77,7 @@ void BillboardNode::UpdateWorldData(double dAppTime)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* BillboardNode::GetObjectByName(const String& rName)
+Object* BillboardNode::GetObjectByName(const std::string& rName)
 {
     Object* pFound = Object::GetObjectByName(rName);
     if( pFound )
@@ -97,7 +97,7 @@ Object* BillboardNode::GetObjectByName(const String& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void BillboardNode::GetAllObjectsByName(const String& rName,
+void BillboardNode::GetAllObjectsByName(const std::string& rName,
     std::vector<Object*>& rObjects)
 {
     Node::GetAllObjectsByName(rName, rObjects);
@@ -192,7 +192,7 @@ StringTree* BillboardNode::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
 
     // children
     pTree->Append(Node::SaveStrings());

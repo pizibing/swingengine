@@ -19,12 +19,12 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline void DescriptorItem::SetInstanceName(const String& rInstName)
+inline void DescriptorItem::SetInstanceName(const std::string& rInstName)
 {
     m_InstanceName = rInstName;
 }
 //----------------------------------------------------------------------------
-inline const String& DescriptorItem::GetInstanceName() const
+inline const std::string& DescriptorItem::GetInstanceName() const
 {
     return m_InstanceName;
 }

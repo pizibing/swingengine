@@ -25,7 +25,6 @@
 #include "SEPlatforms.h"
 #include "SESystem.h"
 #include "SEObject.h"
-#include "SEString.h"
 
 namespace Swing
 {
@@ -46,22 +45,22 @@ public:
     DescriptorItem(void);
     ~DescriptorItem(void);
 
-    inline void SetInstanceName(const String& rInstName);
-    inline const String& GetInstanceName(void) const;
+    inline void SetInstanceName(const std::string& rInstName);
+    inline const std::string& GetInstanceName(void) const;
 
     inline int GetTypeCount(void) const;
-    void AttachTypeName(const String& rTypeName);
-    void DetachTypeName(const String& rTypeName);
+    void AttachTypeName(const std::string& rTypeName);
+    void DetachTypeName(const std::string& rTypeName);
     void DetachTypeName(int i);
-    const String& GetTypeName(int i) const;
+    const std::string& GetTypeName(int i) const;
 
-    void GetDescription(String& rDesc) const;
+    void GetDescription(std::string& rDesc) const;
 
     bool IsArray;
 
 private:
-    String m_InstanceName;
-    std::vector<String> m_TypeNames;
+    std::string m_InstanceName;
+    std::vector<std::string> m_TypeNames;
 };
 
 typedef SmartPointer<DescriptorItem> DescriptorItemPtr;

@@ -29,7 +29,6 @@
 #include "SERendererConstant.h"
 #include "SEUserConstant.h"
 #include "SESamplerInformation.h"
-#include "SEString.h"
 #include "SERenderer.h"
 #include "SEInterfaceDescriptor.h"
 
@@ -72,15 +71,15 @@ public:
     // 访问user constants.
     inline int GetUCCount(void) const;
     UserConstant* GetUC(int i);
-    UserConstant* GetUC(const String& rName);
+    UserConstant* GetUC(const std::string& rName);
 
     // 访问samplers.
     inline int GetSICount(void) const;
     SamplerInformation* GetSI(int i);
-    SamplerInformation* GetSI(const String& rName);
+    SamplerInformation* GetSI(const std::string& rName);
 
     // 用户必须实现这个代理函数,用于创建一个shader program对象并填充其数据.
-    typedef bool (*LoadProgram)(Renderer*, const String&, Program*, 
+    typedef bool (*LoadProgram)(Renderer*, const std::string&, Program*, 
         ProgramType, InterfaceDescriptor*);
 
     // 用户必须实现这个代理函数,用于释放shader program自定义数据.
@@ -95,7 +94,7 @@ public:
     void* UserData;
 
 protected:
-    static bool Load(Renderer* pRenderer, const String& rProgramName,
+    static bool Load(Renderer* pRenderer, const std::string& rProgramName,
         Program* pProgram, ProgramType eType, 
         InterfaceDescriptor* pInterfaceDesc);
 

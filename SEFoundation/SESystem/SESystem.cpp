@@ -20,7 +20,6 @@
 
 #include "SEFoundationPCH.h"
 #include "SESystem.h"
-#include "SEString.h"
 
 using namespace Swing;
 
@@ -46,7 +45,7 @@ static bool InitializedTimeFlag = false;
 
 char System::Path[SYSTEM_MAX_PATH];
 char System::EnvVar[SYSTEM_MAX_ENVVAR]; // 环境变量值
-std::vector<String>* System::Directories = 0;
+std::vector<std::string>* System::Directories = 0;
 char System::SE_PATH[SYSTEM_MAX_ENVVAR];
 
 //----------------------------------------------------------------------------
@@ -710,7 +709,7 @@ void System::SE_Initialize()
     // 创建资源磁盘目录
     SE_ASSERT( Directories == 0 );
 
-    Directories = SE_NEW std::vector<String>;
+    Directories = SE_NEW std::vector<std::string>;
 
     const char* pSEPath = SE_GetEnv("SE_PATH");
     if( pSEPath )
@@ -748,7 +747,7 @@ const char* System::SE_GetDirectory(int i)
 
     if( 0 <= i && i < (int)Directories->size() )
     {
-        return (const char*)(*Directories)[i];
+        return (*Directories)[i].c_str();
     }
 
     return 0;
@@ -761,7 +760,7 @@ bool System::SE_InsertDirectory(const char* pDirectory)
         SE_Initialize();
     }
 
-    String NewDirectory = String(pDirectory) + String("/");
+    std::string NewDirectory = std::string(pDirectory) + std::string("/");
     for( int i = 0; i < (int)Directories->size(); i++ )
     {
         if( NewDirectory == (*Directories)[i] )
@@ -781,8 +780,8 @@ bool System::SE_RemoveDirectory(const char* pDirectory)
         SE_Initialize();
     }
 
-    String CurDirectory = String(pDirectory) + String("/");
-    std::vector<String>::iterator Iter = Directories->begin();
+    std::string CurDirectory = std::string(pDirectory) + std::string("/");
+    std::vector<std::string>::iterator Iter = Directories->begin();
     for( /**/; Iter != Directories->end(); Iter++ )
     {
         if( CurDirectory == *Iter)
@@ -815,8 +814,8 @@ const char* System::SE_GetPath(const char* pFileName, int eMode)
 
     for( int i = 0; i < (int)Directories->size(); i++ )
     {
-        const char* pDecorated = 
-            System::SE_GetPath((const char*)(*Directories)[i], pFileName);
+        const char* pDecorated = System::SE_GetPath(
+            (*Directories)[i].c_str(), pFileName);
 
         if( !pDecorated )
         {
