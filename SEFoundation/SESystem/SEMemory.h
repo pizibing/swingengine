@@ -21,7 +21,7 @@
 #ifndef Swing_Memory_H
 #define Swing_Memory_H
 
-#ifndef ENGINE_MEMORY_MANAGER
+#ifndef SE_MEMORY_MANAGER
 
 #define SE_NEW new
 #define SE_DELETE delete

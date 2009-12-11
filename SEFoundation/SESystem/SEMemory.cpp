@@ -20,7 +20,7 @@
 
 #include "SEFoundationPCH.h"
 
-#ifdef ENGINE_MEMORY_MANAGER
+#ifdef SE_MEMORY_MANAGER
 
 // 如果想进行new/delete[]或new[]/delete的不匹配校验,则打开下面的注释
 //#define SE_ENABLE_NEW_DELETE_MISMATCH_ASSERT
@@ -134,6 +134,9 @@ void Memory::Deallocate(char* pAddr, bool bIsArray)
 
 #ifdef SE_ENABLE_NEW_DELETE_MISMATCH_ASSERT
     SE_ASSERT( pBlock->IsArray == bIsArray );
+#else
+    // Avoid compiler warnings about an unused formal parameter.
+    (void)bIsArray;
 #endif
 
     SE_ASSERT(CurNumBlocks > 0 && CurNumBytes >= pBlock->Size);
@@ -259,7 +262,7 @@ void Memory::GenerateReport(const char* pFileName)
         }
         OStr << "array = " << pBlock->IsArray << std::endl << std::endl;
         
-		pBlock = pBlock->Next;
+        pBlock = pBlock->Next;
         uiIndex++;
     }
     OStr.close();
@@ -299,12 +302,12 @@ void operator delete[](void* pAddr)
     Memory::Deallocate((char*)pAddr, true);
 }
 //----------------------------------------------------------------------------
-void operator delete (void* pAddr, char* pFile, unsigned int)
+void operator delete(void* pAddr, char*, unsigned int)
 {
     Memory::Deallocate((char*)pAddr,false);
 }
 //----------------------------------------------------------------------------
-void operator delete[](void* pAddr, char* pFile, unsigned int)
+void operator delete[](void* pAddr, char*, unsigned int)
 {
     Memory::Deallocate((char*)pAddr, true);
 }
