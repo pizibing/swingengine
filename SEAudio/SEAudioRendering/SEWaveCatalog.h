@@ -24,7 +24,6 @@
 #include "SEAudioLIB.h"
 #include "SEObject.h"
 #include "SEMainMCR.h"
-#include "SEString.h"
 #include "SEStringHashTable.h"
 
 namespace Swing
@@ -41,26 +40,26 @@ class Wave;
 class SE_AUDIO_API WaveCatalog
 {
 public:
-    WaveCatalog(const String& rName);
+    WaveCatalog(const std::string& rName);
     ~WaveCatalog(void);
 
-    const String& GetName(void) const;
+    const std::string& GetName(void) const;
     bool Insert(Wave* pWave);
     bool Remove(Wave* pWave);
-    Wave* Find(const String& rWaveName);
-    bool PrintContents(const String& rFileName) const;
+    Wave* Find(const std::string& rWaveName);
+    bool PrintContents(const std::string& rFileName) const;
 
     static void SetActive(WaveCatalog* pActive);
     static WaveCatalog* GetActive(void);
 
 private:
     enum { WAVE_MAP_SIZE = 256 };
-    String m_Name;
+    std::string m_Name;
     StringHashTable<Wave*> m_Entry;
     ObjectPtr m_spDefaultWave;
 
-    static const String ms_NullString;
-    static const String ms_DefaultString;
+    static const std::string ms_NullString;
+    static const std::string ms_DefaultString;
     static WaveCatalog* ms_pActive;
 };
 

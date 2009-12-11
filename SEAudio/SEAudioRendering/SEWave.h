@@ -23,7 +23,6 @@
 
 #include "SEAudioLIB.h"
 #include "SEObject.h"
-#include "SEString.h"
 
 namespace Swing
 {
@@ -80,8 +79,8 @@ public:
 
     // ≥…‘±∑√Œ .
     inline FormatMode GetFormat(void) const;
-    inline const String& GetFormatName(void) const;
-    inline static String GetFormatName(int eFormat);
+    inline const std::string& GetFormatName(void) const;
+    inline static std::string GetFormatName(int eFormat);
     inline int GetBytesPerSample(void) const;
     inline static int GetBytesPerSample(int eFormat);
     inline int GetChannelsPerSample(void) const;
@@ -115,7 +114,7 @@ protected:
 
     static int ms_BytesPerSample[WT_COUNT];
     static int ms_ChannelsPerSample[WT_COUNT];
-    static String ms_FormatName[WT_COUNT];
+    static std::string ms_FormatName[WT_COUNT];
 };
 
 typedef SmartPointer<Wave> WavePtr;

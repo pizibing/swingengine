@@ -62,7 +62,7 @@ int Wave::ms_ChannelsPerSample[Wave::WT_COUNT] =
     8   // WT_71CHN16
 };
 
-String Wave::ms_FormatName[Wave::WT_COUNT] =
+std::string Wave::ms_FormatName[Wave::WT_COUNT] =
 {
     "WT_MONO4",
     "WT_MONO8",
@@ -116,8 +116,9 @@ Wave* Wave::Load(const char* pWaveName)
 {
     SE_ASSERT( pWaveName );
 
-    String strFileName = String(pWaveName) + String(".sewf");
-    const char* pDecorated = System::SE_GetPath(strFileName, System::SM_READ);
+    std::string strFileName = std::string(pWaveName) + std::string(".sewf");
+    const char* pDecorated = System::SE_GetPath(strFileName.c_str(), 
+        System::SM_READ);
     if( !pDecorated )
     {
         return 0;
@@ -316,8 +317,8 @@ StringTree* Wave::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
-    pTree->Append(Format("format =", (const char*)ms_FormatName[m_eFormat]));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
+    pTree->Append(Format("format =", ms_FormatName[m_eFormat].c_str()));
     pTree->Append(Format("frequency = ", m_uiFrequency));
 
     // children

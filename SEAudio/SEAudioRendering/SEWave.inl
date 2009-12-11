@@ -24,12 +24,12 @@ inline Wave::FormatMode Wave::GetFormat() const
     return m_eFormat;
 }
 //----------------------------------------------------------------------------
-inline const String& Wave::GetFormatName() const
+inline const std::string& Wave::GetFormatName() const
 {
     return ms_FormatName[m_eFormat];
 }
 //----------------------------------------------------------------------------
-inline String Wave::GetFormatName(int eFormat)
+inline std::string Wave::GetFormatName(int eFormat)
 {
     return ms_FormatName[eFormat];
 }

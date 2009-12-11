@@ -92,7 +92,7 @@ Sound::PickRecord::PickRecord(Sound* pIObject, float fT)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* Sound::GetObjectByName(const String& rName)
+Object* Sound::GetObjectByName(const std::string& rName)
 {
     Object* pFound = Spatial::GetObjectByName(rName);
     if( pFound )
@@ -121,7 +121,7 @@ Object* Sound::GetObjectByName(const String& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Sound::GetAllObjectsByName(const String& rName,
+void Sound::GetAllObjectsByName(const std::string& rName,
     std::vector<Object*>& rObjects)
 {
     Spatial::GetAllObjectsByName(rName, rObjects);
@@ -255,7 +255,7 @@ StringTree* Sound::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("pitch = ", Pitch));
     pTree->Append(Format("gain = ", Gain));
     pTree->Append(Format("rolloff rate = ", RollOffRate));

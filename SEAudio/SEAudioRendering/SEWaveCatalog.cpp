@@ -24,12 +24,12 @@
 
 using namespace Swing;
 
-const String WaveCatalog::ms_NullString("");
-const String WaveCatalog::ms_DefaultString("Default");
+const std::string WaveCatalog::ms_NullString("");
+const std::string WaveCatalog::ms_DefaultString("Default");
 WaveCatalog* WaveCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
-WaveCatalog::WaveCatalog(const String& rName)
+WaveCatalog::WaveCatalog(const std::string& rName)
     :
     m_Name(rName),
     m_Entry(WAVE_MAP_SIZE)
@@ -43,7 +43,7 @@ WaveCatalog::~WaveCatalog()
 {
 }
 //----------------------------------------------------------------------------
-const String& WaveCatalog::GetName() const
+const std::string& WaveCatalog::GetName() const
 {
     return m_Name;
 }
@@ -57,7 +57,7 @@ bool WaveCatalog::Insert(Wave* pWave)
         return false;
     }
 
-    String tempWaveName(pWave->GetName());
+    std::string tempWaveName(pWave->GetName());
     if( tempWaveName == ms_NullString
     ||  tempWaveName == ms_DefaultString
     ||  pWave == m_spDefaultWave )
@@ -88,7 +88,7 @@ bool WaveCatalog::Remove(Wave* pWave)
         return false;
     }
 
-    String tempWaveName(pWave->GetName());
+    std::string tempWaveName(pWave->GetName());
     if( tempWaveName == ms_NullString
     ||  tempWaveName == ms_DefaultString
     ||  pWave == m_spDefaultWave )
@@ -110,7 +110,7 @@ bool WaveCatalog::Remove(Wave* pWave)
     return true;
 }
 //----------------------------------------------------------------------------
-Wave* WaveCatalog::Find(const String& rWaveName)
+Wave* WaveCatalog::Find(const std::string& rWaveName)
 {
     if( rWaveName == ms_NullString 
     ||  rWaveName == ms_DefaultString )
@@ -127,7 +127,7 @@ Wave* WaveCatalog::Find(const String& rWaveName)
     }
 
     // 在磁盘中查找
-    Wave* pWave = Wave::Load(rWaveName);
+    Wave* pWave = Wave::Load(rWaveName.c_str());
     if( pWave )
     {
         // 该资源存在,且已经在Load后被加入资源目录,不用再次调用Insert函数
@@ -138,9 +138,10 @@ Wave* WaveCatalog::Find(const String& rWaveName)
     return StaticCast<Wave>(m_spDefaultWave);
 }
 //----------------------------------------------------------------------------
-bool WaveCatalog::PrintContents(const String& rFileName) const
+bool WaveCatalog::PrintContents(const std::string& rFileName) const
 {
-    const char* pDecorated = System::SE_GetPath(rFileName, System::SM_WRITE);
+    const char* pDecorated = System::SE_GetPath(rFileName.c_str(), 
+        System::SM_WRITE);
 
     if( pDecorated )
     {
@@ -148,13 +149,13 @@ bool WaveCatalog::PrintContents(const String& rFileName) const
 
         SE_ASSERT( OStream );
 
-        String tempWaveName;
+        std::string tempWaveName;
         Wave** ppTempWave = m_Entry.GetFirst(&tempWaveName);
         while( ppTempWave )
         {
             Wave* pWave = *ppTempWave;
-            OStream << (const char*)tempWaveName << ":" << std::endl;
-            OStream << "    format = " << (const char*)(pWave->GetFormatName())
+            OStream << tempWaveName.c_str() << ":" << std::endl;
+            OStream << "    format = " << pWave->GetFormatName().c_str()
                 << std::endl;
             OStream << "    frequency = " << pWave->GetFrequency()
                 << std::endl;

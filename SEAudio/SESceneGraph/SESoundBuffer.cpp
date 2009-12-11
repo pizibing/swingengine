@@ -66,7 +66,7 @@ SoundBuffer::~SoundBuffer()
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* SoundBuffer::GetObjectByName(const String& rName)
+Object* SoundBuffer::GetObjectByName(const std::string& rName)
 {
     Object* pFound = Object::GetObjectByName(rName);
     if( pFound )
@@ -89,7 +89,7 @@ Object* SoundBuffer::GetObjectByName(const String& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void SoundBuffer::GetAllObjectsByName(const String& rName,
+void SoundBuffer::GetAllObjectsByName(const std::string& rName,
     std::vector<Object*>& rObjects)
 {
     Object::GetAllObjectsByName(rName, rObjects);
@@ -207,7 +207,7 @@ StringTree* SoundBuffer::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
 
     // children
     pTree->Append(Object::SaveStrings());
