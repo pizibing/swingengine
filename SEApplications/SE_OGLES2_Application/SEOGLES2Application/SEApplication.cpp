@@ -88,7 +88,7 @@ int main(int iArgCount, char* apcArgument[])
     // 先要手动创建SE_PATH这个环境变量,指定所需资源文件的所在位置.
     System::SE_Initialize();
     SE_ASSERT( System::SE_PATH[0] );
-    String tempSEPath(System::SE_PATH);
+    std::string tempSEPath(System::SE_PATH);
 
     Main::Initialize();
 
@@ -99,25 +99,25 @@ int main(int iArgCount, char* apcArgument[])
         System::SE_InsertDirectory(".");
 
         // scene graph文件的路径.
-        String tempDir;
-        tempDir = tempSEPath + String("/Data/seof");
-        System::SE_InsertDirectory((const char*)tempDir);
+        std::string tempDir;
+        tempDir = tempSEPath + std::string("/Data/seof");
+        System::SE_InsertDirectory(tempDir.c_str());
 
         // texture image文件的路径.
-        tempDir = tempSEPath + String("/Data/seif");
-        System::SE_InsertDirectory((const char*)tempDir);
+        tempDir = tempSEPath + std::string("/Data/seif");
+        System::SE_InsertDirectory(tempDir.c_str());
 
         // shader program文件的路径.
-        tempDir = tempSEPath + String("/Data/sesp/ESSL");
-        System::SE_InsertDirectory((const char*)tempDir);
+        tempDir = tempSEPath + std::string("/Data/sesp/ESSL");
+        System::SE_InsertDirectory(tempDir.c_str());
 
         // wave文件的路径.
-        tempDir = tempSEPath + String("/Data/sewf");
-        System::SE_InsertDirectory((const char*)tempDir);
+        tempDir = tempSEPath + std::string("/Data/sewf");
+        System::SE_InsertDirectory(tempDir.c_str());
 
         // 其他image文件路径.
-        tempDir = tempSEPath + String("/Data/Im");
-        System::SE_InsertDirectory((const char*)tempDir);
+        tempDir = tempSEPath + std::string("/Data/Im");
+        System::SE_InsertDirectory(tempDir.c_str());
 
         Application::TheCommand = SE_NEW Command(iArgCount, apcArgument);
         iExitCode = Application::Run(iArgCount, apcArgument);
