@@ -23,7 +23,6 @@
 
 #include "SEOpenGLRendererLIB.h"
 #include "SEOpenGLRenderer.h"
-#include "SEString.h"
 #include "SEStringHashTable.h"
 
 namespace Swing
@@ -40,7 +39,7 @@ class OpenGLProgramInterface;
 class SE_RENDERER_API OpenGLProgramInterfaceCatalog
 {
 public:
-    OpenGLProgramInterfaceCatalog(const String& rName);
+    OpenGLProgramInterfaceCatalog(const std::string& rName);
     ~OpenGLProgramInterfaceCatalog(void);
 
     // 开始时我们不知道渲染器类型,
@@ -48,19 +47,19 @@ public:
     // 应用程序层的相关函数为WindowApplication::SetRenderer
     void SetRenderer(OpenGLRenderer* pRenderer);
 
-    const String& GetName(void) const;
+    const std::string& GetName(void) const;
     bool Insert(OpenGLProgramInterface* pProgramInterface);
     bool Remove(OpenGLProgramInterface* pProgramInterface);
     OpenGLProgramInterface* Find(CGprogram hCgProgram, 
-        const String& rPInterfaceName);
-    bool PrintContents(const String& rFileName) const;
+        const std::string& rPInterfaceName);
+    bool PrintContents(const std::string& rFileName) const;
 
     static void SetActive(OpenGLProgramInterfaceCatalog* pActive);
     static OpenGLProgramInterfaceCatalog* GetActive(void);
 
 private:
     enum { PROGRAM_MAP_SIZE = 256 };
-    String m_Name;
+    std::string m_Name;
     StringHashTable<OpenGLProgramInterface*> m_Entry;
 
     OpenGLRenderer* m_pRenderer;

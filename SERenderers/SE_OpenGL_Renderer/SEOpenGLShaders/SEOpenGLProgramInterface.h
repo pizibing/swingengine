@@ -24,7 +24,6 @@
 #include "SEOpenGLRendererLIB.h"
 #include "SEOpenGLRenderer.h"
 #include "SEObject.h"
-#include "SEString.h"
 
 namespace Swing
 {
@@ -44,7 +43,7 @@ class SE_RENDERER_API OpenGLProgramInterface : public Object
 public:
     // 必须通过Load来创建一个实例.
     static OpenGLProgramInterface* Load(CGprogram hCgProgram, 
-        CGcontext hCgContext, const String& rPInterfaceName);
+        CGcontext hCgContext, const std::string& rPInterfaceName);
     ~OpenGLProgramInterface(void);
 
     inline CGtype GetProgramInterfaceType(void) const;

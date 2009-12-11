@@ -28,7 +28,7 @@ OpenGLProgramInterfaceCatalog* OpenGLProgramInterfaceCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
 OpenGLProgramInterfaceCatalog::OpenGLProgramInterfaceCatalog(
-    const String& rName)
+    const std::string& rName)
     :
     m_Name(rName),
     m_Entry(PROGRAM_MAP_SIZE)
@@ -45,7 +45,7 @@ void OpenGLProgramInterfaceCatalog::SetRenderer(OpenGLRenderer* pRenderer)
     m_pRenderer = pRenderer;
 }
 //----------------------------------------------------------------------------
-const String& OpenGLProgramInterfaceCatalog::GetName() const
+const std::string& OpenGLProgramInterfaceCatalog::GetName() const
 {
     return m_Name;
 }
@@ -60,7 +60,7 @@ bool OpenGLProgramInterfaceCatalog::Insert(
         return false;
     }
 
-    String tempKey(pProgramInterface->GetName());
+    std::string tempKey(pProgramInterface->GetName());
 
     // 首先在资源目录中查找
     OpenGLProgramInterface** ppTempProgramInterface = 
@@ -87,7 +87,7 @@ bool OpenGLProgramInterfaceCatalog::Remove(
         return false;
     }
 
-    String tempKey(pProgramInterface->GetName());
+    std::string tempKey(pProgramInterface->GetName());
 
     // 首先在资源目录中查找
     OpenGLProgramInterface** ppTempProgramInterface = 
@@ -105,7 +105,7 @@ bool OpenGLProgramInterfaceCatalog::Remove(
 }
 //----------------------------------------------------------------------------
 OpenGLProgramInterface* OpenGLProgramInterfaceCatalog::Find(
-    CGprogram hCgProgram, const String& rPInterfaceName)
+    CGprogram hCgProgram, const std::string& rPInterfaceName)
 {
     // 首先在资源目录中查找
     OpenGLProgramInterface** ppTempProgramInterface = 
@@ -129,10 +129,11 @@ OpenGLProgramInterface* OpenGLProgramInterfaceCatalog::Find(
     return 0;
 }
 //----------------------------------------------------------------------------
-bool OpenGLProgramInterfaceCatalog::PrintContents(const String& rFileName) 
+bool OpenGLProgramInterfaceCatalog::PrintContents(const std::string& rFileName) 
     const
 {
-    const char* pDecorated = System::SE_GetPath(rFileName, System::SM_WRITE);
+    const char* pDecorated = System::SE_GetPath(rFileName.c_str(), 
+        System::SM_WRITE);
 
     if( pDecorated )
     {
@@ -140,12 +141,12 @@ bool OpenGLProgramInterfaceCatalog::PrintContents(const String& rFileName)
 
         SE_ASSERT( OStream );
 
-        String tempKey;
+        std::string tempKey;
 		OpenGLProgramInterface** ppTempProgramInterface = m_Entry.GetFirst(
             &tempKey);
         while( ppTempProgramInterface )
         {
-            OStream << (const char*)tempKey << std::endl;
+            OStream << tempKey.c_str() << std::endl;
             OStream << std::endl;
             ppTempProgramInterface = m_Entry.GetNext(&tempKey);
         }
