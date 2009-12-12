@@ -104,6 +104,7 @@ void OpenALRenderer::OnReleaseSBuffer(AudioResourceIdentifier* pID)
     alDeleteBuffers((ALsizei)pResource->BufferCount, pResource->Buffers);
     SE_AL_END_DEBUG_ALAPI;
 
+    SE_DELETE[] pResource->Buffers;
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
