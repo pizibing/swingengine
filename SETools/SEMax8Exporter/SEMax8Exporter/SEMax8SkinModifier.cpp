@@ -70,11 +70,11 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
     else
     {
         Swing::Node* pSENode = Swing::StaticCast<Swing::Node>(pSEObject);
-        const char* acName = pSENode->GetName();
+        const char* acName = pSENode->GetName().c_str();
         for( int iC = 0; iC < pSENode->GetCount(); iC++ )
         {
             Swing::Spatial* pSEChild = pSENode->GetChild(iC);
-            const char* acCName = pSEChild->GetName();
+            const char* acCName = pSEChild->GetName().c_str();
             if( strncmp(acCName, acName, strlen(acName)) == 0 )
             {
                 aSEMeshes.push_back(Swing::StaticCast<Swing::TriMesh>(pSEChild));
@@ -330,7 +330,7 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
             }
 
             Swing::Effect* pNewEffect = 0;
-            Swing::String tempImageName;
+            std::string tempImageName;
             switch( eSkinEffect )
             {
             case ST_DEFAULT:

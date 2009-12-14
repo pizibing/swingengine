@@ -91,8 +91,8 @@ Swing::Spatial* Max8SceneBuilder::BuildMesh(INode* pMaxNode,
 	}
 
     Swing::Spatial* pSELink;
-    bool bHasLink = (pSENode->GetName().GetLength() > 0 &&
-        strcmp(pMaxNode->GetName(), pSENode->GetName()) == 0);
+    bool bHasLink = ((int)pSENode->GetName().length() > 0 &&
+        strcmp(pMaxNode->GetName(), pSENode->GetName().c_str()) == 0);
     char* acMaxName = pMaxNode->GetName();
     int i;
 

@@ -306,11 +306,11 @@ TriMesh* Max8UnimaterialMesh::ToTriMesh()
         {
             // 待实现.
             // 当拆分网格后如何处理多重纹理?
-            Swing::String tempFName = m_spTState->GetImage()->GetName();
+            std::string tempFName = m_spTState->GetImage()->GetName();
             // 减去".seif"长度
-            size_t uiLength = strlen((const char*)tempFName) - 5;
+            size_t uiLength = strlen(tempFName.c_str()) - 5;
             char tempBuffer[64];
-            Swing::System::SE_Strncpy(tempBuffer, 64, (const char*)tempFName, 
+            Swing::System::SE_Strncpy(tempBuffer, 64, tempFName.c_str(), 
                 uiLength);
             tempBuffer[uiLength] = 0;
             pSEEffect = new Swing::MaterialTextureEffect(tempBuffer);
