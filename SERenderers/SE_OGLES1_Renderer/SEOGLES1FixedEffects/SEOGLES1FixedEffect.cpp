@@ -78,14 +78,14 @@ void OGLES1FixedEffect::SetTexture(int i, Texture* pTexture)
     m_Textures[i] = pTexture;
 }
 //----------------------------------------------------------------------------
-const String& OGLES1FixedEffect::GetImageName(int i) const
+const std::string& OGLES1FixedEffect::GetImageName(int i) const
 {
     SE_ASSERT( 0 <= i && i < (int)m_ImageNames.size() );
 
     return m_ImageNames[i];
 }
 //----------------------------------------------------------------------------
-void OGLES1FixedEffect::SetImageName(int i, const String& rName)
+void OGLES1FixedEffect::SetImageName(int i, const std::string& rName)
 {
     SE_ASSERT( 0 <= i && i < (int)m_ImageNames.size() );
 
@@ -136,7 +136,7 @@ void OGLES1FixedEffect::ReleaseResources(Renderer*, Geometry*)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* OGLES1FixedEffect::GetObjectByName(const String& rName)
+Object* OGLES1FixedEffect::GetObjectByName(const std::string& rName)
 {
     Object* pFound = Effect::GetObjectByName(rName);
     if( pFound )
@@ -172,7 +172,7 @@ Object* OGLES1FixedEffect::GetObjectByName(const String& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void OGLES1FixedEffect::GetAllObjectsByName(const String& rName,
+void OGLES1FixedEffect::GetAllObjectsByName(const std::string& rName,
     std::vector<Object*>& rObjects)
 {
     Effect::GetAllObjectsByName(rName, rObjects);
@@ -343,7 +343,7 @@ int OGLES1FixedEffect::GetDiskUsed(const StreamVersion& rVersion) const
     int i;
     for( i = 0; i < iCount; i++ )
     {
-        iSize += sizeof(int) + (int)m_ImageNames[i].GetLength();
+        iSize += sizeof(int) + (int)m_ImageNames[i].length();
     }
 
     iCount = (int)m_Textures.size();
@@ -360,7 +360,7 @@ StringTree* OGLES1FixedEffect::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
 
     const size_t uiTitleSize = 16;
     char acTitle[uiTitleSize];
@@ -368,7 +368,7 @@ StringTree* OGLES1FixedEffect::SaveStrings(const char*)
     for( i = 0; i < (int)m_ImageNames.size(); i++ )
     {
         System::SE_Sprintf(acTitle, uiTitleSize, "image[%d] =", i);
-        pTree->Append(Format(acTitle, (const char*)m_ImageNames[i]));
+        pTree->Append(Format(acTitle, m_ImageNames[i].c_str()));
     }
 
     // children

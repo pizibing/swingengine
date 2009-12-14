@@ -23,7 +23,6 @@
 
 #include "SEOGLES1RendererLIB.h"
 #include "SEEffect.h"
-#include "SEString.h"
 #include "SETexture.h"
 #include "SELight.h"
 
@@ -53,8 +52,8 @@ public:
     Texture* GetTexture(int i);
     const Texture* GetTexture(int i) const;
     void SetTexture(int i, Texture* pTexture);
-    const String& GetImageName(int i) const;
-    void SetImageName(int i, const String& rName);
+    const std::string& GetImageName(int i) const;
+    void SetImageName(int i, const std::string& rName);
 
     // light∑√Œ .
     int GetLightCount(void) const;
@@ -72,7 +71,7 @@ protected:
     OGLES1FixedEffect(void);
 
     // textures.
-    std::vector<String> m_ImageNames;
+    std::vector<std::string> m_ImageNames;
     std::vector<TexturePtr> m_Textures;
 
     // lights.

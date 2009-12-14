@@ -315,14 +315,10 @@
 		52BA4AF90F865A0B001F7E5B /* SEHashSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AEF0F865A0B001F7E5B /* SEHashSet.h */; };
 		52BA4AFA0F865A0B001F7E5B /* SEHashTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF10F865A0B001F7E5B /* SEHashTable.h */; };
 		52BA4AFB0F865A0B001F7E5B /* SEPriorityQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF30F865A0B001F7E5B /* SEPriorityQueue.h */; };
-		52BA4AFC0F865A0B001F7E5B /* SEString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4AF40F865A0B001F7E5B /* SEString.cpp */; };
-		52BA4AFD0F865A0B001F7E5B /* SEString.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF50F865A0B001F7E5B /* SEString.h */; };
 		52BA4AFE0F865A0B001F7E5B /* SEStringHashTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF70F865A0B001F7E5B /* SEStringHashTable.h */; };
 		52BA4AFF0F865A0B001F7E5B /* SEHashSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AEF0F865A0B001F7E5B /* SEHashSet.h */; };
 		52BA4B000F865A0B001F7E5B /* SEHashTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF10F865A0B001F7E5B /* SEHashTable.h */; };
 		52BA4B010F865A0B001F7E5B /* SEPriorityQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF30F865A0B001F7E5B /* SEPriorityQueue.h */; };
-		52BA4B020F865A0B001F7E5B /* SEString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4AF40F865A0B001F7E5B /* SEString.cpp */; };
-		52BA4B030F865A0B001F7E5B /* SEString.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF50F865A0B001F7E5B /* SEString.h */; };
 		52BA4B040F865A0B001F7E5B /* SEStringHashTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF70F865A0B001F7E5B /* SEStringHashTable.h */; };
 		52BA4B200F865AB5001F7E5B /* SEBox2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4B050F865AB4001F7E5B /* SEBox2.cpp */; };
 		52BA4B210F865AB5001F7E5B /* SEBox2.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4B060F865AB4001F7E5B /* SEBox2.h */; };
@@ -1074,7 +1070,6 @@
 		DD848EFF109F2FCF0031E135 /* SEHashSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AEF0F865A0B001F7E5B /* SEHashSet.h */; };
 		DD848F00109F2FCF0031E135 /* SEHashTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF10F865A0B001F7E5B /* SEHashTable.h */; };
 		DD848F01109F2FCF0031E135 /* SEPriorityQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF30F865A0B001F7E5B /* SEPriorityQueue.h */; };
-		DD848F02109F2FCF0031E135 /* SEString.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF50F865A0B001F7E5B /* SEString.h */; };
 		DD848F03109F2FCF0031E135 /* SEStringHashTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF70F865A0B001F7E5B /* SEStringHashTable.h */; };
 		DD848F04109F2FCF0031E135 /* SEBox2.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4B060F865AB4001F7E5B /* SEBox2.h */; };
 		DD848F05109F2FCF0031E135 /* SEConvexPolyhedron3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4B080F865AB4001F7E5B /* SEConvexPolyhedron3.h */; };
@@ -1306,7 +1301,6 @@
 		DD848FE7109F30450031E135 /* SEFoundationRegister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4AC80F8655B1001F7E5B /* SEFoundationRegister.cpp */; };
 		DD848FE8109F30450031E135 /* SEApprGaussPointsFit3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4AE30F8659C5001F7E5B /* SEApprGaussPointsFit3.cpp */; };
 		DD848FE9109F30450031E135 /* SEApprLineFit3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4AE50F8659C5001F7E5B /* SEApprLineFit3.cpp */; };
-		DD848FEA109F30450031E135 /* SEString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4AF40F865A0B001F7E5B /* SEString.cpp */; };
 		DD848FEB109F30450031E135 /* SEBox2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4B050F865AB4001F7E5B /* SEBox2.cpp */; };
 		DD848FEC109F30450031E135 /* SEConvexPolyhedron3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4B070F865AB4001F7E5B /* SEConvexPolyhedron3.cpp */; };
 		DD848FED109F30450031E135 /* SEFrustum3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4B090F865AB4001F7E5B /* SEFrustum3.cpp */; };
@@ -1550,7 +1544,6 @@
 		DD9775C110A006970070FC01 /* SEHashSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AEF0F865A0B001F7E5B /* SEHashSet.h */; };
 		DD9775C210A006970070FC01 /* SEHashTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF10F865A0B001F7E5B /* SEHashTable.h */; };
 		DD9775C310A006970070FC01 /* SEPriorityQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF30F865A0B001F7E5B /* SEPriorityQueue.h */; };
-		DD9775C410A006970070FC01 /* SEString.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF50F865A0B001F7E5B /* SEString.h */; };
 		DD9775C510A006970070FC01 /* SEStringHashTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4AF70F865A0B001F7E5B /* SEStringHashTable.h */; };
 		DD9775C610A006970070FC01 /* SEBox2.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4B060F865AB4001F7E5B /* SEBox2.h */; };
 		DD9775C710A006970070FC01 /* SEConvexPolyhedron3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BA4B080F865AB4001F7E5B /* SEConvexPolyhedron3.h */; };
@@ -1782,7 +1775,6 @@
 		DD9776A910A007010070FC01 /* SEFoundationRegister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4AC80F8655B1001F7E5B /* SEFoundationRegister.cpp */; };
 		DD9776AA10A007010070FC01 /* SEApprGaussPointsFit3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4AE30F8659C5001F7E5B /* SEApprGaussPointsFit3.cpp */; };
 		DD9776AB10A007010070FC01 /* SEApprLineFit3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4AE50F8659C5001F7E5B /* SEApprLineFit3.cpp */; };
-		DD9776AC10A007010070FC01 /* SEString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4AF40F865A0B001F7E5B /* SEString.cpp */; };
 		DD9776AD10A007010070FC01 /* SEBox2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4B050F865AB4001F7E5B /* SEBox2.cpp */; };
 		DD9776AE10A007010070FC01 /* SEConvexPolyhedron3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4B070F865AB4001F7E5B /* SEConvexPolyhedron3.cpp */; };
 		DD9776AF10A007010070FC01 /* SEFrustum3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52BA4B090F865AB4001F7E5B /* SEFrustum3.cpp */; };
@@ -1949,9 +1941,6 @@
 		52BA4AF10F865A0B001F7E5B /* SEHashTable.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEHashTable.h; path = SEBase/SEHashTable.h; sourceTree = "<group>"; };
 		52BA4AF20F865A0B001F7E5B /* SEHashTable.inl */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = text; name = SEHashTable.inl; path = SEBase/SEHashTable.inl; sourceTree = "<group>"; };
 		52BA4AF30F865A0B001F7E5B /* SEPriorityQueue.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEPriorityQueue.h; path = SEBase/SEPriorityQueue.h; sourceTree = "<group>"; };
-		52BA4AF40F865A0B001F7E5B /* SEString.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEString.cpp; path = SEBase/SEString.cpp; sourceTree = "<group>"; };
-		52BA4AF50F865A0B001F7E5B /* SEString.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEString.h; path = SEBase/SEString.h; sourceTree = "<group>"; };
-		52BA4AF60F865A0B001F7E5B /* SEString.inl */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = text; name = SEString.inl; path = SEBase/SEString.inl; sourceTree = "<group>"; };
 		52BA4AF70F865A0B001F7E5B /* SEStringHashTable.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEStringHashTable.h; path = SEBase/SEStringHashTable.h; sourceTree = "<group>"; };
 		52BA4AF80F865A0B001F7E5B /* SEStringHashTable.inl */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = text; name = SEStringHashTable.inl; path = SEBase/SEStringHashTable.inl; sourceTree = "<group>"; };
 		52BA4B050F865AB4001F7E5B /* SEBox2.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEBox2.cpp; path = SEMath/SEBox2.cpp; sourceTree = "<group>"; };
@@ -3232,9 +3221,6 @@
 				52BA4AF10F865A0B001F7E5B /* SEHashTable.h */,
 				52BA4AF20F865A0B001F7E5B /* SEHashTable.inl */,
 				52BA4AF30F865A0B001F7E5B /* SEPriorityQueue.h */,
-				52BA4AF40F865A0B001F7E5B /* SEString.cpp */,
-				52BA4AF50F865A0B001F7E5B /* SEString.h */,
-				52BA4AF60F865A0B001F7E5B /* SEString.inl */,
 				52BA4AF70F865A0B001F7E5B /* SEStringHashTable.h */,
 				52BA4AF80F865A0B001F7E5B /* SEStringHashTable.inl */,
 			);
@@ -3390,7 +3376,6 @@
 				52BA4AFF0F865A0B001F7E5B /* SEHashSet.h in Headers */,
 				52BA4B000F865A0B001F7E5B /* SEHashTable.h in Headers */,
 				52BA4B010F865A0B001F7E5B /* SEPriorityQueue.h in Headers */,
-				52BA4B030F865A0B001F7E5B /* SEString.h in Headers */,
 				52BA4B040F865A0B001F7E5B /* SEStringHashTable.h in Headers */,
 				52BA4B3B0F865AB5001F7E5B /* SEBox2.h in Headers */,
 				52BA4B3D0F865AB5001F7E5B /* SEConvexPolyhedron3.h in Headers */,
@@ -3646,7 +3631,6 @@
 				52BA4AF90F865A0B001F7E5B /* SEHashSet.h in Headers */,
 				52BA4AFA0F865A0B001F7E5B /* SEHashTable.h in Headers */,
 				52BA4AFB0F865A0B001F7E5B /* SEPriorityQueue.h in Headers */,
-				52BA4AFD0F865A0B001F7E5B /* SEString.h in Headers */,
 				52BA4AFE0F865A0B001F7E5B /* SEStringHashTable.h in Headers */,
 				52BA4B210F865AB5001F7E5B /* SEBox2.h in Headers */,
 				52BA4B230F865AB5001F7E5B /* SEConvexPolyhedron3.h in Headers */,
@@ -3902,7 +3886,6 @@
 				DD848EFF109F2FCF0031E135 /* SEHashSet.h in Headers */,
 				DD848F00109F2FCF0031E135 /* SEHashTable.h in Headers */,
 				DD848F01109F2FCF0031E135 /* SEPriorityQueue.h in Headers */,
-				DD848F02109F2FCF0031E135 /* SEString.h in Headers */,
 				DD848F03109F2FCF0031E135 /* SEStringHashTable.h in Headers */,
 				DD848F04109F2FCF0031E135 /* SEBox2.h in Headers */,
 				DD848F05109F2FCF0031E135 /* SEConvexPolyhedron3.h in Headers */,
@@ -4158,7 +4141,6 @@
 				DD9775C110A006970070FC01 /* SEHashSet.h in Headers */,
 				DD9775C210A006970070FC01 /* SEHashTable.h in Headers */,
 				DD9775C310A006970070FC01 /* SEPriorityQueue.h in Headers */,
-				DD9775C410A006970070FC01 /* SEString.h in Headers */,
 				DD9775C510A006970070FC01 /* SEStringHashTable.h in Headers */,
 				DD9775C610A006970070FC01 /* SEBox2.h in Headers */,
 				DD9775C710A006970070FC01 /* SEConvexPolyhedron3.h in Headers */,
@@ -4550,7 +4532,6 @@
 				52BA4ACC0F8655B1001F7E5B /* SEFoundationRegister.cpp in Sources */,
 				52BA4AEB0F8659C5001F7E5B /* SEApprGaussPointsFit3.cpp in Sources */,
 				52BA4AED0F8659C5001F7E5B /* SEApprLineFit3.cpp in Sources */,
-				52BA4B020F865A0B001F7E5B /* SEString.cpp in Sources */,
 				52BA4B3A0F865AB5001F7E5B /* SEBox2.cpp in Sources */,
 				52BA4B3C0F865AB5001F7E5B /* SEConvexPolyhedron3.cpp in Sources */,
 				52BA4B3E0F865AB5001F7E5B /* SEFrustum3.cpp in Sources */,
@@ -4778,7 +4759,6 @@
 				52BA4ACA0F8655B1001F7E5B /* SEFoundationRegister.cpp in Sources */,
 				52BA4AE70F8659C5001F7E5B /* SEApprGaussPointsFit3.cpp in Sources */,
 				52BA4AE90F8659C5001F7E5B /* SEApprLineFit3.cpp in Sources */,
-				52BA4AFC0F865A0B001F7E5B /* SEString.cpp in Sources */,
 				52BA4B200F865AB5001F7E5B /* SEBox2.cpp in Sources */,
 				52BA4B220F865AB5001F7E5B /* SEConvexPolyhedron3.cpp in Sources */,
 				52BA4B240F865AB5001F7E5B /* SEFrustum3.cpp in Sources */,
@@ -5006,7 +4986,6 @@
 				DD848FE7109F30450031E135 /* SEFoundationRegister.cpp in Sources */,
 				DD848FE8109F30450031E135 /* SEApprGaussPointsFit3.cpp in Sources */,
 				DD848FE9109F30450031E135 /* SEApprLineFit3.cpp in Sources */,
-				DD848FEA109F30450031E135 /* SEString.cpp in Sources */,
 				DD848FEB109F30450031E135 /* SEBox2.cpp in Sources */,
 				DD848FEC109F30450031E135 /* SEConvexPolyhedron3.cpp in Sources */,
 				DD848FED109F30450031E135 /* SEFrustum3.cpp in Sources */,
@@ -5234,7 +5213,6 @@
 				DD9776A910A007010070FC01 /* SEFoundationRegister.cpp in Sources */,
 				DD9776AA10A007010070FC01 /* SEApprGaussPointsFit3.cpp in Sources */,
 				DD9776AB10A007010070FC01 /* SEApprLineFit3.cpp in Sources */,
-				DD9776AC10A007010070FC01 /* SEString.cpp in Sources */,
 				DD9776AD10A007010070FC01 /* SEBox2.cpp in Sources */,
 				DD9776AE10A007010070FC01 /* SEConvexPolyhedron3.cpp in Sources */,
 				DD9776AF10A007010070FC01 /* SEFrustum3.cpp in Sources */,
