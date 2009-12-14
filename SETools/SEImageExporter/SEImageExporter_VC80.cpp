@@ -26,7 +26,6 @@
 #pragma comment(lib, "comctl32.lib")
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
-#pragma comment(lib, "dxerr9.lib")
 
 using namespace SEImageExporter_VC80;
 
@@ -54,14 +53,14 @@ int main(array<System::String ^> ^)
     // Swing Engine initialize.
     Swing::System::SE_Initialize();
     assert( Swing::System::SE_PATH[0] );
-    Swing::String tempSEPath(Swing::System::SE_PATH);
+    std::string tempSEPath(Swing::System::SE_PATH);
     Swing::Main::Initialize();
 
     // 添加application所需资源目录.
     Swing::System::SE_InsertDirectory(".");
-    Swing::String tempDir;
-    tempDir = tempSEPath + Swing::String("/Data/sesp/Cg");
-    Swing::System::SE_InsertDirectory((const char*)tempDir);
+    std::string tempDir;
+    tempDir = tempSEPath + std::string("/Data/sesp/Cg");
+    Swing::System::SE_InsertDirectory(tempDir.c_str());
 
     // 创建application主窗体.
     Form1^ pForm1 = gcnew Form1;
