@@ -1032,7 +1032,7 @@ TreeControl::TreeControl(Application* pTheApp, int iExtraData,
     m_hInstance = hInstance;
     m_hParentWnd = hParentWnd;
 
-    const char* acName = pScene->GetName();
+    const char* acName = pScene->GetName().c_str();
     if( acName )
     {
         size_t uiSize = strlen(acName) + 1;
