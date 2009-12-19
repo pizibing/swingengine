@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="SE_DX9_Renderer_VC80"
 	ProjectGUID="{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}"
+	RootNamespace="SE_DX9_Renderer_VC80"
 	Keyword="MakeFileProj"
 	>
 	<Platforms>
@@ -193,7 +194,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80d.lib d3d9.lib d3dx9.lib dxerr9.lib cg.lib cgD3D9.lib"
+				AdditionalDependencies="SEFoundation80d.lib d3d9.lib d3dx9.lib cg.lib cgD3D9.lib"
 				OutputFile="..\..\SDK\Lib\DebugDLL\SEDX9Renderer80d.dll"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\DebugDLL"
 				GenerateDebugInformation="true"
@@ -271,7 +272,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80.lib d3d9.lib d3dx9.lib dxerr9.lib cg.lib cgD3D9.lib"
+				AdditionalDependencies="SEFoundation80.lib d3d9.lib d3dx9.lib cg.lib cgD3D9.lib"
 				OutputFile="..\..\SDK\Lib\ReleaseDLL\SEDX9Renderer80.dll"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\ReleaseDLL"
 				ImportLibrary="..\..\SDK\Lib\ReleaseDLL\SEDX9Renderer80.lib"
