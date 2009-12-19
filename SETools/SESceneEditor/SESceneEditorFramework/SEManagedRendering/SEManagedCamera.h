@@ -23,22 +23,13 @@
 namespace Swing{ namespace Tools{ namespace SceneEditor{ namespace Framework{
 
 //----------------------------------------------------------------------------
-// Name:Managed Framework class
-// Description:This is a singleton class.
+// Name:Managed Camera class
+// Description:
 // Author:Sun Che
 // Date:20091219
 //----------------------------------------------------------------------------
-public ref class ManagedFramework sealed
+public ref class ManagedCamera sealed
 {
-public:
-    static void Initialize(void);
-    static void Terminate(void);
-
-private:
-    ManagedFramework(void);
-    ~ManagedFramework(void);
-
-    static ManagedFramework^ ms_thThis = nullptr;
 };
 
 }}}}

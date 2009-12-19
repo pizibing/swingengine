@@ -18,27 +18,10 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#pragma once
+#include "SESceneEditorFrameworkPCH.h"
+#include "SEManagedRenderer.h"
 
-namespace Swing{ namespace Tools{ namespace SceneEditor{ namespace Framework{
+using namespace Swing;
+using namespace Swing::Tools::SceneEditor::Framework;
 
-//----------------------------------------------------------------------------
-// Name:Managed Framework class
-// Description:This is a singleton class.
-// Author:Sun Che
-// Date:20091219
-//----------------------------------------------------------------------------
-public ref class ManagedFramework sealed
-{
-public:
-    static void Initialize(void);
-    static void Terminate(void);
-
-private:
-    ManagedFramework(void);
-    ~ManagedFramework(void);
-
-    static ManagedFramework^ ms_thThis = nullptr;
-};
-
-}}}}
+//---------------------------------------------------------------------------

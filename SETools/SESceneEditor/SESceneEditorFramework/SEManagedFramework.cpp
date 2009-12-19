@@ -51,7 +51,7 @@ ManagedFramework::~ManagedFramework()
     System::SE_Terminate();
 }
 //---------------------------------------------------------------------------
-void ManagedFramework::InitializeEngine()
+void ManagedFramework::Initialize()
 {
 	if( !ms_thThis )
 	{
@@ -59,7 +59,7 @@ void ManagedFramework::InitializeEngine()
 	}
 }
 //---------------------------------------------------------------------------
-void ManagedFramework::TerminateEngine()
+void ManagedFramework::Terminate()
 {
 	if( ms_thThis )
 	{

@@ -23,11 +23,14 @@
 #pragma unmanaged
 
 #include "SwingFoundation.h"
-#include "SEDX9Renderer.h"
-#include "SEDX9RendererRegister.h"
+#include "SwingDX9Renderer.h"
 
 #pragma managed
 
-//#include "ManagedMacros.h"
+// Managed Rendering
+#include "SEManagedCamera.h"
+#include "SEManagedRenderer.h"
+
+#include "SEManagedFramework.h"
 
 using namespace System;
