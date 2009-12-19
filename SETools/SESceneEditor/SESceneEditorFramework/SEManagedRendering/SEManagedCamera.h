@@ -30,6 +30,15 @@ namespace Swing{ namespace Tools{ namespace SceneEditor{ namespace Framework{
 //----------------------------------------------------------------------------
 public ref class ManagedCamera sealed
 {
+public:
+    ManagedCamera(void);
+    ~ManagedCamera(void);
+
+internal:
+    Camera* GetNativeCamera(void);
+
+private:
+    Camera* m_pCamera;
 };
 
 }}}}

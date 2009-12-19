@@ -20,6 +20,10 @@
 
 #pragma once
 
+#include "SEManagedCamera.h"
+
+using namespace System;
+
 namespace Swing{ namespace Tools{ namespace SceneEditor{ namespace Framework{
 
 //----------------------------------------------------------------------------
@@ -30,6 +34,14 @@ namespace Swing{ namespace Tools{ namespace SceneEditor{ namespace Framework{
 //----------------------------------------------------------------------------
 public ref class ManagedRenderer sealed
 {
+public:
+	ManagedRenderer(IntPtr hWnd, int iWidth, int iHeight);
+    ~ManagedRenderer(void);
+
+    void SetCamera(ManagedCamera^ thCamera);
+
+private:
+    Renderer* m_pRenderer;
 };
 
 }}}}

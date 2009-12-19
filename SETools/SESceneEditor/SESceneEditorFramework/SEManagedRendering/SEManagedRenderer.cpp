@@ -25,3 +25,25 @@ using namespace Swing;
 using namespace Swing::Tools::SceneEditor::Framework;
 
 //---------------------------------------------------------------------------
+ManagedRenderer::ManagedRenderer(IntPtr hWnd, int iWidth, int iHeight)
+{
+    m_pRenderer = SE_NEW DX9Renderer((HWND)(int)hWnd, 
+        FrameBuffer::FT_FORMAT_RGBA, 
+        FrameBuffer::DT_DEPTH_24, 
+        FrameBuffer::ST_STENCIL_8, 
+        FrameBuffer::BT_BUFFERED_DOUBLE, 
+        FrameBuffer::MT_SAMPLING_NONE, 
+        iWidth, iHeight);
+}
+//---------------------------------------------------------------------------
+ManagedRenderer::~ManagedRenderer()
+{
+    SE_DELETE m_pRenderer;
+    m_pRenderer = 0;
+}
+//---------------------------------------------------------------------------
+void ManagedRenderer::SetCamera(ManagedCamera^ thCamera)
+{
+    m_pRenderer->SetCamera(thCamera->GetNativeCamera());
+}
+//---------------------------------------------------------------------------

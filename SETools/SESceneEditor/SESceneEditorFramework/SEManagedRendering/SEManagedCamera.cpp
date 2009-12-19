@@ -25,4 +25,17 @@ using namespace Swing;
 using namespace Swing::Tools::SceneEditor::Framework;
 
 //---------------------------------------------------------------------------
+ManagedCamera::ManagedCamera()
+{
+    m_pCamera = SE_NEW Camera;
+}
+//---------------------------------------------------------------------------
+ManagedCamera::~ManagedCamera()
+{
+}
+//---------------------------------------------------------------------------
+Camera* ManagedCamera::GetNativeCamera()
+{
+    return m_pCamera;
+}
 //---------------------------------------------------------------------------
