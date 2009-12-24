@@ -44,6 +44,37 @@ ManagedRenderer::~ManagedRenderer()
 //---------------------------------------------------------------------------
 void ManagedRenderer::SetCamera(ManagedCamera^ thCamera)
 {
-    m_pRenderer->SetCamera(thCamera->GetNativeCamera());
+    if( thCamera )
+    {
+        m_pRenderer->SetCamera(thCamera->GetNativeCamera());
+    }
+    else
+    {
+        m_pRenderer->SetCamera(0);
+    }
+}
+//---------------------------------------------------------------------------
+void ManagedRenderer::SetClearColor(ManagedColorRGBA^ thClearColor)
+{
+    if( !thClearColor )
+    {
+        throw gcnew ArgumentNullException("thClearColor");
+    }
+
+    ColorRGBA tempColor;
+    thClearColor->ToColorRGBA(tempColor);
+    m_pRenderer->SetClearColor(tempColor);
+}
+//---------------------------------------------------------------------------
+ManagedColorRGBA^ ManagedRenderer::GetClearColor()
+{
+    ManagedColorRGBA^ thClearColor = gcnew ManagedColorRGBA;
+    thClearColor->FromColorRGBA(m_pRenderer->GetClearColor());
+    return thClearColor;
+}
+//---------------------------------------------------------------------------
+Renderer* ManagedRenderer::GetNativeRenderer()
+{
+    return m_pRenderer;
 }
 //---------------------------------------------------------------------------

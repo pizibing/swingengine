@@ -21,13 +21,15 @@
 #pragma once
 
 #include "SEManagedCamera.h"
+#include "SEManagedColorRGB.h"
+#include "SEManagedColorRGBA.h"
 
 using namespace System;
 
 namespace Swing{ namespace Tools{ namespace SceneEditor{ namespace Framework{
 
 //----------------------------------------------------------------------------
-// Name:Managed Renderer class
+// Name:Managed renderer class
 // Description:
 // Author:Sun Che
 // Date:20091219
@@ -38,7 +40,15 @@ public:
 	ManagedRenderer(IntPtr hWnd, int iWidth, int iHeight);
     ~ManagedRenderer(void);
 
+    // Camera access.
     void SetCamera(ManagedCamera^ thCamera);
+
+    // Back buffer clear color.
+    void SetClearColor(ManagedColorRGBA^ thClearColor);
+    ManagedColorRGBA^ GetClearColor(void);
+
+internal:
+    Renderer* GetNativeRenderer(void);
 
 private:
     Renderer* m_pRenderer;

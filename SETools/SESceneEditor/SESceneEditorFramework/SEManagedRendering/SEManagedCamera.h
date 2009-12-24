@@ -23,7 +23,7 @@
 namespace Swing{ namespace Tools{ namespace SceneEditor{ namespace Framework{
 
 //----------------------------------------------------------------------------
-// Name:Managed Camera class
+// Name:Managed camera class
 // Description:
 // Author:Sun Che
 // Date:20091219
@@ -34,11 +34,17 @@ public:
     ManagedCamera(void);
     ~ManagedCamera(void);
 
+    // Frustum access.
+    void SetFrustum(float fRMin, float fRMax, float fUMin, float fUMax,
+        float fDMin, float fDMax);
+    void GetFrustum(float& rRMin, float& rRMax, float& rUMin, float& rUMax, 
+        float& rDMin, float& rDMax);
+
 internal:
     Camera* GetNativeCamera(void);
 
 private:
-    Camera* m_pCamera;
+    CameraPtr* m_pspCamera;
 };
 
 }}}}

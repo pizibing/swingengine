@@ -20,10 +20,12 @@
 
 #pragma once
 
+#include "SEManagedRenderer.h"
+
 namespace Swing{ namespace Tools{ namespace SceneEditor{ namespace Framework{
 
 //----------------------------------------------------------------------------
-// Name:Managed Framework class
+// Name:Managed framework class
 // Description:This is a singleton class.
 // Author:Sun Che
 // Date:20091219
@@ -33,6 +35,8 @@ public ref class ManagedFramework sealed
 public:
     static void Initialize(void);
     static void Terminate(void);
+    static void InitializeShaderProgramCatalog(ManagedRenderer^ thRenderer);
+    static void TerminateShaderProgramCatalog(void);
 
 private:
     ManagedFramework(void);

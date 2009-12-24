@@ -49,9 +49,25 @@ namespace Swing.Tools.SceneEditor.GUI
 
             MainForm mainForm = new MainForm();
             ManagedRenderer renderer = new ManagedRenderer(mainForm.Handle, 640, 480);
+            renderer.SetClearColor(new ManagedColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
+            ManagedFramework.InitializeShaderProgramCatalog(renderer);
 
+            ManagedCamera mainCamera = new ManagedCamera();
+            renderer.SetCamera(mainCamera);
+            float fDMin = 1.0f;
+            float fDMax = 1000.0f;
+            float fRMax = 0.55f * fDMin;
+            float fRMin = -fRMax;
+            float fUMax = 0.4125f/*0.309375f*/ * fDMin;
+            float fUMin = -fUMax;
+            mainCamera.SetFrustum(fRMin, fRMax, fUMin, fUMax, fDMin, fDMax);
+
+            // Start main loop.
             Application.Run(mainForm);
 
+            renderer.SetCamera(null);
+            mainCamera.Dispose();
+            ManagedFramework.TerminateShaderProgramCatalog();
             renderer.Dispose();
 
             ManagedFramework.Terminate();

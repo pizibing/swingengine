@@ -27,15 +27,33 @@ using namespace Swing::Tools::SceneEditor::Framework;
 //---------------------------------------------------------------------------
 ManagedCamera::ManagedCamera()
 {
-    m_pCamera = SE_NEW Camera;
+    // Create a smart pointer which will point to the native camera.
+    m_pspCamera = SE_NEW CameraPtr;
+
+    // Create the native camera.
+    (*m_pspCamera) = SE_NEW Camera;
 }
 //---------------------------------------------------------------------------
 ManagedCamera::~ManagedCamera()
 {
+    SE_DELETE m_pspCamera;
+    m_pspCamera = 0;
 }
 //---------------------------------------------------------------------------
 Camera* ManagedCamera::GetNativeCamera()
 {
-    return m_pCamera;
+    return (Camera*)(*m_pspCamera);
+}
+//---------------------------------------------------------------------------
+void ManagedCamera::SetFrustum(float fRMin, float fRMax, float fUMin, 
+    float fUMax, float fDMin, float fDMax)
+{
+    (*m_pspCamera)->SetFrustum(fRMin, fRMax, fUMin, fUMax, fDMin, fDMax);
+}
+//---------------------------------------------------------------------------
+void ManagedCamera::GetFrustum(float& rRMin, float& rRMax, float& rUMin, 
+    float& rUMax, float& rDMin, float& rDMax)
+{
+    (*m_pspCamera)->GetFrustum(rRMin, rRMax, rUMin, rUMax, rDMin, rDMax);
 }
 //---------------------------------------------------------------------------

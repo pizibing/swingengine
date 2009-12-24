@@ -53,18 +53,61 @@ ManagedFramework::~ManagedFramework()
 //---------------------------------------------------------------------------
 void ManagedFramework::Initialize()
 {
-	if( !ms_thThis )
-	{
-		ms_thThis = gcnew ManagedFramework;
-	}
+    if( !ms_thThis )
+    {
+        ms_thThis = gcnew ManagedFramework;
+    }
 }
 //---------------------------------------------------------------------------
 void ManagedFramework::Terminate()
 {
-	if( ms_thThis )
-	{
-		delete ms_thThis;
-		ms_thThis = nullptr;
-	}
+    if( ms_thThis )
+    {
+        delete ms_thThis;
+        ms_thThis = nullptr;
+    }
+}
+//---------------------------------------------------------------------------
+void ManagedFramework::InitializeShaderProgramCatalog(
+    ManagedRenderer^ thRenderer)
+{
+    if( !ms_thThis )
+    {
+        return;
+    }
+
+    if( !thRenderer )
+    {
+        throw gcnew ArgumentNullException("thRenderer");
+    }
+
+    if( !VertexProgramCatalog::GetActive() || 
+        !PixelProgramCatalog::GetActive() )
+    {
+        throw gcnew NullReferenceException(
+            "Initializing shader program catalog");
+    }
+
+    Renderer* pRenderer = thRenderer->GetNativeRenderer();
+    VertexProgramCatalog::GetActive()->SetRenderer(pRenderer);
+    PixelProgramCatalog::GetActive()->SetRenderer(pRenderer);
+}
+//---------------------------------------------------------------------------
+void ManagedFramework::TerminateShaderProgramCatalog()
+{
+    if( !ms_thThis )
+    {
+        return;
+    }
+
+    if( !VertexProgramCatalog::GetActive() || 
+        !PixelProgramCatalog::GetActive() )
+    {
+        throw gcnew NullReferenceException(
+            "Terminating shader program catalog");
+    }
+
+    VertexProgramCatalog::GetActive()->SetRenderer(0);
+    PixelProgramCatalog::GetActive()->SetRenderer(0);
 }
 //---------------------------------------------------------------------------

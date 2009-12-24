@@ -27,6 +27,10 @@
 
 #pragma managed
 
+// Managed Math
+#include "SEManagedColorRGB.h"
+#include "SEManagedColorRGBA.h"
+
 // Managed Rendering
 #include "SEManagedCamera.h"
 #include "SEManagedRenderer.h"
