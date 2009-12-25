@@ -221,6 +221,22 @@
 				RelativePath=".\SEManagedMath\SEManagedColorRGBA.h"
 				>
 			</File>
+			<File
+				RelativePath=".\SEManagedMath\SEManagedVector2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedMath\SEManagedVector2.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedMath\SEManagedVector3.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedMath\SEManagedVector3.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\AssemblyInfo.cpp"

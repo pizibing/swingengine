@@ -30,6 +30,8 @@
 // Managed Math
 #include "SEManagedColorRGB.h"
 #include "SEManagedColorRGBA.h"
+#include "SEManagedVector2.h"
+#include "SEManagedVector3.h"
 
 // Managed Rendering
 #include "SEManagedCamera.h"
