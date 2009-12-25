@@ -67,3 +67,82 @@ void ManagedVector2f::FromVector2f(const Vector2f& rVec)
     m_fY = rVec.Y;
 }
 //---------------------------------------------------------------------------
+ManagedVector2f^ ManagedVector2f::Add(ManagedVector2f^ thLhsVec, 
+    ManagedVector2f^ thRhsVec)
+{
+    Vector2f vec2fLhs, vec2fRhs;
+    thLhsVec->ToVector2f(vec2fLhs);
+    thRhsVec->ToVector2f(vec2fRhs);
+    ManagedVector2f^ thRes = gcnew ManagedVector2f;
+    thRes->FromVector2f(vec2fLhs + vec2fRhs);
+
+    return thRes;
+}
+//---------------------------------------------------------------------------
+ManagedVector2f^ ManagedVector2f::Subtract(ManagedVector2f^ thLhsVec, 
+    ManagedVector2f^ thRhsVec)
+{
+    Vector2f vec2fLhs, vec2fRhs;
+    thLhsVec->ToVector2f(vec2fLhs);
+    thRhsVec->ToVector2f(vec2fRhs);
+    ManagedVector2f^ thRes = gcnew ManagedVector2f;
+    thRes->FromVector2f(vec2fLhs - vec2fRhs);
+
+    return thRes;
+}
+//---------------------------------------------------------------------------
+ManagedVector2f^ ManagedVector2f::Multiply(float fScalar, 
+    ManagedVector2f^ thVec)
+{
+    Vector2f vec2fTemp;
+    thVec->ToVector2f(vec2fTemp);
+    ManagedVector2f^ thRes = gcnew ManagedVector2f;
+    thRes->FromVector2f(fScalar*vec2fTemp);
+
+    return thRes;
+}
+//---------------------------------------------------------------------------
+float ManagedVector2f::Dot(ManagedVector2f^ thLhsVec, 
+    ManagedVector2f^ thRhsVec)
+{
+    Vector2f vec2fLhs, vec2fRhs;
+    thLhsVec->ToVector2f(vec2fLhs);
+    thRhsVec->ToVector2f(vec2fRhs);
+
+    return vec2fLhs.Dot(vec2fRhs);
+}
+//---------------------------------------------------------------------------
+ManagedVector2f^ ManagedVector2f::Normalize(ManagedVector2f^ thVec)
+{
+    Vector2f vec2fTemp;
+    thVec->ToVector2f(vec2fTemp);
+    vec2fTemp.Normalize();
+    ManagedVector2f^ thRes = gcnew ManagedVector2f;
+    thRes->FromVector2f(vec2fTemp);
+
+    return thRes;
+}
+//---------------------------------------------------------------------------
+float ManagedVector2f::GetLength(ManagedVector2f^ thVec)
+{
+    Vector2f vec2fTemp;
+    thVec->ToVector2f(vec2fTemp);
+
+    return vec2fTemp.GetLength();
+}
+//---------------------------------------------------------------------------
+bool ManagedVector2f::Equals(Object^ thObj)
+{
+    ManagedVector2f^ thVec = dynamic_cast<ManagedVector2f^>(thObj);
+    if( !thVec )
+    {
+        return false;
+    }
+
+    Vector2f vec2fLhs, vec2fRhs;
+    this->ToVector2f(vec2fLhs);
+    thVec->ToVector2f(vec2fRhs);
+
+    return (vec2fLhs == vec2fRhs);
+}
+//---------------------------------------------------------------------------

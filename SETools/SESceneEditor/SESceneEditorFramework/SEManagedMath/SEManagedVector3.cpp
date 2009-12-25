@@ -80,3 +80,94 @@ void ManagedVector3f::FromVector3f(const Vector3f& rVec)
     m_fZ = rVec.Z;
 }
 //---------------------------------------------------------------------------
+ManagedVector3f^ ManagedVector3f::Add(ManagedVector3f^ thLhsVec, 
+    ManagedVector3f^ thRhsVec)
+{
+    Vector3f vec3fLhs, vec3fRhs;
+    thLhsVec->ToVector3f(vec3fLhs);
+    thRhsVec->ToVector3f(vec3fRhs);
+    ManagedVector3f^ thRes = gcnew ManagedVector3f;
+    thRes->FromVector3f(vec3fLhs + vec3fRhs);
+
+    return thRes;
+}
+//---------------------------------------------------------------------------
+ManagedVector3f^ ManagedVector3f::Subtract(ManagedVector3f^ thLhsVec, 
+    ManagedVector3f^ thRhsVec)
+{
+    Vector3f vec3fLhs, vec3fRhs;
+    thLhsVec->ToVector3f(vec3fLhs);
+    thRhsVec->ToVector3f(vec3fRhs);
+    ManagedVector3f^ thRes = gcnew ManagedVector3f;
+    thRes->FromVector3f(vec3fLhs - vec3fRhs);
+
+    return thRes;
+}
+//---------------------------------------------------------------------------
+ManagedVector3f^ ManagedVector3f::Multiply(float fScalar, 
+    ManagedVector3f^ thVec)
+{
+    Vector3f vec3fTemp;
+    thVec->ToVector3f(vec3fTemp);
+    ManagedVector3f^ thRes = gcnew ManagedVector3f;
+    thRes->FromVector3f(fScalar*vec3fTemp);
+
+    return thRes;
+}
+//---------------------------------------------------------------------------
+float ManagedVector3f::Dot(ManagedVector3f^ thLhsVec, 
+    ManagedVector3f^ thRhsVec)
+{
+    Vector3f vec3fLhs, vec3fRhs;
+    thLhsVec->ToVector3f(vec3fLhs);
+    thRhsVec->ToVector3f(vec3fRhs);
+
+    return vec3fLhs.Dot(vec3fRhs);
+}
+//---------------------------------------------------------------------------
+ManagedVector3f^ ManagedVector3f::Cross(ManagedVector3f^ thLhsVec, 
+    ManagedVector3f^ thRhsVec)
+{
+    Vector3f vec3fLhs, vec3fRhs;
+    thLhsVec->ToVector3f(vec3fLhs);
+    thRhsVec->ToVector3f(vec3fRhs);
+    ManagedVector3f^ thRes = gcnew ManagedVector3f;
+    thRes->FromVector3f(vec3fLhs.Cross(vec3fRhs));
+
+    return thRes;
+}
+//---------------------------------------------------------------------------
+ManagedVector3f^ ManagedVector3f::Normalize(ManagedVector3f^ thVec)
+{
+    Vector3f vec3fTemp;
+    thVec->ToVector3f(vec3fTemp);
+    vec3fTemp.Normalize();
+    ManagedVector3f^ thRes = gcnew ManagedVector3f;
+    thRes->FromVector3f(vec3fTemp);
+
+    return thRes;
+}
+//---------------------------------------------------------------------------
+float ManagedVector3f::GetLength(ManagedVector3f^ thVec)
+{
+    Vector3f vec3fTemp;
+    thVec->ToVector3f(vec3fTemp);
+
+    return vec3fTemp.GetLength();
+}
+//---------------------------------------------------------------------------
+bool ManagedVector3f::Equals(Object^ thObj)
+{
+    ManagedVector3f^ thVec = dynamic_cast<ManagedVector3f^>(thObj);
+    if( !thVec )
+    {
+        return false;
+    }
+
+    Vector3f vec3fLhs, vec3fRhs;
+    this->ToVector3f(vec3fLhs);
+    thVec->ToVector3f(vec3fRhs);
+
+    return (vec3fLhs == vec3fRhs);
+}
+//---------------------------------------------------------------------------

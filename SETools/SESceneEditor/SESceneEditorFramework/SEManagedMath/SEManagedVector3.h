@@ -32,7 +32,7 @@ public ref class ManagedVector3f sealed
 {
 public:
     ManagedVector3f(void);
-	ManagedVector3f(float fX, float fY, float fZ);
+    ManagedVector3f(float fX, float fY, float fZ);
 
     // Properties.
     property float X
@@ -50,6 +50,20 @@ public:
         float get(void);
         void set(float fZ);
     }
+
+    static ManagedVector3f^ Add(ManagedVector3f^ thLhsVec, 
+        ManagedVector3f^ thRhsVec);
+    static ManagedVector3f^ Subtract(ManagedVector3f^ thLhsVec, 
+        ManagedVector3f^ thRhsVec);
+    static ManagedVector3f^ Multiply(float fScalar, ManagedVector3f^ thVec);
+    static float Dot(ManagedVector3f^ thLhsVec, ManagedVector3f^ thRhsVec);
+    static ManagedVector3f^ Cross(ManagedVector3f^ thLhsVec, 
+        ManagedVector3f^ thRhsVec);
+    static ManagedVector3f^ Normalize(ManagedVector3f^ thVec);
+    static float GetLength(ManagedVector3f^ thVec);
+
+    // System::Object overrides.
+    virtual bool Equals(Object^ thObj) override;
 
 internal:
     void ToVector3f(Vector3f& rVec);

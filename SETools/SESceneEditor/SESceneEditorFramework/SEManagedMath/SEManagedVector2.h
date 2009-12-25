@@ -46,6 +46,18 @@ public:
         void set(float fY);
     }
 
+    static ManagedVector2f^ Add(ManagedVector2f^ thLhsVec, 
+        ManagedVector2f^ thRhsVec);
+    static ManagedVector2f^ Subtract(ManagedVector2f^ thLhsVec, 
+        ManagedVector2f^ thRhsVec);
+    static ManagedVector2f^ Multiply(float fScalar, ManagedVector2f^ thVec);
+    static float Dot(ManagedVector2f^ thLhsVec, ManagedVector2f^ thRhsVec);
+    static ManagedVector2f^ Normalize(ManagedVector2f^ thVec);
+    static float GetLength(ManagedVector2f^ thVec);
+
+    // System::Object overrides.
+    virtual bool Equals(Object^ thObj) override;
+
 internal:
     void ToVector2f(Vector2f& rVec);
     void FromVector2f(const Vector2f& rVec);
