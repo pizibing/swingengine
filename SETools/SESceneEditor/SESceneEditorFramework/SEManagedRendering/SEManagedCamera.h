@@ -20,6 +20,8 @@
 
 #pragma once
 
+#include "SEManagedVector3.h"
+
 namespace Swing{ namespace Tools{ namespace SceneEditor{ namespace Framework{
 
 //----------------------------------------------------------------------------
@@ -33,6 +35,17 @@ public ref class ManagedCamera sealed
 public:
     ManagedCamera(void);
     ~ManagedCamera(void);
+
+    // Orientation access.
+    void SetFrame(ManagedVector3f^ thLocation, ManagedVector3f^ thRVector,
+        ManagedVector3f^ thUVector, ManagedVector3f^ thDVector);
+    void SetLocation(ManagedVector3f^ thLocation);
+    void SetAxes(ManagedVector3f^ thRVector, ManagedVector3f^ thUVector, 
+        ManagedVector3f^ thDVector);
+    ManagedVector3f^ GetLocation(void);
+    ManagedVector3f^ GetRVector(void);
+    ManagedVector3f^ GetUVector(void);
+    ManagedVector3f^ GetDVector(void);
 
     // Frustum access.
     void SetFrustum(float fRMin, float fRMax, float fUMin, float fUMax,

@@ -47,6 +47,17 @@ public:
     void SetClearColor(ManagedColorRGBA^ thClearColor);
     ManagedColorRGBA^ GetClearColor(void);
 
+    // Pre-draw/Post-draw, DIRECTX9 API specific stuff.
+    bool BeginScene(void);
+    void EndScene(void);
+
+    // Full window buffer operation.
+    void ClearBackBuffer(void);
+    void ClearZBuffer(void);
+    void ClearStencilBuffer(void);
+    void ClearBuffers(void);
+    void DisplayBackBuffer(void);
+
 internal:
     Renderer* GetNativeRenderer(void);
 

@@ -70,7 +70,43 @@ ManagedColorRGBA^ ManagedRenderer::GetClearColor()
 {
     ManagedColorRGBA^ thClearColor = gcnew ManagedColorRGBA;
     thClearColor->FromColorRGBA(m_pRenderer->GetClearColor());
+
     return thClearColor;
+}
+//---------------------------------------------------------------------------
+bool ManagedRenderer::BeginScene()
+{
+    return m_pRenderer->BeginScene();
+}
+//---------------------------------------------------------------------------
+void ManagedRenderer::EndScene()
+{
+    m_pRenderer->EndScene();
+}
+//---------------------------------------------------------------------------
+void ManagedRenderer::ClearBackBuffer()
+{
+    m_pRenderer->ClearBackBuffer();
+}
+//---------------------------------------------------------------------------
+void ManagedRenderer::ClearZBuffer()
+{
+    m_pRenderer->ClearZBuffer();
+}
+//---------------------------------------------------------------------------
+void ManagedRenderer::ClearStencilBuffer()
+{
+    m_pRenderer->ClearStencilBuffer();
+}
+//---------------------------------------------------------------------------
+void ManagedRenderer::ClearBuffers()
+{
+    m_pRenderer->ClearBuffers();
+}
+//---------------------------------------------------------------------------
+void ManagedRenderer::DisplayBackBuffer()
+{
+    m_pRenderer->DisplayBackBuffer();
 }
 //---------------------------------------------------------------------------
 Renderer* ManagedRenderer::GetNativeRenderer()

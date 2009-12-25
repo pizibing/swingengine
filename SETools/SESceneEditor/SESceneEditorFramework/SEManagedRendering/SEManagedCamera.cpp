@@ -40,6 +40,67 @@ ManagedCamera::~ManagedCamera()
     m_pspCamera = 0;
 }
 //---------------------------------------------------------------------------
+void ManagedCamera::SetFrame(ManagedVector3f^ thLocation, 
+    ManagedVector3f^ thRVector, ManagedVector3f^ thUVector, 
+    ManagedVector3f^ thDVector)
+{
+    Vector3f vec3fLoc, vec3fR, vec3fU, vec3fD;
+    thLocation->ToVector3f(vec3fLoc);
+    thRVector->ToVector3f(vec3fR);
+    thUVector->ToVector3f(vec3fU);
+    thDVector->ToVector3f(vec3fD);
+    (*m_pspCamera)->SetFrame(vec3fLoc, vec3fR, vec3fU, vec3fD);
+}
+//---------------------------------------------------------------------------
+void ManagedCamera::SetLocation(ManagedVector3f^ thLocation)
+{
+    Vector3f vec3fLoc;
+    thLocation->ToVector3f(vec3fLoc);
+    (*m_pspCamera)->SetLocation(vec3fLoc);
+}
+//---------------------------------------------------------------------------
+void ManagedCamera::SetAxes(ManagedVector3f^ thRVector, 
+    ManagedVector3f^ thUVector, ManagedVector3f^ thDVector)
+{
+    Vector3f vec3fR, vec3fU, vec3fD;
+    thRVector->ToVector3f(vec3fR);
+    thUVector->ToVector3f(vec3fU);
+    thDVector->ToVector3f(vec3fD);
+    (*m_pspCamera)->SetAxes(vec3fR, vec3fU, vec3fD);
+}
+//---------------------------------------------------------------------------
+ManagedVector3f^ ManagedCamera::GetLocation()
+{
+    ManagedVector3f^ thRes = gcnew ManagedVector3f;
+    thRes->FromVector3f((*m_pspCamera)->GetLocation());
+
+    return thRes;
+}
+//---------------------------------------------------------------------------
+ManagedVector3f^ ManagedCamera::GetRVector()
+{
+    ManagedVector3f^ thRes = gcnew ManagedVector3f;
+    thRes->FromVector3f((*m_pspCamera)->GetRVector());
+
+    return thRes;
+}
+//---------------------------------------------------------------------------
+ManagedVector3f^ ManagedCamera::GetUVector()
+{
+    ManagedVector3f^ thRes = gcnew ManagedVector3f;
+    thRes->FromVector3f((*m_pspCamera)->GetUVector());
+
+    return thRes;
+}
+//---------------------------------------------------------------------------
+ManagedVector3f^ ManagedCamera::GetDVector()
+{
+    ManagedVector3f^ thRes = gcnew ManagedVector3f;
+    thRes->FromVector3f((*m_pspCamera)->GetDVector());
+
+    return thRes;
+}
+//---------------------------------------------------------------------------
 Camera* ManagedCamera::GetNativeCamera()
 {
     return (Camera*)(*m_pspCamera);
