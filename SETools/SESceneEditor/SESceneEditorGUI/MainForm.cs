@@ -25,7 +25,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Swing.Tools.SceneEditor.Framework;
+using Swing.Tools.ManagedFramework;
 
 namespace Swing.Tools.SceneEditor.GUI
 {
@@ -52,7 +52,8 @@ public partial class MainForm : Form
     [STAThread]
     static void Main()
     {
-        ManagedFramework.Initialize();
+        // SwingEngine initialization.
+        ManagedEngine.Initialize();
 
         // Create main form.
         MainForm mainForm = new MainForm();
@@ -64,7 +65,7 @@ public partial class MainForm : Form
         mainForm.Renderer = renderer; 
 
         // Initialize shader program catalog.
-        ManagedFramework.InitializeShaderProgramCatalog(renderer);
+        ManagedEngine.InitializeShaderProgramCatalog(renderer);
 
         // Create main camera.
         ManagedCamera mainCamera = new ManagedCamera();
@@ -95,13 +96,14 @@ public partial class MainForm : Form
         mainCamera.Dispose();
 
         // Terminate shader program catalog.
-        ManagedFramework.TerminateShaderProgramCatalog();
+        ManagedEngine.TerminateShaderProgramCatalog();
 
         // Release renderer.
         mainForm.Renderer = null;
         renderer.Dispose();
 
-        ManagedFramework.Terminate();
+        // SwingEngine termination.
+        ManagedEngine.Terminate();
     }
 
     /// <summary>
@@ -146,6 +148,11 @@ public partial class MainForm : Form
             }
             renderer.DisplayBackBuffer();
         }
+    }
+
+    private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        Application.Exit();
     }
 
     private ManagedRenderer renderer;
