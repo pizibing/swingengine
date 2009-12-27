@@ -41,9 +41,9 @@
   </Target>
   -->
   <ItemGroup>
-    <Reference Include="SESceneEditorFramework80d, Version=1.0.3640.39203, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="SEManagedFramework80d, Version=1.0.3648.38725, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\SDK\Lib\DebugDLL\SESceneEditorFramework80d.dll</HintPath>
+      <HintPath>..\..\..\SDK\Lib\DebugDLL\SEManagedFramework80d.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
