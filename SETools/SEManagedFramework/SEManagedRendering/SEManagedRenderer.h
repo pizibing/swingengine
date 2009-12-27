@@ -26,7 +26,7 @@
 
 using namespace System;
 
-namespace Swing{ namespace Tools{ namespace SceneEditor{ namespace Framework{
+namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
 // Name:Managed renderer class
@@ -65,4 +65,4 @@ private:
     Renderer* m_pRenderer;
 };
 
-}}}}
+}}}

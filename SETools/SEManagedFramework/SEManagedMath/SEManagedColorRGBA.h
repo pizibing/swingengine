@@ -20,7 +20,7 @@
 
 #pragma once
 
-namespace Swing{ namespace Tools{ namespace SceneEditor{ namespace Framework{
+namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
 // Name:Managed color rgba class
@@ -67,4 +67,4 @@ private:
     float m_fA;
 };
 
-}}}}
+}}}

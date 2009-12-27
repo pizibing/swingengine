@@ -20,7 +20,7 @@
 
 #pragma once
 
-namespace Swing{ namespace Tools{ namespace SceneEditor{ namespace Framework{
+namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
 // Name:Managed single precision floating-point vector3 class
@@ -75,4 +75,4 @@ private:
     float m_fZ;
 };
 
-}}}}
+}}}

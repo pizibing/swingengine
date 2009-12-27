@@ -22,7 +22,7 @@
 #include "SEManagedVector2.h"
 
 using namespace Swing;
-using namespace Swing::Tools::SceneEditor::Framework;
+using namespace Swing::Tools::ManagedFramework;
 
 //---------------------------------------------------------------------------
 ManagedVector2f::ManagedVector2f()

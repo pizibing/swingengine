@@ -20,44 +20,29 @@
 
 #pragma once
 
-#include "SEManagedVector3.h"
+#include "SEManagedRenderer.h"
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed camera class
-// Description:
+// Name:Managed engine class
+// Description:This is a singleton class.
 // Author:Sun Che
 // Date:20091219
 //----------------------------------------------------------------------------
-public ref class ManagedCamera sealed
+public ref class ManagedEngine sealed
 {
 public:
-    ManagedCamera(void);
-    ~ManagedCamera(void);
-
-    // Orientation access.
-    void SetFrame(ManagedVector3f^ thLocation, ManagedVector3f^ thRVector,
-        ManagedVector3f^ thUVector, ManagedVector3f^ thDVector);
-    void SetLocation(ManagedVector3f^ thLocation);
-    void SetAxes(ManagedVector3f^ thRVector, ManagedVector3f^ thUVector, 
-        ManagedVector3f^ thDVector);
-    ManagedVector3f^ GetLocation(void);
-    ManagedVector3f^ GetRVector(void);
-    ManagedVector3f^ GetUVector(void);
-    ManagedVector3f^ GetDVector(void);
-
-    // Frustum access.
-    void SetFrustum(float fRMin, float fRMax, float fUMin, float fUMax,
-        float fDMin, float fDMax);
-    void GetFrustum(float& rRMin, float& rRMax, float& rUMin, float& rUMax, 
-        float& rDMin, float& rDMax);
-
-internal:
-    Camera* GetNativeCamera(void);
+    static void Initialize(void);
+    static void Terminate(void);
+    static void InitializeShaderProgramCatalog(ManagedRenderer^ thRenderer);
+    static void TerminateShaderProgramCatalog(void);
 
 private:
-    CameraPtr* m_pspCamera;
+    ManagedEngine(void);
+    ~ManagedEngine(void);
+
+    static ManagedEngine^ ms_thThis = nullptr;
 };
 
 }}}

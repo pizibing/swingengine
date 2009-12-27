@@ -32,11 +32,12 @@
 #include "SEManagedColorRGBA.h"
 #include "SEManagedVector2.h"
 #include "SEManagedVector3.h"
+#include "SEManagedMatrix3.h"
 
 // Managed Rendering
 #include "SEManagedCamera.h"
 #include "SEManagedRenderer.h"
 
-#include "SEManagedFramework.h"
+#include "SEManagedEngine.h"
 
 using namespace System;

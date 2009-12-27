@@ -18,47 +18,27 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#pragma once
+#include "SEManagedFrameworkPCH.h"
+#include "SEManagedMatrix3.h"
 
-namespace Swing{ namespace Tools{ namespace ManagedFramework{
+using namespace Swing;
+using namespace Swing::Tools::ManagedFramework;
 
-//----------------------------------------------------------------------------
-// Name:Managed color rgb class
-// Description:
-// Author:Sun Che
-// Date:20091224
-//----------------------------------------------------------------------------
-public ref class ManagedColorRGB sealed
+//---------------------------------------------------------------------------
+ManagedMatrix3f::ManagedMatrix3f()
 {
-public:
-    ManagedColorRGB(void);
-	ManagedColorRGB(float fR, float fG, float fB);
-
-    // Properties.
-    property float R
-    {
-        float get(void);
-        void set(float fR);
-    }
-    property float G
-    {
-        float get(void);
-        void set(float fG);
-    }
-    property float B
-    {
-        float get(void);
-        void set(float fB);
-    }
-
-internal:
-    void ToColorRGB(ColorRGB& rColor);
-    void FromColorRGB(const ColorRGB& rColor);
-
-private:
-    float m_fR;
-    float m_fG;
-    float m_fB;
-};
-
-}}}
+}
+//---------------------------------------------------------------------------
+void ManagedMatrix3f::ToMatrix3f(Matrix3f& rMat)
+{
+}
+//---------------------------------------------------------------------------
+void ManagedMatrix3f::FromMatrix3f(const Matrix3f& rMat)
+{
+}
+//---------------------------------------------------------------------------
+bool ManagedMatrix3f::Equals(Object^ thObj)
+{
+    return false;
+}
+//---------------------------------------------------------------------------

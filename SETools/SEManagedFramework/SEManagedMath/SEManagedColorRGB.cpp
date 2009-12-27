@@ -22,7 +22,7 @@
 #include "SEManagedColorRGB.h"
 
 using namespace Swing;
-using namespace Swing::Tools::SceneEditor::Framework;
+using namespace Swing::Tools::ManagedFramework;
 
 //---------------------------------------------------------------------------
 ManagedColorRGB::ManagedColorRGB()

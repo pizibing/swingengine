@@ -20,44 +20,28 @@
 
 #pragma once
 
-#include "SEManagedVector3.h"
-
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed camera class
+// Name:Managed single precision floating-point 3x3 matrix class
 // Description:
 // Author:Sun Che
-// Date:20091219
+// Date:20091227
 //----------------------------------------------------------------------------
-public ref class ManagedCamera sealed
+public ref class ManagedMatrix3f sealed
 {
 public:
-    ManagedCamera(void);
-    ~ManagedCamera(void);
+    ManagedMatrix3f(void);
 
-    // Orientation access.
-    void SetFrame(ManagedVector3f^ thLocation, ManagedVector3f^ thRVector,
-        ManagedVector3f^ thUVector, ManagedVector3f^ thDVector);
-    void SetLocation(ManagedVector3f^ thLocation);
-    void SetAxes(ManagedVector3f^ thRVector, ManagedVector3f^ thUVector, 
-        ManagedVector3f^ thDVector);
-    ManagedVector3f^ GetLocation(void);
-    ManagedVector3f^ GetRVector(void);
-    ManagedVector3f^ GetUVector(void);
-    ManagedVector3f^ GetDVector(void);
-
-    // Frustum access.
-    void SetFrustum(float fRMin, float fRMax, float fUMin, float fUMax,
-        float fDMin, float fDMax);
-    void GetFrustum(float& rRMin, float& rRMax, float& rUMin, float& rUMax, 
-        float& rDMin, float& rDMax);
+    // System::Object overrides.
+    virtual bool Equals(Object^ thObj) override;
 
 internal:
-    Camera* GetNativeCamera(void);
+    void ToMatrix3f(Matrix3f& rMat);
+    void FromMatrix3f(const Matrix3f& rMat);
 
 private:
-    CameraPtr* m_pspCamera;
+
 };
 
 }}}
