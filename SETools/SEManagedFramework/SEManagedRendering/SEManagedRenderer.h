@@ -23,6 +23,7 @@
 #include "SEManagedCamera.h"
 #include "SEManagedColorRGB.h"
 #include "SEManagedColorRGBA.h"
+#include "SEManagedCuller.h"
 
 using namespace System;
 
@@ -42,6 +43,7 @@ public:
 
     // Camera access.
     void SetCamera(ManagedCamera^ thCamera);
+    ManagedCamera^ GetCamera(void);
 
     // Back buffer clear color.
     void SetClearColor(ManagedColorRGBA^ thClearColor);
@@ -50,6 +52,9 @@ public:
     // Pre-draw/Post-draw, DIRECTX9 API specific stuff.
     bool BeginScene(void);
     void EndScene(void);
+
+    // Object rendering entry point.
+    void DrawSceneFromCuller(ManagedCuller^ thCuller);
 
     // Full window buffer operation.
     void ClearBackBuffer(void);
@@ -63,6 +68,7 @@ internal:
 
 private:
     Renderer* m_pRenderer;
+    ManagedCamera^ m_thCamera;
 };
 
 }}}

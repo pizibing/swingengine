@@ -44,6 +44,8 @@ ManagedRenderer::~ManagedRenderer()
 //---------------------------------------------------------------------------
 void ManagedRenderer::SetCamera(ManagedCamera^ thCamera)
 {
+    m_thCamera = thCamera;
+
     if( thCamera )
     {
         m_pRenderer->SetCamera(thCamera->GetNativeCamera());
@@ -54,12 +56,19 @@ void ManagedRenderer::SetCamera(ManagedCamera^ thCamera)
     }
 }
 //---------------------------------------------------------------------------
+ManagedCamera^ ManagedRenderer::GetCamera()
+{
+    return m_thCamera;
+}
+//---------------------------------------------------------------------------
 void ManagedRenderer::SetClearColor(ManagedColorRGBA^ thClearColor)
 {
+#if defined(_DEBUG)
     if( !thClearColor )
     {
         throw gcnew ArgumentNullException("thClearColor");
     }
+#endif
 
     ColorRGBA tempColor;
     thClearColor->ToColorRGBA(tempColor);
@@ -82,6 +91,18 @@ bool ManagedRenderer::BeginScene()
 void ManagedRenderer::EndScene()
 {
     m_pRenderer->EndScene();
+}
+//---------------------------------------------------------------------------
+void ManagedRenderer::DrawSceneFromCuller(ManagedCuller^ thCuller)
+{
+#if defined(_DEBUG)
+    if( !thCuller )
+    {
+        throw gcnew ArgumentNullException("thCuller");
+    }
+#endif
+
+    m_pRenderer->DrawScene(thCuller->GetNativeCuller()->GetVisibleSet());
 }
 //---------------------------------------------------------------------------
 void ManagedRenderer::ClearBackBuffer()

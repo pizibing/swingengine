@@ -20,28 +20,36 @@
 
 #pragma once
 
-#pragma unmanaged
-
-#include "SwingFoundation.h"
-#include "SwingDX9Renderer.h"
-
-#pragma managed
-
-// Managed Math
-#include "SEManagedColorRGB.h"
-#include "SEManagedColorRGBA.h"
-#include "SEManagedVector2.h"
-#include "SEManagedVector3.h"
-#include "SEManagedMatrix3.h"
-#include "SEManagedQuaternion.h"
-
-// Managed Rendering
 #include "SEManagedCamera.h"
-#include "SEManagedRenderer.h"
 
-// Managed Scene Graph
-#include "SEManagedCuller.h"
+namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
-#include "SEManagedEngine.h"
+//----------------------------------------------------------------------------
+// Name:Managed culler class
+// Description:
+// Author:Sun Che
+// Date:20091229
+//----------------------------------------------------------------------------
+public ref class ManagedCuller sealed
+{
+public:
+    ManagedCuller(void);
+    ~ManagedCuller(void);
 
-using namespace System;
+    // Camera access.
+    void SetCamera(ManagedCamera^ thCamera);
+    ManagedCamera^ GetCamera(void);
+
+    // Visible(Audible) set access.
+    void GetVisibleSet(void);
+    void GetAudibleSet(void);
+
+internal:
+    Culler* GetNativeCuller(void);
+
+private:
+    Culler* m_pCuller;
+    ManagedCamera^ m_thCamera;
+};
+
+}}}
