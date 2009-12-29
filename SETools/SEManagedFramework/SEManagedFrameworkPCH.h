@@ -42,6 +42,7 @@
 // Managed Scene Graph
 #include "SEManagedCuller.h"
 #include "SEManagedAttributes.h"
+#include "SEManagedStandardMesh.h"
 
 #include "SEManagedEngine.h"
 

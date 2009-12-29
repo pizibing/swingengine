@@ -37,6 +37,26 @@ ManagedAttributes::~ManagedAttributes()
     m_pAttributes = 0;
 }
 //---------------------------------------------------------------------------
+void ManagedAttributes::SetPositionChannels(int iPChannels)
+{
+    m_pAttributes->SetPositionChannels(iPChannels);
+}
+//---------------------------------------------------------------------------
+void ManagedAttributes::SetNormalChannels(int iNChannels)
+{
+    m_pAttributes->SetNormalChannels(iNChannels);
+}
+//---------------------------------------------------------------------------
+void ManagedAttributes::SetColorChannels(int iUnit, int iCChannels)
+{
+    m_pAttributes->SetColorChannels(iUnit, iCChannels);
+}
+//---------------------------------------------------------------------------
+void ManagedAttributes::SetTCoordChannels(int iUnit, int iTChannels)
+{
+    m_pAttributes->SetTCoordChannels(iUnit, iTChannels);
+}
+//---------------------------------------------------------------------------
 Attributes* ManagedAttributes::GetNativeAttributes()
 {
     return m_pAttributes;

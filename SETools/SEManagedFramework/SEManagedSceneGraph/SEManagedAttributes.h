@@ -34,6 +34,12 @@ public:
     ManagedAttributes(void);
     ~ManagedAttributes(void);
 
+    // Currently useful stuff.
+    void SetPositionChannels(int iPChannels);
+    void SetNormalChannels(int iNChannels);
+    void SetColorChannels(int iUnit, int iCChannels);
+    void SetTCoordChannels(int iUnit, int iTChannels);
+
 internal:
     Attributes* GetNativeAttributes(void);
 

@@ -34,6 +34,15 @@ ManagedCamera::ManagedCamera()
     (*m_pspCamera) = SE_NEW Camera;
 }
 //---------------------------------------------------------------------------
+ManagedCamera::ManagedCamera(Camera* pCamera)
+{
+    // Create a smart pointer which will point to the native camera.
+    m_pspCamera = SE_NEW CameraPtr;
+
+    // Point to the native camera.
+    (*m_pspCamera) = pCamera;
+}
+//---------------------------------------------------------------------------
 ManagedCamera::~ManagedCamera()
 {
     SE_DELETE m_pspCamera;

@@ -273,6 +273,14 @@
 				RelativePath=".\SEManagedSceneGraph\SEManagedCuller.h"
 				>
 			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedStandardMesh.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedStandardMesh.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\AssemblyInfo.cpp"
