@@ -258,6 +258,14 @@
 			Name="SEManagedSceneGraph"
 			>
 			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedAttributes.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedAttributes.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEManagedSceneGraph\SEManagedCuller.cpp"
 				>
 			</File>

@@ -18,31 +18,27 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#pragma once
-
-#pragma unmanaged
-
-#include "SwingFoundation.h"
-#include "SwingDX9Renderer.h"
-
-#pragma managed
-
-// Managed Math
-#include "SEManagedColorRGB.h"
-#include "SEManagedColorRGBA.h"
-#include "SEManagedVector2.h"
-#include "SEManagedVector3.h"
-#include "SEManagedMatrix3.h"
-#include "SEManagedQuaternion.h"
-
-// Managed Rendering
-#include "SEManagedCamera.h"
-#include "SEManagedRenderer.h"
-
-// Managed Scene Graph
-#include "SEManagedCuller.h"
+#include "SEManagedFrameworkPCH.h"
 #include "SEManagedAttributes.h"
 
-#include "SEManagedEngine.h"
+using namespace Swing;
+using namespace Swing::Tools::ManagedFramework;
 
-using namespace System;
+//---------------------------------------------------------------------------
+ManagedAttributes::ManagedAttributes()
+{
+    // Create the native attributes.
+    m_pAttributes = SE_NEW Attributes;
+}
+//---------------------------------------------------------------------------
+ManagedAttributes::~ManagedAttributes()
+{
+    SE_DELETE m_pAttributes;
+    m_pAttributes = 0;
+}
+//---------------------------------------------------------------------------
+Attributes* ManagedAttributes::GetNativeAttributes()
+{
+    return m_pAttributes;
+}
+//---------------------------------------------------------------------------

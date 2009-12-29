@@ -20,29 +20,25 @@
 
 #pragma once
 
-#pragma unmanaged
+namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
-#include "SwingFoundation.h"
-#include "SwingDX9Renderer.h"
+//----------------------------------------------------------------------------
+// Name:Managed attributes class
+// Description:
+// Author:Sun Che
+// Date:20091229
+//----------------------------------------------------------------------------
+public ref class ManagedAttributes sealed
+{
+public:
+    ManagedAttributes(void);
+    ~ManagedAttributes(void);
 
-#pragma managed
+internal:
+    Attributes* GetNativeAttributes(void);
 
-// Managed Math
-#include "SEManagedColorRGB.h"
-#include "SEManagedColorRGBA.h"
-#include "SEManagedVector2.h"
-#include "SEManagedVector3.h"
-#include "SEManagedMatrix3.h"
-#include "SEManagedQuaternion.h"
+private:
+    Attributes* m_pAttributes;
+};
 
-// Managed Rendering
-#include "SEManagedCamera.h"
-#include "SEManagedRenderer.h"
-
-// Managed Scene Graph
-#include "SEManagedCuller.h"
-#include "SEManagedAttributes.h"
-
-#include "SEManagedEngine.h"
-
-using namespace System;
+}}}
