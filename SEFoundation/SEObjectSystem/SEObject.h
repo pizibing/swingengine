@@ -82,7 +82,8 @@ public:
     inline unsigned int GetID(void) const;
     inline static unsigned int GetNextID(void);
     virtual Object* GetObjectByName(const std::string& rName);
-    virtual void GetAllObjectsByName(const std::string& rName, std::vector<Object*>& rObjects);
+    virtual void GetAllObjectsByName(const std::string& rName, 
+        std::vector<Object*>& rObjects);
     virtual Object* GetObjectByID(unsigned int uiID);
 private:
     std::string m_Name;
@@ -94,15 +95,17 @@ public:
     inline void IncrementReferences(void);
     void DecrementReferences(void);
     inline int GetReferences(void) const;
-    static HashTable<unsigned int, Object*>* InUse;   // Object级的内存泄漏跟踪使用此hash表
+    // Object级的内存泄漏跟踪使用此hash表
+    static HashTable<unsigned int, Object*>* InUse;
     static void PrintInUse(const char* pFileName, const char* pMessage);
 private:
     int m_iReferences;
 
 // Streaming系统
+// 内部使用
 public:
     enum { FACTORY_MAP_SIZE = 256 };
-    static StringHashTable<FactoryFunction>* ms_pFactory; // 虽然是公有成员,但是是系统内部使用的
+    static StringHashTable<FactoryFunction>* ms_pFactory;
     static bool RegisterFactory(void);
     static void InitializeFactory(void);
     static void TerminateFactory(void);

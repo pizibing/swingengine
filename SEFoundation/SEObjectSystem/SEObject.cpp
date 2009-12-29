@@ -183,11 +183,11 @@ bool Object::UpdateControllers(double dAppTime)
 ObjectPtr Object::Copy(bool bUniqueNames) const
 {
     // save the object to a memory buffer
-    Stream kSaveStream;
-    kSaveStream.Insert((Object*)this);
+    Stream tempSaveStream;
+    tempSaveStream.Insert((Object*)this);
     char* pBuffer = 0;
     int iBufferSize = 0;
-    bool bSuccessful = kSaveStream.Save(pBuffer,iBufferSize);
+    bool bSuccessful = tempSaveStream.Save(pBuffer, iBufferSize);
     SE_ASSERT( bSuccessful );
     if( !bSuccessful )
     {
@@ -195,8 +195,8 @@ ObjectPtr Object::Copy(bool bUniqueNames) const
     }
 
     // load the object from the memory buffer
-    Stream kLoadStream;
-    bSuccessful = kLoadStream.Load(pBuffer,iBufferSize);
+    Stream tempLoadStream;
+    bSuccessful = tempLoadStream.Load(pBuffer, iBufferSize);
     SE_ASSERT( bSuccessful );
 
     if( !bSuccessful )
@@ -208,9 +208,9 @@ ObjectPtr Object::Copy(bool bUniqueNames) const
     if( bUniqueNames )
     {
         // generate unique names
-        for( int i = 0; i < kLoadStream.GetOrderedCount(); i++ )
+        for( int i = 0; i < tempLoadStream.GetOrderedCount(); i++ )
         {
-            Object* pObject = kLoadStream.GetOrderedObject(i);
+            Object* pObject = tempLoadStream.GetOrderedObject(i);
             SE_ASSERT( pObject );
 
             const std::string& rName = pObject->GetName();
@@ -221,7 +221,7 @@ ObjectPtr Object::Copy(bool bUniqueNames) const
                 const char* pName = rName.c_str();
                 char* acNewName = SE_NEW char[iLength + 2];
                 const size_t uiSize = (size_t)(iLength + 2);
-                System::SE_Strcpy(acNewName,uiSize,pName);
+                System::SE_Strcpy(acNewName, uiSize, pName);
                 acNewName[iLength] = NameAppend;
                 acNewName[iLength+1] = 0;
                 pObject->SetName(std::string(acNewName));
@@ -230,7 +230,7 @@ ObjectPtr Object::Copy(bool bUniqueNames) const
         }
     }
 
-    return kLoadStream.GetObjectAt(0);
+    return tempLoadStream.GetObjectAt(0);
 }
 //----------------------------------------------------------------------------
 
