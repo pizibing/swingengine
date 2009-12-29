@@ -20,35 +20,61 @@
 
 #pragma once
 
+#include "SEManagedMatrix3.h"
+
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed single precision floating-point 3x3 matrix class
+// Name:Managed single precision floating-point quaternion class
 // Description:
 // Author:Sun Che
-// Date:20091227
+// Date:20091229
 //----------------------------------------------------------------------------
-public ref class ManagedMatrix3f sealed
+public ref class ManagedQuaternionf sealed
 {
 public:
-    ManagedMatrix3f(void);
-    ManagedMatrix3f(float fM11, float fM12, float fM13,
-                    float fM21, float fM22, float fM23,
-                    float fM31, float fM32, float fM33);
+    ManagedQuaternionf(void);
+    ManagedQuaternionf(float fW, float fX, float fY, float fZ);
+    ManagedQuaternionf(ManagedMatrix3f^ thRotMat);
 
-    // Euler operations.
-    void FromEulerAnglesXYZ(float fYAngle, float fPAngle, float fRAngle);
-    bool ToEulerAnglesXYZ(float% trfYAngle, float% trfPAngle, float% trfRAngle);
+    // Properties.
+    property float W
+    {
+        float get(void);
+        void set(float fW);
+    }
+    property float X
+    {
+        float get(void);
+        void set(float fX);
+    }
+    property float Y
+    {
+        float get(void);
+        void set(float fY);
+    }
+    property float Z
+    {
+        float get(void);
+        void set(float fZ);
+    }
+
+    // Rotation matrix convertion.
+    void FromRotationMatrix(ManagedMatrix3f^ thRotMat);
+    ManagedMatrix3f^ GetRotationMatrix(void);
 
     // System::Object overrides.
     virtual bool Equals(Object^ thObj) override;
 
 internal:
-    void ToMatrix3f(Matrix3f& rMat);
-    void FromMatrix3f(const Matrix3f& rMat);
+    void ToQuaternionf(Quaternionf& rQ);
+    void FromQuaternionf(const Quaternionf& rQ);
 
 private:
-    array<float>^ m_afData;
+    float m_fW;
+    float m_fX;
+    float m_fY;
+    float m_fZ;
 };
 
 }}}

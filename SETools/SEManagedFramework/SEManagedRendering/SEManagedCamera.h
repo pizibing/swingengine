@@ -50,8 +50,8 @@ public:
     // Frustum access.
     void SetFrustum(float fRMin, float fRMax, float fUMin, float fUMax,
         float fDMin, float fDMax);
-    void GetFrustum(float& rRMin, float& rRMax, float& rUMin, float& rUMax, 
-        float& rDMin, float& rDMax);
+    void GetFrustum(float% trfRMin, float% trfRMax, float% trfUMin, 
+        float% trfUMax, float% trfDMin, float% trfDMax);
 
 internal:
     Camera* GetNativeCamera(void);

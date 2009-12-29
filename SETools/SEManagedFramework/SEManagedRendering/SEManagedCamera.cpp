@@ -112,9 +112,21 @@ void ManagedCamera::SetFrustum(float fRMin, float fRMax, float fUMin,
     (*m_pspCamera)->SetFrustum(fRMin, fRMax, fUMin, fUMax, fDMin, fDMax);
 }
 //---------------------------------------------------------------------------
-void ManagedCamera::GetFrustum(float& rRMin, float& rRMax, float& rUMin, 
-    float& rUMax, float& rDMin, float& rDMax)
+void ManagedCamera::GetFrustum(float% trfRMin, float% trfRMax, float% trfUMin, 
+    float% trfUMax, float% trfDMin, float% trfDMax)
 {
-    (*m_pspCamera)->GetFrustum(rRMin, rRMax, rUMin, rUMax, rDMin, rDMax);
+    float fRMin = trfRMin;
+    float fRMax = trfRMax;
+    float fUMin = trfUMin;
+    float fUMax = trfUMax;
+    float fDMin = trfDMin;
+    float fDMax = trfDMax;
+    (*m_pspCamera)->GetFrustum(fRMin, fRMax, fUMin, fUMax, fDMin, fDMax);
+    trfRMin = fRMin;
+    trfRMax = fRMax;
+    trfUMin = fUMin;
+    trfUMax = fUMax;
+    trfDMin = fDMin;
+    trfDMax = fDMax;
 }
 //---------------------------------------------------------------------------

@@ -33,6 +33,7 @@
 #include "SEManagedVector2.h"
 #include "SEManagedVector3.h"
 #include "SEManagedMatrix3.h"
+#include "SEManagedQuaternion.h"
 
 // Managed Rendering
 #include "SEManagedCamera.h"

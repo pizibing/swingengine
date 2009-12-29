@@ -230,6 +230,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEManagedMath\SEManagedQuaternion.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedMath\SEManagedQuaternion.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEManagedMath\SEManagedVector2.cpp"
 				>
 			</File>

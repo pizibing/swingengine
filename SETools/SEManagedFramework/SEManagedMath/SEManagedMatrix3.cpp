@@ -27,18 +27,93 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedMatrix3f::ManagedMatrix3f()
 {
+    m_afData = gcnew array<float>(9);
+
+    for( int i = 0; i < 9; i++ )
+    {
+        m_afData[i] = 0.0f;
+    }
+}
+//---------------------------------------------------------------------------
+ManagedMatrix3f::ManagedMatrix3f(float fM11, float fM12, float fM13,
+                                 float fM21, float fM22, float fM23,
+                                 float fM31, float fM32, float fM33)
+{
+    m_afData = gcnew array<float>(9);
+
+    m_afData[0] = fM11;
+    m_afData[1] = fM12;
+    m_afData[2] = fM13;
+    m_afData[3] = fM21;
+    m_afData[4] = fM22;
+    m_afData[5] = fM23;
+    m_afData[6] = fM31;
+    m_afData[7] = fM32;
+    m_afData[8] = fM33;
+}
+//---------------------------------------------------------------------------
+void ManagedMatrix3f::FromEulerAnglesXYZ(float fYAngle, float fPAngle, 
+    float fRAngle)
+{
+    Matrix3f mat3fTemp;
+    mat3fTemp.FromEulerAnglesXYZ(fYAngle, fPAngle, fRAngle);
+    this->FromMatrix3f(mat3fTemp);
+}
+//---------------------------------------------------------------------------
+bool ManagedMatrix3f::ToEulerAnglesXYZ(float% trfYAngle, float% trfPAngle, 
+    float% trfRAngle)
+{
+    float fYAngle = trfYAngle;
+    float fPAngle = trfPAngle;
+    float fRAngle = trfRAngle;
+    Matrix3f mat3fTemp;
+    this->ToMatrix3f(mat3fTemp);
+    bool bRes = mat3fTemp.ToEulerAnglesXYZ(fYAngle, fPAngle, fRAngle);
+    trfYAngle = fYAngle;
+    trfPAngle = fPAngle;
+    trfRAngle = fRAngle;
+
+    return bRes;
 }
 //---------------------------------------------------------------------------
 void ManagedMatrix3f::ToMatrix3f(Matrix3f& rMat)
 {
+    rMat[0][0] = m_afData[0];
+    rMat[0][1] = m_afData[1];
+    rMat[0][2] = m_afData[2];
+    rMat[1][0] = m_afData[3];
+    rMat[1][1] = m_afData[4];
+    rMat[1][2] = m_afData[5];
+    rMat[2][0] = m_afData[6];
+    rMat[2][1] = m_afData[7];
+    rMat[2][2] = m_afData[8];
 }
 //---------------------------------------------------------------------------
 void ManagedMatrix3f::FromMatrix3f(const Matrix3f& rMat)
 {
+    m_afData[0] = rMat[0][0];
+    m_afData[1] = rMat[0][1];
+    m_afData[2] = rMat[0][2];
+    m_afData[3] = rMat[1][0];
+    m_afData[4] = rMat[1][1];
+    m_afData[5] = rMat[1][2];
+    m_afData[6] = rMat[2][0];
+    m_afData[7] = rMat[2][1];
+    m_afData[8] = rMat[2][2];
 }
 //---------------------------------------------------------------------------
 bool ManagedMatrix3f::Equals(Object^ thObj)
 {
-    return false;
+    ManagedMatrix3f^ thMat = dynamic_cast<ManagedMatrix3f^>(thObj);
+    if( !thMat )
+    {
+        return false;
+    }
+
+    Matrix3f mat3fLhs, mat3fRhs;
+    this->ToMatrix3f(mat3fLhs);
+    thMat->ToMatrix3f(mat3fRhs);
+
+    return (mat3fLhs == mat3fRhs);
 }
 //---------------------------------------------------------------------------
