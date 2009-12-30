@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="SEMax8Exporter"
 	ProjectGUID="{BD0AA807-27EA-427E-A4DD-D99408DA12C9}"
+	RootNamespace="SEMax8Exporter"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -63,9 +64,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="SEFoundation80d.lib cg.lib paramblk2.lib bmm.lib core.lib geom.lib mesh.lib maxutil.lib comctl32.lib"
-				OutputFile="C:\Program Files\Autodesk\3dsMax8\plugins\SEMax8Exporter.dle"
+				OutputFile="E:\Program Files\Autodesk\3dsMax8\plugins\SEMax8Exporter.dle"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\SDK\Lib;&quot;C:\Program Files\Autodesk\3dsMax8\maxsdk\lib&quot;"
+				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug;&quot;E:\Program Files\Autodesk\3dsMax8\maxsdk\lib&quot;"
 				ModuleDefinitionFile="SEMax8Exporter.def"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
@@ -150,9 +151,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="SEFoundation80.lib cg.lib paramblk2.lib bmm.lib core.lib geom.lib mesh.lib maxutil.lib comctl32.lib"
-				OutputFile="C:\Program Files\Autodesk\3dsMax8\plugins\SEMax8Exporter.dle"
+				OutputFile="E:\Program Files\Autodesk\3dsMax8\plugins\SEMax8Exporter.dle"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\SDK\Lib;&quot;C:\Program Files\Autodesk\3dsMax8\maxsdk\lib&quot;"
+				AdditionalLibraryDirectories="..\..\SDK\Lib\Release;&quot;E:\Program Files\Autodesk\3dsMax8\maxsdk\lib&quot;"
 				ModuleDefinitionFile="SEMax8Exporter.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
