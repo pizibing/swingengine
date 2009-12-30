@@ -45,6 +45,7 @@ public:
     void GetAudibleSet(void);
 
 internal:
+    [CLSCompliant(false)]
     Culler* GetNativeCuller(void);
 
 private:

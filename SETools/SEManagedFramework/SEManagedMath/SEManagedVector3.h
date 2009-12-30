@@ -20,6 +20,8 @@
 
 #pragma once
 
+using namespace System;
+
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
@@ -66,7 +68,9 @@ public:
     virtual bool Equals(Object^ thObj) override;
 
 internal:
+    [CLSCompliant(false)]
     void ToVector3f(Vector3f& rVec);
+    [CLSCompliant(false)]
     void FromVector3f(const Vector3f& rVec);
 
 private:

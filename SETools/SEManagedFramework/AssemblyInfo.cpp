@@ -35,7 +35,10 @@ using namespace System::Runtime::CompilerServices;
 [assembly:AssemblyProductAttribute("")];
 [assembly:AssemblyCopyrightAttribute("")];
 [assembly:AssemblyTrademarkAttribute("")];
-[assembly:AssemblyCultureAttribute("")];		
+[assembly:AssemblyCultureAttribute("")];
+
+// Public types are CLS-compliant unless otherwise stated.
+[assembly:CLSCompliantAttribute(true)];
 
 //
 // Version information for an assembly consists of the following four values:

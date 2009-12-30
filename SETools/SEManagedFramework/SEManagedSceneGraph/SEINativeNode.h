@@ -25,44 +25,15 @@ using namespace System;
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed color rgb class
+// Name:Node interface class
 // Description:
 // Author:Sun Che
-// Date:20091224
+// Date:20091230
 //----------------------------------------------------------------------------
-public ref class ManagedColorRGB sealed
+public interface class INativeNode
 {
-public:
-    ManagedColorRGB(void);
-	ManagedColorRGB(float fR, float fG, float fB);
-
-    // Properties.
-    property float R
-    {
-        float get(void);
-        void set(float fR);
-    }
-    property float G
-    {
-        float get(void);
-        void set(float fG);
-    }
-    property float B
-    {
-        float get(void);
-        void set(float fB);
-    }
-
-internal:
     [CLSCompliant(false)]
-    void ToColorRGB(ColorRGB& rColor);
-    [CLSCompliant(false)]
-    void FromColorRGB(const ColorRGB& rColor);
-
-private:
-    float m_fR;
-    float m_fG;
-    float m_fB;
+    Node* GetNativeNode(void);
 };
 
 }}}

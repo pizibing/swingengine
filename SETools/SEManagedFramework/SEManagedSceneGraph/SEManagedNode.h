@@ -20,49 +20,34 @@
 
 #pragma once
 
-using namespace System;
+#include "SEINativeSpatial.h"
+#include "SEINativeNode.h"
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed color rgb class
+// Name:Managed node class
 // Description:
 // Author:Sun Che
-// Date:20091224
+// Date:20091230
 //----------------------------------------------------------------------------
-public ref class ManagedColorRGB sealed
+public ref class ManagedNode sealed : INativeSpatial, INativeNode
 {
 public:
-    ManagedColorRGB(void);
-	ManagedColorRGB(float fR, float fG, float fB);
-
-    // Properties.
-    property float R
-    {
-        float get(void);
-        void set(float fR);
-    }
-    property float G
-    {
-        float get(void);
-        void set(float fG);
-    }
-    property float B
-    {
-        float get(void);
-        void set(float fB);
-    }
+    ManagedNode(void);
+    ~ManagedNode(void);
 
 internal:
+    // Implement INativeSpatial interface.
     [CLSCompliant(false)]
-    void ToColorRGB(ColorRGB& rColor);
+    virtual Spatial* GetNativeSpatial(void) = INativeSpatial::GetNativeSpatial;
+
+    // Implement INativeNode interface.
     [CLSCompliant(false)]
-    void FromColorRGB(const ColorRGB& rColor);
+    virtual Node* GetNativeNode(void) = INativeNode::GetNativeNode;
 
 private:
-    float m_fR;
-    float m_fG;
-    float m_fB;
+    NodePtr* m_pspNode;
 };
 
 }}}

@@ -37,6 +37,7 @@ public:
     ~ManagedStandardMesh(void);
 
 internal:
+    [CLSCompliant(false)]
     StandardMesh* GetNativeStandardMesh(void);
 
 private:

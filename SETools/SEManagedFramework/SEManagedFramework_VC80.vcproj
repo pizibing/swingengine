@@ -258,6 +258,18 @@
 			Name="SEManagedSceneGraph"
 			>
 			<File
+				RelativePath=".\SEManagedSceneGraph\SEINativeGeometry.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEINativeNode.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEINativeSpatial.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEManagedSceneGraph\SEManagedAttributes.cpp"
 				>
 			</File>
@@ -271,6 +283,14 @@
 			</File>
 			<File
 				RelativePath=".\SEManagedSceneGraph\SEManagedCuller.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedNode.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedNode.h"
 				>
 			</File>
 			<File

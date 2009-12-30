@@ -54,7 +54,10 @@ public:
         float% trfUMax, float% trfDMin, float% trfDMax);
 
 internal:
+    [CLSCompliant(false)]
     ManagedCamera(Camera* pCamera);
+
+    [CLSCompliant(false)]
     Camera* GetNativeCamera(void);
 
 private:

@@ -64,6 +64,7 @@ public:
     void DisplayBackBuffer(void);
 
 internal:
+    [CLSCompliant(false)]
     Renderer* GetNativeRenderer(void);
 
 private:

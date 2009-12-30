@@ -18,36 +18,35 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#pragma once
-
-#pragma unmanaged
-
-#include "SwingFoundation.h"
-#include "SwingDX9Renderer.h"
-
-#pragma managed
-
-// Managed Math
-#include "SEManagedColorRGB.h"
-#include "SEManagedColorRGBA.h"
-#include "SEManagedVector2.h"
-#include "SEManagedVector3.h"
-#include "SEManagedMatrix3.h"
-#include "SEManagedQuaternion.h"
-
-// Managed Rendering
-#include "SEManagedCamera.h"
-#include "SEManagedRenderer.h"
-
-// Managed Scene Graph
-#include "SEINativeSpatial.h"
-#include "SEINativeNode.h"
-#include "SEINativeGeometry.h"
-#include "SEManagedCuller.h"
-#include "SEManagedAttributes.h"
-#include "SEManagedStandardMesh.h"
+#include "SEManagedFrameworkPCH.h"
 #include "SEManagedNode.h"
 
-#include "SEManagedEngine.h"
+using namespace Swing;
+using namespace Swing::Tools::ManagedFramework;
 
-using namespace System;
+//---------------------------------------------------------------------------
+ManagedNode::ManagedNode()
+{
+    // Create a smart pointer which will point to the native camera.
+    m_pspNode = SE_NEW NodePtr;
+
+    // Create the native node.
+    (*m_pspNode) = SE_NEW Node;
+}
+//---------------------------------------------------------------------------
+ManagedNode::~ManagedNode()
+{
+    SE_DELETE m_pspNode;
+    m_pspNode = 0;
+}
+//---------------------------------------------------------------------------
+Spatial* ManagedNode::GetNativeSpatial()
+{
+    return (Spatial*)(*m_pspNode);
+}
+//---------------------------------------------------------------------------
+Node* ManagedNode::GetNativeNode()
+{
+    return (Node*)(*m_pspNode);
+}
+//---------------------------------------------------------------------------

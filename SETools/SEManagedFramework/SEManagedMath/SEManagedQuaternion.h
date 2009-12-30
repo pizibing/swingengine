@@ -67,7 +67,9 @@ public:
     virtual bool Equals(Object^ thObj) override;
 
 internal:
+    [CLSCompliant(false)]
     void ToQuaternionf(Quaternionf& rQ);
+    [CLSCompliant(false)]
     void FromQuaternionf(const Quaternionf& rQ);
 
 private:

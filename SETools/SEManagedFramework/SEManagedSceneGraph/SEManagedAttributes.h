@@ -20,6 +20,8 @@
 
 #pragma once
 
+using namespace System;
+
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
@@ -41,6 +43,7 @@ public:
     void SetTCoordChannels(int iUnit, int iTChannels);
 
 internal:
+    [CLSCompliant(false)]
     Attributes* GetNativeAttributes(void);
 
 private:

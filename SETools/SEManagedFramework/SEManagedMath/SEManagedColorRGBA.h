@@ -20,6 +20,8 @@
 
 #pragma once
 
+using namespace System;
+
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
@@ -57,7 +59,9 @@ public:
     }
 
 internal:
+    [CLSCompliant(false)]
     void ToColorRGBA(ColorRGBA& rColor);
+    [CLSCompliant(false)]
     void FromColorRGBA(const ColorRGBA& rColor);
 
 private:
