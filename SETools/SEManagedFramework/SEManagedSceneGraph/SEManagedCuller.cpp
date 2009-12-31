@@ -56,12 +56,14 @@ ManagedCamera^ ManagedCuller::GetCamera()
     return m_thCamera;
 }
 //---------------------------------------------------------------------------
-void ManagedCuller::GetVisibleSet()
+void ManagedCuller::ComputeUnculledSet(INativeSpatial^ thSpatial)
 {
-}
-//---------------------------------------------------------------------------
-void ManagedCuller::GetAudibleSet()
-{
+    if( !thSpatial )
+    {
+        throw gcnew ArgumentNullException("thSpatial");
+    }
+
+    m_pCuller->ComputeUnculledSet(thSpatial->GetNativeSpatial());
 }
 //---------------------------------------------------------------------------
 Culler* ManagedCuller::GetNativeCuller()

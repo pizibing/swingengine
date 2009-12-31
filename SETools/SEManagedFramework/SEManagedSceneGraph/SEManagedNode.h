@@ -37,6 +37,12 @@ public:
     ManagedNode(void);
     ~ManagedNode(void);
 
+    // Geometry state update entry point.
+    void UpdateGS(double dAppTime);
+
+    // Render state update entry point.
+    void UpdateRS(void);
+
 internal:
     // Implement INativeSpatial interface.
     [CLSCompliant(false)]

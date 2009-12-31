@@ -40,6 +40,16 @@ ManagedNode::~ManagedNode()
     m_pspNode = 0;
 }
 //---------------------------------------------------------------------------
+void ManagedNode::UpdateGS(double dAppTime)
+{
+    (*m_pspNode)->UpdateGS(dAppTime);
+}
+//---------------------------------------------------------------------------
+void ManagedNode::UpdateRS()
+{
+    (*m_pspNode)->UpdateRS();
+}
+//---------------------------------------------------------------------------
 Spatial* ManagedNode::GetNativeSpatial()
 {
     return (Spatial*)(*m_pspNode);

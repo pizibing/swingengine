@@ -21,6 +21,7 @@
 #pragma once
 
 #include "SEManagedCamera.h"
+#include "SEINativeSpatial.h"
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
@@ -40,9 +41,8 @@ public:
     void SetCamera(ManagedCamera^ thCamera);
     ManagedCamera^ GetCamera(void);
 
-    // Visible(Audible) set access.
-    void GetVisibleSet(void);
-    void GetAudibleSet(void);
+    // Culling system entry point.
+    void ComputeUnculledSet(INativeSpatial^ thSpatial);
 
 internal:
     [CLSCompliant(false)]
