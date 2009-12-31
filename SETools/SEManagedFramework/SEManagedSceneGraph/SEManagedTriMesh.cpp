@@ -27,7 +27,6 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedTriMesh::ManagedTriMesh()
 {
-    // Create a smart pointer which will point to the native trimesh.
     m_pspTriMesh = SE_NEW TriMeshPtr;
 }
 //---------------------------------------------------------------------------
@@ -38,9 +37,7 @@ ManagedTriMesh::ManagedTriMesh(TriMesh* pTriMesh)
         throw gcnew ArgumentNullException("pTriMesh");
     }
 
-    // Create a smart pointer which will point to the native trimesh.
     m_pspTriMesh = SE_NEW TriMeshPtr;
-
     (*m_pspTriMesh) = pTriMesh;
 }
 //---------------------------------------------------------------------------
@@ -58,6 +55,31 @@ void ManagedTriMesh::UpdateGS(double dAppTime)
 void ManagedTriMesh::UpdateRS()
 {
     (*m_pspTriMesh)->UpdateRS();
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::AttachEffect(INativeEffect^ thEffect)
+{
+    if( !thEffect )
+    {
+        throw gcnew ArgumentNullException("thEffect");
+    }
+
+    (*m_pspTriMesh)->AttachEffect(thEffect->GetNativeEffect());
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::DetachEffect(INativeEffect^ thEffect)
+{
+    if( !thEffect )
+    {
+        throw gcnew ArgumentNullException("thEffect");
+    }
+
+    (*m_pspTriMesh)->DetachEffect(thEffect->GetNativeEffect());
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::DetachAllEffects()
+{
+    (*m_pspTriMesh)->DetachAllEffects();
 }
 //---------------------------------------------------------------------------
 Spatial* ManagedTriMesh::GetNativeSpatial()

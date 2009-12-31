@@ -27,19 +27,13 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedCamera::ManagedCamera()
 {
-    // Create a smart pointer which will point to the native camera.
     m_pspCamera = SE_NEW CameraPtr;
-
-    // Create the native camera.
     (*m_pspCamera) = SE_NEW Camera;
 }
 //---------------------------------------------------------------------------
 ManagedCamera::ManagedCamera(Camera* pCamera)
 {
-    // Create a smart pointer which will point to the native camera.
     m_pspCamera = SE_NEW CameraPtr;
-
-    // Point to the native camera.
     (*m_pspCamera) = pCamera;
 }
 //---------------------------------------------------------------------------

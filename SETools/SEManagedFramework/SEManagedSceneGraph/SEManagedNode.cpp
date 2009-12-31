@@ -27,10 +27,7 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedNode::ManagedNode()
 {
-    // Create a smart pointer which will point to the native camera.
     m_pspNode = SE_NEW NodePtr;
-
-    // Create the native node.
     (*m_pspNode) = SE_NEW Node;
 }
 //---------------------------------------------------------------------------

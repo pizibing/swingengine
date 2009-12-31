@@ -20,50 +20,20 @@
 
 #pragma once
 
-#include "SEINativeSpatial.h"
-#include "SEINativeGeometry.h"
-#include "SEINativeEffect.h"
+using namespace System;
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed triangle mesh class
+// Name:Effect interface class
 // Description:
 // Author:Sun Che
 // Date:20091231
 //----------------------------------------------------------------------------
-public ref class ManagedTriMesh sealed : INativeSpatial, INativeGeometry
+public interface class INativeEffect
 {
-public:
-    ManagedTriMesh(void);
-    ~ManagedTriMesh(void);
-
-    // Geometry state update entry point.
-    void UpdateGS(double dAppTime);
-
-    // Render state update entry point.
-    void UpdateRS(void);
-
-    // Effect state access.
-    void AttachEffect(INativeEffect^ thEffect);
-    void DetachEffect(INativeEffect^ thEffect);
-    void DetachAllEffects(void);
-
-internal:
     [CLSCompliant(false)]
-    ManagedTriMesh(TriMesh* pTriMesh);
-
-    // Implement INativeSpatial interface.
-    [CLSCompliant(false)]
-    virtual Spatial* GetNativeSpatial(void) = INativeSpatial::GetNativeSpatial;
-
-    // Implement INativeGeometry interface.
-    [CLSCompliant(false)]
-    virtual Geometry* GetNativeGeometry(void) = 
-        INativeGeometry::GetNativeGeometry;
-
-private:
-    TriMeshPtr* m_pspTriMesh;
+    Effect* GetNativeEffect(void);
 };
 
 }}}

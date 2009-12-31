@@ -49,6 +49,10 @@
 #include "SEManagedNode.h"
 #include "SEManagedTriMesh.h"
 
+// Managed Effects
+#include "SEINativeEffect.h"
+#include "SEManagedDefaultShaderEffect.h"
+
 #include "SEManagedEngine.h"
 
 using namespace System;

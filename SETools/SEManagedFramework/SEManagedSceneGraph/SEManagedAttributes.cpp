@@ -27,7 +27,6 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedAttributes::ManagedAttributes()
 {
-    // Create the native attributes.
     m_pAttributes = SE_NEW Attributes;
 }
 //---------------------------------------------------------------------------

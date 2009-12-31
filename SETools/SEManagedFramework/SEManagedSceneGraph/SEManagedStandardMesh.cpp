@@ -27,7 +27,6 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedStandardMesh::ManagedStandardMesh(ManagedAttributes^ thAttr)
 {
-    // Create the native standard mesh.
     m_pStandardMesh = SE_NEW StandardMesh(*thAttr->GetNativeAttributes());
 }
 //---------------------------------------------------------------------------

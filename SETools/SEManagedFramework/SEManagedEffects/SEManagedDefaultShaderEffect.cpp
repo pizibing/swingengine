@@ -19,54 +19,26 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 #include "SEManagedFrameworkPCH.h"
-#include "SEManagedCuller.h"
+#include "SEManagedDefaultShaderEffect.h"
 
 using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
 
 //---------------------------------------------------------------------------
-ManagedCuller::ManagedCuller()
+ManagedDefaultShaderEffect::ManagedDefaultShaderEffect()
 {
-    m_pCuller = SE_NEW Culler;
+    m_pspDefaultShaderEffect = SE_NEW DefaultShaderEffectPtr;
+    (*m_pspDefaultShaderEffect) = SE_NEW DefaultShaderEffect;
 }
 //---------------------------------------------------------------------------
-ManagedCuller::~ManagedCuller()
+ManagedDefaultShaderEffect::~ManagedDefaultShaderEffect()
 {
-    SE_DELETE m_pCuller;
-    m_pCuller = 0;
+    SE_DELETE m_pspDefaultShaderEffect;
+    m_pspDefaultShaderEffect = 0;
 }
 //---------------------------------------------------------------------------
-void ManagedCuller::SetCamera(ManagedCamera^ thCamera)
+Effect* ManagedDefaultShaderEffect::GetNativeEffect()
 {
-    m_thCamera = thCamera;
-
-    if( thCamera )
-    {
-        m_pCuller->SetCamera(thCamera->GetNativeCamera());
-    }
-    else
-    {
-        m_pCuller->SetCamera(0);
-    }
-}
-//---------------------------------------------------------------------------
-ManagedCamera^ ManagedCuller::GetCamera()
-{
-    return m_thCamera;
-}
-//---------------------------------------------------------------------------
-void ManagedCuller::ComputeUnculledSet(INativeSpatial^ thSpatial)
-{
-    if( !thSpatial )
-    {
-        throw gcnew ArgumentNullException("thSpatial");
-    }
-
-    m_pCuller->ComputeUnculledSet(thSpatial->GetNativeSpatial());
-}
-//---------------------------------------------------------------------------
-Culler* ManagedCuller::GetNativeCuller()
-{
-    return m_pCuller;
+    return (Effect*)(*m_pspDefaultShaderEffect);
 }
 //---------------------------------------------------------------------------
