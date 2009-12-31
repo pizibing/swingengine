@@ -37,6 +37,14 @@ ManagedStandardMesh::~ManagedStandardMesh()
     m_pStandardMesh = 0;
 }
 //---------------------------------------------------------------------------
+ManagedTriMesh^ ManagedStandardMesh::Box(float fXExtent, float fYExtent, 
+    float fZExtent)
+{
+    TriMesh* pTriMesh = m_pStandardMesh->Box(fXExtent, fYExtent, fZExtent);
+
+    return gcnew ManagedTriMesh(pTriMesh);
+}
+//---------------------------------------------------------------------------
 StandardMesh* ManagedStandardMesh::GetNativeStandardMesh()
 {
     return m_pStandardMesh;

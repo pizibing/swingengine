@@ -37,6 +37,11 @@ public:
     ManagedNode(void);
     ~ManagedNode(void);
 
+    // Child node access.
+    int GetCount(void);
+    int AttachChild(INativeSpatial^ thSpatial);
+    int DetachChild(INativeSpatial^ thSpatial);
+
     // Geometry state update entry point.
     void UpdateGS(double dAppTime);
 

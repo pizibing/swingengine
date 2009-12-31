@@ -19,69 +19,54 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 #include "SEManagedFrameworkPCH.h"
-#include "SEManagedNode.h"
+#include "SEManagedTriMesh.h"
 
 using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
 
 //---------------------------------------------------------------------------
-ManagedNode::ManagedNode()
+ManagedTriMesh::ManagedTriMesh()
 {
-    // Create a smart pointer which will point to the native camera.
-    m_pspNode = SE_NEW NodePtr;
-
-    // Create the native node.
-    (*m_pspNode) = SE_NEW Node;
+    // Create a smart pointer which will point to the native trimesh.
+    m_pspTriMesh = SE_NEW TriMeshPtr;
 }
 //---------------------------------------------------------------------------
-ManagedNode::~ManagedNode()
+ManagedTriMesh::ManagedTriMesh(TriMesh* pTriMesh)
 {
-    SE_DELETE m_pspNode;
-    m_pspNode = 0;
-}
-//---------------------------------------------------------------------------
-int ManagedNode::GetCount()
-{
-    return (*m_pspNode)->GetCount();
-}
-//---------------------------------------------------------------------------
-int ManagedNode::AttachChild(INativeSpatial^ thSpatial)
-{
-    if( !thSpatial )
+    if( !pTriMesh )
     {
-        throw gcnew ArgumentNullException("thSpatial");
+        throw gcnew ArgumentNullException("pTriMesh");
     }
 
-    return (*m_pspNode)->AttachChild(thSpatial->GetNativeSpatial());
-}
-//---------------------------------------------------------------------------
-int ManagedNode::DetachChild(INativeSpatial^ thSpatial)
-{
-    if( !thSpatial )
-    {
-        throw gcnew ArgumentNullException("thSpatial");
-    }
+    // Create a smart pointer which will point to the native trimesh.
+    m_pspTriMesh = SE_NEW TriMeshPtr;
 
-    return (*m_pspNode)->DetachChild(thSpatial->GetNativeSpatial());
+    (*m_pspTriMesh) = pTriMesh;
 }
 //---------------------------------------------------------------------------
-void ManagedNode::UpdateGS(double dAppTime)
+ManagedTriMesh::~ManagedTriMesh()
 {
-    (*m_pspNode)->UpdateGS(dAppTime);
+    SE_DELETE m_pspTriMesh;
+    m_pspTriMesh = 0;
 }
 //---------------------------------------------------------------------------
-void ManagedNode::UpdateRS()
+void ManagedTriMesh::UpdateGS(double dAppTime)
 {
-    (*m_pspNode)->UpdateRS();
+    (*m_pspTriMesh)->UpdateGS(dAppTime);
 }
 //---------------------------------------------------------------------------
-Spatial* ManagedNode::GetNativeSpatial()
+void ManagedTriMesh::UpdateRS()
 {
-    return (Spatial*)(*m_pspNode);
+    (*m_pspTriMesh)->UpdateRS();
 }
 //---------------------------------------------------------------------------
-Node* ManagedNode::GetNativeNode()
+Spatial* ManagedTriMesh::GetNativeSpatial()
 {
-    return (Node*)(*m_pspNode);
+    return (Spatial*)(*m_pspTriMesh);
+}
+//---------------------------------------------------------------------------
+Geometry* ManagedTriMesh::GetNativeGeometry()
+{
+    return (Geometry*)(*m_pspTriMesh);
 }
 //---------------------------------------------------------------------------

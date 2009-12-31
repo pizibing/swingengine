@@ -301,6 +301,14 @@
 				RelativePath=".\SEManagedSceneGraph\SEManagedStandardMesh.h"
 				>
 			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedTriMesh.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedTriMesh.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\AssemblyInfo.cpp"

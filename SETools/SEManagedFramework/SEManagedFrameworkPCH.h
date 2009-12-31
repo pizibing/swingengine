@@ -47,6 +47,7 @@
 #include "SEManagedAttributes.h"
 #include "SEManagedStandardMesh.h"
 #include "SEManagedNode.h"
+#include "SEManagedTriMesh.h"
 
 #include "SEManagedEngine.h"
 

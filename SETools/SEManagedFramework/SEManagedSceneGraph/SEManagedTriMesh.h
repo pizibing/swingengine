@@ -20,31 +20,44 @@
 
 #pragma once
 
-#include "SEManagedAttributes.h"
-#include "SEManagedTriMesh.h"
+#include "SEINativeSpatial.h"
+#include "SEINativeGeometry.h"
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed standard mesh class
+// Name:Managed triangle mesh class
 // Description:
 // Author:Sun Che
-// Date:20091229
+// Date:20091231
 //----------------------------------------------------------------------------
-public ref class ManagedStandardMesh sealed
+public ref class ManagedTriMesh sealed : INativeSpatial, INativeGeometry
 {
 public:
-    ManagedStandardMesh(ManagedAttributes^ thAttr);
-    ~ManagedStandardMesh(void);
+    ManagedTriMesh(void);
+    ~ManagedTriMesh(void);
 
-    ManagedTriMesh^ Box(float fXExtent, float fYExtent, float fZExtent);
+    // Geometry state update entry point.
+    void UpdateGS(double dAppTime);
+
+    // Render state update entry point.
+    void UpdateRS(void);
 
 internal:
     [CLSCompliant(false)]
-    StandardMesh* GetNativeStandardMesh(void);
+    ManagedTriMesh(TriMesh* pTriMesh);
+
+    // Implement INativeSpatial interface.
+    [CLSCompliant(false)]
+    virtual Spatial* GetNativeSpatial(void) = INativeSpatial::GetNativeSpatial;
+
+    // Implement INativeGeometry interface.
+    [CLSCompliant(false)]
+    virtual Geometry* GetNativeGeometry(void) = 
+        INativeGeometry::GetNativeGeometry;
 
 private:
-    StandardMesh* m_pStandardMesh;
+    TriMeshPtr* m_pspTriMesh;
 };
 
 }}}
