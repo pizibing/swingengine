@@ -82,6 +82,11 @@ void ManagedTriMesh::DetachAllEffects()
     (*m_pspTriMesh)->DetachAllEffects();
 }
 //---------------------------------------------------------------------------
+int ManagedTriMesh::GetNativeReferences()
+{
+    return (*m_pspTriMesh)->GetReferences();
+}
+//---------------------------------------------------------------------------
 Spatial* ManagedTriMesh::GetNativeSpatial()
 {
     return (Spatial*)(*m_pspTriMesh);

@@ -20,6 +20,7 @@
 
 #pragma once
 
+#include "SEINativeObject.h"
 #include "SEManagedVector3.h"
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
@@ -30,7 +31,7 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 // Author:Sun Che
 // Date:20091219
 //----------------------------------------------------------------------------
-public ref class ManagedCamera sealed
+public ref class ManagedCamera sealed : INativeObject
 {
 public:
     ManagedCamera(void);
@@ -52,6 +53,9 @@ public:
         float fDMin, float fDMax);
     void GetFrustum(float% trfRMin, float% trfRMax, float% trfUMin, 
         float% trfUMax, float% trfDMin, float% trfDMax);
+
+    // Implement INativeObject interface.
+    virtual int GetNativeReferences(void);
 
 internal:
     [CLSCompliant(false)]

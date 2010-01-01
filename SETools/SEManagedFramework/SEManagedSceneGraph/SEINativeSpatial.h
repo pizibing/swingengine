@@ -20,6 +20,8 @@
 
 #pragma once
 
+#include "SEINativeEffect.h"
+
 using namespace System;
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
@@ -34,6 +36,17 @@ public interface class INativeSpatial
 {
     [CLSCompliant(false)]
     Spatial* GetNativeSpatial(void);
+
+    // Geometry state update entry point.
+    void UpdateGS(double dAppTime);
+
+    // Render state update entry point.
+    void UpdateRS(void);
+
+    // Effect state access.
+    void AttachEffect(INativeEffect^ thEffect);
+    void DetachEffect(INativeEffect^ thEffect);
+    void DetachAllEffects(void);
 };
 
 }}}

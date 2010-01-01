@@ -20,6 +20,7 @@
 
 #pragma once
 
+#include "SEINativeObject.h"
 #include "SEINativeSpatial.h"
 #include "SEINativeGeometry.h"
 #include "SEINativeEffect.h"
@@ -32,22 +33,22 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 // Author:Sun Che
 // Date:20091231
 //----------------------------------------------------------------------------
-public ref class ManagedTriMesh sealed : INativeSpatial, INativeGeometry
+public ref class ManagedTriMesh sealed : INativeObject, INativeSpatial, 
+    INativeGeometry
 {
 public:
     ManagedTriMesh(void);
     ~ManagedTriMesh(void);
 
-    // Geometry state update entry point.
-    void UpdateGS(double dAppTime);
+    // Implement INativeSpatial interface.
+    virtual void UpdateGS(double dAppTime);
+    virtual void UpdateRS(void);
+    virtual void AttachEffect(INativeEffect^ thEffect);
+    virtual void DetachEffect(INativeEffect^ thEffect);
+    virtual void DetachAllEffects(void);
 
-    // Render state update entry point.
-    void UpdateRS(void);
-
-    // Effect state access.
-    void AttachEffect(INativeEffect^ thEffect);
-    void DetachEffect(INativeEffect^ thEffect);
-    void DetachAllEffects(void);
+    // Implement INativeObject interface.
+    virtual int GetNativeReferences(void);
 
 internal:
     [CLSCompliant(false)]

@@ -133,3 +133,8 @@ void ManagedCamera::GetFrustum(float% trfRMin, float% trfRMax, float% trfUMin,
     trfDMax = fDMax;
 }
 //---------------------------------------------------------------------------
+int ManagedCamera::GetNativeReferences()
+{
+    return (*m_pspCamera)->GetReferences();
+}
+//---------------------------------------------------------------------------

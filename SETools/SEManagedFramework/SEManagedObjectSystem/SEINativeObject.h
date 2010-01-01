@@ -20,51 +20,19 @@
 
 #pragma once
 
-#include "SEINativeObject.h"
-#include "SEINativeSpatial.h"
-#include "SEINativeNode.h"
+using namespace System;
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed node class
+// Name:Native object interface class
 // Description:
 // Author:Sun Che
-// Date:20091230
+// Date:20100101
 //----------------------------------------------------------------------------
-public ref class ManagedNode sealed : INativeObject, INativeSpatial, 
-    INativeNode
+public interface class INativeObject
 {
-public:
-    ManagedNode(void);
-    ~ManagedNode(void);
-
-    // Implement INativeNode interface.
-    virtual int GetCount(void) = INativeNode::GetCount;
-    virtual int AttachChild(INativeSpatial^ thSpatial);
-    virtual int DetachChild(INativeSpatial^ thSpatial);
-
-    // Implement INativeSpatial interface.
-    virtual void UpdateGS(double dAppTime);
-    virtual void UpdateRS(void);
-    virtual void AttachEffect(INativeEffect^ thEffect);
-    virtual void DetachEffect(INativeEffect^ thEffect);
-    virtual void DetachAllEffects(void);
-
-    // Implement INativeObject interface.
-    virtual int GetNativeReferences(void);
-
-internal:
-    // Implement INativeSpatial interface.
-    [CLSCompliant(false)]
-    virtual Spatial* GetNativeSpatial(void) = INativeSpatial::GetNativeSpatial;
-
-    // Implement INativeNode interface.
-    [CLSCompliant(false)]
-    virtual Node* GetNativeNode(void) = INativeNode::GetNativeNode;
-
-private:
-    NodePtr* m_pspNode;
+    int GetNativeReferences(void);
 };
 
 }}}

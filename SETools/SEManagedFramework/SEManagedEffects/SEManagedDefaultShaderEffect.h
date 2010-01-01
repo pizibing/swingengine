@@ -20,6 +20,7 @@
 
 #pragma once
 
+#include "SEINativeObject.h"
 #include "SEINativeEffect.h"
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
@@ -30,11 +31,15 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 // Author:Sun Che
 // Date:20091231
 //----------------------------------------------------------------------------
-	public ref class ManagedDefaultShaderEffect sealed : INativeEffect
+public ref class ManagedDefaultShaderEffect sealed : INativeObject, 
+    INativeEffect
 {
 public:
     ManagedDefaultShaderEffect(void);
     ~ManagedDefaultShaderEffect(void);
+
+    // Implement INativeObject interface.
+    virtual int GetNativeReferences(void);
 
 internal:
     // Implement INativeEffect interface.

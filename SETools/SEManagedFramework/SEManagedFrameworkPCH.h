@@ -53,6 +53,9 @@
 #include "SEINativeEffect.h"
 #include "SEManagedDefaultShaderEffect.h"
 
+// Managed Object System
+#include "SEINativeObject.h"
+
 #include "SEManagedEngine.h"
 
 using namespace System;

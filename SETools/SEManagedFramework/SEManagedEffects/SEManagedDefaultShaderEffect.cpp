@@ -37,6 +37,11 @@ ManagedDefaultShaderEffect::~ManagedDefaultShaderEffect()
     m_pspDefaultShaderEffect = 0;
 }
 //---------------------------------------------------------------------------
+int ManagedDefaultShaderEffect::GetNativeReferences()
+{
+    return (*m_pspDefaultShaderEffect)->GetReferences();
+}
+//---------------------------------------------------------------------------
 Effect* ManagedDefaultShaderEffect::GetNativeEffect()
 {
     return (Effect*)(*m_pspDefaultShaderEffect);

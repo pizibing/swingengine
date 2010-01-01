@@ -72,6 +72,36 @@ void ManagedNode::UpdateRS()
     (*m_pspNode)->UpdateRS();
 }
 //---------------------------------------------------------------------------
+void ManagedNode::AttachEffect(INativeEffect^ thEffect)
+{
+    if( !thEffect )
+    {
+        throw gcnew ArgumentNullException("thEffect");
+    }
+
+    (*m_pspNode)->AttachEffect(thEffect->GetNativeEffect());
+}
+//---------------------------------------------------------------------------
+void ManagedNode::DetachEffect(INativeEffect^ thEffect)
+{
+    if( !thEffect )
+    {
+        throw gcnew ArgumentNullException("thEffect");
+    }
+
+    (*m_pspNode)->DetachEffect(thEffect->GetNativeEffect());
+}
+//---------------------------------------------------------------------------
+void ManagedNode::DetachAllEffects()
+{
+    (*m_pspNode)->DetachAllEffects();
+}
+//---------------------------------------------------------------------------
+int ManagedNode::GetNativeReferences()
+{
+    return (*m_pspNode)->GetReferences();
+}
+//---------------------------------------------------------------------------
 Spatial* ManagedNode::GetNativeSpatial()
 {
     return (Spatial*)(*m_pspNode);
