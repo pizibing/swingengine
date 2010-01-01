@@ -25,7 +25,9 @@ SmartPointer<T>::SmartPointer(T* pObject)
     m_pObject = pObject;
 
     if( m_pObject )
+    {
         m_pObject->IncrementReferences();
+    }
 }
 //----------------------------------------------------------------------------
 template <class T>
@@ -34,14 +36,18 @@ SmartPointer<T>::SmartPointer(const SmartPointer& rSmartPointer)
     m_pObject = rSmartPointer.m_pObject;
 
     if( m_pObject )
+    {
         m_pObject->IncrementReferences();
+    }
 }
 //----------------------------------------------------------------------------
 template <class T>
 SmartPointer<T>::~SmartPointer()
 {
     if( m_pObject )
+    {
         m_pObject->DecrementReferences();
+    }
 }
 //----------------------------------------------------------------------------
 template <class T>
@@ -68,10 +74,14 @@ SmartPointer<T>& SmartPointer<T>::operator=(T* pObject)
     if( m_pObject != pObject )
     {
         if( pObject )
+        {
             pObject->IncrementReferences();
+        }
 
         if( m_pObject )
+        {
             m_pObject->DecrementReferences();
+        }
 
         m_pObject = pObject;
     }
@@ -85,10 +95,14 @@ SmartPointer<T>& SmartPointer<T>::operator=(const SmartPointer& rSmartPointer)
     if( m_pObject != rSmartPointer.m_pObject )
     {
         if( rSmartPointer.m_pObject )
+        {
             rSmartPointer.m_pObject->IncrementReferences();
+        }
 
         if( m_pObject )
+        {
             m_pObject->DecrementReferences();
+        }
 
         m_pObject = rSmartPointer.m_pObject;
     }
