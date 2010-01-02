@@ -39,6 +39,7 @@
 #include "SEManagedCamera.h"
 #include "SEManagedRenderer.h"
 #include "SEINativeGlobalState.h"
+#include "SEManagedWireframeState.h"
 
 // Managed Scene Graph
 #include "SEINativeSpatial.h"

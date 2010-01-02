@@ -20,13 +20,30 @@
 
 #include "SEManagedFrameworkPCH.h"
 #include "SEManagedObjectFactory.h"
+#include "SEManagedWireframeState.h"
 
 using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
 
 //---------------------------------------------------------------------------
-INativeGlobalState^ ManagedObjectFactory::CreateGlobalState(GlobalState*)
+INativeGlobalState^ ManagedObjectFactory::CreateGlobalState(
+    GlobalState* pState)
 {
-	return nullptr;
+    if( !pState )
+    {
+        return nullptr;
+    }
+
+    GlobalState::StateType eType = pState->GetStateType();
+    switch( eType )
+    {
+    case GlobalState::WIREFRAME:
+        return gcnew ManagedWireframeState((WireframeState*)pState);
+        break;
+
+    default:
+        return nullptr;
+        break;
+    }
 }
 //---------------------------------------------------------------------------

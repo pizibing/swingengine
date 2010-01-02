@@ -205,6 +205,14 @@
 				RelativePath=".\SEManagedRendering\SEManagedRenderer.h"
 				>
 			</File>
+			<File
+				RelativePath=".\SEManagedRendering\SEManagedWireframeState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedRendering\SEManagedWireframeState.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="SEManagedMath"
