@@ -58,6 +58,9 @@
 // Managed Object System
 #include "SEINativeObject.h"
 
+// Managed System
+#include "SEManagedSystem.h"
+
 #include "SEManagedEngine.h"
 #include "SEManagedObjectFactory.h"
 
