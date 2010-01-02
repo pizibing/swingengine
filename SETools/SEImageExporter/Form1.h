@@ -149,6 +149,8 @@ namespace SEImageExporter_VC80
 			{
 				g_ImageExporterApp.OnOpenFile(acFilename);
 			}
+
+			Marshal::FreeHGlobal((IntPtr)acFilename);
 		}
 
 		System::Void button2_Click(System::Object^, System::EventArgs^)
@@ -168,6 +170,8 @@ namespace SEImageExporter_VC80
 			{
 				g_ImageExporterApp.OnSave(acFilename);
 			}
+
+			Marshal::FreeHGlobal((IntPtr)acFilename);
 		}
 };
 }
