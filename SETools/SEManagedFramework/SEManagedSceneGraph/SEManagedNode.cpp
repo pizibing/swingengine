@@ -20,6 +20,7 @@
 
 #include "SEManagedFrameworkPCH.h"
 #include "SEManagedNode.h"
+#include "SEManagedObjectFactory.h"
 
 using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
@@ -95,6 +96,47 @@ void ManagedNode::DetachEffect(INativeEffect^ thEffect)
 void ManagedNode::DetachAllEffects()
 {
     (*m_pspNode)->DetachAllEffects();
+}
+//---------------------------------------------------------------------------
+int ManagedNode::GetGlobalStateCount()
+{
+    return (*m_pspNode)->GetGlobalStateCount();
+}
+//---------------------------------------------------------------------------
+INativeGlobalState^ ManagedNode::GetGlobalState(int i)
+{
+    GlobalState* pState = (*m_pspNode)->GetGlobalState(i);
+
+    return ManagedObjectFactory::CreateGlobalState(pState);
+}
+//---------------------------------------------------------------------------
+INativeGlobalState^ ManagedNode::GetGlobalState(
+    INativeGlobalState::StateType eType)
+{
+    GlobalState* pState = (*m_pspNode)->GetGlobalState(
+        (GlobalState::StateType)eType);
+
+    return ManagedObjectFactory::CreateGlobalState(pState);
+}
+//---------------------------------------------------------------------------
+void ManagedNode::AttachGlobalState(INativeGlobalState^ thState)
+{
+    if( !thState )
+    {
+        throw gcnew ArgumentNullException("thState");
+    }
+
+    (*m_pspNode)->AttachGlobalState(thState->GetNativeGlobalState());
+}
+//---------------------------------------------------------------------------
+void ManagedNode::DetachGlobalState(INativeGlobalState::StateType eType)
+{
+    (*m_pspNode)->DetachGlobalState((GlobalState::StateType)eType);
+}
+//---------------------------------------------------------------------------
+void ManagedNode::DetachAllGlobalStates()
+{
+    (*m_pspNode)->DetachAllGlobalStates();
 }
 //---------------------------------------------------------------------------
 int ManagedNode::GetNativeReferences()

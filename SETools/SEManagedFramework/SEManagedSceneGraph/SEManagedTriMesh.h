@@ -42,10 +42,20 @@ public:
 
     // Implement INativeSpatial interface.
     virtual void UpdateGS(double dAppTime);
+    //
     virtual void UpdateRS(void);
+    //
     virtual void AttachEffect(INativeEffect^ thEffect);
     virtual void DetachEffect(INativeEffect^ thEffect);
     virtual void DetachAllEffects(void);
+    //
+    virtual int GetGlobalStateCount(void);
+    virtual INativeGlobalState^ GetGlobalState(int i);
+    virtual INativeGlobalState^ GetGlobalState(
+        INativeGlobalState::StateType eType);
+    virtual void AttachGlobalState(INativeGlobalState^ thState);
+    virtual void DetachGlobalState(INativeGlobalState::StateType eType);
+    virtual void DetachAllGlobalStates(void);
 
     // Implement INativeObject interface.
     virtual int GetNativeReferences(void);

@@ -18,46 +18,15 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#pragma once
-
-#pragma unmanaged
-
-#include "SwingFoundation.h"
-#include "SwingDX9Renderer.h"
-
-#pragma managed
-
-// Managed Math
-#include "SEManagedColorRGB.h"
-#include "SEManagedColorRGBA.h"
-#include "SEManagedVector2.h"
-#include "SEManagedVector3.h"
-#include "SEManagedMatrix3.h"
-#include "SEManagedQuaternion.h"
-
-// Managed Rendering
-#include "SEManagedCamera.h"
-#include "SEManagedRenderer.h"
-#include "SEINativeGlobalState.h"
-
-// Managed Scene Graph
-#include "SEINativeSpatial.h"
-#include "SEINativeNode.h"
-#include "SEINativeGeometry.h"
-#include "SEManagedCuller.h"
-#include "SEManagedAttributes.h"
-#include "SEManagedStandardMesh.h"
-#include "SEManagedNode.h"
-#include "SEManagedTriMesh.h"
-
-// Managed Effects
-#include "SEINativeEffect.h"
-#include "SEManagedDefaultShaderEffect.h"
-
-// Managed Object System
-#include "SEINativeObject.h"
-
-#include "SEManagedEngine.h"
+#include "SEManagedFrameworkPCH.h"
 #include "SEManagedObjectFactory.h"
 
-using namespace System;
+using namespace Swing;
+using namespace Swing::Tools::ManagedFramework;
+
+//---------------------------------------------------------------------------
+INativeGlobalState^ ManagedObjectFactory::CreateGlobalState(GlobalState*)
+{
+	return nullptr;
+}
+//---------------------------------------------------------------------------

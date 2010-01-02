@@ -186,6 +186,10 @@
 			Name="SEManagedRendering"
 			>
 			<File
+				RelativePath=".\SEManagedRendering\SEINativeGlobalState.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEManagedRendering\SEManagedCamera.cpp"
 				>
 			</File>
@@ -368,6 +372,14 @@
 		</File>
 		<File
 			RelativePath=".\SEManagedFrameworkPCH.h"
+			>
+		</File>
+		<File
+			RelativePath=".\SEManagedObjectFactory.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\SEManagedObjectFactory.h"
 			>
 		</File>
 	</Files>

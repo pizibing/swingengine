@@ -20,42 +20,21 @@
 
 #pragma once
 
-#include "SEINativeEffect.h"
 #include "SEINativeGlobalState.h"
-
-using namespace System;
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Spatial interface class
-// Description:
+// Name:Managed factory class
+// Description:This is a singleton class.
 // Author:Sun Che
-// Date:20091230
+// Date:20100102
 //----------------------------------------------------------------------------
-public interface class INativeSpatial
+[CLSCompliant(false)]
+private ref class ManagedObjectFactory sealed
 {
-    [CLSCompliant(false)]
-    Spatial* GetNativeSpatial(void);
-
-    // Geometry state update entry point.
-    void UpdateGS(double dAppTime);
-
-    // Render state update entry point.
-    void UpdateRS(void);
-
-    // Effect state access.
-    void AttachEffect(INativeEffect^ thEffect);
-    void DetachEffect(INativeEffect^ thEffect);
-    void DetachAllEffects(void);
-
-    // Global render state access.
-    int GetGlobalStateCount(void);
-    INativeGlobalState^ GetGlobalState(int i);
-    INativeGlobalState^ GetGlobalState(INativeGlobalState::StateType eType);
-    void AttachGlobalState(INativeGlobalState^ thState);
-    void DetachGlobalState(INativeGlobalState::StateType eType);
-    void DetachAllGlobalStates(void);
+public:
+	static INativeGlobalState^ CreateGlobalState(GlobalState* pState);
 };
 
 }}}

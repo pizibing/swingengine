@@ -20,6 +20,7 @@
 
 #include "SEManagedFrameworkPCH.h"
 #include "SEManagedTriMesh.h"
+#include "SEManagedObjectFactory.h"
 
 using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
@@ -28,6 +29,9 @@ using namespace Swing::Tools::ManagedFramework;
 ManagedTriMesh::ManagedTriMesh()
 {
     m_pspTriMesh = SE_NEW TriMeshPtr;
+
+    // TODO:
+    // Create a trimesh object from native VB/IB objects.
 }
 //---------------------------------------------------------------------------
 ManagedTriMesh::ManagedTriMesh(TriMesh* pTriMesh)
@@ -80,6 +84,47 @@ void ManagedTriMesh::DetachEffect(INativeEffect^ thEffect)
 void ManagedTriMesh::DetachAllEffects()
 {
     (*m_pspTriMesh)->DetachAllEffects();
+}
+//---------------------------------------------------------------------------
+int ManagedTriMesh::GetGlobalStateCount()
+{
+    return (*m_pspTriMesh)->GetGlobalStateCount();
+}
+//---------------------------------------------------------------------------
+INativeGlobalState^ ManagedTriMesh::GetGlobalState(int i)
+{
+    GlobalState* pState = (*m_pspTriMesh)->GetGlobalState(i);
+
+    return ManagedObjectFactory::CreateGlobalState(pState);
+}
+//---------------------------------------------------------------------------
+INativeGlobalState^ ManagedTriMesh::GetGlobalState(
+    INativeGlobalState::StateType eType)
+{
+    GlobalState* pState = (*m_pspTriMesh)->GetGlobalState(
+        (GlobalState::StateType)eType);
+
+    return ManagedObjectFactory::CreateGlobalState(pState);
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::AttachGlobalState(INativeGlobalState^ thState)
+{
+    if( !thState )
+    {
+        throw gcnew ArgumentNullException("thState");
+    }
+
+    (*m_pspTriMesh)->AttachGlobalState(thState->GetNativeGlobalState());
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::DetachGlobalState(INativeGlobalState::StateType eType)
+{
+    (*m_pspTriMesh)->DetachGlobalState((GlobalState::StateType)eType);
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::DetachAllGlobalStates()
+{
+    (*m_pspTriMesh)->DetachAllGlobalStates();
 }
 //---------------------------------------------------------------------------
 int ManagedTriMesh::GetNativeReferences()
