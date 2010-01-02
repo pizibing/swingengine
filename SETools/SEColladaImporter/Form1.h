@@ -131,6 +131,8 @@ namespace SEColladaImporter {
 			{
 				g_ColladaImporterApp.OnOpenFile(acFilename);
 			}
+
+			Marshal::FreeHGlobal((IntPtr)acFilename);
 		}
 	private: 
 		System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) 
@@ -150,6 +152,8 @@ namespace SEColladaImporter {
 			{
 				g_ColladaImporterApp.OnSave(acFilename);
 			}
+
+			Marshal::FreeHGlobal((IntPtr)acFilename);
 		}
 };
 }
