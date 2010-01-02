@@ -37,9 +37,19 @@ ManagedEngine::ManagedEngine()
     std::string tempSEPath(System::SE_PATH);
     Main::Initialize();
 
-    // 添加application所需资源目录.
+    // 总是检查当前工作目录.
     System::SE_InsertDirectory(".");
+
+    // scene graph文件的路径.
     std::string tempDir;
+    tempDir = tempSEPath + std::string("/Data/seof");
+    System::SE_InsertDirectory(tempDir.c_str());
+
+    // texture image文件的路径.
+    tempDir = tempSEPath + std::string("/Data/seif");
+    System::SE_InsertDirectory(tempDir.c_str());
+
+    // shader program文件的路径.
     tempDir = tempSEPath + std::string("/Data/sesp/Cg");
     System::SE_InsertDirectory(tempDir.c_str());
 }

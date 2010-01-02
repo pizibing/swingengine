@@ -31,7 +31,15 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 public ref class ManagedSystem sealed
 {
 public:
+    enum class Mode
+    {
+        READ,
+        WRITE,
+        READ_WRITE
+    };
+    static String^ GetPath(String^ thFileName, Mode eMode);
 
+	static bool InsertDirectory(String^ thDirectory);
 };
 
 }}}

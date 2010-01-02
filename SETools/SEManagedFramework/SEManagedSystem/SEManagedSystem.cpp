@@ -21,9 +21,51 @@
 #include "SEManagedFrameworkPCH.h"
 #include "SEManagedSystem.h"
 
-using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
+using namespace System::Runtime::InteropServices;
 
 //---------------------------------------------------------------------------
+String^ ManagedSystem::GetPath(String^ thFileName, Mode eMode)
+{
+    if( !thFileName )
+    {
+        throw gcnew ArgumentNullException("thFileName");
+    }
 
+    // Native heap resource is allocated here.
+    IntPtr pFileName = Marshal::StringToHGlobalAnsi(thFileName);
+
+    using Swing::System;  // Avoid namespace conflict.
+    const char* acPath = System::SE_GetPath((const char*)(void*)pFileName, 
+        (int)eMode);
+
+    // We've done with the native resource allocated by Marshal, free it.
+    Marshal::FreeHGlobal(pFileName);
+
+    if( !acPath )
+    {
+        return nullptr;
+    }
+
+    return gcnew String(acPath);
+}
+//---------------------------------------------------------------------------
+bool ManagedSystem::InsertDirectory(String^ thDirectory)
+{
+    if( !thDirectory )
+    {
+        throw gcnew ArgumentNullException("thDirectory");
+    }
+
+    // Native heap resource is allocated here.
+    IntPtr pDirectory = Marshal::StringToHGlobalAnsi(thDirectory);
+
+    using Swing::System;  // Avoid namespace conflict.
+    bool bRes = System::SE_InsertDirectory((const char*)(void*)pDirectory);
+
+    // We've done with the native resource allocated by Marshal, free it.
+    Marshal::FreeHGlobal(pDirectory);
+
+    return bRes;
+}
 //---------------------------------------------------------------------------
