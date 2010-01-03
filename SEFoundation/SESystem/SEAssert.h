@@ -70,6 +70,12 @@ catch(...) \
 #define SE_ASSERT(expr) \
 if( !(expr) ) \
 { \
+    FILE* pFile = System::SE_Fopen("Assert.txt", "at"); \
+    System::SE_Fprintf(pFile, "SwingEngine assert:\n"); \
+    System::SE_Fprintf(pFile, "File: %s\n", __FILE__); \
+    System::SE_Fprintf(pFile, "Line: %d\n", __LINE__); \
+    System::SE_Fprintf(pFile, "Function: %s\n", __FUNCTION__); \
+    System::SE_Fclose(pFile); \
     SE_SAFEBREAKPOINT; \
     assert(expr); \
 }

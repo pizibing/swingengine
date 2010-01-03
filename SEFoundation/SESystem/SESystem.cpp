@@ -869,6 +869,8 @@ unsigned int System::SE_MakeRGBA(unsigned char ucR, unsigned char ucG,
 //----------------------------------------------------------------------------
 FILE* System::SE_Fopen(const char* pFileName, const char* pMode)
 {
+    // Do not use SE_ASSERT macro in this function.
+
 #ifdef SE_USING_VC80
     FILE* pFile;
     errno_t uiError = fopen_s(&pFile, pFileName, pMode);
@@ -887,6 +889,8 @@ FILE* System::SE_Fopen(const char* pFileName, const char* pMode)
 //----------------------------------------------------------------------------
 int System::SE_Fprintf(FILE* pFile, const char* pFormat, ...)
 {
+    // Do not use SE_ASSERT macro in this function.
+
     if( !pFile || !pFormat )
     {
         return -1;
@@ -907,6 +911,8 @@ int System::SE_Fprintf(FILE* pFile, const char* pFormat, ...)
 //----------------------------------------------------------------------------
 int System::SE_Fclose(FILE* pFile)
 {
+    // Do not use SE_ASSERT macro in this function.
+
     return fclose(pFile);
 }
 //----------------------------------------------------------------------------
