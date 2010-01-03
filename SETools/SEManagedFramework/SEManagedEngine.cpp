@@ -92,7 +92,8 @@ void ManagedEngine::InitializeShaderProgramCatalog(
     }
 
     if( !VertexProgramCatalog::GetActive() || 
-        !PixelProgramCatalog::GetActive() )
+        !PixelProgramCatalog::GetActive() || 
+        !DX9ProgramInterfaceCatalog::GetActive() )
     {
         throw gcnew NullReferenceException(
             "Initializing shader program catalog");
@@ -101,6 +102,8 @@ void ManagedEngine::InitializeShaderProgramCatalog(
     Renderer* pRenderer = thRenderer->GetNativeRenderer();
     VertexProgramCatalog::GetActive()->SetRenderer(pRenderer);
     PixelProgramCatalog::GetActive()->SetRenderer(pRenderer);
+    DX9ProgramInterfaceCatalog::GetActive()->SetRenderer(
+        (DX9Renderer*)pRenderer);
 }
 //---------------------------------------------------------------------------
 void ManagedEngine::TerminateShaderProgramCatalog()
@@ -111,7 +114,8 @@ void ManagedEngine::TerminateShaderProgramCatalog()
     }
 
     if( !VertexProgramCatalog::GetActive() || 
-        !PixelProgramCatalog::GetActive() )
+        !PixelProgramCatalog::GetActive() || 
+        !DX9ProgramInterfaceCatalog::GetActive() )
     {
         throw gcnew NullReferenceException(
             "Terminating shader program catalog");
@@ -119,5 +123,6 @@ void ManagedEngine::TerminateShaderProgramCatalog()
 
     VertexProgramCatalog::GetActive()->SetRenderer(0);
     PixelProgramCatalog::GetActive()->SetRenderer(0);
+    DX9ProgramInterfaceCatalog::GetActive()->SetRenderer(0);
 }
 //---------------------------------------------------------------------------
