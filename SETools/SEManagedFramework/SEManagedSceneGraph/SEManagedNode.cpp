@@ -32,6 +32,12 @@ ManagedNode::ManagedNode()
     (*m_pspNode) = SE_NEW Node;
 }
 //---------------------------------------------------------------------------
+ManagedNode::ManagedNode(Node* pNode)
+{
+    m_pspNode = SE_NEW NodePtr;
+    (*m_pspNode) = pNode;
+}
+//---------------------------------------------------------------------------
 ManagedNode::~ManagedNode()
 {
     SE_DELETE m_pspNode;

@@ -57,6 +57,7 @@
 
 // Managed Object System
 #include "SEINativeObject.h"
+#include "SEManagedStream.h"
 
 // Managed System
 #include "SEManagedSystem.h"

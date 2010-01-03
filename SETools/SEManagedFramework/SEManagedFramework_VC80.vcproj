@@ -345,6 +345,14 @@
 				RelativePath=".\SEManagedObjectSystem\SEINativeObject.h"
 				>
 			</File>
+			<File
+				RelativePath=".\SEManagedObjectSystem\SEManagedStream.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedObjectSystem\SEManagedStream.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="SEManagedSystem"

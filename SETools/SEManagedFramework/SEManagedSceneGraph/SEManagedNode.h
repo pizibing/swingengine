@@ -65,6 +65,9 @@ public:
     virtual int GetNativeReferences(void);
 
 internal:
+    [CLSCompliant(false)]
+    ManagedNode(Node* pNode);
+
     // Implement INativeSpatial interface.
     [CLSCompliant(false)]
     virtual Spatial* GetNativeSpatial(void) = INativeSpatial::GetNativeSpatial;
