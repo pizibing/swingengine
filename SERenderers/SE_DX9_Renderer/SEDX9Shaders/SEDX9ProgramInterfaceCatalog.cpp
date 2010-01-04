@@ -27,7 +27,8 @@ using namespace Swing;
 DX9ProgramInterfaceCatalog* DX9ProgramInterfaceCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
-DX9ProgramInterfaceCatalog::DX9ProgramInterfaceCatalog(const std::string& rName)
+DX9ProgramInterfaceCatalog::DX9ProgramInterfaceCatalog(
+    const std::string& rName)
     :
     m_Name(rName),
     m_Entry(PROGRAM_MAP_SIZE)
@@ -114,8 +115,9 @@ DX9ProgramInterface* DX9ProgramInterfaceCatalog::Find(CGprogram hCgProgram,
     }
 
     // 在磁盘中查找
-    DX9ProgramInterface* pProgramInterface = DX9ProgramInterface::Load(hCgProgram, 
-        m_pRenderer->GetCgContext(), rPInterfaceName);
+    SE_ASSERT( m_pRenderer );
+    DX9ProgramInterface* pProgramInterface = DX9ProgramInterface::Load(
+        hCgProgram, m_pRenderer->GetCgContext(), rPInterfaceName);
     if( pProgramInterface )
     {
         // 该资源存在,且已经在Load后被加入资源目录,不用再次调用Insert函数
