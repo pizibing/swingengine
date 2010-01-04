@@ -117,6 +117,7 @@ OpenGLProgramInterface* OpenGLProgramInterfaceCatalog::Find(
     }
 
     // ÔÚ´ÅÅÌÖÐ²éÕÒ
+    SE_ASSERT( m_pRenderer );
     OpenGLProgramInterface* pProgramInterface = 
         OpenGLProgramInterface::Load(hCgProgram, m_pRenderer->GetCgContext(), 
         rPInterfaceName);
