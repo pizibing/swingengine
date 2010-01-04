@@ -21,6 +21,8 @@
 #include "SEManagedFrameworkPCH.h"
 #include "SEManagedObjectFactory.h"
 #include "SEManagedWireframeState.h"
+#include "SEManagedMaterialState.h"
+#include "SEManagedAlphaState.h"
 
 using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
@@ -39,6 +41,14 @@ INativeGlobalState^ ManagedObjectFactory::CreateGlobalState(
     {
     case GlobalState::WIREFRAME:
         return gcnew ManagedWireframeState((WireframeState*)pState);
+        break;
+
+    case GlobalState::MATERIAL:
+        return gcnew ManagedMaterialState((MaterialState*)pState);
+        break;
+
+    case GlobalState::ALPHA:
+        return gcnew ManagedAlphaState((AlphaState*)pState);
         break;
 
     default:

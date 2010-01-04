@@ -36,10 +36,12 @@
 #include "SEManagedQuaternion.h"
 
 // Managed Rendering
+#include "SEINativeGlobalState.h"
 #include "SEManagedCamera.h"
 #include "SEManagedRenderer.h"
-#include "SEINativeGlobalState.h"
 #include "SEManagedWireframeState.h"
+#include "SEManagedMaterialState.h"
+#include "SEManagedAlphaState.h"
 
 // Managed Scene Graph
 #include "SEINativeSpatial.h"

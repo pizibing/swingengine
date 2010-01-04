@@ -190,11 +190,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEManagedRendering\SEManagedAlphaState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedRendering\SEManagedAlphaState.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEManagedRendering\SEManagedCamera.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\SEManagedRendering\SEManagedCamera.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedRendering\SEManagedMaterialState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedRendering\SEManagedMaterialState.h"
 				>
 			</File>
 			<File
