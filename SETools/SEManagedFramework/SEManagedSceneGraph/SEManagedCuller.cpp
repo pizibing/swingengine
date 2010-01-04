@@ -40,7 +40,7 @@ void ManagedCuller::SetCamera(ManagedCamera^ thCamera)
 {
     m_thCamera = thCamera;
 
-    SE_NULL_REFERENCE_CHECK(m_pCuller, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pCuller, "Native pointer is null");
     if( thCamera )
     {
         m_pCuller->SetCamera(thCamera->GetNativeCamera());
@@ -59,7 +59,7 @@ ManagedCamera^ ManagedCuller::GetCamera()
 void ManagedCuller::ComputeUnculledSet(INativeSpatial^ thSpatial)
 {
     SE_NULL_ARGUMENT_CHECK(thSpatial, "thSpatial");
-    SE_NULL_REFERENCE_CHECK(m_pCuller, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pCuller, "Native pointer is null");
     m_pCuller->ComputeUnculledSet(thSpatial->GetNativeSpatial());
 }
 //---------------------------------------------------------------------------

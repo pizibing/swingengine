@@ -39,11 +39,15 @@ ManagedDefaultShaderEffect::~ManagedDefaultShaderEffect()
 //---------------------------------------------------------------------------
 int ManagedDefaultShaderEffect::GetNativeReferences()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 
+        "Native pointer is null");
     return (*m_pspDefaultShaderEffect)->GetReferences();
 }
 //---------------------------------------------------------------------------
 Effect* ManagedDefaultShaderEffect::GetNativeEffect()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 
+        "Native pointer is null");
     return (Effect*)(*m_pspDefaultShaderEffect);
 }
 //---------------------------------------------------------------------------

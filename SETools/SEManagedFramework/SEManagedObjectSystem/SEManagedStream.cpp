@@ -38,30 +38,37 @@ ManagedStream::~ManagedStream()
 //---------------------------------------------------------------------------
 bool ManagedStream::InsertNode(ManagedNode^ thNode)
 {
+    SE_NULL_ARGUMENT_CHECK(thNode, "thNode");
     Swing::Object* pObject = thNode->GetNativeNode();
 
+    SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
     return m_pStream->Insert(pObject);
 }
 //---------------------------------------------------------------------------
 bool ManagedStream::RemoveNode(ManagedNode^ thNode)
 {
+    SE_NULL_ARGUMENT_CHECK(thNode, "thNode");
     Swing::Object* pObject = thNode->GetNativeNode();
 
+    SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
     return m_pStream->Remove(pObject);
 }
 //---------------------------------------------------------------------------
 void ManagedStream::RemoveAll()
 {
+    SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
     m_pStream->RemoveAll();
 }
 //---------------------------------------------------------------------------
 int ManagedStream::GetObjectCount()
 {
+    SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
     return m_pStream->GetObjectCount();
 }
 //---------------------------------------------------------------------------
 ManagedNode^ ManagedStream::GetNodeAt(int i)
 {
+    SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
     Swing::Node* pNode = DynamicCast<Swing::Node>(m_pStream->GetObjectAt(i));
     if( !pNode )
     {
@@ -73,21 +80,21 @@ ManagedNode^ ManagedStream::GetNodeAt(int i)
 //---------------------------------------------------------------------------
 bool ManagedStream::IsTopLevelNode(ManagedNode^ thNode)
 {
+    SE_NULL_ARGUMENT_CHECK(thNode, "thNode");
     Swing::Object* pObject = thNode->GetNativeNode();
 
+    SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
     return m_pStream->IsTopLevel(pObject);
 }
 //---------------------------------------------------------------------------
 bool ManagedStream::Load(String^ thFileName)
 {
-    if( !thFileName )
-    {
-        throw gcnew ArgumentNullException("thFileName");
-    }
+    SE_NULL_ARGUMENT_CHECK(thFileName, "thFileName");
 
     // Native heap resource is allocated here.
     IntPtr pFileName = Marshal::StringToHGlobalAnsi(thFileName);
 
+    SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
     bool bRes = m_pStream->Load((const char*)(void*)pFileName);
 
     // We've done with the native resource allocated by Marshal, free it.
@@ -98,14 +105,12 @@ bool ManagedStream::Load(String^ thFileName)
 //---------------------------------------------------------------------------
 bool ManagedStream::Save(String^ thFileName)
 {
-    if( !thFileName )
-    {
-        throw gcnew ArgumentNullException("thFileName");
-    }
+    SE_NULL_ARGUMENT_CHECK(thFileName, "thFileName");
 
     // Native heap resource is allocated here.
     IntPtr pFileName = Marshal::StringToHGlobalAnsi(thFileName);
 
+    SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
     bool bRes = m_pStream->Save((const char*)(void*)pFileName);
 
     // We've done with the native resource allocated by Marshal, free it.

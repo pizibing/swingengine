@@ -40,7 +40,7 @@ ManagedStandardMesh::~ManagedStandardMesh()
 ManagedTriMesh^ ManagedStandardMesh::Box(float fXExtent, float fYExtent, 
     float fZExtent)
 {
-    SE_NULL_REFERENCE_CHECK(m_pStandardMesh, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pStandardMesh, "Native pointer is null");
     TriMesh* pTriMesh = m_pStandardMesh->Box(fXExtent, fYExtent, fZExtent);
 
     return gcnew ManagedTriMesh(pTriMesh);

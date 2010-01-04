@@ -46,6 +46,7 @@ void ManagedRenderer::SetCamera(ManagedCamera^ thCamera)
 {
     m_thCamera = thCamera;
 
+    SE_NULL_REFERENCE_CHECK(m_pRenderer, "Native pointer is null");
     if( thCamera )
     {
         m_pRenderer->SetCamera(thCamera->GetNativeCamera());
@@ -63,21 +64,20 @@ ManagedCamera^ ManagedRenderer::GetCamera()
 //---------------------------------------------------------------------------
 void ManagedRenderer::SetClearColor(ManagedColorRGBA^ thClearColor)
 {
-#if defined(_DEBUG)
-    if( !thClearColor )
-    {
-        throw gcnew ArgumentNullException("thClearColor");
-    }
-#endif
+    SE_NULL_ARGUMENT_CHECK(thClearColor, "thClearColor");
 
     ColorRGBA tempColor;
     thClearColor->ToColorRGBA(tempColor);
+
+    SE_NULL_REFERENCE_CHECK(m_pRenderer, "Native pointer is null");
     m_pRenderer->SetClearColor(tempColor);
 }
 //---------------------------------------------------------------------------
 ManagedColorRGBA^ ManagedRenderer::GetClearColor()
 {
     ManagedColorRGBA^ thClearColor = gcnew ManagedColorRGBA;
+
+    SE_NULL_REFERENCE_CHECK(m_pRenderer, "Native pointer is null");
     thClearColor->FromColorRGBA(m_pRenderer->GetClearColor());
 
     return thClearColor;
@@ -85,48 +85,50 @@ ManagedColorRGBA^ ManagedRenderer::GetClearColor()
 //---------------------------------------------------------------------------
 bool ManagedRenderer::BeginScene()
 {
+    SE_NULL_REFERENCE_CHECK(m_pRenderer, "Native pointer is null");
     return m_pRenderer->BeginScene();
 }
 //---------------------------------------------------------------------------
 void ManagedRenderer::EndScene()
 {
+    SE_NULL_REFERENCE_CHECK(m_pRenderer, "Native pointer is null");
     m_pRenderer->EndScene();
 }
 //---------------------------------------------------------------------------
 void ManagedRenderer::DrawSceneFromCuller(ManagedCuller^ thCuller)
 {
-#if defined(_DEBUG)
-    if( !thCuller )
-    {
-        throw gcnew ArgumentNullException("thCuller");
-    }
-#endif
-
+    SE_NULL_ARGUMENT_CHECK(thCuller, "thCuller");
+    SE_NULL_REFERENCE_CHECK(m_pRenderer, "Native pointer is null");
     m_pRenderer->DrawScene(thCuller->GetNativeCuller()->GetVisibleSet());
 }
 //---------------------------------------------------------------------------
 void ManagedRenderer::ClearBackBuffer()
 {
+    SE_NULL_REFERENCE_CHECK(m_pRenderer, "Native pointer is null");
     m_pRenderer->ClearBackBuffer();
 }
 //---------------------------------------------------------------------------
 void ManagedRenderer::ClearZBuffer()
 {
+    SE_NULL_REFERENCE_CHECK(m_pRenderer, "Native pointer is null");
     m_pRenderer->ClearZBuffer();
 }
 //---------------------------------------------------------------------------
 void ManagedRenderer::ClearStencilBuffer()
 {
+    SE_NULL_REFERENCE_CHECK(m_pRenderer, "Native pointer is null");
     m_pRenderer->ClearStencilBuffer();
 }
 //---------------------------------------------------------------------------
 void ManagedRenderer::ClearBuffers()
 {
+    SE_NULL_REFERENCE_CHECK(m_pRenderer, "Native pointer is null");
     m_pRenderer->ClearBuffers();
 }
 //---------------------------------------------------------------------------
 void ManagedRenderer::DisplayBackBuffer()
 {
+    SE_NULL_REFERENCE_CHECK(m_pRenderer, "Native pointer is null");
     m_pRenderer->DisplayBackBuffer();
 }
 //---------------------------------------------------------------------------

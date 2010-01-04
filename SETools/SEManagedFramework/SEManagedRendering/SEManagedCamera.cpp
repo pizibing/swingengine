@@ -47,34 +47,53 @@ void ManagedCamera::SetFrame(ManagedVector3f^ thLocation,
     ManagedVector3f^ thRVector, ManagedVector3f^ thUVector, 
     ManagedVector3f^ thDVector)
 {
+    SE_NULL_ARGUMENT_CHECK(thLocation, "thLocation");
+    SE_NULL_ARGUMENT_CHECK(thRVector, "thRVector");
+    SE_NULL_ARGUMENT_CHECK(thUVector, "thUVector");
+    SE_NULL_ARGUMENT_CHECK(thDVector, "thDVector");
+
     Vector3f vec3fLoc, vec3fR, vec3fU, vec3fD;
     thLocation->ToVector3f(vec3fLoc);
     thRVector->ToVector3f(vec3fR);
     thUVector->ToVector3f(vec3fU);
     thDVector->ToVector3f(vec3fD);
+
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
     (*m_pspCamera)->SetFrame(vec3fLoc, vec3fR, vec3fU, vec3fD);
 }
 //---------------------------------------------------------------------------
 void ManagedCamera::SetLocation(ManagedVector3f^ thLocation)
 {
+    SE_NULL_ARGUMENT_CHECK(thLocation, "thLocation");
+
     Vector3f vec3fLoc;
     thLocation->ToVector3f(vec3fLoc);
+
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
     (*m_pspCamera)->SetLocation(vec3fLoc);
 }
 //---------------------------------------------------------------------------
 void ManagedCamera::SetAxes(ManagedVector3f^ thRVector, 
     ManagedVector3f^ thUVector, ManagedVector3f^ thDVector)
 {
+    SE_NULL_ARGUMENT_CHECK(thRVector, "thRVector");
+    SE_NULL_ARGUMENT_CHECK(thUVector, "thUVector");
+    SE_NULL_ARGUMENT_CHECK(thDVector, "thDVector");
+
     Vector3f vec3fR, vec3fU, vec3fD;
     thRVector->ToVector3f(vec3fR);
     thUVector->ToVector3f(vec3fU);
     thDVector->ToVector3f(vec3fD);
+
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
     (*m_pspCamera)->SetAxes(vec3fR, vec3fU, vec3fD);
 }
 //---------------------------------------------------------------------------
 ManagedVector3f^ ManagedCamera::GetLocation()
 {
     ManagedVector3f^ thRes = gcnew ManagedVector3f;
+
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
     thRes->FromVector3f((*m_pspCamera)->GetLocation());
 
     return thRes;
@@ -83,6 +102,8 @@ ManagedVector3f^ ManagedCamera::GetLocation()
 ManagedVector3f^ ManagedCamera::GetRVector()
 {
     ManagedVector3f^ thRes = gcnew ManagedVector3f;
+
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
     thRes->FromVector3f((*m_pspCamera)->GetRVector());
 
     return thRes;
@@ -91,6 +112,8 @@ ManagedVector3f^ ManagedCamera::GetRVector()
 ManagedVector3f^ ManagedCamera::GetUVector()
 {
     ManagedVector3f^ thRes = gcnew ManagedVector3f;
+
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
     thRes->FromVector3f((*m_pspCamera)->GetUVector());
 
     return thRes;
@@ -99,6 +122,8 @@ ManagedVector3f^ ManagedCamera::GetUVector()
 ManagedVector3f^ ManagedCamera::GetDVector()
 {
     ManagedVector3f^ thRes = gcnew ManagedVector3f;
+
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
     thRes->FromVector3f((*m_pspCamera)->GetDVector());
 
     return thRes;
@@ -106,12 +131,15 @@ ManagedVector3f^ ManagedCamera::GetDVector()
 //---------------------------------------------------------------------------
 Camera* ManagedCamera::GetNativeCamera()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
+
     return (Camera*)(*m_pspCamera);
 }
 //---------------------------------------------------------------------------
 void ManagedCamera::SetFrustum(float fRMin, float fRMax, float fUMin, 
     float fUMax, float fDMin, float fDMax)
 {
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
     (*m_pspCamera)->SetFrustum(fRMin, fRMax, fUMin, fUMax, fDMin, fDMax);
 }
 //---------------------------------------------------------------------------
@@ -124,7 +152,10 @@ void ManagedCamera::GetFrustum(float% trfRMin, float% trfRMax, float% trfUMin,
     float fUMax = trfUMax;
     float fDMin = trfDMin;
     float fDMax = trfDMax;
+
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
     (*m_pspCamera)->GetFrustum(fRMin, fRMax, fUMin, fUMax, fDMin, fDMax);
+
     trfRMin = fRMin;
     trfRMax = fRMax;
     trfUMin = fUMin;
@@ -135,6 +166,7 @@ void ManagedCamera::GetFrustum(float% trfRMin, float% trfRMax, float% trfUMin,
 //---------------------------------------------------------------------------
 int ManagedCamera::GetNativeReferences()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
     return (*m_pspCamera)->GetReferences();
 }
 //---------------------------------------------------------------------------

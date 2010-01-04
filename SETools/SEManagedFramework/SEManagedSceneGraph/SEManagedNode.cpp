@@ -46,68 +46,65 @@ ManagedNode::~ManagedNode()
 //---------------------------------------------------------------------------
 int ManagedNode::GetCount()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     return (*m_pspNode)->GetCount();
 }
 //---------------------------------------------------------------------------
 int ManagedNode::AttachChild(INativeSpatial^ thSpatial)
 {
     SE_NULL_ARGUMENT_CHECK(thSpatial, "thSpatial");
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
-
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     return (*m_pspNode)->AttachChild(thSpatial->GetNativeSpatial());
 }
 //---------------------------------------------------------------------------
 int ManagedNode::DetachChild(INativeSpatial^ thSpatial)
 {
     SE_NULL_ARGUMENT_CHECK(thSpatial, "thSpatial");
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
-
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     return (*m_pspNode)->DetachChild(thSpatial->GetNativeSpatial());
 }
 //---------------------------------------------------------------------------
 void ManagedNode::UpdateGS(double dAppTime)
 {
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     (*m_pspNode)->UpdateGS(dAppTime);
 }
 //---------------------------------------------------------------------------
 void ManagedNode::UpdateRS()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     (*m_pspNode)->UpdateRS();
 }
 //---------------------------------------------------------------------------
 void ManagedNode::AttachEffect(INativeEffect^ thEffect)
 {
     SE_NULL_ARGUMENT_CHECK(thEffect, "thEffect");
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     (*m_pspNode)->AttachEffect(thEffect->GetNativeEffect());
 }
 //---------------------------------------------------------------------------
 void ManagedNode::DetachEffect(INativeEffect^ thEffect)
 {
     SE_NULL_ARGUMENT_CHECK(thEffect, "thEffect");
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     (*m_pspNode)->DetachEffect(thEffect->GetNativeEffect());
 }
 //---------------------------------------------------------------------------
 void ManagedNode::DetachAllEffects()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     (*m_pspNode)->DetachAllEffects();
 }
 //---------------------------------------------------------------------------
 int ManagedNode::GetGlobalStateCount()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
-
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     return (*m_pspNode)->GetGlobalStateCount();
 }
 //---------------------------------------------------------------------------
 INativeGlobalState^ ManagedNode::GetGlobalState(int i)
 {
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     GlobalState* pState = (*m_pspNode)->GetGlobalState(i);
 
     return ManagedObjectFactory::CreateGlobalState(pState);
@@ -116,7 +113,7 @@ INativeGlobalState^ ManagedNode::GetGlobalState(int i)
 INativeGlobalState^ ManagedNode::GetGlobalState(
     INativeGlobalState::StateType eType)
 {
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     GlobalState* pState = (*m_pspNode)->GetGlobalState(
         (GlobalState::StateType)eType);
 
@@ -126,38 +123,37 @@ INativeGlobalState^ ManagedNode::GetGlobalState(
 void ManagedNode::AttachGlobalState(INativeGlobalState^ thState)
 {
     SE_NULL_ARGUMENT_CHECK(thState, "thState");
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
-
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     (*m_pspNode)->AttachGlobalState(thState->GetNativeGlobalState());
 }
 //---------------------------------------------------------------------------
 void ManagedNode::DetachGlobalState(INativeGlobalState::StateType eType)
 {
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     (*m_pspNode)->DetachGlobalState((GlobalState::StateType)eType);
 }
 //---------------------------------------------------------------------------
 void ManagedNode::DetachAllGlobalStates()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     (*m_pspNode)->DetachAllGlobalStates();
 }
 //---------------------------------------------------------------------------
 int ManagedNode::GetNativeReferences()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     return (*m_pspNode)->GetReferences();
 }
 //---------------------------------------------------------------------------
 Spatial* ManagedNode::GetNativeSpatial()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     return (Spatial*)(*m_pspNode);
 }
 //---------------------------------------------------------------------------
 Node* ManagedNode::GetNativeNode()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native resource disposed");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     return (Node*)(*m_pspNode);
 }
 //---------------------------------------------------------------------------

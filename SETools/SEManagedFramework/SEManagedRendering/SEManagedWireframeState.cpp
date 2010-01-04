@@ -45,27 +45,32 @@ ManagedWireframeState::~ManagedWireframeState()
 //---------------------------------------------------------------------------
 bool ManagedWireframeState::Enabled::get()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspWireframeState, "Native pointer is null");
     return (*m_pspWireframeState)->Enabled;
 }
 //---------------------------------------------------------------------------
 void ManagedWireframeState::Enabled::set(bool bValue)
 {
+    SE_NULL_REFERENCE_CHECK(m_pspWireframeState, "Native pointer is null");
     (*m_pspWireframeState)->Enabled = bValue;
 }
 //---------------------------------------------------------------------------
 INativeGlobalState::StateType ManagedWireframeState::GetStateType()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspWireframeState, "Native pointer is null");
     return (INativeGlobalState::StateType)(
         *m_pspWireframeState)->GetStateType();
 }
 //---------------------------------------------------------------------------
 int ManagedWireframeState::GetNativeReferences()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspWireframeState, "Native pointer is null");
     return (*m_pspWireframeState)->GetReferences();
 }
 //---------------------------------------------------------------------------
 GlobalState* ManagedWireframeState::GetNativeGlobalState()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspWireframeState, "Native pointer is null");
     return (GlobalState*)(*m_pspWireframeState);
 }
 //---------------------------------------------------------------------------
