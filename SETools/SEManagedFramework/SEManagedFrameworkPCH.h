@@ -62,6 +62,7 @@
 // Managed System
 #include "SEManagedSystem.h"
 
+#include "SEManagedMCR.h"
 #include "SEManagedEngine.h"
 #include "SEManagedObjectFactory.h"
 

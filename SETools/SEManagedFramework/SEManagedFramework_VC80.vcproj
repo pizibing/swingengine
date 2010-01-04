@@ -403,6 +403,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\SEManagedMCR.h"
+			>
+		</File>
+		<File
 			RelativePath=".\SEManagedObjectFactory.cpp"
 			>
 		</File>
