@@ -38,21 +38,25 @@ ManagedAttributes::~ManagedAttributes()
 //---------------------------------------------------------------------------
 void ManagedAttributes::SetPositionChannels(int iPChannels)
 {
+    SE_NULL_REFERENCE_CHECK(m_pAttributes, "Native resource disposed");
     m_pAttributes->SetPositionChannels(iPChannels);
 }
 //---------------------------------------------------------------------------
 void ManagedAttributes::SetNormalChannels(int iNChannels)
 {
+    SE_NULL_REFERENCE_CHECK(m_pAttributes, "Native resource disposed");
     m_pAttributes->SetNormalChannels(iNChannels);
 }
 //---------------------------------------------------------------------------
 void ManagedAttributes::SetColorChannels(int iUnit, int iCChannels)
 {
+    SE_NULL_REFERENCE_CHECK(m_pAttributes, "Native resource disposed");
     m_pAttributes->SetColorChannels(iUnit, iCChannels);
 }
 //---------------------------------------------------------------------------
 void ManagedAttributes::SetTCoordChannels(int iUnit, int iTChannels)
 {
+    SE_NULL_REFERENCE_CHECK(m_pAttributes, "Native resource disposed");
     m_pAttributes->SetTCoordChannels(iUnit, iTChannels);
 }
 //---------------------------------------------------------------------------

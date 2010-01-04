@@ -40,6 +40,7 @@ void ManagedCuller::SetCamera(ManagedCamera^ thCamera)
 {
     m_thCamera = thCamera;
 
+    SE_NULL_REFERENCE_CHECK(m_pCuller, "Native resource disposed");
     if( thCamera )
     {
         m_pCuller->SetCamera(thCamera->GetNativeCamera());
@@ -57,11 +58,8 @@ ManagedCamera^ ManagedCuller::GetCamera()
 //---------------------------------------------------------------------------
 void ManagedCuller::ComputeUnculledSet(INativeSpatial^ thSpatial)
 {
-    if( !thSpatial )
-    {
-        throw gcnew ArgumentNullException("thSpatial");
-    }
-
+    SE_NULL_ARGUMENT_CHECK(thSpatial, "thSpatial");
+    SE_NULL_REFERENCE_CHECK(m_pCuller, "Native resource disposed");
     m_pCuller->ComputeUnculledSet(thSpatial->GetNativeSpatial());
 }
 //---------------------------------------------------------------------------

@@ -27,10 +27,7 @@ using namespace System::Runtime::InteropServices;
 //---------------------------------------------------------------------------
 String^ ManagedSystem::GetPath(String^ thFileName, Mode eMode)
 {
-    if( !thFileName )
-    {
-        throw gcnew ArgumentNullException("thFileName");
-    }
+    SE_NULL_ARGUMENT_CHECK(thFileName, "thFileName");
 
     // Native heap resource is allocated here.
     IntPtr pFileName = Marshal::StringToHGlobalAnsi(thFileName);
@@ -52,10 +49,7 @@ String^ ManagedSystem::GetPath(String^ thFileName, Mode eMode)
 //---------------------------------------------------------------------------
 bool ManagedSystem::InsertDirectory(String^ thDirectory)
 {
-    if( !thDirectory )
-    {
-        throw gcnew ArgumentNullException("thDirectory");
-    }
+    SE_NULL_ARGUMENT_CHECK(thDirectory, "thDirectory");
 
     // Native heap resource is allocated here.
     IntPtr pDirectory = Marshal::StringToHGlobalAnsi(thDirectory);

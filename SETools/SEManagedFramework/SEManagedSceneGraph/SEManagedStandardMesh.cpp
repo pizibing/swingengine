@@ -27,6 +27,7 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedStandardMesh::ManagedStandardMesh(ManagedAttributes^ thAttr)
 {
+    SE_NULL_ARGUMENT_CHECK(thAttr, "thAttr");
     m_pStandardMesh = SE_NEW StandardMesh(*thAttr->GetNativeAttributes());
 }
 //---------------------------------------------------------------------------
@@ -39,6 +40,7 @@ ManagedStandardMesh::~ManagedStandardMesh()
 ManagedTriMesh^ ManagedStandardMesh::Box(float fXExtent, float fYExtent, 
     float fZExtent)
 {
+    SE_NULL_REFERENCE_CHECK(m_pStandardMesh, "Native resource disposed");
     TriMesh* pTriMesh = m_pStandardMesh->Box(fXExtent, fYExtent, fZExtent);
 
     return gcnew ManagedTriMesh(pTriMesh);

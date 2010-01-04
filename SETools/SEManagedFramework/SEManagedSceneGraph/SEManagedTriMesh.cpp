@@ -36,11 +36,6 @@ ManagedTriMesh::ManagedTriMesh()
 //---------------------------------------------------------------------------
 ManagedTriMesh::ManagedTriMesh(TriMesh* pTriMesh)
 {
-    if( !pTriMesh )
-    {
-        throw gcnew ArgumentNullException("pTriMesh");
-    }
-
     m_pspTriMesh = SE_NEW TriMeshPtr;
     (*m_pspTriMesh) = pTriMesh;
 }
@@ -53,46 +48,46 @@ ManagedTriMesh::~ManagedTriMesh()
 //---------------------------------------------------------------------------
 void ManagedTriMesh::UpdateGS(double dAppTime)
 {
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native resource disposed");
     (*m_pspTriMesh)->UpdateGS(dAppTime);
 }
 //---------------------------------------------------------------------------
 void ManagedTriMesh::UpdateRS()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native resource disposed");
     (*m_pspTriMesh)->UpdateRS();
 }
 //---------------------------------------------------------------------------
 void ManagedTriMesh::AttachEffect(INativeEffect^ thEffect)
 {
-    if( !thEffect )
-    {
-        throw gcnew ArgumentNullException("thEffect");
-    }
-
+    SE_NULL_ARGUMENT_CHECK(thEffect, "thEffect");
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native resource disposed");
     (*m_pspTriMesh)->AttachEffect(thEffect->GetNativeEffect());
 }
 //---------------------------------------------------------------------------
 void ManagedTriMesh::DetachEffect(INativeEffect^ thEffect)
 {
-    if( !thEffect )
-    {
-        throw gcnew ArgumentNullException("thEffect");
-    }
-
+    SE_NULL_ARGUMENT_CHECK(thEffect, "thEffect");
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native resource disposed");
     (*m_pspTriMesh)->DetachEffect(thEffect->GetNativeEffect());
 }
 //---------------------------------------------------------------------------
 void ManagedTriMesh::DetachAllEffects()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native resource disposed");
     (*m_pspTriMesh)->DetachAllEffects();
 }
 //---------------------------------------------------------------------------
 int ManagedTriMesh::GetGlobalStateCount()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native resource disposed");
+
     return (*m_pspTriMesh)->GetGlobalStateCount();
 }
 //---------------------------------------------------------------------------
 INativeGlobalState^ ManagedTriMesh::GetGlobalState(int i)
 {
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native resource disposed");
     GlobalState* pState = (*m_pspTriMesh)->GetGlobalState(i);
 
     return ManagedObjectFactory::CreateGlobalState(pState);
@@ -101,6 +96,7 @@ INativeGlobalState^ ManagedTriMesh::GetGlobalState(int i)
 INativeGlobalState^ ManagedTriMesh::GetGlobalState(
     INativeGlobalState::StateType eType)
 {
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native resource disposed");
     GlobalState* pState = (*m_pspTriMesh)->GetGlobalState(
         (GlobalState::StateType)eType);
 
@@ -109,36 +105,41 @@ INativeGlobalState^ ManagedTriMesh::GetGlobalState(
 //---------------------------------------------------------------------------
 void ManagedTriMesh::AttachGlobalState(INativeGlobalState^ thState)
 {
-    if( !thState )
-    {
-        throw gcnew ArgumentNullException("thState");
-    }
-
+    SE_NULL_ARGUMENT_CHECK(thState, "thState");
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native resource disposed");
     (*m_pspTriMesh)->AttachGlobalState(thState->GetNativeGlobalState());
 }
 //---------------------------------------------------------------------------
 void ManagedTriMesh::DetachGlobalState(INativeGlobalState::StateType eType)
 {
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native resource disposed");
     (*m_pspTriMesh)->DetachGlobalState((GlobalState::StateType)eType);
 }
 //---------------------------------------------------------------------------
 void ManagedTriMesh::DetachAllGlobalStates()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native resource disposed");
     (*m_pspTriMesh)->DetachAllGlobalStates();
 }
 //---------------------------------------------------------------------------
 int ManagedTriMesh::GetNativeReferences()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native resource disposed");
+
     return (*m_pspTriMesh)->GetReferences();
 }
 //---------------------------------------------------------------------------
 Spatial* ManagedTriMesh::GetNativeSpatial()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native resource disposed");
+
     return (Spatial*)(*m_pspTriMesh);
 }
 //---------------------------------------------------------------------------
 Geometry* ManagedTriMesh::GetNativeGeometry()
 {
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native resource disposed");
+
     return (Geometry*)(*m_pspTriMesh);
 }
 //---------------------------------------------------------------------------
