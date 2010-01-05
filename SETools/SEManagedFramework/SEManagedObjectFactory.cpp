@@ -25,6 +25,7 @@
 #include "SEManagedAlphaState.h"
 #include "SEManagedPolygonOffsetState.h"
 #include "SEManagedCullState.h"
+#include "SEManagedZBufferState.h"
 
 using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
@@ -59,6 +60,10 @@ INativeGlobalState^ ManagedObjectFactory::CreateGlobalState(
 
     case GlobalState::CULL:
         return gcnew ManagedCullState((CullState*)pState);
+        break;
+
+    case GlobalState::ZBUFFER:
+        return gcnew ManagedZBufferState((ZBufferState*)pState);
         break;
 
     default:

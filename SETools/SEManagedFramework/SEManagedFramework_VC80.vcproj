@@ -245,6 +245,14 @@
 				RelativePath=".\SEManagedRendering\SEManagedWireframeState.h"
 				>
 			</File>
+			<File
+				RelativePath=".\SEManagedRendering\SEManagedZBufferState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedRendering\SEManagedZBufferState.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="SEManagedMath"

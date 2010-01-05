@@ -44,6 +44,7 @@
 #include "SEManagedAlphaState.h"
 #include "SEManagedPolygonOffsetState.h"
 #include "SEManagedCullState.h"
+#include "SEManagedZBufferState.h"
 
 // Managed Scene Graph
 #include "SEINativeSpatial.h"
