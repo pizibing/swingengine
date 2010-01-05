@@ -42,6 +42,8 @@
 #include "SEManagedWireframeState.h"
 #include "SEManagedMaterialState.h"
 #include "SEManagedAlphaState.h"
+#include "SEManagedPolygonOffsetState.h"
+#include "SEManagedCullState.h"
 
 // Managed Scene Graph
 #include "SEINativeSpatial.h"

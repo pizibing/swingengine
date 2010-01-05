@@ -23,6 +23,8 @@
 #include "SEManagedWireframeState.h"
 #include "SEManagedMaterialState.h"
 #include "SEManagedAlphaState.h"
+#include "SEManagedPolygonOffsetState.h"
+#include "SEManagedCullState.h"
 
 using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
@@ -49,6 +51,14 @@ INativeGlobalState^ ManagedObjectFactory::CreateGlobalState(
 
     case GlobalState::ALPHA:
         return gcnew ManagedAlphaState((AlphaState*)pState);
+        break;
+
+    case GlobalState::POLYGONOFFSET:
+        return gcnew ManagedPolygonOffsetState((PolygonOffsetState*)pState);
+        break;
+
+    case GlobalState::CULL:
+        return gcnew ManagedCullState((CullState*)pState);
         break;
 
     default:

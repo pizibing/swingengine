@@ -206,11 +206,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEManagedRendering\SEManagedCullState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedRendering\SEManagedCullState.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEManagedRendering\SEManagedMaterialState.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\SEManagedRendering\SEManagedMaterialState.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedRendering\SEManagedPolygonOffsetState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedRendering\SEManagedPolygonOffsetState.h"
 				>
 			</File>
 			<File
