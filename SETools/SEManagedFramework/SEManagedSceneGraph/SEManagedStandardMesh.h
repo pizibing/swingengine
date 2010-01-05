@@ -37,7 +37,15 @@ public:
     ManagedStandardMesh(ManagedAttributes^ thAttr);
     ~ManagedStandardMesh(void);
 
+    ManagedTriMesh^ Rectangle(int iXSamples, int iYSamples, float fXExtent,
+        float fYExtent);
+    ManagedTriMesh^ Disk(int iShellSamples, int iRadialSamples, float fRadius);
     ManagedTriMesh^ Box(float fXExtent, float fYExtent, float fZExtent);
+    ManagedTriMesh^ Cylinder(int iAxisSamples, int iRadialSamples, 
+        float fRadius, float fHeight, bool bOpen);
+    ManagedTriMesh^ Sphere(int iZSamples, int iRadialSamples, float fRadius);
+    ManagedTriMesh^ Torus(int iCircleSamples, int iRadialSamples,
+        float fOuterRadius, float fInnerRadius);
 
 internal:
     [CLSCompliant(false)]

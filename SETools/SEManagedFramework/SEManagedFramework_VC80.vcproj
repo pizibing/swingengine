@@ -238,6 +238,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEManagedRendering\SEManagedStencilState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedRendering\SEManagedStencilState.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEManagedRendering\SEManagedWireframeState.cpp"
 				>
 			</File>

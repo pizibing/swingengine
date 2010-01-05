@@ -20,11 +20,13 @@
 
 #include "SEManagedFrameworkPCH.h"
 #include "SEManagedObjectFactory.h"
-#include "SEManagedWireframeState.h"
-#include "SEManagedMaterialState.h"
+
 #include "SEManagedAlphaState.h"
-#include "SEManagedPolygonOffsetState.h"
 #include "SEManagedCullState.h"
+#include "SEManagedMaterialState.h"
+#include "SEManagedPolygonOffsetState.h"
+#include "SEManagedStencilState.h"
+#include "SEManagedWireframeState.h"
 #include "SEManagedZBufferState.h"
 
 using namespace Swing;
@@ -42,24 +44,28 @@ INativeGlobalState^ ManagedObjectFactory::CreateGlobalState(
     GlobalState::StateType eType = pState->GetStateType();
     switch( eType )
     {
-    case GlobalState::WIREFRAME:
-        return gcnew ManagedWireframeState((WireframeState*)pState);
+    case GlobalState::ALPHA:
+        return gcnew ManagedAlphaState((AlphaState*)pState);
+        break;
+
+    case GlobalState::CULL:
+        return gcnew ManagedCullState((CullState*)pState);
         break;
 
     case GlobalState::MATERIAL:
         return gcnew ManagedMaterialState((MaterialState*)pState);
         break;
 
-    case GlobalState::ALPHA:
-        return gcnew ManagedAlphaState((AlphaState*)pState);
-        break;
-
     case GlobalState::POLYGONOFFSET:
         return gcnew ManagedPolygonOffsetState((PolygonOffsetState*)pState);
         break;
 
-    case GlobalState::CULL:
-        return gcnew ManagedCullState((CullState*)pState);
+    case GlobalState::STENCIL:
+        return gcnew ManagedStencilState((StencilState*)pState);
+        break;
+
+    case GlobalState::WIREFRAME:
+        return gcnew ManagedWireframeState((WireframeState*)pState);
         break;
 
     case GlobalState::ZBUFFER:

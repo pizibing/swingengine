@@ -39,11 +39,12 @@
 #include "SEINativeGlobalState.h"
 #include "SEManagedCamera.h"
 #include "SEManagedRenderer.h"
-#include "SEManagedWireframeState.h"
-#include "SEManagedMaterialState.h"
 #include "SEManagedAlphaState.h"
-#include "SEManagedPolygonOffsetState.h"
 #include "SEManagedCullState.h"
+#include "SEManagedMaterialState.h"
+#include "SEManagedPolygonOffsetState.h"
+#include "SEManagedStencilState.h"
+#include "SEManagedWireframeState.h"
 #include "SEManagedZBufferState.h"
 
 // Managed Scene Graph
