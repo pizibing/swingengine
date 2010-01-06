@@ -20,6 +20,8 @@
 
 #pragma once
 
+#include "SEManagedVector3.h"
+
 using namespace System;
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
@@ -37,10 +39,14 @@ public:
     ManagedMatrix3f(float fM11, float fM12, float fM13,
                     float fM21, float fM22, float fM23,
                     float fM31, float fM32, float fM33);
+    ManagedMatrix3f(ManagedVector3f^ thAxisVec, float fAngle);
 
     // Euler operations.
     void FromEulerAnglesXYZ(float fYAngle, float fPAngle, float fRAngle);
     bool ToEulerAnglesXYZ(float% trfYAngle, float% trfPAngle, float% trfRAngle);
+
+    static ManagedVector3f^ Vector3Multiply(ManagedVector3f^ thVec, 
+        ManagedMatrix3f^ thMat);
 
     // System::Object overrides.
     virtual bool Equals(Object^ thObj) override;

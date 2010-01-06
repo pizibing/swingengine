@@ -52,6 +52,17 @@ ManagedMatrix3f::ManagedMatrix3f(float fM11, float fM12, float fM13,
     m_afData[8] = fM33;
 }
 //---------------------------------------------------------------------------
+ManagedMatrix3f::ManagedMatrix3f(ManagedVector3f^ thAxisVec, float fAngle)
+{
+    m_afData = gcnew array<float>(9);
+
+    SE_NULL_ARGUMENT_CHECK(thAxisVec, "thAxisVec");
+    Vector3f vec3fAxis;
+    thAxisVec->ToVector3f(vec3fAxis);
+    Matrix3f mat3fTemp(vec3fAxis, fAngle);
+    this->FromMatrix3f(mat3fTemp);
+}
+//---------------------------------------------------------------------------
 void ManagedMatrix3f::FromEulerAnglesXYZ(float fYAngle, float fPAngle, 
     float fRAngle)
 {
@@ -66,14 +77,33 @@ bool ManagedMatrix3f::ToEulerAnglesXYZ(float% trfYAngle, float% trfPAngle,
     float fYAngle = trfYAngle;
     float fPAngle = trfPAngle;
     float fRAngle = trfRAngle;
+
     Matrix3f mat3fTemp;
     this->ToMatrix3f(mat3fTemp);
     bool bRes = mat3fTemp.ToEulerAnglesXYZ(fYAngle, fPAngle, fRAngle);
+
     trfYAngle = fYAngle;
     trfPAngle = fPAngle;
     trfRAngle = fRAngle;
 
     return bRes;
+}
+//---------------------------------------------------------------------------
+ManagedVector3f^ ManagedMatrix3f::Vector3Multiply(ManagedVector3f^ thVec, 
+    ManagedMatrix3f^ thMat)
+{
+    SE_NULL_ARGUMENT_CHECK(thVec, "thVec");
+    SE_NULL_ARGUMENT_CHECK(thMat, "thMat");
+
+    Vector3f vec3fV, vec3fRes;
+    thVec->ToVector3f(vec3fV);
+    Matrix3f mat3fM;
+    thMat->ToMatrix3f(mat3fM);
+    vec3fRes = vec3fV * mat3fM;
+    ManagedVector3f^ thRes = gcnew ManagedVector3f;
+    thRes->FromVector3f(vec3fRes);
+
+    return thRes;
 }
 //---------------------------------------------------------------------------
 void ManagedMatrix3f::ToMatrix3f(Matrix3f& rMat)
