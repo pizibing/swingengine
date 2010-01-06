@@ -43,6 +43,11 @@ ManagedQuaternionf::ManagedQuaternionf(ManagedMatrix3f^ thRotMat)
     FromRotationMatrix(thRotMat);
 }
 //---------------------------------------------------------------------------
+ManagedQuaternionf::ManagedQuaternionf(const Quaternionf& rQ)
+{
+    FromQuaternionf(rQ);
+}
+//---------------------------------------------------------------------------
 float ManagedQuaternionf::W::get()
 {
     return m_fW;
@@ -91,14 +96,14 @@ void ManagedQuaternionf::FromRotationMatrix(ManagedMatrix3f^ thRotMat)
         thRotMat->ToMatrix3f(mat3fTemp);
         Quaternionf tempQ;
         tempQ.FromRotationMatrix(mat3fTemp);
-        this->FromQuaternionf(tempQ);
+        FromQuaternionf(tempQ);
     }
 }
 //---------------------------------------------------------------------------
 ManagedMatrix3f^ ManagedQuaternionf::GetRotationMatrix()
 {
     Quaternionf tempQ;
-    this->ToQuaternionf(tempQ);
+    ToQuaternionf(tempQ);
     Matrix3f mat3fTemp;
     tempQ.ToRotationMatrix(mat3fTemp);
     ManagedMatrix3f^ thRes = gcnew ManagedMatrix3f;
@@ -132,7 +137,7 @@ bool ManagedQuaternionf::Equals(Object^ thObj)
     }
 
     Quaternionf tempLhs, tempfRhs;
-    this->ToQuaternionf(tempLhs);
+    ToQuaternionf(tempLhs);
     thQ->ToQuaternionf(tempfRhs);
 
     return (tempLhs == tempfRhs);

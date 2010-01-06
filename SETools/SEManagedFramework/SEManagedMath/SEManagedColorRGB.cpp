@@ -36,6 +36,11 @@ ManagedColorRGB::ManagedColorRGB(float fR, float fG, float fB)
     m_fB = fB;
 }
 //---------------------------------------------------------------------------
+ManagedColorRGB::ManagedColorRGB(const ColorRGB& rColor)
+{
+    FromColorRGB(rColor);
+}
+//---------------------------------------------------------------------------
 float ManagedColorRGB::R::get()
 {
     return m_fR;

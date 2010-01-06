@@ -68,7 +68,11 @@ public:
 
 internal:
     [CLSCompliant(false)]
+    ManagedQuaternionf(const Quaternionf& rQ);
+
+    [CLSCompliant(false)]
     void ToQuaternionf(Quaternionf& rQ);
+
     [CLSCompliant(false)]
     void FromQuaternionf(const Quaternionf& rQ);
 

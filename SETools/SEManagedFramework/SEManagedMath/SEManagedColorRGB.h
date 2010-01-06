@@ -55,7 +55,11 @@ public:
 
 internal:
     [CLSCompliant(false)]
+    ManagedColorRGB(const ColorRGB& rColor);
+
+    [CLSCompliant(false)]
     void ToColorRGB(ColorRGB& rColor);
+
     [CLSCompliant(false)]
     void FromColorRGB(const ColorRGB& rColor);
 

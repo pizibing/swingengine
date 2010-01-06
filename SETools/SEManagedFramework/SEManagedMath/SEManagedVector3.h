@@ -69,7 +69,11 @@ public:
 
 internal:
     [CLSCompliant(false)]
+    ManagedVector3f(const Vector3f& rVec);
+
+    [CLSCompliant(false)]
     void ToVector3f(Vector3f& rVec);
+
     [CLSCompliant(false)]
     void FromVector3f(const Vector3f& rVec);
 

@@ -53,7 +53,11 @@ public:
 
 internal:
     [CLSCompliant(false)]
+    ManagedMatrix3f(const Matrix3f& rMat);
+
+    [CLSCompliant(false)]
     void ToMatrix3f(Matrix3f& rMat);
+
     [CLSCompliant(false)]
     void FromMatrix3f(const Matrix3f& rMat);
 

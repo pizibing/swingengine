@@ -62,7 +62,11 @@ public:
 
 internal:
     [CLSCompliant(false)]
+    ManagedVector2f(const Vector2f& rVec);
+
+    [CLSCompliant(false)]
     void ToVector2f(Vector2f& rVec);
+
     [CLSCompliant(false)]
     void FromVector2f(const Vector2f& rVec);
 

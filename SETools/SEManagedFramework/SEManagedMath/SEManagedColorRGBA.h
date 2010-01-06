@@ -60,7 +60,11 @@ public:
 
 internal:
     [CLSCompliant(false)]
+    ManagedColorRGBA(const ColorRGBA& rColor);
+
+    [CLSCompliant(false)]
     void ToColorRGBA(ColorRGBA& rColor);
+
     [CLSCompliant(false)]
     void FromColorRGBA(const ColorRGBA& rColor);
 

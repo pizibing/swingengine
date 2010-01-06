@@ -36,6 +36,11 @@ ManagedVector3f::ManagedVector3f(float fX, float fY, float fZ)
     m_fZ = fZ;
 }
 //---------------------------------------------------------------------------
+ManagedVector3f::ManagedVector3f(const Vector3f& rVec)
+{
+    FromVector3f(rVec);
+}
+//---------------------------------------------------------------------------
 float ManagedVector3f::X::get()
 {
     return m_fX;
@@ -165,7 +170,7 @@ bool ManagedVector3f::Equals(Object^ thObj)
     }
 
     Vector3f vec3fLhs, vec3fRhs;
-    this->ToVector3f(vec3fLhs);
+    ToVector3f(vec3fLhs);
     thVec->ToVector3f(vec3fRhs);
 
     return (vec3fLhs == vec3fRhs);

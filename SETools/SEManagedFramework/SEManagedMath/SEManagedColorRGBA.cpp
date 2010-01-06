@@ -37,6 +37,11 @@ ManagedColorRGBA::ManagedColorRGBA(float fR, float fG, float fB, float fA)
     m_fA = fA;
 }
 //---------------------------------------------------------------------------
+ManagedColorRGBA::ManagedColorRGBA(const ColorRGBA& rColor)
+{
+    FromColorRGBA(rColor);
+}
+//---------------------------------------------------------------------------
 float ManagedColorRGBA::R::get()
 {
     return m_fR;

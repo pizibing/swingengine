@@ -60,7 +60,12 @@ ManagedMatrix3f::ManagedMatrix3f(ManagedVector3f^ thAxisVec, float fAngle)
     Vector3f vec3fAxis;
     thAxisVec->ToVector3f(vec3fAxis);
     Matrix3f mat3fTemp(vec3fAxis, fAngle);
-    this->FromMatrix3f(mat3fTemp);
+    FromMatrix3f(mat3fTemp);
+}
+//---------------------------------------------------------------------------
+ManagedMatrix3f::ManagedMatrix3f(const Matrix3f& rMat)
+{
+    FromMatrix3f(rMat);
 }
 //---------------------------------------------------------------------------
 void ManagedMatrix3f::FromEulerAnglesXYZ(float fYAngle, float fPAngle, 
@@ -68,7 +73,7 @@ void ManagedMatrix3f::FromEulerAnglesXYZ(float fYAngle, float fPAngle,
 {
     Matrix3f mat3fTemp;
     mat3fTemp.FromEulerAnglesXYZ(fYAngle, fPAngle, fRAngle);
-    this->FromMatrix3f(mat3fTemp);
+    FromMatrix3f(mat3fTemp);
 }
 //---------------------------------------------------------------------------
 bool ManagedMatrix3f::ToEulerAnglesXYZ(float% trfYAngle, float% trfPAngle, 
@@ -79,7 +84,7 @@ bool ManagedMatrix3f::ToEulerAnglesXYZ(float% trfYAngle, float% trfPAngle,
     float fRAngle = trfRAngle;
 
     Matrix3f mat3fTemp;
-    this->ToMatrix3f(mat3fTemp);
+    ToMatrix3f(mat3fTemp);
     bool bRes = mat3fTemp.ToEulerAnglesXYZ(fYAngle, fPAngle, fRAngle);
 
     trfYAngle = fYAngle;
@@ -141,7 +146,7 @@ bool ManagedMatrix3f::Equals(Object^ thObj)
     }
 
     Matrix3f mat3fLhs, mat3fRhs;
-    this->ToMatrix3f(mat3fLhs);
+    ToMatrix3f(mat3fLhs);
     thMat->ToMatrix3f(mat3fRhs);
 
     return (mat3fLhs == mat3fRhs);

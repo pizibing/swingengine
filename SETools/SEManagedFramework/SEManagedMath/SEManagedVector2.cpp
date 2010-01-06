@@ -35,6 +35,11 @@ ManagedVector2f::ManagedVector2f(float fX, float fY)
     m_fY = fY;
 }
 //---------------------------------------------------------------------------
+ManagedVector2f::ManagedVector2f(const Vector2f& rVec)
+{
+    FromVector2f(rVec);
+}
+//---------------------------------------------------------------------------
 float ManagedVector2f::X::get()
 {
     return m_fX;
@@ -140,7 +145,7 @@ bool ManagedVector2f::Equals(Object^ thObj)
     }
 
     Vector2f vec2fLhs, vec2fRhs;
-    this->ToVector2f(vec2fLhs);
+    ToVector2f(vec2fLhs);
     thVec->ToVector2f(vec2fRhs);
 
     return (vec2fLhs == vec2fRhs);
