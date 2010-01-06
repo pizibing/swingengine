@@ -32,7 +32,7 @@ ManagedRenderer::ManagedRenderer(IntPtr hWnd, int iWidth, int iHeight)
         FrameBuffer::DT_DEPTH_24, 
         FrameBuffer::ST_STENCIL_8, 
         FrameBuffer::BT_BUFFERED_DOUBLE, 
-        FrameBuffer::MT_SAMPLING_NONE, 
+        FrameBuffer::MT_SAMPLING_4, 
         iWidth, iHeight);
 }
 //---------------------------------------------------------------------------
