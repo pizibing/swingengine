@@ -38,7 +38,8 @@ Camera::Camera()
     SetFrustum(-0.5f, 0.5f, -0.5f, 0.5f, 1.0f, 2.0f);
     SetViewport(0.0f, 1.0f, 1.0f, 0.0f);
     SetDepthRange(0.0f, 1.0f);
-    SetFrame(Vector3f::ZERO, Vector3f::UNIT_X, Vector3f::UNIT_Y, Vector3f::UNIT_Z); // 与世界空间坐标系重合
+    SetFrame(Vector3f::ZERO, Vector3f::UNIT_X, Vector3f::UNIT_Y, 
+        Vector3f::UNIT_Z); // 与世界空间坐标系重合
 
     Perspective = true;
 }
@@ -214,14 +215,104 @@ bool Camera::GetPickRay(int iX, int iY, int iWidth, int iHeight,
     }
 
     float fXWeight = (fPortX - m_fPortL) / (m_fPortR - m_fPortL);
-    float fViewX = (1.0f-fXWeight)*m_Frustum[VF_RMIN] + fXWeight*m_Frustum[VF_RMAX];
+    float fViewX = (1.0f-fXWeight)*m_Frustum[VF_RMIN] + 
+        fXWeight*m_Frustum[VF_RMAX];
     float fYWeight = (fPortY - m_fPortB) / (m_fPortT - m_fPortB);
-    float fViewY = (1.0f-fYWeight)*m_Frustum[VF_UMIN] + fYWeight*m_Frustum[VF_UMAX];
+    float fViewY = (1.0f-fYWeight)*m_Frustum[VF_UMIN] + 
+        fYWeight*m_Frustum[VF_UMAX];
 
     rRay.Origin = m_Location;
-    rRay.Direction = m_Frustum[VF_DMIN]*m_DVector + fViewX*m_RVector + fViewY*m_UVector;
+    rRay.Direction = m_Frustum[VF_DMIN]*m_DVector + fViewX*m_RVector + 
+        fViewY*m_UVector;
     rRay.Direction.Normalize();
 
+    return true;
+}
+//----------------------------------------------------------------------------
+bool Camera::GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1, 
+    Matrix3f& rMat) const
+{
+    if( fX0 == fX1 && fY0 == fY1 )
+    {
+        return false;
+    }
+
+    // 获取球上的第一向量.
+    float fLength = Mathf::Sqrt(fX0*fX0 + fY0*fY0), fInvLength, fZ0, fZ1;
+    if( fLength > 1.0f )
+    {
+        // 如果在单位圆之外,则投影到单位圆上.
+        fInvLength = 1.0f / fLength;
+        fX0 *= fInvLength;
+        fY0 *= fInvLength;
+        fZ0 = 0.0f;
+    }
+    else
+    {
+        // 如果在单位圆内,则直接计算出所对应的负单位半球上的点(x0,y0,z0).
+        fZ0 = 1.0f - fX0*fX0 - fY0*fY0;
+        fZ0 = (fZ0 <= 0.0f ? 0.0f : Mathf::Sqrt(fZ0));
+    }
+    fZ0 *= -1.0f;
+
+    // 摄像机世界坐标轴顺序为(R,U,D), 对应向量表示为(x,y,z).
+    Vector3f tempVec0(fX0, fY0, fZ0);
+
+    // 获取球上的第二向量.
+    fLength = Mathf::Sqrt(fX1*fX1 + fY1*fY1);
+    if( fLength > 1.0f )
+    {
+        // 如果在单位圆之外,则投影到单位圆上.
+        fInvLength = 1.0f / fLength;
+        fX1 *= fInvLength;
+        fY1 *= fInvLength;
+        fZ1 = 0.0f;
+    }
+    else
+    {
+        // 如果在单位圆内,则直接计算出所对应的负单位半球上的点(x1,y1,z1).
+        fZ1 = 1.0f - fX1*fX1 - fY1*fY1;
+        fZ1 = (fZ1 <= 0.0f ? 0.0f : Mathf::Sqrt(fZ1));
+    }
+    fZ1 *= -1.0f;
+
+    // 摄像机世界坐标轴顺序为(R,U,D), 对应向量表示为(x,y,z).
+    Vector3f tempVec1(fX1, fY1, fZ1);
+
+    // 创建旋转矩阵所需的轴,角.
+    Vector3f vec3fAxis = tempVec1.Cross(tempVec0);
+    float fDot = tempVec0.Dot(tempVec1);
+    float fAngle;
+    if( vec3fAxis.Normalize() > Mathf::ZERO_TOLERANCE )
+    {
+        fAngle = Mathf::ACos(fDot); 
+    }
+    else  // 两向量平行
+    {
+        if( fDot < 0.0f )
+        {
+            // 旋转pi弧度.
+            fInvLength = Mathf::InvSqrt(fX0*fX0 + fY0*fY0);
+            vec3fAxis.X = fY0 * fInvLength;
+            vec3fAxis.Y = -fX0 * fInvLength;
+            vec3fAxis.Z = 0.0f;
+            fAngle = Mathf::PI;
+        }
+        else
+        {
+            // 旋转0弧度.
+            vec3fAxis = Vector3f::UNIT_X;
+            fAngle = 0.0f;
+        }
+    }
+
+    // 计算trackball运动所对应的世界旋转矩阵.
+    // 之前算出的旋转轴处在摄像机坐标系下.需要转换到世界坐标系下.
+    // 其世界坐标系下的向量表示为(xR + yU + zD).
+    Vector3f vec3fWorldAxis = vec3fAxis.X*m_RVector + vec3fAxis.Y*m_UVector +
+        vec3fAxis.Z*m_DVector;
+
+    rMat.FromAxisAngle(vec3fWorldAxis, -fAngle);
     return true;
 }
 //----------------------------------------------------------------------------

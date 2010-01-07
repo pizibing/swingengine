@@ -140,6 +140,10 @@ public:
     bool GetPickRay(int iX, int iY, int iWidth, int iHeight, Ray3f& rRay)
         const;
 
+    // Virtual track ball rotation support.
+    bool GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1, 
+        Matrix3f& rMat) const;
+
 protected:
     // 摄像机E;R,U,D的世界坐标系表示.
     Vector3f m_Location, m_RVector, m_UVector, m_DVector;
