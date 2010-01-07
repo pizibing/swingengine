@@ -34,6 +34,7 @@
 #include "SEManagedVector3.h"
 #include "SEManagedMatrix3.h"
 #include "SEManagedQuaternion.h"
+#include "SEManagedRay3.h"
 
 // Managed Rendering
 #include "SEINativeGlobalState.h"

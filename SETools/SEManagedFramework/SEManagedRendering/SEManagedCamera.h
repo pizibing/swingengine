@@ -22,6 +22,8 @@
 
 #include "SEINativeObject.h"
 #include "SEManagedVector3.h"
+#include "SEManagedMatrix3.h"
+#include "SEManagedRay3.h"
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
@@ -53,6 +55,14 @@ public:
         float fDMin, float fDMax);
     void GetFrustum(float% trfRMin, float% trfRMax, float% trfUMin, 
         float% trfUMax, float% trfDMin, float% trfDMax);
+
+    // Mouse picking support.
+    bool GetPickRay(int iX, int iY, int iWidth, int iHeight, 
+        ManagedRay3f^ thRay);
+
+    // Virtual track ball rotation support.
+    bool GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1, 
+        ManagedMatrix3f^ thMat);
 
     // Implement INativeObject interface.
     virtual int GetNativeReferences(void);

@@ -298,6 +298,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEManagedMath\SEManagedRay3.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedMath\SEManagedRay3.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEManagedMath\SEManagedVector2.cpp"
 				>
 			</File>

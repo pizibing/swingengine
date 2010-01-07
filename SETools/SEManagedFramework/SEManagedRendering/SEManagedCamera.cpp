@@ -164,6 +164,33 @@ void ManagedCamera::GetFrustum(float% trfRMin, float% trfRMax, float% trfUMin,
     trfDMax = fDMax;
 }
 //---------------------------------------------------------------------------
+bool ManagedCamera::GetPickRay(int iX, int iY, int iWidth, int iHeight, 
+    ManagedRay3f^ thRay)
+{
+    SE_NULL_ARGUMENT_CHECK(thRay, "thRay");
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
+
+    Ray3f tempRay;
+    bool bRes = (*m_pspCamera)->GetPickRay(iX, iY, iWidth, iHeight, tempRay);
+    thRay->FromRay3f(tempRay);
+
+    return bRes;
+}
+//---------------------------------------------------------------------------
+bool ManagedCamera::GetTrackBallRotate(float fX0, float fY0, float fX1, 
+    float fY1, ManagedMatrix3f^ thMat)
+{
+    SE_NULL_ARGUMENT_CHECK(thMat, "thMat");
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
+
+    Matrix3f mat3fRot;
+    bool bRes = (*m_pspCamera)->GetTrackBallRotate(fX0, fY0, fX1, fY1, 
+        mat3fRot);
+    thMat->FromMatrix3f(mat3fRot);
+
+    return bRes;
+}
+//---------------------------------------------------------------------------
 int ManagedCamera::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
