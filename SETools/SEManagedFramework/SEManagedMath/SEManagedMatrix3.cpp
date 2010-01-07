@@ -111,6 +111,24 @@ ManagedVector3f^ ManagedMatrix3f::Vector3Multiply(ManagedVector3f^ thVec,
     return thRes;
 }
 //---------------------------------------------------------------------------
+ManagedVector3f^ ManagedMatrix3f::MultiplyVector3(ManagedMatrix3f^ thMat, 
+    ManagedVector3f^ thVec)
+{
+    SE_NULL_ARGUMENT_CHECK(thMat, "thMat");
+    SE_NULL_ARGUMENT_CHECK(thVec, "thVec");
+
+    Matrix3f mat3fM;
+    thMat->ToMatrix3f(mat3fM);
+    Vector3f vec3fV, vec3fRes;
+    thVec->ToVector3f(vec3fV);
+    vec3fRes = mat3fM * vec3fV;
+
+    ManagedVector3f^ thRes = gcnew ManagedVector3f;
+    thRes->FromVector3f(vec3fRes);
+
+    return thRes;
+}
+//---------------------------------------------------------------------------
 void ManagedMatrix3f::ToMatrix3f(Matrix3f& rMat)
 {
     rMat[0][0] = m_afData[0];

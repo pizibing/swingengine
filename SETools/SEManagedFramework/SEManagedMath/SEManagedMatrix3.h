@@ -47,6 +47,8 @@ public:
 
     static ManagedVector3f^ Vector3Multiply(ManagedVector3f^ thVec, 
         ManagedMatrix3f^ thMat);
+    static ManagedVector3f^ MultiplyVector3(ManagedMatrix3f^ thMat, 
+        ManagedVector3f^ thVec);
 
     // System::Object overrides.
     virtual bool Equals(Object^ thObj) override;
