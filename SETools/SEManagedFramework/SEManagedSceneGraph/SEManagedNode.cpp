@@ -64,6 +64,78 @@ int ManagedNode::DetachChild(INativeSpatial^ thSpatial)
     return (*m_pspNode)->DetachChild(thSpatial->GetNativeSpatial());
 }
 //---------------------------------------------------------------------------
+void ManagedNode::SetLocalRotate(ManagedMatrix3f^ thRotate)
+{
+    SE_NULL_ARGUMENT_CHECK(thRotate, "thRotate");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    Matrix3f mat3fRot;
+    thRotate->ToMatrix3f(mat3fRot);
+    (*m_pspNode)->Local.SetRotate(mat3fRot);
+}
+//---------------------------------------------------------------------------
+ManagedMatrix3f^ ManagedNode::GetLocalRotate()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    return gcnew ManagedMatrix3f((*m_pspNode)->Local.GetRotate());
+}
+//---------------------------------------------------------------------------
+void ManagedNode::SetLocalMatrix(ManagedMatrix3f^ thMatrix)
+{
+    SE_NULL_ARGUMENT_CHECK(thMatrix, "thMatrix");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    Matrix3f mat3fM;
+    thMatrix->ToMatrix3f(mat3fM);
+    (*m_pspNode)->Local.SetMatrix(mat3fM);
+}
+//---------------------------------------------------------------------------
+ManagedMatrix3f^ ManagedNode::GetLocalMatrix()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    return gcnew ManagedMatrix3f((*m_pspNode)->Local.GetMatrix());
+}
+//---------------------------------------------------------------------------
+void ManagedNode::SetLocalTranslate(ManagedVector3f^ thTranslate)
+{
+    SE_NULL_ARGUMENT_CHECK(thTranslate, "thTranslate");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    Vector3f vec3fTrn;
+    thTranslate->ToVector3f(vec3fTrn);
+    (*m_pspNode)->Local.SetTranslate(vec3fTrn);
+}
+//---------------------------------------------------------------------------
+ManagedVector3f^ ManagedNode::GetLocalTranslate()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    return gcnew ManagedVector3f((*m_pspNode)->Local.GetTranslate());
+}
+//---------------------------------------------------------------------------
+void ManagedNode::SetLocalScale(ManagedVector3f^ thScale)
+{
+    SE_NULL_ARGUMENT_CHECK(thScale, "thScale");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    Vector3f vec3fScl;
+    thScale->ToVector3f(vec3fScl);
+    (*m_pspNode)->Local.SetScale(vec3fScl);
+}
+//---------------------------------------------------------------------------
+ManagedVector3f^ ManagedNode::GetLocalScale()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    return gcnew ManagedVector3f((*m_pspNode)->Local.GetScale());
+}
+//---------------------------------------------------------------------------
+void ManagedNode::SetLocalUniformScale(float fScale)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    (*m_pspNode)->Local.SetUniformScale(fScale);
+}
+//---------------------------------------------------------------------------
+float ManagedNode::GetLocalUniformScale()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    return (*m_pspNode)->Local.GetUniformScale();
+}
+//---------------------------------------------------------------------------
 void ManagedNode::UpdateGS(double dAppTime)
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");

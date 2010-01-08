@@ -34,13 +34,13 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 //----------------------------------------------------------------------------
 public interface class INativeNode
 {
-    [CLSCompliant(false)]
-    Node* GetNativeNode(void);
-
     // Child node access.
     int GetCount(void);
     int AttachChild(INativeSpatial^ thSpatial);
     int DetachChild(INativeSpatial^ thSpatial);
+
+    [CLSCompliant(false)]
+    Node* GetNativeNode(void);
 };
 
 }}}

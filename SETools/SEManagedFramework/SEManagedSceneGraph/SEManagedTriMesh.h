@@ -41,6 +41,17 @@ public:
     ~ManagedTriMesh(void);
 
     // Implement INativeSpatial interface.
+    virtual void SetLocalRotate(ManagedMatrix3f^ thRotate);
+    virtual ManagedMatrix3f^ GetLocalRotate(void);
+    virtual void SetLocalMatrix(ManagedMatrix3f^ thMatrix);
+    virtual ManagedMatrix3f^ GetLocalMatrix(void);
+    virtual void SetLocalTranslate(ManagedVector3f^ thTranslate);
+    virtual ManagedVector3f^ GetLocalTranslate(void);
+    virtual void SetLocalScale(ManagedVector3f^ thScale);
+    virtual ManagedVector3f^ GetLocalScale(void);
+    virtual void SetLocalUniformScale(float fScale);
+    virtual float GetLocalUniformScale(void);
+    //
     virtual void UpdateGS(double dAppTime);
     //
     virtual void UpdateRS(void);

@@ -22,6 +22,7 @@
 
 #include "SEINativeEffect.h"
 #include "SEINativeGlobalState.h"
+#include "SEManagedMatrix3.h"
 
 using namespace System;
 
@@ -35,8 +36,17 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 //----------------------------------------------------------------------------
 public interface class INativeSpatial
 {
-    [CLSCompliant(false)]
-    Spatial* GetNativeSpatial(void);
+    // Local transformation.
+    void SetLocalRotate(ManagedMatrix3f^ thRotate);
+    ManagedMatrix3f^ GetLocalRotate(void);
+    void SetLocalMatrix(ManagedMatrix3f^ thMatrix);
+    ManagedMatrix3f^ GetLocalMatrix(void);
+    void SetLocalTranslate(ManagedVector3f^ thTranslate);
+    ManagedVector3f^ GetLocalTranslate(void);
+    void SetLocalScale(ManagedVector3f^ thScale);
+    ManagedVector3f^ GetLocalScale(void);
+    void SetLocalUniformScale(float fScale);
+    float GetLocalUniformScale(void);
 
     // Geometry state update entry point.
     void UpdateGS(double dAppTime);
@@ -56,6 +66,9 @@ public interface class INativeSpatial
     void AttachGlobalState(INativeGlobalState^ thState);
     void DetachGlobalState(INativeGlobalState::StateType eType);
     void DetachAllGlobalStates(void);
+
+    [CLSCompliant(false)]
+    Spatial* GetNativeSpatial(void);
 };
 
 }}}

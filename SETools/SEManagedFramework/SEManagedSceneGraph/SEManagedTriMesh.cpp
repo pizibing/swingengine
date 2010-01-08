@@ -46,6 +46,78 @@ ManagedTriMesh::~ManagedTriMesh()
     m_pspTriMesh = 0;
 }
 //---------------------------------------------------------------------------
+void ManagedTriMesh::SetLocalRotate(ManagedMatrix3f^ thRotate)
+{
+    SE_NULL_ARGUMENT_CHECK(thRotate, "thRotate");
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    Matrix3f mat3fRot;
+    thRotate->ToMatrix3f(mat3fRot);
+    (*m_pspTriMesh)->Local.SetRotate(mat3fRot);
+}
+//---------------------------------------------------------------------------
+ManagedMatrix3f^ ManagedTriMesh::GetLocalRotate()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    return gcnew ManagedMatrix3f((*m_pspTriMesh)->Local.GetRotate());
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::SetLocalMatrix(ManagedMatrix3f^ thMatrix)
+{
+    SE_NULL_ARGUMENT_CHECK(thMatrix, "thMatrix");
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    Matrix3f mat3fM;
+    thMatrix->ToMatrix3f(mat3fM);
+    (*m_pspTriMesh)->Local.SetMatrix(mat3fM);
+}
+//---------------------------------------------------------------------------
+ManagedMatrix3f^ ManagedTriMesh::GetLocalMatrix()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    return gcnew ManagedMatrix3f((*m_pspTriMesh)->Local.GetMatrix());
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::SetLocalTranslate(ManagedVector3f^ thTranslate)
+{
+    SE_NULL_ARGUMENT_CHECK(thTranslate, "thTranslate");
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    Vector3f vec3fTrn;
+    thTranslate->ToVector3f(vec3fTrn);
+    (*m_pspTriMesh)->Local.SetTranslate(vec3fTrn);
+}
+//---------------------------------------------------------------------------
+ManagedVector3f^ ManagedTriMesh::GetLocalTranslate()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    return gcnew ManagedVector3f((*m_pspTriMesh)->Local.GetTranslate());
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::SetLocalScale(ManagedVector3f^ thScale)
+{
+    SE_NULL_ARGUMENT_CHECK(thScale, "thScale");
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    Vector3f vec3fScl;
+    thScale->ToVector3f(vec3fScl);
+    (*m_pspTriMesh)->Local.SetScale(vec3fScl);
+}
+//---------------------------------------------------------------------------
+ManagedVector3f^ ManagedTriMesh::GetLocalScale()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    return gcnew ManagedVector3f((*m_pspTriMesh)->Local.GetScale());
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::SetLocalUniformScale(float fScale)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    (*m_pspTriMesh)->Local.SetUniformScale(fScale);
+}
+//---------------------------------------------------------------------------
+float ManagedTriMesh::GetLocalUniformScale()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    return (*m_pspTriMesh)->Local.GetUniformScale();
+}
+//---------------------------------------------------------------------------
 void ManagedTriMesh::UpdateGS(double dAppTime)
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");

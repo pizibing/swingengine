@@ -45,10 +45,16 @@ public:
     void FromEulerAnglesXYZ(float fYAngle, float fPAngle, float fRAngle);
     bool ToEulerAnglesXYZ(float% trfYAngle, float% trfPAngle, float% trfRAngle);
 
+	// Algebra operations.
     static ManagedVector3f^ Vector3Multiply(ManagedVector3f^ thVec, 
         ManagedMatrix3f^ thMat);
     static ManagedVector3f^ MultiplyVector3(ManagedMatrix3f^ thMat, 
         ManagedVector3f^ thVec);
+    static ManagedMatrix3f^ Multiply(ManagedMatrix3f^ thLhsMat, 
+        ManagedMatrix3f^ thRhsMat);
+
+    // Gram-Schmidt orthonormalization(must be applied to a rotation matrix).
+    void Orthonormalize(void);
 
     // System::Object overrides.
     virtual bool Equals(Object^ thObj) override;

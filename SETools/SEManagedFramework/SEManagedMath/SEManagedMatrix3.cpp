@@ -65,6 +65,7 @@ ManagedMatrix3f::ManagedMatrix3f(ManagedVector3f^ thAxisVec, float fAngle)
 //---------------------------------------------------------------------------
 ManagedMatrix3f::ManagedMatrix3f(const Matrix3f& rMat)
 {
+    m_afData = gcnew array<float>(9);
     FromMatrix3f(rMat);
 }
 //---------------------------------------------------------------------------
@@ -127,6 +128,28 @@ ManagedVector3f^ ManagedMatrix3f::MultiplyVector3(ManagedMatrix3f^ thMat,
     thRes->FromVector3f(vec3fRes);
 
     return thRes;
+}
+//---------------------------------------------------------------------------
+ManagedMatrix3f^ ManagedMatrix3f::Multiply(ManagedMatrix3f^ thLhsMat, 
+    ManagedMatrix3f^ thRhsMat)
+{
+    SE_NULL_ARGUMENT_CHECK(thLhsMat, "thLhsMat");
+    SE_NULL_ARGUMENT_CHECK(thRhsMat, "thRhsMat");
+
+    Matrix3f mat3fLhs, mat3fRhs, mat3fRes;
+    thLhsMat->ToMatrix3f(mat3fLhs);
+    thRhsMat->ToMatrix3f(mat3fRhs);
+    mat3fRes = mat3fLhs * mat3fRhs;
+
+    return gcnew ManagedMatrix3f(mat3fRes);
+}
+//---------------------------------------------------------------------------
+void ManagedMatrix3f::Orthonormalize()
+{
+    Matrix3f mat3fTemp;
+    ToMatrix3f(mat3fTemp);
+    mat3fTemp.Orthonormalize();
+    FromMatrix3f(mat3fTemp);
 }
 //---------------------------------------------------------------------------
 void ManagedMatrix3f::ToMatrix3f(Matrix3f& rMat)
