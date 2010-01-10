@@ -144,7 +144,8 @@ void DefaultShader::CreateScene()
     Attributes tempAttr;
     tempAttr.SetPositionChannels(3);
     StandardMesh tempSM(tempAttr);
-    m_spMesh = tempSM.Box(1.0f, 1.0f, 1.0f);
+    float fExt = 0.1f;
+    m_spMesh = tempSM.Box(fExt, fExt, fExt);
     m_spScene->AttachChild(m_spMesh);
 
     DefaultShaderEffect* pEffect = SE_NEW DefaultShaderEffect;
