@@ -34,14 +34,13 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(Camera, Object);
 Camera::Camera()
 {
     m_pRenderer = 0;
+    m_bPerspective = true;
 
     SetFrustum(-0.5f, 0.5f, -0.5f, 0.5f, 1.0f, 2.0f);
     SetViewport(0.0f, 1.0f, 1.0f, 0.0f);
     SetDepthRange(0.0f, 1.0f);
     SetFrame(Vector3f::ZERO, Vector3f::UNIT_X, Vector3f::UNIT_Y, 
         Vector3f::UNIT_Z); // 与世界空间坐标系重合
-
-    Perspective = true;
 }
 //----------------------------------------------------------------------------
 Camera::~Camera()
@@ -157,6 +156,16 @@ bool Camera::GetFrustum(float& rUpFovDegrees, float& rAspectRatio,
     }
 
     return false;
+}
+//----------------------------------------------------------------------------
+void Camera::SetPerspective(bool bPerspective)
+{
+    m_bPerspective = bPerspective;
+
+    if( m_pRenderer )
+    {
+        m_pRenderer->OnFrustumChange();
+    }
 }
 //----------------------------------------------------------------------------
 void Camera::SetViewport(float fLeft, float fRight, float fTop,

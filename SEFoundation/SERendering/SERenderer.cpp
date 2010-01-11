@@ -201,7 +201,7 @@ void Renderer::OnFrustumChange()
     float fInvDDiff = 1.0f / (fDMax - fDMin);
 
     // 更新投影矩阵
-    if( m_pCamera->Perspective )
+    if( m_pCamera->GetPerspective() )
     {
         m_ProjectionMatrix[0][0] = 2.0f*fDMin*fInvRDiff;
         m_ProjectionMatrix[0][1] = 0.0f;

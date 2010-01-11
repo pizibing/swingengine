@@ -117,10 +117,9 @@ public:
     inline float GetRMin(void) const;
     inline float GetRMax(void) const;
 
-    // 允许orthogonal camera和perspective camera,
-    // 默认为true表示perspective,
-    // TO DO.  Stream this member
-    bool Perspective;
+    // Perspective/orthogonal camera access.
+    void SetPerspective(bool bPerspective);
+    inline bool GetPerspective(void) const;
 
     // viewport (区间为[0,1]^2).
     void SetViewport(float fLeft, float fRight, float fTop, float fBottom);
@@ -131,7 +130,7 @@ public:
     void SetDepthRange(float fNear, float fFar);
     void GetDepthRange(float& rNear, float& rFar);
 
-    // Mouse picking support.  The (x,y) input point is in left-handed screen
+    // Mouse picking support. The (x,y) input point is in left-handed screen
     // coordinates (what you usually read from the windowing system).  The
     // function returns 'true' if and only if the input point is located in
     // the current viewport.  When 'true', the origin and direction values
@@ -140,7 +139,12 @@ public:
     bool GetPickRay(int iX, int iY, int iWidth, int iHeight, Ray3f& rRay)
         const;
 
-    // Virtual track ball rotation support.
+    // Virtual track ball rotation support. (x0,y0) and (x1,y1) input points
+    // are in a right-handed coordinates(the origin is at the center of window
+    // screen, which is (width/2,height/2). Let r = width/height, then any 
+    // point (x,y) on the screen is in the range x:[-r,+r] y:[-1,+1]). The
+    // function returns 'true' if and only if the two points are different.
+    // When 'true', the rotation matrix is valid and is in world coordinates.
     bool GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1, 
         Matrix3f& rMat) const;
 
@@ -150,6 +154,10 @@ protected:
 
     // 截投体参数(near, far, bottom, top, left, right).
     float m_Frustum[VF_COUNT];
+
+    // 默认为true表示perspective camera.
+    // TO DO.  Stream this member
+    bool m_bPerspective;
 
     // 视口参数,
     // 暂时使用OpenGL风格,以后改为DirectX风格.
