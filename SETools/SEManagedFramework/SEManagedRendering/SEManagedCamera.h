@@ -56,6 +56,10 @@ public:
     void GetFrustum(float% trfRMin, float% trfRMax, float% trfUMin, 
         float% trfUMax, float% trfDMin, float% trfDMax);
 
+    // Perspective/orthogonal projection access.
+    void SetPerspective(bool bPerspective);
+    bool GetPerspective(void);
+
     // Mouse picking support.
     bool GetPickRay(int iX, int iY, int iWidth, int iHeight, 
         ManagedRay3f^ thRay);

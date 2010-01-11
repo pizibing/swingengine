@@ -164,6 +164,18 @@ void ManagedCamera::GetFrustum(float% trfRMin, float% trfRMax, float% trfUMin,
     trfDMax = fDMax;
 }
 //---------------------------------------------------------------------------
+void ManagedCamera::SetPerspective(bool bPerspective)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
+    (*m_pspCamera)->SetPerspective(bPerspective);
+}
+//---------------------------------------------------------------------------
+bool ManagedCamera::GetPerspective()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
+    return (*m_pspCamera)->GetPerspective();
+}
+//---------------------------------------------------------------------------
 bool ManagedCamera::GetPickRay(int iX, int iY, int iWidth, int iHeight, 
     ManagedRay3f^ thRay)
 {
