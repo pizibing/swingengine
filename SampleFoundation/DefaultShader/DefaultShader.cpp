@@ -144,7 +144,7 @@ void DefaultShader::CreateScene()
     Attributes tempAttr;
     tempAttr.SetPositionChannels(3);
     StandardMesh tempSM(tempAttr);
-    float fExt = 0.1f;
+    float fExt = 1.0f;
     m_spMesh = tempSM.Box(fExt, fExt, fExt);
     m_spScene->AttachChild(m_spMesh);
 
