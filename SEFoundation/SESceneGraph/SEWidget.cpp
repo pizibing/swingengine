@@ -24,4 +24,51 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
+Node* Widget::CoordinateFrame(float fLengthOfAxis)
+{
+    SE_ASSERT( fLengthOfAxis > 0 );
+
+    Node* pNode = SE_NEW Node;
+
+    Attributes tempAttr;
+    tempAttr.SetPositionChannels(3);
+    tempAttr.SetColorChannels(0, 3);
+    VertexBuffer* pVBuffer = SE_NEW VertexBuffer(tempAttr, 6);
+    (*(Vector3f*)pVBuffer->PositionTuple(0)) = Vector3f::ZERO;
+    (*(Vector3f*)pVBuffer->PositionTuple(1)) = fLengthOfAxis*Vector3f::UNIT_X;
+    (*(Vector3f*)pVBuffer->PositionTuple(2)) = Vector3f::ZERO;
+    (*(Vector3f*)pVBuffer->PositionTuple(3)) = fLengthOfAxis*Vector3f::UNIT_Y;
+    (*(Vector3f*)pVBuffer->PositionTuple(4)) = Vector3f::ZERO;
+    (*(Vector3f*)pVBuffer->PositionTuple(5)) = fLengthOfAxis*Vector3f::UNIT_Z;
+    (*(ColorRGB*)pVBuffer->ColorTuple(0, 0)) = ColorRGB::SE_RGB_RED;
+    (*(ColorRGB*)pVBuffer->ColorTuple(0, 1)) = ColorRGB::SE_RGB_RED;
+    (*(ColorRGB*)pVBuffer->ColorTuple(0, 2)) = ColorRGB::SE_RGB_GREEN;  
+    (*(ColorRGB*)pVBuffer->ColorTuple(0, 3)) = ColorRGB::SE_RGB_GREEN;
+    (*(ColorRGB*)pVBuffer->ColorTuple(0, 4)) = ColorRGB::SE_RGB_BLUE;
+    (*(ColorRGB*)pVBuffer->ColorTuple(0, 5)) = ColorRGB::SE_RGB_BLUE;
+    Polyline* pCoordinateFrame = SE_NEW Polyline(pVBuffer, false, false);
+    pNode->AttachChild(pCoordinateFrame);
+    VertexColor3Effect* pEffect = SE_NEW VertexColor3Effect;
+    pCoordinateFrame->AttachEffect(pEffect);
+
+    return pNode;
+}
+//----------------------------------------------------------------------------
+Node* Widget::ScaleFrame()
+{
+    // TODO:
+    return 0;
+}
+//----------------------------------------------------------------------------
+Node* Widget::RotationFrame()
+{
+    // TODO:
+    return 0;
+}
+//----------------------------------------------------------------------------
+Node* Widget::TranslationFrame()
+{
+    // TODO:
+    return 0;
+}
 //----------------------------------------------------------------------------

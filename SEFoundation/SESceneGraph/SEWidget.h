@@ -37,7 +37,10 @@ namespace Swing
 class SE_FOUNDATION_API Widget
 {
 public:
-
+    static Node* CoordinateFrame(float fLengthOfAxis);
+    static Node* ScaleFrame(void);
+    static Node* RotationFrame(void);
+    static Node* TranslationFrame(void);
 };
 
 }
