@@ -93,6 +93,7 @@
 #include "SECameraNode.h"
 #include "SELightNode.h"
 #include "SEParticles.h"
+#include "SEWidget.h"
 
 // Object System
 #include "SESmartPointer.h"
