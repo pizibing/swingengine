@@ -200,9 +200,10 @@ void Renderer::OnFrustumChange()
     float fInvUDiff = 1.0f / (fUMax - fUMin);
     float fInvDDiff = 1.0f / (fDMax - fDMin);
 
-    // 更新投影矩阵
+    // Update projection matrix.
     if( m_pCamera->GetPerspective() )
     {
+        // Perspective projection.
         m_ProjectionMatrix[0][0] = 2.0f*fDMin*fInvRDiff;
         m_ProjectionMatrix[0][1] = 0.0f;
         m_ProjectionMatrix[0][2] = 0.0f;
@@ -222,6 +223,7 @@ void Renderer::OnFrustumChange()
     }
     else
     {
+        // Orthogonal projection.
         m_ProjectionMatrix[0][0] = 2.0f*fInvRDiff;
         m_ProjectionMatrix[0][1] = 0.0f;
         m_ProjectionMatrix[0][2] = 0.0f;

@@ -117,16 +117,16 @@ public:
     inline float GetRMin(void) const;
     inline float GetRMax(void) const;
 
-    // Perspective/orthogonal camera access.
+    // Perspective/orthogonal projection access.
     void SetPerspective(bool bPerspective);
     inline bool GetPerspective(void) const;
 
-    // viewport (区间为[0,1]^2).
+    // Viewport access(区间为[0,1]^2).
     void SetViewport(float fLeft, float fRight, float fTop, float fBottom);
     void GetViewport(float& rLeft, float& rRight, float& rTop,
         float& rBottom);
 
-    // depth range (区间为[0,1]).
+    // Depth range access(区间为[0,1]).
     void SetDepthRange(float fNear, float fFar);
     void GetDepthRange(float& rNear, float& rFar);
 
