@@ -62,6 +62,8 @@ public:
     TriMesh* Torus(int iCircleSamples, int iRadialSamples,
         float fOuterRadius, float fInnerRadius);
 
+    TriMesh* Cone(int iRadialSamples, float fRadius, float fHeight);
+
     // 各种platonic多面体, 内接在一个以(0,0,0)为中心的单位球中.
     TriMesh* Tetrahedron(void);  // 四面体
     TriMesh* Hexahedron(void);   // 六面体

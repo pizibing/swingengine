@@ -20,6 +20,8 @@
 
 #include "SEFoundationPCH.h"
 #include "SEWidget.h"
+#include "SEPolyline.h"
+#include "SEStandardMesh.h"
 
 using namespace Swing;
 
@@ -33,23 +35,85 @@ Node* Widget::CoordinateFrame(float fLengthOfAxis)
     Attributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetColorChannels(0, 3);
-    VertexBuffer* pVBuffer = SE_NEW VertexBuffer(tempAttr, 6);
+    StandardMesh tempSM(tempAttr);
+
+    Matrix3f mat3fRot;
+    float fArrowRadius = 0.08f*fLengthOfAxis;
+    float fArrowHeight = 0.5f*fLengthOfAxis;
+
+    // Create axis x.
+    VertexBuffer* pVBuffer = SE_NEW VertexBuffer(tempAttr, 2);
     (*(Vector3f*)pVBuffer->PositionTuple(0)) = Vector3f::ZERO;
     (*(Vector3f*)pVBuffer->PositionTuple(1)) = fLengthOfAxis*Vector3f::UNIT_X;
-    (*(Vector3f*)pVBuffer->PositionTuple(2)) = Vector3f::ZERO;
-    (*(Vector3f*)pVBuffer->PositionTuple(3)) = fLengthOfAxis*Vector3f::UNIT_Y;
-    (*(Vector3f*)pVBuffer->PositionTuple(4)) = Vector3f::ZERO;
-    (*(Vector3f*)pVBuffer->PositionTuple(5)) = fLengthOfAxis*Vector3f::UNIT_Z;
     (*(ColorRGB*)pVBuffer->ColorTuple(0, 0)) = ColorRGB::SE_RGB_RED;
     (*(ColorRGB*)pVBuffer->ColorTuple(0, 1)) = ColorRGB::SE_RGB_RED;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 2)) = ColorRGB::SE_RGB_GREEN;  
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 3)) = ColorRGB::SE_RGB_GREEN;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 4)) = ColorRGB::SE_RGB_BLUE;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 5)) = ColorRGB::SE_RGB_BLUE;
-    Polyline* pCoordinateFrame = SE_NEW Polyline(pVBuffer, false, false);
-    pNode->AttachChild(pCoordinateFrame);
+    Polyline* pAxisX = SE_NEW Polyline(pVBuffer, false, false);
+    pAxisX->SetName("AxisX");
+
+    // Create axis x's ending arrow.
+    TriMesh* pArrowX = tempSM.Cone(16, fArrowRadius, fArrowHeight);
+    for( int i = 0; i < pArrowX->VBuffer->GetVertexCount(); i++ )
+    {
+        pArrowX->VBuffer->Color3(0, i) = ColorRGB::SE_RGB_RED;
+    }
+    mat3fRot.FromAxisAngle(Vector3f::UNIT_Y, Mathf::HALF_PI);
+    pArrowX->Local.SetRotate(mat3fRot);
+    pArrowX->Local.SetTranslate(fLengthOfAxis*Vector3f::UNIT_X);
+    pArrowX->SetName("ArrowX");
+
+    // Create axis y.
+    pVBuffer = SE_NEW VertexBuffer(tempAttr, 2);
+    (*(Vector3f*)pVBuffer->PositionTuple(0)) = Vector3f::ZERO;
+    (*(Vector3f*)pVBuffer->PositionTuple(1)) = fLengthOfAxis*Vector3f::UNIT_Y;
+    (*(ColorRGB*)pVBuffer->ColorTuple(0, 0)) = ColorRGB::SE_RGB_GREEN;
+    (*(ColorRGB*)pVBuffer->ColorTuple(0, 1)) = ColorRGB::SE_RGB_GREEN;
+    Polyline* pAxisY = SE_NEW Polyline(pVBuffer, false, false);
+    pAxisY->SetName("AxisY");
+
+    // Create axis y's ending arrow.
+    TriMesh* pArrowY = tempSM.Cone(16, fArrowRadius, fArrowHeight);
+    for( int i = 0; i < pArrowY->VBuffer->GetVertexCount(); i++ )
+    {
+        pArrowY->VBuffer->Color3(0, i) = ColorRGB::SE_RGB_GREEN;
+    }
+    mat3fRot.FromAxisAngle(Vector3f::UNIT_X, -Mathf::HALF_PI);
+    pArrowY->Local.SetRotate(mat3fRot);
+    pArrowY->Local.SetTranslate(fLengthOfAxis*Vector3f::UNIT_Y);
+    pArrowY->SetName("ArrowY");
+
+    // Create axis z.
+    pVBuffer = SE_NEW VertexBuffer(tempAttr, 2);
+    (*(Vector3f*)pVBuffer->PositionTuple(0)) = Vector3f::ZERO;
+    (*(Vector3f*)pVBuffer->PositionTuple(1)) = fLengthOfAxis*Vector3f::UNIT_Z;
+    (*(ColorRGB*)pVBuffer->ColorTuple(0, 0)) = ColorRGB::SE_RGB_BLUE;
+    (*(ColorRGB*)pVBuffer->ColorTuple(0, 1)) = ColorRGB::SE_RGB_BLUE;
+    Polyline* pAxisZ = SE_NEW Polyline(pVBuffer, false, false);
+    pAxisZ->SetName("AxisZ");
+
+    // Create axis z's ending arrow.
+    TriMesh* pArrowZ = tempSM.Cone(16, fArrowRadius, fArrowHeight);
+    for( int i = 0; i < pArrowZ->VBuffer->GetVertexCount(); i++ )
+    {
+        pArrowZ->VBuffer->Color3(0, i) = ColorRGB::SE_RGB_BLUE;
+    }
+    pArrowZ->Local.SetTranslate(fLengthOfAxis*Vector3f::UNIT_Z);
+    pArrowZ->SetName("ArrowZ");
+
     VertexColor3Effect* pEffect = SE_NEW VertexColor3Effect;
-    pCoordinateFrame->AttachEffect(pEffect);
+    pAxisX->AttachEffect(pEffect);
+    pArrowX->AttachEffect(pEffect);
+    pAxisY->AttachEffect(pEffect);
+    pArrowY->AttachEffect(pEffect);
+    pAxisZ->AttachEffect(pEffect);
+    pArrowZ->AttachEffect(pEffect);
+
+    pNode->AttachChild(pAxisX);
+    pNode->AttachChild(pArrowX);
+    pNode->AttachChild(pAxisY);
+    pNode->AttachChild(pArrowY);
+    pNode->AttachChild(pAxisZ);
+    pNode->AttachChild(pArrowZ);
+    pNode->UpdateGS();
 
     return pNode;
 }

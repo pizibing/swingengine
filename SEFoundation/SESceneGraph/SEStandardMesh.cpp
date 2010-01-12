@@ -946,6 +946,54 @@ TriMesh* StandardMesh::Torus(int iCircleSamples, int iRadialSamples,
     return pMesh;
 }
 //----------------------------------------------------------------------------
+TriMesh* StandardMesh::Cone(int iRadialSamples, float fRadius, float fHeight)
+{
+    TriMesh* pDisk = Disk(2, iRadialSamples, fRadius);
+    int iVCount = pDisk->VBuffer->GetVertexCount() + 1;
+    int iICount = pDisk->IBuffer->GetIndexCount()*2;
+    int iTCount = pDisk->IBuffer->GetIndexCount()/3;
+    int iVBSize = pDisk->VBuffer->GetChannelCount()*sizeof(float);
+    int iIBSize = pDisk->IBuffer->GetIndexCount()*sizeof(int);
+    int iVertexSize = m_Attr.GetChannelCount()*sizeof(float);
+
+    VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
+    IndexBuffer* pIB = SE_NEW IndexBuffer(iICount);
+
+    // Setup data for the new VB.
+    float* pSrcVData = pDisk->VBuffer->GetData();
+    float* pDstVData = pVB->GetData();
+    memcpy(pDstVData, pSrcVData, iVBSize);
+    float* pDstVData2 = pDstVData + pDisk->VBuffer->GetChannelCount();
+    memcpy(pDstVData2, pSrcVData, iVertexSize);
+    // TODO:
+    // Support SR instead of R for vector transformation.
+    Vector3f vec3fDir = Vector3f::UNIT_Z * m_XFrm.GetRotate();
+    pVB->Position3(iVCount - 1) += fHeight*vec3fDir;
+
+    // Setup data for the new IB.
+    int* pSrcIData = pDisk->IBuffer->GetData();
+    int* pDstIData = pIB->GetData();
+    memcpy(pDstIData, pSrcIData, iIBSize);
+    int* pDstIData2 = pDstIData + pDisk->IBuffer->GetIndexCount();
+    memcpy(pDstIData2, pSrcIData, iIBSize);
+    for( int i = 0; i < iTCount; i++ )
+    {
+        *pDstIData2 = iVCount - 1;
+        int iTemp = *(pDstIData2 + 1);
+        *(pDstIData2 + 1) = *(pDstIData2 + 2);
+        *(pDstIData2 + 2) = iTemp;
+
+        pDstIData2 += 3;
+    }
+    
+    SE_DELETE pDisk;
+
+    TriMesh* pMesh = SE_NEW TriMesh(pVB, pIB);
+    pMesh->UpdateMS();
+
+    return pMesh;
+}
+//----------------------------------------------------------------------------
 TriMesh* StandardMesh::Tetrahedron()
 {
     float fSqrt2Div3 = Mathf::Sqrt(2.0f) / 3.0f;

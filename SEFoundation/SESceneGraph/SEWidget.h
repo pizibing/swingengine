@@ -23,7 +23,6 @@
 
 #include "SEFoundationLIB.h"
 #include "SENode.h"
-#include "SETriMesh.h"
 
 namespace Swing
 {
