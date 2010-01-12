@@ -67,13 +67,6 @@ WindowApplication3::WindowApplication3(const char* acWindowTitle,
     m_iAccumulatedFrameCount = 0;
     m_iTimer = 30;
     m_iMaxTimer = 30;
-
-    // 辅助显示世界体系坐标轴
-    m_Origin = Vector3f::ZERO;
-    m_XEnd = Vector3f::UNIT_X;
-    m_YEnd = Vector3f::UNIT_Y;
-    m_ZEnd = Vector3f::UNIT_Z;
-    m_fT = 1.0f;
 }
 //----------------------------------------------------------------------------
 WindowApplication3::~WindowApplication3()
@@ -87,33 +80,21 @@ bool WindowApplication3::OnInitialize()
         return false;
     }
 
+    // Create main camera.
     m_spCamera = SE_NEW Camera;
     m_pRenderer->SetCamera(m_spCamera);
     m_spMotionObject = 0;
 
+    // Create main listener.
     m_spListener = SE_NEW Listener;
     m_pAudioRenderer->SetListener(m_spListener);
 
-    Attributes tempAttr;
-    tempAttr.SetPositionChannels(3);
-    tempAttr.SetColorChannels(0, 3);
-    VertexBuffer* pVBuffer = SE_NEW VertexBuffer(tempAttr, 6);
-    (*(Vector3f*)pVBuffer->PositionTuple(0)) = m_Origin;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 0)) = ColorRGB::SE_RGB_RED;
-    (*(Vector3f*)pVBuffer->PositionTuple(1)) = m_XEnd;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 1)) = ColorRGB::SE_RGB_RED;
-    (*(Vector3f*)pVBuffer->PositionTuple(2)) = m_Origin;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 2)) = ColorRGB::SE_RGB_GREEN;  
-    (*(Vector3f*)pVBuffer->PositionTuple(3)) = m_YEnd;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 3)) = ColorRGB::SE_RGB_GREEN;
-    (*(Vector3f*)pVBuffer->PositionTuple(4)) = m_Origin;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 4)) = ColorRGB::SE_RGB_BLUE;
-    (*(Vector3f*)pVBuffer->PositionTuple(5)) = m_ZEnd;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 5)) = ColorRGB::SE_RGB_BLUE;
-    m_spWorldAxis = SE_NEW Polyline(pVBuffer, false, false);
-
-    VertexColor3Effect* pEffect = SE_NEW VertexColor3Effect;
-    m_spWorldAxis->AttachEffect(pEffect);
+    // Create world coordinate frame's widget.
+    m_spWorldAxis = Widget::CoordinateFrame(0.3f);
+    ZBufferState* pZS = SE_NEW ZBufferState;
+    pZS->Enabled = false;
+    m_spWorldAxis->AttachGlobalState(pZS);
+    m_spWorldAxis->UpdateRS();
 
     return true;
 }
@@ -805,76 +786,21 @@ void WindowApplication3::DrawFrameRate(int iX, int iY, const ColorRGBA& rColor)
 //----------------------------------------------------------------------------
 void WindowApplication3::DrawWorldAxis(void)
 {
-    m_pRenderer->Draw(m_spWorldAxis);
-    m_pRenderer->Draw(m_iXEndScreenX + 2, m_iXEndScreenY - 2, 
-        ColorRGBA::SE_RGBA_RED, "x");
-    m_pRenderer->Draw(m_iYEndScreenX + 2, m_iYEndScreenY - 2, 
-        ColorRGBA::SE_RGBA_GREEN, "y");
-    m_pRenderer->Draw(m_iZEndScreenX + 2, m_iZEndScreenY - 2, 
-        ColorRGBA::SE_RGBA_BLUE, "z");
+    Vector3f vec3fOrigin = m_spCamera->GetLocation() + 
+        10.0f*m_spCamera->GetDVector() - 5.3f*m_spCamera->GetRVector() - 
+        3.2f*m_spCamera->GetUVector();
+    m_spWorldAxis->Local.SetTranslate(vec3fOrigin);
+    m_spWorldAxis->UpdateGS();
+
+    for( int i = 0; i < m_spWorldAxis->GetCount(); i++ )
+    {
+        m_pRenderer->Draw((Geometry*)(Spatial*)m_spWorldAxis->GetChild(i));
+    }
 }
 //----------------------------------------------------------------------------
 void WindowApplication3::SetOriginScreenPos(int iX, int iY, float fT)
 {
     SE_ASSERT( iX >= 0 && iX < m_iWidth );
     SE_ASSERT( iY >= 0 && iY < m_iHeight );
-
-    float fX = ((float)iX / (float)m_iWidth)*2.0f - 1.0f;
-    float fY = (1.0f - (float)iY / (float)m_iHeight)*2.0f - 1.0f;
-    // 注意如果z分量不是0时,最终变换结果需要除以w分量.
-    Vector4f vec4fOriginProj(fX, fY, 0.5f, 1.0f);
-
-    Matrix4f mat4fProjInv, mat4fViewInv;
-    m_pRenderer->GetProjectionMatrix().GetInverse(mat4fProjInv);
-    m_pRenderer->GetViewMatrix().GetInverse(mat4fViewInv);
-    Vector4f vec4fOriginView = vec4fOriginProj * mat4fProjInv;
-    Vector4f vec4fOriginWorld = vec4fOriginView * mat4fViewInv;
-    vec4fOriginWorld /= vec4fOriginWorld.W;
-
-    m_fT = fT;
-    m_Origin.X = vec4fOriginWorld.X;
-    m_Origin.Y = vec4fOriginWorld.Y;
-    m_Origin.Z = vec4fOriginWorld.Z;
-    m_XEnd = m_Origin + fT*Vector3f::UNIT_X;
-    m_YEnd = m_Origin + fT*Vector3f::UNIT_Y;
-    m_ZEnd = m_Origin + fT*Vector3f::UNIT_Z;
-
-    Vector4f vec4fXEnd, vec4fYEnd, vec4fZEnd,
-        vec4fXEndProj, vec4fYEndProj, vec4fZEndProj;
-    vec4fXEnd.X = m_XEnd.X;
-    vec4fXEnd.Y = m_XEnd.Y;
-    vec4fXEnd.Z = m_XEnd.Z;
-    vec4fXEnd.W = 1.0f;
-    vec4fYEnd.X = m_YEnd.X;
-    vec4fYEnd.Y = m_YEnd.Y;
-    vec4fYEnd.Z = m_YEnd.Z;
-    vec4fYEnd.W = 1.0f;
-    vec4fZEnd.X = m_ZEnd.X;
-    vec4fZEnd.Y = m_ZEnd.Y;
-    vec4fZEnd.Z = m_ZEnd.Z;
-    vec4fZEnd.W = 1.0f;
-    const Matrix4f& rView = m_pRenderer->GetViewMatrix();
-    const Matrix4f& rProj = m_pRenderer->GetProjectionMatrix();
-    vec4fXEndProj = vec4fXEnd * rView * rProj;
-    vec4fYEndProj = vec4fYEnd * rView * rProj;
-    vec4fZEndProj = vec4fZEnd * rView * rProj;
-    vec4fXEndProj /= vec4fXEndProj.W;
-    vec4fYEndProj /= vec4fYEndProj.W;
-    vec4fZEndProj /= vec4fZEndProj.W;
-
-    m_iXEndScreenX = (int)((vec4fXEndProj.X*0.5f + 0.5f) * m_iWidth);
-    m_iXEndScreenY = (int)((0.5f - vec4fXEndProj.Y*0.5f) * m_iHeight);
-    m_iYEndScreenX = (int)((vec4fYEndProj.X*0.5f + 0.5f) * m_iWidth);
-    m_iYEndScreenY = (int)((0.5f - vec4fYEndProj.Y*0.5f) * m_iHeight);
-    m_iZEndScreenX = (int)((vec4fZEndProj.X*0.5f + 0.5f) * m_iWidth);
-    m_iZEndScreenY = (int)((0.5f - vec4fZEndProj.Y*0.5f) * m_iHeight);
-
-    (*(Vector3f*)m_spWorldAxis->VBuffer->PositionTuple(0)) = m_Origin;
-    (*(Vector3f*)m_spWorldAxis->VBuffer->PositionTuple(1)) = m_XEnd;
-    (*(Vector3f*)m_spWorldAxis->VBuffer->PositionTuple(2)) = m_Origin;
-    (*(Vector3f*)m_spWorldAxis->VBuffer->PositionTuple(3)) = m_YEnd;
-    (*(Vector3f*)m_spWorldAxis->VBuffer->PositionTuple(4)) = m_Origin;
-    (*(Vector3f*)m_spWorldAxis->VBuffer->PositionTuple(5)) = m_ZEnd;
-    m_spWorldAxis->VBuffer->Release();
 }
 //----------------------------------------------------------------------------

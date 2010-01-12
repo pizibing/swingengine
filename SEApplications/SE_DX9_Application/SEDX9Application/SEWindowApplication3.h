@@ -104,13 +104,7 @@ protected:
     // 辅助显示世界体系坐标轴
     void DrawWorldAxis(void);
     void SetOriginScreenPos(int iX, int iY, float fT);
-    int m_iOrignScreenX, m_iOrignScreenY;
-    int m_iXEndScreenX, m_iXEndScreenY;
-    int m_iYEndScreenX, m_iYEndScreenY;
-    int m_iZEndScreenX, m_iZEndScreenY;
-    float m_fT;
-    Vector3f m_Origin, m_XEnd, m_YEnd, m_ZEnd;
-    PolylinePtr m_spWorldAxis;
+    NodePtr m_spWorldAxis;
 };
 
 }
