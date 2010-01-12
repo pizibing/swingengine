@@ -46,6 +46,7 @@ public:
     ManagedTriMesh^ Sphere(int iZSamples, int iRadialSamples, float fRadius);
     ManagedTriMesh^ Torus(int iCircleSamples, int iRadialSamples,
         float fOuterRadius, float fInnerRadius);
+    ManagedTriMesh^ Cone(int iRadialSamples, float fRadius, float fHeight);
 
 internal:
     [CLSCompliant(false)]

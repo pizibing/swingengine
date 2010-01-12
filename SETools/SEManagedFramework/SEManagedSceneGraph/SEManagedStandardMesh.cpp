@@ -96,6 +96,16 @@ ManagedTriMesh^ ManagedStandardMesh::Torus(int iCircleSamples,
     return gcnew ManagedTriMesh(pTriMesh);
 }
 //---------------------------------------------------------------------------
+ManagedTriMesh^ ManagedStandardMesh::Cone(int iRadialSamples, float fRadius,
+    float fHeight)
+{
+    SE_NULL_REFERENCE_CHECK(m_pStandardMesh, "Native pointer is null");
+    TriMesh* pTriMesh = m_pStandardMesh->Cone(iRadialSamples, fRadius, 
+        fHeight);
+
+    return gcnew ManagedTriMesh(pTriMesh);
+}
+//---------------------------------------------------------------------------
 StandardMesh* ManagedStandardMesh::GetNativeStandardMesh()
 {
     return m_pStandardMesh;
