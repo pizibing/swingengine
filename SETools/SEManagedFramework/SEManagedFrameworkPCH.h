@@ -57,6 +57,7 @@
 #include "SEManagedStandardMesh.h"
 #include "SEManagedNode.h"
 #include "SEManagedTriMesh.h"
+#include "SEManagedWidget.h"
 
 // Managed Effects
 #include "SEINativeEffect.h"

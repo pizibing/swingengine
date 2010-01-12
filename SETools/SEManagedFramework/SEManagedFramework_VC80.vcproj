@@ -377,6 +377,14 @@
 				RelativePath=".\SEManagedSceneGraph\SEManagedTriMesh.h"
 				>
 			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedWidget.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedWidget.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="SEManagedEffects"
