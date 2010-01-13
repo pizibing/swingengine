@@ -90,7 +90,8 @@ bool WindowApplication3::OnInitialize()
     m_pAudioRenderer->SetListener(m_spListener);
 
     // Create world coordinate frame's widget.
-    m_spWorldAxis = Widget::CoordinateFrame(0.3f);
+    m_fLengthOfAxis = 0.35f;
+    m_spWorldAxis = Widget::CoordinateFrame(m_fLengthOfAxis);
     ZBufferState* pZS = SE_NEW ZBufferState;
     pZS->Enabled = false;
     m_spWorldAxis->AttachGlobalState(pZS);
@@ -786,21 +787,58 @@ void WindowApplication3::DrawFrameRate(int iX, int iY, const ColorRGBA& rColor)
 //----------------------------------------------------------------------------
 void WindowApplication3::DrawWorldAxis(void)
 {
+    // Update the origin of world axis.
+    float fRatio = m_spCamera->GetRMax() / m_spCamera->GetUMax();
+    float fU = 3.4f;
+    float fR = fRatio*fU + 0.2f; 
     Vector3f vec3fOrigin = m_spCamera->GetLocation() + 
-        10.0f*m_spCamera->GetDVector() - 5.3f*m_spCamera->GetRVector() - 
-        3.2f*m_spCamera->GetUVector();
+        (m_spCamera->GetDMin() + 10.0f)*m_spCamera->GetDVector() - 
+        fR*m_spCamera->GetRVector() - fU*m_spCamera->GetUVector();
     m_spWorldAxis->Local.SetTranslate(vec3fOrigin);
     m_spWorldAxis->UpdateGS();
 
+    // Draw world axis's geometry.
     for( int i = 0; i < m_spWorldAxis->GetCount(); i++ )
     {
         m_pRenderer->Draw((Geometry*)(Spatial*)m_spWorldAxis->GetChild(i));
     }
-}
-//----------------------------------------------------------------------------
-void WindowApplication3::SetOriginScreenPos(int iX, int iY, float fT)
-{
-    SE_ASSERT( iX >= 0 && iX < m_iWidth );
-    SE_ASSERT( iY >= 0 && iY < m_iHeight );
+
+    // Get axis's ending points.
+    Matrix4f mat4fVP = m_pRenderer->GetViewMatrix()*
+        m_pRenderer->GetProjectionMatrix();
+    Vector3f vec3fXEnd, vec3fYEnd, vec3fZEnd;
+    vec3fXEnd = vec3fOrigin + m_fLengthOfAxis*Vector3f::UNIT_X;
+    vec3fYEnd = vec3fOrigin + m_fLengthOfAxis*Vector3f::UNIT_Y;
+    vec3fZEnd = vec3fOrigin + m_fLengthOfAxis*Vector3f::UNIT_Z;
+
+    // Draw character 'x' at the end of axis x.
+    Vector4f vec4fXTopH = Vector4f(vec3fXEnd.X, vec3fXEnd.Y, vec3fXEnd.Z, 1)*
+        mat4fVP;
+    float fInvW = 1.0f / vec4fXTopH.W;
+    float fX = (vec4fXTopH.X*fInvW + 1.0f)*0.5f;  // fX:[0,1]
+    float fY = (vec4fXTopH.Y*fInvW + 1.0f)*0.5f;  // fY:[0,1]
+    int iX = (int)(fX * (float)m_iWidth);         // iX:[0, width]
+    int iY = (int)((1.0f - fY)*(float)m_iHeight); // iY:[0, height]
+    m_pRenderer->Draw(iX + 2, iY - 2, ColorRGBA::SE_RGBA_RED, "x");
+
+    // Draw character 'y' at the end of axis y.
+    Vector4f vec4fYTopH = Vector4f(vec3fYEnd.X, vec3fYEnd.Y, vec3fYEnd.Z, 1)*
+        mat4fVP;
+    fInvW = 1.0f / vec4fYTopH.W;
+    fX = (vec4fYTopH.X*fInvW + 1.0f)*0.5f;    // fX:[0,1]
+    fY = (vec4fYTopH.Y*fInvW + 1.0f)*0.5f;    // fY:[0,1]
+    iX = (int)(fX * (float)m_iWidth);         // iX:[0, width]
+    iY = (int)((1.0f - fY)*(float)m_iHeight); // iY:[0, height]
+    m_pRenderer->Draw(iX + 2, iY - 2, ColorRGBA::SE_RGBA_GREEN, "y");
+
+    // Draw character 'z' at the end of axis z.
+    Vector4f vec4fZTopH = Vector4f(vec3fZEnd.X, vec3fZEnd.Y, vec3fZEnd.Z, 1)*
+        mat4fVP;
+    fInvW = 1.0f / vec4fZTopH.W;
+    fX = (vec4fZTopH.X*fInvW + 1.0f)*0.5f;    // fX:[0,1]
+    fY = (vec4fZTopH.Y*fInvW + 1.0f)*0.5f;    // fY:[0,1]
+    iX = (int)(fX * (float)m_iWidth);         // iX:[0, width]
+    iY = (int)((1.0f - fY)*(float)m_iHeight); // iY:[0, height]
+    m_pRenderer->Draw(iX + 2, iY - 2, ColorRGBA::SE_RGBA_BLUE, "z");
 }
 //----------------------------------------------------------------------------

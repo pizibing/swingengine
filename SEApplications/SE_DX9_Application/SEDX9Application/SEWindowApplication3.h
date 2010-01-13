@@ -103,8 +103,8 @@ protected:
 
     // 辅助显示世界体系坐标轴
     void DrawWorldAxis(void);
-    void SetOriginScreenPos(int iX, int iY, float fT);
     NodePtr m_spWorldAxis;
+    float m_fLengthOfAxis;
 };
 
 }
