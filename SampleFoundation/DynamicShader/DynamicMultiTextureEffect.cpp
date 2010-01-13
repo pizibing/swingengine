@@ -58,9 +58,9 @@ void DynamicMultiTextureEffect::SetTextureCount(int iTextureCount)
 
     m_iTextureCount = iTextureCount;
     SE_DELETE[] m_aImageName;
-    m_aImageName = SE_NEW String[m_iTextureCount];
+    m_aImageName = SE_NEW std::string[m_iTextureCount];
     SE_DELETE[] m_aTextureTypeName;
-    m_aTextureTypeName = SE_NEW String[m_iTextureCount];
+    m_aTextureTypeName = SE_NEW std::string[m_iTextureCount];
 }
 //----------------------------------------------------------------------------
 int DynamicMultiTextureEffect::GetTextureCount() const
@@ -68,14 +68,14 @@ int DynamicMultiTextureEffect::GetTextureCount() const
     return m_iTextureCount;
 }
 //----------------------------------------------------------------------------
-void DynamicMultiTextureEffect::SetImageName(int i, const String& rImageName)
+void DynamicMultiTextureEffect::SetImageName(int i, const std::string& rImageName)
 {
     SE_ASSERT( 0 <= i && i < m_iTextureCount );
 
     m_aImageName[i] = rImageName;
 }
 //----------------------------------------------------------------------------
-const String& DynamicMultiTextureEffect::GetImageName(int i) const
+const std::string& DynamicMultiTextureEffect::GetImageName(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iTextureCount );
 
@@ -83,14 +83,14 @@ const String& DynamicMultiTextureEffect::GetImageName(int i) const
 }
 //----------------------------------------------------------------------------
 void DynamicMultiTextureEffect::SetTextureTypeName(int i, 
-    const String& rTextureTypeName)
+    const std::string& rTextureTypeName)
 {
     SE_ASSERT( 0 <= i && i < m_iTextureCount );
 
     m_aTextureTypeName[i] = rTextureTypeName;
 }
 //----------------------------------------------------------------------------
-const String& DynamicMultiTextureEffect::GetTextureTypeName(int i) const
+const std::string& DynamicMultiTextureEffect::GetTextureTypeName(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iTextureCount );
 
@@ -186,8 +186,8 @@ int DynamicMultiTextureEffect::GetDiskUsed(const StreamVersion& rVersion) const
  
     for( int i = 0; i < m_iTextureCount; i++ )
     {
-        iSize += sizeof(int) + (int)m_aImageName[i].GetLength() + 
-            sizeof(int) + (int)m_aTextureTypeName[i].GetLength();
+        iSize += sizeof(int) + (int)m_aImageName[i].length() + 
+            sizeof(int) + (int)m_aTextureTypeName[i].length();
     }
 
     return iSize;
@@ -198,7 +198,7 @@ StringTree* DynamicMultiTextureEffect::SaveStrings(const char*)
     StringTree* pTree = SE_NEW StringTree;
 
     // strings
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(Format("texture count =", m_iTextureCount));
 
     const size_t uiTitleSize = 16;
@@ -206,9 +206,9 @@ StringTree* DynamicMultiTextureEffect::SaveStrings(const char*)
     for( int i = 0; i < m_iTextureCount; i++ )
     {
         System::SE_Sprintf(acTitle, uiTitleSize, "image[%d] =", i);
-        pTree->Append(Format(acTitle, (const char*)m_aImageName[i]));
+        pTree->Append(Format(acTitle, m_aImageName[i].c_str()));
         System::SE_Sprintf(acTitle, uiTitleSize, "type[%d] =", i);
-        pTree->Append(Format(acTitle, (const char*)m_aTextureTypeName[i]));
+        pTree->Append(Format(acTitle, m_aTextureTypeName[i].c_str()));
     }
 
     // children

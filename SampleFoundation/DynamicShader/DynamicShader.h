@@ -48,7 +48,7 @@ protected:
     Culler m_Culler;
 
     DynamicMultiTextureEffectPtr m_spEffect;
-    String m_ImageNames[3];
+    std::string m_ImageNames[3];
 
     ConstantColorControllerPtr m_spController;
 };

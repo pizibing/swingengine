@@ -23,7 +23,6 @@
 
 #include "SEFoundationLIB.h"
 #include "SEShaderEffect.h"
-#include "SEString.h"
 
 namespace Swing
 {
@@ -40,10 +39,10 @@ public:
 
     void SetTextureCount(int iTextureCount);
     int GetTextureCount(void) const;
-    void SetImageName(int i, const String& rImageName);
-    const String& GetImageName(int i) const;
-    void SetTextureTypeName(int i, const String& rTextureTypeName);
-    const String& GetTextureTypeName(int i) const;
+    void SetImageName(int i, const std::string& rImageName);
+    const std::string& GetImageName(int i) const;
+    void SetTextureTypeName(int i, const std::string& rTextureTypeName);
+    const std::string& GetTextureTypeName(int i) const;
     void Configure(void);
 
     static Vector3f ConstantColor;
@@ -56,8 +55,8 @@ protected:
         Program* pPProgram, Program* pGProgram);
 
     int m_iTextureCount;
-    String* m_aImageName;
-    String* m_aTextureTypeName;
+    std::string* m_aImageName;
+    std::string* m_aTextureTypeName;
 };
 
 typedef SmartPointer<DynamicMultiTextureEffect> DynamicMultiTextureEffectPtr;
