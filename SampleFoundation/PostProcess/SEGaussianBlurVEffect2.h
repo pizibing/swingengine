@@ -39,7 +39,7 @@ class GaussianBlurVEffect2 : public ShaderEffect
     SE_DECLARE_STREAM;
 
 public:
-    GaussianBlurVEffect2(const String& rBaseName);
+    GaussianBlurVEffect2(const std::string& rBaseName);
     virtual ~GaussianBlurVEffect2(void);
 
     // 根据color buffer尺寸调整texel kernel step.

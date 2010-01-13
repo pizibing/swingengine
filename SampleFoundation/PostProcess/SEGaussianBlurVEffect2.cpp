@@ -33,7 +33,7 @@ Vector3f GaussianBlurVEffect2::ms_TexelKernelStep = Vector3f::ZERO;
 bool GaussianBlurVEffect2::ms_bUCInitialized = false;
 
 //----------------------------------------------------------------------------
-GaussianBlurVEffect2::GaussianBlurVEffect2(const String& rBaseName)
+GaussianBlurVEffect2::GaussianBlurVEffect2(const std::string& rBaseName)
     :
     ShaderEffect(1)
 {
