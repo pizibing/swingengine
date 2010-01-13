@@ -105,7 +105,7 @@ int BloodCellController::GetDiskUsed(const StreamVersion& rVersion) const
 StringTree* BloodCellController::SaveStrings(const char*)
 {
     StringTree* pTree = SE_NEW StringTree;
-    pTree->Append(Format(&TYPE, (const char*)GetName()));
+    pTree->Append(Format(&TYPE, GetName().c_str()));
     pTree->Append(ParticleController::SaveStrings());
     return pTree;
 }
