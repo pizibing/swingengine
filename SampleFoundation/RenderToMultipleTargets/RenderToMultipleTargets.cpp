@@ -158,7 +158,7 @@ void RenderToMultipleTargets::CreateScene()
     // screen camera把[0, 1]^3区间上的(x, y, z)映射到[-1, 1]^2 x [0, 1]区间上
     // 的(x', y, 'z').
     m_spScreenCamera = SE_NEW Camera;
-    m_spScreenCamera->Perspective = false;
+    m_spScreenCamera->SetPerspective(false);
     m_spScreenCamera->SetFrustum(0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f);
     m_spScreenCamera->SetFrame(Vector3f::ZERO, Vector3f::UNIT_X, 
         Vector3f::UNIT_Y, Vector3f::UNIT_Z);
