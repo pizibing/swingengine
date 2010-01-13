@@ -153,3 +153,12 @@ WindowApplication3::OnTerminate()Ö®ºó,»òÕßÈ·±£³ÌĞòÍË³öÊ±,rendererÕıÔÚÒıÓÃÓ¦ÓÃ²ãÌ
 
 2009 1111 0902
 ÓÉÓÚOpenGL APIµÄÌØÊâĞÔ,ÔÚÊ¹ÓÃFramebuffer¶ÔÏóÊ±,Ó¦Ê×ÏÈµ÷ÓÃRenderer::ClearBuffers()º¯Êı,´Ó¶øÈ·±£ºóĞøäÖÈ¾ÄÜ¹»³É¹¦.¿É²Î¿¼ScreenSpaceAOÀı×Ó.
+
+2010 0113
+¹ØÓÚÊ¹ÓÃ¶à¸öRenderer¶ÔÏó:
+ÔÚĞèÒª¶Ô¶à¸öäÖÈ¾´°¿Ú½øĞĞäÖÈ¾Êä³öÊ±,Ó¦ÎªÃ¿¸ö´°¿Ú½¨Á¢Ò»¸öRenderer¶ÔÏó(±ÈÈç¿ª·¢Windows FormÓ¦ÓÃ³ÌĞò),Ä¿Ç°Ö»ÓĞDX9Renderer²âÊÔ¹ı´ËÏî¹¦ÄÜ,DX9RendererÊ¹ÓÃÁËCg/CgD3D9ÔËĞĞÊ±¿â,
+ÓÉÓÚCgD3D9¿âµÄÉè¼ÆÈ±Ïİ,Ôì³ÉCg contextÎŞ·¨ÓëDX9 device½¨Á¢Ò»¶ÔÒ»Î¬»¤¹ØÏµ(cgD3D9ÔËĞĞÊ±Î¬»¤²¢ÒıÓÃ×ÅÒ»¸öÈ«¾ÖD3D9 device¶ÔÏó,ÔËĞĞÊ±Ö»ÄÜ½«ËùÓĞCg contextËùÎ¬»¤µÄCg program
+ºÍCg paramter×ÊÔ´×°ÔØµ½¸ÃD3D9 device¶ÔÏó,»ò´Ó¸Ã¶ÔÏóÊÍ·ÅÕâĞ©×ÊÔ´. ²Î¿¼cgD3D9SetDeviceº¯Êı,¸Ãº¯ÊıÖ»½ÓÊÕ²¢Î¬»¤µ±Ç°Ê¹ÓÃµÄD3D9 device,¶ø²»ÎªCg context½¨Á¢Ó³Éä¹ØÏµ,
+ CgD3D10ĞŞ¸´ÁËÕâ¸öÈ±Ïİ,²Î¿¼cgD3D10SetDeviceº¯Êı),Òò´Ë,ÎªÁËÖ§³ÖÍ¬Ê±Ê¹ÓÃ¶à¸öRenderer,DX9Renderer±ØĞëÔÚÊ¹ÓÃ×Ô¼ºµÄCg shader×ÊÔ´Ö®Ç°,Í¨¹ıµ÷ÓÃcgD3D9SetDeviceº¯Êı,
+½«×Ô¼ºµÄD3D9 device°ó¶¨¸øCgD3D9ÔËĞĞÊ±,Ö®ºóÕâĞ©Cg shader×ÊÔ´»á±»Ê×´Î/ÔÙ´Î×°ÔØµ½¸ÃD3D9 device(ÓÉCgD3D9ÄÚ²¿¹ÜÀí).Òò´ËÔÚ¶à¸öRendererÖ®¼äÇĞ»»äÖÈ¾Ê±,Ö®Ç°RendererËùÊ¹ÓÃdeviceµÄ
+shader program×ÊÔ´»á±»ÊÍ·Å,µ±Ç°´ıÊ¹ÓÃRendererËùÊ¹ÓÃµÄdeviceµÄshader program×ÊÔ´»á±»ÖØĞÂ×°ÔØ,Õâ»áÓĞÒ»¶¨µÄĞÔÄÜËğÊ§,Ä¿Ç°Ã»ÓĞÆäËû¸üºÃµÄ½â¾ö°ì·¨.
