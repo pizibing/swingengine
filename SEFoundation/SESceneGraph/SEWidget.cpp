@@ -38,13 +38,14 @@ Node* Widget::CoordinateFrame(float fLengthOfAxis)
     StandardMesh tempSM(tempAttr);
 
     Matrix3f mat3fRot;
+    float fAxisHeight = 0.667f*fLengthOfAxis;
     float fArrowRadius = 0.08f*fLengthOfAxis;
-    float fArrowHeight = 0.5f*fLengthOfAxis;
+    float fArrowHeight = (1.0f - 0.667f)*fLengthOfAxis;
 
     // Create axis x.
     VertexBuffer* pVBuffer = SE_NEW VertexBuffer(tempAttr, 2);
     (*(Vector3f*)pVBuffer->PositionTuple(0)) = Vector3f::ZERO;
-    (*(Vector3f*)pVBuffer->PositionTuple(1)) = fLengthOfAxis*Vector3f::UNIT_X;
+    (*(Vector3f*)pVBuffer->PositionTuple(1)) = fAxisHeight*Vector3f::UNIT_X;
     (*(ColorRGB*)pVBuffer->ColorTuple(0, 0)) = ColorRGB::SE_RGB_RED;
     (*(ColorRGB*)pVBuffer->ColorTuple(0, 1)) = ColorRGB::SE_RGB_RED;
     Polyline* pAxisX = SE_NEW Polyline(pVBuffer, false, false);
@@ -58,13 +59,13 @@ Node* Widget::CoordinateFrame(float fLengthOfAxis)
     }
     mat3fRot.FromAxisAngle(Vector3f::UNIT_Y, Mathf::HALF_PI);
     pArrowX->Local.SetRotate(mat3fRot);
-    pArrowX->Local.SetTranslate(fLengthOfAxis*Vector3f::UNIT_X);
+    pArrowX->Local.SetTranslate(fAxisHeight*Vector3f::UNIT_X);
     pArrowX->SetName("ArrowX");
 
     // Create axis y.
     pVBuffer = SE_NEW VertexBuffer(tempAttr, 2);
     (*(Vector3f*)pVBuffer->PositionTuple(0)) = Vector3f::ZERO;
-    (*(Vector3f*)pVBuffer->PositionTuple(1)) = fLengthOfAxis*Vector3f::UNIT_Y;
+    (*(Vector3f*)pVBuffer->PositionTuple(1)) = fAxisHeight*Vector3f::UNIT_Y;
     (*(ColorRGB*)pVBuffer->ColorTuple(0, 0)) = ColorRGB::SE_RGB_GREEN;
     (*(ColorRGB*)pVBuffer->ColorTuple(0, 1)) = ColorRGB::SE_RGB_GREEN;
     Polyline* pAxisY = SE_NEW Polyline(pVBuffer, false, false);
@@ -78,13 +79,13 @@ Node* Widget::CoordinateFrame(float fLengthOfAxis)
     }
     mat3fRot.FromAxisAngle(Vector3f::UNIT_X, -Mathf::HALF_PI);
     pArrowY->Local.SetRotate(mat3fRot);
-    pArrowY->Local.SetTranslate(fLengthOfAxis*Vector3f::UNIT_Y);
+    pArrowY->Local.SetTranslate(fAxisHeight*Vector3f::UNIT_Y);
     pArrowY->SetName("ArrowY");
 
     // Create axis z.
     pVBuffer = SE_NEW VertexBuffer(tempAttr, 2);
     (*(Vector3f*)pVBuffer->PositionTuple(0)) = Vector3f::ZERO;
-    (*(Vector3f*)pVBuffer->PositionTuple(1)) = fLengthOfAxis*Vector3f::UNIT_Z;
+    (*(Vector3f*)pVBuffer->PositionTuple(1)) = fAxisHeight*Vector3f::UNIT_Z;
     (*(ColorRGB*)pVBuffer->ColorTuple(0, 0)) = ColorRGB::SE_RGB_BLUE;
     (*(ColorRGB*)pVBuffer->ColorTuple(0, 1)) = ColorRGB::SE_RGB_BLUE;
     Polyline* pAxisZ = SE_NEW Polyline(pVBuffer, false, false);
@@ -96,7 +97,7 @@ Node* Widget::CoordinateFrame(float fLengthOfAxis)
     {
         pArrowZ->VBuffer->Color3(0, i) = ColorRGB::SE_RGB_BLUE;
     }
-    pArrowZ->Local.SetTranslate(fLengthOfAxis*Vector3f::UNIT_Z);
+    pArrowZ->Local.SetTranslate(fAxisHeight*Vector3f::UNIT_Z);
     pArrowZ->SetName("ArrowZ");
 
     VertexColor3Effect* pEffect = SE_NEW VertexColor3Effect;
