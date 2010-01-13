@@ -33,7 +33,6 @@ ManagedEngine::ManagedEngine()
 
     // Swing Engine initialize.
     System::SE_Initialize();
-    assert( Swing::System::SE_PATH[0] );
     std::string tempSEPath(System::SE_PATH);
     Main::Initialize();
 
