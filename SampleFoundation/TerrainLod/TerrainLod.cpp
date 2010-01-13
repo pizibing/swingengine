@@ -177,12 +177,11 @@ void TerrainLod::CreateScene()
             // result blended with fog.
             MultitextureEffect* pEffect = DynamicCast<MultitextureEffect>(
                 pPage->GetEffect(0));
-            String tempBaseName = pEffect->GetImageName(0);
+            std::string tempBaseName = pEffect->GetImageName(0);
             pPage->DetachEffect(pEffect);
 
             TerrainEffect* pTEffect = SE_NEW TerrainEffect(
-                (const char*)tempBaseName, "Detail", m_FogColor, 
-                m_fFogDensity);
+                tempBaseName.c_str(), "Detail", m_FogColor, m_fFogDensity);
             pPage->AttachEffect(pTEffect);
         }
     }
