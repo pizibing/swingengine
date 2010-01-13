@@ -316,8 +316,17 @@ void DX9Renderer::ToggleFullscreen()
 //----------------------------------------------------------------------------
 bool DX9Renderer::BeginScene()
 {
+    // When using multiple renderers, cgD3D9 runtime can not support a 
+    // one-to-one relationship between a cg context and a DX device.
+    // Every cg context shares the same active DX device, and manages DX
+    // related resource(shader programs,parameter handles) by using this
+    // active DX device. So it is important to re-set the current renderer's
+    // device to the cgD3D9 runtime by using this function.
+    // This is a disadvantage of cgD3D9 which reduces renderer's performance.
+    cgD3D9SetDevice(m_pDXDevice);
+    SE_DX9_DEBUG_CG_PROGRAM;
+
     ms_hResult = m_pDXDevice->TestCooperativeLevel();
-    
     switch( ms_hResult )
     {
     case D3DERR_DEVICELOST:

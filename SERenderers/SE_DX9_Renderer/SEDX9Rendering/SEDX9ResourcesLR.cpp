@@ -52,6 +52,16 @@ D3DFORMAT DX9Renderer::ms_aeImageFormat[Image::IT_COUNT] =
 void DX9Renderer::OnLoadVProgram(ResourceIdentifier*& rpID, 
     VertexProgram* pVProgram)
 {
+    // When using multiple renderers, cgD3D9 runtime can not support a 
+    // one-to-one relationship between a cg context and a DX device.
+    // Every cg context shares the same active DX device, and manages DX
+    // related resource(shader programs,parameter handles) by using this
+    // active DX device. So it is important to re-set the current renderer's
+    // device to the cgD3D9 runtime by using this function.
+    // This is a disadvantage of cgD3D9 which reduces renderer's performance.
+    cgD3D9SetDevice(m_pDXDevice);
+    SE_DX9_DEBUG_CG_PROGRAM;
+
     VProgramID* pResource = SE_NEW VProgramID;
     ProgramData* pData = (ProgramData*)pVProgram->UserData;
     pResource->ID = pData->ID;
@@ -64,14 +74,22 @@ void DX9Renderer::OnLoadVProgram(ResourceIdentifier*& rpID,
 void DX9Renderer::OnReleaseVProgram(ResourceIdentifier* pID)
 {
     VProgramID* pResource = (VProgramID*)pID;
-    ms_hResult = cgD3D9UnloadProgram(pResource->ID);
-    SE_ASSERT( SUCCEEDED(ms_hResult) );
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
 void DX9Renderer::OnLoadPProgram(ResourceIdentifier*& rpID, 
     PixelProgram* pPProgram)
 {
+    // When using multiple renderers, cgD3D9 runtime can not support a 
+    // one-to-one relationship between a cg context and a DX device.
+    // Every cg context shares the same active DX device, and manages DX
+    // related resource(shader programs,parameter handles) by using this
+    // active DX device. So it is important to re-set the current renderer's
+    // device to the cgD3D9 runtime by using this function.
+    // This is a disadvantage of cgD3D9 which reduces renderer's performance.
+    cgD3D9SetDevice(m_pDXDevice);
+    SE_DX9_DEBUG_CG_PROGRAM;
+
     PProgramID* pResource = SE_NEW PProgramID;
     ProgramData* pData = (ProgramData*)pPProgram->UserData;
     pResource->ID = pData->ID;
@@ -84,8 +102,6 @@ void DX9Renderer::OnLoadPProgram(ResourceIdentifier*& rpID,
 void DX9Renderer::OnReleasePProgram(ResourceIdentifier* pID)
 {
     PProgramID* pResource = (PProgramID*)pID;
-    ms_hResult = cgD3D9UnloadProgram(pResource->ID);
-    SE_ASSERT( SUCCEEDED(ms_hResult) );
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
