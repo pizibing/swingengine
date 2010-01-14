@@ -62,7 +62,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="mscoree.lib msvcmrtd.lib msvcrtd.lib SEFoundation80d.lib SEDX9Renderer80d.lib"
-				OutputFile="..\..\SDK\Lib\DebugDLL\SEManagedFramework80d.dll"
+				OutputFile="..\..\SDK\Lib\DebugDLL\SEManagedFramework.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\DebugDLL"
 				ForceSymbolReferences="__DllMainCRTStartup@12"
@@ -143,7 +143,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="mscoree.lib msvcmrt.lib msvcrt.lib SEFoundation80.lib SEDX9Renderer80.lib"
-				OutputFile="..\..\SDK\Lib\ReleaseDLL\SEManagedFramework80.dll"
+				OutputFile="..\..\SDK\Lib\ReleaseDLL\SEManagedFramework.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\ReleaseDLL"
 				ForceSymbolReferences="__DllMainCRTStartup@12"
