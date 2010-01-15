@@ -40,6 +40,10 @@ public:
     ManagedTriMesh(void);
     ~ManagedTriMesh(void);
 
+    // Create a new ManagedTriMesh object which shares the same vertex buffer
+    // and index buffer with the current object.
+    ManagedTriMesh^ Clone(void);
+
     // Implement INativeSpatial interface.
     virtual void SetLocalRotate(ManagedMatrix3f^ thRotate);
     virtual ManagedMatrix3f^ GetLocalRotate(void);

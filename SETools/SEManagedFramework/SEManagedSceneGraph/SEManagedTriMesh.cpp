@@ -46,6 +46,15 @@ ManagedTriMesh::~ManagedTriMesh()
     m_pspTriMesh = 0;
 }
 //---------------------------------------------------------------------------
+ManagedTriMesh^ ManagedTriMesh::Clone()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    TriMesh* pTriMesh = SE_NEW TriMesh((*m_pspTriMesh)->VBuffer, 
+        (*m_pspTriMesh)->IBuffer);
+
+    return gcnew ManagedTriMesh(pTriMesh);
+}
+//---------------------------------------------------------------------------
 void ManagedTriMesh::SetLocalRotate(ManagedMatrix3f^ thRotate)
 {
     SE_NULL_ARGUMENT_CHECK(thRotate, "thRotate");
