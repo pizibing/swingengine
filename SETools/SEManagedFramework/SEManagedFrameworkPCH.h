@@ -62,7 +62,9 @@
 
 // Managed Effects
 #include "SEINativeEffect.h"
+#include "SEINativeShaderEffect.h"
 #include "SEManagedDefaultShaderEffect.h"
+#include "SEManagedTextureEffect.h"
 
 // Managed Object System
 #include "SEINativeObject.h"

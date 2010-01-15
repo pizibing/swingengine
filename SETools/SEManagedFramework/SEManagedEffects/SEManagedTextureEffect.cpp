@@ -19,35 +19,45 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 #include "SEManagedFrameworkPCH.h"
-#include "SEManagedDefaultShaderEffect.h"
+#include "SEManagedTextureEffect.h"
 
-using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
+using namespace System::Runtime::InteropServices;
 
 //---------------------------------------------------------------------------
-ManagedDefaultShaderEffect::ManagedDefaultShaderEffect()
+ManagedTextureEffect::ManagedTextureEffect(String^ thBaseName)
 {
-    m_pspTextureEffect = SE_NEW DefaultShaderEffectPtr;
-    (*m_pspTextureEffect) = SE_NEW DefaultShaderEffect;
+    SE_NULL_ARGUMENT_CHECK(thBaseName, "thBaseName");
+
+    // Native heap resource is allocated here.
+    IntPtr pBaseName = Marshal::StringToHGlobalAnsi(thBaseName);
+    
+    std::string tempBaseName((const char*)(void*)pBaseName);
+
+    // We've done with the native resource allocated by Marshal, free it.
+    Marshal::FreeHGlobal(pBaseName);
+
+    m_pspTextureEffect = SE_NEW Swing::TextureEffectPtr;
+    (*m_pspTextureEffect) = SE_NEW Swing::TextureEffect(tempBaseName);
 }
 //---------------------------------------------------------------------------
-ManagedDefaultShaderEffect::~ManagedDefaultShaderEffect()
+ManagedTextureEffect::~ManagedTextureEffect()
 {
     SE_DELETE m_pspTextureEffect;
     m_pspTextureEffect = 0;
 }
 //---------------------------------------------------------------------------
-int ManagedDefaultShaderEffect::GetNativeReferences()
+int ManagedTextureEffect::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, 
         "Native pointer is null");
     return (*m_pspTextureEffect)->GetReferences();
 }
 //---------------------------------------------------------------------------
-Effect* ManagedDefaultShaderEffect::GetNativeEffect()
+Swing::Effect* ManagedTextureEffect::GetNativeEffect()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, 
         "Native pointer is null");
-    return (Effect*)(*m_pspTextureEffect);
+    return (Swing::Effect*)(*m_pspTextureEffect);
 }
 //---------------------------------------------------------------------------

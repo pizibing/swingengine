@@ -20,34 +20,20 @@
 
 #pragma once
 
-#include "SEINativeObject.h"
-#include "SEINativeEffect.h"
+using namespace System;
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed default shader effect class
+// Name:Shader effect interface class
 // Description:
 // Author:Sun Che
-// Date:20091231
+// Date:20100115
 //----------------------------------------------------------------------------
-public ref class ManagedDefaultShaderEffect sealed : INativeObject, 
-    INativeEffect
+public interface class INativeShaderEffect
 {
-public:
-    ManagedDefaultShaderEffect(void);
-    ~ManagedDefaultShaderEffect(void);
-
-    // Implement INativeObject interface.
-    virtual int GetNativeReferences(void);
-
-internal:
-    // Implement INativeEffect interface.
     [CLSCompliant(false)]
-    virtual Effect* GetNativeEffect(void) = INativeEffect::GetNativeEffect;
-
-private:
-    DefaultShaderEffectPtr* m_pspTextureEffect;
+    ShaderEffect* GetNativeShaderEffect(void);
 };
 
 }}}

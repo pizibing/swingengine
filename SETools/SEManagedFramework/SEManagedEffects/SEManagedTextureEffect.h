@@ -26,17 +26,17 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed default shader effect class
+// Name:Managed texture effect class
 // Description:
 // Author:Sun Che
-// Date:20091231
+// Date:20100115
 //----------------------------------------------------------------------------
-public ref class ManagedDefaultShaderEffect sealed : INativeObject, 
+public ref class ManagedTextureEffect sealed : INativeObject, 
     INativeEffect
 {
 public:
-    ManagedDefaultShaderEffect(void);
-    ~ManagedDefaultShaderEffect(void);
+    ManagedTextureEffect(String^ thBaseName);
+    ~ManagedTextureEffect(void);
 
     // Implement INativeObject interface.
     virtual int GetNativeReferences(void);
@@ -47,7 +47,7 @@ internal:
     virtual Effect* GetNativeEffect(void) = INativeEffect::GetNativeEffect;
 
 private:
-    DefaultShaderEffectPtr* m_pspTextureEffect;
+    TextureEffectPtr* m_pspTextureEffect;
 };
 
 }}}

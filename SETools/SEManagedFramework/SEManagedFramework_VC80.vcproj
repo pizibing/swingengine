@@ -402,11 +402,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEManagedEffects\SEINativeShaderEffect.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEManagedEffects\SEManagedDefaultShaderEffect.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\SEManagedEffects\SEManagedDefaultShaderEffect.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedEffects\SEManagedTextureEffect.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedEffects\SEManagedTextureEffect.h"
 				>
 			</File>
 		</Filter>
