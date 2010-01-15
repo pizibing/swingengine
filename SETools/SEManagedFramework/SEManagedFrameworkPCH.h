@@ -28,6 +28,7 @@
 #pragma managed
 
 // Managed Math
+#include "SEManagedMath.h"
 #include "SEManagedColorRGB.h"
 #include "SEManagedColorRGBA.h"
 #include "SEManagedVector2.h"

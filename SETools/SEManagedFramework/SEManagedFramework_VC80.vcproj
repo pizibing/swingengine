@@ -282,6 +282,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEManagedMath\SEManagedMath.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedMath\SEManagedMath.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEManagedMath\SEManagedMatrix3.cpp"
 				>
 			</File>
