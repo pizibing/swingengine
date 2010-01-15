@@ -214,6 +214,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEManagedRendering\SEManagedLight.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedRendering\SEManagedLight.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEManagedRendering\SEManagedMaterialState.cpp"
 				>
 			</File>

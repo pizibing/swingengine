@@ -132,7 +132,6 @@ ManagedVector3f^ ManagedCamera::GetDVector()
 Camera* ManagedCamera::GetNativeCamera()
 {
     SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
-
     return (Camera*)(*m_pspCamera);
 }
 //---------------------------------------------------------------------------

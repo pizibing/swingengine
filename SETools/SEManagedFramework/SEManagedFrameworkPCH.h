@@ -48,6 +48,7 @@
 #include "SEManagedStencilState.h"
 #include "SEManagedWireframeState.h"
 #include "SEManagedZBufferState.h"
+#include "SEManagedLight.h"
 
 // Managed Scene Graph
 #include "SEINativeSpatial.h"
