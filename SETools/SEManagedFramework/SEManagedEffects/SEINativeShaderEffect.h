@@ -20,6 +20,8 @@
 
 #pragma once
 
+#include "SEManagedAlphaState.h"
+
 using namespace System;
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
@@ -32,6 +34,8 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 //----------------------------------------------------------------------------
 public interface class INativeShaderEffect
 {
+    ManagedAlphaState^ GetBlending(int iPass);
+
     [CLSCompliant(false)]
     ShaderEffect* GetNativeShaderEffect(void);
 };

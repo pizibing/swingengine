@@ -47,17 +47,28 @@ ManagedTextureEffect::~ManagedTextureEffect()
     m_pspTextureEffect = 0;
 }
 //---------------------------------------------------------------------------
+ManagedAlphaState^ ManagedTextureEffect::GetBlending(int iPass)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
+    return gcnew ManagedAlphaState(
+        (*m_pspTextureEffect)->GetBlending(iPass));
+}
+//---------------------------------------------------------------------------
 int ManagedTextureEffect::GetNativeReferences()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, 
-        "Native pointer is null");
+    SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
     return (*m_pspTextureEffect)->GetReferences();
 }
 //---------------------------------------------------------------------------
 Swing::Effect* ManagedTextureEffect::GetNativeEffect()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, 
-        "Native pointer is null");
+    SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
     return (Swing::Effect*)(*m_pspTextureEffect);
+}
+//---------------------------------------------------------------------------
+Swing::ShaderEffect* ManagedTextureEffect::GetNativeShaderEffect()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
+    return (Swing::ShaderEffect*)(*m_pspTextureEffect);
 }
 //---------------------------------------------------------------------------

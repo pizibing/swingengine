@@ -60,6 +60,8 @@
 #include "SEManagedNode.h"
 #include "SEManagedTriMesh.h"
 #include "SEManagedWidget.h"
+#include "SEManagedLightNode.h"
+#include "SEManagedCameraNode.h"
 
 // Managed Effects
 #include "SEINativeEffect.h"

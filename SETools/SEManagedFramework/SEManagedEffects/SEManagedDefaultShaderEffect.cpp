@@ -27,27 +27,42 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedDefaultShaderEffect::ManagedDefaultShaderEffect()
 {
-    m_pspTextureEffect = SE_NEW DefaultShaderEffectPtr;
-    (*m_pspTextureEffect) = SE_NEW DefaultShaderEffect;
+    m_pspDefaultShaderEffect = SE_NEW DefaultShaderEffectPtr;
+    (*m_pspDefaultShaderEffect) = SE_NEW DefaultShaderEffect;
 }
 //---------------------------------------------------------------------------
 ManagedDefaultShaderEffect::~ManagedDefaultShaderEffect()
 {
-    SE_DELETE m_pspTextureEffect;
-    m_pspTextureEffect = 0;
+    SE_DELETE m_pspDefaultShaderEffect;
+    m_pspDefaultShaderEffect = 0;
+}
+//---------------------------------------------------------------------------
+ManagedAlphaState^ ManagedDefaultShaderEffect::GetBlending(int iPass)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 
+        "Native pointer is null");
+    return gcnew ManagedAlphaState(
+        (*m_pspDefaultShaderEffect)->GetBlending(iPass));
 }
 //---------------------------------------------------------------------------
 int ManagedDefaultShaderEffect::GetNativeReferences()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, 
+    SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 
         "Native pointer is null");
-    return (*m_pspTextureEffect)->GetReferences();
+    return (*m_pspDefaultShaderEffect)->GetReferences();
 }
 //---------------------------------------------------------------------------
 Effect* ManagedDefaultShaderEffect::GetNativeEffect()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, 
+    SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 
         "Native pointer is null");
-    return (Effect*)(*m_pspTextureEffect);
+    return (Effect*)(*m_pspDefaultShaderEffect);
+}
+//---------------------------------------------------------------------------
+ShaderEffect* ManagedDefaultShaderEffect::GetNativeShaderEffect()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 
+        "Native pointer is null");
+    return (ShaderEffect*)(*m_pspDefaultShaderEffect);
 }
 //---------------------------------------------------------------------------

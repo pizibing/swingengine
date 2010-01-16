@@ -22,6 +22,7 @@
 
 #include "SEINativeObject.h"
 #include "SEINativeEffect.h"
+#include "SEINativeShaderEffect.h"
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
@@ -32,11 +33,14 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 // Date:20100115
 //----------------------------------------------------------------------------
 public ref class ManagedTextureEffect sealed : INativeObject, 
-    INativeEffect
+    INativeEffect, INativeShaderEffect
 {
 public:
     ManagedTextureEffect(String^ thBaseName);
     ~ManagedTextureEffect(void);
+
+    // Implement INativeShaderEffect interface.
+    virtual ManagedAlphaState^ GetBlending(int iPass);
 
     // Implement INativeObject interface.
     virtual int GetNativeReferences(void);
@@ -45,6 +49,11 @@ internal:
     // Implement INativeEffect interface.
     [CLSCompliant(false)]
     virtual Effect* GetNativeEffect(void) = INativeEffect::GetNativeEffect;
+
+    // Implement INativeShaderEffect interface.
+    [CLSCompliant(false)]
+    virtual ShaderEffect* GetNativeShaderEffect(void) = 
+        INativeShaderEffect::GetNativeShaderEffect;
 
 private:
     TextureEffectPtr* m_pspTextureEffect;

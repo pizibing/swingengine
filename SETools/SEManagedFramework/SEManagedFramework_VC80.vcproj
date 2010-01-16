@@ -362,11 +362,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedCameraNode.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedCameraNode.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEManagedSceneGraph\SEManagedCuller.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\SEManagedSceneGraph\SEManagedCuller.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedLightNode.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedLightNode.h"
 				>
 			</File>
 			<File
