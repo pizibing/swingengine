@@ -45,6 +45,33 @@ ManagedAlphaState^ ManagedDefaultShaderEffect::GetBlending(int iPass)
         (*m_pspDefaultShaderEffect)->GetBlending(iPass));
 }
 //---------------------------------------------------------------------------
+ManagedTexture^ ManagedDefaultShaderEffect::GetPTexture(int iPass, int i)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 
+        "Native pointer is null");
+    return gcnew ManagedTexture((*m_pspDefaultShaderEffect)->GetPTexture(
+        iPass, i));
+}
+//---------------------------------------------------------------------------
+ManagedTexture^ ManagedDefaultShaderEffect::GetPTexture(int iPass, 
+    String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 
+        "Native pointer is null");
+    return nullptr;
+}
+//---------------------------------------------------------------------------
+void ManagedDefaultShaderEffect::SetPTexture(int iPass, int i, 
+    ManagedTexture^ thTexture)
+{
+    SE_NULL_ARGUMENT_CHECK(thTexture, "thTexture");
+    SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 
+        "Native pointer is null");
+    (*m_pspDefaultShaderEffect)->SetPTexture(iPass, i, 
+        thTexture->GetNativeTexture());
+}
+//---------------------------------------------------------------------------
 int ManagedDefaultShaderEffect::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 

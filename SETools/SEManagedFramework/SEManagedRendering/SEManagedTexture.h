@@ -21,46 +21,84 @@
 #pragma once
 
 #include "SEINativeObject.h"
-#include "SEINativeEffect.h"
-#include "SEINativeShaderEffect.h"
+#include "SEManagedColorRGBA.h"
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed texture effect class
+// Name:Managed texture class
 // Description:
 // Author:Sun Che
-// Date:20100115
+// Date:20100117
 //----------------------------------------------------------------------------
-public ref class ManagedTextureEffect sealed : INativeObject, 
-    INativeEffect, INativeShaderEffect
+public ref class ManagedTexture sealed : INativeObject
 {
 public:
-    ManagedTextureEffect(String^ thBaseName);
-    ~ManagedTextureEffect(void);
+    enum class FilterType
+    {
+        NEAREST,
+        LINEAR,
+        NEAREST_NEAREST,
+        NEAREST_LINEAR,
+        LINEAR_NEAREST,
+        LINEAR_LINEAR,
+        MAX_FILTER_TYPES
+    };
 
-    // Implement INativeShaderEffect interface.
-    virtual ManagedAlphaState^ GetBlending(int iPass);
-    //
-    virtual ManagedTexture^ GetPTexture(int iPass, int i);
-    virtual ManagedTexture^ GetPTexture(int iPass, String^ thName);
-    virtual void SetPTexture(int iPass, int i, ManagedTexture^ thTexture);
+    enum class WrapType
+    {
+        CLAMP,
+        REPEAT,
+        MIRRORED_REPEAT,
+        CLAMP_BORDER,
+        CLAMP_EDGE,
+        MAX_WRAP_TYPES
+    };
+
+    enum class DepthCompare
+    {
+        DC_NEVER,
+        DC_LESS,
+        DC_EQUAL,
+        DC_LEQUAL,
+        DC_GREATER,
+        DC_NOTEQUAL,
+        DC_GEQUAL,
+        DC_ALWAYS,
+        DC_COUNT
+    };
+
+    ManagedTexture(void);
+    ~ManagedTexture(void);
+
+    // Filter type access.
+    void SetFilterType(FilterType eFType);
+    FilterType GetFilterType(void);
+
+    // Wrap type access.
+    void SetWrapType(int i, WrapType eWType);
+    WrapType GetWrapType(int i);
+
+    // Border color access.
+    void SetBorderColor(ManagedColorRGBA^ thBorderColor);
+    ManagedColorRGBA^ GetBorderColor(void);
+
+    // Offscreen texture access.
+    bool IsOffscreenTexture(void);
+    void SetOffscreenTexture(bool bOffscreenTexture);
 
     // Implement INativeObject interface.
     virtual int GetNativeReferences(void);
 
 internal:
-    // Implement INativeEffect interface.
     [CLSCompliant(false)]
-    virtual Effect* GetNativeEffect(void) = INativeEffect::GetNativeEffect;
+    ManagedTexture(Texture* pTexture);
 
-    // Implement INativeShaderEffect interface.
     [CLSCompliant(false)]
-    virtual ShaderEffect* GetNativeShaderEffect(void) = 
-        INativeShaderEffect::GetNativeShaderEffect;
+    Texture* GetNativeTexture(void);
 
 private:
-    TextureEffectPtr* m_pspTextureEffect;
+    TexturePtr* m_pspTexture;
 };
 
 }}}

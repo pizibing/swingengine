@@ -41,6 +41,10 @@ public:
 
     // Implement INativeShaderEffect interface.
     virtual ManagedAlphaState^ GetBlending(int iPass);
+    //
+    virtual ManagedTexture^ GetPTexture(int iPass, int i);
+    virtual ManagedTexture^ GetPTexture(int iPass, String^ thName);
+    virtual void SetPTexture(int iPass, int i, ManagedTexture^ thTexture);
 
     // Implement INativeObject interface.
     virtual int GetNativeReferences(void);

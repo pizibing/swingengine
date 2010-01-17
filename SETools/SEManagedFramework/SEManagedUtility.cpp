@@ -18,33 +18,7 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#pragma once
+#include "SEManagedFrameworkPCH.h"
+#include "SEManagedUtility.h"
 
-#include "SEManagedAlphaState.h"
-#include "SEManagedTexture.h"
-
-using namespace System;
-
-namespace Swing{ namespace Tools{ namespace ManagedFramework{
-
-//----------------------------------------------------------------------------
-// Name:Shader effect interface class
-// Description:
-// Author:Sun Che
-// Date:20100115
-//----------------------------------------------------------------------------
-public interface class INativeShaderEffect
-{
-    // Pass's alpha state access.
-    ManagedAlphaState^ GetBlending(int iPass);
-
-    // Pixel shader texture access.
-    ManagedTexture^ GetPTexture(int iPass, int i);
-    ManagedTexture^ GetPTexture(int iPass, String^ thName);
-    void SetPTexture(int iPass, int i, ManagedTexture^ thTexture);
-
-    [CLSCompliant(false)]
-    ShaderEffect* GetNativeShaderEffect(void);
-};
-
-}}}
+using namespace Swing::Tools::ManagedFramework;

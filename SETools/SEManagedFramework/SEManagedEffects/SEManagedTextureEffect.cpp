@@ -54,6 +54,28 @@ ManagedAlphaState^ ManagedTextureEffect::GetBlending(int iPass)
         (*m_pspTextureEffect)->GetBlending(iPass));
 }
 //---------------------------------------------------------------------------
+ManagedTexture^ ManagedTextureEffect::GetPTexture(int iPass, int i)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
+    return gcnew ManagedTexture((*m_pspTextureEffect)->GetPTexture(iPass, i));
+}
+//---------------------------------------------------------------------------
+ManagedTexture^ ManagedTextureEffect::GetPTexture(int iPass, String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
+    return nullptr;
+}
+//---------------------------------------------------------------------------
+void ManagedTextureEffect::SetPTexture(int iPass, int i, 
+    ManagedTexture^ thTexture)
+{
+    SE_NULL_ARGUMENT_CHECK(thTexture, "thTexture");
+    SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
+    (*m_pspTextureEffect)->SetPTexture(iPass, i, 
+        thTexture->GetNativeTexture());
+}
+//---------------------------------------------------------------------------
 int ManagedTextureEffect::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");

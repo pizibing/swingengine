@@ -254,6 +254,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEManagedRendering\SEManagedTexture.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedRendering\SEManagedTexture.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEManagedRendering\SEManagedWireframeState.cpp"
 				>
 			</File>
@@ -520,6 +528,14 @@
 		</File>
 		<File
 			RelativePath=".\SEManagedObjectFactory.h"
+			>
+		</File>
+		<File
+			RelativePath=".\SEManagedUtility.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\SEManagedUtility.h"
 			>
 		</File>
 	</Files>

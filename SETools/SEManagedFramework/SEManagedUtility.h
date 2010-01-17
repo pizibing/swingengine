@@ -20,47 +20,18 @@
 
 #pragma once
 
-#include "SEINativeObject.h"
-#include "SEINativeEffect.h"
-#include "SEINativeShaderEffect.h"
-
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed texture effect class
+// Name:Managed utility class
 // Description:
 // Author:Sun Che
-// Date:20100115
+// Date:20091219
 //----------------------------------------------------------------------------
-public ref class ManagedTextureEffect sealed : INativeObject, 
-    INativeEffect, INativeShaderEffect
+private ref class ManagedUtility sealed
 {
 public:
-    ManagedTextureEffect(String^ thBaseName);
-    ~ManagedTextureEffect(void);
 
-    // Implement INativeShaderEffect interface.
-    virtual ManagedAlphaState^ GetBlending(int iPass);
-    //
-    virtual ManagedTexture^ GetPTexture(int iPass, int i);
-    virtual ManagedTexture^ GetPTexture(int iPass, String^ thName);
-    virtual void SetPTexture(int iPass, int i, ManagedTexture^ thTexture);
-
-    // Implement INativeObject interface.
-    virtual int GetNativeReferences(void);
-
-internal:
-    // Implement INativeEffect interface.
-    [CLSCompliant(false)]
-    virtual Effect* GetNativeEffect(void) = INativeEffect::GetNativeEffect;
-
-    // Implement INativeShaderEffect interface.
-    [CLSCompliant(false)]
-    virtual ShaderEffect* GetNativeShaderEffect(void) = 
-        INativeShaderEffect::GetNativeShaderEffect;
-
-private:
-    TextureEffectPtr* m_pspTextureEffect;
 };
 
 }}}

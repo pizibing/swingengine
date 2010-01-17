@@ -49,6 +49,7 @@
 #include "SEManagedWireframeState.h"
 #include "SEManagedZBufferState.h"
 #include "SEManagedLight.h"
+#include "SEManagedTexture.h"
 
 // Managed Scene Graph
 #include "SEINativeSpatial.h"
@@ -79,5 +80,6 @@
 #include "SEManagedMCR.h"
 #include "SEManagedEngine.h"
 #include "SEManagedObjectFactory.h"
+#include "SEManagedUtility.h"
 
 using namespace System;
