@@ -22,22 +22,17 @@
 #include "SEManagedSystem.h"
 
 using namespace Swing::Tools::ManagedFramework;
-using namespace System::Runtime::InteropServices;
 
 //---------------------------------------------------------------------------
 String^ ManagedSystem::GetPath(String^ thFileName, Mode eMode)
 {
     SE_NULL_ARGUMENT_CHECK(thFileName, "thFileName");
 
-    // Native heap resource is allocated here.
-    IntPtr pFileName = Marshal::StringToHGlobalAnsi(thFileName);
-
+    const char* acFileName = ManagedUtility::StringToNativeCharBuffer(
+        thFileName);
     using Swing::System;  // Avoid namespace conflict.
-    const char* acPath = System::SE_GetPath((const char*)(void*)pFileName, 
-        (int)eMode);
-
-    // We've done with the native resource allocated by Marshal, free it.
-    Marshal::FreeHGlobal(pFileName);
+    const char* acPath = System::SE_GetPath(acFileName, (int)eMode);
+    ManagedUtility::FreeNativeCharBuffer(acFileName);
 
     if( !acPath )
     {
@@ -51,14 +46,11 @@ bool ManagedSystem::InsertDirectory(String^ thDirectory)
 {
     SE_NULL_ARGUMENT_CHECK(thDirectory, "thDirectory");
 
-    // Native heap resource is allocated here.
-    IntPtr pDirectory = Marshal::StringToHGlobalAnsi(thDirectory);
-
+    const char* acDirectory = ManagedUtility::StringToNativeCharBuffer(
+        thDirectory);
     using Swing::System;  // Avoid namespace conflict.
-    bool bRes = System::SE_InsertDirectory((const char*)(void*)pDirectory);
-
-    // We've done with the native resource allocated by Marshal, free it.
-    Marshal::FreeHGlobal(pDirectory);
+    bool bRes = System::SE_InsertDirectory(acDirectory);
+    ManagedUtility::FreeNativeCharBuffer(acDirectory);
 
     return bRes;
 }

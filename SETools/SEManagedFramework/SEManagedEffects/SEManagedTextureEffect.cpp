@@ -21,24 +21,21 @@
 #include "SEManagedFrameworkPCH.h"
 #include "SEManagedTextureEffect.h"
 
+using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
-using namespace System::Runtime::InteropServices;
 
 //---------------------------------------------------------------------------
 ManagedTextureEffect::ManagedTextureEffect(String^ thBaseName)
 {
     SE_NULL_ARGUMENT_CHECK(thBaseName, "thBaseName");
 
-    // Native heap resource is allocated here.
-    IntPtr pBaseName = Marshal::StringToHGlobalAnsi(thBaseName);
-    
-    std::string tempBaseName((const char*)(void*)pBaseName);
+    const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(
+        thBaseName);
+    std::string tempBaseName(acBuffer);
+    ManagedUtility::FreeNativeCharBuffer(acBuffer);
 
-    // We've done with the native resource allocated by Marshal, free it.
-    Marshal::FreeHGlobal(pBaseName);
-
-    m_pspTextureEffect = SE_NEW Swing::TextureEffectPtr;
-    (*m_pspTextureEffect) = SE_NEW Swing::TextureEffect(tempBaseName);
+    m_pspTextureEffect = SE_NEW TextureEffectPtr;
+    (*m_pspTextureEffect) = SE_NEW TextureEffect(tempBaseName);
 }
 //---------------------------------------------------------------------------
 ManagedTextureEffect::~ManagedTextureEffect()
@@ -64,7 +61,12 @@ ManagedTexture^ ManagedTextureEffect::GetPTexture(int iPass, String^ thName)
 {
     SE_NULL_ARGUMENT_CHECK(thName, "thName");
     SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
-    return nullptr;
+    const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acBuffer);
+    ManagedUtility::FreeNativeCharBuffer(acBuffer);
+
+    return gcnew ManagedTexture((*m_pspTextureEffect)->GetPTexture(
+        iPass, tempName));
 }
 //---------------------------------------------------------------------------
 void ManagedTextureEffect::SetPTexture(int iPass, int i, 
@@ -82,15 +84,15 @@ int ManagedTextureEffect::GetNativeReferences()
     return (*m_pspTextureEffect)->GetReferences();
 }
 //---------------------------------------------------------------------------
-Swing::Effect* ManagedTextureEffect::GetNativeEffect()
+Effect* ManagedTextureEffect::GetNativeEffect()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
-    return (Swing::Effect*)(*m_pspTextureEffect);
+    return (Effect*)(*m_pspTextureEffect);
 }
 //---------------------------------------------------------------------------
-Swing::ShaderEffect* ManagedTextureEffect::GetNativeShaderEffect()
+ShaderEffect* ManagedTextureEffect::GetNativeShaderEffect()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
-    return (Swing::ShaderEffect*)(*m_pspTextureEffect);
+    return (ShaderEffect*)(*m_pspTextureEffect);
 }
 //---------------------------------------------------------------------------

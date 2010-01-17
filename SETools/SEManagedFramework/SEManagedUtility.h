@@ -30,8 +30,13 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 //----------------------------------------------------------------------------
 private ref class ManagedUtility sealed
 {
-public:
-
+internal:
+    // Allocate a native heap buffer and fill it with the CLI string object's
+    // content. You should call FreeNativeCharBuffer() function to deallocate the 
+    // native heap buffer when you have finished with it. 
+	// These two functions must be used in pairs.
+    static const char* StringToNativeCharBuffer(String^ thString);
+    static void FreeNativeCharBuffer(const char* acBuffer);
 };
 
 }}}

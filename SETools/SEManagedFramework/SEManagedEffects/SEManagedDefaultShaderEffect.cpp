@@ -59,7 +59,12 @@ ManagedTexture^ ManagedDefaultShaderEffect::GetPTexture(int iPass,
     SE_NULL_ARGUMENT_CHECK(thName, "thName");
     SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 
         "Native pointer is null");
-    return nullptr;
+    const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acBuffer);
+    ManagedUtility::FreeNativeCharBuffer(acBuffer);
+
+    return gcnew ManagedTexture((*m_pspDefaultShaderEffect)->GetPTexture(
+        iPass, tempName));
 }
 //---------------------------------------------------------------------------
 void ManagedDefaultShaderEffect::SetPTexture(int iPass, int i, 

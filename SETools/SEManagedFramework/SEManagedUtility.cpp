@@ -22,3 +22,29 @@
 #include "SEManagedUtility.h"
 
 using namespace Swing::Tools::ManagedFramework;
+using namespace System::Runtime::InteropServices;
+
+//---------------------------------------------------------------------------
+const char* ManagedUtility::StringToNativeCharBuffer(String^ thString)
+{
+    if( !thString )
+    {
+        return 0;
+    }
+
+    // Native heap resource is allocated here.
+    IntPtr pBuffer = Marshal::StringToHGlobalAnsi(thString);
+    return (const char*)(void*)pBuffer;
+}
+//---------------------------------------------------------------------------
+void ManagedUtility::FreeNativeCharBuffer(const char* acBuffer)
+{
+    if( !acBuffer )
+    {
+        return;
+    }
+
+    // We've done with the native resource allocated by Marshal, free it.
+    Marshal::FreeHGlobal((IntPtr)(void*)acBuffer);
+}
+//---------------------------------------------------------------------------

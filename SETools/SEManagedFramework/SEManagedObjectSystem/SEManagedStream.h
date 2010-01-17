@@ -22,8 +22,6 @@
 
 #include "SEManagedNode.h"
 
-using namespace System;
-
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------

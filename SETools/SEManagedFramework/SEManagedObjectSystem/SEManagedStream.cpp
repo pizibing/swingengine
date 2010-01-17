@@ -21,13 +21,13 @@
 #include "SEManagedFrameworkPCH.h"
 #include "SEManagedStream.h"
 
+using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
-using namespace System::Runtime::InteropServices;
 
 //---------------------------------------------------------------------------
 ManagedStream::ManagedStream()
 {
-    m_pStream = SE_NEW Swing::Stream;
+    m_pStream = SE_NEW Stream;
 }
 //---------------------------------------------------------------------------
 ManagedStream::~ManagedStream()
@@ -69,7 +69,7 @@ int ManagedStream::GetObjectCount()
 ManagedNode^ ManagedStream::GetNodeAt(int i)
 {
     SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
-    Swing::Node* pNode = DynamicCast<Swing::Node>(m_pStream->GetObjectAt(i));
+    Node* pNode = DynamicCast<Node>(m_pStream->GetObjectAt(i));
     if( !pNode )
     {
         return nullptr;
@@ -91,14 +91,11 @@ bool ManagedStream::Load(String^ thFileName)
 {
     SE_NULL_ARGUMENT_CHECK(thFileName, "thFileName");
 
-    // Native heap resource is allocated here.
-    IntPtr pFileName = Marshal::StringToHGlobalAnsi(thFileName);
-
+    const char* acFileName = ManagedUtility::StringToNativeCharBuffer(
+        thFileName);
     SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
-    bool bRes = m_pStream->Load((const char*)(void*)pFileName);
-
-    // We've done with the native resource allocated by Marshal, free it.
-    Marshal::FreeHGlobal(pFileName);
+    bool bRes = m_pStream->Load(acFileName);
+    ManagedUtility::FreeNativeCharBuffer(acFileName);
 
     return bRes;
 }
@@ -107,14 +104,11 @@ bool ManagedStream::Save(String^ thFileName)
 {
     SE_NULL_ARGUMENT_CHECK(thFileName, "thFileName");
 
-    // Native heap resource is allocated here.
-    IntPtr pFileName = Marshal::StringToHGlobalAnsi(thFileName);
-
+    const char* acFileName = ManagedUtility::StringToNativeCharBuffer(
+        thFileName);
     SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
-    bool bRes = m_pStream->Save((const char*)(void*)pFileName);
-
-    // We've done with the native resource allocated by Marshal, free it.
-    Marshal::FreeHGlobal(pFileName);
+    bool bRes = m_pStream->Save(acFileName);
+    ManagedUtility::FreeNativeCharBuffer(acFileName);
 
     return bRes;
 }
