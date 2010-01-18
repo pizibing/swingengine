@@ -139,6 +139,38 @@ void ManagedTriMesh::UpdateRS()
     (*m_pspTriMesh)->UpdateRS();
 }
 //---------------------------------------------------------------------------
+int ManagedTriMesh::GetLightCount()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    return (*m_pspTriMesh)->GetLightCount();
+}
+//---------------------------------------------------------------------------
+ManagedLight^ ManagedTriMesh::GetLight(int i)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    return gcnew ManagedLight((*m_pspTriMesh)->GetLight(i));
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::AttachLight(ManagedLight^ thLight)
+{
+    SE_NULL_ARGUMENT_CHECK(thLight, "thLight");
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    (*m_pspTriMesh)->AttachLight(thLight->GetNativeLight());
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::DetachLight(ManagedLight^ thLight)
+{
+    SE_NULL_ARGUMENT_CHECK(thLight, "thLight");
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    (*m_pspTriMesh)->DetachLight(thLight->GetNativeLight());
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::DetachAllLights()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    (*m_pspTriMesh)->DetachAllLights();
+}
+//---------------------------------------------------------------------------
 void ManagedTriMesh::AttachEffect(INativeEffect^ thEffect)
 {
     SE_NULL_ARGUMENT_CHECK(thEffect, "thEffect");

@@ -148,6 +148,38 @@ void ManagedNode::UpdateRS()
     (*m_pspNode)->UpdateRS();
 }
 //---------------------------------------------------------------------------
+int ManagedNode::GetLightCount()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    return (*m_pspNode)->GetLightCount();
+}
+//---------------------------------------------------------------------------
+ManagedLight^ ManagedNode::GetLight(int i)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    return gcnew ManagedLight((*m_pspNode)->GetLight(i));
+}
+//---------------------------------------------------------------------------
+void ManagedNode::AttachLight(ManagedLight^ thLight)
+{
+    SE_NULL_ARGUMENT_CHECK(thLight, "thLight");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    (*m_pspNode)->AttachLight(thLight->GetNativeLight());
+}
+//---------------------------------------------------------------------------
+void ManagedNode::DetachLight(ManagedLight^ thLight)
+{
+    SE_NULL_ARGUMENT_CHECK(thLight, "thLight");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    (*m_pspNode)->DetachLight(thLight->GetNativeLight());
+}
+//---------------------------------------------------------------------------
+void ManagedNode::DetachAllLights()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    (*m_pspNode)->DetachAllLights();
+}
+//---------------------------------------------------------------------------
 void ManagedNode::AttachEffect(INativeEffect^ thEffect)
 {
     SE_NULL_ARGUMENT_CHECK(thEffect, "thEffect");

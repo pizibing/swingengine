@@ -162,6 +162,38 @@ void ManagedCameraNode::UpdateRS()
     (*m_pspCameraNode)->UpdateRS();
 }
 //---------------------------------------------------------------------------
+int ManagedCameraNode::GetLightCount()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
+    return (*m_pspCameraNode)->GetLightCount();
+}
+//---------------------------------------------------------------------------
+ManagedLight^ ManagedCameraNode::GetLight(int i)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
+    return gcnew ManagedLight((*m_pspCameraNode)->GetLight(i));
+}
+//---------------------------------------------------------------------------
+void ManagedCameraNode::AttachLight(ManagedLight^ thLight)
+{
+    SE_NULL_ARGUMENT_CHECK(thLight, "thLight");
+    SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
+    (*m_pspCameraNode)->AttachLight(thLight->GetNativeLight());
+}
+//---------------------------------------------------------------------------
+void ManagedCameraNode::DetachLight(ManagedLight^ thLight)
+{
+    SE_NULL_ARGUMENT_CHECK(thLight, "thLight");
+    SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
+    (*m_pspCameraNode)->DetachLight(thLight->GetNativeLight());
+}
+//---------------------------------------------------------------------------
+void ManagedCameraNode::DetachAllLights()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
+    (*m_pspCameraNode)->DetachAllLights();
+}
+//---------------------------------------------------------------------------
 void ManagedCameraNode::AttachEffect(INativeEffect^ thEffect)
 {
     SE_NULL_ARGUMENT_CHECK(thEffect, "thEffect");

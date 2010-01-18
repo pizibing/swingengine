@@ -65,6 +65,12 @@ public:
     //
     virtual void UpdateRS(void);
     //
+    virtual int GetLightCount(void);
+    virtual ManagedLight^ GetLight(int i);
+    virtual void AttachLight(ManagedLight^ thLight);
+    virtual void DetachLight(ManagedLight^ thLight);
+    virtual void DetachAllLights(void);
+    //
     virtual void AttachEffect(INativeEffect^ thEffect);
     virtual void DetachEffect(INativeEffect^ thEffect);
     virtual void DetachAllEffects(void);

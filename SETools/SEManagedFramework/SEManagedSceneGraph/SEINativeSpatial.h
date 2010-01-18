@@ -23,6 +23,7 @@
 #include "SEINativeEffect.h"
 #include "SEINativeGlobalState.h"
 #include "SEManagedMatrix3.h"
+#include "SEManagedLight.h"
 
 using namespace System;
 
@@ -53,6 +54,13 @@ public interface class INativeSpatial
 
     // Render state update entry point.
     void UpdateRS(void);
+
+    // Light state access.
+    int GetLightCount(void);
+    ManagedLight^ GetLight(int i);
+    void AttachLight(ManagedLight^ thLight);
+    void DetachLight(ManagedLight^ thLight);
+    void DetachAllLights(void);
 
     // Effect state access.
     void AttachEffect(INativeEffect^ thEffect);
