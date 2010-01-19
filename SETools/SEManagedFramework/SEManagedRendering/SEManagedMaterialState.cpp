@@ -142,6 +142,23 @@ INativeGlobalState::StateType ManagedMaterialState::GetStateType()
         *m_pspMaterialState)->GetStateType();
 }
 //---------------------------------------------------------------------------
+void ManagedMaterialState::SetName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspMaterialState, "Native pointer is null");
+
+    const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acName);
+    ManagedUtility::FreeNativeCharBuffer(acName);
+    (*m_pspMaterialState)->SetName(tempName);
+}
+//---------------------------------------------------------------------------
+String^ ManagedMaterialState::GetName()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspMaterialState, "Native pointer is null");
+    return gcnew String((*m_pspMaterialState)->GetName().c_str());
+}
+//---------------------------------------------------------------------------
 int ManagedMaterialState::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspMaterialState, "Native pointer is null");

@@ -87,6 +87,23 @@ INativeGlobalState::StateType ManagedZBufferState::GetStateType()
         *m_pspZBufferState)->GetStateType();
 }
 //---------------------------------------------------------------------------
+void ManagedZBufferState::SetName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspZBufferState, "Native pointer is null");
+
+    const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acName);
+    ManagedUtility::FreeNativeCharBuffer(acName);
+    (*m_pspZBufferState)->SetName(tempName);
+}
+//---------------------------------------------------------------------------
+String^ ManagedZBufferState::GetName()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspZBufferState, "Native pointer is null");
+    return gcnew String((*m_pspZBufferState)->GetName().c_str());
+}
+//---------------------------------------------------------------------------
 int ManagedZBufferState::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspZBufferState, "Native pointer is null");

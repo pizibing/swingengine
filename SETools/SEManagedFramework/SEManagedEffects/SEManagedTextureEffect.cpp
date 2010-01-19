@@ -78,6 +78,23 @@ void ManagedTextureEffect::SetPTexture(int iPass, int i,
         thTexture->GetNativeTexture());
 }
 //---------------------------------------------------------------------------
+void ManagedTextureEffect::SetName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
+
+    const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acName);
+    ManagedUtility::FreeNativeCharBuffer(acName);
+    (*m_pspTextureEffect)->SetName(tempName);
+}
+//---------------------------------------------------------------------------
+String^ ManagedTextureEffect::GetName()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
+    return gcnew String((*m_pspTextureEffect)->GetName().c_str());
+}
+//---------------------------------------------------------------------------
 int ManagedTextureEffect::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");

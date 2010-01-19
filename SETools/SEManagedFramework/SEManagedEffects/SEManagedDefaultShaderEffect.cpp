@@ -77,6 +77,25 @@ void ManagedDefaultShaderEffect::SetPTexture(int iPass, int i,
         thTexture->GetNativeTexture());
 }
 //---------------------------------------------------------------------------
+void ManagedDefaultShaderEffect::SetName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 
+        "Native pointer is null");
+
+    const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acName);
+    ManagedUtility::FreeNativeCharBuffer(acName);
+    (*m_pspDefaultShaderEffect)->SetName(tempName);
+}
+//---------------------------------------------------------------------------
+String^ ManagedDefaultShaderEffect::GetName()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 
+        "Native pointer is null");
+    return gcnew String((*m_pspDefaultShaderEffect)->GetName().c_str());
+}
+//---------------------------------------------------------------------------
 int ManagedDefaultShaderEffect::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 

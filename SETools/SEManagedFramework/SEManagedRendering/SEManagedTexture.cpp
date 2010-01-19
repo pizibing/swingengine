@@ -94,6 +94,23 @@ void ManagedTexture::SetOffscreenTexture(bool bOffscreenTexture)
     (*m_pspTexture)->SetOffscreenTexture(bOffscreenTexture);
 }
 //---------------------------------------------------------------------------
+void ManagedTexture::SetName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspTexture, "Native pointer is null");
+
+    const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acName);
+    ManagedUtility::FreeNativeCharBuffer(acName);
+    (*m_pspTexture)->SetName(tempName);
+}
+//---------------------------------------------------------------------------
+String^ ManagedTexture::GetName()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTexture, "Native pointer is null");
+    return gcnew String((*m_pspTexture)->GetName().c_str());
+}
+//---------------------------------------------------------------------------
 int ManagedTexture::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTexture, "Native pointer is null");

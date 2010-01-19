@@ -62,6 +62,23 @@ INativeGlobalState::StateType ManagedWireframeState::GetStateType()
         *m_pspWireframeState)->GetStateType();
 }
 //---------------------------------------------------------------------------
+void ManagedWireframeState::SetName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspWireframeState, "Native pointer is null");
+
+    const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acName);
+    ManagedUtility::FreeNativeCharBuffer(acName);
+    (*m_pspWireframeState)->SetName(tempName);
+}
+//---------------------------------------------------------------------------
+String^ ManagedWireframeState::GetName()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspWireframeState, "Native pointer is null");
+    return gcnew String((*m_pspWireframeState)->GetName().c_str());
+}
+//---------------------------------------------------------------------------
 int ManagedWireframeState::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspWireframeState, "Native pointer is null");

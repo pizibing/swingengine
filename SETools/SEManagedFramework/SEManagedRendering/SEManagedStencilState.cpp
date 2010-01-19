@@ -151,6 +151,23 @@ INativeGlobalState::StateType ManagedStencilState::GetStateType()
         *m_pspStencilState)->GetStateType();
 }
 //---------------------------------------------------------------------------
+void ManagedStencilState::SetName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspStencilState, "Native pointer is null");
+
+    const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acName);
+    ManagedUtility::FreeNativeCharBuffer(acName);
+    (*m_pspStencilState)->SetName(tempName);
+}
+//---------------------------------------------------------------------------
+String^ ManagedStencilState::GetName()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspStencilState, "Native pointer is null");
+    return gcnew String((*m_pspStencilState)->GetName().c_str());
+}
+//---------------------------------------------------------------------------
 int ManagedStencilState::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspStencilState, "Native pointer is null");

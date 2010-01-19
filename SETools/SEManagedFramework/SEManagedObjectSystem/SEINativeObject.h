@@ -32,6 +32,11 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 //----------------------------------------------------------------------------
 public interface class INativeObject
 {
+    // Name-ID system.
+    void SetName(String^ thName);
+    String^ GetName(void);
+
+    // Smart pointer system.
     int GetNativeReferences(void);
 };
 

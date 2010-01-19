@@ -202,6 +202,23 @@ bool ManagedCamera::GetTrackBallRotate(float fX0, float fY0, float fX1,
     return bRes;
 }
 //---------------------------------------------------------------------------
+void ManagedCamera::SetName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
+
+    const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acName);
+    ManagedUtility::FreeNativeCharBuffer(acName);
+    (*m_pspCamera)->SetName(tempName);
+}
+//---------------------------------------------------------------------------
+String^ ManagedCamera::GetName()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
+    return gcnew String((*m_pspCamera)->GetName().c_str());
+}
+//---------------------------------------------------------------------------
 int ManagedCamera::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");

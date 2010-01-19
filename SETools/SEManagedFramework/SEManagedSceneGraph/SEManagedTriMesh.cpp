@@ -234,6 +234,23 @@ void ManagedTriMesh::DetachAllGlobalStates()
     (*m_pspTriMesh)->DetachAllGlobalStates();
 }
 //---------------------------------------------------------------------------
+void ManagedTriMesh::SetName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+
+    const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acName);
+    ManagedUtility::FreeNativeCharBuffer(acName);
+    (*m_pspTriMesh)->SetName(tempName);
+}
+//---------------------------------------------------------------------------
+String^ ManagedTriMesh::GetName()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    return gcnew String((*m_pspTriMesh)->GetName().c_str());
+}
+//---------------------------------------------------------------------------
 int ManagedTriMesh::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");

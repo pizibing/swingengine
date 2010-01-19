@@ -47,6 +47,9 @@ public:
     virtual void SetPTexture(int iPass, int i, ManagedTexture^ thTexture);
 
     // Implement INativeObject interface.
+    virtual void SetName(String^ thName);
+    virtual String^ GetName(void);
+    //
     virtual int GetNativeReferences(void);
 
 internal:

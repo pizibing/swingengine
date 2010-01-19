@@ -86,6 +86,23 @@ INativeGlobalState::StateType ManagedCullState::GetStateType()
         *m_pspCullState)->GetStateType();
 }
 //---------------------------------------------------------------------------
+void ManagedCullState::SetName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspCullState, "Native pointer is null");
+
+    const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acName);
+    ManagedUtility::FreeNativeCharBuffer(acName);
+    (*m_pspCullState)->SetName(tempName);
+}
+//---------------------------------------------------------------------------
+String^ ManagedCullState::GetName()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspCullState, "Native pointer is null");
+    return gcnew String((*m_pspCullState)->GetName().c_str());
+}
+//---------------------------------------------------------------------------
 int ManagedCullState::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspCullState, "Native pointer is null");

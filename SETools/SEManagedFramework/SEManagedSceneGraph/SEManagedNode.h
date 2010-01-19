@@ -79,6 +79,9 @@ public:
     virtual void DetachAllGlobalStates(void);
 
     // Implement INativeObject interface.
+    virtual void SetName(String^ thName);
+    virtual String^ GetName(void);
+    //
     virtual int GetNativeReferences(void);
 
 internal:

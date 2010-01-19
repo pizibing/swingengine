@@ -254,6 +254,23 @@ Light* ManagedLight::GetNativeLight()
     return (Light*)(*m_pspLight);
 }
 //---------------------------------------------------------------------------
+void ManagedLight::SetName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspLight, "Native pointer is null");
+
+    const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acName);
+    ManagedUtility::FreeNativeCharBuffer(acName);
+    (*m_pspLight)->SetName(tempName);
+}
+//---------------------------------------------------------------------------
+String^ ManagedLight::GetName()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspLight, "Native pointer is null");
+    return gcnew String((*m_pspLight)->GetName().c_str());
+}
+//---------------------------------------------------------------------------
 int ManagedLight::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspLight, "Native pointer is null");

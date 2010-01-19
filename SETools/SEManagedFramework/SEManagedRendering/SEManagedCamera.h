@@ -69,6 +69,9 @@ public:
         ManagedMatrix3f^ thMat);
 
     // Implement INativeObject interface.
+    virtual void SetName(String^ thName);
+    virtual String^ GetName(void);
+    //
     virtual int GetNativeReferences(void);
 
 internal:

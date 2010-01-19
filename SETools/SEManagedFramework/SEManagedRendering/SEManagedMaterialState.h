@@ -75,6 +75,9 @@ public:
     virtual INativeGlobalState::StateType GetStateType(void);
 
     // Implement INativeObject interface.
+    virtual void SetName(String^ thName);
+    virtual String^ GetName(void);
+    //
     virtual int GetNativeReferences(void);
 
 internal:

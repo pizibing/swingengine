@@ -257,6 +257,23 @@ void ManagedCameraNode::DetachAllGlobalStates()
     (*m_pspCameraNode)->DetachAllGlobalStates();
 }
 //---------------------------------------------------------------------------
+void ManagedCameraNode::SetName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
+
+    const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acName);
+    ManagedUtility::FreeNativeCharBuffer(acName);
+    (*m_pspCameraNode)->SetName(tempName);
+}
+//---------------------------------------------------------------------------
+String^ ManagedCameraNode::GetName()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
+    return gcnew String((*m_pspCameraNode)->GetName().c_str());
+}
+//---------------------------------------------------------------------------
 int ManagedCameraNode::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");

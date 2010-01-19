@@ -243,6 +243,23 @@ void ManagedNode::DetachAllGlobalStates()
     (*m_pspNode)->DetachAllGlobalStates();
 }
 //---------------------------------------------------------------------------
+void ManagedNode::SetName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+
+    const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acName);
+    ManagedUtility::FreeNativeCharBuffer(acName);
+    (*m_pspNode)->SetName(tempName);
+}
+//---------------------------------------------------------------------------
+String^ ManagedNode::GetName()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    return gcnew String((*m_pspNode)->GetName().c_str());
+}
+//---------------------------------------------------------------------------
 int ManagedNode::GetNativeReferences()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
