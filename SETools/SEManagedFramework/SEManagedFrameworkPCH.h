@@ -63,6 +63,7 @@
 #include "SEManagedWidget.h"
 #include "SEManagedLightNode.h"
 #include "SEManagedCameraNode.h"
+#include "SEManagedPickManager.h"
 
 // Managed Effects
 #include "SEINativeEffect.h"

@@ -402,6 +402,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedPickManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedSceneGraph\SEManagedPickManager.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEManagedSceneGraph\SEManagedStandardMesh.cpp"
 				>
 			</File>
