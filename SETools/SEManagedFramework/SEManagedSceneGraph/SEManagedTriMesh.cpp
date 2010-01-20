@@ -257,6 +257,16 @@ int ManagedTriMesh::GetNativeReferences()
     return (*m_pspTriMesh)->GetReferences();
 }
 //---------------------------------------------------------------------------
+void ManagedTriMesh::InitializePickRecordPool(int iMaxCount, int iGrowBy)
+{
+    TriMesh::InitializePickRecordPool(iMaxCount, iGrowBy);
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::TerminatePickRecordPool()
+{
+    TriMesh::TerminatePickRecordPool();
+}
+//---------------------------------------------------------------------------
 Spatial* ManagedTriMesh::GetNativeSpatial()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");

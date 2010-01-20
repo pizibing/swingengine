@@ -84,6 +84,10 @@ public:
     //
     virtual int GetNativeReferences(void);
 
+    // Picking system support.
+    static void InitializePickRecordPool(int iMaxCount, int iGrowBy);
+    static void TerminatePickRecordPool(void);
+
 internal:
     [CLSCompliant(false)]
     ManagedTriMesh(TriMesh* pTriMesh);

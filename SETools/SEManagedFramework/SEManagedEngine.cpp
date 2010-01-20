@@ -51,14 +51,10 @@ ManagedEngine::ManagedEngine()
     // shader program文件的路径.
     tempDir = tempSEPath + std::string("/Data/sesp/Cg");
     System::SE_InsertDirectory(tempDir.c_str());
-
-    TriMesh::InitializePickRecordPool();
 }
 //---------------------------------------------------------------------------
 ManagedEngine::~ManagedEngine()
 {
-    TriMesh::TerminatePickRecordPool();
-
     // Swing Engine terminate.
     Main::Terminate();
     System::SE_Terminate();
