@@ -1413,6 +1413,30 @@
 		DD8B7DCB10BF7766001B5D4F /* SESkinEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8B7DC510BF7766001B5D4F /* SESkinEffect.h */; };
 		DD8B7DCC10BF7766001B5D4F /* SESkinEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8B7DC410BF7766001B5D4F /* SESkinEffect.cpp */; };
 		DD8B7DCD10BF7766001B5D4F /* SESkinEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8B7DC510BF7766001B5D4F /* SESkinEffect.h */; };
+		DD8E796E110806CD00F89120 /* SEWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8E796C110806CD00F89120 /* SEWidget.cpp */; };
+		DD8E796F110806CD00F89120 /* SEWidget.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8E796D110806CD00F89120 /* SEWidget.h */; };
+		DD8E7970110806CD00F89120 /* SEWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8E796C110806CD00F89120 /* SEWidget.cpp */; };
+		DD8E7971110806CD00F89120 /* SEWidget.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8E796D110806CD00F89120 /* SEWidget.h */; };
+		DD8E7972110806CD00F89120 /* SEWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8E796C110806CD00F89120 /* SEWidget.cpp */; };
+		DD8E7973110806CD00F89120 /* SEWidget.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8E796D110806CD00F89120 /* SEWidget.h */; };
+		DD8E7974110806CD00F89120 /* SEWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8E796C110806CD00F89120 /* SEWidget.cpp */; };
+		DD8E7975110806CD00F89120 /* SEWidget.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8E796D110806CD00F89120 /* SEWidget.h */; };
+		DD8E797A1108072100F89120 /* SEAxisAlignedBox2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8E79761108072100F89120 /* SEAxisAlignedBox2.cpp */; };
+		DD8E797B1108072100F89120 /* SEAxisAlignedBox2.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8E79771108072100F89120 /* SEAxisAlignedBox2.h */; };
+		DD8E797C1108072100F89120 /* SEAxisAlignedBox3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8E79781108072100F89120 /* SEAxisAlignedBox3.cpp */; };
+		DD8E797D1108072100F89120 /* SEAxisAlignedBox3.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8E79791108072100F89120 /* SEAxisAlignedBox3.h */; };
+		DD8E797E1108072100F89120 /* SEAxisAlignedBox2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8E79761108072100F89120 /* SEAxisAlignedBox2.cpp */; };
+		DD8E797F1108072100F89120 /* SEAxisAlignedBox2.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8E79771108072100F89120 /* SEAxisAlignedBox2.h */; };
+		DD8E79801108072100F89120 /* SEAxisAlignedBox3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8E79781108072100F89120 /* SEAxisAlignedBox3.cpp */; };
+		DD8E79811108072100F89120 /* SEAxisAlignedBox3.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8E79791108072100F89120 /* SEAxisAlignedBox3.h */; };
+		DD8E79821108072100F89120 /* SEAxisAlignedBox2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8E79761108072100F89120 /* SEAxisAlignedBox2.cpp */; };
+		DD8E79831108072100F89120 /* SEAxisAlignedBox2.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8E79771108072100F89120 /* SEAxisAlignedBox2.h */; };
+		DD8E79841108072100F89120 /* SEAxisAlignedBox3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8E79781108072100F89120 /* SEAxisAlignedBox3.cpp */; };
+		DD8E79851108072100F89120 /* SEAxisAlignedBox3.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8E79791108072100F89120 /* SEAxisAlignedBox3.h */; };
+		DD8E79861108072100F89120 /* SEAxisAlignedBox2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8E79761108072100F89120 /* SEAxisAlignedBox2.cpp */; };
+		DD8E79871108072100F89120 /* SEAxisAlignedBox2.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8E79771108072100F89120 /* SEAxisAlignedBox2.h */; };
+		DD8E79881108072100F89120 /* SEAxisAlignedBox3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8E79781108072100F89120 /* SEAxisAlignedBox3.cpp */; };
+		DD8E79891108072100F89120 /* SEAxisAlignedBox3.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8E79791108072100F89120 /* SEAxisAlignedBox3.h */; };
 		DD97754110A006970070FC01 /* SEIntersector.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC11D30E9C87DF003AD3C4 /* SEIntersector.h */; };
 		DD97754210A006970070FC01 /* SEIntrRay3Sphere3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC11D50E9C87DF003AD3C4 /* SEIntrRay3Sphere3.h */; };
 		DD97754310A006970070FC01 /* SEIntrRay3Triangle3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC11D70E9C87DF003AD3C4 /* SEIntrRay3Triangle3.h */; };
@@ -2435,6 +2459,12 @@
 		DD848E63109F29580031E135 /* libSEFoundationd_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEFoundationd_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD8B7DC410BF7766001B5D4F /* SESkinEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SESkinEffect.cpp; path = SEEffects/SESkinEffect.cpp; sourceTree = "<group>"; };
 		DD8B7DC510BF7766001B5D4F /* SESkinEffect.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SESkinEffect.h; path = SEEffects/SESkinEffect.h; sourceTree = "<group>"; };
+		DD8E796C110806CD00F89120 /* SEWidget.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SEWidget.cpp; path = SESceneGraph/SEWidget.cpp; sourceTree = "<group>"; };
+		DD8E796D110806CD00F89120 /* SEWidget.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEWidget.h; path = SESceneGraph/SEWidget.h; sourceTree = "<group>"; };
+		DD8E79761108072100F89120 /* SEAxisAlignedBox2.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SEAxisAlignedBox2.cpp; path = SEMath/SEAxisAlignedBox2.cpp; sourceTree = "<group>"; };
+		DD8E79771108072100F89120 /* SEAxisAlignedBox2.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEAxisAlignedBox2.h; path = SEMath/SEAxisAlignedBox2.h; sourceTree = "<group>"; };
+		DD8E79781108072100F89120 /* SEAxisAlignedBox3.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SEAxisAlignedBox3.cpp; path = SEMath/SEAxisAlignedBox3.cpp; sourceTree = "<group>"; };
+		DD8E79791108072100F89120 /* SEAxisAlignedBox3.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEAxisAlignedBox3.h; path = SEMath/SEAxisAlignedBox3.h; sourceTree = "<group>"; };
 		DD97753E10A006510070FC01 /* libSEFoundation_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEFoundation_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -3015,6 +3045,8 @@
 		52EC11CB0E9C8662003AD3C4 /* SESceneGraph */ = {
 			isa = PBXGroup;
 			children = (
+				DD8E796C110806CD00F89120 /* SEWidget.cpp */,
+				DD8E796D110806CD00F89120 /* SEWidget.h */,
 				52AFF9820FF8A74A0008BD07 /* SEUnculledObject.h */,
 				52AFF9830FF8A74A0008BD07 /* SEUnculledObject.inl */,
 				52AFF9840FF8A74A0008BD07 /* SEUnculledSet.cpp */,
@@ -3119,6 +3151,10 @@
 		52EC11CE0E9C869E003AD3C4 /* SEMath */ = {
 			isa = PBXGroup;
 			children = (
+				DD8E79761108072100F89120 /* SEAxisAlignedBox2.cpp */,
+				DD8E79771108072100F89120 /* SEAxisAlignedBox2.h */,
+				DD8E79781108072100F89120 /* SEAxisAlignedBox3.cpp */,
+				DD8E79791108072100F89120 /* SEAxisAlignedBox3.h */,
 				52BA4B050F865AB4001F7E5B /* SEBox2.cpp */,
 				52BA4B060F865AB4001F7E5B /* SEBox2.h */,
 				52BA4B070F865AB4001F7E5B /* SEConvexPolyhedron3.cpp */,
@@ -3493,6 +3529,9 @@
 				529BC48F102B1D800080D64F /* SEBumpMapL1Effect.h in Headers */,
 				529BC491102B1D800080D64F /* SEParallaxMapL1Effect.h in Headers */,
 				DD8B7DC910BF7766001B5D4F /* SESkinEffect.h in Headers */,
+				DD8E7971110806CD00F89120 /* SEWidget.h in Headers */,
+				DD8E797F1108072100F89120 /* SEAxisAlignedBox2.h in Headers */,
+				DD8E79811108072100F89120 /* SEAxisAlignedBox3.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3748,6 +3787,9 @@
 				529BC48B102B1D800080D64F /* SEBumpMapL1Effect.h in Headers */,
 				529BC48D102B1D800080D64F /* SEParallaxMapL1Effect.h in Headers */,
 				DD8B7DC710BF7766001B5D4F /* SESkinEffect.h in Headers */,
+				DD8E796F110806CD00F89120 /* SEWidget.h in Headers */,
+				DD8E797B1108072100F89120 /* SEAxisAlignedBox2.h in Headers */,
+				DD8E797D1108072100F89120 /* SEAxisAlignedBox3.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4003,6 +4045,9 @@
 				DD848F75109F2FCF0031E135 /* SEBumpMapL1Effect.h in Headers */,
 				DD848F76109F2FCF0031E135 /* SEParallaxMapL1Effect.h in Headers */,
 				DD8B7DCB10BF7766001B5D4F /* SESkinEffect.h in Headers */,
+				DD8E7973110806CD00F89120 /* SEWidget.h in Headers */,
+				DD8E79831108072100F89120 /* SEAxisAlignedBox2.h in Headers */,
+				DD8E79851108072100F89120 /* SEAxisAlignedBox3.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4258,6 +4303,9 @@
 				DD97763710A006970070FC01 /* SEBumpMapL1Effect.h in Headers */,
 				DD97763810A006970070FC01 /* SEParallaxMapL1Effect.h in Headers */,
 				DD8B7DCD10BF7766001B5D4F /* SESkinEffect.h in Headers */,
+				DD8E7975110806CD00F89120 /* SEWidget.h in Headers */,
+				DD8E79871108072100F89120 /* SEAxisAlignedBox2.h in Headers */,
+				DD8E79891108072100F89120 /* SEAxisAlignedBox3.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4637,6 +4685,9 @@
 				529BC48E102B1D800080D64F /* SEBumpMapL1Effect.cpp in Sources */,
 				529BC490102B1D800080D64F /* SEParallaxMapL1Effect.cpp in Sources */,
 				DD8B7DC810BF7766001B5D4F /* SESkinEffect.cpp in Sources */,
+				DD8E7970110806CD00F89120 /* SEWidget.cpp in Sources */,
+				DD8E797E1108072100F89120 /* SEAxisAlignedBox2.cpp in Sources */,
+				DD8E79801108072100F89120 /* SEAxisAlignedBox3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4864,6 +4915,9 @@
 				529BC48A102B1D800080D64F /* SEBumpMapL1Effect.cpp in Sources */,
 				529BC48C102B1D800080D64F /* SEParallaxMapL1Effect.cpp in Sources */,
 				DD8B7DC610BF7766001B5D4F /* SESkinEffect.cpp in Sources */,
+				DD8E796E110806CD00F89120 /* SEWidget.cpp in Sources */,
+				DD8E797A1108072100F89120 /* SEAxisAlignedBox2.cpp in Sources */,
+				DD8E797C1108072100F89120 /* SEAxisAlignedBox3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5091,6 +5145,9 @@
 				DD849051109F30450031E135 /* SEBumpMapL1Effect.cpp in Sources */,
 				DD849052109F30450031E135 /* SEParallaxMapL1Effect.cpp in Sources */,
 				DD8B7DCA10BF7766001B5D4F /* SESkinEffect.cpp in Sources */,
+				DD8E7972110806CD00F89120 /* SEWidget.cpp in Sources */,
+				DD8E79821108072100F89120 /* SEAxisAlignedBox2.cpp in Sources */,
+				DD8E79841108072100F89120 /* SEAxisAlignedBox3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5318,6 +5375,9 @@
 				DD97771310A007010070FC01 /* SEBumpMapL1Effect.cpp in Sources */,
 				DD97771410A007010070FC01 /* SEParallaxMapL1Effect.cpp in Sources */,
 				DD8B7DCC10BF7766001B5D4F /* SESkinEffect.cpp in Sources */,
+				DD8E7974110806CD00F89120 /* SEWidget.cpp in Sources */,
+				DD8E79861108072100F89120 /* SEAxisAlignedBox2.cpp in Sources */,
+				DD8E79881108072100F89120 /* SEAxisAlignedBox3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
