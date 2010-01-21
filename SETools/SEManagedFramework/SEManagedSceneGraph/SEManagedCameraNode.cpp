@@ -225,7 +225,7 @@ INativeGlobalState^ ManagedCameraNode::GetGlobalState(int i)
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
     GlobalState* pState = (*m_pspCameraNode)->GetGlobalState(i);
 
-    return ManagedObjectFactory::CreateGlobalState(pState);
+    return ManagedObjectFactory::CreateGlobalStateObject(pState);
 }
 //---------------------------------------------------------------------------
 INativeGlobalState^ ManagedCameraNode::GetGlobalState(
@@ -235,7 +235,7 @@ INativeGlobalState^ ManagedCameraNode::GetGlobalState(
     GlobalState* pState = (*m_pspCameraNode)->GetGlobalState(
         (GlobalState::StateType)eType);
 
-    return ManagedObjectFactory::CreateGlobalState(pState);
+    return ManagedObjectFactory::CreateGlobalStateObject(pState);
 }
 //---------------------------------------------------------------------------
 void ManagedCameraNode::AttachGlobalState(INativeGlobalState^ thState)
@@ -255,6 +255,14 @@ void ManagedCameraNode::DetachAllGlobalStates()
 {
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
     (*m_pspCameraNode)->DetachAllGlobalStates();
+}
+//---------------------------------------------------------------------------
+INativeSpatial^ ManagedCameraNode::GetParent()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
+    Spatial* pSpatial = (*m_pspCameraNode)->GetParent();
+
+    return ManagedObjectFactory::CreateSpatialDerivedObject(pSpatial);
 }
 //---------------------------------------------------------------------------
 void ManagedCameraNode::SetName(String^ thName)

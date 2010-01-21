@@ -211,7 +211,7 @@ INativeGlobalState^ ManagedNode::GetGlobalState(int i)
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     GlobalState* pState = (*m_pspNode)->GetGlobalState(i);
 
-    return ManagedObjectFactory::CreateGlobalState(pState);
+    return ManagedObjectFactory::CreateGlobalStateObject(pState);
 }
 //---------------------------------------------------------------------------
 INativeGlobalState^ ManagedNode::GetGlobalState(
@@ -221,7 +221,7 @@ INativeGlobalState^ ManagedNode::GetGlobalState(
     GlobalState* pState = (*m_pspNode)->GetGlobalState(
         (GlobalState::StateType)eType);
 
-    return ManagedObjectFactory::CreateGlobalState(pState);
+    return ManagedObjectFactory::CreateGlobalStateObject(pState);
 }
 //---------------------------------------------------------------------------
 void ManagedNode::AttachGlobalState(INativeGlobalState^ thState)
@@ -241,6 +241,14 @@ void ManagedNode::DetachAllGlobalStates()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     (*m_pspNode)->DetachAllGlobalStates();
+}
+//---------------------------------------------------------------------------
+INativeSpatial^ ManagedNode::GetParent()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    Spatial* pSpatial = (*m_pspNode)->GetParent();
+
+    return ManagedObjectFactory::CreateSpatialDerivedObject(pSpatial);
 }
 //---------------------------------------------------------------------------
 void ManagedNode::SetName(String^ thName)

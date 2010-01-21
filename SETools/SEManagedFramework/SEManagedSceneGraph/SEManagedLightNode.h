@@ -82,6 +82,8 @@ public:
     virtual void AttachGlobalState(INativeGlobalState^ thState);
     virtual void DetachGlobalState(INativeGlobalState::StateType eType);
     virtual void DetachAllGlobalStates(void);
+    //
+    virtual INativeSpatial^ GetParent(void);
 
     // Implement INativeObject interface.
     virtual void SetName(String^ thName);

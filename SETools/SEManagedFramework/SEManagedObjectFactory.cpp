@@ -21,6 +21,10 @@
 #include "SEManagedFrameworkPCH.h"
 #include "SEManagedObjectFactory.h"
 
+#include "SEManagedNode.h"
+#include "SEManagedLightNode.h"
+#include "SEManagedCameraNode.h"
+
 #include "SEManagedAlphaState.h"
 #include "SEManagedCullState.h"
 #include "SEManagedMaterialState.h"
@@ -33,7 +37,32 @@ using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
 
 //---------------------------------------------------------------------------
-INativeGlobalState^ ManagedObjectFactory::CreateGlobalState(
+INativeSpatial^ ManagedObjectFactory::CreateSpatialDerivedObject(
+    Spatial* pSpatial)
+{
+    if( !pSpatial )
+    {
+        return nullptr;
+    }
+
+    const RTTI rType = pSpatial->GetType();
+    if( rType.IsExactly(Node::TYPE) )
+    {
+        return gcnew ManagedNode((Node*)pSpatial);
+    }
+    else if( rType.IsExactly(LightNode::TYPE) )
+    {
+        return gcnew ManagedLightNode((LightNode*)pSpatial);
+    }
+    else if( rType.IsExactly(CameraNode::TYPE) )
+    {
+        return gcnew ManagedCameraNode((CameraNode*)pSpatial);
+    }
+
+    return nullptr;
+}
+//---------------------------------------------------------------------------
+INativeGlobalState^ ManagedObjectFactory::CreateGlobalStateObject(
     GlobalState* pState)
 {
     if( !pState )

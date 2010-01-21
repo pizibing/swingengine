@@ -238,7 +238,7 @@ INativeGlobalState^ ManagedTriMesh::GetGlobalState(int i)
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
     GlobalState* pState = (*m_pspTriMesh)->GetGlobalState(i);
 
-    return ManagedObjectFactory::CreateGlobalState(pState);
+    return ManagedObjectFactory::CreateGlobalStateObject(pState);
 }
 //---------------------------------------------------------------------------
 INativeGlobalState^ ManagedTriMesh::GetGlobalState(
@@ -248,7 +248,7 @@ INativeGlobalState^ ManagedTriMesh::GetGlobalState(
     GlobalState* pState = (*m_pspTriMesh)->GetGlobalState(
         (GlobalState::StateType)eType);
 
-    return ManagedObjectFactory::CreateGlobalState(pState);
+    return ManagedObjectFactory::CreateGlobalStateObject(pState);
 }
 //---------------------------------------------------------------------------
 void ManagedTriMesh::AttachGlobalState(INativeGlobalState^ thState)
@@ -268,6 +268,14 @@ void ManagedTriMesh::DetachAllGlobalStates()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
     (*m_pspTriMesh)->DetachAllGlobalStates();
+}
+//---------------------------------------------------------------------------
+INativeSpatial^ ManagedTriMesh::GetParent()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    Spatial* pSpatial = (*m_pspTriMesh)->GetParent();
+
+    return ManagedObjectFactory::CreateSpatialDerivedObject(pSpatial);
 }
 //---------------------------------------------------------------------------
 void ManagedTriMesh::SetName(String^ thName)

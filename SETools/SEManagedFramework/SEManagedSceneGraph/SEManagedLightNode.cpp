@@ -225,7 +225,7 @@ INativeGlobalState^ ManagedLightNode::GetGlobalState(int i)
     SE_NULL_REFERENCE_CHECK(m_pspLightNode, "Native pointer is null");
     GlobalState* pState = (*m_pspLightNode)->GetGlobalState(i);
 
-    return ManagedObjectFactory::CreateGlobalState(pState);
+    return ManagedObjectFactory::CreateGlobalStateObject(pState);
 }
 //---------------------------------------------------------------------------
 INativeGlobalState^ ManagedLightNode::GetGlobalState(
@@ -235,7 +235,7 @@ INativeGlobalState^ ManagedLightNode::GetGlobalState(
     GlobalState* pState = (*m_pspLightNode)->GetGlobalState(
         (GlobalState::StateType)eType);
 
-    return ManagedObjectFactory::CreateGlobalState(pState);
+    return ManagedObjectFactory::CreateGlobalStateObject(pState);
 }
 //---------------------------------------------------------------------------
 void ManagedLightNode::AttachGlobalState(INativeGlobalState^ thState)
@@ -255,6 +255,14 @@ void ManagedLightNode::DetachAllGlobalStates()
 {
     SE_NULL_REFERENCE_CHECK(m_pspLightNode, "Native pointer is null");
     (*m_pspLightNode)->DetachAllGlobalStates();
+}
+//---------------------------------------------------------------------------
+INativeSpatial^ ManagedLightNode::GetParent()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspLightNode, "Native pointer is null");
+    Spatial* pSpatial = (*m_pspLightNode)->GetParent();
+
+    return ManagedObjectFactory::CreateSpatialDerivedObject(pSpatial);
 }
 //---------------------------------------------------------------------------
 void ManagedLightNode::SetName(String^ thName)

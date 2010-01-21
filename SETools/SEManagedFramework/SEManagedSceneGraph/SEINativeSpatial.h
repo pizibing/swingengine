@@ -75,6 +75,9 @@ public interface class INativeSpatial
     void DetachGlobalState(INativeGlobalState::StateType eType);
     void DetachAllGlobalStates(void);
 
+    // Parent access.
+    INativeSpatial^ GetParent(void);
+
     [CLSCompliant(false)]
     Spatial* GetNativeSpatial(void);
 };
