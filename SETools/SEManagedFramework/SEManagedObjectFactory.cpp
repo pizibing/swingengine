@@ -45,18 +45,9 @@ INativeSpatial^ ManagedObjectFactory::CreateSpatialDerivedObject(
         return nullptr;
     }
 
-    const RTTI rType = pSpatial->GetType();
-    if( rType.IsExactly(Node::TYPE) )
+    if( DynamicCast<Node>(pSpatial) )
     {
         return gcnew ManagedNode((Node*)pSpatial);
-    }
-    else if( rType.IsExactly(LightNode::TYPE) )
-    {
-        return gcnew ManagedLightNode((LightNode*)pSpatial);
-    }
-    else if( rType.IsExactly(CameraNode::TYPE) )
-    {
-        return gcnew ManagedCameraNode((CameraNode*)pSpatial);
     }
 
     return nullptr;
