@@ -20,6 +20,8 @@
 
 #pragma once
 
+#include "SEManagedVector3.h"
+#include "SEManagedColorRGB.h"
 #include "SEManagedNode.h"
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
@@ -37,6 +39,8 @@ public:
     static ManagedNode^ ScaleFrame(void);
     static ManagedNode^ RotationFrame(void);
     static ManagedNode^ TranslationFrame(void);
+    static ManagedNode^ AABBFrame(ManagedVector3f^ thVecMin, 
+        ManagedVector3f^ thVecMax, ManagedColorRGB^ thColor);
 };
 
 }}}

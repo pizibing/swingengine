@@ -20,6 +20,9 @@
 
 #pragma once
 
+#include "SEManagedColorRGB.h"
+#include "SEManagedNode.h"
+
 using namespace System;
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
@@ -32,6 +35,11 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 //----------------------------------------------------------------------------
 public interface class INativeGeometry
 {
+    // Visualize the AABBox of the current geometry object. The returned 
+    // ManagedNode object has a renderable child object(currently, a native 
+    // Polyline object) that could be used to show the AABBox.
+    ManagedNode^ GetLocalAABBFrame(ManagedColorRGB^ thColor);
+
     [CLSCompliant(false)]
     Geometry* GetNativeGeometry(void);
 };

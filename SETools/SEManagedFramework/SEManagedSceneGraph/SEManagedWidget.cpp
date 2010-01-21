@@ -49,3 +49,20 @@ ManagedNode^ ManagedWidget::TranslationFrame()
     return gcnew ManagedNode(pNode);
 }
 //---------------------------------------------------------------------------
+ManagedNode^ ManagedWidget::AABBFrame(ManagedVector3f^ thVecMin, 
+    ManagedVector3f^ thVecMax, ManagedColorRGB^ thColor)
+{
+    SE_NULL_ARGUMENT_CHECK(thVecMin, "thVecMin");
+    SE_NULL_ARGUMENT_CHECK(thVecMax, "thVecMax");
+    SE_NULL_ARGUMENT_CHECK(thColor, "thColor");
+
+    Vector3f vec3fMin, vec3fMax;
+    ColorRGB tempColor;
+    thVecMin->ToVector3f(vec3fMin);
+    thVecMax->ToVector3f(vec3fMax);
+    thColor->ToColorRGB(tempColor);
+    Node* pNode = Widget::AABBFrame(vec3fMin, vec3fMax, tempColor);
+
+    return gcnew ManagedNode(pNode);
+}
+//---------------------------------------------------------------------------

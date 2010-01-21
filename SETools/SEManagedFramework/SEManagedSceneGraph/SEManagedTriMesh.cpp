@@ -55,6 +55,42 @@ ManagedTriMesh^ ManagedTriMesh::Clone()
     return gcnew ManagedTriMesh(pTriMesh);
 }
 //---------------------------------------------------------------------------
+ManagedNode^ ManagedTriMesh::GetLocalAABBFrame(ManagedColorRGB^ thColor)
+{
+    SE_NULL_ARGUMENT_CHECK(thColor, "thColor");
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    VertexBuffer* pVB = (*m_pspTriMesh)->VBuffer;
+
+    SE_NULL_REFERENCE_CHECK(pVB, "Native pointer is null");
+    int iVCount = pVB->GetVertexCount();
+
+    // Compute the local AABB from the vertex buffer.
+    Vector3f vec3fMin = pVB->Position3(0);
+    Vector3f vec3fMax(vec3fMin);
+    for( int i = 1; i < iVCount; i++ )
+    {
+        const Vector3f& rPoint = pVB->Position3(i);
+        for( int j = 0; j < 3; j++ )
+        {
+            if( rPoint[j] < vec3fMin[j] )
+            {
+                vec3fMin[j] = rPoint[j];
+            }
+            else if( rPoint[j] > vec3fMax[j] )
+            {
+                vec3fMax[j] = rPoint[j];
+            }
+        }
+    }
+
+    // Create the AABBFrame.
+    ColorRGB tempColor;
+    thColor->ToColorRGB(tempColor);
+    Node* pAABBFrame = Widget::AABBFrame(vec3fMin, vec3fMax, tempColor);
+
+    return gcnew ManagedNode(pAABBFrame);
+}
+//---------------------------------------------------------------------------
 void ManagedTriMesh::SetLocalRotate(ManagedMatrix3f^ thRotate)
 {
     SE_NULL_ARGUMENT_CHECK(thRotate, "thRotate");

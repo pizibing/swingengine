@@ -44,6 +44,9 @@ public:
     // and index buffer with the current object.
     ManagedTriMesh^ Clone(void);
 
+    // Implement INativeGeometry interface.
+    virtual ManagedNode^ GetLocalAABBFrame(ManagedColorRGB^ thColor);
+
     // Implement INativeSpatial interface.
     virtual void SetLocalRotate(ManagedMatrix3f^ thRotate);
     virtual ManagedMatrix3f^ GetLocalRotate(void);
