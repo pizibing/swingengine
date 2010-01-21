@@ -23,6 +23,7 @@
 
 #include "SEFoundationLIB.h"
 #include "SENode.h"
+//#include "SEColorRGB.h"
 
 namespace Swing
 {
@@ -40,6 +41,8 @@ public:
     static Node* ScaleFrame(void);
     static Node* RotationFrame(void);
     static Node* TranslationFrame(void);
+    static Node* AABBFrame(const Vector3f& rMin, const Vector3f& rMax, 
+        const ColorRGB& rColor);
 };
 
 }

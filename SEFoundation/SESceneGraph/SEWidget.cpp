@@ -44,10 +44,10 @@ Node* Widget::CoordinateFrame(float fLengthOfAxis)
 
     // Create axis x.
     VertexBuffer* pVBuffer = SE_NEW VertexBuffer(tempAttr, 2);
-    (*(Vector3f*)pVBuffer->PositionTuple(0)) = Vector3f::ZERO;
-    (*(Vector3f*)pVBuffer->PositionTuple(1)) = fAxisHeight*Vector3f::UNIT_X;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 0)) = ColorRGB::SE_RGB_RED;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 1)) = ColorRGB::SE_RGB_RED;
+    pVBuffer->Position3(0) = Vector3f::ZERO;
+    pVBuffer->Position3(1) = fAxisHeight*Vector3f::UNIT_X;
+    pVBuffer->Color3(0, 0) = ColorRGB::SE_RGB_RED;
+    pVBuffer->Color3(0, 1) = ColorRGB::SE_RGB_RED;
     Polyline* pAxisX = SE_NEW Polyline(pVBuffer, false, false);
     pAxisX->SetName("AxisX");
 
@@ -64,10 +64,10 @@ Node* Widget::CoordinateFrame(float fLengthOfAxis)
 
     // Create axis y.
     pVBuffer = SE_NEW VertexBuffer(tempAttr, 2);
-    (*(Vector3f*)pVBuffer->PositionTuple(0)) = Vector3f::ZERO;
-    (*(Vector3f*)pVBuffer->PositionTuple(1)) = fAxisHeight*Vector3f::UNIT_Y;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 0)) = ColorRGB::SE_RGB_GREEN;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 1)) = ColorRGB::SE_RGB_GREEN;
+    pVBuffer->Position3(0) = Vector3f::ZERO;
+    pVBuffer->Position3(1) = fAxisHeight*Vector3f::UNIT_Y;
+    pVBuffer->Color3(0, 0) = ColorRGB::SE_RGB_GREEN;
+    pVBuffer->Color3(0, 1) = ColorRGB::SE_RGB_GREEN;
     Polyline* pAxisY = SE_NEW Polyline(pVBuffer, false, false);
     pAxisY->SetName("AxisY");
 
@@ -84,10 +84,10 @@ Node* Widget::CoordinateFrame(float fLengthOfAxis)
 
     // Create axis z.
     pVBuffer = SE_NEW VertexBuffer(tempAttr, 2);
-    (*(Vector3f*)pVBuffer->PositionTuple(0)) = Vector3f::ZERO;
-    (*(Vector3f*)pVBuffer->PositionTuple(1)) = fAxisHeight*Vector3f::UNIT_Z;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 0)) = ColorRGB::SE_RGB_BLUE;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 1)) = ColorRGB::SE_RGB_BLUE;
+    pVBuffer->Position3(0) = Vector3f::ZERO;
+    pVBuffer->Position3(1) = fAxisHeight*Vector3f::UNIT_Z;
+    pVBuffer->Color3(0, 0) = ColorRGB::SE_RGB_BLUE;
+    pVBuffer->Color3(0, 1) = ColorRGB::SE_RGB_BLUE;
     Polyline* pAxisZ = SE_NEW Polyline(pVBuffer, false, false);
     pAxisZ->SetName("AxisZ");
 
@@ -135,5 +135,65 @@ Node* Widget::TranslationFrame()
 {
     // TODO:
     return 0;
+}
+//----------------------------------------------------------------------------
+Node* Widget::AABBFrame(const Vector3f& rMin, const Vector3f& rMax, 
+    const ColorRGB& rColor)
+{
+    Node* pNode = SE_NEW Node;
+
+    Attributes tempAttr;
+    tempAttr.SetPositionChannels(3);
+    tempAttr.SetColorChannels(0, 3);
+
+    Vector3f vec3fV0(rMin);
+    Vector3f vec3fV1(rMin.X, rMin.Y, rMax.Z);
+    Vector3f vec3fV2(rMax.X, rMin.Y, rMax.Z);
+    Vector3f vec3fV3(rMax.X, rMin.Y, rMin.Z);
+    Vector3f vec3fV4(rMax.X, rMax.Y, rMin.Z);
+    Vector3f vec3fV5(rMin.X, rMax.Y, rMin.Z);
+    Vector3f vec3fV6(rMin.X, rMax.Y, rMax.Z);
+    Vector3f vec3fV7(rMax);
+
+    // AABBFrame has 12 edges, 24 ending points.
+    VertexBuffer* pVBuffer = SE_NEW VertexBuffer(tempAttr, 24);
+    pVBuffer->Position3(0 ) = vec3fV0;
+    pVBuffer->Position3(1 ) = vec3fV1;
+    pVBuffer->Position3(2 ) = vec3fV1;
+    pVBuffer->Position3(3 ) = vec3fV2;
+    pVBuffer->Position3(4 ) = vec3fV2;
+    pVBuffer->Position3(5 ) = vec3fV3;
+    pVBuffer->Position3(6 ) = vec3fV3;
+    pVBuffer->Position3(7 ) = vec3fV0;
+    pVBuffer->Position3(8 ) = vec3fV5;
+    pVBuffer->Position3(9 ) = vec3fV6;
+    pVBuffer->Position3(10) = vec3fV6;
+    pVBuffer->Position3(11) = vec3fV7;
+    pVBuffer->Position3(12) = vec3fV7;
+    pVBuffer->Position3(13) = vec3fV4;
+    pVBuffer->Position3(14) = vec3fV4;
+    pVBuffer->Position3(15) = vec3fV5;
+    pVBuffer->Position3(16) = vec3fV0;
+    pVBuffer->Position3(17) = vec3fV5;
+    pVBuffer->Position3(18) = vec3fV1;
+    pVBuffer->Position3(19) = vec3fV6;
+    pVBuffer->Position3(20) = vec3fV2;
+    pVBuffer->Position3(21) = vec3fV7;
+    pVBuffer->Position3(22) = vec3fV3;
+    pVBuffer->Position3(23) = vec3fV4;
+    for( int i = 0; i < 24; i++ )
+    {
+        pVBuffer->Color3(0, i) = rColor;
+    }
+    Polyline* pAABBFrame = SE_NEW Polyline(pVBuffer, false, false);
+    pAABBFrame->SetName("AABBFrame");
+
+    VertexColor3Effect* pEffect = SE_NEW VertexColor3Effect;
+    pAABBFrame->AttachEffect(pEffect);
+
+    pNode->AttachChild(pAABBFrame);
+    pNode->UpdateGS();
+
+    return pNode;
 }
 //----------------------------------------------------------------------------
