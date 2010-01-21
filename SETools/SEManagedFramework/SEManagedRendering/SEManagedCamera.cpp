@@ -169,10 +169,10 @@ void ManagedCamera::SetPerspective(bool bPerspective)
     (*m_pspCamera)->SetPerspective(bPerspective);
 }
 //---------------------------------------------------------------------------
-bool ManagedCamera::GetPerspective()
+bool ManagedCamera::IsPerspective()
 {
     SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
-    return (*m_pspCamera)->GetPerspective();
+    return (*m_pspCamera)->IsPerspective();
 }
 //---------------------------------------------------------------------------
 bool ManagedCamera::GetPickRay(int iX, int iY, int iWidth, int iHeight, 

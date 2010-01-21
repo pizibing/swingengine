@@ -58,7 +58,7 @@ public:
 
     // Perspective/orthogonal projection access.
     void SetPerspective(bool bPerspective);
-    bool GetPerspective(void);
+    bool IsPerspective(void);
 
     // Mouse picking support.
     bool GetPickRay(int iX, int iY, int iWidth, int iHeight, 
