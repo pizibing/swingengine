@@ -119,7 +119,7 @@ public:
 
     // Perspective/orthogonal projection access.
     void SetPerspective(bool bPerspective);
-    inline bool GetPerspective(void) const;
+    inline bool IsPerspective(void) const;
 
     // Viewport access(Çø¼äÎª[0,1]^2).
     void SetViewport(float fLeft, float fRight, float fTop, float fBottom);

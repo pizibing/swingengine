@@ -41,6 +41,8 @@
 #include "SESphere3.h"
 #include "SEBox2.h"
 #include "SEBox3.h"
+#include "SEAxisAlignedBox2.h"
+#include "SEAxisAlignedBox3.h"
 #include "SELine2.h"
 #include "SELine3.h"
 #include "SERay2.h"

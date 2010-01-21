@@ -521,6 +521,22 @@
 			Name="SEMath"
 			>
 			<File
+				RelativePath=".\SEMath\SEAxisAlignedBox2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEMath\SEAxisAlignedBox2.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEMath\SEAxisAlignedBox3.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEMath\SEAxisAlignedBox3.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEMath\SEBitHacks.h"
 				>
 			</File>
