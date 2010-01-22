@@ -211,29 +211,41 @@ void Camera::GetDepthRange(float& rNear, float& rFar)
 bool Camera::GetPickRay(int iX, int iY, int iWidth, int iHeight,
     Ray3f& rRay) const
 {
-    float fPortX = ((float)iX) / (float)(iWidth-1);
+    float fPortX = ((float)iX) / (float)(iWidth - 1);
     if( fPortX < m_fPortL || fPortX > m_fPortR )
     {
         return false;
     }
 
-    float fPortY = ((float)(iHeight-1-iY)) / (float)(iHeight-1);
+    float fPortY = ((float)(iHeight - 1 - iY)) / (float)(iHeight - 1);
     if( fPortY < m_fPortB || fPortY > m_fPortT )
     {
         return false;
     }
 
     float fXWeight = (fPortX - m_fPortL) / (m_fPortR - m_fPortL);
-    float fViewX = (1.0f-fXWeight)*m_Frustum[VF_RMIN] + 
+    float fViewX = (1.0f - fXWeight)*m_Frustum[VF_RMIN] + 
         fXWeight*m_Frustum[VF_RMAX];
     float fYWeight = (fPortY - m_fPortB) / (m_fPortT - m_fPortB);
-    float fViewY = (1.0f-fYWeight)*m_Frustum[VF_UMIN] + 
+    float fViewY = (1.0f - fYWeight)*m_Frustum[VF_UMIN] + 
         fYWeight*m_Frustum[VF_UMAX];
 
-    rRay.Origin = m_Location;
-    rRay.Direction = m_Frustum[VF_DMIN]*m_DVector + fViewX*m_RVector + 
-        fViewY*m_UVector;
-    rRay.Direction.Normalize();
+    if( m_bPerspective )
+    {
+        // The pick ray is E + tW, t >= 0.
+        // W = (Q - E)/|Q - E|, Q = E + n*D + Xv*R + Yv*U.
+        rRay.Origin = m_Location;
+        rRay.Direction = m_Frustum[VF_DMIN]*m_DVector + fViewX*m_RVector + 
+            fViewY*m_UVector;
+        rRay.Direction.Normalize();
+    }
+    else
+    {
+        // The pick ray is E' + tD, t >= 0.
+        // E' = E + Xv*R + Yv*U.
+        rRay.Origin = m_Location + fViewX*m_RVector + fViewY*m_UVector;
+        rRay.Direction = m_DVector;
+    }
 
     return true;
 }

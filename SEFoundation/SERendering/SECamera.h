@@ -131,11 +131,10 @@ public:
     void GetDepthRange(float& rNear, float& rFar);
 
     // Mouse picking support. The (x,y) input point is in left-handed screen
-    // coordinates (what you usually read from the windowing system).  The
+    // coordinates (what you usually read from the windowing system). The
     // function returns 'true' if and only if the input point is located in
-    // the current viewport.  When 'true', the origin and direction values
-    // are valid and are in world coordinates.  The direction vector is unit
-    // length.
+    // the current viewport. When 'true', the origin and direction values are
+    // valid and are in world coordinates. The direction vector is unit length.
     bool GetPickRay(int iX, int iY, int iWidth, int iHeight, Ray3f& rRay)
         const;
 
