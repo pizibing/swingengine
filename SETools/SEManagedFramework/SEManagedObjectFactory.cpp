@@ -45,9 +45,14 @@ INativeSpatial^ ManagedObjectFactory::CreateSpatialDerivedObject(
         return nullptr;
     }
 
-    if( DynamicCast<Node>(pSpatial) )
+    const Swing::RTTI& rType = pSpatial->GetType();
+    if( rType.IsExactly(Node::TYPE) )
     {
         return gcnew ManagedNode((Node*)pSpatial);
+    }
+    else if( rType.IsExactly(TriMesh::TYPE) )
+    {
+        return gcnew ManagedTriMesh((TriMesh*)pSpatial);
     }
 
     return nullptr;

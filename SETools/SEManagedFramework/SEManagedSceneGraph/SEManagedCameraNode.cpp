@@ -78,6 +78,13 @@ int ManagedCameraNode::DetachChild(INativeSpatial^ thSpatial)
     return (*m_pspCameraNode)->DetachChild(thSpatial->GetNativeSpatial());
 }
 //---------------------------------------------------------------------------
+INativeSpatial^ ManagedCameraNode::GetChild(int i)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
+    Spatial* pChild = (*m_pspCameraNode)->GetChild(i);
+    return ManagedObjectFactory::CreateSpatialDerivedObject(pChild);
+}
+//---------------------------------------------------------------------------
 void ManagedCameraNode::SetLocalRotate(ManagedMatrix3f^ thRotate)
 {
     SE_NULL_ARGUMENT_CHECK(thRotate, "thRotate");

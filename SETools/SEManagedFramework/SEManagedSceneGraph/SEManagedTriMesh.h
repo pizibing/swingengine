@@ -40,6 +40,9 @@ public:
     ManagedTriMesh(void);
     ~ManagedTriMesh(void);
 
+    // Normal generation.
+    void GenerateNormals(void);
+
     // Shallow copying.
     ManagedTriMesh^ Clone(void);
 

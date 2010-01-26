@@ -38,12 +38,12 @@ internal:
     static const char* StringToNativeCharBuffer(String^ thString);
     static void FreeNativeCharBuffer(const char* acBuffer);
 
-    // Do a shallow copy on a given Node object, a node hierarchy is created 
+    // Do a shallow copy with a given Node object, a node hierarchy is created 
     // an it only contains sub-node and sub-trimesh objects for now, all 
     // sub-trimesh objects share the VB and IB of the original objects.
     static Node* CloneNode(Node* pSrcNode);
 
-    // Do a shallow copy on a given TriMesh object, a new TriMesh object is
+    // Do a shallow copy with a given TriMesh object, a new TriMesh object is
     // created an it shares the VB and IB of the original object.
     static TriMesh* CloneTriMesh(TriMesh* pSrcTriMesh);
 };

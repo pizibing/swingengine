@@ -46,6 +46,7 @@ public:
     virtual int GetCount(void) = INativeNode::GetCount;
     virtual int AttachChild(INativeSpatial^ thSpatial);
     virtual int DetachChild(INativeSpatial^ thSpatial);
+    virtual INativeSpatial^ GetChild(int i);
 
     // Implement INativeSpatial interface.
     virtual void SetLocalRotate(ManagedMatrix3f^ thRotate);

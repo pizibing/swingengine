@@ -78,6 +78,13 @@ int ManagedLightNode::DetachChild(INativeSpatial^ thSpatial)
     return (*m_pspLightNode)->DetachChild(thSpatial->GetNativeSpatial());
 }
 //---------------------------------------------------------------------------
+INativeSpatial^ ManagedLightNode::GetChild(int i)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspLightNode, "Native pointer is null");
+    Spatial* pChild = (*m_pspLightNode)->GetChild(i);
+    return ManagedObjectFactory::CreateSpatialDerivedObject(pChild);
+}
+//---------------------------------------------------------------------------
 void ManagedLightNode::SetLocalRotate(ManagedMatrix3f^ thRotate)
 {
     SE_NULL_ARGUMENT_CHECK(thRotate, "thRotate");

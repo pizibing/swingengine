@@ -96,6 +96,12 @@ Swing::TriMesh* ManagedUtility::CloneTriMesh(Swing::TriMesh* pSrcTriMesh)
     Swing::TriMesh* pClonedObject = SE_NEW Swing::TriMesh(
         pSrcTriMesh->VBuffer, pSrcTriMesh->IBuffer);
     pClonedObject->Local = pSrcTriMesh->Local;
+    pClonedObject->GenerateNormals();
+
+    for( int i = 0; i < pSrcTriMesh->GetEffectCount(); i++ )
+    {
+        pClonedObject->AttachEffect(pSrcTriMesh->GetEffect(i));
+    }
 
     return pClonedObject;
 }

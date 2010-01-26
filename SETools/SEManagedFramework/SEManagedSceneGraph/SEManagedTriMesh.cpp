@@ -46,6 +46,12 @@ ManagedTriMesh::~ManagedTriMesh()
     m_pspTriMesh = 0;
 }
 //---------------------------------------------------------------------------
+void ManagedTriMesh::GenerateNormals()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    (*m_pspTriMesh)->GenerateNormals();
+}
+//---------------------------------------------------------------------------
 ManagedTriMesh^ ManagedTriMesh::Clone()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");

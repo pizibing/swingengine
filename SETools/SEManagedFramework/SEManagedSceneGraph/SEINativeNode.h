@@ -38,6 +38,7 @@ public interface class INativeNode
     int GetCount(void);
     int AttachChild(INativeSpatial^ thSpatial);
     int DetachChild(INativeSpatial^ thSpatial);
+    INativeSpatial^ GetChild(int i);
 
     [CLSCompliant(false)]
     Node* GetNativeNode(void);
