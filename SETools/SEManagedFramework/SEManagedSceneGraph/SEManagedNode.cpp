@@ -44,6 +44,14 @@ ManagedNode::~ManagedNode()
     m_pspNode = 0;
 }
 //---------------------------------------------------------------------------
+ManagedNode^ ManagedNode::Clone()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    Node* pClonedObject = ManagedUtility::CloneNode(*m_pspNode);
+
+    return gcnew ManagedNode(pClonedObject);
+}
+//---------------------------------------------------------------------------
 int ManagedNode::GetCount()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");

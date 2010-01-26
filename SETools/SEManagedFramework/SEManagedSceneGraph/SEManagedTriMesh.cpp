@@ -49,8 +49,7 @@ ManagedTriMesh::~ManagedTriMesh()
 ManagedTriMesh^ ManagedTriMesh::Clone()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    TriMesh* pClonedObject = SE_NEW TriMesh((*m_pspTriMesh)->VBuffer, 
-        (*m_pspTriMesh)->IBuffer);
+    TriMesh* pClonedObject = ManagedUtility::CloneTriMesh(*m_pspTriMesh);
 
     return gcnew ManagedTriMesh(pClonedObject);
 }

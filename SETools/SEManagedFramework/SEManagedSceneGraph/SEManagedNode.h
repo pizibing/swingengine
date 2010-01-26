@@ -39,6 +39,9 @@ public:
     ManagedNode(void);
     ~ManagedNode(void);
 
+    // Shallow copying.
+    ManagedNode^ Clone(void);
+
     // Implement INativeNode interface.
     virtual int GetCount(void) = INativeNode::GetCount;
     virtual int AttachChild(INativeSpatial^ thSpatial);

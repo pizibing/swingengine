@@ -48,3 +48,55 @@ void ManagedUtility::FreeNativeCharBuffer(const char* acBuffer)
     Marshal::FreeHGlobal((IntPtr)(void*)acBuffer);
 }
 //---------------------------------------------------------------------------
+Swing::Node* ManagedUtility::CloneNode(Swing::Node* pSrcNode)
+{
+    if( !pSrcNode )
+    {
+        return 0;
+    }
+
+    Swing::Node* pClonedObject = SE_NEW Swing::Node;
+    pClonedObject->Local = pSrcNode->Local;
+
+    for( int i = 0; i < pSrcNode->GetCount(); i++ )
+    {
+        Swing::Spatial* pChild = pSrcNode->GetChild(i);
+
+        if( pChild )
+        {
+            Swing::Spatial* pClonedChild = 0;
+
+            const Swing::RTTI& rType = pChild->GetType();
+            if( rType.IsExactly(Node::TYPE) )
+            {
+                pClonedChild = CloneNode((Node*)pChild);
+            }
+            else if( rType.IsExactly(TriMesh::TYPE) )
+            {
+                pClonedChild = CloneTriMesh((TriMesh*)pChild);
+            }
+
+            if( pClonedChild )
+            {
+                pClonedObject->AttachChild(pClonedChild);
+            }
+        }
+    }
+
+    return pClonedObject;
+}
+//---------------------------------------------------------------------------
+Swing::TriMesh* ManagedUtility::CloneTriMesh(Swing::TriMesh* pSrcTriMesh)
+{
+    if( !pSrcTriMesh )
+    {
+        return 0;
+    }
+
+    Swing::TriMesh* pClonedObject = SE_NEW Swing::TriMesh(
+        pSrcTriMesh->VBuffer, pSrcTriMesh->IBuffer);
+    pClonedObject->Local = pSrcTriMesh->Local;
+
+    return pClonedObject;
+}
+//---------------------------------------------------------------------------
