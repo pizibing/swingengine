@@ -60,13 +60,6 @@ Sound::~Sound()
     Release();
 }
 //----------------------------------------------------------------------------
-ObjectPtr Sound::Clone()
-{
-    // TODO:
-    // Impliment this function.
-    return 0;
-}
-//----------------------------------------------------------------------------
 void Sound::UpdateWorldData(double dAppTime)
 {
     Spatial::UpdateWorldData(dAppTime);

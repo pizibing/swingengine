@@ -98,9 +98,6 @@ public:
         PickRecord(Sound* pIObject, float fT);
     };
 
-    // Shallow copying.
-    virtual ObjectPtr Clone(void);
-
 protected:
     Sound(void);
 
