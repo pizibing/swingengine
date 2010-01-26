@@ -56,6 +56,9 @@ public:
     // Gram-Schmidt orthonormalization(must be applied to a rotation matrix).
     void Orthonormalize(void);
 
+    // Get an identity matrix.
+    static ManagedMatrix3f^ Identity(void);
+
     // System::Object overrides.
     virtual bool Equals(Object^ thObj) override;
 

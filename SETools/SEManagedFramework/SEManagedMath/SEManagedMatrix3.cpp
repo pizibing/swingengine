@@ -152,6 +152,11 @@ void ManagedMatrix3f::Orthonormalize()
     FromMatrix3f(mat3fTemp);
 }
 //---------------------------------------------------------------------------
+ManagedMatrix3f^ ManagedMatrix3f::Identity()
+{
+    return gcnew ManagedMatrix3f(Matrix3f::IDENTITY);
+}
+//---------------------------------------------------------------------------
 void ManagedMatrix3f::ToMatrix3f(Matrix3f& rMat)
 {
     rMat[0][0] = m_afData[0];

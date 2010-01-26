@@ -49,10 +49,10 @@ ManagedTriMesh::~ManagedTriMesh()
 ManagedTriMesh^ ManagedTriMesh::Clone()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    TriMesh* pTriMesh = SE_NEW TriMesh((*m_pspTriMesh)->VBuffer, 
+    TriMesh* pClonedObject = SE_NEW TriMesh((*m_pspTriMesh)->VBuffer, 
         (*m_pspTriMesh)->IBuffer);
 
-    return gcnew ManagedTriMesh(pTriMesh);
+    return gcnew ManagedTriMesh(pClonedObject);
 }
 //---------------------------------------------------------------------------
 ManagedNode^ ManagedTriMesh::GetLocalAABBFrame(ManagedColorRGB^ thColor)

@@ -40,8 +40,7 @@ public:
     ManagedTriMesh(void);
     ~ManagedTriMesh(void);
 
-    // Create a new ManagedTriMesh object which shares the same vertex buffer
-    // and index buffer with the current object.
+    // Shallow copying.
     ManagedTriMesh^ Clone(void);
 
     // Implement INativeGeometry interface.
