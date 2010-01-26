@@ -59,9 +59,6 @@ public:
     // 应用程序有责任迭代释放PickArray中的所有pick record.
     virtual void DoPick(const Ray3f& rRay, PickArray& rResults);
 
-    // Shallow copying.
-    virtual ObjectPtr Clone(void);
-
 protected:
     // 几何数据更新
     virtual void UpdateWorldData(double dAppTime);

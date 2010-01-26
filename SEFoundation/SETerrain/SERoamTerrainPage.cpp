@@ -280,13 +280,6 @@ float RoamTerrainPage::GetHeight(float fX, float fZ) const
     return fTempHeight + World.GetTranslate().Y;
 }
 //----------------------------------------------------------------------------
-ObjectPtr RoamTerrainPage::Clone()
-{
-    // TODO:
-    // Impliment this function.
-    return 0;
-}
-//----------------------------------------------------------------------------
 void RoamTerrainPage::InitializeDerivedData()
 {
     m_iSizeM1 = m_iSize - 1;

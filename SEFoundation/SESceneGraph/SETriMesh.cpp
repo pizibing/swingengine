@@ -378,20 +378,6 @@ void TriMesh::DoPick(const Ray3f& rRay, PickArray& rResults)
     }
 }
 //----------------------------------------------------------------------------
-ObjectPtr TriMesh::Clone()
-{
-    TriMesh* pClonedObject = SE_NEW TriMesh(VBuffer, IBuffer);
-    pClonedObject->Local = Local;
-
-    int iECount = GetEffectCount();
-    for( int i = 0; i < iECount; i++ )
-    {
-        pClonedObject->AttachEffect(GetEffect(i));
-    }
-
-    return pClonedObject;
-}
-//----------------------------------------------------------------------------
 void TriMesh::InitializePickRecordPool(int iMaxCount, int iGrowBy)
 {
     SE_ASSERT( iMaxCount > 0 && iGrowBy > 0 );

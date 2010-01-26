@@ -104,7 +104,6 @@
 #include "SEStreamVersion.h"
 #include "SEStream.h"
 #include "SEImageVersion.h"
-#include "SECloneable.h"
 
 // Containment
 #include "SEContSphere3.h"

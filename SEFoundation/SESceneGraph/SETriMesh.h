@@ -86,9 +86,6 @@ public:
     // 因为这些pick record来自于全局内存池的堆内存.
     virtual void DoPick(const Ray3f& rRay, PickArray& rResults);
 
-    // Shallow copying.
-    virtual ObjectPtr Clone(void);
-
     // PickRecord内存池,避免调用DoPick函数时的频繁动态new和delete操作.
     // 应用程序初始化时,负责调用InitializePickRecordPool函数.
     // 应用程序终止时,负责调用TerminatePickRecordPool函数.

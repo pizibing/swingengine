@@ -137,21 +137,6 @@ void Polyline::SetContiguous(bool bContiguous)
     SetGeometryType();
 }
 //----------------------------------------------------------------------------
-ObjectPtr Polyline::Clone()
-{
-    Polyline* pClonedObject = SE_NEW Polyline(VBuffer, m_bClosed, 
-        m_bContiguous);
-    pClonedObject->Local = Local;
-
-    int iECount = GetEffectCount();
-    for( int i = 0; i < iECount; i++ )
-    {
-        pClonedObject->AttachEffect(GetEffect(i));
-    }
-
-    return pClonedObject;
-}
-//----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
 // streaming

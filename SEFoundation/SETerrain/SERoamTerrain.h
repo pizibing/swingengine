@@ -85,9 +85,6 @@ public:
     // LODÈë¿Úº¯Êý.
     void Simplify(Culler& rCuller);
 
-    // Shallow copying.
-    virtual ObjectPtr Clone(void);
-
 protected:
     // streaming support
     RoamTerrain(void);

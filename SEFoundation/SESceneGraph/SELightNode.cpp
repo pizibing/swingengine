@@ -59,13 +59,6 @@ void LightNode::SetLight(Light* pLight)
     }
 }
 //----------------------------------------------------------------------------
-ObjectPtr LightNode::Clone()
-{
-    // TODO:
-    // Impliment this function.
-    return 0;
-}
-//----------------------------------------------------------------------------
 void LightNode::UpdateWorldData(double dAppTime)
 {
     Node::UpdateWorldData(dAppTime);

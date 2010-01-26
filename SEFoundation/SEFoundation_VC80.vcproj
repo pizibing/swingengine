@@ -865,14 +865,6 @@
 			Name="SEObjectSystem"
 			>
 			<File
-				RelativePath=".\SEObjectSystem\SECloneable.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\SEObjectSystem\SECloneable.h"
-				>
-			</File>
-			<File
 				RelativePath=".\SEObjectSystem\SEImageVersion.cpp"
 				>
 			</File>

@@ -48,9 +48,6 @@ public:
     void SetActiveCount(int iActiveCount);
     inline int GetActiveCount(void) const;
 
-    // Shallow copying.
-    virtual ObjectPtr Clone(void);
-
 protected:
     Polypoint(void);
 

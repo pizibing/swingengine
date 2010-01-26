@@ -168,13 +168,6 @@ float TerrainPage::GetHeight(float fX, float fZ) const
     return fHeight;
 }
 //----------------------------------------------------------------------------
-ObjectPtr TerrainPage::Clone()
-{
-    // TODO:
-    // Impliment this function.
-    return 0;
-}
-//----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
 // streaming

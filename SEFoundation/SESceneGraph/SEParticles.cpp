@@ -112,13 +112,6 @@ void Particles::SetActiveCount(int iActiveCount)
     VBuffer->Release();
 }
 //----------------------------------------------------------------------------
-ObjectPtr Particles::Clone()
-{
-    // TODO:
-    // Impliment this function.
-    return 0;
-}
-//----------------------------------------------------------------------------
 void Particles::GenerateParticles(const Camera* pCamera)
 {
     int i, j;
