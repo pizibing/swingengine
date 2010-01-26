@@ -61,6 +61,9 @@ public:
     inline Camera* GetCamera(void);
     inline const Camera* GetCamera(void) const;
 
+    // Shallow copying.
+    virtual ObjectPtr Clone(void);
+
 protected:
     // geometric updates
     virtual void UpdateWorldData(double dAppTime);

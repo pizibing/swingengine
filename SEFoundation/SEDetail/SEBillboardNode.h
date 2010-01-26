@@ -49,6 +49,9 @@ public:
     // billboard当前所对齐的camera.
     inline void AlignTo(Camera* pCamera);
 
+    // Shallow copying.
+    virtual ObjectPtr Clone(void);
+
 protected:
     // geometric updates
     virtual void UpdateWorldData(double dAppTime);

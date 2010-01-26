@@ -294,6 +294,27 @@ void Node::DoPick(const Ray3f& rRay, PickArray& rResults)
     }
 }
 //----------------------------------------------------------------------------
+ObjectPtr Node::Clone()
+{
+    Node* pClonedObject = SE_NEW Node;
+    pClonedObject->Local = Local;
+
+    for( int  i = 0; i < (int)m_Child.size(); i++ )
+    {
+        Spatial* pChild = m_Child[i];
+        if( pChild )
+        {
+            ObjectPtr spClonedChild = pChild->Clone();
+            if( spClonedChild )
+            {
+                pClonedObject->AttachChild((Spatial*)(Object*)spClonedChild);
+            }
+        }
+    }
+
+    return pClonedObject;
+}
+//----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
 // name and unique id

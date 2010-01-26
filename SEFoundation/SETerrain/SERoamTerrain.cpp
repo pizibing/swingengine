@@ -238,6 +238,13 @@ void RoamTerrain::Simplify(Culler& rCuller)
     }
 }
 //----------------------------------------------------------------------------
+ObjectPtr RoamTerrain::Clone()
+{
+    // TODO:
+    // Impliment this function.
+    return 0;
+}
+//----------------------------------------------------------------------------
 void RoamTerrain::LoadHeader(const char* acHeightName)
 {
     char acFilename[512];

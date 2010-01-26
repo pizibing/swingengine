@@ -18,50 +18,17 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#ifndef Swing_Polypoint_H
-#define Swing_Polypoint_H
+#include "SEFoundationPCH.h"
+#include "SECloneable.h"
 
-#include "SEFoundationLIB.h"
-#include "SEPlatforms.h"
-#include "SEGeometry.h"
-#include "SEIntArray.h"
-
-namespace Swing
-{
+using namespace Swing;
 
 //----------------------------------------------------------------------------
-// 名称:点图元类
-// 说明:
-// 作者:Sun Che
-// 时间:20080808
-//----------------------------------------------------------------------------
-class SE_FOUNDATION_API Polypoint : public Geometry
+Cloneable::Cloneable()
 {
-    SE_DECLARE_RTTI;
-    SE_DECLARE_NAME_ID;
-    SE_DECLARE_STREAM;
-
-public:
-    Polypoint(VertexBuffer* pVBuffer);
-    virtual ~Polypoint(void);
-
-    void SetActiveCount(int iActiveCount);
-    inline int GetActiveCount(void) const;
-
-    // Shallow copying.
-    virtual ObjectPtr Clone(void);
-
-protected:
-    Polypoint(void);
-
-    // 允许应用程序指定少于实际顶点数的顶点子集用于渲染.
-    int m_iActiveCount;
-};
-
-typedef SmartPointer<Polypoint> PolypointPtr;
-
-#include "SEPolypoint.inl"
-
 }
-
-#endif
+//----------------------------------------------------------------------------
+Cloneable::~Cloneable()
+{
+}
+//----------------------------------------------------------------------------

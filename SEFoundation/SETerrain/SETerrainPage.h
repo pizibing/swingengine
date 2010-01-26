@@ -64,6 +64,9 @@ public:
     // bias从该函数获取.
     inline float& UVBias(void);
 
+    // Shallow copying.
+    virtual ObjectPtr Clone(void);
+
 protected:
     // streaming support
     TerrainPage(void);

@@ -61,6 +61,9 @@ public:
     inline Light* GetLight(void);
     inline const Light* GetLight(void) const;
 
+    // Shallow copying.
+    virtual ObjectPtr Clone(void);
+
 protected:
     // geometric updates
     virtual void UpdateWorldData(double dAppTime);

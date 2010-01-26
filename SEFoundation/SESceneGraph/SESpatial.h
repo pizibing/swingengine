@@ -28,6 +28,7 @@
 #include "SEEffect.h"
 #include "SEGlobalState.h"
 #include "SETransformation.h"
+#include "SECloneable.h"
 
 namespace Swing
 {
@@ -41,7 +42,7 @@ class Light;
 // 作者:Sun Che
 // 时间:20080707
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Spatial : public Object
+class SE_FOUNDATION_API Spatial : public Object, public Cloneable
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;

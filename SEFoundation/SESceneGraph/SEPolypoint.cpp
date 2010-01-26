@@ -72,6 +72,20 @@ void Polypoint::SetActiveCount(int iActiveCount)
     IBuffer->SetIndexCount(m_iActiveCount);
 }
 //----------------------------------------------------------------------------
+ObjectPtr Polypoint::Clone()
+{
+    Polypoint* pClonedObject = SE_NEW Polypoint(VBuffer);
+    pClonedObject->Local = Local;
+
+    int iECount = GetEffectCount();
+    for( int i = 0; i < iECount; i++ )
+    {
+        pClonedObject->AttachEffect(GetEffect(i));
+    }
+
+    return pClonedObject;
+}
+//----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
 // streaming

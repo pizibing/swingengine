@@ -76,6 +76,9 @@ public:
     // ¸üÐÂterrain pagesµÄactive set.
     void OnCameraMotion(void);
 
+    // Shallow copying.
+    virtual ObjectPtr Clone(void);
+
 protected:
     // streaming support
     Terrain(void);

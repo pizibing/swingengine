@@ -110,6 +110,9 @@ public:
     static int NumTrisRendered;
     std::vector<RoamTriTreeNode*> Triangles;
 
+    // Shallow copying.
+    virtual ObjectPtr Clone(void);
+
 protected:
     // streaming support.
     RoamTerrainPage(void);

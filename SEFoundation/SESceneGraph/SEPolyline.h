@@ -53,6 +53,9 @@ public:
     void SetContiguous(bool bContiguous);
     inline bool GetContiguous(void) const;
 
+    // Shallow copying.
+    virtual ObjectPtr Clone(void);
+
 protected:
     Polyline(void);
     void SetGeometryType(void);

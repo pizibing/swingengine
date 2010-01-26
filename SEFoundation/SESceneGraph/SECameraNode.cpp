@@ -59,6 +59,13 @@ void CameraNode::SetCamera(Camera* pCamera)
     }
 }
 //----------------------------------------------------------------------------
+ObjectPtr CameraNode::Clone()
+{
+    // TODO:
+    // Impliment this function.
+    return 0;
+}
+//----------------------------------------------------------------------------
 void CameraNode::UpdateWorldData(double dAppTime)
 {
     Node::UpdateWorldData(dAppTime);

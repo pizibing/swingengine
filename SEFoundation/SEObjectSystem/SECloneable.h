@@ -18,71 +18,33 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#ifndef Swing_Particles_H
-#define Swing_Particles_H
+#ifndef Swing_Cloneable_H
+#define Swing_Cloneable_H
 
 #include "SEFoundationLIB.h"
-#include "SETriMesh.h"
-#include "SEFloatArray.h"
+#include "SEObject.h"
 
 namespace Swing
 {
 
-class Camera;
-class Culler;
-
-// particle's billboard quad.
-//
-//  1 --------- 2
-//    | \     |
-//    |   \   |
-//    |     \ |
-//  0 --------- 3
-
 //----------------------------------------------------------------------------
-// 名称:particles类
-// 说明:基于动态刷新VB的particle system.
-// 作者:Sun Che
-// 时间:20090602
+// Name:Cloneable class
+// Description: This abstract base class is used as an interface from which 
+//     a derived class could impliment the functionality of shallow copying.
+// Author:Sun Che
+// Date:20100126
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Particles : public TriMesh
+class SE_FOUNDATION_API Cloneable
 {
-    SE_DECLARE_RTTI;
-    SE_DECLARE_NAME_ID;
-    SE_DECLARE_STREAM;
-
 public:
-    Particles(const Attributes& rAttr, Vector3fArray* pLocations,
-        FloatArray* pSizes);
-    virtual ~Particles(void);
-
-    // 数据成员.
-    Vector3fArrayPtr Locations;
-    FloatArrayPtr Sizes;
-    float SizeAdjust;
-
-    void SetActiveCount(int iActiveCount);
-    inline int GetActiveCount(void) const;
+    virtual ~Cloneable(void);
 
     // Shallow copying.
-    virtual ObjectPtr Clone(void);
+    virtual ObjectPtr Clone(void) = 0;
 
 protected:
-    Particles(void);
-
-    // 所有粒子都是朝向camera的广告牌.
-    void GenerateParticles(const Camera* pCamera);
-
-    // culling.
-    virtual void GetUnculledSet(Culler& rCuller, bool bNoCull);
-
-    // 允许用户指定少于实际最大数量的粒子数用于draw.
-    int m_iActiveCount;
+    Cloneable(void);
 };
-
-typedef SmartPointer<Particles> ParticlesPtr;
-
-#include "SEParticles.inl"
 
 }
 
