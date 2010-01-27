@@ -657,7 +657,7 @@ Node* ScreenSpaceAO::CreateModel()
     SE_ASSERT( spMeshTeapot );
     spMeshTeapot->GenerateNormals();
     spMeshTeapot->AttachGlobalState(pEggMaterial);
-    spMeshTeapot->Local.SetUniformScale(0.2f);
+    spMeshTeapot->Local.SetUniformScale(12.0f);
     mat3fRot.FromEulerAnglesXYZ(0.0f, Mathf::PI/3.0f, 0.0f);
     spMeshTeapot->Local.SetRotate(mat3fRot);
     spMeshTeapot->Local.SetTranslate(Vector3f(4.0f, 0.0f, -1.5f));
