@@ -106,3 +106,28 @@ Swing::TriMesh* ManagedUtility::CloneTriMesh(Swing::TriMesh* pSrcTriMesh)
     return pClonedObject;
 }
 //---------------------------------------------------------------------------
+void ManagedUtility::GenerateNormalsForAll(Swing::Node* pNode)
+{
+    if( !pNode )
+    {
+        return;
+    }
+
+    for( int i = 0; i < pNode->GetCount(); i++ )
+    {
+        Swing::Spatial* pChild = pNode->GetChild(i);
+
+        if( pChild )
+        {
+            if( DynamicCast<Swing::TriMesh>(pChild) )
+            {
+                ((Swing::TriMesh*)pChild)->GenerateNormals();
+            }
+            else if( DynamicCast<Swing::Node>(pChild) )
+            {
+                GenerateNormalsForAll((Swing::Node*)pChild);
+            }
+        }
+    }
+}
+//---------------------------------------------------------------------------

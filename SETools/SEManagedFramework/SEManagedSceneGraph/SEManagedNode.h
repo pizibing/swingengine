@@ -39,6 +39,9 @@ public:
     ManagedNode(void);
     ~ManagedNode(void);
 
+    // Normal generation.
+    void GenerateNormalsForAll(void);
+
     // Shallow copying.
     ManagedNode^ Clone(void);
 

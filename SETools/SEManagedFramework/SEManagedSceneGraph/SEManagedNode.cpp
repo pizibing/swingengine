@@ -44,6 +44,12 @@ ManagedNode::~ManagedNode()
     m_pspNode = 0;
 }
 //---------------------------------------------------------------------------
+void ManagedNode::GenerateNormalsForAll()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    ManagedUtility::GenerateNormalsForAll(*m_pspNode);
+}
+//---------------------------------------------------------------------------
 ManagedNode^ ManagedNode::Clone()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");

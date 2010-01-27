@@ -46,6 +46,9 @@ internal:
     // Do a shallow copy with a given TriMesh object, a new TriMesh object is
     // created an it shares the VB and IB of the original object.
     static TriMesh* CloneTriMesh(TriMesh* pSrcTriMesh);
+
+    // Generate normals for all sub-mesh objects in the hierarchy.
+    static void GenerateNormalsForAll(Node* pNode);
 };
 
 }}}
