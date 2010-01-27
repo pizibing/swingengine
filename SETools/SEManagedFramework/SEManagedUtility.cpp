@@ -119,13 +119,40 @@ void ManagedUtility::GenerateNormalsForAll(Swing::Node* pNode)
 
         if( pChild )
         {
-            if( DynamicCast<Swing::TriMesh>(pChild) )
+            if( DynamicCast<Swing::Node>(pChild) )
+            {
+                GenerateNormalsForAll((Swing::Node*)pChild);
+            }
+            else if( DynamicCast<Swing::TriMesh>(pChild) )
             {
                 ((Swing::TriMesh*)pChild)->GenerateNormals();
             }
-            else if( DynamicCast<Swing::Node>(pChild) )
+        }
+    }
+}
+//---------------------------------------------------------------------------
+void ManagedUtility::DetachAllEffectsForAll(Swing::Node* pNode)
+{
+    if( !pNode )
+    {
+        return;
+    }
+
+    pNode->DetachAllEffects();
+
+    for( int i = 0; i < pNode->GetCount(); i++ )
+    {
+        Swing::Spatial* pChild = pNode->GetChild(i);
+
+        if( pChild )
+        {
+            if( DynamicCast<Swing::Node>(pChild) )
             {
-                GenerateNormalsForAll((Swing::Node*)pChild);
+                DetachAllEffectsForAll((Node*)pChild);
+            }
+            else
+            {
+                pChild->DetachAllEffects();
             }
         }
     }

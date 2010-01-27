@@ -39,10 +39,13 @@ public:
     ManagedNode(void);
     ~ManagedNode(void);
 
-    // Normal generation.
+    // Hierarchy normal generation.
     void GenerateNormalsForAll(void);
 
-    // Shallow copying.
+    // Hierarchy effect detachment.
+    void DetachAllEffectsForAll(void);
+
+    // Hierarchy shallow copying.
     ManagedNode^ Clone(void);
 
     // Implement INativeNode interface.

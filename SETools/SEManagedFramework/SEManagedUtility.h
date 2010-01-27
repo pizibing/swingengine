@@ -49,6 +49,9 @@ internal:
 
     // Generate normals for all sub-mesh objects in the hierarchy.
     static void GenerateNormalsForAll(Node* pNode);
+
+    // Detach all effects for all sub-spatial objects in the hierarchy.
+    static void DetachAllEffectsForAll(Node* pNode);
 };
 
 }}}
