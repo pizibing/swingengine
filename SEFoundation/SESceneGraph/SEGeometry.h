@@ -52,15 +52,17 @@ public:
     virtual ~Geometry(void);
 
     // Geometry对象所使用的lighting类型.
-    // GLM_USER表示用户使用自定义lighting,从而当用户调用UpdateRS函数时,
-    // Geometry对象将不会创建系统默认的LightingEffect对象.
     // GLM_PIPELINE_VERTEX和GLM_PIPELINE_PIXEL必须与LightingEffect中的
     // LM_VERTEX和LM_PIXEL枚举顺序保持一致.
+    // GLM_USER表示用户使用自定义lighting,从而当用户调用UpdateRS函数时,
+    // Geometry对象将不会创建系统默认的LightingEffect对象.
+    // GLM_DISABLE表示该Geometry对象禁止任何光照效果.
     enum GeometryLightingMode
     {
         GLM_PIPELINE_VERTEX,
         GLM_PIPELINE_PIXEL,
         GLM_USER,
+        GLM_DISABLE,
         GLM_MAX_COUNT
     };
 

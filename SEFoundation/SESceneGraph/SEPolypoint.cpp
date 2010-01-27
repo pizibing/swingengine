@@ -45,12 +45,14 @@ Polypoint::Polypoint(VertexBuffer* pVBuffer)
     {
         aiIndex[i] = i;
     }
+    LightingMode = GLM_DISABLE;
 }
 //----------------------------------------------------------------------------
 Polypoint::Polypoint()
 {
     Type = GT_POLYPOINT;
     m_iActiveCount = 0;
+    LightingMode = GLM_DISABLE;
 }
 //----------------------------------------------------------------------------
 Polypoint::~Polypoint()

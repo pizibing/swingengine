@@ -35,7 +35,7 @@ Geometry::Geometry()
     :
     ModelBound(BoundingVolume::Create())
 {
-    RStateBlock = 0;
+    RStateBlock = SE_NEW RenderStateBlock;
     LightingMode = GLM_PIPELINE_PIXEL;
 }
 //----------------------------------------------------------------------------
@@ -45,7 +45,7 @@ Geometry::Geometry(VertexBuffer* pVBuffer, IndexBuffer* pIBuffer)
     IBuffer(pIBuffer),
     ModelBound(BoundingVolume::Create())
 {
-    RStateBlock = 0;
+    RStateBlock = SE_NEW RenderStateBlock;
     LightingMode = GLM_PIPELINE_PIXEL;
     UpdateModelBound();
 }
@@ -139,7 +139,7 @@ void Geometry::UpdateState(std::vector<GlobalState*>* aGStack,
             }
         }
     }
-    else
+    else if( LightingMode == GLM_USER )
     {
         // 用户自定义lighting effect.
         // 所有自定义lighting effect都可以使用渲染器提供的灯光数组.
@@ -155,6 +155,18 @@ void Geometry::UpdateState(std::vector<GlobalState*>* aGStack,
         for( i = 0; i < iLCount; i++ )
         {
             Lights.push_back((*pLStack)[i]);
+        }
+    }
+    else
+    {
+        // 禁止光照效果.
+
+        if( m_spLEffect )
+        {
+            SE_ASSERT( *m_Effects.begin() == m_spLEffect );
+
+            m_Effects.erase(m_Effects.begin());
+            m_spLEffect = 0;
         }
     }
 

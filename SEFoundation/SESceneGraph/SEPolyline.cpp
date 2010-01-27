@@ -57,6 +57,7 @@ Polyline::Polyline(VertexBuffer* pVBuffer, bool bClosed, bool bContiguous)
     }
 
     SetGeometryType();
+    LightingMode = GLM_DISABLE;
 }
 //----------------------------------------------------------------------------
 Polyline::Polyline()
@@ -65,6 +66,7 @@ Polyline::Polyline()
     m_bClosed = false;
     m_bContiguous = false;
     SetGeometryType();
+    LightingMode = GLM_DISABLE;
 }
 //----------------------------------------------------------------------------
 Polyline::~Polyline()
