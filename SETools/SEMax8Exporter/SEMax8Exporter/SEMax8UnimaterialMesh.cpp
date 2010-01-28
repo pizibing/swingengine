@@ -317,7 +317,9 @@ TriMesh* Max8UnimaterialMesh::ToTriMesh()
         }
         else
         {
-            pSEEffect = new Swing::MaterialEffect();
+            // 待实现:
+            // 暂时无法使用MaterialEffect
+            //pSEEffect = new Swing::MaterialEffect();
 
             assert( !m_aTexture );
             if( m_aTexture )
