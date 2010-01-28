@@ -39,13 +39,16 @@ public:
     ManagedNode(void);
     ~ManagedNode(void);
 
-    // Hierarchy normal generation.
+    // Hierarchical normal generation.
     void GenerateNormalsForAll(void);
 
-    // Hierarchy effect detachment.
+    // Hierarchical effect detachment.
     void DetachAllEffectsForAll(void);
 
-    // Hierarchy shallow copying.
+    // Hierarchical effect adjusting.
+    void ModulateWithLightingEffectForAll(void);
+
+    // Hierarchical shallow copying.
     ManagedNode^ Clone(void);
 
     // Implement INativeNode interface.

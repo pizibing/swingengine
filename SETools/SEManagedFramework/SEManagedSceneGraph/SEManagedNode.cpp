@@ -56,6 +56,12 @@ void ManagedNode::DetachAllEffectsForAll()
     ManagedUtility::DetachAllEffectsForAll(*m_pspNode);
 }
 //---------------------------------------------------------------------------
+void ManagedNode::ModulateWithLightingEffectForAll()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    ManagedUtility::ModulateWithLightingEffectForAll(*m_pspNode);
+}
+//---------------------------------------------------------------------------
 ManagedNode^ ManagedNode::Clone()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");

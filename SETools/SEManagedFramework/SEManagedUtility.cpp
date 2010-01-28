@@ -158,3 +158,46 @@ void ManagedUtility::DetachAllEffectsForAll(Swing::Node* pNode)
     }
 }
 //---------------------------------------------------------------------------
+void ManagedUtility::ModulateWithLightingEffectForAll(Swing::Node* pNode)
+{
+    if( !pNode )
+    {
+        return;
+    }
+
+    for( int i = 0; i < pNode->GetCount(); i++ )
+    {
+        Swing::Spatial* pChild = pNode->GetChild(i);
+
+        if( pChild )
+        {
+            if( DynamicCast<Swing::Node>(pChild) )
+            {
+                ModulateWithLightingEffectForAll((Node*)pChild);
+            }
+            else if( DynamicCast<Swing::TriMesh>(pChild) )
+            {
+                if( pChild->GetEffectCount() > 0 )
+                {
+                    Swing::ShaderEffect* pShaderEffect = 
+                        DynamicCast<Swing::ShaderEffect>(
+                        pChild->GetEffect(0));
+
+                    if( pShaderEffect )
+                    {
+                        if( pShaderEffect->GetPassCount() == 0 )
+                        {
+                            throw gcnew Exception("Pass count is zero");
+                        }
+
+                        Swing::AlphaState* pAState = 
+                            pShaderEffect->GetBlending(0);
+                        pAState->SrcBlend = AlphaState::SBF_DST_COLOR;
+                        pAState->DstBlend = AlphaState::DBF_ZERO;
+                    }
+                }
+            }
+        }
+    }
+}
+//---------------------------------------------------------------------------

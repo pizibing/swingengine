@@ -52,6 +52,8 @@ internal:
 
     // Detach all effects for all sub-spatial objects in the hierarchy.
     static void DetachAllEffectsForAll(Node* pNode);
+
+    static void ModulateWithLightingEffectForAll(Node* pNode);
 };
 
 }}}
