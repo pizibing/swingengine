@@ -39,6 +39,10 @@ public:
     ManagedNode(void);
     ~ManagedNode(void);
 
+    // If the given spatial derived object is in the hierarchy of this node
+    // object, the return value is 'true', otherwise return 'false'.
+    bool IsInHierarchy(INativeSpatial^ thSpatial);
+
     // Hierarchical normal generation.
     void GenerateNormalsForAll(void);
 

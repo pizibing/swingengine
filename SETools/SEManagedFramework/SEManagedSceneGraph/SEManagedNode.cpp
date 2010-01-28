@@ -44,6 +44,15 @@ ManagedNode::~ManagedNode()
     m_pspNode = 0;
 }
 //---------------------------------------------------------------------------
+bool ManagedNode::IsInHierarchy(INativeSpatial^ thSpatial)
+{
+    SE_NULL_ARGUMENT_CHECK(thSpatial, "thSpatial");
+    Swing::Object* pFound = (*m_pspNode)->GetObjectByID(
+        thSpatial->GetNativeSpatial()->GetID());
+
+    return pFound ? true : false;
+}
+//---------------------------------------------------------------------------
 void ManagedNode::GenerateNormalsForAll()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
