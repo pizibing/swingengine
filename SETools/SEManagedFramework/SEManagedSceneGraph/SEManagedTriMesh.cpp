@@ -212,6 +212,19 @@ void ManagedTriMesh::DetachAllLights()
     (*m_pspTriMesh)->DetachAllLights();
 }
 //---------------------------------------------------------------------------
+int ManagedTriMesh::GetEffectCount()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    return (*m_pspTriMesh)->GetEffectCount();
+}
+//---------------------------------------------------------------------------
+INativeEffect^ ManagedTriMesh::GetEffect(int i)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    return  ManagedObjectFactory::CreateEffectDerivedObject(
+        (*m_pspTriMesh)->GetEffect(i));
+}
+//---------------------------------------------------------------------------
 void ManagedTriMesh::AttachEffect(INativeEffect^ thEffect)
 {
     SE_NULL_ARGUMENT_CHECK(thEffect, "thEffect");

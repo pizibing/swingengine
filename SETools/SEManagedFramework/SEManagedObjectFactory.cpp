@@ -58,6 +58,28 @@ INativeSpatial^ ManagedObjectFactory::CreateSpatialDerivedObject(
     return nullptr;
 }
 //---------------------------------------------------------------------------
+INativeEffect^ ManagedObjectFactory::CreateEffectDerivedObject(
+    Effect* pEffect)
+{
+    if( !pEffect )
+    {
+        return nullptr;
+    }
+
+    const Swing::RTTI& rType = pEffect->GetType();
+    if( rType.IsExactly(DefaultShaderEffect::TYPE) )
+    {
+        return gcnew ManagedDefaultShaderEffect(
+            (DefaultShaderEffect*)pEffect); 
+    }
+    else if( rType.IsExactly(TextureEffect::TYPE) )
+    {
+        return gcnew ManagedTextureEffect((TextureEffect*)pEffect);
+    }
+
+    return nullptr;
+}
+//---------------------------------------------------------------------------
 INativeGlobalState^ ManagedObjectFactory::CreateGlobalStateObject(
     GlobalState* pState)
 {

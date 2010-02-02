@@ -222,6 +222,19 @@ void ManagedNode::DetachAllLights()
     (*m_pspNode)->DetachAllLights();
 }
 //---------------------------------------------------------------------------
+int ManagedNode::GetEffectCount()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    return (*m_pspNode)->GetEffectCount();
+}
+//---------------------------------------------------------------------------
+INativeEffect^ ManagedNode::GetEffect(int i)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    return  ManagedObjectFactory::CreateEffectDerivedObject(
+        (*m_pspNode)->GetEffect(i));
+}
+//---------------------------------------------------------------------------
 void ManagedNode::AttachEffect(INativeEffect^ thEffect)
 {
     SE_NULL_ARGUMENT_CHECK(thEffect, "thEffect");

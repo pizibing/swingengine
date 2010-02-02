@@ -38,6 +38,12 @@ ManagedTextureEffect::ManagedTextureEffect(String^ thBaseName)
     (*m_pspTextureEffect) = SE_NEW TextureEffect(tempBaseName);
 }
 //---------------------------------------------------------------------------
+ManagedTextureEffect::ManagedTextureEffect(TextureEffect* pEffect)
+{
+    m_pspTextureEffect = SE_NEW TextureEffectPtr;
+    (*m_pspTextureEffect) = pEffect;
+}
+//---------------------------------------------------------------------------
 ManagedTextureEffect::~ManagedTextureEffect()
 {
     SE_DELETE m_pspTextureEffect;

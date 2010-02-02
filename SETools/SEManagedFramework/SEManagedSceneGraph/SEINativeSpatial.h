@@ -63,6 +63,8 @@ public interface class INativeSpatial
     void DetachAllLights(void);
 
     // Effect state access.
+    int GetEffectCount(void);
+    INativeEffect^ GetEffect(int i);
     void AttachEffect(INativeEffect^ thEffect);
     void DetachEffect(INativeEffect^ thEffect);
     void DetachAllEffects(void);

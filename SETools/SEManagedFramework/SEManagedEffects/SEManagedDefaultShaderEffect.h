@@ -53,6 +53,9 @@ public:
     virtual int GetNativeReferences(void);
 
 internal:
+    [CLSCompliant(false)]
+    ManagedDefaultShaderEffect(DefaultShaderEffect* pEffect);
+
     // Implement INativeEffect interface.
     [CLSCompliant(false)]
     virtual Effect* GetNativeEffect(void) = INativeEffect::GetNativeEffect;

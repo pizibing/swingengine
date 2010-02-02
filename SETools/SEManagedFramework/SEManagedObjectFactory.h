@@ -21,6 +21,7 @@
 #pragma once
 
 #include "SEINativeSpatial.h"
+#include "SEINativeEffect.h"
 #include "SEINativeGlobalState.h"
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
@@ -36,6 +37,7 @@ private ref class ManagedObjectFactory sealed
 {
 public:
     static INativeSpatial^ CreateSpatialDerivedObject(Spatial* pSpatial);
+    static INativeEffect^ CreateEffectDerivedObject(Effect* pEffect);
 	static INativeGlobalState^ CreateGlobalStateObject(GlobalState* pState);
 };
 

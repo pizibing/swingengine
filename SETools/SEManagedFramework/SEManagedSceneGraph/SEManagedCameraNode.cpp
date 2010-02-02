@@ -201,6 +201,19 @@ void ManagedCameraNode::DetachAllLights()
     (*m_pspCameraNode)->DetachAllLights();
 }
 //---------------------------------------------------------------------------
+int ManagedCameraNode::GetEffectCount()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
+    return (*m_pspCameraNode)->GetEffectCount();
+}
+//---------------------------------------------------------------------------
+INativeEffect^ ManagedCameraNode::GetEffect(int i)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
+    return  ManagedObjectFactory::CreateEffectDerivedObject(
+        (*m_pspCameraNode)->GetEffect(i));
+}
+//---------------------------------------------------------------------------
 void ManagedCameraNode::AttachEffect(INativeEffect^ thEffect)
 {
     SE_NULL_ARGUMENT_CHECK(thEffect, "thEffect");

@@ -71,6 +71,8 @@ public:
     virtual void DetachLight(ManagedLight^ thLight);
     virtual void DetachAllLights(void);
     //
+    virtual int GetEffectCount(void);
+    virtual INativeEffect^ GetEffect(int i);
     virtual void AttachEffect(INativeEffect^ thEffect);
     virtual void DetachEffect(INativeEffect^ thEffect);
     virtual void DetachAllEffects(void);

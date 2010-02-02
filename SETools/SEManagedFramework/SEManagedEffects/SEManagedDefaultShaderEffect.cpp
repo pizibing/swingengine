@@ -31,6 +31,13 @@ ManagedDefaultShaderEffect::ManagedDefaultShaderEffect()
     (*m_pspDefaultShaderEffect) = SE_NEW DefaultShaderEffect;
 }
 //---------------------------------------------------------------------------
+ManagedDefaultShaderEffect::ManagedDefaultShaderEffect(
+    DefaultShaderEffect* pEffect)
+{
+    m_pspDefaultShaderEffect = SE_NEW DefaultShaderEffectPtr;
+    (*m_pspDefaultShaderEffect) = pEffect;
+}
+//---------------------------------------------------------------------------
 ManagedDefaultShaderEffect::~ManagedDefaultShaderEffect()
 {
     SE_DELETE m_pspDefaultShaderEffect;
