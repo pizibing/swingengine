@@ -110,6 +110,16 @@ void Geometry::UpdateState(std::vector<GlobalState*>* aGStack,
             if( m_spLEffect )
             {
                 m_spLEffect->DetachAllLights();
+
+                if( m_Effects.size() == 0 )
+                {
+                    m_Effects.push_back(StaticCast<Effect>(m_spLEffect));
+                }
+                else if( m_Effects[0] != m_spLEffect )
+                {
+                    m_Effects.insert(m_Effects.begin(), StaticCast<Effect>(
+                        m_spLEffect));
+                }
             }
             else
             {
