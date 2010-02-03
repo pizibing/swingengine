@@ -605,7 +605,7 @@ int VertexBuffer::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(int)*m_Attributes.GetMaxTCoords();
 }
 //----------------------------------------------------------------------------
-StringTree* VertexBuffer::SaveStrings(const char*)
+StringTree* VertexBuffer::SaveStrings(const char* pTitle)
 {
     StringTree* pTree = SE_NEW StringTree;
 
@@ -637,7 +637,7 @@ StringTree* VertexBuffer::SaveStrings(const char*)
     // children
     pTree->Append(Object::SaveStrings());
     // this is very slow.
-    //pTree->Append(Format(pTitle, m_iChannelCount, m_pChannel));
+    pTree->Append(Format(pTitle, m_iChannelCount, m_pChannel));
 
     return pTree;
 }
