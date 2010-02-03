@@ -1897,6 +1897,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEEffects\SETextureTileEffect.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEEffects\SETextureTileEffect.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEEffects\SEVertexColor3Effect.cpp"
 				>
 			</File>

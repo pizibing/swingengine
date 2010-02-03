@@ -218,6 +218,7 @@
 #include "SEColorNormalDepthEffect.h"
 #include "SEScreenSpaceAOEffect.h"
 #include "SEScreenSpaceAOBlurEffect.h"
+#include "SETextureTileEffect.h"
 
 // Terrain
 #include "SETerrain.h"
