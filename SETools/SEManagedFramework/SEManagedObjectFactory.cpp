@@ -25,6 +25,10 @@
 #include "SEManagedLightNode.h"
 #include "SEManagedCameraNode.h"
 
+#include "SEManagedDefaultShaderEffect.h"
+#include "SEManagedTextureEffect.h"
+#include "SEManagedTextureTileEffect.h"
+
 #include "SEManagedAlphaState.h"
 #include "SEManagedCullState.h"
 #include "SEManagedMaterialState.h"
@@ -75,6 +79,10 @@ INativeEffect^ ManagedObjectFactory::CreateEffectDerivedObject(
     else if( rType.IsExactly(TextureEffect::TYPE) )
     {
         return gcnew ManagedTextureEffect((TextureEffect*)pEffect);
+    }
+    else if( rType.IsExactly(TextureTileEffect::TYPE) )
+    {
+        return gcnew ManagedTextureTileEffect((TextureTileEffect*)pEffect);
     }
 
     return nullptr;
