@@ -1,0 +1,29 @@
+//----------------------------------------------------------------------------
+void v_TextureTile
+(
+    in float4        kModelPosition : POSITION,
+    in float2        kInBaseTCoord  : TEXCOORD0,
+    out float4       kClipPosition  : POSITION,
+    out float2       kOutBaseTCoord : TEXCOORD0,
+    uniform float4x4 WVPMatrix,
+    uniform float    TileX,
+    uniform float    TileY
+)
+{
+    kClipPosition = mul(kModelPosition,WVPMatrix);
+
+    kOutBaseTCoord.x = kInBaseTCoord.x * TileX;
+    kOutBaseTCoord.y = kInBaseTCoord.y * TileY;
+}
+//----------------------------------------------------------------------------
+void p_TextureTile
+(
+    in float4         kPosition   : POSITION,
+    in float2         kBaseTCoord : TEXCOORD0,
+    out float4        kPixelColor : COLOR0,
+    uniform sampler2D BaseSampler
+)
+{
+    kPixelColor = tex2D(BaseSampler, kBaseTCoord);
+}
+//----------------------------------------------------------------------------
