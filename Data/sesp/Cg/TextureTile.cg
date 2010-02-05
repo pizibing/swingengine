@@ -6,14 +6,13 @@ void v_TextureTile
     out float4       kClipPosition  : POSITION,
     out float2       kOutBaseTCoord : TEXCOORD0,
     uniform float4x4 WVPMatrix,
-    uniform float    TileX,
-    uniform float    TileY
+    uniform float2   TileParams
 )
 {
     kClipPosition = mul(kModelPosition,WVPMatrix);
 
-    kOutBaseTCoord.x = kInBaseTCoord.x * TileX;
-    kOutBaseTCoord.y = kInBaseTCoord.y * TileY;
+    kOutBaseTCoord.x = kInBaseTCoord.x * TileParams.x;
+    kOutBaseTCoord.y = kInBaseTCoord.y * TileParams.y;
 }
 //----------------------------------------------------------------------------
 void p_TextureTile
