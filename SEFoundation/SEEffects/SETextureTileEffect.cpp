@@ -25,13 +25,15 @@ using namespace Swing;
 
 SE_IMPLEMENT_RTTI(Swing, TextureTileEffect, ShaderEffect);
 SE_IMPLEMENT_STREAM(TextureTileEffect);
-SE_IMPLEMENT_DEFAULT_STREAM(TextureTileEffect, ShaderEffect);
 SE_IMPLEMENT_DEFAULT_NAME_ID(TextureTileEffect, ShaderEffect);
 
 //SE_REGISTER_STREAM(TextureTileEffect);
 
-float TextureTileEffect::ms_fTileX = 1.0f;
-float TextureTileEffect::ms_fTileY = 1.0f;
+float TextureTileEffect::ms_afTileParams[2] = 
+{
+    1.0f,
+    1.0f
+};
 bool TextureTileEffect::ms_bUCInitialized = false;
 
 //----------------------------------------------------------------------------
@@ -49,6 +51,9 @@ TextureTileEffect::TextureTileEffect(const std::string& rTileName)
     pTile->SetFilterType(Texture::LINEAR_LINEAR);
     pTile->SetWrapType(0, Texture::REPEAT);
     pTile->SetWrapType(1, Texture::REPEAT);
+
+    TileX = 1.0f;
+    TileY = 1.0f;
 }
 //----------------------------------------------------------------------------
 TextureTileEffect::TextureTileEffect()
@@ -64,20 +69,12 @@ void TextureTileEffect::OnLoadPrograms(int, Program* pVProgram, Program*,
 {
     if( !ms_bUCInitialized )
     {
-        UserConstant* pUC = pVProgram->GetUC("TileX");
+        UserConstant* pUC = pVProgram->GetUC("TileParams");
         SE_ASSERT( pUC );
 
         if( pUC )
         {
-            pUC->SetDataSource((float*)&ms_fTileX);
-        }
-
-        pUC = pVProgram->GetUC("TileY");
-        SE_ASSERT( pUC );
-
-        if( pUC )
-        {
-            pUC->SetDataSource((float*)&ms_fTileY);
+            pUC->SetDataSource((float*)&ms_afTileParams);
         }
 
         ms_bUCInitialized = true;
@@ -86,7 +83,71 @@ void TextureTileEffect::OnLoadPrograms(int, Program* pVProgram, Program*,
 //----------------------------------------------------------------------------
 void TextureTileEffect::OnPreApplyEffect(Renderer*, bool)
 {
-    ms_fTileX = TileX;
-    ms_fTileY = TileY;
+    ms_afTileParams[0] = TileX;
+    ms_afTileParams[1] = TileY;
+}
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+// streaming
+//----------------------------------------------------------------------------
+void TextureTileEffect::Load(Stream& rStream, Stream::Link* pLink)
+{
+    SE_BEGIN_DEBUG_STREAM_LOAD;
+
+    ShaderEffect::Load(rStream, pLink);
+
+    // native data
+    rStream.Read(TileX);
+    rStream.Read(TileY);
+
+    SE_END_DEBUG_STREAM_LOAD(TextureTileEffect);
+}
+//----------------------------------------------------------------------------
+void TextureTileEffect::Link(Stream& rStream, Stream::Link* pLink)
+{
+    ShaderEffect::Link(rStream, pLink);
+}
+//----------------------------------------------------------------------------
+bool TextureTileEffect::Register(Stream& rStream) const
+{
+    return ShaderEffect::Register(rStream);
+}
+//----------------------------------------------------------------------------
+void TextureTileEffect::Save(Stream& rStream) const
+{
+    SE_BEGIN_DEBUG_STREAM_SAVE;
+
+    ShaderEffect::Save(rStream);
+
+    // native data
+    rStream.Write(TileX);
+    rStream.Write(TileY);
+
+    SE_END_DEBUG_STREAM_SAVE(TextureTileEffect);
+}
+//----------------------------------------------------------------------------
+int TextureTileEffect::GetDiskUsed(const StreamVersion& rVersion) const
+{
+    int iSize = ShaderEffect::GetDiskUsed(rVersion) +
+        sizeof(TileX) + sizeof(TileY);
+
+    return iSize;
+}
+//----------------------------------------------------------------------------
+StringTree* TextureTileEffect::SaveStrings(const char*)
+{
+    StringTree* pTree = SE_NEW StringTree;
+
+    // strings
+    pTree->Append(Format(&TYPE, GetName().c_str()));
+
+    pTree->Append(Format("tile x =", TileX));
+    pTree->Append(Format("tile y =", TileY));
+
+    // children
+    pTree->Append(ShaderEffect::SaveStrings());
+
+    return pTree;
 }
 //----------------------------------------------------------------------------

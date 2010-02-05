@@ -54,8 +54,7 @@ protected:
         Program* pPProgram, Program* pGProgram);
     virtual void OnPreApplyEffect(Renderer* pRenderer, bool bPrimaryEffect);
 
-    static float ms_fTileX;
-    static float ms_fTileY;
+    static float ms_afTileParams[2];
     static bool ms_bUCInitialized;
 };
 
