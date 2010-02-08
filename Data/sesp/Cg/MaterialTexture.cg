@@ -31,7 +31,7 @@ void p_MaterialTexture
 {
     // Add the material and texture colors.
     float4 kBaseColor = tex2D(BaseSampler,kBaseTCoord);
-    kPixelColor.rgb = saturate(kBaseColor.rgb + kDiffuseColor.rgb*0.2f);
+    kPixelColor.rgb = saturate(kBaseColor.rgb*1.2f + kDiffuseColor.rgb*0.2f);
     
     // Multiply the material and texture alphas.
     kPixelColor.a = kBaseColor.a*kDiffuseColor.a;
