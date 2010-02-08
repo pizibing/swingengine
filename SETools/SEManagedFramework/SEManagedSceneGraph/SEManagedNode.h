@@ -26,6 +26,8 @@
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
+ref class ManagedTriMesh;
+
 //----------------------------------------------------------------------------
 // Name:Managed node class
 // Description:
@@ -54,6 +56,9 @@ public:
 
     // Hierarchical shallow copying.
     ManagedNode^ Clone(void);
+
+    // Hierarchical searching of a TriMesh object with the given name.
+    ManagedTriMesh^ GetTriMeshByName(String^ thName);
 
     // Implement INativeNode interface.
     virtual int GetCount(void) = INativeNode::GetCount;

@@ -56,6 +56,7 @@ Swing::Node* ManagedUtility::CloneNode(Swing::Node* pSrcNode)
     }
 
     Swing::Node* pClonedObject = SE_NEW Swing::Node;
+    pClonedObject->SetName(pSrcNode->GetName());
     pClonedObject->Local = pSrcNode->Local;
 
     for( int i = 0; i < pSrcNode->GetCount(); i++ )
@@ -95,6 +96,7 @@ Swing::TriMesh* ManagedUtility::CloneTriMesh(Swing::TriMesh* pSrcTriMesh)
 
     Swing::TriMesh* pClonedObject = SE_NEW Swing::TriMesh(
         pSrcTriMesh->VBuffer, pSrcTriMesh->IBuffer);
+    pClonedObject->SetName(pSrcTriMesh->GetName());
     pClonedObject->Local = pSrcTriMesh->Local;
     pClonedObject->GenerateNormals();
 

@@ -20,7 +20,9 @@
 
 #include "SEManagedFrameworkPCH.h"
 #include "SEManagedNode.h"
+#include "SEManagedUtility.h"
 #include "SEManagedObjectFactory.h"
+#include "SEManagedTriMesh.h"
 
 using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
@@ -77,6 +79,24 @@ ManagedNode^ ManagedNode::Clone()
     Node* pClonedObject = ManagedUtility::CloneNode(*m_pspNode);
 
     return gcnew ManagedNode(pClonedObject);
+}
+//---------------------------------------------------------------------------
+ManagedTriMesh^ ManagedNode::GetTriMeshByName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+
+    const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acBuffer);
+    ManagedUtility::FreeNativeCharBuffer(acBuffer);
+    TriMesh* pMesh = DynamicCast<TriMesh>(
+        (*m_pspNode)->GetObjectByName(tempName));
+    if( pMesh )
+    {
+        return gcnew ManagedTriMesh(pMesh);
+    }
+
+    return nullptr;
 }
 //---------------------------------------------------------------------------
 int ManagedNode::GetCount()
