@@ -123,6 +123,9 @@ public:
     // 球面线性插值.
     Quaternionf& Slerp(float fT, const Quaternionf& rP,
         const Quaternionf& rQ);
+    // 线性插值.
+    Quaternionf& Lerp(float fT, const Quaternionf& rP,
+        const Quaternionf& rQ);
 
     static const Quaternionf IDENTITY;
     static const Quaternionf ZERO;
@@ -224,7 +227,10 @@ public:
     Vector3d Rotate(const Vector3d& rSrcVec) const;
 
     // 球面线性插值.
-    Quaterniond& Slerp(double fT, const Quaterniond& rP,
+    Quaterniond& Slerp(double dT, const Quaterniond& rP,
+        const Quaterniond& rQ);
+    // 线性插值.
+    Quaterniond& Lerp(double dT, const Quaterniond& rP,
         const Quaterniond& rQ);
 
     static const Quaterniond IDENTITY;

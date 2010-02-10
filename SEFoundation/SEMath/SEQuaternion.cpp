@@ -330,6 +330,15 @@ Quaternionf& Quaternionf::Slerp(float fT, const Quaternionf& rP,
     return *this;
 }
 //----------------------------------------------------------------------------
+Quaternionf& Quaternionf::Lerp(float fT, const Quaternionf& rP, 
+    const Quaternionf& rQ)
+{
+    *this = (1.0f - fT)*rP + fT*rQ;
+    Normalize();
+
+    return *this;
+}
+//----------------------------------------------------------------------------
 Quaternionf& Quaternionf::FromRotationMatrix(const Vector3f aRot[3], 
     bool bIsRow)
 {
@@ -696,6 +705,15 @@ Quaterniond& Quaterniond::Slerp(double dT, const Quaterniond& rP,
     {
         *this = rP;
     }
+
+    return *this;
+}
+//----------------------------------------------------------------------------
+Quaterniond& Quaterniond::Lerp(double dT, const Quaterniond& rP, 
+    const Quaterniond& rQ)
+{
+    *this = (1.0 - dT)*rP + dT*rQ;
+    Normalize();
 
     return *this;
 }
