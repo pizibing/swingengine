@@ -1,0 +1,133 @@
+//----------------------------------------------------------------------------
+// 名称:skin material texture effect with 1 light类专用的VS,PS.
+// 说明:由GPU进行蒙皮顶点计算.所依附的node必须带有material state对象.
+// 作者:Sun Che
+// 时间:20100223
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+void v_SkinMaterialTextureL1
+(
+    in float4        kModelPosition : POSITION,
+    in float3        kModelNormal   : NORMAL,
+    in float2        kInBaseTCoord  : TEXCOORD0,
+    in float4        kBlendWeight   : TEXCOORD1,
+    in float4        kBlendIndices  : TEXCOORD2,
+    out float4       kClipPosition  : POSITION,
+    out float2       kOutBaseTCoord : TEXCOORD0,
+    out float4       kWorldLight    : TEXCOORD1,
+    out float3       kWorldView     : TEXCOORD2,
+    out float3       kWorldNormal   : TEXCOORD3,
+
+    // Renderer constants.
+    uniform float4x4 VPMatrix,
+    uniform float3   CameraWorldPosition,
+    uniform float4   Light0WorldPosition,
+    uniform float4   Light0WorldDirection,
+    uniform float4   Light0Attenuation,
+
+    // User constants.
+    uniform float4x4 SkinMatrix[32]
+)
+{
+    // Get bone ids.
+    int iBone1 = kBlendIndices.x;
+    int iBone2 = kBlendIndices.y;
+    int iBone3 = kBlendIndices.z;
+    int iBone4 = kBlendIndices.w;
+
+    // Compute world space position.
+    float4 kWorldPosition = mul(kModelPosition, SkinMatrix[iBone1])*kBlendWeight.x +
+                            mul(kModelPosition, SkinMatrix[iBone2])*kBlendWeight.y + 
+                            mul(kModelPosition, SkinMatrix[iBone3])*kBlendWeight.z +
+                            mul(kModelPosition, SkinMatrix[iBone4])*kBlendWeight.w;
+
+    kClipPosition = mul(kWorldPosition, VPMatrix);
+
+    // Compute world space normal vector.
+    kWorldNormal = mul(kModelNormal, (float3x3)SkinMatrix[iBone1])*kBlendWeight.x + 
+                   mul(kModelNormal, (float3x3)SkinMatrix[iBone2])*kBlendWeight.y +
+                   mul(kModelNormal, (float3x3)SkinMatrix[iBone3])*kBlendWeight.z +
+                   mul(kModelNormal, (float3x3)SkinMatrix[iBone4])*kBlendWeight.w;
+
+    // Compute world space view direction vector.
+    kWorldView = CameraWorldPosition - kWorldPosition.xyz;
+    
+    // Compute world space light0 direction vector and attenuation factor.
+    kWorldLight.w = 1.0f;
+    if( Light0WorldPosition.w != 0.0f )
+    {
+        // This is a point or spot light.
+        
+        kWorldLight.xyz = Light0WorldPosition.xyz - kWorldPosition.xyz;
+        
+        float3 kAttDist;
+        kAttDist.x = 1.0f;
+        kAttDist.z = dot(kWorldLight.xyz, kWorldLight.xyz);
+        kAttDist.y = sqrt(kAttDist.z);
+        kWorldLight.w = Light0Attenuation.w/dot(kAttDist, Light0Attenuation.xyz);
+    }
+    else
+    {
+        // This is a directional light.
+        
+        kWorldLight.xyz = -Light0WorldDirection.xyz;
+    }
+	
+    kOutBaseTCoord = kInBaseTCoord;
+}
+//----------------------------------------------------------------------------
+void p_SkinMaterialTextureL1
+(
+    in float4         kPosition     : POSITION,
+    in float2         kBaseTCoord   : TEXCOORD0,
+    in float4         kWorldLight   : TEXCOORD1,
+    in float3         kWorldView    : TEXCOORD2,
+    in float3         kWorldNormal  : TEXCOORD3,
+    out float4        kPixelColor   : COLOR,
+
+    // Renderer constants.
+    uniform float4 MaterialSpecular,
+    uniform float3 Light0Ambient,
+    uniform float3 Light0Diffuse,
+    uniform float3 Light0Specular,
+
+    // Samplers.
+    uniform sampler2D BaseSampler
+)
+{
+    // Fetch basemap color.
+    float4 kBaseColor = tex2D(BaseSampler, kBaseTCoord);
+
+    // Normalize view direction, light0 direction and normal vector.
+    float3 kViewDirection = normalize(kWorldView);
+    float3 kLightDirection = normalize(kWorldLight.xyz);
+    float3 kNormal = normalize(kWorldNormal);
+
+    // Compute N dot L.
+    float fNdL = dot(kNormal, kLightDirection);
+    
+    // Compute reflection vector.
+    vec3 kReflection = (2.0f*fNdL*kNormal) - kLightDirection;
+    
+    // Compute R dot V.
+    float fRdV = max(0.0f, dot(kReflection, kViewDirection));
+    
+    // Compute ambient component.
+    float3 kAmbient = Light0Ambient * kBaseColor.rgb;
+    
+    // Compute diffuse component.
+    fNdL = max(0.0f, fNdL);
+    float3 kDiffuse = fNdL * Light0Diffuse * kBaseColor.rgb;
+    
+    // Compute specular component.
+    float3 kSpecular = pow(fRdV, MaterialSpecular.a) * Light0Specular;
+    
+    // Compute the sum of light0's components, and multiply it with computed
+    // attenuation factor.
+    float3 kFinalColor = kWorldLight.w * (kAmbient + kDiffuse + 
+        kSpecular);
+
+    kPixelColor.rgb = kFinalColor;
+    kPixelColor.a = kBaseColor.a;
+}
+//----------------------------------------------------------------------------
