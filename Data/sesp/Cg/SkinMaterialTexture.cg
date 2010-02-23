@@ -56,6 +56,6 @@ void p_SkinMaterialTexture
     float4 kBaseColor = tex2D(BaseSampler, kBaseTCoord);
     kPixelColor.rgb = saturate(kBaseColor.rgb + kDiffuseColor.rgb*0.1);
     
-    kPixelColor.a = kBaseColor.a*kDiffuseColor.a;
+    kPixelColor.a = kBaseColor.a;
 }
 //----------------------------------------------------------------------------
