@@ -94,6 +94,21 @@ SkinEffect::~SkinEffect()
     SE_DELETE[] m_aOffset;
 }
 //----------------------------------------------------------------------------
+int SkinEffect::GetBoneCount() const
+{
+    return m_iBoneCount;
+}
+//----------------------------------------------------------------------------
+Node** SkinEffect::GetBones()
+{
+    return m_apBones;
+}
+//----------------------------------------------------------------------------
+Transformation* SkinEffect::GetOffsets()
+{
+    return m_aOffset;
+}
+//----------------------------------------------------------------------------
 void SkinEffect::InitializeUserConstants(Program* pVProgram)
 {
     int iMaxCount = 0;

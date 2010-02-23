@@ -97,6 +97,7 @@
 #include "SESkinDefaultEffect.h"
 #include "SESkinMaterialEffect.h"
 #include "SESkinMaterialTextureEffect.h"
+#include "SESkinMaterialTextureL1Effect.h"
 #include "SETerrainEffect.h"
 #include "SEBumpMapL1Effect.h"
 #include "SEParallaxMapL1Effect.h"
@@ -298,6 +299,7 @@ void Swing::SE_Foundation_Register()
     SE_REGISTER_STREAM(SkinDefaultEffect);
     SE_REGISTER_STREAM(SkinMaterialEffect);
     SE_REGISTER_STREAM(SkinMaterialTextureEffect);
+    SE_REGISTER_STREAM(SkinMaterialTextureL1Effect);
     SE_REGISTER_STREAM(TerrainEffect);
     SE_REGISTER_STREAM(BumpMapL1Effect);
     SE_REGISTER_STREAM(ParallaxMapL1Effect);
@@ -324,6 +326,7 @@ void Swing::SE_Foundation_Register()
     SE_INVOKE_STREAM(SkinDefaultEffect);
     SE_INVOKE_STREAM(SkinMaterialEffect);
     SE_INVOKE_STREAM(SkinMaterialTextureEffect);
+    SE_INVOKE_STREAM(SkinMaterialTextureL1Effect);
     SE_INVOKE_STREAM(TerrainEffect);
     SE_INVOKE_STREAM(BumpMapL1Effect);
     SE_INVOKE_STREAM(ParallaxMapL1Effect);

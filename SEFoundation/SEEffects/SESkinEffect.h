@@ -45,6 +45,12 @@ class SE_FOUNDATION_API SkinEffect : public ShaderEffect
 public:
     virtual ~SkinEffect(void);
 
+    // Member access.
+    // Do a copying of these data if you want to hold them in another place.
+    int GetBoneCount(void) const;
+    Node** GetBones(void);
+    Transformation* GetOffsets(void);
+
 protected:
     // Abstract bass class.
     SkinEffect(int iBoneCount, Node** apBones, Transformation* aOffset);
