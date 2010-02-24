@@ -73,12 +73,26 @@ void ManagedNode::ModulateWithLightingEffectForAll()
     ManagedUtility::ModulateWithLightingEffectForAll(*m_pspNode);
 }
 //---------------------------------------------------------------------------
+void ManagedNode::SkinMaterialTextureConditioner()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    ManagedUtility::SkinMaterialTextureConditioner(*m_pspNode);
+}
+//---------------------------------------------------------------------------
 ManagedNode^ ManagedNode::Clone()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     Node* pClonedObject = ManagedUtility::CloneNode(*m_pspNode);
 
     return gcnew ManagedNode(pClonedObject);
+}
+//---------------------------------------------------------------------------
+ManagedNode^ ManagedNode::Copy()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    ObjectPtr spCopiedObject = (*m_pspNode)->Copy();
+
+    return gcnew ManagedNode((Node*)(Swing::Object*)spCopiedObject);
 }
 //---------------------------------------------------------------------------
 ManagedTriMesh^ ManagedNode::GetTriMeshByName(String^ thName)

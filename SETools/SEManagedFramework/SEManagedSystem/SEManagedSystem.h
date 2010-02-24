@@ -40,6 +40,8 @@ public:
     static String^ GetPath(String^ thFileName, Mode eMode);
 
 	static bool InsertDirectory(String^ thDirectory);
+
+    static double GetTime(void);
 };
 
 }}}

@@ -54,8 +54,14 @@ public:
     // Hierarchical effect adjusting.
     void ModulateWithLightingEffectForAll(void);
 
+    // Hierarchical skin effect adjusting.
+    void SkinMaterialTextureConditioner(void);
+
     // Hierarchical shallow copying.
     ManagedNode^ Clone(void);
+
+    // Hierarchical copying.
+    ManagedNode^ Copy(void);
 
     // Hierarchical searching of a TriMesh object with the given name.
     ManagedTriMesh^ GetTriMeshByName(String^ thName);

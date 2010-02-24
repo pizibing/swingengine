@@ -54,6 +54,8 @@ internal:
     static void DetachAllEffectsForAll(Node* pNode);
 
     static void ModulateWithLightingEffectForAll(Node* pNode);
+
+    static void SkinMaterialTextureConditioner(Node* pNode);
 };
 
 }}}

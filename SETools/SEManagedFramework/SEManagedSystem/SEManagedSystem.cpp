@@ -55,3 +55,8 @@ bool ManagedSystem::InsertDirectory(String^ thDirectory)
     return bRes;
 }
 //---------------------------------------------------------------------------
+double ManagedSystem::GetTime()
+{
+    return Swing::System::SE_GetTime();
+}
+//---------------------------------------------------------------------------

@@ -59,6 +59,11 @@ Swing::Node* ManagedUtility::CloneNode(Swing::Node* pSrcNode)
     pClonedObject->SetName(pSrcNode->GetName());
     pClonedObject->Local = pSrcNode->Local;
 
+    for( int i = 0; i < pSrcNode->GetControllerCount(); i++ )
+    {
+        pClonedObject->AttachController(pSrcNode->GetController(i));
+    }
+
     for( int i = 0; i < pSrcNode->GetCount(); i++ )
     {
         Swing::Spatial* pChild = pSrcNode->GetChild(i);
@@ -98,7 +103,13 @@ Swing::TriMesh* ManagedUtility::CloneTriMesh(Swing::TriMesh* pSrcTriMesh)
         pSrcTriMesh->VBuffer, pSrcTriMesh->IBuffer);
     pClonedObject->SetName(pSrcTriMesh->GetName());
     pClonedObject->Local = pSrcTriMesh->Local;
+    pClonedObject->LightingMode = pSrcTriMesh->LightingMode;
     pClonedObject->GenerateNormals();
+
+    for( int i = 0; i < pSrcTriMesh->GetControllerCount(); i++ )
+    {
+        pClonedObject->AttachController(pSrcTriMesh->GetController(i));
+    }
 
     for( int i = 0; i < pSrcTriMesh->GetEffectCount(); i++ )
     {
@@ -196,6 +207,80 @@ void ManagedUtility::ModulateWithLightingEffectForAll(Swing::Node* pNode)
                             pShaderEffect->GetBlending(0);
                         pAState->SrcBlend = AlphaState::SBF_DST_COLOR;
                         pAState->DstBlend = AlphaState::DBF_ZERO;
+                    }
+                }
+            }
+        }
+    }
+}
+//---------------------------------------------------------------------------
+void ManagedUtility::SkinMaterialTextureConditioner(Swing::Node* pNode)
+{
+    if( !pNode )
+    {
+        return;
+    }
+
+    for( int i = 0; i < pNode->GetCount(); i++ )
+    {
+        Swing::Spatial* pChild = pNode->GetChild(i);
+
+        if( pChild )
+        {
+            if( DynamicCast<Swing::Node>(pChild) )
+            {
+                SkinMaterialTextureConditioner((Node*)pChild);
+            }
+            else if( DynamicCast<Swing::TriMesh>(pChild) )
+            {
+                Swing::TriMesh* pMesh = (TriMesh*)pChild;
+                pMesh->GenerateNormals();
+                pMesh->LightingMode = Swing::Geometry::GLM_USER;
+
+                Swing::SkinMaterialTextureEffect* pEffect = 
+                    DynamicCast<Swing::SkinMaterialTextureEffect>(
+                    pMesh->GetEffect(0));
+                if( pEffect )
+                {
+                    std::string tempBaseName = pEffect->GetPImageName(0, 0);
+                    int iBoneCount = pEffect->GetBoneCount();
+                    Swing::Node** apBones = SE_NEW Swing::Node*[iBoneCount];
+                    Swing::Transformation* aOffset = 
+                        SE_NEW Swing::Transformation[iBoneCount];
+                    for( int i = 0; i < iBoneCount; i++ )
+                    {
+                        apBones[i] = pEffect->GetBones()[i];
+                        aOffset[i] = pEffect->GetOffsets()[i];
+                    }
+
+                    Swing::SkinMaterialTextureL1Effect* pNewEffect = 
+                        SE_NEW Swing::SkinMaterialTextureL1Effect(
+                        tempBaseName, iBoneCount, apBones, aOffset);
+
+                    pMesh->DetachAllEffects();
+                    pMesh->AttachEffect(pNewEffect);
+                }
+
+                std::string tempSubName = pMesh->GetName().substr(0, 4);
+                if( tempSubName == "Bone" )
+                {
+                    pMesh->DetachAllEffects();
+                    pMesh->Culling = Swing::Spatial::CULL_ALWAYS;
+                }
+                else if( tempSubName == "Glas" )
+                {
+                    AlphaState* pAS = SE_NEW Swing::AlphaState;
+                    pAS->BlendEnabled = true;
+                    pMesh->AttachGlobalState(pAS);
+                    Swing::MaterialState* pMS = 
+                        (MaterialState*)pMesh->GetGlobalState(
+                        Swing::GlobalState::MATERIAL);
+                    if( pMS )
+                    {
+                        pMS->Ambient = Swing::ColorRGB(0.1f, 0.1f, 0.1f);
+                        pMS->Diffuse = Swing::ColorRGB(0.1f, 0.1f, 0.1f);
+                        pMS->Specular = Swing::ColorRGB(1.0f, 1.0f, 1.0f);
+                        pMS->Shininess = 100.0f;
                     }
                 }
             }
