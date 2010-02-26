@@ -221,6 +221,12 @@ void ManagedUtility::SkinMaterialTextureConditioner(Swing::Node* pNode)
         return;
     }
 
+    for( int i = 0; i < pNode->GetControllerCount(); i++ )
+    {
+        Swing::Controller* pController = pNode->GetController(i);
+        pController->Repeat = Swing::Controller::RT_CYCLE;
+    }
+
     for( int i = 0; i < pNode->GetCount(); i++ )
     {
         Swing::Spatial* pChild = pNode->GetChild(i);
@@ -236,6 +242,12 @@ void ManagedUtility::SkinMaterialTextureConditioner(Swing::Node* pNode)
                 Swing::TriMesh* pMesh = (TriMesh*)pChild;
                 pMesh->GenerateNormals();
                 pMesh->LightingMode = Swing::Geometry::GLM_USER;
+
+                for( int j = 0; j < pMesh->GetControllerCount(); j++ )
+                {
+                    Swing::Controller* pController = pMesh->GetController(j);
+                    pController->Repeat = Swing::Controller::RT_CYCLE;
+                }
 
                 Swing::SkinMaterialTextureEffect* pEffect = 
                     DynamicCast<Swing::SkinMaterialTextureEffect>(

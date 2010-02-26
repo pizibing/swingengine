@@ -61,7 +61,7 @@ public:
     ManagedNode^ Clone(void);
 
     // Hierarchical copying.
-    ManagedNode^ Copy(void);
+    ManagedNode^ Copy(bool bUniqueNames);
 
     // Hierarchical searching of a TriMesh object with the given name.
     ManagedTriMesh^ GetTriMeshByName(String^ thName);

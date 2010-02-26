@@ -87,10 +87,10 @@ ManagedNode^ ManagedNode::Clone()
     return gcnew ManagedNode(pClonedObject);
 }
 //---------------------------------------------------------------------------
-ManagedNode^ ManagedNode::Copy()
+ManagedNode^ ManagedNode::Copy(bool bUniqueNames)
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    ObjectPtr spCopiedObject = (*m_pspNode)->Copy();
+    ObjectPtr spCopiedObject = (*m_pspNode)->Copy(bUniqueNames);
 
     return gcnew ManagedNode((Node*)(Swing::Object*)spCopiedObject);
 }
