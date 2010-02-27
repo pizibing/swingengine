@@ -207,6 +207,7 @@
 #include "SESkinMaterialEffect.h"
 #include "SESkinMaterialTextureEffect.h"
 #include "SESkinMaterialTextureL1Effect.h"
+#include "SESkinMaterialTexture2L1Effect.h"
 #include "SETerrainEffect.h"
 #include "SEBumpMapL1Effect.h"
 #include "SEParallaxMapL1Effect.h"
