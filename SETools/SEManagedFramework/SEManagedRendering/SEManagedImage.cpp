@@ -70,3 +70,14 @@ Image* ManagedImage::GetNativeImage()
     return (Image*)(*m_pspImage);
 }
 //---------------------------------------------------------------------------
+ManagedImage^ ManagedImage::Find(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+
+    const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acName);
+    ManagedUtility::FreeNativeCharBuffer(acName);
+    Image* pImage = ImageCatalog::GetActive()->Find(tempName);
+    return gcnew ManagedImage(pImage);
+}
+//---------------------------------------------------------------------------

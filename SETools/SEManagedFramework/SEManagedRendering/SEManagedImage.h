@@ -34,7 +34,6 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 public ref class ManagedImage sealed : INativeObject
 {
 public:
-    ManagedImage(void);
     ~ManagedImage(void);
 
     // Implement INativeObject interface.
@@ -42,6 +41,12 @@ public:
     virtual String^ GetName(void);
     //
     virtual int GetNativeReferences(void);
+
+    // Instances of ManagedImage can only be created from this function.
+    static ManagedImage^ Find(String^ thName);
+
+private:
+    ManagedImage(void);
 
 internal:
     [CLSCompliant(false)]

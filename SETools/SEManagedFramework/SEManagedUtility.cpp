@@ -221,12 +221,6 @@ void ManagedUtility::SkinMaterialTextureConditioner(Swing::Node* pNode)
         return;
     }
 
-    for( int i = 0; i < pNode->GetControllerCount(); i++ )
-    {
-        Swing::Controller* pController = pNode->GetController(i);
-        pController->Repeat = Swing::Controller::RT_CYCLE;
-    }
-
     for( int i = 0; i < pNode->GetCount(); i++ )
     {
         Swing::Spatial* pChild = pNode->GetChild(i);
@@ -243,11 +237,7 @@ void ManagedUtility::SkinMaterialTextureConditioner(Swing::Node* pNode)
                 pMesh->GenerateNormals();
                 pMesh->LightingMode = Swing::Geometry::GLM_USER;
 
-                for( int j = 0; j < pMesh->GetControllerCount(); j++ )
-                {
-                    Swing::Controller* pController = pMesh->GetController(j);
-                    pController->Repeat = Swing::Controller::RT_CYCLE;
-                }
+                std::string tempSubName = pMesh->GetName().substr(0, 4);
 
                 Swing::SkinMaterialTextureEffect* pEffect = 
                     DynamicCast<Swing::SkinMaterialTextureEffect>(
@@ -265,15 +255,23 @@ void ManagedUtility::SkinMaterialTextureConditioner(Swing::Node* pNode)
                         aOffset[i] = pEffect->GetOffsets()[i];
                     }
 
-                    Swing::SkinMaterialTextureL1Effect* pNewEffect = 
-                        SE_NEW Swing::SkinMaterialTextureL1Effect(
-                        tempBaseName, iBoneCount, apBones, aOffset);
+                    Effect* pNewEffect = 0;
+                    if( tempSubName == "Part" )
+                    {
+                        pNewEffect = SE_NEW SkinMaterialTexture2L1Effect(
+                            tempBaseName, "wood_01", iBoneCount, apBones, 
+                            aOffset);
+                    }
+                    else
+                    {
+                        pNewEffect = SE_NEW SkinMaterialTextureL1Effect(
+                            tempBaseName, iBoneCount, apBones, aOffset);
+                    }
 
                     pMesh->DetachAllEffects();
                     pMesh->AttachEffect(pNewEffect);
                 }
 
-                std::string tempSubName = pMesh->GetName().substr(0, 4);
                 if( tempSubName == "Bone" )
                 {
                     pMesh->DetachAllEffects();
