@@ -1801,6 +1801,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEEffects\SEMaterialTexture2L1Effect.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEEffects\SEMaterialTexture2L1Effect.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SEEffects\SEMaterialTextureEffect.cpp"
 				>
 			</File>

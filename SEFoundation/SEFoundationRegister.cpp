@@ -92,6 +92,7 @@
 #include "SEMultitextureEffect.h"
 #include "SEMaterialEffect.h"
 #include "SEMaterialTextureEffect.h"
+#include "SEMaterialTexture2L1Effect.h"
 #include "SEVertexColor3Effect.h"
 #include "SESkinEffect.h"
 #include "SESkinDefaultEffect.h"
@@ -295,6 +296,7 @@ void Swing::SE_Foundation_Register()
     SE_REGISTER_STREAM(MultitextureEffect);
     SE_REGISTER_STREAM(MaterialEffect);
     SE_REGISTER_STREAM(MaterialTextureEffect);
+    SE_REGISTER_STREAM(MaterialTexture2L1Effect);
     SE_REGISTER_STREAM(VertexColor3Effect);
     SE_REGISTER_STREAM(SkinEffect);
     SE_REGISTER_STREAM(SkinDefaultEffect);
@@ -323,6 +325,7 @@ void Swing::SE_Foundation_Register()
     SE_INVOKE_STREAM(MultitextureEffect);
     SE_INVOKE_STREAM(MaterialEffect);
     SE_INVOKE_STREAM(MaterialTextureEffect);
+    SE_INVOKE_STREAM(MaterialTexture2L1Effect);
     SE_INVOKE_STREAM(VertexColor3Effect);
     SE_INVOKE_STREAM(SkinEffect);
     SE_INVOKE_STREAM(SkinDefaultEffect);
