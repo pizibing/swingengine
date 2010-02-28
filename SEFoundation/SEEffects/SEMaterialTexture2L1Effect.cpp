@@ -43,7 +43,7 @@ MaterialTexture2L1Effect::MaterialTexture2L1Effect(const std::string& rT0,
 
     m_PShader[0]->SetTextureCount(2);
     m_PShader[0]->SetImageName(0, rT0);
-    m_PShader[0]->SetImageName(0, rT1);
+    m_PShader[0]->SetImageName(1, rT1);
 }
 //----------------------------------------------------------------------------
 MaterialTexture2L1Effect::MaterialTexture2L1Effect()
