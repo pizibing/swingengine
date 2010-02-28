@@ -50,6 +50,7 @@
 #include "SEManagedZBufferState.h"
 #include "SEManagedLight.h"
 #include "SEManagedTexture.h"
+#include "SEManagedImage.h"
 
 // Managed Scene Graph
 #include "SEINativeSpatial.h"
