@@ -272,6 +272,21 @@ void ManagedUtility::SkinMaterialTextureConditioner(Swing::Node* pNode)
                     pMesh->AttachEffect(pNewEffect);
                 }
 
+                MaterialTextureEffect* pEffect2 = 
+                    DynamicCast<MaterialTextureEffect>(
+                    ((TriMesh*)pChild)->GetEffect(0));
+                if( pEffect2 )
+                {
+                    std::string tempBaseName = pEffect2->GetPImageName(0, 0);
+
+                    Effect* pNewEffect = 0;
+                    pNewEffect = SE_NEW MaterialTexture2L1Effect(
+                        tempBaseName, "wood_01");
+
+                    pChild->DetachAllEffects();
+                    pChild->AttachEffect(pNewEffect);
+                }
+
                 if( tempSubName == "Bone" )
                 {
                     pMesh->DetachAllEffects();
