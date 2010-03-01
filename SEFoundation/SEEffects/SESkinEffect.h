@@ -82,7 +82,7 @@ protected:
         SFTVP1_COUNT = 22
     };
 
-    static Matrix4f ms_aSkinMatrix[SM_COUNT];
+    volatile static float ms_aSkinMatrix[SM_COUNT*16];
 };
 
 typedef SmartPointer<SkinEffect> SkinEffectPtr;

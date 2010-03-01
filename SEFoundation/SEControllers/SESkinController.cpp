@@ -83,7 +83,8 @@ bool SkinController::Update(double dAppTime)
             if( m_aafWeight[i][j] != 0.0f )
             {
                 m_apBones[j]->World.ApplyForward(m_aaOffset[i][j], vec3fTemp);
-                pGeometry->VBuffer->Position3(i) += m_aafWeight[i][j] * vec3fTemp;
+                pGeometry->VBuffer->Position3(i) += m_aafWeight[i][j] *
+                    vec3fTemp;
             }
         }
     }

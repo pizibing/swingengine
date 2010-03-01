@@ -32,40 +32,167 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(SkinEffect, ShaderEffect);
 
 //SE_REGISTER_STREAM(SkinEffect);
 
-Matrix4f SkinEffect::ms_aSkinMatrix[SM_COUNT] = 
+volatile float SkinEffect::ms_aSkinMatrix[SM_COUNT*16] = 
 {
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY,
-    Matrix4f::IDENTITY
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f
 };
 
 //----------------------------------------------------------------------------
@@ -127,7 +254,7 @@ void SkinEffect::InitializeUserConstants(Program* pVProgram)
         
             if( pUC )
             {
-                pUC->SetDataSource((float*)ms_aSkinMatrix[i]);
+                pUC->SetDataSource((float*)&ms_aSkinMatrix[i*16]);
             }
         }
     }
@@ -162,7 +289,7 @@ void SkinEffect::InitializeUserConstants(Program* pVProgram)
         
             if( pUC )
             {
-                pUC->SetDataSource((float*)ms_aSkinMatrix[i]);
+                pUC->SetDataSource((float*)&ms_aSkinMatrix[i*16]);
             }
         }
     }
@@ -176,10 +303,32 @@ void SkinEffect::OnLoadPrograms(int, Program*, Program*, Program*)
 void SkinEffect::OnPreApplyEffect(Renderer*, bool)
 {
     Transformation tempT;
+    Matrix4f tempMat;
     for( int i = 0; i < m_iBoneCount; i++ )
     {
         tempT.Product(m_aOffset[i], m_apBones[i]->World);
-        tempT.GetHomogeneous(ms_aSkinMatrix[i]);
+        tempT.GetHomogeneous(tempMat);
+
+        int iIndex = i*16;
+        ms_aSkinMatrix[iIndex    ] = tempMat[0][0];
+        ms_aSkinMatrix[iIndex + 1] = tempMat[0][1];
+        ms_aSkinMatrix[iIndex + 2] = tempMat[0][2];
+        ms_aSkinMatrix[iIndex + 3] = tempMat[0][3];
+
+        ms_aSkinMatrix[iIndex + 4] = tempMat[1][0];
+        ms_aSkinMatrix[iIndex + 5] = tempMat[1][1];
+        ms_aSkinMatrix[iIndex + 6] = tempMat[1][2];
+        ms_aSkinMatrix[iIndex + 7] = tempMat[1][3];
+
+        ms_aSkinMatrix[iIndex +  8] = tempMat[2][0];
+        ms_aSkinMatrix[iIndex +  9] = tempMat[2][1];
+        ms_aSkinMatrix[iIndex + 10] = tempMat[2][2];
+        ms_aSkinMatrix[iIndex + 11] = tempMat[2][3];
+
+        ms_aSkinMatrix[iIndex + 12] = tempMat[3][0];
+        ms_aSkinMatrix[iIndex + 13] = tempMat[3][1];
+        ms_aSkinMatrix[iIndex + 14] = tempMat[3][2];
+        ms_aSkinMatrix[iIndex + 15] = tempMat[3][3];
     }
 }
 //----------------------------------------------------------------------------
