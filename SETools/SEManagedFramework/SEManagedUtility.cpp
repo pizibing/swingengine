@@ -214,7 +214,7 @@ void ManagedUtility::ModulateWithLightingEffectForAll(Swing::Node* pNode)
     }
 }
 //---------------------------------------------------------------------------
-void ManagedUtility::SkinMaterialTextureConditioner(Swing::Node* pNode)
+void ManagedUtility::MaterialTextureConditioner(Swing::Node* pNode)
 {
     if( !pNode )
     {
@@ -229,7 +229,7 @@ void ManagedUtility::SkinMaterialTextureConditioner(Swing::Node* pNode)
         {
             if( DynamicCast<Swing::Node>(pChild) )
             {
-                SkinMaterialTextureConditioner((Node*)pChild);
+                MaterialTextureConditioner((Node*)pChild);
             }
             else if( DynamicCast<Swing::TriMesh>(pChild) )
             {
@@ -239,52 +239,64 @@ void ManagedUtility::SkinMaterialTextureConditioner(Swing::Node* pNode)
 
                 std::string tempSubName = pMesh->GetName().substr(0, 4);
 
-                Swing::SkinMaterialTextureEffect* pEffect = 
-                    DynamicCast<Swing::SkinMaterialTextureEffect>(
-                    pMesh->GetEffect(0));
-                if( pEffect )
+                if( pMesh->GetEffectCount() > 0 )
                 {
-                    std::string tempBaseName = pEffect->GetPImageName(0, 0);
-                    int iBoneCount = pEffect->GetBoneCount();
-                    Swing::Node** apBones = SE_NEW Swing::Node*[iBoneCount];
-                    Swing::Transformation* aOffset = 
-                        SE_NEW Swing::Transformation[iBoneCount];
-                    for( int i = 0; i < iBoneCount; i++ )
+                    Swing::SkinMaterialTextureEffect* pEffect = 
+                        DynamicCast<Swing::SkinMaterialTextureEffect>(
+                        pMesh->GetEffect(0));
+                    if( pEffect )
                     {
-                        apBones[i] = pEffect->GetBones()[i];
-                        aOffset[i] = pEffect->GetOffsets()[i];
+                        std::string tempBaseName = pEffect->GetPImageName(0, 0);
+                        int iBoneCount = pEffect->GetBoneCount();
+                        Swing::Node** apBones = SE_NEW Swing::Node*[iBoneCount];
+                        Swing::Transformation* aOffset = 
+                            SE_NEW Swing::Transformation[iBoneCount];
+                        for( int i = 0; i < iBoneCount; i++ )
+                        {
+                            apBones[i] = pEffect->GetBones()[i];
+                            aOffset[i] = pEffect->GetOffsets()[i];
+                        }
+
+                        Effect* pNewEffect = 0;
+                        if( tempSubName == "Part" )
+                        {
+                            pNewEffect = SE_NEW SkinMaterialTexture2L1Effect(
+                                tempBaseName, "wood_01", iBoneCount, apBones, 
+                                aOffset);
+                        }
+                        else
+                        {
+                            pNewEffect = SE_NEW SkinMaterialTextureL1Effect(
+                                tempBaseName, iBoneCount, apBones, aOffset);
+                        }
+
+
+                        pMesh->DetachAllEffects();
+                        pMesh->AttachEffect(pNewEffect);
                     }
 
-                    Effect* pNewEffect = 0;
-                    if( tempSubName == "Part" )
+                    MaterialTextureEffect* pEffect2 = 
+                        DynamicCast<MaterialTextureEffect>(
+                        ((TriMesh*)pChild)->GetEffect(0));
+                    if( pEffect2 )
                     {
-                        pNewEffect = SE_NEW SkinMaterialTexture2L1Effect(
-                            tempBaseName, "wood_01", iBoneCount, apBones, 
-                            aOffset);
+                        std::string tempBaseName = pEffect2->GetPImageName(0, 0);
+
+                        Effect* pNewEffect = 0;
+                        if( tempSubName == "Part" || tempSubName == "Trun" )
+                        {
+                            pNewEffect = SE_NEW MaterialTexture2L1Effect(
+                                tempBaseName, "wood_01");
+                        }
+                        else
+                        {
+                            pNewEffect = SE_NEW MaterialTextureL1Effect(
+                                tempBaseName);
+                        }
+
+                        pChild->DetachAllEffects();
+                        pChild->AttachEffect(pNewEffect);
                     }
-                    else
-                    {
-                        pNewEffect = SE_NEW SkinMaterialTextureL1Effect(
-                            tempBaseName, iBoneCount, apBones, aOffset);
-                    }
-
-                    pMesh->DetachAllEffects();
-                    pMesh->AttachEffect(pNewEffect);
-                }
-
-                MaterialTextureEffect* pEffect2 = 
-                    DynamicCast<MaterialTextureEffect>(
-                    ((TriMesh*)pChild)->GetEffect(0));
-                if( pEffect2 )
-                {
-                    std::string tempBaseName = pEffect2->GetPImageName(0, 0);
-
-                    Effect* pNewEffect = 0;
-                    pNewEffect = SE_NEW MaterialTexture2L1Effect(
-                        tempBaseName, "wood_01");
-
-                    pChild->DetachAllEffects();
-                    pChild->AttachEffect(pNewEffect);
                 }
 
                 if( tempSubName == "Bone" )

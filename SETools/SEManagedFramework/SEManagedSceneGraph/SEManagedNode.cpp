@@ -73,10 +73,10 @@ void ManagedNode::ModulateWithLightingEffectForAll()
     ManagedUtility::ModulateWithLightingEffectForAll(*m_pspNode);
 }
 //---------------------------------------------------------------------------
-void ManagedNode::SkinMaterialTextureConditioner()
+void ManagedNode::MaterialTextureConditioner()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    ManagedUtility::SkinMaterialTextureConditioner(*m_pspNode);
+    ManagedUtility::MaterialTextureConditioner(*m_pspNode);
 }
 //---------------------------------------------------------------------------
 ManagedNode^ ManagedNode::Clone()

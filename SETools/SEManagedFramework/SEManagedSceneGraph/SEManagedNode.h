@@ -54,8 +54,8 @@ public:
     // Hierarchical effect adjusting.
     void ModulateWithLightingEffectForAll(void);
 
-    // Hierarchical skin effect adjusting.
-    void SkinMaterialTextureConditioner(void);
+    // Hierarchical material texture effect adjusting.
+    void MaterialTextureConditioner(void);
 
     // Hierarchical shallow copying.
     ManagedNode^ Clone(void);

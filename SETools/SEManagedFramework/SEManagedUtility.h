@@ -55,7 +55,7 @@ internal:
 
     static void ModulateWithLightingEffectForAll(Node* pNode);
 
-    static void SkinMaterialTextureConditioner(Node* pNode);
+    static void MaterialTextureConditioner(Node* pNode);
 };
 
 }}}
