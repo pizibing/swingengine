@@ -163,6 +163,12 @@ void ManagedCameraNode::UpdateGS(double dAppTime)
     (*m_pspCameraNode)->UpdateGS(dAppTime);
 }
 //---------------------------------------------------------------------------
+void ManagedCameraNode::UpdateGS()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
+    (*m_pspCameraNode)->UpdateGS();
+}
+//---------------------------------------------------------------------------
 void ManagedCameraNode::UpdateRS()
 {
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");

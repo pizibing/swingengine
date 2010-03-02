@@ -63,6 +63,7 @@ public:
     virtual float GetLocalUniformScale(void);
     //
     virtual void UpdateGS(double dAppTime);
+    virtual void UpdateGS();
     //
     virtual void UpdateRS(void);
     //

@@ -51,6 +51,7 @@ public interface class INativeSpatial
 
     // Geometry state update entry point.
     void UpdateGS(double dAppTime);
+    void UpdateGS(void);
 
     // Render state update entry point.
     void UpdateRS(void);

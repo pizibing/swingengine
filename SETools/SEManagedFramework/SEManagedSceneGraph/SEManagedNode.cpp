@@ -218,6 +218,12 @@ void ManagedNode::UpdateGS(double dAppTime)
     (*m_pspNode)->UpdateGS(dAppTime);
 }
 //---------------------------------------------------------------------------
+void ManagedNode::UpdateGS()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    (*m_pspNode)->UpdateGS();
+}
+//---------------------------------------------------------------------------
 void ManagedNode::UpdateRS()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");

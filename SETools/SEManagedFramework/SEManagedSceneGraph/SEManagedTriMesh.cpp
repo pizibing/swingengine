@@ -174,6 +174,12 @@ void ManagedTriMesh::UpdateGS(double dAppTime)
     (*m_pspTriMesh)->UpdateGS(dAppTime);
 }
 //---------------------------------------------------------------------------
+void ManagedTriMesh::UpdateGS()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    (*m_pspTriMesh)->UpdateGS();
+}
+//---------------------------------------------------------------------------
 void ManagedTriMesh::UpdateRS()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");

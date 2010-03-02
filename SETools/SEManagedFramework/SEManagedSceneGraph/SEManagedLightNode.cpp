@@ -163,6 +163,12 @@ void ManagedLightNode::UpdateGS(double dAppTime)
     (*m_pspLightNode)->UpdateGS(dAppTime);
 }
 //---------------------------------------------------------------------------
+void ManagedLightNode::UpdateGS()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspLightNode, "Native pointer is null");
+    (*m_pspLightNode)->UpdateGS();
+}
+//---------------------------------------------------------------------------
 void ManagedLightNode::UpdateRS()
 {
     SE_NULL_REFERENCE_CHECK(m_pspLightNode, "Native pointer is null");
