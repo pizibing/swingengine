@@ -199,6 +199,7 @@
 #include "SEMultitextureEffect.h"
 #include "SEMaterialEffect.h"
 #include "SEMaterialTextureEffect.h"
+#include "SEMaterialTextureL1Effect.h"
 #include "SEMaterialTexture2L1Effect.h"
 #include "SEVertexColor3Effect.h"
 #include "SESkinEffect.h"
