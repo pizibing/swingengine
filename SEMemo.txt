@@ -162,3 +162,23 @@ WindowApplication3::OnTerminate()Ö®ºó,»òÕßÈ·±£³ÌÐòÍË³öÊ±,rendererÕýÔÚÒýÓÃÓ¦ÓÃ²ãÌ
  CgD3D10ÐÞ¸´ÁËÕâ¸öÈ±ÏÝ,²Î¿¼cgD3D10SetDeviceº¯Êý),Òò´Ë,ÎªÁËÖ§³ÖÍ¬Ê±Ê¹ÓÃ¶à¸öRenderer,DX9Renderer±ØÐëÔÚÊ¹ÓÃ×Ô¼ºµÄCg shader×ÊÔ´Ö®Ç°,Í¨¹ýµ÷ÓÃcgD3D9SetDeviceº¯Êý,
 ½«×Ô¼ºµÄD3D9 device°ó¶¨¸øCgD3D9ÔËÐÐÊ±,Ö®ºóÕâÐ©Cg shader×ÊÔ´»á±»Ê×´Î/ÔÙ´Î×°ÔØµ½¸ÃD3D9 device(ÓÉCgD3D9ÄÚ²¿¹ÜÀí).Òò´ËÔÚ¶à¸öRendererÖ®¼äÇÐ»»äÖÈ¾Ê±,Ö®Ç°RendererËùÊ¹ÓÃdeviceµÄ
 shader program×ÊÔ´»á±»ÊÍ·Å,µ±Ç°´ýÊ¹ÓÃRendererËùÊ¹ÓÃµÄdeviceµÄshader program×ÊÔ´»á±»ÖØÐÂ×°ÔØ,Õâ»áÓÐÒ»¶¨µÄÐÔÄÜËðÊ§,Ä¿Ç°Ã»ÓÐÆäËû¸üºÃµÄ½â¾ö°ì·¨.
+
+2010 0303 1136
+¹ØÓÚÊ¹ÓÃControllerµÄ¹Ç÷À¶¯»­½Úµã:
+Ó¦Í¨¹ýÄ³Ð©¶¯»­¹ÜÀíÏµÍ³(ÉÐÎ´ÊµÏÖ),ÈÃ¹Ç÷À¶¯»­½ÚµãÊ÷ÏÈÓÚ±»¿Ø¼¸ºÎ½ÚµãÊ÷½øÐÐgeometry update²Ù×÷¡£
+¿¼ÂÇÕâÖÖÇé¿ö:´ÓÒ»¸ö¸ù½Úµã´¦½øÐÐgeometry update²Ù×÷,¼ÙÉèÆäÏÂÓÐÁ½¸ö×ÓÊ÷½Úµã,Ôò×ó×ÓÊ÷(µÚÒ»¸ö×Ó½Úµã)Ê×ÏÈ½øÐÐgeometry update²Ù×÷,´ËÊ±ÓÒ×ÓÊ÷(¹Ç÷À¶¯»­½ÚµãÊ÷)ÉÐÎ´¸üÐÂ,×ó×ÓÊ÷µÄ
+¸üÐÂ½á¹ûÈç¹ûÒÀÀµÓÚÓÒ×ÓÊ÷,Ôò¸Ã½á¹ûÎªÓÒ×ÓÊ÷ÉÏ´Î¸üÐÂºóµÄ½á¹û.
+×ÛÉÏËùÊö,²ÉÓÃÓÅÏÈ¸üÐÂ¹Ç÷À¶¯»­Ê÷µÄ²ßÂÔ,ÔòÉÏÊöÎÊÌâµÃÒÔ½â¾ö.
+
+2010 0303 1146
+¹ØÓÚÊ¹ÓÃËõ·Å±ä»»µÄÒ»Ð©×¢ÒâÊÂÏî:
+ÏÔÈ»ÎÒÃÇÒÑ¾­ÖªµÀ:
+1 Í³Ò»Ëõ·Å±ä»»»á¸Ä±äÏòÁ¿³¤¶È,·ÇÍ³Ò»Ëõ·ÅÔÚ´Ë»ù´¡ÉÏ»¹»á¸Ä±äÏòÁ¿µÄ¿Õ¼ä×ËÌ¬.
+2 Ëõ·Å±ä»»»á¸Ä±ä¿Õ¼äÖÐÁ½µã¼äµÄ¾àÀë.
+Òò´ËÌá³öÒ»Ð©×¢ÒâÊÂÏî:
+1 ÔÚÄ£ÐÍ¿Õ¼ä½øÐÐ¹âÕÕ¼ÆËãÓÐ¿ÉÄÜ»áÊÜµ½ÏÞÖÆ,µ±¿¼ÂÇ¹âÔ´Óë±»ÕÕÉäµãµÄ¾àÀëÔì³ÉµÄÇ¿¶ÈË¥¼õÎÊÌâÊ±,¸Ã¾àÀë¿ÉÄÜÒÑ¾­±»Ëõ·Å±ä»»±ä´ó»òËõÐ¡.
+2 ¶Ô·¨Ïß½øÐÐ¿Õ¼ä±ä»»Ê±,Èç¹û¸Ã±ä»»°üº¬·ÇÍ³Ò»Ëõ·Å,ÔòÓ¦Ê¹ÓÃ±ä»»¾ØÕóµÄÄæµÄ×ªÖÃ,È·±£·¨ÏßÏà¶ÔÓÚ¼¸ºÎÌå±íÃæµÄ´¹Ö±×ËÌ¬.
+3 µ¥Î»ÏòÁ¿ÔÚËõ·Å±ä»»ºó,ÓÐ¿ÉÄÜÐèÒªÖØÐÂ¹æ·¶»¯.
+4 Picking System,Ä¿Ç°Í¨¹ý±éÀú³¡¾°ÊÓÍ¼,µÃµ½Ò»×éÓëµ±Ç°ÉäÏßÏà½»µÄ¼¸ºÎÌå,²¢±£´æÁËÃ¿¸öÏà½»¼¸ºÎÌåµÄÉäÏßtÖµ,ÏµÍ³·µ»ØtÖµ×îÐ¡µÄ¼¸ºÎÌå×÷Îª×î½üÏà½»ÎïÌå.
+µ±Ä³Ð©¼¸ºÎÌå°üº¬Ëõ·Å±ä»»,¶øÁíÍâÒ»Ð©¼¸ºÎÌå²»°üº¬,ÄÇÃ´°üº¬Ëõ·Å±ä»»µÄ¼¸ºÎÌåµÄtÖµÓ¦µ÷Õû,·ñÔò×îÐ¡tÖµ±È½Ï½«Ê§È¥ÒâÒå.Ä¿Ç°ÏµÍ³ÉÐÎ´ÊµÏÖµ÷ÕûtÖµµÄ¹¦ÄÜ.
+
