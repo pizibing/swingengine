@@ -309,6 +309,11 @@ void ManagedUtility::MaterialTextureConditioner(Swing::Node* pNode)
                     AlphaState* pAS = SE_NEW Swing::AlphaState;
                     pAS->BlendEnabled = true;
                     pMesh->AttachGlobalState(pAS);
+
+                    ZBufferState* pZS = SE_NEW Swing::ZBufferState;
+                    pZS->Writable = false;
+                    pMesh->AttachGlobalState(pZS);
+
                     Swing::MaterialState* pMS = 
                         (MaterialState*)pMesh->GetGlobalState(
                         Swing::GlobalState::MATERIAL);
@@ -318,6 +323,54 @@ void ManagedUtility::MaterialTextureConditioner(Swing::Node* pNode)
                         pMS->Diffuse = Swing::ColorRGB(0.1f, 0.1f, 0.1f);
                         pMS->Specular = Swing::ColorRGB(1.0f, 1.0f, 1.0f);
                         pMS->Shininess = 100.0f;
+                    }
+                }
+            }
+        }
+    }
+}
+//---------------------------------------------------------------------------
+void ManagedUtility::ImageConditioner(Swing::Node* pNode, 
+    Swing::Image* pImage)
+{
+    if( !pNode || !pImage )
+    {
+        return;
+    }
+
+    for( int i = 0; i < pNode->GetCount(); i++ )
+    {
+        Swing::Spatial* pChild = pNode->GetChild(i);
+
+        if( pChild )
+        {
+            if( DynamicCast<Swing::Node>(pChild) )
+            {
+                ImageConditioner((Node*)pChild, pImage);
+            }
+            else if( DynamicCast<Swing::TriMesh>(pChild) )
+            {
+                Swing::TriMesh* pMesh = (TriMesh*)pChild;
+                if( pMesh->GetEffectCount() > 0 )
+                {
+                    std::string tempSubName = pMesh->GetName().substr(0, 4);
+
+                    if( tempSubName == "Part" || tempSubName == "Trun" )
+                    {
+                        MaterialTexture2L1Effect* pEffect = 
+                            DynamicCast<MaterialTexture2L1Effect>(
+                            ((TriMesh*)pMesh)->GetEffect(0));
+                        if( pEffect )
+                        {
+                            PixelShader* pPS = pEffect->GetPShader(0);
+                            Texture* pTexture = pPS->GetTexture(1);
+                            if( pTexture )
+                            {
+                                pPS->SetImageName(1, pImage->GetName());
+                                pTexture->SetImage(pImage);
+                                pTexture->Release();
+                            }
+                        }
                     }
                 }
             }

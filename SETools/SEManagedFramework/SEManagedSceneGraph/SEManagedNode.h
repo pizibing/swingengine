@@ -27,6 +27,7 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 ref class ManagedTriMesh;
+ref class ManagedImage;
 
 //----------------------------------------------------------------------------
 // Name:Managed node class
@@ -56,6 +57,9 @@ public:
 
     // Hierarchical material texture effect adjusting.
     void MaterialTextureConditioner(void);
+
+    // Hierarchical material texture effect image adjusting.
+    void ImageConditioner(ManagedImage^ thImage);
 
     // Hierarchical shallow copying.
     ManagedNode^ Clone(void);

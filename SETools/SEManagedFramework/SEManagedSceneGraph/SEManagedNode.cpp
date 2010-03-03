@@ -23,6 +23,7 @@
 #include "SEManagedUtility.h"
 #include "SEManagedObjectFactory.h"
 #include "SEManagedTriMesh.h"
+#include "SEManagedImage.h"
 
 using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
@@ -77,6 +78,13 @@ void ManagedNode::MaterialTextureConditioner()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     ManagedUtility::MaterialTextureConditioner(*m_pspNode);
+}
+//---------------------------------------------------------------------------
+void ManagedNode::ImageConditioner(ManagedImage^ thImage)
+{
+    SE_NULL_ARGUMENT_CHECK(thImage, "thImage");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    ManagedUtility::ImageConditioner(*m_pspNode, thImage->GetNativeImage());
 }
 //---------------------------------------------------------------------------
 ManagedNode^ ManagedNode::Clone()

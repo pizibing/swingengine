@@ -56,6 +56,8 @@ internal:
     static void ModulateWithLightingEffectForAll(Node* pNode);
 
     static void MaterialTextureConditioner(Node* pNode);
+
+    static void ImageConditioner(Node* pNode, Image* pImage);
 };
 
 }}}
