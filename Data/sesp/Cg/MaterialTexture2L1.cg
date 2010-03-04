@@ -74,7 +74,7 @@ void p_MaterialTexture2L1
 {
     // Fetch T0 color.
     float4 kT0Color = tex2D(T0Sampler, kBaseTCoord);
-    kT0Color.rgb += 0.1f;
+    kT0Color.rgb *= 1.5f;
 
     // Fetch T1 color.
     float4 kT1Color = tex2D(T1Sampler, kBaseTCoord);
