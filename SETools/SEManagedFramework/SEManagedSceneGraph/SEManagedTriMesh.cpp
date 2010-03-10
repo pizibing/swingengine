@@ -46,6 +46,18 @@ ManagedTriMesh::~ManagedTriMesh()
     m_pspTriMesh = 0;
 }
 //---------------------------------------------------------------------------
+ManagedTriMesh::CullingMode ManagedTriMesh::Culling::get()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    return (ManagedTriMesh::CullingMode)(*m_pspTriMesh)->Culling;
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::Culling::set(ManagedTriMesh::CullingMode eMode)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    (*m_pspTriMesh)->Culling = (Spatial::CullingMode)eMode;
+}
+//---------------------------------------------------------------------------
 void ManagedTriMesh::GenerateNormals()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");

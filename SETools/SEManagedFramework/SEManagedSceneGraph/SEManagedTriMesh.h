@@ -40,6 +40,20 @@ public:
     ManagedTriMesh(void);
     ~ManagedTriMesh(void);
 
+    enum class CullingMode
+    {
+        CULL_DYNAMIC,
+        CULL_ALWAYS,
+        CULL_NEVER
+    };
+
+    // Properties.
+    property CullingMode Culling
+    {
+        CullingMode get(void);
+        void set(CullingMode eMode); 
+    }
+
     // Normal generation.
     void GenerateNormals(void);
 
