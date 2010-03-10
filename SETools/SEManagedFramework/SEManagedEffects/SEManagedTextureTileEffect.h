@@ -23,6 +23,7 @@
 #include "SEINativeObject.h"
 #include "SEINativeEffect.h"
 #include "SEINativeShaderEffect.h"
+#include "SEManagedImage.h"
 
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
@@ -38,6 +39,8 @@ public ref class ManagedTextureTileEffect sealed : INativeObject,
 public:
     ManagedTextureTileEffect(String^ thTileName);
     ~ManagedTextureTileEffect(void);
+
+    void SetTileImage(ManagedImage^ thImage);
 
     // Properties.
     property float TileX

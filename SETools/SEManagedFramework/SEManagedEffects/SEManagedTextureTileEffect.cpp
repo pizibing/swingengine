@@ -51,6 +51,18 @@ ManagedTextureTileEffect::~ManagedTextureTileEffect()
     m_pspTextureTileEffect = 0;
 }
 //---------------------------------------------------------------------------
+void ManagedTextureTileEffect::SetTileImage(ManagedImage^ thImage)
+{
+    SE_NULL_ARGUMENT_CHECK(thImage, "thImage");
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileEffect, 
+        "Native pointer is null");
+    Image* pImage = thImage->GetNativeImage();
+    Texture* pTexture = (*m_pspTextureTileEffect)->GetPTexture(0, 0);
+    (*m_pspTextureTileEffect)->SetPImageName(0, 0, pImage->GetName());
+    pTexture->SetImage(pImage);
+    pTexture->Release();
+}
+//---------------------------------------------------------------------------
 float ManagedTextureTileEffect::TileX::get()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTextureTileEffect, 
