@@ -113,7 +113,8 @@ Swing::TriMesh* ManagedUtility::CloneTriMesh(Swing::TriMesh* pSrcTriMesh)
 
     for( int i = 0; i < pSrcTriMesh->GetEffectCount(); i++ )
     {
-        pClonedObject->AttachEffect(pSrcTriMesh->GetEffect(i));
+        ObjectPtr spCopiedEffect = pSrcTriMesh->GetEffect(i)->Copy();
+        pClonedObject->AttachEffect((Effect*)(Swing::Object*)spCopiedEffect);
     }
 
     return pClonedObject;
