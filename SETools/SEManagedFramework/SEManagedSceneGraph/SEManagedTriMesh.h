@@ -47,11 +47,24 @@ public:
         CULL_NEVER
     };
 
+    enum class GeometryLightingMode
+    {
+        GLM_PIPELINE_VERTEX,
+        GLM_PIPELINE_PIXEL,
+        GLM_USER,
+        GLM_DISABLE
+    };
+
     // Properties.
     property CullingMode Culling
     {
         CullingMode get(void);
         void set(CullingMode eMode); 
+    }
+    property GeometryLightingMode LightingMode
+    {
+        GeometryLightingMode get(void);
+        void set(GeometryLightingMode eMode); 
     }
 
     // Normal generation.

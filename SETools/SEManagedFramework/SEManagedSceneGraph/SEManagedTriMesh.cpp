@@ -58,6 +58,20 @@ void ManagedTriMesh::Culling::set(ManagedTriMesh::CullingMode eMode)
     (*m_pspTriMesh)->Culling = (Spatial::CullingMode)eMode;
 }
 //---------------------------------------------------------------------------
+ManagedTriMesh::GeometryLightingMode ManagedTriMesh::LightingMode::get()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    return (ManagedTriMesh::GeometryLightingMode)(
+        *m_pspTriMesh)->LightingMode;
+}
+//---------------------------------------------------------------------------
+void ManagedTriMesh::LightingMode::set(
+    ManagedTriMesh::GeometryLightingMode eMode)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
+    (*m_pspTriMesh)->LightingMode = (Geometry::GeometryLightingMode)eMode;
+}
+//---------------------------------------------------------------------------
 void ManagedTriMesh::GenerateNormals()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
