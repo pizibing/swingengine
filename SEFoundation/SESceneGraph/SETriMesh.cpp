@@ -344,7 +344,7 @@ void TriMesh::DoPick(const Ray3f& rRay, PickArray& rResults)
     if( WorldBound->TestIntersection(rRay) )
     {
         // 把射线变换到模型空间.
-        Vector3f vec3fMDir,vec3fMPos;
+        Vector3f vec3fMDir, vec3fMPos;
         World.ApplyInverse(rRay.Origin, vec3fMPos);
         World.InvertVector(rRay.Direction, vec3fMDir);
         vec3fMDir.Normalize();
@@ -365,9 +365,16 @@ void TriMesh::DoPick(const Ray3f& rRay, PickArray& rResults)
             IntrRay3Triangle3f tempIntr(tempRay, tempTriangle);
             if( tempIntr.Find() )
             {
+                // TODO:
+                // T will be used as a key value for sorting the picking 
+                // result array. If two TriMesh objects have different scale
+                // transformation, their t values should not be compared 
+                // directly. Instead, (t' = t * norm) does the right thing.
+                // Do we have a better solution to make the computation 
+                // faster?
                 PickRecord* pRecord = AllocatePickRecord();
                 pRecord->IObject = this;
-                pRecord->T = tempIntr.GetRayT();
+                pRecord->T = tempIntr.GetRayT()*World.GetNorm();
                 pRecord->Triangle = i;
                 pRecord->Bary0 = tempIntr.GetTriB0();
                 pRecord->Bary1 = tempIntr.GetTriB1();
