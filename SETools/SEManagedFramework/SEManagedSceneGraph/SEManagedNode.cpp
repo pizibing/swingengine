@@ -24,6 +24,9 @@
 #include "SEManagedObjectFactory.h"
 #include "SEManagedTriMesh.h"
 #include "SEManagedImage.h"
+#include "SEManagedTextureTileEffect.h"
+#include "SEManagedLight.h"
+#include "SEManagedLightNode.h"
 
 using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
@@ -116,6 +119,79 @@ ManagedTriMesh^ ManagedNode::GetTriMeshByName(String^ thName)
     if( pMesh )
     {
         return gcnew ManagedTriMesh(pMesh);
+    }
+
+    return nullptr;
+}
+//---------------------------------------------------------------------------
+ManagedNode^ ManagedNode::GetNodeByName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+
+    const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acBuffer);
+    ManagedUtility::FreeNativeCharBuffer(acBuffer);
+    Node* pNode = DynamicCast<Node>(
+        (*m_pspNode)->GetObjectByName(tempName));
+    if( pNode )
+    {
+        return gcnew ManagedNode(pNode);
+    }
+
+    return nullptr;
+}
+//---------------------------------------------------------------------------
+ManagedTextureTileEffect^ ManagedNode::GetTextureTileEffectByName(
+    String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+
+    const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acBuffer);
+    ManagedUtility::FreeNativeCharBuffer(acBuffer);
+    TextureTileEffect* pEffect = DynamicCast<TextureTileEffect>(
+        (*m_pspNode)->GetObjectByName(tempName));
+    if( pEffect )
+    {
+        return gcnew ManagedTextureTileEffect(pEffect);
+    }
+
+    return nullptr;
+}
+//---------------------------------------------------------------------------
+ManagedLight^ ManagedNode::GetLightByName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+
+    const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acBuffer);
+    ManagedUtility::FreeNativeCharBuffer(acBuffer);
+    Light* pLight = DynamicCast<Light>(
+        (*m_pspNode)->GetObjectByName(tempName));
+    if( pLight )
+    {
+        return gcnew ManagedLight(pLight);
+    }
+
+    return nullptr;
+}
+//---------------------------------------------------------------------------
+ManagedLightNode^ ManagedNode::GetLightNodeByName(String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+
+    const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acBuffer);
+    ManagedUtility::FreeNativeCharBuffer(acBuffer);
+    LightNode* pLightNode = DynamicCast<LightNode>(
+        (*m_pspNode)->GetObjectByName(tempName));
+    if( pLightNode )
+    {
+        return gcnew ManagedLightNode(pLightNode);
     }
 
     return nullptr;

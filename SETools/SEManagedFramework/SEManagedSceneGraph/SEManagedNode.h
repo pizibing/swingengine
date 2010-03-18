@@ -28,6 +28,9 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 ref class ManagedTriMesh;
 ref class ManagedImage;
+ref class ManagedTextureTileEffect;
+ref class ManagedLight;
+ref class ManagedLightNode;
 
 //----------------------------------------------------------------------------
 // Name:Managed node class
@@ -69,6 +72,18 @@ public:
 
     // Hierarchical searching of a TriMesh object with the given name.
     ManagedTriMesh^ GetTriMeshByName(String^ thName);
+
+    // Hierarchical searching of a Node object with the given name.
+    ManagedNode^ GetNodeByName(String^ thName);
+
+    // Hierarchical searching of a TextureTileEffect object with the given name.
+    ManagedTextureTileEffect^ GetTextureTileEffectByName(String^ thName);
+
+    // Hierarchical searching of a Light object with the given name.
+    ManagedLight^ GetLightByName(String^ thName);
+
+    // Hierarchical searching of a LightNode object with the given name.
+    ManagedLightNode^ GetLightNodeByName(String^ thName);
 
     // Implement INativeNode interface.
     virtual int GetCount(void) = INativeNode::GetCount;
