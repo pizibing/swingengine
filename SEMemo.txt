@@ -182,3 +182,7 @@ shader program×ÊÔ´»á±»ÊÍ·Å,µ±Ç°´ýÊ¹ÓÃRendererËùÊ¹ÓÃµÄdeviceµÄshader program×ÊÔ´»
 4 Picking System,Ä¿Ç°Í¨¹ý±éÀú³¡¾°ÊÓÍ¼,µÃµ½Ò»×éÓëµ±Ç°ÉäÏßÏà½»µÄ¼¸ºÎÌå,²¢±£´æÁËÃ¿¸öÏà½»¼¸ºÎÌåµÄÉäÏßtÖµ,ÏµÍ³·µ»ØtÖµ×îÐ¡µÄ¼¸ºÎÌå×÷Îª×î½üÏà½»ÎïÌå.
 µ±Ä³Ð©¼¸ºÎÌå°üº¬Ëõ·Å±ä»»,¶øÁíÍâÒ»Ð©¼¸ºÎÌå²»°üº¬,ÄÇÃ´°üº¬Ëõ·Å±ä»»µÄ¼¸ºÎÌåµÄtÖµÓ¦µ÷Õû,·ñÔò×îÐ¡tÖµ±È½Ï½«Ê§È¥ÒâÒå.Ä¿Ç°ÏµÍ³ÉÐÎ´ÊµÏÖµ÷ÕûtÖµµÄ¹¦ÄÜ.
 
+2010 0318 1304
+·¢ÏÖÒ»¸öbug,µ±Ä³¸öEffectËùÊ¹ÓÃµÄshader program±»ÊÍ·Åºó,ÉÔºóÖØÐÂ´´½¨¸ÃEffect¶ÔÏó,Ôì³ÉËùÐèshader programÖØÐÂ×°ÔØ,´ËÊ±ÓÉÓÚºÜ¶àEffect¶¼ÊÇÓÃÀà¾²Ì¬bool³ÉÔ±
+¸ú×Ùshader constantÒ»´ÎÐÔ³õÊ¼»¯ÎÊÌâ,Ôì³ÉÖØÐÂ×°ÔØµÄshader porgramÎÞ·¨ÖØÐÂ³õÊ¼»¯,ÉÔºó½«½â¾ö´ËÎÊÌâ.
+
