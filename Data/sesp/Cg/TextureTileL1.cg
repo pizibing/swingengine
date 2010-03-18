@@ -16,7 +16,7 @@ void v_TextureTileL1
     uniform float3   CameraWorldPosition,
     uniform float4   Light0WorldPosition,
     uniform float4   Light0WorldDirection,
-    uniform float4   Light0Attenuation
+    uniform float4   Light0Attenuation,
 
     // User constants.
     uniform float2   TileParams
