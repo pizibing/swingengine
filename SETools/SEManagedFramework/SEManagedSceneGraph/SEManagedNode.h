@@ -29,6 +29,7 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 ref class ManagedTriMesh;
 ref class ManagedImage;
 ref class ManagedTextureTileEffect;
+ref class ManagedTextureTileL1Effect;
 ref class ManagedLight;
 ref class ManagedLightNode;
 
@@ -76,8 +77,13 @@ public:
     // Hierarchical searching of a Node object with the given name.
     ManagedNode^ GetNodeByName(String^ thName);
 
-    // Hierarchical searching of a TextureTileEffect object with the given name.
+    // Hierarchical searching of a TextureTileEffect object with the given 
+    // name.
     ManagedTextureTileEffect^ GetTextureTileEffectByName(String^ thName);
+
+    // Hierarchical searching of a TextureTileL1Effect object with the given 
+    // name.
+    ManagedTextureTileL1Effect^ GetTextureTileL1EffectByName(String^ thName);
 
     // Hierarchical searching of a Light object with the given name.
     ManagedLight^ GetLightByName(String^ thName);

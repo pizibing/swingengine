@@ -72,6 +72,7 @@
 #include "SEManagedDefaultShaderEffect.h"
 #include "SEManagedTextureEffect.h"
 #include "SEManagedTextureTileEffect.h"
+#include "SEManagedTextureTileL1Effect.h"
 
 // Managed Object System
 #include "SEINativeObject.h"

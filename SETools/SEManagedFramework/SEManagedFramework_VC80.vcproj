@@ -477,6 +477,14 @@
 				RelativePath=".\SEManagedEffects\SEManagedTextureTileEffect.h"
 				>
 			</File>
+			<File
+				RelativePath=".\SEManagedEffects\SEManagedTextureTileL1Effect.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEManagedEffects\SEManagedTextureTileL1Effect.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="SEManagedObjectSystem"

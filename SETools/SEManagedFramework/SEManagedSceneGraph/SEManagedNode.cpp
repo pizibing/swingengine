@@ -25,6 +25,7 @@
 #include "SEManagedTriMesh.h"
 #include "SEManagedImage.h"
 #include "SEManagedTextureTileEffect.h"
+#include "SEManagedTextureTileL1Effect.h"
 #include "SEManagedLight.h"
 #include "SEManagedLightNode.h"
 
@@ -156,6 +157,25 @@ ManagedTextureTileEffect^ ManagedNode::GetTextureTileEffectByName(
     if( pEffect )
     {
         return gcnew ManagedTextureTileEffect(pEffect);
+    }
+
+    return nullptr;
+}
+//---------------------------------------------------------------------------
+ManagedTextureTileL1Effect^ ManagedNode::GetTextureTileL1EffectByName(
+    String^ thName)
+{
+    SE_NULL_ARGUMENT_CHECK(thName, "thName");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+
+    const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
+    std::string tempName(acBuffer);
+    ManagedUtility::FreeNativeCharBuffer(acBuffer);
+    TextureTileL1Effect* pEffect = DynamicCast<TextureTileL1Effect>(
+        (*m_pspNode)->GetObjectByName(tempName));
+    if( pEffect )
+    {
+        return gcnew ManagedTextureTileL1Effect(pEffect);
     }
 
     return nullptr;

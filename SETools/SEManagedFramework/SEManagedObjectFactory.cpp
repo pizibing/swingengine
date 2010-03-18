@@ -28,6 +28,7 @@
 #include "SEManagedDefaultShaderEffect.h"
 #include "SEManagedTextureEffect.h"
 #include "SEManagedTextureTileEffect.h"
+#include "SEManagedTextureTileL1Effect.h"
 
 #include "SEManagedAlphaState.h"
 #include "SEManagedCullState.h"
@@ -83,6 +84,11 @@ INativeEffect^ ManagedObjectFactory::CreateEffectDerivedObject(
     else if( rType.IsExactly(TextureTileEffect::TYPE) )
     {
         return gcnew ManagedTextureTileEffect((TextureTileEffect*)pEffect);
+    }
+    else if( rType.IsExactly(TextureTileL1Effect::TYPE) )
+    {
+        return gcnew ManagedTextureTileL1Effect(
+            (TextureTileL1Effect*)pEffect);
     }
 
     return nullptr;
