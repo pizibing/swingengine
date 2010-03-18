@@ -221,6 +221,7 @@
 #include "SEScreenSpaceAOEffect.h"
 #include "SEScreenSpaceAOBlurEffect.h"
 #include "SETextureTileEffect.h"
+#include "SETextureTileL1Effect.h"
 
 // Terrain
 #include "SETerrain.h"

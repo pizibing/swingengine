@@ -114,6 +114,7 @@
 #include "SEScreenSpaceAOEffect.h"
 #include "SEScreenSpaceAOBlurEffect.h"
 #include "SETextureTileEffect.h"
+#include "SETextureTileL1Effect.h"
 // Terrain
 #include "SETerrain.h"
 #include "SETerrainPage.h"
@@ -319,6 +320,7 @@ void Swing::SE_Foundation_Register()
     SE_REGISTER_STREAM(ScreenSpaceAOEffect);
     SE_REGISTER_STREAM(ScreenSpaceAOBlurEffect);
     SE_REGISTER_STREAM(TextureTileEffect);
+    SE_REGISTER_STREAM(TextureTileL1Effect);
     SE_INVOKE_STREAM(DefaultShaderEffect);
     SE_INVOKE_STREAM(Effect);
     SE_INVOKE_STREAM(LightingEffect);
@@ -349,6 +351,7 @@ void Swing::SE_Foundation_Register()
     SE_INVOKE_STREAM(ScreenSpaceAOEffect);
     SE_INVOKE_STREAM(ScreenSpaceAOBlurEffect);
     SE_INVOKE_STREAM(TextureTileEffect);
+    SE_INVOKE_STREAM(TextureTileL1Effect);
 
     // Terrain
     SE_REGISTER_STREAM(Terrain);
