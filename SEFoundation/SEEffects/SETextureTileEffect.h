@@ -55,7 +55,6 @@ protected:
     virtual void OnPreApplyEffect(Renderer* pRenderer, bool bPrimaryEffect);
 
     static float ms_afTileParams[2];
-    static bool ms_bUCInitialized;
 };
 
 typedef SmartPointer<TextureTileEffect> TextureTileEffectPtr;

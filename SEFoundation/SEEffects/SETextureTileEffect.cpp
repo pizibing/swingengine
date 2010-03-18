@@ -34,7 +34,6 @@ float TextureTileEffect::ms_afTileParams[2] =
     1.0f,
     1.0f
 };
-bool TextureTileEffect::ms_bUCInitialized = false;
 
 //----------------------------------------------------------------------------
 TextureTileEffect::TextureTileEffect(const std::string& rTileName)
@@ -67,17 +66,12 @@ TextureTileEffect::~TextureTileEffect()
 void TextureTileEffect::OnLoadPrograms(int, Program* pVProgram, Program*, 
     Program*)
 {
-    if( !ms_bUCInitialized )
+    UserConstant* pUC = pVProgram->GetUC("TileParams");
+    SE_ASSERT( pUC );
+
+    if( pUC )
     {
-        UserConstant* pUC = pVProgram->GetUC("TileParams");
-        SE_ASSERT( pUC );
-
-        if( pUC )
-        {
-            pUC->SetDataSource((float*)&ms_afTileParams);
-        }
-
-        ms_bUCInitialized = true;
+        pUC->SetDataSource((float*)&ms_afTileParams);
     }
 }
 //----------------------------------------------------------------------------
