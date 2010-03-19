@@ -289,6 +289,12 @@ void ManagedUtility::MaterialTextureConditioner(Swing::Node* pNode)
                             pNewEffect = SE_NEW MaterialTexture2L1Effect(
                                 tempBaseName, "wood_01");
                         }
+                        else if( tempSubName == "Wall" )
+                        {
+                            pNewEffect = SE_NEW TextureTileL1Effect("wall_01");
+                            ((TextureTileL1Effect*)pNewEffect)->TileX = 8.0f;
+                            ((TextureTileL1Effect*)pNewEffect)->TileY = 8.0f;
+                        }
                         else
                         {
                             pNewEffect = SE_NEW MaterialTextureL1Effect(
