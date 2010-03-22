@@ -323,7 +323,7 @@ void VertexBuffer::BuildCompatibleArray(const Attributes& rIAttributes,
     // 但反过来把unsigned int指针显示类型转换为float指针并取*操作,
     // 则取出的数据可能为非法浮点数据,
     // 因此如果使用std::vector<float>将可能存在数据非正常转换的问题
-    std::vector<unsigned int> TempCompatible;    
+    std::vector<unsigned int> tempCompatible;    
     const unsigned int* puiData;
     float fOne = 1.0f;
     unsigned int* puiOne = (unsigned int*)&fOne;
@@ -341,19 +341,19 @@ void VertexBuffer::BuildCompatibleArray(const Attributes& rIAttributes,
             {
                 for( j = 0; j < iVBChannels; j++ )
                 {
-                    TempCompatible.push_back(*puiData++);
+                    tempCompatible.push_back(*puiData++);
                 }
                 for( j = iVBChannels; j < iIChannels; j++ )
                 {
                     // 将w分量填充为1.0,从而成为齐次空间顶点
-                    TempCompatible.push_back(*puiOne);
+                    tempCompatible.push_back(*puiOne);
                 }
             }
             else
             {
                 for( j = 0; j < iIChannels; j++ )
                 {
-                    TempCompatible.push_back(*puiData++);
+                    tempCompatible.push_back(*puiData++);
                 }
             }
         }
@@ -368,19 +368,19 @@ void VertexBuffer::BuildCompatibleArray(const Attributes& rIAttributes,
             {
                 for( j = 0; j < iVBChannels; j++ )
                 {
-                    TempCompatible.push_back(*puiData++);
+                    tempCompatible.push_back(*puiData++);
                 }
                 for( j = iVBChannels; j < iIChannels; j++ )
                 {
                     // 将w分量填充为0.0,从而成为齐次空间向量
-                    TempCompatible.push_back(0);
+                    tempCompatible.push_back(0);
                 }
             }
             else
             {
                 for( j = 0; j < iIChannels; j++ )
                 {
-                    TempCompatible.push_back(*puiData++);
+                    tempCompatible.push_back(*puiData++);
                 }
             }
         }
@@ -400,28 +400,28 @@ void VertexBuffer::BuildCompatibleArray(const Attributes& rIAttributes,
                 {
                     for( j = 0; j < iVBChannels; j++ )
                     {
-                        TempCompatible.push_back(*puiData++);
+                        tempCompatible.push_back(*puiData++);
                     }
                     for( j = iVBChannels; j < iIChannels; j++ )
                     {
                         // 将a分量填充为1.0,成为不透明颜色
-                        TempCompatible.push_back(*puiOne);
+                        tempCompatible.push_back(*puiOne);
                     }
                     if( bPackARGB )
                     {
                         for( j = iIChannels; j < 4; j++ )
                         {
                             // 将a分量填充为1.0,成为不透明颜色
-                            TempCompatible.push_back(*puiOne);
+                            tempCompatible.push_back(*puiOne);
                         }
 
                         // 从[0.0f, 1.0f]映射到[0,255]
                         for( j = 3; j >= 0; j-- )
                         {
-                            uiValue = TempCompatible.back();
+                            uiValue = tempCompatible.back();
                             fValue = *(float*)&uiValue;
                             auiColor[j] = (unsigned int)(255.0f * fValue);
-                            TempCompatible.pop_back();
+                            tempCompatible.pop_back();
                         }
 
                         uiPackColor =
@@ -430,30 +430,30 @@ void VertexBuffer::BuildCompatibleArray(const Attributes& rIAttributes,
                             (auiColor[0] << 16) |  // red
                             (auiColor[3] << 24);   // alpha
 
-                        TempCompatible.push_back(uiPackColor);
+                        tempCompatible.push_back(uiPackColor);
                     }
                 }
                 else
                 {
                     for( j = 0; j < iIChannels; j++ )
                     {
-                        TempCompatible.push_back(*puiData++);
+                        tempCompatible.push_back(*puiData++);
                     }
                     if( bPackARGB )
                     {
                         for( j = iIChannels; j < 4; j++ )
                         {
                             // 将a分量填充为1.0,成为不透明颜色
-                            TempCompatible.push_back(*puiOne);
+                            tempCompatible.push_back(*puiOne);
                         }
 
                         // 从[0.0f, 1.0f]映射到[0,255]
                         for( j = 3; j >= 0; j-- )
                         {
-                            uiValue = TempCompatible.back();
+                            uiValue = tempCompatible.back();
                             fValue = *(float*)&uiValue;
                             auiColor[j] = (unsigned int)(255.0f * fValue);
-                            TempCompatible.pop_back();
+                            tempCompatible.pop_back();
                         }
 
                         uiPackColor =
@@ -462,7 +462,7 @@ void VertexBuffer::BuildCompatibleArray(const Attributes& rIAttributes,
                             (auiColor[0] << 16) |  // red
                             (auiColor[3] << 24);   // alpha
 
-                        TempCompatible.push_back(uiPackColor);
+                        tempCompatible.push_back(uiPackColor);
                     }
                 }
             }
@@ -480,33 +480,33 @@ void VertexBuffer::BuildCompatibleArray(const Attributes& rIAttributes,
                 {
                     for( j = 0; j < iVBChannels; j++ )
                     {
-                        TempCompatible.push_back(*puiData++);
+                        tempCompatible.push_back(*puiData++);
                     }
                     for( j = iVBChannels; j < iIChannels; j++ )
                     {
                         // 填充为0,从而高维纹理坐标兼容低维纹理坐标
-                        TempCompatible.push_back(0);
+                        tempCompatible.push_back(0);
                     }
                 }
                 else
                 {
                     for( j = 0; j < iIChannels; j++ )
                     {
-                        TempCompatible.push_back(*puiData++);
+                        tempCompatible.push_back(*puiData++);
                     }
                 }
             }
         }
     }
 
-    rChannels = (int)TempCompatible.size();
+    rChannels = (int)tempCompatible.size();
     if( !rCompatible )
     {
         // 调用者有责任释放该内存
         rCompatible = SE_NEW float[rChannels];
     }
     size_t uiSize = rChannels * sizeof(float);
-    System::SE_Memcpy(rCompatible, uiSize, &TempCompatible.front(), uiSize);
+    System::SE_Memcpy(rCompatible, uiSize, &tempCompatible.front(), uiSize);
 }
 //----------------------------------------------------------------------------
 
