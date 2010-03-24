@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SEFoundation_VC90", "SEFoundation_VC90.vcproj", "{89A5147A-4380-441F-A167-89AE9DBB11BD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug DLL|Win32 = Debug DLL|Win32
+		Debug Memory|Win32 = Debug Memory|Win32
+		Debug|Win32 = Debug|Win32
+		Release DLL|Win32 = Release DLL|Win32
+		Release Memory|Win32 = Release Memory|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89A5147A-4380-441F-A167-89AE9DBB11BD}.Debug DLL|Win32.ActiveCfg = Debug DLL|Win32
+		{89A5147A-4380-441F-A167-89AE9DBB11BD}.Debug DLL|Win32.Build.0 = Debug DLL|Win32
+		{89A5147A-4380-441F-A167-89AE9DBB11BD}.Debug Memory|Win32.ActiveCfg = Debug Memory|Win32
+		{89A5147A-4380-441F-A167-89AE9DBB11BD}.Debug Memory|Win32.Build.0 = Debug Memory|Win32
+		{89A5147A-4380-441F-A167-89AE9DBB11BD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{89A5147A-4380-441F-A167-89AE9DBB11BD}.Debug|Win32.Build.0 = Debug|Win32
+		{89A5147A-4380-441F-A167-89AE9DBB11BD}.Release DLL|Win32.ActiveCfg = Release DLL|Win32
+		{89A5147A-4380-441F-A167-89AE9DBB11BD}.Release DLL|Win32.Build.0 = Release DLL|Win32
+		{89A5147A-4380-441F-A167-89AE9DBB11BD}.Release Memory|Win32.ActiveCfg = Release Memory|Win32
+		{89A5147A-4380-441F-A167-89AE9DBB11BD}.Release Memory|Win32.Build.0 = Release Memory|Win32
+		{89A5147A-4380-441F-A167-89AE9DBB11BD}.Release|Win32.ActiveCfg = Release|Win32
+		{89A5147A-4380-441F-A167-89AE9DBB11BD}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
