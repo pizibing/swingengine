@@ -306,7 +306,7 @@ void ManagedUtility::MaterialTextureConditioner(Swing::Node* pNode)
                     }
                 }
 
-                if( tempSubName == "Bone" )
+                if( tempSubName == "Bone" || tempSubName == "join" )
                 {
                     pMesh->DetachAllEffects();
                     pMesh->Culling = Swing::Spatial::CULL_ALWAYS;
