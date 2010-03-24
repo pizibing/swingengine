@@ -282,8 +282,8 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     domNodeType eNodeType = spDomNode->getType();
     if( eNodeType == NODETYPE_JOINT )
     {
-        TriMesh* pJointMesh = CreateJointMesh(acNodeID);
-        pNode->AttachChild(pJointMesh);
+        //TriMesh* pJointMesh = CreateJointMesh(acNodeID);
+        //pNode->AttachChild(pJointMesh);
 
         Bone tempBone;
         tempBone.BoneNode = pNode;
