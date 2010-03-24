@@ -6,6 +6,7 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Dx9 Debug|Win32 = Dx9 Debug|Win32
+		Dx9 Release DLL|Win32 = Dx9 Release DLL|Win32
 		Dx9 Release|Win32 = Dx9 Release|Win32
 		Wgl Debug|Win32 = Wgl Debug|Win32
 		Wgl Release|Win32 = Wgl Release|Win32
@@ -15,6 +16,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Dx9 Debug|Win32.ActiveCfg = Dx9 Debug|Win32
 		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Dx9 Debug|Win32.Build.0 = Dx9 Debug|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Dx9 Release DLL|Win32.ActiveCfg = Dx9 Release DLL|Win32
+		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Dx9 Release DLL|Win32.Build.0 = Dx9 Release DLL|Win32
 		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Dx9 Release|Win32.ActiveCfg = Dx9 Release|Win32
 		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Dx9 Release|Win32.Build.0 = Dx9 Release|Win32
 		{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}.Wgl Debug|Win32.ActiveCfg = Wgl Debug|Win32

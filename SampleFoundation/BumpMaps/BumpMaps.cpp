@@ -27,7 +27,7 @@ SE_REGISTER_INITIALIZE(BumpMaps);
 //----------------------------------------------------------------------------
 BumpMaps::BumpMaps()
     :
-    WindowApplication3("BumpMaps", 0, 0, 640, 480, 
+    WindowApplication3("BumpMaps", 0, 0, 800, 600, 
         ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
     m_fLight0Height = 4.0f;
