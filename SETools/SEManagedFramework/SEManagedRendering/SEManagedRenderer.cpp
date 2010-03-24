@@ -132,6 +132,12 @@ void ManagedRenderer::DisplayBackBuffer()
     m_pRenderer->DisplayBackBuffer();
 }
 //---------------------------------------------------------------------------
+void ManagedRenderer::LoadAllResources(INativeSpatial^ thScene)
+{
+    SE_NULL_REFERENCE_CHECK(m_pRenderer, "Native pointer is null");
+    m_pRenderer->LoadAllResources(thScene->GetNativeSpatial());
+}
+//---------------------------------------------------------------------------
 Renderer* ManagedRenderer::GetNativeRenderer()
 {
     return m_pRenderer;

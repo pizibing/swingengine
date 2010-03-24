@@ -24,6 +24,7 @@
 #include "SEManagedColorRGB.h"
 #include "SEManagedColorRGBA.h"
 #include "SEManagedCuller.h"
+#include "SEINativeSpatial.h"
 
 using namespace System;
 
@@ -62,6 +63,9 @@ public:
     void ClearStencilBuffer(void);
     void ClearBuffers(void);
     void DisplayBackBuffer(void);
+
+    // Resource loading/releasing functions.
+    void LoadAllResources(INativeSpatial^ thScene);
 
 internal:
     [CLSCompliant(false)]
