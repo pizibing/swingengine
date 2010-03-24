@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SE_DX9_Renderer_VC90", "SE_DX9_Renderer_VC90.vcproj", "{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug DLL|Win32 = Debug DLL|Win32
+		Debug Memory|Win32 = Debug Memory|Win32
+		Debug|Win32 = Debug|Win32
+		Release DLL|Win32 = Release DLL|Win32
+		Release Memory|Win32 = Release Memory|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}.Debug DLL|Win32.ActiveCfg = Debug DLL|Win32
+		{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}.Debug DLL|Win32.Build.0 = Debug DLL|Win32
+		{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}.Debug Memory|Win32.ActiveCfg = Debug Memory|Win32
+		{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}.Debug Memory|Win32.Build.0 = Debug Memory|Win32
+		{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}.Debug|Win32.Build.0 = Debug|Win32
+		{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}.Release DLL|Win32.ActiveCfg = Release DLL|Win32
+		{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}.Release DLL|Win32.Build.0 = Release DLL|Win32
+		{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}.Release Memory|Win32.ActiveCfg = Release Memory|Win32
+		{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}.Release Memory|Win32.Build.0 = Release Memory|Win32
+		{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}.Release|Win32.ActiveCfg = Release|Win32
+		{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
