@@ -41,6 +41,8 @@ class SE_FOUNDATION_API SkinEffect : public ShaderEffect
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
+    SE_DECLARE_INITIALIZE;
+    SE_DECLARE_TERMINATE;
 
 public:
     virtual ~SkinEffect(void);
@@ -82,7 +84,7 @@ protected:
         SFTVP1_COUNT = 22
     };
 
-    volatile static float ms_aSkinMatrix[SM_COUNT*16];
+    static float* ms_apSkinMatrix;
 };
 
 typedef SmartPointer<SkinEffect> SkinEffectPtr;

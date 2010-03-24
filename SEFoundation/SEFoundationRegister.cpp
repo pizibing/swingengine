@@ -353,6 +353,12 @@ void Swing::SE_Foundation_Register()
     SE_INVOKE_STREAM(TextureTileEffect);
     SE_INVOKE_STREAM(TextureTileL1Effect);
 
+    SE_REGISTER_INITIALIZE(SkinEffect);
+    SE_INVOKE_INITIALIZE(SkinEffect);
+
+    SE_REGISTER_TERMINATE(SkinEffect);
+    SE_INVOKE_TERMINATE(SkinEffect);
+
     // Terrain
     SE_REGISTER_STREAM(Terrain);
     SE_REGISTER_STREAM(TerrainPage);

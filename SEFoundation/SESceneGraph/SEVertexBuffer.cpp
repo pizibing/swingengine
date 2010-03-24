@@ -507,6 +507,15 @@ void VertexBuffer::BuildCompatibleArray(const Attributes& rIAttributes,
     }
     size_t uiSize = rChannels * sizeof(float);
     System::SE_Memcpy(rCompatible, uiSize, &tempCompatible.front(), uiSize);
+
+    //FILE* pFile = System::SE_Fopen("VB.txt", "at");
+    //System::SE_Fprintf(pFile, "VB ID: %d\n", GetID());
+    //for( int i = 0; i < rChannels; i++ )
+    //{
+    //    System::SE_Fprintf(pFile, "%d: %f\n", i, *((float*)&rCompatible[i]));
+    //}
+    //System::SE_Fprintf(pFile, "\n");
+    //System::SE_Fclose(pFile);
 }
 //----------------------------------------------------------------------------
 
