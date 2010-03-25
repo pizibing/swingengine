@@ -64,7 +64,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="SEFoundation80d.lib cg.lib paramblk2.lib bmm.lib core.lib geom.lib mesh.lib maxutil.lib comctl32.lib"
-				OutputFile="D:\Program Files\Autodesk\3dsMax8\plugins\SEMax8Exporter.dle"
+				OutputFile="C:\Program Files\Autodesk\3dsMax8\plugins\SEMax8Exporter.dle"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug;&quot;D:\Program Files\Autodesk\3dsMax8\maxsdk\lib&quot;"
 				ModuleDefinitionFile="SEMax8Exporter.def"
