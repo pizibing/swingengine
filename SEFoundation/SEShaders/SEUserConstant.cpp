@@ -65,6 +65,8 @@ UserConstant::UserConstant(const UserConstant& rUC)
     {
         m_pID = rUC.m_pID;
     }
+
+    Active = true;
 }
 //----------------------------------------------------------------------------
 UserConstant::~UserConstant()
