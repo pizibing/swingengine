@@ -325,8 +325,15 @@ StringTree* Shader::SaveStrings(const char*)
     // children
     pTree->Append(Object::SaveStrings());
 
+    if( m_spProgram )
+    {
+        pTree->Append(m_spProgram->SaveStrings());
+    }
+
     if( m_spInterfaces )
+    {
         pTree->Append(m_spInterfaces->SaveStrings());
+    }
 
     for( i = 0; i < (int)m_Textures.size(); i++ )
     {

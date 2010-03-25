@@ -25,7 +25,6 @@ using namespace Swing;
 
 SE_IMPLEMENT_RTTI(Swing, Program, Object);
 SE_IMPLEMENT_STREAM(Program);
-SE_IMPLEMENT_DEFAULT_STREAM(Program, Object);
 SE_IMPLEMENT_DEFAULT_NAME_ID(Program, Object);
 
 //SE_REGISTER_STREAM(Program);
@@ -138,5 +137,101 @@ SamplerInformation* Program::GetSI(const std::string& rName)
     }
 
     return 0;
+}
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+// streaming
+//----------------------------------------------------------------------------
+void Program::Load(Stream& rStream, Stream::Link* pLink)
+{
+    SE_BEGIN_DEBUG_STREAM_LOAD;
+    Object::Load(rStream, pLink);
+    SE_END_DEBUG_STREAM_LOAD(Program);
+}
+//----------------------------------------------------------------------------
+void Program::Link(Stream& rStream, Stream::Link* pLink)
+{
+    Object::Link(rStream, pLink);
+}
+//----------------------------------------------------------------------------
+bool Program::Register(Stream& rStream) const
+{
+    return Object::Register(rStream);
+}
+//----------------------------------------------------------------------------
+void Program::Save(Stream& rStream) const
+{
+    SE_BEGIN_DEBUG_STREAM_SAVE;
+    Object::Save(rStream);
+    SE_END_DEBUG_STREAM_SAVE(Program);
+}
+//----------------------------------------------------------------------------
+int Program::GetDiskUsed(const StreamVersion& rVersion) const
+{
+    return Object::GetDiskUsed(rVersion);
+}
+//----------------------------------------------------------------------------
+StringTree* Program::SaveStrings(const char*)
+{
+    StringTree* pTree = SE_NEW StringTree;
+
+    // strings
+    pTree->Append(Format(&TYPE, GetName().c_str()));
+
+    const size_t uiTitleSize = 64;
+    char acTitle[uiTitleSize];
+    int i;
+    for( i = 0; i < (int)m_RendererConstants.size(); i++ )
+    {
+        System::SE_Sprintf(acTitle, uiTitleSize, "RC[%d] name =", i);
+        pTree->Append(Format(acTitle, RendererConstant::GetName(
+            m_RendererConstants[i].GetType()).c_str()));
+
+        System::SE_Sprintf(acTitle, uiTitleSize, "RC[%d] data count =", i);
+        pTree->Append(Format(acTitle, m_RendererConstants[i].GetDataCount()));
+
+        System::SE_Sprintf(acTitle, uiTitleSize, "RC[%d] data pointer =", i);
+        pTree->Append(Format(acTitle, m_RendererConstants[i].GetData()));
+    }
+
+    for( i = 0; i < (int)m_UserConstants.size(); i++ )
+    {
+        System::SE_Sprintf(acTitle, uiTitleSize, "UC[%d] name =", i);
+        pTree->Append(Format(acTitle, m_UserConstants[i].GetName().c_str()));
+
+        int iDataCount = m_UserConstants[i].GetDataCount();
+        System::SE_Sprintf(acTitle, uiTitleSize, "UC[%d] data count =", i);
+        pTree->Append(Format(acTitle, iDataCount));
+
+        float* pData = m_UserConstants[i].GetData();
+        System::SE_Sprintf(acTitle, uiTitleSize, "UC[%d] data pointer =", i);
+        pTree->Append(Format(acTitle, pData));
+        if( pData )
+        {
+            for( int j = 0; j < iDataCount; j++ )
+            {
+                System::SE_Sprintf(acTitle, uiTitleSize, "  UC[%d] data[%d] =", 
+                    i, j);
+                pTree->Append(Format(acTitle, pData[j]));
+            }
+        }
+    }
+
+    for( i = 0; i < (int)m_SamplerInformation.size(); i++ )
+    {
+        System::SE_Sprintf(acTitle, uiTitleSize, "SI[%d] name =", i);
+        pTree->Append(Format(acTitle, m_SamplerInformation[i].GetName(
+            ).c_str()));
+
+        System::SE_Sprintf(acTitle, uiTitleSize, "SI[%d] dimension =", i);
+        pTree->Append(Format(acTitle, m_SamplerInformation[i].GetDimension(
+            )));
+    }
+
+    // children
+    pTree->Append(Object::SaveStrings());
+
+    return pTree;
 }
 //----------------------------------------------------------------------------
