@@ -181,18 +181,28 @@ StringTree* Program::SaveStrings(const char*)
 
     const size_t uiTitleSize = 64;
     char acTitle[uiTitleSize];
-    int i;
+    int i, j, iDataCount;
+    float* pData;
     for( i = 0; i < (int)m_RendererConstants.size(); i++ )
     {
         System::SE_Sprintf(acTitle, uiTitleSize, "RC[%d] name =", i);
         pTree->Append(Format(acTitle, RendererConstant::GetName(
             m_RendererConstants[i].GetType()).c_str()));
 
+        iDataCount = m_RendererConstants[i].GetDataCount();
         System::SE_Sprintf(acTitle, uiTitleSize, "RC[%d] data count =", i);
-        pTree->Append(Format(acTitle, m_RendererConstants[i].GetDataCount()));
+        pTree->Append(Format(acTitle, iDataCount));
 
         System::SE_Sprintf(acTitle, uiTitleSize, "RC[%d] data pointer =", i);
         pTree->Append(Format(acTitle, m_RendererConstants[i].GetData()));
+
+        pData = m_RendererConstants[i].GetData();
+        for( j = 0; j < iDataCount; j++ )
+        {
+            System::SE_Sprintf(acTitle, uiTitleSize, 
+                "    data[%d] =", j);
+            pTree->Append(Format(acTitle, pData[j]));
+        }
     }
 
     for( i = 0; i < (int)m_UserConstants.size(); i++ )
@@ -200,19 +210,19 @@ StringTree* Program::SaveStrings(const char*)
         System::SE_Sprintf(acTitle, uiTitleSize, "UC[%d] name =", i);
         pTree->Append(Format(acTitle, m_UserConstants[i].GetName().c_str()));
 
-        int iDataCount = m_UserConstants[i].GetDataCount();
+        iDataCount = m_UserConstants[i].GetDataCount();
         System::SE_Sprintf(acTitle, uiTitleSize, "UC[%d] data count =", i);
         pTree->Append(Format(acTitle, iDataCount));
 
-        float* pData = m_UserConstants[i].GetData();
+        pData = m_UserConstants[i].GetData();
         System::SE_Sprintf(acTitle, uiTitleSize, "UC[%d] data pointer =", i);
         pTree->Append(Format(acTitle, pData));
         if( pData )
         {
-            for( int j = 0; j < iDataCount; j++ )
+            for( j = 0; j < iDataCount; j++ )
             {
-                System::SE_Sprintf(acTitle, uiTitleSize, "  UC[%d] data[%d] =", 
-                    i, j);
+                System::SE_Sprintf(acTitle, uiTitleSize, 
+                    "    data[%d] =", j);
                 pTree->Append(Format(acTitle, pData[j]));
             }
         }
