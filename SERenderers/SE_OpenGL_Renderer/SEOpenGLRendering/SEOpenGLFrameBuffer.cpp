@@ -187,7 +187,7 @@ void OpenGLFrameBuffer::Enable()
 
     pRenderer->OnFrustumChange();
 
-    if( pRenderer->m_pCamera->Perspective )
+    if( pRenderer->m_pCamera->IsPerspective() )
     {
         pRenderer->m_ProjectionMatrix[1][1] = 
             -pRenderer->m_ProjectionMatrix[1][1];
@@ -235,7 +235,7 @@ void OpenGLFrameBuffer::Disable()
     else
     {
         // 结束当前嵌套的FBO时,需要把相关matrix恢复成之前的FBO所需要的形式.
-        if( pRenderer->m_pCamera->Perspective )
+        if( pRenderer->m_pCamera->IsPerspective() )
         {
             pRenderer->m_ProjectionMatrix[1][1] = 
                 -pRenderer->m_ProjectionMatrix[1][1];
