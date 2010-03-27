@@ -365,7 +365,7 @@ void PostProcess::CreateTeapot()
 
     m_spTeapot->GenerateNormals();
     m_spTeapot->AttachGlobalState(pEggMaterial);
-    m_spTeapot->Local.SetUniformScale(0.4f);
+    m_spTeapot->Local.SetUniformScale(20.0f);
     m_spTeapot->Local.SetTranslate(Vector3f(0.0f, -3.0f, 0.0f));
     m_spTeapot->DetachAllEffects();
 
