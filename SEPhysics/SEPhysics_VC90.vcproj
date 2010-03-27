@@ -4,7 +4,6 @@
 	Version="9.00"
 	Name="SEPhysics_VC90"
 	ProjectGUID="{BC18BAF7-0E8C-44A0-ACEF-EF7096ADD063}"
-	RootNamespace="SEPhysics"
 	Keyword="ManagedCProj"
 	TargetFrameworkVersion="131072"
 	>
