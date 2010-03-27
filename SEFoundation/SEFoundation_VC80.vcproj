@@ -4,7 +4,6 @@
 	Version="8.00"
 	Name="SEFoundation_VC80"
 	ProjectGUID="{89A5147A-4380-441F-A167-89AE9DBB11BD}"
-	RootNamespace="SEFoundation_VC80"
 	Keyword="MakeFileProj"
 	>
 	<Platforms>
