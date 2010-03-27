@@ -4,7 +4,6 @@
 	Version="9.00"
 	Name="PostProcess_VC90"
 	ProjectGUID="{1CDF3766-E4ED-4FD7-B7BB-00072F3E0B52}"
-	RootNamespace="PostProcess_VC90"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
