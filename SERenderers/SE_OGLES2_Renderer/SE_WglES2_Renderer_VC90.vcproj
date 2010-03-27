@@ -4,7 +4,6 @@
 	Version="9.00"
 	Name="SE_WglES2_Renderer_VC90"
 	ProjectGUID="{6CC7E6C0-A7A8-437E-8851-7ADE9D4882A1}"
-	RootNamespace="SE_WglES2_Renderer_VC90"
 	Keyword="MakeFileProj"
 	TargetFrameworkVersion="131072"
 	>
