@@ -301,7 +301,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation90.lib SEWglRenderer90.lib SEWglApplication90.lib SEPhysics80.lib cg.lib cgGL.lib SEAudio90.lib SEWalRenderer90.lib"
+				AdditionalDependencies="SEFoundation90.lib SEWglRenderer90.lib SEWglApplication90.lib SEPhysics90.lib cg.lib cgGL.lib SEAudio90.lib SEWalRenderer90.lib"
 				OutputFile="ScreenSpaceAO_VC90WglRelSta.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\Release"
