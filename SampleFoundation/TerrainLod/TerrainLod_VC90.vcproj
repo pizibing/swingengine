@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
-	Name="TerrainLod_VC80"
+	Version="9.00"
+	Name="TerrainLod_VC90"
 	ProjectGUID="{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}"
+	RootNamespace="TerrainLod_VC90"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -16,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Dx9 Debug|Win32"
-			OutputDirectory="Debug\VC80"
-			IntermediateDirectory="Debug\VC80"
+			OutputDirectory="Debug\VC90"
+			IntermediateDirectory="Debug\VC90"
 			ConfigurationType="1"
 			CharacterSet="2"
 			>
@@ -47,7 +49,7 @@
 				UsePrecompiledHeader="0"
 				ProgramDataBaseFileName="$(IntDir)\$(TargetName).pdb"
 				WarningLevel="4"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -61,14 +63,16 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80d.lib SEPhysics80d.lib SEDX9Renderer80d.lib SEDX9Application80d.lib cg.lib cgD3D9.lib SEAudio80d.lib SEWalRenderer80d.lib"
-				OutputFile="TerrainLod_VC80Dx9DebSta.exe"
+				AdditionalDependencies="SEFoundation90d.lib SEPhysics90d.lib SEDX9Renderer90d.lib SEDX9Application90d.lib cg.lib cgD3D9.lib SEAudio90d.lib SEWalRenderer90d.lib"
+				OutputFile="TerrainLod_VC90Dx9DebSta.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/TerrainLod_VC80Dx9DebSta.pdb"
+				ProgramDatabaseFile="$(OutDir)/TerrainLod_VC90Dx9DebSta.pdb"
 				SubSystem="2"
 				EntryPointSymbol="mainCRTStartup"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -88,9 +92,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -98,8 +99,8 @@
 		</Configuration>
 		<Configuration
 			Name="Dx9 Release|Win32"
-			OutputDirectory="Release\VC80"
-			IntermediateDirectory="Release\VC80"
+			OutputDirectory="Release\VC90"
+			IntermediateDirectory="Release\VC90"
 			ConfigurationType="1"
 			CharacterSet="2"
 			>
@@ -126,7 +127,7 @@
 				UsePrecompiledHeader="0"
 				ProgramDataBaseFileName="$(IntDir)\$(TargetName).pdb"
 				WarningLevel="4"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -140,16 +141,18 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80.lib SEPhysics80.lib SEDX9Renderer80.lib SEDX9Application80.lib cg.lib cgD3D9.lib SEAudio80.lib SEWalRenderer80.lib"
-				OutputFile="TerrainLod_VC80Dx9RelSta.exe"
+				AdditionalDependencies="SEFoundation90.lib SEPhysics90.lib SEDX9Renderer90.lib SEDX9Application90.lib cg.lib cgD3D9.lib SEAudio90.lib SEWalRenderer90.lib"
+				OutputFile="TerrainLod_VC90Dx9RelSta.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\Release"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/TerrainLod_VC80Dx9RelSta.pdb"
+				ProgramDatabaseFile="$(OutDir)/TerrainLod_VC90Dx9RelSta.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				EntryPointSymbol="mainCRTStartup"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -171,16 +174,13 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Wgl Debug|Win32"
-			OutputDirectory="Debug\VC80"
-			IntermediateDirectory="Debug\VC80"
+			OutputDirectory="Debug\VC90"
+			IntermediateDirectory="Debug\VC90"
 			ConfigurationType="1"
 			CharacterSet="2"
 			>
@@ -210,7 +210,7 @@
 				UsePrecompiledHeader="0"
 				ProgramDataBaseFileName="$(IntDir)\$(TargetName).pdb"
 				WarningLevel="4"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -224,14 +224,16 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80d.lib SEPhysics80d.lib SEWglRenderer80d.lib SEWglApplication80d.lib cg.lib cgGL.lib SEAudio80d.lib SEWalRenderer80d.lib"
-				OutputFile="TerrainLod_VC80WglDebSta.exe"
+				AdditionalDependencies="SEFoundation90d.lib SEPhysics90d.lib SEWglRenderer90d.lib SEWglApplication90d.lib cg.lib cgGL.lib SEAudio90d.lib SEWalRenderer90d.lib"
+				OutputFile="TerrainLod_VC90WglDebSta.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/TerrainLod_VC80WglDebSta.pdb"
+				ProgramDatabaseFile="$(OutDir)/TerrainLod_VC90WglDebSta.pdb"
 				SubSystem="2"
 				EntryPointSymbol="mainCRTStartup"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -253,16 +255,13 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Wgl Release|Win32"
-			OutputDirectory="Release\VC80"
-			IntermediateDirectory="Release\VC80"
+			OutputDirectory="Release\VC90"
+			IntermediateDirectory="Release\VC90"
 			ConfigurationType="1"
 			CharacterSet="2"
 			>
@@ -289,7 +288,7 @@
 				UsePrecompiledHeader="0"
 				ProgramDataBaseFileName="$(IntDir)\$(TargetName).pdb"
 				WarningLevel="4"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -303,16 +302,18 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80.lib SEPhysics80.lib SEWglRenderer80.lib SEWglApplication80.lib cg.lib cgGL.lib SEAudio80.lib SEWalRenderer80.lib"
-				OutputFile="TerrainLod_VC80WglRelSta.exe"
+				AdditionalDependencies="SEFoundation90.lib SEPhysics90.lib SEWglRenderer90.lib SEWglApplication90.lib cg.lib cgGL.lib SEAudio90.lib SEWalRenderer90.lib"
+				OutputFile="TerrainLod_VC90WglRelSta.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\Release"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/TerrainLod_VC80WglRelSta.pdb"
+				ProgramDatabaseFile="$(OutDir)/TerrainLod_VC90WglRelSta.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				EntryPointSymbol="mainCRTStartup"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -334,16 +335,13 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Dx10 Debug|Win32"
-			OutputDirectory="Debug\VC80"
-			IntermediateDirectory="Debug\VC80"
+			OutputDirectory="Debug\VC90"
+			IntermediateDirectory="Debug\VC90"
 			ConfigurationType="1"
 			CharacterSet="2"
 			>
@@ -373,7 +371,7 @@
 				UsePrecompiledHeader="0"
 				ProgramDataBaseFileName="$(IntDir)\$(TargetName).pdb"
 				WarningLevel="4"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -387,14 +385,16 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80d.lib SEPhysics80d.lib SEDX10Renderer80d.lib SEDX10Application80d.lib cg.lib cgD3D10.lib"
-				OutputFile="TerrainLod_VC80Dx10DebSta.exe"
+				AdditionalDependencies="SEFoundation90d.lib SEPhysics90d.lib SEDX10Renderer90d.lib SEDX10Application90d.lib cg.lib cgD3D10.lib"
+				OutputFile="TerrainLod_VC90Dx10DebSta.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/TerrainLod_VC80Dx10DebSta.pdb"
+				ProgramDatabaseFile="$(OutDir)/TerrainLod_VC90Dx10DebSta.pdb"
 				SubSystem="2"
 				EntryPointSymbol="mainCRTStartup"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -416,16 +416,13 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
 			Name="WglES2 Debug|Win32"
-			OutputDirectory="Debug\VC80"
-			IntermediateDirectory="Debug\VC80"
+			OutputDirectory="Debug\VC90"
+			IntermediateDirectory="Debug\VC90"
 			ConfigurationType="1"
 			CharacterSet="2"
 			>
@@ -455,7 +452,7 @@
 				UsePrecompiledHeader="0"
 				ProgramDataBaseFileName="$(IntDir)\$(TargetName).pdb"
 				WarningLevel="4"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -469,14 +466,16 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80d.lib SEPhysics80d.lib SEWglES2Renderer80d.lib SEWglES2Application80d.lib SEAudio80d.lib SEWalRenderer80d.lib"
-				OutputFile="TerrainLod_VC80WglES2DebSta.exe"
+				AdditionalDependencies="SEFoundation90d.lib SEPhysics90d.lib SEWglES2Renderer90d.lib SEWglES2Application90d.lib SEAudio90d.lib SEWalRenderer90d.lib"
+				OutputFile="TerrainLod_VC90WglES2DebSta.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/TerrainLod_VC80WglES2DebSta.pdb"
+				ProgramDatabaseFile="$(OutDir)/TerrainLod_VC90WglES2DebSta.pdb"
 				SubSystem="2"
 				EntryPointSymbol="mainCRTStartup"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -498,16 +497,13 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
 			Name="WglES2 Release|Win32"
-			OutputDirectory="Release\VC80"
-			IntermediateDirectory="Release\VC80"
+			OutputDirectory="Release\VC90"
+			IntermediateDirectory="Release\VC90"
 			ConfigurationType="1"
 			CharacterSet="2"
 			>
@@ -537,7 +533,7 @@
 				UsePrecompiledHeader="0"
 				ProgramDataBaseFileName="$(IntDir)\$(TargetName).pdb"
 				WarningLevel="4"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -551,16 +547,18 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80.lib SEPhysics80.lib SEWglES2Renderer80.lib SEWglES2Application80.lib SEAudio80.lib SEWalRenderer80.lib"
-				OutputFile="TerrainLod_VC80WglES2RelSta.exe"
+				AdditionalDependencies="SEFoundation90.lib SEPhysics90.lib SEWglES2Renderer90.lib SEWglES2Application90.lib SEAudio90.lib SEWalRenderer90.lib"
+				OutputFile="TerrainLod_VC90WglES2RelSta.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\Release"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/TerrainLod_VC80WglES2RelSta.pdb"
+				ProgramDatabaseFile="$(OutDir)/TerrainLod_VC90WglES2RelSta.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				EntryPointSymbol="mainCRTStartup"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -580,9 +578,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
