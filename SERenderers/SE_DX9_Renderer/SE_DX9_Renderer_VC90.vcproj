@@ -4,7 +4,6 @@
 	Version="9.00"
 	Name="SE_DX9_Renderer_VC90"
 	ProjectGUID="{ED5951A5-2CF4-4BF6-927C-FFB86A2D4E9E}"
-	RootNamespace="SE_DX9_Renderer_VC80"
 	Keyword="MakeFileProj"
 	TargetFrameworkVersion="131072"
 	>
