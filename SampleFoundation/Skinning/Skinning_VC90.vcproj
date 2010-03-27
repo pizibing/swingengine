@@ -4,7 +4,6 @@
 	Version="9.00"
 	Name="Skinning_VC90"
 	ProjectGUID="{ADAD5C39-CDFB-495D-9CE2-EDD84146D85C}"
-	RootNamespace="Skinning_VC90"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
