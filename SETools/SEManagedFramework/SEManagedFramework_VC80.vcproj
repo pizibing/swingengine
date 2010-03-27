@@ -4,7 +4,6 @@
 	Version="8.00"
 	Name="SEManagedFramework_VC80"
 	ProjectGUID="{ABAADADA-7274-454C-90DD-A88D8CDDBC7D}"
-	RootNamespace="SESceneEditorFramework"
 	Keyword="ManagedCProj"
 	>
 	<Platforms>
