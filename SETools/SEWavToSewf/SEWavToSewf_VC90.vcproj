@@ -4,7 +4,6 @@
 	Version="9.00"
 	Name="SEWavToSewf_VC90"
 	ProjectGUID="{41C3BE2A-8E55-47D3-805A-DC398B39764A}"
-	RootNamespace="SEWavToSewf_VC90"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
