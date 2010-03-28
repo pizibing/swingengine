@@ -120,7 +120,6 @@
 		528988A20E9DA45A000BBA95 /* SEVector3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13B40E9C8D8B003AD3C4 /* SEVector3.h */; };
 		528988A30E9DA45A000BBA95 /* SEVector4.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13B70E9C8D8B003AD3C4 /* SEVector4.h */; };
 		528988A40E9DA45A000BBA95 /* SEVectorN.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13BA0E9C8D8B003AD3C4 /* SEVectorN.h */; };
-		528988A50E9DA45A000BBA95 /* simd.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13BC0E9C8D8B003AD3C4 /* simd.h */; };
 		528988A60E9DA45A000BBA95 /* SEContBox3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13E50E9C8D9E003AD3C4 /* SEContBox3.h */; };
 		528988A70E9DA45A000BBA95 /* SEContSphere3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13E70E9C8D9E003AD3C4 /* SEContSphere3.h */; };
 		528988AE0E9DA4AC000BBA95 /* SEIntersector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52EC11D20E9C87DF003AD3C4 /* SEIntersector.cpp */; };
@@ -934,7 +933,6 @@
 		52EC13E00E9C8D8B003AD3C4 /* SEVector4.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13B70E9C8D8B003AD3C4 /* SEVector4.h */; };
 		52EC13E10E9C8D8B003AD3C4 /* SEVectorN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52EC13B90E9C8D8B003AD3C4 /* SEVectorN.cpp */; };
 		52EC13E20E9C8D8B003AD3C4 /* SEVectorN.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13BA0E9C8D8B003AD3C4 /* SEVectorN.h */; };
-		52EC13E30E9C8D8B003AD3C4 /* simd.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13BC0E9C8D8B003AD3C4 /* simd.h */; };
 		52EC13E80E9C8D9F003AD3C4 /* SEContBox3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52EC13E40E9C8D9E003AD3C4 /* SEContBox3.cpp */; };
 		52EC13E90E9C8D9F003AD3C4 /* SEContBox3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13E50E9C8D9E003AD3C4 /* SEContBox3.h */; };
 		52EC13EA0E9C8D9F003AD3C4 /* SEContSphere3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52EC13E60E9C8D9E003AD3C4 /* SEContSphere3.cpp */; };
@@ -1052,7 +1050,6 @@
 		DD848EED109F2FCF0031E135 /* SEVector3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13B40E9C8D8B003AD3C4 /* SEVector3.h */; };
 		DD848EEE109F2FCF0031E135 /* SEVector4.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13B70E9C8D8B003AD3C4 /* SEVector4.h */; };
 		DD848EEF109F2FCF0031E135 /* SEVectorN.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13BA0E9C8D8B003AD3C4 /* SEVectorN.h */; };
-		DD848EF0109F2FCF0031E135 /* simd.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13BC0E9C8D8B003AD3C4 /* simd.h */; };
 		DD848EF1109F2FCF0031E135 /* SEContBox3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13E50E9C8D9E003AD3C4 /* SEContBox3.h */; };
 		DD848EF2109F2FCF0031E135 /* SEContSphere3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13E70E9C8D9E003AD3C4 /* SEContSphere3.h */; };
 		DD848EF3109F2FCF0031E135 /* SEMultitextureEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = 5296E3DB0ECEC39700A95594 /* SEMultitextureEffect.h */; };
@@ -1550,7 +1547,6 @@
 		DD9775AF10A006970070FC01 /* SEVector3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13B40E9C8D8B003AD3C4 /* SEVector3.h */; };
 		DD9775B010A006970070FC01 /* SEVector4.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13B70E9C8D8B003AD3C4 /* SEVector4.h */; };
 		DD9775B110A006970070FC01 /* SEVectorN.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13BA0E9C8D8B003AD3C4 /* SEVectorN.h */; };
-		DD9775B210A006970070FC01 /* simd.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13BC0E9C8D8B003AD3C4 /* simd.h */; };
 		DD9775B310A006970070FC01 /* SEContBox3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13E50E9C8D9E003AD3C4 /* SEContBox3.h */; };
 		DD9775B410A006970070FC01 /* SEContSphere3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC13E70E9C8D9E003AD3C4 /* SEContSphere3.h */; };
 		DD9775B510A006970070FC01 /* SEMultitextureEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = 5296E3DB0ECEC39700A95594 /* SEMultitextureEffect.h */; };
@@ -1903,6 +1899,54 @@
 		DD97771210A007010070FC01 /* SEUnculledSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52AFF9840FF8A74A0008BD07 /* SEUnculledSet.cpp */; };
 		DD97771310A007010070FC01 /* SEBumpMapL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529BC486102B1D800080D64F /* SEBumpMapL1Effect.cpp */; };
 		DD97771410A007010070FC01 /* SEParallaxMapL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529BC488102B1D800080D64F /* SEParallaxMapL1Effect.cpp */; };
+		DD9B9AA9115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9A9D115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp */; };
+		DD9B9AAA115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9A9E115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h */; };
+		DD9B9AAB115EFA1300DD80A9 /* SEMaterialTextureL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9A9F115EFA1300DD80A9 /* SEMaterialTextureL1Effect.cpp */; };
+		DD9B9AAC115EFA1300DD80A9 /* SEMaterialTextureL1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA0115EFA1300DD80A9 /* SEMaterialTextureL1Effect.h */; };
+		DD9B9AAD115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA1115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.cpp */; };
+		DD9B9AAE115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA2115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.h */; };
+		DD9B9AAF115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA3115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp */; };
+		DD9B9AB0115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA4115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h */; };
+		DD9B9AB1115EFA1300DD80A9 /* SETextureTileEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA5115EFA1300DD80A9 /* SETextureTileEffect.cpp */; };
+		DD9B9AB2115EFA1300DD80A9 /* SETextureTileEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA6115EFA1300DD80A9 /* SETextureTileEffect.h */; };
+		DD9B9AB3115EFA1300DD80A9 /* SETextureTileL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA7115EFA1300DD80A9 /* SETextureTileL1Effect.cpp */; };
+		DD9B9AB4115EFA1300DD80A9 /* SETextureTileL1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA8115EFA1300DD80A9 /* SETextureTileL1Effect.h */; };
+		DD9B9AB5115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9A9D115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp */; };
+		DD9B9AB6115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9A9E115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h */; };
+		DD9B9AB7115EFA1300DD80A9 /* SEMaterialTextureL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9A9F115EFA1300DD80A9 /* SEMaterialTextureL1Effect.cpp */; };
+		DD9B9AB8115EFA1300DD80A9 /* SEMaterialTextureL1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA0115EFA1300DD80A9 /* SEMaterialTextureL1Effect.h */; };
+		DD9B9AB9115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA1115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.cpp */; };
+		DD9B9ABA115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA2115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.h */; };
+		DD9B9ABB115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA3115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp */; };
+		DD9B9ABC115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA4115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h */; };
+		DD9B9ABD115EFA1300DD80A9 /* SETextureTileEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA5115EFA1300DD80A9 /* SETextureTileEffect.cpp */; };
+		DD9B9ABE115EFA1300DD80A9 /* SETextureTileEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA6115EFA1300DD80A9 /* SETextureTileEffect.h */; };
+		DD9B9ABF115EFA1300DD80A9 /* SETextureTileL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA7115EFA1300DD80A9 /* SETextureTileL1Effect.cpp */; };
+		DD9B9AC0115EFA1300DD80A9 /* SETextureTileL1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA8115EFA1300DD80A9 /* SETextureTileL1Effect.h */; };
+		DD9B9AC1115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9A9D115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp */; };
+		DD9B9AC2115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9A9E115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h */; };
+		DD9B9AC3115EFA1300DD80A9 /* SEMaterialTextureL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9A9F115EFA1300DD80A9 /* SEMaterialTextureL1Effect.cpp */; };
+		DD9B9AC4115EFA1300DD80A9 /* SEMaterialTextureL1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA0115EFA1300DD80A9 /* SEMaterialTextureL1Effect.h */; };
+		DD9B9AC5115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA1115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.cpp */; };
+		DD9B9AC6115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA2115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.h */; };
+		DD9B9AC7115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA3115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp */; };
+		DD9B9AC8115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA4115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h */; };
+		DD9B9AC9115EFA1300DD80A9 /* SETextureTileEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA5115EFA1300DD80A9 /* SETextureTileEffect.cpp */; };
+		DD9B9ACA115EFA1300DD80A9 /* SETextureTileEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA6115EFA1300DD80A9 /* SETextureTileEffect.h */; };
+		DD9B9ACB115EFA1300DD80A9 /* SETextureTileL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA7115EFA1300DD80A9 /* SETextureTileL1Effect.cpp */; };
+		DD9B9ACC115EFA1300DD80A9 /* SETextureTileL1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA8115EFA1300DD80A9 /* SETextureTileL1Effect.h */; };
+		DD9B9ACD115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9A9D115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp */; };
+		DD9B9ACE115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9A9E115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h */; };
+		DD9B9ACF115EFA1300DD80A9 /* SEMaterialTextureL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9A9F115EFA1300DD80A9 /* SEMaterialTextureL1Effect.cpp */; };
+		DD9B9AD0115EFA1300DD80A9 /* SEMaterialTextureL1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA0115EFA1300DD80A9 /* SEMaterialTextureL1Effect.h */; };
+		DD9B9AD1115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA1115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.cpp */; };
+		DD9B9AD2115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA2115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.h */; };
+		DD9B9AD3115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA3115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp */; };
+		DD9B9AD4115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA4115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h */; };
+		DD9B9AD5115EFA1300DD80A9 /* SETextureTileEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA5115EFA1300DD80A9 /* SETextureTileEffect.cpp */; };
+		DD9B9AD6115EFA1300DD80A9 /* SETextureTileEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA6115EFA1300DD80A9 /* SETextureTileEffect.h */; };
+		DD9B9AD7115EFA1300DD80A9 /* SETextureTileL1Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9B9AA7115EFA1300DD80A9 /* SETextureTileL1Effect.cpp */; };
+		DD9B9AD8115EFA1300DD80A9 /* SETextureTileL1Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9B9AA8115EFA1300DD80A9 /* SETextureTileL1Effect.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -2451,7 +2495,6 @@
 		52EC13B90E9C8D8B003AD3C4 /* SEVectorN.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEVectorN.cpp; path = SEMath/SEVectorN.cpp; sourceTree = "<group>"; };
 		52EC13BA0E9C8D8B003AD3C4 /* SEVectorN.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEVectorN.h; path = SEMath/SEVectorN.h; sourceTree = "<group>"; };
 		52EC13BB0E9C8D8B003AD3C4 /* SEVectorN.inl */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = text; name = SEVectorN.inl; path = SEMath/SEVectorN.inl; sourceTree = "<group>"; };
-		52EC13BC0E9C8D8B003AD3C4 /* simd.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = simd.h; path = SEMath/simd.h; sourceTree = "<group>"; };
 		52EC13E40E9C8D9E003AD3C4 /* SEContBox3.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEContBox3.cpp; path = SEContainment/SEContBox3.cpp; sourceTree = "<group>"; };
 		52EC13E50E9C8D9E003AD3C4 /* SEContBox3.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; name = SEContBox3.h; path = SEContainment/SEContBox3.h; sourceTree = "<group>"; };
 		52EC13E60E9C8D9E003AD3C4 /* SEContSphere3.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; name = SEContSphere3.cpp; path = SEContainment/SEContSphere3.cpp; sourceTree = "<group>"; };
@@ -2466,6 +2509,18 @@
 		DD8E79781108072100F89120 /* SEAxisAlignedBox3.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SEAxisAlignedBox3.cpp; path = SEMath/SEAxisAlignedBox3.cpp; sourceTree = "<group>"; };
 		DD8E79791108072100F89120 /* SEAxisAlignedBox3.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEAxisAlignedBox3.h; path = SEMath/SEAxisAlignedBox3.h; sourceTree = "<group>"; };
 		DD97753E10A006510070FC01 /* libSEFoundation_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEFoundation_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD9B9A9D115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SEMaterialTexture2L1Effect.cpp; path = SEEffects/SEMaterialTexture2L1Effect.cpp; sourceTree = "<group>"; };
+		DD9B9A9E115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEMaterialTexture2L1Effect.h; path = SEEffects/SEMaterialTexture2L1Effect.h; sourceTree = "<group>"; };
+		DD9B9A9F115EFA1300DD80A9 /* SEMaterialTextureL1Effect.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SEMaterialTextureL1Effect.cpp; path = SEEffects/SEMaterialTextureL1Effect.cpp; sourceTree = "<group>"; };
+		DD9B9AA0115EFA1300DD80A9 /* SEMaterialTextureL1Effect.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEMaterialTextureL1Effect.h; path = SEEffects/SEMaterialTextureL1Effect.h; sourceTree = "<group>"; };
+		DD9B9AA1115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SESkinMaterialTexture2L1Effect.cpp; path = SEEffects/SESkinMaterialTexture2L1Effect.cpp; sourceTree = "<group>"; };
+		DD9B9AA2115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SESkinMaterialTexture2L1Effect.h; path = SEEffects/SESkinMaterialTexture2L1Effect.h; sourceTree = "<group>"; };
+		DD9B9AA3115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SESkinMaterialTextureL1Effect.cpp; path = SEEffects/SESkinMaterialTextureL1Effect.cpp; sourceTree = "<group>"; };
+		DD9B9AA4115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SESkinMaterialTextureL1Effect.h; path = SEEffects/SESkinMaterialTextureL1Effect.h; sourceTree = "<group>"; };
+		DD9B9AA5115EFA1300DD80A9 /* SETextureTileEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SETextureTileEffect.cpp; path = SEEffects/SETextureTileEffect.cpp; sourceTree = "<group>"; };
+		DD9B9AA6115EFA1300DD80A9 /* SETextureTileEffect.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SETextureTileEffect.h; path = SEEffects/SETextureTileEffect.h; sourceTree = "<group>"; };
+		DD9B9AA7115EFA1300DD80A9 /* SETextureTileL1Effect.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SETextureTileL1Effect.cpp; path = SEEffects/SETextureTileL1Effect.cpp; sourceTree = "<group>"; };
+		DD9B9AA8115EFA1300DD80A9 /* SETextureTileL1Effect.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SETextureTileL1Effect.h; path = SEEffects/SETextureTileL1Effect.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2836,6 +2891,18 @@
 		52EC11C50E9C85DB003AD3C4 /* SEEffects */ = {
 			isa = PBXGroup;
 			children = (
+				DD9B9A9D115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp */,
+				DD9B9A9E115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h */,
+				DD9B9A9F115EFA1300DD80A9 /* SEMaterialTextureL1Effect.cpp */,
+				DD9B9AA0115EFA1300DD80A9 /* SEMaterialTextureL1Effect.h */,
+				DD9B9AA1115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.cpp */,
+				DD9B9AA2115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.h */,
+				DD9B9AA3115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp */,
+				DD9B9AA4115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h */,
+				DD9B9AA5115EFA1300DD80A9 /* SETextureTileEffect.cpp */,
+				DD9B9AA6115EFA1300DD80A9 /* SETextureTileEffect.h */,
+				DD9B9AA7115EFA1300DD80A9 /* SETextureTileL1Effect.cpp */,
+				DD9B9AA8115EFA1300DD80A9 /* SETextureTileL1Effect.h */,
 				DD8B7DC410BF7766001B5D4F /* SESkinEffect.cpp */,
 				DD8B7DC510BF7766001B5D4F /* SESkinEffect.h */,
 				529BC486102B1D800080D64F /* SEBumpMapL1Effect.cpp */,
@@ -3233,7 +3300,6 @@
 				52EC13B90E9C8D8B003AD3C4 /* SEVectorN.cpp */,
 				52EC13BA0E9C8D8B003AD3C4 /* SEVectorN.h */,
 				52EC13BB0E9C8D8B003AD3C4 /* SEVectorN.inl */,
-				52EC13BC0E9C8D8B003AD3C4 /* simd.h */,
 			);
 			name = SEMath;
 			sourceTree = "<group>";
@@ -3394,7 +3460,6 @@
 				528988A20E9DA45A000BBA95 /* SEVector3.h in Headers */,
 				528988A30E9DA45A000BBA95 /* SEVector4.h in Headers */,
 				528988A40E9DA45A000BBA95 /* SEVectorN.h in Headers */,
-				528988A50E9DA45A000BBA95 /* simd.h in Headers */,
 				528988A60E9DA45A000BBA95 /* SEContBox3.h in Headers */,
 				528988A70E9DA45A000BBA95 /* SEContSphere3.h in Headers */,
 				5296E3E40ECEC39700A95594 /* SEMultitextureEffect.h in Headers */,
@@ -3532,6 +3597,12 @@
 				DD8E7971110806CD00F89120 /* SEWidget.h in Headers */,
 				DD8E797F1108072100F89120 /* SEAxisAlignedBox2.h in Headers */,
 				DD8E79811108072100F89120 /* SEAxisAlignedBox3.h in Headers */,
+				DD9B9AB6115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h in Headers */,
+				DD9B9AB8115EFA1300DD80A9 /* SEMaterialTextureL1Effect.h in Headers */,
+				DD9B9ABA115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.h in Headers */,
+				DD9B9ABC115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h in Headers */,
+				DD9B9ABE115EFA1300DD80A9 /* SETextureTileEffect.h in Headers */,
+				DD9B9AC0115EFA1300DD80A9 /* SETextureTileL1Effect.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3652,7 +3723,6 @@
 				52EC13DE0E9C8D8B003AD3C4 /* SEVector3.h in Headers */,
 				52EC13E00E9C8D8B003AD3C4 /* SEVector4.h in Headers */,
 				52EC13E20E9C8D8B003AD3C4 /* SEVectorN.h in Headers */,
-				52EC13E30E9C8D8B003AD3C4 /* simd.h in Headers */,
 				52EC13E90E9C8D9F003AD3C4 /* SEContBox3.h in Headers */,
 				52EC13EB0E9C8D9F003AD3C4 /* SEContSphere3.h in Headers */,
 				5296E3E00ECEC39700A95594 /* SEMultitextureEffect.h in Headers */,
@@ -3790,6 +3860,12 @@
 				DD8E796F110806CD00F89120 /* SEWidget.h in Headers */,
 				DD8E797B1108072100F89120 /* SEAxisAlignedBox2.h in Headers */,
 				DD8E797D1108072100F89120 /* SEAxisAlignedBox3.h in Headers */,
+				DD9B9AAA115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h in Headers */,
+				DD9B9AAC115EFA1300DD80A9 /* SEMaterialTextureL1Effect.h in Headers */,
+				DD9B9AAE115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.h in Headers */,
+				DD9B9AB0115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h in Headers */,
+				DD9B9AB2115EFA1300DD80A9 /* SETextureTileEffect.h in Headers */,
+				DD9B9AB4115EFA1300DD80A9 /* SETextureTileL1Effect.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3910,7 +3986,6 @@
 				DD848EED109F2FCF0031E135 /* SEVector3.h in Headers */,
 				DD848EEE109F2FCF0031E135 /* SEVector4.h in Headers */,
 				DD848EEF109F2FCF0031E135 /* SEVectorN.h in Headers */,
-				DD848EF0109F2FCF0031E135 /* simd.h in Headers */,
 				DD848EF1109F2FCF0031E135 /* SEContBox3.h in Headers */,
 				DD848EF2109F2FCF0031E135 /* SEContSphere3.h in Headers */,
 				DD848EF3109F2FCF0031E135 /* SEMultitextureEffect.h in Headers */,
@@ -4048,6 +4123,12 @@
 				DD8E7973110806CD00F89120 /* SEWidget.h in Headers */,
 				DD8E79831108072100F89120 /* SEAxisAlignedBox2.h in Headers */,
 				DD8E79851108072100F89120 /* SEAxisAlignedBox3.h in Headers */,
+				DD9B9AC2115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h in Headers */,
+				DD9B9AC4115EFA1300DD80A9 /* SEMaterialTextureL1Effect.h in Headers */,
+				DD9B9AC6115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.h in Headers */,
+				DD9B9AC8115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h in Headers */,
+				DD9B9ACA115EFA1300DD80A9 /* SETextureTileEffect.h in Headers */,
+				DD9B9ACC115EFA1300DD80A9 /* SETextureTileL1Effect.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4168,7 +4249,6 @@
 				DD9775AF10A006970070FC01 /* SEVector3.h in Headers */,
 				DD9775B010A006970070FC01 /* SEVector4.h in Headers */,
 				DD9775B110A006970070FC01 /* SEVectorN.h in Headers */,
-				DD9775B210A006970070FC01 /* simd.h in Headers */,
 				DD9775B310A006970070FC01 /* SEContBox3.h in Headers */,
 				DD9775B410A006970070FC01 /* SEContSphere3.h in Headers */,
 				DD9775B510A006970070FC01 /* SEMultitextureEffect.h in Headers */,
@@ -4306,6 +4386,12 @@
 				DD8E7975110806CD00F89120 /* SEWidget.h in Headers */,
 				DD8E79871108072100F89120 /* SEAxisAlignedBox2.h in Headers */,
 				DD8E79891108072100F89120 /* SEAxisAlignedBox3.h in Headers */,
+				DD9B9ACE115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h in Headers */,
+				DD9B9AD0115EFA1300DD80A9 /* SEMaterialTextureL1Effect.h in Headers */,
+				DD9B9AD2115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.h in Headers */,
+				DD9B9AD4115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h in Headers */,
+				DD9B9AD6115EFA1300DD80A9 /* SETextureTileEffect.h in Headers */,
+				DD9B9AD8115EFA1300DD80A9 /* SETextureTileL1Effect.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4688,6 +4774,12 @@
 				DD8E7970110806CD00F89120 /* SEWidget.cpp in Sources */,
 				DD8E797E1108072100F89120 /* SEAxisAlignedBox2.cpp in Sources */,
 				DD8E79801108072100F89120 /* SEAxisAlignedBox3.cpp in Sources */,
+				DD9B9AB5115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp in Sources */,
+				DD9B9AB7115EFA1300DD80A9 /* SEMaterialTextureL1Effect.cpp in Sources */,
+				DD9B9AB9115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.cpp in Sources */,
+				DD9B9ABB115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp in Sources */,
+				DD9B9ABD115EFA1300DD80A9 /* SETextureTileEffect.cpp in Sources */,
+				DD9B9ABF115EFA1300DD80A9 /* SETextureTileL1Effect.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4918,6 +5010,12 @@
 				DD8E796E110806CD00F89120 /* SEWidget.cpp in Sources */,
 				DD8E797A1108072100F89120 /* SEAxisAlignedBox2.cpp in Sources */,
 				DD8E797C1108072100F89120 /* SEAxisAlignedBox3.cpp in Sources */,
+				DD9B9AA9115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp in Sources */,
+				DD9B9AAB115EFA1300DD80A9 /* SEMaterialTextureL1Effect.cpp in Sources */,
+				DD9B9AAD115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.cpp in Sources */,
+				DD9B9AAF115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp in Sources */,
+				DD9B9AB1115EFA1300DD80A9 /* SETextureTileEffect.cpp in Sources */,
+				DD9B9AB3115EFA1300DD80A9 /* SETextureTileL1Effect.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5148,6 +5246,12 @@
 				DD8E7972110806CD00F89120 /* SEWidget.cpp in Sources */,
 				DD8E79821108072100F89120 /* SEAxisAlignedBox2.cpp in Sources */,
 				DD8E79841108072100F89120 /* SEAxisAlignedBox3.cpp in Sources */,
+				DD9B9AC1115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp in Sources */,
+				DD9B9AC3115EFA1300DD80A9 /* SEMaterialTextureL1Effect.cpp in Sources */,
+				DD9B9AC5115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.cpp in Sources */,
+				DD9B9AC7115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp in Sources */,
+				DD9B9AC9115EFA1300DD80A9 /* SETextureTileEffect.cpp in Sources */,
+				DD9B9ACB115EFA1300DD80A9 /* SETextureTileL1Effect.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5378,6 +5482,12 @@
 				DD8E7974110806CD00F89120 /* SEWidget.cpp in Sources */,
 				DD8E79861108072100F89120 /* SEAxisAlignedBox2.cpp in Sources */,
 				DD8E79881108072100F89120 /* SEAxisAlignedBox3.cpp in Sources */,
+				DD9B9ACD115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp in Sources */,
+				DD9B9ACF115EFA1300DD80A9 /* SEMaterialTextureL1Effect.cpp in Sources */,
+				DD9B9AD1115EFA1300DD80A9 /* SESkinMaterialTexture2L1Effect.cpp in Sources */,
+				DD9B9AD3115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp in Sources */,
+				DD9B9AD5115EFA1300DD80A9 /* SETextureTileEffect.cpp in Sources */,
+				DD9B9AD7115EFA1300DD80A9 /* SETextureTileL1Effect.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
