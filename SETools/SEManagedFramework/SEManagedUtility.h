@@ -57,6 +57,8 @@ internal:
 
     static void MaterialTextureConditioner(Node* pNode);
 
+    static void DisableLightingConditioner(Node* pNode);
+
     static void ImageConditioner(Node* pNode, Image* pImage);
 };
 

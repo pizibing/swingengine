@@ -84,6 +84,12 @@ void ManagedNode::MaterialTextureConditioner()
     ManagedUtility::MaterialTextureConditioner(*m_pspNode);
 }
 //---------------------------------------------------------------------------
+void ManagedNode::DisableLightingConditioner()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    ManagedUtility::DisableLightingConditioner(*m_pspNode);
+}
+//---------------------------------------------------------------------------
 void ManagedNode::ImageConditioner(ManagedImage^ thImage)
 {
     SE_NULL_ARGUMENT_CHECK(thImage, "thImage");

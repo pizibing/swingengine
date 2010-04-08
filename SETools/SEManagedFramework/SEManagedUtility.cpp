@@ -337,6 +337,32 @@ void ManagedUtility::MaterialTextureConditioner(Swing::Node* pNode)
     }
 }
 //---------------------------------------------------------------------------
+void ManagedUtility::DisableLightingConditioner(Swing::Node* pNode)
+{
+    if( !pNode )
+    {
+        return;
+    }
+
+    for( int i = 0; i < pNode->GetCount(); i++ )
+    {
+        Swing::Spatial* pChild = pNode->GetChild(i);
+
+        if( pChild )
+        {
+            if( DynamicCast<Swing::Node>(pChild) )
+            {
+                DisableLightingConditioner((Node*)pChild);
+            }
+            else if( DynamicCast<Swing::TriMesh>(pChild) )
+            {
+                Swing::TriMesh* pMesh = (TriMesh*)pChild;
+                pMesh->LightingMode = Swing::Geometry::GLM_USER;
+            }
+        }
+    }
+}
+//---------------------------------------------------------------------------
 void ManagedUtility::ImageConditioner(Swing::Node* pNode, 
     Swing::Image* pImage)
 {

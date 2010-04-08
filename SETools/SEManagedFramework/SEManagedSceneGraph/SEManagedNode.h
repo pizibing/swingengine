@@ -62,6 +62,9 @@ public:
     // Hierarchical material texture effect adjusting.
     void MaterialTextureConditioner(void);
 
+    // Hierarchical disable lighting adjusting.
+    void DisableLightingConditioner(void);
+
     // Hierarchical material texture effect image adjusting.
     void ImageConditioner(ManagedImage^ thImage);
 
