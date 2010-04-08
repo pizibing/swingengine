@@ -145,7 +145,7 @@ TriMesh* StandardMesh::Rectangle(int iXSamples, int iYSamples,
 
             if( m_Attr.GetMaxTCoords() > 0 )
             {
-                Vector2f vec2fTCoord(fU, 1.0f - fV);
+                Vector2f vec2fTCoord(fU, fV);
                 for( int iUnit = 0; iUnit < m_Attr.GetMaxTCoords(); iUnit++ )
                 {
                     if( m_Attr.HasTCoord(iUnit) )
