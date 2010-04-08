@@ -47,7 +47,6 @@ TextureTileEffect::TextureTileEffect(const std::string& rTileName)
     m_PShader[0]->SetImageName(0, rTileName);
 
     Texture* pTile = m_PShader[0]->GetTexture(0);
-    pTile->SetFilterType(Texture::LINEAR_LINEAR);
     pTile->SetWrapType(0, Texture::REPEAT);
     pTile->SetWrapType(1, Texture::REPEAT);
 
