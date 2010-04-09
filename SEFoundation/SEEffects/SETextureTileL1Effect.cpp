@@ -35,6 +35,13 @@ float TextureTileL1Effect::ms_afTileParams[2] =
     1.0f
 };
 
+float TextureTileL1Effect::ms_afLightBlendWeight[3] =
+{
+    0.2f,
+    0.7f,
+    0.1f
+};
+
 //----------------------------------------------------------------------------
 TextureTileL1Effect::TextureTileL1Effect(const std::string& rTileName)
     :
@@ -52,6 +59,9 @@ TextureTileL1Effect::TextureTileL1Effect(const std::string& rTileName)
 
     TileX = 1.0f;
     TileY = 1.0f;
+    AmbientWeight = 0.2f;
+    DiffuseWeight = 0.7f; 
+    SpecularWeight = 0.1f;
 }
 //----------------------------------------------------------------------------
 TextureTileL1Effect::TextureTileL1Effect()
@@ -62,15 +72,21 @@ TextureTileL1Effect::~TextureTileL1Effect()
 {
 }
 //----------------------------------------------------------------------------
-void TextureTileL1Effect::OnLoadPrograms(int, Program* pVProgram, Program*, 
-    Program*)
+void TextureTileL1Effect::OnLoadPrograms(int, Program* pVProgram, 
+    Program* pPProgram, Program*)
 {
     UserConstant* pUC = pVProgram->GetUC("TileParams");
     SE_ASSERT( pUC );
-
     if( pUC )
     {
         pUC->SetDataSource((float*)&ms_afTileParams);
+    }
+
+    pUC = pPProgram->GetUC("LightBlendWeight");
+    SE_ASSERT( pUC );
+    if( pUC )
+    {
+        pUC->SetDataSource((float*)&ms_afLightBlendWeight);
     }
 }
 //----------------------------------------------------------------------------
@@ -78,6 +94,9 @@ void TextureTileL1Effect::OnPreApplyEffect(Renderer*, bool)
 {
     ms_afTileParams[0] = TileX;
     ms_afTileParams[1] = TileY;
+    ms_afLightBlendWeight[0] = AmbientWeight;
+    ms_afLightBlendWeight[1] = DiffuseWeight;
+    ms_afLightBlendWeight[2] = SpecularWeight;
 }
 //----------------------------------------------------------------------------
 
@@ -93,6 +112,9 @@ void TextureTileL1Effect::Load(Stream& rStream, Stream::Link* pLink)
     // native data
     rStream.Read(TileX);
     rStream.Read(TileY);
+    rStream.Read(AmbientWeight);
+    rStream.Read(DiffuseWeight);
+    rStream.Read(SpecularWeight);
 
     SE_END_DEBUG_STREAM_LOAD(TextureTileL1Effect);
 }
@@ -116,6 +138,9 @@ void TextureTileL1Effect::Save(Stream& rStream) const
     // native data
     rStream.Write(TileX);
     rStream.Write(TileY);
+    rStream.Write(AmbientWeight);
+    rStream.Write(DiffuseWeight);
+    rStream.Write(SpecularWeight);
 
     SE_END_DEBUG_STREAM_SAVE(TextureTileL1Effect);
 }
@@ -123,7 +148,8 @@ void TextureTileL1Effect::Save(Stream& rStream) const
 int TextureTileL1Effect::GetDiskUsed(const StreamVersion& rVersion) const
 {
     int iSize = ShaderEffect::GetDiskUsed(rVersion) +
-        sizeof(TileX) + sizeof(TileY);
+        sizeof(TileX) + sizeof(TileY) + sizeof(AmbientWeight) + 
+        sizeof(DiffuseWeight) + sizeof(SpecularWeight);
 
     return iSize;
 }
@@ -137,6 +163,9 @@ StringTree* TextureTileL1Effect::SaveStrings(const char*)
 
     pTree->Append(Format("tile x =", TileX));
     pTree->Append(Format("tile y =", TileY));
+    pTree->Append(Format("ambient weight =", AmbientWeight));
+    pTree->Append(Format("diffuse weight =", DiffuseWeight));
+    pTree->Append(Format("specular weight", SpecularWeight));
 
     // children
     pTree->Append(ShaderEffect::SaveStrings());

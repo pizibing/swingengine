@@ -45,6 +45,7 @@ public:
     virtual ~TextureTileL1Effect(void);
 
     float TileX, TileY;
+    float AmbientWeight, DiffuseWeight, SpecularWeight;
 
 protected:
     // streaming
@@ -55,6 +56,7 @@ protected:
     virtual void OnPreApplyEffect(Renderer* pRenderer, bool bPrimaryEffect);
 
     static float ms_afTileParams[2];
+    static float ms_afLightBlendWeight[3];
 };
 
 typedef SmartPointer<TextureTileL1Effect> TextureTileL1EffectPtr;
