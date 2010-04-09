@@ -91,6 +91,48 @@ void ManagedTextureTileL1Effect::TileY::set(float fValue)
     (*m_pspTextureTileL1Effect)->TileY = fValue;
 }
 //---------------------------------------------------------------------------
+float ManagedTextureTileL1Effect::AmbientWeight::get()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
+        "Native pointer is null");
+    return (*m_pspTextureTileL1Effect)->AmbientWeight;
+}
+//---------------------------------------------------------------------------
+void ManagedTextureTileL1Effect::AmbientWeight::set(float fValue)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
+        "Native pointer is null");
+    (*m_pspTextureTileL1Effect)->AmbientWeight = fValue;
+}
+//---------------------------------------------------------------------------
+float ManagedTextureTileL1Effect::DiffuseWeight::get()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
+        "Native pointer is null");
+    return (*m_pspTextureTileL1Effect)->DiffuseWeight;
+}
+//---------------------------------------------------------------------------
+void ManagedTextureTileL1Effect::DiffuseWeight::set(float fValue)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
+        "Native pointer is null");
+    (*m_pspTextureTileL1Effect)->DiffuseWeight = fValue;
+}
+//---------------------------------------------------------------------------
+float ManagedTextureTileL1Effect::SpecularWeight::get()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
+        "Native pointer is null");
+    return (*m_pspTextureTileL1Effect)->SpecularWeight;
+}
+//---------------------------------------------------------------------------
+void ManagedTextureTileL1Effect::SpecularWeight::set(float fValue)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
+        "Native pointer is null");
+    (*m_pspTextureTileL1Effect)->SpecularWeight = fValue;
+}
+//---------------------------------------------------------------------------
 ManagedAlphaState^ ManagedTextureTileL1Effect::GetBlending(int iPass)
 {
     SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 

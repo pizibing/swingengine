@@ -53,6 +53,21 @@ public:
         float get(void);
         void set(float fValue);
     }
+    property float AmbientWeight
+    {
+        float get(void);
+        void set(float fValue);
+    }
+    property float DiffuseWeight
+    {
+        float get(void);
+        void set(float fValue);
+    }
+    property float SpecularWeight
+    {
+        float get(void);
+        void set(float fValue);
+    }
 
     // Implement INativeShaderEffect interface.
     virtual ManagedAlphaState^ GetBlending(int iPass);
