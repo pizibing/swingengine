@@ -96,7 +96,7 @@ void p_MaterialTextureL1
     float3 kDiffuse = fNdL * Light0Diffuse * kBaseColor.rgb;
     
     // Compute specular component.
-    float3 kSpecular = pow(fRdV, MaterialSpecular.a) * Light0Specular;
+    float3 kSpecular = pow(fRdV, MaterialSpecular.a) * Light0Specular * 0.1f;
     
     // Compute the sum of light0's components, and multiply it with computed
     // attenuation factor.
