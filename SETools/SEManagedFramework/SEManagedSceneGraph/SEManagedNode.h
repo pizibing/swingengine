@@ -46,6 +46,20 @@ public:
     ManagedNode(void);
     ~ManagedNode(void);
 
+    enum class CullingMode
+    {
+        CULL_DYNAMIC,
+        CULL_ALWAYS,
+        CULL_NEVER
+    };
+
+    // Properties.
+    property CullingMode Culling
+    {
+        CullingMode get(void);
+        void set(CullingMode eMode); 
+    }
+
     // If the given spatial derived object is in the hierarchy of this node
     // object, the return value is 'true', otherwise return 'false'.
     bool IsInHierarchy(INativeSpatial^ thSpatial);

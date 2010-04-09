@@ -51,6 +51,18 @@ ManagedNode::~ManagedNode()
     m_pspNode = 0;
 }
 //---------------------------------------------------------------------------
+ManagedNode::CullingMode ManagedNode::Culling::get()
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    return (ManagedNode::CullingMode)(*m_pspNode)->Culling;
+}
+//---------------------------------------------------------------------------
+void ManagedNode::Culling::set(ManagedNode::CullingMode eMode)
+{
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    (*m_pspNode)->Culling = (Spatial::CullingMode)eMode;
+}
+//---------------------------------------------------------------------------
 bool ManagedNode::IsInHierarchy(INativeSpatial^ thSpatial)
 {
     SE_NULL_ARGUMENT_CHECK(thSpatial, "thSpatial");
