@@ -94,14 +94,14 @@ void p_MaterialTexture2L1
     float fRdV = max(0.0f, dot(kReflection, kViewDirection));
     
     // Compute ambient component.
-    float3 kAmbient = Light0Ambient*kT0Color.rgb*kT1Color.rgb*0.3f;
+    float3 kAmbient = Light0Ambient*kT0Color.rgb*kT1Color.rgb*0.5f;
     
     // Compute diffuse component.
     fNdL = max(0.0f, fNdL);
-    float3 kDiffuse = fNdL*Light0Diffuse*kT0Color.rgb*kT1Color.rgb*0.6f;
+    float3 kDiffuse = fNdL*Light0Diffuse*kT0Color.rgb*kT1Color.rgb*0.3f;
     
     // Compute specular component.
-    float3 kSpecular = pow(fRdV, MaterialSpecular.a)*Light0Specular*0.1f;
+    float3 kSpecular = pow(fRdV, MaterialSpecular.a)*Light0Specular*0.2f;
     
     // Compute the sum of light0's components, and multiply it with computed
     // attenuation factor.
