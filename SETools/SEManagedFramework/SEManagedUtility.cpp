@@ -294,6 +294,10 @@ void ManagedUtility::MaterialTextureConditioner(Swing::Node* pNode)
                             pNewEffect = SE_NEW TextureTileL1Effect("wall_01");
                             ((TextureTileL1Effect*)pNewEffect)->TileX = 8.0f;
                             ((TextureTileL1Effect*)pNewEffect)->TileY = 8.0f;
+                            ((TextureTileL1Effect*)pNewEffect)->AmbientWeight = 0.65f;
+                            ((TextureTileL1Effect*)pNewEffect)->DiffuseWeight = 0.2f;
+                            ((TextureTileL1Effect*)pNewEffect)->SpecularWeight = 0.01f;
+
                         }
                         else
                         {
@@ -396,6 +400,21 @@ void ManagedUtility::ImageConditioner(Swing::Node* pNode,
                         if( pEffect )
                         {
                             PixelShader* pPS = pEffect->GetPShader(0);
+                            Texture* pTexture = pPS->GetTexture(1);
+                            if( pTexture )
+                            {
+                                pPS->SetImageName(1, pImage->GetName());
+                                pTexture->SetImage(pImage);
+                                pTexture->Release();
+                            }
+                        }
+
+                        SkinMaterialTexture2L1Effect* pEffect2 = 
+                            DynamicCast<SkinMaterialTexture2L1Effect>(
+                            ((TriMesh*)pMesh)->GetEffect(0));
+                        if( pEffect2 )
+                        {
+                            PixelShader* pPS = pEffect2->GetPShader(0);
                             Texture* pTexture = pPS->GetTexture(1);
                             if( pTexture )
                             {
