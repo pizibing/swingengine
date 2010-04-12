@@ -109,6 +109,14 @@ void ManagedNode::ImageConditioner(ManagedImage^ thImage)
     ManagedUtility::ImageConditioner(*m_pspNode, thImage->GetNativeImage());
 }
 //---------------------------------------------------------------------------
+void ManagedNode::WallConditioner(ManagedTextureTileL1Effect^ thEffect)
+{
+    SE_NULL_ARGUMENT_CHECK(thEffect, "thEffect");
+    SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
+    ManagedUtility::WallConditioner(*m_pspNode, 
+        (TextureTileL1Effect*)thEffect->GetNativeEffect());
+}
+//---------------------------------------------------------------------------
 ManagedNode^ ManagedNode::Clone()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");

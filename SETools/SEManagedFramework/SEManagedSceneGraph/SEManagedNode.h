@@ -82,6 +82,9 @@ public:
     // Hierarchical material texture effect image adjusting.
     void ImageConditioner(ManagedImage^ thImage);
 
+    // Hierarchical texture tile with 1 light effect replacing.
+    void WallConditioner(ManagedTextureTileL1Effect^ thEffect);
+
     // Hierarchical shallow copying.
     ManagedNode^ Clone(void);
 

@@ -60,6 +60,8 @@ internal:
     static void DisableLightingConditioner(Node* pNode);
 
     static void ImageConditioner(Node* pNode, Image* pImage);
+
+    static void WallConditioner(Node* pNode, TextureTileL1Effect* pEffect);
 };
 
 }}}

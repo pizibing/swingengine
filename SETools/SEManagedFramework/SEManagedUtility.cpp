@@ -430,3 +430,39 @@ void ManagedUtility::ImageConditioner(Swing::Node* pNode,
     }
 }
 //---------------------------------------------------------------------------
+void ManagedUtility::WallConditioner(Swing::Node* pNode, 
+    Swing::TextureTileL1Effect* pEffect)
+{
+    if( !pNode || !pEffect )
+    {
+        return;
+    }
+
+    for( int i = 0; i < pNode->GetCount(); i++ )
+    {
+        Swing::Spatial* pChild = pNode->GetChild(i);
+
+        if( pChild )
+        {
+            if( DynamicCast<Swing::Node>(pChild) )
+            {
+                WallConditioner((Node*)pChild, pEffect);
+            }
+            else if( DynamicCast<Swing::TriMesh>(pChild) )
+            {
+                Swing::TriMesh* pMesh = (TriMesh*)pChild;
+                if( pMesh->GetEffectCount() > 0 )
+                {
+                    std::string tempSubName = pMesh->GetName().substr(0, 4);
+
+                    if( tempSubName == "Wall" )
+                    {
+                        pMesh->DetachAllEffects();
+                        pMesh->AttachEffect(pEffect);
+                    }
+                }
+            }
+        }
+    }
+}
+//---------------------------------------------------------------------------
