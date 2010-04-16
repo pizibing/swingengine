@@ -21,7 +21,8 @@
 #include "SESceneEditorPCH.h"
 #include "MainForm.h"
 
-using namespace SceneEditor;
+using namespace Swing;
+using namespace Swing::Tools::SceneEditor;
 
 [STAThreadAttribute]
 int main(array<System::String^>^)
@@ -30,35 +31,35 @@ int main(array<System::String^>^)
     Application::SetCompatibleTextRenderingDefault(false);
 
     // 运行Register.
-    Swing::SE_Foundation_Register();
-    Swing::SE_DX9Renderer_Register();
+    SE_Foundation_Register();
+    SE_DX9Renderer_Register();
 
     // Swing Engine initialize.
-    Swing::System::SE_Initialize();
-    std::string tempSEPath(Swing::System::SE_PATH);
-    Swing::Main::Initialize();
+    SESystem::SE_Initialize();
+    std::string tempSEPath(SESystem::SE_PATH);
+    Main::Initialize();
 
     // 总是检查当前工作目录.
-    Swing::System::SE_InsertDirectory(".");
+    SESystem::SE_InsertDirectory(".");
 
     // scene graph文件的路径.
     std::string tempDir;
     tempDir = tempSEPath + std::string("/Data/seof");
-    Swing::System::SE_InsertDirectory(tempDir.c_str());
+    SESystem::SE_InsertDirectory(tempDir.c_str());
 
     // texture image文件的路径.
     tempDir = tempSEPath + std::string("/Data/seif");
-    Swing::System::SE_InsertDirectory(tempDir.c_str());
+    SESystem::SE_InsertDirectory(tempDir.c_str());
 
     // shader program文件的路径.
     tempDir = tempSEPath + std::string("/Data/sesp/Cg");
-    Swing::System::SE_InsertDirectory(tempDir.c_str());
+    SESystem::SE_InsertDirectory(tempDir.c_str());
 
     Application::Run(gcnew MainForm());
 
     // Swing Engine terminate.
-    Swing::Main::Terminate();
-    Swing::System::SE_Terminate();
+    Main::Terminate();
+    SESystem::SE_Terminate();
 
     return 0;
 }

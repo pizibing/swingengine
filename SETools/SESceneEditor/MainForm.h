@@ -28,7 +28,7 @@ using namespace System::Data;
 using namespace System::Drawing;
 
 
-namespace SceneEditor{
+namespace Swing{ namespace Tools{ namespace SceneEditor{
 
 //----------------------------------------------------------------------------
 // Name:Main form class
@@ -81,4 +81,4 @@ private:
 #pragma endregion
 };
 
-}
+}}}
