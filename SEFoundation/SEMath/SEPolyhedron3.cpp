@@ -71,10 +71,10 @@ Polyhedron3f& Polyhedron3f::operator=(const Polyhedron3f& rPoly)
     {
         m_aVertex = SE_NEW Vector3f[m_iVCount];
         size_t uiSize = m_iVCount * sizeof(Vector3f);
-        System::SE_Memcpy(m_aVertex, uiSize, rPoly.m_aVertex, uiSize);
+        SESystem::SE_Memcpy(m_aVertex, uiSize, rPoly.m_aVertex, uiSize);
         m_aiIndex = SE_NEW int[3 * m_iTCount];
         uiSize = 3 * m_iTCount * sizeof(int);
-        System::SE_Memcpy(m_aiIndex, uiSize, rPoly.m_aiIndex, uiSize);
+        SESystem::SE_Memcpy(m_aiIndex, uiSize, rPoly.m_aiIndex, uiSize);
     }
     else
     {

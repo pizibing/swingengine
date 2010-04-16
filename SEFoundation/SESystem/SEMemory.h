@@ -42,17 +42,17 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080202
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Memory
+class SE_FOUNDATION_API SEMemory
 {
 public:
-    struct MemoryBlock
+    struct SEMemoryBlock
     {
         size_t Size;
         const char* File;
         unsigned int Line;
         bool IsArray;
-        MemoryBlock* Prev;
-        MemoryBlock* Next;
+        SEMemoryBlock* Prev;
+        SEMemoryBlock* Next;
     };
 
     static size_t& MaxAllowedBytes(void);
@@ -67,8 +67,8 @@ public:
     static size_t GetHistogram(int i);
 
     // 用于迭代当前内存list
-    static const MemoryBlock* GetHead(void);
-    static const MemoryBlock* GetTail(void);
+    static const SEMemoryBlock* GetHead(void);
+    static const SEMemoryBlock* GetTail(void);
 
     // 生成当前内存报告
     static void GenerateReport(const char* pFileName);
@@ -86,17 +86,17 @@ private:
     // 当前已分配的内存块数量
     static size_t CurNumBlocks;
 
-    // 当前已分配的字节总数(不包括MemoryBlock结构占用的字节总数)
+    // 当前已分配的字节总数(不包括SEMemoryBlock结构占用的字节总数)
     static size_t CurNumBytes;
 
     // 内存块list头,尾
-    static MemoryBlock* MemBlockHead;
-    static MemoryBlock* MemBlockTail;
+    static SEMemoryBlock* MemBlockHead;
+    static SEMemoryBlock* MemBlockTail;
 
     // 设置为true时追踪CurMaxBlockSize,Histogram
     static bool IsTrackSizes;
 
-    // 内存字节总数历史最大值(不包括MemoryBlock结构占用的字节总数)
+    // 内存字节总数历史最大值(不包括SEMemoryBlock结构占用的字节总数)
     static size_t CurMaxAllocatedBytes;
 
     // 当前已分配的最大内存块字节数
@@ -114,8 +114,8 @@ public:
     static void* Allocate(size_t uiSize, char* pFile, unsigned int uiLine,
         bool bIsArray);
     static void Deallocate(char* pAddr, bool bIsArray);
-    static void InsertBlock(MemoryBlock* pBlock);
-    static void RemoveBlock(MemoryBlock* pBlock);
+    static void InsertBlock(SEMemoryBlock* pBlock);
+    static void RemoveBlock(SEMemoryBlock* pBlock);
 };
 
 #include "SEMemory.inl"

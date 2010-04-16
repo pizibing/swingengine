@@ -115,7 +115,7 @@ void BoundingVolumeTree::BuildTree(int eBVType, int iMaxTrisPerLeaf,
         m_iTriangleCount = i1 - i0 + 1;
         m_aiTriangle = SE_NEW int[m_iTriangleCount];
         size_t uiSize = m_iTriangleCount * sizeof(int);
-        System::SE_Memcpy(m_aiTriangle, uiSize, &aiISplit[i0], uiSize);
+        SESystem::SE_Memcpy(m_aiTriangle, uiSize, &aiISplit[i0], uiSize);
 
         m_pLChild = 0;
         m_pRChild = 0;
@@ -128,7 +128,7 @@ void BoundingVolumeTree::BuildTree(int eBVType, int iMaxTrisPerLeaf,
             m_iTriangleCount = i1 - i0 + 1;
             m_aiTriangle = SE_NEW int[m_iTriangleCount];
             size_t uiSize = m_iTriangleCount * sizeof(int);
-            System::SE_Memcpy(m_aiTriangle, uiSize, &aiISplit[i0], uiSize);
+            SESystem::SE_Memcpy(m_aiTriangle, uiSize, &aiISplit[i0], uiSize);
         }
         else
         {

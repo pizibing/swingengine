@@ -169,7 +169,7 @@ StringTree* DescriptorItem::SaveStrings(const char*)
     char acTitle[uiTitleSize];
     for( int i = 0; i < (int)m_TypeNames.size(); i++ )
     {
-        System::SE_Sprintf(acTitle, uiTitleSize, "type name[%d] =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "type name[%d] =", i);
         pTree->Append(Format(acTitle, m_TypeNames[i].c_str()));
     }
 

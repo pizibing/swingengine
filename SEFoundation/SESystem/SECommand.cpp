@@ -23,13 +23,13 @@
 
 using namespace Swing;
 
-char Command::ms_acOptionNotFound[] = "option not found";
-char Command::ms_acArgumentRequired[] = "option requires an argument";
-char Command::ms_acArgumentOutOfRange[] = "argument out of range";
-char Command::ms_acFilenameNotFound[] = "filename not found";
+char SECommand::ms_acOptionNotFound[] = "option not found";
+char SECommand::ms_acArgumentRequired[] = "option requires an argument";
+char SECommand::ms_acArgumentOutOfRange[] = "argument out of range";
+char SECommand::ms_acFilenameNotFound[] = "filename not found";
 
 //----------------------------------------------------------------------------
-Command::Command(int iCount, char** apcArgument)
+SECommand::SECommand(int iCount, char** apcArgument)
 {
     m_iCount = iCount;
     m_acCmdline = 0;
@@ -51,7 +51,7 @@ Command::Command(int iCount, char** apcArgument)
     Initialize();
 }
 //----------------------------------------------------------------------------
-Command::Command(char* acCmdline)
+SECommand::SECommand(char* acCmdline)
 {
     class Argument
     {
@@ -72,12 +72,13 @@ Command::Command(char* acCmdline)
 
     size_t uiSize = strlen(acCmdline) + 1;
     m_acCmdline = SE_NEW char[uiSize];
-    System::SE_Strcpy(m_acCmdline, uiSize, acCmdline);
+    SESystem::SE_Strcpy(m_acCmdline, uiSize, acCmdline);
 
     // 拆分包含空格符或tab符的原始字符串.
     // 被以上两者分割的每个子串都是一个传入参数.
     char* pcNextToken;
-    char* pcToken = System::SE_Strtok(m_acCmdline, " \t"/*空格符或tab符*/, pcNextToken);
+    char* pcToken = SESystem::SE_Strtok(m_acCmdline, " \t"/*空格符或tab符*/, 
+        pcNextToken);
     Argument* pList = 0;
 
     while( pcToken )
@@ -89,7 +90,7 @@ Command::Command(char* acCmdline)
         pCurrent->m_pNext = pList;
         pList = pCurrent;
 
-        pcToken = System::SE_Strtok(0, " \t", pcNextToken);
+        pcToken = SESystem::SE_Strtok(0, " \t", pcNextToken);
     }
 
     m_iCount++;
@@ -111,14 +112,14 @@ Command::Command(char* acCmdline)
     Initialize();
 }
 //----------------------------------------------------------------------------
-Command::~Command()
+SECommand::~SECommand()
 {
     SE_DELETE[] m_abUsed;
     SE_DELETE[] m_apcArgument;
     SE_DELETE[] m_acCmdline;
 }
 //----------------------------------------------------------------------------
-void Command::Initialize()
+void SECommand::Initialize()
 {
     m_abUsed = SE_NEW bool[m_iCount];
     memset(m_abUsed, false, m_iCount*sizeof(bool));
@@ -133,7 +134,7 @@ void Command::Initialize()
     m_acLastError = 0;
 }
 //----------------------------------------------------------------------------
-int Command::ExcessArguments()
+int SECommand::ExcessArguments()
 {
     // 检查是否有尚未处理的命令行参数.
     for( int i = 1; i < m_iCount; i++ )
@@ -147,7 +148,7 @@ int Command::ExcessArguments()
     return 0;
 }
 //----------------------------------------------------------------------------
-Command& Command::Min(double dValue)
+SECommand& SECommand::Min(double dValue)
 {
     m_dSmall = dValue;
     m_bMinSet = true;
@@ -155,7 +156,7 @@ Command& Command::Min(double dValue)
     return *this;
 }
 //----------------------------------------------------------------------------
-Command& Command::Max(double dValue)
+SECommand& SECommand::Max(double dValue)
 {
     m_dLarge = dValue;
     m_bMaxSet = true;
@@ -163,7 +164,7 @@ Command& Command::Max(double dValue)
     return *this;
 }
 //----------------------------------------------------------------------------
-Command& Command::Inf(double dValue)
+SECommand& SECommand::Inf(double dValue)
 {
     m_dSmall = dValue;
     m_bInfSet = true;
@@ -171,7 +172,7 @@ Command& Command::Inf(double dValue)
     return *this;
 }
 //----------------------------------------------------------------------------
-Command& Command::Sup(double dValue)
+SECommand& SECommand::Sup(double dValue)
 {
     m_dLarge = dValue;
     m_bSupSet = true;
@@ -179,14 +180,14 @@ Command& Command::Sup(double dValue)
     return *this;
 }
 //----------------------------------------------------------------------------
-int Command::Boolean(char* acName)
+int SECommand::Boolean(char* acName)
 {
     bool bValue = false;
 
     return Boolean(acName, bValue);
 }
 //----------------------------------------------------------------------------
-int Command::Boolean(char* acName, bool& rbValue)
+int SECommand::Boolean(char* acName, bool& rbValue)
 {
     int iMatchFound = 0;
     rbValue = false;
@@ -211,7 +212,7 @@ int Command::Boolean(char* acName, bool& rbValue)
     return iMatchFound;
 }
 //----------------------------------------------------------------------------
-int Command::Integer(char* acName, int& riValue)
+int SECommand::Integer(char* acName, int& riValue)
 {
     int iMatchFound = 0;
     for( int i = 1; i < m_iCount; i++ )
@@ -260,7 +261,7 @@ int Command::Integer(char* acName, int& riValue)
     return iMatchFound;
 }
 //----------------------------------------------------------------------------
-int Command::Float(char* acName, float& rfValue)
+int SECommand::Float(char* acName, float& rfValue)
 {
     int iMatchFound = 0;
     for( int i = 1; i < m_iCount; i++ )
@@ -309,7 +310,7 @@ int Command::Float(char* acName, float& rfValue)
     return iMatchFound;
 }
 //----------------------------------------------------------------------------
-int Command::Double(char* acName, double& rdValue)
+int SECommand::Double(char* acName, double& rdValue)
 {
     int iMatchFound = 0;
     for( int i = 1; i < m_iCount; i++ )
@@ -358,7 +359,7 @@ int Command::Double(char* acName, double& rdValue)
     return iMatchFound;
 }
 //----------------------------------------------------------------------------
-int Command::String(char* acName, char*& racValue)
+int SECommand::String(char* acName, char*& racValue)
 {
     int iMatchFound = 0;
     for( int i = 1; i < m_iCount; i++ )
@@ -379,7 +380,7 @@ int Command::String(char* acName, char*& racValue)
             // 获取该字符串参数.
             size_t uiSize = strlen(pcTmp) + 1;
             racValue = SE_NEW char[uiSize];
-            System::SE_Strcpy(racValue, uiSize, pcTmp);
+            SESystem::SE_Strcpy(racValue, uiSize, pcTmp);
             m_abUsed[i] = true;
             m_abUsed[i+1] = true;
             iMatchFound = i;
@@ -396,7 +397,7 @@ int Command::String(char* acName, char*& racValue)
     return iMatchFound;
 }
 //----------------------------------------------------------------------------
-int Command::Filename(char*& racName)
+int SECommand::Filename(char*& racName)
 {
     int iMatchFound = 0;
     for( int i = 1; i < m_iCount; i++ )
@@ -406,7 +407,7 @@ int Command::Filename(char*& racName)
         {
             size_t uiSize = strlen(pcTmp) + 1;
             racName = SE_NEW char[uiSize];
-            System::SE_Strcpy(racName, uiSize, pcTmp);
+            SESystem::SE_Strcpy(racName, uiSize, pcTmp);
             m_abUsed[i] = true;
             iMatchFound = i;
 
@@ -422,7 +423,7 @@ int Command::Filename(char*& racName)
     return iMatchFound;
 }
 //----------------------------------------------------------------------------
-const char* Command::GetLastError()
+const char* SECommand::GetLastError()
 {
     return m_acLastError;
 }

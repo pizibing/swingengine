@@ -84,22 +84,22 @@ bool ConvexHullf::Load(FILE* pIFile)
 
     // fixed-size members
     int iQueryType;
-    System::SE_Read4le(pIFile, 1, &iQueryType);
+    SESystem::SE_Read4le(pIFile, 1, &iQueryType);
     m_eQueryType = (Query::Type)iQueryType;
-    System::SE_Read4le(pIFile, 1, &m_iVertexCount);
-    System::SE_Read4le(pIFile, 1, &m_iDimension);
-    System::SE_Read4le(pIFile, 1, &m_iSimplexCount);
-    System::SE_Read4le(pIFile, 1, &m_fEpsilon);
+    SESystem::SE_Read4le(pIFile, 1, &m_iVertexCount);
+    SESystem::SE_Read4le(pIFile, 1, &m_iDimension);
+    SESystem::SE_Read4le(pIFile, 1, &m_iSimplexCount);
+    SESystem::SE_Read4le(pIFile, 1, &m_fEpsilon);
 
     // variable-size members
     int iICount;
-    System::SE_Read4le(pIFile, 1, &iICount);
+    SESystem::SE_Read4le(pIFile, 1, &iICount);
     if( 1 <= m_iDimension && m_iDimension <= 3 )
     {
         SE_ASSERT( iICount == (m_iDimension+1)*m_iSimplexCount );
 
         m_aiIndex = SE_NEW int[iICount];
-        System::SE_Read4le(pIFile, iICount, m_aiIndex);
+        SESystem::SE_Read4le(pIFile, iICount, m_aiIndex);
 
         return true;
     }
@@ -113,11 +113,11 @@ bool ConvexHullf::Save(FILE* pOFile) const
 {
     // fixed-size members
     int iQueryType = (int)m_eQueryType;
-    System::SE_Write4le(pOFile, 1, &iQueryType);
-    System::SE_Write4le(pOFile, 1, &m_iVertexCount);
-    System::SE_Write4le(pOFile, 1, &m_iDimension);
-    System::SE_Write4le(pOFile, 1, &m_iSimplexCount);
-    System::SE_Write4le(pOFile, 1, &m_fEpsilon);
+    SESystem::SE_Write4le(pOFile, 1, &iQueryType);
+    SESystem::SE_Write4le(pOFile, 1, &m_iVertexCount);
+    SESystem::SE_Write4le(pOFile, 1, &m_iDimension);
+    SESystem::SE_Write4le(pOFile, 1, &m_iSimplexCount);
+    SESystem::SE_Write4le(pOFile, 1, &m_fEpsilon);
 
     // The member m_bOwner is not streamed because on a Load call, this
     // object will allocate the vertices and own this memory.
@@ -127,14 +127,14 @@ bool ConvexHullf::Save(FILE* pOFile) const
     if( 1 <= m_iDimension && m_iDimension <= 3 )
     {
         iICount = (m_iDimension + 1)*m_iSimplexCount;
-        System::SE_Write4le(pOFile, 1, &iICount);
-        System::SE_Write4le(pOFile, iICount, m_aiIndex);
+        SESystem::SE_Write4le(pOFile, 1, &iICount);
+        SESystem::SE_Write4le(pOFile, iICount, m_aiIndex);
 
         return true;
     }
 
     iICount = 0;
-    System::SE_Write4le(pOFile, 1, &iICount);
+    SESystem::SE_Write4le(pOFile, 1, &iICount);
 
     return m_iDimension == 0;
 }

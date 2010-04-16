@@ -185,7 +185,7 @@ StringTree* Texture::SaveStrings(const char*)
     char acTitle[uiTitleSize];
     for( int i = 0; i < 3; i++ )
     {
-        System::SE_Sprintf(acTitle, uiTitleSize, "wrap[%d] =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "wrap[%d] =", i);
         pTree->Append(Format(acTitle, ms_pWrapType[m_eWrapTypes[i]]));
     }
 

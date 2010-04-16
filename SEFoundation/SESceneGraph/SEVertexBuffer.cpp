@@ -54,7 +54,7 @@ VertexBuffer::VertexBuffer(const VertexBuffer* pVBuffer)
     m_iChannelCount = m_iVertexCount * m_iVertexSize;
     m_pChannel = SE_NEW float[m_iChannelCount];
     size_t uiSize = m_iChannelCount * sizeof(float);
-    System::SE_Memcpy(m_pChannel, uiSize, pVBuffer->m_pChannel, uiSize);
+    SESystem::SE_Memcpy(m_pChannel, uiSize, pVBuffer->m_pChannel, uiSize);
 }
 //----------------------------------------------------------------------------
 VertexBuffer::VertexBuffer()
@@ -506,16 +506,16 @@ void VertexBuffer::BuildCompatibleArray(const Attributes& rIAttributes,
         rCompatible = SE_NEW float[rChannels];
     }
     size_t uiSize = rChannels * sizeof(float);
-    System::SE_Memcpy(rCompatible, uiSize, &tempCompatible.front(), uiSize);
+    SESystem::SE_Memcpy(rCompatible, uiSize, &tempCompatible.front(), uiSize);
 
-    //FILE* pFile = System::SE_Fopen("VB.txt", "at");
-    //System::SE_Fprintf(pFile, "VB ID: %d\n", GetID());
+    //FILE* pFile = SESystem::SE_Fopen("VB.txt", "at");
+    //SESystem::SE_Fprintf(pFile, "VB ID: %d\n", GetID());
     //for( int i = 0; i < rChannels; i++ )
     //{
-    //    System::SE_Fprintf(pFile, "%d: %f\n", i, *((float*)&rCompatible[i]));
+    //    SESystem::SE_Fprintf(pFile, "%d: %f\n", i, *((float*)&rCompatible[i]));
     //}
-    //System::SE_Fprintf(pFile, "\n");
-    //System::SE_Fclose(pFile);
+    //SESystem::SE_Fprintf(pFile, "\n");
+    //SESystem::SE_Fclose(pFile);
 }
 //----------------------------------------------------------------------------
 
@@ -632,14 +632,14 @@ StringTree* VertexBuffer::SaveStrings(const char* pTitle)
     int i;
     for( i = 0; i < m_Attributes.GetMaxColors(); i++ )
     {
-        System::SE_Sprintf(acSubtitle, uiSubtitleSize, "c[%d] channels =", i);
+        SESystem::SE_Sprintf(acSubtitle, uiSubtitleSize, "c[%d] channels =", i);
         pTree->Append(Format(acSubtitle, m_Attributes.GetColorChannels(i)));
     }
 
     pTree->Append(Format("t units =", m_Attributes.GetMaxTCoords()));
     for( i = 0; i < m_Attributes.GetMaxTCoords(); i++ )
     {
-        System::SE_Sprintf(acSubtitle, uiSubtitleSize, "t[%d] channels =", i);
+        SESystem::SE_Sprintf(acSubtitle, uiSubtitleSize, "t[%d] channels =", i);
         pTree->Append(Format(acSubtitle, m_Attributes.GetTCoordChannels(i)));
     }
 

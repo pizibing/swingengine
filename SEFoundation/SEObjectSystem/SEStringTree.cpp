@@ -47,7 +47,7 @@ StringTree::~StringTree()
 //----------------------------------------------------------------------------
 bool StringTree::Save(const char* pFileName, int iTabSize)
 {
-    FILE* pFile = System::SE_Fopen(pFileName, "wt");
+    FILE* pFile = SESystem::SE_Fopen(pFileName, "wt");
     if( !pFile )
     {
         return false;
@@ -55,7 +55,7 @@ bool StringTree::Save(const char* pFileName, int iTabSize)
 
     Save(pFile, 0, iTabSize);
 
-    return System::SE_Fclose(pFile) == 0;
+    return SESystem::SE_Fclose(pFile) == 0;
 }
 //----------------------------------------------------------------------------
 void StringTree::Save(FILE* pFile, int iLevel, int iTabSize)
@@ -66,27 +66,27 @@ void StringTree::Save(FILE* pFile, int iLevel, int iTabSize)
     {
         for( i = 0; i < iIndent; i++ )
         {
-            System::SE_Fprintf(pFile, "%c", ' ');
+            SESystem::SE_Fprintf(pFile, "%c", ' ');
         }
     }
 
     if( iLevel < 10 )
     {
-        System::SE_Fprintf(pFile, "%d:  ", iLevel);
+        SESystem::SE_Fprintf(pFile, "%d:  ", iLevel);
     }
     else
     {
-        System::SE_Fprintf(pFile, "%d: ", iLevel);
+        SESystem::SE_Fprintf(pFile, "%d: ", iLevel);
     }
 
     // header string
     if( m_Strings.size() > 0 )
     {
-        System::SE_Fprintf(pFile, "%s\n", m_Strings[0]);
+        SESystem::SE_Fprintf(pFile, "%s\n", m_Strings[0]);
     }
     else
     {
-        System::SE_Fprintf(pFile, "<no header>\n");
+        SESystem::SE_Fprintf(pFile, "<no header>\n");
     }
 
     // body strings
@@ -97,9 +97,9 @@ void StringTree::Save(FILE* pFile, int iLevel, int iTabSize)
     {
         for( i = 0; i < iIndent; i++ )
         {
-            System::SE_Fprintf(pFile, "%c", ' ');
+            SESystem::SE_Fprintf(pFile, "%c", ' ');
         }
-        System::SE_Fprintf(pFile, "%s\n", m_Strings[j]);
+        SESystem::SE_Fprintf(pFile, "%s\n", m_Strings[j]);
     }
 
     iLevel++;
@@ -116,16 +116,16 @@ void StringTree::FormatFloat(float fValue, size_t uiStringSize, char* pString)
     {
         if( fValue < Mathf::MAX_REAL )
         {
-            System::SE_Sprintf(pString, uiStringSize, "%f", fValue);
+            SESystem::SE_Sprintf(pString, uiStringSize, "%f", fValue);
         }
         else
         {
-            System::SE_Strcpy(pString, uiStringSize, "INFINITY");
+            SESystem::SE_Strcpy(pString, uiStringSize, "INFINITY");
         }
     }
     else
     {
-        System::SE_Strcpy(pString, uiStringSize, "-INFINITY");
+        SESystem::SE_Strcpy(pString, uiStringSize, "-INFINITY");
     }
 }
 //----------------------------------------------------------------------------
@@ -136,16 +136,16 @@ void StringTree::FormatDouble(double dValue, size_t uiStringSize, char* pString)
     {
         if( dValue < Mathd::MAX_REAL )
         {
-            System::SE_Sprintf(pString, uiStringSize, "%lf", dValue);
+            SESystem::SE_Sprintf(pString, uiStringSize, "%lf", dValue);
         }
         else
         {
-            System::SE_Strcpy(pString, uiStringSize, "INFINITY");
+            SESystem::SE_Strcpy(pString, uiStringSize, "INFINITY");
         }
     }
     else
     {
-        System::SE_Strcpy(pString, uiStringSize, "-INFINITY");
+        SESystem::SE_Strcpy(pString, uiStringSize, "-INFINITY");
     }
 }
 //----------------------------------------------------------------------------
@@ -161,13 +161,13 @@ char* Swing::Format(const RTTI* pRTTI, const char* pName)
     {
         uiLength = strlen(pRTTIName) + strlen(pName) + 4;
         pString = SE_NEW char[uiLength];
-        System::SE_Sprintf(pString, uiLength, "%s <%s>", pRTTIName, pName);
+        SESystem::SE_Sprintf(pString, uiLength, "%s <%s>", pRTTIName, pName);
     }
     else
     {
         uiLength = strlen(pRTTIName) + 2;
         pString = SE_NEW char[uiLength];
-        System::SE_Sprintf(pString, uiLength, "%s", pRTTIName);
+        SESystem::SE_Sprintf(pString, uiLength, "%s", pRTTIName);
     }
 
     return pString;
@@ -181,13 +181,13 @@ char* Swing::Format(const char* pString)
     {
         uiSize = strlen(pString) + 1;
         pDuplicate = SE_NEW char[uiSize];
-        System::SE_Strcpy(pDuplicate, uiSize, pString);
+        SESystem::SE_Strcpy(pDuplicate, uiSize, pString);
     }
     else
     {
         uiSize = strlen("<no title>") + 1;
         pDuplicate = SE_NEW char[uiSize];
-        System::SE_Strcpy(pDuplicate, uiSize, "<no title>");
+        SESystem::SE_Strcpy(pDuplicate, uiSize, "<no title>");
     }
 
     return pDuplicate;
@@ -201,11 +201,11 @@ char* Swing::Format(const char* pPrefix, bool bValue)
     char* pString = SE_NEW char[uiLength];
     if( bValue )
     {
-        System::SE_Sprintf(pString, uiLength, "%s true", pPrefix);
+        SESystem::SE_Sprintf(pString, uiLength, "%s true", pPrefix);
     }
     else
     {
-        System::SE_Sprintf(pString, uiLength, "%s false", pPrefix);
+        SESystem::SE_Sprintf(pString, uiLength, "%s false", pPrefix);
     }
 
     return pString;
@@ -217,7 +217,7 @@ char* Swing::Format(const char* pPrefix, char cValue)
 
     size_t uiLength = strlen(pPrefix) + 2 + 1;
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %c", pPrefix, cValue);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %c", pPrefix, cValue);
 
     return pString;
 }
@@ -228,10 +228,10 @@ char* Swing::Format(const char* pPrefix, unsigned char ucValue)
 
     const size_t uiSize = 32;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "%u", (unsigned int)ucValue);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "%u", (unsigned int)ucValue);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -242,10 +242,10 @@ char* Swing::Format(const char* pPrefix, short sValue)
 
     const size_t uiSize = 32;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "%hd", sValue);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "%hd", sValue);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -256,10 +256,10 @@ char* Swing::Format(const char* pPrefix, unsigned short usValue)
 
     const size_t uiSize = 32;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "%hu", usValue);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "%hu", usValue);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -270,10 +270,10 @@ char* Swing::Format(const char* pPrefix, int iValue)
 
     const size_t uiSize = 32;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "%d", iValue);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "%d", iValue);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -284,10 +284,10 @@ char* Swing::Format(const char* pPrefix, unsigned int uiValue)
 
     const size_t uiSize = 32;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "%u", uiValue);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "%u", uiValue);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -298,10 +298,10 @@ char* Swing::Format(const char* pPrefix, long lValue)
 
     const size_t uiSize = 32;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "%ld", lValue);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "%ld", lValue);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -312,10 +312,10 @@ char* Swing::Format(const char* pPrefix, unsigned long ulValue)
 
     const size_t uiSize = 32;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "%lu", ulValue);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "%lu", ulValue);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -330,7 +330,7 @@ char* Swing::Format(const char* pPrefix, float fValue)
 
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -345,7 +345,7 @@ char* Swing::Format(const char* pPrefix, double dValue)
 
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -356,10 +356,10 @@ char* Swing::Format(const char* pPrefix, void* pValue)
 
     const size_t uiSize = 32;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "%p", pValue);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "%p", pValue);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -370,7 +370,7 @@ char* Swing::Format(const char* pPrefix, const char* pValue)
 
     size_t uiLength = strlen(pPrefix) + 2 + strlen(pValue);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, pValue);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, pValue);
 
     return pString;
 }
@@ -387,10 +387,10 @@ char* Swing::Format(const char* pPrefix, const BoundingVolume* pBV)
     StringTree::FormatFloat(pBV->GetRadius(), uiSize, acR);
 
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s, z: %s, r: %s)", acX, acY, acZ, acR);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s, z: %s, r: %s)", acX, acY, acZ, acR);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -401,10 +401,10 @@ char* Swing::Format(const char* pPrefix, const ColorRGBA& rValue)
 
     const size_t uiSize = 256;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "(r: %f, g: %f, b: %f, a: %f)", rValue.R, rValue.G, rValue.B, rValue.A);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "(r: %f, g: %f, b: %f, a: %f)", rValue.R, rValue.G, rValue.B, rValue.A);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -415,10 +415,10 @@ char* Swing::Format(const char* pPrefix, const ColorRGB& rValue)
 
     const size_t uiSize = 256;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "(r: %f, g: %f, b: %f)", rValue.R, rValue.G, rValue.B);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "(r: %f, g: %f, b: %f)", rValue.R, rValue.G, rValue.B);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -429,13 +429,13 @@ char* Swing::Format(const char* pPrefix, const Line3f& rValue)
 
     const size_t uiSize = 256;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize,
+    SESystem::SE_Sprintf(TempBuffer, uiSize,
         "(px: %f, py: %f, pz: %f, dx: %f, dy: %f, dz: %f)",
         rValue.Origin.X, rValue.Origin.Y, rValue.Origin.Z,
         rValue.Direction.X, rValue.Direction.Y, rValue.Direction.Z);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -446,12 +446,12 @@ char* Swing::Format(const char* pPrefix, const Matrix2f& rValue)
 
     const size_t uiSize = 256;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "[c0:(%f,%f),c1:(%f,%f)]",
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "[c0:(%f,%f),c1:(%f,%f)]",
         rValue[0][0], rValue[1][0],
         rValue[0][1], rValue[1][1]);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -462,14 +462,14 @@ char* Swing::Format(const char* pPrefix, const Matrix3f& rValue)
 
     const size_t uiSize = 256;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize,
+    SESystem::SE_Sprintf(TempBuffer, uiSize,
         "[c0:(%f,%f,%f),c1:(%f,%f,%f),c2:(%f,%f,%f)]",
         rValue[0][0], rValue[1][0], rValue[2][0],
         rValue[0][1], rValue[1][1], rValue[2][1],
         rValue[0][2], rValue[1][2], rValue[2][2]);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -480,7 +480,7 @@ char* Swing::Format(const char* pPrefix, const Matrix4f& rValue)
 
     const size_t uiSize = 256;
     char TempBuffer[256];
-    System::SE_Sprintf(TempBuffer, uiSize,
+    SESystem::SE_Sprintf(TempBuffer, uiSize,
     "[c0:(%f,%f,%f,%f),c1:(%f,%f,%f,%f),c2:(%f,%f,%f,%f),c3(%f,%f,%f,%f)]",
         rValue[0][0], rValue[1][0], rValue[2][0], rValue[3][0],
         rValue[0][1], rValue[1][1], rValue[2][1], rValue[3][1],
@@ -488,7 +488,7 @@ char* Swing::Format(const char* pPrefix, const Matrix4f& rValue)
         rValue[0][3], rValue[1][3], rValue[2][3], rValue[3][3]);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -499,12 +499,12 @@ char* Swing::Format(const char* pPrefix, const Plane3f& rValue)
 
     const size_t uiSize = 256;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize,
+    SESystem::SE_Sprintf(TempBuffer, uiSize,
         "(nx: %f, ny: %f, nz: %f, c: %f)", rValue.Normal.X,
         rValue.Normal.Y, rValue.Normal.Z, rValue.Constant);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -515,12 +515,12 @@ char* Swing::Format(const char* pPrefix, const Quaternionf& rValue)
 
     const size_t uiSize = 256;
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize,
+    SESystem::SE_Sprintf(TempBuffer, uiSize,
         "(w: %.3f, x: %.3f, y: %.3f, z: %.3f)", rValue.W,
         rValue.X, rValue.Y, rValue.Z);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -535,10 +535,10 @@ char* Swing::Format(const char* pPrefix, const Vector2f& rValue)
     StringTree::FormatFloat(rValue.Y, uiSize, acY);
 
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s)", acX, acY);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s)", acX, acY);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -554,10 +554,10 @@ char* Swing::Format(const char* pPrefix, const Vector3f& rValue)
     StringTree::FormatFloat(rValue.Z, uiSize, acZ);
 
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s, z: %s)", acX, acY, acZ);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s, z: %s)", acX, acY, acZ);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }
@@ -574,11 +574,11 @@ char* Swing::Format(const char* pPrefix, const Vector4f& rValue)
     StringTree::FormatFloat(rValue.W, uiSize, acW);
 
     char TempBuffer[uiSize];
-    System::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s, z: %s, w: %s)", acX, acY,
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s, z: %s, w: %s)", acX, acY,
         acZ, acW);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
-    System::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
+    SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
 
     return pString;
 }

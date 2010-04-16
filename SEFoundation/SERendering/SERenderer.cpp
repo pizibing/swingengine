@@ -481,21 +481,21 @@ void Renderer::GetTransform(const Matrix4f& rMat, int iOperation,
     if( iOperation == 0 )
     {
         // matrix
-        System::SE_Memcpy(afData, uiSize, (const float*)rMat, uiSize);
+        SESystem::SE_Memcpy(afData, uiSize, (const float*)rMat, uiSize);
     }
     else if( iOperation == 1 )
     {
         // transpose of matrix
         Matrix4f mat4fMT;
         rMat.GetTranspose(mat4fMT);
-        System::SE_Memcpy(afData, uiSize, (const float*)mat4fMT, uiSize);
+        SESystem::SE_Memcpy(afData, uiSize, (const float*)mat4fMT, uiSize);
     }
     else if( iOperation == 2 )
     {
         // inverse of matrix
         Matrix4f mat4fMI;
         rMat.GetInverse(mat4fMI);
-        System::SE_Memcpy(afData, uiSize, (const float*)mat4fMI, uiSize);
+        SESystem::SE_Memcpy(afData, uiSize, (const float*)mat4fMI, uiSize);
     }
     else
     {
@@ -503,7 +503,7 @@ void Renderer::GetTransform(const Matrix4f& rMat, int iOperation,
         Matrix4f mat4fMIT;
         rMat.GetInverse(mat4fMIT);
         mat4fMIT.Transpose();
-        System::SE_Memcpy(afData, uiSize, (const float*)mat4fMIT, uiSize);
+        SESystem::SE_Memcpy(afData, uiSize, (const float*)mat4fMIT, uiSize);
     }
 }
 //----------------------------------------------------------------------------

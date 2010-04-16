@@ -186,7 +186,7 @@ void BasicMesh::Vertex::InsertEdge(int iV, int iE)
         V = SE_NEW int[VCount + MV_CHUNK];
         if( aiSave )
         {
-            System::SE_Memcpy(V, uiDstSize, aiSave, uiSrcSize);
+            SESystem::SE_Memcpy(V, uiDstSize, aiSave, uiSrcSize);
             SE_DELETE[] aiSave;
         }
 
@@ -194,7 +194,7 @@ void BasicMesh::Vertex::InsertEdge(int iV, int iE)
         E = SE_NEW int[VCount + MV_CHUNK];
         if( aiSave )
         {
-            System::SE_Memcpy(E, uiDstSize, aiSave, uiSrcSize);
+            SESystem::SE_Memcpy(E, uiDstSize, aiSave, uiSrcSize);
             SE_DELETE[] aiSave;
         }
     }
@@ -225,7 +225,7 @@ void BasicMesh::Vertex::InsertTriangle(int iT)
         {
             size_t uiDstSize = (TCount + MV_CHUNK)*sizeof(int);
             size_t uiSrcSize = TCount * sizeof(int);
-            System::SE_Memcpy(T, uiDstSize, aiSave, uiSrcSize);
+            SESystem::SE_Memcpy(T, uiDstSize, aiSave, uiSrcSize);
             SE_DELETE[] aiSave;
         }
     }

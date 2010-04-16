@@ -75,7 +75,7 @@ ConvexPolyhedron3f& ConvexPolyhedron3f::operator=(
     {
         m_aPlane = SE_NEW Plane3f[m_iTCount];
         size_t uiSize = m_iTCount * sizeof(Plane3f);
-        System::SE_Memcpy(m_aPlane, uiSize, rPoly.m_aPlane, uiSize);
+        SESystem::SE_Memcpy(m_aPlane, uiSize, rPoly.m_aPlane, uiSize);
     }
     else
     {

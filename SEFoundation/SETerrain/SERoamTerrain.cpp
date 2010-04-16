@@ -62,7 +62,7 @@ RoamTerrain::RoamTerrain(const char* acHeightName, const char* acImageName,
         {
             const size_t uiSize = 64;
             char acSuffix[uiSize];
-            System::SE_Sprintf(acSuffix, uiSize, "%d.%d", iRow, iCol);
+            SESystem::SE_Sprintf(acSuffix, uiSize, "%d.%d", iRow, iCol);
             LoadPage(iRow, iCol, acHeightName, acSuffix, acImageName, acSuffix);
         }
     }
@@ -241,21 +241,21 @@ void RoamTerrain::Simplify(Culler& rCuller)
 void RoamTerrain::LoadHeader(const char* acHeightName)
 {
     char acFilename[512];
-    System::SE_Sprintf(acFilename, 512, "%s.sehf", acHeightName);
-    const char* acPath = System::SE_GetPath(acFilename, System::SM_READ);
-    FILE* pHeader = System::SE_Fopen(acPath, "rb");
+    SESystem::SE_Sprintf(acFilename, 512, "%s.sehf", acHeightName);
+    const char* acPath = SESystem::SE_GetPath(acFilename, SESystem::SM_READ);
+    FILE* pHeader = SESystem::SE_Fopen(acPath, "rb");
 
     SE_ASSERT( pHeader );
 
     unsigned short usSize;
-    System::SE_Read4le(pHeader, 1, &m_iRows);
-    System::SE_Read4le(pHeader, 1, &m_iCols);
-    System::SE_Read2le(pHeader, 1, &usSize);
+    SESystem::SE_Read4le(pHeader, 1, &m_iRows);
+    SESystem::SE_Read4le(pHeader, 1, &m_iCols);
+    SESystem::SE_Read2le(pHeader, 1, &usSize);
     m_iSize = (int)usSize;
-    System::SE_Read4le(pHeader, 1, &m_fMinElevation);
-    System::SE_Read4le(pHeader, 1, &m_fMaxElevation);
-    System::SE_Read4le(pHeader, 1, &m_fSpacing);
-    System::SE_Fclose(pHeader);
+    SESystem::SE_Read4le(pHeader, 1, &m_fMinElevation);
+    SESystem::SE_Read4le(pHeader, 1, &m_fMaxElevation);
+    SESystem::SE_Read4le(pHeader, 1, &m_fSpacing);
+    SESystem::SE_Fclose(pHeader);
 
     // 待实现.
     // 从文件读取.
@@ -274,16 +274,16 @@ void RoamTerrain::LoadPage(int iRow, int iCol, const char* acHeightName,
     unsigned short* ausHeight = SE_NEW unsigned short[iCount];
     const size_t uiSize = 512;
     char acFileName[uiSize];
-    System::SE_Sprintf(acFileName, uiSize, "%s.%s.sehf", acHeightName,
+    SESystem::SE_Sprintf(acFileName, uiSize, "%s.%s.sehf", acHeightName,
         acHeightSuffix);
-    const char* acPath = System::SE_GetPath(acFileName, System::SM_READ);
-    FILE* pHeightFile = System::SE_Fopen(acPath, "rb");
+    const char* acPath = SESystem::SE_GetPath(acFileName, SESystem::SM_READ);
+    FILE* pHeightFile = SESystem::SE_Fopen(acPath, "rb");
     SE_ASSERT( pHeightFile );
 
     if( pHeightFile )
     {
-        System::SE_Read2le(pHeightFile, iCount, ausHeight);
-        System::SE_Fclose(pHeightFile);
+        SESystem::SE_Read2le(pHeightFile, iCount, ausHeight);
+        SESystem::SE_Fclose(pHeightFile);
     }
     else
     {
@@ -301,7 +301,7 @@ void RoamTerrain::LoadPage(int iRow, int iCol, const char* acHeightName,
     pPage->SetPageGrid(iRow, iCol, this);
 
     // 为page添加effect.
-    System::SE_Sprintf(acFileName, uiSize, "%s.%s", acImageName, acImageSuffix);
+    SESystem::SE_Sprintf(acFileName, uiSize, "%s.%s", acImageName, acImageSuffix);
     MultitextureEffect* pEffect = SE_NEW MultitextureEffect(1);
     pEffect->SetImageName(0, acFileName);
     pEffect->Configure();
@@ -488,7 +488,7 @@ StringTree* RoamTerrain::SaveStrings(const char*)
         {
             const size_t uiSize = 64;
             char acPageName[uiSize];
-            System::SE_Sprintf(acPageName, uiSize, "page[%d][%d] =", iRow, iCol);
+            SESystem::SE_Sprintf(acPageName, uiSize, "page[%d][%d] =", iRow, iCol);
             pTree->Append(m_Pages[iRow][iCol]->SaveStrings(acPageName));
         }
     }

@@ -77,7 +77,7 @@ ConvexHull1f::ConvexHull1f(const char* acFilename)
 //----------------------------------------------------------------------------
 bool ConvexHull1f::Load(const char* acFilename)
 {
-    FILE* pIFile = System::SE_Fopen(acFilename, "rb");
+    FILE* pIFile = SESystem::SE_Fopen(acFilename, "rb");
     if( !pIFile )
     {
         return false;
@@ -96,21 +96,21 @@ bool ConvexHull1f::Load(const char* acFilename)
     size_t uiSize = sizeof(float);
     if( uiSize == 4 )
     {
-        System::SE_Read4le(pIFile, m_iVertexCount, m_afVertex);
+        SESystem::SE_Read4le(pIFile, m_iVertexCount, m_afVertex);
     }
     else // uiSize == 8
     {
-        System::SE_Read8le(pIFile, m_iVertexCount, m_afVertex);
+        SESystem::SE_Read8le(pIFile, m_iVertexCount, m_afVertex);
     }
 
-    System::SE_Fclose(pIFile);
+    SESystem::SE_Fclose(pIFile);
 
     return true;
 }
 //----------------------------------------------------------------------------
 bool ConvexHull1f::Save(const char* acFilename) const
 {
-    FILE* pOFile = System::SE_Fopen(acFilename, "wb");
+    FILE* pOFile = SESystem::SE_Fopen(acFilename, "wb");
     if( !pOFile )
     {
         return false;
@@ -121,14 +121,14 @@ bool ConvexHull1f::Save(const char* acFilename) const
     size_t uiSize = sizeof(float);
     if( uiSize == 4 )
     {
-        System::SE_Write4le(pOFile, m_iVertexCount, m_afVertex);
+        SESystem::SE_Write4le(pOFile, m_iVertexCount, m_afVertex);
     }
     else // uiSize == 8
     {
-        System::SE_Write8le(pOFile, m_iVertexCount, m_afVertex);
+        SESystem::SE_Write8le(pOFile, m_iVertexCount, m_afVertex);
     }
 
-    System::SE_Fclose(pOFile);
+    SESystem::SE_Fclose(pOFile);
 
     return true;
 }

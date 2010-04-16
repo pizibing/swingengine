@@ -102,7 +102,7 @@ void SkinEffect::InitializeUserConstants(Program* pVProgram)
         iMaxCount = OES2VP1_COUNT;
         for( int i = 0; i < iMaxCount; i++ )
         {
-            System::SE_Sprintf(tempName, 16, "SkinArray[%d].M", i);
+            SESystem::SE_Sprintf(tempName, 16, "SkinArray[%d].M", i);
             UserConstant* pUC = pVProgram->GetUC(tempName);
             SE_ASSERT( pUC );
         
@@ -137,7 +137,7 @@ void SkinEffect::InitializeUserConstants(Program* pVProgram)
 
         for( int i = 0; i < iMaxCount; i++ )
         {
-            System::SE_Sprintf(tempName, 15, "SkinMatrix[%d]", i);
+            SESystem::SE_Sprintf(tempName, 15, "SkinMatrix[%d]", i);
             UserConstant* pUC = pVProgram->GetUC(tempName);
             SE_ASSERT( pUC );
         

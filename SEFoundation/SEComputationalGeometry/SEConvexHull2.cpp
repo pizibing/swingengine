@@ -111,7 +111,7 @@ ConvexHull2f::ConvexHull2f(int iVertexCount,  Vector2f* aVertex,  float fEpsilon
         // No transformation needed for exact rational arithmetic or filtered
         // predicates.
         size_t uiSize = m_iVertexCount * sizeof(Vector2f);
-        System::SE_Memcpy(m_aSVertex,  uiSize,  m_aVertex,  uiSize);
+        SESystem::SE_Memcpy(m_aSVertex,  uiSize,  m_aVertex,  uiSize);
 
         if( eQueryType == Query::QT_RATIONAL )
         {
@@ -295,7 +295,7 @@ ConvexHull2f::ConvexHull2f(const char* acFilename)
 //----------------------------------------------------------------------------
 bool ConvexHull2f::Load(const char* acFilename)
 {
-    FILE* pIFile = System::SE_Fopen(acFilename,  "rb");
+    FILE* pIFile = SESystem::SE_Fopen(acFilename,  "rb");
     if( !pIFile )
     {
         return false;
@@ -318,20 +318,20 @@ bool ConvexHull2f::Load(const char* acFilename)
     int iVC = 2*m_iVertexCount;
     if( uiSize == 4 )
     {
-        System::SE_Read4le(pIFile,  iVC,  m_aVertex);
-        System::SE_Read4le(pIFile,  iVC,  m_aSVertex);
-        System::SE_Read4le(pIFile,  2,  (float*)m_LineOrigin);
-        System::SE_Read4le(pIFile,  2,  (float*)m_LineDirection);
+        SESystem::SE_Read4le(pIFile,  iVC,  m_aVertex);
+        SESystem::SE_Read4le(pIFile,  iVC,  m_aSVertex);
+        SESystem::SE_Read4le(pIFile,  2,  (float*)m_LineOrigin);
+        SESystem::SE_Read4le(pIFile,  2,  (float*)m_LineDirection);
     }
     else // iSize == 8
     {
-        System::SE_Read8le(pIFile,  iVC,  m_aVertex);
-        System::SE_Read8le(pIFile,  iVC,  m_aSVertex);
-        System::SE_Read8le(pIFile,  2,  (float*)m_LineOrigin);
-        System::SE_Read8le(pIFile,  2,  (float*)m_LineDirection);
+        SESystem::SE_Read8le(pIFile,  iVC,  m_aVertex);
+        SESystem::SE_Read8le(pIFile,  iVC,  m_aSVertex);
+        SESystem::SE_Read8le(pIFile,  2,  (float*)m_LineOrigin);
+        SESystem::SE_Read8le(pIFile,  2,  (float*)m_LineDirection);
     }
 
-    System::SE_Fclose(pIFile);
+    SESystem::SE_Fclose(pIFile);
 
     switch( m_eQueryType )
     {
@@ -363,7 +363,7 @@ bool ConvexHull2f::Load(const char* acFilename)
 //----------------------------------------------------------------------------
 bool ConvexHull2f::Save(const char* acFilename) const
 {
-    FILE* pOFile = System::SE_Fopen(acFilename,  "wb");
+    FILE* pOFile = SESystem::SE_Fopen(acFilename,  "wb");
     if( !pOFile )
     {
         return false;
@@ -375,20 +375,20 @@ bool ConvexHull2f::Save(const char* acFilename) const
     int iVC = 2 * m_iVertexCount;
     if( uiSize == 4 )
     {
-        System::SE_Write4le(pOFile,  iVC,  m_aVertex);
-        System::SE_Write4le(pOFile,  iVC,  m_aSVertex);
-        System::SE_Write4le(pOFile,  2,  (const float*)m_LineOrigin);
-        System::SE_Write4le(pOFile,  2,  (const float*)m_LineDirection);
+        SESystem::SE_Write4le(pOFile,  iVC,  m_aVertex);
+        SESystem::SE_Write4le(pOFile,  iVC,  m_aSVertex);
+        SESystem::SE_Write4le(pOFile,  2,  (const float*)m_LineOrigin);
+        SESystem::SE_Write4le(pOFile,  2,  (const float*)m_LineDirection);
     }
     else // iSize == 8
     {
-        System::SE_Write8le(pOFile,  iVC,  m_aVertex);
-        System::SE_Write8le(pOFile,  iVC,  m_aSVertex);
-        System::SE_Write8le(pOFile,  2,  (const float*)m_LineOrigin);
-        System::SE_Write8le(pOFile,  2,  (const float*)m_LineDirection);
+        SESystem::SE_Write8le(pOFile,  iVC,  m_aVertex);
+        SESystem::SE_Write8le(pOFile,  iVC,  m_aSVertex);
+        SESystem::SE_Write8le(pOFile,  2,  (const float*)m_LineOrigin);
+        SESystem::SE_Write8le(pOFile,  2,  (const float*)m_LineDirection);
     }
 
-    System::SE_Fclose(pOFile);
+    SESystem::SE_Fclose(pOFile);
 
     return true;
 }

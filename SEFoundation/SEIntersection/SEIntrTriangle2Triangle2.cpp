@@ -379,7 +379,7 @@ void IntrTriangle2Triangle2f::ClipConvexPolygonAgainstLine(
 
             riCount = iCCount;
             size_t uiSize = iCCount * sizeof(Vector2f);
-            System::SE_Memcpy(aV, uiSize, aCV, uiSize);
+            SESystem::SE_Memcpy(aV, uiSize, aCV, uiSize);
         }
         // else polygon fully on positive side of line, nothing to do
     }

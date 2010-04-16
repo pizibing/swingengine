@@ -318,7 +318,7 @@ StringTree* Shader::SaveStrings(const char*)
     int i;
     for( i = 0; i < (int)m_ImageNames.size(); i++ )
     {
-        System::SE_Sprintf(acTitle, uiTitleSize, "image[%d] =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "image[%d] =", i);
         pTree->Append(Format(acTitle, m_ImageNames[i].c_str()));
     }
 

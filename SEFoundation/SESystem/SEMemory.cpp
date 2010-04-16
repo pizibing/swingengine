@@ -25,7 +25,7 @@
 // 如果想进行new/delete[]或new[]/delete的不匹配校验,则打开下面的注释
 //#define SE_ENABLE_NEW_DELETE_MISMATCH_ASSERT
 
-// 如果想在Memory::GenerateReport中进行内存一致性检测,则打开下面的注释
+// 如果想在SEMemory::GenerateReport中进行内存一致性检测,则打开下面的注释
 //#define SE_ENABLE_CONSISTENCY_CHECK
 
 #include <cassert>
@@ -35,17 +35,17 @@
 
 using namespace Swing;
 
-size_t Memory::CurNumNewCalls = 0;
-size_t Memory::CurNumDeleteCalls = 0;
-size_t Memory::CurMaxAllowedBytes = 0;
-size_t Memory::CurNumBlocks = 0;
-size_t Memory::CurNumBytes = 0;
-Memory::MemoryBlock* Memory::MemBlockHead = 0;
-Memory::MemoryBlock* Memory::MemBlockTail = 0;
-bool Memory::IsTrackSizes = false;
-size_t Memory::CurMaxAllocatedBytes = 0;
-size_t Memory::CurMaxBlockSize = 0;
-size_t Memory::Histogram[32] =
+size_t SEMemory::CurNumNewCalls = 0;
+size_t SEMemory::CurNumDeleteCalls = 0;
+size_t SEMemory::CurMaxAllowedBytes = 0;
+size_t SEMemory::CurNumBlocks = 0;
+size_t SEMemory::CurNumBytes = 0;
+SEMemory::SEMemoryBlock* SEMemory::MemBlockHead = 0;
+SEMemory::SEMemoryBlock* SEMemory::MemBlockTail = 0;
+bool SEMemory::IsTrackSizes = false;
+size_t SEMemory::CurMaxAllocatedBytes = 0;
+size_t SEMemory::CurMaxBlockSize = 0;
+size_t SEMemory::Histogram[32] =
 {
     0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,
@@ -54,17 +54,17 @@ size_t Memory::Histogram[32] =
 };
 
 //----------------------------------------------------------------------------
-void* Memory::Allocate(size_t uiSize, char* pFile, unsigned int uiLine, 
+void* SEMemory::Allocate(size_t uiSize, char* pFile, unsigned int uiLine, 
     bool bIsArray)
 {
     CurNumNewCalls++;
 
     // SE_ASSERT( uiSize > 0 );
 
-    size_t uiExtendedSize = sizeof(MemoryBlock) + uiSize;
+    size_t uiExtendedSize = sizeof(SEMemoryBlock) + uiSize;
     char* pAddr = (char*)malloc(uiExtendedSize);
 
-    MemoryBlock* pBlock = (MemoryBlock*)pAddr;
+    SEMemoryBlock* pBlock = (SEMemoryBlock*)pAddr;
     pBlock->Size = uiSize;
     pBlock->File = pFile;
     pBlock->Line = uiLine;
@@ -72,7 +72,7 @@ void* Memory::Allocate(size_t uiSize, char* pFile, unsigned int uiLine,
     InsertBlock(pBlock);
 
     // 内存申请者应指向这个位置
-    pAddr += sizeof(MemoryBlock);
+    pAddr += sizeof(SEMemoryBlock);
 
     CurNumBlocks++;
     CurNumBytes += uiSize;
@@ -117,7 +117,7 @@ void* Memory::Allocate(size_t uiSize, char* pFile, unsigned int uiLine,
     return (void*)pAddr;
 }
 //----------------------------------------------------------------------------
-void Memory::Deallocate(char* pAddr, bool bIsArray)
+void SEMemory::Deallocate(char* pAddr, bool bIsArray)
 {
     CurNumDeleteCalls++;
 
@@ -126,10 +126,10 @@ void Memory::Deallocate(char* pAddr, bool bIsArray)
         return;
     }
 
-    pAddr -= sizeof(MemoryBlock);
+    pAddr -= sizeof(SEMemoryBlock);
 
     // 从双向list中移除此block
-    MemoryBlock* pBlock = (MemoryBlock*)pAddr;
+    SEMemoryBlock* pBlock = (SEMemoryBlock*)pAddr;
     RemoveBlock(pBlock);
 
 #ifdef SE_ENABLE_NEW_DELETE_MISMATCH_ASSERT
@@ -146,7 +146,7 @@ void Memory::Deallocate(char* pAddr, bool bIsArray)
     free(pAddr);
 }
 //----------------------------------------------------------------------------
-void Memory::InsertBlock(MemoryBlock* pBlock)
+void SEMemory::InsertBlock(SEMemoryBlock* pBlock)
 {
     if( MemBlockTail )
     {
@@ -164,7 +164,7 @@ void Memory::InsertBlock(MemoryBlock* pBlock)
     }
 }
 //----------------------------------------------------------------------------
-void Memory::RemoveBlock(MemoryBlock* pBlock)
+void SEMemory::RemoveBlock(SEMemoryBlock* pBlock)
 {
     if( pBlock->Prev )
     {
@@ -185,7 +185,7 @@ void Memory::RemoveBlock(MemoryBlock* pBlock)
     }
 }
 //----------------------------------------------------------------------------
-void Memory::GenerateReport(const char* pFileName)
+void SEMemory::GenerateReport(const char* pFileName)
 {
     std::ofstream OStr(pFileName);
     SE_ASSERT( OStr );
@@ -210,7 +210,7 @@ void Memory::GenerateReport(const char* pFileName)
     size_t uiNumKnownBytes = 0;
     size_t uiNumUnknownBlocks = 0;
     size_t uiNumUnknownBytes = 0;
-    MemoryBlock* pBlock = MemBlockHead;
+    SEMemoryBlock* pBlock = MemBlockHead;
     while( pBlock )
     {
         if( pBlock->File )
@@ -274,42 +274,42 @@ void Memory::GenerateReport(const char* pFileName)
 //----------------------------------------------------------------------------
 void* operator new(size_t uiSize)
 {
-    return Memory::Allocate(uiSize, 0, 0, false);
+    return SEMemory::Allocate(uiSize, 0, 0, false);
 }
 //----------------------------------------------------------------------------
 void* operator new[](size_t uiSize)
 {
-    return Memory::Allocate(uiSize, 0, 0, true);
+    return SEMemory::Allocate(uiSize, 0, 0, true);
 }
 //----------------------------------------------------------------------------
 void* operator new(size_t uiSize, char* pFile, unsigned int uiLine)
 {
-    return Memory::Allocate(uiSize, pFile, uiLine, false);
+    return SEMemory::Allocate(uiSize, pFile, uiLine, false);
 }
 //----------------------------------------------------------------------------
 void* operator new[](size_t uiSize, char* pFile, unsigned int uiLine)
 {
-    return Memory::Allocate(uiSize, pFile, uiLine, true);
+    return SEMemory::Allocate(uiSize, pFile, uiLine, true);
 }
 //----------------------------------------------------------------------------
 void operator delete(void* pAddr)
 {
-    Memory::Deallocate((char*)pAddr, false);
+    SEMemory::Deallocate((char*)pAddr, false);
 }
 //----------------------------------------------------------------------------
 void operator delete[](void* pAddr)
 {
-    Memory::Deallocate((char*)pAddr, true);
+    SEMemory::Deallocate((char*)pAddr, true);
 }
 //----------------------------------------------------------------------------
 void operator delete(void* pAddr, char*, unsigned int)
 {
-    Memory::Deallocate((char*)pAddr,false);
+    SEMemory::Deallocate((char*)pAddr,false);
 }
 //----------------------------------------------------------------------------
 void operator delete[](void* pAddr, char*, unsigned int)
 {
-    Memory::Deallocate((char*)pAddr, true);
+    SEMemory::Deallocate((char*)pAddr, true);
 }
 //----------------------------------------------------------------------------
 

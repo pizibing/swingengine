@@ -104,7 +104,7 @@ void MultitextureEffect::Configure()
     {
         tempVShaderName += "T";
         tempPShaderName += "T";
-        System::SE_Sprintf(acNumber, uiNumberSize, "%d", i);
+        SESystem::SE_Sprintf(acNumber, uiNumberSize, "%d", i);
         tempVShaderName += std::string(acNumber) + std::string("d2");
         tempPShaderName += std::string(acNumber);
 
@@ -113,12 +113,12 @@ void MultitextureEffect::Configure()
 
         // Source blending mode.
         tempPShaderName += "s";
-        System::SE_Sprintf(acNumber, uiNumberSize, "%d", (int)pAS->SrcBlend);
+        SESystem::SE_Sprintf(acNumber, uiNumberSize, "%d", (int)pAS->SrcBlend);
         tempPShaderName += std::string(acNumber);
 
         // Destination blending mode.
         tempPShaderName += "d";
-        System::SE_Sprintf(acNumber, uiNumberSize, "%d", (int)pAS->DstBlend);
+        SESystem::SE_Sprintf(acNumber, uiNumberSize, "%d", (int)pAS->DstBlend);
         tempPShaderName += std::string(acNumber);
     }
     tempVShaderName += std::string("PassThrough");
@@ -204,7 +204,7 @@ StringTree* MultitextureEffect::SaveStrings(const char*)
     char acTitle[uiTitleSize];
     for( int i = 0; i < m_iTextureCount; i++ )
     {
-        System::SE_Sprintf(acTitle, uiTitleSize, "image[%d] =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "image[%d] =", i);
         pTree->Append(Format(acTitle, m_aImageName[i].c_str()));
     }
 

@@ -93,7 +93,7 @@ void GaussianBlurVEffect::OnLoadPrograms(int, Program*,
 
         for( int i = 0; i < KERNEL_COUNT; i++ )
         {
-            System::SE_Sprintf(tempName, 16, "TexelKernel[%d]", i);
+            SESystem::SE_Sprintf(tempName, 16, "TexelKernel[%d]", i);
             UserConstant* pUC = pPProgram->GetUC(tempName);
             SE_ASSERT( pUC );
 

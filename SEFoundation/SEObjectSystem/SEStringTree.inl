@@ -78,7 +78,7 @@ StringTree* Format(const char* pTitle, int iCount, const T* pValue)
     {
         const size_t uiSize = 256;
         char pPrefix[uiSize];
-        System::SE_Sprintf(pPrefix, uiSize, "%d: ", i);
+        SESystem::SE_Sprintf(pPrefix, uiSize, "%d: ", i);
         T TempData = pValue[i];
         pTree->Append(Format(pPrefix, TempData));
     }

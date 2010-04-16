@@ -42,7 +42,7 @@ void UnculledSet::Insert(Spatial* pObject, Effect* pGlobalEffect)
         int iNewMaxCount = m_iMaxCount + m_iGrowBy;
         UnculledObject* pNewVisible = SE_NEW UnculledObject[iNewMaxCount];
         size_t uiSize = m_iCount * sizeof(UnculledObject);
-        System::SE_Memcpy(pNewVisible, uiSize, m_pUnculled, uiSize);
+        SESystem::SE_Memcpy(pNewVisible, uiSize, m_pUnculled, uiSize);
         SE_DELETE[] m_pUnculled;
         m_pUnculled = pNewVisible;
         m_iMaxCount = iNewMaxCount;

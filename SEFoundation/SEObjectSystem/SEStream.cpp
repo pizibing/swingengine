@@ -280,7 +280,7 @@ bool Stream::Load(const char* pFileName)
     // 从磁盘载入到内存
     char* pBuffer;
     int iSize;
-    if( !System::SE_Load(pFileName, pBuffer, iSize) )
+    if( !SESystem::SE_Load(pFileName, pBuffer, iSize) )
     {
         return false;
     }
@@ -321,7 +321,7 @@ bool Stream::Load(const char* pFileName)
 bool Stream::Save(const char* pFileName)
 {
     // 保存文件版本到磁盘
-    if( !System::SE_Save(pFileName, StreamVersion::LABEL, StreamVersion::LENGTH) )
+    if( !SESystem::SE_Save(pFileName, StreamVersion::LABEL, StreamVersion::LENGTH) )
     {
         return false;
     }
@@ -335,7 +335,7 @@ bool Stream::Save(const char* pFileName)
     }
 
     // 把scene graph从内存存储到磁盘
-    if( !System::SE_Append(pFileName, pBuffer, iSize) )
+    if( !SESystem::SE_Append(pFileName, pBuffer, iSize) )
     {
         SE_DELETE[] pBuffer;
 
@@ -435,14 +435,14 @@ Object* Stream::Link::GetLinkID()
 //----------------------------------------------------------------------------
 void Stream::Read(Object*& rpValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 1, &rpValue);
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 1, &rpValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, Object** ppValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, iCount,
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, iCount,
         ppValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -494,7 +494,7 @@ void Stream::Read(int iCount, char* pValue)
         SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 
         size_t uiSize = (size_t)iCount;
-        System::SE_Memcpy(pValue, uiSize, pSrc, uiSize);
+        SESystem::SE_Memcpy(pValue, uiSize, pSrc, uiSize);
     }
 }
 //----------------------------------------------------------------------------
@@ -518,33 +518,33 @@ void Stream::Read(int iCount, unsigned char* pValue)
         SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 
         size_t uiSize = (size_t)iCount;
-        System::SE_Memcpy(pValue, uiSize, pSrc, uiSize);
+        SESystem::SE_Memcpy(pValue, uiSize, pSrc, uiSize);
     }
 }
 //----------------------------------------------------------------------------
 void Stream::Read (short& rValue)
 {
-    m_iBufferNext += System::SE_Read2le(m_pBuffer+m_iBufferNext,1,&rValue);
+    m_iBufferNext += SESystem::SE_Read2le(m_pBuffer+m_iBufferNext,1,&rValue);
     SE_ASSERT(m_iBufferNext <= m_iBufferSize);
 }
 //----------------------------------------------------------------------------
 void Stream::Read (int iCount, short* pValue)
 {
-    m_iBufferNext += System::SE_Read2le(m_pBuffer+m_iBufferNext,iCount,
+    m_iBufferNext += SESystem::SE_Read2le(m_pBuffer+m_iBufferNext,iCount,
         pValue);
     SE_ASSERT(m_iBufferNext <= m_iBufferSize);
 }
 //----------------------------------------------------------------------------
 void Stream::Read(unsigned short& rValue)
 {
-    m_iBufferNext += System::SE_Read2le(m_pBuffer+m_iBufferNext, 1, &rValue);
+    m_iBufferNext += SESystem::SE_Read2le(m_pBuffer+m_iBufferNext, 1, &rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, unsigned short* pValue)
 {
-    m_iBufferNext += System::SE_Read2le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Read2le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -552,14 +552,14 @@ void Stream::Read(int iCount, unsigned short* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(int& rValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 1, &rValue);
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 1, &rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, int* pValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -567,14 +567,14 @@ void Stream::Read(int iCount, int* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(unsigned int& rValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 1, &rValue);
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 1, &rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, unsigned int* pValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -582,14 +582,14 @@ void Stream::Read(int iCount, unsigned int* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(long& rValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 1, &rValue);
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 1, &rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, long* pValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -597,14 +597,14 @@ void Stream::Read(int iCount, long* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(unsigned long& rValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 1, &rValue);
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 1, &rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, unsigned long* pValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -612,14 +612,14 @@ void Stream::Read(int iCount, unsigned long* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(float& rValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 1, &rValue);
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 1, &rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, float* pValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -627,14 +627,14 @@ void Stream::Read(int iCount, float* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(double& rValue)
 {
-    m_iBufferNext += System::SE_Read8le(m_pBuffer+m_iBufferNext, 1, &rValue);
+    m_iBufferNext += SESystem::SE_Read8le(m_pBuffer+m_iBufferNext, 1, &rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, double* pValue)
 {
-    m_iBufferNext += System::SE_Read8le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Read8le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -669,7 +669,7 @@ void Stream::Read(int iCount, std::string* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(ColorRGB& rValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 3, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 3, 
         (float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -677,7 +677,7 @@ void Stream::Read(ColorRGB& rValue)
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, ColorRGB* pValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 3*iCount, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 3*iCount, 
         (float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -685,7 +685,7 @@ void Stream::Read(int iCount, ColorRGB* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(ColorRGBA& rValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 4, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4, 
         (float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -693,7 +693,7 @@ void Stream::Read(ColorRGBA& rValue)
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, ColorRGBA* pValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 4*iCount, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -701,7 +701,7 @@ void Stream::Read(int iCount, ColorRGBA* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(Matrix2f& rValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 4, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4, 
         (float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -709,7 +709,7 @@ void Stream::Read(Matrix2f& rValue)
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, Matrix2f* pValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 4*iCount, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -717,7 +717,7 @@ void Stream::Read(int iCount, Matrix2f* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(Matrix3f& rValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, /*12*/9, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, /*12*/9, 
         (float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -725,7 +725,7 @@ void Stream::Read(Matrix3f& rValue)
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, Matrix3f* pValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, /*12*/9*iCount, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, /*12*/9*iCount, 
         (float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -733,7 +733,7 @@ void Stream::Read(int iCount, Matrix3f* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(Matrix4f& rValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 16, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 16, 
         (float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -741,7 +741,7 @@ void Stream::Read(Matrix4f& rValue)
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, Matrix4f* pValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 16*iCount, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 16*iCount, 
         (float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -764,7 +764,7 @@ void Stream::Read(int iCount, Plane3f* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(Quaternionf& rValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 4, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4, 
         (float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -772,7 +772,7 @@ void Stream::Read(Quaternionf& rValue)
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, Quaternionf* pValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 4*iCount, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -780,7 +780,7 @@ void Stream::Read(int iCount, Quaternionf* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(Vector2f& rValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 2, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 2, 
         (float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -788,7 +788,7 @@ void Stream::Read(Vector2f& rValue)
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, Vector2f* pValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 2*iCount, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 2*iCount, 
         (float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -796,7 +796,7 @@ void Stream::Read(int iCount, Vector2f* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(Vector3f& rValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 3, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 3, 
         (float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -804,7 +804,7 @@ void Stream::Read(Vector3f& rValue)
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, Vector3f* pValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 3*iCount, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 3*iCount, 
         (float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -812,7 +812,7 @@ void Stream::Read(int iCount, Vector3f* pValue)
 //----------------------------------------------------------------------------
 void Stream::Read(Vector4f& rValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 4, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4, 
         (float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -820,7 +820,7 @@ void Stream::Read(Vector4f& rValue)
 //----------------------------------------------------------------------------
 void Stream::Read(int iCount, Vector4f* pValue)
 {
-    m_iBufferNext += System::SE_Read4le(m_pBuffer+m_iBufferNext, 4*iCount, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -851,14 +851,14 @@ void Stream::Read(int iCount, Transformation* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(const Object* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &pValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, Object** const ppValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
         ppValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -866,14 +866,14 @@ void Stream::Write(int iCount, Object** const ppValue)
 //----------------------------------------------------------------------------
 void Stream::Write(const SmartPointer<Object>& rspValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &rspValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &rspValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const SmartPointer<Object>* pspValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
         pspValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -925,7 +925,7 @@ void Stream::Write(int iCount, const char* pValue)
         SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 
         size_t uiSize = (size_t)iCount;
-        System::SE_Memcpy(pDst, uiSize, pValue, uiSize);
+        SESystem::SE_Memcpy(pDst, uiSize, pValue, uiSize);
     }
 }
 //----------------------------------------------------------------------------
@@ -949,20 +949,20 @@ void Stream::Write(int iCount, const unsigned char* pValue)
         SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 
         size_t uiSize = (size_t)iCount;
-        System::SE_Memcpy(pDst, uiSize, pValue, uiSize);
+        SESystem::SE_Memcpy(pDst, uiSize, pValue, uiSize);
     }
 }
 //----------------------------------------------------------------------------
 void Stream::Write(short sValue)
 {
-    m_iBufferNext += System::SE_Write2le(m_pBuffer+m_iBufferNext, 1, &sValue);
+    m_iBufferNext += SESystem::SE_Write2le(m_pBuffer+m_iBufferNext, 1, &sValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const short* pValue)
 {
-    m_iBufferNext += System::SE_Write2le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Write2le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -970,14 +970,14 @@ void Stream::Write(int iCount, const short* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(unsigned short usValue)
 {
-    m_iBufferNext += System::SE_Write2le(m_pBuffer+m_iBufferNext, 1, &usValue);
+    m_iBufferNext += SESystem::SE_Write2le(m_pBuffer+m_iBufferNext, 1, &usValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const unsigned short* pValue)
 {
-    m_iBufferNext += System::SE_Write2le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Write2le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -985,14 +985,14 @@ void Stream::Write(int iCount, const unsigned short* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(int iValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &iValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &iValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const int* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1000,14 +1000,14 @@ void Stream::Write(int iCount, const int* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(unsigned int uiValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &uiValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &uiValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const unsigned int* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1015,14 +1015,14 @@ void Stream::Write(int iCount, const unsigned int* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(long lValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &lValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &lValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const long* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1030,14 +1030,14 @@ void Stream::Write(int iCount, const long* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(unsigned long ulValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &ulValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &ulValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const unsigned long* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1045,14 +1045,14 @@ void Stream::Write(int iCount, const unsigned long* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(float fValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &fValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &fValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const float* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1060,14 +1060,14 @@ void Stream::Write(int iCount, const float* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(double dValue)
 {
-    m_iBufferNext += System::SE_Write8le(m_pBuffer+m_iBufferNext, 1, &dValue);
+    m_iBufferNext += SESystem::SE_Write8le(m_pBuffer+m_iBufferNext, 1, &dValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const double* pValue)
 {
-    m_iBufferNext += System::SE_Write8le(m_pBuffer+m_iBufferNext, iCount, 
+    m_iBufferNext += SESystem::SE_Write8le(m_pBuffer+m_iBufferNext, iCount, 
         pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1089,7 +1089,7 @@ void Stream::Write(int iCount, const std::string* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(const ColorRGB& rValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 3, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 3, 
         (const float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1097,7 +1097,7 @@ void Stream::Write(const ColorRGB& rValue)
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const ColorRGB* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 3*iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 3*iCount, 
         (const float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1105,7 +1105,7 @@ void Stream::Write(int iCount, const ColorRGB* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(const ColorRGBA& rValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 4, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4, 
         (const float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1113,7 +1113,7 @@ void Stream::Write(const ColorRGBA& rValue)
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const ColorRGBA* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 4*iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (const float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1121,7 +1121,7 @@ void Stream::Write(int iCount, const ColorRGBA* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(const Matrix2f& rValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 4, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4, 
         (const float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1129,7 +1129,7 @@ void Stream::Write(const Matrix2f& rValue)
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const Matrix2f* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 4*iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (const float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1137,7 +1137,7 @@ void Stream::Write(int iCount, const Matrix2f* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(const Matrix3f& rValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, /*12*/9, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, /*12*/9, 
         (const float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1145,7 +1145,7 @@ void Stream::Write(const Matrix3f& rValue)
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const Matrix3f* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, /*12*/9*iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, /*12*/9*iCount, 
         (const float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1153,7 +1153,7 @@ void Stream::Write(int iCount, const Matrix3f* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(const Matrix4f& rValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 16, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 16, 
         (const float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1161,7 +1161,7 @@ void Stream::Write(const Matrix4f& rValue)
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const Matrix4f* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 16*iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 16*iCount, 
         (const float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1184,7 +1184,7 @@ void Stream::Write(int iCount, const Plane3f* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(const Quaternionf& rValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 4, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4, 
         (const float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1192,7 +1192,7 @@ void Stream::Write(const Quaternionf& rValue)
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const Quaternionf* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 4*iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (const float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1200,7 +1200,7 @@ void Stream::Write(int iCount, const Quaternionf* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(const Vector2f& rValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 2, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 2, 
         (const float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1208,7 +1208,7 @@ void Stream::Write(const Vector2f& rValue)
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const Vector2f* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 2*iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 2*iCount, 
         (const float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1216,7 +1216,7 @@ void Stream::Write(int iCount, const Vector2f* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(const Vector3f& rValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 3, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 3, 
         (const float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1224,7 +1224,7 @@ void Stream::Write(const Vector3f& rValue)
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const Vector3f* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 3*iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 3*iCount, 
         (const float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1232,7 +1232,7 @@ void Stream::Write(int iCount, const Vector3f* pValue)
 //----------------------------------------------------------------------------
 void Stream::Write(const Vector4f& rValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 4, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4, 
         (const float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1240,7 +1240,7 @@ void Stream::Write(const Vector4f& rValue)
 //----------------------------------------------------------------------------
 void Stream::Write(int iCount, const Vector4f* pValue)
 {
-    m_iBufferNext += System::SE_Write4le(m_pBuffer+m_iBufferNext, 4*iCount, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (const float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );

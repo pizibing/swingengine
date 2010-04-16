@@ -60,7 +60,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080202
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API System
+class SE_FOUNDATION_API SESystem
 {
 public:
     // 交换一个C内置类型数据的字节内存排放位置(iSize = 2,4,8)

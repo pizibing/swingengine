@@ -235,8 +235,8 @@ Image* Image::Load(const char* pImageName)
     SE_ASSERT( pImageName );
 
     std::string strFileName = std::string(pImageName) + std::string(".seif");
-    const char* pDecorated = System::SE_GetPath(strFileName.c_str(), 
-        System::SM_READ);
+    const char* pDecorated = SESystem::SE_GetPath(strFileName.c_str(), 
+        SESystem::SM_READ);
     if( !pDecorated )
     {
         return 0;
@@ -244,7 +244,7 @@ Image* Image::Load(const char* pImageName)
 
     char* acBuffer;
     int iSize;
-    bool bLoaded = System::SE_Load(pDecorated, acBuffer, iSize);
+    bool bLoaded = SESystem::SE_Load(pDecorated, acBuffer, iSize);
     if( !bLoaded )
     {
         // 文件不存在
@@ -271,20 +271,20 @@ Image* Image::Load(const char* pImageName)
 
     // 获取image format和dimensions
     int iFormat, iDimension, aiBound[3];
-    pcCurrent += System::SE_Read4le(pcCurrent, 1, &iFormat);
+    pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &iFormat);
     if( TempVersion >= ImageVersion(3, 1) )
     {
-        pcCurrent += System::SE_Read4le(pcCurrent, 1, &iDimension);
+        pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &iDimension);
     }
     else
     {
         iDimension = 2;
     }
-    pcCurrent += System::SE_Read4le(pcCurrent, 1, &aiBound[0]);
-    pcCurrent += System::SE_Read4le(pcCurrent, 1, &aiBound[1]);
+    pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &aiBound[0]);
+    pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &aiBound[1]);
     if( TempVersion >= ImageVersion(3, 1) )
     {
-        pcCurrent += System::SE_Read4le(pcCurrent, 1, &aiBound[2]);
+        pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &aiBound[2]);
     }
     else
     {
@@ -297,7 +297,7 @@ Image* Image::Load(const char* pImageName)
     // 获取image data
     int iDataSize = ms_BytesPerPixel[eFormat] * iCount;
     unsigned char* pData = SE_NEW unsigned char[iDataSize];
-    System::SE_Read1(pcCurrent, iDataSize, pData);
+    SESystem::SE_Read1(pcCurrent, iDataSize, pData);
 
     Image* pImage = 0;
     switch( iDimension )
@@ -329,28 +329,28 @@ bool Image::Save(const char* pFileName)
         return false;
     }
 
-    FILE* pFile = System::SE_Fopen(pFileName, "wb");
+    FILE* pFile = SESystem::SE_Fopen(pFileName, "wb");
     if( !pFile )
     {
         return false;
     }
 
     // 写文件版本
-    System::SE_Write1(pFile, ImageVersion::LENGTH, ImageVersion::LABEL);
+    SESystem::SE_Write1(pFile, ImageVersion::LENGTH, ImageVersion::LABEL);
 
     // 写image format和dimensions
     int iFormat = (int)m_eFormat;
-    System::SE_Write4le(pFile, 1, &iFormat);
-    System::SE_Write4le(pFile, 1, &m_iDimension);
-    System::SE_Write4le(pFile, 1, &m_Bound[0]);
-    System::SE_Write4le(pFile, 1, &m_Bound[1]);
-    System::SE_Write4le(pFile, 1, &m_Bound[2]);
+    SESystem::SE_Write4le(pFile, 1, &iFormat);
+    SESystem::SE_Write4le(pFile, 1, &m_iDimension);
+    SESystem::SE_Write4le(pFile, 1, &m_Bound[0]);
+    SESystem::SE_Write4le(pFile, 1, &m_Bound[1]);
+    SESystem::SE_Write4le(pFile, 1, &m_Bound[2]);
 
     // 写image data
     int iDataSize = ms_BytesPerPixel[m_eFormat] * m_iCount;
-    System::SE_Write1(pFile, iDataSize, m_pData);
+    SESystem::SE_Write1(pFile, iDataSize, m_pData);
 
-    System::SE_Fclose(pFile);
+    SESystem::SE_Fclose(pFile);
 
     return true;
 }
@@ -577,7 +577,7 @@ StringTree* Image::SaveStrings(const char*)
     char acTitle[uiTitleSize];
     for( int i = 0; i < m_iDimension; i++ )
     {
-        System::SE_Sprintf(acTitle, uiTitleSize, "bound[%d] =",i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "bound[%d] =",i);
         pTree->Append(Format(acTitle, m_Bound[i]));
     }
 

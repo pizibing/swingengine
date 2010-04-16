@@ -53,7 +53,7 @@ void Culler::SetFrustum(const float* afFrustum)
 
     // 复制截投体参数
     size_t uiSize = Camera::VF_COUNT * sizeof(float);
-    System::SE_Memcpy(m_Frustum, uiSize, afFrustum, uiSize);
+    SESystem::SE_Memcpy(m_Frustum, uiSize, afFrustum, uiSize);
     float fDMin2 = m_Frustum[Camera::VF_DMIN] * m_Frustum[Camera::VF_DMIN];
     float fRMin2 = m_Frustum[Camera::VF_RMIN] * m_Frustum[Camera::VF_RMIN];
     float fRMax2 = m_Frustum[Camera::VF_RMAX] * m_Frustum[Camera::VF_RMAX];

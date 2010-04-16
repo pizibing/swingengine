@@ -33,22 +33,22 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080804
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Command
+class SE_FOUNDATION_API SECommand
 {
 public:
-    Command(int iCount, char** apcArgument);
-    Command(char* acCmdline);
-    ~Command(void);
+    SECommand(int iCount, char** apcArgument);
+    SECommand(char* acCmdline);
+    ~SECommand(void);
 
     // return value is index of first excess argument
     int ExcessArguments(void);
 
     // Set bounds for numerical arguments.  If bounds are required, they must
     // be set for each argument.
-    Command& Min(double dValue);
-    Command& Max(double dValue);
-    Command& Inf(double dValue);
-    Command& Sup(double dValue);
+    SECommand& Min(double dValue);
+    SECommand& Max(double dValue);
+    SECommand& Inf(double dValue);
+    SECommand& Sup(double dValue);
 
     // The return value of the following methods is the option index within
     // the argument array.

@@ -219,13 +219,13 @@ StringTree* SkinController::SaveStrings(const char*)
     int i;
     for( i = 0; i < m_iVertexCount; i++ )
     {
-        System::SE_Sprintf(acTitle, uiTitleSize, "weights for vertex %d", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "weights for vertex %d", i);
         pTree->Append(Format(acTitle, m_iBoneCount, m_aafWeight[i]));
     }
 
     for( i = 0; i < m_iVertexCount; i++ )
     {
-        System::SE_Sprintf(acTitle, uiTitleSize, "offsets for vertex %d", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "offsets for vertex %d", i);
         pTree->Append(Format(acTitle, m_iBoneCount, m_aaOffset[i]));
     }
 

@@ -60,7 +60,7 @@
 #include "SERectangle3.h"
 #include "SEFrustum3.h"
 
-// System
+// SESystem
 #include "SECommand.h"
 #include "SEPlatforms.h"
 #include "SESystem.h"
@@ -95,7 +95,7 @@
 #include "SEParticles.h"
 #include "SEWidget.h"
 
-// Object System
+// Object SESystem
 #include "SESmartPointer.h"
 #include "SERTTI.h"
 #include "SEObject.h"

@@ -43,13 +43,13 @@ static bool InitializedTimeFlag = false;
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
-char System::Path[SYSTEM_MAX_PATH];
-char System::EnvVar[SYSTEM_MAX_ENVVAR]; // 环境变量值
-std::vector<std::string>* System::Directories = 0;
-char System::SE_PATH[SYSTEM_MAX_ENVVAR];
+char SESystem::Path[SYSTEM_MAX_PATH];
+char SESystem::EnvVar[SYSTEM_MAX_ENVVAR]; // 环境变量值
+std::vector<std::string>* SESystem::Directories = 0;
+char SESystem::SE_PATH[SYSTEM_MAX_ENVVAR];
 
 //----------------------------------------------------------------------------
-void System::SE_SwapBytes(int iSize, void* pValue)
+void SESystem::SE_SwapBytes(int iSize, void* pValue)
 {
     // iSize必须是偶数
     SE_ASSERT( iSize >= 2 && (iSize & 1) == 0 );
@@ -63,7 +63,7 @@ void System::SE_SwapBytes(int iSize, void* pValue)
     }
 }
 //----------------------------------------------------------------------------
-void System::SE_SwapBytes(int iSize, int iCount, void* pValue)
+void SESystem::SE_SwapBytes(int iSize, int iCount, void* pValue)
 {
     // iSize必须是偶数
     SE_ASSERT( iSize >= 2 && (iSize & 1) == 0 );
@@ -80,7 +80,7 @@ void System::SE_SwapBytes(int iSize, int iCount, void* pValue)
     }
 }
 //----------------------------------------------------------------------------
-bool System::SE_IsBigEndian()
+bool SESystem::SE_IsBigEndian()
 {
     int iInt = 1;
     char* pChar = (char*)&iInt;
@@ -88,7 +88,7 @@ bool System::SE_IsBigEndian()
     return !(*pChar);
 }
 //----------------------------------------------------------------------------
-void System::SE_EndianCopy(int iSize, const void* pSrc, void* pDst)
+void SESystem::SE_EndianCopy(int iSize, const void* pSrc, void* pDst)
 {
     size_t uiSize = (size_t)iSize;
     SE_Memcpy(pDst, uiSize, pSrc, uiSize);
@@ -98,7 +98,8 @@ void System::SE_EndianCopy(int iSize, const void* pSrc, void* pDst)
 #endif
 }
 //----------------------------------------------------------------------------
-void System::SE_EndianCopy(int iSize, int iCount, const void* pSrc, void* pDst)
+void SESystem::SE_EndianCopy(int iSize, int iCount, const void* pSrc, 
+    void* pDst)
 {
     size_t uiSize = (size_t)(iSize * iCount);
     SE_Memcpy(pDst, uiSize, pSrc, uiSize);
@@ -108,7 +109,7 @@ void System::SE_EndianCopy(int iSize, int iCount, const void* pSrc, void* pDst)
 #endif
 }
 //----------------------------------------------------------------------------
-double System::SE_GetTime()
+double SESystem::SE_GetTime()
 {
 #ifdef __APPLE__
     if( !InitializedTimeFlag )
@@ -150,7 +151,7 @@ double System::SE_GetTime()
 #endif
 }
 //----------------------------------------------------------------------------
-bool System::SE_Load(const char* pFileName, char*& rDstBuffer, int& riSize)
+bool SESystem::SE_Load(const char* pFileName, char*& rDstBuffer, int& riSize)
 {
     struct stat FileStat;
 
@@ -162,7 +163,7 @@ bool System::SE_Load(const char* pFileName, char*& rDstBuffer, int& riSize)
         return false;
     }
 
-    FILE* pFile = System::SE_Fopen(pFileName, "rb");
+    FILE* pFile = SESystem::SE_Fopen(pFileName, "rb");
 
     SE_ASSERT( pFile );
 
@@ -177,7 +178,7 @@ bool System::SE_Load(const char* pFileName, char*& rDstBuffer, int& riSize)
     rDstBuffer = SE_NEW char[riSize];
     int iRead = (int)fread(rDstBuffer, sizeof(char), riSize, pFile);
     // 如果文件不能正常关闭或者读取字节数不等于文件字节数
-    if( System::SE_Fclose(pFile) != 0 || iRead != riSize )
+    if( SESystem::SE_Fclose(pFile) != 0 || iRead != riSize )
     {
         SE_ASSERT( false );
 
@@ -190,7 +191,8 @@ bool System::SE_Load(const char* pFileName, char*& rDstBuffer, int& riSize)
     return true;
 }
 //----------------------------------------------------------------------------
-bool System::SE_Save(const char* pFileName, const char* pSrcBuffer, int iSize)
+bool SESystem::SE_Save(const char* pFileName, const char* pSrcBuffer, 
+    int iSize)
 {
     if( !pSrcBuffer || iSize <= 0 )
     {
@@ -199,7 +201,7 @@ bool System::SE_Save(const char* pFileName, const char* pSrcBuffer, int iSize)
         return false;
     }
 
-    FILE* pFile = System::SE_Fopen(pFileName, "wb");
+    FILE* pFile = SESystem::SE_Fopen(pFileName, "wb");
     if( !pFile )
     {
         return false;
@@ -207,7 +209,7 @@ bool System::SE_Save(const char* pFileName, const char* pSrcBuffer, int iSize)
 
     int iWrite = (int)fwrite(pSrcBuffer, sizeof(char), iSize, pFile);
     // 如果文件不能正常关闭或者写入字节数不等于期望字节数
-    if( System::SE_Fclose(pFile) != 0 || iWrite != iSize )
+    if( SESystem::SE_Fclose(pFile) != 0 || iWrite != iSize )
     {
         SE_ASSERT( false );
 
@@ -217,7 +219,8 @@ bool System::SE_Save(const char* pFileName, const char* pSrcBuffer, int iSize)
     return true;
 }
 //----------------------------------------------------------------------------
-bool System::SE_Append(const char* pFileName, const char* pSrcBuffer, int iSize)
+bool SESystem::SE_Append(const char* pFileName, const char* pSrcBuffer, 
+    int iSize)
 {
     if( !pSrcBuffer || iSize <= 0 )
     {
@@ -226,7 +229,7 @@ bool System::SE_Append(const char* pFileName, const char* pSrcBuffer, int iSize)
         return false;
     }
 
-    FILE* pFile = System::SE_Fopen(pFileName, "ab");
+    FILE* pFile = SESystem::SE_Fopen(pFileName, "ab");
     if( !pFile )
     {
         return false;
@@ -234,7 +237,7 @@ bool System::SE_Append(const char* pFileName, const char* pSrcBuffer, int iSize)
 
     int iWrite = (int)fwrite(pSrcBuffer, sizeof(char), iSize, pFile);
     // 如果文件不能正常关闭或者写入字节数不等于期望字节数
-    if( System::SE_Fclose(pFile) != 0 || iWrite != iSize )
+    if( SESystem::SE_Fclose(pFile) != 0 || iWrite != iSize )
     {
         SE_ASSERT( false );
 
@@ -244,7 +247,7 @@ bool System::SE_Append(const char* pFileName, const char* pSrcBuffer, int iSize)
     return true;
 }
 //----------------------------------------------------------------------------
-int System::SE_Read1(const char* pSrcBuffer, int iCount, void* pDstData)
+int SESystem::SE_Read1(const char* pSrcBuffer, int iCount, void* pDstData)
 {
     SE_ASSERT( pSrcBuffer && iCount > 0 && pDstData );
 
@@ -254,7 +257,7 @@ int System::SE_Read1(const char* pSrcBuffer, int iCount, void* pDstData)
     return iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Write1(char* pDstBuffer, int iCount, const void* pSrcData)
+int SESystem::SE_Write1(char* pDstBuffer, int iCount, const void* pSrcData)
 {
     SE_ASSERT( pDstBuffer && iCount > 0 && pSrcData );
 
@@ -264,7 +267,7 @@ int System::SE_Write1(char* pDstBuffer, int iCount, const void* pSrcData)
     return iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Read1(FILE* pSrcFile, int iCount, void* pDstData)
+int SESystem::SE_Read1(FILE* pSrcFile, int iCount, void* pDstData)
 {
     SE_ASSERT( pSrcFile && iCount > 0 && pDstData );
 
@@ -273,7 +276,7 @@ int System::SE_Read1(FILE* pSrcFile, int iCount, void* pDstData)
     return iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Write1(FILE* pDstFile, int iCount, const void* pSrcData)
+int SESystem::SE_Write1(FILE* pDstFile, int iCount, const void* pSrcData)
 {
     SE_ASSERT( pDstFile && iCount > 0 && pSrcData );
 
@@ -282,7 +285,7 @@ int System::SE_Write1(FILE* pDstFile, int iCount, const void* pSrcData)
     return iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Read2le(const char* pSrcBuffer, int iCount, void* pDstData)
+int SESystem::SE_Read2le(const char* pSrcBuffer, int iCount, void* pDstData)
 {
     SE_ASSERT( pSrcBuffer && iCount > 0 && pDstData );
 
@@ -296,7 +299,7 @@ int System::SE_Read2le(const char* pSrcBuffer, int iCount, void* pDstData)
     return iNumBytes;
 }
 //----------------------------------------------------------------------------
-int System::SE_Read4le(const char* pSrcBuffer, int iCount, void* pDstData)
+int SESystem::SE_Read4le(const char* pSrcBuffer, int iCount, void* pDstData)
 {
     SE_ASSERT( pSrcBuffer && iCount > 0 && pDstData );
 
@@ -310,7 +313,7 @@ int System::SE_Read4le(const char* pSrcBuffer, int iCount, void* pDstData)
     return iNumBytes;
 }
 //----------------------------------------------------------------------------
-int System::SE_Read8le(const char* pSrcBuffer, int iCount, void* pDstData)
+int SESystem::SE_Read8le(const char* pSrcBuffer, int iCount, void* pDstData)
 {
     SE_ASSERT( pSrcBuffer && iCount > 0 && pDstData );
 
@@ -324,7 +327,7 @@ int System::SE_Read8le(const char* pSrcBuffer, int iCount, void* pDstData)
     return iNumBytes;
 }
 //----------------------------------------------------------------------------
-int System::SE_Write2le(char* pDstBuffer, int iCount, const void* pSrcData)
+int SESystem::SE_Write2le(char* pDstBuffer, int iCount, const void* pSrcData)
 {
     SE_ASSERT( pDstBuffer && iCount > 0 && pSrcData );
 
@@ -338,7 +341,7 @@ int System::SE_Write2le(char* pDstBuffer, int iCount, const void* pSrcData)
     return iNumBytes;
 }
 //----------------------------------------------------------------------------
-int System::SE_Write4le(char* pDstBuffer, int iCount, const void* pSrcData)
+int SESystem::SE_Write4le(char* pDstBuffer, int iCount, const void* pSrcData)
 {
     SE_ASSERT( pDstBuffer && iCount > 0 && pSrcData );
 
@@ -352,7 +355,7 @@ int System::SE_Write4le(char* pDstBuffer, int iCount, const void* pSrcData)
     return iNumBytes;
 }
 //----------------------------------------------------------------------------
-int System::SE_Write8le(char* pDstBuffer, int iCount, const void* pSrcData)
+int SESystem::SE_Write8le(char* pDstBuffer, int iCount, const void* pSrcData)
 {
     SE_ASSERT( pDstBuffer && iCount > 0 && pSrcData );
 
@@ -366,7 +369,7 @@ int System::SE_Write8le(char* pDstBuffer, int iCount, const void* pSrcData)
     return iNumBytes;
 }
 //----------------------------------------------------------------------------
-int System::SE_Read2le(FILE* pSrcFile, int iCount, void* pDstData)
+int SESystem::SE_Read2le(FILE* pSrcFile, int iCount, void* pDstData)
 {
     SE_ASSERT( pSrcFile && iCount > 0 && pDstData );
 
@@ -378,7 +381,7 @@ int System::SE_Read2le(FILE* pSrcFile, int iCount, void* pDstData)
     return 2*iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Read4le(FILE* pSrcFile, int iCount, void* pDstData)
+int SESystem::SE_Read4le(FILE* pSrcFile, int iCount, void* pDstData)
 {
     SE_ASSERT( pSrcFile && iCount > 0 && pDstData);
 
@@ -390,7 +393,7 @@ int System::SE_Read4le(FILE* pSrcFile, int iCount, void* pDstData)
     return 4*iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Read8le(FILE* pSrcFile, int iCount, void* pDstData)
+int SESystem::SE_Read8le(FILE* pSrcFile, int iCount, void* pDstData)
 {
     SE_ASSERT( pSrcFile && iCount > 0 && pDstData );
 
@@ -402,7 +405,7 @@ int System::SE_Read8le(FILE* pSrcFile, int iCount, void* pDstData)
     return 8*iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Write2le(FILE* pDstFile, int iCount, const void* pSrcData)
+int SESystem::SE_Write2le(FILE* pDstFile, int iCount, const void* pSrcData)
 {
     SE_ASSERT( pDstFile && iCount > 0 && pSrcData );
 
@@ -421,7 +424,7 @@ int System::SE_Write2le(FILE* pDstFile, int iCount, const void* pSrcData)
     return 2*iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Write4le(FILE* pDstFile, int iCount, const void* pSrcData)
+int SESystem::SE_Write4le(FILE* pDstFile, int iCount, const void* pSrcData)
 {
     SE_ASSERT( pDstFile && iCount > 0 && pSrcData);
 
@@ -440,7 +443,7 @@ int System::SE_Write4le(FILE* pDstFile, int iCount, const void* pSrcData)
     return 4*iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Write8le(FILE* pDstFile, int iCount, const void* pSrcData)
+int SESystem::SE_Write8le(FILE* pDstFile, int iCount, const void* pSrcData)
 {
     SE_ASSERT( pDstFile && iCount > 0 && pSrcData );
 
@@ -459,7 +462,7 @@ int System::SE_Write8le(FILE* pDstFile, int iCount, const void* pSrcData)
     return 8*iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Read2be(const char* pSrcBuffer, int iCount, void* pDstData)
+int SESystem::SE_Read2be(const char* pSrcBuffer, int iCount, void* pDstData)
 {
     SE_ASSERT( pSrcBuffer && iCount > 0 && pDstData );
 
@@ -473,7 +476,7 @@ int System::SE_Read2be(const char* pSrcBuffer, int iCount, void* pDstData)
     return iNumBytes;
 }
 //----------------------------------------------------------------------------
-int System::SE_Read4be(const char* pSrcBuffer, int iCount, void* pDstData)
+int SESystem::SE_Read4be(const char* pSrcBuffer, int iCount, void* pDstData)
 {
     SE_ASSERT( pSrcBuffer && iCount > 0 && pDstData );
 
@@ -487,7 +490,7 @@ int System::SE_Read4be(const char* pSrcBuffer, int iCount, void* pDstData)
     return iNumBytes;
 }
 //----------------------------------------------------------------------------
-int System::SE_Read8be(const char* pSrcBuffer, int iCount, void* pDstData)
+int SESystem::SE_Read8be(const char* pSrcBuffer, int iCount, void* pDstData)
 {
     SE_ASSERT( pSrcBuffer && iCount > 0 && pDstData );
 
@@ -501,7 +504,7 @@ int System::SE_Read8be(const char* pSrcBuffer, int iCount, void* pDstData)
     return iNumBytes;
 }
 //----------------------------------------------------------------------------
-int System::SE_Write2be(char* pDstBuffer, int iCount, const void* pSrcData)
+int SESystem::SE_Write2be(char* pDstBuffer, int iCount, const void* pSrcData)
 {
     SE_ASSERT( pDstBuffer && iCount > 0 && pSrcData );
 
@@ -515,7 +518,7 @@ int System::SE_Write2be(char* pDstBuffer, int iCount, const void* pSrcData)
     return iNumBytes;
 }
 //----------------------------------------------------------------------------
-int System::SE_Write4be(char* pDstBuffer, int iCount, const void* pSrcData)
+int SESystem::SE_Write4be(char* pDstBuffer, int iCount, const void* pSrcData)
 {
     SE_ASSERT( pDstBuffer && iCount > 0 && pSrcData );
 
@@ -529,7 +532,7 @@ int System::SE_Write4be(char* pDstBuffer, int iCount, const void* pSrcData)
     return iNumBytes;
 }
 //----------------------------------------------------------------------------
-int System::SE_Write8be(char* pDstBuffer, int iCount, const void* pSrcData)
+int SESystem::SE_Write8be(char* pDstBuffer, int iCount, const void* pSrcData)
 {
     SE_ASSERT( pDstBuffer && iCount > 0 && pSrcData );
 
@@ -543,7 +546,7 @@ int System::SE_Write8be(char* pDstBuffer, int iCount, const void* pSrcData)
     return iNumBytes;
 }
 //----------------------------------------------------------------------------
-int System::SE_Read2be(FILE* pSrcFile, int iCount, void* pDstData)
+int SESystem::SE_Read2be(FILE* pSrcFile, int iCount, void* pDstData)
 {
     SE_ASSERT( pSrcFile && iCount > 0 && pDstData );
 
@@ -555,7 +558,7 @@ int System::SE_Read2be(FILE* pSrcFile, int iCount, void* pDstData)
     return 2*iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Read4be(FILE* pSrcFile, int iCount, void* pDstData)
+int SESystem::SE_Read4be(FILE* pSrcFile, int iCount, void* pDstData)
 {
     SE_ASSERT( pSrcFile && iCount > 0 && pDstData );
 
@@ -567,7 +570,7 @@ int System::SE_Read4be(FILE* pSrcFile, int iCount, void* pDstData)
     return 4*iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Read8be(FILE* pSrcFile, int iCount, void* pDstData)
+int SESystem::SE_Read8be(FILE* pSrcFile, int iCount, void* pDstData)
 {
     SE_ASSERT( pSrcFile && iCount > 0 && pDstData );
 
@@ -579,7 +582,7 @@ int System::SE_Read8be(FILE* pSrcFile, int iCount, void* pDstData)
     return 8*iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Write2be(FILE* pDstFile, int iCount, const void* pSrcData)
+int SESystem::SE_Write2be(FILE* pDstFile, int iCount, const void* pSrcData)
 {
     SE_ASSERT( pDstFile && iCount > 0 && pSrcData );
 
@@ -598,7 +601,7 @@ int System::SE_Write2be(FILE* pDstFile, int iCount, const void* pSrcData)
     return 2*iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Write4be(FILE* pDstFile, int iCount, const void* pSrcData)
+int SESystem::SE_Write4be(FILE* pDstFile, int iCount, const void* pSrcData)
 {
     SE_ASSERT( pDstFile && iCount > 0 && pSrcData );
 
@@ -617,7 +620,7 @@ int System::SE_Write4be(FILE* pDstFile, int iCount, const void* pSrcData)
     return 4*iCount;
 }
 //----------------------------------------------------------------------------
-int System::SE_Write8be(FILE* pDstFile, int iCount, const void* pSrcData)
+int SESystem::SE_Write8be(FILE* pDstFile, int iCount, const void* pSrcData)
 {
     SE_ASSERT( pDstFile && iCount > 0 && pSrcData );
 
@@ -636,7 +639,8 @@ int System::SE_Write8be(FILE* pDstFile, int iCount, const void* pSrcData)
     return 8*iCount;
 }
 //----------------------------------------------------------------------------
-const char* System::SE_GetPath(const char* pDirectory, const char* pFileName)
+const char* SESystem::SE_GetPath(const char* pDirectory, 
+    const char* pFileName)
 {
 #ifdef __APPLE__
     // An application-relative path is needed for the applications to be able
@@ -695,8 +699,8 @@ const char* System::SE_GetPath(const char* pDirectory, const char* pFileName)
     size_t uiFLength = strlen(pFileName);
     if( uiDLength + uiFLength + 1 <= SYSTEM_MAX_PATH )
     {
-        System::SE_Strcpy(Path, SYSTEM_MAX_PATH, pDirectory);
-        System::SE_Strcat(Path, SYSTEM_MAX_PATH, pFileName);
+        SESystem::SE_Strcpy(Path, SYSTEM_MAX_PATH, pDirectory);
+        SESystem::SE_Strcat(Path, SYSTEM_MAX_PATH, pFileName);
 
         return Path;
     }
@@ -704,7 +708,7 @@ const char* System::SE_GetPath(const char* pDirectory, const char* pFileName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void System::SE_Initialize()
+void SESystem::SE_Initialize()
 {
     // 创建资源磁盘目录
     SE_ASSERT( Directories == 0 );
@@ -722,13 +726,13 @@ void System::SE_Initialize()
     }
 }
 //----------------------------------------------------------------------------
-void System::SE_Terminate()
+void SESystem::SE_Terminate()
 {
     SE_DELETE Directories;
     Directories = 0;
 }
 //----------------------------------------------------------------------------
-int System::SE_GetDirectoryCount()
+int SESystem::SE_GetDirectoryCount()
 {
     if( !Directories )
     {
@@ -738,7 +742,7 @@ int System::SE_GetDirectoryCount()
     return (int)Directories->size();
 }
 //----------------------------------------------------------------------------
-const char* System::SE_GetDirectory(int i)
+const char* SESystem::SE_GetDirectory(int i)
 {
     if( !Directories )
     {
@@ -753,7 +757,7 @@ const char* System::SE_GetDirectory(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-bool System::SE_InsertDirectory(const char* pDirectory)
+bool SESystem::SE_InsertDirectory(const char* pDirectory)
 {
     if( !Directories )
     {
@@ -773,7 +777,7 @@ bool System::SE_InsertDirectory(const char* pDirectory)
     return true;
 }
 //----------------------------------------------------------------------------
-bool System::SE_RemoveDirectory(const char* pDirectory)
+bool SESystem::SE_RemoveDirectory(const char* pDirectory)
 {
     if( !Directories )
     {
@@ -795,7 +799,7 @@ bool System::SE_RemoveDirectory(const char* pDirectory)
     return false;
 }
 //----------------------------------------------------------------------------
-void System::SE_RemoveAllDirectories()
+void SESystem::SE_RemoveAllDirectories()
 {
     if( !Directories )
     {
@@ -805,7 +809,7 @@ void System::SE_RemoveAllDirectories()
     Directories->clear();
 }
 //----------------------------------------------------------------------------
-const char* System::SE_GetPath(const char* pFileName, int eMode)
+const char* SESystem::SE_GetPath(const char* pFileName, int eMode)
 {
     if( !Directories )
     {
@@ -814,7 +818,7 @@ const char* System::SE_GetPath(const char* pFileName, int eMode)
 
     for( int i = 0; i < (int)Directories->size(); i++ )
     {
-        const char* pDecorated = System::SE_GetPath(
+        const char* pDecorated = SESystem::SE_GetPath(
             (*Directories)[i].c_str(), pFileName);
 
         if( !pDecorated )
@@ -825,20 +829,20 @@ const char* System::SE_GetPath(const char* pFileName, int eMode)
         FILE* pFile;
         if( eMode == SM_READ )
         {
-            pFile = System::SE_Fopen(pDecorated, "r");
+            pFile = SESystem::SE_Fopen(pDecorated, "r");
         }
         else if( eMode == SM_WRITE )
         {
-            pFile = System::SE_Fopen(pDecorated, "w");
+            pFile = SESystem::SE_Fopen(pDecorated, "w");
         }
         else // eMode == SM_READ_WRITE
         {
-            pFile = System::SE_Fopen(pDecorated, "r+");
+            pFile = SESystem::SE_Fopen(pDecorated, "r+");
         }
 
         if( pFile )
         {
-            System::SE_Fclose(pFile);
+            SESystem::SE_Fclose(pFile);
 
             return pDecorated;
         }
@@ -847,7 +851,7 @@ const char* System::SE_GetPath(const char* pFileName, int eMode)
     return 0;
 }
 //----------------------------------------------------------------------------
-unsigned int System::SE_MakeRGB(unsigned char ucR, unsigned char ucG, 
+unsigned int SESystem::SE_MakeRGB(unsigned char ucR, unsigned char ucG, 
     unsigned char ucB)
 {
 #ifdef SE_BIG_ENDIAN
@@ -857,7 +861,7 @@ unsigned int System::SE_MakeRGB(unsigned char ucR, unsigned char ucG,
 #endif
 }
 //----------------------------------------------------------------------------
-unsigned int System::SE_MakeRGBA(unsigned char ucR, unsigned char ucG, 
+unsigned int SESystem::SE_MakeRGBA(unsigned char ucR, unsigned char ucG, 
     unsigned char ucB, unsigned char ucA)
 {
 #ifdef SE_BIG_ENDIAN
@@ -867,7 +871,7 @@ unsigned int System::SE_MakeRGBA(unsigned char ucR, unsigned char ucG,
 #endif
 }
 //----------------------------------------------------------------------------
-FILE* System::SE_Fopen(const char* pFileName, const char* pMode)
+FILE* SESystem::SE_Fopen(const char* pFileName, const char* pMode)
 {
     // Do not use SE_ASSERT macro in this function.
 
@@ -887,7 +891,7 @@ FILE* System::SE_Fopen(const char* pFileName, const char* pMode)
 #endif
 }
 //----------------------------------------------------------------------------
-int System::SE_Fprintf(FILE* pFile, const char* pFormat, ...)
+int SESystem::SE_Fprintf(FILE* pFile, const char* pFormat, ...)
 {
     // Do not use SE_ASSERT macro in this function.
 
@@ -909,14 +913,14 @@ int System::SE_Fprintf(FILE* pFile, const char* pFormat, ...)
     return iNumWritten;
 }
 //----------------------------------------------------------------------------
-int System::SE_Fclose(FILE* pFile)
+int SESystem::SE_Fclose(FILE* pFile)
 {
     // Do not use SE_ASSERT macro in this function.
 
     return fclose(pFile);
 }
 //----------------------------------------------------------------------------
-const char* System::SE_GetEnv(const char* pEnvVarName)
+const char* SESystem::SE_GetEnv(const char* pEnvVarName)
 {
 #ifdef SE_USING_VC80
    size_t uiRequiredSize;
@@ -932,12 +936,12 @@ const char* System::SE_GetEnv(const char* pEnvVarName)
     {
         return 0;
     }
-    System::SE_Strcpy(EnvVar, SYSTEM_MAX_ENVVAR, getenv(pEnvVarName));
+    SESystem::SE_Strcpy(EnvVar, SYSTEM_MAX_ENVVAR, getenv(pEnvVarName));
 #endif
     return EnvVar;
 }
 //----------------------------------------------------------------------------
-void* System::SE_Memcpy(void* pDst, size_t uiDstSize, const void* pSrc, 
+void* SESystem::SE_Memcpy(void* pDst, size_t uiDstSize, const void* pSrc, 
     size_t uiSrcSize)
 {
 #ifdef SE_USING_VC80
@@ -967,7 +971,8 @@ void* System::SE_Memcpy(void* pDst, size_t uiDstSize, const void* pSrc,
 #endif
 }
 //----------------------------------------------------------------------------
-int System::SE_Sprintf(char* pDst, size_t uiDstSize, const char* pFormat, ...)
+int SESystem::SE_Sprintf(char* pDst, size_t uiDstSize, const char* pFormat, 
+    ...)
 {
     if( !pDst || uiDstSize == 0 || !pFormat )
     {
@@ -987,7 +992,7 @@ int System::SE_Sprintf(char* pDst, size_t uiDstSize, const char* pFormat, ...)
     return iNumWritten;
 }
 //----------------------------------------------------------------------------
-char* System::SE_Strcpy(char* pDst, size_t uiDstSize, const char* pSrc)
+char* SESystem::SE_Strcpy(char* pDst, size_t uiDstSize, const char* pSrc)
 {
 #ifdef SE_USING_VC80
     errno_t uiError = strcpy_s(pDst, uiDstSize, pSrc);
@@ -1018,7 +1023,7 @@ char* System::SE_Strcpy(char* pDst, size_t uiDstSize, const char* pSrc)
 #endif
 }
 //----------------------------------------------------------------------------
-char* System::SE_Strcat(char* pDst, size_t uiDstSize, const char* pSrc)
+char* SESystem::SE_Strcat(char* pDst, size_t uiDstSize, const char* pSrc)
 {
 #ifdef SE_USING_VC80
     errno_t uiError = strcat_s(pDst, uiDstSize, pSrc);
@@ -1050,7 +1055,7 @@ char* System::SE_Strcat(char* pDst, size_t uiDstSize, const char* pSrc)
 #endif
 }
 //----------------------------------------------------------------------------
-char* System::SE_Strncpy(char* pDst, size_t uiDstSize, const char* pSrc, 
+char* SESystem::SE_Strncpy(char* pDst, size_t uiDstSize, const char* pSrc, 
     size_t uiSrcSize)
 {
 #ifdef SE_USING_VC80
@@ -1079,7 +1084,7 @@ char* System::SE_Strncpy(char* pDst, size_t uiDstSize, const char* pSrc,
 #endif
 }
 //----------------------------------------------------------------------------
-char* System::SE_Strtok(char* pToken, const char* pDelimiters, 
+char* SESystem::SE_Strtok(char* pToken, const char* pDelimiters, 
     char*& rpNextToken)
 {
 #ifdef SE_USING_VC80

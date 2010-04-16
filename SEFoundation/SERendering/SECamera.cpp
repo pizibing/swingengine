@@ -103,7 +103,7 @@ void Camera::SetFrustum(float fRMin, float fRMax, float fUMin, float fUMax,
 void Camera::SetFrustum(const float* pFrustum)
 {
     size_t uiSize = VF_COUNT * sizeof(float);
-    System::SE_Memcpy(m_Frustum, uiSize, pFrustum, uiSize);
+    SESystem::SE_Memcpy(m_Frustum, uiSize, pFrustum, uiSize);
 
     if( m_pRenderer )
     {

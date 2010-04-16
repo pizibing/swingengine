@@ -30,7 +30,7 @@ TInteger<N>::TInteger(int i)
     {
         memset(m_asBuffer, 0xFF, TINT_BYTES);
     }
-    System::SE_Memcpy(m_asBuffer, sizeof(int), &i, sizeof(int));
+    SESystem::SE_Memcpy(m_asBuffer, sizeof(int), &i, sizeof(int));
 #ifdef SE_BIG_ENDIAN
     short sSave = m_asBuffer[0];
     m_asBuffer[0] = m_asBuffer[1];
@@ -41,7 +41,7 @@ TInteger<N>::TInteger(int i)
 template <int N>
 TInteger<N>::TInteger(const TInteger& rI)
 {
-    System::SE_Memcpy(m_asBuffer, TINT_BYTES, rI.m_asBuffer, TINT_BYTES);
+    SESystem::SE_Memcpy(m_asBuffer, TINT_BYTES, rI.m_asBuffer, TINT_BYTES);
 }
 //----------------------------------------------------------------------------
 template <int N>
@@ -52,7 +52,7 @@ TInteger<N>::~TInteger()
 template <int N>
 TInteger<N>& TInteger<N>::operator=(const TInteger& rI)
 {
-    System::SE_Memcpy(m_asBuffer, TINT_BYTES, rI.m_asBuffer, TINT_BYTES);
+    SESystem::SE_Memcpy(m_asBuffer, TINT_BYTES, rI.m_asBuffer, TINT_BYTES);
 
     return *this;
 }
@@ -338,7 +338,7 @@ TInteger<N> TInteger<N>::operator*(const TInteger& rI) const
     SE_ASSERT( (ausResult[TINT_LAST] & 0x8000) == 0 );
 
     TInteger tempResult;
-    System::SE_Memcpy(tempResult.m_asBuffer, TINT_BYTES, ausResult, TINT_BYTES);
+    SESystem::SE_Memcpy(tempResult.m_asBuffer, TINT_BYTES, ausResult, TINT_BYTES);
     if( iSProduct < 0 )
     {
         tempResult = -tempResult;
@@ -745,7 +745,7 @@ void TInteger<N>::DivSingle(const TInteger& rNumer, short sDenom,
     if( uiDigit1 & 0xFFFF0000 )
     {
         uiSize = 2*sizeof(short);
-        System::SE_Memcpy(rRem.m_asBuffer, uiSize, &uiDigit1, uiSize);
+        SESystem::SE_Memcpy(rRem.m_asBuffer, uiSize, &uiDigit1, uiSize);
 #ifdef SE_BIG_ENDIAN
         short sSave = rRem.m_asBuffer[0];
         rRem.m_asBuffer[0] = rRem.m_asBuffer[1];
@@ -756,7 +756,7 @@ void TInteger<N>::DivSingle(const TInteger& rNumer, short sDenom,
     {
         unsigned short usDigit1 = (unsigned short)uiDigit1;
         uiSize = sizeof(short);
-        System::SE_Memcpy(rRem.m_asBuffer, uiSize, &usDigit1, uiSize);
+        SESystem::SE_Memcpy(rRem.m_asBuffer, uiSize, &usDigit1, uiSize);
     }
 }
 //----------------------------------------------------------------------------

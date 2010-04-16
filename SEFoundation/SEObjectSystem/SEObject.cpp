@@ -67,10 +67,10 @@ void Object::DecrementReferences()
 //----------------------------------------------------------------------------
 void Object::PrintInUse(const char* pFileName, const char* pMessage)
 {
-    FILE* pFile = System::SE_Fopen(pFileName, "at");
+    FILE* pFile = SESystem::SE_Fopen(pFileName, "at");
     SE_ASSERT( pFile );
 
-    System::SE_Fprintf(pFile, "%s\n", pMessage);
+    SESystem::SE_Fprintf(pFile, "%s\n", pMessage);
 
     SE_ASSERT( InUse );
     unsigned int uiID = 0;
@@ -78,13 +78,13 @@ void Object::PrintInUse(const char* pFileName, const char* pMessage)
     Object** ppObject = InUse->GetFirst(&uiID);
     while( ppObject )
     {
-        System::SE_Fprintf(pFile, "id = %6d , type = %s\n", uiID,
+        SESystem::SE_Fprintf(pFile, "id = %6d , type = %s\n", uiID,
             (const char*)(*ppObject)->GetType().GetName());
         ppObject = InUse->GetNext(&uiID);
     }
 
-    System::SE_Fprintf(pFile, "\n\n");
-    System::SE_Fclose(pFile);
+    SESystem::SE_Fprintf(pFile, "\n\n");
+    SESystem::SE_Fclose(pFile);
 }
 //----------------------------------------------------------------------------
 
@@ -221,7 +221,7 @@ ObjectPtr Object::Copy(bool bUniqueNames) const
                 const char* pName = rName.c_str();
                 char* acNewName = SE_NEW char[iLength + 2];
                 const size_t uiSize = (size_t)(iLength + 2);
-                System::SE_Strcpy(acNewName, uiSize, pName);
+                SESystem::SE_Strcpy(acNewName, uiSize, pName);
                 acNewName[iLength] = NameAppend;
                 acNewName[iLength+1] = 0;
                 pObject->SetName(std::string(acNewName));

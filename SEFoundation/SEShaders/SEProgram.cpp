@@ -185,21 +185,21 @@ StringTree* Program::SaveStrings(const char*)
     float* pData;
     for( i = 0; i < (int)m_RendererConstants.size(); i++ )
     {
-        System::SE_Sprintf(acTitle, uiTitleSize, "RC[%d] name =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "RC[%d] name =", i);
         pTree->Append(Format(acTitle, RendererConstant::GetName(
             m_RendererConstants[i].GetType()).c_str()));
 
         iDataCount = m_RendererConstants[i].GetDataCount();
-        System::SE_Sprintf(acTitle, uiTitleSize, "RC[%d] data count =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "RC[%d] data count =", i);
         pTree->Append(Format(acTitle, iDataCount));
 
-        System::SE_Sprintf(acTitle, uiTitleSize, "RC[%d] data pointer =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "RC[%d] data pointer =", i);
         pTree->Append(Format(acTitle, m_RendererConstants[i].GetData()));
 
         pData = m_RendererConstants[i].GetData();
         for( j = 0; j < iDataCount; j++ )
         {
-            System::SE_Sprintf(acTitle, uiTitleSize, 
+            SESystem::SE_Sprintf(acTitle, uiTitleSize, 
                 "    data[%d] =", j);
             pTree->Append(Format(acTitle, pData[j]));
         }
@@ -207,21 +207,21 @@ StringTree* Program::SaveStrings(const char*)
 
     for( i = 0; i < (int)m_UserConstants.size(); i++ )
     {
-        System::SE_Sprintf(acTitle, uiTitleSize, "UC[%d] name =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "UC[%d] name =", i);
         pTree->Append(Format(acTitle, m_UserConstants[i].GetName().c_str()));
 
         iDataCount = m_UserConstants[i].GetDataCount();
-        System::SE_Sprintf(acTitle, uiTitleSize, "UC[%d] data count =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "UC[%d] data count =", i);
         pTree->Append(Format(acTitle, iDataCount));
 
         pData = m_UserConstants[i].GetData();
-        System::SE_Sprintf(acTitle, uiTitleSize, "UC[%d] data pointer =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "UC[%d] data pointer =", i);
         pTree->Append(Format(acTitle, pData));
         if( pData )
         {
             for( j = 0; j < iDataCount; j++ )
             {
-                System::SE_Sprintf(acTitle, uiTitleSize, 
+                SESystem::SE_Sprintf(acTitle, uiTitleSize, 
                     "    data[%d] =", j);
                 pTree->Append(Format(acTitle, pData[j]));
             }
@@ -230,11 +230,11 @@ StringTree* Program::SaveStrings(const char*)
 
     for( i = 0; i < (int)m_SamplerInformation.size(); i++ )
     {
-        System::SE_Sprintf(acTitle, uiTitleSize, "SI[%d] name =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "SI[%d] name =", i);
         pTree->Append(Format(acTitle, m_SamplerInformation[i].GetName(
             ).c_str()));
 
-        System::SE_Sprintf(acTitle, uiTitleSize, "SI[%d] dimension =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "SI[%d] dimension =", i);
         pTree->Append(Format(acTitle, m_SamplerInformation[i].GetDimension(
             )));
     }

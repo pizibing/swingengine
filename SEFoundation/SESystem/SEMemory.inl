@@ -19,47 +19,47 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline size_t& Memory::MaxAllowedBytes()
+inline size_t& SEMemory::MaxAllowedBytes()
 {
     return CurMaxAllowedBytes;
 }
 //----------------------------------------------------------------------------
-inline bool& Memory::TrackSizes()
+inline bool& SEMemory::TrackSizes()
 {
     return IsTrackSizes;
 }
 //----------------------------------------------------------------------------
-inline size_t Memory::GetNumNewCalls()
+inline size_t SEMemory::GetNumNewCalls()
 {
     return CurNumNewCalls;
 }
 //----------------------------------------------------------------------------
-inline size_t Memory::GetNumDeleteCalls()
+inline size_t SEMemory::GetNumDeleteCalls()
 {
     return CurNumDeleteCalls;
 }
 //----------------------------------------------------------------------------
-inline size_t Memory::GetNumBlocks()
+inline size_t SEMemory::GetNumBlocks()
 {
     return CurNumBlocks;
 }
 //----------------------------------------------------------------------------
-inline size_t Memory::GetNumBytes()
+inline size_t SEMemory::GetNumBytes()
 {
     return CurNumBytes;
 }
 //----------------------------------------------------------------------------
-inline size_t Memory::GetMaxAllocatedBytes()
+inline size_t SEMemory::GetMaxAllocatedBytes()
 {
     return CurMaxAllocatedBytes;
 }
 //----------------------------------------------------------------------------
-inline size_t Memory::GetMaxBlockSize()
+inline size_t SEMemory::GetMaxBlockSize()
 {
     return CurMaxBlockSize;
 }
 //----------------------------------------------------------------------------
-inline size_t Memory::GetHistogram(int i)
+inline size_t SEMemory::GetHistogram(int i)
 {
     if( 0 <= i && i <= 31 )
     {
@@ -69,12 +69,12 @@ inline size_t Memory::GetHistogram(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-inline const Memory::MemoryBlock* Memory::GetHead()
+inline const SEMemory::SEMemoryBlock* SEMemory::GetHead()
 {
     return MemBlockHead;
 }
 //----------------------------------------------------------------------------
-inline const Memory::MemoryBlock* Memory::GetTail()
+inline const SEMemory::SEMemoryBlock* SEMemory::GetTail()
 {
     return MemBlockTail;
 }

@@ -46,7 +46,7 @@ IndexBuffer::IndexBuffer(const IndexBuffer* pIBuffer)
     m_iICount = pIBuffer->m_iICount;
     m_pIndex = SE_NEW int[m_iICount];
     size_t uiSize = m_iICount * sizeof(int);
-    System::SE_Memcpy(m_pIndex, uiSize, pIBuffer->m_pIndex, uiSize);
+    SESystem::SE_Memcpy(m_pIndex, uiSize, pIBuffer->m_pIndex, uiSize);
 }
 //----------------------------------------------------------------------------
 IndexBuffer::IndexBuffer()

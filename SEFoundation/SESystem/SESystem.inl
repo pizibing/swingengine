@@ -52,7 +52,8 @@ void Allocate(int iCols, int iRows, int iSlices, T***& raaatArray)
         raaatArray[iSlice] = &raaatArray[0][iRows*iSlice];
         for( int iRow = 0; iRow < iRows; iRow++ )
         {
-            raaatArray[iSlice][iRow] = &raaatArray[0][0][iCols*(iRow+iRows*iSlice)];
+            raaatArray[iSlice][iRow] = &raaatArray[0][0][iCols*(iRow+
+                iRows*iSlice)];
         }
     }
 }
