@@ -117,8 +117,8 @@ Wave* Wave::Load(const char* pWaveName)
     SE_ASSERT( pWaveName );
 
     std::string strFileName = std::string(pWaveName) + std::string(".sewf");
-    const char* pDecorated = System::SE_GetPath(strFileName.c_str(), 
-        System::SM_READ);
+    const char* pDecorated = SESystem::SE_GetPath(strFileName.c_str(), 
+        SESystem::SM_READ);
     if( !pDecorated )
     {
         return 0;
@@ -126,7 +126,7 @@ Wave* Wave::Load(const char* pWaveName)
 
     char* acBuffer;
     int iSize;
-    bool bLoaded = System::SE_Load(pDecorated, acBuffer, iSize);
+    bool bLoaded = SESystem::SE_Load(pDecorated, acBuffer, iSize);
     if( !bLoaded )
     {
         // 文件不存在.
@@ -154,26 +154,26 @@ Wave* Wave::Load(const char* pWaveName)
     // 获取wave format和frequency.
     int iFormat;
     unsigned int uiFrequency;
-    pcCurrent += System::SE_Read4le(pcCurrent, 1, &iFormat);
-    pcCurrent += System::SE_Read4le(pcCurrent, 1, &uiFrequency);
+    pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &iFormat);
+    pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &uiFrequency);
 
     FormatMode eFormat = (FormatMode)iFormat;
 
     // 获取wave data.
     // 注意16位采样数据存在endian问题.
     int iDataSize;
-    pcCurrent += System::SE_Read4le(pcCurrent, 1, &iDataSize);
+    pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &iDataSize);
     unsigned char* pData = SE_NEW unsigned char[iDataSize];
     if( iFormat == WT_MONO4 || iFormat == WT_MONO8 ||
         iFormat == WT_STEREO4 || iFormat == WT_STEREO8 )
     {
-        System::SE_Read1(pcCurrent, iDataSize, pData);
+        SESystem::SE_Read1(pcCurrent, iDataSize, pData);
     }
     else
     {
         // 对于16位采样数据,数据区字节数应为偶数.
         SE_ASSERT( IsEven(iDataSize) );
-        System::SE_Read2le(pcCurrent, iDataSize>>1, pData);
+        SESystem::SE_Read2le(pcCurrent, iDataSize>>1, pData);
     }
 
     Wave* pWave = SE_NEW Wave(eFormat, uiFrequency, iDataSize, pData,
@@ -191,36 +191,36 @@ bool Wave::Save(const char* pFileName)
         return false;
     }
 
-    FILE* pFile = System::SE_Fopen(pFileName, "wb");
+    FILE* pFile = SESystem::SE_Fopen(pFileName, "wb");
     if( !pFile )
     {
         return false;
     }
 
     // 写文件版本.
-    System::SE_Write1(pFile, WaveVersion::LENGTH, WaveVersion::LABEL);
+    SESystem::SE_Write1(pFile, WaveVersion::LENGTH, WaveVersion::LABEL);
 
     // 写wave format和frequency.
     int iFormat = (int)m_eFormat;
-    System::SE_Write4le(pFile, 1, &iFormat);
-    System::SE_Write4le(pFile, 1, &m_uiFrequency);
+    SESystem::SE_Write4le(pFile, 1, &iFormat);
+    SESystem::SE_Write4le(pFile, 1, &m_uiFrequency);
 
     // 写wave data.
     // 注意16位采样数据存在endian问题.
-    System::SE_Write4le(pFile, 1, &m_iDataSize);
+    SESystem::SE_Write4le(pFile, 1, &m_iDataSize);
     if( iFormat == WT_MONO4 || iFormat == WT_MONO8 ||
         iFormat == WT_STEREO4 || iFormat == WT_STEREO8 )
     {
-        System::SE_Write1(pFile, m_iDataSize, m_pData);
+        SESystem::SE_Write1(pFile, m_iDataSize, m_pData);
     }
     else
     {
         // 对于16位采样数据,数据区字节数应为偶数.
         SE_ASSERT( IsEven(m_iDataSize) );
-        System::SE_Write2le(pFile, m_iDataSize>>1, m_pData);
+        SESystem::SE_Write2le(pFile, m_iDataSize>>1, m_pData);
     }
 
-    System::SE_Fclose(pFile);
+    SESystem::SE_Fclose(pFile);
 
     return true;
 }
