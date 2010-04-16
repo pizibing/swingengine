@@ -48,7 +48,7 @@ ExtremalQuery3BSPf::ExtremalQuery3BSPf(const ConvexPolyhedron3f& rPolytope)
     m_iNodeCount = (int)tempNodes.size();
     m_aNode = SE_NEW SphericalArc[m_iNodeCount];
     size_t uiSize = m_iNodeCount * sizeof(SphericalArc);
-    System::SE_Memcpy(m_aNode, uiSize, &tempNodes.front(), uiSize);
+    SESystem::SE_Memcpy(m_aNode, uiSize, &tempNodes.front(), uiSize);
 }
 //----------------------------------------------------------------------------
 ExtremalQuery3BSPf::~ExtremalQuery3BSPf()
