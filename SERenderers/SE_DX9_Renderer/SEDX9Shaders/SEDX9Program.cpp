@@ -54,10 +54,10 @@ bool DX9Program::OnLoadProgram(Renderer* pRenderer,
     // 获取file name和entry name.
     size_t uiLen = strlen(rProgramName.c_str()) + 1;
     char* acProgramName = SE_NEW char[uiLen];
-    System::SE_Strcpy(acProgramName, uiLen, rProgramName.c_str());
+    SESystem::SE_Strcpy(acProgramName, uiLen, rProgramName.c_str());
     char* pNextToken;
-    char* acFileName = System::SE_Strtok(acProgramName, ".", pNextToken);
-    char* acEntryName = System::SE_Strtok(0, ".", pNextToken);
+    char* acFileName = SESystem::SE_Strtok(acProgramName, ".", pNextToken);
+    char* acEntryName = SESystem::SE_Strtok(0, ".", pNextToken);
     if( !acFileName || !acEntryName )
     {
         // 获取file name和entry name失败.
@@ -66,8 +66,8 @@ bool DX9Program::OnLoadProgram(Renderer* pRenderer,
     }
 
     std::string tempFileName = std::string(acFileName) + std::string(".cg");
-    const char* pDecorated = System::SE_GetPath(tempFileName.c_str(), 
-        System::SM_READ);
+    const char* pDecorated = SESystem::SE_GetPath(tempFileName.c_str(), 
+        SESystem::SM_READ);
     if( !pDecorated )
     {
         // 没有找到指定Cg文件.

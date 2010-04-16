@@ -551,7 +551,7 @@ void DX9Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
     ms_hResult = pDXVBuffer->Lock(0, uiVBSize, (void**)(&afVBData), 0);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 
-    System::SE_Memcpy(afVBData, uiVBSize, afCompatible, uiVBSize);
+    SESystem::SE_Memcpy(afVBData, uiVBSize, afCompatible, uiVBSize);
     ms_hResult = pDXVBuffer->Unlock();
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 
@@ -591,7 +591,7 @@ void DX9Renderer::OnLoadIBuffer(ResourceIdentifier*& rpID, IndexBuffer* pIBuffer
     ms_hResult = pDXIBuffer->Lock(0, uiIBSize, (void**)(&pcIndices), 0);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 
-    System::SE_Memcpy(pcIndices, uiIBSize, aiIndex, iICount*sizeof(int));
+    SESystem::SE_Memcpy(pcIndices, uiIBSize, aiIndex, iICount*sizeof(int));
 
     ms_hResult = pDXIBuffer->Unlock();
     SE_ASSERT( SUCCEEDED(ms_hResult) );

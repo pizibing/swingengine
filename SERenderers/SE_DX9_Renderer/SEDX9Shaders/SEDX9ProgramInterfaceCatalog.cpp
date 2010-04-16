@@ -130,8 +130,8 @@ DX9ProgramInterface* DX9ProgramInterfaceCatalog::Find(CGprogram hCgProgram,
 bool DX9ProgramInterfaceCatalog::PrintContents(const std::string& rFileName) 
     const
 {
-    const char* pDecorated = System::SE_GetPath(rFileName.c_str(), 
-        System::SM_WRITE);
+    const char* pDecorated = SESystem::SE_GetPath(rFileName.c_str(), 
+        SESystem::SM_WRITE);
 
     if( pDecorated )
     {
