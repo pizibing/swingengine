@@ -59,7 +59,7 @@ public:
     // Get an identity matrix.
     static ManagedMatrix3f^ Identity(void);
 
-    // System::Object overrides.
+    // SESystem::Object overrides.
     virtual bool Equals(Object^ thObj) override;
 
 internal:

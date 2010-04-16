@@ -57,7 +57,7 @@ public:
     static ManagedVector2f^ Normalize(ManagedVector2f^ thVec);
     static float GetLength(ManagedVector2f^ thVec);
 
-    // System::Object overrides.
+    // SESystem::Object overrides.
     virtual bool Equals(Object^ thObj) override;
 
 internal:

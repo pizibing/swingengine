@@ -63,7 +63,7 @@ public:
     void FromRotationMatrix(ManagedMatrix3f^ thRotMat);
     ManagedMatrix3f^ GetRotationMatrix(void);
 
-    // System::Object overrides.
+    // SESystem::Object overrides.
     virtual bool Equals(Object^ thObj) override;
 
 internal:

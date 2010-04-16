@@ -32,32 +32,32 @@ ManagedEngine::ManagedEngine()
     SE_DX9Renderer_Register();
 
     // Swing Engine initialize.
-    System::SE_Initialize();
-    std::string tempSEPath(System::SE_PATH);
+    SESystem::SE_Initialize();
+    std::string tempSEPath(SESystem::SE_PATH);
     Main::Initialize();
 
     // 总是检查当前工作目录.
-    System::SE_InsertDirectory(".");
+    SESystem::SE_InsertDirectory(".");
 
     // scene graph文件的路径.
     std::string tempDir;
     tempDir = tempSEPath + std::string("/Data/seof");
-    System::SE_InsertDirectory(tempDir.c_str());
+    SESystem::SE_InsertDirectory(tempDir.c_str());
 
     // texture image文件的路径.
     tempDir = tempSEPath + std::string("/Data/seif");
-    System::SE_InsertDirectory(tempDir.c_str());
+    SESystem::SE_InsertDirectory(tempDir.c_str());
 
     // shader program文件的路径.
     tempDir = tempSEPath + std::string("/Data/sesp/Cg");
-    System::SE_InsertDirectory(tempDir.c_str());
+    SESystem::SE_InsertDirectory(tempDir.c_str());
 }
 //---------------------------------------------------------------------------
 ManagedEngine::~ManagedEngine()
 {
     // Swing Engine terminate.
     Main::Terminate();
-    System::SE_Terminate();
+    SESystem::SE_Terminate();
 }
 //---------------------------------------------------------------------------
 void ManagedEngine::Initialize()

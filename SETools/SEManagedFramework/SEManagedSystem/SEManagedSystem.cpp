@@ -30,8 +30,8 @@ String^ ManagedSystem::GetPath(String^ thFileName, Mode eMode)
 
     const char* acFileName = ManagedUtility::StringToNativeCharBuffer(
         thFileName);
-    using Swing::System;  // Avoid namespace conflict.
-    const char* acPath = System::SE_GetPath(acFileName, (int)eMode);
+    using Swing::SESystem;  // Avoid namespace conflict.
+    const char* acPath = SESystem::SE_GetPath(acFileName, (int)eMode);
     ManagedUtility::FreeNativeCharBuffer(acFileName);
 
     if( !acPath )
@@ -48,8 +48,8 @@ bool ManagedSystem::InsertDirectory(String^ thDirectory)
 
     const char* acDirectory = ManagedUtility::StringToNativeCharBuffer(
         thDirectory);
-    using Swing::System;  // Avoid namespace conflict.
-    bool bRes = System::SE_InsertDirectory(acDirectory);
+    using Swing::SESystem;  // Avoid namespace conflict.
+    bool bRes = SESystem::SE_InsertDirectory(acDirectory);
     ManagedUtility::FreeNativeCharBuffer(acDirectory);
 
     return bRes;
@@ -57,6 +57,6 @@ bool ManagedSystem::InsertDirectory(String^ thDirectory)
 //---------------------------------------------------------------------------
 double ManagedSystem::GetTime()
 {
-    return Swing::System::SE_GetTime();
+    return Swing::SESystem::SE_GetTime();
 }
 //---------------------------------------------------------------------------
