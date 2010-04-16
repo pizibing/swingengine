@@ -59,7 +59,7 @@ protected:
     static float ms_afLightBlendWeight[3];
 };
 
-typedef SmartPointer<TextureTileL1Effect> TextureTileL1EffectPtr;
+typedef SESmartPointer<TextureTileL1Effect> TextureTileL1EffectPtr;
 
 }
 

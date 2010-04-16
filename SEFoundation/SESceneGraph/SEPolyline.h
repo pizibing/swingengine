@@ -64,7 +64,7 @@ protected:
     bool m_bClosed, m_bContiguous;
 };
 
-typedef SmartPointer<Polyline> PolylinePtr;
+typedef SESmartPointer<Polyline> PolylinePtr;
 
 #include "SEPolyline.inl"
 

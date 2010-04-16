@@ -67,7 +67,7 @@ protected:
     float m_afDepthBias[4];
 };
 
-typedef SmartPointer<ShadowMapEffect> ShadowMapEffectPtr;
+typedef SESmartPointer<ShadowMapEffect> ShadowMapEffectPtr;
 
 #include "SEShadowMapEffect.inl"
 

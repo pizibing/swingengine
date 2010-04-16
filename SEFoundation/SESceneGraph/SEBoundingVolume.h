@@ -41,7 +41,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080312
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API BoundingVolume : public Object
+class SE_FOUNDATION_API BoundingVolume : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -51,7 +51,7 @@ public:
     // 虚基类
     virtual ~BoundingVolume(void);
 
-    // RTTI信息
+    // SERTTI信息
     enum BVType
     {
         BV_SPHERE,
@@ -100,7 +100,7 @@ protected:
     BoundingVolume(void);
 };
 
-typedef SmartPointer<BoundingVolume> BoundingVolumePtr;
+typedef SESmartPointer<BoundingVolume> BoundingVolumePtr;
 
 }
 

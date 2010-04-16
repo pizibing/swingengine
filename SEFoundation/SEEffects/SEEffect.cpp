@@ -26,10 +26,10 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Effect, Object);
+SE_IMPLEMENT_RTTI(Swing, Effect, SEObject);
 SE_IMPLEMENT_STREAM(Effect);
-SE_IMPLEMENT_DEFAULT_STREAM(Effect, Object);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Effect, Object);
+SE_IMPLEMENT_DEFAULT_STREAM(Effect, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(Effect, SEObject);
 
 //SE_REGISTER_STREAM(Effect);
 
@@ -51,7 +51,7 @@ void Effect::Draw(Renderer* pRenderer, Spatial*, int iMin, int iMax,
     {
         if( pVisibleSet[i].IsRenderable() )
         {
-            Geometry* pGeometry = (Geometry*)pVisibleSet[i].Object;
+            Geometry* pGeometry = (Geometry*)pVisibleSet[i].SEObject;
             pGeometry->AttachEffect(this);
             pRenderer->Draw(pGeometry);
             pGeometry->DetachEffect(this);

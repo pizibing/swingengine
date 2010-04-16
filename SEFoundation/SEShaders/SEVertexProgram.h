@@ -51,7 +51,7 @@ protected:
     VertexProgram(void);
 };
 
-typedef SmartPointer<VertexProgram> VertexProgramPtr;
+typedef SESmartPointer<VertexProgram> VertexProgramPtr;
 
 }
 

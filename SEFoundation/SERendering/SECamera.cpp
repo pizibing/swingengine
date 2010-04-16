@@ -24,9 +24,9 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Camera, Object);
+SE_IMPLEMENT_RTTI(Swing, Camera, SEObject);
 SE_IMPLEMENT_STREAM(Camera);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Camera, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(Camera, SEObject);
 
 //SE_REGISTER_STREAM(Camera);
 
@@ -341,11 +341,11 @@ bool Camera::GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1,
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Camera::Load(Stream& rStream, Stream::Link* pLink)
+void Camera::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Object::Load(rStream, pLink);
+    SEObject::Load(rStream, pLink);
 
     // native data
     rStream.Read(m_Location);
@@ -368,21 +368,21 @@ void Camera::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(Camera);
 }
 //----------------------------------------------------------------------------
-void Camera::Link(Stream& rStream, Stream::Link* pLink)
+void Camera::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Object::Link(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Camera::Register(Stream& rStream) const
+bool Camera::Register(SEStream& rStream) const
 {
-    return Object::Register(rStream);
+    return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Camera::Save(Stream& rStream) const
+void Camera::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
     
-    Object::Save(rStream);
+    SEObject::Save(rStream);
 
     // native data
     rStream.Write(m_Location);
@@ -405,9 +405,9 @@ void Camera::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Camera);
 }
 //----------------------------------------------------------------------------
-int Camera::GetDiskUsed(const StreamVersion& rVersion) const
+int Camera::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    int iSize = Object::GetDiskUsed(rVersion) +
+    int iSize = SEObject::GetDiskUsed(rVersion) +
         sizeof(m_Location) +
         sizeof(m_RVector) +
         sizeof(m_UVector) +
@@ -428,9 +428,9 @@ int Camera::GetDiskUsed(const StreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-StringTree* Camera::SaveStrings(const char*)
+SEStringTree* Camera::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -452,7 +452,7 @@ StringTree* Camera::SaveStrings(const char*)
     pTree->Append(Format("port F =", m_fPortF));
 
     // children
-    pTree->Append(Object::SaveStrings());
+    pTree->Append(SEObject::SaveStrings());
 
     return pTree;
 }

@@ -57,7 +57,7 @@ public:
     float Shininess;    // default: 1
 };
 
-typedef SmartPointer<MaterialState> MaterialStatePtr;
+typedef SESmartPointer<MaterialState> MaterialStatePtr;
 
 }
 

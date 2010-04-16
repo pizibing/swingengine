@@ -54,7 +54,7 @@ protected:
     static bool ms_bUCInitialized;
 };
 
-typedef SmartPointer<SkinMaterialTextureL1Effect> 
+typedef SESmartPointer<SkinMaterialTextureL1Effect> 
     SkinMaterialTextureL1EffectPtr;
 
 }

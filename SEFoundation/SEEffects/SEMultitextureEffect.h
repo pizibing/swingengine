@@ -65,7 +65,7 @@ protected:
     std::string* m_aImageName;
 };
 
-typedef SmartPointer<MultitextureEffect> MultitextureEffectPtr;
+typedef SESmartPointer<MultitextureEffect> MultitextureEffectPtr;
 
 }
 

@@ -109,7 +109,7 @@ protected:
     static int ms_iCount;
 };
 
-typedef SmartPointer<TriMesh> TriMeshPtr;
+typedef SESmartPointer<TriMesh> TriMeshPtr;
 
 #include "SETriMesh.inl"
 

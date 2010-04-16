@@ -34,17 +34,17 @@
 namespace Swing
 {
 
-class SE_FOUNDATION_API ImageVersion
+class SE_FOUNDATION_API SEImageVersion
 {
 public:
     static const int MAJOR;     // 4
     static const int MINOR;     // 0
     static const char LABEL[];  // "Wild Magic Image File 4.00"
     static const int LENGTH;    // 27 = strlen(LABEL)+1
-    static const ImageVersion CURRENT;
+    static const SEImageVersion CURRENT;
 
-    ImageVersion(int iMajor = -1, int iMinor = -1);
-    ImageVersion(const char* pString);
+    SEImageVersion(int iMajor = -1, int iMinor = -1);
+    SEImageVersion(const char* pString);
 
     int GetMajor(void) const;
     int GetMinor(void) const;
@@ -54,12 +54,12 @@ public:
 
     // For comparisons of versions.  This is useful whenever a change to the
     // Image class causes a file format change.
-    bool operator == (const ImageVersion& rVersion) const;
-    bool operator != (const ImageVersion& rVersion) const;
-    bool operator <  (const ImageVersion& rVersion) const;
-    bool operator <= (const ImageVersion& rVersion) const;
-    bool operator >  (const ImageVersion& rVersion) const;
-    bool operator >= (const ImageVersion& rVersion) const;
+    bool operator == (const SEImageVersion& rVersion) const;
+    bool operator != (const SEImageVersion& rVersion) const;
+    bool operator <  (const SEImageVersion& rVersion) const;
+    bool operator <= (const SEImageVersion& rVersion) const;
+    bool operator >  (const SEImageVersion& rVersion) const;
+    bool operator >= (const SEImageVersion& rVersion) const;
 
 protected:
     int GetCombined(void) const;  // 100*major + minor

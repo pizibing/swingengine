@@ -19,81 +19,81 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline const RTTI& Object::GetType() const
+inline const SERTTI& SEObject::GetType() const
 {
     return TYPE;
 }
 //----------------------------------------------------------------------------
-inline bool Object::IsExactly(const RTTI& rType) const
+inline bool SEObject::IsExactly(const SERTTI& rType) const
 {
     return GetType().IsExactly(rType);
 }
 //----------------------------------------------------------------------------
-inline bool Object::IsDerived(const RTTI& rType) const
+inline bool SEObject::IsDerived(const SERTTI& rType) const
 {
     return GetType().IsDerived(rType);
 }
 //----------------------------------------------------------------------------
-inline bool Object::IsExactlyTypeOf(const Object* pObject) const
+inline bool SEObject::IsExactlyTypeOf(const SEObject* pObject) const
 {
     return pObject && GetType().IsExactly(pObject->GetType());
 }
 //----------------------------------------------------------------------------
-inline bool Object::IsDerivedTypeOf(const Object* pObject) const
+inline bool SEObject::IsDerivedTypeOf(const SEObject* pObject) const
 {
     return pObject && GetType().IsDerived(pObject->GetType());
 }
 //----------------------------------------------------------------------------
 template <class T>
-T* StaticCast(Object* pObject)
+T* StaticCast(SEObject* pObject)
 {
     return (T*)pObject;
 }
 //----------------------------------------------------------------------------
 template <class T>
-const T* StaticCast(const Object* pObject)
+const T* StaticCast(const SEObject* pObject)
 {
     return (const T*)pObject;
 }
 //----------------------------------------------------------------------------
 template <class T>
-T* DynamicCast(Object* pObject)
+T* DynamicCast(SEObject* pObject)
 {
     return pObject && pObject->IsDerived(T::TYPE) ? (T*)pObject : 0;
 }
 //----------------------------------------------------------------------------
 template <class T>
-const T* DynamicCast(const Object* pObject)
+const T* DynamicCast(const SEObject* pObject)
 {
     return pObject && pObject->IsDerived(T::TYPE) ? (const T*)pObject : 0;
 }
 //----------------------------------------------------------------------------
-inline void Object::SetName(const std::string& rName)
+inline void SEObject::SetName(const std::string& rName)
 {
     m_Name = rName;
 }
 //----------------------------------------------------------------------------
-inline const std::string& Object::GetName() const
+inline const std::string& SEObject::GetName() const
 {
     return m_Name;
 }
 //----------------------------------------------------------------------------
-inline unsigned int Object::GetID() const
+inline unsigned int SEObject::GetID() const
 {
     return m_uiID;
 }
 //----------------------------------------------------------------------------
-inline unsigned int Object::GetNextID()
+inline unsigned int SEObject::GetNextID()
 {
     return ms_uiNextID;
 }
 //----------------------------------------------------------------------------
-inline void Object::IncrementReferences()
+inline void SEObject::IncrementReferences()
 {
     m_iReferences++;
 }
 //----------------------------------------------------------------------------
-inline int Object::GetReferences() const
+inline int SEObject::GetReferences() const
 {
     return m_iReferences;
 }

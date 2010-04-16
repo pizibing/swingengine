@@ -36,7 +36,7 @@ namespace Swing
 class BoundingVolume;
 class ColorRGB;
 class ColorRGBA;
-class RTTI;
+class SERTTI;
 
 //----------------------------------------------------------------------------
 // 名称:字符串树类
@@ -44,11 +44,11 @@ class RTTI;
 // 作者:Sun Che
 // 时间:20080311
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API StringTree
+class SE_FOUNDATION_API SEStringTree
 {
 public:
-    StringTree(void);
-    ~StringTree(void);
+    SEStringTree(void);
+    ~SEStringTree(void);
 
     // 自己的strings
     inline int GetStringCount(void) const;
@@ -58,26 +58,27 @@ public:
 
     // 子节点
     inline int GetChildCount(void) const;
-    inline void SetChild(int i, StringTree* pChild);
-    inline StringTree* GetChild(int i);
-    inline void Append(StringTree* pChild);
+    inline void SetChild(int i, SEStringTree* pChild);
+    inline SEStringTree* GetChild(int i);
+    inline void Append(SEStringTree* pChild);
 
     // streaming
     bool Save(const char* pFileName, int iTabSize = 4); // iTabSize是每行缩进的步进量
 
     static void FormatFloat(float fValue, size_t uiStringSize, char* pString);
-    static void FormatDouble(double dValue, size_t uiStringSize, char* pString);
+    static void FormatDouble(double dValue, size_t uiStringSize, 
+        char* pString);
 
 private:
     // streaming(递归)
     void Save(FILE* pFile, int iLevel, int iTabSize);
 
     std::vector<char*> m_Strings;
-    std::vector<StringTree*> m_Children;
+    std::vector<SEStringTree*> m_Children;
 };
 
 // 内置变量类型的字符串生成函数
-SE_FOUNDATION_API char* Format(const RTTI* pRTTI, const char* pName);
+SE_FOUNDATION_API char* Format(const SERTTI* pRTTI, const char* pName);
 SE_FOUNDATION_API char* Format(const char* pString);
 SE_FOUNDATION_API char* Format(const char* pPrefix, bool);
 SE_FOUNDATION_API char* Format(const char* pPrefix, char);
@@ -108,7 +109,7 @@ SE_FOUNDATION_API char* Format(const char* pPrefix, const Vector3f&);
 SE_FOUNDATION_API char* Format(const char* pPrefix, const Vector4f&);
 
 template <class T>
-StringTree* Format(const char* pTitle, int iCount, const T* pValue);
+SEStringTree* Format(const char* pTitle, int iCount, const T* pValue);
 
 #include "SEStringTree.inl"
 

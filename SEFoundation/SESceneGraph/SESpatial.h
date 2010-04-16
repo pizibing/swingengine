@@ -41,7 +41,7 @@ class Light;
 // 作者:Sun Che
 // 时间:20080707
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Spatial : public Object
+class SE_FOUNDATION_API Spatial : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -133,8 +133,8 @@ public:
     // 在DoPick函数返回表示全部相交点的PickRecord数组后,
     // 每个PickRecord的射线参数t可作为数组排序的key,从而反映出由近到远的相交顺序.
     //
-    // PickRecord类本身虽然不具备RTTI能力,
-    // 但我们可以从其成员IObject那里间接获取其RTTI信息.
+    // PickRecord类本身虽然不具备SERTTI能力,
+    // 但我们可以从其成员IObject那里间接获取其SERTTI信息.
     // 只要我们知道了IObject的具体类型,
     // 则该PickRecord可以被动态类型转换为对应的PickRecord派生类.
     class SE_FOUNDATION_API PickRecord
@@ -143,7 +143,7 @@ public:
         virtual ~PickRecord(void);
 
         // 与射线相交的对象.
-        SmartPointer<Spatial> IObject;
+        SESmartPointer<Spatial> IObject;
 
         // 相交点处,世界射线的参数t值,非负.
         // 即,如果世界射线是P + t*D,则t >= 0.
@@ -217,7 +217,7 @@ public:
     virtual void GetUnculledSet(Culler& rCuller, bool bNoCull) = 0;
 };
 
-typedef SmartPointer<Spatial> SpatialPtr;
+typedef SESmartPointer<Spatial> SpatialPtr;
 
 #include "SESpatial.inl"
 

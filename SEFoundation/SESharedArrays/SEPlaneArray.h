@@ -34,7 +34,7 @@ namespace Swing
 // Ê±¼ä:20080324
 //----------------------------------------------------------------------------
 typedef SharedArray<Plane3f> Plane3fArray;
-typedef SmartPointer<Plane3fArray> Plane3fArrayPtr;
+typedef SESmartPointer<Plane3fArray> Plane3fArrayPtr;
 }
 
 #endif

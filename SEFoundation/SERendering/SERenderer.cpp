@@ -1703,7 +1703,7 @@ void Renderer::DrawScene(UnculledSet& rVisibleSet)
     UnculledObject* pVisibleSet = rVisibleSet.GetUnculled();
     for( int i = 0; i < iVisibleCount; i++ )
     {
-        if( pVisibleSet[i].Object )
+        if( pVisibleSet[i].SEObject )
         {
             if( pVisibleSet[i].GlobalEffect )
             {
@@ -1722,7 +1722,7 @@ void Renderer::DrawScene(UnculledSet& rVisibleSet)
                 if( iTop == -1 )
                 {
                     // 没有处在global effect作用域中,则直接渲染.
-                    Draw((Geometry*)pVisibleSet[i].Object);
+                    Draw((Geometry*)pVisibleSet[i].SEObject);
                 }
                 else
                 {
@@ -1741,7 +1741,7 @@ void Renderer::DrawScene(UnculledSet& rVisibleSet)
             int jMax = aaiStack[iTop][1];
 
             // 用栈顶global effect渲染作用域范围内的所有可渲染节点对象.
-            pVisibleSet[jMin].GlobalEffect->Draw(this, pVisibleSet[jMin].Object,
+            pVisibleSet[jMin].GlobalEffect->Draw(this, pVisibleSet[jMin].SEObject,
                 jMin+1, jMax, pVisibleSet);
 
             // 当前作用域弹出堆栈.

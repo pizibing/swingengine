@@ -33,25 +33,25 @@ namespace Swing
 // 时间:20070603
 //----------------------------------------------------------------------------
 template <class T>
-class SmartPointer
+class SESmartPointer
 {
 public:
-    SmartPointer(T* pObject = 0);
-    SmartPointer(const SmartPointer& rSmartPointer);
-    ~SmartPointer(void);
+    SESmartPointer(T* pObject = 0);
+    SESmartPointer(const SESmartPointer& rSmartPointer);
+    ~SESmartPointer(void);
 
     // 隐式类型转换
     operator T* (void) const;  // 使用:T* pObject = SmartPoint spObject
     T& operator * (void) const;
     T* operator -> (void) const;
 
-    SmartPointer& operator = (T* pObject);
-    SmartPointer& operator = (const SmartPointer& rSmartPointer);
+    SESmartPointer& operator = (T* pObject);
+    SESmartPointer& operator = (const SESmartPointer& rSmartPointer);
 
     bool operator == (T* pObject) const;
     bool operator != (T* pObject) const;
-    bool operator == (const SmartPointer& rSmartPointer) const;
-    bool operator != (const SmartPointer& rSmartPointer) const;
+    bool operator == (const SESmartPointer& rSmartPointer) const;
+    bool operator != (const SESmartPointer& rSmartPointer) const;
 
 protected:
     T* m_pObject;

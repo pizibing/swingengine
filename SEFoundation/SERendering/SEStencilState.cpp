@@ -86,7 +86,7 @@ StencilState::~StencilState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void StencilState::Load(Stream& rStream, Stream::Link* pLink)
+void StencilState::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -110,17 +110,17 @@ void StencilState::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(StencilState);
 }
 //----------------------------------------------------------------------------
-void StencilState::Link(Stream& rStream, Stream::Link* pLink)
+void StencilState::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     GlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool StencilState::Register(Stream& rStream) const
+bool StencilState::Register(SEStream& rStream) const
 {
     return GlobalState::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void StencilState::Save(Stream& rStream) const
+void StencilState::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -139,7 +139,7 @@ void StencilState::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(StencilState);
 }
 //----------------------------------------------------------------------------
-int StencilState::GetDiskUsed(const StreamVersion& rVersion) const
+int StencilState::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return GlobalState::GetDiskUsed(rVersion) +
         sizeof(char) + // Enabled
@@ -152,9 +152,9 @@ int StencilState::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(int);   // OnZPass
 }
 //----------------------------------------------------------------------------
-StringTree* StencilState::SaveStrings(const char*)
+SEStringTree* StencilState::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

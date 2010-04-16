@@ -109,10 +109,10 @@ void SharedArray<T>::SetActiveCount(int iActiveCount)
 }
 //----------------------------------------------------------------------------
 template <class T> 
-Object* SharedArray<T>::Factory(Stream& rStream) 
+SEObject* SharedArray<T>::Factory(SEStream& rStream) 
 { 
     SharedArray<T>* pObject = SE_NEW SharedArray<T>; 
-    Stream::Link* pLink = SE_NEW Stream::Link(pObject);
+    SEStream::Link* pLink = SE_NEW SEStream::Link(pObject);
     pObject->Load(rStream, pLink);
 
     return pObject; 
@@ -133,7 +133,7 @@ bool SharedArray<T>::RegisterFactory()
 { 
     if( !ms_bStreamRegistered ) 
     { 
-        Main::AddInitializer(SharedArray<T>::InitializeFactory); 
+        SEMain::AddInitializer(SharedArray<T>::InitializeFactory); 
         ms_bStreamRegistered = true; 
     }
 
@@ -141,30 +141,30 @@ bool SharedArray<T>::RegisterFactory()
 }
 //----------------------------------------------------------------------------
 template <class T>
-Object* SharedArray<T>::GetObjectByName(const std::string& rName)
+SEObject* SharedArray<T>::GetObjectByName(const std::string& rName)
 {
-    return Object::GetObjectByName(rName);
+    return SEObject::GetObjectByName(rName);
 }
 //----------------------------------------------------------------------------
 template <class T>
 void SharedArray<T>::GetAllObjectsByName(const std::string& rName,
-    std::vector<Object*>& rObjects)
+    std::vector<SEObject*>& rObjects)
 {
-    Object::GetAllObjectsByName(rName,rObjects);
+    SEObject::GetAllObjectsByName(rName,rObjects);
 }
 //----------------------------------------------------------------------------
 template <class T>
-Object* SharedArray<T>::GetObjectByID(unsigned int uiID)
+SEObject* SharedArray<T>::GetObjectByID(unsigned int uiID)
 {
-    return Object::GetObjectByID(uiID);
+    return SEObject::GetObjectByID(uiID);
 }
 //----------------------------------------------------------------------------
 template <class T>
-void SharedArray<T>::Load(Stream& rStream, Stream::Link* pLink)
+void SharedArray<T>::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Object::Load(rStream, pLink);
+    SEObject::Load(rStream, pLink);
     rStream.Read(m_iCount);
     m_pArray = SE_NEW T[m_iCount];
     rStream.Read(m_iCount, m_pArray);
@@ -173,23 +173,23 @@ void SharedArray<T>::Load(Stream& rStream, Stream::Link* pLink)
 }
 //----------------------------------------------------------------------------
 template <class T>
-void SharedArray<T>::Link(Stream& rStream, Stream::Link* pLink)
+void SharedArray<T>::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Object::Link(rStream,pLink);
+    SEObject::Link(rStream,pLink);
 }
 //----------------------------------------------------------------------------
 template <class T>
-bool SharedArray<T>::Register(Stream& rStream) const
+bool SharedArray<T>::Register(SEStream& rStream) const
 {
-    return Object::Register(rStream);
+    return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
 template <class T>
-void SharedArray<T>::Save(Stream& rStream) const
+void SharedArray<T>::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Object::Save(rStream);
+    SEObject::Save(rStream);
     rStream.Write(m_iCount);
     rStream.Write(m_iCount, m_pArray);
 
@@ -197,21 +197,21 @@ void SharedArray<T>::Save(Stream& rStream) const
 }
 //----------------------------------------------------------------------------
 template <class T>
-int SharedArray<T>::GetDiskUsed(const StreamVersion& rVersion) const
+int SharedArray<T>::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Object::GetDiskUsed(rVersion) + sizeof(m_iCount) + m_iCount*sizeof(T);
+    return SEObject::GetDiskUsed(rVersion) + sizeof(m_iCount) + m_iCount*sizeof(T);
 }
 //----------------------------------------------------------------------------
 template <class T>
-StringTree* SharedArray<T>::SaveStrings(const char* pTitle)
+SEStringTree* SharedArray<T>::SaveStrings(const char* pTitle)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
 
     // children
-    pTree->Append(Object::SaveStrings());
+    pTree->Append(SEObject::SaveStrings());
     pTree->Append(Format(pTitle, m_iCount, m_pArray));
 
     return pTree;

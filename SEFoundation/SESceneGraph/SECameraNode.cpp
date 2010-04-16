@@ -77,9 +77,9 @@ void CameraNode::UpdateWorldData(double dAppTime)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* CameraNode::GetObjectByName(const std::string& rName)
+SEObject* CameraNode::GetObjectByName(const std::string& rName)
 {
-    Object* pFound = Node::GetObjectByName(rName);
+    SEObject* pFound = Node::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -98,7 +98,7 @@ Object* CameraNode::GetObjectByName(const std::string& rName)
 }
 //----------------------------------------------------------------------------
 void CameraNode::GetAllObjectsByName(const std::string& rName,
-    std::vector<Object*>& rObjects)
+    std::vector<SEObject*>& rObjects)
 {
     Node::GetAllObjectsByName(rName, rObjects);
 
@@ -108,9 +108,9 @@ void CameraNode::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-Object* CameraNode::GetObjectByID(unsigned int uiID)
+SEObject* CameraNode::GetObjectByID(unsigned int uiID)
 {
-    Object* pFound = Node::GetObjectByID(uiID);
+    SEObject* pFound = Node::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -132,29 +132,29 @@ Object* CameraNode::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void CameraNode::Load(Stream& rStream, Stream::Link* pLink)
+void CameraNode::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
     Node::Load(rStream, pLink);
 
     // link data
-    Object* pObject;
+    SEObject* pObject;
     rStream.Read(pObject);  // m_spCamera
     pLink->Add(pObject);
 
     SE_END_DEBUG_STREAM_LOAD(CameraNode);
 }
 //----------------------------------------------------------------------------
-void CameraNode::Link(Stream& rStream, Stream::Link* pLink)
+void CameraNode::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Node::Link(rStream, pLink);
 
-    Object* pLinkID = pLink->GetLinkID();
+    SEObject* pLinkID = pLink->GetLinkID();
     m_spCamera = (Camera*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool CameraNode::Register(Stream& rStream) const
+bool CameraNode::Register(SEStream& rStream) const
 {
     if( !Node::Register(rStream) )
     {
@@ -169,7 +169,7 @@ bool CameraNode::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void CameraNode::Save(Stream& rStream) const
+void CameraNode::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -181,14 +181,14 @@ void CameraNode::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(CameraNode);
 }
 //----------------------------------------------------------------------------
-int CameraNode::GetDiskUsed(const StreamVersion& rVersion) const
+int CameraNode::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return Node::GetDiskUsed(rVersion) + sizeof(m_spCamera);
 }
 //----------------------------------------------------------------------------
-StringTree* CameraNode::SaveStrings(const char*)
+SEStringTree* CameraNode::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

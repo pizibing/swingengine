@@ -71,7 +71,7 @@ private:
     static const char* ms_pCullMode[CT_COUNT];
 };
 
-typedef SmartPointer<CullState> CullStatePtr;
+typedef SESmartPointer<CullState> CullStatePtr;
 
 }
 

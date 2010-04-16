@@ -68,7 +68,7 @@ protected:
     Vector3f** m_aaOffset; // offset[vc][bc]
 };
 
-typedef SmartPointer<SkinController> SkinControllerPtr;
+typedef SESmartPointer<SkinController> SkinControllerPtr;
 #include "SESkinController.inl"
 
 }

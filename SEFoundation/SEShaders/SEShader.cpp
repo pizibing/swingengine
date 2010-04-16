@@ -24,9 +24,9 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Shader, Object);
+SE_IMPLEMENT_RTTI(Swing, Shader, SEObject);
 SE_IMPLEMENT_ABSTRACT_STREAM(Shader);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Shader, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(Shader, SEObject);
 
 //SE_REGISTER_STREAM(Shader);
 
@@ -179,16 +179,16 @@ void Shader::OnReleaseProgram()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Shader::Load(Stream& rStream, Stream::Link* pLink)
+void Shader::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Object::Load(rStream, pLink);
+    SEObject::Load(rStream, pLink);
 
     // native data
     rStream.Read(m_ShaderName);
 
-    Object* pObject;
+    SEObject* pObject;
     rStream.Read(pObject);  // m_spInterfaces
     pLink->Add(pObject);
 
@@ -216,11 +216,11 @@ void Shader::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(Shader);
 }
 //----------------------------------------------------------------------------
-void Shader::Link(Stream& rStream, Stream::Link* pLink)
+void Shader::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Object::Link(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 
-    Object* pLinkID = pLink->GetLinkID();
+    SEObject* pLinkID = pLink->GetLinkID();
     m_spInterfaces = (InterfaceDescriptor*)rStream.GetFromMap(pLinkID);
 
     for( int i = 0; i < (int)m_Textures.size(); i++ )
@@ -230,9 +230,9 @@ void Shader::Link(Stream& rStream, Stream::Link* pLink)
     }
 }
 //----------------------------------------------------------------------------
-bool Shader::Register(Stream& rStream) const
+bool Shader::Register(SEStream& rStream) const
 {
-    if( !Object::Register(rStream) )
+    if( !SEObject::Register(rStream) )
     {
         return false;
     }
@@ -253,11 +253,11 @@ bool Shader::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Shader::Save(Stream& rStream) const
+void Shader::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Object::Save(rStream);
+    SEObject::Save(rStream);
 
     // native data
     rStream.Write(m_ShaderName);
@@ -286,9 +286,9 @@ void Shader::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Shader);
 }
 //----------------------------------------------------------------------------
-int Shader::GetDiskUsed(const StreamVersion& rVersion) const
+int Shader::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    int iSize = Object::GetDiskUsed(rVersion) +
+    int iSize = SEObject::GetDiskUsed(rVersion) +
         sizeof(int) + (int)m_ShaderName.length() + sizeof(m_spInterfaces);
 
     int iCount = (int)m_ImageNames.size();
@@ -305,9 +305,9 @@ int Shader::GetDiskUsed(const StreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-StringTree* Shader::SaveStrings(const char*)
+SEStringTree* Shader::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -323,7 +323,7 @@ StringTree* Shader::SaveStrings(const char*)
     }
 
     // children
-    pTree->Append(Object::SaveStrings());
+    pTree->Append(SEObject::SaveStrings());
 
     if( m_spProgram )
     {

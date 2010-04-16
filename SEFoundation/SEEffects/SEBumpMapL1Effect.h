@@ -48,7 +48,7 @@ protected:
     BumpMapL1Effect(void);
 };
 
-typedef SmartPointer<BumpMapL1Effect> BumpMapL1EffectPtr;
+typedef SESmartPointer<BumpMapL1Effect> BumpMapL1EffectPtr;
 
 }
 

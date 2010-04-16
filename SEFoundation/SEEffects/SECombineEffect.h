@@ -49,7 +49,7 @@ protected:
     CombineEffect(void);
 };
 
-typedef SmartPointer<CombineEffect> CombineEffectPtr;
+typedef SESmartPointer<CombineEffect> CombineEffectPtr;
 
 }
 

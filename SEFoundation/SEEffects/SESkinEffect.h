@@ -87,7 +87,7 @@ protected:
     static float* ms_apSkinMatrix;
 };
 
-typedef SmartPointer<SkinEffect> SkinEffectPtr;
+typedef SESmartPointer<SkinEffect> SkinEffectPtr;
 
 }
 

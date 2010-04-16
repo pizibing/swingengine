@@ -51,7 +51,7 @@ protected:
     VertexShader(void);
 };
 
-typedef SmartPointer<VertexShader> VertexShaderPtr;
+typedef SESmartPointer<VertexShader> VertexShaderPtr;
 
 }
 

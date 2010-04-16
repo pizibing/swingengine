@@ -24,9 +24,9 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Controller, Object);
+SE_IMPLEMENT_RTTI(Swing, Controller, SEObject);
 SE_IMPLEMENT_ABSTRACT_STREAM(Controller);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Controller, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(Controller, SEObject);
 
 //SE_REGISTER_STREAM(Controller);
 
@@ -118,11 +118,11 @@ bool Controller::Update(double dAppTime)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Controller::Load(Stream& rStream, Stream::Link* pLink)
+void Controller::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Object::Load(rStream, pLink);
+    SEObject::Load(rStream, pLink);
 
     // native data
     int iRepeat;
@@ -137,24 +137,24 @@ void Controller::Load(Stream& rStream, Stream::Link* pLink)
     // m_dLastAppTime is not streamed
 
     // link data
-    Object* pObject;
+    SEObject* pObject;
     rStream.Read(pObject);
     pLink->Add(pObject);
 
     SE_END_DEBUG_STREAM_LOAD(Controller);
 }
 //----------------------------------------------------------------------------
-void Controller::Link(Stream& rStream, Stream::Link* pLink)
+void Controller::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Object::Link(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 
-    Object* pLinkID = pLink->GetLinkID();
+    SEObject* pLinkID = pLink->GetLinkID();
     m_pObject = rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool Controller::Register(Stream& rStream) const
+bool Controller::Register(SEStream& rStream) const
 {
-    if( !Object::Register(rStream) )
+    if( !SEObject::Register(rStream) )
     {
         return false;
     }
@@ -167,11 +167,11 @@ bool Controller::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Controller::Save(Stream& rStream) const
+void Controller::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Object::Save(rStream);
+    SEObject::Save(rStream);
 
     // native data
     rStream.Write((int)Repeat);
@@ -187,9 +187,9 @@ void Controller::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Controller);
 }
 //----------------------------------------------------------------------------
-int Controller::GetDiskUsed(const StreamVersion& rVersion) const
+int Controller::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Object::GetDiskUsed(rVersion) +
+    return SEObject::GetDiskUsed(rVersion) +
         sizeof(int) +  // Repeat
         sizeof(MinTime) +
         sizeof(MaxTime) +
@@ -199,9 +199,9 @@ int Controller::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(m_pObject);
 }
 //----------------------------------------------------------------------------
-StringTree* Controller::SaveStrings(const char*)
+SEStringTree* Controller::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -213,9 +213,9 @@ StringTree* Controller::SaveStrings(const char*)
     pTree->Append(Format("active =",Active));
 
     // children
-    pTree->Append(Object::SaveStrings());
+    pTree->Append(SEObject::SaveStrings());
 
-    // Object will iterate over controllers to save strings
+    // SEObject will iterate over controllers to save strings
     return pTree;
 }
 //----------------------------------------------------------------------------

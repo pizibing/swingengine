@@ -129,7 +129,7 @@ void ShadowMapEffect::Draw(Renderer* pRenderer, Spatial*, int iMin, int iMax,
     {
         if( pVisibleSet[i].IsRenderable() )
         {
-            Geometry* pGeometry = (Geometry*)pVisibleSet[i].Object;
+            Geometry* pGeometry = (Geometry*)pVisibleSet[i].SEObject;
             pGeometry->AttachEffect(m_spDepthEffect);
             pGeometry->SetStartEffect(pGeometry->GetEffectCount() - 1);
             pRenderer->Draw(pGeometry);
@@ -174,7 +174,7 @@ void ShadowMapEffect::Draw(Renderer* pRenderer, Spatial*, int iMin, int iMax,
     {
         if( pVisibleSet[i].IsRenderable() )
         {
-            Geometry* pGeometry = (Geometry*)pVisibleSet[i].Object;
+            Geometry* pGeometry = (Geometry*)pVisibleSet[i].SEObject;
             pGeometry->AttachEffect(m_spShadowEffect);
             pRenderer->Draw(pGeometry);
             pGeometry->DetachEffect(m_spShadowEffect);
@@ -187,9 +187,9 @@ void ShadowMapEffect::Draw(Renderer* pRenderer, Spatial*, int iMin, int iMax,
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* ShadowMapEffect::GetObjectByName(const std::string& rName)
+SEObject* ShadowMapEffect::GetObjectByName(const std::string& rName)
 {
-    Object* pFound = Effect::GetObjectByName(rName);
+    SEObject* pFound = Effect::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -235,7 +235,7 @@ Object* ShadowMapEffect::GetObjectByName(const std::string& rName)
 }
 //----------------------------------------------------------------------------
 void ShadowMapEffect::GetAllObjectsByName(const std::string& rName,
-    std::vector<Object*>& rObjects)
+    std::vector<SEObject*>& rObjects)
 {
     Effect::GetAllObjectsByName(rName, rObjects);
 
@@ -260,9 +260,9 @@ void ShadowMapEffect::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-Object* ShadowMapEffect::GetObjectByID(unsigned int uiID)
+SEObject* ShadowMapEffect::GetObjectByID(unsigned int uiID)
 {
-    Object* pFound = Effect::GetObjectByID(uiID);
+    SEObject* pFound = Effect::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -311,7 +311,7 @@ Object* ShadowMapEffect::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void ShadowMapEffect::Load(Stream& rStream, Stream::Link* pLink)
+void ShadowMapEffect::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -321,7 +321,7 @@ void ShadowMapEffect::Load(Stream& rStream, Stream::Link* pLink)
     rStream.Read(m_afDepthBias[0]);
 
     // link data
-    Object* pObject;
+    SEObject* pObject;
     rStream.Read(pObject);  // m_spProjector
     pLink->Add(pObject);
     rStream.Read(pObject);  // m_spDepthEffect
@@ -334,11 +334,11 @@ void ShadowMapEffect::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(ShadowMapEffect);
 }
 //----------------------------------------------------------------------------
-void ShadowMapEffect::Link(Stream& rStream, Stream::Link* pLink)
+void ShadowMapEffect::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Effect::Link(rStream, pLink);
 
-    Object* pLinkID = pLink->GetLinkID();
+    SEObject* pLinkID = pLink->GetLinkID();
     m_spProjector = (Camera*)rStream.GetFromMap(pLinkID);
     pLinkID = pLink->GetLinkID();
     m_spDepthEffect = (ShaderEffect*)rStream.GetFromMap(pLinkID);
@@ -348,7 +348,7 @@ void ShadowMapEffect::Link(Stream& rStream, Stream::Link* pLink)
     m_spShadowEffect = (ShaderEffect*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool ShadowMapEffect::Register(Stream& rStream) const
+bool ShadowMapEffect::Register(SEStream& rStream) const
 {
     if( !Effect::Register(rStream) )
     {
@@ -378,7 +378,7 @@ bool ShadowMapEffect::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void ShadowMapEffect::Save(Stream& rStream) const
+void ShadowMapEffect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -396,7 +396,7 @@ void ShadowMapEffect::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(ShadowMapEffect);
 }
 //----------------------------------------------------------------------------
-int ShadowMapEffect::GetDiskUsed(const StreamVersion& rVersion) const
+int ShadowMapEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return Effect::GetDiskUsed(rVersion) +
         sizeof(m_afDepthBias[0]) +
@@ -406,9 +406,9 @@ int ShadowMapEffect::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(m_spShadowEffect);
 }
 //----------------------------------------------------------------------------
-StringTree* ShadowMapEffect::SaveStrings(const char*)
+SEStringTree* ShadowMapEffect::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

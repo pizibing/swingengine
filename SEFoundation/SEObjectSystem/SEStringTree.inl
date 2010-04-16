@@ -19,58 +19,58 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int StringTree::GetStringCount() const
+inline int SEStringTree::GetStringCount() const
 {
     return (int)m_Strings.size();
 }
 //----------------------------------------------------------------------------
-inline void StringTree::SetString(int i, char* pString)
+inline void SEStringTree::SetString(int i, char* pString)
 {
     SE_ASSERT( 0 <= i && i < (int)m_Strings.size() );
 
     m_Strings[i] = pString;
 }
 //----------------------------------------------------------------------------
-inline char* StringTree::GetString(int i)
+inline char* SEStringTree::GetString(int i)
 {
     SE_ASSERT( 0 <= i && i < (int)m_Strings.size() );
 
     return m_Strings[i];
 }
 //----------------------------------------------------------------------------
-inline void StringTree::Append(char* pString)
+inline void SEStringTree::Append(char* pString)
 {
     m_Strings.push_back(pString);
 }
 //----------------------------------------------------------------------------
-inline int StringTree::GetChildCount() const
+inline int SEStringTree::GetChildCount() const
 {
     return (int)m_Children.size();
 }
 //----------------------------------------------------------------------------
-inline void StringTree::SetChild(int i, StringTree* pChild)
+inline void SEStringTree::SetChild(int i, SEStringTree* pChild)
 {
     SE_ASSERT( 0 <= i && i < (int)m_Strings.size() );
 
     m_Children[i] = pChild;
 }
 //----------------------------------------------------------------------------
-inline StringTree* StringTree::GetChild(int i)
+inline SEStringTree* SEStringTree::GetChild(int i)
 {
     SE_ASSERT( 0 <= i && i < (int)m_Children.size() );
 
     return m_Children[i];
 }
 //----------------------------------------------------------------------------
-inline void StringTree::Append(StringTree* pChild)
+inline void SEStringTree::Append(SEStringTree* pChild)
 {
     m_Children.push_back(pChild);
 }
 //----------------------------------------------------------------------------
 template <class T>
-StringTree* Format(const char* pTitle, int iCount, const T* pValue)
+SEStringTree* Format(const char* pTitle, int iCount, const T* pValue)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
     pTree->Append(Format(pTitle));
 
     pTree->Append(Format("count =", iCount));

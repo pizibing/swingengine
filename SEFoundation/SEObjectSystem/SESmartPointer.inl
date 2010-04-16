@@ -20,7 +20,7 @@
 
 //----------------------------------------------------------------------------
 template <class T>
-SmartPointer<T>::SmartPointer(T* pObject)
+SESmartPointer<T>::SESmartPointer(T* pObject)
 {
     m_pObject = pObject;
 
@@ -31,7 +31,7 @@ SmartPointer<T>::SmartPointer(T* pObject)
 }
 //----------------------------------------------------------------------------
 template <class T>
-SmartPointer<T>::SmartPointer(const SmartPointer& rSmartPointer)
+SESmartPointer<T>::SESmartPointer(const SESmartPointer& rSmartPointer)
 {
     m_pObject = rSmartPointer.m_pObject;
 
@@ -42,7 +42,7 @@ SmartPointer<T>::SmartPointer(const SmartPointer& rSmartPointer)
 }
 //----------------------------------------------------------------------------
 template <class T>
-SmartPointer<T>::~SmartPointer()
+SESmartPointer<T>::~SESmartPointer()
 {
     if( m_pObject )
     {
@@ -51,25 +51,25 @@ SmartPointer<T>::~SmartPointer()
 }
 //----------------------------------------------------------------------------
 template <class T>
-SmartPointer<T>::operator T*() const
+SESmartPointer<T>::operator T*() const
 {
     return m_pObject;
 }
 //----------------------------------------------------------------------------
 template <class T>
-T& SmartPointer<T>::operator*() const
+T& SESmartPointer<T>::operator*() const
 {
     return *m_pObject;
 }
 //----------------------------------------------------------------------------
 template <class T>
-T* SmartPointer<T>::operator->() const
+T* SESmartPointer<T>::operator->() const
 {
     return m_pObject;
 }
 //----------------------------------------------------------------------------
 template <class T>
-SmartPointer<T>& SmartPointer<T>::operator=(T* pObject)
+SESmartPointer<T>& SESmartPointer<T>::operator=(T* pObject)
 {
     if( m_pObject != pObject )
     {
@@ -90,7 +90,8 @@ SmartPointer<T>& SmartPointer<T>::operator=(T* pObject)
 }
 //----------------------------------------------------------------------------
 template <class T>
-SmartPointer<T>& SmartPointer<T>::operator=(const SmartPointer& rSmartPointer)
+SESmartPointer<T>& SESmartPointer<T>::operator=(
+    const SESmartPointer& rSmartPointer)
 {
     if( m_pObject != rSmartPointer.m_pObject )
     {
@@ -111,25 +112,25 @@ SmartPointer<T>& SmartPointer<T>::operator=(const SmartPointer& rSmartPointer)
 }
 //----------------------------------------------------------------------------
 template <class T>
-bool SmartPointer<T>::operator==(T* pObject) const
+bool SESmartPointer<T>::operator==(T* pObject) const
 {
     return (m_pObject == pObject);
 }
 //----------------------------------------------------------------------------
 template <class T>
-bool SmartPointer<T>::operator!=(T* pObject) const
+bool SESmartPointer<T>::operator!=(T* pObject) const
 {
     return (m_pObject != pObject);
 }
 //----------------------------------------------------------------------------
 template <class T>
-bool SmartPointer<T>::operator==(const SmartPointer& rSmartPointer) const
+bool SESmartPointer<T>::operator==(const SESmartPointer& rSmartPointer) const
 {
     return (m_pObject == rSmartPointer.m_pObject);
 }
 //----------------------------------------------------------------------------
 template <class T>
-bool SmartPointer<T>::operator!=(const SmartPointer& rSmartPointer) const
+bool SESmartPointer<T>::operator!=(const SESmartPointer& rSmartPointer) const
 {
     return (m_pObject != rSmartPointer.m_pObject);
 }

@@ -23,7 +23,7 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_TEMPLATE_RTTI(Swing, ColorRGBArray, Object);
+SE_IMPLEMENT_TEMPLATE_RTTI(Swing, ColorRGBArray, SEObject);
 SE_IMPLEMENT_TEMPLATE_STREAM(ColorRGBArray);
 
 //SE_REGISTER_STREAM(ColorRGBArray);

@@ -35,7 +35,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080621
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API IndexBuffer : public Object, public Bindable
+class SE_FOUNDATION_API IndexBuffer : public SEObject, public Bindable
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -69,7 +69,7 @@ protected:
     int* m_pIndex;
 };
 
-typedef SmartPointer<IndexBuffer> IndexBufferPtr;
+typedef SESmartPointer<IndexBuffer> IndexBufferPtr;
 
 #include "SEIndexBuffer.inl"
 

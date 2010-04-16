@@ -68,7 +68,7 @@ protected:
     std::vector<GlobalStatePtr> m_ZBufferState;
 };
 
-typedef SmartPointer<MaterialEffect> MaterialEffectPtr;
+typedef SESmartPointer<MaterialEffect> MaterialEffectPtr;
 
 }
 

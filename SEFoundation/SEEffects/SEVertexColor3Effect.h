@@ -45,7 +45,7 @@ public:
     virtual ~VertexColor3Effect(void);
 };
 
-typedef SmartPointer<VertexColor3Effect> VertexColor3EffectPtr;
+typedef SESmartPointer<VertexColor3Effect> VertexColor3EffectPtr;
 
 }
 

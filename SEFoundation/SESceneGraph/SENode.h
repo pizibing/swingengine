@@ -75,7 +75,7 @@ protected:
     std::vector<SpatialPtr> m_Child;
 };
 
-typedef SmartPointer<Node> NodePtr;
+typedef SESmartPointer<Node> NodePtr;
 
 #include "SENode.inl"
 

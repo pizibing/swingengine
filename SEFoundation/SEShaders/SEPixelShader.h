@@ -51,7 +51,7 @@ protected:
     PixelShader(void);
 };
 
-typedef SmartPointer<PixelShader> PixelShaderPtr;
+typedef SESmartPointer<PixelShader> PixelShaderPtr;
 
 }
 

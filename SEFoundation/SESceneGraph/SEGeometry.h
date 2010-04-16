@@ -137,7 +137,7 @@ public:
     std::vector<LightPtr> Lights;
 };
 
-typedef SmartPointer<Geometry> GeometryPtr;
+typedef SESmartPointer<Geometry> GeometryPtr;
 
 #include "SEGeometry.inl"
 

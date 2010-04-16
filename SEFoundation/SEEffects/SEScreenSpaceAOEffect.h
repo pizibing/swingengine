@@ -57,7 +57,7 @@ protected:
     static bool ms_bUCInitialized;
 };
 
-typedef SmartPointer<ScreenSpaceAOEffect> ScreenSpaceAOEffectPtr;
+typedef SESmartPointer<ScreenSpaceAOEffect> ScreenSpaceAOEffectPtr;
 
 }
 

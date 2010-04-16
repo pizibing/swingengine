@@ -61,7 +61,7 @@ public:
     float Bias;   // default: 0.0
 };
 
-typedef SmartPointer<PolygonOffsetState> PolygonOffsetStatePtr;
+typedef SESmartPointer<PolygonOffsetState> PolygonOffsetStatePtr;
 
 }
 

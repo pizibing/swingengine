@@ -72,7 +72,7 @@ protected:
     std::vector<LightPtr> m_Lights;
 };
 
-typedef SmartPointer<LightingEffect> LightingEffectPtr;
+typedef SESmartPointer<LightingEffect> LightingEffectPtr;
 
 #include "SELightingEffect.inl"
 

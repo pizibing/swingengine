@@ -28,17 +28,17 @@
 
 using namespace Swing;
 
-Main::InitializerArray* Main::ms_pInitializers = 0;
-Main::TerminatorArray* Main::ms_pTerminators = 0;
-int Main::ms_iStartObjects = 0;
-int Main::ms_iFinalObjects = 0;
-ImageCatalog* Main::ms_pImageCatalog = 0;
-VertexProgramCatalog* Main::ms_pVertexProgramCatalog = 0;
-GeometryProgramCatalog* Main::ms_pGeometryProgramCatalog = 0;
-PixelProgramCatalog* Main::ms_pPixelProgramCatalog = 0;
+SEMain::InitializerArray* SEMain::ms_pInitializers = 0;
+SEMain::TerminatorArray* SEMain::ms_pTerminators = 0;
+int SEMain::ms_iStartObjects = 0;
+int SEMain::ms_iFinalObjects = 0;
+ImageCatalog* SEMain::ms_pImageCatalog = 0;
+VertexProgramCatalog* SEMain::ms_pVertexProgramCatalog = 0;
+GeometryProgramCatalog* SEMain::ms_pGeometryProgramCatalog = 0;
+PixelProgramCatalog* SEMain::ms_pPixelProgramCatalog = 0;
 
 //----------------------------------------------------------------------------
-void Main::AddInitializer(Initializer FuncInitialize)
+void SEMain::AddInitializer(Initializer FuncInitialize)
 {
     if( !ms_pInitializers )
     {
@@ -48,29 +48,29 @@ void Main::AddInitializer(Initializer FuncInitialize)
     ms_pInitializers->push_back(FuncInitialize);
 }
 //----------------------------------------------------------------------------
-void Main::Initialize()
+void SEMain::Initialize()
 {
     bool bCountIsCorrect = true;
 
     // pre-main之前不允许创建object
-    if( Object::InUse )
+    if( SEObject::InUse )
     {
         bCountIsCorrect = false;
-        Object::PrintInUse("AppLog.txt", 
+        SEObject::PrintInUse("AppLog.txt", 
             "Objects were created before pre-main initialization");
     }
     SE_ASSERT( bCountIsCorrect );
 
-    ms_pImageCatalog = SE_NEW ImageCatalog("Main");
+    ms_pImageCatalog = SE_NEW ImageCatalog("SEMain");
     ImageCatalog::SetActive(ms_pImageCatalog);
 
-    ms_pVertexProgramCatalog = SE_NEW VertexProgramCatalog("Main");
+    ms_pVertexProgramCatalog = SE_NEW VertexProgramCatalog("SEMain");
     VertexProgramCatalog::SetActive(ms_pVertexProgramCatalog);
 
-    ms_pGeometryProgramCatalog = SE_NEW GeometryProgramCatalog("Main");
+    ms_pGeometryProgramCatalog = SE_NEW GeometryProgramCatalog("SEMain");
     GeometryProgramCatalog::SetActive(ms_pGeometryProgramCatalog);
 
-    ms_pPixelProgramCatalog = SE_NEW PixelProgramCatalog("Main");
+    ms_pPixelProgramCatalog = SE_NEW PixelProgramCatalog("SEMain");
     PixelProgramCatalog::SetActive(ms_pPixelProgramCatalog);
 
     // 调用各个类型的pre-main函数
@@ -87,9 +87,9 @@ void Main::Initialize()
     ms_pInitializers = 0;
 
     // 在pre-main后创建的object数目
-    if( Object::InUse )
+    if( SEObject::InUse )
     {
-        ms_iStartObjects = Object::InUse->GetCount();
+        ms_iStartObjects = SEObject::InUse->GetCount();
     }
     else
     {
@@ -97,7 +97,7 @@ void Main::Initialize()
     }
 }
 //----------------------------------------------------------------------------
-void Main::AddTerminator(Terminator FuncTerminate)
+void SEMain::AddTerminator(Terminator FuncTerminate)
 {
     if( !ms_pTerminators )
     {
@@ -107,14 +107,14 @@ void Main::AddTerminator(Terminator FuncTerminate)
     ms_pTerminators->push_back(FuncTerminate);
 }
 //----------------------------------------------------------------------------
-void Main::Terminate()
+void SEMain::Terminate()
 {
     bool bCountIsCorrect = true;
 
     // 所有应用程序运行期间创建的object现在应该已经被delete
-    if( Object::InUse )
+    if( SEObject::InUse )
     {
-        ms_iFinalObjects = Object::InUse->GetCount();
+        ms_iFinalObjects = SEObject::InUse->GetCount();
     }
     else
     {
@@ -124,7 +124,7 @@ void Main::Terminate()
     if( ms_iStartObjects != ms_iFinalObjects )
     {
         bCountIsCorrect = false;
-        Object::PrintInUse("AppLog.txt", 
+        SEObject::PrintInUse("AppLog.txt", 
             "Not all objects were deleted before post-main termination");
     }
 
@@ -169,9 +169,9 @@ void Main::Terminate()
     if( bCountIsCorrect )
     {
         // 所有在pre-main期间创建的object都应该在post-main期间释放
-        if( Object::InUse )
+        if( SEObject::InUse )
         {
-            ms_iFinalObjects = Object::InUse->GetCount();
+            ms_iFinalObjects = SEObject::InUse->GetCount();
         }
         else
         {
@@ -181,7 +181,7 @@ void Main::Terminate()
         if( ms_iFinalObjects != 0 )
         {
             bCountIsCorrect = false;
-            Object::PrintInUse("AppLog.txt", 
+            SEObject::PrintInUse("AppLog.txt", 
                 "Objects were deleted after post-main termination");
         }
     }
@@ -190,7 +190,7 @@ void Main::Terminate()
 
     // object级泄漏检测系统已经完成任务,
     // 释放该系统从而避免内存泄漏检测系统发现内存泄漏
-    SE_DELETE Object::InUse;
-    Object::InUse = 0;
+    SE_DELETE SEObject::InUse;
+    SEObject::InUse = 0;
 }
 //----------------------------------------------------------------------------

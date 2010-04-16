@@ -136,7 +136,7 @@ void MultitextureEffect::Configure()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void MultitextureEffect::Load(Stream& rStream, Stream::Link* pLink)
+void MultitextureEffect::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -153,17 +153,17 @@ void MultitextureEffect::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(MultitextureEffect);
 }
 //----------------------------------------------------------------------------
-void MultitextureEffect::Link(Stream& rStream, Stream::Link* pLink)
+void MultitextureEffect::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     ShaderEffect::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool MultitextureEffect::Register(Stream& rStream) const
+bool MultitextureEffect::Register(SEStream& rStream) const
 {
     return ShaderEffect::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void MultitextureEffect::Save(Stream& rStream) const
+void MultitextureEffect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -179,7 +179,7 @@ void MultitextureEffect::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(MultitextureEffect);
 }
 //----------------------------------------------------------------------------
-int MultitextureEffect::GetDiskUsed(const StreamVersion& rVersion) const
+int MultitextureEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     int iSize = ShaderEffect::GetDiskUsed(rVersion) +
         sizeof(m_iTextureCount);
@@ -192,9 +192,9 @@ int MultitextureEffect::GetDiskUsed(const StreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-StringTree* MultitextureEffect::SaveStrings(const char*)
+SEStringTree* MultitextureEffect::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

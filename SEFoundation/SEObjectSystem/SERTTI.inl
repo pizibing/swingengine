@@ -19,18 +19,18 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline const char* RTTI::GetName() const
+inline const char* SERTTI::GetName() const
 {
     return m_pRTTIName;
 }
 //----------------------------------------------------------------------------
-inline int RTTI::GetDiskUsed() const
+inline int SERTTI::GetDiskUsed() const
 {
     int iLength = (int)strlen(m_pRTTIName);
     return sizeof(iLength) + iLength*sizeof(char);
 }
 //----------------------------------------------------------------------------
-inline bool RTTI::IsExactly(const RTTI& rType) const
+inline bool SERTTI::IsExactly(const SERTTI& rType) const
 {
     return &rType == this;
 }

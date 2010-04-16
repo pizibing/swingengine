@@ -23,9 +23,9 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, VertexBuffer, Object);
+SE_IMPLEMENT_RTTI(Swing, VertexBuffer, SEObject);
 SE_IMPLEMENT_STREAM(VertexBuffer);
-SE_IMPLEMENT_DEFAULT_NAME_ID(VertexBuffer, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(VertexBuffer, SEObject);
 
 //SE_REGISTER_STREAM(VertexBuffer);
 
@@ -522,11 +522,11 @@ void VertexBuffer::BuildCompatibleArray(const Attributes& rIAttributes,
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void VertexBuffer::Load(Stream& rStream, Stream::Link* pLink)
+void VertexBuffer::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Object::Load(rStream, pLink);
+    SEObject::Load(rStream, pLink);
 
     rStream.Read(m_iVertexSize);
     rStream.Read(m_iVertexCount);
@@ -564,21 +564,21 @@ void VertexBuffer::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(VertexBuffer);
 }
 //----------------------------------------------------------------------------
-void VertexBuffer::Link(Stream& rStream, Stream::Link* pLink)
+void VertexBuffer::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Object::Link(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool VertexBuffer::Register(Stream& rStream) const
+bool VertexBuffer::Register(SEStream& rStream) const
 {
-    return Object::Register(rStream);
+    return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void VertexBuffer::Save(Stream& rStream) const
+void VertexBuffer::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Object::Save(rStream);
+    SEObject::Save(rStream);
 
     rStream.Write(m_iVertexSize);
     rStream.Write(m_iVertexCount);
@@ -602,9 +602,9 @@ void VertexBuffer::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(VertexBuffer);
 }
 //----------------------------------------------------------------------------
-int VertexBuffer::GetDiskUsed(const StreamVersion& rVersion) const
+int VertexBuffer::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Object::GetDiskUsed(rVersion) +
+    return SEObject::GetDiskUsed(rVersion) +
         sizeof(m_iVertexSize) +
         sizeof(m_iVertexCount) +
         sizeof(m_iChannelCount) +
@@ -614,9 +614,9 @@ int VertexBuffer::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(int)*m_Attributes.GetMaxTCoords();
 }
 //----------------------------------------------------------------------------
-StringTree* VertexBuffer::SaveStrings(const char* pTitle)
+SEStringTree* VertexBuffer::SaveStrings(const char* pTitle)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
 	pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -644,7 +644,7 @@ StringTree* VertexBuffer::SaveStrings(const char* pTitle)
     }
 
     // children
-    pTree->Append(Object::SaveStrings());
+    pTree->Append(SEObject::SaveStrings());
     // this is very slow.
     pTree->Append(Format(pTitle, m_iChannelCount, m_pChannel));
 

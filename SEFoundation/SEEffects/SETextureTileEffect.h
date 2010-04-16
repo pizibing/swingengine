@@ -57,7 +57,7 @@ protected:
     static float ms_afTileParams[2];
 };
 
-typedef SmartPointer<TextureTileEffect> TextureTileEffectPtr;
+typedef SESmartPointer<TextureTileEffect> TextureTileEffectPtr;
 
 }
 

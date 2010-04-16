@@ -44,7 +44,7 @@
 namespace Swing
 {
 
-class Object;
+class SEObject;
 
 //----------------------------------------------------------------------------
 // 名称:串行化类
@@ -52,19 +52,19 @@ class Object;
 // 作者:Sun Che
 // 时间:20080329
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Stream
+class SE_FOUNDATION_API SEStream
 {
 public:
-    Stream(void);
-    ~Stream(void);
+    SEStream(void);
+    ~SEStream(void);
 
     // top level object操作
-    bool Insert(Object* pObject);
-    bool Remove(Object* pObject);
+    bool Insert(SEObject* pObject);
+    bool Remove(SEObject* pObject);
     void RemoveAll(void);
     int GetObjectCount(void);
-    Object* GetObjectAt(int i) const;
-    bool IsTopLevel(const Object* pObject);
+    SEObject* GetObjectAt(int i) const;
+    bool IsTopLevel(const SEObject* pObject);
 
     // 内存load/save
     bool Load(char* pBuffer, int iSize);
@@ -80,7 +80,7 @@ public:
     // 如果在save之后访问,则通过GetOrderedObject对列表元素的修改将不会影响
     // save结果,而只改变原始对象实例.
     inline int GetOrderedCount(void) const;
-    inline Object* GetOrderedObject(int i) const;
+    inline SEObject* GetOrderedObject(int i) const;
 
     // 支持disk usage
     int GetDiskUsed(void) const;
@@ -90,50 +90,50 @@ public:
 
     // 返回最近一次文件load操作的文件版本,
     // 如果没有load过文件,则返回值为-1
-    inline StreamVersion GetVersion(void) const;
+    inline SEStreamVersion GetVersion(void) const;
 
     // link类
     class SE_FOUNDATION_API Link
     {
     public:
-        Link(Object* pObject);
+        Link(SEObject* pObject);
 
 	public:
-        void SetObject(Object* pObject);
-        Object* GetObject(void);
+        void SetObject(SEObject* pObject);
+        SEObject* GetObject(void);
 
         int GetCount(void) const;
-        Object* GetLinkID(void);
+        SEObject* GetLinkID(void);
 
-        void Add(Object* pLinkID);
+        void Add(SEObject* pLinkID);
 
     protected:
-        Object* m_pObject;
+        SEObject* m_pObject;
         int m_iCurrent;
-        std::vector<Object*> m_LinkID;
+        std::vector<SEObject*> m_LinkID;
     };
 
 protected:
-    friend class Object;
+    friend class SEObject;
 
-    bool InsertInMap(Object* pObject, Link* pLink);
-    void InsertInOrdered(Object* pObject);
+    bool InsertInMap(SEObject* pObject, Link* pLink);
+    void InsertInOrdered(SEObject* pObject);
 
     // 最近一次文件读取的版本
-    StreamVersion m_Version;
+    SEStreamVersion m_Version;
 
     // top level object列表
-    std::vector<Object*> m_pTopLevel;
+    std::vector<SEObject*> m_pTopLevel;
 
     // save时使用的对象注册表,
     // 使用此表的目的在于快速检索出该对象是否已经注册过
-    mutable HashTable<Object*, Link*> m_Map;
+    mutable HashTable<SEObject*, Link*> m_Map;
 
     // 唯一对象列表,由scene graph在register阶段生成,
     // 用于确保对象基于深度优先的遍历顺序存储,
     // 如果对象基于hash表顺序存储(m_Map),
     // 则对象顺序将会因每次程序运行时内存地址分配问题造成顺序不唯一
-    mutable std::vector<Object*> m_Ordered;
+    mutable std::vector<SEObject*> m_Ordered;
 
     // read/write操作总是应用于内存buffer,
     // 目的在于减少磁盘反复读写操作开销
@@ -145,14 +145,14 @@ protected:
 // 内部使用
 public:
     // 支持linking
-    Object* GetFromMap(Object* pLinkID);
+    SEObject* GetFromMap(SEObject* pLinkID);
 
     // 支持debugging
     inline int GetBufferSize(void) const;
     inline int GetBufferNext(void) const;
 
-    void Read(Object*& rpValue);
-    void Read(int iCount, Object** ppValue);
+    void Read(SEObject*& rpValue);
+    void Read(int iCount, SEObject** ppValue);
     void Read(bool& rValue);
     void Read(int iCount, bool* pValue);
     void Read(char& rValue);
@@ -201,10 +201,10 @@ public:
     void Read(Transformation& rValue);
     void Read(int iCount, Transformation* pValue);
 
-    void Write(const Object* pValue);
-    void Write(int iCount, Object** const ppValue);
-    void Write(const SmartPointer<Object>& rspValue);
-    void Write(int iCount, const SmartPointer<Object>* pspValue);
+    void Write(const SEObject* pValue);
+    void Write(int iCount, SEObject** const ppValue);
+    void Write(const SESmartPointer<SEObject>& rspValue);
+    void Write(int iCount, const SESmartPointer<SEObject>* pspValue);
     void Write(bool bValue);
     void Write(int iCount, const bool* pValue);
     void Write(char cValue);
@@ -254,7 +254,7 @@ public:
     void Write(int iCount, const Transformation* pValue);
 };
 
-typedef Object* (*FactoryFunction)(Stream&);
+typedef SEObject* (*FactoryFunction)(SEStream&);
 
 #include "SEStream.inl"
 

@@ -99,7 +99,7 @@ bool SkinController::Update(double dAppTime)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SkinController::Load(Stream& rStream, Stream::Link* pLink)
+void SkinController::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -126,7 +126,7 @@ void SkinController::Load(Stream& rStream, Stream::Link* pLink)
     // link data
     for( i = 0; i < m_iBoneCount; i++ )
     {
-        Object* pObject;
+        SEObject* pObject;
         rStream.Read(pObject);  // m_apBones[i]
         pLink->Add(pObject);
     }
@@ -134,19 +134,19 @@ void SkinController::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SkinController);
 }
 //----------------------------------------------------------------------------
-void SkinController::Link(Stream& rStream, Stream::Link* pLink)
+void SkinController::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Controller::Link(rStream, pLink);
 
     m_apBones = SE_NEW Node*[m_iBoneCount];
     for( int i = 0; i < m_iBoneCount; i++ )
     {
-        Object* pLinkID = pLink->GetLinkID();
+        SEObject* pLinkID = pLink->GetLinkID();
         m_apBones[i] = (Node*)rStream.GetFromMap(pLinkID);
     }
 }
 //----------------------------------------------------------------------------
-bool SkinController::Register(Stream& rStream) const
+bool SkinController::Register(SEStream& rStream) const
 {
     if( !Controller::Register(rStream) )
     {
@@ -164,7 +164,7 @@ bool SkinController::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void SkinController::Save(Stream& rStream) const
+void SkinController::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -186,12 +186,12 @@ void SkinController::Save(Stream& rStream) const
     }
 
     // link data
-    rStream.Write(m_iBoneCount, (Object**)m_apBones);
+    rStream.Write(m_iBoneCount, (SEObject**)m_apBones);
 
     SE_END_DEBUG_STREAM_SAVE(SkinController);
 }
 //----------------------------------------------------------------------------
-int SkinController::GetDiskUsed(const StreamVersion& rVersion) const
+int SkinController::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return Controller::GetDiskUsed(rVersion) +
         sizeof(m_iVertexCount) +
@@ -201,9 +201,9 @@ int SkinController::GetDiskUsed(const StreamVersion& rVersion) const
         m_iBoneCount*sizeof(m_apBones[0]);
 }
 //----------------------------------------------------------------------------
-StringTree* SkinController::SaveStrings(const char*)
+SEStringTree* SkinController::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

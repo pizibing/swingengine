@@ -71,7 +71,7 @@ CullState::~CullState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void CullState::Load(Stream& rStream, Stream::Link* pLink)
+void CullState::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -88,17 +88,17 @@ void CullState::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(CullState);
 }
 //----------------------------------------------------------------------------
-void CullState::Link(Stream& rStream, Stream::Link* pLink)
+void CullState::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     GlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool CullState::Register(Stream& rStream) const
+bool CullState::Register(SEStream& rStream) const
 {
     return GlobalState::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void CullState::Save(Stream& rStream) const
+void CullState::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -112,7 +112,7 @@ void CullState::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(CullState);
 }
 //----------------------------------------------------------------------------
-int CullState::GetDiskUsed(const StreamVersion& rVersion) const
+int CullState::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return GlobalState::GetDiskUsed(rVersion) +
         sizeof(char) + // Enabled
@@ -120,9 +120,9 @@ int CullState::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(int); // CullFace
 }
 //----------------------------------------------------------------------------
-StringTree* CullState::SaveStrings(const char*)
+SEStringTree* CullState::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

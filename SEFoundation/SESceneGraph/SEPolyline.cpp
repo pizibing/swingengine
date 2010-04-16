@@ -143,7 +143,7 @@ void Polyline::SetContiguous(bool bContiguous)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Polyline::Load(Stream& rStream, Stream::Link* pLink)
+void Polyline::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -159,17 +159,17 @@ void Polyline::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(Polyline);
 }
 //----------------------------------------------------------------------------
-void Polyline::Link(Stream& rStream, Stream::Link* pLink)
+void Polyline::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Geometry::Link(rStream,pLink);
 }
 //----------------------------------------------------------------------------
-bool Polyline::Register(Stream& rStream) const
+bool Polyline::Register(SEStream& rStream) const
 {
     return Geometry::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Polyline::Save(Stream& rStream) const
+void Polyline::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -183,7 +183,7 @@ void Polyline::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Polyline);
 }
 //----------------------------------------------------------------------------
-int Polyline::GetDiskUsed(const StreamVersion& rVersion) const
+int Polyline::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return Geometry::GetDiskUsed(rVersion) +
         sizeof(m_iActiveCount) +
@@ -191,9 +191,9 @@ int Polyline::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(char);  // m_bContiguous
 }
 //----------------------------------------------------------------------------
-StringTree* Polyline::SaveStrings(const char*)
+SEStringTree* Polyline::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

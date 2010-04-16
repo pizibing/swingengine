@@ -37,7 +37,7 @@ bool classname::RegisterInitialize() \
 { \
     if( !ms_bInitializeRegistered ) \
     { \
-        Main::AddInitializer(classname::Initialize); \
+        SEMain::AddInitializer(classname::Initialize); \
         ms_bInitializeRegistered = true; \
     } \
     return ms_bInitializeRegistered; \
@@ -63,7 +63,7 @@ bool classname::RegisterTerminate() \
 { \
     if( !ms_bTerminateRegistered ) \
     { \
-        Main::AddTerminator(classname::Terminate); \
+        SEMain::AddTerminator(classname::Terminate); \
         ms_bTerminateRegistered = true; \
     } \
     return ms_bTerminateRegistered; \

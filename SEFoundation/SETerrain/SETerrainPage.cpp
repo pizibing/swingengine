@@ -172,7 +172,7 @@ float TerrainPage::GetHeight(float fX, float fZ) const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void TerrainPage::Load(Stream& rStream, Stream::Link* pLink)
+void TerrainPage::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -192,17 +192,17 @@ void TerrainPage::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(TerrainPage);
 }
 //----------------------------------------------------------------------------
-void TerrainPage::Link(Stream& rStream, Stream::Link* pLink)
+void TerrainPage::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     TriMesh::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool TerrainPage::Register(Stream& rStream) const
+bool TerrainPage::Register(SEStream& rStream) const
 {
     return TriMesh::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void TerrainPage::Save(Stream& rStream) const
+void TerrainPage::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -219,7 +219,7 @@ void TerrainPage::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(TerrainPage);
 }
 //----------------------------------------------------------------------------
-int TerrainPage::GetDiskUsed(const StreamVersion& rVersion) const
+int TerrainPage::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return TriMesh::GetDiskUsed(rVersion) +
         sizeof(m_iSize) +
@@ -230,9 +230,9 @@ int TerrainPage::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(m_fSpacing);
 }
 //----------------------------------------------------------------------------
-StringTree* TerrainPage::SaveStrings(const char*)
+SEStringTree* TerrainPage::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

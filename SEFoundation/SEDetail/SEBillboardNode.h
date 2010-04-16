@@ -53,10 +53,10 @@ protected:
     // geometric updates
     virtual void UpdateWorldData(double dAppTime);
 
-    SmartPointer<Camera> m_spCamera;
+    SESmartPointer<Camera> m_spCamera;
 };
 
-typedef SmartPointer<BillboardNode> BillboardNodePtr;
+typedef SESmartPointer<BillboardNode> BillboardNodePtr;
 
 #include "SEBillboardNode.inl"
 

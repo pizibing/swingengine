@@ -34,7 +34,7 @@ namespace Swing
 // Ê±¼ä:20080315
 //----------------------------------------------------------------------------
 template <class Type>
-class SharedArray : public Object
+class SharedArray : public SEObject
 {
     SE_DECLARE_TEMPLATE_RTTI;
     SE_DECLARE_NAME_ID;

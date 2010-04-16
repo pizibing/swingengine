@@ -23,7 +23,7 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_TEMPLATE_RTTI(Swing, QuaternionfArray, Object);
+SE_IMPLEMENT_TEMPLATE_RTTI(Swing, QuaternionfArray, SEObject);
 SE_IMPLEMENT_TEMPLATE_STREAM(QuaternionfArray);
 
 //SE_REGISTER_STREAM(QuaternionfArray);

@@ -205,9 +205,9 @@ Geometry::PickRecord::PickRecord(Geometry* pIObject, float fT)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* Geometry::GetObjectByName(const std::string& rName)
+SEObject* Geometry::GetObjectByName(const std::string& rName)
 {
-    Object* pFound = Spatial::GetObjectByName(rName);
+    SEObject* pFound = Spatial::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -244,7 +244,7 @@ Object* Geometry::GetObjectByName(const std::string& rName)
 }
 //----------------------------------------------------------------------------
 void Geometry::GetAllObjectsByName(const std::string& rName,
-    std::vector<Object*>& rObjects)
+    std::vector<SEObject*>& rObjects)
 {
     Spatial::GetAllObjectsByName(rName, rObjects);
 
@@ -264,9 +264,9 @@ void Geometry::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-Object* Geometry::GetObjectByID(unsigned int uiID)
+SEObject* Geometry::GetObjectByID(unsigned int uiID)
 {
-    Object* pFound = Spatial::GetObjectByID(uiID);
+    SEObject* pFound = Spatial::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -306,7 +306,7 @@ Object* Geometry::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Geometry::Load(Stream& rStream, Stream::Link* pLink)
+void Geometry::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -316,7 +316,7 @@ void Geometry::Load(Stream& rStream, Stream::Link* pLink)
     rStream.Read((int&)LightingMode);
 
     // link data
-    Object* pObject;
+    SEObject* pObject;
     rStream.Read(pObject);  // ModelBound
     pLink->Add(pObject);
 
@@ -332,11 +332,11 @@ void Geometry::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(Geometry);
 }
 //----------------------------------------------------------------------------
-void Geometry::Link(Stream& rStream, Stream::Link* pLink)
+void Geometry::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Spatial::Link(rStream, pLink);
 
-    Object* pLinkID = pLink->GetLinkID();
+    SEObject* pLinkID = pLink->GetLinkID();
     ModelBound = (BoundingVolume*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
@@ -349,7 +349,7 @@ void Geometry::Link(Stream& rStream, Stream::Link* pLink)
     m_spLEffect = (LightingEffect*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool Geometry::Register(Stream& rStream) const
+bool Geometry::Register(SEStream& rStream) const
 {
     if( !Spatial::Register(rStream) )
     {
@@ -379,7 +379,7 @@ bool Geometry::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Geometry::Save(Stream& rStream) const
+void Geometry::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -397,7 +397,7 @@ void Geometry::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Geometry);
 }
 //----------------------------------------------------------------------------
-int Geometry::GetDiskUsed(const StreamVersion& rVersion) const
+int Geometry::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return Spatial::GetDiskUsed(rVersion) +
         sizeof(LightingMode) +
@@ -407,9 +407,9 @@ int Geometry::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(m_spLEffect);
 }
 //----------------------------------------------------------------------------
-StringTree* Geometry::SaveStrings(const char*)
+SEStringTree* Geometry::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

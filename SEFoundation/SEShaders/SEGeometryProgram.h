@@ -52,7 +52,7 @@ protected:
     GeometryProgram(void);
 };
 
-typedef SmartPointer<GeometryProgram> GeometryProgramPtr;
+typedef SESmartPointer<GeometryProgram> GeometryProgramPtr;
 
 }
 

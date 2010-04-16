@@ -78,7 +78,7 @@ void Polypoint::SetActiveCount(int iActiveCount)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Polypoint::Load(Stream& rStream, Stream::Link* pLink)
+void Polypoint::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -90,17 +90,17 @@ void Polypoint::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(Polypoint);
 }
 //----------------------------------------------------------------------------
-void Polypoint::Link(Stream& rStream, Stream::Link* pLink)
+void Polypoint::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Geometry::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Polypoint::Register(Stream& rStream) const
+bool Polypoint::Register(SEStream& rStream) const
 {
     return Geometry::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Polypoint::Save(Stream& rStream) const
+void Polypoint::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -112,15 +112,15 @@ void Polypoint::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Polypoint);
 }
 //----------------------------------------------------------------------------
-int Polypoint::GetDiskUsed(const StreamVersion& rVersion) const
+int Polypoint::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return Geometry::GetDiskUsed(rVersion) +
         sizeof(m_iActiveCount);
 }
 //----------------------------------------------------------------------------
-StringTree* Polypoint::SaveStrings(const char*)
+SEStringTree* Polypoint::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

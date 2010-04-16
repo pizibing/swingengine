@@ -19,12 +19,12 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int Stream::GetOrderedCount() const
+inline int SEStream::GetOrderedCount() const
 {
     return (int)m_Ordered.size();
 }
 //----------------------------------------------------------------------------
-inline Object* Stream::GetOrderedObject(int i) const
+inline SEObject* SEStream::GetOrderedObject(int i) const
 {
     SE_ASSERT( 0 <= i && i < (int)m_Ordered.size() );
 
@@ -36,17 +36,17 @@ inline Object* Stream::GetOrderedObject(int i) const
     return m_Ordered[i];
 }
 //----------------------------------------------------------------------------
-inline int Stream::GetBufferSize() const
+inline int SEStream::GetBufferSize() const
 {
     return m_iBufferSize;
 }
 //----------------------------------------------------------------------------
-inline int Stream::GetBufferNext() const
+inline int SEStream::GetBufferNext() const
 {
     return m_iBufferNext;
 }
 //----------------------------------------------------------------------------
-inline StreamVersion Stream::GetVersion() const
+inline SEStreamVersion SEStream::GetVersion() const
 {
     return m_Version;
 }

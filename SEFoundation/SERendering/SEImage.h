@@ -39,7 +39,7 @@ namespace Swing
 // 更新说明:为了支持任意width,height的render target纹理,
 //     取消纹理维度必须是power of two的限制.
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Image : public Object
+class SE_FOUNDATION_API Image : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -92,7 +92,7 @@ public:
     // pImageName用于image共享时的唯一ID.
     // 构造函数的调用者可以提供一个image name.
     // 如果没有提供,则构造函数将自动创建一个叫做"imageN.seif"的唯一ID,
-    // 其中N是其Object::m_uiID.
+    // 其中N是其SEObject::m_uiID.
     // 出于image共享的目的,系统维护着一个全局image map.
     // 默认情况下,image被成功创建后,将被插入到全局image map,
     // 供稍后索引该资源时使用.然而用户也可以设置bInsert参数为false,
@@ -172,7 +172,7 @@ protected:
     static std::string ms_FormatName[IT_COUNT];
 };
 
-typedef SmartPointer<Image> ImagePtr;
+typedef SESmartPointer<Image> ImagePtr;
 
 #include "SEImage.inl"
 

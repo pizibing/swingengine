@@ -134,7 +134,7 @@ public:
     };
 
 private:
-	friend class Stream;
+	friend class SEStream;
     friend class Spatial;
 
     Matrix3f m_Matrix;

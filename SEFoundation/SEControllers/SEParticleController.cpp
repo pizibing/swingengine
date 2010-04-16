@@ -87,7 +87,7 @@ void ParticleController::Reallocate(int iLCount)
     }
 }
 //----------------------------------------------------------------------------
-void ParticleController::SetObject(Object* pObject)
+void ParticleController::SetObject(SEObject* pObject)
 {
     Controller::SetObject(pObject);
 
@@ -162,7 +162,7 @@ bool ParticleController::Update(double dAppTime)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void ParticleController::Load(Stream& rStream, Stream::Link* pLink)
+void ParticleController::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -187,17 +187,17 @@ void ParticleController::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(ParticleController);
 }
 //----------------------------------------------------------------------------
-void ParticleController::Link(Stream& rStream, Stream::Link* pLink)
+void ParticleController::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Controller::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool ParticleController::Register(Stream& rStream) const
+bool ParticleController::Register(SEStream& rStream) const
 {
     return Controller::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void ParticleController::Save(Stream& rStream) const
+void ParticleController::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -223,7 +223,7 @@ void ParticleController::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(ParticleController);
 }
 //----------------------------------------------------------------------------
-int ParticleController::GetDiskUsed(const StreamVersion& rVersion) const
+int ParticleController::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     int iSize = Controller::GetDiskUsed(rVersion) +
         sizeof(SystemLinearSpeed) +
@@ -243,9 +243,9 @@ int ParticleController::GetDiskUsed(const StreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-StringTree* ParticleController::SaveStrings(const char*)
+SEStringTree* ParticleController::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

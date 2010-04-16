@@ -95,7 +95,7 @@
 #include "SEParticles.h"
 #include "SEWidget.h"
 
-// Object SESystem
+// SEObject SESystem
 #include "SESmartPointer.h"
 #include "SERTTI.h"
 #include "SEObject.h"

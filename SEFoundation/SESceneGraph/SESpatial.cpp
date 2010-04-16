@@ -26,7 +26,7 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Spatial, Object);
+SE_IMPLEMENT_RTTI(Swing, Spatial, SEObject);
 SE_IMPLEMENT_ABSTRACT_STREAM(Spatial);
 
 //SE_REGISTER_STREAM(Spatial);
@@ -399,9 +399,9 @@ Spatial::PickRecord* Spatial::GetClosest(PickArray& rResults)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* Spatial::GetObjectByName(const std::string& rName)
+SEObject* Spatial::GetObjectByName(const std::string& rName)
 {
-    Object* pFound = Object::GetObjectByName(rName);
+    SEObject* pFound = SEObject::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -457,9 +457,9 @@ Object* Spatial::GetObjectByName(const std::string& rName)
 }
 //----------------------------------------------------------------------------
 void Spatial::GetAllObjectsByName(const std::string& rName,
-    std::vector<Object*>& rObjects)
+    std::vector<SEObject*>& rObjects)
 {
-    Object::GetAllObjectsByName(rName, rObjects);
+    SEObject::GetAllObjectsByName(rName, rObjects);
 
     if( WorldBound )
     {
@@ -492,9 +492,9 @@ void Spatial::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-Object* Spatial::GetObjectByID(unsigned int uiID)
+SEObject* Spatial::GetObjectByID(unsigned int uiID)
 {
-    Object* pFound = Object::GetObjectByID(uiID);
+    SEObject* pFound = SEObject::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -553,16 +553,16 @@ Object* Spatial::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Spatial::Load(Stream& rStream, Stream::Link* pLink)
+void Spatial::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Object::Load(rStream, pLink);
+    SEObject::Load(rStream, pLink);
 
     // native data
     rStream.Read(Local);
     rStream.Read(World);
-    if( rStream.GetVersion() >= StreamVersion(3, 1) )
+    if( rStream.GetVersion() >= SEStreamVersion(3, 1) )
     {
         int iTemp;
         rStream.Read(iTemp);
@@ -579,7 +579,7 @@ void Spatial::Load(Stream& rStream, Stream::Link* pLink)
     rStream.Read(WorldBoundIsCurrent);
 
     // link data
-    Object* pObject;
+    SEObject* pObject;
     rStream.Read(pObject);  // WorldBound
     pLink->Add(pObject);
 
@@ -588,7 +588,7 @@ void Spatial::Load(Stream& rStream, Stream::Link* pLink)
     m_GlobalStates.resize(iCount);
     for( i = 0; i < iCount; i++ )
     {
-        Object* pObject;
+        SEObject* pObject;
         rStream.Read(pObject);  // m_GlobalStates[i]
         pLink->Add(pObject);
     }
@@ -597,7 +597,7 @@ void Spatial::Load(Stream& rStream, Stream::Link* pLink)
     m_Lights.resize(iCount);
     for( i = 0; i < iCount; i++ )
     {
-        Object* pObject;
+        SEObject* pObject;
         rStream.Read(pObject);  // m_Lights[i]
         pLink->Add(pObject);
     }
@@ -606,7 +606,7 @@ void Spatial::Load(Stream& rStream, Stream::Link* pLink)
     m_Effects.resize(iCount);
     for( i = 0; i < iCount; i++ )
     {
-        Object* pObject;
+        SEObject* pObject;
         rStream.Read(pObject);  // m_Effects[i]
         pLink->Add(pObject);
     }
@@ -614,11 +614,11 @@ void Spatial::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(Spatial);
 }
 //----------------------------------------------------------------------------
-void Spatial::Link(Stream& rStream, Stream::Link* pLink)
+void Spatial::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Object::Link(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 
-    Object* pLinkID = pLink->GetLinkID();
+    SEObject* pLinkID = pLink->GetLinkID();
     WorldBound = (BoundingVolume*)rStream.GetFromMap(pLinkID);
 
     int i;
@@ -641,9 +641,9 @@ void Spatial::Link(Stream& rStream, Stream::Link* pLink)
     }
 }
 //----------------------------------------------------------------------------
-bool Spatial::Register(Stream& rStream) const
+bool Spatial::Register(SEStream& rStream) const
 {
-    if( !Object::Register(rStream) )
+    if( !SEObject::Register(rStream) )
     {
         return false;
     }
@@ -684,11 +684,11 @@ bool Spatial::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Spatial::Save(Stream& rStream) const
+void Spatial::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Object::Save(rStream);
+    SEObject::Save(rStream);
 
     // native data
     rStream.Write(Local);
@@ -728,16 +728,16 @@ void Spatial::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Spatial);
 }
 //----------------------------------------------------------------------------
-int Spatial::GetDiskUsed(const StreamVersion& rVersion) const
+int Spatial::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    int iSize = Object::GetDiskUsed(rVersion) +
+    int iSize = SEObject::GetDiskUsed(rVersion) +
         Transformation::DISK_USED +  // Local
         Transformation::DISK_USED +  // World
         sizeof(char) + // WorldIsCurrent
         sizeof(char) + // WorldBoundIsCurrent
         sizeof(WorldBound);
 
-    if( rVersion >= StreamVersion(3,1) )
+    if( rVersion >= SEStreamVersion(3,1) )
     {
         iSize += sizeof(int); // Culling
     }
@@ -754,9 +754,9 @@ int Spatial::GetDiskUsed(const StreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-StringTree* Spatial::SaveStrings(const char*)
+SEStringTree* Spatial::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -807,7 +807,7 @@ StringTree* Spatial::SaveStrings(const char*)
     pTree->Append(Format("effect count =", (int)m_Effects.size()));
 
     // children
-    pTree->Append(Object::SaveStrings());
+    pTree->Append(SEObject::SaveStrings());
 
     int iCount = (int)m_GlobalStates.size();
     int i;

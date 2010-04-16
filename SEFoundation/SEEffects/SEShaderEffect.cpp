@@ -768,9 +768,9 @@ void ShaderEffect::ReleaseResources(Renderer* pRenderer, Geometry*)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* ShaderEffect::GetObjectByName(const std::string& rName)
+SEObject* ShaderEffect::GetObjectByName(const std::string& rName)
 {
-    Object* pFound = Effect::GetObjectByName(rName);
+    SEObject* pFound = Effect::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -810,7 +810,7 @@ Object* ShaderEffect::GetObjectByName(const std::string& rName)
 }
 //----------------------------------------------------------------------------
 void ShaderEffect::GetAllObjectsByName(const std::string& rName,
-    std::vector<Object*>& rObjects)
+    std::vector<SEObject*>& rObjects)
 {
     Effect::GetAllObjectsByName(rName, rObjects);
 
@@ -833,9 +833,9 @@ void ShaderEffect::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-Object* ShaderEffect::GetObjectByID(unsigned int uiID)
+SEObject* ShaderEffect::GetObjectByID(unsigned int uiID)
 {
-    Object* pFound = Effect::GetObjectByID(uiID);
+    SEObject* pFound = Effect::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -878,7 +878,7 @@ Object* ShaderEffect::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void ShaderEffect::Load(Stream& rStream, Stream::Link* pLink)
+void ShaderEffect::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -891,7 +891,7 @@ void ShaderEffect::Load(Stream& rStream, Stream::Link* pLink)
     m_PShader.resize(m_iPassCount);
 
     // link data
-    Object* pObject;
+    SEObject* pObject;
     for( int iPass = 0; iPass < m_iPassCount; iPass++ )
     {
         rStream.Read(pObject);  // m_VShader[iPass]
@@ -917,11 +917,11 @@ void ShaderEffect::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(ShaderEffect);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::Link(Stream& rStream, Stream::Link* pLink)
+void ShaderEffect::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Effect::Link(rStream, pLink);
 
-    Object* pLinkID;
+    SEObject* pLinkID;
     for( int iPass = 0; iPass < m_iPassCount; iPass++ )
     {
         pLinkID = pLink->GetLinkID();
@@ -942,7 +942,7 @@ void ShaderEffect::Link(Stream& rStream, Stream::Link* pLink)
     }
 }
 //----------------------------------------------------------------------------
-bool ShaderEffect::Register(Stream& rStream) const
+bool ShaderEffect::Register(SEStream& rStream) const
 {
     if( !Effect::Register(rStream) )
     {
@@ -978,7 +978,7 @@ bool ShaderEffect::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::Save(Stream& rStream) const
+void ShaderEffect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -1005,7 +1005,7 @@ void ShaderEffect::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(ShaderEffect);
 }
 //----------------------------------------------------------------------------
-int ShaderEffect::GetDiskUsed(const StreamVersion& rVersion) const
+int ShaderEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return Effect::GetDiskUsed(rVersion) +
         sizeof(m_iPassCount) +
@@ -1016,9 +1016,9 @@ int ShaderEffect::GetDiskUsed(const StreamVersion& rVersion) const
         ((int)m_RStateBlocks.size())*sizeof(m_RStateBlocks[0]);
 }
 //----------------------------------------------------------------------------
-StringTree* ShaderEffect::SaveStrings(const char*)
+SEStringTree* ShaderEffect::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -1029,7 +1029,7 @@ StringTree* ShaderEffect::SaveStrings(const char*)
 
     if( m_iPassCount > 0 )
     {
-        StringTree* pCTree = SE_NEW StringTree;
+        SEStringTree* pCTree = SE_NEW SEStringTree;
         pCTree->Append(Format("shaders"));
         for( int iPass = 0; iPass < m_iPassCount; iPass++ )
         {
@@ -1048,7 +1048,7 @@ StringTree* ShaderEffect::SaveStrings(const char*)
     int iCount = (int)m_RStateBlocks.size();
     if( iCount > 0 )
     {
-        StringTree* pCTree = SE_NEW StringTree;
+        SEStringTree* pCTree = SE_NEW SEStringTree;
         pCTree->Append(Format("render state blocks"));
         for( int i = 0; i < iCount; i++ )
         {

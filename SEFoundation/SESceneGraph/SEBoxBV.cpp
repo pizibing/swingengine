@@ -155,7 +155,7 @@ bool BoxBV::Contains(const Vector3f& rPoint) const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void BoxBV::Load(Stream& rStream, Stream::Link* pLink)
+void BoxBV::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -173,17 +173,17 @@ void BoxBV::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(BoxBV);
 }
 //----------------------------------------------------------------------------
-void BoxBV::Link(Stream& rStream, Stream::Link* pLink)
+void BoxBV::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     BoundingVolume::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool BoxBV::Register(Stream& rStream) const
+bool BoxBV::Register(SEStream& rStream) const
 {
     return BoundingVolume::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void BoxBV::Save(Stream& rStream) const
+void BoxBV::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -201,15 +201,15 @@ void BoxBV::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(BoxBV);
 }
 //----------------------------------------------------------------------------
-int BoxBV::GetDiskUsed(const StreamVersion& rVersion) const
+int BoxBV::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return BoundingVolume::GetDiskUsed(rVersion) +
         sizeof(m_Box);
 }
 //----------------------------------------------------------------------------
-StringTree* BoxBV::SaveStrings(const char*)
+SEStringTree* BoxBV::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

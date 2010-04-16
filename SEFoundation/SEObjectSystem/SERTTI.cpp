@@ -24,19 +24,19 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-RTTI::RTTI(const char* pName, const RTTI* pBaseType)
+SERTTI::SERTTI(const char* pName, const SERTTI* pBaseType)
 {
     m_pRTTIName = pName;
     m_pBaseType = pBaseType;
 }
 //----------------------------------------------------------------------------
-RTTI::~RTTI()
+SERTTI::~SERTTI()
 {
 }
 //----------------------------------------------------------------------------
-bool RTTI::IsDerived(const RTTI& rType) const
+bool SERTTI::IsDerived(const SERTTI& rType) const
 {
-    const RTTI* pSearch = this;
+    const SERTTI* pSearch = this;
     while( pSearch )
     {
         if( pSearch == &rType )

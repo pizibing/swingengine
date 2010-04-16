@@ -23,10 +23,10 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, BoundingVolume, Object);
+SE_IMPLEMENT_RTTI(Swing, BoundingVolume, SEObject);
 SE_IMPLEMENT_ABSTRACT_STREAM(BoundingVolume);
-SE_IMPLEMENT_DEFAULT_STREAM(BoundingVolume, Object);
-SE_IMPLEMENT_DEFAULT_NAME_ID(BoundingVolume, Object);
+SE_IMPLEMENT_DEFAULT_STREAM(BoundingVolume, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(BoundingVolume, SEObject);
 
 //SE_REGISTER_STREAM(BoundingVolume);
 

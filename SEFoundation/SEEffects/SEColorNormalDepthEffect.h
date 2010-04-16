@@ -54,7 +54,7 @@ protected:
     static float ms_fFarCilpDist;
 };
 
-typedef SmartPointer<ColorNormalDepthEffect> ColorNormalDepthEffectPtr;
+typedef SESmartPointer<ColorNormalDepthEffect> ColorNormalDepthEffectPtr;
 
 }
 

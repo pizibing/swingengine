@@ -36,7 +36,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080702
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Light : public Object
+class SE_FOUNDATION_API Light : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -78,7 +78,7 @@ public:
     // 使用一个被保护的基类Light来派生出特定的子Light类.
     // 因此,渲染器在不使用动态类型转换的情况下可以访问到所有灯光数据,
     // 并且派生类通过类成员函数来访问与其类型相关的灯光数据.
-    // 但不幸的是,你会遇到Object类成员访问权受限的问题(例如智能指针增减索引计数).
+    // 但不幸的是,你会遇到SEObject类成员访问权受限的问题(例如智能指针增减索引计数).
     //
     // 最终,还是使用了完全开放的策略,
     // Light类作为一个通用类,存储了派生类所需的各种数据.
@@ -133,7 +133,7 @@ public:
 protected:
 };
 
-typedef SmartPointer<Light> LightPtr;
+typedef SESmartPointer<Light> LightPtr;
 
 }
 

@@ -68,7 +68,7 @@ protected:
     CameraPtr m_spCamera;
 };
 
-typedef SmartPointer<CameraNode> CameraNodePtr;
+typedef SESmartPointer<CameraNode> CameraNodePtr;
 
 #include "SECameraNode.inl"
 

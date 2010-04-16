@@ -318,7 +318,7 @@ void Terrain::OnCameraMotion()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Terrain::Load(Stream& rStream, Stream::Link* pLink)
+void Terrain::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -337,7 +337,7 @@ void Terrain::Load(Stream& rStream, Stream::Link* pLink)
     rStream.Read(m_BorderColor);
 
     // link data
-    Object* pObject;
+    SEObject* pObject;
     rStream.Read(pObject);  // m_spCamera
     pLink->Add(pObject);
     for( int iRow = 0; iRow < m_iRows; iRow++ )
@@ -352,11 +352,11 @@ void Terrain::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(Terrain);
 }
 //----------------------------------------------------------------------------
-void Terrain::Link(Stream& rStream, Stream::Link* pLink)
+void Terrain::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Node::Link(rStream, pLink);
 
-    Object* pLinkID = pLink->GetLinkID();
+    SEObject* pLinkID = pLink->GetLinkID();
     m_spCamera = (Camera*)rStream.GetFromMap(pLinkID);
 
     Allocate<TerrainPagePtr>(m_iCols, m_iRows, m_aaspPage);
@@ -371,7 +371,7 @@ void Terrain::Link(Stream& rStream, Stream::Link* pLink)
     }
 }
 //----------------------------------------------------------------------------
-bool Terrain::Register(Stream& rStream) const
+bool Terrain::Register(SEStream& rStream) const
 {
     if( !Node::Register(rStream) )
     {
@@ -394,7 +394,7 @@ bool Terrain::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Terrain::Save(Stream& rStream) const
+void Terrain::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -425,7 +425,7 @@ void Terrain::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Terrain);
 }
 //----------------------------------------------------------------------------
-int Terrain::GetDiskUsed(const StreamVersion& rVersion) const
+int Terrain::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return Node::GetDiskUsed(rVersion) +
         sizeof(m_iRows) +
@@ -442,9 +442,9 @@ int Terrain::GetDiskUsed(const StreamVersion& rVersion) const
         m_iRows*m_iCols*sizeof(m_aaspPage[0][0]);
 }
 //----------------------------------------------------------------------------
-StringTree* Terrain::SaveStrings(const char*)
+SEStringTree* Terrain::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

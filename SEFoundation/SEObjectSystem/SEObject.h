@@ -42,22 +42,22 @@ class Controller;
 // 作者:Sun Che
 // 时间:20080329
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Object
+class SE_FOUNDATION_API SEObject
 {
 public:
-    virtual ~Object(void);
+    virtual ~SEObject(void);
 protected:
     // 禁止被实例化,虚基类
-    Object(void);
+    SEObject(void);
 
-// RTTI系统
+// SERTTI系统
 public:
-    static const RTTI TYPE;
-    virtual const RTTI& GetType(void) const;
-    inline bool IsExactly(const RTTI& rType) const;
-    inline bool IsDerived(const RTTI& rType) const;
-    inline bool IsExactlyTypeOf(const Object* pObject) const;
-    inline bool IsDerivedTypeOf(const Object* pObject) const;
+    static const SERTTI TYPE;
+    virtual const SERTTI& GetType(void) const;
+    inline bool IsExactly(const SERTTI& rType) const;
+    inline bool IsDerived(const SERTTI& rType) const;
+    inline bool IsExactlyTypeOf(const SEObject* pObject) const;
+    inline bool IsDerivedTypeOf(const SEObject* pObject) const;
 
 // Controller系统
 public:
@@ -68,11 +68,11 @@ public:
     void DetachAllControllers(void);
     bool UpdateControllers(double dAppTime);
 private:
-    std::vector< SmartPointer<Object> > m_Controllers;
+    std::vector< SESmartPointer<SEObject> > m_Controllers;
 
 // Copying系统
 public:
-    SmartPointer<Object> Copy(bool bUniqueNames = true) const;
+    SESmartPointer<SEObject> Copy(bool bUniqueNames = true) const;
     static char NameAppend;
 
 // Name-ID系统
@@ -81,10 +81,10 @@ public:
     inline const std::string& GetName(void) const;
     inline unsigned int GetID(void) const;
     inline static unsigned int GetNextID(void);
-    virtual Object* GetObjectByName(const std::string& rName);
+    virtual SEObject* GetObjectByName(const std::string& rName);
     virtual void GetAllObjectsByName(const std::string& rName, 
-        std::vector<Object*>& rObjects);
-    virtual Object* GetObjectByID(unsigned int uiID);
+        std::vector<SEObject*>& rObjects);
+    virtual SEObject* GetObjectByID(unsigned int uiID);
 private:
     std::string m_Name;
     unsigned int m_uiID;
@@ -95,8 +95,8 @@ public:
     inline void IncrementReferences(void);
     void DecrementReferences(void);
     inline int GetReferences(void) const;
-    // Object级的内存泄漏跟踪使用此hash表
-    static HashTable<unsigned int, Object*>* InUse;
+    // SEObject级的内存泄漏跟踪使用此hash表
+    static HashTable<unsigned int, SEObject*>* InUse;
     static void PrintInUse(const char* pFileName, const char* pMessage);
 private:
     int m_iReferences;
@@ -109,24 +109,24 @@ public:
     static bool RegisterFactory(void);
     static void InitializeFactory(void);
     static void TerminateFactory(void);
-    static Object* Factory(Stream& rStream);
-    virtual void Load(Stream& rStream, Stream::Link* pLink);
-    virtual void Link(Stream& rStream, Stream::Link* pLink);
-    virtual bool Register(Stream& rStream) const;
-    virtual void Save(Stream& rStream) const;
-    virtual int GetDiskUsed(const StreamVersion& rVersion) const;
-    virtual StringTree* SaveStrings(const char* pTitle = 0);
+    static SEObject* Factory(SEStream& rStream);
+    virtual void Load(SEStream& rStream, SEStream::Link* pLink);
+    virtual void Link(SEStream& rStream, SEStream::Link* pLink);
+    virtual bool Register(SEStream& rStream) const;
+    virtual void Save(SEStream& rStream) const;
+    virtual int GetDiskUsed(const SEStreamVersion& rVersion) const;
+    virtual SEStringTree* SaveStrings(const char* pTitle = 0);
 private:
     static bool ms_bStreamRegistered;
 };
 
 // 静态,动态类型转换
-template <class T> T* StaticCast(Object* pObject);
-template <class T> const T* StaticCast(const Object* pObject);
-template <class T> T* DynamicCast(Object* pObject);
-template <class T> const T* DynamicCast(const Object* pObject);
+template <class T> T* StaticCast(SEObject* pObject);
+template <class T> const T* StaticCast(const SEObject* pObject);
+template <class T> T* DynamicCast(SEObject* pObject);
+template <class T> const T* DynamicCast(const SEObject* pObject);
 
-typedef SmartPointer<Object> ObjectPtr;
+typedef SESmartPointer<SEObject> ObjectPtr;
 
 #include "SEObject.inl"
 

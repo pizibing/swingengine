@@ -77,9 +77,9 @@ void BillboardNode::UpdateWorldData(double dAppTime)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* BillboardNode::GetObjectByName(const std::string& rName)
+SEObject* BillboardNode::GetObjectByName(const std::string& rName)
 {
-    Object* pFound = Object::GetObjectByName(rName);
+    SEObject* pFound = SEObject::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -98,7 +98,7 @@ Object* BillboardNode::GetObjectByName(const std::string& rName)
 }
 //----------------------------------------------------------------------------
 void BillboardNode::GetAllObjectsByName(const std::string& rName,
-    std::vector<Object*>& rObjects)
+    std::vector<SEObject*>& rObjects)
 {
     Node::GetAllObjectsByName(rName, rObjects);
 
@@ -108,9 +108,9 @@ void BillboardNode::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-Object* BillboardNode::GetObjectByID(unsigned int uiID)
+SEObject* BillboardNode::GetObjectByID(unsigned int uiID)
 {
-    Object* pFound = Object::GetObjectByID(uiID);
+    SEObject* pFound = SEObject::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -132,29 +132,29 @@ Object* BillboardNode::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void BillboardNode::Load(Stream& rStream, Stream::Link* pLink)
+void BillboardNode::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
     Node::Load(rStream, pLink);
 
     // link data
-    Object* pObject;
+    SEObject* pObject;
     rStream.Read(pObject);  // m_spCamera
     pLink->Add(pObject);
 
     SE_END_DEBUG_STREAM_LOAD(BillboardNode);
 }
 //----------------------------------------------------------------------------
-void BillboardNode::Link(Stream& rStream, Stream::Link* pLink)
+void BillboardNode::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Node::Link(rStream, pLink);
 
-    Object* pLinkID = pLink->GetLinkID();
+    SEObject* pLinkID = pLink->GetLinkID();
     m_spCamera = (Camera*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool BillboardNode::Register(Stream& rStream) const
+bool BillboardNode::Register(SEStream& rStream) const
 {
     if( !Node::Register(rStream) )
     {
@@ -169,7 +169,7 @@ bool BillboardNode::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void BillboardNode::Save(Stream& rStream) const
+void BillboardNode::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -181,15 +181,15 @@ void BillboardNode::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(BillboardNode);
 }
 //----------------------------------------------------------------------------
-int BillboardNode::GetDiskUsed(const StreamVersion& rVersion) const
+int BillboardNode::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return Node::GetDiskUsed(rVersion) +
         sizeof(m_spCamera);
 }
 //----------------------------------------------------------------------------
-StringTree* BillboardNode::SaveStrings(const char*)
+SEStringTree* BillboardNode::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

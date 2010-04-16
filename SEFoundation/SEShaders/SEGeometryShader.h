@@ -51,7 +51,7 @@ protected:
     GeometryShader(void);
 };
 
-typedef SmartPointer<GeometryShader> GeometryShaderPtr;
+typedef SESmartPointer<GeometryShader> GeometryShaderPtr;
 
 }
 

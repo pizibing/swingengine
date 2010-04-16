@@ -88,7 +88,7 @@ void TerrainEffect::OnLoadPrograms(int, Program* pVProgram,
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void TerrainEffect::Load(Stream& rStream, Stream::Link* pLink)
+void TerrainEffect::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -99,17 +99,17 @@ void TerrainEffect::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(TerrainEffect);
 }
 //----------------------------------------------------------------------------
-void TerrainEffect::Link(Stream& rStream, Stream::Link* pLink)
+void TerrainEffect::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     ShaderEffect::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool TerrainEffect::Register(Stream& rStream) const
+bool TerrainEffect::Register(SEStream& rStream) const
 {
     return ShaderEffect::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void TerrainEffect::Save(Stream& rStream) const
+void TerrainEffect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -120,15 +120,15 @@ void TerrainEffect::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(TerrainEffect);
 }
 //----------------------------------------------------------------------------
-int TerrainEffect::GetDiskUsed(const StreamVersion& rVersion) const
+int TerrainEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return ShaderEffect::GetDiskUsed(rVersion) +
         4*sizeof(ms_afFogColorDensity[0]);
 }
 //----------------------------------------------------------------------------
-StringTree* TerrainEffect::SaveStrings(const char*)
+SEStringTree* TerrainEffect::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

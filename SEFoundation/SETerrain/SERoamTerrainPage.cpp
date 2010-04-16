@@ -566,7 +566,7 @@ RoamTriTreeNode* RoamTerrainPage::AllocateTri()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void RoamTerrainPage::Load(Stream& rStream, Stream::Link* pLink)
+void RoamTerrainPage::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -590,17 +590,17 @@ void RoamTerrainPage::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(RoamTerrainPage);
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPage::Link(Stream& rStream, Stream::Link* pLink)
+void RoamTerrainPage::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     TriMesh::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool RoamTerrainPage::Register(Stream& rStream) const
+bool RoamTerrainPage::Register(SEStream& rStream) const
 {
     return TriMesh::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPage::Save(Stream& rStream) const
+void RoamTerrainPage::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -621,7 +621,7 @@ void RoamTerrainPage::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(RoamTerrainPage);
 }
 //----------------------------------------------------------------------------
-int RoamTerrainPage::GetDiskUsed(const StreamVersion& rVersion) const
+int RoamTerrainPage::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return TriMesh::GetDiskUsed(rVersion) +
         sizeof(m_iSize) +
@@ -636,9 +636,9 @@ int RoamTerrainPage::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(m_iVarianceLevel);
 }
 //----------------------------------------------------------------------------
-StringTree* RoamTerrainPage::SaveStrings(const char*)
+SEStringTree* RoamTerrainPage::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

@@ -68,7 +68,7 @@ protected:
     LightPtr m_spLight;
 };
 
-typedef SmartPointer<LightNode> LightNodePtr;
+typedef SESmartPointer<LightNode> LightNodePtr;
 
 #include "SELightNode.inl"
 

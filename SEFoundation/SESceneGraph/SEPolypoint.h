@@ -55,7 +55,7 @@ protected:
     int m_iActiveCount;
 };
 
-typedef SmartPointer<Polypoint> PolypointPtr;
+typedef SESmartPointer<Polypoint> PolypointPtr;
 
 #include "SEPolypoint.inl"
 

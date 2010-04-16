@@ -103,7 +103,7 @@ void TextureTileL1Effect::OnPreApplyEffect(Renderer*, bool)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void TextureTileL1Effect::Load(Stream& rStream, Stream::Link* pLink)
+void TextureTileL1Effect::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -119,17 +119,17 @@ void TextureTileL1Effect::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(TextureTileL1Effect);
 }
 //----------------------------------------------------------------------------
-void TextureTileL1Effect::Link(Stream& rStream, Stream::Link* pLink)
+void TextureTileL1Effect::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     ShaderEffect::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool TextureTileL1Effect::Register(Stream& rStream) const
+bool TextureTileL1Effect::Register(SEStream& rStream) const
 {
     return ShaderEffect::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void TextureTileL1Effect::Save(Stream& rStream) const
+void TextureTileL1Effect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -145,7 +145,7 @@ void TextureTileL1Effect::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(TextureTileL1Effect);
 }
 //----------------------------------------------------------------------------
-int TextureTileL1Effect::GetDiskUsed(const StreamVersion& rVersion) const
+int TextureTileL1Effect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     int iSize = ShaderEffect::GetDiskUsed(rVersion) +
         sizeof(TileX) + sizeof(TileY) + sizeof(AmbientWeight) + 
@@ -154,9 +154,9 @@ int TextureTileL1Effect::GetDiskUsed(const StreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-StringTree* TextureTileL1Effect::SaveStrings(const char*)
+SEStringTree* TextureTileL1Effect::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

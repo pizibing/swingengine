@@ -86,7 +86,7 @@ private:
     static const char* ms_pOperation[OT_COUNT];
 };
 
-typedef SmartPointer<StencilState> StencilStatePtr;
+typedef SESmartPointer<StencilState> StencilStatePtr;
 
 }
 

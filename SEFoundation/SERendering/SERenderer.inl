@@ -262,7 +262,7 @@ inline void Renderer::SetLight(int i, Light* pLight)
 {
     SE_ASSERT( 0 <= i && i < m_iMaxLights );
 
-    m_aspLight[i] = (Object*)pLight;
+    m_aspLight[i] = (SEObject*)pLight;
 }
 //----------------------------------------------------------------------------
 inline Light* Renderer::GetLight(int i)

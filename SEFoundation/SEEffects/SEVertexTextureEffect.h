@@ -50,7 +50,7 @@ protected:
     VertexTextureEffect(void);
 };
 
-typedef SmartPointer<VertexTextureEffect> VertexTextureEffectPtr;
+typedef SESmartPointer<VertexTextureEffect> VertexTextureEffectPtr;
 
 }
 

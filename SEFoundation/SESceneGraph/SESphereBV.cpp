@@ -151,7 +151,7 @@ bool SphereBV::Contains(const Vector3f& rPoint) const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SphereBV::Load(Stream& rStream, Stream::Link* pLink)
+void SphereBV::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -164,17 +164,17 @@ void SphereBV::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SphereBV);
 }
 //----------------------------------------------------------------------------
-void SphereBV::Link(Stream& rStream, Stream::Link* pLink)
+void SphereBV::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     BoundingVolume::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool SphereBV::Register(Stream& rStream) const
+bool SphereBV::Register(SEStream& rStream) const
 {
     return BoundingVolume::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void SphereBV::Save(Stream& rStream) const
+void SphereBV::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -187,15 +187,15 @@ void SphereBV::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(SphereBV);
 }
 //----------------------------------------------------------------------------
-int SphereBV::GetDiskUsed(const StreamVersion& rVersion) const
+int SphereBV::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return BoundingVolume::GetDiskUsed(rVersion) +
         sizeof(m_Sphere);
 }
 //----------------------------------------------------------------------------
-StringTree* SphereBV::SaveStrings(const char*)
+SEStringTree* SphereBV::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

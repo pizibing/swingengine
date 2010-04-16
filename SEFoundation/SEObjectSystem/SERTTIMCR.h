@@ -24,20 +24,20 @@
 //----------------------------------------------------------------------------
 #define SE_DECLARE_RTTI \
 public: \
-    static const RTTI TYPE; \
-    virtual const RTTI& GetType(void) const { return TYPE; }
+    static const SERTTI TYPE; \
+    virtual const SERTTI& GetType(void) const { return TYPE; }
 //----------------------------------------------------------------------------
 #define SE_DECLARE_TEMPLATE_RTTI \
 public: \
-    SE_FOUNDATION_API static const RTTI TYPE; \
-    virtual const RTTI& GetType(void) const { return TYPE; }
+    SE_FOUNDATION_API static const SERTTI TYPE; \
+    virtual const SERTTI& GetType(void) const { return TYPE; }
 //----------------------------------------------------------------------------
 #define SE_IMPLEMENT_RTTI(nsname, classname, baseclassname) \
-    const RTTI classname::TYPE(#nsname"."#classname, &baseclassname::TYPE)
+    const SERTTI classname::TYPE(#nsname"."#classname, &baseclassname::TYPE)
 //----------------------------------------------------------------------------
 #define SE_IMPLEMENT_TEMPLATE_RTTI(nsname, classname, baseclassname) \
     template <> \
-    const RTTI classname::TYPE(#nsname"."#classname, &baseclassname::TYPE)
+    const SERTTI classname::TYPE(#nsname"."#classname, &baseclassname::TYPE)
 //----------------------------------------------------------------------------
 
 #endif

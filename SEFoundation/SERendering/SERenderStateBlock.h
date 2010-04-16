@@ -37,7 +37,7 @@ namespace Swing
 // Author:Sun Che
 // Date:20090524
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API RenderStateBlock : public Object, public Bindable
+class SE_FOUNDATION_API RenderStateBlock : public SEObject, public Bindable
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -50,7 +50,7 @@ public:
     GlobalStatePtr States[GlobalState::MAX_STATE_TYPE];
 };
 
-typedef SmartPointer<RenderStateBlock> RenderStateBlockPtr;
+typedef SESmartPointer<RenderStateBlock> RenderStateBlockPtr;
 
 }
 

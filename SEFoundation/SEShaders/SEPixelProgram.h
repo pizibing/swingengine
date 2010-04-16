@@ -51,7 +51,7 @@ protected:
     PixelProgram(void);
 };
 
-typedef SmartPointer<PixelProgram> PixelProgramPtr;
+typedef SESmartPointer<PixelProgram> PixelProgramPtr;
 
 }
 

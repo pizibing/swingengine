@@ -63,7 +63,7 @@ MaterialState::~MaterialState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void MaterialState::Load (Stream& rStream, Stream::Link* pLink)
+void MaterialState::Load (SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -80,17 +80,17 @@ void MaterialState::Load (Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(MaterialState);
 }
 //----------------------------------------------------------------------------
-void MaterialState::Link(Stream& rStream, Stream::Link* pLink)
+void MaterialState::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     GlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool MaterialState::Register(Stream& rStream) const
+bool MaterialState::Register(SEStream& rStream) const
 {
     return GlobalState::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void MaterialState::Save(Stream& rStream) const
+void MaterialState::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -107,16 +107,16 @@ void MaterialState::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(MaterialState);
 }
 //----------------------------------------------------------------------------
-int MaterialState::GetDiskUsed(const StreamVersion& rVersion) const
+int MaterialState::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return GlobalState::GetDiskUsed(rVersion) + sizeof(Emissive) +
         sizeof(Ambient) + sizeof(Diffuse) + sizeof(Specular) + sizeof(Alpha) +
         sizeof(Shininess);
 }
 //----------------------------------------------------------------------------
-StringTree* MaterialState::SaveStrings(const char*)
+SEStringTree* MaterialState::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

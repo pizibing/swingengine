@@ -298,9 +298,9 @@ void Node::DoPick(const Ray3f& rRay, PickArray& rResults)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* Node::GetObjectByName(const std::string& rName)
+SEObject* Node::GetObjectByName(const std::string& rName)
 {
-    Object* pFound = Spatial::GetObjectByName(rName);
+    SEObject* pFound = Spatial::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -323,7 +323,7 @@ Object* Node::GetObjectByName(const std::string& rName)
 }
 //----------------------------------------------------------------------------
 void Node::GetAllObjectsByName(const std::string& rName,
-    std::vector<Object*>& rObjects)
+    std::vector<SEObject*>& rObjects)
 {
     Spatial::GetAllObjectsByName(rName, rObjects);
 
@@ -337,9 +337,9 @@ void Node::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-Object* Node::GetObjectByID(unsigned int uiID)
+SEObject* Node::GetObjectByID(unsigned int uiID)
 {
-    Object* pFound = Spatial::GetObjectByID(uiID);
+    SEObject* pFound = Spatial::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -365,7 +365,7 @@ Object* Node::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Node::Load(Stream& rStream, Stream::Link* pLink)
+void Node::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -383,7 +383,7 @@ void Node::Load(Stream& rStream, Stream::Link* pLink)
     rStream.Read(iCount);
     for( int i = 0; i < iMaxCount; i++ )
     {
-        Object* pObject;
+        SEObject* pObject;
         rStream.Read(pObject);
         pLink->Add(pObject);
     }
@@ -391,13 +391,13 @@ void Node::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(Node);
 }
 //----------------------------------------------------------------------------
-void Node::Link(Stream& rStream, Stream::Link* pLink)
+void Node::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Spatial::Link(rStream, pLink);
 
     for( int i = 0; i < (int)m_Child.size(); i++ )
     {
-        Object* pLinkID = pLink->GetLinkID();
+        SEObject* pLinkID = pLink->GetLinkID();
         Spatial* pChild = (Spatial*)rStream.GetFromMap(pLinkID);
         if( pChild )
         {
@@ -406,7 +406,7 @@ void Node::Link(Stream& rStream, Stream::Link* pLink)
     }
 }
 //----------------------------------------------------------------------------
-bool Node::Register(Stream& rStream) const
+bool Node::Register(SEStream& rStream) const
 {
     if( !Spatial::Register(rStream) )
     {
@@ -424,7 +424,7 @@ bool Node::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Node::Save(Stream& rStream) const
+void Node::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -446,16 +446,16 @@ void Node::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Node);
 }
 //----------------------------------------------------------------------------
-int Node::GetDiskUsed(const StreamVersion& rVersion) const
+int Node::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return Spatial::GetDiskUsed(rVersion) +
         3*sizeof(int) +  // m_Child maxcount, growby, count
         ((int)m_Child.size())*sizeof(m_Child[0]);
 }
 //----------------------------------------------------------------------------
-StringTree* Node::SaveStrings(const char*)
+SEStringTree* Node::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -472,7 +472,7 @@ StringTree* Node::SaveStrings(const char*)
         }
         else
         {
-            StringTree* pEmpty = SE_NEW StringTree;
+            SEStringTree* pEmpty = SE_NEW SEStringTree;
             pEmpty->Append(Format("unused slot"));
             pTree->Append(pEmpty);
         }

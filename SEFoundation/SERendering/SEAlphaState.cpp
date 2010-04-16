@@ -109,7 +109,7 @@ AlphaState::~AlphaState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void AlphaState::Load(Stream& rStream, Stream::Link* pLink)
+void AlphaState::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -130,17 +130,17 @@ void AlphaState::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(AlphaState);
 }
 //----------------------------------------------------------------------------
-void AlphaState::Link(Stream& rStream, Stream::Link* pLink)
+void AlphaState::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     GlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool AlphaState::Register(Stream& rStream) const
+bool AlphaState::Register(SEStream& rStream) const
 {
     return GlobalState::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void AlphaState::Save(Stream& rStream) const
+void AlphaState::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -157,7 +157,7 @@ void AlphaState::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(AlphaState);
 }
 //----------------------------------------------------------------------------
-int AlphaState::GetDiskUsed(const StreamVersion& rVersion) const
+int AlphaState::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return GlobalState::GetDiskUsed(rVersion) +
         sizeof(char) + // BlendEnabled
@@ -168,9 +168,9 @@ int AlphaState::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(Reference);
 }
 //----------------------------------------------------------------------------
-StringTree* AlphaState::SaveStrings(const char*)
+SEStringTree* AlphaState::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

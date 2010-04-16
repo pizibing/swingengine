@@ -57,7 +57,7 @@ WireframeState::~WireframeState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void WireframeState::Load(Stream& rStream, Stream::Link* pLink)
+void WireframeState::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -69,17 +69,17 @@ void WireframeState::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(WireframeState);
 }
 //----------------------------------------------------------------------------
-void WireframeState::Link(Stream& rStream, Stream::Link* pLink)
+void WireframeState::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     GlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool WireframeState::Register(Stream& rStream) const
+bool WireframeState::Register(SEStream& rStream) const
 {
     return GlobalState::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void WireframeState::Save(Stream& rStream) const
+void WireframeState::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -91,15 +91,15 @@ void WireframeState::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(WireframeState);
 }
 //----------------------------------------------------------------------------
-int WireframeState::GetDiskUsed(const StreamVersion& rVersion) const
+int WireframeState::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return GlobalState::GetDiskUsed(rVersion) +
         sizeof(char);  // Enabled
 }
 //----------------------------------------------------------------------------
-StringTree* WireframeState::SaveStrings(const char*)
+SEStringTree* WireframeState::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

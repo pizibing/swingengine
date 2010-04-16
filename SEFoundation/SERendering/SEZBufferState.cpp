@@ -71,7 +71,7 @@ ZBufferState::~ZBufferState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void ZBufferState::Load(Stream& rStream, Stream::Link* pLink)
+void ZBufferState::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -87,17 +87,17 @@ void ZBufferState::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(ZBufferState);
 }
 //----------------------------------------------------------------------------
-void ZBufferState::Link(Stream& rStream, Stream::Link* pLink)
+void ZBufferState::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     GlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool ZBufferState::Register(Stream& rStream) const
+bool ZBufferState::Register(SEStream& rStream) const
 {
     return GlobalState::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void ZBufferState::Save(Stream& rStream) const
+void ZBufferState::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -111,7 +111,7 @@ void ZBufferState::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(ZBufferState);
 }
 //----------------------------------------------------------------------------
-int ZBufferState::GetDiskUsed (const StreamVersion& rVersion) const
+int ZBufferState::GetDiskUsed (const SEStreamVersion& rVersion) const
 {
     return GlobalState::GetDiskUsed(rVersion) +
         sizeof(char) + // Enabled
@@ -119,9 +119,9 @@ int ZBufferState::GetDiskUsed (const StreamVersion& rVersion) const
         sizeof(int);   // Compare
 }
 //----------------------------------------------------------------------------
-StringTree* ZBufferState::SaveStrings(const char*)
+SEStringTree* ZBufferState::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

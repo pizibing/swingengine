@@ -77,7 +77,7 @@ protected:
     int m_iActiveCount;
 };
 
-typedef SmartPointer<Particles> ParticlesPtr;
+typedef SESmartPointer<Particles> ParticlesPtr;
 
 #include "SEParticles.inl"
 

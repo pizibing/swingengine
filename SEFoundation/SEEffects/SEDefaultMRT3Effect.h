@@ -50,7 +50,7 @@ protected:
     DefaultMRT3Effect(void);
 };
 
-typedef SmartPointer<DefaultMRT3Effect> DefaultMRT3EffectPtr;
+typedef SESmartPointer<DefaultMRT3Effect> DefaultMRT3EffectPtr;
 
 }
 

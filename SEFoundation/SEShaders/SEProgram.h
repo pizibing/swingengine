@@ -41,7 +41,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080623
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Program : public Object, public Bindable
+class SE_FOUNDATION_API Program : public SEObject, public Bindable
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -129,7 +129,7 @@ protected:
     static const std::string ms_TexCoordStr;
 };
 
-typedef SmartPointer<Program> ProgramPtr;
+typedef SESmartPointer<Program> ProgramPtr;
 
 #include "SEProgram.inl"
 

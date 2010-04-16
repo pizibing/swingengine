@@ -23,9 +23,9 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, RenderStateBlock, Object);
+SE_IMPLEMENT_RTTI(Swing, RenderStateBlock, SEObject);
 SE_IMPLEMENT_STREAM(RenderStateBlock);
-SE_IMPLEMENT_DEFAULT_NAME_ID(RenderStateBlock, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(RenderStateBlock, SEObject);
 
 //SE_REGISTER_STREAM(RenderStateBlock);
 
@@ -44,14 +44,14 @@ RenderStateBlock::~RenderStateBlock()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void RenderStateBlock::Load(Stream& rStream, Stream::Link* pLink)
+void RenderStateBlock::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Object::Load(rStream, pLink);
+    SEObject::Load(rStream, pLink);
 
     // link data
-    Object* pObject;
+    SEObject* pObject;
     for( int i = 0; i < GlobalState::MAX_STATE_TYPE; i++ )
     {
         rStream.Read(pObject);  // States[i]
@@ -61,11 +61,11 @@ void RenderStateBlock::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(RenderStateBlock);
 }
 //----------------------------------------------------------------------------
-void RenderStateBlock::Link(Stream& rStream, Stream::Link* pLink)
+void RenderStateBlock::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Object::Link(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 
-    Object* pLinkID;
+    SEObject* pLinkID;
     for( int i = 0; i < GlobalState::MAX_STATE_TYPE; i++ )
     {
         pLinkID = pLink->GetLinkID();
@@ -73,9 +73,9 @@ void RenderStateBlock::Link(Stream& rStream, Stream::Link* pLink)
     }
 }
 //----------------------------------------------------------------------------
-bool RenderStateBlock::Register(Stream& rStream) const
+bool RenderStateBlock::Register(SEStream& rStream) const
 {
-    if( !Object::Register(rStream) )
+    if( !SEObject::Register(rStream) )
     {
         return false;
     }
@@ -91,11 +91,11 @@ bool RenderStateBlock::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void RenderStateBlock::Save(Stream& rStream) const
+void RenderStateBlock::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Object::Save(rStream);
+    SEObject::Save(rStream);
 
     // link data
     for( int i = 0; i < GlobalState::MAX_STATE_TYPE; i++ )
@@ -106,21 +106,21 @@ void RenderStateBlock::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(RenderStateBlock);
 }
 //----------------------------------------------------------------------------
-int RenderStateBlock::GetDiskUsed(const StreamVersion& rVersion) const
+int RenderStateBlock::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Object::GetDiskUsed(rVersion) +
+    return SEObject::GetDiskUsed(rVersion) +
         GlobalState::MAX_STATE_TYPE*sizeof(States[0]);
 }
 //----------------------------------------------------------------------------
-StringTree* RenderStateBlock::SaveStrings(const char*)
+SEStringTree* RenderStateBlock::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
 
     // children
-    pTree->Append(Object::SaveStrings());
+    pTree->Append(SEObject::SaveStrings());
 
     for( int i = 0; i < GlobalState::MAX_STATE_TYPE; i++ )
     {

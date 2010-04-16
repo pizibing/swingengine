@@ -61,7 +61,7 @@ PolygonOffsetState::~PolygonOffsetState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void PolygonOffsetState::Load(Stream& rStream, Stream::Link* pLink)
+void PolygonOffsetState::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -77,17 +77,17 @@ void PolygonOffsetState::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(PolygonOffsetState);
 }
 //----------------------------------------------------------------------------
-void PolygonOffsetState::Link(Stream& rStream, Stream::Link* pLink)
+void PolygonOffsetState::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     GlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool PolygonOffsetState::Register(Stream& rStream) const
+bool PolygonOffsetState::Register(SEStream& rStream) const
 {
     return GlobalState::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void PolygonOffsetState::Save(Stream& rStream) const
+void PolygonOffsetState::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -103,7 +103,7 @@ void PolygonOffsetState::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(PolygonOffsetState);
 }
 //----------------------------------------------------------------------------
-int PolygonOffsetState::GetDiskUsed(const StreamVersion& rVersion) const
+int PolygonOffsetState::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return GlobalState::GetDiskUsed(rVersion) +
         sizeof(char) + // FillEnabled
@@ -113,9 +113,9 @@ int PolygonOffsetState::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(Bias);
 }
 //----------------------------------------------------------------------------
-StringTree* PolygonOffsetState::SaveStrings(const char*)
+SEStringTree* PolygonOffsetState::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

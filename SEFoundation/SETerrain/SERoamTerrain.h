@@ -114,14 +114,14 @@ protected:
 
     // 包含camera的当前page.
     int m_iCameraRow, m_iCameraCol;
-    SmartPointer<Camera> m_spCamera;
+    SESmartPointer<Camera> m_spCamera;
 
     // texture参数.
     float m_fUVBias;
     ColorRGBA m_BorderColor;
 };
 
-typedef SmartPointer<RoamTerrain> RoamTerrainPtr;
+typedef SESmartPointer<RoamTerrain> RoamTerrainPtr;
 #include "SERoamTerrain.inl"
 
 }

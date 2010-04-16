@@ -69,7 +69,7 @@ protected:
     static bool ms_bTexelKernelUCInitialized;
 };
 
-typedef SmartPointer<ScreenSpaceAOBlurEffect> ScreenSpaceAOBlurEffectPtr;
+typedef SESmartPointer<ScreenSpaceAOBlurEffect> ScreenSpaceAOBlurEffectPtr;
 
 }
 

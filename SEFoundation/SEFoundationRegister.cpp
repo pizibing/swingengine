@@ -21,7 +21,7 @@
 #include "SEFoundationPCH.h"
 #include "SEFoundationRegister.h"
 
-// Object SESystem
+// SEObject SESystem
 #include "SEObject.h"
 // Scene Graph
 #include "SEBoundingVolume.h"
@@ -131,9 +131,9 @@ using namespace Swing;
 //----------------------------------------------------------------------------
 void Swing::SE_Foundation_Register()
 {
-    // Object SESystem
-    SE_REGISTER_STREAM(Object);
-    SE_INVOKE_STREAM(Object);
+    // SEObject SESystem
+    SE_REGISTER_STREAM(SEObject);
+    SE_INVOKE_STREAM(SEObject);
 
     // Scene Graph
     SE_REGISTER_STREAM(BoundingVolume);

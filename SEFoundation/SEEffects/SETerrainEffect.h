@@ -65,7 +65,7 @@ protected:
     static bool ms_bFogColorDensityUCInitialized;
 };
 
-typedef SmartPointer<TerrainEffect> TerrainEffectPtr;
+typedef SESmartPointer<TerrainEffect> TerrainEffectPtr;
 
 #include "SETerrainEffect.inl"
 

@@ -259,9 +259,9 @@ bool KeyframeController::Update(double dAppTime)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* KeyframeController::GetObjectByName(const std::string& rName)
+SEObject* KeyframeController::GetObjectByName(const std::string& rName)
 {
-    Object* pFound = Controller::GetObjectByName(rName);
+    SEObject* pFound = Controller::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -325,7 +325,7 @@ Object* KeyframeController::GetObjectByName(const std::string& rName)
 }
 //----------------------------------------------------------------------------
 void KeyframeController::GetAllObjectsByName(const std::string& rName,
-    std::vector<Object*>& rObjects)
+    std::vector<SEObject*>& rObjects)
 {
     Controller::GetAllObjectsByName(rName, rObjects);
 
@@ -360,9 +360,9 @@ void KeyframeController::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-Object* KeyframeController::GetObjectByID(unsigned int uiID)
+SEObject* KeyframeController::GetObjectByID(unsigned int uiID)
 {
-    Object* pFound = Controller::GetObjectByID(uiID);
+    SEObject* pFound = Controller::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -429,14 +429,14 @@ Object* KeyframeController::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void KeyframeController::Load(Stream& rStream, Stream::Link* pLink)
+void KeyframeController::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
     Controller::Load(rStream, pLink);
 
     // link data
-    Object* pObject;
+    SEObject* pObject;
     rStream.Read(pObject);  // TranslationTimes
     pLink->Add(pObject);
 
@@ -458,11 +458,11 @@ void KeyframeController::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(KeyframeController);
 }
 //----------------------------------------------------------------------------
-void KeyframeController::Link(Stream& rStream, Stream::Link* pLink)
+void KeyframeController::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Controller::Link(rStream, pLink);
 
-    Object* pLinkID = pLink->GetLinkID();
+    SEObject* pLinkID = pLink->GetLinkID();
     TranslationTimes = (FloatArray*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
@@ -481,7 +481,7 @@ void KeyframeController::Link(Stream& rStream, Stream::Link* pLink)
     ScaleData = (FloatArray*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool KeyframeController::Register(Stream& rStream) const
+bool KeyframeController::Register(SEStream& rStream) const
 {
     if( !Controller::Register(rStream) )
     {
@@ -521,7 +521,7 @@ bool KeyframeController::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void KeyframeController::Save(Stream& rStream) const
+void KeyframeController::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -538,7 +538,7 @@ void KeyframeController::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(KeyframeController);
 }
 //----------------------------------------------------------------------------
-int KeyframeController::GetDiskUsed(const StreamVersion& rVersion) const
+int KeyframeController::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return Controller::GetDiskUsed(rVersion) +
         sizeof(TranslationTimes) +
@@ -549,9 +549,9 @@ int KeyframeController::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(ScaleData);
 }
 //----------------------------------------------------------------------------
-StringTree* KeyframeController::SaveStrings(const char*)
+SEStringTree* KeyframeController::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

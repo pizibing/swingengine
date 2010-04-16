@@ -69,7 +69,7 @@ protected:
     static bool ms_bTexelKernelUCInitialized;
 };
 
-typedef SmartPointer<GaussianBlurHEffect> GaussianBlurHEffectPtr;
+typedef SESmartPointer<GaussianBlurHEffect> GaussianBlurHEffectPtr;
 
 }
 

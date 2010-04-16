@@ -45,7 +45,7 @@ public:
     virtual ~DefaultShaderEffect(void);
 };
 
-typedef SmartPointer<DefaultShaderEffect> DefaultShaderEffectPtr;
+typedef SESmartPointer<DefaultShaderEffect> DefaultShaderEffectPtr;
 
 }
 

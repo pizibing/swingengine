@@ -162,9 +162,9 @@ void Particles::GetUnculledSet(Culler& rCuller, bool bNoCull)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* Particles::GetObjectByName(const std::string& rName)
+SEObject* Particles::GetObjectByName(const std::string& rName)
 {
-    Object* pFound = TriMesh::GetObjectByName(rName);
+    SEObject* pFound = TriMesh::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -192,7 +192,7 @@ Object* Particles::GetObjectByName(const std::string& rName)
 }
 //----------------------------------------------------------------------------
 void Particles::GetAllObjectsByName(const std::string& rName,
-    std::vector<Object*>& rObjects)
+    std::vector<SEObject*>& rObjects)
 {
     TriMesh::GetAllObjectsByName(rName, rObjects);
 
@@ -207,9 +207,9 @@ void Particles::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-Object* Particles::GetObjectByID(unsigned int uiID)
+SEObject* Particles::GetObjectByID(unsigned int uiID)
 {
-    Object* pFound = TriMesh::GetObjectByID(uiID);
+    SEObject* pFound = TriMesh::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -240,7 +240,7 @@ Object* Particles::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Particles::Load(Stream& rStream, Stream::Link* pLink)
+void Particles::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -251,7 +251,7 @@ void Particles::Load(Stream& rStream, Stream::Link* pLink)
     rStream.Read(m_iActiveCount);
 
     // link data
-    Object* pObject;
+    SEObject* pObject;
 
     rStream.Read(pObject);  // Locations
     pLink->Add(pObject);
@@ -262,18 +262,18 @@ void Particles::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(Particles);
 }
 //----------------------------------------------------------------------------
-void Particles::Link(Stream& rStream, Stream::Link* pLink)
+void Particles::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     TriMesh::Link(rStream, pLink);
 
-    Object* pLinkID = pLink->GetLinkID();
+    SEObject* pLinkID = pLink->GetLinkID();
     Locations = (Vector3fArray*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
     Sizes = (FloatArray*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool Particles::Register(Stream& rStream) const
+bool Particles::Register(SEStream& rStream) const
 {
     if( !TriMesh::Register(rStream) )
     {
@@ -293,7 +293,7 @@ bool Particles::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Particles::Save(Stream& rStream) const
+void Particles::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -310,7 +310,7 @@ void Particles::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Particles);
 }
 //----------------------------------------------------------------------------
-int Particles::GetDiskUsed(const StreamVersion& rVersion) const
+int Particles::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return TriMesh::GetDiskUsed(rVersion) +
         sizeof(SizeAdjust) +
@@ -319,9 +319,9 @@ int Particles::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(Sizes);
 }
 //----------------------------------------------------------------------------
-StringTree* Particles::SaveStrings(const char*)
+SEStringTree* Particles::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

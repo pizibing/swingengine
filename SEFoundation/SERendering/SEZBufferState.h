@@ -69,7 +69,7 @@ private:
     static const char* ms_pCompareMode[CF_COUNT];
 };
 
-typedef SmartPointer<ZBufferState> ZBufferStatePtr;
+typedef SESmartPointer<ZBufferState> ZBufferStatePtr;
 
 }
 

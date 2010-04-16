@@ -23,9 +23,9 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, InterfaceDescriptor, Object);
+SE_IMPLEMENT_RTTI(Swing, InterfaceDescriptor, SEObject);
 SE_IMPLEMENT_STREAM(InterfaceDescriptor);
-SE_IMPLEMENT_DEFAULT_NAME_ID(InterfaceDescriptor, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(InterfaceDescriptor, SEObject);
 
 //SE_REGISTER_STREAM(InterfaceDescriptor);
 
@@ -93,11 +93,11 @@ void InterfaceDescriptor::GetDescription(std::string& rDesc) const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void InterfaceDescriptor::Load(Stream& rStream, Stream::Link* pLink)
+void InterfaceDescriptor::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Object::Load(rStream, pLink);
+    SEObject::Load(rStream, pLink);
 
     // link data
     int iCount;
@@ -105,7 +105,7 @@ void InterfaceDescriptor::Load(Stream& rStream, Stream::Link* pLink)
     m_DescriptorItems.resize(iCount);
     for( int i = 0; i < iCount; i++ )
     {
-        Object* pObject;
+        SEObject* pObject;
         rStream.Read(pObject);  // m_DescriptorItems[i]
         pLink->Add(pObject);
     }
@@ -113,21 +113,21 @@ void InterfaceDescriptor::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(InterfaceDescriptor);
 }
 //----------------------------------------------------------------------------
-void InterfaceDescriptor::Link(Stream& rStream, Stream::Link* pLink)
+void InterfaceDescriptor::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Object::Link(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 
     for( int i = 0; i < (int)m_DescriptorItems.size(); i++ )
     {
-        Object* pLinkID;
+        SEObject* pLinkID;
         pLinkID = pLink->GetLinkID();
         m_DescriptorItems[i] = (DescriptorItem*)rStream.GetFromMap(pLinkID);
     }
 }
 //----------------------------------------------------------------------------
-bool InterfaceDescriptor::Register(Stream& rStream) const
+bool InterfaceDescriptor::Register(SEStream& rStream) const
 {
-    if( !Object::Register(rStream) )
+    if( !SEObject::Register(rStream) )
     {
         return false;
     }
@@ -143,11 +143,11 @@ bool InterfaceDescriptor::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void InterfaceDescriptor::Save(Stream& rStream) const
+void InterfaceDescriptor::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Object::Save(rStream);
+    SEObject::Save(rStream);
 
     // link data
     int iCount = (int)m_DescriptorItems.size();
@@ -160,9 +160,9 @@ void InterfaceDescriptor::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(InterfaceDescriptor);
 }
 //----------------------------------------------------------------------------
-int InterfaceDescriptor::GetDiskUsed(const StreamVersion& rVersion) const
+int InterfaceDescriptor::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    int iSize = Object::GetDiskUsed(rVersion);
+    int iSize = SEObject::GetDiskUsed(rVersion);
 
     int iCount = (int)m_DescriptorItems.size();
     iSize += sizeof(int) + iCount*sizeof(m_DescriptorItems[0]);
@@ -170,15 +170,15 @@ int InterfaceDescriptor::GetDiskUsed(const StreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-StringTree* InterfaceDescriptor::SaveStrings(const char*)
+SEStringTree* InterfaceDescriptor::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
 
     // children
-    pTree->Append(Object::SaveStrings());
+    pTree->Append(SEObject::SaveStrings());
 
     for( int i = 0; i < (int)m_DescriptorItems.size(); i++ )
     {

@@ -23,9 +23,9 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Program, Object);
+SE_IMPLEMENT_RTTI(Swing, Program, SEObject);
 SE_IMPLEMENT_STREAM(Program);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Program, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(Program, SEObject);
 
 //SE_REGISTER_STREAM(Program);
 
@@ -143,38 +143,38 @@ SamplerInformation* Program::GetSI(const std::string& rName)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Program::Load(Stream& rStream, Stream::Link* pLink)
+void Program::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
-    Object::Load(rStream, pLink);
+    SEObject::Load(rStream, pLink);
     SE_END_DEBUG_STREAM_LOAD(Program);
 }
 //----------------------------------------------------------------------------
-void Program::Link(Stream& rStream, Stream::Link* pLink)
+void Program::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Object::Link(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Program::Register(Stream& rStream) const
+bool Program::Register(SEStream& rStream) const
 {
-    return Object::Register(rStream);
+    return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Program::Save(Stream& rStream) const
+void Program::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
-    Object::Save(rStream);
+    SEObject::Save(rStream);
     SE_END_DEBUG_STREAM_SAVE(Program);
 }
 //----------------------------------------------------------------------------
-int Program::GetDiskUsed(const StreamVersion& rVersion) const
+int Program::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Object::GetDiskUsed(rVersion);
+    return SEObject::GetDiskUsed(rVersion);
 }
 //----------------------------------------------------------------------------
-StringTree* Program::SaveStrings(const char*)
+SEStringTree* Program::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -240,7 +240,7 @@ StringTree* Program::SaveStrings(const char*)
     }
 
     // children
-    pTree->Append(Object::SaveStrings());
+    pTree->Append(SEObject::SaveStrings());
 
     return pTree;
 }

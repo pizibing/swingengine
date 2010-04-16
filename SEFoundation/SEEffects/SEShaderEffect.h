@@ -196,7 +196,7 @@ public:
         bool bPrimaryEffect);
 };
 
-typedef SmartPointer<ShaderEffect> ShaderEffectPtr;
+typedef SESmartPointer<ShaderEffect> ShaderEffectPtr;
 
 }
 

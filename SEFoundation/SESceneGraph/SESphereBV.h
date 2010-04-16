@@ -86,7 +86,7 @@ protected:
     Sphere3f m_Sphere;
 };
 
-typedef SmartPointer<SphereBV> SphereBVPtr;
+typedef SESmartPointer<SphereBV> SphereBVPtr;
 
 #include "SESphereBV.inl"
 

@@ -90,7 +90,7 @@ protected:
 
 #include "SEBoxBV.inl"
 
-typedef SmartPointer<BoxBV> BoxBVPtr;
+typedef SESmartPointer<BoxBV> BoxBVPtr;
 
 }
 

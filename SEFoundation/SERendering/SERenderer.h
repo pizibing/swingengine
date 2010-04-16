@@ -72,7 +72,7 @@ public:
     // Abstract base class.
     virtual ~Renderer(void);
 
-    // RTTI.
+    // SERTTI.
     enum
     {
         OPENGL,
@@ -135,7 +135,7 @@ public:
     virtual void ClearBuffers(int iXPos, int iYPos, int iWidth,
         int iHeight) = 0;
 
-    // Object rendering entry point.
+    // SEObject rendering entry point.
     virtual void DrawScene(UnculledSet& rVisibleSet);
     virtual void Draw(Geometry* pGeometry);
 

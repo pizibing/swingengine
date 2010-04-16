@@ -68,7 +68,7 @@ protected:
 
     // 用于延迟分配point motion arrays.
     void Reallocate(int iVertexCount);
-    virtual void SetObject(Object* pObject);
+    virtual void SetObject(SEObject* pObject);
 
     // 更新motion参数,派生类可重载.
     virtual void UpdateSystemMotion(float fCtrlTime);
@@ -83,7 +83,7 @@ protected:
     float* m_afPointSizeChange;
 };
 
-typedef SmartPointer<ParticleController> ParticleControllerPtr;
+typedef SESmartPointer<ParticleController> ParticleControllerPtr;
 
 #include "SEParticleController.inl"
 

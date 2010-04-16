@@ -84,7 +84,7 @@ void TextureTileEffect::OnPreApplyEffect(Renderer*, bool)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void TextureTileEffect::Load(Stream& rStream, Stream::Link* pLink)
+void TextureTileEffect::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -97,17 +97,17 @@ void TextureTileEffect::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(TextureTileEffect);
 }
 //----------------------------------------------------------------------------
-void TextureTileEffect::Link(Stream& rStream, Stream::Link* pLink)
+void TextureTileEffect::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     ShaderEffect::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool TextureTileEffect::Register(Stream& rStream) const
+bool TextureTileEffect::Register(SEStream& rStream) const
 {
     return ShaderEffect::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void TextureTileEffect::Save(Stream& rStream) const
+void TextureTileEffect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -120,7 +120,7 @@ void TextureTileEffect::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(TextureTileEffect);
 }
 //----------------------------------------------------------------------------
-int TextureTileEffect::GetDiskUsed(const StreamVersion& rVersion) const
+int TextureTileEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     int iSize = ShaderEffect::GetDiskUsed(rVersion) +
         sizeof(TileX) + sizeof(TileY);
@@ -128,9 +128,9 @@ int TextureTileEffect::GetDiskUsed(const StreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-StringTree* TextureTileEffect::SaveStrings(const char*)
+SEStringTree* TextureTileEffect::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

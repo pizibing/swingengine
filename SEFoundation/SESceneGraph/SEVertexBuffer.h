@@ -43,7 +43,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080319
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API VertexBuffer : public Object, public Bindable
+class SE_FOUNDATION_API VertexBuffer : public SEObject, public Bindable
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -140,7 +140,7 @@ private:
     float* m_pChannel;
 };
 
-typedef SmartPointer<VertexBuffer> VertexBufferPtr;
+typedef SESmartPointer<VertexBuffer> VertexBufferPtr;
 
 #include "SEVertexBuffer.inl"
 

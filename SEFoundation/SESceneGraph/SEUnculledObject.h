@@ -40,7 +40,7 @@ class Spatial;
 class SE_FOUNDATION_API UnculledObject
 {
 public:
-    Spatial* Object;
+    Spatial* SEObject;
     Effect* GlobalEffect;
 
     inline bool IsRenderable(void) const;

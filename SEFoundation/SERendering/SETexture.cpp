@@ -23,9 +23,9 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Texture, Object);
+SE_IMPLEMENT_RTTI(Swing, Texture, SEObject);
 SE_IMPLEMENT_STREAM(Texture);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Texture, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(Texture, SEObject);
 
 //SE_REGISTER_STREAM(Texture);
 
@@ -109,11 +109,11 @@ Texture::~Texture()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Texture::Load(Stream& rStream, Stream::Link* pLink)
+void Texture::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Object::Load(rStream, pLink);
+    SEObject::Load(rStream, pLink);
 
     int iTemp;
     rStream.Read(iTemp);
@@ -133,21 +133,21 @@ void Texture::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(Texture);
 }
 //----------------------------------------------------------------------------
-void Texture::Link(Stream& rStream, Stream::Link* pLink)
+void Texture::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Object::Link(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Texture::Register(Stream& rStream) const
+bool Texture::Register(SEStream& rStream) const
 {
-    return Object::Register(rStream);
+    return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Texture::Save(Stream& rStream) const
+void Texture::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Object::Save(rStream);
+    SEObject::Save(rStream);
 
     rStream.Write((int)m_eFType);
     for( int i = 0; i < 3; i++ )
@@ -163,9 +163,9 @@ void Texture::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Texture);
 }
 //----------------------------------------------------------------------------
-int Texture::GetDiskUsed(const StreamVersion& rVersion) const
+int Texture::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Object::GetDiskUsed(rVersion) +
+    return SEObject::GetDiskUsed(rVersion) +
         sizeof(int) + // m_eFType
         3*sizeof(int) + // m_eWrapTypes[]
         sizeof(m_BorderColor) +
@@ -173,9 +173,9 @@ int Texture::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(char);  // m_bOffscreenTexture
 }
 //----------------------------------------------------------------------------
-StringTree* Texture::SaveStrings(const char*)
+SEStringTree* Texture::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -198,7 +198,7 @@ StringTree* Texture::SaveStrings(const char*)
     pTree->Append(Format("offscreen =", m_bOffscreenTexture));
 
     // children
-    pTree->Append(Object::SaveStrings());
+    pTree->Append(SEObject::SaveStrings());
 
     return pTree;
 }

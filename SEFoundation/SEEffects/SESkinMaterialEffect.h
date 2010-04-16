@@ -53,7 +53,7 @@ protected:
     static bool ms_bUCInitialized;
 };
 
-typedef SmartPointer<SkinMaterialEffect> SkinMaterialEffectPtr;
+typedef SESmartPointer<SkinMaterialEffect> SkinMaterialEffectPtr;
 
 }
 

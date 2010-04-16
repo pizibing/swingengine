@@ -24,9 +24,9 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Light, Object);
+SE_IMPLEMENT_RTTI(Swing, Light, SEObject);
 SE_IMPLEMENT_STREAM(Light);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Light, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(Light, SEObject);
 
 //SE_REGISTER_STREAM(Light);
 
@@ -100,11 +100,11 @@ bool Light::IsValidFrame() const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Light::Load(Stream& rStream, Stream::Link* pLink)
+void Light::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Object::Load(rStream, pLink);
+    SEObject::Load(rStream, pLink);
 
     // native data
     rStream.Read((int&)Type);
@@ -127,21 +127,21 @@ void Light::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(Light);
 }
 //----------------------------------------------------------------------------
-void Light::Link(Stream& rStream, Stream::Link* pLink)
+void Light::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Object::Link(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Light::Register(Stream& rStream) const
+bool Light::Register(SEStream& rStream) const
 {
-    return Object::Register(rStream);
+    return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Light::Save(Stream& rStream) const
+void Light::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Object::Save(rStream);
+    SEObject::Save(rStream);
 
     // native data
     rStream.Write((int)Type);
@@ -164,9 +164,9 @@ void Light::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Light);
 }
 //----------------------------------------------------------------------------
-int Light::GetDiskUsed(const StreamVersion& rVersion) const
+int Light::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Object::GetDiskUsed(rVersion) +
+    return SEObject::GetDiskUsed(rVersion) +
         sizeof(Type) +
         sizeof(Position) +
         sizeof(RVector) +
@@ -185,9 +185,9 @@ int Light::GetDiskUsed(const StreamVersion& rVersion) const
         sizeof(Exponent);
 }
 //----------------------------------------------------------------------------
-StringTree* Light::SaveStrings(const char*)
+SEStringTree* Light::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -207,7 +207,7 @@ StringTree* Light::SaveStrings(const char*)
     pTree->Append(Format("exponent =", Exponent));
 
     // children
-    pTree->Append(Object::SaveStrings());
+    pTree->Append(SEObject::SaveStrings());
 
     return pTree;
 }

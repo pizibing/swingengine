@@ -23,7 +23,7 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_TEMPLATE_RTTI(Swing, Plane3fArray, Object);
+SE_IMPLEMENT_TEMPLATE_RTTI(Swing, Plane3fArray, SEObject);
 SE_IMPLEMENT_TEMPLATE_STREAM(Plane3fArray);
 
 //SE_REGISTER_STREAM(Plane3fArray);

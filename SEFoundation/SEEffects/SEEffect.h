@@ -39,7 +39,7 @@ class UnculledObject;
 // 作者:Sun Che
 // 时间:20080702
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Effect : public Object
+class SE_FOUNDATION_API Effect : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -68,7 +68,7 @@ protected:
     Effect(void);
 };
 
-typedef SmartPointer<Effect> EffectPtr;
+typedef SESmartPointer<Effect> EffectPtr;
 
 }
 

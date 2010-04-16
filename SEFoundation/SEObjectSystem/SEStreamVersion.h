@@ -40,17 +40,17 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080329
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API StreamVersion
+class SE_FOUNDATION_API SEStreamVersion
 {
 public:
     static const int MAJOR;     // 3
     static const int MINOR;     // 2
     static const char LABEL[];  // "Wild Magic Object File 3.02"
     static const int LENGTH;    // 28 = strlen(LABEL)+1
-    static const StreamVersion CURRENT;
+    static const SEStreamVersion CURRENT;
 
-    StreamVersion (int iMajor = MAJOR, int iMinor = MINOR);
-    StreamVersion (const char* pString);
+    SEStreamVersion (int iMajor = MAJOR, int iMinor = MINOR);
+    SEStreamVersion (const char* pString);
 
     int GetMajor () const;
     int GetMinor () const;
@@ -58,15 +58,15 @@ public:
     // The version is valid if major is 3 and minor in [0,99].
     bool IsValid () const;
 
-    // For comparisons of versions.  This is useful in the Stream support in
-    // an Object-derived class whenever a change to that class causes a file
+    // For comparisons of versions.  This is useful in the SEStream support in
+    // an SEObject-derived class whenever a change to that class causes a file
     // format change.
-    bool operator== (const StreamVersion& rVersion) const;
-    bool operator!= (const StreamVersion& rVersion) const;
-    bool operator<  (const StreamVersion& rVersion) const;
-    bool operator<= (const StreamVersion& rVersion) const;
-    bool operator>  (const StreamVersion& rVersion) const;
-    bool operator>= (const StreamVersion& rVersion) const;
+    bool operator== (const SEStreamVersion& rVersion) const;
+    bool operator!= (const SEStreamVersion& rVersion) const;
+    bool operator<  (const SEStreamVersion& rVersion) const;
+    bool operator<= (const SEStreamVersion& rVersion) const;
+    bool operator>  (const SEStreamVersion& rVersion) const;
+    bool operator>= (const SEStreamVersion& rVersion) const;
 
 protected:
     int GetCombined () const;  // 100*major + minor

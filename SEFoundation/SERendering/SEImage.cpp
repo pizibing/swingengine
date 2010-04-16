@@ -26,9 +26,9 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Image, Object);
+SE_IMPLEMENT_RTTI(Swing, Image, SEObject);
 SE_IMPLEMENT_STREAM(Image);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Image, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(Image, SEObject);
 
 //SE_REGISTER_STREAM(Image);
 
@@ -250,7 +250,7 @@ Image* Image::Load(const char* pImageName)
         // 文件不存在
         return 0;
     }
-    if( iSize < ImageVersion::LENGTH )
+    if( iSize < SEImageVersion::LENGTH )
     {
         // 文件太小
         SE_DELETE[] acBuffer;
@@ -259,7 +259,7 @@ Image* Image::Load(const char* pImageName)
     }
 
     // 获取文件版本
-    ImageVersion TempVersion(acBuffer);
+    SEImageVersion TempVersion(acBuffer);
     if( !TempVersion.IsValid() )
     {
         SE_DELETE[] acBuffer;
@@ -267,12 +267,12 @@ Image* Image::Load(const char* pImageName)
         return 0;
     }
 
-    char* pcCurrent = acBuffer + ImageVersion::LENGTH;
+    char* pcCurrent = acBuffer + SEImageVersion::LENGTH;
 
     // 获取image format和dimensions
     int iFormat, iDimension, aiBound[3];
     pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &iFormat);
-    if( TempVersion >= ImageVersion(3, 1) )
+    if( TempVersion >= SEImageVersion(3, 1) )
     {
         pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &iDimension);
     }
@@ -282,7 +282,7 @@ Image* Image::Load(const char* pImageName)
     }
     pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &aiBound[0]);
     pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &aiBound[1]);
-    if( TempVersion >= ImageVersion(3, 1) )
+    if( TempVersion >= SEImageVersion(3, 1) )
     {
         pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &aiBound[2]);
     }
@@ -336,7 +336,7 @@ bool Image::Save(const char* pFileName)
     }
 
     // 写文件版本
-    SESystem::SE_Write1(pFile, ImageVersion::LENGTH, ImageVersion::LABEL);
+    SESystem::SE_Write1(pFile, SEImageVersion::LENGTH, SEImageVersion::LABEL);
 
     // 写image format和dimensions
     int iFormat = (int)m_eFormat;
@@ -431,17 +431,17 @@ Image* Image::GenerateColorImage(FormatMode eFormat, int iBound0, int iBound1,
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Image::Load(Stream& rStream, Stream::Link* pLink)
+void Image::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Object::Load(rStream, pLink);
+    SEObject::Load(rStream, pLink);
 
     // native data
     int iTemp;
     rStream.Read(iTemp);
     m_eFormat = (FormatMode)iTemp;
-    if( rStream.GetVersion() >= StreamVersion(3, 2) )
+    if( rStream.GetVersion() >= SEStreamVersion(3, 2) )
     {
         rStream.Read(m_iDimension);
     }
@@ -451,7 +451,7 @@ void Image::Load(Stream& rStream, Stream::Link* pLink)
     }
     rStream.Read(m_Bound[0]);
     rStream.Read(m_Bound[1]);
-    if( rStream.GetVersion() >= StreamVersion(3, 2) )
+    if( rStream.GetVersion() >= SEStreamVersion(3, 2) )
     {
         rStream.Read(m_Bound[2]);
     }
@@ -461,7 +461,7 @@ void Image::Load(Stream& rStream, Stream::Link* pLink)
     }
     rStream.Read(m_iCount);
 
-    if( rStream.GetVersion() >= StreamVersion(3, 2) )
+    if( rStream.GetVersion() >= SEStreamVersion(3, 2) )
     {
         int iBytes = ms_BytesPerPixel[m_eFormat]*m_iCount;
         m_pData = SE_NEW unsigned char[iBytes];
@@ -486,34 +486,34 @@ void Image::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(Image);
 }
 //----------------------------------------------------------------------------
-void Image::Link(Stream& rStream, Stream::Link* pLink)
+void Image::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Object::Link(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Image::Register(Stream& rStream) const
+bool Image::Register(SEStream& rStream) const
 {
-    return Object::Register(rStream);
+    return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Image::Save(Stream& rStream) const
+void Image::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Object::Save(rStream);
+    SEObject::Save(rStream);
 
     // native data
     rStream.Write((int)m_eFormat);
-    rStream.Write(m_iDimension);  // StreamVersion(3, 2)
+    rStream.Write(m_iDimension);  // SEStreamVersion(3, 2)
     rStream.Write(m_Bound[0]);
     rStream.Write(m_Bound[1]);
-    rStream.Write(m_Bound[2]);  // StreamVersion(3, 2)
+    rStream.Write(m_Bound[2]);  // SEStreamVersion(3, 2)
     rStream.Write(m_iCount);
 
     // TO DO.  This was here to convert to new seif format for
     // multidimensional images?
     //
-    // StreamVersion(3, 2)
+    // SEStreamVersion(3, 2)
     //bool bHasData = (m_pData ? true : false);
     //rStream.Write(bHasData);
     //if( bHasData)
@@ -528,12 +528,12 @@ void Image::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Image);
 }
 //----------------------------------------------------------------------------
-int Image::GetDiskUsed(const StreamVersion& rVersion) const
+int Image::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    int iSize = Object::GetDiskUsed(rVersion) +
+    int iSize = SEObject::GetDiskUsed(rVersion) +
         sizeof(int); // m_eFormat
 
-    if( rVersion >= StreamVersion(3, 2) )
+    if( rVersion >= SEStreamVersion(3, 2) )
     {
         iSize +=
             sizeof(m_iDimension) +
@@ -564,9 +564,9 @@ int Image::GetDiskUsed(const StreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-StringTree* Image::SaveStrings(const char*)
+SEStringTree* Image::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -582,7 +582,7 @@ StringTree* Image::SaveStrings(const char*)
     }
 
     // children
-    pTree->Append(Object::SaveStrings());
+    pTree->Append(SEObject::SaveStrings());
 
     return pTree;
 }

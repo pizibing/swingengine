@@ -38,7 +38,7 @@ public:
     // Ðé»ùÀà.
     virtual ~Query(void);
 
-    // RTTI.
+    // SERTTI.
     enum Type
     {
         QT_INT64,

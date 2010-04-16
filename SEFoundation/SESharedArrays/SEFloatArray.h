@@ -33,7 +33,7 @@ namespace Swing
 // Ê±¼ä:20080324
 //----------------------------------------------------------------------------
 typedef SharedArray<float> FloatArray;
-typedef SmartPointer<FloatArray> FloatArrayPtr;
+typedef SESmartPointer<FloatArray> FloatArrayPtr;
 }
 
 #endif

@@ -76,9 +76,9 @@ void LightNode::UpdateWorldData(double dAppTime)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* LightNode::GetObjectByName(const std::string& rName)
+SEObject* LightNode::GetObjectByName(const std::string& rName)
 {
-    Object* pFound = Node::GetObjectByName(rName);
+    SEObject* pFound = Node::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -97,7 +97,7 @@ Object* LightNode::GetObjectByName(const std::string& rName)
 }
 //----------------------------------------------------------------------------
 void LightNode::GetAllObjectsByName(const std::string& rName,
-    std::vector<Object*>& rObjects)
+    std::vector<SEObject*>& rObjects)
 {
     Node::GetAllObjectsByName(rName, rObjects);
 
@@ -107,9 +107,9 @@ void LightNode::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-Object* LightNode::GetObjectByID(unsigned int uiID)
+SEObject* LightNode::GetObjectByID(unsigned int uiID)
 {
-    Object* pFound = Node::GetObjectByID(uiID);
+    SEObject* pFound = Node::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -131,29 +131,29 @@ Object* LightNode::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void LightNode::Load(Stream& rStream, Stream::Link* pLink)
+void LightNode::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
     Node::Load(rStream, pLink);
 
     // link data
-    Object* pObject;
+    SEObject* pObject;
     rStream.Read(pObject);  // m_spLight
     pLink->Add(pObject);
 
     SE_END_DEBUG_STREAM_LOAD(LightNode);
 }
 //----------------------------------------------------------------------------
-void LightNode::Link(Stream& rStream, Stream::Link* pLink)
+void LightNode::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Node::Link(rStream, pLink);
 
-    Object* pLinkID = pLink->GetLinkID();
+    SEObject* pLinkID = pLink->GetLinkID();
     m_spLight = (Light*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool LightNode::Register(Stream& rStream) const
+bool LightNode::Register(SEStream& rStream) const
 {
     if( !Node::Register(rStream) )
     {
@@ -168,7 +168,7 @@ bool LightNode::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void LightNode::Save(Stream& rStream) const
+void LightNode::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -180,14 +180,14 @@ void LightNode::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(LightNode);
 }
 //----------------------------------------------------------------------------
-int LightNode::GetDiskUsed(const StreamVersion& rVersion) const
+int LightNode::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return Node::GetDiskUsed(rVersion) + sizeof(m_spLight);
 }
 //----------------------------------------------------------------------------
-StringTree* LightNode::SaveStrings(const char*)
+SEStringTree* LightNode::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

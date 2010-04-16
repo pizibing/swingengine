@@ -37,7 +37,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080630
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Texture : public Object, public Bindable
+class SE_FOUNDATION_API Texture : public SEObject, public Bindable
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -123,7 +123,7 @@ private:
     static const char* ms_pDepthCompare[DC_COUNT];
 };
 
-typedef SmartPointer<Texture> TexturePtr;
+typedef SESmartPointer<Texture> TexturePtr;
 
 #include "SETexture.inl"
 

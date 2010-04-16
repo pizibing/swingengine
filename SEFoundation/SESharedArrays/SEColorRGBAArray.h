@@ -34,7 +34,7 @@ namespace Swing
 // Ê±¼ä:20080324
 //----------------------------------------------------------------------------
 typedef SharedArray<ColorRGBA> ColorRGBAArray;
-typedef SmartPointer<ColorRGBAArray> ColorRGBAArrayPtr;
+typedef SESmartPointer<ColorRGBAArray> ColorRGBAArrayPtr;
 }
 
 #endif

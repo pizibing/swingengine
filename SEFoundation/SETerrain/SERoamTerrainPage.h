@@ -171,7 +171,7 @@ protected:
     float m_fUVBias;
 };
 
-typedef SmartPointer<RoamTerrainPage> RoamTerrainPagePtr;
+typedef SESmartPointer<RoamTerrainPage> RoamTerrainPagePtr;
 #include "SERoamTerrainPage.inl"
 
 }

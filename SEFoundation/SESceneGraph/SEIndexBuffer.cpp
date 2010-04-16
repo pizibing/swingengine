@@ -23,9 +23,9 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, IndexBuffer, Object);
+SE_IMPLEMENT_RTTI(Swing, IndexBuffer, SEObject);
 SE_IMPLEMENT_STREAM(IndexBuffer);
-SE_IMPLEMENT_DEFAULT_NAME_ID(IndexBuffer, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(IndexBuffer, SEObject);
 
 //SE_REGISTER_STREAM(IndexBuffer);
 
@@ -68,11 +68,11 @@ IndexBuffer::~IndexBuffer()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void IndexBuffer::Load(Stream& rStream, Stream::Link* pLink)
+void IndexBuffer::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Object::Load(rStream, pLink);
+    SEObject::Load(rStream, pLink);
 
     rStream.Read(m_iICount);
     m_pIndex = SE_NEW int[m_iICount];
@@ -81,43 +81,43 @@ void IndexBuffer::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(IndexBuffer);
 }
 //----------------------------------------------------------------------------
-void IndexBuffer::Link(Stream& rStream, Stream::Link* pLink)
+void IndexBuffer::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Object::Link(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool IndexBuffer::Register(Stream& rStream) const
+bool IndexBuffer::Register(SEStream& rStream) const
 {
-    return Object::Register(rStream);
+    return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void IndexBuffer::Save(Stream& rStream) const
+void IndexBuffer::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Object::Save(rStream);
+    SEObject::Save(rStream);
     rStream.Write(m_iICount);
     rStream.Write(m_iICount, m_pIndex);
 
     SE_END_DEBUG_STREAM_SAVE(IndexBuffer);
 }
 //----------------------------------------------------------------------------
-int IndexBuffer::GetDiskUsed(const StreamVersion& rVersion) const
+int IndexBuffer::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Object::GetDiskUsed(rVersion) +
+    return SEObject::GetDiskUsed(rVersion) +
         sizeof(m_iICount) +
         m_iICount*sizeof(m_pIndex[0]);
 }
 //----------------------------------------------------------------------------
-StringTree* IndexBuffer::SaveStrings(const char*)
+SEStringTree* IndexBuffer::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
 
     // children
-    pTree->Append(Object::SaveStrings());
+    pTree->Append(SEObject::SaveStrings());
     // this is very slow.
     //pTree->Append(Format(pTitle, m_iICount, m_pIndex));
 

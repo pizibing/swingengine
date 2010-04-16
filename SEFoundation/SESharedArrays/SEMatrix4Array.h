@@ -34,7 +34,7 @@ namespace Swing
 // Ê±¼ä:20080324
 //----------------------------------------------------------------------------
 typedef SharedArray<Matrix4f> Matrix4fArray;
-typedef SmartPointer<Matrix4fArray> Matrix4fArrayPtr;
+typedef SESmartPointer<Matrix4fArray> Matrix4fArrayPtr;
 }
 
 #endif

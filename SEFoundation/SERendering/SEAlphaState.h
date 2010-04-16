@@ -113,7 +113,7 @@ private:
     static const char* ms_pTestMode[TF_COUNT];
 };
 
-typedef SmartPointer<AlphaState> AlphaStatePtr;
+typedef SESmartPointer<AlphaState> AlphaStatePtr;
 
 }
 

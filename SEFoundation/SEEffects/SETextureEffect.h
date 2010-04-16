@@ -49,7 +49,7 @@ protected:
     TextureEffect(void);
 };
 
-typedef SmartPointer<TextureEffect> TextureEffectPtr;
+typedef SESmartPointer<TextureEffect> TextureEffectPtr;
 
 }
 

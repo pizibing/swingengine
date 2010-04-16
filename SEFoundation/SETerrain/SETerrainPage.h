@@ -86,7 +86,7 @@ protected:
     float m_fUVBias;
 };
 
-typedef SmartPointer<TerrainPage> TerrainPagePtr;
+typedef SESmartPointer<TerrainPage> TerrainPagePtr;
 #include "SETerrainPage.inl"
 
 }

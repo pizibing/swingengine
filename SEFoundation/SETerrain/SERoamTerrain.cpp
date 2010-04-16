@@ -316,7 +316,7 @@ void RoamTerrain::LoadPage(int iRow, int iCol, const char* acHeightName,
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void RoamTerrain::Load(Stream& rStream, Stream::Link* pLink)
+void RoamTerrain::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -339,7 +339,7 @@ void RoamTerrain::Load(Stream& rStream, Stream::Link* pLink)
     rStream.Read(m_BorderColor);
 
     // link data
-    Object* pObject;
+    SEObject* pObject;
     rStream.Read(pObject);  // m_spCamera
     pLink->Add(pObject);
     for( int iRow = 0; iRow < m_iRows; iRow++ )
@@ -354,11 +354,11 @@ void RoamTerrain::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(RoamTerrain);
 }
 //----------------------------------------------------------------------------
-void RoamTerrain::Link(Stream& rStream, Stream::Link* pLink)
+void RoamTerrain::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Node::Link(rStream, pLink);
 
-    Object* pLinkID = pLink->GetLinkID();
+    SEObject* pLinkID = pLink->GetLinkID();
     m_spCamera = (Camera*)rStream.GetFromMap(pLinkID);
 
     m_Pages.resize(m_iRows);
@@ -379,7 +379,7 @@ void RoamTerrain::Link(Stream& rStream, Stream::Link* pLink)
     }
 }
 //----------------------------------------------------------------------------
-bool RoamTerrain::Register(Stream& rStream) const
+bool RoamTerrain::Register(SEStream& rStream) const
 {
     if( !Node::Register(rStream) )
     {
@@ -402,7 +402,7 @@ bool RoamTerrain::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void RoamTerrain::Save(Stream& rStream) const
+void RoamTerrain::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -437,7 +437,7 @@ void RoamTerrain::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(RoamTerrain);
 }
 //----------------------------------------------------------------------------
-int RoamTerrain::GetDiskUsed(const StreamVersion& rVersion) const
+int RoamTerrain::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return Node::GetDiskUsed(rVersion) +
         sizeof(m_iRows) +
@@ -458,9 +458,9 @@ int RoamTerrain::GetDiskUsed(const StreamVersion& rVersion) const
         m_iRows*m_iCols*sizeof(m_Pages[0][0]);
 }
 //----------------------------------------------------------------------------
-StringTree* RoamTerrain::SaveStrings(const char*)
+SEStringTree* RoamTerrain::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));

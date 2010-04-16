@@ -23,20 +23,20 @@
 
 using namespace Swing;
 
-const int ImageVersion::MAJOR = 4;
-const int ImageVersion::MINOR = 0;
-const char ImageVersion::LABEL[] = "Wild Magic Image File 4.00";
-const int ImageVersion::LENGTH = 27;
-const ImageVersion ImageVersion::CURRENT(MAJOR, MINOR);
+const int SEImageVersion::MAJOR = 4;
+const int SEImageVersion::MINOR = 0;
+const char SEImageVersion::LABEL[] = "Wild Magic Image File 4.00";
+const int SEImageVersion::LENGTH = 27;
+const SEImageVersion SEImageVersion::CURRENT(MAJOR, MINOR);
 
 //----------------------------------------------------------------------------
-ImageVersion::ImageVersion(int iMajor, int iMinor)
+SEImageVersion::SEImageVersion(int iMajor, int iMinor)
 {
     m_iMajor = iMajor;
     m_iMinor = iMinor;
 }
 //----------------------------------------------------------------------------
-ImageVersion::ImageVersion(const char* pString)
+SEImageVersion::SEImageVersion(const char* pString)
 {
     m_iMajor = -1;
     m_iMinor = -1;
@@ -53,52 +53,52 @@ ImageVersion::ImageVersion(const char* pString)
     }
 }
 //----------------------------------------------------------------------------
-bool ImageVersion::IsValid() const
+bool SEImageVersion::IsValid() const
 {
     return m_iMajor == MAJOR && 0 <= m_iMinor && m_iMinor < 100;
 }
 //----------------------------------------------------------------------------
-int ImageVersion::GetMajor() const
+int SEImageVersion::GetMajor() const
 {
     return m_iMajor;
 }
 //----------------------------------------------------------------------------
-int ImageVersion::GetMinor() const
+int SEImageVersion::GetMinor() const
 {
     return m_iMinor;
 }
 //----------------------------------------------------------------------------
-int ImageVersion::GetCombined() const
+int SEImageVersion::GetCombined() const
 {
     return 100*m_iMajor + m_iMinor;
 }
 //----------------------------------------------------------------------------
-bool ImageVersion::operator==(const ImageVersion& rVersion) const
+bool SEImageVersion::operator==(const SEImageVersion& rVersion) const
 {
     return GetCombined() == rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool ImageVersion::operator!=(const ImageVersion& rVersion) const
+bool SEImageVersion::operator!=(const SEImageVersion& rVersion) const
 {
     return GetCombined() != rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool ImageVersion::operator<(const ImageVersion& rVersion) const
+bool SEImageVersion::operator<(const SEImageVersion& rVersion) const
 {
     return GetCombined() < rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool ImageVersion::operator<=(const ImageVersion& rVersion) const
+bool SEImageVersion::operator<=(const SEImageVersion& rVersion) const
 {
     return GetCombined() <= rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool ImageVersion::operator>(const ImageVersion& rVersion) const
+bool SEImageVersion::operator>(const SEImageVersion& rVersion) const
 {
     return GetCombined() > rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool ImageVersion::operator>=(const ImageVersion& rVersion) const
+bool SEImageVersion::operator>=(const SEImageVersion& rVersion) const
 {
     return GetCombined() >= rVersion.GetCombined();
 }

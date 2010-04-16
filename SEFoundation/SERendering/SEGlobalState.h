@@ -34,7 +34,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080701
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API GlobalState : public Object
+class SE_FOUNDATION_API GlobalState : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -60,13 +60,13 @@ public:
     virtual StateType GetStateType(void) const = 0;
 
     // 默认states
-    static SmartPointer<GlobalState> Default[MAX_STATE_TYPE];
+    static SESmartPointer<GlobalState> Default[MAX_STATE_TYPE];
 
 protected:
     GlobalState(void);
 };
 
-typedef SmartPointer<GlobalState> GlobalStatePtr;
+typedef SESmartPointer<GlobalState> GlobalStatePtr;
 
 }
 

@@ -48,7 +48,7 @@ protected:
     MaterialTextureEffect(void);
 };
 
-typedef SmartPointer<MaterialTextureEffect> MaterialTextureEffectPtr;
+typedef SESmartPointer<MaterialTextureEffect> MaterialTextureEffectPtr;
 
 }
 

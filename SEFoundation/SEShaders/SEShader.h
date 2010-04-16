@@ -37,7 +37,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080701
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Shader : public Object
+class SE_FOUNDATION_API Shader : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -99,7 +99,7 @@ public:
     void OnReleaseProgram(void);
 };
 
-typedef SmartPointer<Shader> ShaderPtr;
+typedef SESmartPointer<Shader> ShaderPtr;
 
 #include "SEShader.inl"
 

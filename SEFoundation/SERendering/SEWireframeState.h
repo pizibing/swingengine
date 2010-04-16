@@ -51,7 +51,7 @@ public:
     bool Enabled;  // default: false
 };
 
-typedef SmartPointer<WireframeState> WireframeStatePtr;
+typedef SESmartPointer<WireframeState> WireframeStatePtr;
 
 }
 

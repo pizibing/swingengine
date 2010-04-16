@@ -42,7 +42,7 @@ class PixelProgramCatalog;
 // 作者:Sun Che
 // 时间:20080324
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Main
+class SE_FOUNDATION_API SEMain
 {
 public:
     typedef void (*Initializer)(void);  // 定义pre-main函数指针类型

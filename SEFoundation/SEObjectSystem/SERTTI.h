@@ -35,23 +35,23 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080202
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API RTTI
+class SE_FOUNDATION_API SERTTI
 {
 public:
     // 名称必须是全局唯一名称,在Swing名字空间里,类Foo应该使用"Swing.Foo",
     // 如果应用程序有其他名字空间,如SomeName,则类Foo应使用"SomeName.Foo"
-    RTTI(const char* pName, const RTTI* pBaseType);
-    ~RTTI(void);
+    SERTTI(const char* pName, const SERTTI* pBaseType);
+    ~SERTTI(void);
 
     inline const char* GetName(void) const;
     inline int GetDiskUsed(void) const;
 
-    inline bool IsExactly(const RTTI& rType) const;
-    bool IsDerived(const RTTI& rType) const;
+    inline bool IsExactly(const SERTTI& rType) const;
+    bool IsDerived(const SERTTI& rType) const;
 
 private:
     const char* m_pRTTIName;
-    const RTTI* m_pBaseType;
+    const SERTTI* m_pBaseType;
 };
 
 #include "SERTTI.inl"

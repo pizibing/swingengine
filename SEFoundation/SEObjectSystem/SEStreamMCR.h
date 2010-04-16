@@ -26,13 +26,13 @@
 public: \
     static bool RegisterFactory(void); \
     static void InitializeFactory(void); \
-    static Object* Factory(Stream& rStream); \
-    virtual void Load(Stream& rStream, Stream::Link* pLink); \
-    virtual void Link(Stream& rStream, Stream::Link* pLink); \
-    virtual bool Register(Stream& rStream) const; \
-    virtual void Save(Stream& rStream) const; \
-    virtual int GetDiskUsed(const StreamVersion& rVersion) const; \
-    virtual StringTree* SaveStrings(const char* pTitle = 0); \
+    static SEObject* Factory(SEStream& rStream); \
+    virtual void Load(SEStream& rStream, SEStream::Link* pLink); \
+    virtual void Link(SEStream& rStream, SEStream::Link* pLink); \
+    virtual bool Register(SEStream& rStream) const; \
+    virtual void Save(SEStream& rStream) const; \
+    virtual int GetDiskUsed(const SEStreamVersion& rVersion) const; \
+    virtual SEStringTree* SaveStrings(const char* pTitle = 0); \
 private: \
     static bool ms_bStreamRegistered
 //----------------------------------------------------------------------------
@@ -40,13 +40,13 @@ private: \
 public: \
     static bool RegisterFactory(void); \
     static void InitializeFactory(void); \
-    static Object* Factory(Stream& rStream); \
-    virtual void Load(Stream& rStream, Stream::Link* pLink); \
-    virtual void Link(Stream& rStream, Stream::Link* pLink); \
-    virtual bool Register(Stream& rStream) const; \
-    virtual void Save(Stream& rStream) const; \
-    virtual int GetDiskUsed(const StreamVersion& rVersion) const; \
-    virtual StringTree* SaveStrings(const char* pTitle = 0); \
+    static SEObject* Factory(SEStream& rStream); \
+    virtual void Load(SEStream& rStream, SEStream::Link* pLink); \
+    virtual void Link(SEStream& rStream, SEStream::Link* pLink); \
+    virtual bool Register(SEStream& rStream) const; \
+    virtual void Save(SEStream& rStream) const; \
+    virtual int GetDiskUsed(const SEStreamVersion& rVersion) const; \
+    virtual SEStringTree* SaveStrings(const char* pTitle = 0); \
 private: \
     SE_FOUNDATION_API static bool ms_bStreamRegistered
 //----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ bool classname::RegisterFactory() \
 { \
     if( !ms_bStreamRegistered ) \
     { \
-        Main::AddInitializer(classname::InitializeFactory); \
+        SEMain::AddInitializer(classname::InitializeFactory); \
         ms_bStreamRegistered = true; \
     } \
     return ms_bStreamRegistered; \
@@ -73,10 +73,10 @@ void classname::InitializeFactory() \
     ms_pFactory->Insert(TYPE.GetName(), (FactoryFunction)Factory); \
 } \
 \
-Object* classname::Factory(Stream& rStream) \
+SEObject* classname::Factory(SEStream& rStream) \
 { \
     classname* pObject = SE_NEW classname; \
-    Stream::Link* pLink = SE_NEW Stream::Link(pObject); \
+    SEStream::Link* pLink = SE_NEW SEStream::Link(pObject); \
     pObject->Load(rStream, pLink); \
     return pObject; \
 }
@@ -88,7 +88,7 @@ bool classname::RegisterFactory() \
 { \
     if( !ms_bStreamRegistered ) \
     { \
-        Main::AddInitializer(classname::InitializeFactory); \
+        SEMain::AddInitializer(classname::InitializeFactory); \
         ms_bStreamRegistered = true; \
     } \
     return ms_bStreamRegistered; \
@@ -104,7 +104,7 @@ void classname::InitializeFactory() \
     ms_pFactory->Insert(TYPE.GetName(), (FactoryFunction)Factory); \
 } \
 \
-Object* classname::Factory(Stream&) \
+SEObject* classname::Factory(SEStream&) \
 { \
     SE_ASSERT(false); \
     return 0; \
@@ -115,38 +115,38 @@ template <> \
 bool classname::ms_bStreamRegistered = false;
 //----------------------------------------------------------------------------
 #define SE_IMPLEMENT_DEFAULT_STREAM(classname, baseclassname) \
-void classname::Load(Stream& rStream, Stream::Link* pLink) \
+void classname::Load(SEStream& rStream, SEStream::Link* pLink) \
 { \
     SE_BEGIN_DEBUG_STREAM_LOAD; \
     baseclassname::Load(rStream, pLink); \
     SE_END_DEBUG_STREAM_LOAD(classname); \
 } \
 \
-void classname::Link(Stream& rStream, Stream::Link* pLink) \
+void classname::Link(SEStream& rStream, SEStream::Link* pLink) \
 { \
     baseclassname::Link(rStream, pLink); \
 } \
 \
-bool classname::Register(Stream& rStream) const \
+bool classname::Register(SEStream& rStream) const \
 { \
     return baseclassname::Register(rStream); \
 } \
 \
-void classname::Save(Stream& rStream) const \
+void classname::Save(SEStream& rStream) const \
 { \
     SE_BEGIN_DEBUG_STREAM_SAVE; \
     baseclassname::Save(rStream); \
     SE_END_DEBUG_STREAM_SAVE(classname); \
 } \
 \
-int classname::GetDiskUsed(const StreamVersion& rVersion) const \
+int classname::GetDiskUsed(const SEStreamVersion& rVersion) const \
 { \
     return baseclassname::GetDiskUsed(rVersion); \
 } \
 \
-StringTree* classname::SaveStrings(const char*) \
+SEStringTree* classname::SaveStrings(const char*) \
 { \
-    StringTree* pTree = SE_NEW StringTree; \
+    SEStringTree* pTree = SE_NEW SEStringTree; \
     pTree->Append(Format(&TYPE, GetName().c_str())); \
     pTree->Append(baseclassname::SaveStrings()); \
     return pTree; \
@@ -188,7 +188,7 @@ static bool gs_bStreamRegistered_##classname = \
     int iEndSave_ = rStream.GetBufferNext(); \
     int iUsedSave_ = iEndSave_ - iBeginSave_; \
     int iUsedReported_ = classname::GetDiskUsed( \
-        StreamVersion(StreamVersion::MAJOR, StreamVersion::MINOR)); \
+        SEStreamVersion(SEStreamVersion::MAJOR, SEStreamVersion::MINOR)); \
     SE_ASSERT( iUsedSave_ == iUsedReported_ )
 #else
 #define SE_END_DEBUG_STREAM_SAVE(classname)

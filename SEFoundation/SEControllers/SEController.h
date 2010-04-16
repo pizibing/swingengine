@@ -34,7 +34,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080327
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Controller : public Object
+class SE_FOUNDATION_API Controller : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -44,7 +44,7 @@ public:
     virtual ~Controller(void);
 
     // 获取被控制的对象
-    inline Object* GetObject(void) const;
+    inline SEObject* GetObject(void) const;
 
     // 派生类需实现此函数
     virtual bool Update(double dAppTime);
@@ -68,16 +68,16 @@ protected:
     // 虚基类
     Controller(void);
 
-    friend class Object;
+    friend class SEObject;
     // 重载后,派生类可对其所期望的被控制对象进行类型识别.
-    virtual void SetObject(Object* pObject);
+    virtual void SetObject(SEObject* pObject);
 
     // 从application时间单位到controller时间单位的转换.
     // 派生类在其update函数中可以使用这个函数.
     double GetControlTime(double dAppTime);
 
     // 常规指针指向被控制的object,避免object和controller的smart pointer互指问题
-    Object* m_pObject;
+    SEObject* m_pObject;
 
     double m_dLastAppTime;
 
@@ -85,7 +85,7 @@ private:
     static const char* ms_pRepeatType[RT_COUNT];
 };
 
-typedef SmartPointer<Controller> ControllerPtr;
+typedef SESmartPointer<Controller> ControllerPtr;
 
 #include "SEController.inl"
 

@@ -27,11 +27,11 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-StringTree::StringTree()
+SEStringTree::SEStringTree()
 {
 }
 //----------------------------------------------------------------------------
-StringTree::~StringTree()
+SEStringTree::~SEStringTree()
 {
     int i;
     for( i = 0; i < (int)m_Strings.size(); i++ )
@@ -45,7 +45,7 @@ StringTree::~StringTree()
     }
 }
 //----------------------------------------------------------------------------
-bool StringTree::Save(const char* pFileName, int iTabSize)
+bool SEStringTree::Save(const char* pFileName, int iTabSize)
 {
     FILE* pFile = SESystem::SE_Fopen(pFileName, "wt");
     if( !pFile )
@@ -58,7 +58,7 @@ bool StringTree::Save(const char* pFileName, int iTabSize)
     return SESystem::SE_Fclose(pFile) == 0;
 }
 //----------------------------------------------------------------------------
-void StringTree::Save(FILE* pFile, int iLevel, int iTabSize)
+void SEStringTree::Save(FILE* pFile, int iLevel, int iTabSize)
 {
     // 缩进到适当位置
     int i, iIndent = iLevel*iTabSize;
@@ -109,7 +109,8 @@ void StringTree::Save(FILE* pFile, int iLevel, int iTabSize)
     }
 }
 //----------------------------------------------------------------------------
-void StringTree::FormatFloat(float fValue, size_t uiStringSize, char* pString)
+void SEStringTree::FormatFloat(float fValue, size_t uiStringSize, 
+    char* pString)
 {
     // 是否为有效区间内的浮点数
     if( fValue > -Mathf::MAX_REAL )
@@ -129,7 +130,8 @@ void StringTree::FormatFloat(float fValue, size_t uiStringSize, char* pString)
     }
 }
 //----------------------------------------------------------------------------
-void StringTree::FormatDouble(double dValue, size_t uiStringSize, char* pString)
+void SEStringTree::FormatDouble(double dValue, size_t uiStringSize, 
+    char* pString)
 {
     // 是否为有效区间内的双精度浮点数
     if( dValue > -Mathd::MAX_REAL )
@@ -149,7 +151,7 @@ void StringTree::FormatDouble(double dValue, size_t uiStringSize, char* pString)
     }
 }
 //----------------------------------------------------------------------------
-char* Swing::Format(const RTTI* pRTTI, const char* pName)
+char* Swing::Format(const SERTTI* pRTTI, const char* pName)
 {
     SE_ASSERT( pRTTI );
 
@@ -326,7 +328,7 @@ char* Swing::Format(const char* pPrefix, float fValue)
 
     const size_t uiTempBufferSize = 256;
     char TempBuffer[uiTempBufferSize];
-    StringTree::FormatFloat(fValue, uiTempBufferSize, TempBuffer);
+    SEStringTree::FormatFloat(fValue, uiTempBufferSize, TempBuffer);
 
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
@@ -341,7 +343,7 @@ char* Swing::Format(const char* pPrefix, double dValue)
 
     const size_t uiSize = 256;
     char TempBuffer[uiSize];
-    StringTree::FormatDouble(dValue, uiSize, TempBuffer);
+    SEStringTree::FormatDouble(dValue, uiSize, TempBuffer);
 
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
@@ -381,13 +383,14 @@ char* Swing::Format(const char* pPrefix, const BoundingVolume* pBV)
 
     const size_t uiSize = 256;
     char acX[uiSize], acY[uiSize], acZ[uiSize], acR[uiSize];
-    StringTree::FormatFloat(pBV->GetCenter().X, uiSize, acX);
-    StringTree::FormatFloat(pBV->GetCenter().Y, uiSize, acY);
-    StringTree::FormatFloat(pBV->GetCenter().Z, uiSize, acZ);
-    StringTree::FormatFloat(pBV->GetRadius(), uiSize, acR);
+    SEStringTree::FormatFloat(pBV->GetCenter().X, uiSize, acX);
+    SEStringTree::FormatFloat(pBV->GetCenter().Y, uiSize, acY);
+    SEStringTree::FormatFloat(pBV->GetCenter().Z, uiSize, acZ);
+    SEStringTree::FormatFloat(pBV->GetRadius(), uiSize, acR);
 
     char TempBuffer[uiSize];
-    SESystem::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s, z: %s, r: %s)", acX, acY, acZ, acR);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s, z: %s, r: %s)", 
+        acX, acY, acZ, acR);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
     SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
@@ -401,7 +404,8 @@ char* Swing::Format(const char* pPrefix, const ColorRGBA& rValue)
 
     const size_t uiSize = 256;
     char TempBuffer[uiSize];
-    SESystem::SE_Sprintf(TempBuffer, uiSize, "(r: %f, g: %f, b: %f, a: %f)", rValue.R, rValue.G, rValue.B, rValue.A);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "(r: %f, g: %f, b: %f, a: %f)", 
+        rValue.R, rValue.G, rValue.B, rValue.A);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
     SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
@@ -415,7 +419,8 @@ char* Swing::Format(const char* pPrefix, const ColorRGB& rValue)
 
     const size_t uiSize = 256;
     char TempBuffer[uiSize];
-    SESystem::SE_Sprintf(TempBuffer, uiSize, "(r: %f, g: %f, b: %f)", rValue.R, rValue.G, rValue.B);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "(r: %f, g: %f, b: %f)", 
+        rValue.R, rValue.G, rValue.B);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
     SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
@@ -531,8 +536,8 @@ char* Swing::Format(const char* pPrefix, const Vector2f& rValue)
 
     const size_t uiSize = 256;
     char acX[uiSize], acY[uiSize];
-    StringTree::FormatFloat(rValue.X, uiSize, acX);
-    StringTree::FormatFloat(rValue.Y, uiSize, acY);
+    SEStringTree::FormatFloat(rValue.X, uiSize, acX);
+    SEStringTree::FormatFloat(rValue.Y, uiSize, acY);
 
     char TempBuffer[uiSize];
     SESystem::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s)", acX, acY);
@@ -549,12 +554,13 @@ char* Swing::Format(const char* pPrefix, const Vector3f& rValue)
 
     const size_t uiSize = 256;
     char acX[uiSize], acY[uiSize], acZ[uiSize];
-    StringTree::FormatFloat(rValue.X, uiSize, acX);
-    StringTree::FormatFloat(rValue.Y, uiSize, acY);
-    StringTree::FormatFloat(rValue.Z, uiSize, acZ);
+    SEStringTree::FormatFloat(rValue.X, uiSize, acX);
+    SEStringTree::FormatFloat(rValue.Y, uiSize, acY);
+    SEStringTree::FormatFloat(rValue.Z, uiSize, acZ);
 
     char TempBuffer[uiSize];
-    SESystem::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s, z: %s)", acX, acY, acZ);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s, z: %s)", acX, 
+        acY, acZ);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
     SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);
@@ -568,14 +574,14 @@ char* Swing::Format(const char* pPrefix, const Vector4f& rValue)
 
     const size_t uiSize = 256;
     char acX[uiSize], acY[uiSize], acZ[uiSize], acW[uiSize];
-    StringTree::FormatFloat(rValue.X, uiSize, acX);
-    StringTree::FormatFloat(rValue.Y, uiSize, acY);
-    StringTree::FormatFloat(rValue.Z, uiSize, acZ);
-    StringTree::FormatFloat(rValue.W, uiSize, acW);
+    SEStringTree::FormatFloat(rValue.X, uiSize, acX);
+    SEStringTree::FormatFloat(rValue.Y, uiSize, acY);
+    SEStringTree::FormatFloat(rValue.Z, uiSize, acZ);
+    SEStringTree::FormatFloat(rValue.W, uiSize, acW);
 
     char TempBuffer[uiSize];
-    SESystem::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s, z: %s, w: %s)", acX, acY,
-        acZ, acW);
+    SESystem::SE_Sprintf(TempBuffer, uiSize, "(x: %s, y: %s, z: %s, w: %s)", 
+        acX, acY, acZ, acW);
     size_t uiLength = strlen(pPrefix) + 2 + strlen(TempBuffer);
     char* pString = SE_NEW char[uiLength];
     SESystem::SE_Sprintf(pString, uiLength, "%s %s", pPrefix, TempBuffer);

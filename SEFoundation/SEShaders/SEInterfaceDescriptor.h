@@ -36,7 +36,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090418
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API InterfaceDescriptor : public Object
+class SE_FOUNDATION_API InterfaceDescriptor : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -59,7 +59,7 @@ protected:
     std::vector<DescriptorItemPtr> m_DescriptorItems;
 };
 
-typedef SmartPointer<InterfaceDescriptor> InterfaceDescriptorPtr;
+typedef SESmartPointer<InterfaceDescriptor> InterfaceDescriptorPtr;
 
 #include "SEInterfaceDescriptor.inl"
 

@@ -46,7 +46,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080707
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Camera : public Object
+class SE_FOUNDATION_API Camera : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -155,7 +155,7 @@ protected:
     float m_Frustum[VF_COUNT];
 
     // 默认为true表示perspective camera.
-    // TO DO.  Stream this member
+    // TO DO.  SEStream this member
     bool m_bPerspective;
 
     // 视口参数,
@@ -174,7 +174,7 @@ protected:
     Renderer* m_pRenderer;
 };
 
-typedef SmartPointer<Camera> CameraPtr;
+typedef SESmartPointer<Camera> CameraPtr;
 
 #include "SECamera.inl"
 

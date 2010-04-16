@@ -25,30 +25,30 @@
 
 using namespace Swing;
 
-const RTTI Object::TYPE("Swing.Object", 0);
-unsigned int Object::ms_uiNextID = 0;
-HashTable<unsigned int, Object*>* Object::InUse = 0;
-char Object::NameAppend = '#';
-StringHashTable<FactoryFunction>* Object::ms_pFactory = 0;
-bool Object::ms_bStreamRegistered = false;
+const SERTTI SEObject::TYPE("Swing.SEObject", 0);
+unsigned int SEObject::ms_uiNextID = 0;
+HashTable<unsigned int, SEObject*>* SEObject::InUse = 0;
+char SEObject::NameAppend = '#';
+StringHashTable<FactoryFunction>* SEObject::ms_pFactory = 0;
+bool SEObject::ms_bStreamRegistered = false;
 
-//SE_REGISTER_STREAM(Object);
+//SE_REGISTER_STREAM(SEObject);
 
 //----------------------------------------------------------------------------
-Object::Object()
+SEObject::SEObject()
 {
     m_iReferences = 0;
     m_uiID = ms_uiNextID++;
 
     if( !InUse )
     {
-        InUse = SE_NEW HashTable<unsigned int, Object*>(FACTORY_MAP_SIZE);
+        InUse = SE_NEW HashTable<unsigned int, SEObject*>(FACTORY_MAP_SIZE);
     }
 
     InUse->Insert(m_uiID, this);
 }
 //----------------------------------------------------------------------------
-Object::~Object()
+SEObject::~SEObject()
 {
     DetachAllControllers();
     SE_ASSERT( InUse );
@@ -57,7 +57,7 @@ Object::~Object()
     (void)bFound;  // 避免编译器警告
 }
 //----------------------------------------------------------------------------
-void Object::DecrementReferences()
+void SEObject::DecrementReferences()
 {
     if( --m_iReferences == 0 )
     {
@@ -65,7 +65,7 @@ void Object::DecrementReferences()
     }
 }
 //----------------------------------------------------------------------------
-void Object::PrintInUse(const char* pFileName, const char* pMessage)
+void SEObject::PrintInUse(const char* pFileName, const char* pMessage)
 {
     FILE* pFile = SESystem::SE_Fopen(pFileName, "at");
     SE_ASSERT( pFile );
@@ -75,7 +75,7 @@ void Object::PrintInUse(const char* pFileName, const char* pMessage)
     SE_ASSERT( InUse );
     unsigned int uiID = 0;
     // 迭代输出所有当前object
-    Object** ppObject = InUse->GetFirst(&uiID);
+    SEObject** ppObject = InUse->GetFirst(&uiID);
     while( ppObject )
     {
         SESystem::SE_Fprintf(pFile, "id = %6d , type = %s\n", uiID,
@@ -91,19 +91,19 @@ void Object::PrintInUse(const char* pFileName, const char* pMessage)
 //----------------------------------------------------------------------------
 // controllers
 //----------------------------------------------------------------------------
-int Object::GetControllerCount() const
+int SEObject::GetControllerCount() const
 {
     return (int)m_Controllers.size();
 }
 //----------------------------------------------------------------------------
-Controller* Object::GetController(int i) const
+Controller* SEObject::GetController(int i) const
 {
     SE_ASSERT( 0 <= i && i < (int)m_Controllers.size() );
 
     return StaticCast<Controller>(m_Controllers[i]);
 }
 //----------------------------------------------------------------------------
-void Object::AttachController(Controller* pController)
+void SEObject::AttachController(Controller* pController)
 {
     // controller本身不允许被施加controller,从而避免复杂的对象图关系,
     // 一旦允许controller被另一个controller控制,则可能带来潜在风险...
@@ -135,7 +135,7 @@ void Object::AttachController(Controller* pController)
     m_Controllers.push_back(pController);  // 智能指针
 }
 //----------------------------------------------------------------------------
-void Object::DetachController(Controller* pController)
+void SEObject::DetachController(Controller* pController)
 {
     std::vector<ObjectPtr>::iterator pIter = m_Controllers.begin();
     for( /**/; pIter != m_Controllers.end(); pIter++ )
@@ -150,7 +150,7 @@ void Object::DetachController(Controller* pController)
     }
 }
 //----------------------------------------------------------------------------
-void Object::DetachAllControllers()
+void SEObject::DetachAllControllers()
 {
     for( int i = 0; i < (int)m_Controllers.size(); i++ )
     {
@@ -160,7 +160,7 @@ void Object::DetachAllControllers()
     m_Controllers.clear();
 }
 //----------------------------------------------------------------------------
-bool Object::UpdateControllers(double dAppTime)
+bool SEObject::UpdateControllers(double dAppTime)
 {
     bool bSomeoneUpdated = false;
     for( int i = 0; i < (int)m_Controllers.size(); i++ )
@@ -180,11 +180,11 @@ bool Object::UpdateControllers(double dAppTime)
 //----------------------------------------------------------------------------
 // copying
 //----------------------------------------------------------------------------
-ObjectPtr Object::Copy(bool bUniqueNames) const
+ObjectPtr SEObject::Copy(bool bUniqueNames) const
 {
     // save the object to a memory buffer
-    Stream tempSaveStream;
-    tempSaveStream.Insert((Object*)this);
+    SEStream tempSaveStream;
+    tempSaveStream.Insert((SEObject*)this);
     char* pBuffer = 0;
     int iBufferSize = 0;
     bool bSuccessful = tempSaveStream.Save(pBuffer, iBufferSize);
@@ -195,7 +195,7 @@ ObjectPtr Object::Copy(bool bUniqueNames) const
     }
 
     // load the object from the memory buffer
-    Stream tempLoadStream;
+    SEStream tempLoadStream;
     bSuccessful = tempLoadStream.Load(pBuffer, iBufferSize);
     SE_ASSERT( bSuccessful );
 
@@ -210,7 +210,7 @@ ObjectPtr Object::Copy(bool bUniqueNames) const
         // generate unique names
         for( int i = 0; i < tempLoadStream.GetOrderedCount(); i++ )
         {
-            Object* pObject = tempLoadStream.GetOrderedObject(i);
+            SEObject* pObject = tempLoadStream.GetOrderedObject(i);
             SE_ASSERT( pObject );
 
             const std::string& rName = pObject->GetName();
@@ -237,7 +237,7 @@ ObjectPtr Object::Copy(bool bUniqueNames) const
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* Object::GetObjectByName(const std::string& rName)
+SEObject* SEObject::GetObjectByName(const std::string& rName)
 {
     if( rName == m_Name )
     {
@@ -248,7 +248,7 @@ Object* Object::GetObjectByName(const std::string& rName)
     {
         if( m_Controllers[i] )
         {
-            Object* pFound = m_Controllers[i]->GetObjectByName(rName);
+            SEObject* pFound = m_Controllers[i]->GetObjectByName(rName);
             if( pFound )
             {
                 return pFound;
@@ -259,7 +259,8 @@ Object* Object::GetObjectByName(const std::string& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Object::GetAllObjectsByName(const std::string& rName, std::vector<Object*>& rObjects)
+void SEObject::GetAllObjectsByName(const std::string& rName, 
+    std::vector<SEObject*>& rObjects)
 {
     if( rName == m_Name )
     {
@@ -275,7 +276,7 @@ void Object::GetAllObjectsByName(const std::string& rName, std::vector<Object*>&
     }
 }
 //----------------------------------------------------------------------------
-Object* Object::GetObjectByID(unsigned int uiID)
+SEObject* SEObject::GetObjectByID(unsigned int uiID)
 {
     if( uiID == m_uiID )
     {
@@ -286,7 +287,7 @@ Object* Object::GetObjectByID(unsigned int uiID)
     {
         if( m_Controllers[i] )
         {
-            Object* pFound = m_Controllers[i]->GetObjectByID(uiID);
+            SEObject* pFound = m_Controllers[i]->GetObjectByID(uiID);
             if( pFound )
             {
                 return pFound;
@@ -301,45 +302,46 @@ Object* Object::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-bool Object::RegisterFactory()
+bool SEObject::RegisterFactory()
 {
     if( !ms_bStreamRegistered )
     {
-        Main::AddInitializer(Object::InitializeFactory);
-        Main::AddTerminator(Object::TerminateFactory);
+        SEMain::AddInitializer(SEObject::InitializeFactory);
+        SEMain::AddTerminator(SEObject::TerminateFactory);
         ms_bStreamRegistered = true;
     }
     return ms_bStreamRegistered;
 }
 //----------------------------------------------------------------------------
-void Object::InitializeFactory()
+void SEObject::InitializeFactory()
 {
     if( !ms_pFactory )
     {
-        ms_pFactory = SE_NEW StringHashTable<FactoryFunction>(FACTORY_MAP_SIZE);
+        ms_pFactory = SE_NEW StringHashTable<FactoryFunction>(
+            FACTORY_MAP_SIZE);
     }
     ms_pFactory->Insert(TYPE.GetName(), (FactoryFunction)Factory);
 }
 //----------------------------------------------------------------------------
-void Object::TerminateFactory()
+void SEObject::TerminateFactory()
 {
     SE_DELETE ms_pFactory;
     ms_pFactory = 0;
 }
 //----------------------------------------------------------------------------
-Object* Object::Factory(Stream&)
+SEObject* SEObject::Factory(SEStream&)
 {
     SE_ASSERT( false );
 
     return 0;
 }
 //----------------------------------------------------------------------------
-void Object::Load(Stream& rStream, Stream::Link* pLink)
+void SEObject::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
     // 获取save时存入的object内存指针,稍后用于link阶段
-    Object* pLinkID;
+    SEObject* pLinkID;
     rStream.Read(pLinkID);
     rStream.InsertInMap(pLinkID, pLink);
 
@@ -352,26 +354,26 @@ void Object::Load(Stream& rStream, Stream::Link* pLink)
     m_Controllers.resize(iCount); // 先创建空列表,稍后link阶段填充
     for( int i = 0; i < iCount; i++ )
     {
-        Object* pObject;
+        SEObject* pObject;
         rStream.Read(pObject);
         pLink->Add(pObject);
     }
 
-    SE_END_DEBUG_STREAM_LOAD(Object);
+    SE_END_DEBUG_STREAM_LOAD(SEObject);
 }
 //----------------------------------------------------------------------------
-void Object::Link(Stream& rStream, Stream::Link* pLink)
+void SEObject::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     for( int i = 0; i < (int)m_Controllers.size(); i++ )
     {
-        Object* pLinkID = pLink->GetLinkID();
+        SEObject* pLinkID = pLink->GetLinkID();
         m_Controllers[i] = (Controller*)rStream.GetFromMap(pLinkID);
     }
 }
 //----------------------------------------------------------------------------
-bool Object::Register(Stream& rStream) const
+bool SEObject::Register(SEStream& rStream) const
 {
-    Object* pThis = (Object*)this;
+    SEObject* pThis = (SEObject*)this;
     // 该object是否已插入到hash表,确保唯一性
     if( rStream.InsertInMap(pThis, 0) )
     {
@@ -393,15 +395,15 @@ bool Object::Register(Stream& rStream) const
     return false;
 }
 //----------------------------------------------------------------------------
-void Object::Save(Stream& rStream) const
+void SEObject::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    // RTTI name用于load时的工厂函数表查找
+    // SERTTI name用于load时的工厂函数表查找
     rStream.Write(std::string(GetType().GetName()));
 
     // 该内存地址用于load/link时的object unique ID
-    rStream.Write((Object*)this);
+    rStream.Write((SEObject*)this);
 
     // 写入name
     rStream.Write(m_Name);
@@ -414,10 +416,10 @@ void Object::Save(Stream& rStream) const
         rStream.Write(m_Controllers[i]);
     }
 
-    SE_END_DEBUG_STREAM_SAVE(Object);
+    SE_END_DEBUG_STREAM_SAVE(SEObject);
 }
 //----------------------------------------------------------------------------
-int Object::GetDiskUsed(const StreamVersion&) const
+int SEObject::GetDiskUsed(const SEStreamVersion&) const
 {
     int iUsed = GetType().GetDiskUsed();
 
@@ -430,9 +432,9 @@ int Object::GetDiskUsed(const StreamVersion&) const
     return iUsed;
 }
 //----------------------------------------------------------------------------
-StringTree* Object::SaveStrings(const char*)
+SEStringTree* SEObject::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -443,7 +445,7 @@ StringTree* Object::SaveStrings(const char*)
     // children
     if( m_Controllers.size() > 0 )
     {
-        StringTree* pCTree = SE_NEW StringTree;
+        SEStringTree* pCTree = SE_NEW SEStringTree;
         pCTree->Append(Format("controllers"));
         for( int i = 0; i < (int)m_Controllers.size(); i++ )
         {

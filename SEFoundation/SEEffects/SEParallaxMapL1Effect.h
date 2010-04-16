@@ -51,7 +51,7 @@ protected:
     ParallaxMapL1Effect(void);
 };
 
-typedef SmartPointer<ParallaxMapL1Effect> ParallaxMapL1dEffectPtr;
+typedef SESmartPointer<ParallaxMapL1Effect> ParallaxMapL1dEffectPtr;
 
 }
 

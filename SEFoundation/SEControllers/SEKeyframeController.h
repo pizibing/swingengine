@@ -73,7 +73,7 @@ protected:
     int m_iSLastIndex;
 };
 
-typedef SmartPointer<KeyframeController> KeyframeControllerPtr;
+typedef SESmartPointer<KeyframeController> KeyframeControllerPtr;
 
 }
 
