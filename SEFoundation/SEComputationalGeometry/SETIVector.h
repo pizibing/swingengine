@@ -34,12 +34,12 @@ namespace Swing
 // Ê±¼ä:20081201
 //----------------------------------------------------------------------------
 template <int VSIZE>
-class TIVector
+class SETIVector
 {
 public:
     // construction
-    TIVector(void);
-    TIVector(const TIVector& rV);
+    SETIVector(void);
+    SETIVector(const SETIVector& rV);
 
     // coordinate access
     operator const SE_Int64* (void) const;
@@ -48,42 +48,42 @@ public:
     SE_Int64& operator [] (int i);
 
     // assignment
-    TIVector& operator = (const TIVector& rV);
+    SETIVector& operator = (const SETIVector& rV);
 
     // comparison
-    bool operator == (const TIVector& rV) const;
-    bool operator != (const TIVector& rV) const;
-    bool operator <  (const TIVector& rV) const;
-    bool operator <= (const TIVector& rV) const;
-    bool operator >  (const TIVector& rV) const;
-    bool operator >= (const TIVector& rV) const;
+    bool operator == (const SETIVector& rV) const;
+    bool operator != (const SETIVector& rV) const;
+    bool operator <  (const SETIVector& rV) const;
+    bool operator <= (const SETIVector& rV) const;
+    bool operator >  (const SETIVector& rV) const;
+    bool operator >= (const SETIVector& rV) const;
 
     // arithmetic operations
-    TIVector operator + (const TIVector& rV) const;
-    TIVector operator - (const TIVector& rV) const;
-    TIVector operator * (const SE_Int64& riI) const;
-    TIVector operator / (const SE_Int64& riI) const;
-    TIVector operator - (void) const;
+    SETIVector operator + (const SETIVector& rV) const;
+    SETIVector operator - (const SETIVector& rV) const;
+    SETIVector operator * (const SE_Int64& riI) const;
+    SETIVector operator / (const SE_Int64& riI) const;
+    SETIVector operator - (void) const;
 
     // arithmetic updates
-    TIVector& operator += (const TIVector& rV);
-    TIVector& operator -= (const TIVector& rV);
-    TIVector& operator *= (const SE_Int64& riI);
-    TIVector& operator /= (const SE_Int64& riI);
+    SETIVector& operator += (const SETIVector& rV);
+    SETIVector& operator -= (const SETIVector& rV);
+    SETIVector& operator *= (const SE_Int64& riI);
+    SETIVector& operator /= (const SE_Int64& riI);
 
     // vector operations
     SE_Int64 GetSquaredLength(void) const;
-    SE_Int64 Dot(const TIVector& rV) const;
+    SE_Int64 Dot(const SETIVector& rV) const;
 
 protected:
     // support for comparisons
-    int CompareArrays(const TIVector& rV) const;
+    int CompareArrays(const SETIVector& rV) const;
 
     SE_Int64 m_aiTuple[VSIZE];
 };
 
 template <int VSIZE>
-TIVector<VSIZE> operator * (const SE_Int64& riI,  const TIVector<VSIZE>& rV);
+SETIVector<VSIZE> operator * (const SE_Int64& riI,  const SETIVector<VSIZE>& rV);
 
 #include "SETIVector.inl"
 

@@ -25,14 +25,14 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, SkinController, Controller);
-SE_IMPLEMENT_STREAM(SkinController);
-SE_IMPLEMENT_DEFAULT_NAME_ID(SkinController, Controller);
+SE_IMPLEMENT_RTTI(Swing, SESkinController, SEController);
+SE_IMPLEMENT_STREAM(SESkinController);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SESkinController, SEController);
 
-//SE_REGISTER_STREAM(SkinController);
+//SE_REGISTER_STREAM(SESkinController);
 
 //----------------------------------------------------------------------------
-SkinController::SkinController(int iVertexCount, int iBoneCount,
+SESkinController::SESkinController(int iVertexCount, int iBoneCount,
     Node** apBones, float** aafWeight, SEVector3f** aaOffset)
 {
     m_iVertexCount = iVertexCount;
@@ -42,7 +42,7 @@ SkinController::SkinController(int iVertexCount, int iBoneCount,
     m_aaOffset = aaOffset;
 }
 //----------------------------------------------------------------------------
-SkinController::SkinController()
+SESkinController::SESkinController()
 {
     m_iVertexCount = 0;
     m_iBoneCount = 0;
@@ -51,16 +51,16 @@ SkinController::SkinController()
     m_aaOffset = 0;
 }
 //----------------------------------------------------------------------------
-SkinController::~SkinController()
+SESkinController::~SESkinController()
 {
     SE_DELETE[] m_apBones;
     Deallocate<float>(m_aafWeight);
     Deallocate<SEVector3f>(m_aaOffset);
 }
 //----------------------------------------------------------------------------
-bool SkinController::Update(double dAppTime)
+bool SESkinController::Update(double dAppTime)
 {
-    if( !Controller::Update(dAppTime) )
+    if( !SEController::Update(dAppTime) )
     {
         return false;
     }
@@ -99,11 +99,11 @@ bool SkinController::Update(double dAppTime)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SkinController::Load(SEStream& rStream, SEStream::Link* pLink)
+void SESkinController::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Controller::Load(rStream, pLink);
+    SEController::Load(rStream, pLink);
 
     // native data
     rStream.Read(m_iVertexCount);
@@ -131,12 +131,12 @@ void SkinController::Load(SEStream& rStream, SEStream::Link* pLink)
         pLink->Add(pObject);
     }
 
-    SE_END_DEBUG_STREAM_LOAD(SkinController);
+    SE_END_DEBUG_STREAM_LOAD(SESkinController);
 }
 //----------------------------------------------------------------------------
-void SkinController::Link(SEStream& rStream, SEStream::Link* pLink)
+void SESkinController::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Controller::Link(rStream, pLink);
+    SEController::Link(rStream, pLink);
 
     m_apBones = SE_NEW Node*[m_iBoneCount];
     for( int i = 0; i < m_iBoneCount; i++ )
@@ -146,9 +146,9 @@ void SkinController::Link(SEStream& rStream, SEStream::Link* pLink)
     }
 }
 //----------------------------------------------------------------------------
-bool SkinController::Register(SEStream& rStream) const
+bool SESkinController::Register(SEStream& rStream) const
 {
-    if( !Controller::Register(rStream) )
+    if( !SEController::Register(rStream) )
     {
         return false;
     }
@@ -164,11 +164,11 @@ bool SkinController::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void SkinController::Save(SEStream& rStream) const
+void SESkinController::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Controller::Save(rStream);
+    SEController::Save(rStream);
 
     // native data
     rStream.Write(m_iVertexCount);
@@ -188,12 +188,12 @@ void SkinController::Save(SEStream& rStream) const
     // link data
     rStream.Write(m_iBoneCount, (SEObject**)m_apBones);
 
-    SE_END_DEBUG_STREAM_SAVE(SkinController);
+    SE_END_DEBUG_STREAM_SAVE(SESkinController);
 }
 //----------------------------------------------------------------------------
-int SkinController::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SESkinController::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Controller::GetDiskUsed(rVersion) +
+    return SEController::GetDiskUsed(rVersion) +
         sizeof(m_iVertexCount) +
         sizeof(m_iBoneCount) +
         m_iVertexCount*m_iBoneCount*sizeof(m_aafWeight[0][0]) +
@@ -201,7 +201,7 @@ int SkinController::GetDiskUsed(const SEStreamVersion& rVersion) const
         m_iBoneCount*sizeof(m_apBones[0]);
 }
 //----------------------------------------------------------------------------
-SEStringTree* SkinController::SaveStrings(const char*)
+SEStringTree* SESkinController::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -211,7 +211,7 @@ SEStringTree* SkinController::SaveStrings(const char*)
     pTree->Append(Format("bone count = ", m_iBoneCount));
 
     // children
-    pTree->Append(Controller::SaveStrings());
+    pTree->Append(SEController::SaveStrings());
     pTree->Append(Format("bones", m_iBoneCount, m_apBones));
 
     const size_t uiTitleSize = 256;

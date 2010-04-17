@@ -31,7 +31,7 @@ namespace Swing
 // Ê±¼ä:20070515
 //----------------------------------------------------------------------------
 template <class T>
-class PriorityQueue
+class SEPriorityQueue
 {
 public:
 	virtual void Insert(const T& rValue) = 0;

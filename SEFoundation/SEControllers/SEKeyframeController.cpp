@@ -24,24 +24,24 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, KeyframeController, Controller);
-SE_IMPLEMENT_STREAM(KeyframeController);
+SE_IMPLEMENT_RTTI(Swing, SEKeyframeController, SEController);
+SE_IMPLEMENT_STREAM(SEKeyframeController);
 
-//SE_REGISTER_STREAM(KeyframeController);
+//SE_REGISTER_STREAM(SEKeyframeController);
 
 //----------------------------------------------------------------------------
-KeyframeController::KeyframeController()
+SEKeyframeController::SEKeyframeController()
 {
     m_iTLastIndex = 0;
     m_iRLastIndex = 0;
     m_iSLastIndex = 0;
 }
 //----------------------------------------------------------------------------
-KeyframeController::~KeyframeController()
+SEKeyframeController::~SEKeyframeController()
 {
 }
 //----------------------------------------------------------------------------
-void KeyframeController::GetKeyInfo(float fCtrlTime, int iCount,
+void SEKeyframeController::GetKeyInfo(float fCtrlTime, int iCount,
     float* afTime, int& riLastIndex, float& rfTime, int& ri0, int& ri1)
 {
     if( fCtrlTime <= afTime[0] )
@@ -99,14 +99,14 @@ void KeyframeController::GetKeyInfo(float fCtrlTime, int iCount,
     }
 }
 //----------------------------------------------------------------------------
-SEVector3f KeyframeController::GetTranslate(float fNormTime, int i0, int i1)
+SEVector3f SEKeyframeController::GetTranslate(float fNormTime, int i0, int i1)
 {
     SEVector3f* aTData = TranslationData->GetData();
 
     return aTData[i0] + fNormTime*(aTData[i1] - aTData[i0]);
 }
 //----------------------------------------------------------------------------
-SEMatrix3f KeyframeController::GetRotate(float fNormTime, int i0, int i1)
+SEMatrix3f SEKeyframeController::GetRotate(float fNormTime, int i0, int i1)
 {
     SEQuaternionf* aRData = RotationData->GetData();
     SEQuaternionf tempQuat;
@@ -118,16 +118,16 @@ SEMatrix3f KeyframeController::GetRotate(float fNormTime, int i0, int i1)
     return tempRot;
 }
 //----------------------------------------------------------------------------
-float KeyframeController::GetScale(float fNormTime, int i0, int i1)
+float SEKeyframeController::GetScale(float fNormTime, int i0, int i1)
 {
     float* afSData = ScaleData->GetData();
 
     return afSData[i0] + fNormTime*(afSData[i1] - afSData[i0]);
 }
 //----------------------------------------------------------------------------
-bool KeyframeController::Update(double dAppTime)
+bool SEKeyframeController::Update(double dAppTime)
 {
-    if( !Controller::Update(dAppTime) )
+    if( !SEController::Update(dAppTime) )
     {
         return false;
     }
@@ -259,9 +259,9 @@ bool KeyframeController::Update(double dAppTime)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-SEObject* KeyframeController::GetObjectByName(const std::string& rName)
+SEObject* SEKeyframeController::GetObjectByName(const std::string& rName)
 {
-    SEObject* pFound = Controller::GetObjectByName(rName);
+    SEObject* pFound = SEController::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -324,10 +324,10 @@ SEObject* KeyframeController::GetObjectByName(const std::string& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void KeyframeController::GetAllObjectsByName(const std::string& rName,
+void SEKeyframeController::GetAllObjectsByName(const std::string& rName,
     std::vector<SEObject*>& rObjects)
 {
-    Controller::GetAllObjectsByName(rName, rObjects);
+    SEController::GetAllObjectsByName(rName, rObjects);
 
     if( TranslationTimes )
     {
@@ -360,9 +360,9 @@ void KeyframeController::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-SEObject* KeyframeController::GetObjectByID(unsigned int uiID)
+SEObject* SEKeyframeController::GetObjectByID(unsigned int uiID)
 {
-    SEObject* pFound = Controller::GetObjectByID(uiID);
+    SEObject* pFound = SEController::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -429,11 +429,11 @@ SEObject* KeyframeController::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void KeyframeController::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEKeyframeController::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Controller::Load(rStream, pLink);
+    SEController::Load(rStream, pLink);
 
     // link data
     SEObject* pObject;
@@ -455,12 +455,12 @@ void KeyframeController::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(pObject);  // ScaleData
     pLink->Add(pObject);
 
-    SE_END_DEBUG_STREAM_LOAD(KeyframeController);
+    SE_END_DEBUG_STREAM_LOAD(SEKeyframeController);
 }
 //----------------------------------------------------------------------------
-void KeyframeController::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEKeyframeController::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Controller::Link(rStream, pLink);
+    SEController::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     TranslationTimes = (FloatArray*)rStream.GetFromMap(pLinkID);
@@ -481,9 +481,9 @@ void KeyframeController::Link(SEStream& rStream, SEStream::Link* pLink)
     ScaleData = (FloatArray*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool KeyframeController::Register(SEStream& rStream) const
+bool SEKeyframeController::Register(SEStream& rStream) const
 {
-    if( !Controller::Register(rStream) )
+    if( !SEController::Register(rStream) )
     {
         return false;
     }
@@ -521,11 +521,11 @@ bool KeyframeController::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void KeyframeController::Save(SEStream& rStream) const
+void SEKeyframeController::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Controller::Save(rStream);
+    SEController::Save(rStream);
 
     // link data
     rStream.Write(TranslationTimes);
@@ -535,12 +535,12 @@ void KeyframeController::Save(SEStream& rStream) const
     rStream.Write(ScaleTimes);
     rStream.Write(ScaleData);
 
-    SE_END_DEBUG_STREAM_SAVE(KeyframeController);
+    SE_END_DEBUG_STREAM_SAVE(SEKeyframeController);
 }
 //----------------------------------------------------------------------------
-int KeyframeController::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEKeyframeController::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Controller::GetDiskUsed(rVersion) +
+    return SEController::GetDiskUsed(rVersion) +
         sizeof(TranslationTimes) +
         sizeof(TranslationData) +
         sizeof(RotationTimes) +
@@ -549,7 +549,7 @@ int KeyframeController::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(ScaleData);
 }
 //----------------------------------------------------------------------------
-SEStringTree* KeyframeController::SaveStrings(const char*)
+SEStringTree* SEKeyframeController::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -557,7 +557,7 @@ SEStringTree* KeyframeController::SaveStrings(const char*)
     pTree->Append(Format(&TYPE, GetName().c_str()));
 
     // children
-    pTree->Append(Controller::SaveStrings());
+    pTree->Append(SEController::SaveStrings());
     if( TranslationTimes )
     {
         pTree->Append(TranslationTimes->SaveStrings("trn times"));

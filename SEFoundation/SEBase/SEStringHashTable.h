@@ -37,11 +37,11 @@ namespace Swing
 // 时间:20080308
 //----------------------------------------------------------------------------
 template <class TValue>
-class StringHashTable
+class SEStringHashTable
 {
 public:
-    StringHashTable(int iTableSize);
-    ~StringHashTable(void);
+    SEStringHashTable(int iTableSize);
+    ~SEStringHashTable(void);
 
     int GetCount(void) const;
 
@@ -54,16 +54,16 @@ public:
     TValue* GetNext(std::string* pKey) const;
 
 private:
-    class SHTItem
+    class SESHTItem
     {
     public:
-        SHTItem(void) : m_Key(""){}
-        ~SHTItem(void){}
+        SESHTItem(void) : m_Key(""){}
+        ~SESHTItem(void){}
 
     public:
         std::string m_Key;
         TValue m_Value;
-        SHTItem* m_pNextHashItem;
+        SESHTItem* m_pNextHashItem;
     };
 
     // 哈希函数
@@ -72,11 +72,11 @@ private:
     // 哈希表
     int m_iTableSize;
     int m_iCount;
-    SHTItem** m_ppTable;
+    SESHTItem** m_ppTable;
 
     // 迭代所有表项时的辅助变量
     mutable int m_iIndex;
-    mutable SHTItem* m_pHashItem;
+    mutable SESHTItem* m_pHashItem;
 };
 
 #include "SEStringHashTable.inl"

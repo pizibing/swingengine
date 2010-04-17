@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-HullTriangle3f::HullTriangle3f(int iV0,  int iV1,  int iV2)
+SEHullTriangle3f::SEHullTriangle3f(int iV0,  int iV1,  int iV2)
 {
     V[0] = iV0;
     V[1] = iV1;
@@ -37,7 +37,7 @@ HullTriangle3f::HullTriangle3f(int iV0,  int iV1,  int iV2)
     OnStack = false;
 }
 //----------------------------------------------------------------------------
-int HullTriangle3f::GetSign(int i,  const Query3f* pQuery)
+int SEHullTriangle3f::GetSign(int i,  const SEQuery3f* pQuery)
 {
     if( i != Time )
     {
@@ -48,8 +48,8 @@ int HullTriangle3f::GetSign(int i,  const Query3f* pQuery)
     return Sign;
 }
 //----------------------------------------------------------------------------
-void HullTriangle3f::AttachTo(HullTriangle3f* pAdj0, 
-    HullTriangle3f* pAdj1,  HullTriangle3f* pAdj2)
+void SEHullTriangle3f::AttachTo(SEHullTriangle3f* pAdj0, 
+    SEHullTriangle3f* pAdj1,  SEHullTriangle3f* pAdj2)
 {
     // assert:  The input adjacent triangles are correctly ordered.
     A[0] = pAdj0;
@@ -57,7 +57,7 @@ void HullTriangle3f::AttachTo(HullTriangle3f* pAdj0,
     A[2] = pAdj2;
 }
 //----------------------------------------------------------------------------
-int HullTriangle3f::DetachFrom(int iAdj,  HullTriangle3f* pAdj)
+int SEHullTriangle3f::DetachFrom(int iAdj,  SEHullTriangle3f* pAdj)
 {
     SE_ASSERT( 0 <= iAdj && iAdj < 3 && A[iAdj] == pAdj );
 

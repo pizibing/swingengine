@@ -25,11 +25,11 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-CollisionGroup::CollisionGroup()
+SECollisionGroup::SECollisionGroup()
 {
 }
 //----------------------------------------------------------------------------
-CollisionGroup::~CollisionGroup()
+SECollisionGroup::~SECollisionGroup()
 {
     for( int i = 0; i < (int)m_Record.size(); i++ )
     {
@@ -37,7 +37,7 @@ CollisionGroup::~CollisionGroup()
     }
 }
 //----------------------------------------------------------------------------
-bool CollisionGroup::Add(CollisionRecord* pRecord)
+bool SECollisionGroup::Add(SECollisionRecord* pRecord)
 {
     for( int i = 0; i < (int)m_Record.size(); i++ )
     {
@@ -52,9 +52,9 @@ bool CollisionGroup::Add(CollisionRecord* pRecord)
     return true;
 }
 //----------------------------------------------------------------------------
-bool CollisionGroup::Remove(CollisionRecord* pRecord)
+bool SECollisionGroup::Remove(SECollisionRecord* pRecord)
 {
-    std::vector<CollisionRecord*>::iterator tempIter = m_Record.begin();
+    std::vector<SECollisionRecord*>::iterator tempIter = m_Record.begin();
     for( /**/; tempIter != m_Record.end(); tempIter++ )
     {
         if( pRecord == *tempIter )
@@ -69,58 +69,58 @@ bool CollisionGroup::Remove(CollisionRecord* pRecord)
     return false;
 }
 //----------------------------------------------------------------------------
-void CollisionGroup::TestIntersection()
+void SECollisionGroup::TestIntersection()
 {
     // 所有对象被假设为静止状态,成对进行比较.
     for( int i0 = 0; i0 < (int)m_Record.size(); i0++ )
     {
-        CollisionRecord* pRecord0 = m_Record[i0];
+        SECollisionRecord* pRecord0 = m_Record[i0];
         for( int i1 = i0 + 1; i1 < (int)m_Record.size(); i1++ )
         {
-            CollisionRecord* pRecord1 = m_Record[i1];
+            SECollisionRecord* pRecord1 = m_Record[i1];
             pRecord0->TestIntersection(*pRecord1);
         }
     }
 }
 //----------------------------------------------------------------------------
-void CollisionGroup::FindIntersection()
+void SECollisionGroup::FindIntersection()
 {
     // 所有对象被假设为静止状态,成对进行比较.
     for( int i0 = 0; i0 < (int)m_Record.size(); i0++ )
     {
-        CollisionRecord* pRecord0 = m_Record[i0];
+        SECollisionRecord* pRecord0 = m_Record[i0];
         for( int i1 = i0 + 1; i1 < (int)m_Record.size(); i1++ )
         {
-            CollisionRecord* pRecord1 = m_Record[i1];
+            SECollisionRecord* pRecord1 = m_Record[i1];
             pRecord0->FindIntersection(*pRecord1);
         }
     }
 }
 //----------------------------------------------------------------------------
-void CollisionGroup::TestIntersection(float fTMax)
+void SECollisionGroup::TestIntersection(float fTMax)
 {
     // 所有对象被假设为运动状态,成对进行比较.
     for( int i0 = 0; i0 < (int)m_Record.size(); i0++ )
     {
-        CollisionRecord* pRecord0 = m_Record[i0];
+        SECollisionRecord* pRecord0 = m_Record[i0];
         for( int i1 = i0 + 1; i1 < (int)m_Record.size(); i1++ )
         {
-            CollisionRecord* pRecord1 = m_Record[i1];
+            SECollisionRecord* pRecord1 = m_Record[i1];
             if( pRecord0->GetVelocity() || pRecord1->GetVelocity() )
                 pRecord0->TestIntersection(fTMax, *pRecord1);
         }
     }
 }
 //----------------------------------------------------------------------------
-void CollisionGroup::FindIntersection(float fTMax)
+void SECollisionGroup::FindIntersection(float fTMax)
 {
     // 所有对象被假设为运动状态,成对进行比较.
     for( int i0 = 0; i0 < (int)m_Record.size(); i0++ )
     {
-        CollisionRecord* pRecord0 = m_Record[i0];
+        SECollisionRecord* pRecord0 = m_Record[i0];
         for( int i1 = i0 + 1; i1 < (int)m_Record.size(); i1++ )
         {
-            CollisionRecord* pRecord1 = m_Record[i1];
+            SECollisionRecord* pRecord1 = m_Record[i1];
             if( pRecord0->GetVelocity() || pRecord1->GetVelocity() )
                 pRecord0->FindIntersection(fTMax, *pRecord1);
         }

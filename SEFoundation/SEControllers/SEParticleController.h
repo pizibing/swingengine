@@ -29,19 +29,19 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:particle controller基类
+// 名称:Particle controller基类
 // 说明:
 // 作者:Sun Che
 // 时间:20090602
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API ParticleController : public Controller
+class SE_FOUNDATION_API SEParticleController : public SEController
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    virtual ~ParticleController(void);
+    virtual ~SEParticleController(void);
 
     // system motion,在local坐标系下.以下速度向量应为单位长度.
     float SystemLinearSpeed;
@@ -64,7 +64,7 @@ public:
     virtual bool Update(double dAppTime);
 
 protected:
-    ParticleController(void);
+    SEParticleController(void);
 
     // 用于延迟分配point motion arrays.
     void Reallocate(int iVertexCount);
@@ -83,7 +83,7 @@ protected:
     float* m_afPointSizeChange;
 };
 
-typedef SESmartPointer<ParticleController> ParticleControllerPtr;
+typedef SESmartPointer<SEParticleController> SEParticleControllerPtr;
 
 #include "SEParticleController.inl"
 

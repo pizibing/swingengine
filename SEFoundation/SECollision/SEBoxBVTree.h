@@ -29,17 +29,17 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:BoxBVTree类
+// 名称:Box bounding volume tree类
 // 说明:
 // 作者:Sun Che
 // 时间:20081223
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API BoxBVTree : public BoundingVolumeTree
+class SE_FOUNDATION_API SEBoxBVTree : public SEBoundingVolumeTree
 {
     SE_DECLARE_INITIALIZE;
 
 public:
-    BoxBVTree(const TriMesh* pMesh, int iMaxTrisPerLeaf = 1,
+    SEBoxBVTree(const TriMesh* pMesh, int iMaxTrisPerLeaf = 1,
         bool bStoreInteriorTris = false);
 
 protected:

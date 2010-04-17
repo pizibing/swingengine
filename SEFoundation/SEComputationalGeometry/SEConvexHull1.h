@@ -22,10 +22,10 @@
 #define Swing_ConvexHull1_H
 
 // A fancy class to compute the minimum and maximum of a collection of
-// real-valued numbers,  but this provides some convenience for ConvexHull2f and
-// ConvexHull3f when the input point set has intrinsic dimension smaller than
-// the containing space.  The interface of ConvexHull1f is also the model for
-// those of ConvexHull2f and ConvexHull3f.
+// real-valued numbers,  but this provides some convenience for SEConvexHull2f and
+// SEConvexHull3f when the input point set has intrinsic dimension smaller than
+// the containing space.  The interface of SEConvexHull1f is also the model for
+// those of SEConvexHull2f and SEConvexHull3f.
 
 #include "SEFoundationLIB.h"
 #include "SEConvexHull.h"
@@ -34,41 +34,41 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:ConvexHull1f类
+// 名称:Convex hull1f类
 // 说明:
 // 作者:Sun Che
 // 时间:20081201
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API ConvexHull1f : public ConvexHullf
+class SE_FOUNDATION_API SEConvexHull1f : public SEConvexHullf
 {
 public:
     // The input to the constructor is the array of vertices you want to sort.
-    // If you want ConvexHull1f to delete the array during destruction,  set
+    // If you want SEConvexHull1f to delete the array during destruction,  set
     // bOwner to 'true'.  Otherwise,  you own the array and must delete it
     // yourself.  TO DO:  The computation type is currently ignored by this
     // class.  Add support for the various types later.
-    ConvexHull1f(int iVertexCount,  float* afVertex,  float fEpsilon, 
-        bool bOwner,  Query::Type eQueryType);
-    virtual ~ConvexHull1f(void);
+    SEConvexHull1f(int iVertexCount,  float* afVertex,  float fEpsilon, 
+        bool bOwner,  SEQuery::Type eQueryType);
+    virtual ~SEConvexHull1f(void);
 
     // The input vertex array.
     const float* GetVertices(void) const;
 
     // Support for streaming to/from disk.
-    ConvexHull1f(const char* acFilename);
+    SEConvexHull1f(const char* acFilename);
     bool Load(const char* acFilename);
     bool Save(const char* acFilename) const;
 
 private:
     float* m_afVertex;
 
-    class SE_FOUNDATION_API SortedVertex
+    class SE_FOUNDATION_API SESortedVertex
     {
     public:
         float Value;
         int Index;
 
-        bool operator < (const SortedVertex& rProj) const
+        bool operator < (const SESortedVertex& rProj) const
         {
             return Value < rProj.Value;
         }

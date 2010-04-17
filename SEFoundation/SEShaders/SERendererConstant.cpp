@@ -245,7 +245,7 @@ std::string RendererConstant::ms_StringMap[RendererConstant::MAX_TYPES+1] =
     "MAX_TYPES"
 };
 
-StringHashTable<RendererConstant::Type>* RendererConstant::ms_pTypeMap = 0;
+SEStringHashTable<RendererConstant::Type>* RendererConstant::ms_pTypeMap = 0;
 RendererConstant::ReleaseID RendererConstant::OnReleaseID = 0;
 RendererConstant::CopyID RendererConstant::OnCopyID = 0;
 
@@ -254,7 +254,7 @@ void RendererConstant::Initialize()
 {
     SE_ASSERT( ms_pTypeMap == 0 );
 
-    ms_pTypeMap = SE_NEW StringHashTable<RendererConstant::Type>(MAX_TYPES);
+    ms_pTypeMap = SE_NEW SEStringHashTable<RendererConstant::Type>(MAX_TYPES);
 
     for( int i = 0; i < (int)MAX_TYPES; i++ )
     {

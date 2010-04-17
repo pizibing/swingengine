@@ -20,7 +20,7 @@
 
 //----------------------------------------------------------------------------
 template <class TValue>
-StringHashTable<TValue>::StringHashTable(int iTableSize)
+SEStringHashTable<TValue>::SEStringHashTable(int iTableSize)
 {
     SE_ASSERT( iTableSize > 0 );
 
@@ -28,28 +28,28 @@ StringHashTable<TValue>::StringHashTable(int iTableSize)
     m_iCount = 0;
     m_iIndex = 0;
     m_pHashItem = 0;
-    m_ppTable = SE_NEW SHTItem*[m_iTableSize];
-    memset(m_ppTable, 0, m_iTableSize*sizeof(SHTItem*));
+    m_ppTable = SE_NEW SESHTItem*[m_iTableSize];
+    memset(m_ppTable, 0, m_iTableSize*sizeof(SESHTItem*));
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-StringHashTable<TValue>::~StringHashTable()
+SEStringHashTable<TValue>::~SEStringHashTable()
 {
     RemoveAll();
     SE_DELETE[] m_ppTable;
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-int StringHashTable<TValue>::GetCount() const
+int SEStringHashTable<TValue>::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-bool StringHashTable<TValue>::Insert(const std::string& rKey, const TValue& rValue)
+bool SEStringHashTable<TValue>::Insert(const std::string& rKey, const TValue& rValue)
 {
     int iIndex = HashFunction(rKey);
-    SHTItem* pItem = m_ppTable[iIndex];
+    SESHTItem* pItem = m_ppTable[iIndex];
 
     while( pItem )
     {
@@ -60,7 +60,7 @@ bool StringHashTable<TValue>::Insert(const std::string& rKey, const TValue& rVal
         pItem = pItem->m_pNextHashItem;
     }
 
-    pItem = SE_NEW SHTItem;
+    pItem = SE_NEW SESHTItem;
     pItem->m_Key = rKey;
     pItem->m_Value = rValue;
     pItem->m_pNextHashItem = m_ppTable[iIndex];
@@ -71,10 +71,10 @@ bool StringHashTable<TValue>::Insert(const std::string& rKey, const TValue& rVal
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-TValue* StringHashTable<TValue>::Find(const std::string& rKey) const
+TValue* SEStringHashTable<TValue>::Find(const std::string& rKey) const
 {
     int iIndex = HashFunction(rKey);
-    SHTItem* pItem = m_ppTable[iIndex];
+    SESHTItem* pItem = m_ppTable[iIndex];
 
     while( pItem )
     {
@@ -89,10 +89,10 @@ TValue* StringHashTable<TValue>::Find(const std::string& rKey) const
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-bool StringHashTable<TValue>::Remove(const std::string& rKey)
+bool SEStringHashTable<TValue>::Remove(const std::string& rKey)
 {
     int iIndex = HashFunction(rKey);
-    SHTItem* pItem = m_ppTable[iIndex];
+    SESHTItem* pItem = m_ppTable[iIndex];
 
     if( !pItem )
     {
@@ -101,15 +101,15 @@ bool StringHashTable<TValue>::Remove(const std::string& rKey)
 
     if( rKey == pItem->m_Key )
     {
-        SHTItem* pSave = pItem;
+        SESHTItem* pSave = pItem;
         m_ppTable[iIndex] = pItem->m_pNextHashItem;
         SE_DELETE pSave;
         m_iCount--;
         return true;
     }
 
-    SHTItem* pPrev = pItem;
-    SHTItem* pCurr = pItem->m_pNextHashItem;
+    SESHTItem* pPrev = pItem;
+    SESHTItem* pCurr = pItem->m_pNextHashItem;
     while( pCurr && rKey != pCurr->m_Key )
     {
         pPrev = pCurr;
@@ -128,7 +128,7 @@ bool StringHashTable<TValue>::Remove(const std::string& rKey)
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-void StringHashTable<TValue>::RemoveAll()
+void SEStringHashTable<TValue>::RemoveAll()
 {
     if( m_iCount > 0 )
     {
@@ -136,7 +136,7 @@ void StringHashTable<TValue>::RemoveAll()
         {
             while( m_ppTable[iIndex] )
             {
-                SHTItem* pSave = m_ppTable[iIndex];
+                SESHTItem* pSave = m_ppTable[iIndex];
                 m_ppTable[iIndex] = m_ppTable[iIndex]->m_pNextHashItem;
                 SE_DELETE pSave;
                 if( --m_iCount == 0 )
@@ -149,7 +149,7 @@ void StringHashTable<TValue>::RemoveAll()
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-TValue* StringHashTable<TValue>::GetFirst(std::string* pKey) const
+TValue* SEStringHashTable<TValue>::GetFirst(std::string* pKey) const
 {
     if( m_iCount > 0 )
     {
@@ -168,7 +168,7 @@ TValue* StringHashTable<TValue>::GetFirst(std::string* pKey) const
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-TValue* StringHashTable<TValue>::GetNext(std::string* pKey) const
+TValue* SEStringHashTable<TValue>::GetNext(std::string* pKey) const
 {
     if( m_iCount > 0 )
     {
@@ -194,7 +194,7 @@ TValue* StringHashTable<TValue>::GetNext(std::string* pKey) const
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-int StringHashTable<TValue>::HashFunction(const std::string& rKey) const
+int SEStringHashTable<TValue>::HashFunction(const std::string& rKey) const
 {
     int iHiKey = 0, iLoKey = 0;
     for( int i = 0; i < (int)rKey.length(); i++ )

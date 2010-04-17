@@ -27,9 +27,9 @@ using namespace Swing;
 
 const SERTTI SEObject::TYPE("Swing.SEObject", 0);
 unsigned int SEObject::ms_uiNextID = 0;
-HashTable<unsigned int, SEObject*>* SEObject::InUse = 0;
+SEHashTable<unsigned int, SEObject*>* SEObject::InUse = 0;
 char SEObject::NameAppend = '#';
-StringHashTable<FactoryFunction>* SEObject::ms_pFactory = 0;
+SEStringHashTable<FactoryFunction>* SEObject::ms_pFactory = 0;
 bool SEObject::ms_bStreamRegistered = false;
 
 //SE_REGISTER_STREAM(SEObject);
@@ -42,7 +42,7 @@ SEObject::SEObject()
 
     if( !InUse )
     {
-        InUse = SE_NEW HashTable<unsigned int, SEObject*>(FACTORY_MAP_SIZE);
+        InUse = SE_NEW SEHashTable<unsigned int, SEObject*>(FACTORY_MAP_SIZE);
     }
 
     InUse->Insert(m_uiID, this);
@@ -96,18 +96,18 @@ int SEObject::GetControllerCount() const
     return (int)m_Controllers.size();
 }
 //----------------------------------------------------------------------------
-Controller* SEObject::GetController(int i) const
+SEController* SEObject::GetController(int i) const
 {
     SE_ASSERT( 0 <= i && i < (int)m_Controllers.size() );
 
-    return StaticCast<Controller>(m_Controllers[i]);
+    return StaticCast<SEController>(m_Controllers[i]);
 }
 //----------------------------------------------------------------------------
-void SEObject::AttachController(Controller* pController)
+void SEObject::AttachController(SEController* pController)
 {
     // controller本身不允许被施加controller,从而避免复杂的对象图关系,
     // 一旦允许controller被另一个controller控制,则可能带来潜在风险...
-    if( IsDerived(Controller::TYPE) )
+    if( IsDerived(SEController::TYPE) )
     {
         SE_ASSERT( false );
 
@@ -135,7 +135,7 @@ void SEObject::AttachController(Controller* pController)
     m_Controllers.push_back(pController);  // 智能指针
 }
 //----------------------------------------------------------------------------
-void SEObject::DetachController(Controller* pController)
+void SEObject::DetachController(SEController* pController)
 {
     std::vector<SEObjectPtr>::iterator pIter = m_Controllers.begin();
     for( /**/; pIter != m_Controllers.end(); pIter++ )
@@ -154,7 +154,7 @@ void SEObject::DetachAllControllers()
 {
     for( int i = 0; i < (int)m_Controllers.size(); i++ )
     {
-        Controller* pController = StaticCast<Controller>(m_Controllers[i]);
+        SEController* pController = StaticCast<SEController>(m_Controllers[i]);
         pController->SetObject(0);
     }
     m_Controllers.clear();
@@ -165,7 +165,7 @@ bool SEObject::UpdateControllers(double dAppTime)
     bool bSomeoneUpdated = false;
     for( int i = 0; i < (int)m_Controllers.size(); i++ )
     {
-        Controller* pController = StaticCast<Controller>(m_Controllers[i]);
+        SEController* pController = StaticCast<SEController>(m_Controllers[i]);
 
         if( pController->Update(dAppTime) )
         {
@@ -317,7 +317,7 @@ void SEObject::InitializeFactory()
 {
     if( !ms_pFactory )
     {
-        ms_pFactory = SE_NEW StringHashTable<FactoryFunction>(
+        ms_pFactory = SE_NEW SEStringHashTable<FactoryFunction>(
             FACTORY_MAP_SIZE);
     }
     ms_pFactory->Insert(TYPE.GetName(), (FactoryFunction)Factory);
@@ -367,7 +367,7 @@ void SEObject::Link(SEStream& rStream, SEStream::Link* pLink)
     for( int i = 0; i < (int)m_Controllers.size(); i++ )
     {
         SEObject* pLinkID = pLink->GetLinkID();
-        m_Controllers[i] = (Controller*)rStream.GetFromMap(pLinkID);
+        m_Controllers[i] = (SEController*)rStream.GetFromMap(pLinkID);
     }
 }
 //----------------------------------------------------------------------------
@@ -399,7 +399,7 @@ void SEObject::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    // SERTTI name用于load时的工厂函数表查找
+    // RTTI name用于load时的工厂函数表查找
     rStream.Write(std::string(GetType().GetName()));
 
     // 该内存地址用于load/link时的object unique ID
@@ -427,7 +427,7 @@ int SEObject::GetDiskUsed(const SEStreamVersion&) const
 
     iUsed += sizeof(int) + (int)m_Name.length();
 
-    iUsed += sizeof(int) + ((int)m_Controllers.size())*sizeof(ControllerPtr);
+    iUsed += sizeof(int) + ((int)m_Controllers.size())*sizeof(SEControllerPtr);
 
     return iUsed;
 }

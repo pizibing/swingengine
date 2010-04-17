@@ -65,7 +65,7 @@ public:
 private:
     enum { PROGRAM_MAP_SIZE = 256 };
     std::string m_Name;
-    StringHashTable<PixelProgram*> m_Entry;
+    SEStringHashTable<PixelProgram*> m_Entry;
     SEObjectPtr m_spDefaultPProgram;
 
     Renderer* m_pRenderer;

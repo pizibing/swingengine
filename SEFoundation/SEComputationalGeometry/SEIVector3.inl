@@ -19,26 +19,26 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline IVector3::IVector3()
+inline SEIVector3::SEIVector3()
 {
     // the vector is uninitialized
 }
 //----------------------------------------------------------------------------
-inline IVector3::IVector3(const IVector3& rV)
+inline SEIVector3::SEIVector3(const SEIVector3& rV)
 {
     m_aiTuple[0] = rV.m_aiTuple[0];
     m_aiTuple[1] = rV.m_aiTuple[1];
     m_aiTuple[2] = rV.m_aiTuple[2];
 }
 //----------------------------------------------------------------------------
-inline IVector3::IVector3(const TIVector<3>& rV)
+inline SEIVector3::SEIVector3(const SETIVector<3>& rV)
 {
     m_aiTuple[0] = rV[0];
     m_aiTuple[1] = rV[1];
     m_aiTuple[2] = rV[2];
 }
 //----------------------------------------------------------------------------
-inline IVector3::IVector3(const SE_Int64& riX,  const SE_Int64& riY, 
+inline SEIVector3::SEIVector3(const SE_Int64& riX,  const SE_Int64& riY, 
     const SE_Int64& riZ)
 {
     m_aiTuple[0] = riX;
@@ -46,7 +46,7 @@ inline IVector3::IVector3(const SE_Int64& riX,  const SE_Int64& riY,
     m_aiTuple[2] = riZ;
 }
 //----------------------------------------------------------------------------
-inline IVector3& IVector3::operator=(const IVector3& rV)
+inline SEIVector3& SEIVector3::operator=(const SEIVector3& rV)
 {
     m_aiTuple[0] = rV.m_aiTuple[0];
     m_aiTuple[1] = rV.m_aiTuple[1];
@@ -55,7 +55,7 @@ inline IVector3& IVector3::operator=(const IVector3& rV)
     return *this;
 }
 //----------------------------------------------------------------------------
-inline IVector3& IVector3::operator=(const TIVector<3>& rV)
+inline SEIVector3& SEIVector3::operator=(const SETIVector<3>& rV)
 {
     m_aiTuple[0] = rV[0];
     m_aiTuple[1] = rV[1];
@@ -64,52 +64,52 @@ inline IVector3& IVector3::operator=(const TIVector<3>& rV)
     return *this;
 }
 //----------------------------------------------------------------------------
-inline SE_Int64 IVector3::X() const
+inline SE_Int64 SEIVector3::X() const
 {
     return m_aiTuple[0];
 }
 //----------------------------------------------------------------------------
-inline SE_Int64& IVector3::X()
+inline SE_Int64& SEIVector3::X()
 {
     return m_aiTuple[0];
 }
 //----------------------------------------------------------------------------
-inline SE_Int64 IVector3::Y() const
+inline SE_Int64 SEIVector3::Y() const
 {
     return m_aiTuple[1];
 }
 //----------------------------------------------------------------------------
-inline SE_Int64& IVector3::Y()
+inline SE_Int64& SEIVector3::Y()
 {
     return m_aiTuple[1];
 }
 //----------------------------------------------------------------------------
-inline SE_Int64 IVector3::Z() const
+inline SE_Int64 SEIVector3::Z() const
 {
     return m_aiTuple[2];
 }
 //----------------------------------------------------------------------------
-inline SE_Int64& IVector3::Z()
+inline SE_Int64& SEIVector3::Z()
 {
     return m_aiTuple[2];
 }
 //----------------------------------------------------------------------------
-inline SE_Int64 IVector3::Dot(const IVector3& rV) const
+inline SE_Int64 SEIVector3::Dot(const SEIVector3& rV) const
 {
     return m_aiTuple[0]*rV.m_aiTuple[0] + m_aiTuple[1]*rV.m_aiTuple[1] +
         m_aiTuple[2]*rV.m_aiTuple[2];
 }
 //----------------------------------------------------------------------------
-inline IVector3 IVector3::Cross(const IVector3& rV) const
+inline SEIVector3 SEIVector3::Cross(const SEIVector3& rV) const
 {
-    return IVector3(
+    return SEIVector3(
         m_aiTuple[1]*rV.m_aiTuple[2] - m_aiTuple[2]*rV.m_aiTuple[1], 
         m_aiTuple[2]*rV.m_aiTuple[0] - m_aiTuple[0]*rV.m_aiTuple[2], 
         m_aiTuple[0]*rV.m_aiTuple[1] - m_aiTuple[1]*rV.m_aiTuple[0]);
 }
 //----------------------------------------------------------------------------
-inline SE_Int64 IVector3::TripleScalar(const IVector3& rU, 
-    const IVector3& rV) const
+inline SE_Int64 SEIVector3::TripleScalar(const SEIVector3& rU, 
+    const SEIVector3& rV) const
 {
     return Dot(rU.Cross(rV));
 }

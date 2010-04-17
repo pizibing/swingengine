@@ -33,14 +33,14 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20081202
 //----------------------------------------------------------------------------
-class IVector2 : public TIVector<2>
+class SEIVector2 : public SETIVector<2>
 {
 public:
     // construction
-    IVector2(void);
-    IVector2(const IVector2& rV);
-    IVector2(const TIVector<2>& rV);
-    IVector2(const SE_Int64& riX,  const SE_Int64& riY);
+    SEIVector2(void);
+    SEIVector2(const SEIVector2& rV);
+    SEIVector2(const SETIVector<2>& rV);
+    SEIVector2(const SE_Int64& riX,  const SE_Int64& riY);
 
     // member access
     SE_Int64 X(void) const;
@@ -49,20 +49,20 @@ public:
     SE_Int64& Y(void);
 
     // assignment
-    IVector2& operator = (const IVector2& rV);
-    IVector2& operator = (const TIVector<2>& rV);
+    SEIVector2& operator = (const SEIVector2& rV);
+    SEIVector2& operator = (const SETIVector<2>& rV);
 
     // returns Dot(this, V)
-    SE_Int64 Dot(const IVector2& rV) const;
+    SE_Int64 Dot(const SEIVector2& rV) const;
 
     // returns (y, -x)
-    IVector2 Perp(void) const;
+    SEIVector2 Perp(void) const;
 
     // returns Cross((x, y, 0), (V.x, V.y, 0)) = x*V.y - y*V.x
-    SE_Int64 DotPerp(const IVector2& rV) const;
+    SE_Int64 DotPerp(const SEIVector2& rV) const;
 
 protected:
-    using TIVector<2>::m_aiTuple;
+    using SETIVector<2>::m_aiTuple;
 };
 
 #include "SEIVector2.inl"

@@ -19,17 +19,17 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline TriMesh* CollisionRecord::GetMesh()
+inline TriMesh* SECollisionRecord::GetMesh()
 {
     return m_pMesh;
 }
 //----------------------------------------------------------------------------
-inline SEVector3f* CollisionRecord::GetVelocity()
+inline SEVector3f* SECollisionRecord::GetVelocity()
 {
     return m_pVelocity;
 }
 //----------------------------------------------------------------------------
-inline void* CollisionRecord::GetCallbackData()
+inline void* SECollisionRecord::GetCallbackData()
 {
     return m_pvCallbackData;
 }

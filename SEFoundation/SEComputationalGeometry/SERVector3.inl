@@ -20,13 +20,13 @@
 
 //----------------------------------------------------------------------------
 template <int ISIZE>
-RVector3<ISIZE>::RVector3()
+SERVector3<ISIZE>::SERVector3()
 {
     // the vector is uninitialized
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-RVector3<ISIZE>::RVector3(const RVector3& rV)
+SERVector3<ISIZE>::SERVector3(const SERVector3& rV)
 {
     m_aTuple[0] = rV.m_aTuple[0];
     m_aTuple[1] = rV.m_aTuple[1];
@@ -35,7 +35,7 @@ RVector3<ISIZE>::RVector3(const RVector3& rV)
 //----------------------------------------------------------------------------
 #ifndef SE_USING_VC70
 template <int ISIZE>
-RVector3<ISIZE>::RVector3(const TRVector<3,  ISIZE>& rV)
+SERVector3<ISIZE>::SERVector3(const SETRVector<3,  ISIZE>& rV)
 {
     m_aTuple[0] = rV[0];
     m_aTuple[1] = rV[1];
@@ -44,8 +44,8 @@ RVector3<ISIZE>::RVector3(const TRVector<3,  ISIZE>& rV)
 #endif
 //----------------------------------------------------------------------------
 template <int ISIZE>
-RVector3<ISIZE>::RVector3(const TRational<ISIZE>& rX, 
-    const TRational<ISIZE>& rY,  const TRational<ISIZE>& rZ)
+SERVector3<ISIZE>::SERVector3(const SETRational<ISIZE>& rX, 
+    const SETRational<ISIZE>& rY,  const SETRational<ISIZE>& rZ)
 {
     m_aTuple[0] = rX;
     m_aTuple[1] = rY;
@@ -53,7 +53,7 @@ RVector3<ISIZE>::RVector3(const TRational<ISIZE>& rX,
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-RVector3<ISIZE>& RVector3<ISIZE>::operator=(const RVector3& rV)
+SERVector3<ISIZE>& SERVector3<ISIZE>::operator=(const SERVector3& rV)
 {
     m_aTuple[0] = rV.m_aTuple[0];
     m_aTuple[1] = rV.m_aTuple[1];
@@ -64,7 +64,7 @@ RVector3<ISIZE>& RVector3<ISIZE>::operator=(const RVector3& rV)
 //----------------------------------------------------------------------------
 #ifndef SE_USING_VC70
 template <int ISIZE>
-RVector3<ISIZE>& RVector3<ISIZE>::operator=(const TRVector<3,  ISIZE>& rV)
+SERVector3<ISIZE>& SERVector3<ISIZE>::operator=(const SETRVector<3,  ISIZE>& rV)
 {
     m_aTuple[0] = rV[0];
     m_aTuple[1] = rV[1];
@@ -75,60 +75,60 @@ RVector3<ISIZE>& RVector3<ISIZE>::operator=(const TRVector<3,  ISIZE>& rV)
 #endif
 //----------------------------------------------------------------------------
 template <int ISIZE>
-TRational<ISIZE> RVector3<ISIZE>::X() const
+SETRational<ISIZE> SERVector3<ISIZE>::X() const
 {
     return m_aTuple[0];
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-TRational<ISIZE>& RVector3<ISIZE>::X()
+SETRational<ISIZE>& SERVector3<ISIZE>::X()
 {
     return m_aTuple[0];
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-TRational<ISIZE> RVector3<ISIZE>::Y() const
+SETRational<ISIZE> SERVector3<ISIZE>::Y() const
 {
     return m_aTuple[1];
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-TRational<ISIZE>& RVector3<ISIZE>::Y()
+SETRational<ISIZE>& SERVector3<ISIZE>::Y()
 {
     return m_aTuple[1];
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-TRational<ISIZE> RVector3<ISIZE>::Z() const
+SETRational<ISIZE> SERVector3<ISIZE>::Z() const
 {
     return m_aTuple[2];
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-TRational<ISIZE>& RVector3<ISIZE>::Z()
+SETRational<ISIZE>& SERVector3<ISIZE>::Z()
 {
     return m_aTuple[2];
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-TRational<ISIZE> RVector3<ISIZE>::Dot(const RVector3& rV) const
+SETRational<ISIZE> SERVector3<ISIZE>::Dot(const SERVector3& rV) const
 {
     return m_aTuple[0]*rV.m_aTuple[0] + m_aTuple[1]*rV.m_aTuple[1] +
         m_aTuple[2]*rV.m_aTuple[2];
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-RVector3<ISIZE> RVector3<ISIZE>::Cross(const RVector3& rV) const
+SERVector3<ISIZE> SERVector3<ISIZE>::Cross(const SERVector3& rV) const
 {
-    return RVector3<ISIZE>(
+    return SERVector3<ISIZE>(
         m_aTuple[1]*rV.m_aTuple[2] - m_aTuple[2]*rV.m_aTuple[1], 
         m_aTuple[2]*rV.m_aTuple[0] - m_aTuple[0]*rV.m_aTuple[2], 
         m_aTuple[0]*rV.m_aTuple[1] - m_aTuple[1]*rV.m_aTuple[0]);
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-TRational<ISIZE> RVector3<ISIZE>::TripleScalar(const RVector3& rU, 
-    const RVector3& rV) const
+SETRational<ISIZE> SERVector3<ISIZE>::TripleScalar(const SERVector3& rU, 
+    const SERVector3& rV) const
 {
     return Dot(rU.Cross(rV));
 }

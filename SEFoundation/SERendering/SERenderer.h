@@ -72,7 +72,7 @@ public:
     // Abstract base class.
     virtual ~Renderer(void);
 
-    // SERTTI.
+    // RTTI.
     enum
     {
         OPENGL,

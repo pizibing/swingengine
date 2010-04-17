@@ -28,21 +28,21 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Query3Int64f类
+// 名称:Query3 Int64f类
 // 说明:
 // 作者:Sun Che
 // 时间:20081202
 //----------------------------------------------------------------------------
-class Query3Int64f : public Query3f
+class SEQuery3Int64f : public SEQuery3f
 {
 public:
     // The components of the input vertices are truncated to 64-bit integer
     // values, so you should guarantee that the vertices are sufficiently
     // large to give a good distribution of numbers.
-    Query3Int64f(int iVCount, const SEVector3f* aVertex);
+    SEQuery3Int64f(int iVCount, const SEVector3f* aVertex);
 
     // run-time type information
-    virtual Query::Type GetType(void) const;
+    virtual SEQuery::Type GetType(void) const;
 
     // Queries about the relation of a point to various geometric objects.
 

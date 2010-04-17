@@ -19,47 +19,47 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline bool BasicMesh::IsValid() const
+inline bool SEBasicMesh::IsValid() const
 {
     return m_bIsValid;
 }
 //----------------------------------------------------------------------------
-inline int BasicMesh::GetVCount() const
+inline int SEBasicMesh::GetVCount() const
 {
     return m_iVCount;
 }
 //----------------------------------------------------------------------------
-inline int BasicMesh::GetECount() const
+inline int SEBasicMesh::GetECount() const
 {
     return m_iECount;
 }
 //----------------------------------------------------------------------------
-inline int BasicMesh::GetTCount() const
+inline int SEBasicMesh::GetTCount() const
 {
     return m_iTCount;
 }
 //----------------------------------------------------------------------------
-inline const void* BasicMesh::GetPoints() const
+inline const void* SEBasicMesh::GetPoints() const
 {
     return m_aPoint;
 }
 //----------------------------------------------------------------------------
-inline const int* BasicMesh::GetIndices() const
+inline const int* SEBasicMesh::GetIndices() const
 {
     return m_aiIndex;
 }
 //----------------------------------------------------------------------------
-inline const BasicMesh::Vertex* BasicMesh::GetVertices() const
+inline const SEBasicMesh::SEBMVertex* SEBasicMesh::GetVertices() const
 {
     return m_aVertex;
 }
 //----------------------------------------------------------------------------
-inline const BasicMesh::Edge* BasicMesh::GetEdges() const
+inline const SEBasicMesh::SEBMEdge* SEBasicMesh::GetEdges() const
 {
     return m_aEdge;
 }
 //----------------------------------------------------------------------------
-inline const BasicMesh::Triangle* BasicMesh::GetTriangles() const
+inline const SEBasicMesh::SEBMTriangle* SEBasicMesh::GetTriangles() const
 {
     return m_aTriangle;
 }

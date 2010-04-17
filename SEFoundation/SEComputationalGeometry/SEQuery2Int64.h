@@ -28,21 +28,21 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Query2Int64f类
+// 名称:Query2 Int64f类
 // 说明:
 // 作者:Sun Che
 // 时间:20081202
 //----------------------------------------------------------------------------
-class Query2Int64f : public Query2f
+class SEQuery2Int64f : public SEQuery2f
 {
 public:
     // The components of the input vertices are truncated to 64-bit integer
     // values, so you should guarantee that the vertices are sufficiently
     // large to give a good distribution of numbers.
-    Query2Int64f(int iVCount, const SEVector2f* aVertex);
+    SEQuery2Int64f(int iVCount, const SEVector2f* aVertex);
 
     // run-time type information
-    virtual Query::Type GetType(void) const;
+    virtual SEQuery::Type GetType(void) const;
 
     // Queries about the relation of a point to various geometric objects.
 

@@ -25,14 +25,14 @@
 
 using namespace Swing;
 
-BoundingVolumeTree::CreatorM
-BoundingVolumeTree::ms_aoCreateModelBound[BoundingVolume::BV_COUNT];
+SEBoundingVolumeTree::CreatorM
+SEBoundingVolumeTree::ms_aoCreateModelBound[BoundingVolume::BV_COUNT];
 
-BoundingVolumeTree::CreatorW
-BoundingVolumeTree::ms_aoCreateWorldBound[BoundingVolume::BV_COUNT];
+SEBoundingVolumeTree::CreatorW
+SEBoundingVolumeTree::ms_aoCreateWorldBound[BoundingVolume::BV_COUNT];
 
 //----------------------------------------------------------------------------
-BoundingVolumeTree::BoundingVolumeTree(const TriMesh* pMesh)
+SEBoundingVolumeTree::SEBoundingVolumeTree(const TriMesh* pMesh)
 {
     m_pMesh = pMesh;
     m_pLChild = 0;
@@ -41,7 +41,7 @@ BoundingVolumeTree::BoundingVolumeTree(const TriMesh* pMesh)
     m_aiTriangle = 0;
 }
 //----------------------------------------------------------------------------
-BoundingVolumeTree::BoundingVolumeTree(int eBVType, const TriMesh* pMesh,
+SEBoundingVolumeTree::SEBoundingVolumeTree(int eBVType, const TriMesh* pMesh,
     int iMaxTrisPerLeaf, bool bStoreInteriorTris)
     :
     m_pMesh(pMesh)
@@ -91,14 +91,14 @@ BoundingVolumeTree::BoundingVolumeTree(int eBVType, const TriMesh* pMesh,
 #endif
 }
 //----------------------------------------------------------------------------
-BoundingVolumeTree::~BoundingVolumeTree()
+SEBoundingVolumeTree::~SEBoundingVolumeTree()
 {
     SE_DELETE[] m_aiTriangle;
     SE_DELETE m_pLChild;
     SE_DELETE m_pRChild;
 }
 //----------------------------------------------------------------------------
-void BoundingVolumeTree::BuildTree(int eBVType, int iMaxTrisPerLeaf,
+void SEBoundingVolumeTree::BuildTree(int eBVType, int iMaxTrisPerLeaf,
     bool bStoreInteriorTris, const SEVector3f* aCentroid, int i0, int i1,
     int* aiISplit, int* aiOSplit)
 {
@@ -140,18 +140,18 @@ void BoundingVolumeTree::BuildTree(int eBVType, int iMaxTrisPerLeaf,
         SplitTriangles(aCentroid, i0, i1, aiISplit, j0, j1, aiOSplit, tempLine);
 
         // 左边区间的所有三角面用来继续构建左子树.
-        m_pLChild = SE_NEW BoundingVolumeTree(m_pMesh);
+        m_pLChild = SE_NEW SEBoundingVolumeTree(m_pMesh);
         m_pLChild->BuildTree(eBVType, iMaxTrisPerLeaf, bStoreInteriorTris,
             aCentroid, i0, j0, aiOSplit, aiISplit);
 
         // 右边区间的所有三角面用来继续构建右子树.
-        m_pRChild = SE_NEW BoundingVolumeTree(m_pMesh);
+        m_pRChild = SE_NEW SEBoundingVolumeTree(m_pMesh);
         m_pRChild->BuildTree(eBVType, iMaxTrisPerLeaf, bStoreInteriorTris,
             aCentroid, j1, i1, aiOSplit, aiISplit);
     }
 }
 //----------------------------------------------------------------------------
-int BoundingVolumeTree::Compare(const void* pvElement0,
+int SEBoundingVolumeTree::Compare(const void* pvElement0,
     const void* pvElement1)
 {
     const ProjectionInfo* pInfo0 = (const ProjectionInfo*)pvElement0;
@@ -170,7 +170,7 @@ int BoundingVolumeTree::Compare(const void* pvElement0,
     return 0;
 }
 //----------------------------------------------------------------------------
-void BoundingVolumeTree::SplitTriangles(const SEVector3f* aCentroid,
+void SEBoundingVolumeTree::SplitTriangles(const SEVector3f* aCentroid,
     int i0, int i1, int* aiISplit, int& rj0, int& rj1, int* aiOSplit,
     const SELine3f& rLine)
 {
@@ -205,7 +205,7 @@ void BoundingVolumeTree::SplitTriangles(const SEVector3f* aCentroid,
     SE_DELETE[] aInfo;
 }
 //----------------------------------------------------------------------------
-void BoundingVolumeTree::UpdateWorldBound()
+void SEBoundingVolumeTree::UpdateWorldBound()
 {
     m_spModelBound->TransformBy(m_pMesh->World, m_spWorldBound);
 }
@@ -213,7 +213,7 @@ void BoundingVolumeTree::UpdateWorldBound()
 
 #ifdef _DEBUG_TEST
 
-bool BoundingVolumeTree::ContainsLeafData(const VertexBuffer* pVBuffer,
+bool SEBoundingVolumeTree::ContainsLeafData(const VertexBuffer* pVBuffer,
     const int* aiIndex, float fEpsilon) const
 {
     if( m_pLChild )

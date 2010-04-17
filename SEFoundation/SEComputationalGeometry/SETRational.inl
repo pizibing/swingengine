@@ -20,7 +20,7 @@
 
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N>::TRational()
+SETRational<N>::SETRational()
     :
     m_Numer(0), 
     m_Denom(1)
@@ -29,7 +29,7 @@ TRational<N>::TRational()
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N>::TRational(const TRational& rR)
+SETRational<N>::SETRational(const SETRational& rR)
     :
     m_Numer(rR.m_Numer), 
     m_Denom(rR.m_Denom)
@@ -37,7 +37,7 @@ TRational<N>::TRational(const TRational& rR)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N>::TRational(const TInteger<N>& rNumer)
+SETRational<N>::SETRational(const SETInteger<N>& rNumer)
     :
     m_Numer(rNumer), 
     m_Denom(1)
@@ -45,8 +45,8 @@ TRational<N>::TRational(const TInteger<N>& rNumer)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N>::TRational(const TInteger<N>& rNumer, 
-    const TInteger<N>& rDenom)
+SETRational<N>::SETRational(const SETInteger<N>& rNumer, 
+    const SETInteger<N>& rDenom)
     :
     m_Numer(rNumer), 
     m_Denom(rDenom)
@@ -54,7 +54,7 @@ TRational<N>::TRational(const TInteger<N>& rNumer,
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N>::TRational(int iNumer)
+SETRational<N>::SETRational(int iNumer)
     :
     m_Numer(iNumer), 
     m_Denom(1)
@@ -62,7 +62,7 @@ TRational<N>::TRational(int iNumer)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N>::TRational(int iNumer,  int iDenom)
+SETRational<N>::SETRational(int iNumer,  int iDenom)
     :
     m_Numer(iNumer), 
     m_Denom(iDenom)
@@ -70,31 +70,31 @@ TRational<N>::TRational(int iNumer,  int iDenom)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N>& TRational<N>::Numer()
+SETInteger<N>& SETRational<N>::Numer()
 {
     return m_Numer;
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N>& TRational<N>::Denom()
+SETInteger<N>& SETRational<N>::Denom()
 {
     return m_Denom;
 }
 //----------------------------------------------------------------------------
 template <int N>
-const TInteger<N>& TRational<N>::Numer() const
+const SETInteger<N>& SETRational<N>::Numer() const
 {
     return m_Numer;
 }
 //----------------------------------------------------------------------------
 template <int N>
-const TInteger<N>& TRational<N>::Denom() const
+const SETInteger<N>& SETRational<N>::Denom() const
 {
     return m_Denom;
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N>& TRational<N>::operator=(const TRational& rR)
+SETRational<N>& SETRational<N>::operator=(const SETRational& rR)
 {
     m_Numer = rR.m_Numer;
     m_Denom = rR.m_Denom;
@@ -103,22 +103,22 @@ TRational<N>& TRational<N>::operator=(const TRational& rR)
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool TRational<N>::operator==(const TRational& rR) const
+bool SETRational<N>::operator==(const SETRational& rR) const
 {
     return (m_Numer*rR.m_Denom == m_Denom*rR.m_Numer);
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool TRational<N>::operator!=(const TRational& rR) const
+bool SETRational<N>::operator!=(const SETRational& rR) const
 {
     return (m_Numer*rR.m_Denom != m_Denom*rR.m_Numer);
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool TRational<N>::operator<=(const TRational& rR) const
+bool SETRational<N>::operator<=(const SETRational& rR) const
 {
-    TInteger<N> tempProd0 = m_Numer * rR.m_Denom;
-    TInteger<N> tempProd1 = m_Denom * rR.m_Numer;
+    SETInteger<N> tempProd0 = m_Numer * rR.m_Denom;
+    SETInteger<N> tempProd1 = m_Denom * rR.m_Numer;
     if( m_Denom > 0 )
     {
         return (rR.m_Denom > 0 ? tempProd0 <= tempProd1 : tempProd0 >= tempProd1);
@@ -130,10 +130,10 @@ bool TRational<N>::operator<=(const TRational& rR) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool TRational<N>::operator<(const TRational& rR) const
+bool SETRational<N>::operator<(const SETRational& rR) const
 {
-    TInteger<N> tempProd0 = m_Numer * rR.m_Denom;
-    TInteger<N> tempProd1 = m_Denom * rR.m_Numer;
+    SETInteger<N> tempProd0 = m_Numer * rR.m_Denom;
+    SETInteger<N> tempProd1 = m_Denom * rR.m_Numer;
     if( m_Denom > 0 )
     {
         return (rR.m_Denom > 0 ? tempProd0 < tempProd1 : tempProd0 > tempProd1);
@@ -145,10 +145,10 @@ bool TRational<N>::operator<(const TRational& rR) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool TRational<N>::operator>=(const TRational& rR) const
+bool SETRational<N>::operator>=(const SETRational& rR) const
 {
-    TInteger<N> tempProd0 = m_Numer * rR.m_Denom;
-    TInteger<N> tempProd1 = m_Denom * rR.m_Numer;
+    SETInteger<N> tempProd0 = m_Numer * rR.m_Denom;
+    SETInteger<N> tempProd1 = m_Denom * rR.m_Numer;
     if( m_Denom > 0 )
     {
         return (rR.m_Denom > 0 ? tempProd0 >= tempProd1 : tempProd0 <= tempProd1);
@@ -160,10 +160,10 @@ bool TRational<N>::operator>=(const TRational& rR) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool TRational<N>::operator>(const TRational& rR) const
+bool SETRational<N>::operator>(const SETRational& rR) const
 {
-    TInteger<N> tempProd0 = m_Numer * rR.m_Denom;
-    TInteger<N> tempProd1 = m_Denom * rR.m_Numer;
+    SETInteger<N> tempProd0 = m_Numer * rR.m_Denom;
+    SETInteger<N> tempProd1 = m_Denom * rR.m_Numer;
     if( m_Denom > 0 )
     {
         return (rR.m_Denom > 0 ? tempProd0 > tempProd1 : tempProd0 < tempProd1);
@@ -175,9 +175,9 @@ bool TRational<N>::operator>(const TRational& rR) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N> TRational<N>::operator+(const TRational& rR) const
+SETRational<N> SETRational<N>::operator+(const SETRational& rR) const
 {
-    TRational tempSum;
+    SETRational tempSum;
     tempSum.m_Numer = m_Numer*rR.m_Denom + m_Denom*rR.m_Numer;
     tempSum.m_Denom = m_Denom * rR.m_Denom;
     tempSum.EliminatePowersOfTwo();
@@ -186,9 +186,9 @@ TRational<N> TRational<N>::operator+(const TRational& rR) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N> TRational<N>::operator-(const TRational& rR) const
+SETRational<N> SETRational<N>::operator-(const SETRational& rR) const
 {
-    TRational tempDiff;
+    SETRational tempDiff;
     tempDiff.m_Numer = m_Numer*rR.m_Denom - m_Denom*rR.m_Numer;
     tempDiff.m_Denom = m_Denom * rR.m_Denom;
     tempDiff.EliminatePowersOfTwo();
@@ -197,9 +197,9 @@ TRational<N> TRational<N>::operator-(const TRational& rR) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N> TRational<N>::operator*(const TRational& rR) const
+SETRational<N> SETRational<N>::operator*(const SETRational& rR) const
 {
-    TRational tempProd;
+    SETRational tempProd;
     tempProd.m_Numer = m_Numer * rR.m_Numer;
     tempProd.m_Denom = m_Denom * rR.m_Denom;
     tempProd.EliminatePowersOfTwo();
@@ -208,9 +208,9 @@ TRational<N> TRational<N>::operator*(const TRational& rR) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N> TRational<N>::operator/(const TRational& rR) const
+SETRational<N> SETRational<N>::operator/(const SETRational& rR) const
 {
-    TRational tempQuot;
+    SETRational tempQuot;
     tempQuot.m_Numer = m_Numer * rR.m_Denom;
     tempQuot.m_Denom = m_Denom * rR.m_Numer;
     tempQuot.EliminatePowersOfTwo();
@@ -219,9 +219,9 @@ TRational<N> TRational<N>::operator/(const TRational& rR) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N> TRational<N>::operator-() const
+SETRational<N> SETRational<N>::operator-() const
 {
-    TRational tempNeg;
+    SETRational tempNeg;
     tempNeg.m_Numer = -m_Numer;
     tempNeg.m_Denom = m_Denom;
 
@@ -229,9 +229,9 @@ TRational<N> TRational<N>::operator-() const
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N> operator+(const TInteger<N>& rI,  const TRational<N>& rR)
+SETRational<N> operator+(const SETInteger<N>& rI,  const SETRational<N>& rR)
 {
-    TRational<N> tempSum;
+    SETRational<N> tempSum;
     tempSum.Numer() = rI*rR.Denom() + rR.Numer();
     tempSum.Denom() = rR.Denom();
 
@@ -239,9 +239,9 @@ TRational<N> operator+(const TInteger<N>& rI,  const TRational<N>& rR)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N> operator-(const TInteger<N>& rI,  const TRational<N>& rR)
+SETRational<N> operator-(const SETInteger<N>& rI,  const SETRational<N>& rR)
 {
-    TRational<N> tempDiff;
+    SETRational<N> tempDiff;
     tempDiff.Numer() = rI*rR.Denom() - rR.Numer();
     tempDiff.Denom() = rR.Denom();
 
@@ -249,9 +249,9 @@ TRational<N> operator-(const TInteger<N>& rI,  const TRational<N>& rR)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N> operator*(const TInteger<N>& rI,  const TRational<N>& rR)
+SETRational<N> operator*(const SETInteger<N>& rI,  const SETRational<N>& rR)
 {
-    TRational<N> tempProd;
+    SETRational<N> tempProd;
     tempProd.Numer() = rI*rR.Numer();
     tempProd.Denom() = rR.Denom();
 
@@ -259,9 +259,9 @@ TRational<N> operator*(const TInteger<N>& rI,  const TRational<N>& rR)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N> operator/(const TInteger<N>& rI,  const TRational<N>& rR)
+SETRational<N> operator/(const SETInteger<N>& rI,  const SETRational<N>& rR)
 {
-    TRational<N> tempQuot;
+    SETRational<N> tempQuot;
     tempQuot.Numer() = rR.Denom()*rI;
     tempQuot.Denom() = rR.Numer();
 
@@ -269,7 +269,7 @@ TRational<N> operator/(const TInteger<N>& rI,  const TRational<N>& rR)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N>& TRational<N>::operator+=(const TRational& rR)
+SETRational<N>& SETRational<N>::operator+=(const SETRational& rR)
 {
     *this = *this + rR;
     EliminatePowersOfTwo();
@@ -278,7 +278,7 @@ TRational<N>& TRational<N>::operator+=(const TRational& rR)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N>& TRational<N>::operator-=(const TRational& rR)
+SETRational<N>& SETRational<N>::operator-=(const SETRational& rR)
 {
     *this = *this - rR;
     EliminatePowersOfTwo();
@@ -287,7 +287,7 @@ TRational<N>& TRational<N>::operator-=(const TRational& rR)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N>& TRational<N>::operator*=(const TRational& rR)
+SETRational<N>& SETRational<N>::operator*=(const SETRational& rR)
 {
     *this = (*this)*rR;
     EliminatePowersOfTwo();
@@ -296,7 +296,7 @@ TRational<N>& TRational<N>::operator*=(const TRational& rR)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N>& TRational<N>::operator/=(const TRational& rR)
+SETRational<N>& SETRational<N>::operator/=(const SETRational& rR)
 {
     *this = (*this)/rR;
     EliminatePowersOfTwo();
@@ -305,13 +305,13 @@ TRational<N>& TRational<N>::operator/=(const TRational& rR)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N> TRational<N>::Abs() const
+SETRational<N> SETRational<N>::Abs() const
 {
     return (*this >= 0 ? *this : -(*this));
 }
 //----------------------------------------------------------------------------
 template <int N>
-void TRational<N>::EliminatePowersOfTwo()
+void SETRational<N>::EliminatePowersOfTwo()
 {
     if( (m_Numer.m_asBuffer[0] & 1) > 0
     ||  (m_Denom.m_asBuffer[0] & 1) > 0 )
@@ -346,13 +346,13 @@ void TRational<N>::EliminatePowersOfTwo()
 // conversions between rational numbers and 'float'
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N>::TRational(float fValue)
+SETRational<N>::SETRational(float fValue)
 {
-    TInteger<N> tempOne(1);
+    SETInteger<N> tempOne(1);
     m_Denom = tempOne;
     if( fValue == 0.0f )
     {
-        m_Numer = TInteger<N>(0);
+        m_Numer = SETInteger<N>(0);
 
         return;
     }
@@ -364,8 +364,8 @@ TRational<N>::TRational(float fValue)
     unsigned int uiMantissa = (0x007FFFFF & uiBits);
 
     // create 1.mantissa
-    TRational tempFraction(1,  2);
-    TInteger<N> tempTwo(2);
+    SETRational tempFraction(1,  2);
+    SETInteger<N> tempTwo(2);
     m_Numer = tempOne;
     unsigned int uiMask;
     for( uiMask = 0x00400000; uiMask; uiMask >>= 1,  tempFraction /= tempTwo )
@@ -377,8 +377,8 @@ TRational<N>::TRational(float fValue)
     }
 
     // multiply by 2^exponent
-    TRational tempMultiplier;
-    TInteger<N> tempPower(2);
+    SETRational tempMultiplier;
+    SETInteger<N> tempPower(2);
     int i,  iDelay = 0;
     if( uiExponent & 0x00000080 )
     {
@@ -426,7 +426,7 @@ TRational<N>::TRational(float fValue)
 }
 //----------------------------------------------------------------------------
 template <int N>
-void TRational<N>::ConvertTo(float& rfValue) const
+void SETRational<N>::ConvertTo(float& rfValue) const
 {
     SE_ASSERT(m_Denom != 0);
 
@@ -441,13 +441,13 @@ void TRational<N>::ConvertTo(float& rfValue) const
     // compute the sign of the number
     int iS0 = m_Numer.GetSign(),  iS1 = m_Denom.GetSign();
     int iSign = iS0 * iS1;
-    TInteger<N> tempAbsNumer = iS0 * m_Numer;
-    TInteger<N> tempAbsDenom = iS1 * m_Denom;
+    SETInteger<N> tempAbsNumer = iS0 * m_Numer;
+    SETInteger<N> tempAbsDenom = iS1 * m_Denom;
 
     // The rational number is N/D = Q + R/D.  We need to extract 24 bits for
     // 1.mantissa and determine the biased exponent.
-    TInteger<N> tempQuo,  tempRem;
-    bool bSuccess = TInteger<N>::GetDivMod(tempAbsNumer,  tempAbsDenom,  
+    SETInteger<N> tempQuo,  tempRem;
+    bool bSuccess = SETInteger<N>::GetDivMod(tempAbsNumer,  tempAbsDenom,  
         tempQuo,  tempRem);
     SE_ASSERT( bSuccess );
 
@@ -515,8 +515,8 @@ void TRational<N>::ConvertTo(float& rfValue) const
         // term of N=16.  The smaller multipliers keep the intermediate terms
         // small.
         tempRem *= 0x10000;
-        TInteger<N> tempNRem;
-        bSuccess = TInteger<N>::GetDivMod(tempRem,  tempAbsDenom,  
+        SETInteger<N> tempNRem;
+        bSuccess = SETInteger<N>::GetDivMod(tempRem,  tempAbsDenom,  
             tempQuo,  tempNRem);
         SE_ASSERT( bSuccess );
 
@@ -564,8 +564,8 @@ void TRational<N>::ConvertTo(float& rfValue) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-void TRational<N>::GetPositiveFloat(const TInteger<N>& rDenom, 
-    TInteger<N>& rQuo,  TInteger<N>& rRem,  int iBlock, 
+void SETRational<N>::GetPositiveFloat(const SETInteger<N>& rDenom, 
+    SETInteger<N>& rQuo,  SETInteger<N>& rRem,  int iBlock, 
     unsigned int& ruiExponent,  unsigned int& ruiMantissa)
 {
     // SE_ASSERT( rDenom > 0 && rQuo > 0 );
@@ -603,8 +603,8 @@ void TRational<N>::GetPositiveFloat(const TInteger<N>& rDenom,
         for( /**/; uiMask; uiMask >>= 1 )
         {
             rRem *= 2;
-            TInteger<N> tempNRem;
-            bool bSuccess = TInteger<N>::GetDivMod(rRem,  rDenom,  
+            SETInteger<N> tempNRem;
+            bool bSuccess = SETInteger<N>::GetDivMod(rRem,  rDenom,  
                 rQuo,  tempNRem);
             SE_ASSERT( bSuccess );
             (void)bSuccess;  // avoid compiler warning in release build
@@ -622,13 +622,13 @@ void TRational<N>::GetPositiveFloat(const TInteger<N>& rDenom,
 // conversions between rational numbers and 'double'
 //----------------------------------------------------------------------------
 template <int N>
-TRational<N>::TRational(double dValue)
+SETRational<N>::SETRational(double dValue)
 {
-    TInteger<N> tempOne(1);
+    SETInteger<N> tempOne(1);
     m_Denom = tempOne;
     if( dValue == 0.0 )
     {
-        m_Numer = TInteger<N>(0);
+        m_Numer = SETInteger<N>(0);
 
         return;
     }
@@ -646,8 +646,8 @@ TRational<N>::TRational(double dValue)
     unsigned int uiMantissaLo = auiBits[0];
 
     // create 1.mantissa
-    TRational tempFraction(1, 2);
-    TInteger<N> tempTwo(2);
+    SETRational tempFraction(1, 2);
+    SETInteger<N> tempTwo(2);
     m_Numer = tempOne;
     unsigned int uiMask;
     for( uiMask = 0x00080000; uiMask; uiMask >>= 1,  tempFraction /= tempTwo )
@@ -666,8 +666,8 @@ TRational<N>::TRational(double dValue)
     }
 
     // multiply by 2^exponent
-    TRational tempMultiplier;
-    TInteger<N> tempPower(2);
+    SETRational tempMultiplier;
+    SETInteger<N> tempPower(2);
     int i,  iDelay = 0;
     if( uiExponent & 0x400 )
     {
@@ -715,7 +715,7 @@ TRational<N>::TRational(double dValue)
 }
 //----------------------------------------------------------------------------
 template <int N>
-void TRational<N>::ConvertTo(double& rdValue) const
+void SETRational<N>::ConvertTo(double& rdValue) const
 {
     SE_ASSERT( m_Denom != 0 );
 
@@ -731,13 +731,13 @@ void TRational<N>::ConvertTo(double& rdValue) const
     // compute the sign of the number
     int iS0 = m_Numer.GetSign(),  iS1 = m_Denom.GetSign();
     int iSign = iS0 * iS1;
-    TInteger<N> tempAbsNumer = iS0 * m_Numer;
-    TInteger<N> tempAbsDenom = iS1 * m_Denom;
+    SETInteger<N> tempAbsNumer = iS0 * m_Numer;
+    SETInteger<N> tempAbsDenom = iS1 * m_Denom;
 
     // The rational number is N/D = Q + R/D.  We need to extract 53 bits for
     // 1.mantissa and determine the biased exponent.
-    TInteger<N> tempQuo,  tempRem;
-    bool bSuccess = TInteger<N>::GetDivMod(tempAbsNumer,  tempAbsDenom,  
+    SETInteger<N> tempQuo,  tempRem;
+    bool bSuccess = SETInteger<N>::GetDivMod(tempAbsNumer,  tempAbsDenom,  
         tempQuo,  tempRem);
     SE_ASSERT( bSuccess );
 
@@ -837,8 +837,8 @@ void TRational<N>::ConvertTo(double& rdValue) const
         // term of large N.  The smaller multipliers keep the intermediate
         // terms small.
         tempRem *= 0x10000;
-        TInteger<N> tempNRem;
-        bSuccess = TInteger<N>::GetDivMod(tempRem,  tempAbsDenom,  
+        SETInteger<N> tempNRem;
+        bSuccess = SETInteger<N>::GetDivMod(tempRem,  tempAbsDenom,  
             tempQuo,  tempNRem);
         SE_ASSERT( bSuccess );
 
@@ -904,8 +904,8 @@ void TRational<N>::ConvertTo(double& rdValue) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-void TRational<N>::GetPositiveDouble(const TInteger<N>& rDenom, 
-    TInteger<N>& rQuo,  TInteger<N>& rRem,  int iBlock, 
+void SETRational<N>::GetPositiveDouble(const SETInteger<N>& rDenom, 
+    SETInteger<N>& rQuo,  SETInteger<N>& rRem,  int iBlock, 
     unsigned int& ruiExponent,  unsigned int& ruiMantissaHi, 
     unsigned int& ruiMantissaLo)
 {
@@ -964,14 +964,14 @@ void TRational<N>::GetPositiveDouble(const TInteger<N>& rDenom,
         }
 
         // remainder contribution to 1.mantissa
-        TInteger<N> tempNRem;
+        SETInteger<N> tempNRem;
         bool bSuccess;
         if( bUsingHi )
         {
             for( /**/; uiMask; uiMask >>= 1 )
             {
                 rRem *= 2;
-                bSuccess = TInteger<N>::GetDivMod(rRem,  rDenom,  
+                bSuccess = SETInteger<N>::GetDivMod(rRem,  rDenom,  
                     rQuo,  tempNRem);
                 SE_ASSERT( bSuccess );
 
@@ -985,7 +985,7 @@ void TRational<N>::GetPositiveDouble(const TInteger<N>& rDenom,
             for( uiMask = 0x80000000u; uiMask; uiMask >>= 1 )
             {
                 rRem *= 2;
-                bSuccess = TInteger<N>::GetDivMod(rRem,  rDenom,  
+                bSuccess = SETInteger<N>::GetDivMod(rRem,  rDenom,  
                     rQuo,  tempNRem);
                 SE_ASSERT( bSuccess );
 
@@ -1001,7 +1001,7 @@ void TRational<N>::GetPositiveDouble(const TInteger<N>& rDenom,
             for( /**/; uiMask; uiMask >>= 1 )
             {
                 rRem *= 2;
-                bSuccess = TInteger<N>::GetDivMod(rRem,  rDenom,  
+                bSuccess = SETInteger<N>::GetDivMod(rRem,  rDenom,  
                     rQuo,  tempNRem);
                 SE_ASSERT( bSuccess );
 

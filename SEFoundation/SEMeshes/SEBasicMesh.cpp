@@ -25,7 +25,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-BasicMesh::BasicMesh(int iVCount, const void* aPoint, int iTCount,
+SEBasicMesh::SEBasicMesh(int iVCount, const void* aPoint, int iTCount,
     const int* aiIndex)
 {
     SE_ASSERT( iVCount > 0 && iTCount > 0 && aiIndex );
@@ -53,14 +53,14 @@ BasicMesh::BasicMesh(int iVCount, const void* aPoint, int iTCount,
     m_bIsValid = true;
 
     // 根据传入数据动态创建triangle mesh.
-    m_aVertex = SE_NEW Vertex[m_iVCount];
-    m_aEdge = SE_NEW Edge[3*m_iTCount];
-    m_aTriangle = SE_NEW Triangle[m_iTCount];
-    std::map<EdgeKey, int> tempEMap;
+    m_aVertex = SE_NEW SEBMVertex[m_iVCount];
+    m_aEdge = SE_NEW SEBMEdge[3*m_iTCount];
+    m_aTriangle = SE_NEW SEBMTriangle[m_iTCount];
+    std::map<SEEdgeKey, int> tempEMap;
     for( int iT = 0; iT < m_iTCount; iT++ )
     {
         // 更新triangle.
-        Triangle& rTriangle = m_aTriangle[iT];
+        SEBMTriangle& rTriangle = m_aTriangle[iT];
         rTriangle.V[0] = *aiIndex++;
         rTriangle.V[1] = *aiIndex++;
         rTriangle.V[2] = *aiIndex++;
@@ -71,15 +71,15 @@ BasicMesh::BasicMesh(int iVCount, const void* aPoint, int iTCount,
             // 更新vertices.
             m_aVertex[rTriangle.V[i1]].InsertTriangle(iT);
 
-            EdgeKey tempKey(rTriangle.V[i0], rTriangle.V[i1]);
-            std::map<EdgeKey, int>::iterator tempEIter = tempEMap.find(tempKey);
+            SEEdgeKey tempKey(rTriangle.V[i0], rTriangle.V[i1]);
+            std::map<SEEdgeKey, int>::iterator tempEIter = tempEMap.find(tempKey);
             if( tempEIter == tempEMap.end() )
             {
                 // 第一次遇到该edge.
                 tempEMap[tempKey] = m_iECount;
 
                 // 更新edge.
-                Edge& rEdge = m_aEdge[m_iECount];
+                SEBMEdge& rEdge = m_aEdge[m_iECount];
                 rEdge.V[0] = rTriangle.V[i0];
                 rEdge.V[1] = rTriangle.V[i1];
                 rEdge.T[0] = iT;
@@ -97,7 +97,7 @@ BasicMesh::BasicMesh(int iVCount, const void* aPoint, int iTCount,
             {
                 // 第二次遇到该edge.
                 int iE = tempEIter->second;
-                Edge& rEdge = m_aEdge[iE];
+                SEBMEdge& rEdge = m_aEdge[iE];
 
                 // 更新edge.
                 SE_ASSERT( rEdge.T[1] == -1 );  // 只能被两个三角形共享
@@ -120,7 +120,7 @@ BasicMesh::BasicMesh(int iVCount, const void* aPoint, int iTCount,
 
                 // 更新triangles.
                 int iAdj = rEdge.T[0];
-                Triangle& rAdj = m_aTriangle[iAdj];
+                SEBMTriangle& rAdj = m_aTriangle[iAdj];
                 for( int j = 0; j < 3; j++ )
                 {
                     if( rAdj.E[j] == iE )
@@ -136,7 +136,7 @@ BasicMesh::BasicMesh(int iVCount, const void* aPoint, int iTCount,
     }
 }
 //----------------------------------------------------------------------------
-BasicMesh::~BasicMesh()
+SEBasicMesh::~SEBasicMesh()
 {
     SE_DELETE[] m_aVertex;
     SE_DELETE[] m_aEdge;
@@ -145,9 +145,9 @@ BasicMesh::~BasicMesh()
 //----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
-// BasicMesh::Vertex
+// SEBasicMesh::SEBMVertex
 //----------------------------------------------------------------------------
-BasicMesh::Vertex::Vertex()
+SEBasicMesh::SEBMVertex::SEBMVertex()
 {
     VCount = 0;
     V = 0;
@@ -156,14 +156,14 @@ BasicMesh::Vertex::Vertex()
     T = 0;
 }
 //----------------------------------------------------------------------------
-BasicMesh::Vertex::~Vertex()
+SEBasicMesh::SEBMVertex::~SEBMVertex()
 {
     SE_DELETE[] V;
     SE_DELETE[] E;
     SE_DELETE[] T;
 }
 //----------------------------------------------------------------------------
-void BasicMesh::Vertex::InsertEdge(int iV, int iE)
+void SEBasicMesh::SEBMVertex::InsertEdge(int iV, int iE)
 {
     // 添加新的相邻顶点/边.
 
@@ -204,7 +204,7 @@ void BasicMesh::Vertex::InsertEdge(int iV, int iE)
     VCount++;
 }
 //----------------------------------------------------------------------------
-void BasicMesh::Vertex::InsertTriangle(int iT)
+void SEBasicMesh::SEBMVertex::InsertTriangle(int iT)
 {
     // 添加新的相邻三角形.
 
@@ -236,9 +236,9 @@ void BasicMesh::Vertex::InsertTriangle(int iT)
 //----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
-// BasicMesh::Edge
+// SEBasicMesh::SEBMEdge
 //----------------------------------------------------------------------------
-BasicMesh::Edge::Edge()
+SEBasicMesh::SEBMEdge::SEBMEdge()
 {
     for( int i = 0; i < 2; i++ )
     {
@@ -249,9 +249,9 @@ BasicMesh::Edge::Edge()
 //----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
-// BasicMesh::Triangle
+// SEBasicMesh::SEBMTriangle
 //----------------------------------------------------------------------------
-BasicMesh::Triangle::Triangle()
+SEBasicMesh::SEBMTriangle::SEBMTriangle()
 {
     for( int i = 0; i < 3; i++ )
     {

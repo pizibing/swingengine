@@ -24,13 +24,13 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Controller, SEObject);
-SE_IMPLEMENT_ABSTRACT_STREAM(Controller);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Controller, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEController, SEObject);
+SE_IMPLEMENT_ABSTRACT_STREAM(SEController);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEController, SEObject);
 
-//SE_REGISTER_STREAM(Controller);
+//SE_REGISTER_STREAM(SEController);
 
-const char* Controller::ms_pRepeatType[Controller::RT_COUNT] =
+const char* SEController::ms_pRepeatType[SEController::RT_COUNT] =
 {
     "RT_CLAMP",
     "RT_WRAP",
@@ -38,7 +38,7 @@ const char* Controller::ms_pRepeatType[Controller::RT_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-Controller::Controller()
+SEController::SEController()
 {
     m_pObject = 0;
     Repeat = RT_CLAMP;
@@ -50,11 +50,11 @@ Controller::Controller()
     m_dLastAppTime = -DBL_MAX;
 }
 //----------------------------------------------------------------------------
-Controller::~Controller()
+SEController::~SEController()
 {
 }
 //----------------------------------------------------------------------------
-double Controller::GetControlTime(double dAppTime)
+double SEController::GetControlTime(double dAppTime)
 {
     double dCtrlTime = Frequency*dAppTime + Phase;
 
@@ -101,7 +101,7 @@ double Controller::GetControlTime(double dAppTime)
     }
 }
 //----------------------------------------------------------------------------
-bool Controller::Update(double dAppTime)
+bool SEController::Update(double dAppTime)
 {
     if( Active &&  
         (dAppTime == -SEMathd::MAX_REAL || dAppTime != m_dLastAppTime) )
@@ -118,7 +118,7 @@ bool Controller::Update(double dAppTime)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Controller::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEController::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -141,10 +141,10 @@ void Controller::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(pObject);
     pLink->Add(pObject);
 
-    SE_END_DEBUG_STREAM_LOAD(Controller);
+    SE_END_DEBUG_STREAM_LOAD(SEController);
 }
 //----------------------------------------------------------------------------
-void Controller::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEController::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     SEObject::Link(rStream, pLink);
 
@@ -152,7 +152,7 @@ void Controller::Link(SEStream& rStream, SEStream::Link* pLink)
     m_pObject = rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool Controller::Register(SEStream& rStream) const
+bool SEController::Register(SEStream& rStream) const
 {
     if( !SEObject::Register(rStream) )
     {
@@ -167,7 +167,7 @@ bool Controller::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Controller::Save(SEStream& rStream) const
+void SEController::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -184,10 +184,10 @@ void Controller::Save(SEStream& rStream) const
     // link data
     rStream.Write(m_pObject);
 
-    SE_END_DEBUG_STREAM_SAVE(Controller);
+    SE_END_DEBUG_STREAM_SAVE(SEController);
 }
 //----------------------------------------------------------------------------
-int Controller::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEController::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SEObject::GetDiskUsed(rVersion) +
         sizeof(int) +  // Repeat
@@ -199,7 +199,7 @@ int Controller::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(m_pObject);
 }
 //----------------------------------------------------------------------------
-SEStringTree* Controller::SaveStrings(const char*)
+SEStringTree* SEController::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 

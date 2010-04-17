@@ -24,15 +24,15 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ConvexHull1f::ConvexHull1f(int iVertexCount, float* afVertex, 
-    float fEpsilon, bool bOwner, Query::Type eQueryType)
+SEConvexHull1f::SEConvexHull1f(int iVertexCount, float* afVertex, 
+    float fEpsilon, bool bOwner, SEQuery::Type eQueryType)
     :
-    ConvexHullf(iVertexCount, fEpsilon, bOwner, eQueryType)
+    SEConvexHullf(iVertexCount, fEpsilon, bOwner, eQueryType)
 {
     SE_ASSERT(afVertex);
     m_afVertex = afVertex;
 
-    std::vector<SortedVertex> tempArray(m_iVertexCount);
+    std::vector<SESortedVertex> tempArray(m_iVertexCount);
     int i;
     for( i = 0; i < m_iVertexCount; i++ )
     {
@@ -52,7 +52,7 @@ ConvexHull1f::ConvexHull1f(int iVertexCount, float* afVertex,
     }
 }
 //----------------------------------------------------------------------------
-ConvexHull1f::~ConvexHull1f()
+SEConvexHull1f::~SEConvexHull1f()
 {
     if( m_bOwner )
     {
@@ -60,14 +60,14 @@ ConvexHull1f::~ConvexHull1f()
     }
 }
 //----------------------------------------------------------------------------
-const float* ConvexHull1f::GetVertices() const
+const float* SEConvexHull1f::GetVertices() const
 {
     return m_afVertex;
 }
 //----------------------------------------------------------------------------
-ConvexHull1f::ConvexHull1f(const char* acFilename)
+SEConvexHull1f::SEConvexHull1f(const char* acFilename)
     :
-    ConvexHullf(0, 0.0f, false, Query::QT_REAL)
+    SEConvexHullf(0, 0.0f, false, SEQuery::QT_REAL)
 {
     m_afVertex = 0;
     bool bLoaded = Load(acFilename);
@@ -75,7 +75,7 @@ ConvexHull1f::ConvexHull1f(const char* acFilename)
     (void)bLoaded;  // avoid warning in Release build
 }
 //----------------------------------------------------------------------------
-bool ConvexHull1f::Load(const char* acFilename)
+bool SEConvexHull1f::Load(const char* acFilename)
 {
     FILE* pIFile = SESystem::SE_Fopen(acFilename, "rb");
     if( !pIFile )
@@ -83,7 +83,7 @@ bool ConvexHull1f::Load(const char* acFilename)
         return false;
     }
 
-    ConvexHullf::Load(pIFile);
+    SEConvexHullf::Load(pIFile);
 
     if( m_bOwner )
     {
@@ -108,7 +108,7 @@ bool ConvexHull1f::Load(const char* acFilename)
     return true;
 }
 //----------------------------------------------------------------------------
-bool ConvexHull1f::Save(const char* acFilename) const
+bool SEConvexHull1f::Save(const char* acFilename) const
 {
     FILE* pOFile = SESystem::SE_Fopen(acFilename, "wb");
     if( !pOFile )
@@ -116,7 +116,7 @@ bool ConvexHull1f::Save(const char* acFilename) const
         return false;
     }
 
-    ConvexHullf::Save(pOFile);
+    SEConvexHullf::Save(pOFile);
 
     size_t uiSize = sizeof(float);
     if( uiSize == 4 )

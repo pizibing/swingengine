@@ -20,13 +20,13 @@
 // http://www.gnu.org/copyleft/lgpl.html
 //----------------------------------------------------------------------------
 template <int ISIZE>
-RVector2<ISIZE>::RVector2()
+SERVector2<ISIZE>::SERVector2()
 {
     // the vector is uninitialized
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-RVector2<ISIZE>::RVector2(const RVector2& rV)
+SERVector2<ISIZE>::SERVector2(const SERVector2& rV)
 {
     m_aTuple[0] = rV.m_aTuple[0];
     m_aTuple[1] = rV.m_aTuple[1];
@@ -34,7 +34,7 @@ RVector2<ISIZE>::RVector2(const RVector2& rV)
 //----------------------------------------------------------------------------
 #ifndef SE_USING_VC70
 template <int ISIZE>
-RVector2<ISIZE>::RVector2(const TRVector<2,  ISIZE>& rV)
+SERVector2<ISIZE>::SERVector2(const SETRVector<2,  ISIZE>& rV)
 {
     m_aTuple[0] = rV[0];
     m_aTuple[1] = rV[1];
@@ -42,15 +42,15 @@ RVector2<ISIZE>::RVector2(const TRVector<2,  ISIZE>& rV)
 #endif
 //----------------------------------------------------------------------------
 template <int ISIZE>
-RVector2<ISIZE>::RVector2(const TRational<ISIZE>& rX, 
-    const TRational<ISIZE>& rY)
+SERVector2<ISIZE>::SERVector2(const SETRational<ISIZE>& rX, 
+    const SETRational<ISIZE>& rY)
 {
     m_aTuple[0] = rX;
     m_aTuple[1] = rY;
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-RVector2<ISIZE>& RVector2<ISIZE>::operator=(const RVector2& rV)
+SERVector2<ISIZE>& SERVector2<ISIZE>::operator=(const SERVector2& rV)
 {
     m_aTuple[0] = rV.m_aTuple[0];
     m_aTuple[1] = rV.m_aTuple[1];
@@ -60,7 +60,7 @@ RVector2<ISIZE>& RVector2<ISIZE>::operator=(const RVector2& rV)
 //----------------------------------------------------------------------------
 #ifndef SE_USING_VC70
 template <int ISIZE>
-RVector2<ISIZE>& RVector2<ISIZE>::operator=(const TRVector<2,  ISIZE>& rV)
+SERVector2<ISIZE>& SERVector2<ISIZE>::operator=(const SETRVector<2,  ISIZE>& rV)
 {
     m_aTuple[0] = rV[0];
     m_aTuple[1] = rV[1];
@@ -70,43 +70,43 @@ RVector2<ISIZE>& RVector2<ISIZE>::operator=(const TRVector<2,  ISIZE>& rV)
 #endif
 //----------------------------------------------------------------------------
 template <int ISIZE>
-TRational<ISIZE> RVector2<ISIZE>::X() const
+SETRational<ISIZE> SERVector2<ISIZE>::X() const
 {
     return m_aTuple[0];
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-TRational<ISIZE>& RVector2<ISIZE>::X()
+SETRational<ISIZE>& SERVector2<ISIZE>::X()
 {
     return m_aTuple[0];
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-TRational<ISIZE> RVector2<ISIZE>::Y() const
+SETRational<ISIZE> SERVector2<ISIZE>::Y() const
 {
     return m_aTuple[1];
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-TRational<ISIZE>& RVector2<ISIZE>::Y()
+SETRational<ISIZE>& SERVector2<ISIZE>::Y()
 {
     return m_aTuple[1];
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-TRational<ISIZE> RVector2<ISIZE>::Dot(const RVector2& rV) const
+SETRational<ISIZE> SERVector2<ISIZE>::Dot(const SERVector2& rV) const
 {
     return m_aTuple[0]*rV.m_aTuple[0] + m_aTuple[1]*rV.m_aTuple[1];
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-RVector2<ISIZE> RVector2<ISIZE>::Perp() const
+SERVector2<ISIZE> SERVector2<ISIZE>::Perp() const
 {
-    return RVector2<ISIZE>(m_aTuple[1],  -m_aTuple[0]);
+    return SERVector2<ISIZE>(m_aTuple[1],  -m_aTuple[0]);
 }
 //----------------------------------------------------------------------------
 template <int ISIZE>
-TRational<ISIZE> RVector2<ISIZE>::DotPerp(const RVector2& rV) const
+SETRational<ISIZE> SERVector2<ISIZE>::DotPerp(const SERVector2& rV) const
 {
     return m_aTuple[0]*rV.m_aTuple[1] - m_aTuple[1]*rV.m_aTuple[0];
 }

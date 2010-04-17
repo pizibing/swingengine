@@ -51,7 +51,7 @@ public:
     // 虚基类
     virtual ~BoundingVolume(void);
 
-    // SERTTI信息
+    // RTTI信息
     enum BVType
     {
         BV_SPHERE,

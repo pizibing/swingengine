@@ -29,91 +29,91 @@ namespace Swing
 
 //----------------------------------------------------------------------------
 // 名称:TRational类
-// 说明:N is the number of 32-bit words per TInteger numerator/denominator
+// 说明:N is the number of 32-bit words per SETInteger numerator/denominator
 // 作者:Sun Che
 // 时间:20081202
 //----------------------------------------------------------------------------
 template <int N>
-class TRational
+class SETRational
 {
 public:
     // construction
-    TRational(void);  // default rational is 0/1
-    TRational(const TRational& rR);
-    TRational(const TInteger<N>& rNumer);
-    TRational(const TInteger<N>& rNumer,  const TInteger<N>& rDenom);
+    SETRational(void);  // default rational is 0/1
+    SETRational(const SETRational& rR);
+    SETRational(const SETInteger<N>& rNumer);
+    SETRational(const SETInteger<N>& rNumer,  const SETInteger<N>& rDenom);
 
     // construction converters
-    TRational(int iNumer);
-    TRational(int iNumer,  int iDenom);
-    TRational(float fValue);
-    TRational(double dValue);
+    SETRational(int iNumer);
+    SETRational(int iNumer,  int iDenom);
+    SETRational(float fValue);
+    SETRational(double dValue);
 
     // member access
-    TInteger<N>& Numer(void);
-    TInteger<N>& Denom(void);
-    const TInteger<N>& Numer(void) const;
-    const TInteger<N>& Denom(void) const;
+    SETInteger<N>& Numer(void);
+    SETInteger<N>& Denom(void);
+    const SETInteger<N>& Numer(void) const;
+    const SETInteger<N>& Denom(void) const;
 
     // assignment
-    TRational& operator = (const TRational& rR);
+    SETRational& operator = (const SETRational& rR);
 
     // comparison
-    bool operator == (const TRational& rR) const;
-    bool operator != (const TRational& rR) const;
-    bool operator <= (const TRational& rR) const;
-    bool operator <  (const TRational& rR) const;
-    bool operator >= (const TRational& rR) const;
-    bool operator >  (const TRational& rR) const;
+    bool operator == (const SETRational& rR) const;
+    bool operator != (const SETRational& rR) const;
+    bool operator <= (const SETRational& rR) const;
+    bool operator <  (const SETRational& rR) const;
+    bool operator >= (const SETRational& rR) const;
+    bool operator >  (const SETRational& rR) const;
 
     // arithmetic operations
-    TRational operator + (const TRational& rR) const;
-    TRational operator - (const TRational& rR) const;
-    TRational operator * (const TRational& rR) const;
-    TRational operator / (const TRational& rR) const;
-    TRational operator - (void) const;
+    SETRational operator + (const SETRational& rR) const;
+    SETRational operator - (const SETRational& rR) const;
+    SETRational operator * (const SETRational& rR) const;
+    SETRational operator / (const SETRational& rR) const;
+    SETRational operator - (void) const;
 
     // arithmetic updates
-    TRational& operator += (const TRational& rR);
-    TRational& operator -= (const TRational& rR);
-    TRational& operator *= (const TRational& rR);
-    TRational& operator /= (const TRational& rR);
+    SETRational& operator += (const SETRational& rR);
+    SETRational& operator -= (const SETRational& rR);
+    SETRational& operator *= (const SETRational& rR);
+    SETRational& operator /= (const SETRational& rR);
 
     // conversions to float and double
     void ConvertTo(float& rfValue) const;
     void ConvertTo(double& rdValue) const;
 
     // compute the absolute value of the rational number
-    TRational Abs(void) const;
+    SETRational Abs(void) const;
 
 private:
     // miscellaneous utilities
     void EliminatePowersOfTwo(void);
 
-    static void GetPositiveFloat(const TInteger<N>& rDenom, 
-        TInteger<N>& rQuo,  TInteger<N>& rRem,  int iBlock, 
+    static void GetPositiveFloat(const SETInteger<N>& rDenom, 
+        SETInteger<N>& rQuo,  SETInteger<N>& rRem,  int iBlock, 
         unsigned int& ruiExponent,  unsigned int& ruiMantissa);
 
-    static void GetPositiveDouble(const TInteger<N>& rDenom, 
-        TInteger<N>& rQuo,  TInteger<N>& rRem,  int iBlock, 
+    static void GetPositiveDouble(const SETInteger<N>& rDenom, 
+        SETInteger<N>& rQuo,  SETInteger<N>& rRem,  int iBlock, 
         unsigned int& ruiExponent,  unsigned int& ruiMantissaHi, 
         unsigned int& ruiMantissaLo);
 
     // 分子与分母.
-    TInteger<N> m_Numer,  m_Denom;
+    SETInteger<N> m_Numer,  m_Denom;
 };
 
 template <int N>
-TRational<N> operator + (const TInteger<N>& rI,  const TRational<N>& rR);
+SETRational<N> operator + (const SETInteger<N>& rI,  const SETRational<N>& rR);
 
 template <int N>
-TRational<N> operator - (const TInteger<N>& rI,  const TRational<N>& rR);
+SETRational<N> operator - (const SETInteger<N>& rI,  const SETRational<N>& rR);
 
 template <int N>
-TRational<N> operator * (const TInteger<N>& rI,  const TRational<N>& rR);
+SETRational<N> operator * (const SETInteger<N>& rI,  const SETRational<N>& rR);
 
 template <int N>
-TRational<N> operator / (const TInteger<N>& rI,  const TRational<N>& rR);
+SETRational<N> operator / (const SETInteger<N>& rI,  const SETRational<N>& rR);
 
 #include "SETRational.inl"
 

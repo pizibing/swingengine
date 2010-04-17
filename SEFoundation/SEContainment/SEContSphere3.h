@@ -44,15 +44,15 @@ SE_FOUNDATION_API SESphere3f MergeSpheresf(const SESphere3f& rSphere0,
 
 // 根据输入的若干顶点,计算其最小BV球,
 // 算法随机重置输入顶点排列顺序,因此构建时间预期为O(n).
-class SE_FOUNDATION_API MinSphere3f
+class SE_FOUNDATION_API SEMinSphere3f
 {
 public:
-    MinSphere3f(int iCount, const SEVector3f* aPoint, SESphere3f& rMinimal, 
+    SEMinSphere3f(int iCount, const SEVector3f* aPoint, SESphere3f& rMinimal, 
         float fEpsilon = 1.0e-03f);
 
 private:
     // 当前最小球的顶点索引支持.
-    class SE_FOUNDATION_API Support
+    class SE_FOUNDATION_API SESupport
     {
     public:
         // 测试输入顶点是否属于support集合,
@@ -86,12 +86,12 @@ private:
     SESphere3f ExactSphere4(const SEVector3f& rPoint0, const SEVector3f& rPoint1, 
         const SEVector3f& rPoint2, const SEVector3f& rPoint3);
 
-    SESphere3f UpdateSupport1(int i, SEVector3f** apPermute, Support& rSupport);
-    SESphere3f UpdateSupport2(int i, SEVector3f** apPermute, Support& rSupport);
-    SESphere3f UpdateSupport3(int i, SEVector3f** apPermute, Support& rSupport);
-    SESphere3f UpdateSupport4(int i, SEVector3f** apPermute, Support& rSupport);
+    SESphere3f UpdateSupport1(int i, SEVector3f** apPermute, SESupport& rSupport);
+    SESphere3f UpdateSupport2(int i, SEVector3f** apPermute, SESupport& rSupport);
+    SESphere3f UpdateSupport3(int i, SEVector3f** apPermute, SESupport& rSupport);
+    SESphere3f UpdateSupport4(int i, SEVector3f** apPermute, SESupport& rSupport);
 
-    typedef SESphere3f (MinSphere3f::*UpdateFunction)(int, SEVector3f**, Support&);
+    typedef SESphere3f (SEMinSphere3f::*UpdateFunction)(int, SEVector3f**, SESupport&);
 
     float m_fEpsilon, m_fOnePlusEpsilon;
     UpdateFunction m_aoUpdate[5];

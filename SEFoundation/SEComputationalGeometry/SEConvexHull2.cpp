@@ -29,10 +29,10 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ConvexHull2f::ConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fEpsilon,  
-    bool bOwner,  Query::Type eQueryType)
+SEConvexHull2f::SEConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fEpsilon,  
+    bool bOwner,  SEQuery::Type eQueryType)
     :
-    ConvexHullf(iVertexCount,  fEpsilon,  bOwner,  eQueryType), 
+    SEConvexHullf(iVertexCount,  fEpsilon,  bOwner,  eQueryType), 
     m_LineOrigin(SEVector2f::ZERO), 
     m_LineDirection(SEVector2f::ZERO)
 {
@@ -46,14 +46,14 @@ ConvexHull2f::ConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fEpsil
     if( tempMapper.GetDimension() == 0 )
     {
         // The values of m_iDimension,  m_aiIndex,  and m_aiAdjacent were
-        // already initialized by the ConvexHullf base class.
+        // already initialized by the SEConvexHullf base class.
         return;
     }
 
     if( tempMapper.GetDimension() == 1 )
     {
         // The set is (nearly) collinear.  The caller is responsible for
-        // creating a ConvexHull1f object.
+        // creating a SEConvexHull1f object.
         m_iDimension = 1;
         m_LineOrigin = tempMapper.GetOrigin();
         m_LineDirection = tempMapper.GetDirection(0);
@@ -69,7 +69,7 @@ ConvexHull2f::ConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fEpsil
     m_aSVertex = SE_NEW SEVector2f[m_iVertexCount];
     int i;
 
-    if( eQueryType != Query::QT_RATIONAL && eQueryType != Query::QT_FILTERED )
+    if( eQueryType != SEQuery::QT_RATIONAL && eQueryType != SEQuery::QT_FILTERED )
     {
         // Transform the vertices to the square [0, 1]^2.
         SEVector2f vec2fMin = tempMapper.GetMin();
@@ -80,25 +80,25 @@ ConvexHull2f::ConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fEpsil
         }
 
         float fExpand;
-        if( eQueryType == Query::QT_INT64 )
+        if( eQueryType == SEQuery::QT_INT64 )
         {
             // Scale the vertices to the square [0, 2^{20}]^2 to allow use of
             // 64-bit integers.
             fExpand = (float)(1 << 20);
-            m_pQuery = SE_NEW Query2Int64f(m_iVertexCount,  m_aSVertex);
+            m_pQuery = SE_NEW SEQuery2Int64f(m_iVertexCount,  m_aSVertex);
         }
-        else if( eQueryType == Query::QT_INTEGER )
+        else if( eQueryType == SEQuery::QT_INTEGER )
         {
             // Scale the vertices to the square [0, 2^{24}]^2 to allow use of
-            // TInteger.
+            // SETInteger.
             fExpand = (float)(1 << 24);
-            m_pQuery = SE_NEW Query2TIntegerf(m_iVertexCount,  m_aSVertex);
+            m_pQuery = SE_NEW SEQuery2TIntegerf(m_iVertexCount,  m_aSVertex);
         }
-        else  // eQueryType == Query::QT_REAL
+        else  // eQueryType == SEQuery::QT_REAL
         {
             // No scaling for floating point.
             fExpand = 1.0f;
-            m_pQuery = SE_NEW Query2f(m_iVertexCount,  m_aSVertex);
+            m_pQuery = SE_NEW SEQuery2f(m_iVertexCount,  m_aSVertex);
         }
 
         for( i = 0; i < m_iVertexCount; i++ )
@@ -113,39 +113,39 @@ ConvexHull2f::ConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fEpsil
         size_t uiSize = m_iVertexCount * sizeof(SEVector2f);
         SESystem::SE_Memcpy(m_aSVertex,  uiSize,  m_aVertex,  uiSize);
 
-        if( eQueryType == Query::QT_RATIONAL )
+        if( eQueryType == SEQuery::QT_RATIONAL )
         {
-            m_pQuery = SE_NEW Query2TRationalf(m_iVertexCount,  m_aSVertex);
+            m_pQuery = SE_NEW SEQuery2TRationalf(m_iVertexCount,  m_aSVertex);
         }
-        else // eQueryType == Query::QT_FILTERED
+        else // eQueryType == SEQuery::QT_FILTERED
         {
-            m_pQuery = SE_NEW Query2Filteredf(m_iVertexCount,  m_aSVertex,  
+            m_pQuery = SE_NEW SEQuery2Filteredf(m_iVertexCount,  m_aSVertex,  
                 m_fEpsilon);
         }
     }
 
-    HullEdge2f* pE0;
-    HullEdge2f* pE1;
-    HullEdge2f* pE2;
+    SEHullEdge2f* pE0;
+    SEHullEdge2f* pE1;
+    SEHullEdge2f* pE2;
 
     if( tempMapper.GetExtremeCCW() )
     {
-        pE0 = SE_NEW HullEdge2f(i0,  i1);
-        pE1 = SE_NEW HullEdge2f(i1,  i2);
-        pE2 = SE_NEW HullEdge2f(i2,  i0);
+        pE0 = SE_NEW SEHullEdge2f(i0,  i1);
+        pE1 = SE_NEW SEHullEdge2f(i1,  i2);
+        pE2 = SE_NEW SEHullEdge2f(i2,  i0);
     }
     else
     {
-        pE0 = SE_NEW HullEdge2f(i0,  i2);
-        pE1 = SE_NEW HullEdge2f(i2,  i1);
-        pE2 = SE_NEW HullEdge2f(i1,  i0);
+        pE0 = SE_NEW SEHullEdge2f(i0,  i2);
+        pE1 = SE_NEW SEHullEdge2f(i2,  i1);
+        pE2 = SE_NEW SEHullEdge2f(i1,  i0);
     }
 
     pE0->Insert(pE2,  pE1);
     pE1->Insert(pE0,  pE2);
     pE2->Insert(pE1,  pE0);
 
-    HullEdge2f* pHull = pE0;
+    SEHullEdge2f* pHull = pE0;
     for( i = 0; i < m_iVertexCount; i++ )
     {
         if( !Update(pHull,  i) )
@@ -160,7 +160,7 @@ ConvexHull2f::ConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fEpsil
     pHull->DeleteAll();
 }
 //----------------------------------------------------------------------------
-ConvexHull2f::~ConvexHull2f()
+SEConvexHull2f::~SEConvexHull2f()
 {
     if( m_bOwner )
     {
@@ -170,17 +170,17 @@ ConvexHull2f::~ConvexHull2f()
     SE_DELETE m_pQuery;
 }
 //----------------------------------------------------------------------------
-const SEVector2f& ConvexHull2f::GetLineOrigin() const
+const SEVector2f& SEConvexHull2f::GetLineOrigin() const
 {
     return m_LineOrigin;
 }
 //----------------------------------------------------------------------------
-const SEVector2f& ConvexHull2f::GetLineDirection() const
+const SEVector2f& SEConvexHull2f::GetLineDirection() const
 {
     return m_LineDirection;
 }
 //----------------------------------------------------------------------------
-ConvexHull1f* ConvexHull2f::GetConvexHull1() const
+SEConvexHull1f* SEConvexHull2f::GetConvexHull1() const
 {
     SE_ASSERT( m_iDimension == 1 );
 
@@ -196,15 +196,15 @@ ConvexHull1f* ConvexHull2f::GetConvexHull1() const
         afProjection[i] = m_LineDirection.Dot(vec2fDiff);
     }
 
-    return SE_NEW ConvexHull1f(m_iVertexCount,  afProjection, 
+    return SE_NEW SEConvexHull1f(m_iVertexCount,  afProjection, 
         m_fEpsilon,  true,  m_eQueryType);
 }
 //----------------------------------------------------------------------------
-bool ConvexHull2f::Update(HullEdge2f*& rpHull,  int i)
+bool SEConvexHull2f::Update(SEHullEdge2f*& rpHull,  int i)
 {
     // Locate an edge visible to the input point (if possible).
-    HullEdge2f* pVisible = 0;
-    HullEdge2f* pCurrent = rpHull;
+    SEHullEdge2f* pVisible = 0;
+    SEHullEdge2f* pCurrent = rpHull;
     do
     {
         if( pCurrent->GetSign(i,  m_pQuery) > 0 )
@@ -224,7 +224,7 @@ bool ConvexHull2f::Update(HullEdge2f*& rpHull,  int i)
     }
 
     // Remove the visible edges.
-    HullEdge2f* pAdj0 = pVisible->A[0];
+    SEHullEdge2f* pAdj0 = pVisible->A[0];
     SE_ASSERT( pAdj0 );
 
     if( !pAdj0 )
@@ -232,7 +232,7 @@ bool ConvexHull2f::Update(HullEdge2f*& rpHull,  int i)
         return false;
     }
 
-    HullEdge2f* pAdj1 = pVisible->A[1];
+    SEHullEdge2f* pAdj1 = pVisible->A[1];
     SE_ASSERT( pAdj1 );
 
     if( !pAdj1 )
@@ -272,8 +272,8 @@ bool ConvexHull2f::Update(HullEdge2f*& rpHull,  int i)
 
     // Insert the new edges formed by the input point and the end points of
     // the polyline of invisible edges.
-    HullEdge2f* pEdge0 = SE_NEW HullEdge2f(pAdj0->V[1],  i);
-    HullEdge2f* pEdge1 = SE_NEW HullEdge2f(i,  pAdj1->V[0]);
+    SEHullEdge2f* pEdge0 = SE_NEW SEHullEdge2f(pAdj0->V[1],  i);
+    SEHullEdge2f* pEdge1 = SE_NEW SEHullEdge2f(i,  pAdj1->V[0]);
     pEdge0->Insert(pAdj0,  pEdge1);
     pEdge1->Insert(pEdge0,  pAdj1);
     rpHull = pEdge0;
@@ -281,9 +281,9 @@ bool ConvexHull2f::Update(HullEdge2f*& rpHull,  int i)
     return true;
 }
 //----------------------------------------------------------------------------
-ConvexHull2f::ConvexHull2f(const char* acFilename)
+SEConvexHull2f::SEConvexHull2f(const char* acFilename)
     :
-    ConvexHullf(0,  0.0f,  false,  Query::QT_REAL)
+    SEConvexHullf(0,  0.0f,  false,  SEQuery::QT_REAL)
 {
     m_aVertex = 0;
     m_aSVertex = 0;
@@ -293,7 +293,7 @@ ConvexHull2f::ConvexHull2f(const char* acFilename)
     (void)bLoaded;  // avoid warning in Release build
 }
 //----------------------------------------------------------------------------
-bool ConvexHull2f::Load(const char* acFilename)
+bool SEConvexHull2f::Load(const char* acFilename)
 {
     FILE* pIFile = SESystem::SE_Fopen(acFilename,  "rb");
     if( !pIFile )
@@ -301,7 +301,7 @@ bool ConvexHull2f::Load(const char* acFilename)
         return false;
     }
 
-    ConvexHullf::Load(pIFile);
+    SEConvexHullf::Load(pIFile);
 
     SE_DELETE m_pQuery;
     SE_DELETE[] m_aSVertex;
@@ -335,24 +335,24 @@ bool ConvexHull2f::Load(const char* acFilename)
 
     switch( m_eQueryType )
     {
-    case Query::QT_INT64:
-        m_pQuery = SE_NEW Query2Int64f(m_iVertexCount,  m_aSVertex);
+    case SEQuery::QT_INT64:
+        m_pQuery = SE_NEW SEQuery2Int64f(m_iVertexCount,  m_aSVertex);
 
         break;
-    case Query::QT_INTEGER:
-        m_pQuery = SE_NEW Query2TIntegerf(m_iVertexCount,  m_aSVertex);
+    case SEQuery::QT_INTEGER:
+        m_pQuery = SE_NEW SEQuery2TIntegerf(m_iVertexCount,  m_aSVertex);
 
         break;
-    case Query::QT_RATIONAL:
-        m_pQuery = SE_NEW Query2TRationalf(m_iVertexCount,  m_aSVertex);
+    case SEQuery::QT_RATIONAL:
+        m_pQuery = SE_NEW SEQuery2TRationalf(m_iVertexCount,  m_aSVertex);
 
         break;
-    case Query::QT_REAL:
-        m_pQuery = SE_NEW Query2f(m_iVertexCount,  m_aSVertex);
+    case SEQuery::QT_REAL:
+        m_pQuery = SE_NEW SEQuery2f(m_iVertexCount,  m_aSVertex);
 
         break;
-    case Query::QT_FILTERED:
-        m_pQuery = SE_NEW Query2Filteredf(m_iVertexCount,  m_aSVertex,  
+    case SEQuery::QT_FILTERED:
+        m_pQuery = SE_NEW SEQuery2Filteredf(m_iVertexCount,  m_aSVertex,  
             m_fEpsilon);
 
         break;
@@ -361,7 +361,7 @@ bool ConvexHull2f::Load(const char* acFilename)
     return true;
 }
 //----------------------------------------------------------------------------
-bool ConvexHull2f::Save(const char* acFilename) const
+bool SEConvexHull2f::Save(const char* acFilename) const
 {
     FILE* pOFile = SESystem::SE_Fopen(acFilename,  "wb");
     if( !pOFile )
@@ -369,7 +369,7 @@ bool ConvexHull2f::Save(const char* acFilename) const
         return false;
     }
 
-    ConvexHullf::Save(pOFile);
+    SEConvexHullf::Save(pOFile);
 
     size_t uiSize = sizeof(float);
     int iVC = 2 * m_iVertexCount;

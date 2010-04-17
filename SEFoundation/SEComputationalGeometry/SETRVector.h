@@ -34,57 +34,57 @@ namespace Swing
 // Ê±¼ä:20081202
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-class TRVector
+class SETRVector
 {
 public:
     // construction
-    TRVector(void);
-    TRVector(const TRVector& rV);
+    SETRVector(void);
+    SETRVector(const SETRVector& rV);
 
     // coordinate access
-    operator const TRational<ISIZE>* (void) const;
-    operator TRational<ISIZE>* (void);
-    TRational<ISIZE> operator [] (int i) const;
-    TRational<ISIZE>& operator [] (int i);
+    operator const SETRational<ISIZE>* (void) const;
+    operator SETRational<ISIZE>* (void);
+    SETRational<ISIZE> operator [] (int i) const;
+    SETRational<ISIZE>& operator [] (int i);
 
     // assignment
-    TRVector& operator = (const TRVector& rV);
+    SETRVector& operator = (const SETRVector& rV);
 
     // comparison
-    bool operator == (const TRVector& rV) const;
-    bool operator != (const TRVector& rV) const;
-    bool operator <  (const TRVector& rV) const;
-    bool operator <= (const TRVector& rV) const;
-    bool operator >  (const TRVector& rV) const;
-    bool operator >= (const TRVector& rV) const;
+    bool operator == (const SETRVector& rV) const;
+    bool operator != (const SETRVector& rV) const;
+    bool operator <  (const SETRVector& rV) const;
+    bool operator <= (const SETRVector& rV) const;
+    bool operator >  (const SETRVector& rV) const;
+    bool operator >= (const SETRVector& rV) const;
 
     // arithmetic operations
-    TRVector operator + (const TRVector& rV) const;
-    TRVector operator - (const TRVector& rV) const;
-    TRVector operator * (const TRational<ISIZE>& rR) const;
-    TRVector operator / (const TRational<ISIZE>& rR) const;
-    TRVector operator - (void) const;
+    SETRVector operator + (const SETRVector& rV) const;
+    SETRVector operator - (const SETRVector& rV) const;
+    SETRVector operator * (const SETRational<ISIZE>& rR) const;
+    SETRVector operator / (const SETRational<ISIZE>& rR) const;
+    SETRVector operator - (void) const;
 
     // arithmetic updates
-    TRVector& operator += (const TRVector& rV);
-    TRVector& operator -= (const TRVector& rV);
-    TRVector& operator *= (const TRational<ISIZE>& rR);
-    TRVector& operator /= (const TRational<ISIZE>& rR);
+    SETRVector& operator += (const SETRVector& rV);
+    SETRVector& operator -= (const SETRVector& rV);
+    SETRVector& operator *= (const SETRational<ISIZE>& rR);
+    SETRVector& operator /= (const SETRational<ISIZE>& rR);
 
     // vector operations
-    TRational<ISIZE> GetSquaredLength(void) const;
-    TRational<ISIZE> Dot(const TRVector& rV) const;
+    SETRational<ISIZE> GetSquaredLength(void) const;
+    SETRational<ISIZE> Dot(const SETRVector& rV) const;
 
 protected:
     // support for comparisons
-    int CompareArrays(const TRVector& rV) const;
+    int CompareArrays(const SETRVector& rV) const;
 
-    TRational<ISIZE> m_aTuple[VSIZE];
+    SETRational<ISIZE> m_aTuple[VSIZE];
 };
 
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE> operator * (const TRational<ISIZE>& rR, 
-    const TRVector<VSIZE,  ISIZE>& rV);
+SETRVector<VSIZE,  ISIZE> operator * (const SETRational<ISIZE>& rR, 
+    const SETRVector<VSIZE,  ISIZE>& rV);
 
 #include "SETRVector.inl"
 

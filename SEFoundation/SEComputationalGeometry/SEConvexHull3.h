@@ -31,45 +31,45 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:ConvexHull3f类
+// 名称:Convex hull3f类
 // 说明:
 // 作者:Sun Che
 // 时间:20081201
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API ConvexHull3f : public ConvexHullf
+class SE_FOUNDATION_API SEConvexHull3f : public SEConvexHullf
 {
 public:
     // The input to the constructor is the array of vertices whose convex hull
-    // is required.  If you want ConvexHull3f to delete the vertices during
-    // destruction,  set bOwner to 'true'.  Otherwise,  you own the vertices and
+    // is required. If you want SEConvexHull3f to delete the vertices during
+    // destruction, set bOwner to 'true'. Otherwise, you own the vertices and
     // must delete them yourself.
     //
-    // You have a choice of speed versus accuracy.  The fastest choice is
-    // Query::QT_INT64,  but it gives up a lot of precision,  scaling the points
-    // to [0, 2^{20}]^3.  The choice Query::QT_INTEGER gives up less precision, 
-    // scaling the points to [0, 2^{24}]^3.  The choice Query::QT_RATIONAL uses
-    // exact arithmetic,  but is the slowest choice.  The choice Query::QT_REAL
-    // uses floating-point arithmetic,  but is not robust in all cases.
+    // You have a choice of speed versus accuracy. The fastest choice is
+    // SEQuery::QT_INT64, but it gives up a lot of precision, scaling the points
+    // to [0, 2^{20}]^3. The choice SEQuery::QT_INTEGER gives up less precision, 
+    // scaling the points to [0, 2^{24}]^3. The choice SEQuery::QT_RATIONAL uses
+    // exact arithmetic, but is the slowest choice.  The choice SEQuery::QT_REAL
+    // uses floating-point arithmetic, but is not robust in all cases.
 
-    ConvexHull3f(int iVertexCount,  SEVector3f* aVertex,  float fEpsilon, 
-        bool bOwner,  Query::Type eQueryType);
-    virtual ~ConvexHull3f(void);
+    SEConvexHull3f(int iVertexCount,  SEVector3f* aVertex,  float fEpsilon, 
+        bool bOwner,  SEQuery::Type eQueryType);
+    virtual ~SEConvexHull3f(void);
 
-    // If GetDimension() returns 1,  then the points lie on a line.  You must
-    // create a ConvexHull1f object using the function provided.
+    // If GetDimension() returns 1, then the points lie on a line. You must
+    // create a SEConvexHull1f object using the function provided.
     const SEVector3f& GetLineOrigin(void) const;
     const SEVector3f& GetLineDirection(void) const;
-    ConvexHull1f* GetConvexHull1(void) const;
+    SEConvexHull1f* GetConvexHull1(void) const;
 
-    // If GetDimension() returns 2,  then the points lie on a plane.  The plane
-    // has two direction vectors (inputs 0 or 1).  You must create a
-    // ConvexHull2f object using the function provided.
+    // If GetDimension() returns 2, then the points lie on a plane. The plane
+    // has two direction vectors (inputs 0 or 1). You must create a
+    // SEConvexHull2f object using the function provided.
     const SEVector3f& GetPlaneOrigin(void) const;
     const SEVector3f& GetPlaneDirection(int i) const;
-    ConvexHull2f* GetConvexHull2(void) const;
+    SEConvexHull2f* GetConvexHull2(void) const;
 
     // Support for streaming to/from disk.
-    ConvexHull3f(const char* acFilename);
+    SEConvexHull3f(const char* acFilename);
     bool Load(const char* acFilename);
     bool Save(const char* acFilename) const;
 
@@ -83,7 +83,7 @@ private:
 
     // Support for robust queries.
     SEVector3f* m_aSVertex;
-    Query3f* m_pQuery;
+    SEQuery3f* m_pQuery;
 
     // The line of containment if the dimension is 1.
     SEVector3f m_LineOrigin,  m_LineDirection;
@@ -92,13 +92,13 @@ private:
     SEVector3f m_PlaneOrigin,  m_aPlaneDirection[2];
 
     // The current hull.
-    std::set<HullTriangle3f*> m_Hull;
+    std::set<SEHullTriangle3f*> m_Hull;
 
-    class TerminatorData
+    class SETerminatorData
     {
     public:
-        TerminatorData(int iV0 = -1,  int iV1 = -1,  int iNullIndex = -1, 
-            HullTriangle3f* pTri = 0)
+        SETerminatorData(int iV0 = -1, int iV1 = -1, int iNullIndex = -1, 
+            SEHullTriangle3f* pTri = 0)
         {
             V[0] = iV0;
             V[1] = iV1;
@@ -108,7 +108,7 @@ private:
 
         int V[2];
         int NullIndex;
-        HullTriangle3f* Tri;
+        SEHullTriangle3f* Tri;
     };
 };
 

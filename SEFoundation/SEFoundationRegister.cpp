@@ -252,14 +252,14 @@ void Swing::SE_Foundation_Register()
     SE_INVOKE_STREAM(Vector4fArray);
 
     // Controllers
-    SE_REGISTER_STREAM(Controller);
-    SE_REGISTER_STREAM(KeyframeController);
-    SE_REGISTER_STREAM(SkinController);
-    SE_REGISTER_STREAM(ParticleController);
-    SE_INVOKE_STREAM(Controller);
-    SE_INVOKE_STREAM(KeyframeController);
-    SE_INVOKE_STREAM(SkinController);
-    SE_INVOKE_STREAM(ParticleController);
+    SE_REGISTER_STREAM(SEController);
+    SE_REGISTER_STREAM(SEKeyframeController);
+    SE_REGISTER_STREAM(SESkinController);
+    SE_REGISTER_STREAM(SEParticleController);
+    SE_INVOKE_STREAM(SEController);
+    SE_INVOKE_STREAM(SEKeyframeController);
+    SE_INVOKE_STREAM(SESkinController);
+    SE_INVOKE_STREAM(SEParticleController);
 
     // Shaders
     SE_REGISTER_STREAM(PixelProgram);
@@ -370,13 +370,13 @@ void Swing::SE_Foundation_Register()
     SE_INVOKE_STREAM(RoamTerrainPage);
 
     // Collision
-    SE_REGISTER_INITIALIZE(BoxBVTree);
-    SE_REGISTER_INITIALIZE(SphereBVTree);
-    SE_INVOKE_INITIALIZE(BoxBVTree);
-    SE_INVOKE_INITIALIZE(SphereBVTree);
+    SE_REGISTER_INITIALIZE(SEBoxBVTree);
+    SE_REGISTER_INITIALIZE(SESphereBVTree);
+    SE_INVOKE_INITIALIZE(SEBoxBVTree);
+    SE_INVOKE_INITIALIZE(SESphereBVTree);
 
     // Detail
-    SE_REGISTER_STREAM(BillboardNode);
-    SE_INVOKE_STREAM(BillboardNode);
+    SE_REGISTER_STREAM(SEBillboardNode);
+    SE_INVOKE_STREAM(SEBillboardNode);
 }
 //----------------------------------------------------------------------------

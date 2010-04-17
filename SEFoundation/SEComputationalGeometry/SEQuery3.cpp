@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Query3f::Query3f (int iVCount, const SEVector3f* aVertex)
+SEQuery3f::SEQuery3f (int iVCount, const SEVector3f* aVertex)
 {
     SE_ASSERT( iVCount > 0 && aVertex );
 
@@ -32,31 +32,31 @@ Query3f::Query3f (int iVCount, const SEVector3f* aVertex)
     m_aVertex = aVertex;
 }
 //----------------------------------------------------------------------------
-Query3f::~Query3f()
+SEQuery3f::~SEQuery3f()
 {
 }
 //----------------------------------------------------------------------------
-Query::Type Query3f::GetType() const
+SEQuery::Type SEQuery3f::GetType() const
 {
-    return Query::QT_REAL;
+    return SEQuery::QT_REAL;
 }
 //----------------------------------------------------------------------------
-int Query3f::GetCount() const
+int SEQuery3f::GetCount() const
 {
     return m_iVCount;
 }
 //----------------------------------------------------------------------------
-const SEVector3f* Query3f::GetVertices() const
+const SEVector3f* SEQuery3f::GetVertices() const
 {
     return m_aVertex;
 }
 //----------------------------------------------------------------------------
-int Query3f::ToPlane(int i, int iV0, int iV1, int iV2) const
+int SEQuery3f::ToPlane(int i, int iV0, int iV1, int iV2) const
 {
     return ToPlane(m_aVertex[i], iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-int Query3f::ToPlane(const SEVector3f& rP, int iV0, int iV1, int iV2) const
+int SEQuery3f::ToPlane(const SEVector3f& rP, int iV0, int iV1, int iV2) const
 {
     const SEVector3f& rV0 = m_aVertex[iV0];
     const SEVector3f& rV1 = m_aVertex[iV1];
@@ -77,13 +77,13 @@ int Query3f::ToPlane(const SEVector3f& rP, int iV0, int iV1, int iV2) const
     return (fDet3 > 0.0f ? +1 : (fDet3 < 0.0f ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-int Query3f::ToTetrahedron(int i, int iV0, int iV1, int iV2, 
+int SEQuery3f::ToTetrahedron(int i, int iV0, int iV1, int iV2, 
     int iV3) const
 {
     return ToTetrahedron(m_aVertex[i], iV0, iV1, iV2, iV3);
 }
 //----------------------------------------------------------------------------
-int Query3f::ToTetrahedron(const SEVector3f& rP, int iV0, 
+int SEQuery3f::ToTetrahedron(const SEVector3f& rP, int iV0, 
     int iV1, int iV2, int iV3) const
 {
     int iSign0 = ToPlane(rP, iV1, iV2, iV3);
@@ -113,12 +113,12 @@ int Query3f::ToTetrahedron(const SEVector3f& rP, int iV0,
     return ((iSign0 && iSign1 && iSign2 && iSign3) ? -1 : 0);
 }
 //----------------------------------------------------------------------------
-int Query3f::ToCircumsphere(int i, int iV0, int iV1, int iV2, int iV3) const
+int SEQuery3f::ToCircumsphere(int i, int iV0, int iV1, int iV2, int iV3) const
 {
     return ToCircumsphere(m_aVertex[i], iV0, iV1, iV2, iV3);
 }
 //----------------------------------------------------------------------------
-int Query3f::ToCircumsphere(const SEVector3f& rP, int iV0, int iV1, int iV2, 
+int SEQuery3f::ToCircumsphere(const SEVector3f& rP, int iV0, int iV1, int iV2, 
     int iV3) const
 {
     const SEVector3f& rV0 = m_aVertex[iV0];
@@ -160,13 +160,13 @@ int Query3f::ToCircumsphere(const SEVector3f& rP, int iV0, int iV1, int iV2,
     return (fDet4 > 0.0f ? 1 : (fDet4 < 0.0f ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-float Query3f::Dot(float fX0, float fY0, float fZ0, float fX1, float fY1, 
+float SEQuery3f::Dot(float fX0, float fY0, float fZ0, float fX1, float fY1, 
     float fZ1)
 {
     return fX0*fX1 + fY0*fY1 + fZ0*fZ1;
 }
 //----------------------------------------------------------------------------
-float Query3f::Det3(float fX0, float fY0, float fZ0, float fX1, float fY1, 
+float SEQuery3f::Det3(float fX0, float fY0, float fZ0, float fX1, float fY1, 
     float fZ1, float fX2, float fY2, float fZ2)
 {
     float fC00 = fY1*fZ2 - fY2*fZ1;
@@ -176,7 +176,7 @@ float Query3f::Det3(float fX0, float fY0, float fZ0, float fX1, float fY1,
     return fX0*fC00 + fX1*fC01 + fX2*fC02;
 }
 //----------------------------------------------------------------------------
-float Query3f::Det4(float fX0, float fY0, float fZ0, float fW0, float fX1, 
+float SEQuery3f::Det4(float fX0, float fY0, float fZ0, float fW0, float fX1, 
     float fY1, float fZ1, float fW1, float fX2, float fY2, float fZ2, float fW2, 
     float fX3, float fY3, float fZ3, float fW3)
 {

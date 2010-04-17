@@ -19,12 +19,12 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline void Controller::SetObject(SEObject* pObject)
+inline void SEController::SetObject(SEObject* pObject)
 {
     m_pObject = pObject;
 }
 //----------------------------------------------------------------------------
-inline SEObject* Controller::GetObject() const
+inline SEObject* SEController::GetObject() const
 {
     return m_pObject;
 }

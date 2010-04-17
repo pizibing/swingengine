@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline void BillboardNode::AlignTo(Camera* pCamera)
+inline void SEBillboardNode::AlignTo(Camera* pCamera)
 {
     m_spCamera = pCamera;
 }

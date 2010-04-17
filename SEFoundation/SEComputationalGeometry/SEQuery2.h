@@ -34,15 +34,15 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20081202
 //----------------------------------------------------------------------------
-class Query2f : public Query
+class SEQuery2f : public SEQuery
 {
 public:
     // The base class handles floating-point queries.
-    Query2f(int iVCount, const SEVector2f* aVertex);
-    virtual ~Query2f(void);
+    SEQuery2f(int iVCount, const SEVector2f* aVertex);
+    virtual ~SEQuery2f(void);
 
     // run-time type information
-    virtual Query::Type GetType(void) const;
+    virtual SEQuery::Type GetType(void) const;
 
     // member access
     int GetCount(void) const;

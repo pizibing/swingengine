@@ -32,13 +32,13 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20081201
 //----------------------------------------------------------------------------
-class Query
+class SEQuery
 {
 public:
     // 虚基类.
-    virtual ~Query(void);
+    virtual ~SEQuery(void);
 
-    // SERTTI.
+    // RTTI.
     enum Type
     {
         QT_INT64,
@@ -51,7 +51,7 @@ public:
     virtual Type GetType(void) const = 0;
 
 protected:
-    Query(void);
+    SEQuery(void);
 };
 
 #include "SEQuery.inl"

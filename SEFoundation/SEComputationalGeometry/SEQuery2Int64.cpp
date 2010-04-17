@@ -24,18 +24,18 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Query2Int64f::Query2Int64f(int iVCount, const SEVector2f* aVertex)
+SEQuery2Int64f::SEQuery2Int64f(int iVCount, const SEVector2f* aVertex)
     :
-    Query2f(iVCount, aVertex)
+    SEQuery2f(iVCount, aVertex)
 {
 }
 //----------------------------------------------------------------------------
-Query::Type Query2Int64f::GetType() const
+SEQuery::Type SEQuery2Int64f::GetType() const
 {
-    return Query::QT_INT64;
+    return SEQuery::QT_INT64;
 }
 //----------------------------------------------------------------------------
-int Query2Int64f::ToLine(const SEVector2f& rP, int iV0, int iV1) const
+int SEQuery2Int64f::ToLine(const SEVector2f& rP, int iV0, int iV1) const
 {
     const SEVector2f& rV0 = m_aVertex[iV0];
     const SEVector2f& rV1 = m_aVertex[iV1];
@@ -50,7 +50,7 @@ int Query2Int64f::ToLine(const SEVector2f& rP, int iV0, int iV1) const
     return (iDet2 > 0 ? +1 : (iDet2 < 0 ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-int Query2Int64f::ToCircumcircle(const SEVector2f& rP, int iV0, 
+int SEQuery2Int64f::ToCircumcircle(const SEVector2f& rP, int iV0, 
     int iV1, int iV2) const
 {
     const SEVector2f& rV0 = m_aVertex[iV0];
@@ -83,19 +83,19 @@ int Query2Int64f::ToCircumcircle(const SEVector2f& rP, int iV0,
     return (iDet3 < 0 ? 1 : (iDet3 > 0 ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-SE_Int64 Query2Int64f::Dot(SE_Int64 iX0, SE_Int64 iY0, SE_Int64 iX1, 
+SE_Int64 SEQuery2Int64f::Dot(SE_Int64 iX0, SE_Int64 iY0, SE_Int64 iX1, 
     SE_Int64 iY1)
 {
     return iX0*iX1 + iY0*iY1;
 }
 //----------------------------------------------------------------------------
-SE_Int64 Query2Int64f::Det2(SE_Int64 iX0, SE_Int64 iY0, 
+SE_Int64 SEQuery2Int64f::Det2(SE_Int64 iX0, SE_Int64 iY0, 
     SE_Int64 iX1, SE_Int64 iY1)
 {
     return iX0*iY1 - iX1*iY0;
 }
 //----------------------------------------------------------------------------
-SE_Int64 Query2Int64f::Det3(SE_Int64 iX0, SE_Int64 iY0, 
+SE_Int64 SEQuery2Int64f::Det3(SE_Int64 iX0, SE_Int64 iY0, 
     SE_Int64 iZ0, SE_Int64 iX1, SE_Int64 iY1, SE_Int64 iZ1, SE_Int64 iX2, 
     SE_Int64 iY2, SE_Int64 iZ2)
 {

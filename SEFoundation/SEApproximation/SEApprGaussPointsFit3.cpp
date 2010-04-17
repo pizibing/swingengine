@@ -62,7 +62,7 @@ SEBox3f Swing::GaussPointsFit3f(int iCount, const SEVector3f* aPoint)
     fSumZZ *= fInvCount;
 
     // 建立eigensolver并求解.
-    Eigen tempES(3);
+    SEEigen tempES(3);
     tempES(0, 0) = fSumXX;
     tempES(0, 1) = fSumXY;
     tempES(0, 2) = fSumXZ;

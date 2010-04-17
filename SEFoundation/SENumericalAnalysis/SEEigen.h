@@ -32,24 +32,24 @@ namespace Swing
 
 //----------------------------------------------------------------------------
 // 名称:矩阵特征向量特征值类
-// 说明:参考自Wild Magic4
+// 说明:
 // 作者:Sun Che
 // 时间:20070706
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Eigen
+class SE_FOUNDATION_API SEEigen
 {
 public:
-    Eigen(int iSize);
-    Eigen(const SEMatrix2f& rMat);
-    Eigen(const SEMatrix3f& rMat);
-    Eigen(const SEMatrixMNf& rMat);
-    ~Eigen(void);
+    SEEigen(int iSize);
+    SEEigen(const SEMatrix2f& rMat);
+    SEEigen(const SEMatrix3f& rMat);
+    SEEigen(const SEMatrixMNf& rMat);
+    ~SEEigen(void);
 
 public:
     float& operator () (int iRow, int iCol);
-    Eigen& operator = (const SEMatrix2f& rMat);
-    Eigen& operator = (const SEMatrix3f& rMat);
-    Eigen& operator = (const SEMatrixMNf& rMat);
+    SEEigen& operator = (const SEMatrix2f& rMat);
+    SEEigen& operator = (const SEMatrix3f& rMat);
+    SEEigen& operator = (const SEMatrixMNf& rMat);
 
     // 特征向量是特征矩阵的列
     float GetEigenvalue(int i) const;

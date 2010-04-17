@@ -157,10 +157,10 @@ bool SEStream::Load(char* pBuffer, int iSize)
             Read(StrTemp);
         }
 
-        // SERTTI name必须是"Swing.xxx"
+        // RTTI name必须是"Swing.xxx"
         SE_ASSERT( ((int)StrTemp.length()) >= 7 );
 
-        // 根据SERTTI name,找到即将读取的object的工厂函数
+        // 根据RTTI name,找到即将读取的object的工厂函数
         FactoryFunction* pFactory = SEObject::ms_pFactory->Find(StrTemp);
         if( !pFactory )
         {

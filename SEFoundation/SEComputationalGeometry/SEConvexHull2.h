@@ -30,50 +30,50 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:ConvexHull2f类
+// 名称:Convex hull2f类
 // 说明:
 // 作者:Sun Che
 // 时间:20081201
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API ConvexHull2f : public ConvexHullf
+class SE_FOUNDATION_API SEConvexHull2f : public SEConvexHullf
 {
 public:
     // The input to the constructor is the array of vertices whose convex hull
-    // is required.  If you want ConvexHull2f to delete the vertices during
-    // destruction,  set bOwner to 'true'.  Otherwise,  you own the vertices and
+    // is required. If you want SEConvexHull2f to delete the vertices during
+    // destruction, set bOwner to 'true'. Otherwise, you own the vertices and
     // must delete them yourself.
     //
-    // You have a choice of speed versus accuracy.  The fastest choice is
-    // Query::QT_INT64,  but it gives up a lot of precision,  scaling the points
-    // to [0, 2^{20}]^3.  The choice Query::QT_INTEGER gives up less precision, 
-    // scaling the points to [0, 2^{24}]^3.  The choice Query::QT_RATIONAL uses
-    // exact arithmetic,  but is the slowest choice.  The choice Query::QT_REAL
-    // uses floating-point arithmetic,  but is not robust in all cases.
+    // You have a choice of speed versus accuracy. The fastest choice is
+    // SEQuery::QT_INT64, but it gives up a lot of precision,  scaling the points
+    // to [0, 2^{20}]^3. The choice SEQuery::QT_INTEGER gives up less precision, 
+    // scaling the points to [0, 2^{24}]^3. The choice SEQuery::QT_RATIONAL uses
+    // exact arithmetic, but is the slowest choice. The choice SEQuery::QT_REAL
+    // uses floating-point arithmetic, but is not robust in all cases.
 
-    ConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fEpsilon, 
-        bool bOwner,  Query::Type eQueryType);
-    virtual ~ConvexHull2f(void);
+    SEConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fEpsilon, 
+        bool bOwner,  SEQuery::Type eQueryType);
+    virtual ~SEConvexHull2f(void);
 
-    // If GetDimension() returns 1,  then the points lie on a line.  You must
-    // create a ConvexHull1f object using the function provided.
+    // If GetDimension() returns 1, then the points lie on a line.  You must
+    // create a SEConvexHull1f object using the function provided.
     const SEVector2f& GetLineOrigin(void) const;
     const SEVector2f& GetLineDirection(void) const;
-    ConvexHull1f* GetConvexHull1(void) const;
+    SEConvexHull1f* GetConvexHull1(void) const;
 
 private:
     // Support for streaming to/from disk.
-    ConvexHull2f(const char* acFilename);
+    SEConvexHull2f(const char* acFilename);
     bool Load(const char* acFilename);
     bool Save(const char* acFilename) const;
 
-    bool Update(HullEdge2f*& rpHull,  int i);
+    bool Update(SEHullEdge2f*& rpHull,  int i);
 
     // The input points.
     SEVector2f* m_aVertex;
 
     // Support for robust queries.
     SEVector2f* m_aSVertex;
-    Query2f* m_pQuery;
+    SEQuery2f* m_pQuery;
 
     // The line of containment if the dimension is 1.
     SEVector2f m_LineOrigin,  m_LineDirection;

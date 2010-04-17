@@ -24,14 +24,14 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ParticleController, Controller);
-SE_IMPLEMENT_STREAM(ParticleController);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ParticleController, Controller);
+SE_IMPLEMENT_RTTI(Swing, SEParticleController, SEController);
+SE_IMPLEMENT_STREAM(SEParticleController);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEParticleController, SEController);
 
-//SE_REGISTER_STREAM(ParticleController);
+//SE_REGISTER_STREAM(SEParticleController);
 
 //----------------------------------------------------------------------------
-ParticleController::ParticleController()
+SEParticleController::SEParticleController()
     :
     SystemLinearAxis(SEVector3f::UNIT_Z),
     SystemAngularAxis(SEVector3f::UNIT_Z)
@@ -45,14 +45,14 @@ ParticleController::ParticleController()
     m_afPointSizeChange = 0;
 }
 //----------------------------------------------------------------------------
-ParticleController::~ParticleController()
+SEParticleController::~SEParticleController()
 {
     SE_DELETE[] m_afPointLinearSpeed;
     SE_DELETE[] m_aPointLinearAxis;
     SE_DELETE[] m_afPointSizeChange;
 }
 //----------------------------------------------------------------------------
-void ParticleController::Reallocate(int iLCount)
+void SEParticleController::Reallocate(int iLCount)
 {
     SystemLinearSpeed = 0.0f;
     SystemAngularSpeed = 0.0f;
@@ -87,9 +87,9 @@ void ParticleController::Reallocate(int iLCount)
     }
 }
 //----------------------------------------------------------------------------
-void ParticleController::SetObject(SEObject* pObject)
+void SEParticleController::SetObject(SEObject* pObject)
 {
-    Controller::SetObject(pObject);
+    SEController::SetObject(pObject);
 
     if( pObject )
     {
@@ -103,7 +103,7 @@ void ParticleController::SetObject(SEObject* pObject)
     }
 }
 //----------------------------------------------------------------------------
-void ParticleController::UpdateSystemMotion(float fCtrlTime)
+void SEParticleController::UpdateSystemMotion(float fCtrlTime)
 {
     Particles* pParticle = StaticCast<Particles>(m_pObject);
 
@@ -123,7 +123,7 @@ void ParticleController::UpdateSystemMotion(float fCtrlTime)
     pParticle->Local.SetRotate(mat3fDRot);
 }
 //----------------------------------------------------------------------------
-void ParticleController::UpdatePointMotion(float fCtrlTime)
+void SEParticleController::UpdatePointMotion(float fCtrlTime)
 {
     Particles* pParticle = StaticCast<Particles>(m_pObject);
     int i, iACount = pParticle->GetActiveCount();
@@ -144,9 +144,9 @@ void ParticleController::UpdatePointMotion(float fCtrlTime)
     }
 }
 //----------------------------------------------------------------------------
-bool ParticleController::Update(double dAppTime)
+bool SEParticleController::Update(double dAppTime)
 {
-    if( !Controller::Update(dAppTime) )
+    if( !SEController::Update(dAppTime) )
     {
         return false;
     }
@@ -162,11 +162,11 @@ bool ParticleController::Update(double dAppTime)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void ParticleController::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEParticleController::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Controller::Load(rStream, pLink);
+    SEController::Load(rStream, pLink);
 
     // native data
     rStream.Read(SystemLinearSpeed);
@@ -184,24 +184,24 @@ void ParticleController::Load(SEStream& rStream, SEStream::Link* pLink)
         rStream.Read(m_iLCount, m_afPointSizeChange);
     }
 
-    SE_END_DEBUG_STREAM_LOAD(ParticleController);
+    SE_END_DEBUG_STREAM_LOAD(SEParticleController);
 }
 //----------------------------------------------------------------------------
-void ParticleController::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEParticleController::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Controller::Link(rStream, pLink);
+    SEController::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool ParticleController::Register(SEStream& rStream) const
+bool SEParticleController::Register(SEStream& rStream) const
 {
-    return Controller::Register(rStream);
+    return SEController::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void ParticleController::Save(SEStream& rStream) const
+void SEParticleController::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Controller::Save(rStream);
+    SEController::Save(rStream);
 
     // native data
     rStream.Write(SystemLinearSpeed);
@@ -220,12 +220,12 @@ void ParticleController::Save(SEStream& rStream) const
         rStream.Write(m_iLCount, m_afPointSizeChange);
     }
 
-    SE_END_DEBUG_STREAM_SAVE(ParticleController);
+    SE_END_DEBUG_STREAM_SAVE(SEParticleController);
 }
 //----------------------------------------------------------------------------
-int ParticleController::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEParticleController::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    int iSize = Controller::GetDiskUsed(rVersion) +
+    int iSize = SEController::GetDiskUsed(rVersion) +
         sizeof(SystemLinearSpeed) +
         sizeof(SystemAngularSpeed) +
         sizeof(SystemLinearAxis) +
@@ -243,7 +243,7 @@ int ParticleController::GetDiskUsed(const SEStreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-SEStringTree* ParticleController::SaveStrings(const char*)
+SEStringTree* SEParticleController::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -256,7 +256,7 @@ SEStringTree* ParticleController::SaveStrings(const char*)
     pTree->Append(Format("sys size change =", SystemSizeChange));
 
     // children
-    pTree->Append(Controller::SaveStrings());
+    pTree->Append(SEController::SaveStrings());
 
     pTree->Append(Format("point lin speed", m_iLCount,
         m_afPointLinearSpeed));

@@ -29,21 +29,21 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Query2TRationalf类
+// 名称:Query2 TRationalf类
 // 说明:
 // 作者:Sun Che
 // 时间:20081202
 //----------------------------------------------------------------------------
-class Query2TRationalf : public Query2f
+class SEQuery2TRationalf : public SEQuery2f
 {
 public:
     // The components of the input vertices are represented exactly as
     // rational values.
-    Query2TRationalf(int iVCount,  const SEVector2f* aVertex);
-    virtual ~Query2TRationalf(void);
+    SEQuery2TRationalf(int iVCount,  const SEVector2f* aVertex);
+    virtual ~SEQuery2TRationalf(void);
 
     // run-time type information
-    virtual Query::Type GetType(void) const;
+    virtual SEQuery::Type GetType(void) const;
 
     // Queries about the relation of a point to various geometric objects.
 
@@ -60,10 +60,10 @@ public:
 
 private:
     // Caching for rational representations of the input.  The conversion of
-    // floating-point numbers to TRational form is slow,  so it is better to
+    // floating-point numbers to SETRational form is slow,  so it is better to
     // keep track of which values have been converted.
-    typedef TRational<4*sizeof(float)> Rational;
-    typedef RVector2<4*sizeof(float)> RVector;
+    typedef SETRational<4*sizeof(float)> Rational;
+    typedef SERVector2<4*sizeof(float)> RVector;
     mutable RVector* m_aRVertex;
     mutable bool* m_abEvaluated;
 

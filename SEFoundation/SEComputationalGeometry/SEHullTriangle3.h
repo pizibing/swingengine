@@ -28,25 +28,25 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:HullTriangle3f类
+// 名称:Hull triangle3f类
 // 说明:
 // 作者:Sun Che
 // 时间:20081201
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API HullTriangle3f
+class SE_FOUNDATION_API SEHullTriangle3f
 {
 public:
-    HullTriangle3f(int iV0,  int iV1,  int iV2);
+    SEHullTriangle3f(int iV0,  int iV1,  int iV2);
 
-    int GetSign(int i,  const Query3f* pQuery);
+    int GetSign(int i,  const SEQuery3f* pQuery);
 
-    void AttachTo(HullTriangle3f* pAdj0,  HullTriangle3f* pAdj1, 
-        HullTriangle3f* pAdj2);
+    void AttachTo(SEHullTriangle3f* pAdj0,  SEHullTriangle3f* pAdj1, 
+        SEHullTriangle3f* pAdj2);
 
-    int DetachFrom(int iAdj,  HullTriangle3f* pAdj);
+    int DetachFrom(int iAdj,  SEHullTriangle3f* pAdj);
 
     int V[3];
-    HullTriangle3f* A[3];
+    SEHullTriangle3f* A[3];
     int Sign;
     int Time;
     bool OnStack;

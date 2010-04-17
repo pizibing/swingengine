@@ -20,7 +20,7 @@
 
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N>::TInteger(int i)
+SETInteger<N>::SETInteger(int i)
 {
     if( i >= 0 )
     {
@@ -39,18 +39,18 @@ TInteger<N>::TInteger(int i)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N>::TInteger(const TInteger& rI)
+SETInteger<N>::SETInteger(const SETInteger& rI)
 {
     SESystem::SE_Memcpy(m_asBuffer, TINT_BYTES, rI.m_asBuffer, TINT_BYTES);
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N>::~TInteger()
+SETInteger<N>::~SETInteger()
 {
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N>& TInteger<N>::operator=(const TInteger& rI)
+SETInteger<N>& SETInteger<N>::operator=(const SETInteger& rI)
 {
     SESystem::SE_Memcpy(m_asBuffer, TINT_BYTES, rI.m_asBuffer, TINT_BYTES);
 
@@ -58,25 +58,25 @@ TInteger<N>& TInteger<N>::operator=(const TInteger& rI)
 }
 //----------------------------------------------------------------------------
 template <int N>
-int TInteger<N>::GetSign() const
+int SETInteger<N>::GetSign() const
 {
     return (m_asBuffer[TINT_LAST] & 0x8000) ? -1 : +1;
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool TInteger<N>::operator==(const TInteger& rI) const
+bool SETInteger<N>::operator==(const SETInteger& rI) const
 {
     return Compare(*this, rI) == 0;
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool TInteger<N>::operator!=(const TInteger& rI) const
+bool SETInteger<N>::operator!=(const SETInteger& rI) const
 {
     return Compare(*this, rI) != 0;
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool TInteger<N>::operator<(const TInteger& rI) const
+bool SETInteger<N>::operator<(const SETInteger& rI) const
 {
     int iS0 = GetSign(), iS1 = rI.GetSign();
     if( iS0 > 0 )
@@ -104,7 +104,7 @@ bool TInteger<N>::operator<(const TInteger& rI) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool TInteger<N>::operator<=(const TInteger& rI) const
+bool SETInteger<N>::operator<=(const SETInteger& rI) const
 {
     int iS0 = GetSign(), iS1 = rI.GetSign();
     if( iS0 > 0 )
@@ -132,7 +132,7 @@ bool TInteger<N>::operator<=(const TInteger& rI) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool TInteger<N>::operator>(const TInteger& rI) const
+bool SETInteger<N>::operator>(const SETInteger& rI) const
 {
     int iS0 = GetSign(), iS1 = rI.GetSign();
     if( iS0 > 0 )
@@ -160,7 +160,7 @@ bool TInteger<N>::operator>(const TInteger& rI) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool TInteger<N>::operator>=(const TInteger& rI) const
+bool SETInteger<N>::operator>=(const SETInteger& rI) const
 {
     int iS0 = GetSign(), iS1 = rI.GetSign();
     if( iS0 > 0 )
@@ -188,7 +188,7 @@ bool TInteger<N>::operator>=(const TInteger& rI) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-int TInteger<N>::Compare(const TInteger<N>& rI0, const TInteger<N>& rI1)
+int SETInteger<N>::Compare(const SETInteger<N>& rI0, const SETInteger<N>& rI1)
 {
     for( int i = TINT_LAST; i >= 0; i-- )
     {
@@ -208,9 +208,9 @@ int TInteger<N>::Compare(const TInteger<N>& rI0, const TInteger<N>& rI1)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N> TInteger<N>::operator-() const
+SETInteger<N> SETInteger<N>::operator-() const
 {
-    TInteger tempResult = *this;
+    SETInteger tempResult = *this;
 
     // negate the bits
     int i;
@@ -239,9 +239,9 @@ TInteger<N> TInteger<N>::operator-() const
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N> TInteger<N>::operator+(const TInteger& rI) const
+SETInteger<N> SETInteger<N>::operator+(const SETInteger& rI) const
 {
-    TInteger tempResult;
+    SETInteger tempResult;
 
     unsigned int uiCarry = 0;
     for( int i = 0; i < TINT_SIZE; i++ )
@@ -263,17 +263,17 @@ TInteger<N> TInteger<N>::operator+(const TInteger& rI) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N> TInteger<N>::operator-(const TInteger& rI) const
+SETInteger<N> SETInteger<N>::operator-(const SETInteger& rI) const
 {
     return *this + (-rI);
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N> TInteger<N>::operator*(const TInteger& rI) const
+SETInteger<N> SETInteger<N>::operator*(const SETInteger& rI) const
 {
     int iS0 = GetSign(), iS1 = rI.GetSign(), iSProduct = iS0 * iS1;
-    TInteger tempOp0 = (iS0 > 0 ? *this : -*this);
-    TInteger tempOp1 = (iS1 > 0 ? rI : -rI);
+    SETInteger tempOp0 = (iS0 > 0 ? *this : -*this);
+    SETInteger tempOp1 = (iS1 > 0 ? rI : -rI);
 
     // product of single-digit number with multiple-digit number
     unsigned short ausProduct[2 * TINT_SIZE];
@@ -337,7 +337,7 @@ TInteger<N> TInteger<N>::operator*(const TInteger& rI) const
     }
     SE_ASSERT( (ausResult[TINT_LAST] & 0x8000) == 0 );
 
-    TInteger tempResult;
+    SETInteger tempResult;
     SESystem::SE_Memcpy(tempResult.m_asBuffer, TINT_BYTES, ausResult, TINT_BYTES);
     if( iSProduct < 0 )
     {
@@ -348,57 +348,57 @@ TInteger<N> TInteger<N>::operator*(const TInteger& rI) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N> operator*(int i, const TInteger<N>& rI)
+SETInteger<N> operator*(int i, const SETInteger<N>& rI)
 {
     return rI * i;
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N> TInteger<N>::operator/(const TInteger& rI) const
+SETInteger<N> SETInteger<N>::operator/(const SETInteger& rI) const
 {
     // TO DO.  On division by zero, return INVALID or signed INFINITY?
-    TInteger tempQ, tempR;
+    SETInteger tempQ, tempR;
     return (GetDivMod(*this, rI, tempQ, tempR) ? tempQ : 0);
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N> TInteger<N>::operator%(const TInteger& rI) const
+SETInteger<N> SETInteger<N>::operator%(const SETInteger& rI) const
 {
     // TO DO.  On division by zero, return INVALID or signed INFINITY?
-    TInteger tempQ, tempR;
+    SETInteger tempQ, tempR;
     return (GetDivMod(*this, rI, tempQ, tempR) ? tempR : 0);
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N>& TInteger<N>::operator+=(const TInteger& rI)
+SETInteger<N>& SETInteger<N>::operator+=(const SETInteger& rI)
 {
     *this = *this + rI;
     return *this;
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N>& TInteger<N>::operator-=(const TInteger& rI)
+SETInteger<N>& SETInteger<N>::operator-=(const SETInteger& rI)
 {
     *this = *this - rI;
     return *this;
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N>& TInteger<N>::operator*=(const TInteger& rI)
+SETInteger<N>& SETInteger<N>::operator*=(const SETInteger& rI)
 {
     *this = *this * rI;
     return *this;
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N>& TInteger<N>::operator/=(const TInteger& rI)
+SETInteger<N>& SETInteger<N>::operator/=(const SETInteger& rI)
 {
     *this = *this / rI;
     return *this;
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N> TInteger<N>::operator<<(int iShift) const
+SETInteger<N> SETInteger<N>::operator<<(int iShift) const
 {
     if( iShift < 0 )
     {
@@ -410,7 +410,7 @@ TInteger<N> TInteger<N>::operator<<(int iShift) const
     }
 
     // number of 16-bit blocks to shift
-    TInteger tempResult;
+    SETInteger tempResult;
     int iBlocks = iShift / 16;
     if( iBlocks > TINT_LAST )
     {
@@ -456,7 +456,7 @@ TInteger<N> TInteger<N>::operator<<(int iShift) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N> TInteger<N>::operator>>(int iShift) const
+SETInteger<N> SETInteger<N>::operator>>(int iShift) const
 {
     if( iShift < 0 )
     {
@@ -468,7 +468,7 @@ TInteger<N> TInteger<N>::operator>>(int iShift) const
     }
 
     // number of 16-bit blocks to shift
-    TInteger tempResult;
+    SETInteger tempResult;
     int iBlocks = iShift/16;
     if( iBlocks > TINT_LAST )
     {
@@ -526,7 +526,7 @@ TInteger<N> TInteger<N>::operator>>(int iShift) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N>& TInteger<N>::operator<<=(int iShift)
+SETInteger<N>& SETInteger<N>::operator<<=(int iShift)
 {
     if( iShift <= 0 )
     {
@@ -534,7 +534,7 @@ TInteger<N>& TInteger<N>::operator<<=(int iShift)
     }
 
     // number of 16-bit blocks to shift
-    TInteger tempResult;
+    SETInteger tempResult;
     int iBlocks = iShift / 16;
     if( iBlocks > TINT_LAST )
     {
@@ -578,7 +578,7 @@ TInteger<N>& TInteger<N>::operator<<=(int iShift)
 }
 //----------------------------------------------------------------------------
 template <int N>
-TInteger<N>& TInteger<N>::operator>>=(int iShift)
+SETInteger<N>& SETInteger<N>::operator>>=(int iShift)
 {
     if( iShift <= 0 )
     {
@@ -643,8 +643,8 @@ TInteger<N>& TInteger<N>::operator>>=(int iShift)
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool TInteger<N>::GetDivMod(const TInteger& rNumer, const TInteger& rDenom, 
-    TInteger& rQuo, TInteger& rRem)
+bool SETInteger<N>::GetDivMod(const SETInteger& rNumer, const SETInteger& rDenom, 
+    SETInteger& rQuo, SETInteger& rRem)
 {
     if( rDenom == 0 )
     {
@@ -666,8 +666,8 @@ bool TInteger<N>::GetDivMod(const TInteger& rNumer, const TInteger& rDenom,
 
     // work with the absolute values of the numerator and denominator
     int iS0 = rNumer.GetSign(), iS1 = rDenom.GetSign();
-    TInteger tempAbsNumer = iS0*rNumer;
-    TInteger tempAbsDenom = iS1*rDenom;
+    SETInteger tempAbsNumer = iS0*rNumer;
+    SETInteger tempAbsDenom = iS1*rDenom;
 
     int iCompare = Compare(tempAbsNumer, tempAbsDenom);
     if( iCompare < 0 )
@@ -702,15 +702,15 @@ bool TInteger<N>::GetDivMod(const TInteger& rNumer, const TInteger& rDenom,
     rRem *= iS0;
 
 #ifdef _DEBUG
-    TInteger tempTest = rNumer - rDenom*rQuo - rRem;
+    SETInteger tempTest = rNumer - rDenom*rQuo - rRem;
     SE_ASSERT( tempTest == 0 );
 #endif
     return true;
 }
 //----------------------------------------------------------------------------
 template <int N>
-void TInteger<N>::DivSingle(const TInteger& rNumer, short sDenom, 
-    TInteger& rQuo, TInteger& rRem)
+void SETInteger<N>::DivSingle(const SETInteger& rNumer, short sDenom, 
+    SETInteger& rQuo, SETInteger& rRem)
 {
     // denominator is a single "digit"
     unsigned int uiDenom = 0x0000FFFF & (unsigned int)sDenom;
@@ -761,8 +761,8 @@ void TInteger<N>::DivSingle(const TInteger& rNumer, short sDenom,
 }
 //----------------------------------------------------------------------------
 template <int N>
-void TInteger<N>::DivMultiple(const TInteger& rNumer, 
-    const TInteger& rDenom, TInteger& rQuo, TInteger& rRem)
+void SETInteger<N>::DivMultiple(const SETInteger& rNumer, 
+    const SETInteger& rDenom, SETInteger& rQuo, SETInteger& rRem)
 {
     rQuo = 0;
     rRem = 0;
@@ -772,13 +772,13 @@ void TInteger<N>::DivMultiple(const TInteger& rNumer,
     // overflow when computing the product iAdjust*rNumer; an assertion will
     // fire in this case.  Ideally the overflow would be allowed and the
     // digit in the overflow position becomes the first digit of the numerator
-    // in the division algorithm.  This will require a mixture of TInteger<N>
-    // and TInteger<N+1>, though.
+    // in the division algorithm.  This will require a mixture of SETInteger<N>
+    // and SETInteger<N+1>, though.
     int iDInit = rDenom.GetLeadingBlock();
     int iLeadingDigit = rDenom.ToInt(iDInit);
     int iAdjust = 0x10000/(iLeadingDigit + 1);
-    TInteger tempANum = iAdjust * rNumer;
-    TInteger tempADen = iAdjust * rDenom;
+    SETInteger tempANum = iAdjust * rNumer;
+    SETInteger tempADen = iAdjust * rDenom;
     SE_ASSERT( tempADen.GetLeadingBlock() == iDInit );
 
     // get first two "digits" of denominator
@@ -839,11 +839,11 @@ void TInteger<N>::DivMultiple(const TInteger& rNumer,
         }
 
         // compute the quotient for this step of the division
-        TInteger tempLocalQuo;
+        SETInteger tempLocalQuo;
         tempLocalQuo.FromUnsignedInt(iQInit, uiQHat);
 
         // compute the remainder
-        TInteger tempProduct = tempLocalQuo*tempADen;
+        SETInteger tempProduct = tempLocalQuo*tempADen;
         tempANum -= tempProduct;
         if( tempANum < 0 )
         {
@@ -871,7 +871,7 @@ void TInteger<N>::DivMultiple(const TInteger& rNumer,
     if( tempANum > 0)
     {
         short sDivisor = (short)(iAdjust & 0x0000FFFF);
-        TInteger kShouldBeZero;
+        SETInteger kShouldBeZero;
         DivSingle(tempANum, sDivisor, rRem, kShouldBeZero);
     }
     else
@@ -881,7 +881,7 @@ void TInteger<N>::DivMultiple(const TInteger& rNumer,
 }
 //----------------------------------------------------------------------------
 template <int N>
-int TInteger<N>::GetLeadingBlock() const
+int SETInteger<N>::GetLeadingBlock() const
 {
     for( int i = TINT_LAST; i >= 0; i-- )
     {
@@ -895,7 +895,7 @@ int TInteger<N>::GetLeadingBlock() const
 }
 //----------------------------------------------------------------------------
 template <int N>
-int TInteger<N>::GetTrailingBlock() const
+int SETInteger<N>::GetTrailingBlock() const
 {
     for( int i = 0; i <= TINT_LAST; i++ )
     {
@@ -909,7 +909,7 @@ int TInteger<N>::GetTrailingBlock() const
 }
 //----------------------------------------------------------------------------
 template <int N>
-int TInteger<N>::GetLeadingBit(int i) const
+int SETInteger<N>::GetLeadingBit(int i) const
 {
     SE_ASSERT( 0 <= i && i <= TINT_LAST );
 
@@ -1032,7 +1032,7 @@ int TInteger<N>::GetLeadingBit(int i) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-int TInteger<N>::GetTrailingBit(int i) const
+int SETInteger<N>::GetTrailingBit(int i) const
 {
     SE_ASSERT( 0 <= i && i <= TINT_LAST );
 
@@ -1153,7 +1153,7 @@ int TInteger<N>::GetTrailingBit(int i) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-int TInteger<N>::GetLeadingBit() const
+int SETInteger<N>::GetLeadingBit() const
 {
     int iBlock = GetLeadingBlock();
     if( iBlock >= 0 )
@@ -1169,7 +1169,7 @@ int TInteger<N>::GetLeadingBit() const
 }
 //----------------------------------------------------------------------------
 template <int N>
-int TInteger<N>::GetTrailingBit() const
+int SETInteger<N>::GetTrailingBit() const
 {
     int iBlock = GetTrailingBlock();
     if( iBlock >= 0 )
@@ -1185,7 +1185,7 @@ int TInteger<N>::GetTrailingBit() const
 }
 //----------------------------------------------------------------------------
 template <int N>
-void TInteger<N>::SetBit(int i, bool bOn)
+void SETInteger<N>::SetBit(int i, bool bOn)
 {
     // SE_ASSERT( 0 <= i && i <= TINT_LAST );
     int iBlock = i / 16;
@@ -1201,7 +1201,7 @@ void TInteger<N>::SetBit(int i, bool bOn)
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool TInteger<N>::GetBit(int i) const
+bool SETInteger<N>::GetBit(int i) const
 {
     // SE_ASSERT( 0 <= i && i <= TINT_LAST );
     int iBlock = i / 16;
@@ -1211,7 +1211,7 @@ bool TInteger<N>::GetBit(int i) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-unsigned int TInteger<N>::ToUnsignedInt(int i) const
+unsigned int SETInteger<N>::ToUnsignedInt(int i) const
 {
     // SE_ASSERT( 0 <= i && i <= TINT_LAST );
 
@@ -1219,7 +1219,7 @@ unsigned int TInteger<N>::ToUnsignedInt(int i) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-void TInteger<N>::FromUnsignedInt(int i, unsigned int uiValue)
+void SETInteger<N>::FromUnsignedInt(int i, unsigned int uiValue)
 {
     // SE_ASSERT( 0 <= i && i <= TINT_LAST );
 
@@ -1227,7 +1227,7 @@ void TInteger<N>::FromUnsignedInt(int i, unsigned int uiValue)
 }
 //----------------------------------------------------------------------------
 template <int N>
-unsigned int TInteger<N>::ToUnsignedInt(int iLo, int iHi) const
+unsigned int SETInteger<N>::ToUnsignedInt(int iLo, int iHi) const
 {
     unsigned int uiLo = ToUnsignedInt(iLo);
     unsigned int uiHi = ToUnsignedInt(iHi);
@@ -1236,7 +1236,7 @@ unsigned int TInteger<N>::ToUnsignedInt(int iLo, int iHi) const
 }
 //----------------------------------------------------------------------------
 template <int N>
-int TInteger<N>::ToInt(int i) const
+int SETInteger<N>::ToInt(int i) const
 {
     // SE_ASSERT( 0 <= i && i <= TINT_LAST );
 

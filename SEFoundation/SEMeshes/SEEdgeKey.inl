@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline EdgeKey::EdgeKey(int iV0, int iV1)
+inline SEEdgeKey::SEEdgeKey(int iV0, int iV1)
 {
     if( iV0 < iV1 )
     {
@@ -35,7 +35,7 @@ inline EdgeKey::EdgeKey(int iV0, int iV1)
     }
 }
 //----------------------------------------------------------------------------
-inline bool EdgeKey::operator<(const EdgeKey& rKey) const
+inline bool SEEdgeKey::operator<(const SEEdgeKey& rKey) const
 {
     if( V[1] < rKey.V[1] )
     {
@@ -50,7 +50,7 @@ inline bool EdgeKey::operator<(const EdgeKey& rKey) const
     return V[0] < rKey.V[0];
 }
 //----------------------------------------------------------------------------
-inline EdgeKey::operator size_t() const
+inline SEEdgeKey::operator size_t() const
 {
     return V[0] | (V[1] << 16);
 }

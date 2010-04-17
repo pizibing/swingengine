@@ -20,14 +20,14 @@
 
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE>::TIVector()
+SETIVector<VSIZE>::SETIVector()
 {
     // For efficiency in construction of large arrays of vectors,  the
     // default constructor does not initialize the vector.
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE>::TIVector(const TIVector& rV)
+SETIVector<VSIZE>::SETIVector(const SETIVector& rV)
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -36,19 +36,19 @@ TIVector<VSIZE>::TIVector(const TIVector& rV)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE>::operator const SE_Int64*() const
+SETIVector<VSIZE>::operator const SE_Int64*() const
 {
     return m_aiTuple;
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE>::operator SE_Int64*()
+SETIVector<VSIZE>::operator SE_Int64*()
 {
     return m_aiTuple;
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-SE_Int64 TIVector<VSIZE>::operator[](int i) const
+SE_Int64 SETIVector<VSIZE>::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i < VSIZE );
 
@@ -56,7 +56,7 @@ SE_Int64 TIVector<VSIZE>::operator[](int i) const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-SE_Int64& TIVector<VSIZE>::operator[](int i)
+SE_Int64& SETIVector<VSIZE>::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i < VSIZE );
 
@@ -64,7 +64,7 @@ SE_Int64& TIVector<VSIZE>::operator[](int i)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE>& TIVector<VSIZE>::operator=(const TIVector& rV)
+SETIVector<VSIZE>& SETIVector<VSIZE>::operator=(const SETIVector& rV)
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -75,7 +75,7 @@ TIVector<VSIZE>& TIVector<VSIZE>::operator=(const TIVector& rV)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-bool TIVector<VSIZE>::operator==(const TIVector& rV) const
+bool SETIVector<VSIZE>::operator==(const SETIVector& rV) const
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -89,13 +89,13 @@ bool TIVector<VSIZE>::operator==(const TIVector& rV) const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-bool TIVector<VSIZE>::operator!=(const TIVector& rV) const
+bool SETIVector<VSIZE>::operator!=(const SETIVector& rV) const
 {
     return !operator==(rV);
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-int TIVector<VSIZE>::CompareArrays(const TIVector& rV) const
+int SETIVector<VSIZE>::CompareArrays(const SETIVector& rV) const
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -113,33 +113,33 @@ int TIVector<VSIZE>::CompareArrays(const TIVector& rV) const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-bool TIVector<VSIZE>::operator<(const TIVector& rV) const
+bool SETIVector<VSIZE>::operator<(const SETIVector& rV) const
 {
     return CompareArrays(rV) < 0;
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-bool TIVector<VSIZE>::operator<=(const TIVector& rV) const
+bool SETIVector<VSIZE>::operator<=(const SETIVector& rV) const
 {
     return CompareArrays(rV) <= 0;
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-bool TIVector<VSIZE>::operator>(const TIVector& rV) const
+bool SETIVector<VSIZE>::operator>(const SETIVector& rV) const
 {
     return CompareArrays(rV) > 0;
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-bool TIVector<VSIZE>::operator>=(const TIVector& rV) const
+bool SETIVector<VSIZE>::operator>=(const SETIVector& rV) const
 {
     return CompareArrays(rV) >= 0;
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE> TIVector<VSIZE>::operator+(const TIVector& rV) const
+SETIVector<VSIZE> SETIVector<VSIZE>::operator+(const SETIVector& rV) const
 {
-    TIVector<VSIZE> iSum;
+    SETIVector<VSIZE> iSum;
     for( int i = 0; i < VSIZE; i++ )
     {
         iSum.m_aiTuple[i] = m_aiTuple[i] + rV.m_aiTuple[i];
@@ -149,9 +149,9 @@ TIVector<VSIZE> TIVector<VSIZE>::operator+(const TIVector& rV) const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE> TIVector<VSIZE>::operator-(const TIVector& rV) const
+SETIVector<VSIZE> SETIVector<VSIZE>::operator-(const SETIVector& rV) const
 {
-    TIVector<VSIZE> iDiff;
+    SETIVector<VSIZE> iDiff;
     for( int i = 0; i < VSIZE; i++ )
     {
         iDiff.m_aiTuple[i] = m_aiTuple[i] - rV.m_aiTuple[i];
@@ -161,9 +161,9 @@ TIVector<VSIZE> TIVector<VSIZE>::operator-(const TIVector& rV) const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE> TIVector<VSIZE>::operator*(const SE_Int64& riI) const
+SETIVector<VSIZE> SETIVector<VSIZE>::operator*(const SE_Int64& riI) const
 {
-    TIVector<VSIZE> iProd;
+    SETIVector<VSIZE> iProd;
     for( int i = 0; i < VSIZE; i++ )
     {
         iProd.m_aiTuple[i] = riI * m_aiTuple[i];
@@ -173,11 +173,11 @@ TIVector<VSIZE> TIVector<VSIZE>::operator*(const SE_Int64& riI) const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE> TIVector<VSIZE>::operator/(const SE_Int64& riI) const
+SETIVector<VSIZE> SETIVector<VSIZE>::operator/(const SE_Int64& riI) const
 {
     SE_ASSERT( riI != 0 );
 
-    TIVector<VSIZE> iProd;
+    SETIVector<VSIZE> iProd;
     for( int i = 0; i < VSIZE; i++ )
     {
         iProd.m_aiTuple[i] = m_aiTuple[i] / riI;
@@ -187,9 +187,9 @@ TIVector<VSIZE> TIVector<VSIZE>::operator/(const SE_Int64& riI) const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE> TIVector<VSIZE>::operator-() const
+SETIVector<VSIZE> SETIVector<VSIZE>::operator-() const
 {
-    TIVector<VSIZE> iNeg;
+    SETIVector<VSIZE> iNeg;
     for( int i = 0; i < VSIZE; i++ )
     {
         iNeg.m_aiTuple[i] = -m_aiTuple[i];
@@ -199,9 +199,9 @@ TIVector<VSIZE> TIVector<VSIZE>::operator-() const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE> operator*(const SE_Int64& riI,  const TIVector<VSIZE>& rV)
+SETIVector<VSIZE> operator*(const SE_Int64& riI,  const SETIVector<VSIZE>& rV)
 {
-    TIVector<VSIZE> iProd;
+    SETIVector<VSIZE> iProd;
     for( int i = 0; i < VSIZE; i++ )
     {
         iProd[i] = riI * rV[i];
@@ -211,7 +211,7 @@ TIVector<VSIZE> operator*(const SE_Int64& riI,  const TIVector<VSIZE>& rV)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE>& TIVector<VSIZE>::operator+=(const TIVector& rV)
+SETIVector<VSIZE>& SETIVector<VSIZE>::operator+=(const SETIVector& rV)
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -222,7 +222,7 @@ TIVector<VSIZE>& TIVector<VSIZE>::operator+=(const TIVector& rV)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE>& TIVector<VSIZE>::operator-=(const TIVector& rV)
+SETIVector<VSIZE>& SETIVector<VSIZE>::operator-=(const SETIVector& rV)
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -233,7 +233,7 @@ TIVector<VSIZE>& TIVector<VSIZE>::operator-=(const TIVector& rV)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE>& TIVector<VSIZE>::operator*=(const SE_Int64& riI)
+SETIVector<VSIZE>& SETIVector<VSIZE>::operator*=(const SE_Int64& riI)
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -244,7 +244,7 @@ TIVector<VSIZE>& TIVector<VSIZE>::operator*=(const SE_Int64& riI)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-TIVector<VSIZE>& TIVector<VSIZE>::operator/=(const SE_Int64& riI)
+SETIVector<VSIZE>& SETIVector<VSIZE>::operator/=(const SE_Int64& riI)
 {
     SE_ASSERT( riI != 0 );
 
@@ -257,7 +257,7 @@ TIVector<VSIZE>& TIVector<VSIZE>::operator/=(const SE_Int64& riI)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-SE_Int64 TIVector<VSIZE>::GetSquaredLength() const
+SE_Int64 SETIVector<VSIZE>::GetSquaredLength() const
 {
     SE_Int64 iSqrLen = 0;
     for( int i = 0; i < VSIZE; i++ )
@@ -269,7 +269,7 @@ SE_Int64 TIVector<VSIZE>::GetSquaredLength() const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE>
-SE_Int64 TIVector<VSIZE>::Dot(const TIVector& rV) const
+SE_Int64 SETIVector<VSIZE>::Dot(const SETIVector& rV) const
 {
     SE_Int64 iDot = 0;
     for( int i = 0; i < VSIZE; i++ )

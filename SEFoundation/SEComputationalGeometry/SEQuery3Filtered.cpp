@@ -24,10 +24,10 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Query3Filteredf::Query3Filteredf (int iVCount, const SEVector3f* aVertex, 
+SEQuery3Filteredf::SEQuery3Filteredf (int iVCount, const SEVector3f* aVertex, 
     float fUncertainty)
     :
-    Query3f(iVCount, aVertex), 
+    SEQuery3f(iVCount, aVertex), 
     m_RQuery(iVCount, aVertex)
 {
     SE_ASSERT( 0.0f <= fUncertainty && fUncertainty <= 1.0f );
@@ -35,16 +35,16 @@ Query3Filteredf::Query3Filteredf (int iVCount, const SEVector3f* aVertex,
     m_fUncertainty = fUncertainty;
 }
 //----------------------------------------------------------------------------
-Query3Filteredf::~Query3Filteredf()
+SEQuery3Filteredf::~SEQuery3Filteredf()
 {
 }
 //----------------------------------------------------------------------------
-Query::Type Query3Filteredf::GetType() const
+SEQuery::Type SEQuery3Filteredf::GetType() const
 {
-    return Query::QT_FILTERED;
+    return SEQuery::QT_FILTERED;
 }
 //----------------------------------------------------------------------------
-int Query3Filteredf::ToPlane(const SEVector3f& rP, int iV0, int iV1, int iV2) 
+int SEQuery3Filteredf::ToPlane(const SEVector3f& rP, int iV0, int iV1, int iV2) 
     const
 {
     const SEVector3f& rV0 = m_aVertex[iV0];
@@ -75,7 +75,7 @@ int Query3Filteredf::ToPlane(const SEVector3f& rP, int iV0, int iV1, int iV2)
     return m_RQuery.ToPlane(rP, iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-int Query3Filteredf::ToCircumsphere(const SEVector3f& rP, int iV0, 
+int SEQuery3Filteredf::ToCircumsphere(const SEVector3f& rP, int iV0, 
     int iV1, int iV2, int iV3) const
 {
     const SEVector3f& rV0 = m_aVertex[iV0];

@@ -56,7 +56,7 @@ public:
 private:
     enum { IMAGE_MAP_SIZE = 256 };
     std::string m_Name;
-    StringHashTable<Image*> m_Entry;
+    SEStringHashTable<Image*> m_Entry;
     SEObjectPtr m_spDefaultImage;
 
     static const std::string ms_NullString;

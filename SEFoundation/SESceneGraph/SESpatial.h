@@ -88,7 +88,7 @@ public:
 
     CullingMode Culling;
 
-    // Geometric state和Controller更新入口.
+    // Geometric state和SEController更新入口.
     // UpdateGS函数向下计算每个节点的世界变换,向上计算世界BV.
     // UpdateBS函数只向上计算世界BV,当模型数据改变时,只需改变模型BV和世界BV,
     // 无需重新计算空间变换.

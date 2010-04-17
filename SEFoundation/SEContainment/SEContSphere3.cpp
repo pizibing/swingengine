@@ -107,21 +107,21 @@ SESphere3f Swing::MergeSpheresf(const SESphere3f& rSphere0,
 //----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
-// MinSphere3f
+// SEMinSphere3f
 //
 // 所有最小球的内部计算函数都在SESphere3f对象中暂存平方半径,只有最后输出时才开方.
 //----------------------------------------------------------------------------
-MinSphere3f::MinSphere3f(int iCount, const SEVector3f* aPoint, 
+SEMinSphere3f::SEMinSphere3f(int iCount, const SEVector3f* aPoint, 
     SESphere3f& rMinimal, float fEpsilon)
 {
     m_fEpsilon = fEpsilon;
     m_aoUpdate[0] = 0;
-    m_aoUpdate[1] = &MinSphere3f::UpdateSupport1;
-    m_aoUpdate[2] = &MinSphere3f::UpdateSupport2;
-    m_aoUpdate[3] = &MinSphere3f::UpdateSupport3;
-    m_aoUpdate[4] = &MinSphere3f::UpdateSupport4;
+    m_aoUpdate[1] = &SEMinSphere3f::UpdateSupport1;
+    m_aoUpdate[2] = &SEMinSphere3f::UpdateSupport2;
+    m_aoUpdate[3] = &SEMinSphere3f::UpdateSupport3;
+    m_aoUpdate[4] = &SEMinSphere3f::UpdateSupport4;
 
-    Support tempSupp;
+    SESupport tempSupp;
     float fDistDiff;
 
     if( iCount >= 1 )
@@ -186,7 +186,7 @@ MinSphere3f::MinSphere3f(int iCount, const SEVector3f* aPoint,
     rMinimal.Radius = SEMath<float>::Sqrt(rMinimal.Radius);
 }
 //----------------------------------------------------------------------------
-bool MinSphere3f::Contains(const SEVector3f& rPoint, const SESphere3f& rSphere, 
+bool SEMinSphere3f::Contains(const SEVector3f& rPoint, const SESphere3f& rSphere, 
     float& rfDistDiff)
 {
     SEVector3f vec3fDiff = rPoint - rSphere.Center;
@@ -198,7 +198,7 @@ bool MinSphere3f::Contains(const SEVector3f& rPoint, const SESphere3f& rSphere,
     return rfDistDiff <= 0.0f;
 }
 //----------------------------------------------------------------------------
-SESphere3f MinSphere3f::ExactSphere1(const SEVector3f& rPoint)
+SESphere3f SEMinSphere3f::ExactSphere1(const SEVector3f& rPoint)
 {
     SESphere3f tempMinimal;
     tempMinimal.Center = rPoint;
@@ -207,7 +207,7 @@ SESphere3f MinSphere3f::ExactSphere1(const SEVector3f& rPoint)
     return tempMinimal;
 }
 //----------------------------------------------------------------------------
-SESphere3f MinSphere3f::ExactSphere2(const SEVector3f& rPoint0, 
+SESphere3f SEMinSphere3f::ExactSphere2(const SEVector3f& rPoint0, 
     const SEVector3f& rPoint1)
 {
     SESphere3f tempMinimal;
@@ -218,7 +218,7 @@ SESphere3f MinSphere3f::ExactSphere2(const SEVector3f& rPoint0,
     return tempMinimal;
 }
 //----------------------------------------------------------------------------
-SESphere3f MinSphere3f::ExactSphere3(const SEVector3f& rPoint0, 
+SESphere3f SEMinSphere3f::ExactSphere3(const SEVector3f& rPoint0, 
     const SEVector3f& rPoint1, const SEVector3f& rPoint2)
 {
     // 计算经过三个顶点p0,p1,p2的球,球心C是三个顶点的重心,
@@ -271,7 +271,7 @@ SESphere3f MinSphere3f::ExactSphere3(const SEVector3f& rPoint0,
     return tempMinimal;
 }
 //----------------------------------------------------------------------------
-SESphere3f MinSphere3f::ExactSphere4(const SEVector3f& rPoint0, 
+SESphere3f SEMinSphere3f::ExactSphere4(const SEVector3f& rPoint0, 
     const SEVector3f& rPoint1, const SEVector3f& rPoint2, const SEVector3f& rPoint3)
 {
     // 计算经过四个顶点p0,p1,p2,p3的球,球心C是四个顶点的重心,
@@ -371,8 +371,8 @@ SESphere3f MinSphere3f::ExactSphere4(const SEVector3f& rPoint0,
     return tempMinimal;
 }
 //----------------------------------------------------------------------------
-SESphere3f MinSphere3f::UpdateSupport1(int i, SEVector3f** apPermute, 
-    Support& rSupport)
+SESphere3f SEMinSphere3f::UpdateSupport1(int i, SEVector3f** apPermute, 
+    SESupport& rSupport)
 {
     const SEVector3f& rPoint0 = *apPermute[rSupport.Index[0]];
     const SEVector3f& rPoint1 = *apPermute[i];
@@ -384,8 +384,8 @@ SESphere3f MinSphere3f::UpdateSupport1(int i, SEVector3f** apPermute,
     return tempMinimal;
 }
 //----------------------------------------------------------------------------
-SESphere3f MinSphere3f::UpdateSupport2(int i, SEVector3f** apPermute, 
-    Support& rSupport)
+SESphere3f SEMinSphere3f::UpdateSupport2(int i, SEVector3f** apPermute, 
+    SESupport& rSupport)
 {
     const SEVector3f& rPoint0 = *apPermute[rSupport.Index[0]];
     const SEVector3f& rPoint1 = *apPermute[rSupport.Index[1]];
@@ -431,8 +431,8 @@ SESphere3f MinSphere3f::UpdateSupport2(int i, SEVector3f** apPermute,
     return tempMinimal;
 }
 //----------------------------------------------------------------------------
-SESphere3f MinSphere3f::UpdateSupport3(int i, SEVector3f** apPermute, 
-    Support& rSupport)
+SESphere3f SEMinSphere3f::UpdateSupport3(int i, SEVector3f** apPermute, 
+    SESupport& rSupport)
 {
     const SEVector3f& rPoint0 = *apPermute[rSupport.Index[0]];
     const SEVector3f& rPoint1 = *apPermute[rSupport.Index[1]];
@@ -537,8 +537,8 @@ SESphere3f MinSphere3f::UpdateSupport3(int i, SEVector3f** apPermute,
     return tempMinimal;
 }
 //----------------------------------------------------------------------------
-SESphere3f MinSphere3f::UpdateSupport4(int i, SEVector3f** apPermute, 
-    Support& rSupport)
+SESphere3f SEMinSphere3f::UpdateSupport4(int i, SEVector3f** apPermute, 
+    SESupport& rSupport)
 {
     const SEVector3f* aPoint[4] =
     {

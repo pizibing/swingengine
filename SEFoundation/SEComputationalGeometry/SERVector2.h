@@ -34,29 +34,29 @@ namespace Swing
 // Ê±¼ä:20081202
 //----------------------------------------------------------------------------
 template <int ISIZE>
-class RVector2 : public TRVector<2,  ISIZE>
+class SERVector2 : public SETRVector<2,  ISIZE>
 {
 public:
     // construction
-    RVector2();
-    RVector2(const RVector2& rV);
+    SERVector2();
+    SERVector2(const SERVector2& rV);
 
 #ifdef SE_USING_VC70
-    RVector2(const TRVector<2,  ISIZE>& rV)
+    SERVector2(const SETRVector<2,  ISIZE>& rV)
     {
         // The inline body is here because of an apparent MSVC++ .NET 2002
         // compiler bug.  If placed in the *.inl file,  the compiler complains:
         //
-        //   error C2244: 'Swing::RVector2<>::__ctor' : unable to match function
+        //   error C2244: 'Swing::SERVector2<>::__ctor' : unable to match function
         //       definition to an existing declaration
         //   definition
-        //       'Swing::RVector2<>::RVector2(const Swing::TRVector<2, > &)'
+        //       'Swing::SERVector2<>::SERVector2(const Swing::SETRVector<2, > &)'
         //   existing declarations
-        //       'Swing::RVector2<>::RVector2(const Swing::TRational<> &, 
-        //                                  const Swing::TRational<> &)'
-        //       'Swing::RVector2<>::RVector2(const Swing::TRVector<2, > &)'
-        //       'Swing::RVector2<>::RVector2(const Swing::RVector2<> &)'
-        //       'Swing::RVector2<>::RVector2(void)'
+        //       'Swing::SERVector2<>::SERVector2(const Swing::SETRational<> &, 
+        //                                  const Swing::SETRational<> &)'
+        //       'Swing::SERVector2<>::SERVector2(const Swing::SETRVector<2, > &)'
+        //       'Swing::SERVector2<>::SERVector2(const Swing::SERVector2<> &)'
+        //       'Swing::SERVector2<>::SERVector2(void)'
         // The "definition" is in the "existing declarations" list,  so I do
         // not know what the compiler is complaining about.
 
@@ -64,36 +64,36 @@ public:
         m_aTuple[1] = rV[1];
     }
 #else
-    RVector2(const TRVector<2,  ISIZE>& rV);
+    SERVector2(const SETRVector<2,  ISIZE>& rV);
 #endif
 
-    RVector2(const TRational<ISIZE>& rX,  const TRational<ISIZE>& rY);
+    SERVector2(const SETRational<ISIZE>& rX,  const SETRational<ISIZE>& rY);
 
     // member access
-    TRational<ISIZE> X(void) const;
-    TRational<ISIZE>& X(void);
-    TRational<ISIZE> Y(void) const;
-    TRational<ISIZE>& Y(void);
+    SETRational<ISIZE> X(void) const;
+    SETRational<ISIZE>& X(void);
+    SETRational<ISIZE> Y(void) const;
+    SETRational<ISIZE>& Y(void);
 
     // assignment
-    RVector2& operator = (const RVector2& rV);
+    SERVector2& operator = (const SERVector2& rV);
 
 #ifdef SE_USING_VC70
-    RVector2& operator = (const TRVector<2,  ISIZE>& rV)
+    SERVector2& operator = (const SETRVector<2,  ISIZE>& rV)
     {
         // The inline body is here because of an apparent MSVC++ .NET 2002
         // compiler bug.  If placed in the *.inl file,  the compiler complains:
         //
-        //   error C2244: 'Swing::RVector2<>::operator`='' : unable to match
+        //   error C2244: 'Swing::SERVector2<>::operator`='' : unable to match
         //       function definition to an existing declaration
         //   definition
-        //       'Swing::RVector2<> &Swing::RVector2<>::operator =(
-        //            const Swing::TRVector<2, > &)'
+        //       'Swing::SERVector2<> &Swing::SERVector2<>::operator =(
+        //            const Swing::SETRVector<2, > &)'
         //   existing declarations
-        //       'Swing::RVector2<> &Swing::RVector2<>::operator =(
-        //            const Swing::TRVector<2, > &)'
-        //       'Swing::RVector2<> &Swing::RVector2<>::operator =(
-        //            const Swing::RVector2<> &)'
+        //       'Swing::SERVector2<> &Swing::SERVector2<>::operator =(
+        //            const Swing::SETRVector<2, > &)'
+        //       'Swing::SERVector2<> &Swing::SERVector2<>::operator =(
+        //            const Swing::SERVector2<> &)'
 
         m_aTuple[0] = rV[0];
         m_aTuple[1] = rV[1];
@@ -101,20 +101,20 @@ public:
         return *this;
     }
 #else
-    RVector2& operator = (const TRVector<2,  ISIZE>& rV);
+    SERVector2& operator = (const SETRVector<2,  ISIZE>& rV);
 #endif
 
     // returns Dot(this, V)
-    TRational<ISIZE> Dot(const RVector2& rV) const;
+    SETRational<ISIZE> Dot(const SERVector2& rV) const;
 
     // returns (y, -x)
-    RVector2 Perp(void) const;
+    SERVector2 Perp(void) const;
 
     // returns Cross((x, y, 0), (V.x, V.y, 0)) = x*V.y - y*V.x
-    TRational<ISIZE> DotPerp(const RVector2& rV) const;
+    SETRational<ISIZE> DotPerp(const SERVector2& rV) const;
 
 protected:
-    using TRVector<2,  ISIZE>::m_aTuple;
+    using SETRVector<2,  ISIZE>::m_aTuple;
 };
 
 #include "SERVector2.inl"

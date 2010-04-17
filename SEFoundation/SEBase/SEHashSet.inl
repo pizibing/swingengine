@@ -20,7 +20,7 @@
 
 //----------------------------------------------------------------------------
 template <class TKey>
-HashSet<TKey>::HashSet(int iTableSize)
+SEHashSet<TKey>::SEHashSet(int iTableSize)
 {
     SE_ASSERT( iTableSize > 0 );
 
@@ -28,30 +28,30 @@ HashSet<TKey>::HashSet(int iTableSize)
     m_iCount = 0;
     m_iIndex = 0;
     m_pHashItem = 0;
-    m_ppTable = SE_NEW HSItem*[m_iTableSize];
-    memset( m_ppTable, 0, m_iTableSize*sizeof(HSItem*));
+    m_ppTable = SE_NEW SEHSItem*[m_iTableSize];
+    memset( m_ppTable, 0, m_iTableSize*sizeof(SEHSItem*));
     UserHashFunction = 0;
 }
 //----------------------------------------------------------------------------
 template <class TKey>
-HashSet<TKey>::~HashSet()
+SEHashSet<TKey>::~SEHashSet()
 {
     RemoveAll();
     SE_DELETE[] m_ppTable;
 }
 //----------------------------------------------------------------------------
 template <class TKey>
-int HashSet<TKey>::GetCount() const
+int SEHashSet<TKey>::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
 template <class TKey>
-TKey* HashSet<TKey>::Insert(const TKey& rKey)
+TKey* SEHashSet<TKey>::Insert(const TKey& rKey)
 {
     // 用哈希函数映射到表项索引
     int iIndex = HashFunction(rKey);
-    HSItem* pHashItem = m_ppTable[iIndex];
+    SEHSItem* pHashItem = m_ppTable[iIndex];
 
     //  在当前表项列表中查找是否已经存在该关键字
     while( pHashItem )
@@ -66,7 +66,7 @@ TKey* HashSet<TKey>::Insert(const TKey& rKey)
     }
 
     // 插入新值
-    pHashItem = SE_NEW HSItem;
+    pHashItem = SE_NEW SEHSItem;
     pHashItem->m_Key = rKey;
     pHashItem->m_pNextHashItem = m_ppTable[iIndex];
     m_ppTable[iIndex] = pHashItem;
@@ -76,11 +76,11 @@ TKey* HashSet<TKey>::Insert(const TKey& rKey)
 }
 //----------------------------------------------------------------------------
 template <class TKey>
-TKey* HashSet<TKey>::Get(const TKey& rKey) const
+TKey* SEHashSet<TKey>::Get(const TKey& rKey) const
 {
     // 用哈希函数映射到表项索引
     int iIndex = HashFunction(rKey);
-    HSItem* pHashItem = m_ppTable[iIndex];
+    SEHSItem* pHashItem = m_ppTable[iIndex];
 
     // 查找符合指定关键字的项
     while( pHashItem )
@@ -97,11 +97,11 @@ TKey* HashSet<TKey>::Get(const TKey& rKey) const
 }
 //----------------------------------------------------------------------------
 template <class TKey>
-bool HashSet<TKey>::Remove(const TKey& rKey)
+bool SEHashSet<TKey>::Remove(const TKey& rKey)
 {
     // 用哈希函数映射到表项索引
     int iIndex = HashFunction(rKey);
-    HSItem* pHashItem = m_ppTable[iIndex];
+    SEHSItem* pHashItem = m_ppTable[iIndex];
 
     if( !pHashItem )
     {
@@ -111,7 +111,7 @@ bool HashSet<TKey>::Remove(const TKey& rKey)
     if( rKey == pHashItem->m_Key )
     {
         // 表项在列表头部
-        HSItem* pTemp = pHashItem;
+        SEHSItem* pTemp = pHashItem;
         m_ppTable[iIndex] = pHashItem->m_pNextHashItem;
         SE_DELETE pTemp;
         m_iCount--;
@@ -119,8 +119,8 @@ bool HashSet<TKey>::Remove(const TKey& rKey)
     }
 
     // 表项可能在列表中,查找并删除
-    HSItem* pPrev = pHashItem;
-    HSItem* pCur = pHashItem->m_pNextHashItem;
+    SEHSItem* pPrev = pHashItem;
+    SEHSItem* pCur = pHashItem->m_pNextHashItem;
     while( pCur && rKey != pCur->m_Key )
     {
         pPrev = pCur;
@@ -140,7 +140,7 @@ bool HashSet<TKey>::Remove(const TKey& rKey)
 }
 //----------------------------------------------------------------------------
 template <class TKey>
-void HashSet<TKey>::RemoveAll()
+void SEHashSet<TKey>::RemoveAll()
 {
     if( m_iCount > 0 )
     {
@@ -148,7 +148,7 @@ void HashSet<TKey>::RemoveAll()
         {
             while( m_ppTable[iIndex] )
             {
-                HSItem* pTemp = m_ppTable[iIndex];
+                SEHSItem* pTemp = m_ppTable[iIndex];
                 m_ppTable[iIndex] = m_ppTable[iIndex]->m_pNextHashItem;
                 SE_DELETE pTemp;
 
@@ -162,7 +162,7 @@ void HashSet<TKey>::RemoveAll()
 }
 //----------------------------------------------------------------------------
 template <class TKey>
-TKey* HashSet<TKey>::GetFirst() const
+TKey* SEHashSet<TKey>::GetFirst() const
 {
     if( m_iCount > 0 )
     {
@@ -180,7 +180,7 @@ TKey* HashSet<TKey>::GetFirst() const
 }
 //----------------------------------------------------------------------------
 template <class TKey>
-TKey* HashSet<TKey>::GetNext() const
+TKey* SEHashSet<TKey>::GetNext() const
 {
     if( m_iCount > 0 )
     {
@@ -204,7 +204,7 @@ TKey* HashSet<TKey>::GetNext() const
 }
 //----------------------------------------------------------------------------
 template <class TKey>
-int HashSet<TKey>::HashFunction(const TKey& rKey) const
+int SEHashSet<TKey>::HashFunction(const TKey& rKey) const
 {
     if( UserHashFunction )
     {

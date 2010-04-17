@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-HullEdge2f::HullEdge2f(int iV0,  int iV1)
+SEHullEdge2f::SEHullEdge2f(int iV0,  int iV1)
 {
     V[0] = iV0;
     V[1] = iV1;
@@ -34,7 +34,7 @@ HullEdge2f::HullEdge2f(int iV0,  int iV1)
     Time = -1;
 }
 //----------------------------------------------------------------------------
-int HullEdge2f::GetSign(int i,  const Query2f* pQuery)
+int SEHullEdge2f::GetSign(int i,  const SEQuery2f* pQuery)
 {
     if( i != Time )
     {
@@ -45,7 +45,7 @@ int HullEdge2f::GetSign(int i,  const Query2f* pQuery)
     return Sign;
 }
 //----------------------------------------------------------------------------
-void HullEdge2f::Insert(HullEdge2f* pAdj0,  HullEdge2f* pAdj1)
+void SEHullEdge2f::Insert(SEHullEdge2f* pAdj0,  SEHullEdge2f* pAdj1)
 {
     pAdj0->A[1] = this;
     pAdj1->A[0] = this;
@@ -53,7 +53,7 @@ void HullEdge2f::Insert(HullEdge2f* pAdj0,  HullEdge2f* pAdj1)
     A[1] = pAdj1;
 }
 //----------------------------------------------------------------------------
-void HullEdge2f::DeleteSelf()
+void SEHullEdge2f::DeleteSelf()
 {
     if( A[0] )
     {
@@ -68,12 +68,12 @@ void HullEdge2f::DeleteSelf()
     SE_DELETE this;
 }
 //----------------------------------------------------------------------------
-void HullEdge2f::DeleteAll()
+void SEHullEdge2f::DeleteAll()
 {
-    HullEdge2f* pAdj = A[1];
+    SEHullEdge2f* pAdj = A[1];
     while( pAdj && pAdj != this )
     {
-        HullEdge2f* pSave = pAdj->A[1];
+        SEHullEdge2f* pSave = pAdj->A[1];
         SE_DELETE pAdj;
         pAdj = pSave;
     }
@@ -83,11 +83,11 @@ void HullEdge2f::DeleteAll()
     SE_DELETE this;
 }
 //----------------------------------------------------------------------------
-void HullEdge2f::GetIndices(int& riHCount,  int*& raiHIndex)
+void SEHullEdge2f::GetIndices(int& riHCount,  int*& raiHIndex)
 {
     // Count the number of edge vertices and allocate the index array.
     riHCount = 0;
-    HullEdge2f* pCurrent = this;
+    SEHullEdge2f* pCurrent = this;
     do
     {
         riHCount++;

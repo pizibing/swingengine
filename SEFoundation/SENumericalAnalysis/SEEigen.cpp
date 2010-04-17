@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Eigen::Eigen(int iSize)
+SEEigen::SEEigen(int iSize)
     : m_Mat(iSize, iSize)
 {
     SE_ASSERT( iSize >= 2 );
@@ -35,7 +35,7 @@ Eigen::Eigen(int iSize)
     m_bIsRotation = false;
 }
 //----------------------------------------------------------------------------
-Eigen::Eigen(const SEMatrix2f& rMat)
+SEEigen::SEEigen(const SEMatrix2f& rMat)
     : m_Mat(2, 2, (const float*)rMat)
 {
     m_iSize = 2;
@@ -44,7 +44,7 @@ Eigen::Eigen(const SEMatrix2f& rMat)
     m_bIsRotation = false;
 }
 //----------------------------------------------------------------------------
-Eigen::Eigen(const SEMatrix3f& rMat)
+SEEigen::SEEigen(const SEMatrix3f& rMat)
     : m_Mat(3, 3, (const float*)rMat)
 {
     m_iSize = 3;
@@ -53,7 +53,7 @@ Eigen::Eigen(const SEMatrix3f& rMat)
     m_bIsRotation = false;
 }
 //----------------------------------------------------------------------------
-Eigen::Eigen(const SEMatrixMNf& rMat)
+SEEigen::SEEigen(const SEMatrixMNf& rMat)
     : m_Mat(rMat)
 {
     m_iSize = rMat.GetRows();
@@ -64,18 +64,18 @@ Eigen::Eigen(const SEMatrixMNf& rMat)
     m_bIsRotation = false;
 }
 //----------------------------------------------------------------------------
-Eigen::~Eigen()
+SEEigen::~SEEigen()
 {
     delete[] m_pSubd;
     delete[] m_pDiag;
 }
 //----------------------------------------------------------------------------
-float& Eigen::operator()(int iRow, int iCol)
+float& SEEigen::operator()(int iRow, int iCol)
 {
     return m_Mat[iRow][iCol];
 }
 //----------------------------------------------------------------------------
-Eigen& Eigen::operator=(const SEMatrix2f& rMat)
+SEEigen& SEEigen::operator=(const SEMatrix2f& rMat)
 {
     m_Mat.SetMatrix(2, 2, (const float*)rMat);
     m_iSize = 2;
@@ -87,7 +87,7 @@ Eigen& Eigen::operator=(const SEMatrix2f& rMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Eigen& Eigen::operator=(const SEMatrix3f& rMat)
+SEEigen& SEEigen::operator=(const SEMatrix3f& rMat)
 {
     m_Mat.SetMatrix(3, 3, (const float*)rMat);
     m_iSize = 3;
@@ -99,24 +99,24 @@ Eigen& Eigen::operator=(const SEMatrix3f& rMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Eigen& Eigen::operator=(const SEMatrixMNf& rMat)
+SEEigen& SEEigen::operator=(const SEMatrixMNf& rMat)
 {
     m_Mat = rMat;
 
     return *this;
 }
 //----------------------------------------------------------------------------
-float Eigen::GetEigenvalue(int i) const
+float SEEigen::GetEigenvalue(int i) const
 {
     return m_pDiag[i];
 }
 //----------------------------------------------------------------------------
-const float* Eigen::GetEigenvalues() const
+const float* SEEigen::GetEigenvalues() const
 {
     return m_pDiag;
 }
 //----------------------------------------------------------------------------
-void Eigen::GetEigenvector(int i, SEVector2f& rVec) const
+void SEEigen::GetEigenvector(int i, SEVector2f& rVec) const
 {
     SE_ASSERT( m_iSize == 2 );
 
@@ -133,7 +133,7 @@ void Eigen::GetEigenvector(int i, SEVector2f& rVec) const
     }
 }
 //----------------------------------------------------------------------------
-void Eigen::GetEigenvector(int i, SEVector3f& rVec) const
+void SEEigen::GetEigenvector(int i, SEVector3f& rVec) const
 {
     SE_ASSERT( m_iSize == 3 );
 
@@ -150,7 +150,7 @@ void Eigen::GetEigenvector(int i, SEVector3f& rVec) const
     }
 }
 //----------------------------------------------------------------------------
-SEVectorNf Eigen::GetEigenvector(int i) const
+SEVectorNf SEEigen::GetEigenvector(int i) const
 {
     SEVectorNf ResVec;
 	m_Mat.GetCol(i, ResVec);
@@ -158,12 +158,12 @@ SEVectorNf Eigen::GetEigenvector(int i) const
     return ResVec;
 }
 //----------------------------------------------------------------------------
-const SEMatrixMNf& Eigen::GetEigenvectors() const
+const SEMatrixMNf& SEEigen::GetEigenvectors() const
 {
     return m_Mat;
 }
 //----------------------------------------------------------------------------
-void Eigen::Tridiagonal2()
+void SEEigen::Tridiagonal2()
 {
     // matrix is already tridiagonal
     m_pDiag[0] = m_Mat[0][0];
@@ -178,7 +178,7 @@ void Eigen::Tridiagonal2()
     m_bIsRotation = true;
 }
 //----------------------------------------------------------------------------
-void Eigen::Tridiagonal3()
+void SEEigen::Tridiagonal3()
 {
     float fM00 = m_Mat[0][0];
     float fM01 = m_Mat[0][1];
@@ -232,7 +232,7 @@ void Eigen::Tridiagonal3()
     }
 }
 //----------------------------------------------------------------------------
-void Eigen::TridiagonalN()
+void SEEigen::TridiagonalN()
 {
     int i0, i1, i2, i3;
 
@@ -333,7 +333,7 @@ void Eigen::TridiagonalN()
         }
     }
 
-    // re-ordering if Eigen::QLAlgorithm is used subsequently
+    // re-ordering if SEEigen::QLAlgorithm is used subsequently
     for( i0 = 1, i3 = 0; i0 < m_iSize; i0++, i3++ )
     {
         m_pSubd[i3] = m_pSubd[i0];
@@ -343,7 +343,7 @@ void Eigen::TridiagonalN()
     m_bIsRotation = ((m_iSize % 2) == 0);
 }
 //----------------------------------------------------------------------------
-bool Eigen::QLAlgorithm()
+bool SEEigen::QLAlgorithm()
 {
     const int iMaxIter = 32;
 
@@ -424,7 +424,7 @@ bool Eigen::QLAlgorithm()
     return true;
 }
 //----------------------------------------------------------------------------
-void Eigen::DecreasingSort()
+void SEEigen::DecreasingSort()
 {
     // sort eigenvalues in decreasing order, e[0] >= ... >= e[iSize-1]
     for( int i0 = 0, i1; i0 <= m_iSize-2; i0++ )
@@ -460,7 +460,7 @@ void Eigen::DecreasingSort()
     }
 }
 //----------------------------------------------------------------------------
-void Eigen::IncreasingSort()
+void SEEigen::IncreasingSort()
 {
     // sort eigenvalues in increasing order, e[0] <= ... <= e[iSize-1]
     for(int i0 = 0, i1; i0 <= m_iSize - 2; i0++ )
@@ -496,7 +496,7 @@ void Eigen::IncreasingSort()
     }
 }
 //----------------------------------------------------------------------------
-void Eigen::GuaranteeRotation()
+void SEEigen::GuaranteeRotation()
 {
     if( !m_bIsRotation )
     {
@@ -508,28 +508,28 @@ void Eigen::GuaranteeRotation()
     }
 }
 //----------------------------------------------------------------------------
-void Eigen::EigenStuff2()
+void SEEigen::EigenStuff2()
 {
     Tridiagonal2();
     QLAlgorithm();
     GuaranteeRotation();
 }
 //----------------------------------------------------------------------------
-void Eigen::EigenStuff3()
+void SEEigen::EigenStuff3()
 {
     Tridiagonal3();
     QLAlgorithm();
     GuaranteeRotation();
 }
 //----------------------------------------------------------------------------
-void Eigen::EigenStuffN()
+void SEEigen::EigenStuffN()
 {
     TridiagonalN();
     QLAlgorithm();
     GuaranteeRotation();
 }
 //----------------------------------------------------------------------------
-void Eigen::EigenStuff()
+void SEEigen::EigenStuff()
 {
     switch( m_iSize )
     {
@@ -541,7 +541,7 @@ void Eigen::EigenStuff()
     GuaranteeRotation();
 }
 //----------------------------------------------------------------------------
-void Eigen::DecrSortEigenStuff2()
+void SEEigen::DecrSortEigenStuff2()
 {
     Tridiagonal2();
     QLAlgorithm();
@@ -549,7 +549,7 @@ void Eigen::DecrSortEigenStuff2()
     GuaranteeRotation();
 }
 //----------------------------------------------------------------------------
-void Eigen::DecrSortEigenStuff3()
+void SEEigen::DecrSortEigenStuff3()
 {
     Tridiagonal3();
     QLAlgorithm();
@@ -557,7 +557,7 @@ void Eigen::DecrSortEigenStuff3()
     GuaranteeRotation();
 }
 //----------------------------------------------------------------------------
-void Eigen::DecrSortEigenStuffN()
+void SEEigen::DecrSortEigenStuffN()
 {
     TridiagonalN();
     QLAlgorithm();
@@ -565,7 +565,7 @@ void Eigen::DecrSortEigenStuffN()
     GuaranteeRotation();
 }
 //----------------------------------------------------------------------------
-void Eigen::DecrSortEigenStuff()
+void SEEigen::DecrSortEigenStuff()
 {
     switch( m_iSize )
     {
@@ -578,7 +578,7 @@ void Eigen::DecrSortEigenStuff()
     GuaranteeRotation();
 }
 //----------------------------------------------------------------------------
-void Eigen::IncrSortEigenStuff2()
+void SEEigen::IncrSortEigenStuff2()
 {
     Tridiagonal2();
     QLAlgorithm();
@@ -586,7 +586,7 @@ void Eigen::IncrSortEigenStuff2()
     GuaranteeRotation();
 }
 //----------------------------------------------------------------------------
-void Eigen::IncrSortEigenStuff3()
+void SEEigen::IncrSortEigenStuff3()
 {
     Tridiagonal3();
     QLAlgorithm();
@@ -594,7 +594,7 @@ void Eigen::IncrSortEigenStuff3()
     GuaranteeRotation();
 }
 //----------------------------------------------------------------------------
-void Eigen::IncrSortEigenStuffN()
+void SEEigen::IncrSortEigenStuffN()
 {
     TridiagonalN();
     QLAlgorithm();
@@ -602,7 +602,7 @@ void Eigen::IncrSortEigenStuffN()
     GuaranteeRotation();
 }
 //----------------------------------------------------------------------------
-void Eigen::IncrSortEigenStuff()
+void SEEigen::IncrSortEigenStuff()
 {
     switch( m_iSize )
     {

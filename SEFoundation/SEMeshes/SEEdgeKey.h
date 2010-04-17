@@ -28,16 +28,16 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:EdgeKey类
+// 名称:Edge key类
 // 说明:
 // 作者:Sun Che
 // 时间:20081123
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API EdgeKey
+class SE_FOUNDATION_API SEEdgeKey
 {
 public:
-    EdgeKey(int iV0 = -1, int iV1 = -1);
-    bool operator < (const EdgeKey& rKey) const;
+    SEEdgeKey(int iV0 = -1, int iV1 = -1);
+    bool operator < (const SEEdgeKey& rKey) const;
     operator size_t (void) const;
     int V[2];
 };

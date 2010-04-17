@@ -29,12 +29,12 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:BillboardNode基类
+// 名称:Billboard node基类
 // 说明:
 // 作者:Sun Che
 // 时间:20090603
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API BillboardNode : public Node
+class SE_FOUNDATION_API SEBillboardNode : public Node
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -43,8 +43,8 @@ class SE_FOUNDATION_API BillboardNode : public Node
 public:
     // billboard的模型空间up轴(0,1,0)被用来当作billboard的旋转轴.
 
-    BillboardNode(Camera* pCamera = 0);
-    virtual ~BillboardNode(void);
+    SEBillboardNode(Camera* pCamera = 0);
+    virtual ~SEBillboardNode(void);
 
     // billboard当前所对齐的camera.
     inline void AlignTo(Camera* pCamera);
@@ -56,7 +56,7 @@ protected:
     SESmartPointer<Camera> m_spCamera;
 };
 
-typedef SESmartPointer<BillboardNode> BillboardNodePtr;
+typedef SESmartPointer<SEBillboardNode> SEBillboardNodePtr;
 
 #include "SEBillboardNode.inl"
 

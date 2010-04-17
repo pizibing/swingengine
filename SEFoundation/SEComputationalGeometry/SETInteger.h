@@ -27,71 +27,71 @@
 namespace Swing
 {
 
-template <int N> class TRational;
+template <int N> class SETRational;
 
 //----------------------------------------------------------------------------
 // 名称:TInteger类
-// 说明:N is the number of 32-bit words you want per TInteger.
+// 说明:N is the number of 32-bit words you want per SETInteger.
 // 作者:Sun Che
 // 时间:20081201
 //----------------------------------------------------------------------------
 template <int N>
-class TInteger
+class SETInteger
 {
 public:
     // construction and destruction
-    TInteger(int i = 0);
-    TInteger(const TInteger& rI);
-    ~TInteger(void);
+    SETInteger(int i = 0);
+    SETInteger(const SETInteger& rI);
+    ~SETInteger(void);
 
     // assignment
-    TInteger& operator = (const TInteger& rI);
+    SETInteger& operator = (const SETInteger& rI);
 
     // comparison
-    bool operator == (const TInteger& rI) const;
-    bool operator != (const TInteger& rI) const;
-    bool operator <  (const TInteger& rI) const;
-    bool operator <= (const TInteger& rI) const;
-    bool operator >  (const TInteger& rI) const;
-    bool operator >= (const TInteger& rI) const;
+    bool operator == (const SETInteger& rI) const;
+    bool operator != (const SETInteger& rI) const;
+    bool operator <  (const SETInteger& rI) const;
+    bool operator <= (const SETInteger& rI) const;
+    bool operator >  (const SETInteger& rI) const;
+    bool operator >= (const SETInteger& rI) const;
 
     // arithmetic operations
-    TInteger operator - (void) const;
-    TInteger operator + (const TInteger& rI) const;
-    TInteger operator - (const TInteger& rI) const;
-    TInteger operator * (const TInteger& rI) const;
-    TInteger operator / (const TInteger& rI) const;
-    TInteger operator % (const TInteger& rI) const;
+    SETInteger operator - (void) const;
+    SETInteger operator + (const SETInteger& rI) const;
+    SETInteger operator - (const SETInteger& rI) const;
+    SETInteger operator * (const SETInteger& rI) const;
+    SETInteger operator / (const SETInteger& rI) const;
+    SETInteger operator % (const SETInteger& rI) const;
 
     // arithmetic updates
-    TInteger& operator += (const TInteger& rI);
-    TInteger& operator -= (const TInteger& rI);
-    TInteger& operator *= (const TInteger& rI);
-    TInteger& operator /= (const TInteger& rI);
+    SETInteger& operator += (const SETInteger& rI);
+    SETInteger& operator -= (const SETInteger& rI);
+    SETInteger& operator *= (const SETInteger& rI);
+    SETInteger& operator /= (const SETInteger& rI);
 
     // shift operations
-    TInteger operator << (int iShift) const;
-    TInteger operator >> (int iShift) const;
+    SETInteger operator << (int iShift) const;
+    SETInteger operator >> (int iShift) const;
 
     // shift updates
-    TInteger& operator <<= (int iShift);
-    TInteger& operator >>= (int iShift);
+    SETInteger& operator <<= (int iShift);
+    SETInteger& operator >>= (int iShift);
 
 private:
     // Support for comparisons.  The return value of Compare is -1 if I0 < I1, 
     // is 0 if I0 == I1,  or is +1 if I0 > I1.
-    static int Compare(const TInteger& rI0,  const TInteger& rI1);
+    static int Compare(const SETInteger& rI0,  const SETInteger& rI1);
     int GetSign(void) const;
 
     // support for division and modulo
-    static bool GetDivMod(const TInteger& rNumer,  const TInteger& rDenom, 
-        TInteger& rQuotient,  TInteger& rRemainder);
+    static bool GetDivMod(const SETInteger& rNumer,  const SETInteger& rDenom, 
+        SETInteger& rQuotient,  SETInteger& rRemainder);
 
-    static void DivSingle(const TInteger& rNumer,  short usDenom, 
-        TInteger& rQuo,  TInteger& rRem);
+    static void DivSingle(const SETInteger& rNumer,  short usDenom, 
+        SETInteger& rQuo,  SETInteger& rRem);
 
-    static void DivMultiple(const TInteger& rNumer,  const TInteger& rDenom, 
-        TInteger& rQuo,  TInteger& rRem);
+    static void DivMultiple(const SETInteger& rNumer,  const SETInteger& rDenom, 
+        SETInteger& rQuo,  SETInteger& rRem);
 
     // miscellaneous utilities
     int GetLeadingBlock(void) const;
@@ -116,12 +116,12 @@ private:
 
     short m_asBuffer[TINT_SIZE];
 
-    // TRational needs access to private members of TInteger.
-    friend class TRational<N>;
+    // SETRational needs access to private members of SETInteger.
+    friend class SETRational<N>;
 };
 
 template <int N>
-TInteger<N> operator * (int i,  const TInteger<N>& rI);
+SETInteger<N> operator * (int i,  const SETInteger<N>& rI);
 
 #include "SETInteger.inl"
 

@@ -61,7 +61,7 @@ SELine3f Swing::OrthogonalLineFit3f(int iCount, const SEVector3f* aPoint)
     fSumZZ *= fInvCount;
 
     // set up the eigensolver
-    Eigen tempES(3);
+    SEEigen tempES(3);
     tempES(0,0) = fSumYY + fSumZZ;
     tempES(0,1) = -fSumXY;
     tempES(0,2) = -fSumXZ;

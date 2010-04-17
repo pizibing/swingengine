@@ -28,26 +28,26 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:HullEdge2f类
+// 名称:Hull edge2f类
 // 说明:
 // 作者:Sun Che
 // 时间:20081201
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API HullEdge2f
+class SE_FOUNDATION_API SEHullEdge2f
 {
 public:
-    HullEdge2f(int iV0,  int iV1);
+    SEHullEdge2f(int iV0,  int iV1);
 
-    int GetSign(int i,  const Query2f* pQuery);
+    int GetSign(int i,  const SEQuery2f* pQuery);
 
-    void Insert(HullEdge2f* pAdj0,  HullEdge2f* pAdj1);
+    void Insert(SEHullEdge2f* pAdj0,  SEHullEdge2f* pAdj1);
     void DeleteSelf(void);
     void DeleteAll(void);
 
     void GetIndices(int& riHCount,  int*& raiHIndex);
 
     int V[2];
-    HullEdge2f* A[2];
+    SEHullEdge2f* A[2];
     int Sign;
     int Time;
 };

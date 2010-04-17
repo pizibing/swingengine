@@ -29,23 +29,23 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Query2TIntegerf类
+// 名称:Query2 TIntegerf类
 // 说明:
 // 作者:Sun Che
 // 时间:20081202
 //----------------------------------------------------------------------------
-class Query2TIntegerf : public Query2f
+class SEQuery2TIntegerf : public SEQuery2f
 {
 public:
     // The components of the input vertices are truncated to 32-bit integer
     // values, so you should guarantee that the vertices are sufficiently
     // large to give a good distribution of numbers.  The value N in
-    // TInteger<N> is chosen large enough so that the exact arithmetic is
+    // SETInteger<N> is chosen large enough so that the exact arithmetic is
     // correct for the functions.
-    Query2TIntegerf(int iVCount, const SEVector2f* aVertex);
+    SEQuery2TIntegerf(int iVCount, const SEVector2f* aVertex);
 
     // run-time type information
-    virtual Query::Type GetType(void) const;
+    virtual SEQuery::Type GetType(void) const;
 
     // Queries about the relation of a point to various geometric objects.
 
@@ -55,16 +55,16 @@ public:
         int iV2) const;
 
 private:
-    static TInteger<2> Dot(TInteger<2>& rX0, TInteger<2>& rY0, 
-        TInteger<2>& rX1, TInteger<2>& rY1);
+    static SETInteger<2> Dot(SETInteger<2>& rX0, SETInteger<2>& rY0, 
+        SETInteger<2>& rX1, SETInteger<2>& rY1);
 
-    static TInteger<2> Det2(TInteger<2>& rX0, TInteger<2>& rY0, 
-        TInteger<2>& rX1, TInteger<2>& rY1);
+    static SETInteger<2> Det2(SETInteger<2>& rX0, SETInteger<2>& rY0, 
+        SETInteger<2>& rX1, SETInteger<2>& rY1);
 
-    static TInteger<4> Det3(TInteger<4>& rX0, TInteger<4>& rY0, 
-        TInteger<4>& rZ0, TInteger<4>& rX1, TInteger<4>& rY1, 
-        TInteger<4>& rZ1, TInteger<4>& rX2, TInteger<4>& rY2, 
-        TInteger<4>& rZ2);
+    static SETInteger<4> Det3(SETInteger<4>& rX0, SETInteger<4>& rY0, 
+        SETInteger<4>& rZ0, SETInteger<4>& rX1, SETInteger<4>& rY1, 
+        SETInteger<4>& rZ1, SETInteger<4>& rX2, SETInteger<4>& rY2, 
+        SETInteger<4>& rZ2);
 };
 
 }

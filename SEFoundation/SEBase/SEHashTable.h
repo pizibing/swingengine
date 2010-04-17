@@ -45,11 +45,11 @@ namespace Swing
 // 时间:20080308
 //----------------------------------------------------------------------------
 template <class TKey, class TValue>
-class HashTable
+class SEHashTable
 {
 public:
-    HashTable(int iTableSize);
-    ~HashTable(void);
+    SEHashTable(int iTableSize);
+    ~SEHashTable(void);
 
     int GetCount(void) const;
 
@@ -65,12 +65,12 @@ public:
     int (*UserHashFunction)(const TKey&);
 
 private:
-    class HTItem
+    class SEHTItem
     {
     public:
         TKey m_Key;
         TValue m_Value;
-        HTItem* m_pNextHashItem;
+        SEHTItem* m_pNextHashItem;
     };
 
     // 默认哈希函数,可被用户函数覆盖
@@ -79,11 +79,11 @@ private:
     // 哈希表
     int m_iTableSize;
     int m_iCount;
-    HTItem** m_ppTable;
+    SEHTItem** m_ppTable;
 
     // 迭代所有表项时的辅助变量
     mutable int m_iIndex;
-    mutable HTItem* m_pHashItem;
+    mutable SEHTItem* m_pHashItem;
 };
 
 #include "SEHashTable.inl"

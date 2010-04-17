@@ -30,20 +30,20 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:BoundingVolumeTree基类
+// 名称:Bounding volume tree基类
 // 说明:
 // 作者:Sun Che
 // 时间:20081223
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API BoundingVolumeTree
+class SE_FOUNDATION_API SEBoundingVolumeTree
 {
 public:
     // 虚基类.
-    virtual ~BoundingVolumeTree(void);
+    virtual ~SEBoundingVolumeTree(void);
 
     // 树拓扑.
-    inline BoundingVolumeTree* GetLChild(void);
-    inline BoundingVolumeTree* GetRChild(void);
+    inline SEBoundingVolumeTree* GetLChild(void);
+    inline SEBoundingVolumeTree* GetRChild(void);
     inline bool IsInteriorNode(void) const;
     inline bool IsLeafNode(void) const;
 
@@ -57,8 +57,8 @@ public:
     void UpdateWorldBound(void);
 
 protected:
-    BoundingVolumeTree(const TriMesh* pMesh);
-    BoundingVolumeTree(int eBVType, const TriMesh* pMesh,
+    SEBoundingVolumeTree(const TriMesh* pMesh);
+    SEBoundingVolumeTree(int eBVType, const TriMesh* pMesh,
         int iMaxTrisPerLeaf = 1, bool bStoreInteriorTris = false);
 
     void BuildTree(int eBVType, int iMaxTrisPerLeaf, bool bStoreInteriorTris,
@@ -97,8 +97,8 @@ protected:
     BoundingVolumePtr m_spWorldBound;
 
     // 二叉树表示.
-    BoundingVolumeTree* m_pLChild;
-    BoundingVolumeTree* m_pRChild;
+    SEBoundingVolumeTree* m_pLChild;
+    SEBoundingVolumeTree* m_pRChild;
 
     // 构造函数中如果bStoreInteriorTris设置为false,
     // 则所有内部节点设置m_iTriangleCount为零,并且m_aiTriangle为空.

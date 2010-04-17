@@ -24,18 +24,18 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Query3Int64f::Query3Int64f(int iVCount, const SEVector3f* aVertex)
+SEQuery3Int64f::SEQuery3Int64f(int iVCount, const SEVector3f* aVertex)
     :
-    Query3f(iVCount, aVertex)
+    SEQuery3f(iVCount, aVertex)
 {
 }
 //----------------------------------------------------------------------------
-Query::Type Query3Int64f::GetType() const
+SEQuery::Type SEQuery3Int64f::GetType() const
 {
-    return Query::QT_INT64;
+    return SEQuery::QT_INT64;
 }
 //----------------------------------------------------------------------------
-int Query3Int64f::ToPlane(const SEVector3f& rP, int iV0, int iV1, 
+int SEQuery3Int64f::ToPlane(const SEVector3f& rP, int iV0, int iV1, 
     int iV2) const
 {
     const SEVector3f& rV0 = m_aVertex[iV0];
@@ -57,7 +57,7 @@ int Query3Int64f::ToPlane(const SEVector3f& rP, int iV0, int iV1,
     return (iDet3 > 0 ? +1 : (iDet3 < 0 ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-int Query3Int64f::ToCircumsphere(const SEVector3f& rP, int iV0, 
+int SEQuery3Int64f::ToCircumsphere(const SEVector3f& rP, int iV0, 
     int iV1, int iV2, int iV3) const
 {
     const SEVector3f& rV0 = m_aVertex[iV0];
@@ -110,13 +110,13 @@ int Query3Int64f::ToCircumsphere(const SEVector3f& rP, int iV0,
     return (iDet4 > 0 ? 1 : (iDet4 < 0 ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-SE_Int64 Query3Int64f::Dot(SE_Int64 iX0, SE_Int64 iY0, SE_Int64 iZ0, 
+SE_Int64 SEQuery3Int64f::Dot(SE_Int64 iX0, SE_Int64 iY0, SE_Int64 iZ0, 
     SE_Int64 iX1, SE_Int64 iY1, SE_Int64 iZ1)
 {
     return iX0*iX1 + iY0*iY1 + iZ0*iZ1;
 }
 //----------------------------------------------------------------------------
-SE_Int64 Query3Int64f::Det3(SE_Int64 iX0, SE_Int64 iY0, 
+SE_Int64 SEQuery3Int64f::Det3(SE_Int64 iX0, SE_Int64 iY0, 
     SE_Int64 iZ0, SE_Int64 iX1, SE_Int64 iY1, SE_Int64 iZ1, 
     SE_Int64 iX2, SE_Int64 iY2, SE_Int64 iZ2)
 {
@@ -127,7 +127,7 @@ SE_Int64 Query3Int64f::Det3(SE_Int64 iX0, SE_Int64 iY0,
     return iX0*iC00 + iX1*iC01 + iX2*iC02;
 }
 //----------------------------------------------------------------------------
-SE_Int64 Query3Int64f::Det4(SE_Int64 iX0, SE_Int64 iY0, 
+SE_Int64 SEQuery3Int64f::Det4(SE_Int64 iX0, SE_Int64 iY0, 
     SE_Int64 iZ0, SE_Int64 iW0, SE_Int64 iX1, SE_Int64 iY1, SE_Int64 iZ1, 
     SE_Int64 iW1, SE_Int64 iX2, SE_Int64 iY2, SE_Int64 iZ2, SE_Int64 iW2, 
     SE_Int64 iX3, SE_Int64 iY3, SE_Int64 iZ3, SE_Int64 iW3)

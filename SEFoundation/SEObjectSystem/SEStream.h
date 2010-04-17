@@ -127,7 +127,7 @@ protected:
 
     // save时使用的对象注册表,
     // 使用此表的目的在于快速检索出该对象是否已经注册过
-    mutable HashTable<SEObject*, Link*> m_Map;
+    mutable SEHashTable<SEObject*, Link*> m_Map;
 
     // 唯一对象列表,由scene graph在register阶段生成,
     // 用于确保对象基于深度优先的遍历顺序存储,

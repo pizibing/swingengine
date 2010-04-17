@@ -29,17 +29,17 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:SphereBVTree类
+// 名称:Sphere bounding volume tree类
 // 说明:
 // 作者:Sun Che
 // 时间:20081223
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API SphereBVTree : public BoundingVolumeTree
+class SE_FOUNDATION_API SESphereBVTree : public SEBoundingVolumeTree
 {
     SE_DECLARE_INITIALIZE;
 
 public:
-    SphereBVTree(const TriMesh* pMesh, int iMaxTrisPerLeaf = 1,
+    SESphereBVTree(const TriMesh* pMesh, int iMaxTrisPerLeaf = 1,
         bool bStoreInteriorTris = false);
 
 protected:

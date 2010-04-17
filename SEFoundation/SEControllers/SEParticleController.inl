@@ -19,17 +19,17 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline float* ParticleController::PointLinearSpeed()
+inline float* SEParticleController::PointLinearSpeed()
 {
     return m_afPointLinearSpeed;
 }
 //----------------------------------------------------------------------------
-inline SEVector3f* ParticleController::PointLinearAxis()
+inline SEVector3f* SEParticleController::PointLinearAxis()
 {
     return m_aPointLinearAxis;
 }
 //----------------------------------------------------------------------------
-inline float* ParticleController::PointSizeChange()
+inline float* SEParticleController::PointSizeChange()
 {
     return m_afPointSizeChange;
 }

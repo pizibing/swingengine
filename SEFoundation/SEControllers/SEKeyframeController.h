@@ -37,15 +37,15 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080825
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API KeyframeController : public Controller
+class SE_FOUNDATION_API SEKeyframeController : public SEController
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    KeyframeController(void);
-    virtual ~KeyframeController(void);
+    SEKeyframeController(void);
+    virtual ~SEKeyframeController(void);
 
     FloatArrayPtr TranslationTimes;
     Vector3fArrayPtr TranslationData;
@@ -73,7 +73,7 @@ protected:
     int m_iSLastIndex;
 };
 
-typedef SESmartPointer<KeyframeController> KeyframeControllerPtr;
+typedef SESmartPointer<SEKeyframeController> SEKeyframeControllerPtr;
 
 }
 

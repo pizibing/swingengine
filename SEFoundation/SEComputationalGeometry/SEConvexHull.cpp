@@ -24,8 +24,8 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ConvexHullf::ConvexHullf(int iVertexCount, float fEpsilon, bool bOwner, 
-    Query::Type eQueryType)
+SEConvexHullf::SEConvexHullf(int iVertexCount, float fEpsilon, bool bOwner, 
+    SEQuery::Type eQueryType)
 {
     SE_ASSERT( iVertexCount > 0 && fEpsilon >= 0.0f );
 
@@ -38,54 +38,54 @@ ConvexHullf::ConvexHullf(int iVertexCount, float fEpsilon, bool bOwner,
     m_bOwner = bOwner;
 }
 //----------------------------------------------------------------------------
-ConvexHullf::~ConvexHullf()
+SEConvexHullf::~SEConvexHullf()
 {
     SE_DELETE[] m_aiIndex;
 }
 //----------------------------------------------------------------------------
-int ConvexHullf::GetQueryType() const
+int SEConvexHullf::GetQueryType() const
 {
     return m_eQueryType;
 }
 //----------------------------------------------------------------------------
-int ConvexHullf::GetVertexCount() const
+int SEConvexHullf::GetVertexCount() const
 {
     return m_iVertexCount;
 }
 //----------------------------------------------------------------------------
-float ConvexHullf::GetEpsilon() const
+float SEConvexHullf::GetEpsilon() const
 {
     return m_fEpsilon;
 }
 //----------------------------------------------------------------------------
-bool ConvexHullf::GetOwner() const
+bool SEConvexHullf::GetOwner() const
 {
     return m_bOwner;
 }
 //----------------------------------------------------------------------------
-int ConvexHullf::GetDimension() const
+int SEConvexHullf::GetDimension() const
 {
     return m_iDimension;
 }
 //----------------------------------------------------------------------------
-int ConvexHullf::GetSimplexCount() const
+int SEConvexHullf::GetSimplexCount() const
 {
     return m_iSimplexCount;
 }
 //----------------------------------------------------------------------------
-const int* ConvexHullf::GetIndices() const
+const int* SEConvexHullf::GetIndices() const
 {
     return m_aiIndex;
 }
 //----------------------------------------------------------------------------
-bool ConvexHullf::Load(FILE* pIFile)
+bool SEConvexHullf::Load(FILE* pIFile)
 {
     SE_DELETE[] m_aiIndex;
 
     // fixed-size members
     int iQueryType;
     SESystem::SE_Read4le(pIFile, 1, &iQueryType);
-    m_eQueryType = (Query::Type)iQueryType;
+    m_eQueryType = (SEQuery::Type)iQueryType;
     SESystem::SE_Read4le(pIFile, 1, &m_iVertexCount);
     SESystem::SE_Read4le(pIFile, 1, &m_iDimension);
     SESystem::SE_Read4le(pIFile, 1, &m_iSimplexCount);
@@ -109,7 +109,7 @@ bool ConvexHullf::Load(FILE* pIFile)
     return m_iDimension == 0;
 }
 //----------------------------------------------------------------------------
-bool ConvexHullf::Save(FILE* pOFile) const
+bool SEConvexHullf::Save(FILE* pOFile) const
 {
     // fixed-size members
     int iQueryType = (int)m_eQueryType;

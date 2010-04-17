@@ -27,24 +27,24 @@
 namespace Swing
 {
 
-class CollisionRecord;
+class SECollisionRecord;
 
 //----------------------------------------------------------------------------
-// 名称:CollisionGroup类
+// 名称:Collision group类
 // 说明:
 // 作者:Sun Che
 // 时间:20081223
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API CollisionGroup
+class SE_FOUNDATION_API SECollisionGroup
 {
 public:
-    CollisionGroup(void);
-    ~CollisionGroup(void);
+    SECollisionGroup(void);
+    ~SECollisionGroup(void);
 
-    // CollisionGroup被假设为有责任删除加入的所有collision record.
+    // SECollisionGroup被假设为有责任删除加入的所有collision record.
     // 因此传入的collision record应该是动态分配的.
-    bool Add(CollisionRecord* pRecord);
-    bool Remove(CollisionRecord* pRecord);
+    bool Add(SECollisionRecord* pRecord);
+    bool Remove(SECollisionRecord* pRecord);
 
     // Intersection查询.
     // 如果碰撞组中的两个对象发生碰撞,则与其对应的record负责处理相关信息.
@@ -59,7 +59,7 @@ public:
     void FindIntersection(float fTMax);
 
 protected:
-    std::vector<CollisionRecord*> m_Record;
+    std::vector<SECollisionRecord*> m_Record;
 };
 
 }

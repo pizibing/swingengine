@@ -29,12 +29,12 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Query2Filteredf类
+// 名称:Query2 filteredf类
 // 说明:
 // 作者:Sun Che
 // 时间:20081202
 //----------------------------------------------------------------------------
-class Query2Filteredf : public Query2f
+class SEQuery2Filteredf : public SEQuery2f
 {
 public:
     // The base class handles floating-point queries.  Each query involves
@@ -44,13 +44,13 @@ public:
     // exact rational arithmetic.  You specify the closeness to zero for the
     // switch to rational arithmetic via fUncertainty, a value in the
     // interval [0,1].  The uncertainty of 0 causes the class to behave
-    // as if it were Query2f.  The uncertainty of 1 causes the class to
-    // behave as if it were Query2TRationalf.
-    Query2Filteredf(int iVCount, const SEVector2f* aVertex, float fUncertainty);
-    virtual ~Query2Filteredf(void);
+    // as if it were SEQuery2f.  The uncertainty of 1 causes the class to
+    // behave as if it were SEQuery2TRationalf.
+    SEQuery2Filteredf(int iVCount, const SEVector2f* aVertex, float fUncertainty);
+    virtual ~SEQuery2Filteredf(void);
 
     // run-time type information
-    virtual Query::Type GetType(void) const;
+    virtual SEQuery::Type GetType(void) const;
 
     // Queries about the relation of a point to various geometric objects.
 
@@ -60,7 +60,7 @@ public:
         int iV2) const;
 
 private:
-    Query2TRationalf m_RQuery;
+    SEQuery2TRationalf m_RQuery;
     float m_fUncertainty;
 };
 

@@ -37,18 +37,18 @@ class Node;
 // 作者:Sun Che
 // 时间:20080826
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API SkinController : public Controller
+class SE_FOUNDATION_API SESkinController : public SEController
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    // SkinController负责删除构造函数传入的这些数组.
+    // SESkinController负责删除构造函数传入的这些数组.
     // weight和offset数组必须是已经通过SESystem.h中的模板函数创建的数组.
-    SkinController(int iVertexCount, int iBoneCount, Node** apBones,
+    SESkinController(int iVertexCount, int iBoneCount, Node** apBones,
         float** aafWeight, SEVector3f** aaOffset);
-    virtual ~SkinController(void);
+    virtual ~SESkinController(void);
 
     inline int GetVertexCount(void) const;
     inline int GetBoneCount(void) const;
@@ -59,7 +59,7 @@ public:
     virtual bool Update(double dAppTime);
 
 protected:
-    SkinController(void);
+    SESkinController(void);
 
     int m_iVertexCount;    // vc
     int m_iBoneCount;      // bc
@@ -68,7 +68,7 @@ protected:
     SEVector3f** m_aaOffset; // offset[vc][bc]
 };
 
-typedef SESmartPointer<SkinController> SkinControllerPtr;
+typedef SESmartPointer<SESkinController> SESkinControllerPtr;
 #include "SESkinController.inl"
 
 }

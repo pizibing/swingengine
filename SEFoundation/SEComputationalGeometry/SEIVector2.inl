@@ -19,30 +19,30 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline IVector2::IVector2()
+inline SEIVector2::SEIVector2()
 {
     // the vector is uninitialized
 }
 //----------------------------------------------------------------------------
-inline IVector2::IVector2(const IVector2& rV)
+inline SEIVector2::SEIVector2(const SEIVector2& rV)
 {
     m_aiTuple[0] = rV.m_aiTuple[0];
     m_aiTuple[1] = rV.m_aiTuple[1];
 }
 //----------------------------------------------------------------------------
-inline IVector2::IVector2(const TIVector<2>& rV)
+inline SEIVector2::SEIVector2(const SETIVector<2>& rV)
 {
     m_aiTuple[0] = rV[0];
     m_aiTuple[1] = rV[1];
 }
 //----------------------------------------------------------------------------
-inline IVector2::IVector2(const SE_Int64& riX,  const SE_Int64& riY)
+inline SEIVector2::SEIVector2(const SE_Int64& riX,  const SE_Int64& riY)
 {
     m_aiTuple[0] = riX;
     m_aiTuple[1] = riY;
 }
 //----------------------------------------------------------------------------
-inline IVector2& IVector2::operator=(const IVector2& rV)
+inline SEIVector2& SEIVector2::operator=(const SEIVector2& rV)
 {
     m_aiTuple[0] = rV.m_aiTuple[0];
     m_aiTuple[1] = rV.m_aiTuple[1];
@@ -50,7 +50,7 @@ inline IVector2& IVector2::operator=(const IVector2& rV)
     return *this;
 }
 //----------------------------------------------------------------------------
-inline IVector2& IVector2::operator=(const TIVector<2>& rV)
+inline SEIVector2& SEIVector2::operator=(const SETIVector<2>& rV)
 {
     m_aiTuple[0] = rV[0];
     m_aiTuple[1] = rV[1];
@@ -58,37 +58,37 @@ inline IVector2& IVector2::operator=(const TIVector<2>& rV)
     return *this;
 }
 //----------------------------------------------------------------------------
-inline SE_Int64 IVector2::X() const
+inline SE_Int64 SEIVector2::X() const
 {
     return m_aiTuple[0];
 }
 //----------------------------------------------------------------------------
-inline SE_Int64& IVector2::X()
+inline SE_Int64& SEIVector2::X()
 {
     return m_aiTuple[0];
 }
 //----------------------------------------------------------------------------
-inline SE_Int64 IVector2::Y() const
+inline SE_Int64 SEIVector2::Y() const
 {
     return m_aiTuple[1];
 }
 //----------------------------------------------------------------------------
-inline SE_Int64& IVector2::Y()
+inline SE_Int64& SEIVector2::Y()
 {
     return m_aiTuple[1];
 }
 //----------------------------------------------------------------------------
-inline SE_Int64 IVector2::Dot(const IVector2& rV) const
+inline SE_Int64 SEIVector2::Dot(const SEIVector2& rV) const
 {
     return m_aiTuple[0]*rV.m_aiTuple[0] + m_aiTuple[1]*rV.m_aiTuple[1];
 }
 //----------------------------------------------------------------------------
-inline IVector2 IVector2::Perp() const
+inline SEIVector2 SEIVector2::Perp() const
 {
-    return IVector2(m_aiTuple[1],  -m_aiTuple[0]);
+    return SEIVector2(m_aiTuple[1],  -m_aiTuple[0]);
 }
 //----------------------------------------------------------------------------
-inline SE_Int64 IVector2::DotPerp(const IVector2& rV) const
+inline SE_Int64 SEIVector2::DotPerp(const SEIVector2& rV) const
 {
     return m_aiTuple[0]*rV.m_aiTuple[1] - m_aiTuple[1]*rV.m_aiTuple[0];
 }

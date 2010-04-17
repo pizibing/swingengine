@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Query2f::Query2f(int iVCount, const SEVector2f* aVertex)
+SEQuery2f::SEQuery2f(int iVCount, const SEVector2f* aVertex)
 {
     SE_ASSERT( iVCount > 0 && aVertex );
 
@@ -32,31 +32,31 @@ Query2f::Query2f(int iVCount, const SEVector2f* aVertex)
     m_aVertex = aVertex;
 }
 //----------------------------------------------------------------------------
-Query2f::~Query2f()
+SEQuery2f::~SEQuery2f()
 {
 }
 //----------------------------------------------------------------------------
-Query::Type Query2f::GetType() const
+SEQuery::Type SEQuery2f::GetType() const
 {
-    return Query::QT_REAL;
+    return SEQuery::QT_REAL;
 }
 //----------------------------------------------------------------------------
-int Query2f::GetCount() const
+int SEQuery2f::GetCount() const
 {
     return m_iVCount;
 }
 //----------------------------------------------------------------------------
-const SEVector2f* Query2f::GetVertices() const
+const SEVector2f* SEQuery2f::GetVertices() const
 {
     return m_aVertex;
 }
 //----------------------------------------------------------------------------
-int Query2f::ToLine(int i, int iV0, int iV1) const
+int SEQuery2f::ToLine(int i, int iV0, int iV1) const
 {
     return ToLine(m_aVertex[i], iV0, iV1);
 }
 //----------------------------------------------------------------------------
-int Query2f::ToLine(const SEVector2f& rP, int iV0, int iV1) const
+int SEQuery2f::ToLine(const SEVector2f& rP, int iV0, int iV1) const
 {
     const SEVector2f& rV0 = m_aVertex[iV0];
     const SEVector2f& rV1 = m_aVertex[iV1];
@@ -71,12 +71,12 @@ int Query2f::ToLine(const SEVector2f& rP, int iV0, int iV1) const
     return (fDet2 > 0.0f ? +1 : (fDet2 < 0.0f ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-int Query2f::ToTriangle(int i, int iV0, int iV1, int iV2) const
+int SEQuery2f::ToTriangle(int i, int iV0, int iV1, int iV2) const
 {
     return ToTriangle(m_aVertex[i], iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-int Query2f::ToTriangle(const SEVector2f& rP, int iV0, int iV1, int iV2) const
+int SEQuery2f::ToTriangle(const SEVector2f& rP, int iV0, int iV1, int iV2) const
 {
     int iSign0 = ToLine(rP, iV1, iV2);
     if( iSign0 > 0 )
@@ -99,12 +99,12 @@ int Query2f::ToTriangle(const SEVector2f& rP, int iV0, int iV1, int iV2) const
     return ((iSign0 && iSign1 && iSign2) ? -1 : 0);
 }
 //----------------------------------------------------------------------------
-int Query2f::ToCircumcircle(int i, int iV0, int iV1, int iV2) const
+int SEQuery2f::ToCircumcircle(int i, int iV0, int iV1, int iV2) const
 {
     return ToCircumcircle(m_aVertex[i], iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-int Query2f::ToCircumcircle(const SEVector2f& rP, int iV0, int iV1, int iV2) 
+int SEQuery2f::ToCircumcircle(const SEVector2f& rP, int iV0, int iV1, int iV2) 
     const
 {
     const SEVector2f& rV0 = m_aVertex[iV0];
@@ -131,17 +131,17 @@ int Query2f::ToCircumcircle(const SEVector2f& rP, int iV0, int iV1, int iV2)
     return (fDet3 < 0.0f ? 1 : (fDet3 > 0.0f ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-float Query2f::Dot(float fX0, float fY0, float fX1, float fY1)
+float SEQuery2f::Dot(float fX0, float fY0, float fX1, float fY1)
 {
     return fX0*fX1 + fY0*fY1;
 }
 //----------------------------------------------------------------------------
-float Query2f::Det2(float fX0, float fY0, float fX1, float fY1)
+float SEQuery2f::Det2(float fX0, float fY0, float fX1, float fY1)
 {
     return fX0*fY1 - fX1*fY0;
 }
 //----------------------------------------------------------------------------
-float Query2f::Det3(float fX0, float fY0, float fZ0, float fX1, float fY1,
+float SEQuery2f::Det3(float fX0, float fY0, float fZ0, float fX1, float fY1,
     float fZ1, float fX2, float fY2, float fZ2)
 {
     float fC00 = fY1*fZ2 - fY2*fZ1;

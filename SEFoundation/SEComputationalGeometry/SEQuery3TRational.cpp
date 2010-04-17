@@ -24,27 +24,27 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Query3TRationalf::Query3TRationalf(int iVCount, const SEVector3f* aVertex)
+SEQuery3TRationalf::SEQuery3TRationalf(int iVCount, const SEVector3f* aVertex)
     :
-    Query3f(iVCount, aVertex)
+    SEQuery3f(iVCount, aVertex)
 {
     m_aRVertex = SE_NEW RVector[m_iVCount];
     m_abEvaluated = SE_NEW bool[m_iVCount];
     memset(m_abEvaluated, 0, m_iVCount*sizeof(bool));
 }
 //----------------------------------------------------------------------------
-Query3TRationalf::~Query3TRationalf()
+SEQuery3TRationalf::~SEQuery3TRationalf()
 {
     SE_DELETE[] m_aRVertex;
     SE_DELETE[] m_abEvaluated;
 }
 //----------------------------------------------------------------------------
-Query::Type Query3TRationalf::GetType() const
+SEQuery::Type SEQuery3TRationalf::GetType() const
 {
-    return Query::QT_RATIONAL;
+    return SEQuery::QT_RATIONAL;
 }
 //----------------------------------------------------------------------------
-int Query3TRationalf::ToPlane(int i, int iV0, int iV1, int iV2) const
+int SEQuery3TRationalf::ToPlane(int i, int iV0, int iV1, int iV2) const
 {
     int aiIndex[4] = { i, iV0, iV1, iV2 };
     Convert(4, aiIndex);
@@ -52,7 +52,7 @@ int Query3TRationalf::ToPlane(int i, int iV0, int iV1, int iV2) const
     return ToPlane(m_aRVertex[i], iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-int Query3TRationalf::ToPlane(const SEVector3f& rP, int iV0, 
+int SEQuery3TRationalf::ToPlane(const SEVector3f& rP, int iV0, 
     int iV1, int iV2) const
 {
     RVector tempRP;
@@ -65,7 +65,7 @@ int Query3TRationalf::ToPlane(const SEVector3f& rP, int iV0,
     return ToPlane(tempRP, iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-int Query3TRationalf::ToTetrahedron(int i, int iV0, int iV1, int iV2, 
+int SEQuery3TRationalf::ToTetrahedron(int i, int iV0, int iV1, int iV2, 
     int iV3) const
 {
     int aiIndex[5] = { i, iV0, iV1, iV2, iV3 };
@@ -74,7 +74,7 @@ int Query3TRationalf::ToTetrahedron(int i, int iV0, int iV1, int iV2,
     return ToTetrahedron(m_aRVertex[i], iV0, iV1, iV2, iV3);
 }
 //----------------------------------------------------------------------------
-int Query3TRationalf::ToTetrahedron(const SEVector3f& rP, int iV0, 
+int SEQuery3TRationalf::ToTetrahedron(const SEVector3f& rP, int iV0, 
     int iV1, int iV2, int iV3) const
 {
     RVector tempRP;
@@ -87,7 +87,7 @@ int Query3TRationalf::ToTetrahedron(const SEVector3f& rP, int iV0,
     return ToTetrahedron(tempRP, iV0, iV1, iV2, iV3);
 }
 //----------------------------------------------------------------------------
-int Query3TRationalf::ToCircumsphere(int i, int iV0, int iV1, int iV2, 
+int SEQuery3TRationalf::ToCircumsphere(int i, int iV0, int iV1, int iV2, 
     int iV3) const
 {
     int aiIndex[5] = { i, iV0, iV1, iV2, iV3 };
@@ -96,7 +96,7 @@ int Query3TRationalf::ToCircumsphere(int i, int iV0, int iV1, int iV2,
     return ToCircumsphere(m_aRVertex[i], iV0, iV1, iV2, iV3);
 }
 //----------------------------------------------------------------------------
-int Query3TRationalf::ToCircumsphere(const SEVector3f& rP, int iV0, 
+int SEQuery3TRationalf::ToCircumsphere(const SEVector3f& rP, int iV0, 
     int iV1, int iV2, int iV3) const
 {
     RVector tempRP;
@@ -109,7 +109,7 @@ int Query3TRationalf::ToCircumsphere(const SEVector3f& rP, int iV0,
     return ToCircumsphere(tempRP, iV0, iV1, iV2, iV3);
 }
 //----------------------------------------------------------------------------
-void Query3TRationalf::Convert(int iCount, int* aiIndex) const
+void SEQuery3TRationalf::Convert(int iCount, int* aiIndex) const
 {
     for( int i = 0; i < iCount; i++)
     {
@@ -124,7 +124,7 @@ void Query3TRationalf::Convert(int iCount, int* aiIndex) const
     }
 }
 //----------------------------------------------------------------------------
-int Query3TRationalf::ToPlane(const RVector& rRP, int iV0, int iV1, 
+int SEQuery3TRationalf::ToPlane(const RVector& rRP, int iV0, int iV1, 
     int iV2) const
 {
     Rational tempX0 = rRP[0] - m_aRVertex[iV0][0];
@@ -143,7 +143,7 @@ int Query3TRationalf::ToPlane(const RVector& rRP, int iV0, int iV1,
     return (tempDet3 > 0 ? +1 : (tempDet3 < 0 ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-int Query3TRationalf::ToTetrahedron (const RVector& rRP, int iV0, 
+int SEQuery3TRationalf::ToTetrahedron (const RVector& rRP, int iV0, 
     int iV1, int iV2, int iV3) const
 {
     int iSign0 = ToPlane(rRP, iV1, iV2, iV3);
@@ -173,7 +173,7 @@ int Query3TRationalf::ToTetrahedron (const RVector& rRP, int iV0,
     return ((iSign0 && iSign1 && iSign2 && iSign3) ? -1 : 0);
 }
 //----------------------------------------------------------------------------
-int Query3TRationalf::ToCircumsphere(const RVector& rRP, int iV0, 
+int SEQuery3TRationalf::ToCircumsphere(const RVector& rRP, int iV0, 
     int iV1, int iV2, int iV3) const
 {
     RVector& rRV0 = m_aRVertex[iV0];
@@ -216,14 +216,14 @@ int Query3TRationalf::ToCircumsphere(const RVector& rRP, int iV0,
     return (tempDet4 > 0 ? 1 : (tempDet4 < 0 ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-Query3TRationalf::Rational Query3TRationalf::Dot(
+SEQuery3TRationalf::Rational SEQuery3TRationalf::Dot(
     Rational& rX0, Rational& rY0, Rational& rZ0, Rational& rX1, 
     Rational& rY1, Rational& rZ1)
 {
     return rX0*rX1 + rY0*rY1 + rZ0*rZ1;
 }
 //----------------------------------------------------------------------------
-Query3TRationalf::Rational Query3TRationalf::Det3(
+SEQuery3TRationalf::Rational SEQuery3TRationalf::Det3(
     Rational& rX0, Rational& rY0, Rational& rZ0, Rational& rX1, 
     Rational& rY1, Rational& rZ1, Rational& rX2, Rational& rY2, 
     Rational& rZ2)
@@ -235,7 +235,7 @@ Query3TRationalf::Rational Query3TRationalf::Det3(
     return rX0*tempC00 + rX1*tempC01 + rX2*tempC02;
 }
 //----------------------------------------------------------------------------
-Query3TRationalf::Rational Query3TRationalf::Det4(
+SEQuery3TRationalf::Rational SEQuery3TRationalf::Det4(
     Rational& rX0, Rational& rY0, Rational& rZ0, Rational& rW0, 
     Rational& rX1, Rational& rY1, Rational& rZ1, Rational& rW1, 
     Rational& rX2, Rational& rY2, Rational& rZ2, Rational& rW2, 

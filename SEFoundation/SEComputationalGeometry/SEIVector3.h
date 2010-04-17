@@ -33,14 +33,14 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20081202
 //----------------------------------------------------------------------------
-class IVector3 : public TIVector<3>
+class SEIVector3 : public SETIVector<3>
 {
 public:
     // construction
-    IVector3(void);
-    IVector3(const IVector3& rV);
-    IVector3(const TIVector<3>& rV);
-    IVector3(const SE_Int64& riX,  const SE_Int64& riY, 
+    SEIVector3(void);
+    SEIVector3(const SEIVector3& rV);
+    SEIVector3(const SETIVector<3>& rV);
+    SEIVector3(const SE_Int64& riX,  const SE_Int64& riY, 
         const SE_Int64& riZ);
 
     // member access
@@ -52,20 +52,20 @@ public:
     SE_Int64& Z(void);
 
     // assignment
-    IVector3& operator = (const IVector3& rV);
-    IVector3& operator = (const TIVector<3>& rV);
+    SEIVector3& operator = (const SEIVector3& rV);
+    SEIVector3& operator = (const SETIVector<3>& rV);
 
     // returns Dot(this, V)
-    SE_Int64 Dot(const IVector3& rV) const;
+    SE_Int64 Dot(const SEIVector3& rV) const;
 
     // returns Cross(this, V)
-    IVector3 Cross(const IVector3& rV) const;
+    SEIVector3 Cross(const SEIVector3& rV) const;
 
     // returns Dot(this, Cross(U, V))
-    SE_Int64 TripleScalar(const IVector3& rU,  const IVector3& rV) const;
+    SE_Int64 TripleScalar(const SEIVector3& rU,  const SEIVector3& rV) const;
 
 protected:
-    using TIVector<3>::m_aiTuple;
+    using SETIVector<3>::m_aiTuple;
 };
 
 #include "SEIVector3.inl"

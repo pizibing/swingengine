@@ -67,7 +67,7 @@ void classname::InitializeFactory() \
 { \
     if( !ms_pFactory ) \
     { \
-        ms_pFactory = SE_NEW StringHashTable<FactoryFunction>( \
+        ms_pFactory = SE_NEW SEStringHashTable<FactoryFunction>( \
             FACTORY_MAP_SIZE); \
     } \
     ms_pFactory->Insert(TYPE.GetName(), (FactoryFunction)Factory); \
@@ -98,7 +98,7 @@ void classname::InitializeFactory() \
 { \
     if( !ms_pFactory ) \
     { \
-        ms_pFactory = SE_NEW StringHashTable<FactoryFunction>( \
+        ms_pFactory = SE_NEW SEStringHashTable<FactoryFunction>( \
             FACTORY_MAP_SIZE); \
     } \
     ms_pFactory->Insert(TYPE.GetName(), (FactoryFunction)Factory); \

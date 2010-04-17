@@ -28,12 +28,12 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:BasicMesh类
+// 名称:Basic mesh类
 // 说明:
 // 作者:Sun Che
 // 时间:20081123
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API BasicMesh
+class SE_FOUNDATION_API SEBasicMesh
 {
 public:
     // 输入的顶点数是iVCount.
@@ -41,10 +41,10 @@ public:
     // 三角形数是iTCount.三角形由三个int索引表示,由aiIndex传递.
     // 调用者有责任删除传入的数组.
 
-    BasicMesh(int iVCount, const void* aPoint, int iTCount,
+    SEBasicMesh(int iVCount, const void* aPoint, int iTCount,
         const int* aiIndex);
 
-    virtual ~BasicMesh(void);
+    virtual ~SEBasicMesh(void);
 
     // 传入数据必须为合法mesh数据.
     // 也就是说其所有edge只能被两个和两个以下的三角型所共享.
@@ -52,11 +52,11 @@ public:
     // 否则返回true.
     inline bool IsValid(void) const;
 
-    class SE_FOUNDATION_API Vertex
+    class SE_FOUNDATION_API SEBMVertex
     {
     public:
-        Vertex(void);
-        ~Vertex(void);
+        SEBMVertex(void);
+        ~SEBMVertex(void);
 
         enum { MV_CHUNK = 8 };
 
@@ -72,19 +72,19 @@ public:
         int* T;
     };
 
-    class SE_FOUNDATION_API Edge
+    class SE_FOUNDATION_API SEBMEdge
     {
     public:
-        Edge(void);
+        SEBMEdge(void);
 
         int V[2];
         int T[2];
     };
 
-    class SE_FOUNDATION_API Triangle
+    class SE_FOUNDATION_API SEBMTriangle
     {
     public:
-        Triangle(void);
+        SEBMTriangle(void);
 
         int V[3];
         int E[3];
@@ -96,17 +96,17 @@ public:
     inline int GetTCount(void) const;
     inline const void* GetPoints(void) const;
     inline const int* GetIndices(void) const;
-    inline const Vertex* GetVertices(void) const;
-    inline const Edge* GetEdges(void) const;
-    inline const Triangle* GetTriangles(void) const;
+    inline const SEBMVertex* GetVertices(void) const;
+    inline const SEBMEdge* GetEdges(void) const;
+    inline const SEBMTriangle* GetTriangles(void) const;
 
 protected:
     int m_iVCount, m_iECount, m_iTCount;
     const void* m_aPoint;
     const int* m_aiIndex;
-    Vertex* m_aVertex;
-    Edge* m_aEdge;
-    Triangle* m_aTriangle;
+    SEBMVertex* m_aVertex;
+    SEBMEdge* m_aEdge;
+    SEBMTriangle* m_aTriangle;
     bool m_bIsValid;
 };
 

@@ -24,27 +24,27 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Query2TRationalf::Query2TRationalf(int iVCount, const SEVector2f* aVertex)
+SEQuery2TRationalf::SEQuery2TRationalf(int iVCount, const SEVector2f* aVertex)
     :
-    Query2f(iVCount, aVertex)
+    SEQuery2f(iVCount, aVertex)
 {
     m_aRVertex = SE_NEW RVector[m_iVCount];
     m_abEvaluated = SE_NEW bool[m_iVCount];
     memset(m_abEvaluated, 0, m_iVCount*sizeof(bool));
 }
 //----------------------------------------------------------------------------
-Query2TRationalf::~Query2TRationalf()
+SEQuery2TRationalf::~SEQuery2TRationalf()
 {
     SE_DELETE[] m_aRVertex;
     SE_DELETE[] m_abEvaluated;
 }
 //----------------------------------------------------------------------------
-Query::Type Query2TRationalf::GetType() const
+SEQuery::Type SEQuery2TRationalf::GetType() const
 {
-    return Query::QT_RATIONAL;
+    return SEQuery::QT_RATIONAL;
 }
 //----------------------------------------------------------------------------
-int Query2TRationalf::ToLine(int i, int iV0, int iV1) const
+int SEQuery2TRationalf::ToLine(int i, int iV0, int iV1) const
 {
     int aiIndex[3] = { i, iV0, iV1 };
     Convert(3, aiIndex);
@@ -52,7 +52,7 @@ int Query2TRationalf::ToLine(int i, int iV0, int iV1) const
     return ToLine(m_aRVertex[i], iV0, iV1);
 }
 //----------------------------------------------------------------------------
-int Query2TRationalf::ToLine(const SEVector2f& rP, int iV0, int iV1) const
+int SEQuery2TRationalf::ToLine(const SEVector2f& rP, int iV0, int iV1) const
 {
     RVector tempRP;
     tempRP[0] = Rational(rP[0]);
@@ -63,7 +63,7 @@ int Query2TRationalf::ToLine(const SEVector2f& rP, int iV0, int iV1) const
     return ToLine(tempRP, iV0, iV1);
 }
 //----------------------------------------------------------------------------
-int Query2TRationalf::ToTriangle(int i, int iV0, int iV1, int iV2) const
+int SEQuery2TRationalf::ToTriangle(int i, int iV0, int iV1, int iV2) const
 {
     int aiIndex[4] = { i, iV0, iV1, iV2 };
     Convert(4, aiIndex);
@@ -71,7 +71,7 @@ int Query2TRationalf::ToTriangle(int i, int iV0, int iV1, int iV2) const
     return ToTriangle(m_aRVertex[i], iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-int Query2TRationalf::ToTriangle(const SEVector2f& rP, int iV0, int iV1, 
+int SEQuery2TRationalf::ToTriangle(const SEVector2f& rP, int iV0, int iV1, 
     int iV2) const
 {
     RVector tempRP;
@@ -83,7 +83,7 @@ int Query2TRationalf::ToTriangle(const SEVector2f& rP, int iV0, int iV1,
     return ToTriangle(tempRP, iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-int Query2TRationalf::ToCircumcircle(int i, int iV0, int iV1, int iV2) const
+int SEQuery2TRationalf::ToCircumcircle(int i, int iV0, int iV1, int iV2) const
 {
     int aiIndex[4] = { i, iV0, iV1, iV2 };
     Convert(4, aiIndex);
@@ -91,7 +91,7 @@ int Query2TRationalf::ToCircumcircle(int i, int iV0, int iV1, int iV2) const
     return ToCircumcircle(m_aRVertex[i], iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-int Query2TRationalf::ToCircumcircle(const SEVector2f& rP, int iV0, int iV1, 
+int SEQuery2TRationalf::ToCircumcircle(const SEVector2f& rP, int iV0, int iV1, 
     int iV2) const
 {
     RVector tempRP;
@@ -103,7 +103,7 @@ int Query2TRationalf::ToCircumcircle(const SEVector2f& rP, int iV0, int iV1,
     return ToCircumcircle(tempRP, iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-void Query2TRationalf::Convert(int iCount, int* aiIndex) const
+void SEQuery2TRationalf::Convert(int iCount, int* aiIndex) const
 {
     for( int i = 0; i < iCount; i++ )
     {
@@ -117,7 +117,7 @@ void Query2TRationalf::Convert(int iCount, int* aiIndex) const
     }
 }
 //----------------------------------------------------------------------------
-int Query2TRationalf::ToLine(const RVector& rRP, int iV0, int iV1) const
+int SEQuery2TRationalf::ToLine(const RVector& rRP, int iV0, int iV1) const
 {
     Rational tempX0 = rRP[0] - m_aRVertex[iV0][0];
     Rational tempY0 = rRP[1] - m_aRVertex[iV0][1];
@@ -129,7 +129,7 @@ int Query2TRationalf::ToLine(const RVector& rRP, int iV0, int iV1) const
     return (tempDet2 > 0 ? +1 : (tempDet2 < 0 ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-int Query2TRationalf::ToTriangle(const RVector& rRP, int iV0, int iV1, 
+int SEQuery2TRationalf::ToTriangle(const RVector& rRP, int iV0, int iV1, 
     int iV2) const
 {
     int iSign0 = ToLine(rRP, iV1, iV2);
@@ -153,7 +153,7 @@ int Query2TRationalf::ToTriangle(const RVector& rRP, int iV0, int iV1,
     return ((iSign0 && iSign1 && iSign2) ? -1 : 0);
 }
 //----------------------------------------------------------------------------
-int Query2TRationalf::ToCircumcircle(const RVector& rRP, int iV0, 
+int SEQuery2TRationalf::ToCircumcircle(const RVector& rRP, int iV0, 
     int iV1, int iV2) const
 {
     RVector& rRV0 = m_aRVertex[iV0];
@@ -181,19 +181,19 @@ int Query2TRationalf::ToCircumcircle(const RVector& rRP, int iV0,
     return (tempDet3 < 0 ? 1 : (tempDet3 > 0 ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-Query2TRationalf::Rational Query2TRationalf::Dot(
+SEQuery2TRationalf::Rational SEQuery2TRationalf::Dot(
     Rational& rX0, Rational& rY0, Rational& rX1, Rational& rY1)
 {
     return rX0*rX1 + rY0*rY1;
 }
 //----------------------------------------------------------------------------
-Query2TRationalf::Rational Query2TRationalf::Det2(
+SEQuery2TRationalf::Rational SEQuery2TRationalf::Det2(
     Rational& rX0, Rational& rY0, Rational& rX1, Rational& rY1)
 {
     return rX0*rY1 - rX1*rY0;
 }
 //----------------------------------------------------------------------------
-Query2TRationalf::Rational Query2TRationalf::Det3(
+SEQuery2TRationalf::Rational SEQuery2TRationalf::Det3(
     Rational& rX0, Rational& rY0, Rational& rZ0, Rational& rX1, 
     Rational& rY1, Rational& rZ1, Rational& rX2, Rational& rY2, 
     Rational& rZ2)

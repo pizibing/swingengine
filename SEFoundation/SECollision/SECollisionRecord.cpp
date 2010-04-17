@@ -25,7 +25,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-CollisionRecord::CollisionRecord(TriMesh* pMesh, BoundingVolumeTree* pTree,
+SECollisionRecord::SECollisionRecord(TriMesh* pMesh, SEBoundingVolumeTree* pTree,
     SEVector3f* pVelocity, Callback oCallback, void* pvCallbackData)
 {
     SE_ASSERT( pMesh && pTree );
@@ -37,15 +37,15 @@ CollisionRecord::CollisionRecord(TriMesh* pMesh, BoundingVolumeTree* pTree,
     m_pvCallbackData = pvCallbackData;
 }
 //----------------------------------------------------------------------------
-CollisionRecord::~CollisionRecord()
+SECollisionRecord::~SECollisionRecord()
 {
     SE_DELETE m_pTree;
 }
 //----------------------------------------------------------------------------
-void CollisionRecord::TestIntersection(CollisionRecord& rRecord)
+void SECollisionRecord::TestIntersection(SECollisionRecord& rRecord)
 {
-    BoundingVolumeTree* pTree0 = m_pTree;
-    BoundingVolumeTree* pTree1 = rRecord.m_pTree;
+    SEBoundingVolumeTree* pTree0 = m_pTree;
+    SEBoundingVolumeTree* pTree1 = rRecord.m_pTree;
     const TriMesh* pMesh0 = m_pTree->GetMesh();
     const TriMesh* pMesh1 = rRecord.m_pTree->GetMesh();
 
@@ -56,7 +56,7 @@ void CollisionRecord::TestIntersection(CollisionRecord& rRecord)
     const BoundingVolume* pWorldBV1 = pTree1->GetWorldBound();
     if( pWorldBV0->TestIntersection(pWorldBV1) )
     {
-        BoundingVolumeTree* pRoot;
+        SEBoundingVolumeTree* pRoot;
 
         if( pTree0->IsInteriorNode() )
         {
@@ -127,10 +127,10 @@ void CollisionRecord::TestIntersection(CollisionRecord& rRecord)
     }
 }
 //----------------------------------------------------------------------------
-void CollisionRecord::FindIntersection(CollisionRecord& rRecord)
+void SECollisionRecord::FindIntersection(SECollisionRecord& rRecord)
 {
-    BoundingVolumeTree* pTree0 = m_pTree;
-    BoundingVolumeTree* pTree1 = rRecord.m_pTree;
+    SEBoundingVolumeTree* pTree0 = m_pTree;
+    SEBoundingVolumeTree* pTree1 = rRecord.m_pTree;
     const TriMesh* pMesh0 = m_pTree->GetMesh();
     const TriMesh* pMesh1 = rRecord.m_pTree->GetMesh();
 
@@ -141,7 +141,7 @@ void CollisionRecord::FindIntersection(CollisionRecord& rRecord)
     const BoundingVolume* pWorldBV1 = pTree1->GetWorldBound();
     if( pWorldBV0->TestIntersection(pWorldBV1) )
     {
-        BoundingVolumeTree* pRoot;
+        SEBoundingVolumeTree* pRoot;
 
         if( pTree0->IsInteriorNode() )
         {
@@ -212,10 +212,10 @@ void CollisionRecord::FindIntersection(CollisionRecord& rRecord)
     }
 }
 //----------------------------------------------------------------------------
-void CollisionRecord::TestIntersection(float fTMax, CollisionRecord& rRecord)
+void SECollisionRecord::TestIntersection(float fTMax, SECollisionRecord& rRecord)
 {
-    BoundingVolumeTree* pTree0 = m_pTree;
-    BoundingVolumeTree* pTree1 = rRecord.m_pTree;
+    SEBoundingVolumeTree* pTree0 = m_pTree;
+    SEBoundingVolumeTree* pTree1 = rRecord.m_pTree;
     const TriMesh* pMesh0 = m_pTree->GetMesh();
     const TriMesh* pMesh1 = rRecord.m_pTree->GetMesh();
     const SEVector3f& rVelocity0 = (m_pVelocity ? *m_pVelocity :
@@ -233,7 +233,7 @@ void CollisionRecord::TestIntersection(float fTMax, CollisionRecord& rRecord)
     // TestIntersection应该支持运动的BV.
     if( pWorldBV0->TestIntersection(pWorldBV1) )
     {
-        BoundingVolumeTree* pRoot;
+        SEBoundingVolumeTree* pRoot;
 
         if( pTree0->IsInteriorNode() )
         {
@@ -305,10 +305,10 @@ void CollisionRecord::TestIntersection(float fTMax, CollisionRecord& rRecord)
     }
 }
 //----------------------------------------------------------------------------
-void CollisionRecord::FindIntersection(float fTMax, CollisionRecord& rRecord)
+void SECollisionRecord::FindIntersection(float fTMax, SECollisionRecord& rRecord)
 {
-    BoundingVolumeTree* pTree0 = m_pTree;
-    BoundingVolumeTree* pTree1 = rRecord.m_pTree;
+    SEBoundingVolumeTree* pTree0 = m_pTree;
+    SEBoundingVolumeTree* pTree1 = rRecord.m_pTree;
     const TriMesh* pMesh0 = m_pTree->GetMesh();
     const TriMesh* pMesh1 = rRecord.m_pTree->GetMesh();
     const SEVector3f& rVelocity0 = (m_pVelocity ? *m_pVelocity :
@@ -326,7 +326,7 @@ void CollisionRecord::FindIntersection(float fTMax, CollisionRecord& rRecord)
     // TestIntersection应该支持运动的BV.
     if( pWorldBV0->TestIntersection(pWorldBV1) )
     {
-        BoundingVolumeTree* pRoot;
+        SEBoundingVolumeTree* pRoot;
 
         if( pTree0->IsInteriorNode() )
         {

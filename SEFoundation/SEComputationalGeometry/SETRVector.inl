@@ -20,14 +20,14 @@
 
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE>::TRVector()
+SETRVector<VSIZE,  ISIZE>::SETRVector()
 {
     // For efficiency in construction of large arrays of vectors,  the
     // default constructor does not initialize the vector.
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE>::TRVector(const TRVector& rV)
+SETRVector<VSIZE,  ISIZE>::SETRVector(const SETRVector& rV)
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -36,19 +36,19 @@ TRVector<VSIZE,  ISIZE>::TRVector(const TRVector& rV)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE>::operator const TRational<ISIZE>*() const
+SETRVector<VSIZE,  ISIZE>::operator const SETRational<ISIZE>*() const
 {
     return m_aTuple;
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE>::operator TRational<ISIZE>*()
+SETRVector<VSIZE,  ISIZE>::operator SETRational<ISIZE>*()
 {
     return m_aTuple;
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRational<ISIZE> TRVector<VSIZE,  ISIZE>::operator[](int i) const
+SETRational<ISIZE> SETRVector<VSIZE,  ISIZE>::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i < VSIZE );
 
@@ -56,7 +56,7 @@ TRational<ISIZE> TRVector<VSIZE,  ISIZE>::operator[](int i) const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRational<ISIZE>& TRVector<VSIZE,  ISIZE>::operator[](int i)
+SETRational<ISIZE>& SETRVector<VSIZE,  ISIZE>::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i < VSIZE );
 
@@ -64,7 +64,7 @@ TRational<ISIZE>& TRVector<VSIZE,  ISIZE>::operator[](int i)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE>& TRVector<VSIZE,  ISIZE>::operator=(const TRVector& rV)
+SETRVector<VSIZE,  ISIZE>& SETRVector<VSIZE,  ISIZE>::operator=(const SETRVector& rV)
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -75,7 +75,7 @@ TRVector<VSIZE,  ISIZE>& TRVector<VSIZE,  ISIZE>::operator=(const TRVector& rV)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-bool TRVector<VSIZE,  ISIZE>::operator==(const TRVector& rV) const
+bool SETRVector<VSIZE,  ISIZE>::operator==(const SETRVector& rV) const
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -89,13 +89,13 @@ bool TRVector<VSIZE,  ISIZE>::operator==(const TRVector& rV) const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-bool TRVector<VSIZE,  ISIZE>::operator!=(const TRVector& rV) const
+bool SETRVector<VSIZE,  ISIZE>::operator!=(const SETRVector& rV) const
 {
     return !operator==(rV);
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-int TRVector<VSIZE,  ISIZE>::CompareArrays(const TRVector& rV) const
+int SETRVector<VSIZE,  ISIZE>::CompareArrays(const SETRVector& rV) const
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -113,34 +113,34 @@ int TRVector<VSIZE,  ISIZE>::CompareArrays(const TRVector& rV) const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-bool TRVector<VSIZE,  ISIZE>::operator<(const TRVector& rV) const
+bool SETRVector<VSIZE,  ISIZE>::operator<(const SETRVector& rV) const
 {
     return CompareArrays(rV) < 0;
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-bool TRVector<VSIZE,  ISIZE>::operator<=(const TRVector& rV) const
+bool SETRVector<VSIZE,  ISIZE>::operator<=(const SETRVector& rV) const
 {
     return CompareArrays(rV) <= 0;
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-bool TRVector<VSIZE,  ISIZE>::operator>(const TRVector& rV) const
+bool SETRVector<VSIZE,  ISIZE>::operator>(const SETRVector& rV) const
 {
     return CompareArrays(rV) > 0;
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-bool TRVector<VSIZE,  ISIZE>::operator>=(const TRVector& rV) const
+bool SETRVector<VSIZE,  ISIZE>::operator>=(const SETRVector& rV) const
 {
     return CompareArrays(rV) >= 0;
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE> TRVector<VSIZE,  ISIZE>::operator+(const TRVector& rV)
+SETRVector<VSIZE,  ISIZE> SETRVector<VSIZE,  ISIZE>::operator+(const SETRVector& rV)
     const
 {
-    TRVector<VSIZE,  ISIZE> tempSum;
+    SETRVector<VSIZE,  ISIZE> tempSum;
     for( int i = 0; i < VSIZE; i++ )
     {
         tempSum.m_aTuple[i] = m_aTuple[i] + rV.m_aTuple[i];
@@ -150,10 +150,10 @@ TRVector<VSIZE,  ISIZE> TRVector<VSIZE,  ISIZE>::operator+(const TRVector& rV)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE> TRVector<VSIZE,  ISIZE>::operator-(const TRVector& rV)
+SETRVector<VSIZE,  ISIZE> SETRVector<VSIZE,  ISIZE>::operator-(const SETRVector& rV)
     const
 {
-    TRVector<VSIZE,  ISIZE> tempDiff;
+    SETRVector<VSIZE,  ISIZE> tempDiff;
     for( int i = 0; i < VSIZE; i++ )
     {
         tempDiff.m_aTuple[i] = m_aTuple[i] - rV.m_aTuple[i];
@@ -163,10 +163,10 @@ TRVector<VSIZE,  ISIZE> TRVector<VSIZE,  ISIZE>::operator-(const TRVector& rV)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE> TRVector<VSIZE,  ISIZE>::operator*
-    (const TRational<ISIZE>& rR) const
+SETRVector<VSIZE,  ISIZE> SETRVector<VSIZE,  ISIZE>::operator*
+    (const SETRational<ISIZE>& rR) const
 {
-    TRVector<VSIZE,  ISIZE> tempProd;
+    SETRVector<VSIZE,  ISIZE> tempProd;
     for( int i = 0; i < VSIZE; i++ )
     {
         tempProd.m_aTuple[i] = rR * m_aTuple[i];
@@ -176,12 +176,12 @@ TRVector<VSIZE,  ISIZE> TRVector<VSIZE,  ISIZE>::operator*
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE> TRVector<VSIZE,  ISIZE>::operator/
-    (const TRational<ISIZE>& rR) const
+SETRVector<VSIZE,  ISIZE> SETRVector<VSIZE,  ISIZE>::operator/
+    (const SETRational<ISIZE>& rR) const
 {
     SE_ASSERT( rR != 0 );
 
-    TRVector<VSIZE,  ISIZE> tempProd;
+    SETRVector<VSIZE,  ISIZE> tempProd;
     for( int i = 0; i < VSIZE; i++ )
     {
         tempProd.m_aTuple[i] = m_aTuple[i] / rR;
@@ -191,9 +191,9 @@ TRVector<VSIZE,  ISIZE> TRVector<VSIZE,  ISIZE>::operator/
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE> TRVector<VSIZE,  ISIZE>::operator-() const
+SETRVector<VSIZE,  ISIZE> SETRVector<VSIZE,  ISIZE>::operator-() const
 {
-    TRVector<VSIZE,  ISIZE> tempNeg;
+    SETRVector<VSIZE,  ISIZE> tempNeg;
     for( int i = 0; i < VSIZE; i++ )
     {
         tempNeg.m_aTuple[i] = -m_aTuple[i];
@@ -203,10 +203,10 @@ TRVector<VSIZE,  ISIZE> TRVector<VSIZE,  ISIZE>::operator-() const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE> operator*(const TRational<ISIZE>& rR, 
-    const TRVector<VSIZE,  ISIZE>& rV)
+SETRVector<VSIZE,  ISIZE> operator*(const SETRational<ISIZE>& rR, 
+    const SETRVector<VSIZE,  ISIZE>& rV)
 {
-    TRVector<VSIZE,  ISIZE> tempProd;
+    SETRVector<VSIZE,  ISIZE> tempProd;
     for( int i = 0; i < VSIZE; i++ )
     {
         tempProd[i] = rR * rV[i];
@@ -216,7 +216,7 @@ TRVector<VSIZE,  ISIZE> operator*(const TRational<ISIZE>& rR,
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE>& TRVector<VSIZE,  ISIZE>::operator+=(const TRVector& rV)
+SETRVector<VSIZE,  ISIZE>& SETRVector<VSIZE,  ISIZE>::operator+=(const SETRVector& rV)
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -227,7 +227,7 @@ TRVector<VSIZE,  ISIZE>& TRVector<VSIZE,  ISIZE>::operator+=(const TRVector& rV)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE>& TRVector<VSIZE,  ISIZE>::operator-=(const TRVector& rV)
+SETRVector<VSIZE,  ISIZE>& SETRVector<VSIZE,  ISIZE>::operator-=(const SETRVector& rV)
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -238,8 +238,8 @@ TRVector<VSIZE,  ISIZE>& TRVector<VSIZE,  ISIZE>::operator-=(const TRVector& rV)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE>& TRVector<VSIZE,  ISIZE>::operator*=
-    (const TRational<ISIZE>& rR)
+SETRVector<VSIZE,  ISIZE>& SETRVector<VSIZE,  ISIZE>::operator*=
+    (const SETRational<ISIZE>& rR)
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -250,8 +250,8 @@ TRVector<VSIZE,  ISIZE>& TRVector<VSIZE,  ISIZE>::operator*=
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRVector<VSIZE,  ISIZE>& TRVector<VSIZE,  ISIZE>::operator/=
-    (const TRational<ISIZE>& rR)
+SETRVector<VSIZE,  ISIZE>& SETRVector<VSIZE,  ISIZE>::operator/=
+    (const SETRational<ISIZE>& rR)
 {
     SE_ASSERT( rR != 0 );
 
@@ -264,9 +264,9 @@ TRVector<VSIZE,  ISIZE>& TRVector<VSIZE,  ISIZE>::operator/=
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRational<ISIZE> TRVector<VSIZE,  ISIZE>::GetSquaredLength() const
+SETRational<ISIZE> SETRVector<VSIZE,  ISIZE>::GetSquaredLength() const
 {
-    TRational<ISIZE> tempSqrLen = 0;
+    SETRational<ISIZE> tempSqrLen = 0;
     for( int i = 0; i < VSIZE; i++ )
     {
         tempSqrLen += m_aTuple[i] * m_aTuple[i];
@@ -276,9 +276,9 @@ TRational<ISIZE> TRVector<VSIZE,  ISIZE>::GetSquaredLength() const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-TRational<ISIZE> TRVector<VSIZE,  ISIZE>::Dot(const TRVector& rV) const
+SETRational<ISIZE> SETRVector<VSIZE,  ISIZE>::Dot(const SETRVector& rV) const
 {
-    TRational<ISIZE> tempDot = 0;
+    SETRational<ISIZE> tempDot = 0;
     for( int i = 0; i < VSIZE; i++ )
     {
         tempDot += m_aTuple[i] * rV.m_aTuple[i];

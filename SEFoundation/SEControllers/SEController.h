@@ -34,14 +34,14 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080327
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Controller : public SEObject
+class SE_FOUNDATION_API SEController : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    virtual ~Controller(void);
+    virtual ~SEController(void);
 
     // 获取被控制的对象
     inline SEObject* GetObject(void) const;
@@ -66,7 +66,7 @@ public:
 
 protected:
     // 虚基类
-    Controller(void);
+    SEController(void);
 
     friend class SEObject;
     // 重载后,派生类可对其所期望的被控制对象进行类型识别.
@@ -85,7 +85,7 @@ private:
     static const char* ms_pRepeatType[RT_COUNT];
 };
 
-typedef SESmartPointer<Controller> ControllerPtr;
+typedef SESmartPointer<SEController> SEControllerPtr;
 
 #include "SEController.inl"
 

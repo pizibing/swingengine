@@ -19,47 +19,47 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline const TriMesh* BoundingVolumeTree::GetMesh() const
+inline const TriMesh* SEBoundingVolumeTree::GetMesh() const
 {
     return m_pMesh;
 }
 //----------------------------------------------------------------------------
-inline const BoundingVolume* BoundingVolumeTree::GetWorldBound() const
+inline const BoundingVolume* SEBoundingVolumeTree::GetWorldBound() const
 {
     return m_spWorldBound;
 }
 //----------------------------------------------------------------------------
-inline int BoundingVolumeTree::GetTriangleCount() const
+inline int SEBoundingVolumeTree::GetTriangleCount() const
 {
     return m_iTriangleCount;
 }
 //----------------------------------------------------------------------------
-inline int BoundingVolumeTree::GetTriangle(int i) const
+inline int SEBoundingVolumeTree::GetTriangle(int i) const
 {
     return m_aiTriangle[i];
 }
 //----------------------------------------------------------------------------
-inline const int* BoundingVolumeTree::GetTriangles() const
+inline const int* SEBoundingVolumeTree::GetTriangles() const
 {
     return m_aiTriangle;
 }
 //----------------------------------------------------------------------------
-inline BoundingVolumeTree* BoundingVolumeTree::GetLChild()
+inline SEBoundingVolumeTree* SEBoundingVolumeTree::GetLChild()
 {
     return m_pLChild;
 }
 //----------------------------------------------------------------------------
-inline BoundingVolumeTree* BoundingVolumeTree::GetRChild()
+inline SEBoundingVolumeTree* SEBoundingVolumeTree::GetRChild()
 {
     return m_pRChild;
 }
 //----------------------------------------------------------------------------
-inline bool BoundingVolumeTree::IsInteriorNode() const
+inline bool SEBoundingVolumeTree::IsInteriorNode() const
 {
     return m_pLChild || m_pRChild;
 }
 //----------------------------------------------------------------------------
-inline bool BoundingVolumeTree::IsLeafNode() const
+inline bool SEBoundingVolumeTree::IsLeafNode() const
 {
     return !m_pLChild && !m_pRChild;
 }

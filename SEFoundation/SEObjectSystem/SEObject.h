@@ -34,7 +34,7 @@
 namespace Swing
 {
 
-class Controller;
+class SEController;
 
 //----------------------------------------------------------------------------
 // 名称:对象基类
@@ -50,7 +50,7 @@ protected:
     // 禁止被实例化,虚基类
     SEObject(void);
 
-// SERTTI系统
+// RTTI系统
 public:
     static const SERTTI TYPE;
     virtual const SERTTI& GetType(void) const;
@@ -62,9 +62,9 @@ public:
 // Controller系统
 public:
     int GetControllerCount(void) const;
-    Controller* GetController(int i) const;
-    void AttachController(Controller* pController);
-    void DetachController(Controller* pController);
+    SEController* GetController(int i) const;
+    void AttachController(SEController* pController);
+    void DetachController(SEController* pController);
     void DetachAllControllers(void);
     bool UpdateControllers(double dAppTime);
 private:
@@ -96,7 +96,7 @@ public:
     void DecrementReferences(void);
     inline int GetReferences(void) const;
     // SEObject级的内存泄漏跟踪使用此hash表
-    static HashTable<unsigned int, SEObject*>* InUse;
+    static SEHashTable<unsigned int, SEObject*>* InUse;
     static void PrintInUse(const char* pFileName, const char* pMessage);
 private:
     int m_iReferences;
@@ -105,7 +105,7 @@ private:
 // 内部使用
 public:
     enum { FACTORY_MAP_SIZE = 256 };
-    static StringHashTable<FactoryFunction>* ms_pFactory;
+    static SEStringHashTable<FactoryFunction>* ms_pFactory;
     static bool RegisterFactory(void);
     static void InitializeFactory(void);
     static void TerminateFactory(void);

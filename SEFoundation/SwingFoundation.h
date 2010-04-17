@@ -245,7 +245,7 @@
 
 // Computational Geometry:  Delaunay
 
-// Computational Geometry:  Query
+// Computational Geometry:  SEQuery
 #include "SEQuery.h"
 #include "SEQuery2.h"
 #include "SEQuery2Filtered.h"

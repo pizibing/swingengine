@@ -123,7 +123,7 @@ void SharedArray<T>::InitializeFactory()
 { 
     if( !ms_pFactory )
     { 
-        ms_pFactory = SE_NEW StringHashTable<FactoryFunction>(FACTORY_MAP_SIZE);
+        ms_pFactory = SE_NEW SEStringHashTable<FactoryFunction>(FACTORY_MAP_SIZE);
     } 
     ms_pFactory->Insert(TYPE.GetName(), (FactoryFunction)SharedArray<T>::Factory);
 } 

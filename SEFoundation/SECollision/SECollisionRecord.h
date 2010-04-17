@@ -29,23 +29,23 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:CollisionRecord类
+// 名称:Collision record类
 // 说明:
 // 作者:Sun Che
 // 时间:20081223
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API CollisionRecord
+class SE_FOUNDATION_API SECollisionRecord
 {
 public:
-    typedef void (*Callback)(CollisionRecord& rRecord0, int iT0,
-        CollisionRecord& rRecord1, int iT1,
+    typedef void (*Callback)(SECollisionRecord& rRecord0, int iT0,
+        SECollisionRecord& rRecord1, int iT1,
         Intersector<float, SEVector3f>* pIntersector);
 
-    // CollisionRecord被假设为有责任删除传入的pTree,因此pTree应动态分配.
-    CollisionRecord(TriMesh* pMesh, BoundingVolumeTree* pTree,
+    // SECollisionRecord被假设为有责任删除传入的pTree,因此pTree应动态分配.
+    SECollisionRecord(TriMesh* pMesh, SEBoundingVolumeTree* pTree,
         SEVector3f* pVelocity, Callback oCallback, void* pvCallbackData);
 
-    ~CollisionRecord(void);
+    ~SECollisionRecord(void);
 
     // 成员访问.
     inline TriMesh* GetMesh(void);
@@ -53,14 +53,14 @@ public:
     inline void* GetCallbackData(void);
 
     // intersection查询.
-    void TestIntersection(CollisionRecord& rRecord);
-    void FindIntersection(CollisionRecord& rRecord);
-    void TestIntersection(float fTMax, CollisionRecord& rRecord);
-    void FindIntersection(float fTMax, CollisionRecord& rRecord);
+    void TestIntersection(SECollisionRecord& rRecord);
+    void FindIntersection(SECollisionRecord& rRecord);
+    void TestIntersection(float fTMax, SECollisionRecord& rRecord);
+    void FindIntersection(float fTMax, SECollisionRecord& rRecord);
 
 protected:
     TriMesh* m_pMesh;
-    BoundingVolumeTree* m_pTree;
+    SEBoundingVolumeTree* m_pTree;
     SEVector3f* m_pVelocity;
     Callback m_oCallback;
     void* m_pvCallbackData;

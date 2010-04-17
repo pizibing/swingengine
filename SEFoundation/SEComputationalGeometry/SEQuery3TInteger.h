@@ -29,23 +29,23 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Query3TIntegerf类
+// 名称:Query3 TIntegerf类
 // 说明:
 // 作者:Sun Che
 // 时间:20081202
 //----------------------------------------------------------------------------
-class Query3TIntegerf : public Query3f
+class SEQuery3TIntegerf : public SEQuery3f
 {
 public:
     // The components of the input vertices are truncated to 32-bit integer
     // values, so you should guarantee that the vertices are sufficiently
     // large to give a good distribution of numbers.  The value N in
-    // TInteger<N> is chosen large enough so that the exact arithmetic is
+    // SETInteger<N> is chosen large enough so that the exact arithmetic is
     // correct for the functions.
-    Query3TIntegerf(int iVCount, const SEVector3f* aVertex);
+    SEQuery3TIntegerf(int iVCount, const SEVector3f* aVertex);
 
     // run-time type information
-    virtual Query::Type GetType(void) const;
+    virtual SEQuery::Type GetType(void) const;
 
     // Queries about the relation of a point to various geometric objects.
 
@@ -56,21 +56,21 @@ public:
         int iV2, int iV3) const;
 
 private:
-    static TInteger<3> Dot(TInteger<3>& rX0, TInteger<3>& rY0, 
-        TInteger<3>& rZ0, TInteger<3>& rX1, TInteger<3>& rY1, 
-        TInteger<3>& rZ1);
+    static SETInteger<3> Dot(SETInteger<3>& rX0, SETInteger<3>& rY0, 
+        SETInteger<3>& rZ0, SETInteger<3>& rX1, SETInteger<3>& rY1, 
+        SETInteger<3>& rZ1);
 
-    static TInteger<4> Det3(TInteger<4>& rX0, TInteger<4>& rY0, 
-        TInteger<4>& rZ0, TInteger<4>& rX1, TInteger<4>& rY1, 
-        TInteger<4>& rZ1, TInteger<4>& rX2, TInteger<4>& rY2, 
-        TInteger<4>& rZ2);
+    static SETInteger<4> Det3(SETInteger<4>& rX0, SETInteger<4>& rY0, 
+        SETInteger<4>& rZ0, SETInteger<4>& rX1, SETInteger<4>& rY1, 
+        SETInteger<4>& rZ1, SETInteger<4>& rX2, SETInteger<4>& rY2, 
+        SETInteger<4>& rZ2);
 
-    static TInteger<6> Det4(TInteger<6>& rX0, TInteger<6>& rY0, 
-        TInteger<6>& rZ0, TInteger<6>& rW0, TInteger<6>& rX1, 
-        TInteger<6>& rY1, TInteger<6>& rZ1, TInteger<6>& rW1, 
-        TInteger<6>& rX2, TInteger<6>& rY2, TInteger<6>& rZ2, 
-        TInteger<6>& rW2, TInteger<6>& rX3, TInteger<6>& rY3, 
-        TInteger<6>& rZ3, TInteger<6>& rW3);
+    static SETInteger<6> Det4(SETInteger<6>& rX0, SETInteger<6>& rY0, 
+        SETInteger<6>& rZ0, SETInteger<6>& rW0, SETInteger<6>& rX1, 
+        SETInteger<6>& rY1, SETInteger<6>& rZ1, SETInteger<6>& rW1, 
+        SETInteger<6>& rX2, SETInteger<6>& rY2, SETInteger<6>& rZ2, 
+        SETInteger<6>& rW2, SETInteger<6>& rX3, SETInteger<6>& rY3, 
+        SETInteger<6>& rZ3, SETInteger<6>& rW3);
 };
 
 }

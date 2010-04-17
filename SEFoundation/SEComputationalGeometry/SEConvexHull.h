@@ -29,16 +29,16 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:ConvexHullf类
+// 名称:Convex hullf类
 // 说明:
 // 作者:Sun Che
 // 时间:20081201
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API ConvexHullf
+class SE_FOUNDATION_API SEConvexHullf
 {
 public:
     // Abstract base class.
-    virtual ~ConvexHullf(void);
+    virtual ~SEConvexHullf(void);
 
     // Member accessors.  For notational purposes in this class documentation, 
     // The number of vertices is VQ and the vertex array is V.
@@ -93,14 +93,14 @@ protected:
     // transferred to this class.  If you want the input vertices to be
     // deleted by this class,  set bOwner to 'true'; otherwise,  you own the
     // array and must delete it yourself.
-    ConvexHullf(int iVertexCount,  float fEpsilon,  bool bOwner, 
-        Query::Type eQueryType);
+    SEConvexHullf(int iVertexCount,  float fEpsilon,  bool bOwner, 
+        SEQuery::Type eQueryType);
 
     // Support for streaming to/from disk.
     bool Load(FILE* pIFile);
     bool Save(FILE* pOFile) const;
 
-    Query::Type m_eQueryType;
+    SEQuery::Type m_eQueryType;
     int m_iVertexCount;
     int m_iDimension;
     int m_iSimplexCount;

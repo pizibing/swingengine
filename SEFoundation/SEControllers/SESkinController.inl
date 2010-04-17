@@ -19,24 +19,24 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int SkinController::GetVertexCount() const
+inline int SESkinController::GetVertexCount() const
 {
     return m_iVertexCount;
 }
 //----------------------------------------------------------------------------
-inline int SkinController::GetBoneCount() const
+inline int SESkinController::GetBoneCount() const
 {
     return m_iBoneCount;
 }
 //----------------------------------------------------------------------------
-inline Node* SkinController::GetBone(int iBone) const
+inline Node* SESkinController::GetBone(int iBone) const
 {
     SE_ASSERT( 0 <= iBone && iBone < m_iBoneCount );
 
     return m_apBones[iBone];
 }
 //----------------------------------------------------------------------------
-inline float& SkinController::Weight(int iVertex, int iBone)
+inline float& SESkinController::Weight(int iVertex, int iBone)
 {
     SE_ASSERT( 0 <= iVertex && iVertex < m_iVertexCount );
     SE_ASSERT( 0 <= iBone && iBone < m_iBoneCount );
@@ -44,7 +44,7 @@ inline float& SkinController::Weight(int iVertex, int iBone)
     return m_aafWeight[iVertex][iBone];
 }
 //----------------------------------------------------------------------------
-inline SEVector3f& SkinController::Offset(int iVertex, int iBone)
+inline SEVector3f& SESkinController::Offset(int iVertex, int iBone)
 {
     SE_ASSERT( 0 <= iVertex && iVertex < m_iVertexCount );
     SE_ASSERT( 0 <= iBone && iBone < m_iBoneCount );

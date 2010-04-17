@@ -29,10 +29,10 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ConvexHull3f::ConvexHull3f(int iVertexCount,  SEVector3f* aVertex, 
-    float fEpsilon,  bool bOwner,  Query::Type eQueryType)
+SEConvexHull3f::SEConvexHull3f(int iVertexCount,  SEVector3f* aVertex, 
+    float fEpsilon,  bool bOwner,  SEQuery::Type eQueryType)
     :
-    ConvexHullf(iVertexCount,  fEpsilon,  bOwner,  eQueryType), 
+    SEConvexHullf(iVertexCount,  fEpsilon,  bOwner,  eQueryType), 
     m_LineOrigin(SEVector3f::ZERO), 
     m_LineDirection(SEVector3f::ZERO), 
     m_PlaneOrigin(SEVector3f::ZERO)
@@ -49,14 +49,14 @@ ConvexHull3f::ConvexHull3f(int iVertexCount,  SEVector3f* aVertex,
     if( tempMapper.GetDimension() == 0 )
     {
         // The values of m_iDimension,  m_aiIndex,  and m_aiAdjacent were
-        // already initialized by the ConvexHullf base class.
+        // already initialized by the SEConvexHullf base class.
         return;
     }
 
     if( tempMapper.GetDimension() == 1 )
     {
         // The set is (nearly) collinear.  The caller is responsible for
-        // creating a ConvexHull1f object.
+        // creating a SEConvexHull1f object.
         m_iDimension = 1;
         m_LineOrigin = tempMapper.GetOrigin();
         m_LineDirection = tempMapper.GetDirection(0);
@@ -86,7 +86,7 @@ ConvexHull3f::ConvexHull3f(int iVertexCount,  SEVector3f* aVertex,
     m_aSVertex = SE_NEW SEVector3f[m_iVertexCount];
     int i;
 
-    if( eQueryType != Query::QT_RATIONAL && eQueryType != Query::QT_FILTERED )
+    if( eQueryType != SEQuery::QT_RATIONAL && eQueryType != SEQuery::QT_FILTERED )
     {
         // Transform the vertices to the cube [0, 1]^3.
         SEVector3f vec3fMin = tempMapper.GetMin();
@@ -97,25 +97,25 @@ ConvexHull3f::ConvexHull3f(int iVertexCount,  SEVector3f* aVertex,
         }
 
         float fExpand;
-        if( eQueryType == Query::QT_INT64 )
+        if( eQueryType == SEQuery::QT_INT64 )
         {
             // Scale the vertices to the square [0, 2^{20}]^2 to allow use of
             // 64-bit integers.
             fExpand = (float)(1 << 20);
-            m_pQuery = SE_NEW Query3Int64f(m_iVertexCount,  m_aSVertex);
+            m_pQuery = SE_NEW SEQuery3Int64f(m_iVertexCount,  m_aSVertex);
         }
-        else if( eQueryType == Query::QT_INTEGER )
+        else if( eQueryType == SEQuery::QT_INTEGER )
         {
             // Scale the vertices to the square [0, 2^{24}]^2 to allow use of
-            // TInteger.
+            // SETInteger.
             fExpand = (float)(1 << 24);
-            m_pQuery = SE_NEW Query3TIntegerf(m_iVertexCount,  m_aSVertex);
+            m_pQuery = SE_NEW SEQuery3TIntegerf(m_iVertexCount,  m_aSVertex);
         }
-        else  // eQueryType == Query::QT_REAL
+        else  // eQueryType == SEQuery::QT_REAL
         {
             // No scaling for floating point.
             fExpand = 1.0f;
-            m_pQuery = SE_NEW Query3f(m_iVertexCount,  m_aSVertex);
+            m_pQuery = SE_NEW SEQuery3f(m_iVertexCount,  m_aSVertex);
         }
 
         for( i = 0; i < m_iVertexCount; i++ )
@@ -130,28 +130,28 @@ ConvexHull3f::ConvexHull3f(int iVertexCount,  SEVector3f* aVertex,
         size_t uiSize = m_iVertexCount * sizeof(SEVector3f);
         SESystem::SE_Memcpy(m_aSVertex,  uiSize,  m_aVertex,  uiSize);
 
-        if( eQueryType == Query::QT_RATIONAL )
+        if( eQueryType == SEQuery::QT_RATIONAL )
         {
-            m_pQuery = SE_NEW Query3TRationalf(m_iVertexCount,  m_aSVertex);
+            m_pQuery = SE_NEW SEQuery3TRationalf(m_iVertexCount,  m_aSVertex);
         }
-        else // eQueryType == Query::QT_FILTERED
+        else // eQueryType == SEQuery::QT_FILTERED
         {
-            m_pQuery = SE_NEW Query3Filteredf(m_iVertexCount,  m_aSVertex,  
+            m_pQuery = SE_NEW SEQuery3Filteredf(m_iVertexCount,  m_aSVertex,  
                 m_fEpsilon);
         }
     }
 
-    HullTriangle3f* pT0;
-    HullTriangle3f* pT1;
-    HullTriangle3f* pT2;
-    HullTriangle3f* pT3;
+    SEHullTriangle3f* pT0;
+    SEHullTriangle3f* pT1;
+    SEHullTriangle3f* pT2;
+    SEHullTriangle3f* pT3;
 
     if( tempMapper.GetExtremeCCW() )
     {
-        pT0 = SE_NEW HullTriangle3f(i0,  i1,  i3);
-        pT1 = SE_NEW HullTriangle3f(i0,  i2,  i1);
-        pT2 = SE_NEW HullTriangle3f(i0,  i3,  i2);
-        pT3 = SE_NEW HullTriangle3f(i1,  i2,  i3);
+        pT0 = SE_NEW SEHullTriangle3f(i0,  i1,  i3);
+        pT1 = SE_NEW SEHullTriangle3f(i0,  i2,  i1);
+        pT2 = SE_NEW SEHullTriangle3f(i0,  i3,  i2);
+        pT3 = SE_NEW SEHullTriangle3f(i1,  i2,  i3);
         pT0->AttachTo(pT1,  pT3,  pT2);
         pT1->AttachTo(pT2,  pT3,  pT0);
         pT2->AttachTo(pT0,  pT3,  pT1);
@@ -159,10 +159,10 @@ ConvexHull3f::ConvexHull3f(int iVertexCount,  SEVector3f* aVertex,
     }
     else
     {
-        pT0 = SE_NEW HullTriangle3f(i0,  i3,  i1);
-        pT1 = SE_NEW HullTriangle3f(i0,  i1,  i2);
-        pT2 = SE_NEW HullTriangle3f(i0,  i2,  i3);
-        pT3 = SE_NEW HullTriangle3f(i1,  i3,  i2);
+        pT0 = SE_NEW SEHullTriangle3f(i0,  i3,  i1);
+        pT1 = SE_NEW SEHullTriangle3f(i0,  i1,  i2);
+        pT2 = SE_NEW SEHullTriangle3f(i0,  i2,  i3);
+        pT3 = SE_NEW SEHullTriangle3f(i1,  i3,  i2);
         pT0->AttachTo(pT2,  pT3,  pT1);
         pT1->AttachTo(pT0,  pT3,  pT2);
         pT2->AttachTo(pT1,  pT3,  pT0);
@@ -187,7 +187,7 @@ ConvexHull3f::ConvexHull3f(int iVertexCount,  SEVector3f* aVertex,
     ExtractIndices();
 }
 //----------------------------------------------------------------------------
-ConvexHull3f::~ConvexHull3f()
+SEConvexHull3f::~SEConvexHull3f()
 {
     if( m_bOwner )
     {
@@ -197,29 +197,29 @@ ConvexHull3f::~ConvexHull3f()
     SE_DELETE m_pQuery;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& ConvexHull3f::GetLineOrigin() const
+const SEVector3f& SEConvexHull3f::GetLineOrigin() const
 {
     return m_LineOrigin;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& ConvexHull3f::GetLineDirection() const
+const SEVector3f& SEConvexHull3f::GetLineDirection() const
 {
     return m_LineDirection;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& ConvexHull3f::GetPlaneOrigin() const
+const SEVector3f& SEConvexHull3f::GetPlaneOrigin() const
 {
     return m_PlaneOrigin;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& ConvexHull3f::GetPlaneDirection(int i) const
+const SEVector3f& SEConvexHull3f::GetPlaneDirection(int i) const
 {
     SE_ASSERT( 0 <= i && i < 2 );
 
     return m_aPlaneDirection[i];
 }
 //----------------------------------------------------------------------------
-ConvexHull1f* ConvexHull3f::GetConvexHull1() const
+SEConvexHull1f* SEConvexHull3f::GetConvexHull1() const
 {
     SE_ASSERT( m_iDimension == 1 );
 
@@ -235,11 +235,11 @@ ConvexHull1f* ConvexHull3f::GetConvexHull1() const
         afProjection[i] = m_LineDirection.Dot(vec3fDiff);
     }
 
-    return SE_NEW ConvexHull1f(m_iVertexCount,  afProjection, 
+    return SE_NEW SEConvexHull1f(m_iVertexCount,  afProjection, 
         m_fEpsilon,  true,  m_eQueryType);
 }
 //----------------------------------------------------------------------------
-ConvexHull2f* ConvexHull3f::GetConvexHull2() const
+SEConvexHull2f* SEConvexHull3f::GetConvexHull2() const
 {
     SE_ASSERT( m_iDimension == 2 );
 
@@ -256,16 +256,16 @@ ConvexHull2f* ConvexHull3f::GetConvexHull2() const
         aProjection[i][1] = m_aPlaneDirection[1].Dot(vec3fDiff);
     }
 
-    return SE_NEW ConvexHull2f(m_iVertexCount,  aProjection, 
+    return SE_NEW SEConvexHull2f(m_iVertexCount,  aProjection, 
         m_fEpsilon,  true,  m_eQueryType);
 }
 //----------------------------------------------------------------------------
-bool ConvexHull3f::Update(int i)
+bool SEConvexHull3f::Update(int i)
 {
     // Locate a triangle visible to the input point (if possible).
-    HullTriangle3f* pVisible = 0;
-    HullTriangle3f* pTri;
-    std::set<HullTriangle3f*>::iterator tempIter;
+    SEHullTriangle3f* pVisible = 0;
+    SEHullTriangle3f* pTri;
+    std::set<SEHullTriangle3f*>::iterator tempIter;
     for( tempIter = m_Hull.begin(); tempIter != m_Hull.end(); tempIter++ )
     {
         pTri = *tempIter;
@@ -283,8 +283,8 @@ bool ConvexHull3f::Update(int i)
     }
 
     // Locate and remove the visible triangles.
-    std::stack<HullTriangle3f*> tempVisible;
-    std::map<int,  TerminatorData> tempTerminator;
+    std::stack<SEHullTriangle3f*> tempVisible;
+    std::map<int,  SETerminatorData> tempTerminator;
     tempVisible.push(pVisible);
     pVisible->OnStack = true;
     int j,  iV0,  iV1;
@@ -295,7 +295,7 @@ bool ConvexHull3f::Update(int i)
         pTri->OnStack = false;
         for( j = 0; j < 3; j++ )
         {
-            HullTriangle3f* pAdj = pTri->A[j];
+            SEHullTriangle3f* pAdj = pTri->A[j];
             if( pAdj )
             {
                 // Detach triangle and adjacent triangle from each other.
@@ -315,7 +315,7 @@ bool ConvexHull3f::Update(int i)
                     // Adjacent triangle is invisible.
                     iV0 = pTri->V[j];
                     iV1 = pTri->V[(j + 1) % 3];
-                    tempTerminator[iV0] = TerminatorData(iV0,  iV1,  iNullIndex, 
+                    tempTerminator[iV0] = SETerminatorData(iV0,  iV1,  iNullIndex, 
                         pAdj);
                 }
             }
@@ -329,16 +329,16 @@ bool ConvexHull3f::Update(int i)
     int iSize = (int)tempTerminator.size();
     SE_ASSERT( iSize >= 3 );
 
-    std::map<int,  TerminatorData>::iterator pEdge =
+    std::map<int,  SETerminatorData>::iterator pEdge =
         tempTerminator.begin();
     iV0 = pEdge->second.V[0];
     iV1 = pEdge->second.V[1];
-    pTri = SE_NEW HullTriangle3f(i,  iV0,  iV1);
+    pTri = SE_NEW SEHullTriangle3f(i,  iV0,  iV1);
     m_Hull.insert(pTri);
 
     // save information for linking first/last inserted new triangles
     int iSaveV0 = pEdge->second.V[0];
-    HullTriangle3f* pSaveTri = pTri;
+    SEHullTriangle3f* pSaveTri = pTri;
 
     // establish adjacency links across terminator edge
     pTri->A[1] = pEdge->second.Tri;
@@ -350,7 +350,7 @@ bool ConvexHull3f::Update(int i)
 
         iV0 = iV1;
         iV1 = pEdge->second.V[1];
-        HullTriangle3f* pNext = SE_NEW HullTriangle3f(i,  iV0,  iV1);
+        SEHullTriangle3f* pNext = SE_NEW SEHullTriangle3f(i,  iV0,  iV1);
         m_Hull.insert(pNext);
 
         // establish adjacency links across terminator edge
@@ -373,17 +373,17 @@ bool ConvexHull3f::Update(int i)
     return true;
 }
 //----------------------------------------------------------------------------
-void ConvexHull3f::ExtractIndices()
+void SEConvexHull3f::ExtractIndices()
 {
     int iTCount = (int)m_Hull.size();
     m_iSimplexCount = iTCount;
     m_aiIndex = SE_NEW int[3 * m_iSimplexCount];
 
-    std::set<HullTriangle3f*>::iterator tempIter;
+    std::set<SEHullTriangle3f*>::iterator tempIter;
     int i = 0;
     for( tempIter = m_Hull.begin(); tempIter != m_Hull.end(); tempIter++ )
     {
-        HullTriangle3f* pTri = *tempIter;
+        SEHullTriangle3f* pTri = *tempIter;
         for( int j = 0; j < 3; j++ )
         {
             m_aiIndex[i++] = pTri->V[j];
@@ -393,20 +393,20 @@ void ConvexHull3f::ExtractIndices()
     m_Hull.clear();
 }
 //----------------------------------------------------------------------------
-void ConvexHull3f::DeleteHull()
+void SEConvexHull3f::DeleteHull()
 {
-    std::set<HullTriangle3f*>::iterator tempIter;
+    std::set<SEHullTriangle3f*>::iterator tempIter;
     for( tempIter = m_Hull.begin(); tempIter != m_Hull.end(); tempIter++ )
     {
-        HullTriangle3f* pTri = *tempIter;
+        SEHullTriangle3f* pTri = *tempIter;
         SE_DELETE pTri;
     }
     m_Hull.clear();
 }
 //----------------------------------------------------------------------------
-ConvexHull3f::ConvexHull3f(const char* acFilename)
+SEConvexHull3f::SEConvexHull3f(const char* acFilename)
     :
-    ConvexHullf(0,  0.0f,  false,  Query::QT_REAL)
+    SEConvexHullf(0,  0.0f,  false,  SEQuery::QT_REAL)
 {
     m_aVertex = 0;
     m_aSVertex = 0;
@@ -416,7 +416,7 @@ ConvexHull3f::ConvexHull3f(const char* acFilename)
     (void)bLoaded;  // avoid warning in Release build
 }
 //----------------------------------------------------------------------------
-bool ConvexHull3f::Load(const char* acFilename)
+bool SEConvexHull3f::Load(const char* acFilename)
 {
     FILE* pIFile = SESystem::SE_Fopen(acFilename,  "rb");
     if( !pIFile )
@@ -424,7 +424,7 @@ bool ConvexHull3f::Load(const char* acFilename)
         return false;
     }
 
-    ConvexHullf::Load(pIFile);
+    SEConvexHullf::Load(pIFile);
 
     SE_DELETE m_pQuery;
     SE_DELETE[] m_aSVertex;
@@ -464,24 +464,24 @@ bool ConvexHull3f::Load(const char* acFilename)
 
     switch( m_eQueryType )
     {
-    case Query::QT_INT64:
-        m_pQuery = SE_NEW Query3Int64f(m_iVertexCount,  m_aSVertex);
+    case SEQuery::QT_INT64:
+        m_pQuery = SE_NEW SEQuery3Int64f(m_iVertexCount,  m_aSVertex);
 
         break;
-    case Query::QT_INTEGER:
-        m_pQuery = SE_NEW Query3TIntegerf(m_iVertexCount,  m_aSVertex);
+    case SEQuery::QT_INTEGER:
+        m_pQuery = SE_NEW SEQuery3TIntegerf(m_iVertexCount,  m_aSVertex);
 
         break;
-    case Query::QT_RATIONAL:
-        m_pQuery = SE_NEW Query3TRationalf(m_iVertexCount,  m_aSVertex);
+    case SEQuery::QT_RATIONAL:
+        m_pQuery = SE_NEW SEQuery3TRationalf(m_iVertexCount,  m_aSVertex);
 
         break;
-    case Query::QT_REAL:
-        m_pQuery = SE_NEW Query3f(m_iVertexCount,  m_aSVertex);
+    case SEQuery::QT_REAL:
+        m_pQuery = SE_NEW SEQuery3f(m_iVertexCount,  m_aSVertex);
 
         break;
-    case Query::QT_FILTERED:
-        m_pQuery = SE_NEW Query3Filteredf(m_iVertexCount,  m_aSVertex,  
+    case SEQuery::QT_FILTERED:
+        m_pQuery = SE_NEW SEQuery3Filteredf(m_iVertexCount,  m_aSVertex,  
             m_fEpsilon);
 
         break;
@@ -490,7 +490,7 @@ bool ConvexHull3f::Load(const char* acFilename)
     return true;
 }
 //----------------------------------------------------------------------------
-bool ConvexHull3f::Save(const char* acFilename) const
+bool SEConvexHull3f::Save(const char* acFilename) const
 {
     FILE* pOFile = SESystem::SE_Fopen(acFilename,  "wb");
     if( !pOFile )
@@ -498,7 +498,7 @@ bool ConvexHull3f::Save(const char* acFilename) const
         return false;
     }
 
-    ConvexHullf::Save(pOFile);
+    SEConvexHullf::Save(pOFile);
 
     size_t uiSize = sizeof(float);
     int iVC = 3 * m_iVertexCount;

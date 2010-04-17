@@ -20,7 +20,7 @@
 
 //----------------------------------------------------------------------------
 template <class TKey, class TValue>
-HashTable<TKey, TValue>::HashTable(int iTableSize)
+SEHashTable<TKey, TValue>::SEHashTable(int iTableSize)
 {
     SE_ASSERT( iTableSize > 0 );
 
@@ -28,30 +28,30 @@ HashTable<TKey, TValue>::HashTable(int iTableSize)
     m_iCount = 0;
     m_iIndex = 0;
     m_pHashItem = 0;
-    m_ppTable = SE_NEW HTItem*[m_iTableSize];
-    memset(m_ppTable, 0, m_iTableSize*sizeof(HTItem*));
+    m_ppTable = SE_NEW SEHTItem*[m_iTableSize];
+    memset(m_ppTable, 0, m_iTableSize*sizeof(SEHTItem*));
     UserHashFunction = 0;
 }
 //----------------------------------------------------------------------------
 template <class TKey, class TValue>
-HashTable<TKey, TValue>::~HashTable()
+SEHashTable<TKey, TValue>::~SEHashTable()
 {
     RemoveAll();
     SE_DELETE[] m_ppTable;
 }
 //----------------------------------------------------------------------------
 template <class TKey, class TValue>
-int HashTable<TKey, TValue>::GetCount() const
+int SEHashTable<TKey, TValue>::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
 template <class TKey, class TValue>
-bool HashTable<TKey, TValue>::Insert(const TKey& rKey, const TValue& rValue)
+bool SEHashTable<TKey, TValue>::Insert(const TKey& rKey, const TValue& rValue)
 {
     // 用哈希函数映射到表项索引
     int iIndex = HashFunction(rKey);
-    HTItem* pHashItem = m_ppTable[iIndex];
+    SEHTItem* pHashItem = m_ppTable[iIndex];
 
     // 在当前表项列表中查找是否已经存在该关键字
     while( pHashItem )
@@ -66,7 +66,7 @@ bool HashTable<TKey, TValue>::Insert(const TKey& rKey, const TValue& rValue)
     }
 
     // 插入新值
-    pHashItem = SE_NEW HTItem;
+    pHashItem = SE_NEW SEHTItem;
     pHashItem->m_Key = rKey;
     pHashItem->m_Value = rValue;
     pHashItem->m_pNextHashItem = m_ppTable[iIndex];
@@ -77,11 +77,11 @@ bool HashTable<TKey, TValue>::Insert(const TKey& rKey, const TValue& rValue)
 }
 //----------------------------------------------------------------------------
 template <class TKey, class TValue>
-TValue* HashTable<TKey, TValue>::Find(const TKey& rKey) const
+TValue* SEHashTable<TKey, TValue>::Find(const TKey& rKey) const
 {
     // 用哈希函数映射到表项索引
     int iIndex = HashFunction(rKey);
-    HTItem* pHashItem = m_ppTable[iIndex];
+    SEHTItem* pHashItem = m_ppTable[iIndex];
 
     // 查找符合指定关键字的项
     while( pHashItem )
@@ -98,11 +98,11 @@ TValue* HashTable<TKey, TValue>::Find(const TKey& rKey) const
 }
 //----------------------------------------------------------------------------
 template <class TKey, class TValue>
-bool HashTable<TKey, TValue>::Remove(const TKey& rKey)
+bool SEHashTable<TKey, TValue>::Remove(const TKey& rKey)
 {
     // 用哈希函数映射到表项索引
     int iIndex = HashFunction(rKey);
-    HTItem* pHashItem = m_ppTable[iIndex];
+    SEHTItem* pHashItem = m_ppTable[iIndex];
 
     if( !pHashItem )
     {
@@ -112,7 +112,7 @@ bool HashTable<TKey, TValue>::Remove(const TKey& rKey)
     if( rKey == pHashItem->m_Key )
     {
         // 表项在列表头部
-        HTItem* pTemp = pHashItem;
+        SEHTItem* pTemp = pHashItem;
         m_ppTable[iIndex] = pHashItem->m_pNextHashItem;
         SE_DELETE pTemp;
         m_iCount--;
@@ -120,8 +120,8 @@ bool HashTable<TKey, TValue>::Remove(const TKey& rKey)
     }
 
     // 表项可能在列表中,查找并删除
-    HTItem* pPrev = pHashItem;
-    HTItem* pCur = pHashItem->m_pNextHashItem;
+    SEHTItem* pPrev = pHashItem;
+    SEHTItem* pCur = pHashItem->m_pNextHashItem;
     while( pCur && rKey != pCur->m_Key )
     {
         pPrev = pCur;
@@ -141,7 +141,7 @@ bool HashTable<TKey, TValue>::Remove(const TKey& rKey)
 }
 //----------------------------------------------------------------------------
 template <class TKey, class TValue>
-void HashTable<TKey, TValue>::RemoveAll()
+void SEHashTable<TKey, TValue>::RemoveAll()
 {
     if( m_iCount > 0 )
     {
@@ -149,7 +149,7 @@ void HashTable<TKey, TValue>::RemoveAll()
         {
             while( m_ppTable[iIndex] )
             {
-                HTItem* pTemp = m_ppTable[iIndex];
+                SEHTItem* pTemp = m_ppTable[iIndex];
                 m_ppTable[iIndex] = m_ppTable[iIndex]->m_pNextHashItem;
                 SE_DELETE pTemp;
 
@@ -163,7 +163,7 @@ void HashTable<TKey, TValue>::RemoveAll()
 }
 //----------------------------------------------------------------------------
 template <class TKey, class TValue>
-TValue* HashTable<TKey, TValue>::GetFirst(TKey* pKey) const
+TValue* SEHashTable<TKey, TValue>::GetFirst(TKey* pKey) const
 {
     if( m_iCount > 0 )
     {
@@ -182,7 +182,7 @@ TValue* HashTable<TKey, TValue>::GetFirst(TKey* pKey) const
 }
 //----------------------------------------------------------------------------
 template <class TKey, class TValue>
-TValue* HashTable<TKey, TValue>::GetNext(TKey* pKey) const
+TValue* SEHashTable<TKey, TValue>::GetNext(TKey* pKey) const
 {
     if( m_iCount > 0 )
     {
@@ -208,7 +208,7 @@ TValue* HashTable<TKey, TValue>::GetNext(TKey* pKey) const
 }
 //----------------------------------------------------------------------------
 template <class TKey, class TValue>
-int HashTable<TKey, TValue>::HashFunction(const TKey& rKey) const
+int SEHashTable<TKey, TValue>::HashFunction(const TKey& rKey) const
 {
     if( UserHashFunction )
     {

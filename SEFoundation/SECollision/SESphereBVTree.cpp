@@ -25,29 +25,29 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_INITIALIZE(SphereBVTree);
+SE_IMPLEMENT_INITIALIZE(SESphereBVTree);
 
-//SE_REGISTER_INITIALIZE(SphereBVTree);
+//SE_REGISTER_INITIALIZE(SESphereBVTree);
 
 //----------------------------------------------------------------------------
-void SphereBVTree::Initialize()
+void SESphereBVTree::Initialize()
 {
     ms_aoCreateModelBound[BoundingVolume::BV_SPHERE] =
-        &SphereBVTree::CreateModelBound;
+        &SESphereBVTree::CreateModelBound;
 
     ms_aoCreateWorldBound[BoundingVolume::BV_SPHERE] =
-        &SphereBVTree::CreateWorldBound;
+        &SESphereBVTree::CreateWorldBound;
 }
 //----------------------------------------------------------------------------
-SphereBVTree::SphereBVTree(const TriMesh* pMesh, int iMaxTrisPerLeaf,
+SESphereBVTree::SESphereBVTree(const TriMesh* pMesh, int iMaxTrisPerLeaf,
     bool bStoreInteriorTris)
     :
-    BoundingVolumeTree(BoundingVolume::BV_SPHERE, pMesh, iMaxTrisPerLeaf,
+    SEBoundingVolumeTree(BoundingVolume::BV_SPHERE, pMesh, iMaxTrisPerLeaf,
         bStoreInteriorTris)
 {
 }
 //----------------------------------------------------------------------------
-BoundingVolume* SphereBVTree::CreateModelBound(const TriMesh* pMesh, int i0,
+BoundingVolume* SESphereBVTree::CreateModelBound(const TriMesh* pMesh, int i0,
     int i1, int* aiISplit, SELine3f& rLine)
 {
     // 标记出在当前子网格中用过的那些顶点.
@@ -85,7 +85,7 @@ BoundingVolume* SphereBVTree::CreateModelBound(const TriMesh* pMesh, int i0,
     return pModelBound;
 }
 //----------------------------------------------------------------------------
-BoundingVolume* SphereBVTree::CreateWorldBound()
+BoundingVolume* SESphereBVTree::CreateWorldBound()
 {
     return SE_NEW SphereBV;
 }

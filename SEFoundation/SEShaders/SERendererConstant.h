@@ -294,7 +294,7 @@ private:
     static std::string ms_StringMap[MAX_TYPES+1];
 
     // 根据名字查找该渲染器常量的类型.
-    static StringHashTable<Type>* ms_pTypeMap;
+    static SEStringHashTable<Type>* ms_pTypeMap;
 };
 
 #include "SERendererConstant.inl"
