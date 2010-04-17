@@ -27,27 +27,27 @@ using namespace Swing;
 // 单精度4阶方阵类
 //----------------------------------------------------------------------------
 
-const Matrix4f Matrix4f::ZERO(0.0f, 0.0f, 0.0f, 0.0f,
+const SEMatrix4f SEMatrix4f::ZERO(0.0f, 0.0f, 0.0f, 0.0f,
                               0.0f, 0.0f, 0.0f, 0.0f,
                               0.0f, 0.0f, 0.0f, 0.0f,
                               0.0f, 0.0f, 0.0f, 0.0f);
-const Matrix4f Matrix4f::IDENTITY(1.0f, 0.0f, 0.0f, 0.0f,
+const SEMatrix4f SEMatrix4f::IDENTITY(1.0f, 0.0f, 0.0f, 0.0f,
                                   0.0f, 1.0f, 0.0f, 0.0f,
                                   0.0f, 0.0f, 1.0f, 0.0f,
                                   0.0f, 0.0f, 0.0f, 1.0f);
 
 //----------------------------------------------------------------------------
-Matrix4f::Matrix4f()
+SEMatrix4f::SEMatrix4f()
 {
     Zero();
 }
 //----------------------------------------------------------------------------
-Matrix4f::Matrix4f(const Matrix4f& rMat)
+SEMatrix4f::SEMatrix4f(const SEMatrix4f& rMat)
 {
     memcpy(m_fData, rMat.m_fData, 16*sizeof(float));
 }
 //----------------------------------------------------------------------------
-Matrix4f::Matrix4f(float fM11, float fM12, float fM13, float fM14,
+SEMatrix4f::SEMatrix4f(float fM11, float fM12, float fM13, float fM14,
                    float fM21, float fM22, float fM23, float fM24,
                    float fM31, float fM32, float fM33, float fM34,
                    float fM41, float fM42, float fM43, float fM44)
@@ -73,75 +73,75 @@ Matrix4f::Matrix4f(float fM11, float fM12, float fM13, float fM14,
     M44 = fM44;
 }
 //----------------------------------------------------------------------------
-Matrix4f::operator const float*() const
+SEMatrix4f::operator const float*() const
 {
     return &m_fData[0][0];
 }
 //----------------------------------------------------------------------------
-Matrix4f::operator float*()
+SEMatrix4f::operator float*()
 {
     return &m_fData[0][0];
 }
 //----------------------------------------------------------------------------
-const float* Matrix4f::operator[](int iCurRow) const
+const float* SEMatrix4f::operator[](int iCurRow) const
 {
     return &m_fData[iCurRow][0];
 }
 //----------------------------------------------------------------------------
-float* Matrix4f::operator[](int iCurRow)
+float* SEMatrix4f::operator[](int iCurRow)
 {
      return &m_fData[iCurRow][0];
 }
 //----------------------------------------------------------------------------
-float Matrix4f::operator()(int iCurRow, int iCurCol) const
+float SEMatrix4f::operator()(int iCurRow, int iCurCol) const
 {
     return m_fData[iCurRow][iCurCol];
 }
 //----------------------------------------------------------------------------
-float& Matrix4f::operator()(int iCurRow, int iCurCol)
+float& SEMatrix4f::operator()(int iCurRow, int iCurCol)
 {
     return m_fData[iCurRow][iCurCol];
 }
 //----------------------------------------------------------------------------
-Matrix4f& Matrix4f::operator=(const Matrix4f& rMat)
+SEMatrix4f& SEMatrix4f::operator=(const SEMatrix4f& rMat)
 {
     memcpy(m_fData, rMat.m_fData, 16 * sizeof(float));
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Matrix4f::operator==(const Matrix4f& rMat) const
+bool SEMatrix4f::operator==(const SEMatrix4f& rMat) const
 {
     return CompareData(rMat) == 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix4f::operator!= (const Matrix4f& rMat) const
+bool SEMatrix4f::operator!= (const SEMatrix4f& rMat) const
 {
     return CompareData(rMat) != 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix4f::operator<(const Matrix4f& rMat) const
+bool SEMatrix4f::operator<(const SEMatrix4f& rMat) const
 {
     return CompareData(rMat) < 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix4f::operator<=(const Matrix4f& rMat) const
+bool SEMatrix4f::operator<=(const SEMatrix4f& rMat) const
 {
     return CompareData(rMat) <= 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix4f::operator>(const Matrix4f& rMat) const
+bool SEMatrix4f::operator>(const SEMatrix4f& rMat) const
 {
     return CompareData(rMat) > 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix4f::operator>=(const Matrix4f& rMat) const
+bool SEMatrix4f::operator>=(const SEMatrix4f& rMat) const
 {
     return CompareData(rMat) >= 0;
 }
 //----------------------------------------------------------------------------
-Matrix4f Matrix4f::operator+(const Matrix4f& rRhsMat) const
+SEMatrix4f SEMatrix4f::operator+(const SEMatrix4f& rRhsMat) const
 {
-    Matrix4f ResMat;
+    SEMatrix4f ResMat;
 
     ResMat.M11 = M11 + rRhsMat.M11;
     ResMat.M12 = M12 + rRhsMat.M12;
@@ -166,9 +166,9 @@ Matrix4f Matrix4f::operator+(const Matrix4f& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix4f Matrix4f::operator-(const Matrix4f& rRhsMat) const
+SEMatrix4f SEMatrix4f::operator-(const SEMatrix4f& rRhsMat) const
 {
-    Matrix4f ResMat;
+    SEMatrix4f ResMat;
 
     ResMat.M11 = M11 - rRhsMat.M11;
     ResMat.M12 = M12 - rRhsMat.M12;
@@ -193,9 +193,9 @@ Matrix4f Matrix4f::operator-(const Matrix4f& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix4f Matrix4f::operator*(const Matrix4f& rRhsMat) const
+SEMatrix4f SEMatrix4f::operator*(const SEMatrix4f& rRhsMat) const
 {
-    SE_ALIGN16 Matrix4f ResMat;
+    SE_ALIGN16 SEMatrix4f ResMat;
 
 #ifdef _SIMD
     __asm
@@ -276,9 +276,9 @@ Matrix4f Matrix4f::operator*(const Matrix4f& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix4f Matrix4f::operator*(float fScalar) const
+SEMatrix4f SEMatrix4f::operator*(float fScalar) const
 {
-    Matrix4f ResMat;
+    SEMatrix4f ResMat;
 
     ResMat.M11 = M11 * fScalar;
     ResMat.M12 = M12 * fScalar;
@@ -303,10 +303,10 @@ Matrix4f Matrix4f::operator*(float fScalar) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix4f Matrix4f::operator/(float fScalar) const
+SEMatrix4f SEMatrix4f::operator/(float fScalar) const
 {
     // 注意除数不能为0
-    Matrix4f ResMat;
+    SEMatrix4f ResMat;
     float fInvScalar = 1.0f / fScalar;
 
     ResMat.M11 = M11 * fInvScalar;
@@ -332,9 +332,9 @@ Matrix4f Matrix4f::operator/(float fScalar) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix4f Matrix4f::operator-() const
+SEMatrix4f SEMatrix4f::operator-() const
 {
-    Matrix4f ResMat;
+    SEMatrix4f ResMat;
 
     ResMat.M11 = -M11;
     ResMat.M12 = -M12;
@@ -359,7 +359,7 @@ Matrix4f Matrix4f::operator-() const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix4f& Matrix4f::operator+=(const Matrix4f& rRhsMat)
+SEMatrix4f& SEMatrix4f::operator+=(const SEMatrix4f& rRhsMat)
 {
 	M11 += rRhsMat.M11;
     M12 += rRhsMat.M12;
@@ -384,7 +384,7 @@ Matrix4f& Matrix4f::operator+=(const Matrix4f& rRhsMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix4f& Matrix4f::operator-=(const Matrix4f& rRhsMat)
+SEMatrix4f& SEMatrix4f::operator-=(const SEMatrix4f& rRhsMat)
 {
 	M11 -= rRhsMat.M11;
     M12 -= rRhsMat.M12;
@@ -409,7 +409,7 @@ Matrix4f& Matrix4f::operator-=(const Matrix4f& rRhsMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix4f& Matrix4f::operator*=(float fScalar)
+SEMatrix4f& SEMatrix4f::operator*=(float fScalar)
 {
 	M11 *= fScalar;
     M12 *= fScalar;
@@ -434,7 +434,7 @@ Matrix4f& Matrix4f::operator*=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix4f& Matrix4f::operator/=(float fScalar)
+SEMatrix4f& SEMatrix4f::operator/=(float fScalar)
 {
     // 注意除数不能为0
     float fInvScalar = 1.0f / fScalar;
@@ -461,9 +461,9 @@ Matrix4f& Matrix4f::operator/=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector4f Matrix4f::operator*(const Vector4f& rRhsVec) const
+SEVector4f SEMatrix4f::operator*(const SEVector4f& rRhsVec) const
 {
-    Vector4f ResVec;
+    SEVector4f ResVec;
     
     ResVec[0] = M11*rRhsVec[0] + M12*rRhsVec[1] + M13*rRhsVec[2] + 
         M14*rRhsVec[3];
@@ -477,28 +477,28 @@ Vector4f Matrix4f::operator*(const Vector4f& rRhsVec) const
     return ResVec;
 }
 //----------------------------------------------------------------------------
-void Matrix4f::Transpose()
+void SEMatrix4f::Transpose()
 {
-    Matrix4f tempMat;
+    SEMatrix4f tempMat;
 	GetTranspose(tempMat);
 	*this = tempMat;
 }
 //----------------------------------------------------------------------------
-void Matrix4f::Inverse()
+void SEMatrix4f::Inverse()
 {
-    Matrix4f tempMat;
+    SEMatrix4f tempMat;
 	GetInverse(tempMat);
 	*this = tempMat;
 }
 //----------------------------------------------------------------------------
-Matrix4f Swing::operator*(float fLhsScalar, const Matrix4f& rRhsMat)
+SEMatrix4f Swing::operator*(float fLhsScalar, const SEMatrix4f& rRhsMat)
 {
     return rRhsMat * fLhsScalar;
 }
 //----------------------------------------------------------------------------
-Vector4f Swing::operator*(const Vector4f& rLhsVec, const Matrix4f& rRhsMat)
+SEVector4f Swing::operator*(const SEVector4f& rLhsVec, const SEMatrix4f& rRhsMat)
 {
-    return Vector4f(
+    return SEVector4f(
         rLhsVec[0]*rRhsMat.M11 + rLhsVec[1]*rRhsMat.M21 + 
         rLhsVec[2]*rRhsMat.M31 + rLhsVec[3]*rRhsMat.M41,
         rLhsVec[0]*rRhsMat.M12 + rLhsVec[1]*rRhsMat.M22 + 
@@ -514,27 +514,27 @@ Vector4f Swing::operator*(const Vector4f& rLhsVec, const Matrix4f& rRhsMat)
 // 双精度4阶方阵类
 //----------------------------------------------------------------------------
 
-const Matrix4d Matrix4d::ZERO(0.0, 0.0, 0.0, 0.0,
+const SEMatrix4d SEMatrix4d::ZERO(0.0, 0.0, 0.0, 0.0,
                               0.0, 0.0, 0.0, 0.0,
                               0.0, 0.0, 0.0, 0.0,
                               0.0, 0.0, 0.0, 0.0);
-const Matrix4d Matrix4d::IDENTITY(1.0, 0.0, 0.0, 0.0,
+const SEMatrix4d SEMatrix4d::IDENTITY(1.0, 0.0, 0.0, 0.0,
                                   0.0, 1.0, 0.0, 0.0,
                                   0.0, 0.0, 1.0, 0.0,
                                   0.0, 0.0, 0.0, 1.0);
 
 //----------------------------------------------------------------------------
-Matrix4d::Matrix4d()
+SEMatrix4d::SEMatrix4d()
 {
     Zero();
 }
 //----------------------------------------------------------------------------
-Matrix4d::Matrix4d(const Matrix4d& rMat)
+SEMatrix4d::SEMatrix4d(const SEMatrix4d& rMat)
 {
     memcpy(m_dData, rMat.m_dData, 16*sizeof(double));
 }
 //----------------------------------------------------------------------------
-Matrix4d::Matrix4d(double dM11, double dM12, double dM13, double dM14,
+SEMatrix4d::SEMatrix4d(double dM11, double dM12, double dM13, double dM14,
                    double dM21, double dM22, double dM23, double dM24,
                    double dM31, double dM32, double dM33, double dM34,
                    double dM41, double dM42, double dM43, double dM44)
@@ -560,75 +560,75 @@ Matrix4d::Matrix4d(double dM11, double dM12, double dM13, double dM14,
     M44 = dM44;
 }
 //----------------------------------------------------------------------------
-Matrix4d::operator const double*() const
+SEMatrix4d::operator const double*() const
 {
     return &m_dData[0][0];
 }
 //----------------------------------------------------------------------------
-Matrix4d::operator double*()
+SEMatrix4d::operator double*()
 {
     return &m_dData[0][0];
 }
 //----------------------------------------------------------------------------
-const double* Matrix4d::operator[](int iCurRow) const
+const double* SEMatrix4d::operator[](int iCurRow) const
 {
     return &m_dData[iCurRow][0];
 }
 //----------------------------------------------------------------------------
-double* Matrix4d::operator[](int iCurRow)
+double* SEMatrix4d::operator[](int iCurRow)
 {
      return &m_dData[iCurRow][0];
 }
 //----------------------------------------------------------------------------
-double Matrix4d::operator()(int iCurRow, int iCurCol) const
+double SEMatrix4d::operator()(int iCurRow, int iCurCol) const
 {
     return m_dData[iCurRow][iCurCol];
 }
 //----------------------------------------------------------------------------
-double& Matrix4d::operator()(int iCurRow, int iCurCol)
+double& SEMatrix4d::operator()(int iCurRow, int iCurCol)
 {
     return m_dData[iCurRow][iCurCol];
 }
 //----------------------------------------------------------------------------
-Matrix4d& Matrix4d::operator=(const Matrix4d& rMat)
+SEMatrix4d& SEMatrix4d::operator=(const SEMatrix4d& rMat)
 {
     memcpy(m_dData, rMat.m_dData, 16*sizeof(double));
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Matrix4d::operator==(const Matrix4d& rMat) const
+bool SEMatrix4d::operator==(const SEMatrix4d& rMat) const
 {
     return CompareData(rMat) == 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix4d::operator!= (const Matrix4d& rMat) const
+bool SEMatrix4d::operator!= (const SEMatrix4d& rMat) const
 {
     return CompareData(rMat) != 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix4d::operator<(const Matrix4d& rMat) const
+bool SEMatrix4d::operator<(const SEMatrix4d& rMat) const
 {
     return CompareData(rMat) < 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix4d::operator<=(const Matrix4d& rMat) const
+bool SEMatrix4d::operator<=(const SEMatrix4d& rMat) const
 {
     return CompareData(rMat) <= 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix4d::operator>(const Matrix4d& rMat) const
+bool SEMatrix4d::operator>(const SEMatrix4d& rMat) const
 {
     return CompareData(rMat) > 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix4d::operator>=(const Matrix4d& rMat) const
+bool SEMatrix4d::operator>=(const SEMatrix4d& rMat) const
 {
     return CompareData(rMat) >= 0;
 }
 //----------------------------------------------------------------------------
-Matrix4d Matrix4d::operator+(const Matrix4d& rRhsMat) const
+SEMatrix4d SEMatrix4d::operator+(const SEMatrix4d& rRhsMat) const
 {
-    Matrix4d ResMat;
+    SEMatrix4d ResMat;
 
     ResMat.M11 = M11 + rRhsMat.M11;
     ResMat.M12 = M12 + rRhsMat.M12;
@@ -653,9 +653,9 @@ Matrix4d Matrix4d::operator+(const Matrix4d& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix4d Matrix4d::operator-(const Matrix4d& rRhsMat) const
+SEMatrix4d SEMatrix4d::operator-(const SEMatrix4d& rRhsMat) const
 {
-    Matrix4d ResMat;
+    SEMatrix4d ResMat;
 
     ResMat.M11 = M11 - rRhsMat.M11;
     ResMat.M12 = M12 - rRhsMat.M12;
@@ -680,9 +680,9 @@ Matrix4d Matrix4d::operator-(const Matrix4d& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix4d Matrix4d::operator*(const Matrix4d& rRhsMat) const
+SEMatrix4d SEMatrix4d::operator*(const SEMatrix4d& rRhsMat) const
 {
-    SE_ALIGN16 Matrix4d ResMat;
+    SE_ALIGN16 SEMatrix4d ResMat;
 
 #ifdef _SIMD
     // 待实现.
@@ -729,9 +729,9 @@ Matrix4d Matrix4d::operator*(const Matrix4d& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix4d Matrix4d::operator*(double dScalar) const
+SEMatrix4d SEMatrix4d::operator*(double dScalar) const
 {
-    Matrix4d ResMat;
+    SEMatrix4d ResMat;
 
     ResMat.M11 = M11 * dScalar;
     ResMat.M12 = M12 * dScalar;
@@ -756,10 +756,10 @@ Matrix4d Matrix4d::operator*(double dScalar) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix4d Matrix4d::operator/(double dScalar) const
+SEMatrix4d SEMatrix4d::operator/(double dScalar) const
 {
     // 注意除数不能为0
-    Matrix4d ResMat;
+    SEMatrix4d ResMat;
     double dInvScalar = 1.0 / dScalar;
 
     ResMat.M11 = M11 * dInvScalar;
@@ -785,9 +785,9 @@ Matrix4d Matrix4d::operator/(double dScalar) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix4d Matrix4d::operator-() const
+SEMatrix4d SEMatrix4d::operator-() const
 {
-    Matrix4d ResMat;
+    SEMatrix4d ResMat;
 
     ResMat.M11 = -M11;
     ResMat.M12 = -M12;
@@ -812,7 +812,7 @@ Matrix4d Matrix4d::operator-() const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix4d& Matrix4d::operator+=(const Matrix4d& rRhsMat)
+SEMatrix4d& SEMatrix4d::operator+=(const SEMatrix4d& rRhsMat)
 {
 	M11 += rRhsMat.M11;
     M12 += rRhsMat.M12;
@@ -837,7 +837,7 @@ Matrix4d& Matrix4d::operator+=(const Matrix4d& rRhsMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix4d& Matrix4d::operator-=(const Matrix4d& rRhsMat)
+SEMatrix4d& SEMatrix4d::operator-=(const SEMatrix4d& rRhsMat)
 {
 	M11 -= rRhsMat.M11;
     M12 -= rRhsMat.M12;
@@ -862,7 +862,7 @@ Matrix4d& Matrix4d::operator-=(const Matrix4d& rRhsMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix4d& Matrix4d::operator*=(double dScalar)
+SEMatrix4d& SEMatrix4d::operator*=(double dScalar)
 {
 	M11 *= dScalar;
     M12 *= dScalar;
@@ -887,7 +887,7 @@ Matrix4d& Matrix4d::operator*=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix4d& Matrix4d::operator/=(double dScalar)
+SEMatrix4d& SEMatrix4d::operator/=(double dScalar)
 {
     // 注意除数不能为0
     double dInvScalar = 1.0 / dScalar;
@@ -914,9 +914,9 @@ Matrix4d& Matrix4d::operator/=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector4d Matrix4d::operator*(const Vector4d& rRhsVec) const
+SEVector4d SEMatrix4d::operator*(const SEVector4d& rRhsVec) const
 {
-    Vector4d ResVec;
+    SEVector4d ResVec;
     
     ResVec[0] = M11*rRhsVec[0] + M12*rRhsVec[1] + M13*rRhsVec[2] + 
         M14*rRhsVec[3];
@@ -930,28 +930,28 @@ Vector4d Matrix4d::operator*(const Vector4d& rRhsVec) const
     return ResVec;
 }
 //----------------------------------------------------------------------------
-void Matrix4d::Transpose()
+void SEMatrix4d::Transpose()
 {
-    Matrix4d tempMat;
+    SEMatrix4d tempMat;
 	GetTranspose(tempMat);
 	*this = tempMat;
 }
 //----------------------------------------------------------------------------
-void Matrix4d::Inverse()
+void SEMatrix4d::Inverse()
 {
-    Matrix4d tempMat;
+    SEMatrix4d tempMat;
 	GetInverse(tempMat);
 	*this = tempMat;
 }
 //----------------------------------------------------------------------------
-Matrix4d Swing::operator*(double dLhsScalar, const Matrix4d& rRhsMat)
+SEMatrix4d Swing::operator*(double dLhsScalar, const SEMatrix4d& rRhsMat)
 {
     return rRhsMat * dLhsScalar;
 }
 //----------------------------------------------------------------------------
-Vector4d Swing::operator*(const Vector4d& rLhsVec, const Matrix4d& rRhsMat)
+SEVector4d Swing::operator*(const SEVector4d& rLhsVec, const SEMatrix4d& rRhsMat)
 {
-    return Vector4d(
+    return SEVector4d(
         rLhsVec[0]*rRhsMat.M11 + rLhsVec[1]*rRhsMat.M21 + 
         rLhsVec[2]*rRhsMat.M31 + rLhsVec[3]*rRhsMat.M41,
         rLhsVec[0]*rRhsMat.M12 + rLhsVec[1]*rRhsMat.M22 + 

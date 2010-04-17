@@ -51,21 +51,21 @@ public:
     // exact arithmetic,  but is the slowest choice.  The choice Query::QT_REAL
     // uses floating-point arithmetic,  but is not robust in all cases.
 
-    ConvexHull3f(int iVertexCount,  Vector3f* aVertex,  float fEpsilon, 
+    ConvexHull3f(int iVertexCount,  SEVector3f* aVertex,  float fEpsilon, 
         bool bOwner,  Query::Type eQueryType);
     virtual ~ConvexHull3f(void);
 
     // If GetDimension() returns 1,  then the points lie on a line.  You must
     // create a ConvexHull1f object using the function provided.
-    const Vector3f& GetLineOrigin(void) const;
-    const Vector3f& GetLineDirection(void) const;
+    const SEVector3f& GetLineOrigin(void) const;
+    const SEVector3f& GetLineDirection(void) const;
     ConvexHull1f* GetConvexHull1(void) const;
 
     // If GetDimension() returns 2,  then the points lie on a plane.  The plane
     // has two direction vectors (inputs 0 or 1).  You must create a
     // ConvexHull2f object using the function provided.
-    const Vector3f& GetPlaneOrigin(void) const;
-    const Vector3f& GetPlaneDirection(int i) const;
+    const SEVector3f& GetPlaneOrigin(void) const;
+    const SEVector3f& GetPlaneDirection(int i) const;
     ConvexHull2f* GetConvexHull2(void) const;
 
     // Support for streaming to/from disk.
@@ -79,17 +79,17 @@ private:
     void DeleteHull(void);
 
     // The input points.
-    Vector3f* m_aVertex;
+    SEVector3f* m_aVertex;
 
     // Support for robust queries.
-    Vector3f* m_aSVertex;
+    SEVector3f* m_aSVertex;
     Query3f* m_pQuery;
 
     // The line of containment if the dimension is 1.
-    Vector3f m_LineOrigin,  m_LineDirection;
+    SEVector3f m_LineOrigin,  m_LineDirection;
 
     // The plane of containment if the dimension is 2.
-    Vector3f m_PlaneOrigin,  m_aPlaneDirection[2];
+    SEVector3f m_PlaneOrigin,  m_aPlaneDirection[2];
 
     // The current hull.
     std::set<HullTriangle3f*> m_Hull;

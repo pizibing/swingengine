@@ -33,13 +33,13 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20070706
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API VectorNf
+class SE_FOUNDATION_API SEVectorNf
 {
 public:
-    VectorNf(int iSize = 0);
-    VectorNf(int iSize, const float* pData);
-    VectorNf(const VectorNf& rVec);
-    ~VectorNf(void);
+    SEVectorNf(int iSize = 0);
+    SEVectorNf(int iSize, const float* pData);
+    SEVectorNf(const SEVectorNf& rVec);
+    ~SEVectorNf(void);
 
 public:
     inline void SetSize(int iSize);
@@ -50,36 +50,36 @@ public:
     float operator [] (int i) const;
     float& operator [] (int i);
 
-    VectorNf& operator = (const VectorNf& rVec);
+    SEVectorNf& operator = (const SEVectorNf& rVec);
 
-    bool operator == (const VectorNf& rVec) const;
-    bool operator != (const VectorNf& rVec) const;
-    bool operator <  (const VectorNf& rVec) const;
-    bool operator <= (const VectorNf& rVec) const;
-    bool operator >  (const VectorNf& rVec) const;
-    bool operator >= (const VectorNf& rVec) const;
+    bool operator == (const SEVectorNf& rVec) const;
+    bool operator != (const SEVectorNf& rVec) const;
+    bool operator <  (const SEVectorNf& rVec) const;
+    bool operator <= (const SEVectorNf& rVec) const;
+    bool operator >  (const SEVectorNf& rVec) const;
+    bool operator >= (const SEVectorNf& rVec) const;
 
-    VectorNf operator + (const VectorNf& rRhsVec) const;
-    VectorNf operator - (const VectorNf& rRhsVec) const;
-    VectorNf operator * (float fScalar) const;
-    VectorNf operator / (float fScalar) const;
-    VectorNf operator - (void) const;
+    SEVectorNf operator + (const SEVectorNf& rRhsVec) const;
+    SEVectorNf operator - (const SEVectorNf& rRhsVec) const;
+    SEVectorNf operator * (float fScalar) const;
+    SEVectorNf operator / (float fScalar) const;
+    SEVectorNf operator - (void) const;
 
-    VectorNf& operator += (const VectorNf& rRhsVec);
-    VectorNf& operator -= (const VectorNf& rRhsVec);
-    VectorNf& operator *= (float fScalar);
-    VectorNf& operator /= (float fScalar);
+    SEVectorNf& operator += (const SEVectorNf& rRhsVec);
+    SEVectorNf& operator -= (const SEVectorNf& rRhsVec);
+    SEVectorNf& operator *= (float fScalar);
+    SEVectorNf& operator /= (float fScalar);
 
-    SE_FOUNDATION_API friend VectorNf operator * (float fLhsScalar,
-        const VectorNf& rRhsVec);
+    SE_FOUNDATION_API friend SEVectorNf operator * (float fLhsScalar,
+        const SEVectorNf& rRhsVec);
 
     inline float GetLength(void) const;
     inline float GetSquaredLength(void) const;
-    inline float Dot(const VectorNf& rRhsVec) const;
+    inline float Dot(const SEVectorNf& rRhsVec) const;
     inline float Normalize(void);
 
 private:
-    inline int CompareData(const VectorNf& rVec) const;
+    inline int CompareData(const SEVectorNf& rVec) const;
 
     int m_iSize;
     float* m_pData;

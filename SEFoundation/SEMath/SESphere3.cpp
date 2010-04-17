@@ -24,23 +24,23 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Sphere3f::Sphere3f()
+SESphere3f::SESphere3f()
 {
 }
 //----------------------------------------------------------------------------
-Sphere3f::Sphere3f(const Vector3f& rCenter, float fRadius)
+SESphere3f::SESphere3f(const SEVector3f& rCenter, float fRadius)
     : Center(rCenter),
       Radius(fRadius)
 {
 }
 //----------------------------------------------------------------------------
-Sphere3f::Sphere3f(const Sphere3f& rSphere)
+SESphere3f::SESphere3f(const SESphere3f& rSphere)
     : Center(rSphere.Center),
       Radius(rSphere.Radius)
 {
 }
 //----------------------------------------------------------------------------
-Sphere3f& Sphere3f::operator=(const Sphere3f& rSphere)
+SESphere3f& SESphere3f::operator=(const SESphere3f& rSphere)
 {
     Center = rSphere.Center;
     Radius = rSphere.Radius;

@@ -29,7 +29,7 @@ namespace Swing
 {
 
 template <class Real>
-class Math
+class SEMath
 {
 public:
     // Wrappers to hide implementations of functions.  The ACos and ASin
@@ -161,8 +161,8 @@ public:
 #define SE_MAX(a,b)((a < b) ? (b) : (a))
 //----------------------------------------------------------------------------
 
-typedef Math<float> Mathf;
-typedef Math<double> Mathd;
+typedef SEMath<float> SEMathf;
+typedef SEMath<double> SEMathd;
 
 }
 

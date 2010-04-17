@@ -24,11 +24,11 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Line2f::Line2f()
+SELine2f::SELine2f()
 {
 }
 //----------------------------------------------------------------------------
-Line2f::Line2f(const SEVector2f& rOrigin, const SEVector2f& rDirection)
+SELine2f::SELine2f(const SEVector2f& rOrigin, const SEVector2f& rDirection)
     :
     Origin(rOrigin),
     Direction(rDirection)

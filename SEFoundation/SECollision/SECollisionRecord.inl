@@ -24,7 +24,7 @@ inline TriMesh* CollisionRecord::GetMesh()
     return m_pMesh;
 }
 //----------------------------------------------------------------------------
-inline Vector3f* CollisionRecord::GetVelocity()
+inline SEVector3f* CollisionRecord::GetVelocity()
 {
     return m_pVelocity;
 }

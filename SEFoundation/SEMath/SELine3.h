@@ -33,16 +33,16 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080311
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Line3f
+class SE_FOUNDATION_API SELine3f
 {
 public:
     // 直线表示为参数方程形式:P + t*D,其中P是直线上一点,D是单位长度方向向量,
     // 必须确保D为单位向量.
 
-    Line3f(void);
-    Line3f(const Vector3f& rOrigin, const Vector3f& rDirection);
+    SELine3f(void);
+    SELine3f(const SEVector3f& rOrigin, const SEVector3f& rDirection);
 
-    Vector3f Origin, Direction;
+    SEVector3f Origin, Direction;
 };
 
 }

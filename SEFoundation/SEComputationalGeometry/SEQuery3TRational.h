@@ -39,7 +39,7 @@ class Query3TRationalf : public Query3f
 public:
     // The components of the input vertices are represented exactly as
     // rational values.
-    Query3TRationalf(int iVCount, const Vector3f* aVertex);
+    Query3TRationalf(int iVCount, const SEVector3f* aVertex);
     virtual ~Query3TRationalf(void);
 
     // run-time type information
@@ -48,17 +48,17 @@ public:
     // Queries about the relation of a point to various geometric objects.
 
     virtual int ToPlane(int i, int iV0, int iV1, int iV2) const;
-    virtual int ToPlane(const Vector3f& rP, int iV0, int iV1, int iV2)
+    virtual int ToPlane(const SEVector3f& rP, int iV0, int iV1, int iV2)
         const;
 
     virtual int ToTetrahedron(int i, int iV0, int iV1, int iV2, int iV3)
         const;
-    virtual int ToTetrahedron(const Vector3f& rP, int iV0, int iV1, 
+    virtual int ToTetrahedron(const SEVector3f& rP, int iV0, int iV1, 
         int iV2, int iV3) const;
 
     virtual int ToCircumsphere(int i, int iV0, int iV1, int iV2, int iV3)
         const;
-    virtual int ToCircumsphere(const Vector3f& rP, int iV0, int iV1, 
+    virtual int ToCircumsphere(const SEVector3f& rP, int iV0, int iV1, 
         int iV2, int iV3) const;
 
 private:

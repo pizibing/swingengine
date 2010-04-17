@@ -24,11 +24,11 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Ray3f::Ray3f()
+SERay3f::SERay3f()
 {
 }
 //----------------------------------------------------------------------------
-Ray3f::Ray3f(const Vector3f& rOrigin, const Vector3f& rDirection)
+SERay3f::SERay3f(const SEVector3f& rOrigin, const SEVector3f& rDirection)
     :
     Origin(rOrigin),
     Direction(rDirection)

@@ -28,17 +28,17 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Mapper2f类
+// 名称:SEMapper2f类
 // 说明:
 // 作者:Sun Che
 // 时间:20081202
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Mapper2f
+class SE_FOUNDATION_API SEMapper2f
 {
 public:
     // 当计算传入顶点集合的维度时,epsilon值用作相对误差.
-    Mapper2f(int iVCount, const SEVector2f* aVertex, float fEpsilon);
-    ~Mapper2f(void);
+    SEMapper2f(int iVCount, const SEVector2f* aVertex, float fEpsilon);
+    ~SEMapper2f(void);
 
     // 传入顶点集合的AABBox.
     const SEVector2f& GetMin(void) const;

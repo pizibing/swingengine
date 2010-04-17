@@ -36,15 +36,15 @@ namespace Swing
 // 时间:20090203
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API IntrSegment3Box3f
-    : public Intersector<float, Vector3f>
+    : public Intersector<float, SEVector3f>
 {
 public:
-    IntrSegment3Box3f(const Segment3f& rSegment, const Box3f& rBox, 
+    IntrSegment3Box3f(const SESegment3f& rSegment, const SEBox3f& rBox, 
         bool bSolid);
 
     // 对象访问.
-    const Segment3f& GetSegment(void) const;
-    const Box3f& GetBox(void) const;
+    const SESegment3f& GetSegment(void) const;
+    const SEBox3f& GetBox(void) const;
 
     // static intersection查询.
     virtual bool Test(void);
@@ -52,17 +52,17 @@ public:
 
     // 相交集合.
     int GetCount(void) const;
-    const Vector3f& GetPoint(int i) const;
+    const SEVector3f& GetPoint(int i) const;
 
 private:
     // 待检查对象.
-    const Segment3f* m_pSegment;
-    const Box3f* m_pBox;
+    const SESegment3f* m_pSegment;
+    const SEBox3f* m_pBox;
     bool m_bSolid;
 
     // 相交集相关信息.
     int m_iCount;
-    Vector3f m_aPoint[2];
+    SEVector3f m_aPoint[2];
 };
 
 }

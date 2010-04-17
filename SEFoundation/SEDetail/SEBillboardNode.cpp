@@ -50,15 +50,15 @@ void BillboardNode::UpdateWorldData(double dAppTime)
     if( m_spCamera )
     {
         // 把摄像机location逆变换到billboard的模型空间.
-        Vector3f vec3fCLoc;
+        SEVector3f vec3fCLoc;
         World.ApplyInverse(m_spCamera->GetLocation(), vec3fCLoc);
 
         // 为了对齐billboard,根据摄像机在billboard模型空间xz平面的投影,
         // 能够决定billboard针对其模型空间y轴的旋转角度.
         // 如果摄像机的投影在模型空间y轴上(x = 0, z = 0),
         // 则ATan2函数将返回0,因此没必要单独判断这种情况.
-        float fAngle = Mathf::ATan2(vec3fCLoc.X, -vec3fCLoc.Z);
-        Matrix3f mat3fOrient(Vector3f::UNIT_Y, -fAngle);
+        float fAngle = SEMathf::ATan2(vec3fCLoc.X, -vec3fCLoc.Z);
+        SEMatrix3f mat3fOrient(SEVector3f::UNIT_Y, -fAngle);
         World.SetRotate(mat3fOrient*World.GetRotate());
     }
 

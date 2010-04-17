@@ -24,8 +24,8 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrLine3Sphere3f::IntrLine3Sphere3f(const Line3f& rLine,
-    const Sphere3f& rSphere)
+IntrLine3Sphere3f::IntrLine3Sphere3f(const SELine3f& rLine,
+    const SESphere3f& rSphere)
     :
     m_pLine(&rLine),
     m_pSphere(&rSphere)
@@ -33,19 +33,19 @@ IntrLine3Sphere3f::IntrLine3Sphere3f(const Line3f& rLine,
     m_iCount = 0;
 }
 //----------------------------------------------------------------------------
-const Line3f& IntrLine3Sphere3f::GetLine() const
+const SELine3f& IntrLine3Sphere3f::GetLine() const
 {
     return *m_pLine;
 }
 //----------------------------------------------------------------------------
-const Sphere3f& IntrLine3Sphere3f::GetSphere() const
+const SESphere3f& IntrLine3Sphere3f::GetSphere() const
 {
     return *m_pSphere;
 }
 //----------------------------------------------------------------------------
 bool IntrLine3Sphere3f::Test()
 {
-    Vector3f vec3fDiff = m_pLine->Origin - m_pSphere->Center;
+    SEVector3f vec3fDiff = m_pLine->Origin - m_pSphere->Center;
     float fA0 = vec3fDiff.Dot(vec3fDiff) - m_pSphere->Radius*m_pSphere->Radius;
     float fA1 = m_pLine->Direction.Dot(vec3fDiff);
     float fDiscr = fA1*fA1 - fA0;
@@ -55,7 +55,7 @@ bool IntrLine3Sphere3f::Test()
 //----------------------------------------------------------------------------
 bool IntrLine3Sphere3f::Find ()
 {
-    Vector3f vec3fDiff = m_pLine->Origin - m_pSphere->Center;
+    SEVector3f vec3fDiff = m_pLine->Origin - m_pSphere->Center;
     float fA0 = vec3fDiff.Dot(vec3fDiff) - m_pSphere->Radius*m_pSphere->Radius;
     float fA1 = m_pLine->Direction.Dot(vec3fDiff);
     float fDiscr = fA1*fA1 - fA0;
@@ -64,9 +64,9 @@ bool IntrLine3Sphere3f::Find ()
     {
         m_iCount = 0;
     }
-    else if( fDiscr >= Math<float>::ZERO_TOLERANCE )
+    else if( fDiscr >= SEMath<float>::ZERO_TOLERANCE )
     {
-        float fRoot = Math<float>::Sqrt(fDiscr);
+        float fRoot = SEMath<float>::Sqrt(fDiscr);
         m_afLineT[0] = -fA1 - fRoot;
         m_afLineT[1] = -fA1 + fRoot;
         m_aPoint[0] = m_pLine->Origin + m_afLineT[0]*m_pLine->Direction;
@@ -88,7 +88,7 @@ int IntrLine3Sphere3f::GetCount() const
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-const Vector3f& IntrLine3Sphere3f::GetPoint(int i) const
+const SEVector3f& IntrLine3Sphere3f::GetPoint(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 

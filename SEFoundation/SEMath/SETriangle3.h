@@ -33,17 +33,17 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080803
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Triangle3f
+class SE_FOUNDATION_API SETriangle3f
 {
 public:
-    Triangle3f(void);  // 未初始化
-    Triangle3f(const Vector3f& rV0, const Vector3f& rV1, const Vector3f& rV2);
-    Triangle3f(const Vector3f aV[3]);
+    SETriangle3f(void);  // 未初始化
+    SETriangle3f(const SEVector3f& rV0, const SEVector3f& rV1, const SEVector3f& rV2);
+    SETriangle3f(const SEVector3f aV[3]);
 
     // 三角形到点Q的距离.
-    float GetDistance(const Vector3f& rQ) const;
+    float GetDistance(const SEVector3f& rQ) const;
 
-    Vector3f V[3];
+    SEVector3f V[3];
 };
 
 }

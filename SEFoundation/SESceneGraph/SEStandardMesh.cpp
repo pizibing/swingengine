@@ -82,7 +82,7 @@ void StandardMesh::TransformData(VertexBuffer* pVB)
 
     int iVCount = pVB->GetVertexCount();
     int i;
-    Vector3f vec3fInput;
+    SEVector3f vec3fInput;
     for( i = 0; i < iVCount; i++ )
     {
         vec3fInput = pVB->Position3(i);
@@ -91,8 +91,8 @@ void StandardMesh::TransformData(VertexBuffer* pVB)
 
     if( m_Attr.HasNormal() )
     {
-        Vector3f vec3fSave = m_XFrm.GetTranslate();
-        m_XFrm.SetTranslate(Vector3f::ZERO);
+        SEVector3f vec3fSave = m_XFrm.GetTranslate();
+        m_XFrm.SetTranslate(SEVector3f::ZERO);
 
         for( i = 0; i < iVCount; i++ )
         {
@@ -131,16 +131,16 @@ TriMesh* StandardMesh::Rectangle(int iXSamples, int iYSamples,
     for( i1 = 0, i = 0; i1 < iYSamples; i1++ )
     {
         fV = i1 * fInv1;
-        Vector3f vec3fYTmp = ((2.0f*fV - 1.0f)*fYExtent) * Vector3f::UNIT_Y;
+        SEVector3f vec3fYTmp = ((2.0f*fV - 1.0f)*fYExtent) * SEVector3f::UNIT_Y;
         for( i0 = 0; i0 < iXSamples; i0++ )
         {
             fU = i0 * fInv0;
-            Vector3f vec3fXTmp = ((2.0f*fU - 1.0f)*fXExtent) * Vector3f::UNIT_X;
+            SEVector3f vec3fXTmp = ((2.0f*fU - 1.0f)*fXExtent) * SEVector3f::UNIT_X;
             pVB->Position3(i) = vec3fXTmp + vec3fYTmp;
 
             if( m_Attr.HasNormal() )
             {
-                pVB->Normal3(i) = -Vector3f::UNIT_Z;
+                pVB->Normal3(i) = -SEVector3f::UNIT_Z;
             }
 
             if( m_Attr.GetMaxTCoords() > 0 )
@@ -198,10 +198,10 @@ TriMesh* StandardMesh::Disk(int iShellSamples, int iRadialSamples,
     SEVector2f vec2fTCoord;
 
     // disk中心.
-    pVB->Position3(0) = Vector3f::ZERO;
+    pVB->Position3(0) = SEVector3f::ZERO;
     if( m_Attr.HasNormal() )
     {
-        pVB->Normal3(0) = -Vector3f::UNIT_Z;
+        pVB->Normal3(0) = -SEVector3f::UNIT_Z;
     }
 
     if( m_Attr.GetMaxTCoords() > 0 )
@@ -220,20 +220,20 @@ TriMesh* StandardMesh::Disk(int iShellSamples, int iRadialSamples,
     float fInvRS = 1.0f / (float)iRadialSamples;
     for( iR = 0; iR < iRadialSamples; iR++ )
     {
-        float fAngle = Mathf::TWO_PI * fInvRS * iR;
-        float fCos = Mathf::Cos(fAngle);
-        float fSin = Mathf::Sin(fAngle);
-        Vector3f vec3fRadial(fCos, fSin, 0.0f);
+        float fAngle = SEMathf::TWO_PI * fInvRS * iR;
+        float fCos = SEMathf::Cos(fAngle);
+        float fSin = SEMathf::Sin(fAngle);
+        SEVector3f vec3fRadial(fCos, fSin, 0.0f);
 
         for( iS = 1; iS < iShellSamples; iS++ )
         {
             float fFraction = fInvSSm1 * iS;  // in (0, R]
-            Vector3f vec3fFracRadial = fFraction * vec3fRadial;
+            SEVector3f vec3fFracRadial = fFraction * vec3fRadial;
             i = iS + iSSm1*iR;
             pVB->Position3(i) = fRadius * vec3fFracRadial;
             if( m_Attr.HasNormal() )
             {
-                pVB->Normal3(i) = -Vector3f::UNIT_Z;
+                pVB->Normal3(i) = -SEVector3f::UNIT_Z;
             }
 
             if( m_Attr.GetMaxTCoords() > 0 )
@@ -292,30 +292,30 @@ TriMesh* StandardMesh::Box(float fXExtent, float fYExtent, float fZExtent)
     IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
 
     // 生成geometry.
-    pVB->Position3(0) = Vector3f(-fXExtent, -fYExtent, -fZExtent);
-    pVB->Position3(1) = Vector3f(-fXExtent, -fYExtent, -fZExtent);
-    pVB->Position3(2) = Vector3f(-fXExtent, -fYExtent, -fZExtent);
-    pVB->Position3(3) = Vector3f(+fXExtent, -fYExtent, -fZExtent);
-    pVB->Position3(4) = Vector3f(+fXExtent, -fYExtent, -fZExtent);
-    pVB->Position3(5) = Vector3f(+fXExtent, -fYExtent, -fZExtent);
-    pVB->Position3(6) = Vector3f(+fXExtent, +fYExtent, -fZExtent);
-    pVB->Position3(7) = Vector3f(+fXExtent, +fYExtent, -fZExtent);
-    pVB->Position3(8) = Vector3f(+fXExtent, +fYExtent, -fZExtent);
-    pVB->Position3(9) = Vector3f(-fXExtent, +fYExtent, -fZExtent);
-    pVB->Position3(10) = Vector3f(-fXExtent, +fYExtent, -fZExtent);
-    pVB->Position3(11) = Vector3f(-fXExtent, +fYExtent, -fZExtent);
-    pVB->Position3(12) = Vector3f(-fXExtent, -fYExtent, +fZExtent);
-    pVB->Position3(13) = Vector3f(-fXExtent, -fYExtent, +fZExtent);
-    pVB->Position3(14) = Vector3f(-fXExtent, -fYExtent, +fZExtent);
-    pVB->Position3(15) = Vector3f(+fXExtent, -fYExtent, +fZExtent);
-    pVB->Position3(16) = Vector3f(+fXExtent, -fYExtent, +fZExtent);
-    pVB->Position3(17) = Vector3f(+fXExtent, -fYExtent, +fZExtent);
-    pVB->Position3(18) = Vector3f(+fXExtent, +fYExtent, +fZExtent);
-    pVB->Position3(19) = Vector3f(+fXExtent, +fYExtent, +fZExtent);
-    pVB->Position3(20) = Vector3f(+fXExtent, +fYExtent, +fZExtent);
-    pVB->Position3(21) = Vector3f(-fXExtent, +fYExtent, +fZExtent);
-    pVB->Position3(22) = Vector3f(-fXExtent, +fYExtent, +fZExtent);
-    pVB->Position3(23) = Vector3f(-fXExtent, +fYExtent, +fZExtent);
+    pVB->Position3(0) = SEVector3f(-fXExtent, -fYExtent, -fZExtent);
+    pVB->Position3(1) = SEVector3f(-fXExtent, -fYExtent, -fZExtent);
+    pVB->Position3(2) = SEVector3f(-fXExtent, -fYExtent, -fZExtent);
+    pVB->Position3(3) = SEVector3f(+fXExtent, -fYExtent, -fZExtent);
+    pVB->Position3(4) = SEVector3f(+fXExtent, -fYExtent, -fZExtent);
+    pVB->Position3(5) = SEVector3f(+fXExtent, -fYExtent, -fZExtent);
+    pVB->Position3(6) = SEVector3f(+fXExtent, +fYExtent, -fZExtent);
+    pVB->Position3(7) = SEVector3f(+fXExtent, +fYExtent, -fZExtent);
+    pVB->Position3(8) = SEVector3f(+fXExtent, +fYExtent, -fZExtent);
+    pVB->Position3(9) = SEVector3f(-fXExtent, +fYExtent, -fZExtent);
+    pVB->Position3(10) = SEVector3f(-fXExtent, +fYExtent, -fZExtent);
+    pVB->Position3(11) = SEVector3f(-fXExtent, +fYExtent, -fZExtent);
+    pVB->Position3(12) = SEVector3f(-fXExtent, -fYExtent, +fZExtent);
+    pVB->Position3(13) = SEVector3f(-fXExtent, -fYExtent, +fZExtent);
+    pVB->Position3(14) = SEVector3f(-fXExtent, -fYExtent, +fZExtent);
+    pVB->Position3(15) = SEVector3f(+fXExtent, -fYExtent, +fZExtent);
+    pVB->Position3(16) = SEVector3f(+fXExtent, -fYExtent, +fZExtent);
+    pVB->Position3(17) = SEVector3f(+fXExtent, -fYExtent, +fZExtent);
+    pVB->Position3(18) = SEVector3f(+fXExtent, +fYExtent, +fZExtent);
+    pVB->Position3(19) = SEVector3f(+fXExtent, +fYExtent, +fZExtent);
+    pVB->Position3(20) = SEVector3f(+fXExtent, +fYExtent, +fZExtent);
+    pVB->Position3(21) = SEVector3f(-fXExtent, +fYExtent, +fZExtent);
+    pVB->Position3(22) = SEVector3f(-fXExtent, +fYExtent, +fZExtent);
+    pVB->Position3(23) = SEVector3f(-fXExtent, +fYExtent, +fZExtent);
 
     if( m_Attr.GetMaxTCoords() > 0 )
     {
@@ -406,9 +406,9 @@ TriMesh* StandardMesh::Cylinder(int iAxisSamples, int iRadialSamples,
         float* afCos = SE_NEW float[iRadialSamples + 1];
         for( iR = 0; iR < iRadialSamples; iR++ )
         {
-            float fAngle = Mathf::TWO_PI * fInvRS * iR;
-            afCos[iR] = Mathf::Cos(fAngle);
-            afSin[iR] = Mathf::Sin(fAngle);
+            float fAngle = SEMathf::TWO_PI * fInvRS * iR;
+            afCos[iR] = SEMathf::Cos(fAngle);
+            afSin[iR] = SEMathf::Sin(fAngle);
         }
         afSin[iRadialSamples] = afSin[0];
         afCos[iRadialSamples] = afCos[0];
@@ -420,14 +420,14 @@ TriMesh* StandardMesh::Cylinder(int iAxisSamples, int iRadialSamples,
             float fZ = -fHalfHeight + fHeight*fAxisFraction;
 
             // compute center of slice
-            Vector3f vec3fSliceCenter(0.0f, 0.0f, fZ);
+            SEVector3f vec3fSliceCenter(0.0f, 0.0f, fZ);
 
             // compute slice vertices with duplication at end point
             int iSave = i;
             for( iR = 0; iR < iRadialSamples; iR++ )
             {
                 float fRadialFraction = iR * fInvRS;  // in [0, 1)
-                Vector3f vec3fNormal(afCos[iR], afSin[iR], 0.0f);
+                SEVector3f vec3fNormal(afCos[iR], afSin[iR], 0.0f);
                 pVB->Position3(i) = vec3fSliceCenter + fRadius*vec3fNormal;
                 if( m_Attr.HasNormal() )
                 {
@@ -535,7 +535,7 @@ TriMesh* StandardMesh::Cylinder(int iAxisSamples, int iRadialSamples,
             pVB->Position3(i).Z = fHDiv2 * (-1.0f + fTmp1*(
                 pVB->Position3(i).Z - fTmp0));
             float fX = pVB->Position3(i).X, fY = pVB->Position3(i).Y;
-            float fAdjust = fRadius*Mathf::InvSqrt(fX*fX + fY*fY);
+            float fAdjust = fRadius*SEMathf::InvSqrt(fX*fX + fY*fY);
             pVB->Position3(i).X *= fAdjust;
             pVB->Position3(i).Y *= fAdjust;
         }
@@ -546,8 +546,8 @@ TriMesh* StandardMesh::Cylinder(int iAxisSamples, int iRadialSamples,
     // The duplication of vertices at the seam cause the automatically
     // generated bounding volume to be slightly off center.  Reset the bound
     // to use the true information.
-    float fMaxDist = Mathf::Sqrt(fRadius*fRadius + fHeight*fHeight);
-    pMesh->ModelBound->SetCenter(Vector3f::ZERO);
+    float fMaxDist = SEMathf::Sqrt(fRadius*fRadius + fHeight*fHeight);
+    pMesh->ModelBound->SetCenter(SEVector3f::ZERO);
     pMesh->ModelBound->SetRadius(fMaxDist);
 
     return pMesh;
@@ -575,9 +575,9 @@ TriMesh* StandardMesh::Sphere(int iZSamples, int iRadialSamples,
     float* afCos = SE_NEW float[iRSp1];
     for( iR = 0; iR < iRadialSamples; iR++ )
     {
-        float fAngle = Mathf::TWO_PI * fInvRS * iR;
-        afCos[iR] = Mathf::Cos(fAngle);
-        afSin[iR] = Mathf::Sin(fAngle);
+        float fAngle = SEMathf::TWO_PI * fInvRS * iR;
+        afCos[iR] = SEMathf::Cos(fAngle);
+        afSin[iR] = SEMathf::Sin(fAngle);
     }
     afSin[iRadialSamples] = afSin[0];
     afCos[iRadialSamples] = afCos[0];
@@ -589,18 +589,18 @@ TriMesh* StandardMesh::Sphere(int iZSamples, int iRadialSamples,
         float fZ = fRadius * fZFraction;
 
         // compute center of slice
-        Vector3f vec3fSliceCenter(0.0f, 0.0f, fZ);
+        SEVector3f vec3fSliceCenter(0.0f, 0.0f, fZ);
 
         // compute radius of slice
-        float fSliceRadius = Mathf::Sqrt(Mathf::FAbs(fRadius*fRadius - fZ*fZ));
+        float fSliceRadius = SEMathf::Sqrt(SEMathf::FAbs(fRadius*fRadius - fZ*fZ));
 
         // compute slice vertices with duplication at end point
-        Vector3f vec3fNormal;
+        SEVector3f vec3fNormal;
         int iSave = i;
         for( iR = 0; iR < iRadialSamples; iR++ )
         {
             float fRadialFraction = iR * fInvRS;  // in [0, 1)
-            Vector3f vec3fRadial(afCos[iR], afSin[iR], 0.0f);
+            SEVector3f vec3fRadial(afCos[iR], afSin[iR], 0.0f);
             pVB->Position3(i) = vec3fSliceCenter + fSliceRadius*vec3fRadial;
             if( m_Attr.HasNormal() )
             {
@@ -654,16 +654,16 @@ TriMesh* StandardMesh::Sphere(int iZSamples, int iRadialSamples,
     }
 
     // south pole
-    pVB->Position3(i) = -fRadius*Vector3f::UNIT_Z;
+    pVB->Position3(i) = -fRadius*SEVector3f::UNIT_Z;
     if( m_Attr.HasNormal() )
     {
         if( m_bInside )
         {
-            pVB->Normal3(i) = Vector3f::UNIT_Z;
+            pVB->Normal3(i) = SEVector3f::UNIT_Z;
         }
         else
         {
-            pVB->Normal3(i) = -Vector3f::UNIT_Z;
+            pVB->Normal3(i) = -SEVector3f::UNIT_Z;
         }
     }
 
@@ -682,16 +682,16 @@ TriMesh* StandardMesh::Sphere(int iZSamples, int iRadialSamples,
     i++;
 
     // north pole
-    pVB->Position3(i) = fRadius * Vector3f::UNIT_Z;
+    pVB->Position3(i) = fRadius * SEVector3f::UNIT_Z;
     if( m_Attr.HasNormal() )
     {
         if( m_bInside )
         {
-            pVB->Normal3(i) = -Vector3f::UNIT_Z;
+            pVB->Normal3(i) = -SEVector3f::UNIT_Z;
         }
         else
         {
-            pVB->Normal3(i) = Vector3f::UNIT_Z;
+            pVB->Normal3(i) = SEVector3f::UNIT_Z;
         }
     }
 
@@ -789,7 +789,7 @@ TriMesh* StandardMesh::Sphere(int iZSamples, int iRadialSamples,
     // The duplication of vertices at the seam cause the automatically
     // generated bounding volume to be slightly off center.  Reset the bound
     // to use the true information.
-    pMesh->ModelBound->SetCenter(Vector3f::ZERO);
+    pMesh->ModelBound->SetCenter(SEVector3f::ZERO);
     pMesh->ModelBound->SetRadius(fRadius);
 
     return pMesh;
@@ -814,21 +814,21 @@ TriMesh* StandardMesh::Torus(int iCircleSamples, int iRadialSamples,
     {
         // compute center point on torus circle at specified angle
         float fCircleFraction = iC * fInvCS;  // in [0, 1)
-        float fTheta = Mathf::TWO_PI * fCircleFraction;
-        float fCosTheta = Mathf::Cos(fTheta);
-        float fSinTheta = Mathf::Sin(fTheta);
-        Vector3f vec3fRadial(fCosTheta, fSinTheta, 0.0f);
-        Vector3f vec3fTorusMiddle = fOuterRadius * vec3fRadial;
+        float fTheta = SEMathf::TWO_PI * fCircleFraction;
+        float fCosTheta = SEMathf::Cos(fTheta);
+        float fSinTheta = SEMathf::Sin(fTheta);
+        SEVector3f vec3fRadial(fCosTheta, fSinTheta, 0.0f);
+        SEVector3f vec3fTorusMiddle = fOuterRadius * vec3fRadial;
 
         // compute slice vertices with duplication at end point
         int iSave = i;
         for( iR = 0; iR < iRadialSamples; iR++ )
         {
             float fRadialFraction = iR * fInvRS;  // in [0, 1)
-            float fPhi = Mathf::TWO_PI * fRadialFraction;
-            float fCosPhi = Mathf::Cos(fPhi);
-            float fSinPhi = Mathf::Sin(fPhi);
-            Vector3f vec3fNormal = fCosPhi*vec3fRadial + fSinPhi*Vector3f::UNIT_Z;
+            float fPhi = SEMathf::TWO_PI * fRadialFraction;
+            float fCosPhi = SEMathf::Cos(fPhi);
+            float fSinPhi = SEMathf::Sin(fPhi);
+            SEVector3f vec3fNormal = fCosPhi*vec3fRadial + fSinPhi*SEVector3f::UNIT_Z;
             pVB->Position3(i) = vec3fTorusMiddle + fInnerRadius*vec3fNormal;
             if( m_Attr.HasNormal() )
             {
@@ -940,7 +940,7 @@ TriMesh* StandardMesh::Torus(int iCircleSamples, int iRadialSamples,
     // The duplication of vertices at the seam cause the automatically
     // generated bounding volume to be slightly off center.  Reset the bound
     // to use the true information.
-    pMesh->ModelBound->SetCenter(Vector3f::ZERO);
+    pMesh->ModelBound->SetCenter(SEVector3f::ZERO);
     pMesh->ModelBound->SetRadius(fOuterRadius);
 
     return pMesh;
@@ -967,7 +967,7 @@ TriMesh* StandardMesh::Cone(int iRadialSamples, float fRadius, float fHeight)
     memcpy(pDstVData2, pSrcVData, iVertexSize);
     // TODO:
     // Support SR instead of R for vector transformation.
-    Vector3f vec3fDir = Vector3f::UNIT_Z * m_XFrm.GetRotate();
+    SEVector3f vec3fDir = SEVector3f::UNIT_Z * m_XFrm.GetRotate();
     pVB->Position3(iVCount - 1) += fHeight*vec3fDir;
 
     // Setup data for the new IB.
@@ -996,8 +996,8 @@ TriMesh* StandardMesh::Cone(int iRadialSamples, float fRadius, float fHeight)
 //----------------------------------------------------------------------------
 TriMesh* StandardMesh::Tetrahedron()
 {
-    float fSqrt2Div3 = Mathf::Sqrt(2.0f) / 3.0f;
-    float fSqrt6Div3 = Mathf::Sqrt(6.0f) / 3.0f;
+    float fSqrt2Div3 = SEMathf::Sqrt(2.0f) / 3.0f;
+    float fSqrt6Div3 = SEMathf::Sqrt(6.0f) / 3.0f;
     float f2Sqrt2Div3 = 2.0f*fSqrt2Div3;
     float fOneThird = 1.0f / 3.0f;
 
@@ -1006,21 +1006,21 @@ TriMesh* StandardMesh::Tetrahedron()
     VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
     IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
 
-    pVB->Position3(0) = Vector3f(0.0f, 0.0f, 1.0f);
-    pVB->Position3(1) = Vector3f(0.0f, 0.0f, 1.0f);
-    pVB->Position3(2) = Vector3f(0.0f, 0.0f, 1.0f);
+    pVB->Position3(0) = SEVector3f(0.0f, 0.0f, 1.0f);
+    pVB->Position3(1) = SEVector3f(0.0f, 0.0f, 1.0f);
+    pVB->Position3(2) = SEVector3f(0.0f, 0.0f, 1.0f);
 
-    pVB->Position3(3) = Vector3f(f2Sqrt2Div3, 0.0f, -fOneThird);
-    pVB->Position3(4) = Vector3f(f2Sqrt2Div3, 0.0f, -fOneThird);
-    pVB->Position3(5) = Vector3f(f2Sqrt2Div3, 0.0f, -fOneThird);
+    pVB->Position3(3) = SEVector3f(f2Sqrt2Div3, 0.0f, -fOneThird);
+    pVB->Position3(4) = SEVector3f(f2Sqrt2Div3, 0.0f, -fOneThird);
+    pVB->Position3(5) = SEVector3f(f2Sqrt2Div3, 0.0f, -fOneThird);
 
-    pVB->Position3(6) = Vector3f(-fSqrt2Div3, fSqrt6Div3, -fOneThird);
-    pVB->Position3(7) = Vector3f(-fSqrt2Div3, fSqrt6Div3, -fOneThird);
-    pVB->Position3(8) = Vector3f(-fSqrt2Div3, fSqrt6Div3, -fOneThird);
+    pVB->Position3(6) = SEVector3f(-fSqrt2Div3, fSqrt6Div3, -fOneThird);
+    pVB->Position3(7) = SEVector3f(-fSqrt2Div3, fSqrt6Div3, -fOneThird);
+    pVB->Position3(8) = SEVector3f(-fSqrt2Div3, fSqrt6Div3, -fOneThird);
 
-    pVB->Position3(9) = Vector3f(-fSqrt2Div3, -fSqrt6Div3, -fOneThird);
-    pVB->Position3(10) = Vector3f(-fSqrt2Div3, -fSqrt6Div3, -fOneThird);
-    pVB->Position3(11) = Vector3f(-fSqrt2Div3, -fSqrt6Div3, -fOneThird);
+    pVB->Position3(9) = SEVector3f(-fSqrt2Div3, -fSqrt6Div3, -fOneThird);
+    pVB->Position3(10) = SEVector3f(-fSqrt2Div3, -fSqrt6Div3, -fOneThird);
+    pVB->Position3(11) = SEVector3f(-fSqrt2Div3, -fSqrt6Div3, -fOneThird);
 
     int* aiIndex = pIB->GetData();
     aiIndex[ 0] = 0;  aiIndex[ 1] = 3;  aiIndex[ 2] = 6;
@@ -1043,21 +1043,21 @@ TriMesh* StandardMesh::Tetrahedron()
 //----------------------------------------------------------------------------
 TriMesh* StandardMesh::Hexahedron()
 {
-    float fSqrtThird = Mathf::Sqrt(1.0f / 3.0f);
+    float fSqrtThird = SEMathf::Sqrt(1.0f / 3.0f);
 
     int iVCount = 8;
     int iTCount = 12;
     VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
     IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
 
-    pVB->Position3(0) = Vector3f(-fSqrtThird, -fSqrtThird, -fSqrtThird);
-    pVB->Position3(1) = Vector3f( fSqrtThird, -fSqrtThird, -fSqrtThird);
-    pVB->Position3(2) = Vector3f( fSqrtThird, fSqrtThird, -fSqrtThird);
-    pVB->Position3(3) = Vector3f(-fSqrtThird, fSqrtThird, -fSqrtThird);
-    pVB->Position3(4) = Vector3f(-fSqrtThird, -fSqrtThird, fSqrtThird);
-    pVB->Position3(5) = Vector3f( fSqrtThird, -fSqrtThird, fSqrtThird);
-    pVB->Position3(6) = Vector3f( fSqrtThird, fSqrtThird, fSqrtThird);
-    pVB->Position3(7) = Vector3f(-fSqrtThird, fSqrtThird, fSqrtThird);
+    pVB->Position3(0) = SEVector3f(-fSqrtThird, -fSqrtThird, -fSqrtThird);
+    pVB->Position3(1) = SEVector3f( fSqrtThird, -fSqrtThird, -fSqrtThird);
+    pVB->Position3(2) = SEVector3f( fSqrtThird, fSqrtThird, -fSqrtThird);
+    pVB->Position3(3) = SEVector3f(-fSqrtThird, fSqrtThird, -fSqrtThird);
+    pVB->Position3(4) = SEVector3f(-fSqrtThird, -fSqrtThird, fSqrtThird);
+    pVB->Position3(5) = SEVector3f( fSqrtThird, -fSqrtThird, fSqrtThird);
+    pVB->Position3(6) = SEVector3f( fSqrtThird, fSqrtThird, fSqrtThird);
+    pVB->Position3(7) = SEVector3f(-fSqrtThird, fSqrtThird, fSqrtThird);
 
     int* aiIndex = pIB->GetData();
     aiIndex[ 0] = 0;  aiIndex[ 1] = 3;  aiIndex[ 2] = 2;
@@ -1093,12 +1093,12 @@ TriMesh* StandardMesh::Octahedron()
     VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
     IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
 
-    pVB->Position3(0) = Vector3f( 1.0f, 0.0f, 0.0f);
-    pVB->Position3(1) = Vector3f(-1.0f, 0.0f, 0.0f);
-    pVB->Position3(2) = Vector3f( 0.0f, 1.0f, 0.0f);
-    pVB->Position3(3) = Vector3f( 0.0f, -1.0f, 0.0f);
-    pVB->Position3(4) = Vector3f( 0.0f, 0.0f, 1.0f);
-    pVB->Position3(5) = Vector3f( 0.0f, 0.0f, -1.0f);
+    pVB->Position3(0) = SEVector3f( 1.0f, 0.0f, 0.0f);
+    pVB->Position3(1) = SEVector3f(-1.0f, 0.0f, 0.0f);
+    pVB->Position3(2) = SEVector3f( 0.0f, 1.0f, 0.0f);
+    pVB->Position3(3) = SEVector3f( 0.0f, -1.0f, 0.0f);
+    pVB->Position3(4) = SEVector3f( 0.0f, 0.0f, 1.0f);
+    pVB->Position3(5) = SEVector3f( 0.0f, 0.0f, -1.0f);
 
     int* aiIndex = pIB->GetData();
     aiIndex[ 0] = 4;  aiIndex[ 1] = 0;  aiIndex[ 2] = 2;
@@ -1125,35 +1125,35 @@ TriMesh* StandardMesh::Octahedron()
 //----------------------------------------------------------------------------
 TriMesh* StandardMesh::Dodecahedron()
 {
-    float fA = 1.0f / Mathf::Sqrt(3.0f);
-    float fB = Mathf::Sqrt((3.0f - Mathf::Sqrt(5.0f))/6.0f);
-    float fC = Mathf::Sqrt((3.0f + Mathf::Sqrt(5.0f))/6.0f);
+    float fA = 1.0f / SEMathf::Sqrt(3.0f);
+    float fB = SEMathf::Sqrt((3.0f - SEMathf::Sqrt(5.0f))/6.0f);
+    float fC = SEMathf::Sqrt((3.0f + SEMathf::Sqrt(5.0f))/6.0f);
 
     int iVCount = 20;
     int iTCount = 36;
     VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
     IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
 
-    pVB->Position3( 0) = Vector3f( fA, fA, fA);
-    pVB->Position3( 1) = Vector3f( fA, fA, -fA);
-    pVB->Position3( 2) = Vector3f( fA, -fA, fA);
-    pVB->Position3( 3) = Vector3f( fA, -fA, -fA);
-    pVB->Position3( 4) = Vector3f(-fA, fA, fA);
-    pVB->Position3( 5) = Vector3f(-fA, fA, -fA);
-    pVB->Position3( 6) = Vector3f(-fA, -fA, fA);
-    pVB->Position3( 7) = Vector3f(-fA, -fA, -fA);
-    pVB->Position3( 8) = Vector3f(  fB,  fC, 0.0f);
-    pVB->Position3( 9) = Vector3f( -fB,  fC, 0.0f);
-    pVB->Position3(10) = Vector3f(  fB, -fC, 0.0f);
-    pVB->Position3(11) = Vector3f( -fB, -fC, 0.0f);
-    pVB->Position3(12) = Vector3f(  fC, 0.0f,  fB);
-    pVB->Position3(13) = Vector3f(  fC, 0.0f, -fB);
-    pVB->Position3(14) = Vector3f( -fC, 0.0f,  fB);
-    pVB->Position3(15) = Vector3f( -fC, 0.0f, -fB);
-    pVB->Position3(16) = Vector3f(0.0f,   fB,  fC);
-    pVB->Position3(17) = Vector3f(0.0f,  -fB,  fC);
-    pVB->Position3(18) = Vector3f(0.0f,   fB, -fC);
-    pVB->Position3(19) = Vector3f(0.0f,  -fB, -fC);
+    pVB->Position3( 0) = SEVector3f( fA, fA, fA);
+    pVB->Position3( 1) = SEVector3f( fA, fA, -fA);
+    pVB->Position3( 2) = SEVector3f( fA, -fA, fA);
+    pVB->Position3( 3) = SEVector3f( fA, -fA, -fA);
+    pVB->Position3( 4) = SEVector3f(-fA, fA, fA);
+    pVB->Position3( 5) = SEVector3f(-fA, fA, -fA);
+    pVB->Position3( 6) = SEVector3f(-fA, -fA, fA);
+    pVB->Position3( 7) = SEVector3f(-fA, -fA, -fA);
+    pVB->Position3( 8) = SEVector3f(  fB,  fC, 0.0f);
+    pVB->Position3( 9) = SEVector3f( -fB,  fC, 0.0f);
+    pVB->Position3(10) = SEVector3f(  fB, -fC, 0.0f);
+    pVB->Position3(11) = SEVector3f( -fB, -fC, 0.0f);
+    pVB->Position3(12) = SEVector3f(  fC, 0.0f,  fB);
+    pVB->Position3(13) = SEVector3f(  fC, 0.0f, -fB);
+    pVB->Position3(14) = SEVector3f( -fC, 0.0f,  fB);
+    pVB->Position3(15) = SEVector3f( -fC, 0.0f, -fB);
+    pVB->Position3(16) = SEVector3f(0.0f,   fB,  fC);
+    pVB->Position3(17) = SEVector3f(0.0f,  -fB,  fC);
+    pVB->Position3(18) = SEVector3f(0.0f,   fB, -fC);
+    pVB->Position3(19) = SEVector3f(0.0f,  -fB, -fC);
 
     int* aiIndex = pIB->GetData();
     //aiIndex[  0] =  0;  aiIndex[  1] =  9;  aiIndex[  2] =  8;
@@ -1244,8 +1244,8 @@ TriMesh* StandardMesh::Dodecahedron()
 //----------------------------------------------------------------------------
 TriMesh* StandardMesh::Icosahedron()
 {
-    float fGoldenRatio = 0.5f * (1.0f + Mathf::Sqrt(5.0f));
-    float fInvRoot = 1.0f / Mathf::Sqrt(1.0f + fGoldenRatio*fGoldenRatio);
+    float fGoldenRatio = 0.5f * (1.0f + SEMathf::Sqrt(5.0f));
+    float fInvRoot = 1.0f / SEMathf::Sqrt(1.0f + fGoldenRatio*fGoldenRatio);
     float fU = fGoldenRatio * fInvRoot;
     float fV = fInvRoot;
 
@@ -1254,18 +1254,18 @@ TriMesh* StandardMesh::Icosahedron()
     VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
     IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
 
-    pVB->Position3( 0) = Vector3f(  fU,  fV, 0.0f);
-    pVB->Position3( 1) = Vector3f( -fU,  fV, 0.0f);
-    pVB->Position3( 2) = Vector3f(  fU, -fV, 0.0f);
-    pVB->Position3( 3) = Vector3f( -fU, -fV, 0.0f);
-    pVB->Position3( 4) = Vector3f(  fV, 0.0f,  fU);
-    pVB->Position3( 5) = Vector3f(  fV, 0.0f, -fU);
-    pVB->Position3( 6) = Vector3f( -fV, 0.0f,  fU);
-    pVB->Position3( 7) = Vector3f( -fV, 0.0f, -fU);
-    pVB->Position3( 8) = Vector3f(0.0f,  fU,  fV);
-    pVB->Position3( 9) = Vector3f(0.0f, -fU,  fV);
-    pVB->Position3(10) = Vector3f(0.0f,  fU, -fV);
-    pVB->Position3(11) = Vector3f(0.0f, -fU, -fV);
+    pVB->Position3( 0) = SEVector3f(  fU,  fV, 0.0f);
+    pVB->Position3( 1) = SEVector3f( -fU,  fV, 0.0f);
+    pVB->Position3( 2) = SEVector3f(  fU, -fV, 0.0f);
+    pVB->Position3( 3) = SEVector3f( -fU, -fV, 0.0f);
+    pVB->Position3( 4) = SEVector3f(  fV, 0.0f,  fU);
+    pVB->Position3( 5) = SEVector3f(  fV, 0.0f, -fU);
+    pVB->Position3( 6) = SEVector3f( -fV, 0.0f,  fU);
+    pVB->Position3( 7) = SEVector3f( -fV, 0.0f, -fU);
+    pVB->Position3( 8) = SEVector3f(0.0f,  fU,  fV);
+    pVB->Position3( 9) = SEVector3f(0.0f, -fU,  fV);
+    pVB->Position3(10) = SEVector3f(0.0f,  fU, -fV);
+    pVB->Position3(11) = SEVector3f(0.0f, -fU, -fV);
 
     int* aiIndex = pIB->GetData();
     //aiIndex[ 0] =  0;  aiIndex[ 1] =  4;  aiIndex[ 2] =  8;
@@ -1343,18 +1343,18 @@ void StandardMesh::CreatePlatonicUVs(VertexBuffer* pVBuffer)
             {
                 for( int i = 0; i < pVBuffer->GetVertexCount(); i++ )
                 {
-                    if( Mathf::FAbs(pVBuffer->Position3(i).Z) < 1.0f )
+                    if( SEMathf::FAbs(pVBuffer->Position3(i).Z) < 1.0f )
                     {
                         pVBuffer->TCoord2(iUnit, i).X = 0.5f * (1.0f +
-                            Mathf::ATan2(pVBuffer->Position3(i).Y, 
-                            pVBuffer->Position3(i).X) * Mathf::INV_PI);
+                            SEMathf::ATan2(pVBuffer->Position3(i).Y, 
+                            pVBuffer->Position3(i).X) * SEMathf::INV_PI);
                     }
                     else
                     {
                         pVBuffer->TCoord2(iUnit, i).X = 0.5f;
                     }
-                    pVBuffer->TCoord2(iUnit, i).Y = Mathf::ACos(
-                        pVBuffer->Position3(i).Z) * Mathf::INV_PI;
+                    pVBuffer->TCoord2(iUnit, i).Y = SEMathf::ACos(
+                        pVBuffer->Position3(i).Z) * SEMathf::INV_PI;
                 }
             }
         }

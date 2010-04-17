@@ -42,11 +42,11 @@ public:
     // fog factor计算为f = exp(-(d*z)^2),其中d是fog density,
     // z是view-space顶点位置的z分量.
     TerrainEffect(const char* acBaseName, const char* acDetailName,
-        const ColorRGB& rFogColor, float fFogDensity);
+        const SEColorRGB& rFogColor, float fFogDensity);
     virtual ~TerrainEffect(void);
 
-    inline void SetFogColor(const ColorRGB& rFogColor);
-    inline ColorRGB GetFogColor(void) const;
+    inline void SetFogColor(const SEColorRGB& rFogColor);
+    inline SEColorRGB GetFogColor(void) const;
 
     inline void SetFogDensity(float fFogDensity);
     inline float GetFogDensity(void) const;

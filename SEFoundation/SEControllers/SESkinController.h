@@ -47,14 +47,14 @@ public:
     // SkinController负责删除构造函数传入的这些数组.
     // weight和offset数组必须是已经通过SESystem.h中的模板函数创建的数组.
     SkinController(int iVertexCount, int iBoneCount, Node** apBones,
-        float** aafWeight, Vector3f** aaOffset);
+        float** aafWeight, SEVector3f** aaOffset);
     virtual ~SkinController(void);
 
     inline int GetVertexCount(void) const;
     inline int GetBoneCount(void) const;
     inline Node* GetBone(int iBone) const;
     inline float& Weight(int iVertex, int iBone);
-    inline Vector3f& Offset(int iVertex, int iBone);
+    inline SEVector3f& Offset(int iVertex, int iBone);
 
     virtual bool Update(double dAppTime);
 
@@ -65,7 +65,7 @@ protected:
     int m_iBoneCount;      // bc
     Node** m_apBones;      // bones[bc]
     float** m_aafWeight;   // weight[vc][bc]
-    Vector3f** m_aaOffset; // offset[vc][bc]
+    SEVector3f** m_aaOffset; // offset[vc][bc]
 };
 
 typedef SESmartPointer<SkinController> SkinControllerPtr;

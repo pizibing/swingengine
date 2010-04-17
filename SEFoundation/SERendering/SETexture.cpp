@@ -64,7 +64,7 @@ const char* Texture::ms_pDepthCompare[DC_COUNT] =
 Texture::Texture(Image* pImage)
     :
     m_spImage(pImage),
-    m_BorderColor(ColorRGBA::SE_RGBA_BLACK)
+    m_BorderColor(SEColorRGBA::SE_RGBA_BLACK)
 {
     if( pImage )
     {
@@ -86,7 +86,7 @@ Texture::Texture(Image* pImage)
 Texture::Texture(Image* pDepthImage, DepthCompare eCompare)
     :
     m_spImage(pDepthImage),
-    m_BorderColor(ColorRGBA::SE_RGBA_BLACK)
+    m_BorderColor(SEColorRGBA::SE_RGBA_BLACK)
 {
     SetName("");
     m_eFType = LINEAR;

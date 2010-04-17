@@ -45,7 +45,7 @@ class SE_FOUNDATION_API Terrain : public Node
 public:
     Terrain(const char* acHeightName, const char* acImageName,
         const Attributes& rAttr, Camera* pCamera, float fUVBias,
-        ColorRGBA* pBorderColor);
+        SEColorRGBA* pBorderColor);
 
     virtual ~Terrain(void);
 
@@ -56,7 +56,7 @@ public:
     float GetMaxElevation(void) const;
     float GetSpacing(void) const;
     float& UVBias(void);
-    ColorRGBA& BorderColor(void);
+    SEColorRGBA& BorderColor(void);
     void SetCamera(Camera* pCamera);
 
     // page管理.
@@ -100,7 +100,7 @@ protected:
 
     // texture参数.
     float m_fUVBias;
-    ColorRGBA m_BorderColor;
+    SEColorRGBA m_BorderColor;
 };
 
 typedef SESmartPointer<Terrain> TerrainPtr;

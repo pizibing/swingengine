@@ -28,17 +28,17 @@ namespace Swing
 {
 
 // 根据输入的若干顶点,计算其最小AABB.
-SE_FOUNDATION_API Box3f ContAABBf(int iCount, const Vector3f* aPoint);
+SE_FOUNDATION_API SEBox3f ContAABBf(int iCount, const SEVector3f* aPoint);
 
 // 根据输入的若干顶点,计算其OBB,OBB中心是顶点平均中心,
 // OBB轴是顶点协方差矩阵的特征向量.
-SE_FOUNDATION_API Box3f ContOBBf(int iCount, const Vector3f* aPoint);
+SE_FOUNDATION_API SEBox3f ContOBBf(int iCount, const SEVector3f* aPoint);
 
 // 测试指定顶点是否包含于盒子内.
-SE_FOUNDATION_API bool IsInBoxf(const Vector3f& rPoint, const Box3f& rBox);
+SE_FOUNDATION_API bool IsInBoxf(const SEVector3f& rPoint, const SEBox3f& rBox);
 
 // 计算包含两个OBB的新OBB,该OBB不能保证最小.
-SE_FOUNDATION_API Box3f MergeBoxesf(const Box3f& rBox0, const Box3f& rBox1);
+SE_FOUNDATION_API SEBox3f MergeBoxesf(const SEBox3f& rBox0, const SEBox3f& rBox1);
 
 }
 

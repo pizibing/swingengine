@@ -21,17 +21,17 @@
 //----------------------------------------------------------------------------
 // 单精度2阶方阵类
 //----------------------------------------------------------------------------
-inline int Matrix2f::CompareData(const Matrix2f& rMat) const
+inline int SEMatrix2f::CompareData(const SEMatrix2f& rMat) const
 {
     return memcmp(m_fData, rMat.m_fData, 4*sizeof(float));
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::Zero()
+inline void SEMatrix2f::Zero()
 {
     memset(m_fData, 0, 4*sizeof(float));
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::Identity()
+inline void SEMatrix2f::Identity()
 {
     m_fData[0][0] = 1.0f;
     m_fData[0][1] = 0.0f;
@@ -39,7 +39,7 @@ inline void Matrix2f::Identity()
     m_fData[1][1] = 1.0f;
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::Diagonal(float fM11, float fM22)
+inline void SEMatrix2f::Diagonal(float fM11, float fM22)
 {
     m_fData[0][0] = fM11;
     m_fData[0][1] = 0.0f;
@@ -47,15 +47,15 @@ inline void Matrix2f::Diagonal(float fM11, float fM22)
     m_fData[1][1] = fM22;
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::FromAngle(float fAngle)
+inline void SEMatrix2f::FromAngle(float fAngle)
 {
-    m_fData[0][0] = Math<float>::Cos(fAngle);
-    m_fData[1][0] = -Math<float>::Sin(fAngle);
+    m_fData[0][0] = SEMath<float>::Cos(fAngle);
+    m_fData[1][0] = -SEMath<float>::Sin(fAngle);
     m_fData[0][1] = -m_fData[1][0];
     m_fData[1][1] =  m_fData[0][0];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::TensorProduct(const SEVector2f& rVecU, const SEVector2f& rVecV)
+inline void SEMatrix2f::TensorProduct(const SEVector2f& rVecU, const SEVector2f& rVecV)
 {
     m_fData[0][0] = rVecU[0] * rVecV[0];
     m_fData[0][1] = rVecU[0] * rVecV[1];
@@ -63,7 +63,7 @@ inline void Matrix2f::TensorProduct(const SEVector2f& rVecU, const SEVector2f& r
     m_fData[1][1] = rVecU[1] * rVecV[1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::SetRow(int iDesRow, const SEVector2f& rSrcVec)
+inline void SEMatrix2f::SetRow(int iDesRow, const SEVector2f& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesRow && iDesRow < 2 );
 
@@ -71,7 +71,7 @@ inline void Matrix2f::SetRow(int iDesRow, const SEVector2f& rSrcVec)
     m_fData[iDesRow][1] = rSrcVec.m_fData[1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::GetRow(int iSrcRow, SEVector2f& rDesVec) const
+inline void SEMatrix2f::GetRow(int iSrcRow, SEVector2f& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcRow && iSrcRow < 2 );
 
@@ -79,7 +79,7 @@ inline void Matrix2f::GetRow(int iSrcRow, SEVector2f& rDesVec) const
     rDesVec.m_fData[1] = m_fData[iSrcRow][1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::SetColumn(int iDesCol, const SEVector2f& rSrcVec)
+inline void SEMatrix2f::SetColumn(int iDesCol, const SEVector2f& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesCol && iDesCol < 2 );
 
@@ -87,7 +87,7 @@ inline void Matrix2f::SetColumn(int iDesCol, const SEVector2f& rSrcVec)
 	m_fData[1][iDesCol] = rSrcVec.m_fData[1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::GetColumn(int iSrcCol, SEVector2f& rDesVec) const
+inline void SEMatrix2f::GetColumn(int iSrcCol, SEVector2f& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcCol && iSrcCol < 2 );
 
@@ -95,7 +95,7 @@ inline void Matrix2f::GetColumn(int iSrcCol, SEVector2f& rDesVec) const
     rDesVec.m_fData[1] = m_fData[1][iSrcCol];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::GetTranspose(Matrix2f& rDesMat) const
+inline void SEMatrix2f::GetTranspose(SEMatrix2f& rDesMat) const
 {
     rDesMat.M11 = M11;
     rDesMat.M12 = M21;
@@ -104,11 +104,11 @@ inline void Matrix2f::GetTranspose(Matrix2f& rDesMat) const
     rDesMat.M22 = M22;
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::GetInverse(Matrix2f& rDesMat) const
+inline void SEMatrix2f::GetInverse(SEMatrix2f& rDesMat) const
 {
     float fDet = m_fData[0][0]*m_fData[1][1] - m_fData[0][1]*m_fData[1][0];
 
-    if( Math<float>::FAbs(fDet) > Math<float>::ZERO_TOLERANCE )
+    if( SEMath<float>::FAbs(fDet) > SEMath<float>::ZERO_TOLERANCE )
     {
         float fInvDet = 1.0f / fDet;
 
@@ -123,7 +123,7 @@ inline void Matrix2f::GetInverse(Matrix2f& rDesMat) const
     }
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::GetAdjoint(Matrix2f& rDesMat) const
+inline void SEMatrix2f::GetAdjoint(SEMatrix2f& rDesMat) const
 {
     rDesMat[0][0] = m_fData[1][1];
     rDesMat[0][1] = -m_fData[0][1];
@@ -131,17 +131,17 @@ inline void Matrix2f::GetAdjoint(Matrix2f& rDesMat) const
     rDesMat[1][1] = m_fData[0][0];
 }
 //----------------------------------------------------------------------------
-inline float Matrix2f::GetDeterminant() const
+inline float SEMatrix2f::GetDeterminant() const
 {
     return m_fData[0][0]*m_fData[1][1] - m_fData[0][1]*m_fData[1][0];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::ToAngle(float& rfAngle) const
+inline void SEMatrix2f::ToAngle(float& rfAngle) const
 {
-    rfAngle = Math<float>::ATan2(m_fData[1][0], m_fData[0][0]);
+    rfAngle = SEMath<float>::ATan2(m_fData[1][0], m_fData[0][0]);
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::GetTransposeTimes(const Matrix2f& rRhsMat, Matrix2f& rDesMat) const
+inline void SEMatrix2f::GetTransposeTimes(const SEMatrix2f& rRhsMat, SEMatrix2f& rDesMat) const
 {
     // C = A^T * B
     rDesMat.M11 = M11*rRhsMat.M11 + M21*rRhsMat.M21;
@@ -151,7 +151,7 @@ inline void Matrix2f::GetTransposeTimes(const Matrix2f& rRhsMat, Matrix2f& rDesM
     rDesMat.M22 = M12*rRhsMat.M12 + M22*rRhsMat.M22;
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::GetTimesTranspose(const Matrix2f& rRhsMat, Matrix2f& rDesMat) const
+inline void SEMatrix2f::GetTimesTranspose(const SEMatrix2f& rRhsMat, SEMatrix2f& rDesMat) const
 {
     // C = A * B^T
     rDesMat.M11 = M11*rRhsMat.M11 + M12*rRhsMat.M12;
@@ -165,17 +165,17 @@ inline void Matrix2f::GetTimesTranspose(const Matrix2f& rRhsMat, Matrix2f& rDesM
 //----------------------------------------------------------------------------
 // 双精度2阶方阵类
 //----------------------------------------------------------------------------
-inline int Matrix2d::CompareData(const Matrix2d& rMat) const
+inline int SEMatrix2d::CompareData(const SEMatrix2d& rMat) const
 {
     return memcmp(m_dData, rMat.m_dData, 4*sizeof(double));
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::Zero()
+inline void SEMatrix2d::Zero()
 {
     memset(m_dData, 0, 4*sizeof(double));
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::Identity()
+inline void SEMatrix2d::Identity()
 {
     m_dData[0][0] = 1.0;
     m_dData[0][1] = 0.0;
@@ -183,7 +183,7 @@ inline void Matrix2d::Identity()
     m_dData[1][1] = 1.0;
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::Diagonal(double dM11, double dM22)
+inline void SEMatrix2d::Diagonal(double dM11, double dM22)
 {
     m_dData[0][0] = dM11;
     m_dData[0][1] = 0.0;
@@ -191,15 +191,15 @@ inline void Matrix2d::Diagonal(double dM11, double dM22)
     m_dData[1][1] = dM22;
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::FromAngle(double dAngle)
+inline void SEMatrix2d::FromAngle(double dAngle)
 {
-    m_dData[0][0] = Math<double>::Cos(dAngle);
-    m_dData[1][0] = -Math<double>::Sin(dAngle);
+    m_dData[0][0] = SEMath<double>::Cos(dAngle);
+    m_dData[1][0] = -SEMath<double>::Sin(dAngle);
     m_dData[0][1] = -m_dData[1][0];
     m_dData[1][1] =  m_dData[0][0];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::TensorProduct(const SEVector2d& rVecU, 
+inline void SEMatrix2d::TensorProduct(const SEVector2d& rVecU, 
     const SEVector2d& rVecV)
 {
     m_dData[0][0] = rVecU[0] * rVecV[0];
@@ -208,7 +208,7 @@ inline void Matrix2d::TensorProduct(const SEVector2d& rVecU,
     m_dData[1][1] = rVecU[1] * rVecV[1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::SetRow(int iDesRow, const SEVector2d& rSrcVec)
+inline void SEMatrix2d::SetRow(int iDesRow, const SEVector2d& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesRow && iDesRow < 2 );
 
@@ -216,7 +216,7 @@ inline void Matrix2d::SetRow(int iDesRow, const SEVector2d& rSrcVec)
     m_dData[iDesRow][1] = rSrcVec.m_dData[1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::GetRow(int iSrcRow, SEVector2d& rDesVec) const
+inline void SEMatrix2d::GetRow(int iSrcRow, SEVector2d& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcRow && iSrcRow < 2 );
 
@@ -224,7 +224,7 @@ inline void Matrix2d::GetRow(int iSrcRow, SEVector2d& rDesVec) const
     rDesVec.m_dData[1] = m_dData[iSrcRow][1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::SetColumn(int iDesCol, const SEVector2d& rSrcVec)
+inline void SEMatrix2d::SetColumn(int iDesCol, const SEVector2d& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesCol && iDesCol < 2 );
 
@@ -232,7 +232,7 @@ inline void Matrix2d::SetColumn(int iDesCol, const SEVector2d& rSrcVec)
 	m_dData[1][iDesCol] = rSrcVec.m_dData[1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::GetColumn(int iSrcCol, SEVector2d& rDesVec) const
+inline void SEMatrix2d::GetColumn(int iSrcCol, SEVector2d& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcCol && iSrcCol < 2 );
 
@@ -240,7 +240,7 @@ inline void Matrix2d::GetColumn(int iSrcCol, SEVector2d& rDesVec) const
     rDesVec.m_dData[1] = m_dData[1][iSrcCol];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::GetTranspose(Matrix2d& rDesMat) const
+inline void SEMatrix2d::GetTranspose(SEMatrix2d& rDesMat) const
 {
     rDesMat.M11 = M11;
     rDesMat.M12 = M21;
@@ -249,11 +249,11 @@ inline void Matrix2d::GetTranspose(Matrix2d& rDesMat) const
     rDesMat.M22 = M22;
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::GetInverse(Matrix2d& rDesMat) const
+inline void SEMatrix2d::GetInverse(SEMatrix2d& rDesMat) const
 {
     double dDet = m_dData[0][0]*m_dData[1][1] - m_dData[0][1]*m_dData[1][0];
 
-    if( Math<double>::FAbs(dDet) > Math<double>::ZERO_TOLERANCE )
+    if( SEMath<double>::FAbs(dDet) > SEMath<double>::ZERO_TOLERANCE )
     {
         double dInvDet = 1.0 / dDet;
 
@@ -268,7 +268,7 @@ inline void Matrix2d::GetInverse(Matrix2d& rDesMat) const
     }
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::GetAdjoint(Matrix2d& rDesMat) const
+inline void SEMatrix2d::GetAdjoint(SEMatrix2d& rDesMat) const
 {
     rDesMat[0][0] = m_dData[1][1];
     rDesMat[0][1] = -m_dData[0][1];
@@ -276,18 +276,18 @@ inline void Matrix2d::GetAdjoint(Matrix2d& rDesMat) const
     rDesMat[1][1] = m_dData[0][0];
 }
 //----------------------------------------------------------------------------
-inline double Matrix2d::GetDeterminant() const
+inline double SEMatrix2d::GetDeterminant() const
 {
     return m_dData[0][0]*m_dData[1][1] - m_dData[0][1]*m_dData[1][0];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::ToAngle(double& rdAngle) const
+inline void SEMatrix2d::ToAngle(double& rdAngle) const
 {
-    rdAngle = Math<double>::ATan2(m_dData[1][0], m_dData[0][0]);
+    rdAngle = SEMath<double>::ATan2(m_dData[1][0], m_dData[0][0]);
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::GetTransposeTimes(const Matrix2d& rRhsMat, 
-    Matrix2d& rDesMat) const
+inline void SEMatrix2d::GetTransposeTimes(const SEMatrix2d& rRhsMat, 
+    SEMatrix2d& rDesMat) const
 {
     // C = A^T * B
     rDesMat.M11 = M11*rRhsMat.M11 + M21*rRhsMat.M21;
@@ -297,8 +297,8 @@ inline void Matrix2d::GetTransposeTimes(const Matrix2d& rRhsMat,
     rDesMat.M22 = M12*rRhsMat.M12 + M22*rRhsMat.M22;
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::GetTimesTranspose(const Matrix2d& rRhsMat, 
-    Matrix2d& rDesMat) const
+inline void SEMatrix2d::GetTimesTranspose(const SEMatrix2d& rRhsMat, 
+    SEMatrix2d& rDesMat) const
 {
     // C = A * B^T
     rDesMat.M11 = M11*rRhsMat.M11 + M12*rRhsMat.M12;

@@ -35,32 +35,32 @@ namespace Swing
 // 时间:20090116
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API DistVector3Triangle3f
-    : public Distance<float, Vector3f>
+    : public Distance<float, SEVector3f>
 {
 public:
-    DistVector3Triangle3f(const Vector3f& rVector,
-        const Triangle3f& rTriangle);
+    DistVector3Triangle3f(const SEVector3f& rVector,
+        const SETriangle3f& rTriangle);
 
     // 对象访问.
-    const Vector3f& GetVector(void) const;
-    const Triangle3f& GetTriangle(void) const;
+    const SEVector3f& GetVector(void) const;
+    const SETriangle3f& GetTriangle(void) const;
 
     // static distance查询.
     virtual float Get(void);
     virtual float GetSquared(void);
 
     // 用于dynamic distance查询的convex function计算.
-    virtual float Get(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
-    virtual float GetSquared(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual float Get(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
+    virtual float GetSquared(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
     // 三角形最近点相关信息.
     float GetTriangleBary(int i) const;
 
 private:
-    const Vector3f* m_pVector;
-    const Triangle3f* m_pTriangle;
+    const SEVector3f* m_pVector;
+    const SETriangle3f* m_pTriangle;
 
     // 三角形最近点相关信息.
     float m_afTriangleBary[3];  // closest1 = sum_{i=0}^2 bary[i]*tri.vertex[i]

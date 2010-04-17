@@ -33,20 +33,20 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20070705
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Box3f
+class SE_FOUNDATION_API SEBox3f
 {
 public:
-    Box3f(void);
-    Box3f(const Vector3f& rCenter, const Vector3f* aAxis, 
+    SEBox3f(void);
+    SEBox3f(const SEVector3f& rCenter, const SEVector3f* aAxis, 
         const float* afExtent);
-    Box3f(const Vector3f& rCenter, const Vector3f& rAxis0, 
-        const Vector3f& rAxis1, const Vector3f& rAxis2, float fExtent0, 
+    SEBox3f(const SEVector3f& rCenter, const SEVector3f& rAxis0, 
+        const SEVector3f& rAxis1, const SEVector3f& rAxis2, float fExtent0, 
         float fExtent1, float fExtent2);
 
-    void ComputeVertices(Vector3f aVertex[8]) const;
+    void ComputeVertices(SEVector3f aVertex[8]) const;
 
-    Vector3f Center;  // 盒子中心
-    Vector3f Axis[3];  // 规范正交基
+    SEVector3f Center;  // 盒子中心
+    SEVector3f Axis[3];  // 规范正交基
     float Extent[3];  // 半长,半宽,半高,均非负
 };
 

@@ -42,7 +42,7 @@ ConvexHull2f::ConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fEpsil
     m_aSVertex = 0;
     m_pQuery = 0;
 
-    Mapper2f tempMapper(m_iVertexCount,  m_aVertex,  m_fEpsilon);
+    SEMapper2f tempMapper(m_iVertexCount,  m_aVertex,  m_fEpsilon);
     if( tempMapper.GetDimension() == 0 )
     {
         // The values of m_iDimension,  m_aiIndex,  and m_aiAdjacent were

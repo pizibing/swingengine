@@ -19,17 +19,17 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline ColorRGB::operator const float*() const
+inline SEColorRGB::operator const float*() const
 {
     return m_fData;
 }
 //----------------------------------------------------------------------------
-inline ColorRGB::operator float*()
+inline SEColorRGB::operator float*()
 {
     return m_fData;
 }
 //----------------------------------------------------------------------------
-inline float ColorRGB::operator[](int i) const
+inline float SEColorRGB::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i <= 2 );
 
@@ -45,7 +45,7 @@ inline float ColorRGB::operator[](int i) const
     return m_fData[i];
 }
 //----------------------------------------------------------------------------
-inline float& ColorRGB::operator[](int i)
+inline float& SEColorRGB::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i <= 2 );
 
@@ -61,7 +61,7 @@ inline float& ColorRGB::operator[](int i)
     return m_fData[i];
 }
 //----------------------------------------------------------------------------
-inline int ColorRGB::CompareData(const ColorRGB& rColor) const
+inline int SEColorRGB::CompareData(const SEColorRGB& rColor) const
 {
     return memcmp(m_fData, rColor.m_fData, 3*sizeof(float));
 }

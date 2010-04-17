@@ -35,22 +35,22 @@ namespace Swing
 // 时间:20081230
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API IntrBox3Box3f
-    : public Intersector<float, Vector3f>
+    : public Intersector<float, SEVector3f>
 {
 public:
-    IntrBox3Box3f(const Box3f& rBox0, const Box3f& rBox1);
+    IntrBox3Box3f(const SEBox3f& rBox0, const SEBox3f& rBox1);
 
     // 对象访问.
-    const Box3f& GetBox0(void) const;
-    const Box3f& GetBox1(void) const;
+    const SEBox3f& GetBox0(void) const;
+    const SEBox3f& GetBox1(void) const;
 
     // static test-intersection查询.
     virtual bool Test(void);
 
     // dynamic test-intersection查询.计算first contact time(如果有的话),
     // 但没有任何关于contact set的信息.
-    virtual bool Test(float fTMax, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual bool Test(float fTMax, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
 private:
     // 用于支持dynamic查询.  
@@ -64,8 +64,8 @@ private:
         float fSpeed, float fTMax, float& rfTFirst, float& rfTLast);
 
     // 待检查对象.
-    const Box3f* m_pBox0;
-    const Box3f* m_pBox1;
+    const SEBox3f* m_pBox0;
+    const SEBox3f* m_pBox1;
 };
 
 }

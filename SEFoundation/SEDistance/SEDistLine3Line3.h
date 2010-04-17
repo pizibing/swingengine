@@ -34,32 +34,32 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090113
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API DistLine3Line3f : public Distance<float, Vector3f>
+class SE_FOUNDATION_API DistLine3Line3f : public Distance<float, SEVector3f>
 {
 public:
-    DistLine3Line3f(const Line3f& rLine0, const Line3f& rLine1);
+    DistLine3Line3f(const SELine3f& rLine0, const SELine3f& rLine1);
 
     // 对象访问.
-    const Line3f& GetLine0(void) const;
-    const Line3f& GetLine1(void) const;
+    const SELine3f& GetLine0(void) const;
+    const SELine3f& GetLine1(void) const;
 
     // static distance查询.
     virtual float Get(void);
     virtual float GetSquared(void);
 
     // 用于dynamic distance查询的convex function计算.
-    virtual float Get(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
-    virtual float GetSquared(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual float Get(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
+    virtual float GetSquared(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
     // 最近点相关信息.
     float GetLine0Parameter(void) const;
     float GetLine1Parameter(void) const;
 
 private:
-    const Line3f* m_pLine0;
-    const Line3f* m_pLine1;
+    const SELine3f* m_pLine0;
+    const SELine3f* m_pLine1;
 
     // 最近点相关信息.
     float m_fLine0Parameter;  // closest0 = line0.origin+param*line0.direction

@@ -48,8 +48,8 @@ public:
 
     // 成员访问.
     inline int GetTriangleCount(void) const;
-    void GetModelTriangle(int i, Triangle3f& rMTri) const;
-    void GetWorldTriangle(int i, Triangle3f& rWTri) const;
+    void GetModelTriangle(int i, SETriangle3f& rMTri) const;
+    void GetWorldTriangle(int i, SETriangle3f& rWTri) const;
 
     // 生成法线.
     void GenerateNormals(void);
@@ -84,7 +84,7 @@ public:
     // 射线的原点和方向向量都必须在世界坐标系下.
     // 应用程序不能释放PickArray中的所有pick record,
     // 因为这些pick record来自于全局内存池的堆内存.
-    virtual void DoPick(const Ray3f& rRay, PickArray& rResults);
+    virtual void DoPick(const SERay3f& rRay, PickArray& rResults);
 
     // PickRecord内存池,避免调用DoPick函数时的频繁动态new和delete操作.
     // 应用程序初始化时,负责调用InitializePickRecordPool函数.

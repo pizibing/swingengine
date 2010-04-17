@@ -27,7 +27,7 @@ using namespace Swing;
 
 //----------------------------------------------------------------------------
 IntrTriangle3Triangle3f::IntrTriangle3Triangle3f(
-    const Triangle3f& rTriangle0, const Triangle3f& rTriangle1)
+    const SETriangle3f& rTriangle0, const SETriangle3f& rTriangle1)
     :
     m_pTriangle0(&rTriangle0), 
     m_pTriangle1(&rTriangle1)
@@ -36,12 +36,12 @@ IntrTriangle3Triangle3f::IntrTriangle3Triangle3f(
     m_iCount = 0;
 }
 //----------------------------------------------------------------------------
-const Triangle3f& IntrTriangle3Triangle3f::GetTriangle0() const
+const SETriangle3f& IntrTriangle3Triangle3f::GetTriangle0() const
 {
     return *m_pTriangle0;
 }
 //----------------------------------------------------------------------------
-const Triangle3f& IntrTriangle3Triangle3f::GetTriangle1() const
+const SETriangle3f& IntrTriangle3Triangle3f::GetTriangle1() const
 {
     return *m_pTriangle1;
 }
@@ -49,7 +49,7 @@ const Triangle3f& IntrTriangle3Triangle3f::GetTriangle1() const
 bool IntrTriangle3Triangle3f::Test()
 {
     // get edge vectors for triangle0
-    Vector3f aE0[3] =
+    SEVector3f aE0[3] =
     {
         m_pTriangle0->V[1] - m_pTriangle0->V[0], 
         m_pTriangle0->V[2] - m_pTriangle0->V[1], 
@@ -57,7 +57,7 @@ bool IntrTriangle3Triangle3f::Test()
     };
 
     // get normal vector of triangle0
-    Vector3f vec3fN0 = aE0[0].UnitCross(aE0[1]);
+    SEVector3f vec3fN0 = aE0[0].UnitCross(aE0[1]);
 
     // project triangle1 onto normal line of triangle0, test for separation
     float fN0dT0V0 = vec3fN0.Dot(m_pTriangle0->V[0]);
@@ -69,7 +69,7 @@ bool IntrTriangle3Triangle3f::Test()
     }
 
     // get edge vectors for triangle1
-    Vector3f aE1[3] =
+    SEVector3f aE1[3] =
     {
         m_pTriangle1->V[1] - m_pTriangle1->V[0], 
         m_pTriangle1->V[2] - m_pTriangle1->V[1], 
@@ -77,14 +77,14 @@ bool IntrTriangle3Triangle3f::Test()
     };
 
     // get normal vector of triangle1
-    Vector3f vec3fN1 = aE1[0].UnitCross(aE1[1]);
+    SEVector3f vec3fN1 = aE1[0].UnitCross(aE1[1]);
 
-    Vector3f vec3fDir;
+    SEVector3f vec3fDir;
     float fMin0, fMax0;
     int i0, i1;
 
-    Vector3f vec3fN0xN1 = vec3fN0.UnitCross(vec3fN1);
-    if( vec3fN0xN1.Dot(vec3fN0xN1) >= Math<float>::ZERO_TOLERANCE )
+    SEVector3f vec3fN0xN1 = vec3fN0.UnitCross(vec3fN1);
+    if( vec3fN0xN1.Dot(vec3fN0xN1) >= SEMath<float>::ZERO_TOLERANCE )
     {
         // triangles are not parallel
 
@@ -145,7 +145,7 @@ bool IntrTriangle3Triangle3f::Test()
 bool IntrTriangle3Triangle3f::Find()
 {
     // get the plane of triangle0
-    Plane3f tempPlane0(m_pTriangle0->V[0], m_pTriangle0->V[1], 
+    SEPlane3f tempPlane0(m_pTriangle0->V[0], m_pTriangle0->V[1], 
         m_pTriangle0->V[2]);
 
     // Compute the signed distances of triangle1 vertices to plane0.  Use
@@ -174,7 +174,7 @@ bool IntrTriangle3Triangle3f::Find()
     }
 
     // get the plane of triangle1
-    Plane3f tempPlane1(m_pTriangle1->V[0], m_pTriangle1->V[1], 
+    SEPlane3f tempPlane1(m_pTriangle1->V[0], m_pTriangle1->V[1], 
         m_pTriangle1->V[2]);
 
     // Compute the signed distances of triangle0 vertices to plane1.  Use
@@ -207,7 +207,7 @@ bool IntrTriangle3Triangle3f::Find()
     float fInvDet = 1.0f / (1.0f - fDot*fDot);
     float fC0 = (tempPlane0.Constant - fDot*tempPlane1.Constant) * fInvDet;
     float fC1 = (tempPlane1.Constant - fDot*tempPlane0.Constant) * fInvDet;
-    Line3f tempLine(fC0*tempPlane0.Normal + fC1*tempPlane1.Normal, 
+    SELine3f tempLine(fC0*tempPlane0.Normal + fC1*tempPlane1.Normal, 
         tempPlane0.Normal.UnitCross(tempPlane1.Normal));
 
     // compute the intervals of intersection of triangles and line
@@ -229,40 +229,40 @@ bool IntrTriangle3Triangle3f::Find()
 }
 //----------------------------------------------------------------------------
 bool IntrTriangle3Triangle3f::Test(float fTMax, 
-    const Vector3f& rVelocity0, const Vector3f& rVelocity1)
+    const SEVector3f& rVelocity0, const SEVector3f& rVelocity1)
 {
     float fTFirst = 0.0f;
-    float fTLast = Math<float>::MAX_REAL;
+    float fTLast = SEMath<float>::MAX_REAL;
 
     // velocity relative to triangle0
-    Vector3f vec3fVel = rVelocity1 - rVelocity0;
+    SEVector3f vec3fVel = rVelocity1 - rVelocity0;
 
     // compute edge and normal directions for triangle0
-    Vector3f aE[3] =
+    SEVector3f aE[3] =
     {
         m_pTriangle0->V[1] - m_pTriangle0->V[0], 
         m_pTriangle0->V[2] - m_pTriangle0->V[1], 
         m_pTriangle0->V[0] - m_pTriangle0->V[2]
     };
-    Vector3f vec3fN = aE[0].UnitCross(aE[1]);
+    SEVector3f vec3fN = aE[0].UnitCross(aE[1]);
     if( !TestOverlap(vec3fN, fTMax, vec3fVel, fTFirst, fTLast) )
     {
         return false;
     }
 
     // compute edge and normal directions for triangle1
-    Vector3f aF[3] =
+    SEVector3f aF[3] =
     {
         m_pTriangle1->V[1] - m_pTriangle1->V[0], 
         m_pTriangle1->V[2] - m_pTriangle1->V[1], 
         m_pTriangle1->V[0] - m_pTriangle1->V[2]
     };
-    Vector3f vec3fM = aF[0].UnitCross(aF[1]);
+    SEVector3f vec3fM = aF[0].UnitCross(aF[1]);
 
-    Vector3f vec3fDir;
+    SEVector3f vec3fDir;
     int i0, i1;
 
-    if( Math<float>::FAbs(vec3fN.Dot(vec3fM)) < 1.0f - Math<float>::ZERO_TOLERANCE )
+    if( SEMath<float>::FAbs(vec3fN.Dot(vec3fM)) < 1.0f - SEMath<float>::ZERO_TOLERANCE )
     {
         // triangles are not parallel
 
@@ -314,25 +314,25 @@ bool IntrTriangle3Triangle3f::Test(float fTMax,
 }
 //----------------------------------------------------------------------------
 bool IntrTriangle3Triangle3f::Find(float fTMax, 
-    const Vector3f& rVelocity0, const Vector3f& rVelocity1)
+    const SEVector3f& rVelocity0, const SEVector3f& rVelocity1)
 {
     float fTFirst = 0.0f;
-    float fTLast = Math<float>::MAX_REAL;
+    float fTLast = SEMath<float>::MAX_REAL;
 
     // velocity relative to triangle0
-    Vector3f vec3fVel = rVelocity1 - rVelocity0;
+    SEVector3f vec3fVel = rVelocity1 - rVelocity0;
 
     ContactSide eSide = CS_NONE;
     Configuration tempTCfg0, tempTCfg1;
 
     // compute edge and normal directions for triangle0
-    Vector3f aE[3] =
+    SEVector3f aE[3] =
     {
         m_pTriangle0->V[1] - m_pTriangle0->V[0], 
         m_pTriangle0->V[2] - m_pTriangle0->V[1], 
         m_pTriangle0->V[0] - m_pTriangle0->V[2]
     };
-    Vector3f vec3fN = aE[0].UnitCross(aE[1]);
+    SEVector3f vec3fN = aE[0].UnitCross(aE[1]);
     if( !FindOverlap(vec3fN, fTMax, vec3fVel, eSide, tempTCfg0, tempTCfg1, 
         fTFirst, fTLast) )
     {
@@ -340,18 +340,18 @@ bool IntrTriangle3Triangle3f::Find(float fTMax,
     }
 
     // compute edge and normal directions for triangle1
-    Vector3f aF[3] =
+    SEVector3f aF[3] =
     {
         m_pTriangle1->V[1] - m_pTriangle1->V[0], 
         m_pTriangle1->V[2] - m_pTriangle1->V[1], 
         m_pTriangle1->V[0] - m_pTriangle1->V[2]
     };
-    Vector3f vec3fM = aF[0].UnitCross(aF[1]);
+    SEVector3f vec3fM = aF[0].UnitCross(aF[1]);
 
-    Vector3f vec3fDir;
+    SEVector3f vec3fDir;
     int i0, i1;
 
-    if( Math<float>::FAbs(vec3fN.Dot(vec3fM)) < 1.0f - Math<float>::ZERO_TOLERANCE )
+    if( SEMath<float>::FAbs(vec3fN.Dot(vec3fM)) < 1.0f - SEMath<float>::ZERO_TOLERANCE )
     {
         // triangles are not parallel
 
@@ -409,7 +409,7 @@ bool IntrTriangle3Triangle3f::Find(float fTMax,
     m_fContactTime = fTFirst;
 
     // adjust U and V for first time of contact before finding contact set
-    Triangle3f aMTri0, aMTri1;
+    SETriangle3f aMTri0, aMTri1;
     for( i0 = 0; i0 < 3; i0++ )
     {
         aMTri0.V[i0] = m_pTriangle0->V[i0] + fTFirst*rVelocity0;
@@ -426,15 +426,15 @@ int IntrTriangle3Triangle3f::GetCount() const
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-const Vector3f& IntrTriangle3Triangle3f::GetPoint(int i) const
+const SEVector3f& IntrTriangle3Triangle3f::GetPoint(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 
     return m_aPoint[i];
 }
 //----------------------------------------------------------------------------
-void IntrTriangle3Triangle3f::ProjectOntoAxis(const Triangle3f& rTri, 
-    const Vector3f& rAxis, float& rfMin, float& rfMax)
+void IntrTriangle3Triangle3f::ProjectOntoAxis(const SETriangle3f& rTri, 
+    const SEVector3f& rAxis, float& rfMin, float& rfMax)
 {
     float fDot0 = rAxis.Dot(rTri.V[0]);
     float fDot1 = rAxis.Dot(rTri.V[1]);
@@ -463,7 +463,7 @@ void IntrTriangle3Triangle3f::ProjectOntoAxis(const Triangle3f& rTri,
 }
 //----------------------------------------------------------------------------
 void IntrTriangle3Triangle3f::TrianglePlaneRelations(
-    const Triangle3f& rTriangle, const Plane3f& rPlane, 
+    const SETriangle3f& rTriangle, const SEPlane3f& rPlane, 
     float afDistance[3], int aiSign[3], int& riPositive, int& riNegative, 
     int& riZero)
 {
@@ -475,12 +475,12 @@ void IntrTriangle3Triangle3f::TrianglePlaneRelations(
     for( int i = 0; i < 3; i++ )
     {
         afDistance[i] = rPlane.GetDistance(rTriangle.V[i]);
-        if( afDistance[i] > Math<float>::ZERO_TOLERANCE )
+        if( afDistance[i] > SEMath<float>::ZERO_TOLERANCE )
         {
             aiSign[i] = 1;
             riPositive++;
         }
-        else if( afDistance[i] < -Math<float>::ZERO_TOLERANCE )
+        else if( afDistance[i] < -SEMath<float>::ZERO_TOLERANCE )
         {
             aiSign[i] = -1;
             riNegative++;
@@ -495,7 +495,7 @@ void IntrTriangle3Triangle3f::TrianglePlaneRelations(
 }
 //----------------------------------------------------------------------------
 void IntrTriangle3Triangle3f::GetInterval(
-    const Triangle3f& rTriangle, const Line3f& rLine, 
+    const SETriangle3f& rTriangle, const SELine3f& rLine, 
     const float afDistance[3], const int aiSign[3], float afParam[2])
 {
     // project triangle onto line
@@ -503,7 +503,7 @@ void IntrTriangle3Triangle3f::GetInterval(
     int i;
     for( i = 0; i < 3; i++ )
     {
-        Vector3f vec3fDiff = rTriangle.V[i] - rLine.Origin;
+        SEVector3f vec3fDiff = rTriangle.V[i] - rLine.Origin;
         afProj[i] = rLine.Direction.Dot(vec3fDiff);
     }
 
@@ -558,26 +558,26 @@ void IntrTriangle3Triangle3f::GetInterval(
 }
 //----------------------------------------------------------------------------
 bool IntrTriangle3Triangle3f::GetCoplanarIntersection(
-    const Plane3f& rPlane, const Triangle3f& rTri0, 
-    const Triangle3f& rTri1)
+    const SEPlane3f& rPlane, const SETriangle3f& rTri0, 
+    const SETriangle3f& rTri1)
 {
     // Project triangles onto coordinate plane most aligned with plane
     // normal.
     int iMaxNormal = 0;
-    float fMax = Math<float>::FAbs(rPlane.Normal.X);
-    float fAbs = Math<float>::FAbs(rPlane.Normal.Y);
+    float fMax = SEMath<float>::FAbs(rPlane.Normal.X);
+    float fAbs = SEMath<float>::FAbs(rPlane.Normal.Y);
     if( fAbs > fMax )
     {
         iMaxNormal = 1;
         fMax = fAbs;
     }
-    fAbs = Math<float>::FAbs(rPlane.Normal.Z);
+    fAbs = SEMath<float>::FAbs(rPlane.Normal.Z);
     if( fAbs > fMax )
     {
         iMaxNormal = 2;
     }
 
-    Triangle2f tempProjTri0, tempProjTri1;
+    SETriangle2f tempProjTri0, tempProjTri1;
     int i;
 
     if( iMaxNormal == 0 )
@@ -921,8 +921,8 @@ bool IntrTriangle3Triangle3f::FindOverlap(float fTMax, float fSpeed,
     return true;
 }
 //----------------------------------------------------------------------------
-bool IntrTriangle3Triangle3f::TestOverlap(const Vector3f& rAxis, 
-    float fTMax, const Vector3f& rVelocity, float& rfTFirst, 
+bool IntrTriangle3Triangle3f::TestOverlap(const SEVector3f& rAxis, 
+    float fTMax, const SEVector3f& rVelocity, float& rfTFirst, 
     float& rfTLast)
 {
     float fMin0, fMax0, fMin1, fMax1;
@@ -934,8 +934,8 @@ bool IntrTriangle3Triangle3f::TestOverlap(const Vector3f& rAxis,
         rfTLast);
 }
 //----------------------------------------------------------------------------
-bool IntrTriangle3Triangle3f::FindOverlap(const Vector3f& rAxis, 
-    float fTMax, const Vector3f& rVelocity, ContactSide& reSide, 
+bool IntrTriangle3Triangle3f::FindOverlap(const SEVector3f& rAxis, 
+    float fTMax, const SEVector3f& rVelocity, ContactSide& reSide, 
     Configuration& rTCfg0, Configuration& rTCfg1, float& rfTFirst, 
     float& rfTLast)
 {
@@ -948,8 +948,8 @@ bool IntrTriangle3Triangle3f::FindOverlap(const Vector3f& rAxis,
         rTCfg1, rfTFirst, rfTLast);
 }
 //----------------------------------------------------------------------------
-void IntrTriangle3Triangle3f::ProjectOntoAxis(const Triangle3f& rTri, 
-    const Vector3f& rAxis, Configuration& rCfg)
+void IntrTriangle3Triangle3f::ProjectOntoAxis(const SETriangle3f& rTri, 
+    const SEVector3f& rAxis, Configuration& rCfg)
 {
     // find projections of vertices onto potential separating axis
     float fD0 = rAxis.Dot(rTri.V[0]);
@@ -1075,7 +1075,7 @@ void IntrTriangle3Triangle3f::ProjectOntoAxis(const Triangle3f& rTri,
 }
 //----------------------------------------------------------------------------
 void IntrTriangle3Triangle3f::FindContactSet(
-    const Triangle3f& rTri0, const Triangle3f& rTri1, 
+    const SETriangle3f& rTri0, const SETriangle3f& rTri1, 
     ContactSide& reSide, Configuration& rCfg0, Configuration& rCfg1)
 {
     if( reSide == CS_RIGHT ) // tri1 to the right of tri0
@@ -1103,7 +1103,7 @@ void IntrTriangle3Triangle3f::FindContactSet(
             else // rCfg1.Map == m3
             {
                 // uedge-vface intersection
-                //Vector3f aEdge0[2] = { rTri0.V[1], rTri0.V[2] };
+                //SEVector3f aEdge0[2] = { rTri0.V[1], rTri0.V[2] };
                 //FindContactSetColinearLineTri(aEdge0, rTri1, riCount, 
                 //    aP);
             }
@@ -1113,14 +1113,14 @@ void IntrTriangle3Triangle3f::FindContactSet(
             if( rCfg1.Map == M21 )
             {
                 // face0-edge1 intersection
-                //Vector3f aEdge1[2] = { rTri1.V[0], rTri1.V[1] };
+                //SEVector3f aEdge1[2] = { rTri1.V[0], rTri1.V[1] };
                 //FindContactSetColinearLineTri(aEdge1, rTri0, riCount, 
                 //    aP);
             } 
             else // rCfg1.Map == M3
             {
                 // face0-face1 intersection
-                Plane3f tempPlane0(rTri0.V[0], rTri0.V[1], rTri0.V[2]);
+                SEPlane3f tempPlane0(rTri0.V[0], rTri0.V[1], rTri0.V[2]);
                 GetCoplanarIntersection(tempPlane0, rTri0, rTri1);
             }
         }
@@ -1150,7 +1150,7 @@ void IntrTriangle3Triangle3f::FindContactSet(
             else // rCfg0.Map == M3
             {
                 // edge1-face0 intersection
-                //Vector3f aEdge1[2] = { rTri1.V[1], rTri1.V[2] };
+                //SEVector3f aEdge1[2] = { rTri1.V[1], rTri1.V[2] };
                 //FindContactSetColinearLineTri(aEdge1, rTri0, riCount, 
                 //    aP);
             }
@@ -1160,14 +1160,14 @@ void IntrTriangle3Triangle3f::FindContactSet(
             if( rCfg0.Map == M21 )
             {
                 // edge0-face1 intersection
-                //Vector3f aEdge0[2] = { rTri0.V[0], rTri0.V[1] };
+                //SEVector3f aEdge0[2] = { rTri0.V[0], rTri0.V[1] };
                 //FindContactSetColinearLineTri(aEdge0, rTri1, riCount, 
                 //    aP);
             } 
             else // rCfg0.Map == M
             {
                 // face0-face1 intersection
-                Plane3f tempPlane0(rTri0.V[0], rTri0.V[1], rTri0.V[2]);
+                SEPlane3f tempPlane0(rTri0.V[0], rTri0.V[1], rTri0.V[2]);
                 GetCoplanarIntersection(tempPlane0, rTri0, rTri1);
             }
         }
@@ -1180,8 +1180,8 @@ void IntrTriangle3Triangle3f::FindContactSet(
 }
 //----------------------------------------------------------------------------
 void IntrTriangle3Triangle3f::GetEdgeEdgeIntersection(
-    const Vector3f& /*rU0*/, const Vector3f& /*rU1*/, 
-    const Vector3f& /*rV0*/, const Vector3f& /*rV1*/)
+    const SEVector3f& /*rU0*/, const SEVector3f& /*rU1*/, 
+    const SEVector3f& /*rV0*/, const SEVector3f& /*rV1*/)
 {
     // ´ýÊµÏÖ.
 }

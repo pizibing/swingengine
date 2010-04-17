@@ -667,7 +667,7 @@ void SEStream::Read(int iCount, std::string* pValue)
     }
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(ColorRGB& rValue)
+void SEStream::Read(SEColorRGB& rValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 3, 
         (float*)rValue);
@@ -675,7 +675,7 @@ void SEStream::Read(ColorRGB& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(int iCount, ColorRGB* pValue)
+void SEStream::Read(int iCount, SEColorRGB* pValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 3*iCount, 
         (float*)pValue);
@@ -683,7 +683,7 @@ void SEStream::Read(int iCount, ColorRGB* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(ColorRGBA& rValue)
+void SEStream::Read(SEColorRGBA& rValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4, 
         (float*)rValue);
@@ -691,7 +691,7 @@ void SEStream::Read(ColorRGBA& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(int iCount, ColorRGBA* pValue)
+void SEStream::Read(int iCount, SEColorRGBA* pValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (float*)pValue);
@@ -699,7 +699,7 @@ void SEStream::Read(int iCount, ColorRGBA* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(Matrix2f& rValue)
+void SEStream::Read(SEMatrix2f& rValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4, 
         (float*)rValue);
@@ -707,7 +707,7 @@ void SEStream::Read(Matrix2f& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(int iCount, Matrix2f* pValue)
+void SEStream::Read(int iCount, SEMatrix2f* pValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (float*)pValue);
@@ -715,7 +715,7 @@ void SEStream::Read(int iCount, Matrix2f* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(Matrix3f& rValue)
+void SEStream::Read(SEMatrix3f& rValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, /*12*/9, 
         (float*)rValue);
@@ -723,7 +723,7 @@ void SEStream::Read(Matrix3f& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(int iCount, Matrix3f* pValue)
+void SEStream::Read(int iCount, SEMatrix3f* pValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, /*12*/9*iCount, 
         (float*)pValue);
@@ -731,7 +731,7 @@ void SEStream::Read(int iCount, Matrix3f* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(Matrix4f& rValue)
+void SEStream::Read(SEMatrix4f& rValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 16, 
         (float*)rValue);
@@ -739,7 +739,7 @@ void SEStream::Read(Matrix4f& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(int iCount, Matrix4f* pValue)
+void SEStream::Read(int iCount, SEMatrix4f* pValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 16*iCount, 
         (float*)pValue);
@@ -747,13 +747,13 @@ void SEStream::Read(int iCount, Matrix4f* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(Plane3f& rValue)
+void SEStream::Read(SEPlane3f& rValue)
 {
     Read(rValue.Normal);
     Read(rValue.Constant);
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(int iCount, Plane3f* pValue)
+void SEStream::Read(int iCount, SEPlane3f* pValue)
 {
     for( int i = 0; i < iCount; i++ )
     {
@@ -762,7 +762,7 @@ void SEStream::Read(int iCount, Plane3f* pValue)
     }
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(Quaternionf& rValue)
+void SEStream::Read(SEQuaternionf& rValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4, 
         (float*)rValue);
@@ -770,7 +770,7 @@ void SEStream::Read(Quaternionf& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(int iCount, Quaternionf* pValue)
+void SEStream::Read(int iCount, SEQuaternionf* pValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (float*)pValue);
@@ -794,7 +794,7 @@ void SEStream::Read(int iCount, SEVector2f* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(Vector3f& rValue)
+void SEStream::Read(SEVector3f& rValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 3, 
         (float*)rValue);
@@ -802,7 +802,7 @@ void SEStream::Read(Vector3f& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(int iCount, Vector3f* pValue)
+void SEStream::Read(int iCount, SEVector3f* pValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 3*iCount, 
         (float*)pValue);
@@ -810,7 +810,7 @@ void SEStream::Read(int iCount, Vector3f* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(Vector4f& rValue)
+void SEStream::Read(SEVector4f& rValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4, 
         (float*)rValue);
@@ -818,7 +818,7 @@ void SEStream::Read(Vector4f& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(int iCount, Vector4f* pValue)
+void SEStream::Read(int iCount, SEVector4f* pValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (float*)pValue);
@@ -1087,7 +1087,7 @@ void SEStream::Write(int iCount, const std::string* pValue)
     }
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(const ColorRGB& rValue)
+void SEStream::Write(const SEColorRGB& rValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 3, 
         (const float*)rValue);
@@ -1095,7 +1095,7 @@ void SEStream::Write(const ColorRGB& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(int iCount, const ColorRGB* pValue)
+void SEStream::Write(int iCount, const SEColorRGB* pValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 3*iCount, 
         (const float*)pValue);
@@ -1103,7 +1103,7 @@ void SEStream::Write(int iCount, const ColorRGB* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(const ColorRGBA& rValue)
+void SEStream::Write(const SEColorRGBA& rValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4, 
         (const float*)rValue);
@@ -1111,7 +1111,7 @@ void SEStream::Write(const ColorRGBA& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(int iCount, const ColorRGBA* pValue)
+void SEStream::Write(int iCount, const SEColorRGBA* pValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (const float*)pValue);
@@ -1119,7 +1119,7 @@ void SEStream::Write(int iCount, const ColorRGBA* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(const Matrix2f& rValue)
+void SEStream::Write(const SEMatrix2f& rValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4, 
         (const float*)rValue);
@@ -1127,7 +1127,7 @@ void SEStream::Write(const Matrix2f& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(int iCount, const Matrix2f* pValue)
+void SEStream::Write(int iCount, const SEMatrix2f* pValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (const float*)pValue);
@@ -1135,7 +1135,7 @@ void SEStream::Write(int iCount, const Matrix2f* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(const Matrix3f& rValue)
+void SEStream::Write(const SEMatrix3f& rValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, /*12*/9, 
         (const float*)rValue);
@@ -1143,7 +1143,7 @@ void SEStream::Write(const Matrix3f& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(int iCount, const Matrix3f* pValue)
+void SEStream::Write(int iCount, const SEMatrix3f* pValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, /*12*/9*iCount, 
         (const float*)pValue);
@@ -1151,7 +1151,7 @@ void SEStream::Write(int iCount, const Matrix3f* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(const Matrix4f& rValue)
+void SEStream::Write(const SEMatrix4f& rValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 16, 
         (const float*)rValue);
@@ -1159,7 +1159,7 @@ void SEStream::Write(const Matrix4f& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(int iCount, const Matrix4f* pValue)
+void SEStream::Write(int iCount, const SEMatrix4f* pValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 16*iCount, 
         (const float*)pValue);
@@ -1167,13 +1167,13 @@ void SEStream::Write(int iCount, const Matrix4f* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(const Plane3f& rValue)
+void SEStream::Write(const SEPlane3f& rValue)
 {
     Write(rValue.Normal);
     Write(rValue.Constant);
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(int iCount, const Plane3f* pValue)
+void SEStream::Write(int iCount, const SEPlane3f* pValue)
 {
     for( int i = 0; i < iCount; i++ )
     {
@@ -1182,7 +1182,7 @@ void SEStream::Write(int iCount, const Plane3f* pValue)
     }
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(const Quaternionf& rValue)
+void SEStream::Write(const SEQuaternionf& rValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4, 
         (const float*)rValue);
@@ -1190,7 +1190,7 @@ void SEStream::Write(const Quaternionf& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(int iCount, const Quaternionf* pValue)
+void SEStream::Write(int iCount, const SEQuaternionf* pValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (const float*)pValue);
@@ -1214,7 +1214,7 @@ void SEStream::Write(int iCount, const SEVector2f* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(const Vector3f& rValue)
+void SEStream::Write(const SEVector3f& rValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 3, 
         (const float*)rValue);
@@ -1222,7 +1222,7 @@ void SEStream::Write(const Vector3f& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(int iCount, const Vector3f* pValue)
+void SEStream::Write(int iCount, const SEVector3f* pValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 3*iCount, 
         (const float*)pValue);
@@ -1230,7 +1230,7 @@ void SEStream::Write(int iCount, const Vector3f* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(const Vector4f& rValue)
+void SEStream::Write(const SEVector4f& rValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4, 
         (const float*)rValue);
@@ -1238,7 +1238,7 @@ void SEStream::Write(const Vector4f& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(int iCount, const Vector4f* pValue)
+void SEStream::Write(int iCount, const SEVector4f* pValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 4*iCount, 
         (const float*)pValue);

@@ -33,7 +33,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090113
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Segment2f
+class SE_FOUNDATION_API SESegment2f
 {
 public:
     // 线段表示为参数方程形式:P + t*D,其中P是线段原点,D是单位长度方向向量,
@@ -42,8 +42,8 @@ public:
     // 线段端点是P - e*D和P + e*D.
     // 线段的表示方法类似于OBB.P是中点,D是单位轴向量,e是轴向延展长度.
 
-    Segment2f(void);
-    Segment2f(const SEVector2f& rOrigin, const SEVector2f& rDirection,
+    SESegment2f(void);
+    SESegment2f(const SEVector2f& rOrigin, const SEVector2f& rDirection,
         float fExtent);
 
     // 端点访问.

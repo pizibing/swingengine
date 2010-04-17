@@ -46,15 +46,15 @@ public:
     // system motion,在local坐标系下.以下速度向量应为单位长度.
     float SystemLinearSpeed;
     float SystemAngularSpeed;
-    Vector3f SystemLinearAxis;
-    Vector3f SystemAngularAxis;
+    SEVector3f SystemLinearAxis;
+    SEVector3f SystemAngularAxis;
 
     // point motion,在system的模型空间下.以下速度向量应为单位长度.
     // 对于把这些粒子当作一个rigid body(刚体)来使用的用户,
     // 可以选择system的原点作为这些粒子的质量中心,选择system的坐标轴作为
     // inertia tensor(惯性张量)的principal directions(主方向).
     inline float* PointLinearSpeed(void);
-    inline Vector3f* PointLinearAxis(void);
+    inline SEVector3f* PointLinearAxis(void);
 
     // system size change访问.
     float SystemSizeChange;
@@ -77,7 +77,7 @@ protected:
     // point motion(在system的模型空间下).
     int m_iLCount;
     float* m_afPointLinearSpeed;
-    Vector3f* m_aPointLinearAxis;
+    SEVector3f* m_aPointLinearAxis;
 
     // point size change参数.
     float* m_afPointSizeChange;

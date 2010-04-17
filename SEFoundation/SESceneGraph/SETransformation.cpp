@@ -43,9 +43,9 @@ Transformation::~Transformation()
 //----------------------------------------------------------------------------
 void Transformation::Identity()
 {
-    m_Matrix = Matrix3f::IDENTITY;
-    m_Translate = Vector3f::ZERO;
-    m_Scale = Vector3f(1.0f, 1.0f, 1.0f);
+    m_Matrix = SEMatrix3f::IDENTITY;
+    m_Translate = SEVector3f::ZERO;
+    m_Scale = SEVector3f(1.0f, 1.0f, 1.0f);
     m_bIsIdentity = true;
     m_bIsSRMatrix = true;
     m_bIsUniformScale = true;
@@ -55,7 +55,7 @@ void Transformation::UnitScale()
 {
     SE_ASSERT( m_bIsSRMatrix );
 
-    m_Scale = Vector3f(1.0f, 1.0f, 1.0f);
+    m_Scale = SEVector3f(1.0f, 1.0f, 1.0f);
     m_bIsUniformScale = true;
 }
 //----------------------------------------------------------------------------
@@ -63,31 +63,31 @@ float Transformation::GetNorm() const
 {
     if( m_bIsSRMatrix )
     {
-        float fMax = Mathf::FAbs(m_Scale.X);
-        if( Mathf::FAbs(m_Scale.Y) > fMax )
-            fMax = Mathf::FAbs(m_Scale.Y);
-        if( Mathf::FAbs(m_Scale.Z) > fMax )
-            fMax = Mathf::FAbs(m_Scale.Z);
+        float fMax = SEMathf::FAbs(m_Scale.X);
+        if( SEMathf::FAbs(m_Scale.Y) > fMax )
+            fMax = SEMathf::FAbs(m_Scale.Y);
+        if( SEMathf::FAbs(m_Scale.Z) > fMax )
+            fMax = SEMathf::FAbs(m_Scale.Z);
         return fMax;
     }
 
     float fMaxColSum =
-        Mathf::FAbs(m_Matrix[0][0]) +
-        Mathf::FAbs(m_Matrix[1][0]) +
-        Mathf::FAbs(m_Matrix[2][0]);
+        SEMathf::FAbs(m_Matrix[0][0]) +
+        SEMathf::FAbs(m_Matrix[1][0]) +
+        SEMathf::FAbs(m_Matrix[2][0]);
 
     float fColSum =
-        Mathf::FAbs(m_Matrix[0][1]) +
-        Mathf::FAbs(m_Matrix[1][1]) +
-        Mathf::FAbs(m_Matrix[2][1]);
+        SEMathf::FAbs(m_Matrix[0][1]) +
+        SEMathf::FAbs(m_Matrix[1][1]) +
+        SEMathf::FAbs(m_Matrix[2][1]);
 
     if( fColSum > fMaxColSum )
         fMaxColSum = fColSum;
 
     fColSum =
-        Mathf::FAbs(m_Matrix[0][2]) +
-        Mathf::FAbs(m_Matrix[1][2]) +
-        Mathf::FAbs(m_Matrix[2][2]);
+        SEMathf::FAbs(m_Matrix[0][2]) +
+        SEMathf::FAbs(m_Matrix[1][2]) +
+        SEMathf::FAbs(m_Matrix[2][2]);
 
     if( fColSum > fMaxColSum )
         fMaxColSum = fColSum;
@@ -95,20 +95,20 @@ float Transformation::GetNorm() const
     return fMaxColSum;
 }
 //----------------------------------------------------------------------------
-void Transformation::SetRotate(const Matrix3f& rRotate)
+void Transformation::SetRotate(const SEMatrix3f& rRotate)
 {
     m_Matrix = rRotate;
     m_bIsIdentity = false;
     m_bIsSRMatrix = true;
 }
 //----------------------------------------------------------------------------
-void Transformation::SetTranslate(const Vector3f& rTranslate)
+void Transformation::SetTranslate(const SEVector3f& rTranslate)
 {
     m_Translate = rTranslate;
     m_bIsIdentity = false;
 }
 //----------------------------------------------------------------------------
-void Transformation::SetScale(const Vector3f& rScale)
+void Transformation::SetScale(const SEVector3f& rScale)
 {
     SE_ASSERT( m_bIsSRMatrix && rScale.X != 0.0f && rScale.Y != 0.0f &&
         rScale.Z != 0.0f );
@@ -122,12 +122,12 @@ void Transformation::SetUniformScale(float fScale)
 {
     SE_ASSERT( m_bIsSRMatrix && fScale != 0.0f );
 
-    m_Scale = Vector3f(fScale, fScale, fScale);
+    m_Scale = SEVector3f(fScale, fScale, fScale);
     m_bIsIdentity = false;
     m_bIsUniformScale = true;
 }
 //----------------------------------------------------------------------------
-void Transformation::SetMatrix(const Matrix3f& rMatrix)
+void Transformation::SetMatrix(const SEMatrix3f& rMatrix)
 {
     m_Matrix = rMatrix;
     m_bIsIdentity = false;
@@ -135,7 +135,7 @@ void Transformation::SetMatrix(const Matrix3f& rMatrix)
     m_bIsUniformScale = false;
 }
 //----------------------------------------------------------------------------
-void Transformation::ApplyForward(const Vector3f& rInput, Vector3f& rOutput)
+void Transformation::ApplyForward(const SEVector3f& rInput, SEVector3f& rOutput)
     const
 {
     if( m_bIsIdentity )
@@ -159,13 +159,13 @@ void Transformation::ApplyForward(const Vector3f& rInput, Vector3f& rOutput)
     rOutput = rInput*m_Matrix + m_Translate;
 }
 //----------------------------------------------------------------------------
-void Transformation::ApplyForward(int iCount, const Vector3f* aInput,
-    Vector3f* aOutput) const
+void Transformation::ApplyForward(int iCount, const SEVector3f* aInput,
+    SEVector3f* aOutput) const
 {
     if( m_bIsIdentity )
     {
         // Y = X
-        memcpy(aOutput, aInput, iCount * sizeof(Vector3f));
+        memcpy(aOutput, aInput, iCount * sizeof(SEVector3f));
     }
     else
     {
@@ -192,7 +192,7 @@ void Transformation::ApplyForward(int iCount, const Vector3f* aInput,
     }
 }
 //----------------------------------------------------------------------------
-void Transformation::ApplyInverse(const Vector3f& rInput, Vector3f& rOutput)
+void Transformation::ApplyInverse(const SEVector3f& rInput, SEVector3f& rOutput)
     const
 {
     if( m_bIsIdentity )
@@ -236,23 +236,23 @@ void Transformation::ApplyInverse(const Vector3f& rInput, Vector3f& rOutput)
     else
     {
         // X = (Y-T)*M^{-1}
-        Matrix3f InvMat;
+        SEMatrix3f InvMat;
 		m_Matrix.GetInverse(InvMat);
         rOutput = rOutput * InvMat;
     }
 }
 //----------------------------------------------------------------------------
-void Transformation::ApplyInverse(int iCount, const Vector3f* aInput,
-    Vector3f* aOutput) const
+void Transformation::ApplyInverse(int iCount, const SEVector3f* aInput,
+    SEVector3f* aOutput) const
 {
     if( m_bIsIdentity )
     {
         // X = Y
-        memcpy(aOutput, aInput, iCount * sizeof(Vector3f));
+        memcpy(aOutput, aInput, iCount * sizeof(SEVector3f));
         return;
     }
 
-    Vector3f tempVec;
+    SEVector3f tempVec;
     int i;
     if( m_bIsSRMatrix )
     {
@@ -288,7 +288,7 @@ void Transformation::ApplyInverse(int iCount, const Vector3f* aInput,
     else
     {
         // X = (Y-T)*M^{-1}
-        Matrix3f InvMat; 
+        SEMatrix3f InvMat; 
         m_Matrix.GetInverse(InvMat);
         for( i = 0; i < iCount; i++ )
         {
@@ -298,7 +298,7 @@ void Transformation::ApplyInverse(int iCount, const Vector3f* aInput,
     }
 }
 //----------------------------------------------------------------------------
-void Transformation::InvertVector(const Vector3f& rInput, Vector3f& rOutput)
+void Transformation::InvertVector(const SEVector3f& rInput, SEVector3f& rOutput)
     const
 {
     if( m_bIsIdentity )
@@ -333,13 +333,13 @@ void Transformation::InvertVector(const Vector3f& rInput, Vector3f& rOutput)
     else
     {
         // X = Y*M^{-1}
-        Matrix3f InvMat;
+        SEMatrix3f InvMat;
         m_Matrix.GetInverse(InvMat);
         rOutput = rInput * InvMat;
     }
 }
 //----------------------------------------------------------------------------
-void Transformation::ApplyForward(const Plane3f& rInput, Plane3f& rOutput)
+void Transformation::ApplyForward(const SEPlane3f& rInput, SEPlane3f& rOutput)
     const
 {
     if( m_bIsIdentity )
@@ -415,7 +415,7 @@ void Transformation::ApplyForward(const Plane3f& rInput, Plane3f& rOutput)
         // 注意DirectX中的D3DXPlaneTransform*函数也是基于此数学原理,
         // 因此D3DXPlaneTransform*函数要求传入的综合变换矩阵为:
         // 该矩阵的逆矩阵的转置矩阵.
-        Matrix3f InvMat;
+        SEMatrix3f InvMat;
         m_Matrix.GetInverse(InvMat);
         rOutput.Normal = InvMat * rInput.Normal;
     }
@@ -466,7 +466,7 @@ void Transformation::Product(const Transformation& rLhsTrans,
     }
 
     // 其他情况下结果变换都是MT形式.
-    Matrix3f MatA, MatB;
+    SEMatrix3f MatA, MatB;
 
     if( rLhsTrans.m_bIsSRMatrix )
     {
@@ -502,7 +502,7 @@ void Transformation::GetInverse(Transformation& rInvTrans)
     {
         if( m_bIsUniformScale )
         {
-            Matrix3f TranMat;
+            SEMatrix3f TranMat;
             GetRotate().GetTranspose(TranMat);
             rInvTrans.m_Matrix = TranMat / GetUniformScale();
         }
@@ -523,7 +523,7 @@ void Transformation::GetInverse(Transformation& rInvTrans)
     rInvTrans.m_bIsUniformScale = false;
 }
 //----------------------------------------------------------------------------
-void Transformation::GetHomogeneous(Matrix4f& rHMatrix) const
+void Transformation::GetHomogeneous(SEMatrix4f& rHMatrix) const
 {
     if( m_bIsSRMatrix )
     {

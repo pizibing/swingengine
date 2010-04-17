@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-VectorNf::VectorNf(int iSize)
+SEVectorNf::SEVectorNf(int iSize)
 {
     if( iSize > 0 )
     {
@@ -39,7 +39,7 @@ VectorNf::VectorNf(int iSize)
     }
 }
 //----------------------------------------------------------------------------
-VectorNf::VectorNf(int iSize, const float* pData)
+SEVectorNf::SEVectorNf(int iSize, const float* pData)
 {
     if( iSize > 0 )
     {
@@ -55,7 +55,7 @@ VectorNf::VectorNf(int iSize, const float* pData)
     }
 }
 //----------------------------------------------------------------------------
-VectorNf::VectorNf(const VectorNf& rVec)
+SEVectorNf::SEVectorNf(const SEVectorNf& rVec)
 {
     m_iSize = rVec.m_iSize;
     if( m_iSize > 0 )
@@ -70,36 +70,36 @@ VectorNf::VectorNf(const VectorNf& rVec)
     }
 }
 //----------------------------------------------------------------------------
-VectorNf::~VectorNf()
+SEVectorNf::~SEVectorNf()
 {
     delete[] m_pData;
 }
 //----------------------------------------------------------------------------
-VectorNf::operator float*()
+SEVectorNf::operator float*()
 {
     return m_pData;
 }
 //----------------------------------------------------------------------------
-VectorNf::operator const float*() const
+SEVectorNf::operator const float*() const
 {
     return m_pData;
 }
 //----------------------------------------------------------------------------
-float VectorNf::operator[](int i) const
+float SEVectorNf::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iSize );
 
     return m_pData[i];
 }
 //----------------------------------------------------------------------------
-float& VectorNf::operator[](int i)
+float& SEVectorNf::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i < m_iSize );
 
     return m_pData[i];
 }
 //----------------------------------------------------------------------------
-VectorNf& VectorNf::operator=(const VectorNf& rVec)
+SEVectorNf& SEVectorNf::operator=(const SEVectorNf& rVec)
 {
     if( rVec.m_iSize > 0 )
     {
@@ -123,39 +123,39 @@ VectorNf& VectorNf::operator=(const VectorNf& rVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-bool VectorNf::operator==(const VectorNf& rVec) const
+bool SEVectorNf::operator==(const SEVectorNf& rVec) const
 {
     return CompareData(rVec) == 0;
 }
 //----------------------------------------------------------------------------
-bool VectorNf::operator!=(const VectorNf& rVec) const
+bool SEVectorNf::operator!=(const SEVectorNf& rVec) const
 {
     return CompareData(rVec) != 0;
 }
 //----------------------------------------------------------------------------
-bool VectorNf::operator<(const VectorNf& rVec) const
+bool SEVectorNf::operator<(const SEVectorNf& rVec) const
 {
     return CompareData(rVec) < 0;
 }
 //----------------------------------------------------------------------------
-bool VectorNf::operator<=(const VectorNf& rVec) const
+bool SEVectorNf::operator<=(const SEVectorNf& rVec) const
 {
     return CompareData(rVec) <= 0;
 }
 //----------------------------------------------------------------------------
-bool VectorNf::operator>(const VectorNf& rVec) const
+bool SEVectorNf::operator>(const SEVectorNf& rVec) const
 {
     return CompareData(rVec) > 0;
 }
 //----------------------------------------------------------------------------
-bool VectorNf::operator>=(const VectorNf& rVec) const
+bool SEVectorNf::operator>=(const SEVectorNf& rVec) const
 {
     return CompareData(rVec) >= 0;
 }
 //----------------------------------------------------------------------------
-VectorNf VectorNf::operator+(const VectorNf& rRhsVec) const
+SEVectorNf SEVectorNf::operator+(const SEVectorNf& rRhsVec) const
 {
-    VectorNf ResVec(m_iSize);
+    SEVectorNf ResVec(m_iSize);
     for( int i = 0; i < m_iSize; i++ )
     {
         ResVec.m_pData[i] = m_pData[i] + rRhsVec.m_pData[i];
@@ -164,9 +164,9 @@ VectorNf VectorNf::operator+(const VectorNf& rRhsVec) const
     return ResVec;
 }
 //----------------------------------------------------------------------------
-VectorNf VectorNf::operator-(const VectorNf& rRhsVec) const
+SEVectorNf SEVectorNf::operator-(const SEVectorNf& rRhsVec) const
 {
-    VectorNf ResVec(m_iSize);
+    SEVectorNf ResVec(m_iSize);
     for( int i = 0; i < m_iSize; i++ )
     {
         ResVec.m_pData[i] = m_pData[i] - rRhsVec.m_pData[i];
@@ -175,9 +175,9 @@ VectorNf VectorNf::operator-(const VectorNf& rRhsVec) const
     return ResVec;
 }
 //----------------------------------------------------------------------------
-VectorNf VectorNf::operator*(float fScalar) const
+SEVectorNf SEVectorNf::operator*(float fScalar) const
 {
-    VectorNf ResVec(m_iSize);
+    SEVectorNf ResVec(m_iSize);
     for( int i = 0; i < m_iSize; i++ )
     {
         ResVec.m_pData[i] = fScalar * m_pData[i];
@@ -186,9 +186,9 @@ VectorNf VectorNf::operator*(float fScalar) const
     return ResVec;
 }
 //----------------------------------------------------------------------------
-VectorNf VectorNf::operator/(float fScalar) const
+SEVectorNf SEVectorNf::operator/(float fScalar) const
 {
-    VectorNf ResVec(m_iSize);
+    SEVectorNf ResVec(m_iSize);
     int i;
 
     if( fScalar != 0.0f )
@@ -203,16 +203,16 @@ VectorNf VectorNf::operator/(float fScalar) const
     {
         for( i = 0; i < m_iSize; i++ )
         {
-            ResVec.m_pData[i] = Math<float>::MAX_REAL;
+            ResVec.m_pData[i] = SEMath<float>::MAX_REAL;
         }
     }
 
     return ResVec;
 }
 //----------------------------------------------------------------------------
-VectorNf VectorNf::operator-() const
+SEVectorNf SEVectorNf::operator-() const
 {
-    VectorNf ResVec(m_iSize);
+    SEVectorNf ResVec(m_iSize);
     for( int i = 0; i < m_iSize; i++ )
     {
         ResVec.m_pData[i] = -m_pData[i];
@@ -221,7 +221,7 @@ VectorNf VectorNf::operator-() const
     return ResVec;
 }
 //----------------------------------------------------------------------------
-VectorNf& VectorNf::operator+=(const VectorNf& rRhsVec)
+SEVectorNf& SEVectorNf::operator+=(const SEVectorNf& rRhsVec)
 {
     for( int i = 0; i < m_iSize; i++ )
     {
@@ -231,7 +231,7 @@ VectorNf& VectorNf::operator+=(const VectorNf& rRhsVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-VectorNf& VectorNf::operator-=(const VectorNf& rRhsVec)
+SEVectorNf& SEVectorNf::operator-=(const SEVectorNf& rRhsVec)
 {
     for( int i = 0; i < m_iSize; i++ )
     {
@@ -241,7 +241,7 @@ VectorNf& VectorNf::operator-=(const VectorNf& rRhsVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-VectorNf& VectorNf::operator*=(float fScalar)
+SEVectorNf& SEVectorNf::operator*=(float fScalar)
 {
     for( int i = 0; i < m_iSize; i++ )
     {
@@ -251,7 +251,7 @@ VectorNf& VectorNf::operator*=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-VectorNf& VectorNf::operator/=(float fScalar)
+SEVectorNf& SEVectorNf::operator/=(float fScalar)
 {
     int i;
 
@@ -267,17 +267,17 @@ VectorNf& VectorNf::operator/=(float fScalar)
     {
         for( i = 0; i < m_iSize; i++ )
         {
-            m_pData[i] = Math<float>::MAX_REAL;
+            m_pData[i] = SEMath<float>::MAX_REAL;
         }
     }
 
     return *this;
 }
 //----------------------------------------------------------------------------
-VectorNf Swing::operator*(float fLhsScalar, const VectorNf& rRhsVec)
+SEVectorNf Swing::operator*(float fLhsScalar, const SEVectorNf& rRhsVec)
 {
     int iSize = rRhsVec.GetSize();
-    VectorNf ResVec(iSize);
+    SEVectorNf ResVec(iSize);
     for( int i = 0; i < iSize; i++ )
     {
         ResVec[i] = fLhsScalar * rRhsVec[i];

@@ -20,7 +20,7 @@
 
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::ACos(Real fValue)
+Real SEMath<Real>::ACos(Real fValue)
 {
     if( -(Real)1.0 < fValue )
     {
@@ -36,7 +36,7 @@ Real Math<Real>::ACos(Real fValue)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::ASin(Real fValue)
+Real SEMath<Real>::ASin(Real fValue)
 {
     if( -(Real)1.0 < fValue )
     {
@@ -52,97 +52,97 @@ Real Math<Real>::ASin(Real fValue)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::ATan(Real fValue)
+Real SEMath<Real>::ATan(Real fValue)
 {
     return (Real)atan((double)fValue);
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::ATan2(Real fY, Real fX)
+Real SEMath<Real>::ATan2(Real fY, Real fX)
 {
     return (Real)atan2((double)fY,(double)fX);
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::Ceil(Real fValue)
+Real SEMath<Real>::Ceil(Real fValue)
 {
     return (Real)ceil((double)fValue);
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::Cos(Real fValue)
+Real SEMath<Real>::Cos(Real fValue)
 {
     return (Real)cos((double)fValue);
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::Exp(Real fValue)
+Real SEMath<Real>::Exp(Real fValue)
 {
     return (Real)exp((double)fValue);
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::FAbs(Real fValue)
+Real SEMath<Real>::FAbs(Real fValue)
 {
     return (Real)fabs((double)fValue);
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::Floor(Real fValue)
+Real SEMath<Real>::Floor(Real fValue)
 {
     return (Real)floor((double)fValue);
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::FMod(Real fX, Real fY)
+Real SEMath<Real>::FMod(Real fX, Real fY)
 {
     return (Real)fmod((double)fX,(double)fY);
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::InvSqrt(Real fValue)
+Real SEMath<Real>::InvSqrt(Real fValue)
 {
     return (Real)(1.0/sqrt((double)fValue));
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::Log(Real fValue)
+Real SEMath<Real>::Log(Real fValue)
 {
     return (Real)log((double)fValue);
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::Pow(Real fBase, Real fExponent)
+Real SEMath<Real>::Pow(Real fBase, Real fExponent)
 {
     return (Real)pow((double)fBase,(double)fExponent);
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::Sin(Real fValue)
+Real SEMath<Real>::Sin(Real fValue)
 {
     return (Real)sin((double)fValue);
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::Sqr(Real fValue)
+Real SEMath<Real>::Sqr(Real fValue)
 {
     return fValue*fValue;
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::Sqrt(Real fValue)
+Real SEMath<Real>::Sqrt(Real fValue)
 {
     return (Real)sqrt((double)fValue);
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::Tan(Real fValue)
+Real SEMath<Real>::Tan(Real fValue)
 {
     return (Real)tan((double)fValue);
 }
 //----------------------------------------------------------------------------
 template <class Real>
-int Math<Real>::Sign(int iValue)
+int SEMath<Real>::Sign(int iValue)
 {
     if( iValue > 0 )
         return 1;
@@ -154,7 +154,7 @@ int Math<Real>::Sign(int iValue)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::Sign(Real fValue)
+Real SEMath<Real>::Sign(Real fValue)
 {
     if( fValue > (Real)0.0 )
         return (Real)1.0;
@@ -166,7 +166,7 @@ Real Math<Real>::Sign(Real fValue)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::UnitRandom(unsigned int uiSeed )
+Real SEMath<Real>::UnitRandom(unsigned int uiSeed )
 {
     if( uiSeed > 0 )
         srand(uiSeed);
@@ -176,7 +176,7 @@ Real Math<Real>::UnitRandom(unsigned int uiSeed )
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::SymmetricRandom(unsigned int uiSeed)
+Real SEMath<Real>::SymmetricRandom(unsigned int uiSeed)
 {
     if( uiSeed > 0.0 )
         srand(uiSeed);
@@ -186,7 +186,7 @@ Real Math<Real>::SymmetricRandom(unsigned int uiSeed)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::IntervalRandom(Real fMin, Real fMax, unsigned int uiSeed)
+Real SEMath<Real>::IntervalRandom(Real fMin, Real fMax, unsigned int uiSeed)
 {
     if( uiSeed > 0 )
         srand(uiSeed);
@@ -196,7 +196,7 @@ Real Math<Real>::IntervalRandom(Real fMin, Real fMax, unsigned int uiSeed)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::FastSin0(Real fAngle)
+Real SEMath<Real>::FastSin0(Real fAngle)
 {
     Real fASqr = fAngle*fAngle;
     Real fResult = (Real)7.61e-03;
@@ -209,7 +209,7 @@ Real Math<Real>::FastSin0(Real fAngle)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::FastSin1(Real fAngle)
+Real SEMath<Real>::FastSin1(Real fAngle)
 {
     Real fASqr = fAngle*fAngle;
     Real fResult = -(Real)2.39e-08;
@@ -228,7 +228,7 @@ Real Math<Real>::FastSin1(Real fAngle)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::FastCos0(Real fAngle)
+Real SEMath<Real>::FastCos0(Real fAngle)
 {
     Real fASqr = fAngle*fAngle;
     Real fResult = (Real)3.705e-02;
@@ -240,7 +240,7 @@ Real Math<Real>::FastCos0(Real fAngle)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::FastCos1(Real fAngle)
+Real SEMath<Real>::FastCos1(Real fAngle)
 {
     Real fASqr = fAngle*fAngle;
     Real fResult = -(Real)2.605e-07;
@@ -258,7 +258,7 @@ Real Math<Real>::FastCos1(Real fAngle)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::FastTan0(Real fAngle)
+Real SEMath<Real>::FastTan0(Real fAngle)
 {
     Real fASqr = fAngle*fAngle;
     Real fResult = (Real)2.033e-01;
@@ -271,7 +271,7 @@ Real Math<Real>::FastTan0(Real fAngle)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::FastTan1(Real fAngle)
+Real SEMath<Real>::FastTan1(Real fAngle)
 {
     Real fASqr = fAngle*fAngle;
     Real fResult = (Real)9.5168091e-03;
@@ -292,9 +292,9 @@ Real Math<Real>::FastTan1(Real fAngle)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::FastInvSin0(Real fValue)
+Real SEMath<Real>::FastInvSin0(Real fValue)
 {
-    Real fRoot = Math<Real>::Sqrt(((Real)1.0)-fValue);
+    Real fRoot = SEMath<Real>::Sqrt(((Real)1.0)-fValue);
     Real fResult = -(Real)0.0187293;
     fResult *= fValue;
     fResult += (Real)0.0742610;
@@ -307,9 +307,9 @@ Real Math<Real>::FastInvSin0(Real fValue)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::FastInvSin1(Real fValue)
+Real SEMath<Real>::FastInvSin1(Real fValue)
 {
-    Real fRoot = Math<Real>::Sqrt(FAbs(((Real)1.0)-fValue));
+    Real fRoot = SEMath<Real>::Sqrt(FAbs(((Real)1.0)-fValue));
     Real fResult = -(Real)0.0012624911;
     fResult *= fValue;
     fResult += (Real)0.0066700901;
@@ -330,9 +330,9 @@ Real Math<Real>::FastInvSin1(Real fValue)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::FastInvCos0(Real fValue)
+Real SEMath<Real>::FastInvCos0(Real fValue)
 {
-    Real fRoot = Math<Real>::Sqrt(((Real)1.0)-fValue);
+    Real fRoot = SEMath<Real>::Sqrt(((Real)1.0)-fValue);
     Real fResult = -(Real)0.0187293;
     fResult *= fValue;
     fResult += (Real)0.0742610;
@@ -345,9 +345,9 @@ Real Math<Real>::FastInvCos0(Real fValue)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::FastInvCos1(Real fValue)
+Real SEMath<Real>::FastInvCos1(Real fValue)
 {
-    Real fRoot = Math<Real>::Sqrt(FAbs(((Real)1.0)-fValue));
+    Real fRoot = SEMath<Real>::Sqrt(FAbs(((Real)1.0)-fValue));
     Real fResult = -(Real)0.0012624911;
     fResult *= fValue;
     fResult += (Real)0.0066700901;
@@ -368,7 +368,7 @@ Real Math<Real>::FastInvCos1(Real fValue)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::FastInvTan0(Real fValue)
+Real SEMath<Real>::FastInvTan0(Real fValue)
 {
     Real fVSqr = fValue*fValue;
     Real fResult = (Real)0.0208351;
@@ -385,7 +385,7 @@ Real Math<Real>::FastInvTan0(Real fValue)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Math<Real>::FastInvTan1(Real fValue)
+Real SEMath<Real>::FastInvTan1(Real fValue)
 {
     Real fVSqr = fValue*fValue;
     Real fResult = (Real)0.0028662257;

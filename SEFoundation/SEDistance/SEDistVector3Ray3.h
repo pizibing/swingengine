@@ -34,31 +34,31 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090116
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API DistVector3Ray3f : public Distance<float, Vector3f>
+class SE_FOUNDATION_API DistVector3Ray3f : public Distance<float, SEVector3f>
 {
 public:
-    DistVector3Ray3f(const Vector3f& rVector, const Ray3f& rRay);
+    DistVector3Ray3f(const SEVector3f& rVector, const SERay3f& rRay);
 
     // 对象访问.
-    const Vector3f& GetVector(void) const;
-    const Ray3f& GetRay(void) const;
+    const SEVector3f& GetVector(void) const;
+    const SERay3f& GetRay(void) const;
 
     // static distance查询.
     virtual float Get(void);
     virtual float GetSquared(void);
 
     // 用于dynamic distance查询的convex function计算.
-    virtual float Get(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
-    virtual float GetSquared(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual float Get(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
+    virtual float GetSquared(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
     // 射线最近点相关信息.
     float GetRayParameter(void) const;
 
 private:
-    const Vector3f* m_pVector;
-    const Ray3f* m_pRay;
+    const SEVector3f* m_pVector;
+    const SERay3f* m_pRay;
 
     // 射线最近点相关信息.
     float m_fRayParameter;  // closest1 = ray.origin+param*ray.direction

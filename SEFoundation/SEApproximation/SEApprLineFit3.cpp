@@ -25,9 +25,9 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Line3f Swing::OrthogonalLineFit3f(int iCount, const Vector3f* aPoint)
+SELine3f Swing::OrthogonalLineFit3f(int iCount, const SEVector3f* aPoint)
 {
-    Line3f tempLine(Vector3f::ZERO, Vector3f::ZERO);
+    SELine3f tempLine(SEVector3f::ZERO, SEVector3f::ZERO);
 
     // compute the mean of the points
     tempLine.Origin = aPoint[0];
@@ -44,7 +44,7 @@ Line3f Swing::OrthogonalLineFit3f(int iCount, const Vector3f* aPoint)
     float fSumYY = 0.0f, fSumYZ = 0.0f, fSumZZ = 0.0f;
     for( i = 0; i < iCount; i++ ) 
     {
-        Vector3f vec3fDiff = aPoint[i] - tempLine.Origin;
+        SEVector3f vec3fDiff = aPoint[i] - tempLine.Origin;
         fSumXX += vec3fDiff.X * vec3fDiff.X;
         fSumXY += vec3fDiff.X * vec3fDiff.Y;
         fSumXZ += vec3fDiff.X * vec3fDiff.Z;

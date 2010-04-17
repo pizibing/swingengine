@@ -24,7 +24,7 @@
 // Foundation Register
 #include "SEFoundationRegister.h"
 
-// Math
+// SEMath
 #include "SEMath.h"
 #include "SEMatrix2.h"
 #include "SEMatrix3.h"

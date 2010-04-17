@@ -44,7 +44,7 @@ public:
 
 protected:
     static BoundingVolume* CreateModelBound(const TriMesh* pMesh, int i0,
-        int i1, int* aiISplit, Line3f& rLine);
+        int i1, int* aiISplit, SELine3f& rLine);
 
     static BoundingVolume* CreateWorldBound(void);
 };

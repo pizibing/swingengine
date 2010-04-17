@@ -62,7 +62,7 @@ inline int Culler::GetPlaneCount() const
     return m_iPlaneCount;
 }
 //----------------------------------------------------------------------------
-inline const Plane3f* Culler::GetPlanes() const
+inline const SEPlane3f* Culler::GetPlanes() const
 {
     return m_aPlane;
 }
@@ -77,7 +77,7 @@ inline unsigned int Culler::GetPlaneState() const
     return m_uiPlaneState;
 }
 //----------------------------------------------------------------------------
-inline void Culler::PushPlane(const Plane3f& rPlane)
+inline void Culler::PushPlane(const SEPlane3f& rPlane)
 {
     if( m_iPlaneCount < US_MAX_PLANE_COUNT )
     {

@@ -35,47 +35,47 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090113
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API DistLine3Box3f : public Distance<float, Vector3f>
+class SE_FOUNDATION_API DistLine3Box3f : public Distance<float, SEVector3f>
 {
 public:
-    DistLine3Box3f(const Line3f& rLine, const Box3f& rBox);
+    DistLine3Box3f(const SELine3f& rLine, const SEBox3f& rBox);
 
     // 对象访问.
-    const Line3f& GetLine(void) const;
-    const Box3f& GetBox(void) const;
+    const SELine3f& GetLine(void) const;
+    const SEBox3f& GetBox(void) const;
 
     // static distance查询.
     virtual float Get(void);
     virtual float GetSquared(void);
 
     // 用于dynamic distance查询的convex function计算.
-    virtual float Get(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
-    virtual float GetSquared(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual float Get(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
+    virtual float GetSquared(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
     // 访问最近点处的直线参数.
     // ray-box和segment-box的distance计算也使用这个函数.
     float GetLineParameter(void) const;
 
 private:
-    void Face(int i0, int i1, int i2, Vector3f& rPnt,
-        const Vector3f& rDir, const Vector3f& rPmE,
+    void Face(int i0, int i1, int i2, SEVector3f& rPnt,
+        const SEVector3f& rDir, const SEVector3f& rPmE,
         float& rfSqrDistance);
 
-    void CaseNoZeros(Vector3f& rPnt, const Vector3f& rDir,
+    void CaseNoZeros(SEVector3f& rPnt, const SEVector3f& rDir,
         float& rfSqrDistance);
 
-    void Case0(int i0, int i1, int i2, Vector3f& rPnt,
-        const Vector3f& rDir, float& rfSqrDistance);
+    void Case0(int i0, int i1, int i2, SEVector3f& rPnt,
+        const SEVector3f& rDir, float& rfSqrDistance);
 
-    void Case00(int i0, int i1, int i2, Vector3f& rPnt,
-        const Vector3f& rDir, float& rfSqrDistance);
+    void Case00(int i0, int i1, int i2, SEVector3f& rPnt,
+        const SEVector3f& rDir, float& rfSqrDistance);
 
-    void Case000(Vector3f& rPnt, float& rfSqrDistance);
+    void Case000(SEVector3f& rPnt, float& rfSqrDistance);
 
-    const Line3f* m_pLine;
-    const Box3f* m_pBox;
+    const SELine3f* m_pLine;
+    const SEBox3f* m_pBox;
     float m_fLParam;
 };
 

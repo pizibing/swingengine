@@ -368,7 +368,7 @@ Spatial::PickRecord::~PickRecord()
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-void Spatial::DoPick(const Ray3f&, PickArray&)
+void Spatial::DoPick(const SERay3f&, PickArray&)
 {
     // 由派生类负责实现.
 }

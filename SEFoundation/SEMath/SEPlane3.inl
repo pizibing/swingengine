@@ -19,12 +19,12 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline float Plane3f::GetDistance(const Vector3f& rP) const
+inline float SEPlane3f::GetDistance(const SEVector3f& rP) const
 {
     return Normal.Dot(rP) - Constant;
 }
 //----------------------------------------------------------------------------
-inline int Plane3f::OnWhichSide(const Vector3f& rP) const
+inline int SEPlane3f::OnWhichSide(const SEVector3f& rP) const
 {
     float Distance = GetDistance(rP);
 

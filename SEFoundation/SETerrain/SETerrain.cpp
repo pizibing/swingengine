@@ -34,12 +34,12 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(Terrain, Node);
 //----------------------------------------------------------------------------
 Terrain::Terrain(const char* acHeightName, const char* acImageName,
     const Attributes& rAttr, Camera* pCamera, float fUVBias,
-    ColorRGBA* pBorderColor)
+    SEColorRGBA* pBorderColor)
     :
     m_Attr(rAttr),
     m_spCamera(pCamera),
     m_fUVBias(fUVBias),
-    m_BorderColor(pBorderColor ? *pBorderColor : ColorRGBA::SE_RGBA_BLACK)
+    m_BorderColor(pBorderColor ? *pBorderColor : SEColorRGBA::SE_RGBA_BLACK)
 {
     m_iCameraRow = -1;
     m_iCameraCol = -1;
@@ -76,7 +76,7 @@ Terrain::Terrain(const char* acHeightName, const char* acImageName,
 //----------------------------------------------------------------------------
 Terrain::Terrain()
     :
-    m_BorderColor(ColorRGBA::SE_RGBA_BLACK)
+    m_BorderColor(SEColorRGBA::SE_RGBA_BLACK)
 {
     m_iRows = 0;
     m_iCols = 0;
@@ -120,14 +120,14 @@ TerrainPage* Terrain::GetCurrentPage(float fX, float fZ) const
 {
     float fInvLength = 1.0f / (m_fSpacing*(float)(m_iSize - 1));
 
-    int iCol = (int)Mathf::Floor(fX * fInvLength);
+    int iCol = (int)SEMathf::Floor(fX * fInvLength);
     iCol %= m_iCols;
     if( iCol < 0 )
     {
         iCol += m_iCols;
     }
 
-    int iRow = (int)Mathf::Floor(fZ * fInvLength);
+    int iRow = (int)SEMathf::Floor(fZ * fInvLength);
     iRow %= m_iRows;
     if( iRow < 0 )
     {
@@ -251,18 +251,18 @@ void Terrain::OnCameraMotion()
     }
 
     // 获取camera在terrain模型空间的位置和方向.
-    Vector3f vec3fWorldEye = m_spCamera->GetLocation();
-    Vector3f vec3fWorldDir = m_spCamera->GetDVector();
-    Vector3f vec3fModelEye;
+    SEVector3f vec3fWorldEye = m_spCamera->GetLocation();
+    SEVector3f vec3fWorldDir = m_spCamera->GetDVector();
+    SEVector3f vec3fModelEye;
     World.ApplyInverse(vec3fWorldEye, vec3fModelEye);
-    Vector3f vec3fModelDir = World.GetRotate() * vec3fWorldDir;
+    SEVector3f vec3fModelDir = World.GetRotate() * vec3fWorldDir;
 
     // 更新terrain pages的模型空间原点.
     // 从包含camera的page开始处理.
     float fLength = m_fSpacing * (float)(m_iSize - 1);
     float fInvLength = 1.0f / fLength;
-    int iNewCameraCol = (int)Mathf::Floor(vec3fModelEye.X * fInvLength);
-    int iNewCameraRow = (int)Mathf::Floor(vec3fModelEye.Z * fInvLength);
+    int iNewCameraCol = (int)SEMathf::Floor(vec3fModelEye.X * fInvLength);
+    int iNewCameraRow = (int)SEMathf::Floor(vec3fModelEye.Z * fInvLength);
     if( iNewCameraCol != m_iCameraCol || iNewCameraRow != m_iCameraRow )
     {
         m_iCameraCol = iNewCameraCol;
@@ -293,7 +293,7 @@ void Terrain::OnCameraMotion()
                 SEVector2f vec2fOldOrigin = pPage->GetOrigin();
                 SEVector2f vec2fNewOrigin(iCO*fLength, iRO*fLength);
                 SEVector2f vec2fTrn = vec2fNewOrigin - vec2fOldOrigin;
-                Vector3f vec3fPTrn(vec2fTrn.X, pPage->Local.GetTranslate().Y, 
+                SEVector3f vec3fPTrn(vec2fTrn.X, pPage->Local.GetTranslate().Y, 
                     vec2fTrn.Y);
                 pPage->Local.SetTranslate(vec3fPTrn);
 

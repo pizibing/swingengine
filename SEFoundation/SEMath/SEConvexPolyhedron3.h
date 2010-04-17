@@ -34,7 +34,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20081124
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API ConvexPolyhedron3f : public Polyhedron3f
+class SE_FOUNDATION_API SEConvexPolyhedron3f : public SEPolyhedron3f
 {
 public:
     // 调用者有责任确保传入的数据构成凸多面体.
@@ -45,23 +45,23 @@ public:
     // 本类存储与三角面对应的平面数组,平面法线指向多面体内部.
     // 可以通过构造函数传入平面数组,从而bOwner也决定该数组所有权.
     // 如果没有传入平面数组,则本类对象自己负责创建该数组,从而不受bOwner影响.
-    ConvexPolyhedron3f(int iVCount, Vector3f* aVertex,
-        int iTCount, int* aiIndex, Plane3f* aPlane, bool bOwner);
+    SEConvexPolyhedron3f(int iVCount, SEVector3f* aVertex,
+        int iTCount, int* aiIndex, SEPlane3f* aPlane, bool bOwner);
 
     // 如果传入的polyhedron拥有其数组数据,则为'this'对象复制其数组数据,
     // 从而使'this'对象也拥有其数组数据.
     // 如果传入的polyhedron不拥有其数组数据,则'this'对象也不拥有.只进行指针共享.
-    ConvexPolyhedron3f(const ConvexPolyhedron3f& rPoly);
+    SEConvexPolyhedron3f(const SEConvexPolyhedron3f& rPoly);
 
-    virtual ~ConvexPolyhedron3f(void);
+    virtual ~SEConvexPolyhedron3f(void);
 
     // 如果传入的polyhedron拥有其数组数据,则为'this'对象复制其数组数据,
     // 从而使'this'对象也拥有其数组数据.
     // 如果传入的polyhedron不拥有其数组数据,则'this'对象也不拥有.只进行指针共享.
-    ConvexPolyhedron3f& operator = (const ConvexPolyhedron3f& rPoly);
+    SEConvexPolyhedron3f& operator = (const SEConvexPolyhedron3f& rPoly);
 
-    const Plane3f* GetPlanes(void) const;
-    const Plane3f& GetPlane(int i) const;
+    const SEPlane3f* GetPlanes(void) const;
+    const SEPlane3f& GetPlane(int i) const;
 
     // 允许对顶点进行修改.
     // 调用者必须确保mesh仍为convex ployhedron.
@@ -70,7 +70,7 @@ public:
     // 则只有受到影响的三角面的plane会被重新计算.
     // 否则如果有通过GetVertices函数修改的顶点,
     // 则本类将无法得知具体修改的信息,从而使UpdatePlanes()函数更新全部plane.
-    virtual void SetVertex(int i, const Vector3f& rV);
+    virtual void SetVertex(int i, const SEVector3f& rV);
     void UpdatePlanes(void);
 
     // 凸面体性检测.
@@ -84,17 +84,17 @@ public:
 
     // Point-in-polyhedron测试.
     // 临界值t与IsConvex函数中的用途一样.
-    bool ContainsPoint(const Vector3f& rP, float fThreshold = 0.0f)
+    bool ContainsPoint(const SEVector3f& rP, float fThreshold = 0.0f)
         const;
 
 protected:
-    Plane3f* m_aPlane;
+    SEPlane3f* m_aPlane;
     bool m_bPlaneOwner;
 
     // 支持高效更新平面数组.
     // set存储了更改顶点数据时所影响到的三角面的索引.
     // 从而允许只针对修改过的三角面进行更新.
-    void UpdatePlane(int i, const Vector3f& rAverage);
+    void UpdatePlane(int i, const SEVector3f& rAverage);
     std::set<int> m_TModified;
 };
 

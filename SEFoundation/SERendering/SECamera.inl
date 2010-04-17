@@ -19,22 +19,22 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline Vector3f Camera::GetLocation() const
+inline SEVector3f Camera::GetLocation() const
 {
     return m_Location;
 }
 //----------------------------------------------------------------------------
-inline Vector3f Camera::GetRVector() const
+inline SEVector3f Camera::GetRVector() const
 {
     return m_RVector;
 }
 //----------------------------------------------------------------------------
-inline Vector3f Camera::GetUVector() const
+inline SEVector3f Camera::GetUVector() const
 {
     return m_UVector;
 }
 //----------------------------------------------------------------------------
-inline Vector3f Camera::GetDVector() const
+inline SEVector3f Camera::GetDVector() const
 {
     return m_DVector;
 }

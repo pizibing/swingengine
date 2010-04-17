@@ -24,11 +24,11 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Box2f::Box2f()
+SEBox2f::SEBox2f()
 {
 }
 //----------------------------------------------------------------------------
-Box2f::Box2f(const SEVector2f& rCenter, const SEVector2f* aAxis,
+SEBox2f::SEBox2f(const SEVector2f& rCenter, const SEVector2f* aAxis,
     const float* afExtent)
     :
     Center(rCenter)
@@ -40,7 +40,7 @@ Box2f::Box2f(const SEVector2f& rCenter, const SEVector2f* aAxis,
     }
 }
 //----------------------------------------------------------------------------
-Box2f::Box2f(const SEVector2f& rCenter, const SEVector2f& rAxis0,
+SEBox2f::SEBox2f(const SEVector2f& rCenter, const SEVector2f& rAxis0,
     const SEVector2f& rAxis1, float fExtent0, float fExtent1)
     :
     Center(rCenter)
@@ -51,7 +51,7 @@ Box2f::Box2f(const SEVector2f& rCenter, const SEVector2f& rAxis0,
     Extent[1] = fExtent1;
 }
 //----------------------------------------------------------------------------
-void Box2f::ComputeVertices(SEVector2f aVertex[4]) const
+void SEBox2f::ComputeVertices(SEVector2f aVertex[4]) const
 {
     SEVector2f aEAxis[2] =
     {

@@ -28,12 +28,12 @@
 namespace Swing
 {
 //----------------------------------------------------------------------------
-// 名称:Plane3f共享数组类
+// 名称:SEPlane3f共享数组类
 // 说明:
 // 作者:Sun Che
 // 时间:20080324
 //----------------------------------------------------------------------------
-typedef SharedArray<Plane3f> Plane3fArray;
+typedef SharedArray<SEPlane3f> Plane3fArray;
 typedef SESmartPointer<Plane3fArray> Plane3fArrayPtr;
 }
 

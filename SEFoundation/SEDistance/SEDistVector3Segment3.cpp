@@ -24,20 +24,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistVector3Segment3f::DistVector3Segment3f(const Vector3f& rVector,
-    const Segment3f& rSegment)
+DistVector3Segment3f::DistVector3Segment3f(const SEVector3f& rVector,
+    const SESegment3f& rSegment)
     :
     m_pVector(&rVector),
     m_pSegment(&rSegment)
 {
 }
 //----------------------------------------------------------------------------
-const Vector3f& DistVector3Segment3f::GetVector() const
+const SEVector3f& DistVector3Segment3f::GetVector() const
 {
     return *m_pVector;
 }
 //----------------------------------------------------------------------------
-const Segment3f& DistVector3Segment3f::GetSegment() const
+const SESegment3f& DistVector3Segment3f::GetSegment() const
 {
     return *m_pSegment;
 }
@@ -46,12 +46,12 @@ float DistVector3Segment3f::Get()
 {
     float fSqrDist = GetSquared();
 
-    return Math<float>::Sqrt(fSqrDist);
+    return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistVector3Segment3f::GetSquared()
 {
-    Vector3f vec3fDiff = *m_pVector - m_pSegment->Origin;
+    SEVector3f vec3fDiff = *m_pVector - m_pSegment->Origin;
     m_fSegmentParameter = m_pSegment->Direction.Dot(vec3fDiff);
 
     if( -m_pSegment->Extent < m_fSegmentParameter )
@@ -79,23 +79,23 @@ float DistVector3Segment3f::GetSquared()
     return vec3fDiff.GetSquaredLength();
 }
 //----------------------------------------------------------------------------
-float DistVector3Segment3f::Get(float fT, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistVector3Segment3f::Get(float fT, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMVector = *m_pVector + fT*rVelocity0;
-    Vector3f vec3fMOrigin = m_pSegment->Origin + fT*rVelocity1;
-    Segment3f tempMSegment(vec3fMOrigin, m_pSegment->Direction,
+    SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
+    SEVector3f vec3fMOrigin = m_pSegment->Origin + fT*rVelocity1;
+    SESegment3f tempMSegment(vec3fMOrigin, m_pSegment->Direction,
         m_pSegment->Extent);
 
     return DistVector3Segment3f(vec3fMVector, tempMSegment).Get();
 }
 //----------------------------------------------------------------------------
-float DistVector3Segment3f::GetSquared(float fT, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistVector3Segment3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMVector = *m_pVector + fT*rVelocity0;
-    Vector3f vec3fMOrigin = m_pSegment->Origin + fT*rVelocity1;
-    Segment3f tempMSegment(vec3fMOrigin, m_pSegment->Direction,
+    SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
+    SEVector3f vec3fMOrigin = m_pSegment->Origin + fT*rVelocity1;
+    SESegment3f tempMSegment(vec3fMOrigin, m_pSegment->Direction,
         m_pSegment->Extent);
 
     return DistVector3Segment3f(vec3fMVector, tempMSegment).GetSquared();

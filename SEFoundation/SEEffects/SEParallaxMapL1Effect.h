@@ -44,7 +44,7 @@ public:
         const char* acHeightName);
     virtual ~ParallaxMapL1Effect(void);
 
-    Vector3f LightDirection;
+    SEVector3f LightDirection;
 
 protected:
     // streaming

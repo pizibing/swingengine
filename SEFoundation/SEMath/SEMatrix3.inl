@@ -21,107 +21,107 @@
 //----------------------------------------------------------------------------
 // 单精度3阶方阵类
 //----------------------------------------------------------------------------
-inline float Matrix3f::M11(void) const
+inline float SEMatrix3f::M11(void) const
 {
     return m_fData[0][0];
 }
 //----------------------------------------------------------------------------
-inline float& Matrix3f::M11(void)
+inline float& SEMatrix3f::M11(void)
 {
     return m_fData[0][0];
 }
 //----------------------------------------------------------------------------
-inline float Matrix3f::M12(void) const
+inline float SEMatrix3f::M12(void) const
 {
     return m_fData[0][1];
 }
 //----------------------------------------------------------------------------
-inline float& Matrix3f::M12(void)
+inline float& SEMatrix3f::M12(void)
 {
     return m_fData[0][1];
 }
 //----------------------------------------------------------------------------
-inline float Matrix3f::M13(void) const
+inline float SEMatrix3f::M13(void) const
 {
     return m_fData[0][2];
 }
 //----------------------------------------------------------------------------
-inline float& Matrix3f::M13(void)
+inline float& SEMatrix3f::M13(void)
 {
     return m_fData[0][2];
 }
 //----------------------------------------------------------------------------
-inline float Matrix3f::M21(void) const
+inline float SEMatrix3f::M21(void) const
 {
     return m_fData[1][0];
 }
 //----------------------------------------------------------------------------
-inline float& Matrix3f::M21(void)
+inline float& SEMatrix3f::M21(void)
 {
     return m_fData[1][0];
 }
 //----------------------------------------------------------------------------
-inline float Matrix3f::M22(void) const
+inline float SEMatrix3f::M22(void) const
 {
     return m_fData[1][1];
 }
 //----------------------------------------------------------------------------
-inline float& Matrix3f::M22(void)
+inline float& SEMatrix3f::M22(void)
 {
     return m_fData[1][1];
 }
 //----------------------------------------------------------------------------
-inline float Matrix3f::M23(void) const
+inline float SEMatrix3f::M23(void) const
 {
     return m_fData[1][2];
 }
 //----------------------------------------------------------------------------
-inline float& Matrix3f::M23(void)
+inline float& SEMatrix3f::M23(void)
 {
     return m_fData[1][2];
 }
 //----------------------------------------------------------------------------
-inline float Matrix3f::M31(void) const
+inline float SEMatrix3f::M31(void) const
 {
     return m_fData[2][0];
 }
 //----------------------------------------------------------------------------
-inline float& Matrix3f::M31(void)
+inline float& SEMatrix3f::M31(void)
 {
     return m_fData[2][0];
 }
 //----------------------------------------------------------------------------
-inline float Matrix3f::M32(void) const
+inline float SEMatrix3f::M32(void) const
 {
     return m_fData[2][1];
 }
 //----------------------------------------------------------------------------
-inline float& Matrix3f::M32(void)
+inline float& SEMatrix3f::M32(void)
 {
     return m_fData[2][1];
 }
 //----------------------------------------------------------------------------
-inline float Matrix3f::M33(void) const
+inline float SEMatrix3f::M33(void) const
 {
     return m_fData[2][2];
 }
 //----------------------------------------------------------------------------
-inline float& Matrix3f::M33(void)
+inline float& SEMatrix3f::M33(void)
 {
     return m_fData[2][2];
 }
 //----------------------------------------------------------------------------
-inline int Matrix3f::CompareData(const Matrix3f& rMat) const
+inline int SEMatrix3f::CompareData(const SEMatrix3f& rMat) const
 {
     return memcmp(m_fData, rMat.m_fData, /*12*/9*sizeof(float));
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::Zero()
+inline void SEMatrix3f::Zero()
 {
     memset(m_fData, 0, /*12*/9*sizeof(float));
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::Identity()
+inline void SEMatrix3f::Identity()
 {
     m_fData[0][0] = 1.0f;
     m_fData[0][1] = 0.0f;
@@ -134,7 +134,7 @@ inline void Matrix3f::Identity()
     m_fData[2][2] = 1.0f;
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::Diagonal(float fM11, float fM22, float fM33)
+inline void SEMatrix3f::Diagonal(float fM11, float fM22, float fM33)
 {
     m_fData[0][0] = fM11;
     m_fData[0][1] = 0.0f;
@@ -147,7 +147,7 @@ inline void Matrix3f::Diagonal(float fM11, float fM22, float fM33)
     m_fData[2][2] = fM33;
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::FromAxisAngle(const Vector3f& rAxisVec, float fAngle)
+inline void SEMatrix3f::FromAxisAngle(const SEVector3f& rAxisVec, float fAngle)
 {
     // 旋转轴向量为W(w0,w1,w2),且w0^2 + w1^2 + w2^2 = 1,
     // R = I + sin(theta)S + (1 - cos(theta))S^2,
@@ -157,8 +157,8 @@ inline void Matrix3f::FromAxisAngle(const Vector3f& rAxisVec, float fAngle)
     //     -w2,    0,    w0,
     //      w1,  -w0,     0,
 
-    float fCos = Math<float>::Cos(fAngle);
-    float fSin = Math<float>::Sin(fAngle);
+    float fCos = SEMath<float>::Cos(fAngle);
+    float fSin = SEMath<float>::Sin(fAngle);
     float fOneMinusCos = 1.0f - fCos;
 
     float fX2 = rAxisVec[0] * rAxisVec[0];
@@ -184,7 +184,7 @@ inline void Matrix3f::FromAxisAngle(const Vector3f& rAxisVec, float fAngle)
     m_fData[2][2] = fZ2*fOneMinusCos + fCos;
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::ToAxisAngle(Vector3f& rAxisVec, float& rfAngle) const
+inline void SEMatrix3f::ToAxisAngle(SEVector3f& rAxisVec, float& rfAngle) const
 {
     // 旋转轴向量为W(w0,w1,w2),且w0^2 + w1^2 + w2^2 = 1,
     // R = I + sin(theta)S + (1 - cos(theta))S^2,
@@ -205,11 +205,11 @@ inline void Matrix3f::ToAxisAngle(Vector3f& rAxisVec, float& rfAngle) const
 
     float fTrace = m_fData[0][0] + m_fData[1][1] + m_fData[2][2];
     float fCos = 0.5f * (fTrace - 1.0f);
-    rfAngle = Math<float>::ACos(fCos);  // [0,PI]
+    rfAngle = SEMath<float>::ACos(fCos);  // [0,PI]
 
     if( rfAngle > 0.0f )
     {
-        if( rfAngle < Math<float>::PI )
+        if( rfAngle < SEMath<float>::PI )
         {
             // W = (S12,S20,S01) / |(S12,S20,S01)| 
             rAxisVec[0] = m_fData[1][2] - m_fData[2][1];
@@ -231,7 +231,7 @@ inline void Matrix3f::ToAxisAngle(Vector3f& rAxisVec, float& rfAngle) const
                 if( m_fData[0][0] >= m_fData[2][2] )
                 {
                     // r00是最大对角元素
-                    rAxisVec[0] = 0.5f*Math<float>::Sqrt(m_fData[0][0] - 
+                    rAxisVec[0] = 0.5f*SEMath<float>::Sqrt(m_fData[0][0] - 
                         m_fData[1][1] - m_fData[2][2] + 1.0f);
                     fHalfInverse = 0.5f / rAxisVec[0];
                     rAxisVec[1] = fHalfInverse * m_fData[0][1];
@@ -240,7 +240,7 @@ inline void Matrix3f::ToAxisAngle(Vector3f& rAxisVec, float& rfAngle) const
                 else
                 {
                     // r22是最大对角元素
-                    rAxisVec[2] = 0.5f*Math<float>::Sqrt(m_fData[2][2] - 
+                    rAxisVec[2] = 0.5f*SEMath<float>::Sqrt(m_fData[2][2] - 
                         m_fData[0][0] - m_fData[1][1] + 1.0f);
                     fHalfInverse = 0.5f / rAxisVec[2];
                     rAxisVec[0] = fHalfInverse*m_fData[0][2];
@@ -253,7 +253,7 @@ inline void Matrix3f::ToAxisAngle(Vector3f& rAxisVec, float& rfAngle) const
                 if( m_fData[1][1] >= m_fData[2][2] )
                 {
                     // r11是最大对角元素
-                    rAxisVec[1] = 0.5f*Math<float>::Sqrt(m_fData[1][1] - 
+                    rAxisVec[1] = 0.5f*SEMath<float>::Sqrt(m_fData[1][1] - 
                         m_fData[0][0] - m_fData[2][2] + 1.0f);
                     fHalfInverse  = 0.5f / rAxisVec[1];
                     rAxisVec[0] = fHalfInverse * m_fData[0][1];
@@ -262,7 +262,7 @@ inline void Matrix3f::ToAxisAngle(Vector3f& rAxisVec, float& rfAngle) const
                 else
                 {
                     // r22是最大对角元素
-                    rAxisVec[2] = 0.5f*Math<float>::Sqrt(m_fData[2][2] - 
+                    rAxisVec[2] = 0.5f*SEMath<float>::Sqrt(m_fData[2][2] - 
                         m_fData[0][0] - m_fData[1][1] + 1.0f);
                     fHalfInverse = 0.5f / rAxisVec[2];
                     rAxisVec[0] = fHalfInverse * m_fData[0][2];
@@ -281,8 +281,8 @@ inline void Matrix3f::ToAxisAngle(Vector3f& rAxisVec, float& rfAngle) const
     }
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::TensorProduct(const Vector3f& rVecU, 
-    const Vector3f& rVecV)
+inline void SEMatrix3f::TensorProduct(const SEVector3f& rVecU, 
+    const SEVector3f& rVecV)
 {
     m_fData[0][0] = rVecU[0] * rVecV[0];
     m_fData[0][1] = rVecU[0] * rVecV[1];
@@ -295,7 +295,7 @@ inline void Matrix3f::TensorProduct(const Vector3f& rVecU,
     m_fData[2][2] = rVecU[2] * rVecV[2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::SetRow(int iDesRow, const Vector3f& rSrcVec)
+inline void SEMatrix3f::SetRow(int iDesRow, const SEVector3f& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesRow && iDesRow < 3 );
 
@@ -304,7 +304,7 @@ inline void Matrix3f::SetRow(int iDesRow, const Vector3f& rSrcVec)
     m_fData[iDesRow][2] = rSrcVec.m_fData[2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::GetRow(int iSrcRow, Vector3f& rDesVec) const
+inline void SEMatrix3f::GetRow(int iSrcRow, SEVector3f& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcRow && iSrcRow < 3 );
 
@@ -313,7 +313,7 @@ inline void Matrix3f::GetRow(int iSrcRow, Vector3f& rDesVec) const
     rDesVec.m_fData[2] = m_fData[iSrcRow][2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::SetColumn(int iDesCol, const Vector3f& rSrcVec)
+inline void SEMatrix3f::SetColumn(int iDesCol, const SEVector3f& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesCol && iDesCol < 3 );
 
@@ -322,7 +322,7 @@ inline void Matrix3f::SetColumn(int iDesCol, const Vector3f& rSrcVec)
 	m_fData[2][iDesCol] = rSrcVec.m_fData[2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::GetColumn(int iSrcCol, Vector3f& rDesVec) const
+inline void SEMatrix3f::GetColumn(int iSrcCol, SEVector3f& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcCol && iSrcCol < 3 );
 
@@ -331,7 +331,7 @@ inline void Matrix3f::GetColumn(int iSrcCol, Vector3f& rDesVec) const
     rDesVec.m_fData[2] = m_fData[2][iSrcCol];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::GetTranspose(Matrix3f& rDesMat) const
+inline void SEMatrix3f::GetTranspose(SEMatrix3f& rDesMat) const
 {
     rDesMat.m_fData[0][0] = m_fData[0][0];
     rDesMat.m_fData[0][1] = m_fData[1][0];
@@ -346,7 +346,7 @@ inline void Matrix3f::GetTranspose(Matrix3f& rDesMat) const
     rDesMat.m_fData[2][2] = m_fData[2][2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::GetInverse(Matrix3f& rDesMat) const
+inline void SEMatrix3f::GetInverse(SEMatrix3f& rDesMat) const
 {
     rDesMat[0][0] = m_fData[1][1]*m_fData[2][2] - m_fData[1][2]*m_fData[2][1];
     rDesMat[0][1] = m_fData[0][2]*m_fData[2][1] - m_fData[0][1]*m_fData[2][2];
@@ -361,7 +361,7 @@ inline void Matrix3f::GetInverse(Matrix3f& rDesMat) const
     float fDet = m_fData[0][0]*rDesMat[0][0] + m_fData[0][1]*rDesMat[1][0] + 
         m_fData[0][2]*rDesMat[2][0];
 
-    if( Math<float>::FAbs(fDet) <= Math<float>::ZERO_TOLERANCE )
+    if( SEMath<float>::FAbs(fDet) <= SEMath<float>::ZERO_TOLERANCE )
 	{
 		rDesMat.Zero();
         return;
@@ -380,7 +380,7 @@ inline void Matrix3f::GetInverse(Matrix3f& rDesMat) const
     rDesMat[2][2] *= fInvDet;
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::GetAdjoint(Matrix3f& rDesMat) const
+inline void SEMatrix3f::GetAdjoint(SEMatrix3f& rDesMat) const
 {
     rDesMat[0][0] = m_fData[1][1]*m_fData[2][2] - m_fData[1][2]*m_fData[2][1];
     rDesMat[0][1] = m_fData[0][2]*m_fData[2][1] - m_fData[0][1]*m_fData[2][2];
@@ -393,7 +393,7 @@ inline void Matrix3f::GetAdjoint(Matrix3f& rDesMat) const
     rDesMat[2][2] = m_fData[0][0]*m_fData[1][1] - m_fData[0][1]*m_fData[1][0];
 }
 //----------------------------------------------------------------------------
-inline float Matrix3f::GetDeterminant() const
+inline float SEMatrix3f::GetDeterminant() const
 {
     float fCo00 = m_fData[1][1]*m_fData[2][2] - m_fData[1][2]*m_fData[2][1];
     float fCo10 = m_fData[1][2]*m_fData[2][0] - m_fData[1][0]*m_fData[2][2];
@@ -404,8 +404,8 @@ inline float Matrix3f::GetDeterminant() const
     return fDet;
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::GetTimesDiagonal(const Vector3f& rDiag, 
-    Matrix3f& rDesMat) const
+inline void SEMatrix3f::GetTimesDiagonal(const SEVector3f& rDiag, 
+    SEMatrix3f& rDesMat) const
 {
     rDesMat[0][0] = m_fData[0][0] * rDiag[0];
     rDesMat[0][1] = m_fData[0][1] * rDiag[1];
@@ -418,8 +418,8 @@ inline void Matrix3f::GetTimesDiagonal(const Vector3f& rDiag,
     rDesMat[2][2] = m_fData[2][2] * rDiag[2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::GetDiagonalTimes(const Vector3f& rDiag, 
-    Matrix3f& rDesMat) const
+inline void SEMatrix3f::GetDiagonalTimes(const SEVector3f& rDiag, 
+    SEMatrix3f& rDesMat) const
 {
     rDesMat[0][0] = m_fData[0][0] * rDiag[0];
     rDesMat[0][1] = m_fData[0][1] * rDiag[0];
@@ -432,8 +432,8 @@ inline void Matrix3f::GetDiagonalTimes(const Vector3f& rDiag,
     rDesMat[2][2] = m_fData[2][2] * rDiag[2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::GetTransposeTimes(const Matrix3f& rRhsMat, 
-    Matrix3f& rDesMat) const
+inline void SEMatrix3f::GetTransposeTimes(const SEMatrix3f& rRhsMat, 
+    SEMatrix3f& rDesMat) const
 {
     // C = A^T * B
     rDesMat.m_fData[0][0] = m_fData[0][0]*rRhsMat.m_fData[0][0] + 
@@ -467,8 +467,8 @@ inline void Matrix3f::GetTransposeTimes(const Matrix3f& rRhsMat,
                             m_fData[2][2]*rRhsMat.m_fData[2][2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3f::GetTimesTranspose(const Matrix3f& rRhsMat, 
-    Matrix3f& rDesMat) const
+inline void SEMatrix3f::GetTimesTranspose(const SEMatrix3f& rRhsMat, 
+    SEMatrix3f& rDesMat) const
 {
     // C = A * B^T
     rDesMat.m_fData[0][0] = m_fData[0][0]*rRhsMat.m_fData[0][0] + 
@@ -506,107 +506,107 @@ inline void Matrix3f::GetTimesTranspose(const Matrix3f& rRhsMat,
 //----------------------------------------------------------------------------
 // 双精度3阶方阵类
 //----------------------------------------------------------------------------
-inline double Matrix3d::M11(void) const
+inline double SEMatrix3d::M11(void) const
 {
     return m_dData[0][0];
 }
 //----------------------------------------------------------------------------
-inline double& Matrix3d::M11(void)
+inline double& SEMatrix3d::M11(void)
 {
     return m_dData[0][0];
 }
 //----------------------------------------------------------------------------
-inline double Matrix3d::M12(void) const
+inline double SEMatrix3d::M12(void) const
 {
     return m_dData[0][1];
 }
 //----------------------------------------------------------------------------
-inline double& Matrix3d::M12(void)
+inline double& SEMatrix3d::M12(void)
 {
     return m_dData[0][1];
 }
 //----------------------------------------------------------------------------
-inline double Matrix3d::M13(void) const
+inline double SEMatrix3d::M13(void) const
 {
     return m_dData[0][2];
 }
 //----------------------------------------------------------------------------
-inline double& Matrix3d::M13(void)
+inline double& SEMatrix3d::M13(void)
 {
     return m_dData[0][2];
 }
 //----------------------------------------------------------------------------
-inline double Matrix3d::M21(void) const
+inline double SEMatrix3d::M21(void) const
 {
     return m_dData[1][0];
 }
 //----------------------------------------------------------------------------
-inline double& Matrix3d::M21(void)
+inline double& SEMatrix3d::M21(void)
 {
     return m_dData[1][0];
 }
 //----------------------------------------------------------------------------
-inline double Matrix3d::M22(void) const
+inline double SEMatrix3d::M22(void) const
 {
     return m_dData[1][1];
 }
 //----------------------------------------------------------------------------
-inline double& Matrix3d::M22(void)
+inline double& SEMatrix3d::M22(void)
 {
     return m_dData[1][1];
 }
 //----------------------------------------------------------------------------
-inline double Matrix3d::M23(void) const
+inline double SEMatrix3d::M23(void) const
 {
     return m_dData[1][2];
 }
 //----------------------------------------------------------------------------
-inline double& Matrix3d::M23(void)
+inline double& SEMatrix3d::M23(void)
 {
     return m_dData[1][2];
 }
 //----------------------------------------------------------------------------
-inline double Matrix3d::M31(void) const
+inline double SEMatrix3d::M31(void) const
 {
     return m_dData[2][0];
 }
 //----------------------------------------------------------------------------
-inline double& Matrix3d::M31(void)
+inline double& SEMatrix3d::M31(void)
 {
     return m_dData[2][0];
 }
 //----------------------------------------------------------------------------
-inline double Matrix3d::M32(void) const
+inline double SEMatrix3d::M32(void) const
 {
     return m_dData[2][1];
 }
 //----------------------------------------------------------------------------
-inline double& Matrix3d::M32(void)
+inline double& SEMatrix3d::M32(void)
 {
     return m_dData[2][1];
 }
 //----------------------------------------------------------------------------
-inline double Matrix3d::M33(void) const
+inline double SEMatrix3d::M33(void) const
 {
     return m_dData[2][2];
 }
 //----------------------------------------------------------------------------
-inline double& Matrix3d::M33(void)
+inline double& SEMatrix3d::M33(void)
 {
     return m_dData[2][2];
 }
 //----------------------------------------------------------------------------
-inline int Matrix3d::CompareData(const Matrix3d& rMat) const
+inline int SEMatrix3d::CompareData(const SEMatrix3d& rMat) const
 {
     return memcmp(m_dData, rMat.m_dData, /*12*/9*sizeof(double));
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::Zero()
+inline void SEMatrix3d::Zero()
 {
     memset(m_dData, 0, /*12*/9*sizeof(double));
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::Identity()
+inline void SEMatrix3d::Identity()
 {
     m_dData[0][0] = 1.0;
     m_dData[0][1] = 0.0;
@@ -619,7 +619,7 @@ inline void Matrix3d::Identity()
     m_dData[2][2] = 1.0;
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::Diagonal(double dM11, double dM22, double dM33)
+inline void SEMatrix3d::Diagonal(double dM11, double dM22, double dM33)
 {
     m_dData[0][0] = dM11;
     m_dData[0][1] = 0.0;
@@ -632,7 +632,7 @@ inline void Matrix3d::Diagonal(double dM11, double dM22, double dM33)
     m_dData[2][2] = dM33;
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::FromAxisAngle(const Vector3d& rAxisVec, double dAngle)
+inline void SEMatrix3d::FromAxisAngle(const SEVector3d& rAxisVec, double dAngle)
 {
     // 旋转轴向量为W(w0,w1,w2),且w0^2 + w1^2 + w2^2 = 1,
     // R = I + sin(theta)S + (1 - cos(theta))S^2,
@@ -642,8 +642,8 @@ inline void Matrix3d::FromAxisAngle(const Vector3d& rAxisVec, double dAngle)
     //     -w2,    0,    w0,
     //      w1,  -w0,     0,
 
-    double dCos = Math<double>::Cos(dAngle);
-    double dSin = Math<double>::Sin(dAngle);
+    double dCos = SEMath<double>::Cos(dAngle);
+    double dSin = SEMath<double>::Sin(dAngle);
     double dOneMinusCos = 1.0 - dCos;
 
     double dX2 = rAxisVec[0] * rAxisVec[0];
@@ -669,7 +669,7 @@ inline void Matrix3d::FromAxisAngle(const Vector3d& rAxisVec, double dAngle)
     m_dData[2][2] = dZ2*dOneMinusCos + dCos;
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::ToAxisAngle(Vector3d& rAxisVec, double& rdAngle) const
+inline void SEMatrix3d::ToAxisAngle(SEVector3d& rAxisVec, double& rdAngle) const
 {
     // 旋转轴向量为W(w0,w1,w2),且w0^2 + w1^2 + w2^2 = 1,
     // R = I + sin(theta)S + (1 - cos(theta))S^2,
@@ -690,11 +690,11 @@ inline void Matrix3d::ToAxisAngle(Vector3d& rAxisVec, double& rdAngle) const
 
     double dTrace = m_dData[0][0] + m_dData[1][1] + m_dData[2][2];
     double dCos = 0.5 * (dTrace - 1.0);
-    rdAngle = Math<double>::ACos(dCos);  // [0,PI]
+    rdAngle = SEMath<double>::ACos(dCos);  // [0,PI]
 
     if( rdAngle > 0.0 )
     {
-        if( rdAngle < Math<double>::PI )
+        if( rdAngle < SEMath<double>::PI )
         {
             // W = (S12,S20,S01) / |(S12,S20,S01)| 
             rAxisVec[0] = m_dData[1][2] - m_dData[2][1];
@@ -716,7 +716,7 @@ inline void Matrix3d::ToAxisAngle(Vector3d& rAxisVec, double& rdAngle) const
                 if( m_dData[0][0] >= m_dData[2][2] )
                 {
                     // r00是最大对角元素
-                    rAxisVec[0] = 0.5*Math<double>::Sqrt(m_dData[0][0] - 
+                    rAxisVec[0] = 0.5*SEMath<double>::Sqrt(m_dData[0][0] - 
                         m_dData[1][1] - m_dData[2][2] + 1.0);
                     dHalfInverse = 0.5 / rAxisVec[0];
                     rAxisVec[1] = dHalfInverse * m_dData[0][1];
@@ -725,7 +725,7 @@ inline void Matrix3d::ToAxisAngle(Vector3d& rAxisVec, double& rdAngle) const
                 else
                 {
                     // r22是最大对角元素
-                    rAxisVec[2] = 0.5*Math<double>::Sqrt(m_dData[2][2] - 
+                    rAxisVec[2] = 0.5*SEMath<double>::Sqrt(m_dData[2][2] - 
                         m_dData[0][0] - m_dData[1][1] + 1.0);
                     dHalfInverse = 0.5 / rAxisVec[2];
                     rAxisVec[0] = dHalfInverse*m_dData[0][2];
@@ -738,7 +738,7 @@ inline void Matrix3d::ToAxisAngle(Vector3d& rAxisVec, double& rdAngle) const
                 if( m_dData[1][1] >= m_dData[2][2] )
                 {
                     // r11是最大对角元素
-                    rAxisVec[1] = 0.5*Math<double>::Sqrt(m_dData[1][1] - 
+                    rAxisVec[1] = 0.5*SEMath<double>::Sqrt(m_dData[1][1] - 
                         m_dData[0][0] - m_dData[2][2] + 1.0);
                     dHalfInverse  = 0.5 / rAxisVec[1];
                     rAxisVec[0] = dHalfInverse * m_dData[0][1];
@@ -747,7 +747,7 @@ inline void Matrix3d::ToAxisAngle(Vector3d& rAxisVec, double& rdAngle) const
                 else
                 {
                     // r22是最大对角元素
-                    rAxisVec[2] = 0.5*Math<double>::Sqrt(m_dData[2][2] - 
+                    rAxisVec[2] = 0.5*SEMath<double>::Sqrt(m_dData[2][2] - 
                         m_dData[0][0] - m_dData[1][1] + 1.0);
                     dHalfInverse = 0.5 / rAxisVec[2];
                     rAxisVec[0] = dHalfInverse * m_dData[0][2];
@@ -766,8 +766,8 @@ inline void Matrix3d::ToAxisAngle(Vector3d& rAxisVec, double& rdAngle) const
     }
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::TensorProduct(const Vector3d& rVecU, 
-    const Vector3d& rVecV)
+inline void SEMatrix3d::TensorProduct(const SEVector3d& rVecU, 
+    const SEVector3d& rVecV)
 {
     m_dData[0][0] = rVecU[0] * rVecV[0];
     m_dData[0][1] = rVecU[0] * rVecV[1];
@@ -780,7 +780,7 @@ inline void Matrix3d::TensorProduct(const Vector3d& rVecU,
     m_dData[2][2] = rVecU[2] * rVecV[2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::SetRow(int iDesRow, const Vector3d& rSrcVec)
+inline void SEMatrix3d::SetRow(int iDesRow, const SEVector3d& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesRow && iDesRow < 3 );
 
@@ -789,7 +789,7 @@ inline void Matrix3d::SetRow(int iDesRow, const Vector3d& rSrcVec)
     m_dData[iDesRow][2] = rSrcVec.m_dData[2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::GetRow(int iSrcRow, Vector3d& rDesVec) const
+inline void SEMatrix3d::GetRow(int iSrcRow, SEVector3d& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcRow && iSrcRow < 3 );
 
@@ -798,7 +798,7 @@ inline void Matrix3d::GetRow(int iSrcRow, Vector3d& rDesVec) const
     rDesVec.m_dData[2] = m_dData[iSrcRow][2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::SetColumn(int iDesCol, const Vector3d& rSrcVec)
+inline void SEMatrix3d::SetColumn(int iDesCol, const SEVector3d& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesCol && iDesCol < 3 );
 
@@ -807,7 +807,7 @@ inline void Matrix3d::SetColumn(int iDesCol, const Vector3d& rSrcVec)
 	m_dData[2][iDesCol] = rSrcVec.m_dData[2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::GetColumn(int iSrcCol, Vector3d& rDesVec) const
+inline void SEMatrix3d::GetColumn(int iSrcCol, SEVector3d& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcCol && iSrcCol < 3 );
 
@@ -816,7 +816,7 @@ inline void Matrix3d::GetColumn(int iSrcCol, Vector3d& rDesVec) const
     rDesVec.m_dData[2] = m_dData[2][iSrcCol];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::GetTranspose(Matrix3d& rDesMat) const
+inline void SEMatrix3d::GetTranspose(SEMatrix3d& rDesMat) const
 {
     rDesMat.m_dData[0][0] = m_dData[0][0];
     rDesMat.m_dData[0][1] = m_dData[1][0];
@@ -831,7 +831,7 @@ inline void Matrix3d::GetTranspose(Matrix3d& rDesMat) const
     rDesMat.m_dData[2][2] = m_dData[2][2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::GetInverse(Matrix3d& rDesMat) const
+inline void SEMatrix3d::GetInverse(SEMatrix3d& rDesMat) const
 {
     rDesMat[0][0] = m_dData[1][1]*m_dData[2][2] - m_dData[1][2]*m_dData[2][1];
     rDesMat[0][1] = m_dData[0][2]*m_dData[2][1] - m_dData[0][1]*m_dData[2][2];
@@ -846,7 +846,7 @@ inline void Matrix3d::GetInverse(Matrix3d& rDesMat) const
     double dDet = m_dData[0][0]*rDesMat[0][0] + m_dData[0][1]*rDesMat[1][0] + 
         m_dData[0][2]*rDesMat[2][0];
 
-    if( Math<double>::FAbs(dDet) <= Math<double>::ZERO_TOLERANCE )
+    if( SEMath<double>::FAbs(dDet) <= SEMath<double>::ZERO_TOLERANCE )
 	{
 		rDesMat.Zero();
         return;
@@ -865,7 +865,7 @@ inline void Matrix3d::GetInverse(Matrix3d& rDesMat) const
     rDesMat[2][2] *= dInvDet;
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::GetAdjoint(Matrix3d& rDesMat) const
+inline void SEMatrix3d::GetAdjoint(SEMatrix3d& rDesMat) const
 {
     rDesMat[0][0] = m_dData[1][1]*m_dData[2][2] - m_dData[1][2]*m_dData[2][1];
     rDesMat[0][1] = m_dData[0][2]*m_dData[2][1] - m_dData[0][1]*m_dData[2][2];
@@ -878,7 +878,7 @@ inline void Matrix3d::GetAdjoint(Matrix3d& rDesMat) const
     rDesMat[2][2] = m_dData[0][0]*m_dData[1][1] - m_dData[0][1]*m_dData[1][0];
 }
 //----------------------------------------------------------------------------
-inline double Matrix3d::GetDeterminant() const
+inline double SEMatrix3d::GetDeterminant() const
 {
     double dCo00 = m_dData[1][1]*m_dData[2][2] - m_dData[1][2]*m_dData[2][1];
     double dCo10 = m_dData[1][2]*m_dData[2][0] - m_dData[1][0]*m_dData[2][2];
@@ -889,8 +889,8 @@ inline double Matrix3d::GetDeterminant() const
     return dDet;
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::GetTimesDiagonal(const Vector3d& rDiag, 
-    Matrix3d& rDesMat) const
+inline void SEMatrix3d::GetTimesDiagonal(const SEVector3d& rDiag, 
+    SEMatrix3d& rDesMat) const
 {
     rDesMat[0][0] = m_dData[0][0] * rDiag[0];
     rDesMat[0][1] = m_dData[0][1] * rDiag[1];
@@ -903,8 +903,8 @@ inline void Matrix3d::GetTimesDiagonal(const Vector3d& rDiag,
     rDesMat[2][2] = m_dData[2][2] * rDiag[2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::GetDiagonalTimes(const Vector3d& rDiag, 
-    Matrix3d& rDesMat) const
+inline void SEMatrix3d::GetDiagonalTimes(const SEVector3d& rDiag, 
+    SEMatrix3d& rDesMat) const
 {
     rDesMat[0][0] = m_dData[0][0] * rDiag[0];
     rDesMat[0][1] = m_dData[0][1] * rDiag[0];
@@ -917,8 +917,8 @@ inline void Matrix3d::GetDiagonalTimes(const Vector3d& rDiag,
     rDesMat[2][2] = m_dData[2][2] * rDiag[2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::GetTransposeTimes(const Matrix3d& rRhsMat, 
-    Matrix3d& rDesMat) const
+inline void SEMatrix3d::GetTransposeTimes(const SEMatrix3d& rRhsMat, 
+    SEMatrix3d& rDesMat) const
 {
     // C = A^T * B
     rDesMat.m_dData[0][0] = m_dData[0][0]*rRhsMat.m_dData[0][0] + 
@@ -952,8 +952,8 @@ inline void Matrix3d::GetTransposeTimes(const Matrix3d& rRhsMat,
                             m_dData[2][2]*rRhsMat.m_dData[2][2];
 }
 //----------------------------------------------------------------------------
-inline void Matrix3d::GetTimesTranspose(const Matrix3d& rRhsMat, 
-    Matrix3d& rDesMat) const
+inline void SEMatrix3d::GetTimesTranspose(const SEMatrix3d& rRhsMat, 
+    SEMatrix3d& rDesMat) const
 {
     // C = A * B^T
     rDesMat.m_dData[0][0] = m_dData[0][0]*rRhsMat.m_dData[0][0] + 

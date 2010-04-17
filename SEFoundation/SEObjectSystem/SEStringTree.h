@@ -34,8 +34,8 @@ namespace Swing
 {
 
 class BoundingVolume;
-class ColorRGB;
-class ColorRGBA;
+class SEColorRGB;
+class SEColorRGBA;
 class SERTTI;
 
 //----------------------------------------------------------------------------
@@ -96,17 +96,17 @@ SE_FOUNDATION_API char* Format(const char* pPrefix, const char*);
 
 // 非内置变量类型的字符串生成函数
 SE_FOUNDATION_API char* Format(const char* pPrefix, const BoundingVolume*);
-SE_FOUNDATION_API char* Format(const char* pPrefix, const ColorRGBA&);
-SE_FOUNDATION_API char* Format(const char* pPrefix, const ColorRGB&);
-SE_FOUNDATION_API char* Format(const char* pPrefix, const Line3f&);
-SE_FOUNDATION_API char* Format(const char* pPrefix, const Matrix2f&);
-SE_FOUNDATION_API char* Format(const char* pPrefix, const Matrix3f&);
-SE_FOUNDATION_API char* Format(const char* pPrefix, const Matrix4f&);
-SE_FOUNDATION_API char* Format(const char* pPrefix, const Plane3f&);
-SE_FOUNDATION_API char* Format(const char* pPrefix, const Quaternionf&);
+SE_FOUNDATION_API char* Format(const char* pPrefix, const SEColorRGBA&);
+SE_FOUNDATION_API char* Format(const char* pPrefix, const SEColorRGB&);
+SE_FOUNDATION_API char* Format(const char* pPrefix, const SELine3f&);
+SE_FOUNDATION_API char* Format(const char* pPrefix, const SEMatrix2f&);
+SE_FOUNDATION_API char* Format(const char* pPrefix, const SEMatrix3f&);
+SE_FOUNDATION_API char* Format(const char* pPrefix, const SEMatrix4f&);
+SE_FOUNDATION_API char* Format(const char* pPrefix, const SEPlane3f&);
+SE_FOUNDATION_API char* Format(const char* pPrefix, const SEQuaternionf&);
 SE_FOUNDATION_API char* Format(const char* pPrefix, const SEVector2f&);
-SE_FOUNDATION_API char* Format(const char* pPrefix, const Vector3f&);
-SE_FOUNDATION_API char* Format(const char* pPrefix, const Vector4f&);
+SE_FOUNDATION_API char* Format(const char* pPrefix, const SEVector3f&);
+SE_FOUNDATION_API char* Format(const char* pPrefix, const SEVector4f&);
 
 template <class T>
 SEStringTree* Format(const char* pTitle, int iCount, const T* pValue);

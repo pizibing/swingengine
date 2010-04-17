@@ -24,20 +24,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Triangle3f::Triangle3f()
+SETriangle3f::SETriangle3f()
 {
     // Œ¥≥ı ºªØ.
 }
 //----------------------------------------------------------------------------
-Triangle3f::Triangle3f(const Vector3f& rV0, 
-    const Vector3f& rV1, const Vector3f& rV2)
+SETriangle3f::SETriangle3f(const SEVector3f& rV0, 
+    const SEVector3f& rV1, const SEVector3f& rV2)
 {
     V[0] = rV0;
     V[1] = rV1;
     V[2] = rV2;
 }
 //----------------------------------------------------------------------------
-Triangle3f::Triangle3f(const Vector3f aV[3])
+SETriangle3f::SETriangle3f(const SEVector3f aV[3])
 {
     for( int i = 0; i < 3; i++ )
     {
@@ -45,17 +45,17 @@ Triangle3f::Triangle3f(const Vector3f aV[3])
     }
 }
 //----------------------------------------------------------------------------
-float Triangle3f::GetDistance(const Vector3f& rQ) const
+float SETriangle3f::GetDistance(const SEVector3f& rQ) const
 {
-    Vector3f vec3fDiff = V[0] - rQ;
-    Vector3f vec3fE0 = V[1] - V[0], vec3fE1 = V[2] - V[0];
+    SEVector3f vec3fDiff = V[0] - rQ;
+    SEVector3f vec3fE0 = V[1] - V[0], vec3fE1 = V[2] - V[0];
     float fA00 = vec3fE0.GetSquaredLength();
     float fA01 = vec3fE0.Dot(vec3fE1);
     float fA11 = vec3fE1.GetSquaredLength();
     float fB0 = vec3fDiff.Dot(vec3fE0);
     float fB1 = vec3fDiff.Dot(vec3fE1);
     float fC = vec3fDiff.GetSquaredLength();
-    float fDet = Math<float>::FAbs(fA00*fA11 - fA01*fA01);
+    float fDet = SEMath<float>::FAbs(fA00*fA11 - fA01*fA01);
     float fS = fA01*fB1 - fA11*fB0;
     float fT = fA01*fB0 - fA00*fB1;
     float fSqrDist;
@@ -237,6 +237,6 @@ float Triangle3f::GetDistance(const Vector3f& rQ) const
         }
     }
 
-    return Math<float>::Sqrt(Math<float>::FAbs(fSqrDist));
+    return SEMath<float>::Sqrt(SEMath<float>::FAbs(fSqrDist));
 }
 //----------------------------------------------------------------------------

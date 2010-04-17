@@ -36,14 +36,14 @@ namespace Swing
 // 时间:20081220
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API IntrSegment3Sphere3f
-    : public Intersector<float, Vector3f>
+    : public Intersector<float, SEVector3f>
 {
 public:
-    IntrSegment3Sphere3f(const Segment3f& rSegment, const Sphere3f& rSphere);
+    IntrSegment3Sphere3f(const SESegment3f& rSegment, const SESphere3f& rSphere);
 
     // 对象访问.
-    const Segment3f& GetSegment(void) const;
-    const Sphere3f& GetSphere(void) const;
+    const SESegment3f& GetSegment(void) const;
+    const SESphere3f& GetSphere(void) const;
 
     // test-intersection查询.
     virtual bool Test(void);
@@ -51,27 +51,27 @@ public:
     // find-intersection查询.
     virtual bool Find(void);
     int GetCount(void) const;
-    const Vector3f& GetPoint(int i) const;
+    const SEVector3f& GetPoint(int i) const;
     float GetSegmentT(int i) const;
 
     // dynamic test-intersection查询.
-    virtual bool Test(float fTMax, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual bool Test(float fTMax, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
     // dynamic find-intersection查询.
-    virtual bool Find(float fTMax, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual bool Find(float fTMax, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
-    float ZeroThreshold;  // default = Math<float>::ZERO_TOLERANCE
+    float ZeroThreshold;  // default = SEMath<float>::ZERO_TOLERANCE
 
 private:
     // 待检查对象.
-    const Segment3f* m_pSegment;
-    const Sphere3f* m_pSphere;
+    const SESegment3f* m_pSegment;
+    const SESphere3f* m_pSphere;
 
     // 相交集相关信息.
     int m_iCount;
-    Vector3f m_aPoint[2];
+    SEVector3f m_aPoint[2];
     float m_afSegmentT[2];
 };
 

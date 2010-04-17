@@ -37,11 +37,11 @@ namespace Swing
 class SE_FOUNDATION_API DistVector2Ray2f : public Distance<float, SEVector2f>
 {
 public:
-    DistVector2Ray2f(const SEVector2f& rVector, const Ray2f& rRay);
+    DistVector2Ray2f(const SEVector2f& rVector, const SERay2f& rRay);
 
     // 对象访问.
     const SEVector2f& GetVector(void) const;
-    const Ray2f& GetRay(void) const;
+    const SERay2f& GetRay(void) const;
 
     // static distance查询.
     virtual float Get(void);
@@ -55,7 +55,7 @@ public:
 
 private:
     const SEVector2f* m_pVector;
-    const Ray2f* m_pRay;
+    const SERay2f* m_pRay;
 };
 
 }

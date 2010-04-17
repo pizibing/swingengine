@@ -170,76 +170,76 @@ const float* VertexBuffer::TCoordTuple(int iUnit, int i) const
     return 0;
 }
 //----------------------------------------------------------------------------
-Vector3f& VertexBuffer::Position3(int i)
+SEVector3f& VertexBuffer::Position3(int i)
 {
     SE_ASSERT( m_Attributes.GetPositionChannels() == 3 );
 
     int iIndex = m_iVertexSize*i + m_Attributes.GetPositionOffset();
 
-    return *(Vector3f*)(m_pChannel + iIndex);
+    return *(SEVector3f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-Vector3f VertexBuffer::Position3(int i) const
+SEVector3f VertexBuffer::Position3(int i) const
 {
     SE_ASSERT( m_Attributes.GetPositionChannels() == 3 );
 
     int iIndex = m_iVertexSize*i + m_Attributes.GetPositionOffset();
 
-    return *(Vector3f*)(m_pChannel + iIndex);
+    return *(SEVector3f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-Vector3f& VertexBuffer::Normal3(int i)
+SEVector3f& VertexBuffer::Normal3(int i)
 {
     SE_ASSERT( m_Attributes.GetNormalChannels() == 3 );
 
     int iIndex = m_iVertexSize*i + m_Attributes.GetNormalOffset();
 
-    return *(Vector3f*)(m_pChannel + iIndex);
+    return *(SEVector3f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-Vector3f VertexBuffer::Normal3(int i) const
+SEVector3f VertexBuffer::Normal3(int i) const
 {
     SE_ASSERT( m_Attributes.GetNormalChannels() == 3 );
 
     int iIndex = m_iVertexSize*i + m_Attributes.GetNormalOffset();
 
-    return *(Vector3f*)(m_pChannel + iIndex);
+    return *(SEVector3f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-ColorRGB& VertexBuffer::Color3(int iUnit, int i)
+SEColorRGB& VertexBuffer::Color3(int iUnit, int i)
 {
     SE_ASSERT( m_Attributes.GetColorChannels(iUnit) == 3 );
 
     int iIndex = m_iVertexSize*i + m_Attributes.GetColorOffset(iUnit);
 
-    return *(ColorRGB*)(m_pChannel + iIndex);
+    return *(SEColorRGB*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-ColorRGB VertexBuffer::Color3(int iUnit, int i) const
+SEColorRGB VertexBuffer::Color3(int iUnit, int i) const
 {
     SE_ASSERT( m_Attributes.GetColorChannels(iUnit) == 3 );
 
     int iIndex = m_iVertexSize*i + m_Attributes.GetColorOffset(iUnit);
 
-    return *(ColorRGB*)(m_pChannel + iIndex);
+    return *(SEColorRGB*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-ColorRGBA& VertexBuffer::Color4(int iUnit, int i)
+SEColorRGBA& VertexBuffer::Color4(int iUnit, int i)
 {
     SE_ASSERT( m_Attributes.GetColorChannels(iUnit) == 4 );
 
     int iIndex = m_iVertexSize*i + m_Attributes.GetColorOffset(iUnit);
 
-    return *(ColorRGBA*)(m_pChannel + iIndex);
+    return *(SEColorRGBA*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-ColorRGBA VertexBuffer::Color4(int iUnit, int i) const
+SEColorRGBA VertexBuffer::Color4(int iUnit, int i) const
 {
     SE_ASSERT( m_Attributes.GetColorChannels(iUnit) == 4 );
 
     int iIndex = m_iVertexSize*i + m_Attributes.GetColorOffset(iUnit);
 
-    return *(ColorRGBA*)(m_pChannel + iIndex);
+    return *(SEColorRGBA*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
 float& VertexBuffer::TCoord1(int iUnit, int i)
@@ -278,40 +278,40 @@ SEVector2f VertexBuffer::TCoord2(int iUnit, int i) const
     return *(SEVector2f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-Vector3f& VertexBuffer::TCoord3(int iUnit, int i)
+SEVector3f& VertexBuffer::TCoord3(int iUnit, int i)
 {
     SE_ASSERT( m_Attributes.GetTCoordChannels(iUnit) == 3 );
 
     int iIndex = m_iVertexSize*i + m_Attributes.GetTCoordOffset(iUnit);
 
-    return *(Vector3f*)(m_pChannel + iIndex);
+    return *(SEVector3f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-Vector3f VertexBuffer::TCoord3(int iUnit, int i) const
+SEVector3f VertexBuffer::TCoord3(int iUnit, int i) const
 {
     SE_ASSERT( m_Attributes.GetTCoordChannels(iUnit) == 3 );
 
     int iIndex = m_iVertexSize*i + m_Attributes.GetTCoordOffset(iUnit);
 
-    return *(Vector3f*)(m_pChannel + iIndex);
+    return *(SEVector3f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-Vector4f& VertexBuffer::TCoord4(int iUnit, int i)
+SEVector4f& VertexBuffer::TCoord4(int iUnit, int i)
 {
     SE_ASSERT( m_Attributes.GetTCoordChannels(iUnit) == 4 );
 
     int iIndex = m_iVertexSize*i + m_Attributes.GetTCoordOffset(iUnit);
 
-    return *(Vector4f*)(m_pChannel + iIndex);
+    return *(SEVector4f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-Vector4f VertexBuffer::TCoord4(int iUnit, int i) const
+SEVector4f VertexBuffer::TCoord4(int iUnit, int i) const
 {
     SE_ASSERT( m_Attributes.GetTCoordChannels(iUnit) == 4 );
 
     int iIndex = m_iVertexSize*i + m_Attributes.GetTCoordOffset(iUnit);
 
-    return *(Vector4f*)(m_pChannel + iIndex);
+    return *(SEVector4f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
 void VertexBuffer::BuildCompatibleArray(const Attributes& rIAttributes,

@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline void MatrixMNf::GetTranspose(MatrixMNf& rDesMat) const
+inline void SEMatrixMNf::GetTranspose(SEMatrixMNf& rDesMat) const
 {
 	SE_ASSERT( rDesMat.m_iRows == m_iCols && rDesMat.m_iCols == m_iRows );
 
@@ -32,7 +32,7 @@ inline void MatrixMNf::GetTranspose(MatrixMNf& rDesMat) const
     }
 }
 //----------------------------------------------------------------------------
-inline void MatrixMNf::Allocate(bool bSetToZero)
+inline void SEMatrixMNf::Allocate(bool bSetToZero)
 {
     // 之前要正确初始化m_iRows,m_iCols,m_iCount
 
@@ -49,13 +49,13 @@ inline void MatrixMNf::Allocate(bool bSetToZero)
     }
 }
 //----------------------------------------------------------------------------
-inline void MatrixMNf::Deallocate()
+inline void SEMatrixMNf::Deallocate()
 {
     delete[] m_pData;
     delete[] m_ppData;
 }
 //----------------------------------------------------------------------------
-inline void MatrixMNf::SetSize(int iRows, int iCols)
+inline void SEMatrixMNf::SetSize(int iRows, int iCols)
 {
     Deallocate();
 
@@ -77,33 +77,33 @@ inline void MatrixMNf::SetSize(int iRows, int iCols)
     }
 }
 //----------------------------------------------------------------------------
-inline void MatrixMNf::GetSize(int& riRows, int& riCols) const
+inline void SEMatrixMNf::GetSize(int& riRows, int& riCols) const
 {
     riRows = m_iRows;
     riCols = m_iCols;
 }
 //----------------------------------------------------------------------------
-inline int MatrixMNf::GetRows() const
+inline int SEMatrixMNf::GetRows() const
 {
     return m_iRows;
 }
 //----------------------------------------------------------------------------
-inline int MatrixMNf::GetCols() const
+inline int SEMatrixMNf::GetCols() const
 {
     return m_iCols;
 }
 //----------------------------------------------------------------------------
-inline int MatrixMNf::GetCount() const
+inline int SEMatrixMNf::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-inline int MatrixMNf::CompareData(const MatrixMNf& rMat) const
+inline int SEMatrixMNf::CompareData(const SEMatrixMNf& rMat) const
 {
     return memcmp(m_pData, rMat.m_pData, m_iCount*sizeof(float));
 }
 //----------------------------------------------------------------------------
-inline void MatrixMNf::SetRow(int iDesRow, const VectorNf& rSrcVec)
+inline void SEMatrixMNf::SetRow(int iDesRow, const SEVectorNf& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesRow && iDesRow < m_iRows );
     SE_ASSERT( rSrcVec.GetSize() == m_iCols );
@@ -114,7 +114,7 @@ inline void MatrixMNf::SetRow(int iDesRow, const VectorNf& rSrcVec)
     }
 }
 //----------------------------------------------------------------------------
-inline void MatrixMNf::GetRow(int iSrcRow, VectorNf& rDesVec) const
+inline void SEMatrixMNf::GetRow(int iSrcRow, SEVectorNf& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcRow && iSrcRow < m_iRows );
     SE_ASSERT( rDesVec.GetSize() == m_iRows );
@@ -125,7 +125,7 @@ inline void MatrixMNf::GetRow(int iSrcRow, VectorNf& rDesVec) const
     }
 }
 //----------------------------------------------------------------------------
-inline void MatrixMNf::SetCol(int iDesCol, const VectorNf& rSrcVec)
+inline void SEMatrixMNf::SetCol(int iDesCol, const SEVectorNf& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesCol && iDesCol < m_iCols );
     SE_ASSERT( rSrcVec.GetSize() == m_iRows );
@@ -136,7 +136,7 @@ inline void MatrixMNf::SetCol(int iDesCol, const VectorNf& rSrcVec)
     }
 }
 //----------------------------------------------------------------------------
-inline void MatrixMNf::GetCol(int iSrcCol, VectorNf& rDesVec) const
+inline void SEMatrixMNf::GetCol(int iSrcCol, SEVectorNf& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcCol && iSrcCol < m_iCols );
 	SE_ASSERT( rDesVec.GetSize() == m_iCols );

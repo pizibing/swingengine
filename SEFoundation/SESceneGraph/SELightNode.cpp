@@ -36,7 +36,7 @@ LightNode::LightNode(Light* pLight)
     if( m_spLight )
     {
         Local.SetTranslate(m_spLight->Position);
-        Local.SetRotate(Matrix3f(m_spLight->RVector, m_spLight->UVector,
+        Local.SetRotate(SEMatrix3f(m_spLight->RVector, m_spLight->UVector,
             m_spLight->DVector));
     }
 }
@@ -52,7 +52,7 @@ void LightNode::SetLight(Light* pLight)
     if( m_spLight )
     {
         Local.SetTranslate(m_spLight->Position);
-        Local.SetRotate(Matrix3f(m_spLight->RVector, m_spLight->UVector,
+        Local.SetRotate(SEMatrix3f(m_spLight->RVector, m_spLight->UVector,
             m_spLight->DVector));
 
         UpdateGS();

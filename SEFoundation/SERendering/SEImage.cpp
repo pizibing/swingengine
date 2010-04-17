@@ -164,11 +164,11 @@ Image::~Image()
     }
 }
 //----------------------------------------------------------------------------
-ColorRGBA* Image::CreateRGBA() const
+SEColorRGBA* Image::CreateRGBA() const
 {
     if( !IsCubeImage() )
     {
-        ColorRGBA* pColorImage = SE_NEW ColorRGBA[m_iCount];
+        SEColorRGBA* pColorImage = SE_NEW SEColorRGBA[m_iCount];
         CopyRGBA(pColorImage);
 
         return pColorImage;
@@ -178,10 +178,10 @@ ColorRGBA* Image::CreateRGBA() const
     return 0;
 }
 //----------------------------------------------------------------------------
-void Image::CopyRGBA(ColorRGBA* pColorImage) const
+void Image::CopyRGBA(SEColorRGBA* pColorImage) const
 {
     const float fInv255 = 1.0f / 255.0f;
-    ColorRGBA* pColorValue;
+    SEColorRGBA* pColorValue;
     const unsigned char* pucValue;
     int i;
 
@@ -369,14 +369,14 @@ Image* Image::GenerateRandomImage(FormatMode eFormat, int iBound0,
 
     unsigned char* aucData = SE_NEW unsigned char[iDataSize];
     unsigned char* pucData = aucData;
-    Mathf::SymmetricRandom(uiSeed);
+    SEMathf::SymmetricRandom(uiSeed);
     for( int i = 0; i < iBound0*iBound1; i++ )
     {
-        Vector4f vec4fRandom;
-        vec4fRandom.X = Mathf::SymmetricRandom();
-        vec4fRandom.Y = Mathf::SymmetricRandom();
-        vec4fRandom.Z = Mathf::SymmetricRandom();
-        vec4fRandom.W = Mathf::SymmetricRandom();
+        SEVector4f vec4fRandom;
+        vec4fRandom.X = SEMathf::SymmetricRandom();
+        vec4fRandom.Y = SEMathf::SymmetricRandom();
+        vec4fRandom.Z = SEMathf::SymmetricRandom();
+        vec4fRandom.W = SEMathf::SymmetricRandom();
         vec4fRandom.Normalize();
         vec4fRandom *= 0.5f;
         vec4fRandom += 0.5f;
@@ -397,7 +397,7 @@ Image* Image::GenerateRandomImage(FormatMode eFormat, int iBound0,
 }
 //----------------------------------------------------------------------------
 Image* Image::GenerateColorImage(FormatMode eFormat, int iBound0, int iBound1,
-    const ColorRGBA& rColor, const char* acImageName, bool bInsert)
+    const SEColorRGBA& rColor, const char* acImageName, bool bInsert)
 {
     //SE_ASSERT( IsPowerOfTwo((unsigned int)iBound0)
     //     && IsPowerOfTwo((unsigned int)iBound1) );

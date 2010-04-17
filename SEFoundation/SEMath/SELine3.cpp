@@ -24,12 +24,12 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Line3f::Line3f()
+SELine3f::SELine3f()
 {
 }
 //----------------------------------------------------------------------------
-Line3f::Line3f(const Vector3f& rOrigin,
-    const Vector3f& rDirection)
+SELine3f::SELine3f(const SEVector3f& rOrigin,
+    const SEVector3f& rDirection)
     :
     Origin(rOrigin),
     Direction(rDirection)

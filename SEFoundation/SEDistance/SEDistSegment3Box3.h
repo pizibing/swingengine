@@ -35,28 +35,28 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090119
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API DistSegment3Box3f : public Distance<float, Vector3f>
+class SE_FOUNDATION_API DistSegment3Box3f : public Distance<float, SEVector3f>
 {
 public:
-    DistSegment3Box3f(const Segment3f& rSegment, const Box3f& rBox);
+    DistSegment3Box3f(const SESegment3f& rSegment, const SEBox3f& rBox);
 
     // 对象访问.
-    const Segment3f& GetSegment(void) const;
-    const Box3f& GetBox(void) const;
+    const SESegment3f& GetSegment(void) const;
+    const SEBox3f& GetBox(void) const;
 
     // static distance查询.
     virtual float Get(void);
     virtual float GetSquared(void);
 
     // 用于dynamic distance查询的convex function计算.
-    virtual float Get(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
-    virtual float GetSquared(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual float Get(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
+    virtual float GetSquared(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
 private:
-    const Segment3f* m_pSegment;
-    const Box3f* m_pBox;
+    const SESegment3f* m_pSegment;
+    const SEBox3f* m_pBox;
 };
 
 }

@@ -44,7 +44,7 @@ inline float& SkinController::Weight(int iVertex, int iBone)
     return m_aafWeight[iVertex][iBone];
 }
 //----------------------------------------------------------------------------
-inline Vector3f& SkinController::Offset(int iVertex, int iBone)
+inline SEVector3f& SkinController::Offset(int iVertex, int iBone)
 {
     SE_ASSERT( 0 <= iVertex && iVertex < m_iVertexCount );
     SE_ASSERT( 0 <= iBone && iBone < m_iBoneCount );

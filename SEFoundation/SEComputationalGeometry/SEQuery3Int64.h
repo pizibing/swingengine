@@ -39,17 +39,17 @@ public:
     // The components of the input vertices are truncated to 64-bit integer
     // values, so you should guarantee that the vertices are sufficiently
     // large to give a good distribution of numbers.
-    Query3Int64f(int iVCount, const Vector3f* aVertex);
+    Query3Int64f(int iVCount, const SEVector3f* aVertex);
 
     // run-time type information
     virtual Query::Type GetType(void) const;
 
     // Queries about the relation of a point to various geometric objects.
 
-    virtual int ToPlane(const Vector3f& rP, int iV0, int iV1, int iV2)
+    virtual int ToPlane(const SEVector3f& rP, int iV0, int iV1, int iV2)
         const;
 
-    virtual int ToCircumsphere(const Vector3f& rP, int iV0, int iV1, 
+    virtual int ToCircumsphere(const SEVector3f& rP, int iV0, int iV1, 
         int iV2, int iV3) const;
 
 private:

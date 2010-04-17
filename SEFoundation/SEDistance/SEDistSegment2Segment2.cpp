@@ -24,20 +24,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistSegment2Segment2f::DistSegment2Segment2f(const Segment2f& rSegment0, 
-    const Segment2f& rSegment1)
+DistSegment2Segment2f::DistSegment2Segment2f(const SESegment2f& rSegment0, 
+    const SESegment2f& rSegment1)
     :
     m_pSegment0(&rSegment0),
     m_pSegment1(&rSegment1)
 {
 }
 //----------------------------------------------------------------------------
-const Segment2f& DistSegment2Segment2f::GetSegment0() const
+const SESegment2f& DistSegment2Segment2f::GetSegment0() const
 {
     return *m_pSegment0;
 }
 //----------------------------------------------------------------------------
-const Segment2f& DistSegment2Segment2f::GetSegment1() const
+const SESegment2f& DistSegment2Segment2f::GetSegment1() const
 {
     return *m_pSegment1;
 }
@@ -46,7 +46,7 @@ float DistSegment2Segment2f::Get()
 {
     float fSqrDist = GetSquared();
 
-    return Math<float>::Sqrt(fSqrDist);
+    return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistSegment2Segment2f::GetSquared()
@@ -56,10 +56,10 @@ float DistSegment2Segment2f::GetSquared()
     float fB0 = vec2fDiff.Dot(m_pSegment0->Direction);
     float fB1 = -vec2fDiff.Dot(m_pSegment1->Direction);
     float fC = vec2fDiff.GetSquaredLength();
-    float fDet = Math<float>::FAbs(1.0f - fA01*fA01);
+    float fDet = SEMath<float>::FAbs(1.0f - fA01*fA01);
     float fS0, fS1, fSqrDist, fExtDet0, fExtDet1, fTmpS0, fTmpS1;
 
-    if( fDet >= Math<float>::ZERO_TOLERANCE )
+    if( fDet >= SEMath<float>::ZERO_TOLERANCE )
     {
         // 两线段不平行.
         fS0 = fA01*fB1 - fB0;
@@ -364,7 +364,7 @@ float DistSegment2Segment2f::GetSquared()
     m_ClosestPoint0 = m_pSegment0->Origin + fS0*m_pSegment0->Direction;
     m_ClosestPoint1 = m_pSegment1->Origin + fS1*m_pSegment1->Direction;
 
-    return Math<float>::FAbs(fSqrDist);
+    return SEMath<float>::FAbs(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistSegment2Segment2f::Get(float fS1, const SEVector2f& rVelocity0, 
@@ -372,9 +372,9 @@ float DistSegment2Segment2f::Get(float fS1, const SEVector2f& rVelocity0,
 {
     SEVector2f vec2fMOrigin0 = m_pSegment0->Origin + fS1*rVelocity0;
     SEVector2f vec2fMOrigin1 = m_pSegment1->Origin + fS1*rVelocity1;
-    Segment2f tempMSegment0(vec2fMOrigin0, m_pSegment0->Direction,
+    SESegment2f tempMSegment0(vec2fMOrigin0, m_pSegment0->Direction,
         m_pSegment0->Extent);
-    Segment2f tempMSegment1(vec2fMOrigin1, m_pSegment1->Direction,
+    SESegment2f tempMSegment1(vec2fMOrigin1, m_pSegment1->Direction,
         m_pSegment1->Extent);
 
     return DistSegment2Segment2f(tempMSegment0, tempMSegment1).Get();
@@ -385,9 +385,9 @@ float DistSegment2Segment2f::GetSquared(float fS1, const SEVector2f& rVelocity0,
 {
     SEVector2f vec2fMOrigin0 = m_pSegment0->Origin + fS1*rVelocity0;
     SEVector2f vec2fMOrigin1 = m_pSegment1->Origin + fS1*rVelocity1;
-    Segment2f tempMSegment0(vec2fMOrigin0, m_pSegment0->Direction,
+    SESegment2f tempMSegment0(vec2fMOrigin0, m_pSegment0->Direction,
         m_pSegment0->Extent);
-    Segment2f tempMSegment1(vec2fMOrigin1, m_pSegment1->Direction,
+    SESegment2f tempMSegment1(vec2fMOrigin1, m_pSegment1->Direction,
         m_pSegment1->Extent);
 
     return DistSegment2Segment2f(tempMSegment0, tempMSegment1).GetSquared();

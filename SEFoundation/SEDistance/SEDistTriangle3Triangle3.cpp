@@ -25,20 +25,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistTriangle3Triangle3f::DistTriangle3Triangle3f(const Triangle3f& rTriangle0, 
-    const Triangle3f& rTriangle1)
+DistTriangle3Triangle3f::DistTriangle3Triangle3f(const SETriangle3f& rTriangle0, 
+    const SETriangle3f& rTriangle1)
     :
     m_pTriangle0(&rTriangle0),
     m_pTriangle1(&rTriangle1)
 {
 }
 //----------------------------------------------------------------------------
-const Triangle3f& DistTriangle3Triangle3f::GetTriangle0() const
+const SETriangle3f& DistTriangle3Triangle3f::GetTriangle0() const
 {
     return *m_pTriangle0;
 }
 //----------------------------------------------------------------------------
-const Triangle3f& DistTriangle3Triangle3f::GetTriangle1() const
+const SETriangle3f& DistTriangle3Triangle3f::GetTriangle1() const
 {
     return *m_pTriangle1;
 }
@@ -47,14 +47,14 @@ float DistTriangle3Triangle3f::Get()
 {
     float fSqrDist = GetSquared();
 
-    return Math<float>::Sqrt(fSqrDist);
+    return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistTriangle3Triangle3f::GetSquared()
 {
     // 把triangle0的各边和triangle1进行比较.
-    float fSqrDist = Math<float>::MAX_REAL, fSqrDistTmp;
-    Segment3f tempSeg;
+    float fSqrDist = SEMath<float>::MAX_REAL, fSqrDistTmp;
+    SESegment3f tempSeg;
     float fRatio;
     int i0, i1;
     for( i0 = 2, i1 = 0; i1 < 3; i0 = i1++ )
@@ -78,7 +78,7 @@ float DistTriangle3Triangle3f::GetSquared()
             m_afTriangleBary1[1] = tempSTDist.GetTriangleBary(1);
             m_afTriangleBary1[2] = tempSTDist.GetTriangleBary(2);
 
-            if( fSqrDist <= Math<float>::ZERO_TOLERANCE )
+            if( fSqrDist <= SEMath<float>::ZERO_TOLERANCE )
             {
                 return 0.0f;
             }
@@ -107,7 +107,7 @@ float DistTriangle3Triangle3f::GetSquared()
             m_afTriangleBary0[1] = tempSTDist.GetTriangleBary(1);
             m_afTriangleBary0[2] = tempSTDist.GetTriangleBary(2);
 
-            if( fSqrDist <= Math<float>::ZERO_TOLERANCE )
+            if( fSqrDist <= SEMath<float>::ZERO_TOLERANCE )
             {
                 return 0.0f;
             }
@@ -117,32 +117,32 @@ float DistTriangle3Triangle3f::GetSquared()
     return fSqrDist;
 }
 //----------------------------------------------------------------------------
-float DistTriangle3Triangle3f::Get(float fT, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistTriangle3Triangle3f::Get(float fT, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMV00 = m_pTriangle0->V[0] + fT*rVelocity0;
-    Vector3f vec3fMV01 = m_pTriangle0->V[1] + fT*rVelocity0;
-    Vector3f vec3fMV02 = m_pTriangle0->V[2] + fT*rVelocity0;
-    Vector3f vec3fMV10 = m_pTriangle1->V[0] + fT*rVelocity1;
-    Vector3f vec3fMV11 = m_pTriangle1->V[1] + fT*rVelocity1;
-    Vector3f vec3fMV12 = m_pTriangle1->V[2] + fT*rVelocity1;
-    Triangle3f tempMTriangle0(vec3fMV00, vec3fMV01, vec3fMV02);
-    Triangle3f tempMTriangle1(vec3fMV10, vec3fMV11, vec3fMV12);
+    SEVector3f vec3fMV00 = m_pTriangle0->V[0] + fT*rVelocity0;
+    SEVector3f vec3fMV01 = m_pTriangle0->V[1] + fT*rVelocity0;
+    SEVector3f vec3fMV02 = m_pTriangle0->V[2] + fT*rVelocity0;
+    SEVector3f vec3fMV10 = m_pTriangle1->V[0] + fT*rVelocity1;
+    SEVector3f vec3fMV11 = m_pTriangle1->V[1] + fT*rVelocity1;
+    SEVector3f vec3fMV12 = m_pTriangle1->V[2] + fT*rVelocity1;
+    SETriangle3f tempMTriangle0(vec3fMV00, vec3fMV01, vec3fMV02);
+    SETriangle3f tempMTriangle1(vec3fMV10, vec3fMV11, vec3fMV12);
 
     return DistTriangle3Triangle3f(tempMTriangle0, tempMTriangle1).Get();
 }
 //----------------------------------------------------------------------------
 float DistTriangle3Triangle3f::GetSquared(float fT, 
-    const Vector3f& rVelocity0, const Vector3f& rVelocity1)
+    const SEVector3f& rVelocity0, const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMV00 = m_pTriangle0->V[0] + fT*rVelocity0;
-    Vector3f vec3fMV01 = m_pTriangle0->V[1] + fT*rVelocity0;
-    Vector3f vec3fMV02 = m_pTriangle0->V[2] + fT*rVelocity0;
-    Vector3f vec3fMV10 = m_pTriangle1->V[0] + fT*rVelocity1;
-    Vector3f vec3fMV11 = m_pTriangle1->V[1] + fT*rVelocity1;
-    Vector3f vec3fMV12 = m_pTriangle1->V[2] + fT*rVelocity1;
-    Triangle3f tempMTriangle0(vec3fMV00, vec3fMV01, vec3fMV02);
-    Triangle3f tempMTriangle1(vec3fMV10, vec3fMV11, vec3fMV12);
+    SEVector3f vec3fMV00 = m_pTriangle0->V[0] + fT*rVelocity0;
+    SEVector3f vec3fMV01 = m_pTriangle0->V[1] + fT*rVelocity0;
+    SEVector3f vec3fMV02 = m_pTriangle0->V[2] + fT*rVelocity0;
+    SEVector3f vec3fMV10 = m_pTriangle1->V[0] + fT*rVelocity1;
+    SEVector3f vec3fMV11 = m_pTriangle1->V[1] + fT*rVelocity1;
+    SEVector3f vec3fMV12 = m_pTriangle1->V[2] + fT*rVelocity1;
+    SETriangle3f tempMTriangle0(vec3fMV00, vec3fMV01, vec3fMV02);
+    SETriangle3f tempMTriangle1(vec3fMV10, vec3fMV11, vec3fMV12);
 
     return DistTriangle3Triangle3f(tempMTriangle0, tempMTriangle1).GetSquared();
 }

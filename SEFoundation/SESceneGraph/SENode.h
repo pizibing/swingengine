@@ -57,7 +57,7 @@ public:
     // Picking support.
     // 射线的原点和方向向量都必须在世界坐标系下.
     // 应用程序有责任迭代释放PickArray中的所有pick record.
-    virtual void DoPick(const Ray3f& rRay, PickArray& rResults);
+    virtual void DoPick(const SERay3f& rRay, PickArray& rResults);
 
 protected:
     // 几何数据更新

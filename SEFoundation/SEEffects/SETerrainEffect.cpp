@@ -34,7 +34,7 @@ bool TerrainEffect::ms_bFogColorDensityUCInitialized = false;
 
 //----------------------------------------------------------------------------
 TerrainEffect::TerrainEffect(const char* acBaseName,
-    const char* acDetailName, const ColorRGB& rFogColor, float fFogDensity)
+    const char* acDetailName, const SEColorRGB& rFogColor, float fFogDensity)
     :
     ShaderEffect(1)
 {
@@ -132,7 +132,7 @@ SEStringTree* TerrainEffect::SaveStrings(const char*)
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
-    ColorRGB tempColor(ms_afFogColorDensity[0], ms_afFogColorDensity[1],
+    SEColorRGB tempColor(ms_afFogColorDensity[0], ms_afFogColorDensity[1],
         ms_afFogColorDensity[2]);
     pTree->Append(Format("fog color =", tempColor));
     pTree->Append(Format("fog density =", ms_afFogColorDensity[3]));

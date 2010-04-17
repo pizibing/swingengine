@@ -60,7 +60,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20070512
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Matrix2f
+class SE_FOUNDATION_API SEMatrix2f
 {
 public:
     union
@@ -74,17 +74,17 @@ public:
     };
 
 public:
-    Matrix2f(void);
-    Matrix2f(const Matrix2f& rMat);
-    Matrix2f(float fM11, float fM12, float fM21, float fM22);
+    SEMatrix2f(void);
+    SEMatrix2f(const SEMatrix2f& rMat);
+    SEMatrix2f(float fM11, float fM12, float fM21, float fM22);
 	// 默认用行向量构建矩阵
-    Matrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV, bool bIsRow = true);
+    SEMatrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV, bool bIsRow = true);
     // 创建对角矩阵
-    Matrix2f(float fM11, float fM22);
+    SEMatrix2f(float fM11, float fM22);
 	// 创建旋转矩阵,弧度制,fAngle > 0为逆时针旋转
-    Matrix2f(float fAngle);
+    SEMatrix2f(float fAngle);
     // 用列向量U和行向量V的张量积构建矩阵
-    Matrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV);
+    SEMatrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV);
 
     operator const float* (void) const;
     operator float* (void);
@@ -98,33 +98,33 @@ public:
     inline void SetColumn(int iDesCol, const SEVector2f& rSrcVec);
     inline void GetColumn(int SrciCol, SEVector2f& rDesVec) const;
 
-    Matrix2f& operator = (const Matrix2f& rMat);
+    SEMatrix2f& operator = (const SEMatrix2f& rMat);
 
-    bool operator == (const Matrix2f& rMat) const;
-    bool operator != (const Matrix2f& rMat) const;
-    bool operator < (const Matrix2f& rMat) const;
-    bool operator <= (const Matrix2f& rMat) const;
-    bool operator > (const Matrix2f& rMat) const;
-    bool operator >= (const Matrix2f& rMat) const;
+    bool operator == (const SEMatrix2f& rMat) const;
+    bool operator != (const SEMatrix2f& rMat) const;
+    bool operator < (const SEMatrix2f& rMat) const;
+    bool operator <= (const SEMatrix2f& rMat) const;
+    bool operator > (const SEMatrix2f& rMat) const;
+    bool operator >= (const SEMatrix2f& rMat) const;
 
-    Matrix2f operator + (const Matrix2f& rMat) const;
-    Matrix2f operator - (const Matrix2f& rMat) const;
-    Matrix2f operator * (const Matrix2f& rMat) const;
-    Matrix2f operator * (float fScalar) const;
-    Matrix2f operator / (float fScalar) const;
-    Matrix2f operator - (void) const;
+    SEMatrix2f operator + (const SEMatrix2f& rMat) const;
+    SEMatrix2f operator - (const SEMatrix2f& rMat) const;
+    SEMatrix2f operator * (const SEMatrix2f& rMat) const;
+    SEMatrix2f operator * (float fScalar) const;
+    SEMatrix2f operator / (float fScalar) const;
+    SEMatrix2f operator - (void) const;
 
-    Matrix2f& operator += (const Matrix2f& rMat);
-    Matrix2f& operator -= (const Matrix2f& rMat);
-    Matrix2f& operator *= (float fScalar);
-    Matrix2f& operator /= (float fScalar);
+    SEMatrix2f& operator += (const SEMatrix2f& rMat);
+    SEMatrix2f& operator -= (const SEMatrix2f& rMat);
+    SEMatrix2f& operator *= (float fScalar);
+    SEMatrix2f& operator /= (float fScalar);
 
     SEVector2f operator * (const SEVector2f& rVec) const;
 
-    SE_FOUNDATION_API friend Matrix2f operator * (float fLhsScalar, 
-        const Matrix2f& rRhsMat);
+    SE_FOUNDATION_API friend SEMatrix2f operator * (float fLhsScalar, 
+        const SEMatrix2f& rRhsMat);
     SE_FOUNDATION_API friend SEVector2f operator * (const SEVector2f& rLhsVec, 
-        const Matrix2f& rRhsMat);
+        const SEMatrix2f& rRhsMat);
 
     // 置为0矩阵
     inline void Zero(void);
@@ -137,32 +137,32 @@ public:
     // 将自己转置
     void Transpose(void);
     // 获取转置矩阵
-    inline void GetTranspose(Matrix2f& rDesMat) const;
+    inline void GetTranspose(SEMatrix2f& rDesMat) const;
     // 将自己求逆
     void Inverse(void);
     // 获取逆矩阵
-    inline void GetInverse(Matrix2f& rDesMat) const;
+    inline void GetInverse(SEMatrix2f& rDesMat) const;
     // 获取伴随矩阵
-    inline void GetAdjoint(Matrix2f& rDesMat) const;
+    inline void GetAdjoint(SEMatrix2f& rDesMat) const;
     // 获取行列式
     inline float GetDeterminant(void) const;
     // this^T * M
-    inline void GetTransposeTimes(const Matrix2f& rRhsMat, 
-        Matrix2f& rDesMat) const;
+    inline void GetTransposeTimes(const SEMatrix2f& rRhsMat, 
+        SEMatrix2f& rDesMat) const;
     // this * M^T
-    inline void GetTimesTranspose(const Matrix2f& rRhsMat, 
-        Matrix2f& rDesMat) const;
+    inline void GetTimesTranspose(const SEMatrix2f& rRhsMat, 
+        SEMatrix2f& rDesMat) const;
 
     // 构建旋转矩阵
     inline void FromAngle(float fAngle);
     // 必须为旋转矩阵,解析出旋转角度
     inline void ToAngle(float& rfAngle) const;
 
-    static const Matrix2f ZERO;
-    static const Matrix2f IDENTITY;
+    static const SEMatrix2f ZERO;
+    static const SEMatrix2f IDENTITY;
 
 private:
-    inline int CompareData(const Matrix2f& rMat) const;
+    inline int CompareData(const SEMatrix2f& rMat) const;
 };
 
 //----------------------------------------------------------------------------
@@ -171,7 +171,7 @@ private:
 // 作者:Sun Che
 // 时间:20090516
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Matrix2d
+class SE_FOUNDATION_API SEMatrix2d
 {
 public:
     union
@@ -185,17 +185,17 @@ public:
     };
 
 public:
-    Matrix2d(void);
-    Matrix2d(const Matrix2d& rMat);
-    Matrix2d(double dM11, double dM12, double dM21, double dM22);
+    SEMatrix2d(void);
+    SEMatrix2d(const SEMatrix2d& rMat);
+    SEMatrix2d(double dM11, double dM12, double dM21, double dM22);
 	// 默认用行向量构建矩阵
-    Matrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV, bool bIsRow = true);
+    SEMatrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV, bool bIsRow = true);
     // 创建对角矩阵
-    Matrix2d(double dM11, double dM22);
+    SEMatrix2d(double dM11, double dM22);
 	// 创建旋转矩阵,弧度制,dAngle > 0为逆时针旋转
-    Matrix2d(double dAngle);
+    SEMatrix2d(double dAngle);
     // 用列向量U和行向量V的张量积构建矩阵
-    Matrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV);
+    SEMatrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV);
 
     operator const double* (void) const;
     operator double* (void);
@@ -209,33 +209,33 @@ public:
     inline void SetColumn(int iDesCol, const SEVector2d& rSrcVec);
     inline void GetColumn(int SrciCol, SEVector2d& rDesVec) const;
 
-    Matrix2d& operator = (const Matrix2d& rMat);
+    SEMatrix2d& operator = (const SEMatrix2d& rMat);
 
-    bool operator == (const Matrix2d& rMat) const;
-    bool operator != (const Matrix2d& rMat) const;
-    bool operator < (const Matrix2d& rMat) const;
-    bool operator <= (const Matrix2d& rMat) const;
-    bool operator > (const Matrix2d& rMat) const;
-    bool operator >= (const Matrix2d& rMat) const;
+    bool operator == (const SEMatrix2d& rMat) const;
+    bool operator != (const SEMatrix2d& rMat) const;
+    bool operator < (const SEMatrix2d& rMat) const;
+    bool operator <= (const SEMatrix2d& rMat) const;
+    bool operator > (const SEMatrix2d& rMat) const;
+    bool operator >= (const SEMatrix2d& rMat) const;
 
-    Matrix2d operator + (const Matrix2d& rMat) const;
-    Matrix2d operator - (const Matrix2d& rMat) const;
-    Matrix2d operator * (const Matrix2d& rMat) const;
-    Matrix2d operator * (double dScalar) const;
-    Matrix2d operator / (double dScalar) const;
-    Matrix2d operator - (void) const;
+    SEMatrix2d operator + (const SEMatrix2d& rMat) const;
+    SEMatrix2d operator - (const SEMatrix2d& rMat) const;
+    SEMatrix2d operator * (const SEMatrix2d& rMat) const;
+    SEMatrix2d operator * (double dScalar) const;
+    SEMatrix2d operator / (double dScalar) const;
+    SEMatrix2d operator - (void) const;
 
-    Matrix2d& operator += (const Matrix2d& rMat);
-    Matrix2d& operator -= (const Matrix2d& rMat);
-    Matrix2d& operator *= (double dScalar);
-    Matrix2d& operator /= (double dScalar);
+    SEMatrix2d& operator += (const SEMatrix2d& rMat);
+    SEMatrix2d& operator -= (const SEMatrix2d& rMat);
+    SEMatrix2d& operator *= (double dScalar);
+    SEMatrix2d& operator /= (double dScalar);
 
     SEVector2d operator * (const SEVector2d& rVec) const;
 
-    SE_FOUNDATION_API friend Matrix2d operator * (double dLhsScalar, 
-        const Matrix2d& rRhsMat);
+    SE_FOUNDATION_API friend SEMatrix2d operator * (double dLhsScalar, 
+        const SEMatrix2d& rRhsMat);
     SE_FOUNDATION_API friend SEVector2d operator * (const SEVector2d& rLhsVec, 
-        const Matrix2d& rRhsMat);
+        const SEMatrix2d& rRhsMat);
 
     // 置为0矩阵
     inline void Zero(void);
@@ -248,32 +248,32 @@ public:
     // 将自己转置
     void Transpose(void);
     // 获取转置矩阵
-    inline void GetTranspose(Matrix2d& rDesMat) const;
+    inline void GetTranspose(SEMatrix2d& rDesMat) const;
     // 将自己求逆
     void Inverse(void);
     // 获取逆矩阵
-    inline void GetInverse(Matrix2d& rDesMat) const;
+    inline void GetInverse(SEMatrix2d& rDesMat) const;
     // 获取伴随矩阵
-    inline void GetAdjoint(Matrix2d& rDesMat) const;
+    inline void GetAdjoint(SEMatrix2d& rDesMat) const;
     // 获取行列式
     inline double GetDeterminant(void) const;
     // this^T * M
-    inline void GetTransposeTimes(const Matrix2d& rRhsMat, 
-        Matrix2d& rDesMat) const;
+    inline void GetTransposeTimes(const SEMatrix2d& rRhsMat, 
+        SEMatrix2d& rDesMat) const;
     // this * M^T
-    inline void GetTimesTranspose(const Matrix2d& rRhsMat, 
-        Matrix2d& rDesMat) const;
+    inline void GetTimesTranspose(const SEMatrix2d& rRhsMat, 
+        SEMatrix2d& rDesMat) const;
 
     // 构建旋转矩阵
     inline void FromAngle(double dAngle);
     // 必须为旋转矩阵,解析出旋转角度
     inline void ToAngle(double& rdAngle) const;
 
-    static const Matrix2d ZERO;
-    static const Matrix2d IDENTITY;
+    static const SEMatrix2d ZERO;
+    static const SEMatrix2d IDENTITY;
 
 private:
-    inline int CompareData(const Matrix2d& rMat) const;
+    inline int CompareData(const SEMatrix2d& rMat) const;
 };
 
 #include "SEMatrix2.inl"

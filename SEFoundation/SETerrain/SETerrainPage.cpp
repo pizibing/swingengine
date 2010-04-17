@@ -66,7 +66,7 @@ TerrainPage::TerrainPage(const Attributes& rAttr, int iSize,
     {
         int iX = i % m_iSize;
         int iZ = i / m_iSize;
-        VBuffer->Position3(i) = Vector3f(GetX(iX), GetHeight(i), GetZ(iZ));
+        VBuffer->Position3(i) = SEVector3f(GetX(iX), GetHeight(i), GetZ(iZ));
     }
 
     UpdateMS();
@@ -108,19 +108,19 @@ float TerrainPage::GetHeight(float fX, float fZ) const
     if( fXGrid < 0.0f || fXGrid >= (float)m_iSizeM1 )
     {
         // 指定位置不在page中.
-        return Mathf::MAX_REAL;
+        return SEMathf::MAX_REAL;
     }
 
     float fZGrid = (fZ - m_Origin.Y) * m_fInvSpacing;
     if( fZGrid < 0.0f || fZGrid >= (float)m_iSizeM1 )
     {
         // 指定位置不在page中.
-        return Mathf::MAX_REAL;
+        return SEMathf::MAX_REAL;
     }
 
-    float fCol = Mathf::Floor(fXGrid);
+    float fCol = SEMathf::Floor(fXGrid);
     int iCol = (int)fCol;
-    float fRow = Mathf::Floor(fZGrid);
+    float fRow = SEMathf::Floor(fZGrid);
     int iRow = (int)fRow;
 
     int iIndex = iCol + m_iSize*iRow;

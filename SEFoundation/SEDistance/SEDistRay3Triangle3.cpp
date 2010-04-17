@@ -26,20 +26,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistRay3Triangle3f::DistRay3Triangle3f(const Ray3f& rRay,
-    const Triangle3f& rTriangle)
+DistRay3Triangle3f::DistRay3Triangle3f(const SERay3f& rRay,
+    const SETriangle3f& rTriangle)
     :
     m_pRay(&rRay),
     m_pTriangle(&rTriangle)
 {
 }
 //----------------------------------------------------------------------------
-const Ray3f& DistRay3Triangle3f::GetRay() const
+const SERay3f& DistRay3Triangle3f::GetRay() const
 {
     return *m_pRay;
 }
 //----------------------------------------------------------------------------
-const Triangle3f& DistRay3Triangle3f::GetTriangle() const
+const SETriangle3f& DistRay3Triangle3f::GetTriangle() const
 {
     return *m_pTriangle;
 }
@@ -48,12 +48,12 @@ float DistRay3Triangle3f::Get()
 {
     float fSqrDist = GetSquared();
 
-    return Math<float>::Sqrt(fSqrDist);
+    return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistRay3Triangle3f::GetSquared()
 {
-    DistLine3Triangle3f tempLTDist(Line3f(m_pRay->Origin, m_pRay->Direction),
+    DistLine3Triangle3f tempLTDist(SELine3f(m_pRay->Origin, m_pRay->Direction),
         *m_pTriangle);
 
     float fSqrDist = tempLTDist.GetSquared();
@@ -82,28 +82,28 @@ float DistRay3Triangle3f::GetSquared()
     return fSqrDist;
 }
 //----------------------------------------------------------------------------
-float DistRay3Triangle3f::Get(float fT, const Vector3f& rVelocity0,
-    const Vector3f& rVelocity1)
+float DistRay3Triangle3f::Get(float fT, const SEVector3f& rVelocity0,
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMOrigin = m_pRay->Origin + fT*rVelocity0;
-    Vector3f vec3fMV0 = m_pTriangle->V[0] + fT*rVelocity1;
-    Vector3f vec3fMV1 = m_pTriangle->V[1] + fT*rVelocity1;
-    Vector3f vec3fMV2 = m_pTriangle->V[2] + fT*rVelocity1;
-    Ray3f tempMRay(vec3fMOrigin, m_pRay->Direction);
-    Triangle3f tempMTriangle(vec3fMV0, vec3fMV1, vec3fMV2);
+    SEVector3f vec3fMOrigin = m_pRay->Origin + fT*rVelocity0;
+    SEVector3f vec3fMV0 = m_pTriangle->V[0] + fT*rVelocity1;
+    SEVector3f vec3fMV1 = m_pTriangle->V[1] + fT*rVelocity1;
+    SEVector3f vec3fMV2 = m_pTriangle->V[2] + fT*rVelocity1;
+    SERay3f tempMRay(vec3fMOrigin, m_pRay->Direction);
+    SETriangle3f tempMTriangle(vec3fMV0, vec3fMV1, vec3fMV2);
 
     return DistRay3Triangle3f(tempMRay, tempMTriangle).Get();
 }
 //----------------------------------------------------------------------------
-float DistRay3Triangle3f::GetSquared(float fT, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistRay3Triangle3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMOrigin = m_pRay->Origin + fT*rVelocity0;
-    Vector3f vec3fMV0 = m_pTriangle->V[0] + fT*rVelocity1;
-    Vector3f vec3fMV1 = m_pTriangle->V[1] + fT*rVelocity1;
-    Vector3f vec3fMV2 = m_pTriangle->V[2] + fT*rVelocity1;
-    Ray3f tempMRay(vec3fMOrigin, m_pRay->Direction);
-    Triangle3f tempMTriangle(vec3fMV0, vec3fMV1, vec3fMV2);
+    SEVector3f vec3fMOrigin = m_pRay->Origin + fT*rVelocity0;
+    SEVector3f vec3fMV0 = m_pTriangle->V[0] + fT*rVelocity1;
+    SEVector3f vec3fMV1 = m_pTriangle->V[1] + fT*rVelocity1;
+    SEVector3f vec3fMV2 = m_pTriangle->V[2] + fT*rVelocity1;
+    SERay3f tempMRay(vec3fMOrigin, m_pRay->Direction);
+    SETriangle3f tempMTriangle(vec3fMV0, vec3fMV1, vec3fMV2);
 
     return DistRay3Triangle3f(tempMRay, tempMTriangle).GetSquared();
 }

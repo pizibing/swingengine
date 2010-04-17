@@ -20,20 +20,20 @@
 
 //----------------------------------------------------------------------------
 template <class Real>
-LinComp<Real>::LinComp()
+SELinComp<Real>::SELinComp()
 {
     m_iType = CT_EMPTY;
-    m_fMin = Math<Real>::MAX_REAL;
-    m_fMax = -Math<Real>::MAX_REAL;
+    m_fMin = SEMath<Real>::MAX_REAL;
+    m_fMax = -SEMath<Real>::MAX_REAL;
 }
 //----------------------------------------------------------------------------
 template <class Real>
-LinComp<Real>::~LinComp()
+SELinComp<Real>::~SELinComp()
 {
 }
 //----------------------------------------------------------------------------
 template <class Real>
-LinComp<Real>& LinComp<Real>::operator=(const LinComp& rComponent)
+SELinComp<Real>& SELinComp<Real>::operator=(const SELinComp& rComponent)
 {
     m_iType = rComponent.m_iType;
     m_fMin = rComponent.m_fMin;
@@ -43,31 +43,31 @@ LinComp<Real>& LinComp<Real>::operator=(const LinComp& rComponent)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-int LinComp<Real>::GetType() const
+int SELinComp<Real>::GetType() const
 {
     return m_iType;
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real LinComp<Real>::GetMin() const
+Real SELinComp<Real>::GetMin() const
 {
     return m_fMin;
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real LinComp<Real>::GetMax() const
+Real SELinComp<Real>::GetMax() const
 {
     return m_fMax;
 }
 //----------------------------------------------------------------------------
 template <class Real>
-bool LinComp<Real>::Contains(Real fParam) const
+bool SELinComp<Real>::Contains(Real fParam) const
 {
     return m_fMin <= fParam && fParam <= m_fMax;
 }
 //----------------------------------------------------------------------------
 template <class Real>
-void LinComp<Real>::SetInterval(Real fMin, Real fMax)
+void SELinComp<Real>::SetInterval(Real fMin, Real fMax)
 {
     m_iType = GetTypeFromInterval(fMin, fMax);
     m_fMin = fMin;
@@ -75,13 +75,13 @@ void LinComp<Real>::SetInterval(Real fMin, Real fMax)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-int LinComp<Real>::GetTypeFromInterval(Real fMin, Real fMax)
+int SELinComp<Real>::GetTypeFromInterval(Real fMin, Real fMax)
 {
     if( fMin < fMax )
     {
-        if( fMax == Math<Real>::MAX_REAL )
+        if( fMax == SEMath<Real>::MAX_REAL )
         {
-            if( fMin == -Math<Real>::MAX_REAL )
+            if( fMin == -SEMath<Real>::MAX_REAL )
             {
                 return CT_LINE;
             }
@@ -92,7 +92,7 @@ int LinComp<Real>::GetTypeFromInterval(Real fMin, Real fMax)
         }
         else
         {
-            if( fMin == -Math<Real>::MAX_REAL )
+            if( fMin == -SEMath<Real>::MAX_REAL )
             {
                 return CT_RAY;
             }
@@ -104,7 +104,7 @@ int LinComp<Real>::GetTypeFromInterval(Real fMin, Real fMax)
     }
     else if( fMin == fMax )
     {
-        if( fMin != -Math<Real>::MAX_REAL && fMax != Math<Real>::MAX_REAL )
+        if( fMin != -SEMath<Real>::MAX_REAL && fMax != SEMath<Real>::MAX_REAL )
         {
             return CT_POINT;
         }
@@ -114,11 +114,11 @@ int LinComp<Real>::GetTypeFromInterval(Real fMin, Real fMax)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-bool LinComp<Real>::IsCanonical() const
+bool SELinComp<Real>::IsCanonical() const
 {
     if( m_iType == CT_RAY )
     {
-        return m_fMin == (Real)0.0 && m_fMax == Math<Real>::MAX_REAL;
+        return m_fMin == (Real)0.0 && m_fMax == SEMath<Real>::MAX_REAL;
     }
 
     if( m_iType == CT_SEGMENT )
@@ -133,8 +133,8 @@ bool LinComp<Real>::IsCanonical() const
 
     if( m_iType == CT_EMPTY )
     {
-        return m_fMin == Math<Real>::MAX_REAL
-            && m_fMax == -Math<Real>::MAX_REAL;
+        return m_fMin == SEMath<Real>::MAX_REAL
+            && m_fMax == -SEMath<Real>::MAX_REAL;
     }
 
     // m_iType == CT_LINE

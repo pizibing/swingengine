@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Query3f::Query3f (int iVCount, const Vector3f* aVertex)
+Query3f::Query3f (int iVCount, const SEVector3f* aVertex)
 {
     SE_ASSERT( iVCount > 0 && aVertex );
 
@@ -46,7 +46,7 @@ int Query3f::GetCount() const
     return m_iVCount;
 }
 //----------------------------------------------------------------------------
-const Vector3f* Query3f::GetVertices() const
+const SEVector3f* Query3f::GetVertices() const
 {
     return m_aVertex;
 }
@@ -56,11 +56,11 @@ int Query3f::ToPlane(int i, int iV0, int iV1, int iV2) const
     return ToPlane(m_aVertex[i], iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-int Query3f::ToPlane(const Vector3f& rP, int iV0, int iV1, int iV2) const
+int Query3f::ToPlane(const SEVector3f& rP, int iV0, int iV1, int iV2) const
 {
-    const Vector3f& rV0 = m_aVertex[iV0];
-    const Vector3f& rV1 = m_aVertex[iV1];
-    const Vector3f& rV2 = m_aVertex[iV2];
+    const SEVector3f& rV0 = m_aVertex[iV0];
+    const SEVector3f& rV1 = m_aVertex[iV1];
+    const SEVector3f& rV2 = m_aVertex[iV2];
 
     float fX0 = rP[0] - rV0[0];
     float fY0 = rP[1] - rV0[1];
@@ -83,7 +83,7 @@ int Query3f::ToTetrahedron(int i, int iV0, int iV1, int iV2,
     return ToTetrahedron(m_aVertex[i], iV0, iV1, iV2, iV3);
 }
 //----------------------------------------------------------------------------
-int Query3f::ToTetrahedron(const Vector3f& rP, int iV0, 
+int Query3f::ToTetrahedron(const SEVector3f& rP, int iV0, 
     int iV1, int iV2, int iV3) const
 {
     int iSign0 = ToPlane(rP, iV1, iV2, iV3);
@@ -118,13 +118,13 @@ int Query3f::ToCircumsphere(int i, int iV0, int iV1, int iV2, int iV3) const
     return ToCircumsphere(m_aVertex[i], iV0, iV1, iV2, iV3);
 }
 //----------------------------------------------------------------------------
-int Query3f::ToCircumsphere(const Vector3f& rP, int iV0, int iV1, int iV2, 
+int Query3f::ToCircumsphere(const SEVector3f& rP, int iV0, int iV1, int iV2, 
     int iV3) const
 {
-    const Vector3f& rV0 = m_aVertex[iV0];
-    const Vector3f& rV1 = m_aVertex[iV1];
-    const Vector3f& rV2 = m_aVertex[iV2];
-    const Vector3f& rV3 = m_aVertex[iV3];
+    const SEVector3f& rV0 = m_aVertex[iV0];
+    const SEVector3f& rV1 = m_aVertex[iV1];
+    const SEVector3f& rV2 = m_aVertex[iV2];
+    const SEVector3f& rV3 = m_aVertex[iV3];
 
     float fS0x = rV0[0] + rP[0];
     float fD0x = rV0[0] - rP[0];

@@ -27,25 +27,25 @@ using namespace Swing;
 // 单精度2阶方阵类
 //----------------------------------------------------------------------------
 
-const Matrix2f Matrix2f::ZERO(
+const SEMatrix2f SEMatrix2f::ZERO(
     0.0f, 0.0f, 
     0.0f, 0.0f);
-const Matrix2f Matrix2f::IDENTITY(
+const SEMatrix2f SEMatrix2f::IDENTITY(
     1.0f, 0.0f, 
     0.0f, 1.0f);
 
 //----------------------------------------------------------------------------
-Matrix2f::Matrix2f()
+SEMatrix2f::SEMatrix2f()
 {
     Zero();
 }
 //----------------------------------------------------------------------------
-Matrix2f::Matrix2f(const Matrix2f& rMat)
+SEMatrix2f::SEMatrix2f(const SEMatrix2f& rMat)
 {
     memcpy(m_fData, rMat.m_fData, 4*sizeof(float));
 }
 //----------------------------------------------------------------------------
-Matrix2f::Matrix2f(float fM11, float fM12, float fM21, float fM22)
+SEMatrix2f::SEMatrix2f(float fM11, float fM12, float fM21, float fM22)
 {
     m_fData[0][0] = fM11;
     m_fData[0][1] = fM12;
@@ -53,7 +53,7 @@ Matrix2f::Matrix2f(float fM11, float fM12, float fM21, float fM22)
     m_fData[1][1] = fM22;
 }
 //----------------------------------------------------------------------------
-Matrix2f::Matrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV, bool bIsRow)
+SEMatrix2f::SEMatrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV, bool bIsRow)
 {
     if( bIsRow )
 	{
@@ -71,91 +71,91 @@ Matrix2f::Matrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV, bool bIsRow
 	}
 }
 //----------------------------------------------------------------------------
-Matrix2f::Matrix2f(float fM11, float fM22)
+SEMatrix2f::SEMatrix2f(float fM11, float fM22)
 {
     Diagonal(fM11, fM22);
 }
 //----------------------------------------------------------------------------
-Matrix2f::Matrix2f(float fAngle)
+SEMatrix2f::SEMatrix2f(float fAngle)
 {
     FromAngle(fAngle);
 }
 //----------------------------------------------------------------------------
-Matrix2f::Matrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV)
+SEMatrix2f::SEMatrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV)
 {
     TensorProduct(rVecU, rVecV);
 }
 //----------------------------------------------------------------------------
-Matrix2f::operator const float*() const
+SEMatrix2f::operator const float*() const
 {
     return &m_fData[0][0];
 }
 //----------------------------------------------------------------------------
-Matrix2f::operator float*()
+SEMatrix2f::operator float*()
 {
     return &m_fData[0][0];
 }
 //----------------------------------------------------------------------------
-const float* Matrix2f::operator[](int iCurRow) const
+const float* SEMatrix2f::operator[](int iCurRow) const
 {
     return &m_fData[iCurRow][0];
 }
 //----------------------------------------------------------------------------
-float* Matrix2f::operator[](int iCurRow)
+float* SEMatrix2f::operator[](int iCurRow)
 {
     return &m_fData[iCurRow][0];
 }
 //----------------------------------------------------------------------------
-float Matrix2f::operator()(int iCurRow, int iCurCol) const
+float SEMatrix2f::operator()(int iCurRow, int iCurCol) const
 {
     return m_fData[iCurRow][iCurCol];
 }
 //----------------------------------------------------------------------------
-float& Matrix2f::operator()(int iCurRow, int iCurCol)
+float& SEMatrix2f::operator()(int iCurRow, int iCurCol)
 {
     return m_fData[iCurRow][iCurCol];
 }
 //----------------------------------------------------------------------------
-Matrix2f& Matrix2f::operator=(const Matrix2f& rMat)
+SEMatrix2f& SEMatrix2f::operator=(const SEMatrix2f& rMat)
 {
     memcpy(m_fData, rMat.m_fData, 4*sizeof(float));
 
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Matrix2f::operator==(const Matrix2f& rMat) const
+bool SEMatrix2f::operator==(const SEMatrix2f& rMat) const
 {
     return CompareData(rMat) == 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix2f::operator!=(const Matrix2f& rMat) const
+bool SEMatrix2f::operator!=(const SEMatrix2f& rMat) const
 {
     return CompareData(rMat) != 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix2f::operator<(const Matrix2f& rMat) const
+bool SEMatrix2f::operator<(const SEMatrix2f& rMat) const
 {
     return CompareData(rMat) < 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix2f::operator<=(const Matrix2f& rMat) const
+bool SEMatrix2f::operator<=(const SEMatrix2f& rMat) const
 {
     return CompareData(rMat) <= 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix2f::operator>(const Matrix2f& rMat) const
+bool SEMatrix2f::operator>(const SEMatrix2f& rMat) const
 {
     return CompareData(rMat) > 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix2f::operator>=(const Matrix2f& rMat) const
+bool SEMatrix2f::operator>=(const SEMatrix2f& rMat) const
 {
     return CompareData(rMat) >= 0;
 }
 //----------------------------------------------------------------------------
-Matrix2f Matrix2f::operator+(const Matrix2f& rRhsMat) const
+SEMatrix2f SEMatrix2f::operator+(const SEMatrix2f& rRhsMat) const
 {
-    Matrix2f ResMat;
+    SEMatrix2f ResMat;
 
     ResMat.M11 = M11 + rRhsMat.M11;
     ResMat.M12 = M12 + rRhsMat.M12;
@@ -166,9 +166,9 @@ Matrix2f Matrix2f::operator+(const Matrix2f& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix2f Matrix2f::operator-(const Matrix2f& rRhsMat) const
+SEMatrix2f SEMatrix2f::operator-(const SEMatrix2f& rRhsMat) const
 {
-    Matrix2f ResMat;
+    SEMatrix2f ResMat;
 
     ResMat.M11 = M11 - rRhsMat.M11;
     ResMat.M12 = M12 - rRhsMat.M12;
@@ -179,9 +179,9 @@ Matrix2f Matrix2f::operator-(const Matrix2f& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix2f Matrix2f::operator*(const Matrix2f& rRhsMat) const
+SEMatrix2f SEMatrix2f::operator*(const SEMatrix2f& rRhsMat) const
 {
-    Matrix2f ResMat;
+    SEMatrix2f ResMat;
 
     ResMat.M11 = M11*rRhsMat.M11 + M12*rRhsMat.M21;
     ResMat.M12 = M11*rRhsMat.M12 + M12*rRhsMat.M22;
@@ -192,9 +192,9 @@ Matrix2f Matrix2f::operator*(const Matrix2f& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix2f Matrix2f::operator*(float fScalar) const
+SEMatrix2f SEMatrix2f::operator*(float fScalar) const
 {
-    Matrix2f ResMat;
+    SEMatrix2f ResMat;
 
     ResMat.M11 = M11 * fScalar;
     ResMat.M12 = M12 * fScalar;
@@ -205,10 +205,10 @@ Matrix2f Matrix2f::operator*(float fScalar) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix2f Matrix2f::operator/(float fScalar) const
+SEMatrix2f SEMatrix2f::operator/(float fScalar) const
 {
     // 注意除数不能为0
-    Matrix2f ResMat;
+    SEMatrix2f ResMat;
     float fInvScalar = 1.0f / fScalar;
 
     ResMat.M11 = M11 * fInvScalar;
@@ -220,9 +220,9 @@ Matrix2f Matrix2f::operator/(float fScalar) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix2f Matrix2f::operator-() const
+SEMatrix2f SEMatrix2f::operator-() const
 {
-    Matrix2f ResMat;
+    SEMatrix2f ResMat;
 
     ResMat.M11 = -M11;
     ResMat.M12 = -M12;
@@ -233,7 +233,7 @@ Matrix2f Matrix2f::operator-() const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix2f& Matrix2f::operator+=(const Matrix2f& rRhsMat)
+SEMatrix2f& SEMatrix2f::operator+=(const SEMatrix2f& rRhsMat)
 {
 	M11 += rRhsMat.M11;
     M12 += rRhsMat.M12;
@@ -244,7 +244,7 @@ Matrix2f& Matrix2f::operator+=(const Matrix2f& rRhsMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix2f& Matrix2f::operator-=(const Matrix2f& rRhsMat)
+SEMatrix2f& SEMatrix2f::operator-=(const SEMatrix2f& rRhsMat)
 {
 	M11 -= rRhsMat.M11;
     M12 -= rRhsMat.M12;
@@ -255,7 +255,7 @@ Matrix2f& Matrix2f::operator-=(const Matrix2f& rRhsMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix2f& Matrix2f::operator*=(float fScalar)
+SEMatrix2f& SEMatrix2f::operator*=(float fScalar)
 {
 	M11 *= fScalar;
     M12 *= fScalar;
@@ -266,7 +266,7 @@ Matrix2f& Matrix2f::operator*=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix2f& Matrix2f::operator/=(float fScalar)
+SEMatrix2f& SEMatrix2f::operator/=(float fScalar)
 {
     // 注意除数不能为0
     float fInvScalar = 1.0f / fScalar;
@@ -279,7 +279,7 @@ Matrix2f& Matrix2f::operator/=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-SEVector2f Matrix2f::operator*(const SEVector2f& rRhsVec) const
+SEVector2f SEMatrix2f::operator*(const SEVector2f& rRhsVec) const
 {
     SEVector2f ResVec;
     
@@ -289,26 +289,26 @@ SEVector2f Matrix2f::operator*(const SEVector2f& rRhsVec) const
     return ResVec;
 }
 //----------------------------------------------------------------------------
-void Matrix2f::Transpose()
+void SEMatrix2f::Transpose()
 {
-    Matrix2f tempMat;
+    SEMatrix2f tempMat;
 	GetTranspose(tempMat);
 	*this = tempMat;
 }
 //----------------------------------------------------------------------------
-void Matrix2f::Inverse()
+void SEMatrix2f::Inverse()
 {
-    Matrix2f tempMat;
+    SEMatrix2f tempMat;
 	GetInverse(tempMat);
 	*this = tempMat;
 }
 //----------------------------------------------------------------------------
-Matrix2f Swing::operator*(float fLhsScalar, const Matrix2f& rRhsMat)
+SEMatrix2f Swing::operator*(float fLhsScalar, const SEMatrix2f& rRhsMat)
 {
     return rRhsMat * fLhsScalar;
 }
 //----------------------------------------------------------------------------
-SEVector2f Swing::operator*(const SEVector2f& rVecV, const Matrix2f& rMat)
+SEVector2f Swing::operator*(const SEVector2f& rVecV, const SEMatrix2f& rMat)
 {
     return SEVector2f(
                    rVecV[0]*rMat[0][0] + rVecV[1]*rMat[1][0],
@@ -320,25 +320,25 @@ SEVector2f Swing::operator*(const SEVector2f& rVecV, const Matrix2f& rMat)
 // 双精度2阶方阵类
 //----------------------------------------------------------------------------
 
-const Matrix2d Matrix2d::ZERO(
+const SEMatrix2d SEMatrix2d::ZERO(
     0.0, 0.0, 
     0.0, 0.0);
-const Matrix2d Matrix2d::IDENTITY(
+const SEMatrix2d SEMatrix2d::IDENTITY(
     1.0, 0.0, 
     0.0, 1.0);
 
 //----------------------------------------------------------------------------
-Matrix2d::Matrix2d()
+SEMatrix2d::SEMatrix2d()
 {
     Zero();
 }
 //----------------------------------------------------------------------------
-Matrix2d::Matrix2d(const Matrix2d& rMat)
+SEMatrix2d::SEMatrix2d(const SEMatrix2d& rMat)
 {
     memcpy(m_dData, rMat.m_dData, 4*sizeof(double));
 }
 //----------------------------------------------------------------------------
-Matrix2d::Matrix2d(double dM11, double dM12, double dM21, double dM22)
+SEMatrix2d::SEMatrix2d(double dM11, double dM12, double dM21, double dM22)
 {
     m_dData[0][0] = dM11;
     m_dData[0][1] = dM12;
@@ -346,7 +346,7 @@ Matrix2d::Matrix2d(double dM11, double dM12, double dM21, double dM22)
     m_dData[1][1] = dM22;
 }
 //----------------------------------------------------------------------------
-Matrix2d::Matrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV, bool bIsRow)
+SEMatrix2d::SEMatrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV, bool bIsRow)
 {
     if( bIsRow )
 	{
@@ -364,91 +364,91 @@ Matrix2d::Matrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV, bool bIsRow
 	}
 }
 //----------------------------------------------------------------------------
-Matrix2d::Matrix2d(double dM11, double dM22)
+SEMatrix2d::SEMatrix2d(double dM11, double dM22)
 {
     Diagonal(dM11, dM22);
 }
 //----------------------------------------------------------------------------
-Matrix2d::Matrix2d(double dAngle)
+SEMatrix2d::SEMatrix2d(double dAngle)
 {
     FromAngle(dAngle);
 }
 //----------------------------------------------------------------------------
-Matrix2d::Matrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV)
+SEMatrix2d::SEMatrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV)
 {
     TensorProduct(rVecU, rVecV);
 }
 //----------------------------------------------------------------------------
-Matrix2d::operator const double*() const
+SEMatrix2d::operator const double*() const
 {
     return &m_dData[0][0];
 }
 //----------------------------------------------------------------------------
-Matrix2d::operator double*()
+SEMatrix2d::operator double*()
 {
     return &m_dData[0][0];
 }
 //----------------------------------------------------------------------------
-const double* Matrix2d::operator[](int iCurRow) const
+const double* SEMatrix2d::operator[](int iCurRow) const
 {
     return &m_dData[iCurRow][0];
 }
 //----------------------------------------------------------------------------
-double* Matrix2d::operator[](int iCurRow)
+double* SEMatrix2d::operator[](int iCurRow)
 {
     return &m_dData[iCurRow][0];
 }
 //----------------------------------------------------------------------------
-double Matrix2d::operator()(int iCurRow, int iCurCol) const
+double SEMatrix2d::operator()(int iCurRow, int iCurCol) const
 {
     return m_dData[iCurRow][iCurCol];
 }
 //----------------------------------------------------------------------------
-double& Matrix2d::operator()(int iCurRow, int iCurCol)
+double& SEMatrix2d::operator()(int iCurRow, int iCurCol)
 {
     return m_dData[iCurRow][iCurCol];
 }
 //----------------------------------------------------------------------------
-Matrix2d& Matrix2d::operator=(const Matrix2d& rMat)
+SEMatrix2d& SEMatrix2d::operator=(const SEMatrix2d& rMat)
 {
     memcpy(m_dData, rMat.m_dData, 4*sizeof(double));
 
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Matrix2d::operator==(const Matrix2d& rMat) const
+bool SEMatrix2d::operator==(const SEMatrix2d& rMat) const
 {
     return CompareData(rMat) == 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix2d::operator!=(const Matrix2d& rMat) const
+bool SEMatrix2d::operator!=(const SEMatrix2d& rMat) const
 {
     return CompareData(rMat) != 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix2d::operator<(const Matrix2d& rMat) const
+bool SEMatrix2d::operator<(const SEMatrix2d& rMat) const
 {
     return CompareData(rMat) < 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix2d::operator<=(const Matrix2d& rMat) const
+bool SEMatrix2d::operator<=(const SEMatrix2d& rMat) const
 {
     return CompareData(rMat) <= 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix2d::operator>(const Matrix2d& rMat) const
+bool SEMatrix2d::operator>(const SEMatrix2d& rMat) const
 {
     return CompareData(rMat) > 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix2d::operator>=(const Matrix2d& rMat) const
+bool SEMatrix2d::operator>=(const SEMatrix2d& rMat) const
 {
     return CompareData(rMat) >= 0;
 }
 //----------------------------------------------------------------------------
-Matrix2d Matrix2d::operator+(const Matrix2d& rRhsMat) const
+SEMatrix2d SEMatrix2d::operator+(const SEMatrix2d& rRhsMat) const
 {
-    Matrix2d ResMat;
+    SEMatrix2d ResMat;
 
     ResMat.M11 = M11 + rRhsMat.M11;
     ResMat.M12 = M12 + rRhsMat.M12;
@@ -459,9 +459,9 @@ Matrix2d Matrix2d::operator+(const Matrix2d& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix2d Matrix2d::operator-(const Matrix2d& rRhsMat) const
+SEMatrix2d SEMatrix2d::operator-(const SEMatrix2d& rRhsMat) const
 {
-    Matrix2d ResMat;
+    SEMatrix2d ResMat;
 
     ResMat.M11 = M11 - rRhsMat.M11;
     ResMat.M12 = M12 - rRhsMat.M12;
@@ -472,9 +472,9 @@ Matrix2d Matrix2d::operator-(const Matrix2d& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix2d Matrix2d::operator*(const Matrix2d& rRhsMat) const
+SEMatrix2d SEMatrix2d::operator*(const SEMatrix2d& rRhsMat) const
 {
-    Matrix2d ResMat;
+    SEMatrix2d ResMat;
 
     ResMat.M11 = M11*rRhsMat.M11 + M12*rRhsMat.M21;
     ResMat.M12 = M11*rRhsMat.M12 + M12*rRhsMat.M22;
@@ -485,9 +485,9 @@ Matrix2d Matrix2d::operator*(const Matrix2d& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix2d Matrix2d::operator*(double dScalar) const
+SEMatrix2d SEMatrix2d::operator*(double dScalar) const
 {
-    Matrix2d ResMat;
+    SEMatrix2d ResMat;
 
     ResMat.M11 = M11 * dScalar;
     ResMat.M12 = M12 * dScalar;
@@ -498,10 +498,10 @@ Matrix2d Matrix2d::operator*(double dScalar) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix2d Matrix2d::operator/(double dScalar) const
+SEMatrix2d SEMatrix2d::operator/(double dScalar) const
 {
     // 注意除数不能为0
-    Matrix2d ResMat;
+    SEMatrix2d ResMat;
     double dInvScalar = 1.0 / dScalar;
 
     ResMat.M11 = M11 * dInvScalar;
@@ -513,9 +513,9 @@ Matrix2d Matrix2d::operator/(double dScalar) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix2d Matrix2d::operator-() const
+SEMatrix2d SEMatrix2d::operator-() const
 {
-    Matrix2d ResMat;
+    SEMatrix2d ResMat;
 
     ResMat.M11 = -M11;
     ResMat.M12 = -M12;
@@ -526,7 +526,7 @@ Matrix2d Matrix2d::operator-() const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix2d& Matrix2d::operator+=(const Matrix2d& rRhsMat)
+SEMatrix2d& SEMatrix2d::operator+=(const SEMatrix2d& rRhsMat)
 {
 	M11 += rRhsMat.M11;
     M12 += rRhsMat.M12;
@@ -537,7 +537,7 @@ Matrix2d& Matrix2d::operator+=(const Matrix2d& rRhsMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix2d& Matrix2d::operator-=(const Matrix2d& rRhsMat)
+SEMatrix2d& SEMatrix2d::operator-=(const SEMatrix2d& rRhsMat)
 {
 	M11 -= rRhsMat.M11;
     M12 -= rRhsMat.M12;
@@ -548,7 +548,7 @@ Matrix2d& Matrix2d::operator-=(const Matrix2d& rRhsMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix2d& Matrix2d::operator*=(double dScalar)
+SEMatrix2d& SEMatrix2d::operator*=(double dScalar)
 {
 	M11 *= dScalar;
     M12 *= dScalar;
@@ -559,7 +559,7 @@ Matrix2d& Matrix2d::operator*=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix2d& Matrix2d::operator/=(double dScalar)
+SEMatrix2d& SEMatrix2d::operator/=(double dScalar)
 {
     // 注意除数不能为0
     double dInvScalar = 1.0 / dScalar;
@@ -572,7 +572,7 @@ Matrix2d& Matrix2d::operator/=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-SEVector2d Matrix2d::operator*(const SEVector2d& rRhsVec) const
+SEVector2d SEMatrix2d::operator*(const SEVector2d& rRhsVec) const
 {
     SEVector2d ResVec;
     
@@ -582,26 +582,26 @@ SEVector2d Matrix2d::operator*(const SEVector2d& rRhsVec) const
     return ResVec;
 }
 //----------------------------------------------------------------------------
-void Matrix2d::Transpose()
+void SEMatrix2d::Transpose()
 {
-    Matrix2d tempMat;
+    SEMatrix2d tempMat;
 	GetTranspose(tempMat);
 	*this = tempMat;
 }
 //----------------------------------------------------------------------------
-void Matrix2d::Inverse()
+void SEMatrix2d::Inverse()
 {
-    Matrix2d tempMat;
+    SEMatrix2d tempMat;
 	GetInverse(tempMat);
 	*this = tempMat;
 }
 //----------------------------------------------------------------------------
-Matrix2d Swing::operator*(double dLhsScalar, const Matrix2d& rRhsMat)
+SEMatrix2d Swing::operator*(double dLhsScalar, const SEMatrix2d& rRhsMat)
 {
     return rRhsMat * dLhsScalar;
 }
 //----------------------------------------------------------------------------
-SEVector2d Swing::operator*(const SEVector2d& rVecV, const Matrix2d& rMat)
+SEVector2d Swing::operator*(const SEVector2d& rVecV, const SEMatrix2d& rMat)
 {
     return SEVector2d(
                    rVecV[0]*rMat[0][0] + rVecV[1]*rMat[1][0],

@@ -29,7 +29,7 @@ namespace Swing
 
 // Least-squares fit of a line to (x,y,z) data by using distance measurements
 // orthogonal to the proposed line.
-SE_FOUNDATION_API Line3f OrthogonalLineFit3f(int iCount, const Vector3f* aPoint);
+SE_FOUNDATION_API SELine3f OrthogonalLineFit3f(int iCount, const SEVector3f* aPoint);
 
 }
 

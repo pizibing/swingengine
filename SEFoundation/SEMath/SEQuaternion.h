@@ -37,7 +37,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20070627
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Quaternionf
+class SE_FOUNDATION_API SEQuaternionf
 {
 public:
     union
@@ -53,85 +53,85 @@ public:
     };
 
 public:
-    Quaternionf(void);
-    Quaternionf(float fW, float fX, float fY, float fZ);
-    Quaternionf(const Quaternionf& rQ);
+    SEQuaternionf(void);
+    SEQuaternionf(float fW, float fX, float fY, float fZ);
+    SEQuaternionf(const SEQuaternionf& rQ);
 
     // 由旋转矩阵构造quaternion.
-    Quaternionf(const Matrix3f& rRotMat);
+    SEQuaternionf(const SEMatrix3f& rRotMat);
 
     // 由任意轴角度构造quaternion.
-    Quaternionf(const Vector3f& rAxis, float fAngle);
+    SEQuaternionf(const SEVector3f& rAxis, float fAngle);
 
     operator const float* (void) const;
     operator float* (void);
     float operator [] (int i) const;
     float& operator [] (int i);
 
-    Quaternionf& operator = (const Quaternionf& rQ);
+    SEQuaternionf& operator = (const SEQuaternionf& rQ);
 
-    bool operator == (const Quaternionf& rQ) const;
-    bool operator != (const Quaternionf& rQ) const;
-    bool operator <  (const Quaternionf& rQ) const;
-    bool operator <= (const Quaternionf& rQ) const;
-    bool operator >  (const Quaternionf& rQ) const;
-    bool operator >= (const Quaternionf& rQ) const;
+    bool operator == (const SEQuaternionf& rQ) const;
+    bool operator != (const SEQuaternionf& rQ) const;
+    bool operator <  (const SEQuaternionf& rQ) const;
+    bool operator <= (const SEQuaternionf& rQ) const;
+    bool operator >  (const SEQuaternionf& rQ) const;
+    bool operator >= (const SEQuaternionf& rQ) const;
 
-    Quaternionf operator + (const Quaternionf& rRhsQ) const;
-    Quaternionf operator - (const Quaternionf& rRhsQ) const;
-    Quaternionf operator * (const Quaternionf& rRhsQ) const;
-    Quaternionf operator * (float fScalar) const;
-    Quaternionf operator / (float fScalar) const;
-    Quaternionf operator - (void) const;
+    SEQuaternionf operator + (const SEQuaternionf& rRhsQ) const;
+    SEQuaternionf operator - (const SEQuaternionf& rRhsQ) const;
+    SEQuaternionf operator * (const SEQuaternionf& rRhsQ) const;
+    SEQuaternionf operator * (float fScalar) const;
+    SEQuaternionf operator / (float fScalar) const;
+    SEQuaternionf operator - (void) const;
 
-    Quaternionf& operator += (const Quaternionf& rRhsQ);
-    Quaternionf& operator -= (const Quaternionf& rRhsQ);
-    Quaternionf& operator *= (float fScalar);
-    Quaternionf& operator /= (float fScalar);
+    SEQuaternionf& operator += (const SEQuaternionf& rRhsQ);
+    SEQuaternionf& operator -= (const SEQuaternionf& rRhsQ);
+    SEQuaternionf& operator *= (float fScalar);
+    SEQuaternionf& operator /= (float fScalar);
 
-    SE_FOUNDATION_API friend Quaternionf operator * (float fLhsScalar, 
-        const Quaternionf& rRhsQ);
+    SE_FOUNDATION_API friend SEQuaternionf operator * (float fLhsScalar, 
+        const SEQuaternionf& rRhsQ);
 
     // 必须为旋转矩阵.
-    inline Quaternionf& FromRotationMatrix(const Matrix3f& rRotMat);
-    inline void ToRotationMatrix(Matrix3f& rRotMat) const;
-    Quaternionf& FromRotationMatrix(const Vector3f aRot[3],
+    inline SEQuaternionf& FromRotationMatrix(const SEMatrix3f& rRotMat);
+    inline void ToRotationMatrix(SEMatrix3f& rRotMat) const;
+    SEQuaternionf& FromRotationMatrix(const SEVector3f aRot[3],
         bool bIsRow = true);
-    void ToRotationMatrix(Vector3f aRot[3], bool bIsRow = true) const;
+    void ToRotationMatrix(SEVector3f aRot[3], bool bIsRow = true) const;
 
     // 旋转轴必须是单位向量.
-    inline Quaternionf& FromAxisAngle(const Vector3f& rAxis, float fAngle);
-    inline void ToAxisAngle(Vector3f& rAxis, float& rfAngle) const;
+    inline SEQuaternionf& FromAxisAngle(const SEVector3f& rAxis, float fAngle);
+    inline void ToAxisAngle(SEVector3f& rAxis, float& rfAngle) const;
 
     // 获取长度.
     inline float GetLength(void) const;
     // 获取长度平方.
     inline float GetSquaredLength(void) const;
     // 获取点积.
-    inline float Dot(const Quaternionf& rQ) const;
+    inline float Dot(const SEQuaternionf& rQ) const;
     // 规范化.
     inline float Normalize(void);
 
     // 应用于非0 quaternion.
-    inline void GetInverse(Quaternionf& rDesQ) const;
+    inline void GetInverse(SEQuaternionf& rDesQ) const;
     // 获取共轭quaternion.
-    inline void GetConjugate(Quaternionf& rDesQ) const;
+    inline void GetConjugate(SEQuaternionf& rDesQ) const;
 
     // 旋转一个向量.
-    Vector3f Rotate(const Vector3f& rSrcVec) const;
+    SEVector3f Rotate(const SEVector3f& rSrcVec) const;
 
     // 球面线性插值.
-    Quaternionf& Slerp(float fT, const Quaternionf& rP,
-        const Quaternionf& rQ);
+    SEQuaternionf& Slerp(float fT, const SEQuaternionf& rP,
+        const SEQuaternionf& rQ);
     // 线性插值.
-    Quaternionf& Lerp(float fT, const Quaternionf& rP,
-        const Quaternionf& rQ);
+    SEQuaternionf& Lerp(float fT, const SEQuaternionf& rP,
+        const SEQuaternionf& rQ);
 
-    static const Quaternionf IDENTITY;
-    static const Quaternionf ZERO;
+    static const SEQuaternionf IDENTITY;
+    static const SEQuaternionf ZERO;
 
 private:
-    inline int CompareData(const Quaternionf& rQ) const;
+    inline int CompareData(const SEQuaternionf& rQ) const;
 
     // 用于FromRotationMatrix.
     static int m_iNext[3];
@@ -143,7 +143,7 @@ private:
 // 作者:Sun Che
 // 时间:20090725
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Quaterniond
+class SE_FOUNDATION_API SEQuaterniond
 {
 public:
     union
@@ -159,85 +159,85 @@ public:
     };
 
 public:
-    Quaterniond(void);
-    Quaterniond(double dW, double dX, double dY, double dZ);
-    Quaterniond(const Quaterniond& rQ);
+    SEQuaterniond(void);
+    SEQuaterniond(double dW, double dX, double dY, double dZ);
+    SEQuaterniond(const SEQuaterniond& rQ);
 
     // 由旋转矩阵构造quaternion.
-    Quaterniond(const Matrix3d& rRotMat);
+    SEQuaterniond(const SEMatrix3d& rRotMat);
 
     // 由任意轴角度构造quaternion.
-    Quaterniond(const Vector3d& rAxis, double dAngle);
+    SEQuaterniond(const SEVector3d& rAxis, double dAngle);
 
     operator const double* (void) const;
     operator double* (void);
     double operator [] (int i) const;
     double& operator [] (int i);
 
-    Quaterniond& operator = (const Quaterniond& rQ);
+    SEQuaterniond& operator = (const SEQuaterniond& rQ);
 
-    bool operator == (const Quaterniond& rQ) const;
-    bool operator != (const Quaterniond& rQ) const;
-    bool operator <  (const Quaterniond& rQ) const;
-    bool operator <= (const Quaterniond& rQ) const;
-    bool operator >  (const Quaterniond& rQ) const;
-    bool operator >= (const Quaterniond& rQ) const;
+    bool operator == (const SEQuaterniond& rQ) const;
+    bool operator != (const SEQuaterniond& rQ) const;
+    bool operator <  (const SEQuaterniond& rQ) const;
+    bool operator <= (const SEQuaterniond& rQ) const;
+    bool operator >  (const SEQuaterniond& rQ) const;
+    bool operator >= (const SEQuaterniond& rQ) const;
 
-    Quaterniond operator + (const Quaterniond& rRhsQ) const;
-    Quaterniond operator - (const Quaterniond& rRhsQ) const;
-    Quaterniond operator * (const Quaterniond& rRhsQ) const;
-    Quaterniond operator * (double dScalar) const;
-    Quaterniond operator / (double dScalar) const;
-    Quaterniond operator - (void) const;
+    SEQuaterniond operator + (const SEQuaterniond& rRhsQ) const;
+    SEQuaterniond operator - (const SEQuaterniond& rRhsQ) const;
+    SEQuaterniond operator * (const SEQuaterniond& rRhsQ) const;
+    SEQuaterniond operator * (double dScalar) const;
+    SEQuaterniond operator / (double dScalar) const;
+    SEQuaterniond operator - (void) const;
 
-    Quaterniond& operator += (const Quaterniond& rRhsQ);
-    Quaterniond& operator -= (const Quaterniond& rRhsQ);
-    Quaterniond& operator *= (double dScalar);
-    Quaterniond& operator /= (double dScalar);
+    SEQuaterniond& operator += (const SEQuaterniond& rRhsQ);
+    SEQuaterniond& operator -= (const SEQuaterniond& rRhsQ);
+    SEQuaterniond& operator *= (double dScalar);
+    SEQuaterniond& operator /= (double dScalar);
 
-    SE_FOUNDATION_API friend Quaterniond operator * (double dLhsScalar, 
-        const Quaterniond& rRhsQ);
+    SE_FOUNDATION_API friend SEQuaterniond operator * (double dLhsScalar, 
+        const SEQuaterniond& rRhsQ);
 
     // 必须为旋转矩阵.
-    inline Quaterniond& FromRotationMatrix(const Matrix3d& rRotMat);
-    inline void ToRotationMatrix(Matrix3d& rRotMat) const;
-    Quaterniond& FromRotationMatrix(const Vector3d aRot[3],
+    inline SEQuaterniond& FromRotationMatrix(const SEMatrix3d& rRotMat);
+    inline void ToRotationMatrix(SEMatrix3d& rRotMat) const;
+    SEQuaterniond& FromRotationMatrix(const SEVector3d aRot[3],
         bool bIsRow = true);
-    void ToRotationMatrix(Vector3d aRot[3], bool bIsRow = true) const;
+    void ToRotationMatrix(SEVector3d aRot[3], bool bIsRow = true) const;
 
     // 旋转轴必须是单位向量.
-    inline Quaterniond& FromAxisAngle(const Vector3d& rAxis, double dAngle);
-    inline void ToAxisAngle(Vector3d& rAxis, double& rdAngle) const;
+    inline SEQuaterniond& FromAxisAngle(const SEVector3d& rAxis, double dAngle);
+    inline void ToAxisAngle(SEVector3d& rAxis, double& rdAngle) const;
 
     // 获取长度.
     inline double GetLength(void) const;
     // 获取长度平方.
     inline double GetSquaredLength(void) const;
     // 获取点积.
-    inline double Dot(const Quaterniond& rQ) const;
+    inline double Dot(const SEQuaterniond& rQ) const;
     // 规范化.
     inline double Normalize(void);
 
     // 应用于非0 quaternion.
-    inline void GetInverse(Quaterniond& rDesQ) const;
+    inline void GetInverse(SEQuaterniond& rDesQ) const;
     // 获取共轭quaternion.
-    inline void GetConjugate(Quaterniond& rDesQ) const;
+    inline void GetConjugate(SEQuaterniond& rDesQ) const;
 
     // 旋转一个向量.
-    Vector3d Rotate(const Vector3d& rSrcVec) const;
+    SEVector3d Rotate(const SEVector3d& rSrcVec) const;
 
     // 球面线性插值.
-    Quaterniond& Slerp(double dT, const Quaterniond& rP,
-        const Quaterniond& rQ);
+    SEQuaterniond& Slerp(double dT, const SEQuaterniond& rP,
+        const SEQuaterniond& rQ);
     // 线性插值.
-    Quaterniond& Lerp(double dT, const Quaterniond& rP,
-        const Quaterniond& rQ);
+    SEQuaterniond& Lerp(double dT, const SEQuaterniond& rP,
+        const SEQuaterniond& rQ);
 
-    static const Quaterniond IDENTITY;
-    static const Quaterniond ZERO;
+    static const SEQuaterniond IDENTITY;
+    static const SEQuaterniond ZERO;
 
 private:
-    inline int CompareData(const Quaterniond& rQ) const;
+    inline int CompareData(const SEQuaterniond& rQ) const;
 
     // 用于FromRotationMatrix.
     static int m_iNext[3];

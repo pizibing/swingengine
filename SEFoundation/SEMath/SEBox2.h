@@ -33,13 +33,13 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090113
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Box2f
+class SE_FOUNDATION_API SEBox2f
 {
 public:
-    Box2f(void);
-    Box2f(const SEVector2f& rCenter, const SEVector2f* aAxis,
+    SEBox2f(void);
+    SEBox2f(const SEVector2f& rCenter, const SEVector2f* aAxis,
         const float* afExtent);
-    Box2f(const SEVector2f& rCenter, const SEVector2f& rAxis0,
+    SEBox2f(const SEVector2f& rCenter, const SEVector2f& rAxis0,
         const SEVector2f& rAxis1, float fExtent0, float fExtent1);
 
     void ComputeVertices(SEVector2f aVertex[4]) const;

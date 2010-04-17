@@ -32,7 +32,7 @@ namespace Swing
 // 轴是规范正交基,由顶点协方差矩阵的特征向量构成,
 // 特征向量对应的特征值用作Box的半长,半宽,半高,
 // 特征向量顺序与特征值顺序对应,特征值由小到大排列
-SE_FOUNDATION_API Box3f GaussPointsFit3f(int iCount, const Vector3f* aPoint);
+SE_FOUNDATION_API SEBox3f GaussPointsFit3f(int iCount, const SEVector3f* aPoint);
 
 }
 

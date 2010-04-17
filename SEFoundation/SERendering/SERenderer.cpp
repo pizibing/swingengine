@@ -88,15 +88,15 @@ Renderer::Renderer(FrameBuffer::FormatType eFormat,
     m_eMultisampling(eMultisampling),
     m_iWidth(iWidth),
     m_iHeight(iHeight),
-    m_ClearColor(ColorRGBA::SE_RGBA_WHITE),
+    m_ClearColor(SEColorRGBA::SE_RGBA_WHITE),
     m_fClearDepth(1.0f),
     m_uiClearStencil(0),
-    m_WorldMatrix(Matrix4f::IDENTITY),
-    m_SaveWorldMatrix(Matrix4f::IDENTITY),
-    m_ViewMatrix(Matrix4f::IDENTITY),
-    m_SaveViewMatrix(Matrix4f::IDENTITY),
-    m_ProjectionMatrix(Matrix4f::IDENTITY),
-    m_SaveProjectionMatrix(Matrix4f::IDENTITY)
+    m_WorldMatrix(SEMatrix4f::IDENTITY),
+    m_SaveWorldMatrix(SEMatrix4f::IDENTITY),
+    m_ViewMatrix(SEMatrix4f::IDENTITY),
+    m_SaveViewMatrix(SEMatrix4f::IDENTITY),
+    m_ProjectionMatrix(SEMatrix4f::IDENTITY),
+    m_SaveProjectionMatrix(SEMatrix4f::IDENTITY)
 {
     // 派生类应该检测并设置这些参数,并且创建m_aspLight数组.
     m_iMaxLights = 0;
@@ -162,10 +162,10 @@ void Renderer::SetCamera(Camera* pCamera)
 //----------------------------------------------------------------------------
 void Renderer::OnFrameChange()
 {
-    const Vector3f& rEye = m_pCamera->GetLocation();
-    const Vector3f& rRVector = m_pCamera->GetRVector();
-    const Vector3f& rUVector = m_pCamera->GetUVector();
-    const Vector3f& rDVector = m_pCamera->GetDVector();
+    const SEVector3f& rEye = m_pCamera->GetLocation();
+    const SEVector3f& rRVector = m_pCamera->GetRVector();
+    const SEVector3f& rUVector = m_pCamera->GetUVector();
+    const SEVector3f& rDVector = m_pCamera->GetDVector();
 
     // 更新摄像机矩阵
     m_ViewMatrix[0][0] = rRVector[0];
@@ -342,7 +342,7 @@ void Renderer::RestoreGlobalState(GlobalStatePtr aspState[])
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::SetPostWorldTransformation(const Matrix4f& rMatrix)
+void Renderer::SetPostWorldTransformation(const SEMatrix4f& rMatrix)
 {
     m_SaveViewMatrix = m_ViewMatrix;
     rMatrix.GetTransposeTimes(m_SaveViewMatrix, m_ViewMatrix);
@@ -473,7 +473,7 @@ bool Renderer::OnLinkPrograms(VertexProgram*, GeometryProgram*, PixelProgram*)
 //----------------------------------------------------------------------------
 // 设置shader程序所需的渲染器常量.
 //----------------------------------------------------------------------------
-void Renderer::GetTransform(const Matrix4f& rMat, int iOperation,
+void Renderer::GetTransform(const SEMatrix4f& rMat, int iOperation,
     float* afData)
 {
     const size_t uiSize = 16 * sizeof(float);
@@ -486,21 +486,21 @@ void Renderer::GetTransform(const Matrix4f& rMat, int iOperation,
     else if( iOperation == 1 )
     {
         // transpose of matrix
-        Matrix4f mat4fMT;
+        SEMatrix4f mat4fMT;
         rMat.GetTranspose(mat4fMT);
         SESystem::SE_Memcpy(afData, uiSize, (const float*)mat4fMT, uiSize);
     }
     else if( iOperation == 2 )
     {
         // inverse of matrix
-        Matrix4f mat4fMI;
+        SEMatrix4f mat4fMI;
         rMat.GetInverse(mat4fMI);
         SESystem::SE_Memcpy(afData, uiSize, (const float*)mat4fMI, uiSize);
     }
     else
     {
         // inverse-transpose of matrix
-        Matrix4f mat4fMIT;
+        SEMatrix4f mat4fMIT;
         rMat.GetInverse(mat4fMIT);
         mat4fMIT.Transpose();
         SESystem::SE_Memcpy(afData, uiSize, (const float*)mat4fMIT, uiSize);
@@ -524,19 +524,19 @@ void Renderer::SetConstantPMatrix(int iOperation, float* afData)
 //----------------------------------------------------------------------------
 void Renderer::SetConstantWVMatrix(int iOperation, float* afData)
 {
-    Matrix4f mat4fWV = m_WorldMatrix * m_ViewMatrix;
+    SEMatrix4f mat4fWV = m_WorldMatrix * m_ViewMatrix;
     GetTransform(mat4fWV, iOperation, afData);
 }
 //----------------------------------------------------------------------------
 void Renderer::SetConstantVPMatrix(int iOperation, float* afData)
 {
-    Matrix4f mat4fVP = m_ViewMatrix * m_ProjectionMatrix;
+    SEMatrix4f mat4fVP = m_ViewMatrix * m_ProjectionMatrix;
     GetTransform(mat4fVP, iOperation, afData);
 }
 //----------------------------------------------------------------------------
 void Renderer::SetConstantWVPMatrix(int iOperation, float* afData)
 {
-    Matrix4f mat4fWVP = m_WorldMatrix * m_ViewMatrix * m_ProjectionMatrix;
+    SEMatrix4f mat4fWVP = m_WorldMatrix * m_ViewMatrix * m_ProjectionMatrix;
     GetTransform(mat4fWVP, iOperation, afData);
 }
 //----------------------------------------------------------------------------
@@ -545,14 +545,14 @@ void Renderer::SetConstantProjectorMatrix(int, float* afData)
     SE_ASSERT( m_pProjector );
 
     // 为投影器建立view matrix.
-    const Vector3f& rEye = m_pProjector->GetLocation();
-    const Vector3f& rRVector = m_pProjector->GetRVector();
-    const Vector3f& rUVector = m_pProjector->GetUVector();
-    const Vector3f& rDVector = m_pProjector->GetDVector();
+    const SEVector3f& rEye = m_pProjector->GetLocation();
+    const SEVector3f& rRVector = m_pProjector->GetRVector();
+    const SEVector3f& rUVector = m_pProjector->GetUVector();
+    const SEVector3f& rDVector = m_pProjector->GetDVector();
     float fRdE = rRVector.Dot(rEye);
     float fUdE = rUVector.Dot(rEye);
     float fDdE = rDVector.Dot(rEye);
-    Matrix4f mat4fProjVMatrix(
+    SEMatrix4f mat4fProjVMatrix(
         rRVector[0], rUVector[0], rDVector[0], 0.0f,
         rRVector[1], rUVector[1], rDVector[1], 0.0f,
         rRVector[2], rUVector[2], rDVector[2], 0.0f,
@@ -570,21 +570,21 @@ void Renderer::SetConstantProjectorMatrix(int, float* afData)
     float fRTerm1 = -(fRMin + fRMax) * fInvRDiff;
     float fUTerm1 = -(fUMin + fUMax) * fInvUDiff;
     float fDTerm1 = fDMax * fInvDDiff;
-    Matrix4f mat4fProjPMatrix(
+    SEMatrix4f mat4fProjPMatrix(
         2.0f*fRTerm0, 0.0f,         0.0f,           0.0f,
         0.0f,         2.0f*fUTerm0, 0.0f,           0.0f,
         fRTerm1,      fUTerm1,      fDTerm1,        1.0f,
         0.0f,         0.0f,         -fDMax*fDTerm0, 0.0f);
 
     // 为投影器建立bias和scale matrix.
-    Matrix4f mat4fProjBSMatrix(
+    SEMatrix4f mat4fProjBSMatrix(
         0.5f, 0.0f, 0.0f, 0.0f,
         0.0f, 0.5f, 0.0f, 0.0f,
         0.0f, 0.0f, 1.0f, 0.0f,
         0.5f, 0.5f, 0.0f, 1.0f);
 
     // 最终投影器matrix.
-    Matrix4f mat4fProjectorMatrix =
+    SEMatrix4f mat4fProjectorMatrix =
         m_WorldMatrix * mat4fProjVMatrix * mat4fProjPMatrix * mat4fProjBSMatrix;
 
     GetTransform(mat4fProjectorMatrix, 0, afData);
@@ -632,7 +632,7 @@ void Renderer::SetConstantMaterialSpecular(int, float* afData)
 //----------------------------------------------------------------------------
 void Renderer::SetConstantCameraModelPosition(int, float* afData)
 {
-    Vector3f vec3fMLocation;
+    SEVector3f vec3fMLocation;
     m_pGeometry->World.ApplyInverse(m_pCamera->GetLocation(), vec3fMLocation);
 
     afData[0] = vec3fMLocation.X;
@@ -643,7 +643,7 @@ void Renderer::SetConstantCameraModelPosition(int, float* afData)
 //----------------------------------------------------------------------------
 void Renderer::SetConstantCameraModelRight(int, float* afData)
 {
-    Vector3f vec3fMRVector;
+    SEVector3f vec3fMRVector;
     m_pGeometry->World.InvertVector(m_pCamera->GetRVector(), vec3fMRVector);
     vec3fMRVector.Normalize();
 
@@ -655,7 +655,7 @@ void Renderer::SetConstantCameraModelRight(int, float* afData)
 //----------------------------------------------------------------------------
 void Renderer::SetConstantCameraModelUp(int, float* afData)
 {
-    Vector3f vec3fMUVector;
+    SEVector3f vec3fMUVector;
     m_pGeometry->World.InvertVector(m_pCamera->GetUVector(), vec3fMUVector);
     vec3fMUVector.Normalize();
 
@@ -667,7 +667,7 @@ void Renderer::SetConstantCameraModelUp(int, float* afData)
 //----------------------------------------------------------------------------
 void Renderer::SetConstantCameraModelDirection(int, float* afData)
 {
-    Vector3f vec3fMDVector;
+    SEVector3f vec3fMDVector;
     m_pGeometry->World.InvertVector(m_pCamera->GetDVector(), vec3fMDVector);
     vec3fMDVector.Normalize();
 
@@ -679,7 +679,7 @@ void Renderer::SetConstantCameraModelDirection(int, float* afData)
 //----------------------------------------------------------------------------
 void Renderer::SetConstantCameraWorldPosition(int, float* afData)
 {
-    Vector3f vec3fWLocation = m_pCamera->GetLocation();
+    SEVector3f vec3fWLocation = m_pCamera->GetLocation();
 
     afData[0] = vec3fWLocation.X;
     afData[1] = vec3fWLocation.Y;
@@ -689,7 +689,7 @@ void Renderer::SetConstantCameraWorldPosition(int, float* afData)
 //----------------------------------------------------------------------------
 void Renderer::SetConstantCameraWorldRight(int, float* afData)
 {
-    Vector3f vec3fWRVector = m_pCamera->GetRVector();
+    SEVector3f vec3fWRVector = m_pCamera->GetRVector();
 
     afData[0] = vec3fWRVector.X;
     afData[1] = vec3fWRVector.Y;
@@ -699,7 +699,7 @@ void Renderer::SetConstantCameraWorldRight(int, float* afData)
 //----------------------------------------------------------------------------
 void Renderer::SetConstantCameraWorldUp(int, float* afData)
 {
-    Vector3f vec3fWUVector = m_pCamera->GetUVector();
+    SEVector3f vec3fWUVector = m_pCamera->GetUVector();
 
     afData[0] = vec3fWUVector.X;
     afData[1] = vec3fWUVector.Y;
@@ -709,7 +709,7 @@ void Renderer::SetConstantCameraWorldUp(int, float* afData)
 //----------------------------------------------------------------------------
 void Renderer::SetConstantCameraWorldDirection(int, float* afData)
 {
-    Vector3f vec3fWDVector = m_pCamera->GetDVector();
+    SEVector3f vec3fWDVector = m_pCamera->GetDVector();
 
     afData[0] = vec3fWDVector.X;
     afData[1] = vec3fWDVector.Y;
@@ -721,7 +721,7 @@ void Renderer::SetConstantProjectorModelPosition(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
-    Vector3f vec3fMLocation;
+    SEVector3f vec3fMLocation;
     m_pGeometry->World.ApplyInverse(m_pProjector->GetLocation(), vec3fMLocation);
 
     afData[0] = vec3fMLocation.X;
@@ -734,7 +734,7 @@ void Renderer::SetConstantProjectorModelRight(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
-    Vector3f vec3fMRVector;
+    SEVector3f vec3fMRVector;
     m_pGeometry->World.InvertVector(m_pProjector->GetRVector(), vec3fMRVector);
     vec3fMRVector.Normalize();
 
@@ -748,7 +748,7 @@ void Renderer::SetConstantProjectorModelUp(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
-    Vector3f vec3fMUVector;
+    SEVector3f vec3fMUVector;
     m_pGeometry->World.InvertVector(m_pProjector->GetUVector(), vec3fMUVector);
     vec3fMUVector.Normalize();
 
@@ -762,7 +762,7 @@ void Renderer::SetConstantProjectorModelDirection(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
-    Vector3f vec3fMDVector;
+    SEVector3f vec3fMDVector;
     m_pGeometry->World.InvertVector(m_pProjector->GetDVector(), vec3fMDVector);
     vec3fMDVector.Normalize();
 
@@ -776,7 +776,7 @@ void Renderer::SetConstantProjectorWorldPosition(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
-    Vector3f vec3fWLocation = m_pProjector->GetLocation();
+    SEVector3f vec3fWLocation = m_pProjector->GetLocation();
 
     afData[0] = vec3fWLocation.X;
     afData[1] = vec3fWLocation.Y;
@@ -788,7 +788,7 @@ void Renderer::SetConstantProjectorWorldRight(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
-    Vector3f vec3fWRVector = m_pProjector->GetRVector();
+    SEVector3f vec3fWRVector = m_pProjector->GetRVector();
 
     afData[0] = vec3fWRVector.X;
     afData[1] = vec3fWRVector.Y;
@@ -800,7 +800,7 @@ void Renderer::SetConstantProjectorWorldUp(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
-    Vector3f vec3fWUVector = m_pProjector->GetUVector();
+    SEVector3f vec3fWUVector = m_pProjector->GetUVector();
 
     afData[0] = vec3fWUVector.X;
     afData[1] = vec3fWUVector.Y;
@@ -812,7 +812,7 @@ void Renderer::SetConstantProjectorWorldDirection(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
-    Vector3f vec3fWDVector = m_pProjector->GetDVector();
+    SEVector3f vec3fWDVector = m_pProjector->GetDVector();
 
     afData[0] = vec3fWDVector.X;
     afData[1] = vec3fWDVector.Y;
@@ -825,7 +825,7 @@ void Renderer::SetConstantLightModelPosition(int iLight, float* afData)
     Light* pLight = GetLight(iLight);
     if( pLight )
     {
-        Vector3f vec3fMPosition;
+        SEVector3f vec3fMPosition;
         m_pGeometry->World.ApplyInverse(pLight->Position, vec3fMPosition);
 
         afData[0] = vec3fMPosition[0];
@@ -847,7 +847,7 @@ void Renderer::SetConstantLightModelDirection(int iLight, float* afData)
     Light* pLight = GetLight(iLight);
     if( pLight )
     {
-        Vector3f vec3fMDVector;
+        SEVector3f vec3fMDVector;
         m_pGeometry->World.InvertVector(pLight->DVector, vec3fMDVector);
         vec3fMDVector.Normalize();
 
@@ -972,7 +972,7 @@ void Renderer::SetConstantLightSpotCutoff(int iLight, float* afData)
     }
     else
     {
-        afData[0] = Mathf::PI;
+        afData[0] = SEMathf::PI;
         afData[1] = -1.0f;
         afData[2] = 0.0f;
         afData[3] = 1.0f;

@@ -53,7 +53,7 @@ TriMesh::~TriMesh()
 {
 }
 //----------------------------------------------------------------------------
-void TriMesh::GetModelTriangle(int i, Triangle3f& rMTri) const
+void TriMesh::GetModelTriangle(int i, SETriangle3f& rMTri) const
 {
     SE_ASSERT( 0 <= i && 3*i < IBuffer->GetIndexCount() );
 
@@ -66,7 +66,7 @@ void TriMesh::GetModelTriangle(int i, Triangle3f& rMTri) const
     rMTri.V[2] = VBuffer->Position3(*piIndex  );
 }
 //----------------------------------------------------------------------------
-void TriMesh::GetWorldTriangle(int i, Triangle3f& rWTri) const
+void TriMesh::GetWorldTriangle(int i, SETriangle3f& rWTri) const
 {
     SE_ASSERT( 0 <= i && 3*i < IBuffer->GetIndexCount() );
 
@@ -163,14 +163,14 @@ bool TriMesh::GenerateTangents(int iSrcTCoordUnit, int iTangentUnit,
     {
         for( i = 0; i < iVCount; i++ )
         {
-            VBuffer->TCoord3(iTangentUnit, i) = Vector3f::ZERO;
+            VBuffer->TCoord3(iTangentUnit, i) = SEVector3f::ZERO;
         }
     }
     else if( iTangentChannels == 4 )
     {
         for( i = 0; i < iVCount; i++ )
         {
-            VBuffer->TCoord4(iTangentUnit, i) = Vector4f::ZERO;
+            VBuffer->TCoord4(iTangentUnit, i) = SEVector4f::ZERO;
         }
     }
 
@@ -178,14 +178,14 @@ bool TriMesh::GenerateTangents(int iSrcTCoordUnit, int iTangentUnit,
     {
         for( i = 0; i < iVCount; i++ )
         {
-            VBuffer->TCoord3(iBiTangentUnit, i) = Vector3f::ZERO;
+            VBuffer->TCoord3(iBiTangentUnit, i) = SEVector3f::ZERO;
         }
     }
     else if( iBiTangentChannels == 4 )
     {
         for( i = 0; i < iVCount; i++ )
         {
-            VBuffer->TCoord4(iBiTangentUnit, i) = Vector4f::ZERO;
+            VBuffer->TCoord4(iBiTangentUnit, i) = SEVector4f::ZERO;
         }
     }
 
@@ -199,17 +199,17 @@ bool TriMesh::GenerateTangents(int iSrcTCoordUnit, int iTangentUnit,
         int iV2 = *piIndex++;
 
         // 获取顶点.
-        Vector3f& rV0 = VBuffer->Position3(iV0);
-        Vector3f& rV1 = VBuffer->Position3(iV1);
-        Vector3f& rV2 = VBuffer->Position3(iV2);
+        SEVector3f& rV0 = VBuffer->Position3(iV0);
+        SEVector3f& rV1 = VBuffer->Position3(iV1);
+        SEVector3f& rV2 = VBuffer->Position3(iV2);
 
         // 获取顶点UV(iSrcTCoordUnit指定的源数据区).
         SEVector2f& rUV0 = VBuffer->TCoord2(iSrcTCoordUnit, iV0);
         SEVector2f& rUV1 = VBuffer->TCoord2(iSrcTCoordUnit, iV1);
         SEVector2f& rUV2 = VBuffer->TCoord2(iSrcTCoordUnit, iV2);
 
-        Vector3f vec3fQ1 = rV1 - rV0;
-        Vector3f vec3fQ2 = rV2 - rV0;
+        SEVector3f vec3fQ1 = rV1 - rV0;
+        SEVector3f vec3fQ2 = rV2 - rV0;
         float fS1 = rUV1.X - rUV0.X;
         float fT1 = rUV1.Y - rUV0.Y;
         float fS2 = rUV2.X - rUV0.X;
@@ -217,7 +217,7 @@ bool TriMesh::GenerateTangents(int iSrcTCoordUnit, int iTangentUnit,
         float fDenom = 1.0f / (fS1*fT2 - fS2*fT1);
 
         // 计算切线.
-        Vector3f vec3fTangent;
+        SEVector3f vec3fTangent;
         vec3fTangent.X = fDenom*(fT2*vec3fQ1.X - fT1*vec3fQ2.X);
         vec3fTangent.Y = fDenom*(fT2*vec3fQ1.Y - fT1*vec3fQ2.Y);
         vec3fTangent.Z = fDenom*(fT2*vec3fQ1.Z - fT1*vec3fQ2.Z);
@@ -229,7 +229,7 @@ bool TriMesh::GenerateTangents(int iSrcTCoordUnit, int iTangentUnit,
         if( iBiTangentUnit > -1 )
         {
             // 计算副切线.
-            Vector3f vec3fBiTangent;
+            SEVector3f vec3fBiTangent;
             vec3fBiTangent.X = fDenom*(-fS2*vec3fQ1.X + fS1*vec3fQ2.X);
             vec3fBiTangent.Y = fDenom*(-fS2*vec3fQ1.Y + fS1*vec3fQ2.Y);
             vec3fBiTangent.Z = fDenom*(-fS2*vec3fQ1.Z + fS1*vec3fQ2.Z);
@@ -245,8 +245,8 @@ bool TriMesh::GenerateTangents(int iSrcTCoordUnit, int iTangentUnit,
 
     for( i = 0; i < iVCount; i++ )
     {
-        Vector3f& rTangent = VBuffer->TCoord3(iTangentUnit, i);
-        Vector3f& rNormal = VBuffer->Normal3(i);
+        SEVector3f& rTangent = VBuffer->TCoord3(iTangentUnit, i);
+        SEVector3f& rNormal = VBuffer->Normal3(i);
         VBuffer->TCoord3(iTangentUnit, i) = rTangent - 
             rNormal.Dot(rTangent)*rNormal;
 
@@ -257,9 +257,9 @@ bool TriMesh::GenerateTangents(int iSrcTCoordUnit, int iTangentUnit,
     {
         for( i = 0; i < iVCount; i++ )
         {
-            Vector3f& rBiTangent = VBuffer->TCoord3(iBiTangentUnit, i);
-            Vector3f& rTangent = VBuffer->TCoord3(iTangentUnit, i);
-            Vector3f& rNormal = VBuffer->Normal3(i);
+            SEVector3f& rBiTangent = VBuffer->TCoord3(iBiTangentUnit, i);
+            SEVector3f& rTangent = VBuffer->TCoord3(iTangentUnit, i);
+            SEVector3f& rNormal = VBuffer->Normal3(i);
             VBuffer->TCoord3(iBiTangentUnit, i) = rBiTangent -
                 rNormal.Dot(rBiTangent)*rNormal - rTangent.Dot(rBiTangent)*
                 rTangent;
@@ -285,7 +285,7 @@ void TriMesh::UpdateModelNormals()
     int i;
     for( i = 0; i < iVCount; i++ )
     {
-        VBuffer->Normal3(i) = Vector3f::ZERO;
+        VBuffer->Normal3(i) = SEVector3f::ZERO;
     }
 
     int iTCount = IBuffer->GetIndexCount()/3;
@@ -298,14 +298,14 @@ void TriMesh::UpdateModelNormals()
         int iV2 = *piIndex++;
 
         // 获取顶点.
-        Vector3f& rV0 = VBuffer->Position3(iV0);
-        Vector3f& rV1 = VBuffer->Position3(iV1);
-        Vector3f& rV2 = VBuffer->Position3(iV2);
+        SEVector3f& rV0 = VBuffer->Position3(iV0);
+        SEVector3f& rV1 = VBuffer->Position3(iV1);
+        SEVector3f& rV2 = VBuffer->Position3(iV2);
 
         // 计算法线(法线长度体现了该三角面权值).
-        Vector3f vec3fEdge1 = rV1 - rV0;
-        Vector3f vec3fEdge2 = rV2 - rV0;
-        Vector3f vec3fNormal = vec3fEdge1.Cross(vec3fEdge2);
+        SEVector3f vec3fEdge1 = rV1 - rV0;
+        SEVector3f vec3fEdge2 = rV2 - rV0;
+        SEVector3f vec3fNormal = vec3fEdge1.Cross(vec3fEdge2);
 
         VBuffer->Normal3(iV0) += vec3fNormal;
         VBuffer->Normal3(iV1) += vec3fNormal;
@@ -339,16 +339,16 @@ TriMesh::PickRecord::PickRecord()
     Bary2 = 0.0f;
 }
 //----------------------------------------------------------------------------
-void TriMesh::DoPick(const Ray3f& rRay, PickArray& rResults)
+void TriMesh::DoPick(const SERay3f& rRay, PickArray& rResults)
 {
     if( WorldBound->TestIntersection(rRay) )
     {
         // 把射线变换到模型空间.
-        Vector3f vec3fMDir, vec3fMPos;
+        SEVector3f vec3fMDir, vec3fMPos;
         World.ApplyInverse(rRay.Origin, vec3fMPos);
         World.InvertVector(rRay.Direction, vec3fMDir);
         vec3fMDir.Normalize();
-        Ray3f tempRay(vec3fMPos, vec3fMDir);
+        SERay3f tempRay(vec3fMPos, vec3fMDir);
 
         // 与模型空间三角网格计算所有相交点,生成对应的pick record.
         int iTCount = IBuffer->GetIndexCount()/3;
@@ -359,7 +359,7 @@ void TriMesh::DoPick(const Ray3f& rRay, PickArray& rResults)
             int iV1 = *piConnect++;
             int iV2 = *piConnect++;
 
-            Triangle3f tempTriangle(VBuffer->Position3(iV0),
+            SETriangle3f tempTriangle(VBuffer->Position3(iV0),
                 VBuffer->Position3(iV1), VBuffer->Position3(iV2));
 
             IntrRay3Triangle3f tempIntr(tempRay, tempTriangle);

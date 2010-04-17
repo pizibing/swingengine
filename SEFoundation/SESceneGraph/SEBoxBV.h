@@ -43,19 +43,19 @@ class SE_FOUNDATION_API BoxBV : public BoundingVolume
 
 public:
     BoxBV(void); // center(0,0,0), axes(1,0,0),(0,1,0),(0,0,1), extents 1,1,1
-    BoxBV(const Box3f& rBox);
+    BoxBV(const SEBox3f& rBox);
     virtual ~BoxBV(void);
 
     virtual int GetBVType(void) const;
 
     // 所有BV都要定义中点和半径.
-    virtual void SetCenter(const Vector3f& rCenter);
-    virtual Vector3f GetCenter(void) const;
+    virtual void SetCenter(const SEVector3f& rCenter);
+    virtual SEVector3f GetCenter(void) const;
     virtual void SetRadius(float fRadius);
     virtual float GetRadius(void) const;
 
-    inline Box3f& Box(void);
-    inline const Box3f& GetBox(void) const;
+    inline SEBox3f& Box(void);
+    inline const SEBox3f& GetBox(void) const;
 
     // 根据传入顶点集合创建BV.
     virtual void ComputeFromData(const Vector3fArray* pVertices);
@@ -67,10 +67,10 @@ public:
 
     // 判断BV是否在平面正半空间(平面法线所指向的空间),相交,负半空间,
     // 相应的返回值为+1,0,-1.
-    virtual int OnWhichSide(const Plane3f& rPlane) const;
+    virtual int OnWhichSide(const SEPlane3f& rPlane) const;
 
     // 测试BV是否和射线相交,不计算交点,射线方向必须为单位向量.
-    virtual bool TestIntersection(const Ray3f& rRay) const;
+    virtual bool TestIntersection(const SERay3f& rRay) const;
 
     // 测试是否和另一个BV相交.
     virtual bool TestIntersection(const BoundingVolume* pInput) const;
@@ -82,10 +82,10 @@ public:
     virtual void GrowToContain(const BoundingVolume* pInput);
 
     // 是否包含传入点.
-    virtual bool Contains(const Vector3f& rPoint) const;
+    virtual bool Contains(const SEVector3f& rPoint) const;
 
 protected:
-    Box3f m_Box;
+    SEBox3f m_Box;
 };
 
 #include "SEBoxBV.inl"

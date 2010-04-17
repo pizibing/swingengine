@@ -76,7 +76,7 @@ double Controller::GetControlTime(double dAppTime)
     if( dRange > 0.0 )
     {
         double dMultiples = (dCtrlTime - MinTime)/dRange;
-        double dIntTime = Mathd::Floor(dMultiples);
+        double dIntTime = SEMathd::Floor(dMultiples);
         double dFrcTime = dMultiples - dIntTime;
         if( Repeat == RT_WRAP )
         {
@@ -104,7 +104,7 @@ double Controller::GetControlTime(double dAppTime)
 bool Controller::Update(double dAppTime)
 {
     if( Active &&  
-        (dAppTime == -Mathd::MAX_REAL || dAppTime != m_dLastAppTime) )
+        (dAppTime == -SEMathd::MAX_REAL || dAppTime != m_dLastAppTime) )
     {
         m_dLastAppTime = dAppTime;
 

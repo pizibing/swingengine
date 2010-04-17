@@ -92,12 +92,12 @@ template SE_FOUNDATION_API
 class Intersector<float, SEVector2f>;
 
 template SE_FOUNDATION_API
-class Intersector<float, Vector3f>;
+class Intersector<float, SEVector3f>;
 
 //template SE_FOUNDATION_API
 //class Intersector<double, SEVector2d>;
 //
 //template SE_FOUNDATION_API
-//class Intersector<double, Vector3d>;
+//class Intersector<double, SEVector3d>;
 //----------------------------------------------------------------------------
 }

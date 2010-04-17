@@ -24,34 +24,34 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistVector3Frustum3f::DistVector3Frustum3f(const Vector3f& rVector,
-    const Frustum3f& rFrustum)
+DistVector3Frustum3f::DistVector3Frustum3f(const SEVector3f& rVector,
+    const SEFrustum3f& rFrustum)
     :
     m_pVector(&rVector),
     m_pFrustum(&rFrustum)
 {
 }
 //----------------------------------------------------------------------------
-const Vector3f& DistVector3Frustum3f::GetVector() const
+const SEVector3f& DistVector3Frustum3f::GetVector() const
 {
     return *m_pVector;
 }
 //----------------------------------------------------------------------------
-const Frustum3f& DistVector3Frustum3f::GetFrustum() const
+const SEFrustum3f& DistVector3Frustum3f::GetFrustum() const
 {
     return *m_pFrustum;
 }
 //----------------------------------------------------------------------------
 float DistVector3Frustum3f::Get()
 {
-    return Math<float>::Sqrt(GetSquared());
+    return SEMath<float>::Sqrt(GetSquared());
 }
 //----------------------------------------------------------------------------
 float DistVector3Frustum3f::GetSquared()
 {
     // 计算顶点在截投体坐标体系下的坐标.
-    Vector3f vec3fDiff = *m_pVector - m_pFrustum->Origin;
-    Vector3f vec3fTest = Vector3f(
+    SEVector3f vec3fDiff = *m_pVector - m_pFrustum->Origin;
+    SEVector3f vec3fTest = SEVector3f(
         vec3fDiff.Dot(m_pFrustum->RVector),
         vec3fDiff.Dot(m_pFrustum->UVector),
         vec3fDiff.Dot(m_pFrustum->DVector));
@@ -99,7 +99,7 @@ float DistVector3Frustum3f::GetSquared()
     // Algorithm computes closest point in all cases by determining in which
     // Voronoi region of the vertices, edges, and faces of the frustum that
     // the test point lives.
-    Vector3f vec3fClosest;
+    SEVector3f vec3fClosest;
     float fRDot, fUDot, fRDDot, fUDDot, fRUDDot, fREdgeDot, fUEdgeDot, fT;
     if( vec3fTest.Z >= fDMax )
     {
@@ -445,12 +445,12 @@ float DistVector3Frustum3f::GetSquared()
     return vec3fDiff.GetSquaredLength();
 }
 //----------------------------------------------------------------------------
-float DistVector3Frustum3f::Get(float fT, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistVector3Frustum3f::Get(float fT, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMVector = *m_pVector + fT*rVelocity0;
-    Vector3f vec3fMOrigin = m_pFrustum->Origin + fT*rVelocity1;
-    Frustum3f tempMFrustum(vec3fMOrigin, m_pFrustum->RVector,
+    SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
+    SEVector3f vec3fMOrigin = m_pFrustum->Origin + fT*rVelocity1;
+    SEFrustum3f tempMFrustum(vec3fMOrigin, m_pFrustum->RVector,
         m_pFrustum->UVector, m_pFrustum->DVector, m_pFrustum->RBound, 
         m_pFrustum->UBound, m_pFrustum->DMin, m_pFrustum->DMax);
 
@@ -458,11 +458,11 @@ float DistVector3Frustum3f::Get(float fT, const Vector3f& rVelocity0,
 }
 //----------------------------------------------------------------------------
 float DistVector3Frustum3f::GetSquared(float fT,
-    const Vector3f& rVelocity0, const Vector3f& rVelocity1)
+    const SEVector3f& rVelocity0, const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMVector = *m_pVector + fT*rVelocity0;
-    Vector3f vec3fMOrigin = m_pFrustum->Origin + fT*rVelocity1;
-    Frustum3f tempMFrustum(vec3fMOrigin, m_pFrustum->RVector,
+    SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
+    SEVector3f vec3fMOrigin = m_pFrustum->Origin + fT*rVelocity1;
+    SEFrustum3f tempMFrustum(vec3fMOrigin, m_pFrustum->RVector,
         m_pFrustum->UVector, m_pFrustum->DVector, m_pFrustum->RBound, 
         m_pFrustum->UBound, m_pFrustum->DMin, m_pFrustum->DMax);
 

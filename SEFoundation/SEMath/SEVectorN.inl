@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline void VectorNf::SetSize(int iSize)
+inline void SEVectorNf::SetSize(int iSize)
 {
     delete[] m_pData;
     if( iSize > 0 )
@@ -35,17 +35,17 @@ inline void VectorNf::SetSize(int iSize)
     }
 }
 //----------------------------------------------------------------------------
-inline int VectorNf::GetSize() const
+inline int SEVectorNf::GetSize() const
 {
     return m_iSize;
 }
 //----------------------------------------------------------------------------
-inline int VectorNf::CompareData(const VectorNf& rVec) const
+inline int SEVectorNf::CompareData(const SEVectorNf& rVec) const
 {
     return memcmp(m_pData, rVec.m_pData, m_iSize*sizeof(float));
 }
 //----------------------------------------------------------------------------
-inline float VectorNf::GetLength(void) const
+inline float SEVectorNf::GetLength(void) const
 {
     float fSqrLen = 0.0f;
     for( int i = 0; i < m_iSize; i++ )
@@ -53,10 +53,10 @@ inline float VectorNf::GetLength(void) const
         fSqrLen += m_pData[i] * m_pData[i];
     }
 
-    return Math<float>::Sqrt(fSqrLen);
+    return SEMath<float>::Sqrt(fSqrLen);
 }
 //----------------------------------------------------------------------------
-inline float VectorNf::GetSquaredLength() const
+inline float SEVectorNf::GetSquaredLength() const
 {
     float fSqrLen = 0.0f;
     for( int i = 0; i < m_iSize; i++ )
@@ -67,7 +67,7 @@ inline float VectorNf::GetSquaredLength() const
     return fSqrLen;
 }
 //----------------------------------------------------------------------------
-inline float VectorNf::Dot(const VectorNf& rRhsVec) const
+inline float SEVectorNf::Dot(const SEVectorNf& rRhsVec) const
 {
     float fDot = 0.0f;
     for( int i = 0; i < m_iSize; i++ )
@@ -78,12 +78,12 @@ inline float VectorNf::Dot(const VectorNf& rRhsVec) const
     return fDot;
 }
 //----------------------------------------------------------------------------
-inline float VectorNf::Normalize()
+inline float SEVectorNf::Normalize()
 {
     float fLength = GetLength();
     int i;
 
-    if( fLength > Math<float>::ZERO_TOLERANCE )
+    if( fLength > SEMath<float>::ZERO_TOLERANCE )
     {
         float fInvLength = 1.0f / fLength;
         for( i = 0; i < m_iSize; i++ )

@@ -33,15 +33,15 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090113
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Ray2f
+class SE_FOUNDATION_API SERay2f
 {
 public:
     // 直线表示为参数方程形式:P + t*D,其中P是直线上一点,D是单位长度方向向量,
     // t >= 0,
     // 用户必须确保D为单位向量.
 
-    Ray2f(void);
-    Ray2f(const SEVector2f& rOrigin, const SEVector2f& rDirection);
+    SERay2f(void);
+    SERay2f(const SEVector2f& rOrigin, const SEVector2f& rDirection);
 
     SEVector2f Origin, Direction;
 };

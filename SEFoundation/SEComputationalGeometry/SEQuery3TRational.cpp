@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Query3TRationalf::Query3TRationalf(int iVCount, const Vector3f* aVertex)
+Query3TRationalf::Query3TRationalf(int iVCount, const SEVector3f* aVertex)
     :
     Query3f(iVCount, aVertex)
 {
@@ -52,7 +52,7 @@ int Query3TRationalf::ToPlane(int i, int iV0, int iV1, int iV2) const
     return ToPlane(m_aRVertex[i], iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-int Query3TRationalf::ToPlane(const Vector3f& rP, int iV0, 
+int Query3TRationalf::ToPlane(const SEVector3f& rP, int iV0, 
     int iV1, int iV2) const
 {
     RVector tempRP;
@@ -74,7 +74,7 @@ int Query3TRationalf::ToTetrahedron(int i, int iV0, int iV1, int iV2,
     return ToTetrahedron(m_aRVertex[i], iV0, iV1, iV2, iV3);
 }
 //----------------------------------------------------------------------------
-int Query3TRationalf::ToTetrahedron(const Vector3f& rP, int iV0, 
+int Query3TRationalf::ToTetrahedron(const SEVector3f& rP, int iV0, 
     int iV1, int iV2, int iV3) const
 {
     RVector tempRP;
@@ -96,7 +96,7 @@ int Query3TRationalf::ToCircumsphere(int i, int iV0, int iV1, int iV2,
     return ToCircumsphere(m_aRVertex[i], iV0, iV1, iV2, iV3);
 }
 //----------------------------------------------------------------------------
-int Query3TRationalf::ToCircumsphere(const Vector3f& rP, int iV0, 
+int Query3TRationalf::ToCircumsphere(const SEVector3f& rP, int iV0, 
     int iV1, int iV2, int iV3) const
 {
     RVector tempRP;

@@ -24,20 +24,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistLine2Segment2f::DistLine2Segment2f(const Line2f& rLine,
-    const Segment2f& rSegment)
+DistLine2Segment2f::DistLine2Segment2f(const SELine2f& rLine,
+    const SESegment2f& rSegment)
     :
     m_pLine(&rLine),
     m_pSegment(&rSegment)
 {
 }
 //----------------------------------------------------------------------------
-const Line2f& DistLine2Segment2f::GetLine() const
+const SELine2f& DistLine2Segment2f::GetLine() const
 {
     return *m_pLine;
 }
 //----------------------------------------------------------------------------
-const Segment2f& DistLine2Segment2f::GetSegment() const
+const SESegment2f& DistLine2Segment2f::GetSegment() const
 {
     return *m_pSegment;
 }
@@ -46,7 +46,7 @@ float DistLine2Segment2f::Get()
 {
     float fSqrDist = GetSquared();
 
-    return Math<float>::Sqrt(fSqrDist);
+    return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistLine2Segment2f::GetSquared()
@@ -55,10 +55,10 @@ float DistLine2Segment2f::GetSquared()
     float fA01 = -m_pLine->Direction.Dot(m_pSegment->Direction);
     float fB0 = vec2fDiff.Dot(m_pLine->Direction);
     float fC = vec2fDiff.GetSquaredLength();
-    float fDet = Math<float>::FAbs(1.0f - fA01*fA01);
+    float fDet = SEMath<float>::FAbs(1.0f - fA01*fA01);
     float fB1, fS0, fS1, fSqrDist, fExtDet;
 
-    if( fDet >= Math<float>::ZERO_TOLERANCE )
+    if( fDet >= SEMath<float>::ZERO_TOLERANCE )
     {
         // 直线和线段不平行.
         fB1 = -vec2fDiff.Dot(m_pSegment->Direction);
@@ -102,7 +102,7 @@ float DistLine2Segment2f::GetSquared()
     m_ClosestPoint0 = m_pLine->Origin + fS0*m_pLine->Direction;
     m_ClosestPoint1 = m_pSegment->Origin + fS1*m_pSegment->Direction;
 
-    return Math<float>::FAbs(fSqrDist);
+    return SEMath<float>::FAbs(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistLine2Segment2f::Get(float fT, const SEVector2f& rVelocity0,
@@ -110,8 +110,8 @@ float DistLine2Segment2f::Get(float fT, const SEVector2f& rVelocity0,
 {
     SEVector2f vec2fMOrigin0 = m_pLine->Origin + fT*rVelocity0;
     SEVector2f vec2fMOrigin1 = m_pSegment->Origin + fT*rVelocity1;
-    Line2f tempMLine(vec2fMOrigin0, m_pLine->Direction);
-    Segment2f tempMSegment(vec2fMOrigin1, m_pSegment->Direction,
+    SELine2f tempMLine(vec2fMOrigin0, m_pLine->Direction);
+    SESegment2f tempMSegment(vec2fMOrigin1, m_pSegment->Direction,
         m_pSegment->Extent);
 
     return DistLine2Segment2f(tempMLine, tempMSegment).Get();
@@ -122,8 +122,8 @@ float DistLine2Segment2f::GetSquared(float fT,
 {
     SEVector2f vec2fMOrigin0 = m_pLine->Origin + fT*rVelocity0;
     SEVector2f vec2fMOrigin1 = m_pSegment->Origin + fT*rVelocity1;
-    Line2f tempMLine(vec2fMOrigin0, m_pLine->Direction);
-    Segment2f tempMSegment(vec2fMOrigin1, m_pSegment->Direction,
+    SELine2f tempMLine(vec2fMOrigin0, m_pLine->Direction);
+    SESegment2f tempMSegment(vec2fMOrigin1, m_pSegment->Direction,
         m_pSegment->Extent);
 
     return DistLine2Segment2f(tempMLine, tempMSegment).GetSquared();

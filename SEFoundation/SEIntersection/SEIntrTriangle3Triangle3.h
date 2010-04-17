@@ -37,15 +37,15 @@ namespace Swing
 // Ê±¼ä:20081223
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API IntrTriangle3Triangle3f
-    : public Intersector<float, Vector3f>
+    : public Intersector<float, SEVector3f>
 {
 public:
-    IntrTriangle3Triangle3f(const Triangle3f& rTriangle0,
-        const Triangle3f& rTriangle1);
+    IntrTriangle3Triangle3f(const SETriangle3f& rTriangle0,
+        const SETriangle3f& rTriangle1);
 
     // object access
-    const Triangle3f& GetTriangle0(void) const;
-    const Triangle3f& GetTriangle1(void) const;
+    const SETriangle3f& GetTriangle0(void) const;
+    const SETriangle3f& GetTriangle1(void) const;
 
     bool ReportCoplanarIntersections;  // default 'true'
 
@@ -54,36 +54,36 @@ public:
     virtual bool Find(void);
 
     // dynamic queries
-    virtual bool Test(float fTMax, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
-    virtual bool Find(float fTMax, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual bool Test(float fTMax, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
+    virtual bool Find(float fTMax, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
     // information about the intersection set
     int GetCount(void) const;
-    const Vector3f& GetPoint(int i) const;
+    const SEVector3f& GetPoint(int i) const;
 
 private:
-    static void ProjectOntoAxis(const Triangle3f& rTri,
-        const Vector3f& rAxis, float& rfMin, float& rfMax);
+    static void ProjectOntoAxis(const SETriangle3f& rTri,
+        const SEVector3f& rAxis, float& rfMin, float& rfMax);
 
-    static void TrianglePlaneRelations(const Triangle3f& rTriangle,
-        const Plane3f& rPlane, float afDistance[3], int aiSign[3],
+    static void TrianglePlaneRelations(const SETriangle3f& rTriangle,
+        const SEPlane3f& rPlane, float afDistance[3], int aiSign[3],
         int& riPositive, int& riNegative, int& riZero);
 
-    static void GetInterval(const Triangle3f& rTriangle,
-        const Line3f& rLine, const float afDistance[3],
+    static void GetInterval(const SETriangle3f& rTriangle,
+        const SELine3f& rLine, const float afDistance[3],
         const int aiSign[3], float afParam[2]);
 
-    bool GetCoplanarIntersection(const Plane3f& rPlane,
-        const Triangle3f& rTri0, const Triangle3f& rTri1);
+    bool GetCoplanarIntersection(const SEPlane3f& rPlane,
+        const SETriangle3f& rTri0, const SETriangle3f& rTri1);
 
     static bool TestOverlap(float fTMax, float fSpeed, float fUMin, 
         float fUMax, float fVMin, float fVMax, float& rfTFirst, 
         float& rfTLast);
 
-    bool TestOverlap(const Vector3f& rAxis, float fTMax,
-        const Vector3f& rVelocity, float& rfTFirst, float& rfTLast);
+    bool TestOverlap(const SEVector3f& rAxis, float fTMax,
+        const SEVector3f& rVelocity, float& rfTFirst, float& rfTLast);
 
     enum ProjectionMap
     {
@@ -107,33 +107,33 @@ private:
         float Min, Max;      // the interval is [min,max]
     };
 
-    static void ProjectOntoAxis(const Triangle3f& rTri,
-        const Vector3f& rAxis, Configuration& rCfg);
+    static void ProjectOntoAxis(const SETriangle3f& rTri,
+        const SEVector3f& rAxis, Configuration& rCfg);
 
     bool FindOverlap(float fTMax, float fSpeed, const Configuration& rUC, 
         const Configuration& rVC, ContactSide& reSide, Configuration& rTUC, 
         Configuration& rTVC, float& rfTFirst, float& rfTLast);
 
-    bool FindOverlap(const Vector3f& rAxis, float fTMax,
-        const Vector3f& rVelocity, ContactSide& reSide,
+    bool FindOverlap(const SEVector3f& rAxis, float fTMax,
+        const SEVector3f& rVelocity, ContactSide& reSide,
         Configuration& rTCfg0, Configuration& rTCfg1, float& rfTFirst,
         float& rfTLast);
 
-    void FindContactSet(const Triangle3f& rTri0,
-        const Triangle3f& rTri1, ContactSide& reSide,
+    void FindContactSet(const SETriangle3f& rTri0,
+        const SETriangle3f& rTri1, ContactSide& reSide,
         Configuration& rCfg0, Configuration& rCfg1);
 
-    void GetEdgeEdgeIntersection(const Vector3f& rU0,
-        const Vector3f& rU1, const Vector3f& rV0,
-        const Vector3f& rV1);
+    void GetEdgeEdgeIntersection(const SEVector3f& rU0,
+        const SEVector3f& rU1, const SEVector3f& rV0,
+        const SEVector3f& rV1);
 
     // the objects to intersect
-    const Triangle3f* m_pTriangle0;
-    const Triangle3f* m_pTriangle1;
+    const SETriangle3f* m_pTriangle0;
+    const SETriangle3f* m_pTriangle1;
 
     // information about the intersection set
     int m_iCount;
-    Vector3f m_aPoint[6];
+    SEVector3f m_aPoint[6];
 };
 
 }

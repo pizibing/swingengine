@@ -24,7 +24,7 @@ inline int SphereBV::GetBVType() const
     return BoundingVolume::BV_SPHERE;
 }
 //----------------------------------------------------------------------------
-inline void SphereBV::SetCenter(const Vector3f& rCenter)
+inline void SphereBV::SetCenter(const SEVector3f& rCenter)
 {
     m_Sphere.Center = rCenter;
 }
@@ -34,7 +34,7 @@ inline void SphereBV::SetRadius(float fRadius)
     m_Sphere.Radius = fRadius;
 }
 //----------------------------------------------------------------------------
-inline Vector3f SphereBV::GetCenter() const
+inline SEVector3f SphereBV::GetCenter() const
 {
     return m_Sphere.Center;
 }
@@ -44,12 +44,12 @@ inline float SphereBV::GetRadius() const
     return m_Sphere.Radius;
 }
 //----------------------------------------------------------------------------
-inline Sphere3f& SphereBV::Sphere()
+inline SESphere3f& SphereBV::Sphere()
 {
     return m_Sphere;
 }
 //----------------------------------------------------------------------------
-inline const Sphere3f& SphereBV::GetSphere() const
+inline const SESphere3f& SphereBV::GetSphere() const
 {
     return m_Sphere;
 }

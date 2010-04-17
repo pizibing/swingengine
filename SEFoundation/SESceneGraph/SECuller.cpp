@@ -61,10 +61,10 @@ void Culler::SetFrustum(const float* afFrustum)
     float fUMax2 = m_Frustum[Camera::VF_UMAX] * m_Frustum[Camera::VF_UMAX];
 
     // 获取摄像机坐标系,E:RUD
-    Vector3f vec3fLoc = m_pCamera->GetLocation();
-    Vector3f vec3fRVec = m_pCamera->GetRVector();
-    Vector3f vec3fUVec = m_pCamera->GetUVector();
-    Vector3f vec3fDVec = m_pCamera->GetDVector();
+    SEVector3f vec3fLoc = m_pCamera->GetLocation();
+    SEVector3f vec3fRVec = m_pCamera->GetRVector();
+    SEVector3f vec3fUVec = m_pCamera->GetUVector();
+    SEVector3f vec3fDVec = m_pCamera->GetDVector();
     float fDdE = vec3fDVec.Dot(vec3fLoc);
 
     // 更新near plane
@@ -76,7 +76,7 @@ void Culler::SetFrustum(const float* afFrustum)
     m_aPlane[Camera::VF_DMAX].Constant = -(fDdE + m_Frustum[Camera::VF_DMAX]);
 
     // 更新bottom plane
-    float fInvLength = 1.0f / Mathf::Sqrt(fDMin2 + fUMin2);
+    float fInvLength = 1.0f / SEMathf::Sqrt(fDMin2 + fUMin2);
     float fC0 = -m_Frustum[Camera::VF_UMIN]*fInvLength;  // D component
     float fC1 = +m_Frustum[Camera::VF_DMIN]*fInvLength;  // U component
     m_aPlane[Camera::VF_UMIN].Normal = fC0*vec3fDVec + fC1*vec3fUVec;
@@ -84,7 +84,7 @@ void Culler::SetFrustum(const float* afFrustum)
         m_aPlane[Camera::VF_UMIN].Normal);
 
     // 更新top plane
-    fInvLength = 1.0f / Mathf::Sqrt(fDMin2 + fUMax2);
+    fInvLength = 1.0f / SEMathf::Sqrt(fDMin2 + fUMax2);
     fC0 = +m_Frustum[Camera::VF_UMAX]*fInvLength;  // D component
     fC1 = -m_Frustum[Camera::VF_DMIN]*fInvLength;  // U component
     m_aPlane[Camera::VF_UMAX].Normal = fC0*vec3fDVec + fC1*vec3fUVec;
@@ -92,7 +92,7 @@ void Culler::SetFrustum(const float* afFrustum)
         m_aPlane[Camera::VF_UMAX].Normal);
 
     // 更新left plane
-    fInvLength = 1.0f / Mathf::Sqrt(fDMin2 + fRMin2);
+    fInvLength = 1.0f / SEMathf::Sqrt(fDMin2 + fRMin2);
     fC0 = -m_Frustum[Camera::VF_RMIN]*fInvLength;  // D component
     fC1 = +m_Frustum[Camera::VF_DMIN]*fInvLength;  // R component
     m_aPlane[Camera::VF_RMIN].Normal = fC0*vec3fDVec + fC1*vec3fRVec;
@@ -100,7 +100,7 @@ void Culler::SetFrustum(const float* afFrustum)
         m_aPlane[Camera::VF_RMIN].Normal);
 
     // 更新right plane
-    fInvLength = 1.0f / Mathf::Sqrt(fDMin2 + fRMax2);
+    fInvLength = 1.0f / SEMathf::Sqrt(fDMin2 + fRMax2);
     fC0 = +m_Frustum[Camera::VF_RMAX]*fInvLength;  // D component
     fC1 = -m_Frustum[Camera::VF_DMIN]*fInvLength;  // R component
     m_aPlane[Camera::VF_RMAX].Normal = fC0*vec3fDVec + fC1*vec3fRVec;
@@ -143,7 +143,7 @@ bool Culler::IsInFrustum(const BoundingVolume* pBound)
     return true;
 }
 //----------------------------------------------------------------------------
-bool Culler::IsInFrustum(int iVertexCount, const Vector3f* aVertex,
+bool Culler::IsInFrustum(int iVertexCount, const SEVector3f* aVertex,
     bool bIgnoreNearPlane)
 {
     // The Boolean variable bIgnoreNearPlane should be set to 'true' when
@@ -159,7 +159,7 @@ bool Culler::IsInFrustum(int iVertexCount, const Vector3f* aVertex,
     int iP = m_iPlaneCount - 1;
     for( int i = 0; i < m_iPlaneCount; i++, iP-- )
     {
-        Plane3f& rPlane = m_aPlane[iP];
+        SEPlane3f& rPlane = m_aPlane[iP];
         if( bIgnoreNearPlane && iP == Camera::VF_DMIN )
         {
             continue;
@@ -206,7 +206,7 @@ bool Culler::IsSingleInFrustum(const BoundingVolume* pBound) const
     return true;
 }
 //----------------------------------------------------------------------------
-int Culler::OnWhichSide(const Plane3f& rPlane) const
+int Culler::OnWhichSide(const SEPlane3f& rPlane) const
 {
     // The plane is N*(X-C) = 0 where the * indicates dot product. The signed
     // distance from the camera location E to the plane is N*(E-C).

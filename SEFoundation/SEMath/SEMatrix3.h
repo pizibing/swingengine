@@ -101,7 +101,7 @@ namespace Swing
 // Author: Sun Che
 // Date: 20070512
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Matrix3f
+class SE_FOUNDATION_API SEMatrix3f
 {
 public:
     inline float M11(void) const;
@@ -127,20 +127,20 @@ private:
     float m_fData[3][3];
 
 public:
-    Matrix3f(void);
-    Matrix3f(const Matrix3f& rMat);
-    Matrix3f(float fM11, float fM12, float fM13,
+    SEMatrix3f(void);
+    SEMatrix3f(const SEMatrix3f& rMat);
+    SEMatrix3f(float fM11, float fM12, float fM13,
              float fM21, float fM22, float fM23,
              float fM31, float fM32, float fM33);
     // By defalut, construct a row-major order matrix.
-    Matrix3f(const Vector3f& rVecU, const Vector3f& rVecV, 
-        const Vector3f& rVecW, bool bIsRow = true);
+    SEMatrix3f(const SEVector3f& rVecU, const SEVector3f& rVecV, 
+        const SEVector3f& rVecW, bool bIsRow = true);
     // Construct a diagonal matrix.
-    Matrix3f(float fM11, float fM22, float fM33);
+    SEMatrix3f(float fM11, float fM22, float fM33);
     // 创建绕任意轴旋转矩阵,弧度制,fAngle > 0为顺时针旋转,旋转轴必须为单位向量
-    Matrix3f(const Vector3f& rAxisVec, float fAngle);
+    SEMatrix3f(const SEVector3f& rAxisVec, float fAngle);
     // 用列向量U和行向量V的张量积构建矩阵
-    Matrix3f(const Vector3f& rVecU, const Vector3f& rVecV);
+    SEMatrix3f(const SEVector3f& rVecU, const SEVector3f& rVecV);
 
     operator const float* (void) const;
     operator float* (void);
@@ -149,39 +149,39 @@ public:
     float operator () (int iCurRow, int iCurCol) const;
     float& operator () (int iCurRow, int iCurCol);
 
-    inline void SetRow(int iDesRow, const Vector3f& rSrcVec);
-    inline void GetRow(int iSrcRow, Vector3f& rDesVec) const;
-    inline void SetColumn(int iDesCol, const Vector3f& rSrcVec);
-    inline void GetColumn(int iSrcCol, Vector3f& rDesVec) const;
+    inline void SetRow(int iDesRow, const SEVector3f& rSrcVec);
+    inline void GetRow(int iSrcRow, SEVector3f& rDesVec) const;
+    inline void SetColumn(int iDesCol, const SEVector3f& rSrcVec);
+    inline void GetColumn(int iSrcCol, SEVector3f& rDesVec) const;
 
-    Matrix3f& operator = (const Matrix3f& rMat);
+    SEMatrix3f& operator = (const SEMatrix3f& rMat);
 
-    bool operator == (const Matrix3f& rMat) const;
-    bool operator != (const Matrix3f& rMat) const;
-    bool operator < (const Matrix3f& rMat) const;
-    bool operator <= (const Matrix3f& rMat) const;
-    bool operator > (const Matrix3f& rMat) const;
-    bool operator >= (const Matrix3f& rMat) const;
+    bool operator == (const SEMatrix3f& rMat) const;
+    bool operator != (const SEMatrix3f& rMat) const;
+    bool operator < (const SEMatrix3f& rMat) const;
+    bool operator <= (const SEMatrix3f& rMat) const;
+    bool operator > (const SEMatrix3f& rMat) const;
+    bool operator >= (const SEMatrix3f& rMat) const;
 
-    Matrix3f operator + (const Matrix3f& rRhsMat) const;
-    Matrix3f operator - (const Matrix3f& rRhsMat) const;
-    Matrix3f operator * (const Matrix3f& rRhsMat) const;
-    Matrix3f operator * (float fScalar) const;
-    Matrix3f operator / (float fScalar) const;
-    Matrix3f operator - (void) const;
+    SEMatrix3f operator + (const SEMatrix3f& rRhsMat) const;
+    SEMatrix3f operator - (const SEMatrix3f& rRhsMat) const;
+    SEMatrix3f operator * (const SEMatrix3f& rRhsMat) const;
+    SEMatrix3f operator * (float fScalar) const;
+    SEMatrix3f operator / (float fScalar) const;
+    SEMatrix3f operator - (void) const;
 
-    Matrix3f& operator += (const Matrix3f& rRhsMat);
-    Matrix3f& operator -= (const Matrix3f& rRhsMat);
-    Matrix3f& operator *= (float fScalar);
-    Matrix3f& operator /= (float fScalar);
+    SEMatrix3f& operator += (const SEMatrix3f& rRhsMat);
+    SEMatrix3f& operator -= (const SEMatrix3f& rRhsMat);
+    SEMatrix3f& operator *= (float fScalar);
+    SEMatrix3f& operator /= (float fScalar);
 
     // 乘以列向量
-    Vector3f operator * (const Vector3f& rRhsVec) const;
+    SEVector3f operator * (const SEVector3f& rRhsVec) const;
 
-    SE_FOUNDATION_API friend Matrix3f operator * (float fLhsScalar, 
-        const Matrix3f& rRhsMat);
-    SE_FOUNDATION_API friend Vector3f operator * (const Vector3f& rLhsVec, 
-        const Matrix3f& rRhsMat);
+    SE_FOUNDATION_API friend SEMatrix3f operator * (float fLhsScalar, 
+        const SEMatrix3f& rRhsMat);
+    SE_FOUNDATION_API friend SEVector3f operator * (const SEVector3f& rLhsVec, 
+        const SEMatrix3f& rRhsMat);
 
     // 置为0矩阵
     inline void Zero(void);
@@ -190,50 +190,50 @@ public:
     // 置为对角矩阵
     inline void Diagonal(float fM11, float fM22, float fM33);
     // 列向量与行向量的张量积构建矩阵
-    inline void TensorProduct(const Vector3f& rVecU, const Vector3f& rVecV);
+    inline void TensorProduct(const SEVector3f& rVecU, const SEVector3f& rVecV);
     // 将自己转置
     void Transpose(void);
     // 获取转置矩阵
-    inline void GetTranspose(Matrix3f& rDesMat) const;
+    inline void GetTranspose(SEMatrix3f& rDesMat) const;
     // 将自己求逆
     void Inverse(void);
     // 获取逆矩阵
-    inline void GetInverse(Matrix3f& rDesMat) const;
+    inline void GetInverse(SEMatrix3f& rDesMat) const;
     // 获取伴随矩阵
-    inline void GetAdjoint(Matrix3f& rDesMat) const;
+    inline void GetAdjoint(SEMatrix3f& rDesMat) const;
     // 获取行列式
     inline float GetDeterminant(void) const;
     // 获取当前矩阵乘以对角矩阵,对角矩阵只需传入对角线向量
-    inline void GetTimesDiagonal(const Vector3f& rDiag, 
-        Matrix3f& rDesMat) const;
+    inline void GetTimesDiagonal(const SEVector3f& rDiag, 
+        SEMatrix3f& rDesMat) const;
     // 获取对角矩阵乘以当前矩阵,对角矩阵只需传入对角线向量
-    inline void GetDiagonalTimes(const Vector3f& rDiag, 
-        Matrix3f& rDesMat) const;
+    inline void GetDiagonalTimes(const SEVector3f& rDiag, 
+        SEMatrix3f& rDesMat) const;
     // this^T * M
-    inline void GetTransposeTimes(const Matrix3f& rRhsMat, 
-        Matrix3f& rDesMat) const;
+    inline void GetTransposeTimes(const SEMatrix3f& rRhsMat, 
+        SEMatrix3f& rDesMat) const;
     // this * M^T
-    inline void GetTimesTranspose(const Matrix3f& rRhsMat, 
-        Matrix3f& rDesMat) const;
+    inline void GetTimesTranspose(const SEMatrix3f& rRhsMat, 
+        SEMatrix3f& rDesMat) const;
 
     // 构建任意轴旋转矩阵,旋转轴向量必须为单位向量
-    inline void FromAxisAngle(const Vector3f& rAxisVec, float fAngle);
+    inline void FromAxisAngle(const SEVector3f& rAxisVec, float fAngle);
     // 必须为旋转矩阵,解析出旋转轴和旋转角度
-    inline void ToAxisAngle(Vector3f& rAxisVec, float& rfAngle) const;
+    inline void ToAxisAngle(SEVector3f& rAxisVec, float& rfAngle) const;
     // 必须为旋转矩阵,Gram-Schmidt规范化正交使坐标基成为规范坐标基.
     void Orthonormalize(void);
 
-    Matrix3f& FromEulerAnglesXYZ(float fYAngle, float fPAngle, 
+    SEMatrix3f& FromEulerAnglesXYZ(float fYAngle, float fPAngle, 
         float fRAngle);
-    Matrix3f& FromEulerAnglesXZY(float fYAngle, float fPAngle, 
+    SEMatrix3f& FromEulerAnglesXZY(float fYAngle, float fPAngle, 
         float fRAngle);
-    Matrix3f& FromEulerAnglesYXZ(float fYAngle, float fPAngle, 
+    SEMatrix3f& FromEulerAnglesYXZ(float fYAngle, float fPAngle, 
         float fRAngle);
-    Matrix3f& FromEulerAnglesYZX(float fYAngle, float fPAngle, 
+    SEMatrix3f& FromEulerAnglesYZX(float fYAngle, float fPAngle, 
         float fRAngle);
-    Matrix3f& FromEulerAnglesZXY(float fYAngle, float fPAngle, 
+    SEMatrix3f& FromEulerAnglesZXY(float fYAngle, float fPAngle, 
         float fRAngle);
-    Matrix3f& FromEulerAnglesZYX(float fYAngle, float fPAngle, 
+    SEMatrix3f& FromEulerAnglesZYX(float fYAngle, float fPAngle, 
         float fRAngle);
 
     bool ToEulerAnglesXYZ(float& rfYAngle, float& rfPAngle, 
@@ -249,11 +249,11 @@ public:
     bool ToEulerAnglesZYX(float& rfYAngle, float& rfPAngle, 
         float& rfRAngle) const;
 
-    static const Matrix3f ZERO;
-    static const Matrix3f IDENTITY;
+    static const SEMatrix3f ZERO;
+    static const SEMatrix3f IDENTITY;
 
 private:
-    inline int CompareData(const Matrix3f& rMat) const;
+    inline int CompareData(const SEMatrix3f& rMat) const;
 };
 
 //----------------------------------------------------------------------------
@@ -262,7 +262,7 @@ private:
 // Author: Sun Che
 // Date: 20090517
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Matrix3d
+class SE_FOUNDATION_API SEMatrix3d
 {
 public:
     inline double M11(void) const;
@@ -287,20 +287,20 @@ private:
     double m_dData[3][3];
 
 public:
-    Matrix3d(void);
-    Matrix3d(const Matrix3d& rMat);
-    Matrix3d(double dM11, double dM12, double dM13,
+    SEMatrix3d(void);
+    SEMatrix3d(const SEMatrix3d& rMat);
+    SEMatrix3d(double dM11, double dM12, double dM13,
             double dM21, double dM22, double dM23,
             double dM31, double dM32, double dM33);
     // 默认用行向量构建矩阵
-    Matrix3d(const Vector3d& rVecU, const Vector3d& rVecV, 
-        const Vector3d& rVecW, bool bIsRow = true);
+    SEMatrix3d(const SEVector3d& rVecU, const SEVector3d& rVecV, 
+        const SEVector3d& rVecW, bool bIsRow = true);
     // 创建对角矩阵
-    Matrix3d(double dM11, double dM22, double dM33);
+    SEMatrix3d(double dM11, double dM22, double dM33);
     // 创建绕任意轴旋转矩阵,弧度制,fAngle > 0为顺时针旋转,旋转轴必须为单位向量
-    Matrix3d(const Vector3d& rAxisVec, double dAngle);
+    SEMatrix3d(const SEVector3d& rAxisVec, double dAngle);
     // 用列向量U和行向量V的张量积构建矩阵
-    Matrix3d(const Vector3d& rVecU, const Vector3d& rVecV);
+    SEMatrix3d(const SEVector3d& rVecU, const SEVector3d& rVecV);
 
     operator const double* (void) const;
     operator double* (void);
@@ -309,39 +309,39 @@ public:
     double operator () (int iCurRow, int iCurCol) const;
     double& operator () (int iCurRow, int iCurCol);
 
-    inline void SetRow(int iDesRow, const Vector3d& rSrcVec);
-    inline void GetRow(int iSrcRow, Vector3d& rDesVec) const;
-    inline void SetColumn(int iDesCol, const Vector3d& rSrcVec);
-    inline void GetColumn(int iSrcCol, Vector3d& rDesVec) const;
+    inline void SetRow(int iDesRow, const SEVector3d& rSrcVec);
+    inline void GetRow(int iSrcRow, SEVector3d& rDesVec) const;
+    inline void SetColumn(int iDesCol, const SEVector3d& rSrcVec);
+    inline void GetColumn(int iSrcCol, SEVector3d& rDesVec) const;
 
-    Matrix3d& operator = (const Matrix3d& rMat);
+    SEMatrix3d& operator = (const SEMatrix3d& rMat);
 
-    bool operator == (const Matrix3d& rMat) const;
-    bool operator != (const Matrix3d& rMat) const;
-    bool operator < (const Matrix3d& rMat) const;
-    bool operator <= (const Matrix3d& rMat) const;
-    bool operator > (const Matrix3d& rMat) const;
-    bool operator >= (const Matrix3d& rMat) const;
+    bool operator == (const SEMatrix3d& rMat) const;
+    bool operator != (const SEMatrix3d& rMat) const;
+    bool operator < (const SEMatrix3d& rMat) const;
+    bool operator <= (const SEMatrix3d& rMat) const;
+    bool operator > (const SEMatrix3d& rMat) const;
+    bool operator >= (const SEMatrix3d& rMat) const;
 
-    Matrix3d operator + (const Matrix3d& rRhsMat) const;
-    Matrix3d operator - (const Matrix3d& rRhsMat) const;
-    Matrix3d operator * (const Matrix3d& rRhsMat) const;
-    Matrix3d operator * (double dScalar) const;
-    Matrix3d operator / (double dScalar) const;
-    Matrix3d operator - (void) const;
+    SEMatrix3d operator + (const SEMatrix3d& rRhsMat) const;
+    SEMatrix3d operator - (const SEMatrix3d& rRhsMat) const;
+    SEMatrix3d operator * (const SEMatrix3d& rRhsMat) const;
+    SEMatrix3d operator * (double dScalar) const;
+    SEMatrix3d operator / (double dScalar) const;
+    SEMatrix3d operator - (void) const;
 
-    Matrix3d& operator += (const Matrix3d& rRhsMat);
-    Matrix3d& operator -= (const Matrix3d& rRhsMat);
-    Matrix3d& operator *= (double dScalar);
-    Matrix3d& operator /= (double dScalar);
+    SEMatrix3d& operator += (const SEMatrix3d& rRhsMat);
+    SEMatrix3d& operator -= (const SEMatrix3d& rRhsMat);
+    SEMatrix3d& operator *= (double dScalar);
+    SEMatrix3d& operator /= (double dScalar);
 
     // 乘以列向量
-    Vector3d operator * (const Vector3d& rRhsVec) const;
+    SEVector3d operator * (const SEVector3d& rRhsVec) const;
 
-    SE_FOUNDATION_API friend Matrix3d operator * (double dLhsScalar, 
-        const Matrix3d& rRhsMat);
-    SE_FOUNDATION_API friend Vector3d operator * (const Vector3d& rLhsVec, 
-        const Matrix3d& rRhsMat);
+    SE_FOUNDATION_API friend SEMatrix3d operator * (double dLhsScalar, 
+        const SEMatrix3d& rRhsMat);
+    SE_FOUNDATION_API friend SEVector3d operator * (const SEVector3d& rLhsVec, 
+        const SEMatrix3d& rRhsMat);
 
     // 置为0矩阵
     inline void Zero(void);
@@ -350,50 +350,50 @@ public:
     // 置为对角矩阵
     inline void Diagonal(double dM11, double dM22, double dM33);
     // 列向量与行向量的张量积构建矩阵
-    inline void TensorProduct(const Vector3d& rVecU, const Vector3d& rVecV);
+    inline void TensorProduct(const SEVector3d& rVecU, const SEVector3d& rVecV);
     // 将自己转置
     void Transpose(void);
     // 获取转置矩阵
-    inline void GetTranspose(Matrix3d& rDesMat) const;
+    inline void GetTranspose(SEMatrix3d& rDesMat) const;
     // 将自己求逆
     void Inverse(void);
     // 获取逆矩阵
-    inline void GetInverse(Matrix3d& rDesMat) const;
+    inline void GetInverse(SEMatrix3d& rDesMat) const;
     // 获取伴随矩阵
-    inline void GetAdjoint(Matrix3d& rDesMat) const;
+    inline void GetAdjoint(SEMatrix3d& rDesMat) const;
     // 获取行列式
     inline double GetDeterminant(void) const;
     // 获取当前矩阵乘以对角矩阵,对角矩阵只需传入对角线向量
-    inline void GetTimesDiagonal(const Vector3d& rDiag, 
-        Matrix3d& rDesMat) const;
+    inline void GetTimesDiagonal(const SEVector3d& rDiag, 
+        SEMatrix3d& rDesMat) const;
     // 获取对角矩阵乘以当前矩阵,对角矩阵只需传入对角线向量
-    inline void GetDiagonalTimes(const Vector3d& rDiag, 
-        Matrix3d& rDesMat) const;
+    inline void GetDiagonalTimes(const SEVector3d& rDiag, 
+        SEMatrix3d& rDesMat) const;
     // this^T * M
-    inline void GetTransposeTimes(const Matrix3d& rRhsMat, 
-        Matrix3d& rDesMat) const;
+    inline void GetTransposeTimes(const SEMatrix3d& rRhsMat, 
+        SEMatrix3d& rDesMat) const;
     // this * M^T
-    inline void GetTimesTranspose(const Matrix3d& rRhsMat, 
-        Matrix3d& rDesMat) const;
+    inline void GetTimesTranspose(const SEMatrix3d& rRhsMat, 
+        SEMatrix3d& rDesMat) const;
 
     // 构建任意轴旋转矩阵,旋转轴向量必须为单位向量
-    inline void FromAxisAngle(const Vector3d& rAxisVec, double dAngle);
+    inline void FromAxisAngle(const SEVector3d& rAxisVec, double dAngle);
     // 必须为旋转矩阵,解析出旋转轴和旋转角度
-    inline void ToAxisAngle(Vector3d& rAxisVec, double& rdAngle) const;
+    inline void ToAxisAngle(SEVector3d& rAxisVec, double& rdAngle) const;
     // 必须为旋转矩阵,Gram-Schmidt规范化正交使坐标基成为规范坐标基.
     void Orthonormalize(void);
 
-    Matrix3d& FromEulerAnglesXYZ(double dYAngle, double dPAngle, 
+    SEMatrix3d& FromEulerAnglesXYZ(double dYAngle, double dPAngle, 
         double dRAngle);
-    Matrix3d& FromEulerAnglesXZY(double dYAngle, double dPAngle, 
+    SEMatrix3d& FromEulerAnglesXZY(double dYAngle, double dPAngle, 
         double dRAngle);
-    Matrix3d& FromEulerAnglesYXZ(double dYAngle, double dPAngle, 
+    SEMatrix3d& FromEulerAnglesYXZ(double dYAngle, double dPAngle, 
         double dRAngle);
-    Matrix3d& FromEulerAnglesYZX(double dYAngle, double dPAngle, 
+    SEMatrix3d& FromEulerAnglesYZX(double dYAngle, double dPAngle, 
         double dRAngle);
-    Matrix3d& FromEulerAnglesZXY(double dYAngle, double dPAngle, 
+    SEMatrix3d& FromEulerAnglesZXY(double dYAngle, double dPAngle, 
         double dRAngle);
-    Matrix3d& FromEulerAnglesZYX(double dYAngle, double dPAngle, 
+    SEMatrix3d& FromEulerAnglesZYX(double dYAngle, double dPAngle, 
         double dRAngle);
 
     bool ToEulerAnglesXYZ(double& rdYAngle, double& rdPAngle, 
@@ -409,15 +409,15 @@ public:
     bool ToEulerAnglesZYX(double& rdYAngle, double& rdPAngle, 
         double& rdRAngle) const;
 
-    static const Matrix3d ZERO;
-    static const Matrix3d IDENTITY;
+    static const SEMatrix3d ZERO;
+    static const SEMatrix3d IDENTITY;
 
 private:
-    inline int CompareData(const Matrix3d& rMat) const;
+    inline int CompareData(const SEMatrix3d& rMat) const;
 };
 
-typedef SE_ALIGN16 Matrix3f Matrix3fA16;
-typedef SE_ALIGN16 Matrix3d Matrix3dA16;
+typedef SE_ALIGN16 SEMatrix3f SEMatrix3fA16;
+typedef SE_ALIGN16 SEMatrix3d SEMatrix3dA16;
 
 #include "SEMatrix3.inl"
 

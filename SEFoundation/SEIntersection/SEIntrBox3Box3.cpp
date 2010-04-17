@@ -24,19 +24,19 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrBox3Box3f::IntrBox3Box3f(const Box3f& rBox0, const Box3f& rBox1)
+IntrBox3Box3f::IntrBox3Box3f(const SEBox3f& rBox0, const SEBox3f& rBox1)
     :
     m_pBox0(&rBox0), 
     m_pBox1(&rBox1)
 {
 }
 //----------------------------------------------------------------------------
-const Box3f& IntrBox3Box3f::GetBox0() const
+const SEBox3f& IntrBox3Box3f::GetBox0() const
 {
     return *m_pBox0;
 }
 //----------------------------------------------------------------------------
-const Box3f& IntrBox3Box3f::GetBox1() const
+const SEBox3f& IntrBox3Box3f::GetBox1() const
 {
     return *m_pBox1;
 }
@@ -46,18 +46,18 @@ bool IntrBox3Box3f::Test()
     // 两box轴之间夹角的cos值的阀值.当大于此阀值时,则认为两向量平行.
     // 用于判断两box所有轴中,是否至少存在一对平行向量.
     // 当此情况发生时,则没有必要测试那些Cross(A[i], B[j])构成的潜在分离轴了.
-    const float fCutoff = 1.0f - Math<float>::ZERO_TOLERANCE;
+    const float fCutoff = 1.0f - SEMath<float>::ZERO_TOLERANCE;
     bool bExistsParallelPair = false;
     int i;
 
     // 辅助变量.
-    const Vector3f* aA = m_pBox0->Axis;
-    const Vector3f* aB = m_pBox1->Axis;
+    const SEVector3f* aA = m_pBox0->Axis;
+    const SEVector3f* aB = m_pBox1->Axis;
     const float* afEA = m_pBox0->Extent;
     const float* afEB = m_pBox1->Extent;
 
     // 计算两box中心点差向量,D = C1 - C0.
-    Vector3f vec3fD = m_pBox1->Center - m_pBox0->Center;
+    SEVector3f vec3fD = m_pBox1->Center - m_pBox0->Center;
 
     float aafC[3][3];     // matrix C = A^T B, c_{ij} = Dot(A_i, B_j)
     float aafAbsC[3][3];  // |c_{ij}|
@@ -69,14 +69,14 @@ bool IntrBox3Box3f::Test()
     for( i = 0; i < 3; i++ )
     {
         aafC[0][i] = aA[0].Dot(aB[i]);
-        aafAbsC[0][i] = Math<float>::FAbs(aafC[0][i]);
+        aafAbsC[0][i] = SEMath<float>::FAbs(aafC[0][i]);
         if( aafAbsC[0][i] > fCutoff )
         {
             bExistsParallelPair = true;
         }
     }
     afAD[0] = aA[0].Dot(vec3fD);
-    fR = Math<float>::FAbs(afAD[0]);
+    fR = SEMath<float>::FAbs(afAD[0]);
     fR1 = afEB[0]*aafAbsC[0][0] + afEB[1]*aafAbsC[0][1] + afEB[2]*aafAbsC[0][2];
     fR01 = afEA[0] + fR1;
     if( fR > fR01 )
@@ -88,14 +88,14 @@ bool IntrBox3Box3f::Test()
     for( i = 0; i < 3; i++ )
     {
         aafC[1][i] = aA[1].Dot(aB[i]);
-        aafAbsC[1][i] = Math<float>::FAbs(aafC[1][i]);
+        aafAbsC[1][i] = SEMath<float>::FAbs(aafC[1][i]);
         if( aafAbsC[1][i] > fCutoff )
         {
             bExistsParallelPair = true;
         }
     }
     afAD[1] = aA[1].Dot(vec3fD);
-    fR = Math<float>::FAbs(afAD[1]);
+    fR = SEMath<float>::FAbs(afAD[1]);
     fR1 = afEB[0]*aafAbsC[1][0] + afEB[1]*aafAbsC[1][1] + afEB[2]*aafAbsC[1][2];
     fR01 = afEA[1] + fR1;
     if( fR > fR01 )
@@ -107,14 +107,14 @@ bool IntrBox3Box3f::Test()
     for( i = 0; i < 3; i++ )
     {
         aafC[2][i] = aA[2].Dot(aB[i]);
-        aafAbsC[2][i] = Math<float>::FAbs(aafC[2][i]);
+        aafAbsC[2][i] = SEMath<float>::FAbs(aafC[2][i]);
         if( aafAbsC[2][i] > fCutoff )
         {
             bExistsParallelPair = true;
         }
     }
     afAD[2] = aA[2].Dot(vec3fD);
-    fR = Math<float>::FAbs(afAD[2]);
+    fR = SEMath<float>::FAbs(afAD[2]);
     fR1 = afEB[0]*aafAbsC[2][0] + afEB[1]*aafAbsC[2][1] + afEB[2]*aafAbsC[2][2];
     fR01 = afEA[2] + fR1;
     if( fR > fR01 )
@@ -123,7 +123,7 @@ bool IntrBox3Box3f::Test()
     }
 
     // axis C0 + t*B0
-    fR = Math<float>::FAbs(aB[0].Dot(vec3fD));
+    fR = SEMath<float>::FAbs(aB[0].Dot(vec3fD));
     fR0 = afEA[0]*aafAbsC[0][0] + afEA[1]*aafAbsC[1][0] + afEA[2]*aafAbsC[2][0];
     fR01 = fR0 + afEB[0];
     if( fR > fR01 )
@@ -132,7 +132,7 @@ bool IntrBox3Box3f::Test()
     }
 
     // axis C0 + t*B1
-    fR = Math<float>::FAbs(aB[1].Dot(vec3fD));
+    fR = SEMath<float>::FAbs(aB[1].Dot(vec3fD));
     fR0 = afEA[0]*aafAbsC[0][1] + afEA[1]*aafAbsC[1][1] + afEA[2]*aafAbsC[2][1];
     fR01 = fR0 + afEB[1];
     if( fR > fR01 )
@@ -141,7 +141,7 @@ bool IntrBox3Box3f::Test()
     }
 
     // axis C0 + t*B2
-    fR = Math<float>::FAbs(aB[2].Dot(vec3fD));
+    fR = SEMath<float>::FAbs(aB[2].Dot(vec3fD));
     fR0 = afEA[0]*aafAbsC[0][2] + afEA[1]*aafAbsC[1][2] + afEA[2]*aafAbsC[2][2];
     fR01 = fR0 + afEB[2];
     if( fR > fR01 )
@@ -157,7 +157,7 @@ bool IntrBox3Box3f::Test()
     }
 
     // axis C0 + t*A0xB0
-    fR = Math<float>::FAbs(afAD[2]*aafC[1][0] - afAD[1]*aafC[2][0]);
+    fR = SEMath<float>::FAbs(afAD[2]*aafC[1][0] - afAD[1]*aafC[2][0]);
     fR0 = afEA[1]*aafAbsC[2][0] + afEA[2]*aafAbsC[1][0];
     fR1 = afEB[1]*aafAbsC[0][2] + afEB[2]*aafAbsC[0][1];
     fR01 = fR0 + fR1;
@@ -167,7 +167,7 @@ bool IntrBox3Box3f::Test()
     }
 
     // axis C0 + t*A0xB1
-    fR = Math<float>::FAbs(afAD[2]*aafC[1][1] - afAD[1]*aafC[2][1]);
+    fR = SEMath<float>::FAbs(afAD[2]*aafC[1][1] - afAD[1]*aafC[2][1]);
     fR0 = afEA[1]*aafAbsC[2][1] + afEA[2]*aafAbsC[1][1];
     fR1 = afEB[0]*aafAbsC[0][2] + afEB[2]*aafAbsC[0][0];
     fR01 = fR0 + fR1;
@@ -177,7 +177,7 @@ bool IntrBox3Box3f::Test()
     }
 
     // axis C0 + t*A0xB2
-    fR = Math<float>::FAbs(afAD[2]*aafC[1][2] - afAD[1]*aafC[2][2]);
+    fR = SEMath<float>::FAbs(afAD[2]*aafC[1][2] - afAD[1]*aafC[2][2]);
     fR0 = afEA[1]*aafAbsC[2][2] + afEA[2]*aafAbsC[1][2];
     fR1 = afEB[0]*aafAbsC[0][1] + afEB[1]*aafAbsC[0][0];
     fR01 = fR0 + fR1;
@@ -187,7 +187,7 @@ bool IntrBox3Box3f::Test()
     }
 
     // axis C0 + t*A1xB0
-    fR = Math<float>::FAbs(afAD[0]*aafC[2][0] - afAD[2]*aafC[0][0]);
+    fR = SEMath<float>::FAbs(afAD[0]*aafC[2][0] - afAD[2]*aafC[0][0]);
     fR0 = afEA[0]*aafAbsC[2][0] + afEA[2]*aafAbsC[0][0];
     fR1 = afEB[1]*aafAbsC[1][2] + afEB[2]*aafAbsC[1][1];
     fR01 = fR0 + fR1;
@@ -197,7 +197,7 @@ bool IntrBox3Box3f::Test()
     }
 
     // axis C0 + t*A1xB1
-    fR = Math<float>::FAbs(afAD[0]*aafC[2][1] - afAD[2]*aafC[0][1]);
+    fR = SEMath<float>::FAbs(afAD[0]*aafC[2][1] - afAD[2]*aafC[0][1]);
     fR0 = afEA[0]*aafAbsC[2][1] + afEA[2]*aafAbsC[0][1];
     fR1 = afEB[0]*aafAbsC[1][2] + afEB[2]*aafAbsC[1][0];
     fR01 = fR0 + fR1;
@@ -207,7 +207,7 @@ bool IntrBox3Box3f::Test()
     }
 
     // axis C0 + t*A1xB2
-    fR = Math<float>::FAbs(afAD[0]*aafC[2][2] - afAD[2]*aafC[0][2]);
+    fR = SEMath<float>::FAbs(afAD[0]*aafC[2][2] - afAD[2]*aafC[0][2]);
     fR0 = afEA[0]*aafAbsC[2][2] + afEA[2]*aafAbsC[0][2];
     fR1 = afEB[0]*aafAbsC[1][1] + afEB[1]*aafAbsC[1][0];
     fR01 = fR0 + fR1;
@@ -217,7 +217,7 @@ bool IntrBox3Box3f::Test()
     }
 
     // axis C0 + t*A2xB0
-    fR = Math<float>::FAbs(afAD[1]*aafC[0][0] - afAD[0]*aafC[1][0]);
+    fR = SEMath<float>::FAbs(afAD[1]*aafC[0][0] - afAD[0]*aafC[1][0]);
     fR0 = afEA[0]*aafAbsC[1][0] + afEA[1]*aafAbsC[0][0];
     fR1 = afEB[1]*aafAbsC[2][2] + afEB[2]*aafAbsC[2][1];
     fR01 = fR0 + fR1;
@@ -227,7 +227,7 @@ bool IntrBox3Box3f::Test()
     }
 
     // axis C0 + t*A2xB1
-    fR = Math<float>::FAbs(afAD[1]*aafC[0][1] - afAD[0]*aafC[1][1]);
+    fR = SEMath<float>::FAbs(afAD[1]*aafC[0][1] - afAD[0]*aafC[1][1]);
     fR0 = afEA[0]*aafAbsC[1][1] + afEA[1]*aafAbsC[0][1];
     fR1 = afEB[0]*aafAbsC[2][2] + afEB[2]*aafAbsC[2][0];
     fR01 = fR0 + fR1;
@@ -237,7 +237,7 @@ bool IntrBox3Box3f::Test()
     }
 
     // axis C0 + t*A2xB2
-    fR = Math<float>::FAbs(afAD[1]*aafC[0][2] - afAD[0]*aafC[1][2]);
+    fR = SEMath<float>::FAbs(afAD[1]*aafC[0][2] - afAD[0]*aafC[1][2]);
     fR0 = afEA[0]*aafAbsC[1][2] + afEA[1]*aafAbsC[0][2];
     fR1 = afEB[0]*aafAbsC[2][1] + afEB[1]*aafAbsC[2][0];
     fR01 = fR0 + fR1;
@@ -249,8 +249,8 @@ bool IntrBox3Box3f::Test()
     return true;
 }
 //----------------------------------------------------------------------------
-bool IntrBox3Box3f::Test(float fTMax, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+bool IntrBox3Box3f::Test(float fTMax, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
     if( rVelocity0 == rVelocity1 )
     {
@@ -267,16 +267,16 @@ bool IntrBox3Box3f::Test(float fTMax, const Vector3f& rVelocity0,
     // 两box轴之间夹角的cos值的阀值.当大于此阀值时,则认为两向量平行.
     // 用于判断两box所有轴中,是否至少存在一对平行向量.
     // 当此情况发生时,则没有必要测试那些Cross(A[i], B[j])构成的潜在分离轴了.
-    const float fCutoff = 1.0f - Math<float>::ZERO_TOLERANCE;
+    const float fCutoff = 1.0f - SEMath<float>::ZERO_TOLERANCE;
     bool bExistsParallelPair = false;
 
     // 辅助变量.
-    const Vector3f* aA = m_pBox0->Axis;
-    const Vector3f* aB = m_pBox1->Axis;
+    const SEVector3f* aA = m_pBox0->Axis;
+    const SEVector3f* aB = m_pBox1->Axis;
     const float* afEA = m_pBox0->Extent;
     const float* afEB = m_pBox1->Extent;
-    Vector3f vec3fD = m_pBox1->Center - m_pBox0->Center;
-    Vector3f vec3fW = rVelocity1 - rVelocity0;
+    SEVector3f vec3fD = m_pBox1->Center - m_pBox0->Center;
+    SEVector3f vec3fW = rVelocity1 - rVelocity0;
     float aafC[3][3];     // matrix C = A^T B, c_{ij} = Dot(A_i, B_j)
     float aafAbsC[3][3];  // |c_{ij}|
     float afAD[3];        // Dot(A_i, D)
@@ -285,7 +285,7 @@ bool IntrBox3Box3f::Test(float fTMax, const Vector3f& rVelocity0,
     int i, j;
 
     m_fContactTime = 0.0f;
-    float fTLast = Math<float>::MAX_REAL;
+    float fTLast = SEMath<float>::MAX_REAL;
 
     // axes C0 + t*A[i]
     for( i = 0; i < 3; i++ )
@@ -293,7 +293,7 @@ bool IntrBox3Box3f::Test(float fTMax, const Vector3f& rVelocity0,
         for( j = 0; j < 3; j++ )
         {
             aafC[i][j] = aA[i].Dot(aB[j]);
-            aafAbsC[i][j] = Math<float>::FAbs(aafC[i][j]);
+            aafAbsC[i][j] = SEMath<float>::FAbs(aafC[i][j]);
             if( aafAbsC[i][j] > fCutoff )
             {
                 bExistsParallelPair = true;

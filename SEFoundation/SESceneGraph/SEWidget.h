@@ -41,8 +41,8 @@ public:
     static Node* ScaleFrame(void);
     static Node* RotationFrame(void);
     static Node* TranslationFrame(void);
-    static Node* AABBFrame(const Vector3f& rMin, const Vector3f& rMax, 
-        const ColorRGB& rColor);
+    static Node* AABBFrame(const SEVector3f& rMin, const SEVector3f& rMax, 
+        const SEColorRGB& rColor);
 };
 
 }

@@ -34,7 +34,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080312
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API ColorRGBA
+class SE_FOUNDATION_API SEColorRGBA
 {
 public:
     union
@@ -51,35 +51,35 @@ public:
 
 public:
     // RGBA值范围在[0,1]之间
-    ColorRGBA(void);  // 初始化为(0,0,0)
-    ColorRGBA(float fR, float fG, float fB, float fA);
-    ColorRGBA(const float* pData);
-    ColorRGBA(const ColorRGBA& rColor);
+    SEColorRGBA(void);  // 初始化为(0,0,0)
+    SEColorRGBA(float fR, float fG, float fB, float fA);
+    SEColorRGBA(const float* pData);
+    SEColorRGBA(const SEColorRGBA& rColor);
 
     inline operator const float* (void) const;
     inline operator float* (void);
     inline float operator [] (int i) const;
     inline float& operator [] (int i);
 
-    ColorRGBA& operator = (const ColorRGBA& rColor);
+    SEColorRGBA& operator = (const SEColorRGBA& rColor);
 
-    bool operator == (const ColorRGBA& rColor) const;
-    bool operator != (const ColorRGBA& rColor) const;
-    bool operator <  (const ColorRGBA& rColor) const;
-    bool operator <= (const ColorRGBA& rColor) const;
-    bool operator >  (const ColorRGBA& rColor) const;
-    bool operator >= (const ColorRGBA& rColor) const;
+    bool operator == (const SEColorRGBA& rColor) const;
+    bool operator != (const SEColorRGBA& rColor) const;
+    bool operator <  (const SEColorRGBA& rColor) const;
+    bool operator <= (const SEColorRGBA& rColor) const;
+    bool operator >  (const SEColorRGBA& rColor) const;
+    bool operator >= (const SEColorRGBA& rColor) const;
 
-    ColorRGBA operator + (const ColorRGBA& rColor) const;
-    ColorRGBA operator - (const ColorRGBA& rColor) const;
-    ColorRGBA operator * (const ColorRGBA& rColor) const;
-    ColorRGBA operator * (float fScalar) const;
-    SE_FOUNDATION_API friend ColorRGBA operator * (float fScalar, const ColorRGBA& rColor);
+    SEColorRGBA operator + (const SEColorRGBA& rColor) const;
+    SEColorRGBA operator - (const SEColorRGBA& rColor) const;
+    SEColorRGBA operator * (const SEColorRGBA& rColor) const;
+    SEColorRGBA operator * (float fScalar) const;
+    SE_FOUNDATION_API friend SEColorRGBA operator * (float fScalar, const SEColorRGBA& rColor);
 
-    ColorRGBA& operator += (const ColorRGBA& rColor);
-    ColorRGBA& operator -= (const ColorRGBA& rColor);
-    ColorRGBA& operator *= (const ColorRGBA& rColor);
-    ColorRGBA& operator *= (float fScalar);
+    SEColorRGBA& operator += (const SEColorRGBA& rColor);
+    SEColorRGBA& operator -= (const SEColorRGBA& rColor);
+    SEColorRGBA& operator *= (const SEColorRGBA& rColor);
+    SEColorRGBA& operator *= (float fScalar);
 
     // 把颜色值变换到[0,1]区间,
     // Clamp函数把负数裁剪到0,大于1的数裁剪到1,
@@ -88,15 +88,15 @@ public:
     void Clamp(void);
     void ScaleByMax(void);
 
-    static const ColorRGBA SE_RGBA_BLACK;   // = (0,0,0,1) 
-    static const ColorRGBA SE_RGBA_WHITE;   // = (1,1,1,1)
-    static const ColorRGBA SE_RGBA_RED;     // = (1,0,0,1) 
-    static const ColorRGBA SE_RGBA_GREEN;   // = (0,1,0,1)
-    static const ColorRGBA SE_RGBA_BLUE;    // = (0,0,1,1)
-    static const ColorRGBA SE_RGBA_INVALID; // = (-1,-1,-1,-1)
+    static const SEColorRGBA SE_RGBA_BLACK;   // = (0,0,0,1) 
+    static const SEColorRGBA SE_RGBA_WHITE;   // = (1,1,1,1)
+    static const SEColorRGBA SE_RGBA_RED;     // = (1,0,0,1) 
+    static const SEColorRGBA SE_RGBA_GREEN;   // = (0,1,0,1)
+    static const SEColorRGBA SE_RGBA_BLUE;    // = (0,0,1,1)
+    static const SEColorRGBA SE_RGBA_INVALID; // = (-1,-1,-1,-1)
 
 private:
-    inline int CompareData(const ColorRGBA& rColor) const;
+    inline int CompareData(const SEColorRGBA& rColor) const;
 };
 
 #include "SEColorRGBA.inl"

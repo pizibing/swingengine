@@ -38,7 +38,7 @@ class Query3f : public Query
 {
 public:
     // The base class handles floating-point queries.
-    Query3f(int iVCount, const Vector3f* aVertex);
+    Query3f(int iVCount, const SEVector3f* aVertex);
     virtual ~Query3f(void);
 
     // run-time type information
@@ -46,7 +46,7 @@ public:
 
     // member access
     int GetCount(void) const;
-    const Vector3f* GetVertices(void) const;
+    const SEVector3f* GetVertices(void) const;
 
     // Queries about the relation of a point to various geometric objects.
 
@@ -55,7 +55,7 @@ public:
     //   -1, on negative side of line
     //    0, on the plane
     virtual int ToPlane(int i, int iV0, int iV1, int iV2) const;
-    virtual int ToPlane(const Vector3f& rP, int iV0, int iV1, int iV2)
+    virtual int ToPlane(const SEVector3f& rP, int iV0, int iV1, int iV2)
         const;
 
     // returns
@@ -64,7 +64,7 @@ public:
     //    0, on tetrahedron
     virtual int ToTetrahedron(int i, int iV0, int iV1, int iV2, int iV3)
         const;
-    virtual int ToTetrahedron(const Vector3f& rP, int iV0, int iV1, 
+    virtual int ToTetrahedron(const SEVector3f& rP, int iV0, int iV1, 
         int iV2, int iV3) const;
 
     // returns
@@ -73,13 +73,13 @@ public:
     //    0, on circumsphere of tetrahedron
     virtual int ToCircumsphere(int i, int iV0, int iV1, int iV2, int iV3)
         const;
-    virtual int ToCircumsphere(const Vector3f& rP, int iV0, int iV1, 
+    virtual int ToCircumsphere(const SEVector3f& rP, int iV0, int iV1, 
         int iV2, int iV3) const;
 
 protected:
     // input points
     int m_iVCount;
-    const Vector3f* m_aVertex;
+    const SEVector3f* m_aVertex;
 
     static float Dot(float fX0, float fY0, float fZ0, float fX1, float fY1, 
         float fZ1);

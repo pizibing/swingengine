@@ -32,17 +32,17 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20070621
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Sphere3f
+class SE_FOUNDATION_API SESphere3f
 {
 public:
-    Sphere3f(void);
-    Sphere3f(const Vector3f& rCenter, float fRadius);
-    Sphere3f(const Sphere3f& rSphere);
+    SESphere3f(void);
+    SESphere3f(const SEVector3f& rCenter, float fRadius);
+    SESphere3f(const SESphere3f& rSphere);
 
-    Sphere3f& operator = (const Sphere3f& rSphere);
+    SESphere3f& operator = (const SESphere3f& rSphere);
 
 public:
-    Vector3f Center;
+    SEVector3f Center;
     float Radius;
 };
 

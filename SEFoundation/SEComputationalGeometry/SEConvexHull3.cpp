@@ -29,23 +29,23 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ConvexHull3f::ConvexHull3f(int iVertexCount,  Vector3f* aVertex, 
+ConvexHull3f::ConvexHull3f(int iVertexCount,  SEVector3f* aVertex, 
     float fEpsilon,  bool bOwner,  Query::Type eQueryType)
     :
     ConvexHullf(iVertexCount,  fEpsilon,  bOwner,  eQueryType), 
-    m_LineOrigin(Vector3f::ZERO), 
-    m_LineDirection(Vector3f::ZERO), 
-    m_PlaneOrigin(Vector3f::ZERO)
+    m_LineOrigin(SEVector3f::ZERO), 
+    m_LineDirection(SEVector3f::ZERO), 
+    m_PlaneOrigin(SEVector3f::ZERO)
 {
     SE_ASSERT( aVertex );
 
     m_aVertex = aVertex;
-    m_aPlaneDirection[0] = Vector3f::ZERO;
-    m_aPlaneDirection[1] = Vector3f::ZERO;
+    m_aPlaneDirection[0] = SEVector3f::ZERO;
+    m_aPlaneDirection[1] = SEVector3f::ZERO;
     m_aSVertex = 0;
     m_pQuery = 0;
 
-    Mapper3f tempMapper(m_iVertexCount,  m_aVertex,  m_fEpsilon);
+    SEMapper3f tempMapper(m_iVertexCount,  m_aVertex,  m_fEpsilon);
     if( tempMapper.GetDimension() == 0 )
     {
         // The values of m_iDimension,  m_aiIndex,  and m_aiAdjacent were
@@ -83,13 +83,13 @@ ConvexHull3f::ConvexHull3f(int iVertexCount,  Vector3f* aVertex,
     int i2 = tempMapper.GetExtremeIndex(2);
     int i3 = tempMapper.GetExtremeIndex(3);
 
-    m_aSVertex = SE_NEW Vector3f[m_iVertexCount];
+    m_aSVertex = SE_NEW SEVector3f[m_iVertexCount];
     int i;
 
     if( eQueryType != Query::QT_RATIONAL && eQueryType != Query::QT_FILTERED )
     {
         // Transform the vertices to the cube [0, 1]^3.
-        Vector3f vec3fMin = tempMapper.GetMin();
+        SEVector3f vec3fMin = tempMapper.GetMin();
         float fScale = 1.0f / tempMapper.GetMaxRange();
         for( i = 0; i < m_iVertexCount; i++ )
         {
@@ -127,7 +127,7 @@ ConvexHull3f::ConvexHull3f(int iVertexCount,  Vector3f* aVertex,
     {
         // No transformation needed for exact rational arithmetic or filtered
         // predicates.
-        size_t uiSize = m_iVertexCount * sizeof(Vector3f);
+        size_t uiSize = m_iVertexCount * sizeof(SEVector3f);
         SESystem::SE_Memcpy(m_aSVertex,  uiSize,  m_aVertex,  uiSize);
 
         if( eQueryType == Query::QT_RATIONAL )
@@ -197,22 +197,22 @@ ConvexHull3f::~ConvexHull3f()
     SE_DELETE m_pQuery;
 }
 //----------------------------------------------------------------------------
-const Vector3f& ConvexHull3f::GetLineOrigin() const
+const SEVector3f& ConvexHull3f::GetLineOrigin() const
 {
     return m_LineOrigin;
 }
 //----------------------------------------------------------------------------
-const Vector3f& ConvexHull3f::GetLineDirection() const
+const SEVector3f& ConvexHull3f::GetLineDirection() const
 {
     return m_LineDirection;
 }
 //----------------------------------------------------------------------------
-const Vector3f& ConvexHull3f::GetPlaneOrigin() const
+const SEVector3f& ConvexHull3f::GetPlaneOrigin() const
 {
     return m_PlaneOrigin;
 }
 //----------------------------------------------------------------------------
-const Vector3f& ConvexHull3f::GetPlaneDirection(int i) const
+const SEVector3f& ConvexHull3f::GetPlaneDirection(int i) const
 {
     SE_ASSERT( 0 <= i && i < 2 );
 
@@ -231,7 +231,7 @@ ConvexHull1f* ConvexHull3f::GetConvexHull1() const
     float* afProjection = SE_NEW float[m_iVertexCount];
     for( int i = 0; i < m_iVertexCount; i++ )
     {
-        Vector3f vec3fDiff = m_aVertex[i] - m_LineOrigin;
+        SEVector3f vec3fDiff = m_aVertex[i] - m_LineOrigin;
         afProjection[i] = m_LineDirection.Dot(vec3fDiff);
     }
 
@@ -251,7 +251,7 @@ ConvexHull2f* ConvexHull3f::GetConvexHull2() const
     SEVector2f* aProjection = SE_NEW SEVector2f[m_iVertexCount];
     for( int i = 0; i < m_iVertexCount; i++ )
     {
-        Vector3f vec3fDiff = m_aVertex[i] - m_PlaneOrigin;
+        SEVector3f vec3fDiff = m_aVertex[i] - m_PlaneOrigin;
         aProjection[i][0] = m_aPlaneDirection[0].Dot(vec3fDiff);
         aProjection[i][1] = m_aPlaneDirection[1].Dot(vec3fDiff);
     }
@@ -434,8 +434,8 @@ bool ConvexHull3f::Load(const char* acFilename)
     }
 
     m_bOwner = true;
-    m_aVertex = SE_NEW Vector3f[m_iVertexCount];
-    m_aSVertex = SE_NEW Vector3f[m_iVertexCount + 4];
+    m_aVertex = SE_NEW SEVector3f[m_iVertexCount];
+    m_aSVertex = SE_NEW SEVector3f[m_iVertexCount + 4];
 
     size_t uiSize = sizeof(float);
     int iVC = 3 * m_iVertexCount;

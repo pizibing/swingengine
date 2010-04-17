@@ -24,19 +24,19 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrLine3Box3f::IntrLine3Box3f(const Line3f& rLine, const Box3f& rBox)
+IntrLine3Box3f::IntrLine3Box3f(const SELine3f& rLine, const SEBox3f& rBox)
     :
     m_pLine(&rLine),
     m_pBox(&rBox)
 {
 }
 //----------------------------------------------------------------------------
-const Line3f& IntrLine3Box3f::GetLine() const
+const SELine3f& IntrLine3Box3f::GetLine() const
 {
     return *m_pLine;
 }
 //----------------------------------------------------------------------------
-const Box3f& IntrLine3Box3f::GetBox() const
+const SEBox3f& IntrLine3Box3f::GetBox() const
 {
     return *m_pBox;
 }
@@ -45,27 +45,27 @@ bool IntrLine3Box3f::Test()
 {
     float afAWdU[3], afAWxDdU[3], fRhs;
 
-    Vector3f vec3fDiff = m_pLine->Origin - m_pBox->Center;
-    Vector3f vec3fWxD = m_pLine->Direction.Cross(vec3fDiff);
+    SEVector3f vec3fDiff = m_pLine->Origin - m_pBox->Center;
+    SEVector3f vec3fWxD = m_pLine->Direction.Cross(vec3fDiff);
 
-    afAWdU[1] = Math<float>::FAbs(m_pLine->Direction.Dot(m_pBox->Axis[1]));
-    afAWdU[2] = Math<float>::FAbs(m_pLine->Direction.Dot(m_pBox->Axis[2]));
-    afAWxDdU[0] = Math<float>::FAbs(vec3fWxD.Dot(m_pBox->Axis[0]));
+    afAWdU[1] = SEMath<float>::FAbs(m_pLine->Direction.Dot(m_pBox->Axis[1]));
+    afAWdU[2] = SEMath<float>::FAbs(m_pLine->Direction.Dot(m_pBox->Axis[2]));
+    afAWxDdU[0] = SEMath<float>::FAbs(vec3fWxD.Dot(m_pBox->Axis[0]));
     fRhs = m_pBox->Extent[1]*afAWdU[2] + m_pBox->Extent[2]*afAWdU[1];
     if( afAWxDdU[0] > fRhs )
     {
         return false;
     }
 
-    afAWdU[0] = Math<float>::FAbs(m_pLine->Direction.Dot(m_pBox->Axis[0]));
-    afAWxDdU[1] = Math<float>::FAbs(vec3fWxD.Dot(m_pBox->Axis[1]));
+    afAWdU[0] = SEMath<float>::FAbs(m_pLine->Direction.Dot(m_pBox->Axis[0]));
+    afAWxDdU[1] = SEMath<float>::FAbs(vec3fWxD.Dot(m_pBox->Axis[1]));
     fRhs = m_pBox->Extent[0]*afAWdU[2] + m_pBox->Extent[2]*afAWdU[0];
     if( afAWxDdU[1] > fRhs )
     {
         return false;
     }
 
-    afAWxDdU[2] = Math<float>::FAbs(vec3fWxD.Dot(m_pBox->Axis[2]));
+    afAWxDdU[2] = SEMath<float>::FAbs(vec3fWxD.Dot(m_pBox->Axis[2]));
     fRhs = m_pBox->Extent[0]*afAWdU[1] + m_pBox->Extent[1]*afAWdU[0];
     if( afAWxDdU[2] > fRhs )
     {
@@ -77,7 +77,7 @@ bool IntrLine3Box3f::Test()
 //----------------------------------------------------------------------------
 bool IntrLine3Box3f::Find()
 {
-    float fT0 = -Math<float>::MAX_REAL, fT1 = Math<float>::MAX_REAL;
+    float fT0 = -SEMath<float>::MAX_REAL, fT1 = SEMath<float>::MAX_REAL;
 
     return DoClipping(fT0, fT1, m_pLine->Origin, m_pLine->Direction, *m_pBox,
         true, m_iCount, m_aPoint, m_iIntersectionType);
@@ -88,27 +88,27 @@ int IntrLine3Box3f::GetCount() const
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-const Vector3f& IntrLine3Box3f::GetPoint(int i) const
+const SEVector3f& IntrLine3Box3f::GetPoint(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 
     return m_aPoint[i];
 }
 //----------------------------------------------------------------------------
-bool IntrLine3Box3f::DoClipping(float fT0, float fT1, const Vector3f& rOrigin, 
-    const Vector3f& rDirection, const Box3f& rBox, bool bSolid, int& riCount,
-    Vector3f aPoint[2], int& riIntrType)
+bool IntrLine3Box3f::DoClipping(float fT0, float fT1, const SEVector3f& rOrigin, 
+    const SEVector3f& rDirection, const SEBox3f& rBox, bool bSolid, int& riCount,
+    SEVector3f aPoint[2], int& riIntrType)
 {
     SE_ASSERT( fT0 < fT1 );
 
     // 把linear component变换到box坐标体系下.
-    Vector3f vec3fDiff = rOrigin - rBox.Center;
-    Vector3f vec3fBOrigin(
+    SEVector3f vec3fDiff = rOrigin - rBox.Center;
+    SEVector3f vec3fBOrigin(
         vec3fDiff.Dot(rBox.Axis[0]),
         vec3fDiff.Dot(rBox.Axis[1]),
         vec3fDiff.Dot(rBox.Axis[2])
     );
-    Vector3f vec3fBDirection(
+    SEVector3f vec3fBDirection(
         rDirection.Dot(rBox.Axis[0]),
         rDirection.Dot(rBox.Axis[1]),
         rDirection.Dot(rBox.Axis[2])

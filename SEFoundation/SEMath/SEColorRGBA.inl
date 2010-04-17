@@ -19,17 +19,17 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline ColorRGBA::operator const float*() const
+inline SEColorRGBA::operator const float*() const
 {
     return m_fData;
 }
 //----------------------------------------------------------------------------
-inline ColorRGBA::operator float*()
+inline SEColorRGBA::operator float*()
 {
     return m_fData;
 }
 //----------------------------------------------------------------------------
-inline float ColorRGBA::operator[](int i) const
+inline float SEColorRGBA::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i <= 3 );
 
@@ -45,7 +45,7 @@ inline float ColorRGBA::operator[](int i) const
     return m_fData[i];
 }
 //----------------------------------------------------------------------------
-inline float& ColorRGBA::operator[](int i)
+inline float& SEColorRGBA::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i <= 3 );
 
@@ -61,7 +61,7 @@ inline float& ColorRGBA::operator[](int i)
     return m_fData[i];
 }
 //----------------------------------------------------------------------------
-inline int ColorRGBA::CompareData(const ColorRGBA& rColor) const
+inline int SEColorRGBA::CompareData(const SEColorRGBA& rColor) const
 {
     return memcmp(m_fData, rColor.m_fData, 4*sizeof(float));
 }

@@ -33,17 +33,17 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080312
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Ray3f
+class SE_FOUNDATION_API SERay3f
 {
 public:
     // 直线表示为参数方程形式:P + t*D,其中P是直线上一点,D是单位长度方向向量,
     // t >= 0,
     // 用户必须确保D为单位向量.
 
-    Ray3f(void);
-    Ray3f(const Vector3f& rOrigin, const Vector3f& rDirection);
+    SERay3f(void);
+    SERay3f(const SEVector3f& rOrigin, const SEVector3f& rDirection);
 
-    Vector3f Origin, Direction;
+    SEVector3f Origin, Direction;
 };
 
 }

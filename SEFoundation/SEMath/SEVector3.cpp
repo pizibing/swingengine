@@ -27,55 +27,55 @@ using namespace Swing;
 // 单精度3维向量类
 //----------------------------------------------------------------------------
 
-const Vector3f Vector3f::ZERO(0.0f, 0.0f, 0.0f);
-const Vector3f Vector3f::UNIT_X(1.0f, 0.0f, 0.0f);
-const Vector3f Vector3f::UNIT_Y(0.0f, 1.0f, 0.0f);
-const Vector3f Vector3f::UNIT_Z(0.0f, 0.0f, 1.0f);
+const SEVector3f SEVector3f::ZERO(0.0f, 0.0f, 0.0f);
+const SEVector3f SEVector3f::UNIT_X(1.0f, 0.0f, 0.0f);
+const SEVector3f SEVector3f::UNIT_Y(0.0f, 1.0f, 0.0f);
+const SEVector3f SEVector3f::UNIT_Z(0.0f, 0.0f, 1.0f);
 
 //----------------------------------------------------------------------------
-Vector3f::Vector3f()
+SEVector3f::SEVector3f()
 {
 }
 //----------------------------------------------------------------------------
-Vector3f::Vector3f(float fX, float fY, float fZ)
+SEVector3f::SEVector3f(float fX, float fY, float fZ)
 {
     m_fData[0] = fX;
     m_fData[1] = fY;
     m_fData[2] = fZ;
 }
 //----------------------------------------------------------------------------
-Vector3f::Vector3f(const Vector3f& rVecV)
+SEVector3f::SEVector3f(const SEVector3f& rVecV)
 {
     m_fData[0] = rVecV.m_fData[0];
     m_fData[1] = rVecV.m_fData[1];
     m_fData[2] = rVecV.m_fData[2];
 }
 //----------------------------------------------------------------------------
-Vector3f::operator const float*() const
+SEVector3f::operator const float*() const
 {
     return m_fData;
 }
 //----------------------------------------------------------------------------
-Vector3f::operator float*()
+SEVector3f::operator float*()
 {
     return m_fData;
 }
 //----------------------------------------------------------------------------
-float Vector3f::operator[](int i) const
+float SEVector3f::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i <= 2 );
 
     return m_fData[i];
 }
 //----------------------------------------------------------------------------
-float& Vector3f::operator[](int i)
+float& SEVector3f::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i <= 2 );
 
     return m_fData[i];
 }
 //----------------------------------------------------------------------------
-Vector3f& Vector3f::operator=(const Vector3f& rVecV)
+SEVector3f& SEVector3f::operator=(const SEVector3f& rVecV)
 {
     m_fData[0] = rVecV.m_fData[0];
     m_fData[1] = rVecV.m_fData[1];
@@ -84,63 +84,63 @@ Vector3f& Vector3f::operator=(const Vector3f& rVecV)
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Vector3f::operator==(const Vector3f& rVecV) const
+bool SEVector3f::operator==(const SEVector3f& rVecV) const
 {
     return CompareData(rVecV) == 0;
 }
 //----------------------------------------------------------------------------
-bool Vector3f::operator!=(const Vector3f& rVecV) const
+bool SEVector3f::operator!=(const SEVector3f& rVecV) const
 {
     return CompareData(rVecV) != 0;
 }
 //----------------------------------------------------------------------------
-bool Vector3f::operator<(const Vector3f& rVecV) const
+bool SEVector3f::operator<(const SEVector3f& rVecV) const
 {
     return CompareData(rVecV) < 0;
 }
 //----------------------------------------------------------------------------
-bool Vector3f::operator<=(const Vector3f& rVecV) const
+bool SEVector3f::operator<=(const SEVector3f& rVecV) const
 {
     return CompareData(rVecV) <= 0;
 }
 //----------------------------------------------------------------------------
-bool Vector3f::operator>(const Vector3f& rVecV) const
+bool SEVector3f::operator>(const SEVector3f& rVecV) const
 {
     return CompareData(rVecV) > 0;
 }
 //----------------------------------------------------------------------------
-bool Vector3f::operator>=(const Vector3f& rVecV) const
+bool SEVector3f::operator>=(const SEVector3f& rVecV) const
 {
     return CompareData(rVecV) >= 0;
 }
 //----------------------------------------------------------------------------
-Vector3f Vector3f::operator+(const Vector3f& rRhsVec) const
+SEVector3f SEVector3f::operator+(const SEVector3f& rRhsVec) const
 {
-    return Vector3f(
+    return SEVector3f(
                    m_fData[0] + rRhsVec.m_fData[0],
                    m_fData[1] + rRhsVec.m_fData[1],
                    m_fData[2] + rRhsVec.m_fData[2]);
 }
 //----------------------------------------------------------------------------
-Vector3f Vector3f::operator-(const Vector3f& rRhsVec) const
+SEVector3f SEVector3f::operator-(const SEVector3f& rRhsVec) const
 {
-    return Vector3f(
+    return SEVector3f(
                    m_fData[0] - rRhsVec.m_fData[0],
                    m_fData[1] - rRhsVec.m_fData[1],
                    m_fData[2] - rRhsVec.m_fData[2]);
 }
 //----------------------------------------------------------------------------
-Vector3f Vector3f::operator*(float fScalar) const
+SEVector3f SEVector3f::operator*(float fScalar) const
 {
-    return Vector3f(
+    return SEVector3f(
                    fScalar * m_fData[0],
                    fScalar * m_fData[1],
                    fScalar * m_fData[2]);
 }
 //----------------------------------------------------------------------------
-Vector3f Vector3f::operator/(float fScalar) const
+SEVector3f SEVector3f::operator/(float fScalar) const
 {
-    Vector3f Res;
+    SEVector3f Res;
 
     if( fScalar != 0.0f )
     {
@@ -151,23 +151,23 @@ Vector3f Vector3f::operator/(float fScalar) const
     }
     else
     {
-        Res.m_fData[0] = Math<float>::MAX_REAL;
-        Res.m_fData[1] = Math<float>::MAX_REAL;
-        Res.m_fData[2] = Math<float>::MAX_REAL;
+        Res.m_fData[0] = SEMath<float>::MAX_REAL;
+        Res.m_fData[1] = SEMath<float>::MAX_REAL;
+        Res.m_fData[2] = SEMath<float>::MAX_REAL;
     }
 
     return Res;
 }
 //----------------------------------------------------------------------------
-Vector3f Vector3f::operator-() const
+SEVector3f SEVector3f::operator-() const
 {
-    return Vector3f(
+    return SEVector3f(
                    -m_fData[0],
                    -m_fData[1],
                    -m_fData[2]);
 }
 //----------------------------------------------------------------------------
-Vector3f& Vector3f::operator+=(const Vector3f& rRhsVec)
+SEVector3f& SEVector3f::operator+=(const SEVector3f& rRhsVec)
 {
     m_fData[0] += rRhsVec.m_fData[0];
     m_fData[1] += rRhsVec.m_fData[1];
@@ -176,7 +176,7 @@ Vector3f& Vector3f::operator+=(const Vector3f& rRhsVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector3f& Vector3f::operator+=(float fScalar)
+SEVector3f& SEVector3f::operator+=(float fScalar)
 {
     m_fData[0] += fScalar;
     m_fData[1] += fScalar;
@@ -185,7 +185,7 @@ Vector3f& Vector3f::operator+=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector3f& Vector3f::operator-=(const Vector3f& rRhsVec)
+SEVector3f& SEVector3f::operator-=(const SEVector3f& rRhsVec)
 {
     m_fData[0] -= rRhsVec.m_fData[0];
     m_fData[1] -= rRhsVec.m_fData[1];
@@ -194,7 +194,7 @@ Vector3f& Vector3f::operator-=(const Vector3f& rRhsVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector3f& Vector3f::operator-=(float fScalar)
+SEVector3f& SEVector3f::operator-=(float fScalar)
 {
     m_fData[0] -= fScalar;
     m_fData[1] -= fScalar;
@@ -203,7 +203,7 @@ Vector3f& Vector3f::operator-=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector3f& Vector3f::operator*=(float fScalar)
+SEVector3f& SEVector3f::operator*=(float fScalar)
 {
     m_fData[0] *= fScalar;
     m_fData[1] *= fScalar;
@@ -212,7 +212,7 @@ Vector3f& Vector3f::operator*=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector3f& Vector3f::operator/=(float fScalar)
+SEVector3f& SEVector3f::operator/=(float fScalar)
 {
     if( fScalar != 0.0f )
     {
@@ -223,16 +223,16 @@ Vector3f& Vector3f::operator/=(float fScalar)
     }
     else
     {
-        m_fData[0] = Math<float>::MAX_REAL;
-        m_fData[1] = Math<float>::MAX_REAL;
-        m_fData[2] = Math<float>::MAX_REAL;
+        m_fData[0] = SEMath<float>::MAX_REAL;
+        m_fData[1] = SEMath<float>::MAX_REAL;
+        m_fData[2] = SEMath<float>::MAX_REAL;
     }
 
     return *this;
 }
 //----------------------------------------------------------------------------
-void Vector3f::Orthonormalize(Vector3f& rVecU, Vector3f& rVecV, 
-    Vector3f& rVecW)
+void SEVector3f::Orthonormalize(SEVector3f& rVecU, SEVector3f& rVecV, 
+    SEVector3f& rVecW)
 {
     rVecU.Normalize();
     // V在U上的投影长度
@@ -249,26 +249,26 @@ void Vector3f::Orthonormalize(Vector3f& rVecU, Vector3f& rVecV,
     rVecW.Normalize();
 }
 //----------------------------------------------------------------------------
-void Vector3f::Orthonormalize(Vector3f* pVec)
+void SEVector3f::Orthonormalize(SEVector3f* pVec)
 {
 	SE_ASSERT( pVec );
 
     Orthonormalize(pVec[0], pVec[1], pVec[2]);
 }
 //----------------------------------------------------------------------------
-void Vector3f::GetOrthonormalBasis(Vector3f& rVecU, Vector3f& rVecV, 
-    Vector3f& rVecW, bool bUnitLengthW)
+void SEVector3f::GetOrthonormalBasis(SEVector3f& rVecU, SEVector3f& rVecV, 
+    SEVector3f& rVecW, bool bUnitLengthW)
 {
     if( !bUnitLengthW )
         rVecW.Normalize();
 
     float fInvLength;
 
-    if( Math<float>::FAbs(rVecW.m_fData[0]) >= 
-        Math<float>::FAbs(rVecW.m_fData[1]) )
+    if( SEMath<float>::FAbs(rVecW.m_fData[0]) >= 
+        SEMath<float>::FAbs(rVecW.m_fData[1]) )
     {
         // W.X或W.Z是最大分量
-        fInvLength = Math<float>::InvSqrt(rVecW.m_fData[0]*rVecW.m_fData[0] + 
+        fInvLength = SEMath<float>::InvSqrt(rVecW.m_fData[0]*rVecW.m_fData[0] + 
             rVecW.m_fData[2]*rVecW.m_fData[2]);
 
         // 在左手坐标系中,
@@ -287,7 +287,7 @@ void Vector3f::GetOrthonormalBasis(Vector3f& rVecU, Vector3f& rVecV,
     else
     {
         // W.Y或W.Z是最大分量
-        fInvLength = Math<float>::InvSqrt(rVecW.m_fData[1]*rVecW.m_fData[1] + 
+        fInvLength = SEMath<float>::InvSqrt(rVecW.m_fData[1]*rVecW.m_fData[1] + 
             rVecW.m_fData[2]*rVecW.m_fData[2]);
 
         rVecU.m_fData[0] = 0.0f;
@@ -302,8 +302,8 @@ void Vector3f::GetOrthonormalBasis(Vector3f& rVecU, Vector3f& rVecV,
     }
 }
 //----------------------------------------------------------------------------
-void Vector3f::ComputeExtremes(int iCount, const Vector3f* pPoints, 
-    Vector3f& rMin, Vector3f& rMax)
+void SEVector3f::ComputeExtremes(int iCount, const SEVector3f* pPoints, 
+    SEVector3f& rMin, SEVector3f& rMax)
 {
     SE_ASSERT( iCount > 0 && pPoints );
 
@@ -311,7 +311,7 @@ void Vector3f::ComputeExtremes(int iCount, const Vector3f* pPoints,
     rMax = rMin;
     for( int i = 1; i < iCount; i++ )
     {
-        const Vector3f& rPoint = pPoints[i];
+        const SEVector3f& rPoint = pPoints[i];
         for( int j = 0; j < 3; j++ )
         {
             if( rPoint[j] < rMin[j] )
@@ -326,9 +326,9 @@ void Vector3f::ComputeExtremes(int iCount, const Vector3f* pPoints,
     }
 }
 //----------------------------------------------------------------------------
-Vector3f Swing::operator*(float fLhsScalar, const Vector3f& rRhsVec)
+SEVector3f Swing::operator*(float fLhsScalar, const SEVector3f& rRhsVec)
 {
-    return Vector3f(
+    return SEVector3f(
                    fLhsScalar * rRhsVec[0],
                    fLhsScalar * rRhsVec[1],
                    fLhsScalar * rRhsVec[2]);
@@ -339,55 +339,55 @@ Vector3f Swing::operator*(float fLhsScalar, const Vector3f& rRhsVec)
 // 双精度3维向量类
 //----------------------------------------------------------------------------
 
-const Vector3d Vector3d::ZERO(0.0, 0.0, 0.0);
-const Vector3d Vector3d::UNIT_X(1.0, 0.0, 0.0);
-const Vector3d Vector3d::UNIT_Y(0.0, 1.0, 0.0);
-const Vector3d Vector3d::UNIT_Z(0.0, 0.0, 1.0);
+const SEVector3d SEVector3d::ZERO(0.0, 0.0, 0.0);
+const SEVector3d SEVector3d::UNIT_X(1.0, 0.0, 0.0);
+const SEVector3d SEVector3d::UNIT_Y(0.0, 1.0, 0.0);
+const SEVector3d SEVector3d::UNIT_Z(0.0, 0.0, 1.0);
 
 //----------------------------------------------------------------------------
-Vector3d::Vector3d()
+SEVector3d::SEVector3d()
 {
 }
 //----------------------------------------------------------------------------
-Vector3d::Vector3d(double dX, double dY, double dZ)
+SEVector3d::SEVector3d(double dX, double dY, double dZ)
 {
     m_dData[0] = dX;
     m_dData[1] = dY;
     m_dData[2] = dZ;
 }
 //----------------------------------------------------------------------------
-Vector3d::Vector3d(const Vector3d& rVecV)
+SEVector3d::SEVector3d(const SEVector3d& rVecV)
 {
     m_dData[0] = rVecV.m_dData[0];
     m_dData[1] = rVecV.m_dData[1];
     m_dData[2] = rVecV.m_dData[2];
 }
 //----------------------------------------------------------------------------
-Vector3d::operator const double*() const
+SEVector3d::operator const double*() const
 {
     return m_dData;
 }
 //----------------------------------------------------------------------------
-Vector3d::operator double*()
+SEVector3d::operator double*()
 {
     return m_dData;
 }
 //----------------------------------------------------------------------------
-double Vector3d::operator[](int i) const
+double SEVector3d::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i <= 2 );
 
     return m_dData[i];
 }
 //----------------------------------------------------------------------------
-double& Vector3d::operator[](int i)
+double& SEVector3d::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i <= 2 );
 
     return m_dData[i];
 }
 //----------------------------------------------------------------------------
-Vector3d& Vector3d::operator=(const Vector3d& rVecV)
+SEVector3d& SEVector3d::operator=(const SEVector3d& rVecV)
 {
     m_dData[0] = rVecV.m_dData[0];
     m_dData[1] = rVecV.m_dData[1];
@@ -396,63 +396,63 @@ Vector3d& Vector3d::operator=(const Vector3d& rVecV)
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Vector3d::operator==(const Vector3d& rVecV) const
+bool SEVector3d::operator==(const SEVector3d& rVecV) const
 {
     return CompareData(rVecV) == 0;
 }
 //----------------------------------------------------------------------------
-bool Vector3d::operator!=(const Vector3d& rVecV) const
+bool SEVector3d::operator!=(const SEVector3d& rVecV) const
 {
     return CompareData(rVecV) != 0;
 }
 //----------------------------------------------------------------------------
-bool Vector3d::operator<(const Vector3d& rVecV) const
+bool SEVector3d::operator<(const SEVector3d& rVecV) const
 {
     return CompareData(rVecV) < 0;
 }
 //----------------------------------------------------------------------------
-bool Vector3d::operator<=(const Vector3d& rVecV) const
+bool SEVector3d::operator<=(const SEVector3d& rVecV) const
 {
     return CompareData(rVecV) <= 0;
 }
 //----------------------------------------------------------------------------
-bool Vector3d::operator>(const Vector3d& rVecV) const
+bool SEVector3d::operator>(const SEVector3d& rVecV) const
 {
     return CompareData(rVecV) > 0;
 }
 //----------------------------------------------------------------------------
-bool Vector3d::operator>=(const Vector3d& rVecV) const
+bool SEVector3d::operator>=(const SEVector3d& rVecV) const
 {
     return CompareData(rVecV) >= 0;
 }
 //----------------------------------------------------------------------------
-Vector3d Vector3d::operator+(const Vector3d& rRhsVec) const
+SEVector3d SEVector3d::operator+(const SEVector3d& rRhsVec) const
 {
-    return Vector3d(
+    return SEVector3d(
                    m_dData[0] + rRhsVec.m_dData[0],
                    m_dData[1] + rRhsVec.m_dData[1],
                    m_dData[2] + rRhsVec.m_dData[2]);
 }
 //----------------------------------------------------------------------------
-Vector3d Vector3d::operator-(const Vector3d& rRhsVec) const
+SEVector3d SEVector3d::operator-(const SEVector3d& rRhsVec) const
 {
-    return Vector3d(
+    return SEVector3d(
                    m_dData[0] - rRhsVec.m_dData[0],
                    m_dData[1] - rRhsVec.m_dData[1],
                    m_dData[2] - rRhsVec.m_dData[2]);
 }
 //----------------------------------------------------------------------------
-Vector3d Vector3d::operator*(double dScalar) const
+SEVector3d SEVector3d::operator*(double dScalar) const
 {
-    return Vector3d(
+    return SEVector3d(
                    dScalar * m_dData[0],
                    dScalar * m_dData[1],
                    dScalar * m_dData[2]);
 }
 //----------------------------------------------------------------------------
-Vector3d Vector3d::operator/(double dScalar) const
+SEVector3d SEVector3d::operator/(double dScalar) const
 {
-    Vector3d Res;
+    SEVector3d Res;
 
     if( dScalar != 0.0 )
     {
@@ -463,23 +463,23 @@ Vector3d Vector3d::operator/(double dScalar) const
     }
     else
     {
-        Res.m_dData[0] = Math<double>::MAX_REAL;
-        Res.m_dData[1] = Math<double>::MAX_REAL;
-        Res.m_dData[2] = Math<double>::MAX_REAL;
+        Res.m_dData[0] = SEMath<double>::MAX_REAL;
+        Res.m_dData[1] = SEMath<double>::MAX_REAL;
+        Res.m_dData[2] = SEMath<double>::MAX_REAL;
     }
 
     return Res;
 }
 //----------------------------------------------------------------------------
-Vector3d Vector3d::operator-() const
+SEVector3d SEVector3d::operator-() const
 {
-    return Vector3d(
+    return SEVector3d(
                    -m_dData[0],
                    -m_dData[1],
                    -m_dData[2]);
 }
 //----------------------------------------------------------------------------
-Vector3d& Vector3d::operator+=(const Vector3d& rRhsVec)
+SEVector3d& SEVector3d::operator+=(const SEVector3d& rRhsVec)
 {
     m_dData[0] += rRhsVec.m_dData[0];
     m_dData[1] += rRhsVec.m_dData[1];
@@ -488,7 +488,7 @@ Vector3d& Vector3d::operator+=(const Vector3d& rRhsVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector3d& Vector3d::operator+=(double dScalar)
+SEVector3d& SEVector3d::operator+=(double dScalar)
 {
     m_dData[0] += dScalar;
     m_dData[1] += dScalar;
@@ -497,7 +497,7 @@ Vector3d& Vector3d::operator+=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector3d& Vector3d::operator-=(const Vector3d& rRhsVec)
+SEVector3d& SEVector3d::operator-=(const SEVector3d& rRhsVec)
 {
     m_dData[0] -= rRhsVec.m_dData[0];
     m_dData[1] -= rRhsVec.m_dData[1];
@@ -506,7 +506,7 @@ Vector3d& Vector3d::operator-=(const Vector3d& rRhsVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector3d& Vector3d::operator-=(double dScalar)
+SEVector3d& SEVector3d::operator-=(double dScalar)
 {
     m_dData[0] -= dScalar;
     m_dData[1] -= dScalar;
@@ -515,7 +515,7 @@ Vector3d& Vector3d::operator-=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector3d& Vector3d::operator*=(double dScalar)
+SEVector3d& SEVector3d::operator*=(double dScalar)
 {
     m_dData[0] *= dScalar;
     m_dData[1] *= dScalar;
@@ -524,7 +524,7 @@ Vector3d& Vector3d::operator*=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector3d& Vector3d::operator/=(double dScalar)
+SEVector3d& SEVector3d::operator/=(double dScalar)
 {
     if( dScalar != 0.0 )
     {
@@ -535,16 +535,16 @@ Vector3d& Vector3d::operator/=(double dScalar)
     }
     else
     {
-        m_dData[0] = Math<double>::MAX_REAL;
-        m_dData[1] = Math<double>::MAX_REAL;
-        m_dData[2] = Math<double>::MAX_REAL;
+        m_dData[0] = SEMath<double>::MAX_REAL;
+        m_dData[1] = SEMath<double>::MAX_REAL;
+        m_dData[2] = SEMath<double>::MAX_REAL;
     }
 
     return *this;
 }
 //----------------------------------------------------------------------------
-void Vector3d::Orthonormalize(Vector3d& rVecU, Vector3d& rVecV, 
-    Vector3d& rVecW)
+void SEVector3d::Orthonormalize(SEVector3d& rVecU, SEVector3d& rVecV, 
+    SEVector3d& rVecW)
 {
     rVecU.Normalize();
     // V在U上的投影长度
@@ -561,26 +561,26 @@ void Vector3d::Orthonormalize(Vector3d& rVecU, Vector3d& rVecV,
     rVecW.Normalize();
 }
 //----------------------------------------------------------------------------
-void Vector3d::Orthonormalize(Vector3d* pVec)
+void SEVector3d::Orthonormalize(SEVector3d* pVec)
 {
 	SE_ASSERT( pVec );
 
     Orthonormalize(pVec[0], pVec[1], pVec[2]);
 }
 //----------------------------------------------------------------------------
-void Vector3d::GetOrthonormalBasis(Vector3d& rVecU, Vector3d& rVecV, 
-    Vector3d& rVecW, bool bUnitLengthW)
+void SEVector3d::GetOrthonormalBasis(SEVector3d& rVecU, SEVector3d& rVecV, 
+    SEVector3d& rVecW, bool bUnitLengthW)
 {
     if( !bUnitLengthW )
         rVecW.Normalize();
 
     double dInvLength;
 
-    if( Math<double>::FAbs(rVecW.m_dData[0]) >= 
-        Math<double>::FAbs(rVecW.m_dData[1]) )
+    if( SEMath<double>::FAbs(rVecW.m_dData[0]) >= 
+        SEMath<double>::FAbs(rVecW.m_dData[1]) )
     {
         // W.X或W.Z是最大分量
-        dInvLength = Math<double>::InvSqrt(rVecW.m_dData[0]*rVecW.m_dData[0] + 
+        dInvLength = SEMath<double>::InvSqrt(rVecW.m_dData[0]*rVecW.m_dData[0] + 
             rVecW.m_dData[2]*rVecW.m_dData[2]);
 
         // 在左手坐标系中,
@@ -599,7 +599,7 @@ void Vector3d::GetOrthonormalBasis(Vector3d& rVecU, Vector3d& rVecV,
     else
     {
         // W.Y或W.Z是最大分量
-        dInvLength = Math<double>::InvSqrt(rVecW.m_dData[1]*rVecW.m_dData[1] + 
+        dInvLength = SEMath<double>::InvSqrt(rVecW.m_dData[1]*rVecW.m_dData[1] + 
             rVecW.m_dData[2]*rVecW.m_dData[2]);
 
         rVecU.m_dData[0] = 0.0;
@@ -614,8 +614,8 @@ void Vector3d::GetOrthonormalBasis(Vector3d& rVecU, Vector3d& rVecV,
     }
 }
 //----------------------------------------------------------------------------
-void Vector3d::ComputeExtremes(int iCount, const Vector3d* pPoints, 
-    Vector3d& rMin, Vector3d& rMax)
+void SEVector3d::ComputeExtremes(int iCount, const SEVector3d* pPoints, 
+    SEVector3d& rMin, SEVector3d& rMax)
 {
     SE_ASSERT( iCount > 0 && pPoints );
 
@@ -623,7 +623,7 @@ void Vector3d::ComputeExtremes(int iCount, const Vector3d* pPoints,
     rMax = rMin;
     for( int i = 1; i < iCount; i++ )
     {
-        const Vector3d& rPoint = pPoints[i];
+        const SEVector3d& rPoint = pPoints[i];
         for( int j = 0; j < 3; j++ )
         {
             if( rPoint[j] < rMin[j] )
@@ -638,9 +638,9 @@ void Vector3d::ComputeExtremes(int iCount, const Vector3d* pPoints,
     }
 }
 //----------------------------------------------------------------------------
-Vector3d Swing::operator*(double dLhsScalar, const Vector3d& rRhsVec)
+SEVector3d Swing::operator*(double dLhsScalar, const SEVector3d& rRhsVec)
 {
-    return Vector3d(
+    return SEVector3d(
                    dLhsScalar * rRhsVec[0],
                    dLhsScalar * rRhsVec[1],
                    dLhsScalar * rRhsVec[2]);

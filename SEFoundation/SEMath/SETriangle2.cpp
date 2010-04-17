@@ -24,12 +24,12 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Triangle2f::Triangle2f()
+SETriangle2f::SETriangle2f()
 {
     // Œ¥≥ı ºªØ.
 }
 //----------------------------------------------------------------------------
-Triangle2f::Triangle2f(const SEVector2f& rV0, const SEVector2f& rV1, 
+SETriangle2f::SETriangle2f(const SEVector2f& rV0, const SEVector2f& rV1, 
     const SEVector2f& rV2)
 {
     V[0] = rV0;
@@ -37,7 +37,7 @@ Triangle2f::Triangle2f(const SEVector2f& rV0, const SEVector2f& rV1,
     V[2] = rV2;
 }
 //----------------------------------------------------------------------------
-Triangle2f::Triangle2f(const SEVector2f aV[3])
+SETriangle2f::SETriangle2f(const SEVector2f aV[3])
 {
     for( int i = 0; i < 3; i++ )
     {
@@ -45,7 +45,7 @@ Triangle2f::Triangle2f(const SEVector2f aV[3])
     }
 }
 //----------------------------------------------------------------------------
-float Triangle2f::GetDistance(const SEVector2f& rQ) const
+float SETriangle2f::GetDistance(const SEVector2f& rQ) const
 {
     SEVector2f vec2fDiff = V[0] - rQ;
     SEVector2f vec2fE0 = V[1] - V[0], vec2fE1 = V[2] - V[0];
@@ -55,7 +55,7 @@ float Triangle2f::GetDistance(const SEVector2f& rQ) const
     float fB0 = vec2fDiff.Dot(vec2fE0);
     float fB1 = vec2fDiff.Dot(vec2fE1);
     float fC = vec2fDiff.GetSquaredLength();
-    float fDet = Math<float>::FAbs(fA00*fA11 - fA01*fA01);
+    float fDet = SEMath<float>::FAbs(fA00*fA11 - fA01*fA01);
     float fS = fA01*fB1 - fA11*fB0;
     float fT = fA01*fB0 - fA00*fB1;
     float fSqrDist;
@@ -237,6 +237,6 @@ float Triangle2f::GetDistance(const SEVector2f& rQ) const
         }
     }
 
-    return Math<float>::Sqrt(Math<float>::FAbs(fSqrDist));
+    return SEMath<float>::Sqrt(SEMath<float>::FAbs(fSqrDist));
 }
 //----------------------------------------------------------------------------

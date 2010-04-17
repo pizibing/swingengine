@@ -25,7 +25,7 @@ using namespace Swing;
 
 //----------------------------------------------------------------------------
 DistVector2Segment2f::DistVector2Segment2f(const SEVector2f& rVector,
-    const Segment2f& rSegment)
+    const SESegment2f& rSegment)
     :
     m_pVector(&rVector),
     m_pSegment(&rSegment)
@@ -37,7 +37,7 @@ const SEVector2f& DistVector2Segment2f::GetVector() const
     return *m_pVector;
 }
 //----------------------------------------------------------------------------
-const Segment2f& DistVector2Segment2f::GetSegment() const
+const SESegment2f& DistVector2Segment2f::GetSegment() const
 {
     return *m_pSegment;
 }
@@ -46,7 +46,7 @@ float DistVector2Segment2f::Get()
 {
     float fSqrDist = GetSquared();
 
-    return Math<float>::Sqrt(fSqrDist);
+    return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistVector2Segment2f::GetSquared()
@@ -84,7 +84,7 @@ float DistVector2Segment2f::Get(float fT, const SEVector2f& rVelocity0,
 {
     SEVector2f vec2fMVector = *m_pVector + fT*rVelocity0;
     SEVector2f vec2fMOrigin = m_pSegment->Origin + fT*rVelocity1;
-    Segment2f tempMSegment(vec2fMOrigin, m_pSegment->Direction,
+    SESegment2f tempMSegment(vec2fMOrigin, m_pSegment->Direction,
         m_pSegment->Extent);
 
     return DistVector2Segment2f(vec2fMVector, tempMSegment).Get();
@@ -95,7 +95,7 @@ float DistVector2Segment2f::GetSquared(float fT, const SEVector2f& rVelocity0,
 {
     SEVector2f vec2fMVector = *m_pVector + fT*rVelocity0;
     SEVector2f vec2fMOrigin = m_pSegment->Origin + fT*rVelocity1;
-    Segment2f tempMSegment(vec2fMOrigin, m_pSegment->Direction,
+    SESegment2f tempMSegment(vec2fMOrigin, m_pSegment->Direction,
         m_pSegment->Extent);
 
     return DistVector2Segment2f(vec2fMVector, tempMSegment).GetSquared();

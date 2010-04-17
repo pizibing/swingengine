@@ -80,7 +80,7 @@ RoamTerrainPage::RoamTerrainPage(const Attributes& rAttr, int iSize,
     {
         int iX = i % m_iSize;
         int iZ = i / m_iSize;
-        VBuffer->Position3(i) = Vector3f(GetX(iX), GetHeight(i), GetZ(iZ));
+        VBuffer->Position3(i) = SEVector3f(GetX(iX), GetHeight(i), GetZ(iZ));
     }
 
     UpdateMS();
@@ -143,8 +143,8 @@ float RoamTerrainPage::GetHeight(float fX, float fZ) const
     {
         // 获取坐标所在patch.
         float fInvPatchSizeM1 = 1.0f / (float)m_iPatchSizeM1;
-        int iPatchX = (int)Mathf::Floor(fMSpaceX * fInvPatchSizeM1);
-        int iPatchY = (int)Mathf::Floor(fMSpaceZ * fInvPatchSizeM1);
+        int iPatchX = (int)SEMathf::Floor(fMSpaceX * fInvPatchSizeM1);
+        int iPatchY = (int)SEMathf::Floor(fMSpaceZ * fInvPatchSizeM1);
         if( iPatchX >= m_iPatchesPerSide )
             iPatchX = m_iPatchesPerSide - 1;
         if( iPatchX < 0 )
@@ -182,12 +182,12 @@ float RoamTerrainPage::GetHeight(float fX, float fZ) const
         // 获取当前所在最小triangle.
         while( pCurTriangle->pLeftChild != 0 )
         {
-            Apex.X = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).X;
-            Apex.Y = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).Z;
-            Left.X = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).X;
-            Left.Y = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).Z;
-            Right.X = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).X;
-            Right.Y = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).Z;
+            Apex.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).X;
+            Apex.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).Z;
+            Left.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).X;
+            Left.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).Z;
+            Right.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).X;
+            Right.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).Z;
 
             A = Left - Apex;
             B = Right - Apex;
@@ -209,12 +209,12 @@ float RoamTerrainPage::GetHeight(float fX, float fZ) const
         }
 
         // 插值计算所在点高度.
-        Apex.X = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).X;
-        Apex.Y = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).Z;
-        Left.X = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).X;
-        Left.Y = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).Z;
-        Right.X = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).X;
-        Right.Y = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).Z;
+        Apex.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).X;
+        Apex.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).Z;
+        Left.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).X;
+        Left.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).Z;
+        Right.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).X;
+        Right.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).Z;
 
         A = Left - Apex;
         B = Right - Apex;
@@ -227,16 +227,16 @@ float RoamTerrainPage::GetHeight(float fX, float fZ) const
         fCdA = C.Dot(A);
         fCdB = C.Dot(B);
 
-        Vector3f Apex3, Left3, Right3, CurPoint3;
-        Apex3.X = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).X;
-        Apex3.Y = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).Z;
-        Apex3.Z = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).Y;
-        Left3.X = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).X;
-        Left3.Y = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).Z;
-        Left3.Z = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).Y;
-        Right3.X = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).X;
-        Right3.Y = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).Z;
-        Right3.Z = (*(Vector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).Y;
+        SEVector3f Apex3, Left3, Right3, CurPoint3;
+        Apex3.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).X;
+        Apex3.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).Z;
+        Apex3.Z = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).Y;
+        Left3.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).X;
+        Left3.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).Z;
+        Left3.Z = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).Y;
+        Right3.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).X;
+        Right3.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).Z;
+        Right3.Z = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).Y;
 
         float fdLAHeight = Left3.Z - Apex3.Z;
         float fdRAHeight = Right3.Z - Apex3.Z;
@@ -247,19 +247,19 @@ float RoamTerrainPage::GetHeight(float fX, float fZ) const
     }
     else
     {
-        int iCellX = (int)Mathf::Floor(fMSpaceX);
-        int iCellY = (int)Mathf::Floor(fMSpaceZ);
+        int iCellX = (int)SEMathf::Floor(fMSpaceX);
+        int iCellY = (int)SEMathf::Floor(fMSpaceZ);
         float fdX = fMSpaceX - iCellX;
         float fdY = fMSpaceZ - iCellY;
 
         float fLBHeight = 
-            (*(Vector3f*)VBuffer->PositionTuple(iCellX + iCellY*m_iSize)).Y;
+            (*(SEVector3f*)VBuffer->PositionTuple(iCellX + iCellY*m_iSize)).Y;
         float fRBHeight = 
-            (*(Vector3f*)VBuffer->PositionTuple(iCellX + 1 + iCellY*m_iSize)).Y;
+            (*(SEVector3f*)VBuffer->PositionTuple(iCellX + 1 + iCellY*m_iSize)).Y;
         float fLTHeight = 
-            (*(Vector3f*)VBuffer->PositionTuple(iCellX + (iCellY + 1)*m_iSize)).Y;
+            (*(SEVector3f*)VBuffer->PositionTuple(iCellX + (iCellY + 1)*m_iSize)).Y;
         float fRTHeight = 
-            (*(Vector3f*)VBuffer->PositionTuple(iCellX + 1 + (iCellY + 1)*m_iSize)).Y;
+            (*(SEVector3f*)VBuffer->PositionTuple(iCellX + 1 + (iCellY + 1)*m_iSize)).Y;
 
         if( fdY <= -fdX + 1 )
         {
@@ -503,7 +503,7 @@ void RoamTerrainPage::GetUnculledSet(Culler& rCuller, bool bNoCull)
             IBuffer->Release();
 
             // 这里可能引起震荡.
-            if( Mathf::FAbs((float)(GetNextTriNode() - DesiredTris)) >= 50 )
+            if( SEMathf::FAbs((float)(GetNextTriNode() - DesiredTris)) >= 50 )
             {
                 FrameVariance += ((float)GetNextTriNode() - 
                     (float)DesiredTris)/(float)DesiredTris;

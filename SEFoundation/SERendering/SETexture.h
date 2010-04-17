@@ -96,9 +96,9 @@ public:
     inline WrapType GetWrapType(int i) const;
 
     // border color是采样发生在纹理图像边界时,纹理图像边界外的边界颜色,
-    // 默认是ColorRGBA(0,0,0,1)
-    inline void SetBorderColor(const ColorRGBA& rBorderColor);
-    inline ColorRGBA GetBorderColor(void) const;
+    // 默认是SEColorRGBA(0,0,0,1)
+    inline void SetBorderColor(const SEColorRGBA& rBorderColor);
+    inline SEColorRGBA GetBorderColor(void) const;
 
     // 支持离屏纹理(render target)
     inline bool IsOffscreenTexture(void) const;
@@ -108,7 +108,7 @@ protected:
     ImagePtr m_spImage;
     FilterType m_eFType;       // default = LINEAR
     WrapType m_eWrapTypes[3];  // default = CLAMP_EDGE
-    ColorRGBA m_BorderColor;   // default = BLACK
+    SEColorRGBA m_BorderColor;   // default = BLACK
 
     // 支持深度图纹理,默认是DC_COUNT,
     // 此时表明不是深度图纹理

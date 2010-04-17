@@ -24,22 +24,22 @@ inline int BoxBV::GetBVType() const
     return BoundingVolume::BV_BOX;
 }
 //----------------------------------------------------------------------------
-inline void BoxBV::SetCenter(const Vector3f& rCenter)
+inline void BoxBV::SetCenter(const SEVector3f& rCenter)
 {
     m_Box.Center = rCenter;
 }
 //----------------------------------------------------------------------------
-inline Vector3f BoxBV::GetCenter() const
+inline SEVector3f BoxBV::GetCenter() const
 {
     return m_Box.Center;
 }
 //----------------------------------------------------------------------------
-inline Box3f& BoxBV::Box()
+inline SEBox3f& BoxBV::Box()
 {
     return m_Box;
 }
 //----------------------------------------------------------------------------
-inline const Box3f& BoxBV::GetBox() const
+inline const SEBox3f& BoxBV::GetBox() const
 {
     return m_Box;
 }

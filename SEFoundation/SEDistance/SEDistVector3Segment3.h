@@ -35,31 +35,31 @@ namespace Swing
 // 时间:20090116
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API DistVector3Segment3f
-    : public Distance<float, Vector3f>
+    : public Distance<float, SEVector3f>
 {
 public:
-    DistVector3Segment3f(const Vector3f& rVector, const Segment3f& rSegment);
+    DistVector3Segment3f(const SEVector3f& rVector, const SESegment3f& rSegment);
 
     // 对象访问.
-    const Vector3f& GetVector(void) const;
-    const Segment3f& GetSegment(void) const;
+    const SEVector3f& GetVector(void) const;
+    const SESegment3f& GetSegment(void) const;
 
     // static distance查询.
     virtual float Get(void);
     virtual float GetSquared(void);
 
     // 用于dynamic distance查询的convex function计算.
-    virtual float Get(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
-    virtual float GetSquared(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual float Get(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
+    virtual float GetSquared(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
     // 线段最近点相关信息.
     float GetSegmentParameter(void) const;
 
 private:
-    const Vector3f* m_pVector;
-    const Segment3f* m_pSegment;
+    const SEVector3f* m_pVector;
+    const SESegment3f* m_pSegment;
 
     // 线段最近点相关信息.
     float m_fSegmentParameter;  // closest1 = seg.origin+param*seg.direction

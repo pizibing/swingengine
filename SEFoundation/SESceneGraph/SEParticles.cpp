@@ -117,15 +117,15 @@ void Particles::GenerateParticles(const Camera* pCamera)
     int i, j;
 
     // 把camera的轴向量变换到粒子的模型空间.
-    Vector3f vec3fUpR = pCamera->GetUVector() + pCamera->GetRVector();
+    SEVector3f vec3fUpR = pCamera->GetUVector() + pCamera->GetRVector();
     vec3fUpR = World.GetRotate() * vec3fUpR;
-    Vector3f vec3fUmR = pCamera->GetUVector() - pCamera->GetRVector();
+    SEVector3f vec3fUmR = pCamera->GetUVector() - pCamera->GetRVector();
     vec3fUmR = World.GetRotate() * vec3fUmR;
 
     // 所有法线向量指向观察者.
     if( VBuffer->GetAttributes().HasNormal() )
     {
-        Vector3f vec3fDir = World.GetRotate()*(-pCamera->GetDVector());
+        SEVector3f vec3fDir = World.GetRotate()*(-pCamera->GetDVector());
         for( j = 0; j < 4*m_iActiveCount; j++ )
         {
             VBuffer->Normal3(j) = vec3fDir;
@@ -133,15 +133,15 @@ void Particles::GenerateParticles(const Camera* pCamera)
     }
 
     // 生成粒子,每个都是由两个三角形组成的quad.
-    Vector3f* aLocation = Locations->GetData();
+    SEVector3f* aLocation = Locations->GetData();
     float* afSize = Sizes->GetData();
     for( i = 0, j = 0; i < m_iActiveCount; i++ )
     {
-        Vector3f& rCenter = aLocation[i];
+        SEVector3f& rCenter = aLocation[i];
 
         float fTrueSize = SizeAdjust*afSize[i];
-        Vector3f vec3fScaledUpR = fTrueSize*vec3fUpR;
-        Vector3f vec3fScaledUmR = fTrueSize*vec3fUmR;
+        SEVector3f vec3fScaledUpR = fTrueSize*vec3fUpR;
+        SEVector3f vec3fScaledUmR = fTrueSize*vec3fUmR;
 
         VBuffer->Position3(j++) = rCenter - vec3fScaledUpR;
         VBuffer->Position3(j++) = rCenter + vec3fScaledUmR;

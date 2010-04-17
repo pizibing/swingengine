@@ -33,8 +33,8 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(ParticleController, Controller);
 //----------------------------------------------------------------------------
 ParticleController::ParticleController()
     :
-    SystemLinearAxis(Vector3f::UNIT_Z),
-    SystemAngularAxis(Vector3f::UNIT_Z)
+    SystemLinearAxis(SEVector3f::UNIT_Z),
+    SystemAngularAxis(SEVector3f::UNIT_Z)
 {
     SystemLinearSpeed = 0.0f;
     SystemAngularSpeed = 0.0f;
@@ -56,8 +56,8 @@ void ParticleController::Reallocate(int iLCount)
 {
     SystemLinearSpeed = 0.0f;
     SystemAngularSpeed = 0.0f;
-    SystemLinearAxis = Vector3f::UNIT_Z;
-    SystemAngularAxis = Vector3f::UNIT_Z;
+    SystemLinearAxis = SEVector3f::UNIT_Z;
+    SystemAngularAxis = SEVector3f::UNIT_Z;
     SystemSizeChange = 0.0f;
 
     SE_DELETE[] m_afPointLinearSpeed;
@@ -68,13 +68,13 @@ void ParticleController::Reallocate(int iLCount)
     if( m_iLCount > 0 )
     {
         m_afPointLinearSpeed = SE_NEW float[m_iLCount];
-        m_aPointLinearAxis = SE_NEW Vector3f[m_iLCount];
+        m_aPointLinearAxis = SE_NEW SEVector3f[m_iLCount];
         m_afPointSizeChange = SE_NEW float[m_iLCount];
 
         memset(m_afPointLinearSpeed, 0, m_iLCount*sizeof(float));
         for( int i = 0; i < m_iLCount; i++ )
         {
-            m_aPointLinearAxis[i] = Vector3f::UNIT_Z;
+            m_aPointLinearAxis[i] = SEVector3f::UNIT_Z;
         }
 
         memset(m_afPointSizeChange, 0, m_iLCount*sizeof(float));
@@ -115,11 +115,11 @@ void ParticleController::UpdateSystemMotion(float fCtrlTime)
     }
 
     float fDistance = fCtrlTime*SystemLinearSpeed;
-    Vector3f vec3fDTrn = fDistance*SystemLinearAxis;
+    SEVector3f vec3fDTrn = fDistance*SystemLinearAxis;
     pParticle->Local.SetTranslate(pParticle->Local.GetTranslate() + vec3fDTrn);
 
     float fAngle = fCtrlTime*SystemAngularSpeed;
-    Matrix3f mat3fDRot(SystemAngularAxis, fAngle);
+    SEMatrix3f mat3fDRot(SystemAngularAxis, fAngle);
     pParticle->Local.SetRotate(mat3fDRot);
 }
 //----------------------------------------------------------------------------
@@ -135,11 +135,11 @@ void ParticleController::UpdatePointMotion(float fCtrlTime)
         afSize[i] += fDSize;
     }
 
-    Vector3f* aLocation = pParticle->Locations->GetData();
+    SEVector3f* aLocation = pParticle->Locations->GetData();
     for( i = 0; i < iACount; i++ )
     {
         float fDistance = fCtrlTime*m_afPointLinearSpeed[i];
-        Vector3f vec3fDTrn = fDistance*m_aPointLinearAxis[i];
+        SEVector3f vec3fDTrn = fDistance*m_aPointLinearAxis[i];
         aLocation[i] += vec3fDTrn;
     }
 }

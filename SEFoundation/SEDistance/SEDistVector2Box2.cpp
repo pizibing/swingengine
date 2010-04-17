@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistVector2Box2f::DistVector2Box2f(const SEVector2f& rVector, const Box2f& rBox)
+DistVector2Box2f::DistVector2Box2f(const SEVector2f& rVector, const SEBox2f& rBox)
     :
     m_pVector(&rVector),
     m_pBox(&rBox)
@@ -36,14 +36,14 @@ const SEVector2f& DistVector2Box2f::GetVector() const
     return *m_pVector;
 }
 //----------------------------------------------------------------------------
-const Box2f& DistVector2Box2f::GetBox() const
+const SEBox2f& DistVector2Box2f::GetBox() const
 {
     return *m_pBox;
 }
 //----------------------------------------------------------------------------
 float DistVector2Box2f::Get()
 {
-    return Math<float>::Sqrt(GetSquared());
+    return SEMath<float>::Sqrt(GetSquared());
 }
 //----------------------------------------------------------------------------
 float DistVector2Box2f::GetSquared()
@@ -87,7 +87,7 @@ float DistVector2Box2f::Get(float fT, const SEVector2f& rVelocity0,
 {
     SEVector2f vec2fMVector = *m_pVector + fT*rVelocity0;
     SEVector2f vec2fMCenter = m_pBox->Center + fT*rVelocity1;
-    Box2f tempMBox(vec2fMCenter, m_pBox->Axis, m_pBox->Extent);
+    SEBox2f tempMBox(vec2fMCenter, m_pBox->Axis, m_pBox->Extent);
 
     return DistVector2Box2f(vec2fMVector, tempMBox).Get();
 }
@@ -97,7 +97,7 @@ float DistVector2Box2f::GetSquared(float fT, const SEVector2f& rVelocity0,
 {
     SEVector2f vec2fMVector = *m_pVector + fT*rVelocity0;
     SEVector2f vec2fMCenter = m_pBox->Center + fT*rVelocity1;
-    Box2f tempMBox(vec2fMCenter, m_pBox->Axis, m_pBox->Extent);
+    SEBox2f tempMBox(vec2fMCenter, m_pBox->Axis, m_pBox->Extent);
 
     return DistVector2Box2f(vec2fMVector, tempMBox).GetSquared();
 }

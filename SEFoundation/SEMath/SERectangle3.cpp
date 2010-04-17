@@ -24,11 +24,11 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Rectangle3f::Rectangle3f()
+SERectangle3f::SERectangle3f()
 {
 }
 //----------------------------------------------------------------------------
-Rectangle3f::Rectangle3f(const Vector3f& rCenter, const Vector3f* aAxis, 
+SERectangle3f::SERectangle3f(const SEVector3f& rCenter, const SEVector3f* aAxis, 
     const float* afExtent)
     :
     Center(rCenter)
@@ -40,8 +40,8 @@ Rectangle3f::Rectangle3f(const Vector3f& rCenter, const Vector3f* aAxis,
     }
 }
 //----------------------------------------------------------------------------
-Rectangle3f::Rectangle3f(const Vector3f& rCenter, const Vector3f& rAxis0, 
-    const Vector3f& rAxis1, float fExtent0, float fExtent1)
+SERectangle3f::SERectangle3f(const SEVector3f& rCenter, const SEVector3f& rAxis0, 
+    const SEVector3f& rAxis1, float fExtent0, float fExtent1)
     :
     Center(rCenter)
 {
@@ -51,9 +51,9 @@ Rectangle3f::Rectangle3f(const Vector3f& rCenter, const Vector3f& rAxis0,
     Extent[1] = fExtent1;
 }
 //----------------------------------------------------------------------------
-void Rectangle3f::ComputeVertices(Vector3f aVertex[4]) const
+void SERectangle3f::ComputeVertices(SEVector3f aVertex[4]) const
 {
-    Vector3f aEAxis[2] =
+    SEVector3f aEAxis[2] =
     {
         Extent[0] * Axis[0],
         Extent[1] * Axis[1]
@@ -65,22 +65,22 @@ void Rectangle3f::ComputeVertices(Vector3f aVertex[4]) const
     aVertex[3] = Center - aEAxis[0] + aEAxis[1];
 }
 //----------------------------------------------------------------------------
-Vector3f Rectangle3f::GetPPCorner() const
+SEVector3f SERectangle3f::GetPPCorner() const
 {
     return Center + Extent[0]*Axis[0] + Extent[1]*Axis[1];
 }
 //----------------------------------------------------------------------------
-Vector3f Rectangle3f::GetPMCorner() const
+SEVector3f SERectangle3f::GetPMCorner() const
 {
     return Center + Extent[0]*Axis[0] - Extent[1]*Axis[1];
 }
 //----------------------------------------------------------------------------
-Vector3f Rectangle3f::GetMPCorner() const
+SEVector3f SERectangle3f::GetMPCorner() const
 {
     return Center - Extent[0]*Axis[0] + Extent[1]*Axis[1];
 }
 //----------------------------------------------------------------------------
-Vector3f Rectangle3f::GetMMCorner() const
+SEVector3f SERectangle3f::GetMMCorner() const
 {
     return Center - Extent[0]*Axis[0] - Extent[1]*Axis[1];
 }

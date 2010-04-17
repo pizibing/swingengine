@@ -30,24 +30,24 @@ namespace Swing
 {
 
 // 根据输入的若干顶点,计算能容纳其最小AABBox的BV球.
-SE_FOUNDATION_API Sphere3f ContSphereOfAABBf(int iCount, const Vector3f* aPoint);
+SE_FOUNDATION_API SESphere3f ContSphereOfAABBf(int iCount, const SEVector3f* aPoint);
 
 // 根据输入的若干顶点,计算其BV球,球心是顶点的平均值.
-SE_FOUNDATION_API Sphere3f ContSphereAveragef(int iCount, const Vector3f* aPoint);
+SE_FOUNDATION_API SESphere3f ContSphereAveragef(int iCount, const SEVector3f* aPoint);
 
 // 测试指定顶点是否包含于球内.
-SE_FOUNDATION_API bool IsInSpheref(const Vector3f& rPoint, const Sphere3f& rSphere);
+SE_FOUNDATION_API bool IsInSpheref(const SEVector3f& rPoint, const SESphere3f& rSphere);
 
 // 计算包含两个球的BV球.
-SE_FOUNDATION_API Sphere3f MergeSpheresf(const Sphere3f& rSphere0, 
-    const Sphere3f& rSphere1);
+SE_FOUNDATION_API SESphere3f MergeSpheresf(const SESphere3f& rSphere0, 
+    const SESphere3f& rSphere1);
 
 // 根据输入的若干顶点,计算其最小BV球,
 // 算法随机重置输入顶点排列顺序,因此构建时间预期为O(n).
 class SE_FOUNDATION_API MinSphere3f
 {
 public:
-    MinSphere3f(int iCount, const Vector3f* aPoint, Sphere3f& rMinimal, 
+    MinSphere3f(int iCount, const SEVector3f* aPoint, SESphere3f& rMinimal, 
         float fEpsilon = 1.0e-03f);
 
 private:
@@ -57,11 +57,11 @@ private:
     public:
         // 测试输入顶点是否属于support集合,
         // 如果输入顶点距离集合内某点距离小于给定epsilon,则认为属于集合.
-        bool Contains(int iIndex, Vector3f** apPoint, float fEpsilon)
+        bool Contains(int iIndex, SEVector3f** apPoint, float fEpsilon)
         {
             for( int i = 0; i < Count; i++ )
             {
-                Vector3f vec3fDiff = *apPoint[iIndex] - *apPoint[Index[i]];
+                SEVector3f vec3fDiff = *apPoint[iIndex] - *apPoint[Index[i]];
                 if( vec3fDiff.GetSquaredLength() < fEpsilon )
                 {
                     return true;
@@ -76,22 +76,22 @@ private:
     };
 
     // 测试顶点P是否包含于球S中.
-    bool Contains(const Vector3f& rPoint, const Sphere3f& rSphere, 
+    bool Contains(const SEVector3f& rPoint, const SESphere3f& rSphere, 
         float& rfDistDiff);
 
-    Sphere3f ExactSphere1(const Vector3f& rPoint);
-    Sphere3f ExactSphere2(const Vector3f& rPoint0, const Vector3f& rPoint1);
-    Sphere3f ExactSphere3(const Vector3f& rPoint0, const Vector3f& rPoint1, 
-        const Vector3f& rPoint2);
-    Sphere3f ExactSphere4(const Vector3f& rPoint0, const Vector3f& rPoint1, 
-        const Vector3f& rPoint2, const Vector3f& rPoint3);
+    SESphere3f ExactSphere1(const SEVector3f& rPoint);
+    SESphere3f ExactSphere2(const SEVector3f& rPoint0, const SEVector3f& rPoint1);
+    SESphere3f ExactSphere3(const SEVector3f& rPoint0, const SEVector3f& rPoint1, 
+        const SEVector3f& rPoint2);
+    SESphere3f ExactSphere4(const SEVector3f& rPoint0, const SEVector3f& rPoint1, 
+        const SEVector3f& rPoint2, const SEVector3f& rPoint3);
 
-    Sphere3f UpdateSupport1(int i, Vector3f** apPermute, Support& rSupport);
-    Sphere3f UpdateSupport2(int i, Vector3f** apPermute, Support& rSupport);
-    Sphere3f UpdateSupport3(int i, Vector3f** apPermute, Support& rSupport);
-    Sphere3f UpdateSupport4(int i, Vector3f** apPermute, Support& rSupport);
+    SESphere3f UpdateSupport1(int i, SEVector3f** apPermute, Support& rSupport);
+    SESphere3f UpdateSupport2(int i, SEVector3f** apPermute, Support& rSupport);
+    SESphere3f UpdateSupport3(int i, SEVector3f** apPermute, Support& rSupport);
+    SESphere3f UpdateSupport4(int i, SEVector3f** apPermute, Support& rSupport);
 
-    typedef Sphere3f (MinSphere3f::*UpdateFunction)(int, Vector3f**, Support&);
+    typedef SESphere3f (MinSphere3f::*UpdateFunction)(int, SEVector3f**, Support&);
 
     float m_fEpsilon, m_fOnePlusEpsilon;
     UpdateFunction m_aoUpdate[5];

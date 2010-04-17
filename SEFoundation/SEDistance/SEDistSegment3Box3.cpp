@@ -26,20 +26,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistSegment3Box3f::DistSegment3Box3f(const Segment3f& rSegment,
-    const Box3f& rBox)
+DistSegment3Box3f::DistSegment3Box3f(const SESegment3f& rSegment,
+    const SEBox3f& rBox)
     :
     m_pSegment(&rSegment),
     m_pBox(&rBox)
 {
 }
 //----------------------------------------------------------------------------
-const Segment3f& DistSegment3Box3f::GetSegment() const
+const SESegment3f& DistSegment3Box3f::GetSegment() const
 {
     return *m_pSegment;
 }
 //----------------------------------------------------------------------------
-const Box3f& DistSegment3Box3f::GetBox() const
+const SEBox3f& DistSegment3Box3f::GetBox() const
 {
     return *m_pBox;
 }
@@ -48,12 +48,12 @@ float DistSegment3Box3f::Get()
 {
     float fSqrDist = GetSquared();
 
-    return Math<float>::Sqrt(fSqrDist);
+    return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistSegment3Box3f::GetSquared()
 {
-    Line3f tempLine(m_pSegment->Origin, m_pSegment->Direction);
+    SELine3f tempLine(m_pSegment->Origin, m_pSegment->Direction);
     DistLine3Box3f tempLBDist(tempLine, *m_pBox);
 
     float fSqrDistance = tempLBDist.GetSquared();
@@ -85,26 +85,26 @@ float DistSegment3Box3f::GetSquared()
     return fSqrDistance;
 }
 //----------------------------------------------------------------------------
-float DistSegment3Box3f::Get(float fT, const Vector3f& rVelocity0,
-    const Vector3f& rVelocity1)
+float DistSegment3Box3f::Get(float fT, const SEVector3f& rVelocity0,
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMOrigin = m_pSegment->Origin + fT*rVelocity0;
-    Vector3f vec3fMCenter = m_pBox->Center + fT*rVelocity1;
-    Segment3f tempMSegment(vec3fMOrigin, m_pSegment->Direction,
+    SEVector3f vec3fMOrigin = m_pSegment->Origin + fT*rVelocity0;
+    SEVector3f vec3fMCenter = m_pBox->Center + fT*rVelocity1;
+    SESegment3f tempMSegment(vec3fMOrigin, m_pSegment->Direction,
         m_pSegment->Extent);
-    Box3f tempMBox(vec3fMCenter, m_pBox->Axis, m_pBox->Extent);
+    SEBox3f tempMBox(vec3fMCenter, m_pBox->Axis, m_pBox->Extent);
 
     return DistSegment3Box3f(tempMSegment, tempMBox).Get();
 }
 //----------------------------------------------------------------------------
-float DistSegment3Box3f::GetSquared(float fT, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistSegment3Box3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMOrigin = m_pSegment->Origin + fT*rVelocity0;
-    Vector3f vec3fMCenter = m_pBox->Center + fT*rVelocity1;
-    Segment3f tempMSegment(vec3fMOrigin, m_pSegment->Direction,
+    SEVector3f vec3fMOrigin = m_pSegment->Origin + fT*rVelocity0;
+    SEVector3f vec3fMCenter = m_pBox->Center + fT*rVelocity1;
+    SESegment3f tempMSegment(vec3fMOrigin, m_pSegment->Direction,
         m_pSegment->Extent);
-    Box3f tempMBox(vec3fMCenter, m_pBox->Axis, m_pBox->Extent);
+    SEBox3f tempMBox(vec3fMCenter, m_pBox->Axis, m_pBox->Extent);
 
     return DistSegment3Box3f(tempMSegment, tempMBox).GetSquared();
 }

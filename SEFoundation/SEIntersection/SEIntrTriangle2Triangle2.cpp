@@ -25,7 +25,7 @@ using namespace Swing;
 
 //----------------------------------------------------------------------------
 IntrTriangle2Triangle2f::IntrTriangle2Triangle2f(
-    const Triangle2f& rTriangle0, const Triangle2f& rTriangle1)
+    const SETriangle2f& rTriangle0, const SETriangle2f& rTriangle1)
     :
     m_pTriangle0(&rTriangle0), 
     m_pTriangle1(&rTriangle1)
@@ -33,12 +33,12 @@ IntrTriangle2Triangle2f::IntrTriangle2Triangle2f(
     m_iCount = 0;
 }
 //----------------------------------------------------------------------------
-const Triangle2f& IntrTriangle2Triangle2f::GetTriangle0() const
+const SETriangle2f& IntrTriangle2Triangle2f::GetTriangle0() const
 {
     return *m_pTriangle0;
 }
 //----------------------------------------------------------------------------
-const Triangle2f& IntrTriangle2Triangle2f::GetTriangle1() const
+const SETriangle2f& IntrTriangle2Triangle2f::GetTriangle1() const
 {
     return *m_pTriangle1;
 }
@@ -112,7 +112,7 @@ bool IntrTriangle2Triangle2f::Test(float fTMax,
     SEVector2f vec2fW = rVelocity1 - rVelocity0;
     int iSide = 0;  // 0 = NONE, -1 = LEFT, +1 = RIGHT
     float fTFirst = 0.0f;
-    float fTLast = Math<float>::MAX_REAL;
+    float fTLast = SEMath<float>::MAX_REAL;
 
     Configuration tempCfg0, tempCfg1, tempTCfg0, tempTCfg1;
     int i0, i1, i2;
@@ -167,7 +167,7 @@ bool IntrTriangle2Triangle2f::Find (float fTMax,
     SEVector2f vec2fW = rVelocity1 - rVelocity0;
     int iSide = 0;  // 0 = NONE, -1 = LEFT, +1 = RIGHT
     float fTFirst = 0.0f;
-    float fTLast = Math<float>::MAX_REAL;
+    float fTLast = SEMath<float>::MAX_REAL;
 
     Configuration tempCfg0, tempCfg1, tempTCfg0, tempTCfg1;
     int i0, i1, i2;
@@ -707,7 +707,7 @@ void IntrTriangle2Triangle2f::GetIntersection(
     }
     else  // triangles were initially intersecting
     {
-        Triangle2f tempTri0(aV0), tempTri1(aV1);
+        SETriangle2f tempTri0(aV0), tempTri1(aV1);
         IntrTriangle2Triangle2f tempIntr(tempTri0, tempTri1);
         tempIntr.Find();
         riCount = tempIntr.GetCount();

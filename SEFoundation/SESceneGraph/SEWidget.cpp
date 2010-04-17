@@ -37,17 +37,17 @@ Node* Widget::CoordinateFrame(float fLengthOfAxis)
     tempAttr.SetColorChannels(0, 3);
     StandardMesh tempSM(tempAttr);
 
-    Matrix3f mat3fRot;
+    SEMatrix3f mat3fRot;
     float fAxisHeight = 0.667f*fLengthOfAxis;
     float fArrowRadius = 0.08f*fLengthOfAxis;
     float fArrowHeight = (1.0f - 0.667f)*fLengthOfAxis;
 
     // Create axis x.
     VertexBuffer* pVBuffer = SE_NEW VertexBuffer(tempAttr, 2);
-    pVBuffer->Position3(0) = Vector3f::ZERO;
-    pVBuffer->Position3(1) = fAxisHeight*Vector3f::UNIT_X;
-    pVBuffer->Color3(0, 0) = ColorRGB::SE_RGB_RED;
-    pVBuffer->Color3(0, 1) = ColorRGB::SE_RGB_RED;
+    pVBuffer->Position3(0) = SEVector3f::ZERO;
+    pVBuffer->Position3(1) = fAxisHeight*SEVector3f::UNIT_X;
+    pVBuffer->Color3(0, 0) = SEColorRGB::SE_RGB_RED;
+    pVBuffer->Color3(0, 1) = SEColorRGB::SE_RGB_RED;
     Polyline* pAxisX = SE_NEW Polyline(pVBuffer, false, false);
     pAxisX->SetName("AxisX");
 
@@ -55,19 +55,19 @@ Node* Widget::CoordinateFrame(float fLengthOfAxis)
     TriMesh* pArrowX = tempSM.Cone(16, fArrowRadius, fArrowHeight);
     for( int i = 0; i < pArrowX->VBuffer->GetVertexCount(); i++ )
     {
-        pArrowX->VBuffer->Color3(0, i) = ColorRGB::SE_RGB_RED;
+        pArrowX->VBuffer->Color3(0, i) = SEColorRGB::SE_RGB_RED;
     }
-    mat3fRot.FromAxisAngle(Vector3f::UNIT_Y, Mathf::HALF_PI);
+    mat3fRot.FromAxisAngle(SEVector3f::UNIT_Y, SEMathf::HALF_PI);
     pArrowX->Local.SetRotate(mat3fRot);
-    pArrowX->Local.SetTranslate(fAxisHeight*Vector3f::UNIT_X);
+    pArrowX->Local.SetTranslate(fAxisHeight*SEVector3f::UNIT_X);
     pArrowX->SetName("ArrowX");
 
     // Create axis y.
     pVBuffer = SE_NEW VertexBuffer(tempAttr, 2);
-    pVBuffer->Position3(0) = Vector3f::ZERO;
-    pVBuffer->Position3(1) = fAxisHeight*Vector3f::UNIT_Y;
-    pVBuffer->Color3(0, 0) = ColorRGB::SE_RGB_GREEN;
-    pVBuffer->Color3(0, 1) = ColorRGB::SE_RGB_GREEN;
+    pVBuffer->Position3(0) = SEVector3f::ZERO;
+    pVBuffer->Position3(1) = fAxisHeight*SEVector3f::UNIT_Y;
+    pVBuffer->Color3(0, 0) = SEColorRGB::SE_RGB_GREEN;
+    pVBuffer->Color3(0, 1) = SEColorRGB::SE_RGB_GREEN;
     Polyline* pAxisY = SE_NEW Polyline(pVBuffer, false, false);
     pAxisY->SetName("AxisY");
 
@@ -75,19 +75,19 @@ Node* Widget::CoordinateFrame(float fLengthOfAxis)
     TriMesh* pArrowY = tempSM.Cone(16, fArrowRadius, fArrowHeight);
     for( int i = 0; i < pArrowY->VBuffer->GetVertexCount(); i++ )
     {
-        pArrowY->VBuffer->Color3(0, i) = ColorRGB::SE_RGB_GREEN;
+        pArrowY->VBuffer->Color3(0, i) = SEColorRGB::SE_RGB_GREEN;
     }
-    mat3fRot.FromAxisAngle(Vector3f::UNIT_X, -Mathf::HALF_PI);
+    mat3fRot.FromAxisAngle(SEVector3f::UNIT_X, -SEMathf::HALF_PI);
     pArrowY->Local.SetRotate(mat3fRot);
-    pArrowY->Local.SetTranslate(fAxisHeight*Vector3f::UNIT_Y);
+    pArrowY->Local.SetTranslate(fAxisHeight*SEVector3f::UNIT_Y);
     pArrowY->SetName("ArrowY");
 
     // Create axis z.
     pVBuffer = SE_NEW VertexBuffer(tempAttr, 2);
-    pVBuffer->Position3(0) = Vector3f::ZERO;
-    pVBuffer->Position3(1) = fAxisHeight*Vector3f::UNIT_Z;
-    pVBuffer->Color3(0, 0) = ColorRGB::SE_RGB_BLUE;
-    pVBuffer->Color3(0, 1) = ColorRGB::SE_RGB_BLUE;
+    pVBuffer->Position3(0) = SEVector3f::ZERO;
+    pVBuffer->Position3(1) = fAxisHeight*SEVector3f::UNIT_Z;
+    pVBuffer->Color3(0, 0) = SEColorRGB::SE_RGB_BLUE;
+    pVBuffer->Color3(0, 1) = SEColorRGB::SE_RGB_BLUE;
     Polyline* pAxisZ = SE_NEW Polyline(pVBuffer, false, false);
     pAxisZ->SetName("AxisZ");
 
@@ -95,9 +95,9 @@ Node* Widget::CoordinateFrame(float fLengthOfAxis)
     TriMesh* pArrowZ = tempSM.Cone(16, fArrowRadius, fArrowHeight);
     for( int i = 0; i < pArrowZ->VBuffer->GetVertexCount(); i++ )
     {
-        pArrowZ->VBuffer->Color3(0, i) = ColorRGB::SE_RGB_BLUE;
+        pArrowZ->VBuffer->Color3(0, i) = SEColorRGB::SE_RGB_BLUE;
     }
-    pArrowZ->Local.SetTranslate(fAxisHeight*Vector3f::UNIT_Z);
+    pArrowZ->Local.SetTranslate(fAxisHeight*SEVector3f::UNIT_Z);
     pArrowZ->SetName("ArrowZ");
 
     VertexColor3Effect* pEffect = SE_NEW VertexColor3Effect;
@@ -137,8 +137,8 @@ Node* Widget::TranslationFrame()
     return 0;
 }
 //----------------------------------------------------------------------------
-Node* Widget::AABBFrame(const Vector3f& rMin, const Vector3f& rMax, 
-    const ColorRGB& rColor)
+Node* Widget::AABBFrame(const SEVector3f& rMin, const SEVector3f& rMax, 
+    const SEColorRGB& rColor)
 {
     Node* pNode = SE_NEW Node;
 
@@ -146,14 +146,14 @@ Node* Widget::AABBFrame(const Vector3f& rMin, const Vector3f& rMax,
     tempAttr.SetPositionChannels(3);
     tempAttr.SetColorChannels(0, 3);
 
-    Vector3f vec3fV0(rMin);
-    Vector3f vec3fV1(rMin.X, rMin.Y, rMax.Z);
-    Vector3f vec3fV2(rMax.X, rMin.Y, rMax.Z);
-    Vector3f vec3fV3(rMax.X, rMin.Y, rMin.Z);
-    Vector3f vec3fV4(rMax.X, rMax.Y, rMin.Z);
-    Vector3f vec3fV5(rMin.X, rMax.Y, rMin.Z);
-    Vector3f vec3fV6(rMin.X, rMax.Y, rMax.Z);
-    Vector3f vec3fV7(rMax);
+    SEVector3f vec3fV0(rMin);
+    SEVector3f vec3fV1(rMin.X, rMin.Y, rMax.Z);
+    SEVector3f vec3fV2(rMax.X, rMin.Y, rMax.Z);
+    SEVector3f vec3fV3(rMax.X, rMin.Y, rMin.Z);
+    SEVector3f vec3fV4(rMax.X, rMax.Y, rMin.Z);
+    SEVector3f vec3fV5(rMin.X, rMax.Y, rMin.Z);
+    SEVector3f vec3fV6(rMin.X, rMax.Y, rMax.Z);
+    SEVector3f vec3fV7(rMax);
 
     // AABBFrame has 12 edges, 24 ending points.
     VertexBuffer* pVBuffer = SE_NEW VertexBuffer(tempAttr, 24);

@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-MatrixMNf::MatrixMNf(int iRows, int iCols)
+SEMatrixMNf::SEMatrixMNf(int iRows, int iCols)
 {
     m_pData = 0;
     m_ppData = 0;
@@ -32,7 +32,7 @@ MatrixMNf::MatrixMNf(int iRows, int iCols)
     SetSize(iRows, iCols);
 }
 //----------------------------------------------------------------------------
-MatrixMNf::MatrixMNf(int iRows, int iCols, const float* pData)
+SEMatrixMNf::SEMatrixMNf(int iRows, int iCols, const float* pData)
 {
     m_pData = 0;
     m_ppData = 0;
@@ -40,7 +40,7 @@ MatrixMNf::MatrixMNf(int iRows, int iCols, const float* pData)
     SetMatrix(iRows, iCols, pData);
 }
 //----------------------------------------------------------------------------
-MatrixMNf::MatrixMNf(int iRows, int iCols, const float** ppData)
+SEMatrixMNf::SEMatrixMNf(int iRows, int iCols, const float** ppData)
 {
     m_pData = 0;
     m_ppData = 0;
@@ -48,7 +48,7 @@ MatrixMNf::MatrixMNf(int iRows, int iCols, const float** ppData)
     SetMatrix(iRows, iCols, ppData);
 }
 //----------------------------------------------------------------------------
-MatrixMNf::MatrixMNf(const MatrixMNf& rMat)
+SEMatrixMNf::SEMatrixMNf(const SEMatrixMNf& rMat)
 {
     m_iRows = 0;
     m_iCols = 0;
@@ -58,48 +58,48 @@ MatrixMNf::MatrixMNf(const MatrixMNf& rMat)
     *this = rMat;
 }
 //----------------------------------------------------------------------------
-MatrixMNf::~MatrixMNf()
+SEMatrixMNf::~SEMatrixMNf()
 {
     Deallocate();
 }
 //----------------------------------------------------------------------------
-MatrixMNf::operator float*()
+SEMatrixMNf::operator float*()
 {
     return m_pData;
 }
 //----------------------------------------------------------------------------
-MatrixMNf::operator const float*() const
+SEMatrixMNf::operator const float*() const
 {
     return m_pData;
 }
 //----------------------------------------------------------------------------
-float* MatrixMNf::operator[](int iRow)
+float* SEMatrixMNf::operator[](int iRow)
 {
     SE_ASSERT( 0 <= iRow && iRow < m_iRows );
 
     return m_ppData[iRow];
 }
 //----------------------------------------------------------------------------
-const float* MatrixMNf::operator[](int iRow) const
+const float* SEMatrixMNf::operator[](int iRow) const
 {
     SE_ASSERT( 0 <= iRow && iRow < m_iRows );
 
     return m_ppData[iRow];
 }
 //----------------------------------------------------------------------------
-float MatrixMNf::operator()(int iRow, int iCol) const
+float SEMatrixMNf::operator()(int iRow, int iCol) const
 {
     return m_ppData[iRow][iCol];
 }
 //----------------------------------------------------------------------------
-float& MatrixMNf::operator()(int iRow, int iCol)
+float& SEMatrixMNf::operator()(int iRow, int iCol)
 {
     SE_ASSERT( 0 <= iRow && iRow < m_iRows && 0 <= iCol && iCol <= m_iCols );
 
     return m_ppData[iRow][iCol];
 }
 //----------------------------------------------------------------------------
-void MatrixMNf::SwapRows(int iRow0, int iRow1)
+void SEMatrixMNf::SwapRows(int iRow0, int iRow1)
 {
     SE_ASSERT( 0 <= iRow0 && iRow0 < m_iRows && 0 <= iRow1 && iRow1 < m_iRows );
 
@@ -108,7 +108,7 @@ void MatrixMNf::SwapRows(int iRow0, int iRow1)
     m_ppData[iRow1] = pTemp;
 }
 //----------------------------------------------------------------------------
-void MatrixMNf::SetMatrix(int iRows, int iCols, const float* pData)
+void SEMatrixMNf::SetMatrix(int iRows, int iCols, const float* pData)
 {
     Deallocate();
 
@@ -133,7 +133,7 @@ void MatrixMNf::SetMatrix(int iRows, int iCols, const float* pData)
     }
 }
 //----------------------------------------------------------------------------
-void MatrixMNf::SetMatrix(int iRows, int iCols, const float** ppData)
+void SEMatrixMNf::SetMatrix(int iRows, int iCols, const float** ppData)
 {
     Deallocate();
 
@@ -163,7 +163,7 @@ void MatrixMNf::SetMatrix(int iRows, int iCols, const float** ppData)
     }
 }
 //----------------------------------------------------------------------------
-MatrixMNf& MatrixMNf::operator=(const MatrixMNf& rMat)
+SEMatrixMNf& SEMatrixMNf::operator=(const SEMatrixMNf& rMat)
 {
     if( rMat.m_iCount > 0 )
     {
@@ -199,41 +199,41 @@ MatrixMNf& MatrixMNf::operator=(const MatrixMNf& rMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-bool MatrixMNf::operator==(const MatrixMNf& rMat) const
+bool SEMatrixMNf::operator==(const SEMatrixMNf& rMat) const
 {
     return CompareData(rMat) == 0;
 }
 //----------------------------------------------------------------------------
-bool MatrixMNf::operator!=(const MatrixMNf& rMat) const
+bool SEMatrixMNf::operator!=(const SEMatrixMNf& rMat) const
 {
     return CompareData(rMat) != 0;
 }
 //----------------------------------------------------------------------------
-bool MatrixMNf::operator<(const MatrixMNf& rMat) const
+bool SEMatrixMNf::operator<(const SEMatrixMNf& rMat) const
 {
     return CompareData(rMat) < 0;
 }
 //----------------------------------------------------------------------------
-bool MatrixMNf::operator<=(const MatrixMNf& rMat) const
+bool SEMatrixMNf::operator<=(const SEMatrixMNf& rMat) const
 {
     return CompareData(rMat) <= 0;
 }
 //----------------------------------------------------------------------------
-bool MatrixMNf::operator>(const MatrixMNf& rMat) const
+bool SEMatrixMNf::operator>(const SEMatrixMNf& rMat) const
 {
     return CompareData(rMat) > 0;
 }
 //----------------------------------------------------------------------------
-bool MatrixMNf::operator>=(const MatrixMNf& rMat) const
+bool SEMatrixMNf::operator>=(const SEMatrixMNf& rMat) const
 {
     return CompareData(rMat) >= 0;
 }
 //----------------------------------------------------------------------------
-MatrixMNf MatrixMNf::operator+(const MatrixMNf& rRhsMat) const
+SEMatrixMNf SEMatrixMNf::operator+(const SEMatrixMNf& rRhsMat) const
 {
     SE_ASSERT( rRhsMat.m_iCols == m_iCols && rRhsMat.m_iRows == m_iRows );
 
-    MatrixMNf ResMat(rRhsMat.m_iRows, rRhsMat.m_iCols);
+    SEMatrixMNf ResMat(rRhsMat.m_iRows, rRhsMat.m_iCols);
     for( int i = 0; i < m_iCount; i++ )
     {
         ResMat.m_pData[i] = m_pData[i] + rRhsMat.m_pData[i];
@@ -242,11 +242,11 @@ MatrixMNf MatrixMNf::operator+(const MatrixMNf& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-MatrixMNf MatrixMNf::operator-(const MatrixMNf& rRhsMat) const
+SEMatrixMNf SEMatrixMNf::operator-(const SEMatrixMNf& rRhsMat) const
 {
     SE_ASSERT( rRhsMat.m_iCols == m_iCols && rRhsMat.m_iRows == m_iRows );
 
-    MatrixMNf ResMat(rRhsMat.m_iRows, rRhsMat.m_iCols);
+    SEMatrixMNf ResMat(rRhsMat.m_iRows, rRhsMat.m_iCols);
     for( int i = 0; i < m_iCount; i++ )
     {
         ResMat.m_pData[i] = m_pData[i] - rRhsMat.m_pData[i];
@@ -255,11 +255,11 @@ MatrixMNf MatrixMNf::operator-(const MatrixMNf& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-MatrixMNf MatrixMNf::operator*(const MatrixMNf& rRhsMat) const
+SEMatrixMNf SEMatrixMNf::operator*(const SEMatrixMNf& rRhsMat) const
 {
     SE_ASSERT( m_iCols == rRhsMat.m_iRows );
 
-    MatrixMNf ResMat(m_iRows, rRhsMat.m_iCols);
+    SEMatrixMNf ResMat(m_iRows, rRhsMat.m_iCols);
     for( int iRow = 0; iRow < ResMat.m_iRows; iRow++ )
     {
         for( int iCol = 0; iCol < ResMat.m_iCols; iCol++ )
@@ -274,9 +274,9 @@ MatrixMNf MatrixMNf::operator*(const MatrixMNf& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-MatrixMNf MatrixMNf::operator*(float fScalar) const
+SEMatrixMNf SEMatrixMNf::operator*(float fScalar) const
 {
-    MatrixMNf ResMat(m_iRows, m_iCols);
+    SEMatrixMNf ResMat(m_iRows, m_iCols);
     for( int i = 0; i < m_iCount; i++ )
     {
         ResMat.m_pData[i] = fScalar * m_pData[i];
@@ -285,9 +285,9 @@ MatrixMNf MatrixMNf::operator*(float fScalar) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-MatrixMNf MatrixMNf::operator/(float fScalar) const
+SEMatrixMNf SEMatrixMNf::operator/(float fScalar) const
 {
-    MatrixMNf ResMat(m_iRows, m_iCols);
+    SEMatrixMNf ResMat(m_iRows, m_iCols);
     int i;
 
     if( fScalar != 0.0f )
@@ -302,16 +302,16 @@ MatrixMNf MatrixMNf::operator/(float fScalar) const
     {
         for( i = 0; i < m_iCount; i++ )
         {
-            ResMat.m_pData[i] = Math<float>::MAX_REAL;
+            ResMat.m_pData[i] = SEMath<float>::MAX_REAL;
         }
     }
 
     return ResMat;
 }
 //----------------------------------------------------------------------------
-MatrixMNf MatrixMNf::operator-() const
+SEMatrixMNf SEMatrixMNf::operator-() const
 {
-    MatrixMNf ResMat(m_iRows, m_iCols);
+    SEMatrixMNf ResMat(m_iRows, m_iCols);
     for( int i = 0; i < m_iCount; i++ )
     {
         ResMat.m_pData[i] = -m_pData[i];
@@ -320,7 +320,7 @@ MatrixMNf MatrixMNf::operator-() const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-MatrixMNf& MatrixMNf::operator+=(const MatrixMNf& rRhsMat)
+SEMatrixMNf& SEMatrixMNf::operator+=(const SEMatrixMNf& rRhsMat)
 {
     for( int i = 0; i < m_iCount; i++ )
     {
@@ -330,7 +330,7 @@ MatrixMNf& MatrixMNf::operator+=(const MatrixMNf& rRhsMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-MatrixMNf& MatrixMNf::operator-=(const MatrixMNf& rRhsMat)
+SEMatrixMNf& SEMatrixMNf::operator-=(const SEMatrixMNf& rRhsMat)
 {
     for( int i = 0; i < m_iCount; i++ )
     {
@@ -340,7 +340,7 @@ MatrixMNf& MatrixMNf::operator-=(const MatrixMNf& rRhsMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-MatrixMNf& MatrixMNf::operator*=(float fScalar)
+SEMatrixMNf& SEMatrixMNf::operator*=(float fScalar)
 {
     for( int i = 0; i < m_iCount; i++ )
     {
@@ -350,7 +350,7 @@ MatrixMNf& MatrixMNf::operator*=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-MatrixMNf& MatrixMNf::operator/=(float fScalar)
+SEMatrixMNf& SEMatrixMNf::operator/=(float fScalar)
 {
     int i;
 
@@ -366,18 +366,18 @@ MatrixMNf& MatrixMNf::operator/=(float fScalar)
     {
         for( i = 0; i < m_iCount; i++ )
         {
-            m_pData[i] = Math<float>::MAX_REAL;
+            m_pData[i] = SEMath<float>::MAX_REAL;
         }
     }
 
     return *this;
 }
 //----------------------------------------------------------------------------
-VectorNf MatrixMNf::operator*(const VectorNf& rRhsVec) const
+SEVectorNf SEMatrixMNf::operator*(const SEVectorNf& rRhsVec) const
 {
     SE_ASSERT( rRhsVec.GetSize() == m_iCols );
 
-    VectorNf ResVec(m_iRows);
+    SEVectorNf ResVec(m_iRows);
     for( int iRow = 0; iRow < m_iRows; iRow++ )
     {
         for( int iCol = 0; iCol < m_iCols; iCol++ )
@@ -389,7 +389,7 @@ VectorNf MatrixMNf::operator*(const VectorNf& rRhsVec) const
     return ResVec;
 }
 //----------------------------------------------------------------------------
-bool MatrixMNf::GetInverse(MatrixMNf& rDesMat) const
+bool SEMatrixMNf::GetInverse(SEMatrixMNf& rDesMat) const
 {
     // 只有N阶方阵才可逆
     if( GetRows() > 0 && GetRows() != GetCols() )
@@ -425,7 +425,7 @@ bool MatrixMNf::GetInverse(MatrixMNf& rDesMat) const
                     {
                         // 排除主元列
 
-                        float fAbs = Math<float>::FAbs(rDesMat[i1][i2]);
+                        float fAbs = SEMath<float>::FAbs(rDesMat[i1][i2]);
                         if( fAbs > fMax )
                         {
                             fMax = fAbs;
@@ -503,14 +503,14 @@ bool MatrixMNf::GetInverse(MatrixMNf& rDesMat) const
     return true;
 }
 //----------------------------------------------------------------------------
-VectorNf Swing::operator*(const VectorNf& rLhsVec, const MatrixMNf& rRhsMat)
+SEVectorNf Swing::operator*(const SEVectorNf& rLhsVec, const SEMatrixMNf& rRhsMat)
 {
     int iRows = rRhsMat.GetRows();
     int iCols = rRhsMat.GetCols();
 
     SE_ASSERT( rLhsVec.GetSize() == iRows );
 
-    VectorNf ResVec(iCols);
+    SEVectorNf ResVec(iCols);
     float* pVecData = ResVec;
 
     for( int iCol = 0; iCol < iCols; iCol++ )
@@ -524,9 +524,9 @@ VectorNf Swing::operator*(const VectorNf& rLhsVec, const MatrixMNf& rRhsMat)
     return ResVec;
 }
 //----------------------------------------------------------------------------
-MatrixMNf Swing::operator*(float fLhsScalar, const MatrixMNf& rRhsMat)
+SEMatrixMNf Swing::operator*(float fLhsScalar, const SEMatrixMNf& rRhsMat)
 {
-    MatrixMNf ResMat(rRhsMat.GetRows(), rRhsMat.GetCols());
+    SEMatrixMNf ResMat(rRhsMat.GetRows(), rRhsMat.GetCols());
     const float* pRhsMatData = rRhsMat;
     float* pResMatData = ResMat;
 

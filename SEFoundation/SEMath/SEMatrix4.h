@@ -51,7 +51,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20070512
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Matrix4f
+class SE_FOUNDATION_API SEMatrix4f
 {
 public:
     union
@@ -67,9 +67,9 @@ public:
     };
 
 public:
-    Matrix4f(void);
-    Matrix4f(const Matrix4f& rMat);
-    Matrix4f(float fM11, float fM12, float fM13, float fM14,
+    SEMatrix4f(void);
+    SEMatrix4f(const SEMatrix4f& rMat);
+    SEMatrix4f(float fM11, float fM12, float fM13, float fM14,
              float fM21, float fM22, float fM23, float fM24,
              float fM31, float fM32, float fM33, float fM34,
              float fM41, float fM42, float fM43, float fM44);
@@ -82,39 +82,39 @@ public:
     float operator () (int iCurRow, int iCurCol) const;
     float& operator () (int iCurRow, int iCurCol);
 
-    inline void SetRow(int iDesRow, const Vector4f& rSrcVec);
-    inline void GetRow(int iSrcRow, Vector4f& rDesVec) const;
-    inline void SetColumn(int iDesCol, const Vector4f& rSrcVec);
-    inline void GetColumn(int iSrcCol, Vector4f& rDesVec) const;
+    inline void SetRow(int iDesRow, const SEVector4f& rSrcVec);
+    inline void GetRow(int iSrcRow, SEVector4f& rDesVec) const;
+    inline void SetColumn(int iDesCol, const SEVector4f& rSrcVec);
+    inline void GetColumn(int iSrcCol, SEVector4f& rDesVec) const;
 
-    Matrix4f& operator = (const Matrix4f& rMat);
+    SEMatrix4f& operator = (const SEMatrix4f& rMat);
 
-    bool operator == (const Matrix4f& rMat) const;
-    bool operator != (const Matrix4f& rMat) const;
-    bool operator <  (const Matrix4f& rMat) const;
-    bool operator <= (const Matrix4f& rMat) const;
-    bool operator >  (const Matrix4f& rMat) const;
-    bool operator >= (const Matrix4f& rMat) const;
+    bool operator == (const SEMatrix4f& rMat) const;
+    bool operator != (const SEMatrix4f& rMat) const;
+    bool operator <  (const SEMatrix4f& rMat) const;
+    bool operator <= (const SEMatrix4f& rMat) const;
+    bool operator >  (const SEMatrix4f& rMat) const;
+    bool operator >= (const SEMatrix4f& rMat) const;
 
-    Matrix4f operator + (const Matrix4f& rRhsMat) const;
-    Matrix4f operator - (const Matrix4f& rRhsMat) const;
-    Matrix4f operator * (const Matrix4f& rRhsMat) const;
-    Matrix4f operator * (float fScalar) const;
-    Matrix4f operator / (float fScalar) const;
-    Matrix4f operator - (void) const;
+    SEMatrix4f operator + (const SEMatrix4f& rRhsMat) const;
+    SEMatrix4f operator - (const SEMatrix4f& rRhsMat) const;
+    SEMatrix4f operator * (const SEMatrix4f& rRhsMat) const;
+    SEMatrix4f operator * (float fScalar) const;
+    SEMatrix4f operator / (float fScalar) const;
+    SEMatrix4f operator - (void) const;
 
-    Matrix4f& operator += (const Matrix4f& rRhsMat);
-    Matrix4f& operator -= (const Matrix4f& rRhsMat);
-    Matrix4f& operator *= (float fScalar);
-    Matrix4f& operator /= (float fScalar);
+    SEMatrix4f& operator += (const SEMatrix4f& rRhsMat);
+    SEMatrix4f& operator -= (const SEMatrix4f& rRhsMat);
+    SEMatrix4f& operator *= (float fScalar);
+    SEMatrix4f& operator /= (float fScalar);
 
     // 乘以列向量
-    Vector4f operator * (const Vector4f& rRhsVec) const;
+    SEVector4f operator * (const SEVector4f& rRhsVec) const;
 
-    SE_FOUNDATION_API friend Matrix4f operator * (float fLhsScalar, 
-        const Matrix4f& rRhsMat);
-    SE_FOUNDATION_API friend Vector4f operator * (const Vector4f& rLhsVec, 
-        const Matrix4f& rRhsMat);
+    SE_FOUNDATION_API friend SEMatrix4f operator * (float fLhsScalar, 
+        const SEMatrix4f& rRhsMat);
+    SE_FOUNDATION_API friend SEVector4f operator * (const SEVector4f& rLhsVec, 
+        const SEMatrix4f& rRhsMat);
 
     // 置为0矩阵
     inline void Zero(void);
@@ -125,25 +125,25 @@ public:
     // 将自己求逆
     void Inverse(void); // 执行时间为D3DX的4倍左右
     // 获取转置矩阵
-    inline void GetTranspose(Matrix4f& rDesMat) const;
+    inline void GetTranspose(SEMatrix4f& rDesMat) const;
     // 获取逆矩阵
-    inline void GetInverse(Matrix4f& rDesMat) const;
+    inline void GetInverse(SEMatrix4f& rDesMat) const;
     // 获取伴随矩阵
-    inline void GetAdjoint(Matrix4f& rDesMat) const;
+    inline void GetAdjoint(SEMatrix4f& rDesMat) const;
     // 获取行列式
     inline float GetDeterminant(void) const;
     // this^T * M
-    inline void GetTransposeTimes(const Matrix4f& rRhsMat, 
-        Matrix4f& rDesMat) const;
+    inline void GetTransposeTimes(const SEMatrix4f& rRhsMat, 
+        SEMatrix4f& rDesMat) const;
     // this * M^T
-    inline void GetTimesTranspose(const Matrix4f& rRhsMat, 
-        Matrix4f& rDesMat) const;
+    inline void GetTimesTranspose(const SEMatrix4f& rRhsMat, 
+        SEMatrix4f& rDesMat) const;
 
-    static const Matrix4f ZERO;
-    static const Matrix4f IDENTITY;
+    static const SEMatrix4f ZERO;
+    static const SEMatrix4f IDENTITY;
 
 private:
-    inline int CompareData(const Matrix4f& rMat) const;
+    inline int CompareData(const SEMatrix4f& rMat) const;
 
 };
 
@@ -153,7 +153,7 @@ private:
 // 作者:Sun Che
 // 时间:20090518
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Matrix4d
+class SE_FOUNDATION_API SEMatrix4d
 {
 public:
     union
@@ -169,9 +169,9 @@ public:
     };
 
 public:
-    Matrix4d(void);
-    Matrix4d(const Matrix4d& rMat);
-    Matrix4d(double dM11, double dM12, double dM13, double dM14,
+    SEMatrix4d(void);
+    SEMatrix4d(const SEMatrix4d& rMat);
+    SEMatrix4d(double dM11, double dM12, double dM13, double dM14,
              double dM21, double dM22, double dM23, double dM24,
              double dM31, double dM32, double dM33, double dM34,
              double dM41, double dM42, double dM43, double dM44);
@@ -184,39 +184,39 @@ public:
     double operator () (int iCurRow, int iCurCol) const;
     double& operator () (int iCurRow, int iCurCol);
 
-    inline void SetRow(int iDesRow, const Vector4d& rSrcVec);
-    inline void GetRow(int iSrcRow, Vector4d& rDesVec) const;
-    inline void SetColumn(int iDesCol, const Vector4d& rSrcVec);
-    inline void GetColumn(int iSrcCol, Vector4d& rDesVec) const;
+    inline void SetRow(int iDesRow, const SEVector4d& rSrcVec);
+    inline void GetRow(int iSrcRow, SEVector4d& rDesVec) const;
+    inline void SetColumn(int iDesCol, const SEVector4d& rSrcVec);
+    inline void GetColumn(int iSrcCol, SEVector4d& rDesVec) const;
 
-    Matrix4d& operator = (const Matrix4d& rMat);
+    SEMatrix4d& operator = (const SEMatrix4d& rMat);
 
-    bool operator == (const Matrix4d& rMat) const;
-    bool operator != (const Matrix4d& rMat) const;
-    bool operator <  (const Matrix4d& rMat) const;
-    bool operator <= (const Matrix4d& rMat) const;
-    bool operator >  (const Matrix4d& rMat) const;
-    bool operator >= (const Matrix4d& rMat) const;
+    bool operator == (const SEMatrix4d& rMat) const;
+    bool operator != (const SEMatrix4d& rMat) const;
+    bool operator <  (const SEMatrix4d& rMat) const;
+    bool operator <= (const SEMatrix4d& rMat) const;
+    bool operator >  (const SEMatrix4d& rMat) const;
+    bool operator >= (const SEMatrix4d& rMat) const;
 
-    Matrix4d operator + (const Matrix4d& rRhsMat) const;
-    Matrix4d operator - (const Matrix4d& rRhsMat) const;
-    Matrix4d operator * (const Matrix4d& rRhsMat) const;
-    Matrix4d operator * (double dScalar) const;
-    Matrix4d operator / (double dScalar) const;
-    Matrix4d operator - (void) const;
+    SEMatrix4d operator + (const SEMatrix4d& rRhsMat) const;
+    SEMatrix4d operator - (const SEMatrix4d& rRhsMat) const;
+    SEMatrix4d operator * (const SEMatrix4d& rRhsMat) const;
+    SEMatrix4d operator * (double dScalar) const;
+    SEMatrix4d operator / (double dScalar) const;
+    SEMatrix4d operator - (void) const;
 
-    Matrix4d& operator += (const Matrix4d& rRhsMat);
-    Matrix4d& operator -= (const Matrix4d& rRhsMat);
-    Matrix4d& operator *= (double dScalar);
-    Matrix4d& operator /= (double dScalar);
+    SEMatrix4d& operator += (const SEMatrix4d& rRhsMat);
+    SEMatrix4d& operator -= (const SEMatrix4d& rRhsMat);
+    SEMatrix4d& operator *= (double dScalar);
+    SEMatrix4d& operator /= (double dScalar);
 
     // 乘以列向量
-    Vector4d operator * (const Vector4d& rRhsVec) const;
+    SEVector4d operator * (const SEVector4d& rRhsVec) const;
 
-    SE_FOUNDATION_API friend Matrix4d operator * (double dLhsScalar, 
-        const Matrix4d& rRhsMat);
-    SE_FOUNDATION_API friend Vector4d operator * (const Vector4d& rLhsVec, 
-        const Matrix4d& rRhsMat);
+    SE_FOUNDATION_API friend SEMatrix4d operator * (double dLhsScalar, 
+        const SEMatrix4d& rRhsMat);
+    SE_FOUNDATION_API friend SEVector4d operator * (const SEVector4d& rLhsVec, 
+        const SEMatrix4d& rRhsMat);
 
     // 置为0矩阵
     inline void Zero(void);
@@ -227,30 +227,30 @@ public:
     // 将自己求逆
     void Inverse(void);
     // 获取转置矩阵
-    inline void GetTranspose(Matrix4d& rDesMat) const;
+    inline void GetTranspose(SEMatrix4d& rDesMat) const;
     // 获取逆矩阵
-    inline void GetInverse(Matrix4d& rDesMat) const;
+    inline void GetInverse(SEMatrix4d& rDesMat) const;
     // 获取伴随矩阵
-    inline void GetAdjoint(Matrix4d& rDesMat) const;
+    inline void GetAdjoint(SEMatrix4d& rDesMat) const;
     // 获取行列式
     inline double GetDeterminant(void) const;
     // this^T * M
-    inline void GetTransposeTimes(const Matrix4d& rRhsMat, 
-        Matrix4d& rDesMat) const;
+    inline void GetTransposeTimes(const SEMatrix4d& rRhsMat, 
+        SEMatrix4d& rDesMat) const;
     // this * M^T
-    inline void GetTimesTranspose(const Matrix4d& rRhsMat, 
-        Matrix4d& rDesMat) const;
+    inline void GetTimesTranspose(const SEMatrix4d& rRhsMat, 
+        SEMatrix4d& rDesMat) const;
 
-    static const Matrix4d ZERO;
-    static const Matrix4d IDENTITY;
+    static const SEMatrix4d ZERO;
+    static const SEMatrix4d IDENTITY;
 
 private:
-    inline int CompareData(const Matrix4d& rMat) const;
+    inline int CompareData(const SEMatrix4d& rMat) const;
 
 };
 
-typedef SE_ALIGN16 Matrix4f Matrix4fA16;
-typedef SE_ALIGN16 Matrix4d Matrix4dA16;
+typedef SE_ALIGN16 SEMatrix4f SEMatrix4fA16;
+typedef SE_ALIGN16 SEMatrix4d SEMatrix4dA16;
 
 #include "SEMatrix4.inl"
 

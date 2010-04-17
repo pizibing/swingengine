@@ -39,17 +39,17 @@ class SE_FOUNDATION_API CollisionRecord
 public:
     typedef void (*Callback)(CollisionRecord& rRecord0, int iT0,
         CollisionRecord& rRecord1, int iT1,
-        Intersector<float, Vector3f>* pIntersector);
+        Intersector<float, SEVector3f>* pIntersector);
 
     // CollisionRecord被假设为有责任删除传入的pTree,因此pTree应动态分配.
     CollisionRecord(TriMesh* pMesh, BoundingVolumeTree* pTree,
-        Vector3f* pVelocity, Callback oCallback, void* pvCallbackData);
+        SEVector3f* pVelocity, Callback oCallback, void* pvCallbackData);
 
     ~CollisionRecord(void);
 
     // 成员访问.
     inline TriMesh* GetMesh(void);
-    inline Vector3f* GetVelocity(void);
+    inline SEVector3f* GetVelocity(void);
     inline void* GetCallbackData(void);
 
     // intersection查询.
@@ -61,7 +61,7 @@ public:
 protected:
     TriMesh* m_pMesh;
     BoundingVolumeTree* m_pTree;
-    Vector3f* m_pVelocity;
+    SEVector3f* m_pVelocity;
     Callback m_oCallback;
     void* m_pvCallbackData;
 };

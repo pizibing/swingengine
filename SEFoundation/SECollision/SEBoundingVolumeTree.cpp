@@ -51,7 +51,7 @@ BoundingVolumeTree::BoundingVolumeTree(int eBVType, const TriMesh* pMesh,
     // 拆分基于这些投影值的中间值.
     int iTCount = m_pMesh->IBuffer->GetIndexCount() / 3;
     const int* aiIndex = m_pMesh->IBuffer->GetData();
-    Vector3f* aCentroid = SE_NEW Vector3f[iTCount];
+    SEVector3f* aCentroid = SE_NEW SEVector3f[iTCount];
     const float fOneThird = 1.0f / 3.0f;
     int iT, i;
     for( iT = 0, i = 0; iT < iTCount; iT++ )
@@ -99,12 +99,12 @@ BoundingVolumeTree::~BoundingVolumeTree()
 }
 //----------------------------------------------------------------------------
 void BoundingVolumeTree::BuildTree(int eBVType, int iMaxTrisPerLeaf,
-    bool bStoreInteriorTris, const Vector3f* aCentroid, int i0, int i1,
+    bool bStoreInteriorTris, const SEVector3f* aCentroid, int i0, int i1,
     int* aiISplit, int* aiOSplit)
 {
     SE_ASSERT( i0 <= i1 );
 
-    Line3f tempLine;
+    SELine3f tempLine;
     m_spModelBound = ms_aoCreateModelBound[eBVType](m_pMesh, i0, i1, aiISplit,
         tempLine);
     m_spWorldBound = ms_aoCreateWorldBound[eBVType]();
@@ -170,9 +170,9 @@ int BoundingVolumeTree::Compare(const void* pvElement0,
     return 0;
 }
 //----------------------------------------------------------------------------
-void BoundingVolumeTree::SplitTriangles(const Vector3f* aCentroid,
+void BoundingVolumeTree::SplitTriangles(const SEVector3f* aCentroid,
     int i0, int i1, int* aiISplit, int& rj0, int& rj1, int* aiOSplit,
-    const Line3f& rLine)
+    const SELine3f& rLine)
 {
     // 投影到指定直线上.
     int iCount = i1 - i0 + 1;
@@ -181,7 +181,7 @@ void BoundingVolumeTree::SplitTriangles(const Vector3f* aCentroid,
     for( i = i0, j = 0; i <= i1; i++, j++ )
     {
         int iTriangle = aiISplit[i];
-        Vector3f vec3fDiff = aCentroid[iTriangle] - rLine.Origin;
+        SEVector3f vec3fDiff = aCentroid[iTriangle] - rLine.Origin;
         aInfo[j].m_iTriangle = iTriangle;
         aInfo[j].m_fProjection = rLine.Direction.Dot(vec3fDiff);
     }
@@ -237,7 +237,7 @@ bool BoundingVolumeTree::ContainsLeafData(const VertexBuffer* pVBuffer,
         int j = 3 * m_aiTriangle[iT];
         for( int i = 0; i < 3; i++ )
         {
-            Vector3f vec3fPoint = pVBuffer->Position3(aiIndex[j++]);
+            SEVector3f vec3fPoint = pVBuffer->Position3(aiIndex[j++]);
             if( !m_spModelBound->Contains(vec3fPoint) )
             {
                 return false;

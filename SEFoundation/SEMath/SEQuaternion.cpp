@@ -27,16 +27,16 @@ using namespace Swing;
 // 单精度4元数类
 //----------------------------------------------------------------------------
 
-const Quaternionf Quaternionf::IDENTITY(1.0f, 0.0f, 0.0f, 0.0f);
-const Quaternionf Quaternionf::ZERO(0.0f, 0.0f, 0.0f, 0.0f);
-int Quaternionf::m_iNext[3] = { 1, 2, 0 };
+const SEQuaternionf SEQuaternionf::IDENTITY(1.0f, 0.0f, 0.0f, 0.0f);
+const SEQuaternionf SEQuaternionf::ZERO(0.0f, 0.0f, 0.0f, 0.0f);
+int SEQuaternionf::m_iNext[3] = { 1, 2, 0 };
 
 //----------------------------------------------------------------------------
-Quaternionf::Quaternionf()
+SEQuaternionf::SEQuaternionf()
 {
 }
 //----------------------------------------------------------------------------
-Quaternionf::Quaternionf(float fW, float fX, float fY, float fZ)
+SEQuaternionf::SEQuaternionf(float fW, float fX, float fY, float fZ)
 {
     m_fData[0] = fW;
     m_fData[1] = fX;
@@ -44,7 +44,7 @@ Quaternionf::Quaternionf(float fW, float fX, float fY, float fZ)
     m_fData[3] = fZ;
 }
 //----------------------------------------------------------------------------
-Quaternionf::Quaternionf(const Quaternionf& rQ)
+SEQuaternionf::SEQuaternionf(const SEQuaternionf& rQ)
 {
     m_fData[0] = rQ.m_fData[0];
     m_fData[1] = rQ.m_fData[1];
@@ -52,27 +52,27 @@ Quaternionf::Quaternionf(const Quaternionf& rQ)
     m_fData[3] = rQ.m_fData[3];
 }
 //----------------------------------------------------------------------------
-Quaternionf::Quaternionf(const Matrix3f& rRotMat)
+SEQuaternionf::SEQuaternionf(const SEMatrix3f& rRotMat)
 {
     FromRotationMatrix(rRotMat);
 }
 //----------------------------------------------------------------------------
-Quaternionf::Quaternionf(const Vector3f& rAxis, float fAngle)
+SEQuaternionf::SEQuaternionf(const SEVector3f& rAxis, float fAngle)
 {
     FromAxisAngle(rAxis, fAngle);
 }
 //----------------------------------------------------------------------------
-Quaternionf::operator const float*() const
+SEQuaternionf::operator const float*() const
 {
     return &m_fData[0];
 }
 //----------------------------------------------------------------------------
-Quaternionf::operator float*()
+SEQuaternionf::operator float*()
 {
     return &m_fData[0];
 }
 //----------------------------------------------------------------------------
-float Quaternionf::operator[](int i) const
+float SEQuaternionf::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i <= 3 );
 
@@ -88,7 +88,7 @@ float Quaternionf::operator[](int i) const
     return m_fData[i];
 }
 //----------------------------------------------------------------------------
-float& Quaternionf::operator[](int i)
+float& SEQuaternionf::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i <= 3 );
     
@@ -104,7 +104,7 @@ float& Quaternionf::operator[](int i)
     return m_fData[i];
 }
 //----------------------------------------------------------------------------
-Quaternionf& Quaternionf::operator=(const Quaternionf& rQ)
+SEQuaternionf& SEQuaternionf::operator=(const SEQuaternionf& rQ)
 {
     m_fData[0] = rQ.m_fData[0];
     m_fData[1] = rQ.m_fData[1];
@@ -114,39 +114,39 @@ Quaternionf& Quaternionf::operator=(const Quaternionf& rQ)
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Quaternionf::operator==(const Quaternionf& rQ) const
+bool SEQuaternionf::operator==(const SEQuaternionf& rQ) const
 {
     return CompareData(rQ) == 0;
 }
 //----------------------------------------------------------------------------
-bool Quaternionf::operator!=(const Quaternionf& rQ) const
+bool SEQuaternionf::operator!=(const SEQuaternionf& rQ) const
 {
     return CompareData(rQ) != 0;
 }
 //----------------------------------------------------------------------------
-bool Quaternionf::operator<(const Quaternionf& rQ) const
+bool SEQuaternionf::operator<(const SEQuaternionf& rQ) const
 {
     return CompareData(rQ) < 0;
 }
 //----------------------------------------------------------------------------
-bool Quaternionf::operator<=(const Quaternionf& rQ) const
+bool SEQuaternionf::operator<=(const SEQuaternionf& rQ) const
 {
     return CompareData(rQ) <= 0;
 }
 //----------------------------------------------------------------------------
-bool Quaternionf::operator>(const Quaternionf& rQ) const
+bool SEQuaternionf::operator>(const SEQuaternionf& rQ) const
 {
     return CompareData(rQ) > 0;
 }
 //----------------------------------------------------------------------------
-bool Quaternionf::operator>=(const Quaternionf& rQ) const
+bool SEQuaternionf::operator>=(const SEQuaternionf& rQ) const
 {
     return CompareData(rQ) >= 0;
 }
 //----------------------------------------------------------------------------
-Quaternionf Quaternionf::operator+(const Quaternionf& rRhsQ) const
+SEQuaternionf SEQuaternionf::operator+(const SEQuaternionf& rRhsQ) const
 {
-    Quaternionf tempQ;
+    SEQuaternionf tempQ;
 
     tempQ.m_fData[0] = m_fData[0] + rRhsQ.m_fData[0];
     tempQ.m_fData[1] = m_fData[1] + rRhsQ.m_fData[1];
@@ -156,9 +156,9 @@ Quaternionf Quaternionf::operator+(const Quaternionf& rRhsQ) const
     return tempQ;
 }
 //----------------------------------------------------------------------------
-Quaternionf Quaternionf::operator-(const Quaternionf& rRhsQ) const
+SEQuaternionf SEQuaternionf::operator-(const SEQuaternionf& rRhsQ) const
 {
-    Quaternionf tempQ;
+    SEQuaternionf tempQ;
 
     tempQ.m_fData[0] = m_fData[0] - rRhsQ.m_fData[0];
     tempQ.m_fData[1] = m_fData[1] - rRhsQ.m_fData[1];
@@ -168,11 +168,11 @@ Quaternionf Quaternionf::operator-(const Quaternionf& rRhsQ) const
     return tempQ;
 }
 //----------------------------------------------------------------------------
-Quaternionf Quaternionf::operator*(const Quaternionf& rRhsQ) const
+SEQuaternionf SEQuaternionf::operator*(const SEQuaternionf& rRhsQ) const
 {
     // 注意:quaternion乘法不满足交换律
 
-    Quaternionf tempQ;
+    SEQuaternionf tempQ;
 
     tempQ.m_fData[0] =
         m_fData[0]*rRhsQ.m_fData[0] -
@@ -201,9 +201,9 @@ Quaternionf Quaternionf::operator*(const Quaternionf& rRhsQ) const
     return tempQ;
 }
 //----------------------------------------------------------------------------
-Quaternionf Quaternionf::operator*(float fScalar) const
+SEQuaternionf SEQuaternionf::operator*(float fScalar) const
 {
-    Quaternionf tempQ;
+    SEQuaternionf tempQ;
 
     tempQ.m_fData[0] = fScalar * m_fData[0];
     tempQ.m_fData[1] = fScalar * m_fData[1];
@@ -213,9 +213,9 @@ Quaternionf Quaternionf::operator*(float fScalar) const
     return tempQ;
 }
 //----------------------------------------------------------------------------
-Quaternionf Quaternionf::operator/(float fScalar) const
+SEQuaternionf SEQuaternionf::operator/(float fScalar) const
 {
-    Quaternionf tempQ;
+    SEQuaternionf tempQ;
 
     if( fScalar != 0.0f )
     {
@@ -227,18 +227,18 @@ Quaternionf Quaternionf::operator/(float fScalar) const
     }
     else
     {
-        tempQ.m_fData[0] = Math<float>::MAX_REAL;
-        tempQ.m_fData[1] = Math<float>::MAX_REAL;
-        tempQ.m_fData[2] = Math<float>::MAX_REAL;
-        tempQ.m_fData[3] = Math<float>::MAX_REAL;
+        tempQ.m_fData[0] = SEMath<float>::MAX_REAL;
+        tempQ.m_fData[1] = SEMath<float>::MAX_REAL;
+        tempQ.m_fData[2] = SEMath<float>::MAX_REAL;
+        tempQ.m_fData[3] = SEMath<float>::MAX_REAL;
     }
 
     return tempQ;
 }
 //----------------------------------------------------------------------------
-Quaternionf Quaternionf::operator-() const
+SEQuaternionf SEQuaternionf::operator-() const
 {
-    Quaternionf tempQ;
+    SEQuaternionf tempQ;
 
     tempQ.m_fData[0] = -m_fData[0];
     tempQ.m_fData[1] = -m_fData[1];
@@ -248,7 +248,7 @@ Quaternionf Quaternionf::operator-() const
     return tempQ;
 }
 //----------------------------------------------------------------------------
-Quaternionf& Quaternionf::operator+=(const Quaternionf& rRhsQ)
+SEQuaternionf& SEQuaternionf::operator+=(const SEQuaternionf& rRhsQ)
 {
     m_fData[0] += rRhsQ.m_fData[0];
     m_fData[1] += rRhsQ.m_fData[1];
@@ -258,7 +258,7 @@ Quaternionf& Quaternionf::operator+=(const Quaternionf& rRhsQ)
     return *this;
 }
 //----------------------------------------------------------------------------
-Quaternionf& Quaternionf::operator-=(const Quaternionf& rRhsQ)
+SEQuaternionf& SEQuaternionf::operator-=(const SEQuaternionf& rRhsQ)
 {
     m_fData[0] -= rRhsQ.m_fData[0];
     m_fData[1] -= rRhsQ.m_fData[1];
@@ -268,7 +268,7 @@ Quaternionf& Quaternionf::operator-=(const Quaternionf& rRhsQ)
     return *this;
 }
 //----------------------------------------------------------------------------
-Quaternionf& Quaternionf::operator*=(float fScalar)
+SEQuaternionf& SEQuaternionf::operator*=(float fScalar)
 {
     m_fData[0] *= fScalar;
     m_fData[1] *= fScalar;
@@ -278,7 +278,7 @@ Quaternionf& Quaternionf::operator*=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Quaternionf& Quaternionf::operator/=(float fScalar)
+SEQuaternionf& SEQuaternionf::operator/=(float fScalar)
 {
     if( fScalar != 0.0f )
     {
@@ -291,35 +291,35 @@ Quaternionf& Quaternionf::operator/=(float fScalar)
     }
     else
     {
-        m_fData[0] = Math<float>::MAX_REAL;
-        m_fData[1] = Math<float>::MAX_REAL;
-        m_fData[2] = Math<float>::MAX_REAL;
-        m_fData[3] = Math<float>::MAX_REAL;
+        m_fData[0] = SEMath<float>::MAX_REAL;
+        m_fData[1] = SEMath<float>::MAX_REAL;
+        m_fData[2] = SEMath<float>::MAX_REAL;
+        m_fData[3] = SEMath<float>::MAX_REAL;
     }
 
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector3f Quaternionf::Rotate(const Vector3f& rSrcVec) const
+SEVector3f SEQuaternionf::Rotate(const SEVector3f& rSrcVec) const
 {
-    Matrix3f tempRot;
+    SEMatrix3f tempRot;
     ToRotationMatrix(tempRot);
 
     return rSrcVec * tempRot;
 }
 //----------------------------------------------------------------------------
-Quaternionf& Quaternionf::Slerp(float fT, const Quaternionf& rP,
-    const Quaternionf& rQ)
+SEQuaternionf& SEQuaternionf::Slerp(float fT, const SEQuaternionf& rP,
+    const SEQuaternionf& rQ)
 {
     float fCos = rP.Dot(rQ);
-    float fAngle = Math<float>::ACos(fCos);
+    float fAngle = SEMath<float>::ACos(fCos);
 
-    if( Math<float>::FAbs(fAngle) >= Math<float>::ZERO_TOLERANCE )
+    if( SEMath<float>::FAbs(fAngle) >= SEMath<float>::ZERO_TOLERANCE )
     {
-        float fSin = Math<float>::Sin(fAngle);
+        float fSin = SEMath<float>::Sin(fAngle);
         float fInvSin = 1.0f / fSin;
-        float fCoeff0 = Math<float>::Sin((1.0f - fT) * fAngle) * fInvSin;
-        float fCoeff1 = Math<float>::Sin(fT * fAngle) * fInvSin;
+        float fCoeff0 = SEMath<float>::Sin((1.0f - fT) * fAngle) * fInvSin;
+        float fCoeff1 = SEMath<float>::Sin(fT * fAngle) * fInvSin;
         *this = fCoeff0*rP + fCoeff1*rQ;
     }
     else
@@ -330,8 +330,8 @@ Quaternionf& Quaternionf::Slerp(float fT, const Quaternionf& rP,
     return *this;
 }
 //----------------------------------------------------------------------------
-Quaternionf& Quaternionf::Lerp(float fT, const Quaternionf& rP, 
-    const Quaternionf& rQ)
+SEQuaternionf& SEQuaternionf::Lerp(float fT, const SEQuaternionf& rP, 
+    const SEQuaternionf& rQ)
 {
     *this = (1.0f - fT)*rP + fT*rQ;
     Normalize();
@@ -339,10 +339,10 @@ Quaternionf& Quaternionf::Lerp(float fT, const Quaternionf& rP,
     return *this;
 }
 //----------------------------------------------------------------------------
-Quaternionf& Quaternionf::FromRotationMatrix(const Vector3f aRot[3], 
+SEQuaternionf& SEQuaternionf::FromRotationMatrix(const SEVector3f aRot[3], 
     bool bIsRow)
 {
-    Matrix3f tempRot;
+    SEMatrix3f tempRot;
     if( bIsRow )
     {
         for( int iRow = 0; iRow < 3; iRow++ )
@@ -365,9 +365,9 @@ Quaternionf& Quaternionf::FromRotationMatrix(const Vector3f aRot[3],
     return FromRotationMatrix(tempRot);
 }
 //----------------------------------------------------------------------------
-void Quaternionf::ToRotationMatrix(Vector3f aRot[3], bool bIsRow) const
+void SEQuaternionf::ToRotationMatrix(SEVector3f aRot[3], bool bIsRow) const
 {
-    Matrix3f tempRot;
+    SEMatrix3f tempRot;
     ToRotationMatrix(tempRot);
     if( bIsRow )
     {
@@ -389,9 +389,9 @@ void Quaternionf::ToRotationMatrix(Vector3f aRot[3], bool bIsRow) const
     }
 }
 //----------------------------------------------------------------------------
-Quaternionf Swing::operator*(float fLhsScalar, const Quaternionf& rRhsQ)
+SEQuaternionf Swing::operator*(float fLhsScalar, const SEQuaternionf& rRhsQ)
 {
-    Quaternionf tempQ;
+    SEQuaternionf tempQ;
 
     tempQ[0] = fLhsScalar * rRhsQ[0];
     tempQ[1] = fLhsScalar * rRhsQ[1];
@@ -406,16 +406,16 @@ Quaternionf Swing::operator*(float fLhsScalar, const Quaternionf& rRhsQ)
 // 双精度4元数类
 //----------------------------------------------------------------------------
 
-const Quaterniond Quaterniond::IDENTITY(1.0, 0.0, 0.0, 0.0);
-const Quaterniond Quaterniond::ZERO(0.0, 0.0, 0.0, 0.0);
-int Quaterniond::m_iNext[3] = { 1, 2, 0 };
+const SEQuaterniond SEQuaterniond::IDENTITY(1.0, 0.0, 0.0, 0.0);
+const SEQuaterniond SEQuaterniond::ZERO(0.0, 0.0, 0.0, 0.0);
+int SEQuaterniond::m_iNext[3] = { 1, 2, 0 };
 
 //----------------------------------------------------------------------------
-Quaterniond::Quaterniond()
+SEQuaterniond::SEQuaterniond()
 {
 }
 //----------------------------------------------------------------------------
-Quaterniond::Quaterniond(double dW, double dX, double dY, double dZ)
+SEQuaterniond::SEQuaterniond(double dW, double dX, double dY, double dZ)
 {
     m_dData[0] = dW;
     m_dData[1] = dX;
@@ -423,7 +423,7 @@ Quaterniond::Quaterniond(double dW, double dX, double dY, double dZ)
     m_dData[3] = dZ;
 }
 //----------------------------------------------------------------------------
-Quaterniond::Quaterniond(const Quaterniond& rQ)
+SEQuaterniond::SEQuaterniond(const SEQuaterniond& rQ)
 {
     m_dData[0] = rQ.m_dData[0];
     m_dData[1] = rQ.m_dData[1];
@@ -431,27 +431,27 @@ Quaterniond::Quaterniond(const Quaterniond& rQ)
     m_dData[3] = rQ.m_dData[3];
 }
 //----------------------------------------------------------------------------
-Quaterniond::Quaterniond(const Matrix3d& rRotMat)
+SEQuaterniond::SEQuaterniond(const SEMatrix3d& rRotMat)
 {
     FromRotationMatrix(rRotMat);
 }
 //----------------------------------------------------------------------------
-Quaterniond::Quaterniond(const Vector3d& rAxis, double dAngle)
+SEQuaterniond::SEQuaterniond(const SEVector3d& rAxis, double dAngle)
 {
     FromAxisAngle(rAxis, dAngle);
 }
 //----------------------------------------------------------------------------
-Quaterniond::operator const double*() const
+SEQuaterniond::operator const double*() const
 {
     return &m_dData[0];
 }
 //----------------------------------------------------------------------------
-Quaterniond::operator double*()
+SEQuaterniond::operator double*()
 {
     return &m_dData[0];
 }
 //----------------------------------------------------------------------------
-double Quaterniond::operator[](int i) const
+double SEQuaterniond::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i <= 3 );
 
@@ -467,7 +467,7 @@ double Quaterniond::operator[](int i) const
     return m_dData[i];
 }
 //----------------------------------------------------------------------------
-double& Quaterniond::operator[](int i)
+double& SEQuaterniond::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i <= 3 );
     
@@ -483,7 +483,7 @@ double& Quaterniond::operator[](int i)
     return m_dData[i];
 }
 //----------------------------------------------------------------------------
-Quaterniond& Quaterniond::operator=(const Quaterniond& rQ)
+SEQuaterniond& SEQuaterniond::operator=(const SEQuaterniond& rQ)
 {
     m_dData[0] = rQ.m_dData[0];
     m_dData[1] = rQ.m_dData[1];
@@ -493,39 +493,39 @@ Quaterniond& Quaterniond::operator=(const Quaterniond& rQ)
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Quaterniond::operator==(const Quaterniond& rQ) const
+bool SEQuaterniond::operator==(const SEQuaterniond& rQ) const
 {
     return CompareData(rQ) == 0;
 }
 //----------------------------------------------------------------------------
-bool Quaterniond::operator!=(const Quaterniond& rQ) const
+bool SEQuaterniond::operator!=(const SEQuaterniond& rQ) const
 {
     return CompareData(rQ) != 0;
 }
 //----------------------------------------------------------------------------
-bool Quaterniond::operator<(const Quaterniond& rQ) const
+bool SEQuaterniond::operator<(const SEQuaterniond& rQ) const
 {
     return CompareData(rQ) < 0;
 }
 //----------------------------------------------------------------------------
-bool Quaterniond::operator<=(const Quaterniond& rQ) const
+bool SEQuaterniond::operator<=(const SEQuaterniond& rQ) const
 {
     return CompareData(rQ) <= 0;
 }
 //----------------------------------------------------------------------------
-bool Quaterniond::operator>(const Quaterniond& rQ) const
+bool SEQuaterniond::operator>(const SEQuaterniond& rQ) const
 {
     return CompareData(rQ) > 0;
 }
 //----------------------------------------------------------------------------
-bool Quaterniond::operator>=(const Quaterniond& rQ) const
+bool SEQuaterniond::operator>=(const SEQuaterniond& rQ) const
 {
     return CompareData(rQ) >= 0;
 }
 //----------------------------------------------------------------------------
-Quaterniond Quaterniond::operator+(const Quaterniond& rRhsQ) const
+SEQuaterniond SEQuaterniond::operator+(const SEQuaterniond& rRhsQ) const
 {
-    Quaterniond tempQ;
+    SEQuaterniond tempQ;
 
     tempQ.m_dData[0] = m_dData[0] + rRhsQ.m_dData[0];
     tempQ.m_dData[1] = m_dData[1] + rRhsQ.m_dData[1];
@@ -535,9 +535,9 @@ Quaterniond Quaterniond::operator+(const Quaterniond& rRhsQ) const
     return tempQ;
 }
 //----------------------------------------------------------------------------
-Quaterniond Quaterniond::operator-(const Quaterniond& rRhsQ) const
+SEQuaterniond SEQuaterniond::operator-(const SEQuaterniond& rRhsQ) const
 {
-    Quaterniond tempQ;
+    SEQuaterniond tempQ;
 
     tempQ.m_dData[0] = m_dData[0] - rRhsQ.m_dData[0];
     tempQ.m_dData[1] = m_dData[1] - rRhsQ.m_dData[1];
@@ -547,11 +547,11 @@ Quaterniond Quaterniond::operator-(const Quaterniond& rRhsQ) const
     return tempQ;
 }
 //----------------------------------------------------------------------------
-Quaterniond Quaterniond::operator*(const Quaterniond& rRhsQ) const
+SEQuaterniond SEQuaterniond::operator*(const SEQuaterniond& rRhsQ) const
 {
     // 注意:quaternion乘法不满足交换律
 
-    Quaterniond tempQ;
+    SEQuaterniond tempQ;
 
     tempQ.m_dData[0] =
         m_dData[0]*rRhsQ.m_dData[0] -
@@ -580,9 +580,9 @@ Quaterniond Quaterniond::operator*(const Quaterniond& rRhsQ) const
     return tempQ;
 }
 //----------------------------------------------------------------------------
-Quaterniond Quaterniond::operator*(double dScalar) const
+SEQuaterniond SEQuaterniond::operator*(double dScalar) const
 {
-    Quaterniond tempQ;
+    SEQuaterniond tempQ;
 
     tempQ.m_dData[0] = dScalar * m_dData[0];
     tempQ.m_dData[1] = dScalar * m_dData[1];
@@ -592,9 +592,9 @@ Quaterniond Quaterniond::operator*(double dScalar) const
     return tempQ;
 }
 //----------------------------------------------------------------------------
-Quaterniond Quaterniond::operator/(double dScalar) const
+SEQuaterniond SEQuaterniond::operator/(double dScalar) const
 {
-    Quaterniond tempQ;
+    SEQuaterniond tempQ;
 
     if( dScalar != 0.0 )
     {
@@ -606,18 +606,18 @@ Quaterniond Quaterniond::operator/(double dScalar) const
     }
     else
     {
-        tempQ.m_dData[0] = Math<double>::MAX_REAL;
-        tempQ.m_dData[1] = Math<double>::MAX_REAL;
-        tempQ.m_dData[2] = Math<double>::MAX_REAL;
-        tempQ.m_dData[3] = Math<double>::MAX_REAL;
+        tempQ.m_dData[0] = SEMath<double>::MAX_REAL;
+        tempQ.m_dData[1] = SEMath<double>::MAX_REAL;
+        tempQ.m_dData[2] = SEMath<double>::MAX_REAL;
+        tempQ.m_dData[3] = SEMath<double>::MAX_REAL;
     }
 
     return tempQ;
 }
 //----------------------------------------------------------------------------
-Quaterniond Quaterniond::operator-() const
+SEQuaterniond SEQuaterniond::operator-() const
 {
-    Quaterniond tempQ;
+    SEQuaterniond tempQ;
 
     tempQ.m_dData[0] = -m_dData[0];
     tempQ.m_dData[1] = -m_dData[1];
@@ -627,7 +627,7 @@ Quaterniond Quaterniond::operator-() const
     return tempQ;
 }
 //----------------------------------------------------------------------------
-Quaterniond& Quaterniond::operator+=(const Quaterniond& rRhsQ)
+SEQuaterniond& SEQuaterniond::operator+=(const SEQuaterniond& rRhsQ)
 {
     m_dData[0] += rRhsQ.m_dData[0];
     m_dData[1] += rRhsQ.m_dData[1];
@@ -637,7 +637,7 @@ Quaterniond& Quaterniond::operator+=(const Quaterniond& rRhsQ)
     return *this;
 }
 //----------------------------------------------------------------------------
-Quaterniond& Quaterniond::operator-=(const Quaterniond& rRhsQ)
+SEQuaterniond& SEQuaterniond::operator-=(const SEQuaterniond& rRhsQ)
 {
     m_dData[0] -= rRhsQ.m_dData[0];
     m_dData[1] -= rRhsQ.m_dData[1];
@@ -647,7 +647,7 @@ Quaterniond& Quaterniond::operator-=(const Quaterniond& rRhsQ)
     return *this;
 }
 //----------------------------------------------------------------------------
-Quaterniond& Quaterniond::operator*=(double dScalar)
+SEQuaterniond& SEQuaterniond::operator*=(double dScalar)
 {
     m_dData[0] *= dScalar;
     m_dData[1] *= dScalar;
@@ -657,7 +657,7 @@ Quaterniond& Quaterniond::operator*=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Quaterniond& Quaterniond::operator/=(double dScalar)
+SEQuaterniond& SEQuaterniond::operator/=(double dScalar)
 {
     if( dScalar != 0.0 )
     {
@@ -670,35 +670,35 @@ Quaterniond& Quaterniond::operator/=(double dScalar)
     }
     else
     {
-        m_dData[0] = Math<float>::MAX_REAL;
-        m_dData[1] = Math<float>::MAX_REAL;
-        m_dData[2] = Math<float>::MAX_REAL;
-        m_dData[3] = Math<float>::MAX_REAL;
+        m_dData[0] = SEMath<float>::MAX_REAL;
+        m_dData[1] = SEMath<float>::MAX_REAL;
+        m_dData[2] = SEMath<float>::MAX_REAL;
+        m_dData[3] = SEMath<float>::MAX_REAL;
     }
 
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector3d Quaterniond::Rotate(const Vector3d& rSrcVec) const
+SEVector3d SEQuaterniond::Rotate(const SEVector3d& rSrcVec) const
 {
-    Matrix3d tempRot;
+    SEMatrix3d tempRot;
     ToRotationMatrix(tempRot);
 
     return rSrcVec * tempRot;
 }
 //----------------------------------------------------------------------------
-Quaterniond& Quaterniond::Slerp(double dT, const Quaterniond& rP,
-    const Quaterniond& rQ)
+SEQuaterniond& SEQuaterniond::Slerp(double dT, const SEQuaterniond& rP,
+    const SEQuaterniond& rQ)
 {
     double dCos = rP.Dot(rQ);
-    double dAngle = Math<double>::ACos(dCos);
+    double dAngle = SEMath<double>::ACos(dCos);
 
-    if( Math<double>::FAbs(dAngle) >= Math<double>::ZERO_TOLERANCE )
+    if( SEMath<double>::FAbs(dAngle) >= SEMath<double>::ZERO_TOLERANCE )
     {
-        double dSin = Math<double>::Sin(dAngle);
+        double dSin = SEMath<double>::Sin(dAngle);
         double dInvSin = 1.0 / dSin;
-        double dCoeff0 = Math<double>::Sin((1.0 - dT) * dAngle) * dInvSin;
-        double dCoeff1 = Math<double>::Sin(dT * dAngle) * dInvSin;
+        double dCoeff0 = SEMath<double>::Sin((1.0 - dT) * dAngle) * dInvSin;
+        double dCoeff1 = SEMath<double>::Sin(dT * dAngle) * dInvSin;
         *this = dCoeff0*rP + dCoeff1*rQ;
     }
     else
@@ -709,8 +709,8 @@ Quaterniond& Quaterniond::Slerp(double dT, const Quaterniond& rP,
     return *this;
 }
 //----------------------------------------------------------------------------
-Quaterniond& Quaterniond::Lerp(double dT, const Quaterniond& rP, 
-    const Quaterniond& rQ)
+SEQuaterniond& SEQuaterniond::Lerp(double dT, const SEQuaterniond& rP, 
+    const SEQuaterniond& rQ)
 {
     *this = (1.0 - dT)*rP + dT*rQ;
     Normalize();
@@ -718,10 +718,10 @@ Quaterniond& Quaterniond::Lerp(double dT, const Quaterniond& rP,
     return *this;
 }
 //----------------------------------------------------------------------------
-Quaterniond& Quaterniond::FromRotationMatrix(const Vector3d aRot[3], 
+SEQuaterniond& SEQuaterniond::FromRotationMatrix(const SEVector3d aRot[3], 
     bool bIsRow)
 {
-    Matrix3d tempRot;
+    SEMatrix3d tempRot;
     if( bIsRow )
     {
         for( int iRow = 0; iRow < 3; iRow++ )
@@ -744,9 +744,9 @@ Quaterniond& Quaterniond::FromRotationMatrix(const Vector3d aRot[3],
     return FromRotationMatrix(tempRot);
 }
 //----------------------------------------------------------------------------
-void Quaterniond::ToRotationMatrix(Vector3d aRot[3], bool bIsRow) const
+void SEQuaterniond::ToRotationMatrix(SEVector3d aRot[3], bool bIsRow) const
 {
-    Matrix3d tempRot;
+    SEMatrix3d tempRot;
     ToRotationMatrix(tempRot);
     if( bIsRow )
     {
@@ -768,9 +768,9 @@ void Quaterniond::ToRotationMatrix(Vector3d aRot[3], bool bIsRow) const
     }
 }
 //----------------------------------------------------------------------------
-Quaterniond Swing::operator*(double dLhsScalar, const Quaterniond& rRhsQ)
+SEQuaterniond Swing::operator*(double dLhsScalar, const SEQuaterniond& rRhsQ)
 {
-    Quaterniond tempQ;
+    SEQuaterniond tempQ;
 
     tempQ[0] = dLhsScalar * rRhsQ[0];
     tempQ[1] = dLhsScalar * rRhsQ[1];

@@ -38,12 +38,12 @@ class SE_FOUNDATION_API DistSegment2Segment2f
     : public Distance<float, SEVector2f>
 {
 public:
-    DistSegment2Segment2f(const Segment2f& rSegment0,
-        const Segment2f& rSegment1);
+    DistSegment2Segment2f(const SESegment2f& rSegment0,
+        const SESegment2f& rSegment1);
 
     // 对象访问.
-    const Segment2f& GetSegment0(void) const;
-    const Segment2f& GetSegment1(void) const;
+    const SESegment2f& GetSegment0(void) const;
+    const SESegment2f& GetSegment1(void) const;
 
     // static distance查询.
     virtual float Get(void);
@@ -56,8 +56,8 @@ public:
         const SEVector2f& rVelocity1);
 
 private:
-    const Segment2f* m_pSegment0;
-    const Segment2f* m_pSegment1;
+    const SESegment2f* m_pSegment0;
+    const SESegment2f* m_pSegment1;
 };
 
 }

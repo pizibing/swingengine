@@ -46,7 +46,7 @@ public:
     // interval [0, 1].  The uncertainty of 0 causes the class to behave
     // as if it were Query3f.  The uncertainty of 1 causes the class to
     // behave as if it were Query3TRationalf.
-    Query3Filteredf(int iVCount, const Vector3f* aVertex, float fUncertainty);
+    Query3Filteredf(int iVCount, const SEVector3f* aVertex, float fUncertainty);
     virtual ~Query3Filteredf(void);
 
     // run-time type information
@@ -54,10 +54,10 @@ public:
 
     // Queries about the relation of a point to various geometric objects.
 
-    virtual int ToPlane(const Vector3f& rP, int iV0, int iV1, int iV2)
+    virtual int ToPlane(const SEVector3f& rP, int iV0, int iV1, int iV2)
         const;
 
-    virtual int ToCircumsphere(const Vector3f& rP, int iV0, int iV1, 
+    virtual int ToCircumsphere(const SEVector3f& rP, int iV0, int iV1, 
         int iV2, int iV3) const;
 
 private:

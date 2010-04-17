@@ -21,17 +21,17 @@
 //----------------------------------------------------------------------------
 // 单精度4阶方阵类
 //----------------------------------------------------------------------------
-inline int Matrix4f::CompareData(const Matrix4f& rMat) const
+inline int SEMatrix4f::CompareData(const SEMatrix4f& rMat) const
 {
     return memcmp(m_fData, rMat.m_fData, 16 * sizeof(float));
 }
 //----------------------------------------------------------------------------
-inline void Matrix4f::Zero()
+inline void SEMatrix4f::Zero()
 {
     memset(m_fData, 0, 16*sizeof(float));
 }
 //----------------------------------------------------------------------------
-inline void Matrix4f::Identity()
+inline void SEMatrix4f::Identity()
 {
     M11 = 1.0f;
     M12 = 0.0f;
@@ -54,7 +54,7 @@ inline void Matrix4f::Identity()
     M44 = 1.0f;
 }
 //----------------------------------------------------------------------------
-inline void Matrix4f::SetRow(int iDesRow, const Vector4f& rSrcVec)
+inline void SEMatrix4f::SetRow(int iDesRow, const SEVector4f& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesRow && iDesRow < 4 );
 
@@ -64,7 +64,7 @@ inline void Matrix4f::SetRow(int iDesRow, const Vector4f& rSrcVec)
     m_fData[iDesRow][3] = rSrcVec.m_fData[3];
 }
 //----------------------------------------------------------------------------
-inline void Matrix4f::GetRow(int iSrcRow, Vector4f& rDesVec) const
+inline void SEMatrix4f::GetRow(int iSrcRow, SEVector4f& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcRow && iSrcRow < 4 );
 
@@ -74,7 +74,7 @@ inline void Matrix4f::GetRow(int iSrcRow, Vector4f& rDesVec) const
     rDesVec.m_fData[3] = m_fData[iSrcRow][3];
 }
 //----------------------------------------------------------------------------
-inline void Matrix4f::SetColumn(int iDesCol, const Vector4f& rSrcVec)
+inline void SEMatrix4f::SetColumn(int iDesCol, const SEVector4f& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesCol && iDesCol < 4 );
 
@@ -84,7 +84,7 @@ inline void Matrix4f::SetColumn(int iDesCol, const Vector4f& rSrcVec)
 	m_fData[3][iDesCol] = rSrcVec.m_fData[3];
 }
 //----------------------------------------------------------------------------
-inline void Matrix4f::GetColumn(int iSrcCol, Vector4f& rDesVec) const
+inline void SEMatrix4f::GetColumn(int iSrcCol, SEVector4f& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcCol && iSrcCol < 4 );
 
@@ -94,7 +94,7 @@ inline void Matrix4f::GetColumn(int iSrcCol, Vector4f& rDesVec) const
     rDesVec.m_fData[3] = m_fData[3][iSrcCol];
 }
 //----------------------------------------------------------------------------
-inline void Matrix4f::GetTranspose(Matrix4f& rDesMat) const
+inline void SEMatrix4f::GetTranspose(SEMatrix4f& rDesMat) const
 {
     rDesMat.M11 = M11;
     rDesMat.M12 = M21;
@@ -117,7 +117,7 @@ inline void Matrix4f::GetTranspose(Matrix4f& rDesMat) const
     rDesMat.M44 = M44;
 }
 //----------------------------------------------------------------------------
-inline void Matrix4f::GetInverse(Matrix4f& rDesMat) const
+inline void SEMatrix4f::GetInverse(SEMatrix4f& rDesMat) const
 {
     float fA0 = M11*M22 - M12*M21;
     float fA1 = M11*M23 - M13*M21;
@@ -134,7 +134,7 @@ inline void Matrix4f::GetInverse(Matrix4f& rDesMat) const
 
     // 如果行列式的值足够接近0,则当前矩阵不可逆,返回0矩阵
     float fDet = fA0*fB5 - fA1*fB4 + fA2*fB3 + fA3*fB2 - fA4*fB1 + fA5*fB0;
-    if( Math<float>::FAbs(fDet) <= Math<float>::ZERO_TOLERANCE )
+    if( SEMath<float>::FAbs(fDet) <= SEMath<float>::ZERO_TOLERANCE )
     {
 		rDesMat.Zero();
         return;
@@ -180,7 +180,7 @@ inline void Matrix4f::GetInverse(Matrix4f& rDesMat) const
     rDesMat.M44 *= fInvDet;
 }
 //----------------------------------------------------------------------------
-inline void Matrix4f::GetAdjoint(Matrix4f& rDesMat) const
+inline void SEMatrix4f::GetAdjoint(SEMatrix4f& rDesMat) const
 {
     float fA0 = M11*M22 - M12*M21;
     float fA1 = M11*M23 - M13*M21;
@@ -213,7 +213,7 @@ inline void Matrix4f::GetAdjoint(Matrix4f& rDesMat) const
     rDesMat[3][3] = + M31*fA3 - M32*fA1 + M33*fA0;
 }
 //----------------------------------------------------------------------------
-inline float Matrix4f::GetDeterminant() const
+inline float SEMatrix4f::GetDeterminant() const
 {
     float fA0 = M11*M22 - M12*M21;
     float fA1 = M11*M23 - M13*M21;
@@ -232,8 +232,8 @@ inline float Matrix4f::GetDeterminant() const
     return fDet;
 }
 //----------------------------------------------------------------------------
-inline void Matrix4f::GetTransposeTimes(const Matrix4f& rRhsMat, 
-    Matrix4f& rDesMat) const
+inline void SEMatrix4f::GetTransposeTimes(const SEMatrix4f& rRhsMat, 
+    SEMatrix4f& rDesMat) const
 {
     // C = A^T * B
 	rDesMat.M11 = M11*rRhsMat.M11 + M21*rRhsMat.M21 + M31*rRhsMat.M31 + 
@@ -273,8 +273,8 @@ inline void Matrix4f::GetTransposeTimes(const Matrix4f& rRhsMat,
         M44*rRhsMat.M44;
 }
 //----------------------------------------------------------------------------
-inline void Matrix4f::GetTimesTranspose(const Matrix4f& rRhsMat, 
-    Matrix4f& rDesMat) const
+inline void SEMatrix4f::GetTimesTranspose(const SEMatrix4f& rRhsMat, 
+    SEMatrix4f& rDesMat) const
 {
     // C = A * B^T
     rDesMat.M11 = M11*rRhsMat.M11 + M12*rRhsMat.M12 + M13*rRhsMat.M13 + 
@@ -318,17 +318,17 @@ inline void Matrix4f::GetTimesTranspose(const Matrix4f& rRhsMat,
 //----------------------------------------------------------------------------
 // 双精度4阶方阵类
 //----------------------------------------------------------------------------
-inline int Matrix4d::CompareData(const Matrix4d& rMat) const
+inline int SEMatrix4d::CompareData(const SEMatrix4d& rMat) const
 {
     return memcmp(m_dData, rMat.m_dData, 16 * sizeof(double));
 }
 //----------------------------------------------------------------------------
-inline void Matrix4d::Zero()
+inline void SEMatrix4d::Zero()
 {
     memset(m_dData, 0, 16*sizeof(double));
 }
 //----------------------------------------------------------------------------
-inline void Matrix4d::Identity()
+inline void SEMatrix4d::Identity()
 {
     M11 = 1.0;
     M12 = 0.0;
@@ -351,7 +351,7 @@ inline void Matrix4d::Identity()
     M44 = 1.0;
 }
 //----------------------------------------------------------------------------
-inline void Matrix4d::SetRow(int iDesRow, const Vector4d& rSrcVec)
+inline void SEMatrix4d::SetRow(int iDesRow, const SEVector4d& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesRow && iDesRow < 4 );
 
@@ -361,7 +361,7 @@ inline void Matrix4d::SetRow(int iDesRow, const Vector4d& rSrcVec)
     m_dData[iDesRow][3] = rSrcVec.m_dData[3];
 }
 //----------------------------------------------------------------------------
-inline void Matrix4d::GetRow(int iSrcRow, Vector4d& rDesVec) const
+inline void SEMatrix4d::GetRow(int iSrcRow, SEVector4d& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcRow && iSrcRow < 4 );
 
@@ -371,7 +371,7 @@ inline void Matrix4d::GetRow(int iSrcRow, Vector4d& rDesVec) const
     rDesVec.m_dData[3] = m_dData[iSrcRow][3];
 }
 //----------------------------------------------------------------------------
-inline void Matrix4d::SetColumn(int iDesCol, const Vector4d& rSrcVec)
+inline void SEMatrix4d::SetColumn(int iDesCol, const SEVector4d& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesCol && iDesCol < 4 );
 
@@ -381,7 +381,7 @@ inline void Matrix4d::SetColumn(int iDesCol, const Vector4d& rSrcVec)
 	m_dData[3][iDesCol] = rSrcVec.m_dData[3];
 }
 //----------------------------------------------------------------------------
-inline void Matrix4d::GetColumn(int iSrcCol, Vector4d& rDesVec) const
+inline void SEMatrix4d::GetColumn(int iSrcCol, SEVector4d& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcCol && iSrcCol < 4 );
 
@@ -391,7 +391,7 @@ inline void Matrix4d::GetColumn(int iSrcCol, Vector4d& rDesVec) const
     rDesVec.m_dData[3] = m_dData[3][iSrcCol];
 }
 //----------------------------------------------------------------------------
-inline void Matrix4d::GetTranspose(Matrix4d& rDesMat) const
+inline void SEMatrix4d::GetTranspose(SEMatrix4d& rDesMat) const
 {
     rDesMat.M11 = M11;
     rDesMat.M12 = M21;
@@ -414,7 +414,7 @@ inline void Matrix4d::GetTranspose(Matrix4d& rDesMat) const
     rDesMat.M44 = M44;
 }
 //----------------------------------------------------------------------------
-inline void Matrix4d::GetInverse(Matrix4d& rDesMat) const
+inline void SEMatrix4d::GetInverse(SEMatrix4d& rDesMat) const
 {
     double dA0 = M11*M22 - M12*M21;
     double dA1 = M11*M23 - M13*M21;
@@ -431,7 +431,7 @@ inline void Matrix4d::GetInverse(Matrix4d& rDesMat) const
 
     // 如果行列式的值足够接近0,则当前矩阵不可逆,返回0矩阵
     double dDet = dA0*dB5 - dA1*dB4 + dA2*dB3 + dA3*dB2 - dA4*dB1 + dA5*dB0;
-    if( Math<double>::FAbs(dDet) <= Math<double>::ZERO_TOLERANCE )
+    if( SEMath<double>::FAbs(dDet) <= SEMath<double>::ZERO_TOLERANCE )
     {
 		rDesMat.Zero();
         return;
@@ -477,7 +477,7 @@ inline void Matrix4d::GetInverse(Matrix4d& rDesMat) const
     rDesMat.M44 *= dInvDet;
 }
 //----------------------------------------------------------------------------
-inline void Matrix4d::GetAdjoint(Matrix4d& rDesMat) const
+inline void SEMatrix4d::GetAdjoint(SEMatrix4d& rDesMat) const
 {
     double dA0 = M11*M22 - M12*M21;
     double dA1 = M11*M23 - M13*M21;
@@ -510,7 +510,7 @@ inline void Matrix4d::GetAdjoint(Matrix4d& rDesMat) const
     rDesMat[3][3] = + M31*dA3 - M32*dA1 + M33*dA0;
 }
 //----------------------------------------------------------------------------
-inline double Matrix4d::GetDeterminant() const
+inline double SEMatrix4d::GetDeterminant() const
 {
     double dA0 = M11*M22 - M12*M21;
     double dA1 = M11*M23 - M13*M21;
@@ -529,8 +529,8 @@ inline double Matrix4d::GetDeterminant() const
     return dDet;
 }
 //----------------------------------------------------------------------------
-inline void Matrix4d::GetTransposeTimes(const Matrix4d& rRhsMat, 
-    Matrix4d& rDesMat) const
+inline void SEMatrix4d::GetTransposeTimes(const SEMatrix4d& rRhsMat, 
+    SEMatrix4d& rDesMat) const
 {
     // C = A^T * B
 	rDesMat.M11 = M11*rRhsMat.M11 + M21*rRhsMat.M21 + M31*rRhsMat.M31 + 
@@ -570,8 +570,8 @@ inline void Matrix4d::GetTransposeTimes(const Matrix4d& rRhsMat,
         M44*rRhsMat.M44;
 }
 //----------------------------------------------------------------------------
-inline void Matrix4d::GetTimesTranspose(const Matrix4d& rRhsMat, 
-    Matrix4d& rDesMat) const
+inline void SEMatrix4d::GetTimesTranspose(const SEMatrix4d& rRhsMat, 
+    SEMatrix4d& rDesMat) const
 {
     // C = A * B^T
     rDesMat.M11 = M11*rRhsMat.M11 + M12*rRhsMat.M12 + M13*rRhsMat.M13 + 

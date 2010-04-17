@@ -21,15 +21,15 @@
 //----------------------------------------------------------------------------
 // 单精度4元数类
 //----------------------------------------------------------------------------
-inline float Quaternionf::GetLength() const
+inline float SEQuaternionf::GetLength() const
 {
-    return Math<float>::Sqrt(m_fData[0]*m_fData[0] +
+    return SEMath<float>::Sqrt(m_fData[0]*m_fData[0] +
                              m_fData[1]*m_fData[1] +
                              m_fData[2]*m_fData[2] +
                              m_fData[3]*m_fData[3]);
 }
 //----------------------------------------------------------------------------
-inline float Quaternionf::GetSquaredLength() const
+inline float SEQuaternionf::GetSquaredLength() const
 {
     return
         m_fData[0]*m_fData[0] +
@@ -38,7 +38,7 @@ inline float Quaternionf::GetSquaredLength() const
         m_fData[3]*m_fData[3];
 }
 //----------------------------------------------------------------------------
-inline float Quaternionf::Dot(const Quaternionf& rQ) const
+inline float SEQuaternionf::Dot(const SEQuaternionf& rQ) const
 {
     return 
         m_fData[0]*rQ.m_fData[0] +
@@ -47,11 +47,11 @@ inline float Quaternionf::Dot(const Quaternionf& rQ) const
         m_fData[3]*rQ.m_fData[3];
 }
 //----------------------------------------------------------------------------
-inline float Quaternionf::Normalize()
+inline float SEQuaternionf::Normalize()
 {
     float fLength = GetLength();
 
-    if( fLength > Math<float>::ZERO_TOLERANCE )
+    if( fLength > SEMath<float>::ZERO_TOLERANCE )
     {
         float fInvLength = 1.0f / fLength;
         
@@ -73,7 +73,7 @@ inline float Quaternionf::Normalize()
     return fLength;
 }
 //----------------------------------------------------------------------------
-inline void Quaternionf::GetInverse(Quaternionf& rDesQ) const
+inline void SEQuaternionf::GetInverse(SEQuaternionf& rDesQ) const
 {
     float fNorm = m_fData[0]*m_fData[0] +
                   m_fData[1]*m_fData[1] +
@@ -97,7 +97,7 @@ inline void Quaternionf::GetInverse(Quaternionf& rDesQ) const
     }
 }
 //----------------------------------------------------------------------------
-inline void Quaternionf::GetConjugate(Quaternionf& rDesQ) const
+inline void SEQuaternionf::GetConjugate(SEQuaternionf& rDesQ) const
 {
     rDesQ.m_fData[0] = m_fData[0];
     rDesQ.m_fData[1] = -m_fData[1];
@@ -105,12 +105,12 @@ inline void Quaternionf::GetConjugate(Quaternionf& rDesQ) const
     rDesQ.m_fData[3] = -m_fData[3];
 }
 //----------------------------------------------------------------------------
-inline int Quaternionf::CompareData(const Quaternionf& rQ) const
+inline int SEQuaternionf::CompareData(const SEQuaternionf& rQ) const
 {
     return memcmp(&m_fData[0], &rQ.m_fData[0], 4*sizeof(float));
 }
 //----------------------------------------------------------------------------
-inline Quaternionf& Quaternionf::FromAxisAngle(const Vector3f& rAxis, 
+inline SEQuaternionf& SEQuaternionf::FromAxisAngle(const SEVector3f& rAxis, 
     float fAngle)
 {
     // 轴向量必须是单位向量,
@@ -118,8 +118,8 @@ inline Quaternionf& Quaternionf::FromAxisAngle(const Vector3f& rAxis,
     // q = cos(A/2)+sin(A/2)*(x*i+y*j+z*k).
 
     float fHalfAngle = 0.5f * fAngle;
-    float fSin = Math<float>::Sin(fHalfAngle);
-    m_fData[0] = Math<float>::Cos(fHalfAngle);
+    float fSin = SEMath<float>::Sin(fHalfAngle);
+    m_fData[0] = SEMath<float>::Cos(fHalfAngle);
     m_fData[1] = fSin * rAxis[0];
     m_fData[2] = fSin * rAxis[1];
     m_fData[3] = fSin * rAxis[2];
@@ -127,15 +127,15 @@ inline Quaternionf& Quaternionf::FromAxisAngle(const Vector3f& rAxis,
     return *this;
 }
 //----------------------------------------------------------------------------
-inline void Quaternionf::ToAxisAngle(Vector3f& rAxis, float& rfAngle) const
+inline void SEQuaternionf::ToAxisAngle(SEVector3f& rAxis, float& rfAngle) const
 {
     float fSqrLength = m_fData[1]*m_fData[1] + m_fData[2]*m_fData[2] + 
         m_fData[3]*m_fData[3];
 
-    if( fSqrLength > Math<float>::ZERO_TOLERANCE )
+    if( fSqrLength > SEMath<float>::ZERO_TOLERANCE )
     {
-        rfAngle = 2.0f * Math<float>::ACos(m_fData[0]);
-        float fInvLength = Math<float>::InvSqrt(fSqrLength);
+        rfAngle = 2.0f * SEMath<float>::ACos(m_fData[0]);
+        float fInvLength = SEMath<float>::InvSqrt(fSqrLength);
         
         rAxis[0] = m_fData[1] * fInvLength;
         rAxis[1] = m_fData[2] * fInvLength;
@@ -150,7 +150,7 @@ inline void Quaternionf::ToAxisAngle(Vector3f& rAxis, float& rfAngle) const
     }
 }
 //----------------------------------------------------------------------------
-inline Quaternionf& Quaternionf::FromRotationMatrix(const Matrix3f& rRotMat)
+inline SEQuaternionf& SEQuaternionf::FromRotationMatrix(const SEMatrix3f& rRotMat)
 {
     // Trace(R) = 2*Cos(theta) + 1.
     float fTrace = rRotMat(0, 0) + rRotMat(1, 1) + rRotMat(2, 2);
@@ -158,7 +158,7 @@ inline Quaternionf& Quaternionf::FromRotationMatrix(const Matrix3f& rRotMat)
 
     if( fTrace > 0.0f )
     {
-        fRoot = Math<float>::Sqrt(fTrace + 1.0f);
+        fRoot = SEMath<float>::Sqrt(fTrace + 1.0f);
         m_fData[0] = 0.5f * fRoot; // Cos(theta/2)
         // fRoot = 1/(4*Cos(theta/2)).
         fRoot = 0.5f / fRoot;
@@ -184,7 +184,7 @@ inline Quaternionf& Quaternionf::FromRotationMatrix(const Matrix3f& rRotMat)
         int j = m_iNext[i];
         int k = m_iNext[j];
 
-        fRoot = Math<float>::Sqrt(rRotMat(i, i) - rRotMat(j, j) - 
+        fRoot = SEMath<float>::Sqrt(rRotMat(i, i) - rRotMat(j, j) - 
             rRotMat(k, k) + 1.0f);
         float* pQData[3] = { &m_fData[1], &m_fData[2], &m_fData[3] };
         *pQData[i] = 0.5f * fRoot;
@@ -198,7 +198,7 @@ inline Quaternionf& Quaternionf::FromRotationMatrix(const Matrix3f& rRotMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-inline void Quaternionf::ToRotationMatrix(Matrix3f& rRotMat) const
+inline void SEQuaternionf::ToRotationMatrix(SEMatrix3f& rRotMat) const
 {
     float fTx  = 2.0f * m_fData[1];
     float fTy  = 2.0f * m_fData[2];
@@ -230,15 +230,15 @@ inline void Quaternionf::ToRotationMatrix(Matrix3f& rRotMat) const
 //----------------------------------------------------------------------------
 // 双精度4元数类
 //----------------------------------------------------------------------------
-inline double Quaterniond::GetLength() const
+inline double SEQuaterniond::GetLength() const
 {
-    return Math<double>::Sqrt(m_dData[0]*m_dData[0] +
+    return SEMath<double>::Sqrt(m_dData[0]*m_dData[0] +
                               m_dData[1]*m_dData[1] +
                               m_dData[2]*m_dData[2] +
                               m_dData[3]*m_dData[3]);
 }
 //----------------------------------------------------------------------------
-inline double Quaterniond::GetSquaredLength() const
+inline double SEQuaterniond::GetSquaredLength() const
 {
     return
         m_dData[0]*m_dData[0] +
@@ -247,7 +247,7 @@ inline double Quaterniond::GetSquaredLength() const
         m_dData[3]*m_dData[3];
 }
 //----------------------------------------------------------------------------
-inline double Quaterniond::Dot(const Quaterniond& rQ) const
+inline double SEQuaterniond::Dot(const SEQuaterniond& rQ) const
 {
     return 
         m_dData[0]*rQ.m_dData[0] +
@@ -256,11 +256,11 @@ inline double Quaterniond::Dot(const Quaterniond& rQ) const
         m_dData[3]*rQ.m_dData[3];
 }
 //----------------------------------------------------------------------------
-inline double Quaterniond::Normalize()
+inline double SEQuaterniond::Normalize()
 {
     double dLength = GetLength();
 
-    if( dLength > Math<double>::ZERO_TOLERANCE )
+    if( dLength > SEMath<double>::ZERO_TOLERANCE )
     {
         double dInvLength = 1.0 / dLength;
         
@@ -282,7 +282,7 @@ inline double Quaterniond::Normalize()
     return dLength;
 }
 //----------------------------------------------------------------------------
-inline void Quaterniond::GetInverse(Quaterniond& rDesQ) const
+inline void SEQuaterniond::GetInverse(SEQuaterniond& rDesQ) const
 {
     double dNorm = m_dData[0]*m_dData[0] +
                    m_dData[1]*m_dData[1] +
@@ -306,7 +306,7 @@ inline void Quaterniond::GetInverse(Quaterniond& rDesQ) const
     }
 }
 //----------------------------------------------------------------------------
-inline void Quaterniond::GetConjugate(Quaterniond& rDesQ) const
+inline void SEQuaterniond::GetConjugate(SEQuaterniond& rDesQ) const
 {
     rDesQ.m_dData[0] = m_dData[0];
     rDesQ.m_dData[1] = -m_dData[1];
@@ -314,12 +314,12 @@ inline void Quaterniond::GetConjugate(Quaterniond& rDesQ) const
     rDesQ.m_dData[3] = -m_dData[3];
 }
 //----------------------------------------------------------------------------
-inline int Quaterniond::CompareData(const Quaterniond& rQ) const
+inline int SEQuaterniond::CompareData(const SEQuaterniond& rQ) const
 {
     return memcmp(&m_dData[0], &rQ.m_dData[0], 4*sizeof(double));
 }
 //----------------------------------------------------------------------------
-inline Quaterniond& Quaterniond::FromAxisAngle(const Vector3d& rAxis, 
+inline SEQuaterniond& SEQuaterniond::FromAxisAngle(const SEVector3d& rAxis, 
     double dAngle)
 {
     // 轴向量必须是单位向量,
@@ -327,8 +327,8 @@ inline Quaterniond& Quaterniond::FromAxisAngle(const Vector3d& rAxis,
     // q = cos(A/2)+sin(A/2)*(x*i+y*j+z*k).
 
     double dHalfAngle = 0.5 * dAngle;
-    double dSin = Math<double>::Sin(dHalfAngle);
-    m_dData[0] = Math<double>::Cos(dHalfAngle);
+    double dSin = SEMath<double>::Sin(dHalfAngle);
+    m_dData[0] = SEMath<double>::Cos(dHalfAngle);
     m_dData[1] = dSin * rAxis[0];
     m_dData[2] = dSin * rAxis[1];
     m_dData[3] = dSin * rAxis[2];
@@ -336,15 +336,15 @@ inline Quaterniond& Quaterniond::FromAxisAngle(const Vector3d& rAxis,
     return *this;
 }
 //----------------------------------------------------------------------------
-inline void Quaterniond::ToAxisAngle(Vector3d& rAxis, double& rdAngle) const
+inline void SEQuaterniond::ToAxisAngle(SEVector3d& rAxis, double& rdAngle) const
 {
     double dSqrLength = m_dData[1]*m_dData[1] + m_dData[2]*m_dData[2] + 
         m_dData[3]*m_dData[3];
 
-    if( dSqrLength > Math<double>::ZERO_TOLERANCE )
+    if( dSqrLength > SEMath<double>::ZERO_TOLERANCE )
     {
-        rdAngle = 2.0 * Math<double>::ACos(m_dData[0]);
-        double dInvLength = Math<double>::InvSqrt(dSqrLength);
+        rdAngle = 2.0 * SEMath<double>::ACos(m_dData[0]);
+        double dInvLength = SEMath<double>::InvSqrt(dSqrLength);
         
         rAxis[0] = m_dData[1] * dInvLength;
         rAxis[1] = m_dData[2] * dInvLength;
@@ -359,7 +359,7 @@ inline void Quaterniond::ToAxisAngle(Vector3d& rAxis, double& rdAngle) const
     }
 }
 //----------------------------------------------------------------------------
-inline Quaterniond& Quaterniond::FromRotationMatrix(const Matrix3d& rRotMat)
+inline SEQuaterniond& SEQuaterniond::FromRotationMatrix(const SEMatrix3d& rRotMat)
 {
     // Trace(R) = 2*Cos(theta) + 1.
     double dTrace = rRotMat(0, 0) + rRotMat(1, 1) + rRotMat(2, 2);
@@ -367,7 +367,7 @@ inline Quaterniond& Quaterniond::FromRotationMatrix(const Matrix3d& rRotMat)
 
     if( dTrace > 0.0 )
     {
-        dRoot = Math<double>::Sqrt(dTrace + 1.0);
+        dRoot = SEMath<double>::Sqrt(dTrace + 1.0);
         m_dData[0] = 0.5 * dRoot; // Cos(theta/2)
         // fRoot = 1/(4*Cos(theta/2)).
         dRoot = 0.5 / dRoot;
@@ -393,7 +393,7 @@ inline Quaterniond& Quaterniond::FromRotationMatrix(const Matrix3d& rRotMat)
         int j = m_iNext[i];
         int k = m_iNext[j];
 
-        dRoot = Math<double>::Sqrt(rRotMat(i, i) - rRotMat(j, j) - 
+        dRoot = SEMath<double>::Sqrt(rRotMat(i, i) - rRotMat(j, j) - 
             rRotMat(k, k) + 1.0);
         double* pQData[3] = { &m_dData[1], &m_dData[2], &m_dData[3] };
         *pQData[i] = 0.5 * dRoot;
@@ -407,7 +407,7 @@ inline Quaterniond& Quaterniond::FromRotationMatrix(const Matrix3d& rRotMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-inline void Quaterniond::ToRotationMatrix(Matrix3d& rRotMat) const
+inline void SEQuaterniond::ToRotationMatrix(SEMatrix3d& rRotMat) const
 {
     double dTx  = 2.0 * m_dData[1];
     double dTy  = 2.0 * m_dData[2];

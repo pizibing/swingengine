@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrRay3Sphere3f::IntrRay3Sphere3f(const Ray3f& rRay, const Sphere3f& rSphere)
+IntrRay3Sphere3f::IntrRay3Sphere3f(const SERay3f& rRay, const SESphere3f& rSphere)
     :
     m_pRay(&rRay),
     m_pSphere(&rSphere)
@@ -32,19 +32,19 @@ IntrRay3Sphere3f::IntrRay3Sphere3f(const Ray3f& rRay, const Sphere3f& rSphere)
     m_iCount = 0;
 }
 //----------------------------------------------------------------------------
-const Ray3f& IntrRay3Sphere3f::GetRay() const
+const SERay3f& IntrRay3Sphere3f::GetRay() const
 {
     return *m_pRay;
 }
 //----------------------------------------------------------------------------
-const Sphere3f& IntrRay3Sphere3f::GetSphere() const
+const SESphere3f& IntrRay3Sphere3f::GetSphere() const
 {
     return *m_pSphere;
 }
 //----------------------------------------------------------------------------
 bool IntrRay3Sphere3f::Test()
 {
-    Vector3f vec3fDiff = m_pRay->Origin - m_pSphere->Center;
+    SEVector3f vec3fDiff = m_pRay->Origin - m_pSphere->Center;
     float fA0 = vec3fDiff.Dot(vec3fDiff) - m_pSphere->Radius*m_pSphere->Radius;
     if( fA0 <= 0.0f )
     {
@@ -65,7 +65,7 @@ bool IntrRay3Sphere3f::Test()
 //----------------------------------------------------------------------------
 bool IntrRay3Sphere3f::Find()
 {
-    Vector3f vec3fDiff = m_pRay->Origin - m_pSphere->Center;
+    SEVector3f vec3fDiff = m_pRay->Origin - m_pSphere->Center;
     float fA0 = vec3fDiff.Dot(vec3fDiff) - m_pSphere->Radius*m_pSphere->Radius;
     float fA1, fDiscr, fRoot;
     if( fA0 <= 0.0f )
@@ -74,7 +74,7 @@ bool IntrRay3Sphere3f::Find()
         m_iCount = 1;
         fA1 = m_pRay->Direction.Dot(vec3fDiff);
         fDiscr = fA1*fA1 - fA0;
-        fRoot = Mathf::Sqrt(fDiscr);
+        fRoot = SEMathf::Sqrt(fDiscr);
         m_afRayT[0] = -fA1 + fRoot;
         m_aPoint[0] = m_pRay->Origin + m_afRayT[0]*m_pRay->Direction;
 
@@ -95,9 +95,9 @@ bool IntrRay3Sphere3f::Find()
     {
         m_iCount = 0;
     }
-    else if( fDiscr >= Mathf::ZERO_TOLERANCE )
+    else if( fDiscr >= SEMathf::ZERO_TOLERANCE )
     {
-        fRoot = Mathf::Sqrt(fDiscr);
+        fRoot = SEMathf::Sqrt(fDiscr);
         m_afRayT[0] = -fA1 - fRoot;
         m_afRayT[1] = -fA1 + fRoot;
         m_aPoint[0] = m_pRay->Origin + m_afRayT[0]*m_pRay->Direction;
@@ -119,7 +119,7 @@ int IntrRay3Sphere3f::GetCount() const
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-const Vector3f& IntrRay3Sphere3f::GetPoint(int i) const
+const SEVector3f& IntrRay3Sphere3f::GetPoint(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 

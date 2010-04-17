@@ -62,8 +62,8 @@ protected:
     static void GetKeyInfo(float fCtrlTime, int iCount, float* afTime,
         int& riLastIndex, float& rfNormTime, int& ri0, int& ri1);
 
-    Vector3f GetTranslate(float fNormTime, int i0, int i1);
-    Matrix3f GetRotate(float fNormTime, int i0, int i1);
+    SEVector3f GetTranslate(float fNormTime, int i0, int i1);
+    SEMatrix3f GetRotate(float fNormTime, int i0, int i1);
     float GetScale(float fNormTime, int i0, int i1);
 
     // 暂存上次插值时使用的关键桢对,

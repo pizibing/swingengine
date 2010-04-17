@@ -24,20 +24,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistRay3Segment3f::DistRay3Segment3f(const Ray3f& rRay,
-    const Segment3f& rSegment)
+DistRay3Segment3f::DistRay3Segment3f(const SERay3f& rRay,
+    const SESegment3f& rSegment)
     :
     m_pRay(&rRay),
     m_pSegment(&rSegment)
 {
 }
 //----------------------------------------------------------------------------
-const Ray3f& DistRay3Segment3f::GetRay() const
+const SERay3f& DistRay3Segment3f::GetRay() const
 {
     return *m_pRay;
 }
 //----------------------------------------------------------------------------
-const Segment3f& DistRay3Segment3f::GetSegment() const
+const SESegment3f& DistRay3Segment3f::GetSegment() const
 {
     return *m_pSegment;
 }
@@ -46,20 +46,20 @@ float DistRay3Segment3f::Get()
 {
     float fSqrDist = GetSquared();
 
-    return Math<float>::Sqrt(fSqrDist);
+    return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistRay3Segment3f::GetSquared()
 {
-    Vector3f vec3fDiff = m_pRay->Origin - m_pSegment->Origin;
+    SEVector3f vec3fDiff = m_pRay->Origin - m_pSegment->Origin;
     float fA01 = -m_pRay->Direction.Dot(m_pSegment->Direction);
     float fB0 = vec3fDiff.Dot(m_pRay->Direction);
     float fB1 = -vec3fDiff.Dot(m_pSegment->Direction);
     float fC = vec3fDiff.GetSquaredLength();
-    float fDet = Math<float>::FAbs(1.0f - fA01*fA01);
+    float fDet = SEMath<float>::FAbs(1.0f - fA01*fA01);
     float fS0, fS1, fSqrDist, fExtDet;
 
-    if( fDet >= Math<float>::ZERO_TOLERANCE )
+    if( fDet >= SEMath<float>::ZERO_TOLERANCE )
     {
         // 射线和线段不平行.
         fS0 = fA01*fB1 - fB0;
@@ -204,28 +204,28 @@ float DistRay3Segment3f::GetSquared()
     m_fRayParameter = fS0;
     m_fSegmentParameter = fS1;
 
-    return Math<float>::FAbs(fSqrDist);
+    return SEMath<float>::FAbs(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistRay3Segment3f::Get(float fT, const Vector3f& rVelocity0,
-    const Vector3f& rVelocity1)
+float DistRay3Segment3f::Get(float fT, const SEVector3f& rVelocity0,
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMOrigin0 = m_pRay->Origin + fT*rVelocity0;
-    Vector3f vec3fMOrigin1 = m_pSegment->Origin + fT*rVelocity1;
-    Ray3f tempMRay(vec3fMOrigin0, m_pRay->Direction);
-    Segment3f tempMSegment(vec3fMOrigin1, m_pSegment->Direction,
+    SEVector3f vec3fMOrigin0 = m_pRay->Origin + fT*rVelocity0;
+    SEVector3f vec3fMOrigin1 = m_pSegment->Origin + fT*rVelocity1;
+    SERay3f tempMRay(vec3fMOrigin0, m_pRay->Direction);
+    SESegment3f tempMSegment(vec3fMOrigin1, m_pSegment->Direction,
         m_pSegment->Extent);
 
     return DistRay3Segment3f(tempMRay, tempMSegment).Get();
 }
 //----------------------------------------------------------------------------
-float DistRay3Segment3f::GetSquared(float fT, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistRay3Segment3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMOrigin0 = m_pRay->Origin + fT*rVelocity0;
-    Vector3f vec3fMOrigin1 = m_pSegment->Origin + fT*rVelocity1;
-    Ray3f tempMRay(vec3fMOrigin0, m_pRay->Direction);
-    Segment3f tempMSegment(vec3fMOrigin1, m_pSegment->Direction,
+    SEVector3f vec3fMOrigin0 = m_pRay->Origin + fT*rVelocity0;
+    SEVector3f vec3fMOrigin1 = m_pSegment->Origin + fT*rVelocity1;
+    SERay3f tempMRay(vec3fMOrigin0, m_pRay->Direction);
+    SESegment3f tempMSegment(vec3fMOrigin1, m_pSegment->Direction,
         m_pSegment->Extent);
 
     return DistRay3Segment3f(tempMRay, tempMSegment).GetSquared();

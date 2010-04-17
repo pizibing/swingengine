@@ -46,7 +46,7 @@ class SE_FOUNDATION_API RoamTerrain : public Node
 public:
     RoamTerrain(const char* acHeightName, const char* acImageName,
         const Attributes& rAttr, Camera* pCamera, float fUVBias,
-        ColorRGBA* pBorderColor);
+        SEColorRGBA* pBorderColor);
 
     virtual ~RoamTerrain(void);
 
@@ -57,7 +57,7 @@ public:
     inline float GetMaxElevation(void) const;
     inline float GetSpacing(void) const;
     inline float& UVBias(void);
-    inline ColorRGBA& BorderColor(void);
+    inline SEColorRGBA& BorderColor(void);
     inline void SetCamera(Camera* pCamera);
 
     inline int GetPoolSize(void) const;
@@ -118,7 +118,7 @@ protected:
 
     // texture²ÎÊý.
     float m_fUVBias;
-    ColorRGBA m_BorderColor;
+    SEColorRGBA m_BorderColor;
 };
 
 typedef SESmartPointer<RoamTerrain> RoamTerrainPtr;

@@ -125,14 +125,14 @@ public:
     inline unsigned char* GetData(void) const;
     inline unsigned char* operator() (int i);
 
-    // 创建一个数据类型为ColorRGBA的image.
-    // 函数返回与当前image具有同样width和height的ColorRGBA数据.
+    // 创建一个数据类型为SEColorRGBA的image.
+    // 函数返回与当前image具有同样width和height的SEColorRGBA数据.
     // 由于该数据是动态分配的,因此调用者有责任释放该数据.
-    ColorRGBA* CreateRGBA(void) const;
+    SEColorRGBA* CreateRGBA(void) const;
 
-    // 把数据复制给一个已经存在的ColorRGBA数据区.
+    // 把数据复制给一个已经存在的SEColorRGBA数据区.
     // 传入的数据数组必须和当前image有同样的维度信息.
-    void CopyRGBA(ColorRGBA* pColorImage) const;
+    void CopyRGBA(SEColorRGBA* pColorImage) const;
 
     // Streaming support.当这些函数被调用时,共享系统将被自动调用.
     // 对于Load函数,如果具有filename的image已经载入内存,
@@ -153,7 +153,7 @@ public:
 
     // 创建一个2D color image.
     static Image* GenerateColorImage(FormatMode eFormat, int iBound0, 
-        int iBound1, const ColorRGBA& rColor, const char* acImageName, 
+        int iBound1, const SEColorRGBA& rColor, const char* acImageName, 
         bool bInsert = true);
 
 protected:

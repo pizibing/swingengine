@@ -38,11 +38,11 @@ namespace Swing
 class SE_FOUNDATION_API DistRay2Segment2f : public Distance<float, SEVector2f>
 {
 public:
-    DistRay2Segment2f(const Ray2f& rRay, const Segment2f& rSegment);
+    DistRay2Segment2f(const SERay2f& rRay, const SESegment2f& rSegment);
 
     // 对象访问.
-    const Ray2f& GetRay(void) const;
-    const Segment2f& GetSegment(void) const;
+    const SERay2f& GetRay(void) const;
+    const SESegment2f& GetSegment(void) const;
 
     // static distance查询.
     virtual float Get(void);
@@ -55,8 +55,8 @@ public:
         const SEVector2f& rVelocity1);
 
 private:
-    const Ray2f* m_pRay;
-    const Segment2f* m_pSegment;
+    const SERay2f* m_pRay;
+    const SESegment2f* m_pSegment;
 };
 
 }

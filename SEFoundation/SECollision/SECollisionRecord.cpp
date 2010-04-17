@@ -26,7 +26,7 @@ using namespace Swing;
 
 //----------------------------------------------------------------------------
 CollisionRecord::CollisionRecord(TriMesh* pMesh, BoundingVolumeTree* pTree,
-    Vector3f* pVelocity, Callback oCallback, void* pvCallbackData)
+    SEVector3f* pVelocity, Callback oCallback, void* pvCallbackData)
 {
     SE_ASSERT( pMesh && pTree );
 
@@ -95,7 +95,7 @@ void CollisionRecord::TestIntersection(CollisionRecord& rRecord)
                 int iT0 = pTree0->GetTriangle(i0);
 
                 // 获取世界空间三角形.
-                Triangle3f tempTri0;
+                SETriangle3f tempTri0;
                 pMesh0->GetWorldTriangle(iT0, tempTri0);
 
                 int iMax1 = pTree1->GetTriangleCount();
@@ -104,7 +104,7 @@ void CollisionRecord::TestIntersection(CollisionRecord& rRecord)
                     int iT1 = pTree1->GetTriangle(i1);
 
                     // 获取世界空间三角形.
-                    Triangle3f tempTri1;
+                    SETriangle3f tempTri1;
                     pMesh1->GetWorldTriangle(iT1, tempTri1);
 
                     IntrTriangle3Triangle3f tempIntersector(tempTri0, tempTri1);
@@ -180,7 +180,7 @@ void CollisionRecord::FindIntersection(CollisionRecord& rRecord)
                 int iT0 = pTree0->GetTriangle(i0);
 
                 // 获取世界空间三角形.
-                Triangle3f tempTri0;
+                SETriangle3f tempTri0;
                 pMesh0->GetWorldTriangle(iT0, tempTri0);
 
                 int iMax1 = pTree1->GetTriangleCount();
@@ -189,7 +189,7 @@ void CollisionRecord::FindIntersection(CollisionRecord& rRecord)
                     int iT1 = pTree1->GetTriangle(i1);
 
                     // 获取世界空间三角形.
-                    Triangle3f tempTri1;
+                    SETriangle3f tempTri1;
                     pMesh1->GetWorldTriangle(iT1, tempTri1);
 
                     IntrTriangle3Triangle3f tempIntersector(tempTri0, tempTri1);
@@ -218,10 +218,10 @@ void CollisionRecord::TestIntersection(float fTMax, CollisionRecord& rRecord)
     BoundingVolumeTree* pTree1 = rRecord.m_pTree;
     const TriMesh* pMesh0 = m_pTree->GetMesh();
     const TriMesh* pMesh1 = rRecord.m_pTree->GetMesh();
-    const Vector3f& rVelocity0 = (m_pVelocity ? *m_pVelocity :
-        Vector3f::ZERO);
-    const Vector3f& rVelocity1 = (rRecord.m_pVelocity ?
-        *rRecord.m_pVelocity : Vector3f::ZERO);
+    const SEVector3f& rVelocity0 = (m_pVelocity ? *m_pVelocity :
+        SEVector3f::ZERO);
+    const SEVector3f& rVelocity1 = (rRecord.m_pVelocity ?
+        *rRecord.m_pVelocity : SEVector3f::ZERO);
 
     pTree0->UpdateWorldBound();
     pTree1->UpdateWorldBound();
@@ -272,7 +272,7 @@ void CollisionRecord::TestIntersection(float fTMax, CollisionRecord& rRecord)
                 int iT0 = pTree0->GetTriangle(i0);
 
                 // 获取世界空间三角形.
-                Triangle3f tempTri0;
+                SETriangle3f tempTri0;
                 pMesh0->GetWorldTriangle(iT0, tempTri0);
 
                 int iMax1 = pTree1->GetTriangleCount();
@@ -281,7 +281,7 @@ void CollisionRecord::TestIntersection(float fTMax, CollisionRecord& rRecord)
                     int iT1 = pTree1->GetTriangle(i1);
 
                     // 获取世界空间三角形.
-                    Triangle3f tempTri1;
+                    SETriangle3f tempTri1;
                     pMesh1->GetWorldTriangle(iT1, tempTri1);
 
                     IntrTriangle3Triangle3f tempIntersector(tempTri0, tempTri1);
@@ -311,10 +311,10 @@ void CollisionRecord::FindIntersection(float fTMax, CollisionRecord& rRecord)
     BoundingVolumeTree* pTree1 = rRecord.m_pTree;
     const TriMesh* pMesh0 = m_pTree->GetMesh();
     const TriMesh* pMesh1 = rRecord.m_pTree->GetMesh();
-    const Vector3f& rVelocity0 = (m_pVelocity ? *m_pVelocity :
-        Vector3f::ZERO);
-    const Vector3f& rVelocity1 = (rRecord.m_pVelocity ?
-        *rRecord.m_pVelocity : Vector3f::ZERO);
+    const SEVector3f& rVelocity0 = (m_pVelocity ? *m_pVelocity :
+        SEVector3f::ZERO);
+    const SEVector3f& rVelocity1 = (rRecord.m_pVelocity ?
+        *rRecord.m_pVelocity : SEVector3f::ZERO);
 
     pTree0->UpdateWorldBound();
     pTree1->UpdateWorldBound();
@@ -365,7 +365,7 @@ void CollisionRecord::FindIntersection(float fTMax, CollisionRecord& rRecord)
                 int iT0 = pTree0->GetTriangle(i0);
 
                 // 获取世界空间三角形.
-                Triangle3f tempTri0;
+                SETriangle3f tempTri0;
                 pMesh0->GetWorldTriangle(iT0, tempTri0);
 
                 int iMax1 = pTree1->GetTriangleCount();
@@ -374,7 +374,7 @@ void CollisionRecord::FindIntersection(float fTMax, CollisionRecord& rRecord)
                     int iT1 = pTree1->GetTriangle(i1);
 
                     // 获取世界空间三角形.
-                    Triangle3f tempTri1;
+                    SETriangle3f tempTri1;
                     pMesh1->GetWorldTriangle(iT1, tempTri1);
 
                     IntrTriangle3Triangle3f tempIntersector(tempTri0, tempTri1);

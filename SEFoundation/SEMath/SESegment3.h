@@ -33,7 +33,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090113
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Segment3f
+class SE_FOUNDATION_API SESegment3f
 {
 public:
     // 线段表示为参数方程形式:P + t*D,其中P是线段原点,D是单位长度方向向量,
@@ -42,15 +42,15 @@ public:
     // 线段端点是P - e*D和P + e*D.
     // 线段的表示方法类似于OBB.P是中点,D是单位轴向量,e是轴向延展长度.
 
-    Segment3f(void);
-    Segment3f(const Vector3f& rOrigin, const Vector3f& rDirection,
+    SESegment3f(void);
+    SESegment3f(const SEVector3f& rOrigin, const SEVector3f& rDirection,
         float fExtent);
 
     // 端点访问.
-    Vector3f GetPosEnd(void) const;  // P + e*D
-    Vector3f GetNegEnd(void) const;  // P - e*D
+    SEVector3f GetPosEnd(void) const;  // P + e*D
+    SEVector3f GetNegEnd(void) const;  // P - e*D
 
-    Vector3f Origin, Direction;
+    SEVector3f Origin, Direction;
     float Extent;
 };
 

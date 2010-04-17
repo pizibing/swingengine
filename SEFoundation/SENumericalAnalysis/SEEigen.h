@@ -40,24 +40,24 @@ class SE_FOUNDATION_API Eigen
 {
 public:
     Eigen(int iSize);
-    Eigen(const Matrix2f& rMat);
-    Eigen(const Matrix3f& rMat);
-    Eigen(const MatrixMNf& rMat);
+    Eigen(const SEMatrix2f& rMat);
+    Eigen(const SEMatrix3f& rMat);
+    Eigen(const SEMatrixMNf& rMat);
     ~Eigen(void);
 
 public:
     float& operator () (int iRow, int iCol);
-    Eigen& operator = (const Matrix2f& rMat);
-    Eigen& operator = (const Matrix3f& rMat);
-    Eigen& operator = (const MatrixMNf& rMat);
+    Eigen& operator = (const SEMatrix2f& rMat);
+    Eigen& operator = (const SEMatrix3f& rMat);
+    Eigen& operator = (const SEMatrixMNf& rMat);
 
     // 特征向量是特征矩阵的列
     float GetEigenvalue(int i) const;
     const float* GetEigenvalues(void) const;
     void GetEigenvector(int i, SEVector2f& rVec) const;
-    void GetEigenvector(int i, Vector3f& rVec) const;
-    VectorNf GetEigenvector(int i) const;
-    const MatrixMNf& GetEigenvectors(void) const;
+    void GetEigenvector(int i, SEVector3f& rVec) const;
+    SEVectorNf GetEigenvector(int i) const;
+    const SEMatrixMNf& GetEigenvectors(void) const;
 
     void EigenStuff2(void);
     void EigenStuff3(void);
@@ -76,7 +76,7 @@ public:
 
 private:
     int m_iSize;
-    MatrixMNf m_Mat;
+    SEMatrixMNf m_Mat;
     float* m_pDiag;
     float* m_pSubd;
 

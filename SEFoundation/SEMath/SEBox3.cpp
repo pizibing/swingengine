@@ -24,11 +24,11 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Box3f::Box3f()
+SEBox3f::SEBox3f()
 {
 }
 //----------------------------------------------------------------------------
-Box3f::Box3f(const Vector3f& rCenter, const Vector3f* aAxis, 
+SEBox3f::SEBox3f(const SEVector3f& rCenter, const SEVector3f* aAxis, 
     const float* afExtent)
     : Center(rCenter)
 {
@@ -39,8 +39,8 @@ Box3f::Box3f(const Vector3f& rCenter, const Vector3f* aAxis,
     }
 }
 //----------------------------------------------------------------------------
-Box3f::Box3f(const Vector3f& rCenter, const Vector3f& rAxis0, 
-    const Vector3f& rAxis1, const Vector3f& rAxis2, float fExtent0, 
+SEBox3f::SEBox3f(const SEVector3f& rCenter, const SEVector3f& rAxis0, 
+    const SEVector3f& rAxis1, const SEVector3f& rAxis2, float fExtent0, 
     float fExtent1, float fExtent2)
     : Center(rCenter)
 {
@@ -52,9 +52,9 @@ Box3f::Box3f(const Vector3f& rCenter, const Vector3f& rAxis0,
     Extent[2] = fExtent2;
 }
 //----------------------------------------------------------------------------
-void Box3f::ComputeVertices(Vector3f aVertex[8]) const
+void SEBox3f::ComputeVertices(SEVector3f aVertex[8]) const
 {
-    Vector3f aEAxis[3] =
+    SEVector3f aEAxis[3] =
     {
         Extent[0] * Axis[0],
         Extent[1] * Axis[1],

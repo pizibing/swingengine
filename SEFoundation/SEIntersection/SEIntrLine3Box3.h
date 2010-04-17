@@ -36,14 +36,14 @@ namespace Swing
 // 时间:20081230
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API IntrLine3Box3f
-    : public Intersector<float, Vector3f>
+    : public Intersector<float, SEVector3f>
 {
 public:
-    IntrLine3Box3f(const Line3f& rLine, const Box3f& rBox);
+    IntrLine3Box3f(const SELine3f& rLine, const SEBox3f& rBox);
 
     // 对象访问.
-    const Line3f& GetLine(void) const;
-    const Box3f& GetBox(void) const;
+    const SELine3f& GetLine(void) const;
+    const SEBox3f& GetBox(void) const;
 
     // static intersection查询.
     virtual bool Test(void); // 使用潜在分离轴和Minkowski difference算法
@@ -51,25 +51,25 @@ public:
 
     // 相交集合.
     int GetCount(void) const;
-    const Vector3f& GetPoint(int i) const;
+    const SEVector3f& GetPoint(int i) const;
 
 private:
     static bool Clip(float fDenom, float fNumer, float& rfT0, float& rfT1);
 
     // 待检查是否相交的对象.
-    const Line3f* m_pLine;
-    const Box3f* m_pBox;
+    const SELine3f* m_pLine;
+    const SEBox3f* m_pBox;
 
     // 相交集相关信息.
     int m_iCount;
-    Vector3f m_aPoint[2];
+    SEVector3f m_aPoint[2];
 
 // 内部使用(共享给IntrRay3Box3f和IntrSegment3Box3f)
 public:
     // 使用梁友栋-Barsky裁减算法,计算linear component与box的交点.
-    static bool DoClipping(float fT0, float fT1, const Vector3f& rOrigin,
-        const Vector3f& rDirection, const Box3f& rBox, bool bSolid, 
-        int& riCount, Vector3f aPoint[2], int& riIntrType);
+    static bool DoClipping(float fT0, float fT1, const SEVector3f& rOrigin,
+        const SEVector3f& rDirection, const SEBox3f& rBox, bool bSolid, 
+        int& riCount, SEVector3f aPoint[2], int& riIntrType);
 };
 
 }

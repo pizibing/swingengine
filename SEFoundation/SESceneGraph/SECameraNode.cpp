@@ -36,7 +36,7 @@ CameraNode::CameraNode(Camera* pCamera)
     if( m_spCamera )
     {
         Local.SetTranslate(m_spCamera->GetLocation());
-        Local.SetRotate(Matrix3f(m_spCamera->GetRVector(),
+        Local.SetRotate(SEMatrix3f(m_spCamera->GetRVector(),
             m_spCamera->GetUVector(), m_spCamera->GetDVector()));
     }
 }
@@ -52,7 +52,7 @@ void CameraNode::SetCamera(Camera* pCamera)
     if( m_spCamera )
     {
         Local.SetTranslate(m_spCamera->GetLocation());
-        Local.SetRotate(Matrix3f(m_spCamera->GetRVector(),
+        Local.SetRotate(SEMatrix3f(m_spCamera->GetRVector(),
             m_spCamera->GetUVector(), m_spCamera->GetDVector()));
 
         UpdateGS();
@@ -65,7 +65,7 @@ void CameraNode::UpdateWorldData(double dAppTime)
 
     if( m_spCamera )
     {
-        Vector3f vec3fR, vec3fU, vec3fD;
+        SEVector3f vec3fR, vec3fU, vec3fD;
         World.GetRotate().GetRow(0, vec3fR);
         World.GetRotate().GetRow(1, vec3fU);
         World.GetRotate().GetRow(2, vec3fD);

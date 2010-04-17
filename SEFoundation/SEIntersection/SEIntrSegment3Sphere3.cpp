@@ -24,29 +24,29 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrSegment3Sphere3f::IntrSegment3Sphere3f(const Segment3f& rSegment, 
-    const Sphere3f& rSphere)
+IntrSegment3Sphere3f::IntrSegment3Sphere3f(const SESegment3f& rSegment, 
+    const SESphere3f& rSphere)
     :
     m_pSegment(&rSegment),
     m_pSphere(&rSphere)
 {
     m_iCount = 0;
-    ZeroThreshold = Math<float>::ZERO_TOLERANCE;
+    ZeroThreshold = SEMath<float>::ZERO_TOLERANCE;
 }
 //----------------------------------------------------------------------------
-const Segment3f& IntrSegment3Sphere3f::GetSegment() const
+const SESegment3f& IntrSegment3Sphere3f::GetSegment() const
 {
     return *m_pSegment;
 }
 //----------------------------------------------------------------------------
-const Sphere3f& IntrSegment3Sphere3f::GetSphere() const
+const SESphere3f& IntrSegment3Sphere3f::GetSphere() const
 {
     return *m_pSphere;
 }
 //----------------------------------------------------------------------------
 bool IntrSegment3Sphere3f::Test()
 {
-    Vector3f vec3fDiff = m_pSegment->Origin - m_pSphere->Center;
+    SEVector3f vec3fDiff = m_pSegment->Origin - m_pSphere->Center;
     float fA0 = vec3fDiff.Dot(vec3fDiff) - m_pSphere->Radius*m_pSphere->Radius;
     float fA1 = m_pSegment->Direction.Dot(vec3fDiff);
     float fDiscr = fA1*fA1 - fA0;
@@ -64,7 +64,7 @@ bool IntrSegment3Sphere3f::Test()
         return true;
     }
 
-    return fQM > 0.0f && Math<float>::FAbs(fA1) < m_pSegment->Extent;
+    return fQM > 0.0f && SEMath<float>::FAbs(fA1) < m_pSegment->Extent;
 }
 //----------------------------------------------------------------------------
 bool IntrSegment3Sphere3f::Find()
@@ -72,7 +72,7 @@ bool IntrSegment3Sphere3f::Find()
     // 待检查.
     // 线段端点在球上的情况过于复杂.
 
-    Vector3f vec3fDiff = m_pSegment->Origin - m_pSphere->Center;
+    SEVector3f vec3fDiff = m_pSegment->Origin - m_pSphere->Center;
     float fA0 = vec3fDiff.Dot(vec3fDiff) - m_pSphere->Radius*m_pSphere->Radius;
     float fA1 = m_pSegment->Direction.Dot(vec3fDiff);
     float fDiscr = fA1*fA1 - fA0;
@@ -94,7 +94,7 @@ bool IntrSegment3Sphere3f::Find()
     {
         // 线段两端点一个在球内一个在球外,必与球有一个交点.
 
-        fRoot = Math<float>::Sqrt(fDiscr);
+        fRoot = SEMath<float>::Sqrt(fDiscr);
         m_afSegmentT[0] = (fQM > 0.0f ? -fA1 - fRoot : -fA1 + fRoot);
         m_aPoint[0] = m_pSegment->Origin + m_afSegmentT[0] *
             m_pSegment->Direction;
@@ -132,7 +132,7 @@ bool IntrSegment3Sphere3f::Find()
                 {
                     if( fA1 < m_pSegment->Extent )
                     {
-                        fRoot = Math<float>::Sqrt(fDiscr);
+                        fRoot = SEMath<float>::Sqrt(fDiscr);
                         m_afSegmentT[0] = -m_pSegment->Extent;
                         m_afSegmentT[1] = -fA1 + fRoot;
                         m_aPoint[0] = m_pSegment->Origin + m_afSegmentT[0] *
@@ -173,7 +173,7 @@ bool IntrSegment3Sphere3f::Find()
                 {
                     if( -fA1 < m_pSegment->Extent )
                     {
-                        fRoot = Math<float>::Sqrt(fDiscr);
+                        fRoot = SEMath<float>::Sqrt(fDiscr);
                         m_afSegmentT[0] = -fA1 - fRoot;
                         m_afSegmentT[1] = m_pSegment->Extent;
                         m_aPoint[0] = m_pSegment->Origin + m_afSegmentT[0] *
@@ -203,13 +203,13 @@ bool IntrSegment3Sphere3f::Find()
         return true;
     }
 
-    if( fQM > 0.0f && Math<float>::FAbs(fA1) < m_pSegment->Extent )
+    if( fQM > 0.0f && SEMath<float>::FAbs(fA1) < m_pSegment->Extent )
     {
         // 线段两端点都在球外,且二次曲线极小值对应的t值在线段上.
 
         if( fDiscr >= ZeroThreshold )
         {
-            fRoot = Math<float>::Sqrt(fDiscr);
+            fRoot = SEMath<float>::Sqrt(fDiscr);
             m_afSegmentT[0] = -fA1 - fRoot;
             m_afSegmentT[1] = -fA1 + fRoot;
             m_aPoint[0] = m_pSegment->Origin + m_afSegmentT[0] *
@@ -234,15 +234,15 @@ bool IntrSegment3Sphere3f::Find()
     return m_iCount > 0;
 }
 //----------------------------------------------------------------------------
-bool IntrSegment3Sphere3f::Test(float/*fTMax*/, const Vector3f&/*rVelocity0*/, 
-    const Vector3f&/*rVelocity1*/)
+bool IntrSegment3Sphere3f::Test(float/*fTMax*/, const SEVector3f&/*rVelocity0*/, 
+    const SEVector3f&/*rVelocity1*/)
 {
     // 待实现.
     return false;
 }
 //----------------------------------------------------------------------------
-bool IntrSegment3Sphere3f::Find(float/*fTMax*/, const Vector3f&/*rVelocity0*/, 
-    const Vector3f&/*rVelocity1*/)
+bool IntrSegment3Sphere3f::Find(float/*fTMax*/, const SEVector3f&/*rVelocity0*/, 
+    const SEVector3f&/*rVelocity1*/)
 {
     // 待实现.
     return false;
@@ -253,7 +253,7 @@ int IntrSegment3Sphere3f::GetCount() const
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-const Vector3f& IntrSegment3Sphere3f::GetPoint(int i) const
+const SEVector3f& IntrSegment3Sphere3f::GetPoint(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 

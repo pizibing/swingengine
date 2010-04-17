@@ -24,27 +24,27 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrSphere3Sphere3f::IntrSphere3Sphere3f(const Sphere3f& rSphere0,
-    const Sphere3f& rSphere1)
+IntrSphere3Sphere3f::IntrSphere3Sphere3f(const SESphere3f& rSphere0,
+    const SESphere3f& rSphere1)
     :
     m_pSphere0(&rSphere0),
     m_pSphere1(&rSphere1)
 {
 }
 //----------------------------------------------------------------------------
-const Sphere3f& IntrSphere3Sphere3f::GetSphere0() const
+const SESphere3f& IntrSphere3Sphere3f::GetSphere0() const
 {
     return *m_pSphere0;
 }
 //----------------------------------------------------------------------------
-const Sphere3f& IntrSphere3Sphere3f::GetSphere1() const
+const SESphere3f& IntrSphere3Sphere3f::GetSphere1() const
 {
     return *m_pSphere1;
 }
 //----------------------------------------------------------------------------
 bool IntrSphere3Sphere3f::Test()
 {
-    Vector3f vec3fDiff = m_pSphere1->Center - m_pSphere0->Center;
+    SEVector3f vec3fDiff = m_pSphere1->Center - m_pSphere0->Center;
     float fRSum = m_pSphere0->Radius + m_pSphere1->Radius;
 
     return vec3fDiff.GetSquaredLength() <= fRSum*fRSum;
@@ -78,21 +78,21 @@ bool IntrSphere3Sphere3f::Find()
 
     // 相交圆的中心和半径.
     m_Center = m_pSphere0->Center + fT*m_Normal;
-    m_fRadius = Mathf::Sqrt(fRSqr);
+    m_fRadius = SEMathf::Sqrt(fRSqr);
 
     // 计算相交圆所在平面的U和V向量.
-    m_Normal *= Mathf::Sqrt(fInvNSqrLen);
-    Vector3f::GetOrthonormalBasis(m_UAxis, m_VAxis, m_Normal, true);
+    m_Normal *= SEMathf::Sqrt(fInvNSqrLen);
+    SEVector3f::GetOrthonormalBasis(m_UAxis, m_VAxis, m_Normal, true);
 
     return true;
 }
 //----------------------------------------------------------------------------
 bool IntrSphere3Sphere3f::Test(float fTMax,
-    const Vector3f& rVelocity0, const Vector3f& rVelocity1)
+    const SEVector3f& rVelocity0, const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fVDiff = rVelocity1 - rVelocity0;
+    SEVector3f vec3fVDiff = rVelocity1 - rVelocity0;
     float fA = vec3fVDiff.GetSquaredLength();
-    Vector3f vec3fCDiff = m_pSphere1->Center - m_pSphere0->Center;
+    SEVector3f vec3fCDiff = m_pSphere1->Center - m_pSphere0->Center;
     float fC = vec3fCDiff.GetSquaredLength();
     float fRSum = m_pSphere0->Radius + m_pSphere1->Radius;
     float fRSumSqr = fRSum*fRSum;
@@ -117,11 +117,11 @@ bool IntrSphere3Sphere3f::Test(float fTMax,
 }
 //----------------------------------------------------------------------------
 bool IntrSphere3Sphere3f::Find(float fTMax,
-    const Vector3f& rVelocity0, const Vector3f& rVelocity1)
+    const SEVector3f& rVelocity0, const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fVDiff = rVelocity1 - rVelocity0;
+    SEVector3f vec3fVDiff = rVelocity1 - rVelocity0;
     float fA = vec3fVDiff.GetSquaredLength();
-    Vector3f vec3fCDiff = m_pSphere1->Center - m_pSphere0->Center;
+    SEVector3f vec3fCDiff = m_pSphere1->Center - m_pSphere0->Center;
     float fC = vec3fCDiff.GetSquaredLength();
     float fRSum = m_pSphere0->Radius + m_pSphere1->Radius;
     float fRSumSqr = fRSum*fRSum;
@@ -148,7 +148,7 @@ bool IntrSphere3Sphere3f::Find(float fTMax,
                     else
                     {
                         // 第一次接触时间在[0,fTMax].
-                        m_fContactTime = -(fB + Mathf::Sqrt(fDiscr))/fA;
+                        m_fContactTime = -(fB + SEMathf::Sqrt(fDiscr))/fA;
                         if( m_fContactTime < 0.0f )
                         {
                             m_fContactTime = 0.0f;
@@ -158,7 +158,7 @@ bool IntrSphere3Sphere3f::Find(float fTMax,
                             m_fContactTime = fTMax;
                         }
 
-                        Vector3f vec3fNewCDiff = vec3fCDiff +
+                        SEVector3f vec3fNewCDiff = vec3fCDiff +
                             m_fContactTime*vec3fVDiff;
 
                         m_ContactPoint = m_pSphere0->Center +
@@ -185,22 +185,22 @@ bool IntrSphere3Sphere3f::Find(float fTMax,
     return false;
 }
 //----------------------------------------------------------------------------
-const Vector3f& IntrSphere3Sphere3f::GetCenter() const
+const SEVector3f& IntrSphere3Sphere3f::GetCenter() const
 {
     return m_Center;
 }
 //----------------------------------------------------------------------------
-const Vector3f& IntrSphere3Sphere3f::GetUAxis() const
+const SEVector3f& IntrSphere3Sphere3f::GetUAxis() const
 {
     return m_UAxis;
 }
 //----------------------------------------------------------------------------
-const Vector3f& IntrSphere3Sphere3f::GetVAxis() const
+const SEVector3f& IntrSphere3Sphere3f::GetVAxis() const
 {
     return m_VAxis;
 }
 //----------------------------------------------------------------------------
-const Vector3f& IntrSphere3Sphere3f::GetNormal() const
+const SEVector3f& IntrSphere3Sphere3f::GetNormal() const
 {
     return m_Normal;
 }
@@ -210,7 +210,7 @@ float IntrSphere3Sphere3f::GetRadius() const
     return m_fRadius;
 }
 //----------------------------------------------------------------------------
-const Vector3f& IntrSphere3Sphere3f::GetContactPoint() const
+const SEVector3f& IntrSphere3Sphere3f::GetContactPoint() const
 {
     return m_ContactPoint;
 }

@@ -34,24 +34,24 @@ inline bool Transformation::IsUniformScale() const
     return m_bIsSRMatrix && m_bIsUniformScale;
 }
 //----------------------------------------------------------------------------
-inline const Matrix3f& Transformation::GetRotate() const
+inline const SEMatrix3f& Transformation::GetRotate() const
 {
     SE_ASSERT( m_bIsSRMatrix );
 
     return m_Matrix;
 }
 //----------------------------------------------------------------------------
-inline const Matrix3f& Transformation::GetMatrix() const
+inline const SEMatrix3f& Transformation::GetMatrix() const
 {
     return m_Matrix;
 }
 //----------------------------------------------------------------------------
-inline const Vector3f& Transformation::GetTranslate() const
+inline const SEVector3f& Transformation::GetTranslate() const
 {
     return m_Translate;
 }
 //----------------------------------------------------------------------------
-inline const Vector3f& Transformation::GetScale() const
+inline const SEVector3f& Transformation::GetScale() const
 {
     SE_ASSERT( m_bIsSRMatrix );
 

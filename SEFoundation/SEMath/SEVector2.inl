@@ -28,7 +28,7 @@ inline int SEVector2f::CompareData(const SEVector2f& rVec) const
 //----------------------------------------------------------------------------
 inline float SEVector2f::GetLength() const
 {
-    return Math<float>::Sqrt(
+    return SEMath<float>::Sqrt(
                                m_fData[0]*m_fData[0] +
                                m_fData[1]*m_fData[1]);
 }
@@ -51,7 +51,7 @@ inline float SEVector2f::Normalize()
 {
     float fLength = GetLength();
 
-    if( fLength > Math<float>::ZERO_TOLERANCE )
+    if( fLength > SEMath<float>::ZERO_TOLERANCE )
     {
         float fInvLength = 1.0f / fLength;
         m_fData[0] *= fInvLength;
@@ -88,7 +88,7 @@ inline int SEVector2d::CompareData(const SEVector2d& rVec) const
 //----------------------------------------------------------------------------
 inline double SEVector2d::GetLength() const
 {
-    return Math<double>::Sqrt(m_dData[0]*m_dData[0] + m_dData[1]*m_dData[1]);
+    return SEMath<double>::Sqrt(m_dData[0]*m_dData[0] + m_dData[1]*m_dData[1]);
 }
 //----------------------------------------------------------------------------
 inline double SEVector2d::GetSquaredLength() const
@@ -109,7 +109,7 @@ inline double SEVector2d::Normalize()
 {
     double dLength = GetLength();
 
-    if( dLength > Math<double>::ZERO_TOLERANCE )
+    if( dLength > SEMath<double>::ZERO_TOLERANCE )
     {
         double dInvLength = 1.0 / dLength;
         m_dData[0] *= dInvLength;

@@ -171,7 +171,7 @@ bool Intersector1<Real>::Test(Real fTMax, Real fSpeedU, Real fSpeedV)
         }
         else
         {
-            m_fLastTime = Math<Real>::MAX_REAL;
+            m_fLastTime = SEMath<Real>::MAX_REAL;
         }
 
         return true;
@@ -241,7 +241,7 @@ bool Intersector1<Real>::Find(Real fTMax, Real fSpeedU, Real fSpeedV)
         }
         else
         {
-            m_fLastTime = Math<Real>::MAX_REAL;
+            m_fLastTime = SEMath<Real>::MAX_REAL;
         }
 
         if( m_afU[1] > m_afV[0] )

@@ -143,8 +143,8 @@ SEVector2f SEVector2f::operator/(float fScalar) const
     }
     else
     {
-        Res.m_fData[0] = Math<float>::MAX_REAL;
-        Res.m_fData[1] = Math<float>::MAX_REAL;
+        Res.m_fData[0] = SEMath<float>::MAX_REAL;
+        Res.m_fData[1] = SEMath<float>::MAX_REAL;
     }
 
     return Res;
@@ -214,8 +214,8 @@ SEVector2f& SEVector2f::operator/=(float fScalar)
     }
     else
     {
-        m_fData[0] = Math<float>::MAX_REAL;
-        m_fData[1] = Math<float>::MAX_REAL;
+        m_fData[0] = SEMath<float>::MAX_REAL;
+        m_fData[1] = SEMath<float>::MAX_REAL;
     }
 
     return *this;
@@ -361,8 +361,8 @@ SEVector2d SEVector2d::operator/(double dScalar) const
     }
     else
     {
-        Res.m_dData[0] = Math<double>::MAX_REAL;
-        Res.m_dData[1] = Math<double>::MAX_REAL;
+        Res.m_dData[0] = SEMath<double>::MAX_REAL;
+        Res.m_dData[1] = SEMath<double>::MAX_REAL;
     }
 
     return Res;
@@ -432,8 +432,8 @@ SEVector2d& SEVector2d::operator/=(double dScalar)
     }
     else
     {
-        m_dData[0] = Math<double>::MAX_REAL;
-        m_dData[1] = Math<double>::MAX_REAL;
+        m_dData[0] = SEMath<double>::MAX_REAL;
+        m_dData[1] = SEMath<double>::MAX_REAL;
     }
 
     return *this;

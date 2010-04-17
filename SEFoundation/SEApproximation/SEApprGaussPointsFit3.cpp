@@ -25,10 +25,10 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Box3f Swing::GaussPointsFit3f(int iCount, const Vector3f* aPoint)
+SEBox3f Swing::GaussPointsFit3f(int iCount, const SEVector3f* aPoint)
 {
-    Box3f tempBox(Vector3f::ZERO, Vector3f::UNIT_X, Vector3f::UNIT_Y, 
-        Vector3f::UNIT_Z, 1.0f, 1.0f, 1.0f);
+    SEBox3f tempBox(SEVector3f::ZERO, SEVector3f::UNIT_X, SEVector3f::UNIT_Y, 
+        SEVector3f::UNIT_Z, 1.0f, 1.0f, 1.0f);
 
     // 计算顶点的平均中心.
     tempBox.Center = aPoint[0];
@@ -45,7 +45,7 @@ Box3f Swing::GaussPointsFit3f(int iCount, const Vector3f* aPoint)
     float fSumYY = 0.0f, fSumYZ = 0.0f, fSumZZ = 0.0f;
     for( i = 0; i < iCount; i++ )
     {
-        Vector3f vec3fDiff = aPoint[i] - tempBox.Center;
+        SEVector3f vec3fDiff = aPoint[i] - tempBox.Center;
         fSumXX += vec3fDiff.X * vec3fDiff.X;
         fSumXY += vec3fDiff.X * vec3fDiff.Y;
         fSumXZ += vec3fDiff.X * vec3fDiff.Z;

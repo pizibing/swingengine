@@ -35,32 +35,32 @@ namespace Swing
 // 时间:20090116
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API DistVector3Rectangle3f
-    : public Distance<float, Vector3f>
+    : public Distance<float, SEVector3f>
 {
 public:
-    DistVector3Rectangle3f(const Vector3f& rVector,
-        const Rectangle3f& rRectangle);
+    DistVector3Rectangle3f(const SEVector3f& rVector,
+        const SERectangle3f& rRectangle);
 
     // 对象访问.
-    const Vector3f& GetVector(void) const;
-    const Rectangle3f& GetRectangle(void) const;
+    const SEVector3f& GetVector(void) const;
+    const SERectangle3f& GetRectangle(void) const;
 
     // static distance查询.
     virtual float Get(void);
     virtual float GetSquared(void);
 
     // 用于dynamic distance查询的convex function计算.
-    virtual float Get(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
-    virtual float GetSquared(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual float Get(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
+    virtual float GetSquared(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
     // 矩形最近点相关信息.
     float GetRectangleCoordinate(int i) const;
 
 private:
-    const Vector3f* m_pVector;
-    const Rectangle3f* m_pRectangle;
+    const SEVector3f* m_pVector;
+    const SERectangle3f* m_pRectangle;
 
     // 矩形最近点相关信息.
     float m_afRectCoord[2];  // closest1 = rect.center+param0*rect.dir0+

@@ -24,38 +24,38 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Plane3f::Plane3f()
+SEPlane3f::SEPlane3f()
 {
 }
 //----------------------------------------------------------------------------
-Plane3f::Plane3f(const Plane3f& rPlane)
+SEPlane3f::SEPlane3f(const SEPlane3f& rPlane)
     : Normal(rPlane.Normal)
 {
     Constant = rPlane.Constant;
 }
 //----------------------------------------------------------------------------
-Plane3f::Plane3f(const Vector3f& rNormal, float fConstant)
+SEPlane3f::SEPlane3f(const SEVector3f& rNormal, float fConstant)
     : Normal(rNormal)
 {
     Constant = fConstant;
 }
 //----------------------------------------------------------------------------
-Plane3f::Plane3f(const Vector3f& rNormal, const Vector3f& rP0)
+SEPlane3f::SEPlane3f(const SEVector3f& rNormal, const SEVector3f& rP0)
     : Normal(rNormal)
 {
     Constant = rNormal.Dot(rP0);
 }
 //----------------------------------------------------------------------------
-Plane3f::Plane3f(const Vector3f& rP0, const Vector3f& rP1, const Vector3f& rP2)
+SEPlane3f::SEPlane3f(const SEVector3f& rP0, const SEVector3f& rP1, const SEVector3f& rP2)
 {
-    Vector3f Vec1 = rP1 - rP0;
-    Vector3f Vec2 = rP2 - rP0;
+    SEVector3f Vec1 = rP1 - rP0;
+    SEVector3f Vec2 = rP2 - rP0;
     Normal = Vec1.Cross(Vec2);
     Normal.Normalize();
     Constant = Normal.Dot(rP0);
 }
 //----------------------------------------------------------------------------
-Plane3f& Plane3f::operator=(const Plane3f& rPlane)
+SEPlane3f& SEPlane3f::operator=(const SEPlane3f& rPlane)
 {
     Normal = rPlane.Normal;
     Constant = rPlane.Constant;

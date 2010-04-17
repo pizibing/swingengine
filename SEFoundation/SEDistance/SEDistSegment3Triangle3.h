@@ -36,33 +36,33 @@ namespace Swing
 // 时间:20090119
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API DistSegment3Triangle3f
-    : public Distance<float, Vector3f>
+    : public Distance<float, SEVector3f>
 {
 public:
-    DistSegment3Triangle3f(const Segment3f& rSegment,
-        const Triangle3f& rTriangle);
+    DistSegment3Triangle3f(const SESegment3f& rSegment,
+        const SETriangle3f& rTriangle);
 
     // 对象访问.
-    const Segment3f& GetSegment(void) const;
-    const Triangle3f& GetTriangle(void) const;
+    const SESegment3f& GetSegment(void) const;
+    const SETriangle3f& GetTriangle(void) const;
 
     // static distance查询.
     virtual float Get(void);
     virtual float GetSquared(void);
 
     // 用于dynamic distance查询的convex function计算.
-    virtual float Get(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
-    virtual float GetSquared(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual float Get(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
+    virtual float GetSquared(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
     // 最近点相关信息.
     float GetSegmentParameter(void) const;
     float GetTriangleBary(int i) const;
 
 private:
-    const Segment3f* m_pSegment;
-    const Triangle3f* m_pTriangle;
+    const SESegment3f* m_pSegment;
+    const SETriangle3f* m_pTriangle;
 
     // 最近点相关信息.
     float m_fSegmentParameter;  // closest0 = seg.origin+param*seg.direction

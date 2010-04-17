@@ -24,36 +24,36 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistVector3Box3f::DistVector3Box3f(const Vector3f& rVector, const Box3f& rBox)
+DistVector3Box3f::DistVector3Box3f(const SEVector3f& rVector, const SEBox3f& rBox)
     :
     m_pVector(&rVector),
     m_pBox(&rBox)
 {
 }
 //----------------------------------------------------------------------------
-const Vector3f& DistVector3Box3f::GetVector() const
+const SEVector3f& DistVector3Box3f::GetVector() const
 {
     return *m_pVector;
 }
 //----------------------------------------------------------------------------
-const Box3f& DistVector3Box3f::GetBox() const
+const SEBox3f& DistVector3Box3f::GetBox() const
 {
     return *m_pBox;
 }
 //----------------------------------------------------------------------------
 float DistVector3Box3f::Get()
 {
-    return Math<float>::Sqrt(GetSquared());
+    return SEMath<float>::Sqrt(GetSquared());
 }
 //----------------------------------------------------------------------------
 float DistVector3Box3f::GetSquared()
 {
     // 在box的坐标体系下计算.
-    Vector3f vec3fDiff = *m_pVector - m_pBox->Center;
+    SEVector3f vec3fDiff = *m_pVector - m_pBox->Center;
 
     // 计算squared distance和box上的最近点.
     float fSqrDistance = 0.0f, fDelta;
-    Vector3f vec3fClosest;
+    SEVector3f vec3fClosest;
     int i;
     for( i = 0; i < 3; i++ )
     {
@@ -82,22 +82,22 @@ float DistVector3Box3f::GetSquared()
     return fSqrDistance;
 }
 //----------------------------------------------------------------------------
-float DistVector3Box3f::Get(float fT, const Vector3f& rVelocity0,
-    const Vector3f& rVelocity1)
+float DistVector3Box3f::Get(float fT, const SEVector3f& rVelocity0,
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMVector = *m_pVector + fT*rVelocity0;
-    Vector3f vec3fMCenter = m_pBox->Center + fT*rVelocity1;
-    Box3f tempMBox(vec3fMCenter, m_pBox->Axis,m_pBox->Extent);
+    SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
+    SEVector3f vec3fMCenter = m_pBox->Center + fT*rVelocity1;
+    SEBox3f tempMBox(vec3fMCenter, m_pBox->Axis,m_pBox->Extent);
 
     return DistVector3Box3f(vec3fMVector, tempMBox).Get();
 }
 //----------------------------------------------------------------------------
-float DistVector3Box3f::GetSquared(float fT, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistVector3Box3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMVector = *m_pVector + fT*rVelocity0;
-    Vector3f vec3fMCenter = m_pBox->Center + fT*rVelocity1;
-    Box3f tempMBox(vec3fMCenter, m_pBox->Axis,m_pBox->Extent);
+    SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
+    SEVector3f vec3fMCenter = m_pBox->Center + fT*rVelocity1;
+    SEBox3f tempMBox(vec3fMCenter, m_pBox->Axis,m_pBox->Extent);
 
     return DistVector3Box3f(vec3fMVector, tempMBox).GetSquared();
 }

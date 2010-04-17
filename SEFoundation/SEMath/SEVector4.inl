@@ -21,21 +21,21 @@
 //----------------------------------------------------------------------------
 // 单精度4维向量类
 //----------------------------------------------------------------------------
-inline int Vector4f::CompareData(const Vector4f& rVec) const
+inline int SEVector4f::CompareData(const SEVector4f& rVec) const
 {
     return memcmp(m_fData, rVec.m_fData, 4*sizeof(float));
 }
 //----------------------------------------------------------------------------
-inline float Vector4f::GetLength() const
+inline float SEVector4f::GetLength() const
 {
-    return Math<float>::Sqrt(
+    return SEMath<float>::Sqrt(
                                m_fData[0] * m_fData[0] +
                                m_fData[1] * m_fData[1] +
                                m_fData[2] * m_fData[2] +
                                m_fData[3] * m_fData[3]);
 }
 //----------------------------------------------------------------------------
-inline float Vector4f::GetSquaredLength() const
+inline float SEVector4f::GetSquaredLength() const
 {
     return
             m_fData[0] * m_fData[0] +
@@ -44,7 +44,7 @@ inline float Vector4f::GetSquaredLength() const
             m_fData[3] * m_fData[3];
 }
 //----------------------------------------------------------------------------
-inline float Vector4f::Dot(const Vector4f& rRhsVec) const
+inline float SEVector4f::Dot(const SEVector4f& rRhsVec) const
 {
     return
             m_fData[0] * rRhsVec.m_fData[0] +
@@ -53,11 +53,11 @@ inline float Vector4f::Dot(const Vector4f& rRhsVec) const
             m_fData[3] * rRhsVec.m_fData[3];
 }
 //----------------------------------------------------------------------------
-inline float Vector4f::Normalize()
+inline float SEVector4f::Normalize()
 {
     float fLength = GetLength();
 
-    if( fLength > Math<float>::ZERO_TOLERANCE )
+    if( fLength > SEMath<float>::ZERO_TOLERANCE )
     {
         float fInvLength = 1.0f / fLength;
         m_fData[0] *= fInvLength;
@@ -80,21 +80,21 @@ inline float Vector4f::Normalize()
 //----------------------------------------------------------------------------
 // 双精度4维向量类
 //----------------------------------------------------------------------------
-inline int Vector4d::CompareData(const Vector4d& rVec) const
+inline int SEVector4d::CompareData(const SEVector4d& rVec) const
 {
     return memcmp(m_dData, rVec.m_dData, 4*sizeof(double));
 }
 //----------------------------------------------------------------------------
-inline double Vector4d::GetLength() const
+inline double SEVector4d::GetLength() const
 {
-    return Math<double>::Sqrt(
+    return SEMath<double>::Sqrt(
                                m_dData[0] * m_dData[0] +
                                m_dData[1] * m_dData[1] +
                                m_dData[2] * m_dData[2] +
                                m_dData[3] * m_dData[3]);
 }
 //----------------------------------------------------------------------------
-inline double Vector4d::GetSquaredLength() const
+inline double SEVector4d::GetSquaredLength() const
 {
     return
             m_dData[0] * m_dData[0] +
@@ -103,7 +103,7 @@ inline double Vector4d::GetSquaredLength() const
             m_dData[3] * m_dData[3];
 }
 //----------------------------------------------------------------------------
-inline double Vector4d::Dot(const Vector4d& rRhsVec) const
+inline double SEVector4d::Dot(const SEVector4d& rRhsVec) const
 {
     return
             m_dData[0] * rRhsVec.m_dData[0] +
@@ -112,11 +112,11 @@ inline double Vector4d::Dot(const Vector4d& rRhsVec) const
             m_dData[3] * rRhsVec.m_dData[3];
 }
 //----------------------------------------------------------------------------
-inline double Vector4d::Normalize()
+inline double SEVector4d::Normalize()
 {
     double dLength = GetLength();
 
-    if( dLength > Math<double>::ZERO_TOLERANCE )
+    if( dLength > SEMath<double>::ZERO_TOLERANCE )
     {
         double fInvLength = 1.0 / dLength;
         m_dData[0] *= fInvLength;

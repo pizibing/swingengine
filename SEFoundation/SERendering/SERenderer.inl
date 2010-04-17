@@ -64,12 +64,12 @@ inline void Renderer::ToggleFullscreen()
     m_bFullscreen = !m_bFullscreen;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetClearColor(const ColorRGBA& rClearColor)
+inline void Renderer::SetClearColor(const SEColorRGBA& rClearColor)
 {
     m_ClearColor = rClearColor;
 }
 //----------------------------------------------------------------------------
-inline const ColorRGBA& Renderer::GetClearColor() const
+inline const SEColorRGBA& Renderer::GetClearColor() const
 {
     return m_ClearColor;
 }
@@ -282,17 +282,17 @@ inline Camera* Renderer::GetProjector()
     return m_pProjector;
 }
 //----------------------------------------------------------------------------
-inline const Matrix4f& Renderer::GetWorldMatrix(void) const
+inline const SEMatrix4f& Renderer::GetWorldMatrix(void) const
 {
     return m_WorldMatrix;
 }
 //----------------------------------------------------------------------------
-inline const Matrix4f& Renderer::GetViewMatrix(void) const
+inline const SEMatrix4f& Renderer::GetViewMatrix(void) const
 {
     return m_ViewMatrix;
 }
 //----------------------------------------------------------------------------
-inline const Matrix4f& Renderer::GetProjectionMatrix(void) const
+inline const SEMatrix4f& Renderer::GetProjectionMatrix(void) const
 {
     return m_ProjectionMatrix;
 }

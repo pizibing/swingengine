@@ -26,12 +26,12 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Box3f Swing::ContAABBf(int iCount, const Vector3f* aPoint)
+SEBox3f Swing::ContAABBf(int iCount, const SEVector3f* aPoint)
 {
-    Vector3f vec3fMinPoint, vec3fMaxPoint;
-    Vector3f::ComputeExtremes(iCount, aPoint, vec3fMinPoint, vec3fMaxPoint);
+    SEVector3f vec3fMinPoint, vec3fMaxPoint;
+    SEVector3f::ComputeExtremes(iCount, aPoint, vec3fMinPoint, vec3fMaxPoint);
 
-    Box3f tempBox;
+    SEBox3f tempBox;
     tempBox.Center = 0.5f * (vec3fMinPoint + vec3fMaxPoint);
 
     tempBox.Axis[0].X = 1.0f;
@@ -46,7 +46,7 @@ Box3f Swing::ContAABBf(int iCount, const Vector3f* aPoint)
     tempBox.Axis[2].Y = 0.0f;
     tempBox.Axis[2].Z = 1.0f;
 
-    Vector3f vec3fHalfDiagonal = 0.5f * (vec3fMaxPoint - vec3fMinPoint);
+    SEVector3f vec3fHalfDiagonal = 0.5f * (vec3fMaxPoint - vec3fMinPoint);
     tempBox.Extent[0] = vec3fHalfDiagonal[0];
     tempBox.Extent[1] = vec3fHalfDiagonal[1];
     tempBox.Extent[2] = vec3fHalfDiagonal[2];
@@ -54,14 +54,14 @@ Box3f Swing::ContAABBf(int iCount, const Vector3f* aPoint)
     return tempBox;
 }
 //----------------------------------------------------------------------------
-Box3f Swing::ContOBBf(int iCount, const Vector3f* aPoint)
+SEBox3f Swing::ContOBBf(int iCount, const SEVector3f* aPoint)
 {
-    Box3f tempBox = GaussPointsFit3f(iCount, aPoint);
+    SEBox3f tempBox = GaussPointsFit3f(iCount, aPoint);
 
-    Vector3f vec3fDiff = aPoint[0] - tempBox.Center;
-    Vector3f vec3fMinPoint(vec3fDiff.Dot(tempBox.Axis[0]), 
+    SEVector3f vec3fDiff = aPoint[0] - tempBox.Center;
+    SEVector3f vec3fMinPoint(vec3fDiff.Dot(tempBox.Axis[0]), 
         vec3fDiff.Dot(tempBox.Axis[1]), vec3fDiff.Dot(tempBox.Axis[2]));
-    Vector3f vec3fMaxPoint = vec3fMinPoint;
+    SEVector3f vec3fMaxPoint = vec3fMinPoint;
     for( int i = 1; i < iCount; i++ )
     {
         vec3fDiff = aPoint[i] - tempBox.Center;
@@ -91,13 +91,13 @@ Box3f Swing::ContOBBf(int iCount, const Vector3f* aPoint)
     return tempBox;
 }
 //----------------------------------------------------------------------------
-bool Swing::IsInBoxf(const Vector3f& rPoint, const Box3f& rBox)
+bool Swing::IsInBoxf(const SEVector3f& rPoint, const SEBox3f& rBox)
 {
-    Vector3f vec3fDiff = rPoint - rBox.Center;
+    SEVector3f vec3fDiff = rPoint - rBox.Center;
     for( int i = 0; i < 3; i++ )
     {
         float fCoeff = vec3fDiff.Dot(rBox.Axis[i]);
-        if( Math<float>::FAbs(fCoeff) > rBox.Extent[i] )
+        if( SEMath<float>::FAbs(fCoeff) > rBox.Extent[i] )
         {
             return false;
         }
@@ -106,9 +106,9 @@ bool Swing::IsInBoxf(const Vector3f& rPoint, const Box3f& rBox)
     return true;
 }
 //----------------------------------------------------------------------------
-Box3f Swing::MergeBoxesf(const Box3f& rBox0, const Box3f& rBox1)
+SEBox3f Swing::MergeBoxesf(const SEBox3f& rBox0, const SEBox3f& rBox1)
 {
-    Box3f tempBox;
+    SEBox3f tempBox;
 
     // 首先初步猜测新box中心.
     // 稍后当传入的box的顶点全部投影完毕后,将更新此值.
@@ -119,7 +119,7 @@ Box3f Swing::MergeBoxesf(const Box3f& rBox0, const Box3f& rBox1)
     // 根据两个四元数,计算其平均四元数,之后规范化为单位长度.
     // 结果四元数就是传入的两个四元数的slerp,其中t为1/2.
     // 然后再把结果四元数转换成与其对应的旋转矩阵.该矩阵的三行将作为新box的三轴.
-    Quaternionf Q0, Q1;
+    SEQuaternionf Q0, Q1;
     Q0.FromRotationMatrix(rBox0.Axis);
     Q1.FromRotationMatrix(rBox1.Axis);
     if( Q0.Dot(Q1) < 0.0f )
@@ -127,8 +127,8 @@ Box3f Swing::MergeBoxesf(const Box3f& rBox0, const Box3f& rBox1)
         Q1 = -Q1;
     }
 
-    Quaternionf Q = Q0 + Q1;
-    float fInvLength = Math<float>::InvSqrt(Q.Dot(Q));
+    SEQuaternionf Q = Q0 + Q1;
+    float fInvLength = SEMath<float>::InvSqrt(Q.Dot(Q));
     Q = fInvLength * Q;
     Q.ToRotationMatrix(tempBox.Axis);
 
@@ -143,9 +143,9 @@ Box3f Swing::MergeBoxesf(const Box3f& rBox0, const Box3f& rBox1)
 
     int i, j;
     float fDot;
-    Vector3f aVertex[8], vec3fDiff;
-    Vector3f vec3fMin = Vector3f::ZERO;
-    Vector3f vec3fMax = Vector3f::ZERO;
+    SEVector3f aVertex[8], vec3fDiff;
+    SEVector3f vec3fMin = SEVector3f::ZERO;
+    SEVector3f vec3fMax = SEVector3f::ZERO;
 
     rBox0.ComputeVertices(aVertex);
     for( i = 0; i < 8; i++ )

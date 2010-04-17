@@ -28,12 +28,12 @@
 namespace Swing
 {
 //----------------------------------------------------------------------------
-// 名称:ColorRGBA共享数组类
+// 名称:SEColorRGBA共享数组类
 // 说明:
 // 作者:Sun Che
 // 时间:20080324
 //----------------------------------------------------------------------------
-typedef SharedArray<ColorRGBA> ColorRGBAArray;
+typedef SharedArray<SEColorRGBA> ColorRGBAArray;
 typedef SESmartPointer<ColorRGBAArray> ColorRGBAArrayPtr;
 }
 

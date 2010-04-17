@@ -87,22 +87,22 @@ public:
     inline const float* GetData(void) const;
 
     // 没有范围检测,用户必须确保所要访问的顶点属性存在且不超过channel范围.
-    Vector3f& Position3(int i);
-    Vector3f Position3(int i) const;
-    Vector3f& Normal3(int i);
-    Vector3f Normal3(int i) const;
-    ColorRGB& Color3(int iUnit, int i);
-    ColorRGB Color3(int iUnit, int i) const;
-    ColorRGBA& Color4(int iUnit, int i);
-    ColorRGBA Color4(int iUnit, int i) const;
+    SEVector3f& Position3(int i);
+    SEVector3f Position3(int i) const;
+    SEVector3f& Normal3(int i);
+    SEVector3f Normal3(int i) const;
+    SEColorRGB& Color3(int iUnit, int i);
+    SEColorRGB Color3(int iUnit, int i) const;
+    SEColorRGBA& Color4(int iUnit, int i);
+    SEColorRGBA Color4(int iUnit, int i) const;
     float& TCoord1(int iUnit, int i);
     float TCoord1(int iUnit, int i) const;
     SEVector2f& TCoord2(int iUnit, int i);
     SEVector2f TCoord2(int iUnit, int i) const;
-    Vector3f& TCoord3(int iUnit, int i);
-    Vector3f TCoord3(int iUnit, int i) const;
-    Vector4f& TCoord4(int iUnit, int i);
-    Vector4f TCoord4(int iUnit, int i) const;
+    SEVector3f& TCoord3(int iUnit, int i);
+    SEVector3f TCoord3(int iUnit, int i) const;
+    SEVector4f& TCoord4(int iUnit, int i);
+    SEVector4f TCoord4(int iUnit, int i) const;
 
     // 用来根据当前VB创建一个与vertex program inputs兼容的数组数据,
     // rCompatible保存该兼容数组,如果rCompatible传入空指针,则此函数动态为其分配内存,

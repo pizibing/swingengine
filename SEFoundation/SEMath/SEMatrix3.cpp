@@ -27,25 +27,25 @@ using namespace Swing;
 // 单精度3阶方阵类
 //----------------------------------------------------------------------------
 
-const Matrix3f Matrix3f::ZERO(0.0f, 0.0f, 0.0f,
+const SEMatrix3f SEMatrix3f::ZERO(0.0f, 0.0f, 0.0f,
                               0.0f, 0.0f, 0.0f,
                               0.0f, 0.0f, 0.0f);
-const Matrix3f Matrix3f::IDENTITY(1.0f, 0.0f, 0.0f,
+const SEMatrix3f SEMatrix3f::IDENTITY(1.0f, 0.0f, 0.0f,
                                   0.0f, 1.0f, 0.0f,
                                   0.0f, 0.0f, 1.0f);
 
 //----------------------------------------------------------------------------
-Matrix3f::Matrix3f()
+SEMatrix3f::SEMatrix3f()
 {
     Zero();
 }
 //----------------------------------------------------------------------------
-Matrix3f::Matrix3f(const Matrix3f& rMat)
+SEMatrix3f::SEMatrix3f(const SEMatrix3f& rMat)
 {
     memcpy(m_fData, rMat.m_fData, /*12*/9*sizeof(float));
 }
 //----------------------------------------------------------------------------
-Matrix3f::Matrix3f(float fM11, float fM12, float fM13, 
+SEMatrix3f::SEMatrix3f(float fM11, float fM12, float fM13, 
                    float fM21, float fM22, float fM23, 
                    float fM31, float fM32, float fM33)
 {
@@ -70,8 +70,8 @@ Matrix3f::Matrix3f(float fM11, float fM12, float fM13,
     //m_fData[3][3] = 0.0f;
 }
 //----------------------------------------------------------------------------
-Matrix3f::Matrix3f(const Vector3f& rVecU, const Vector3f& rVecV, 
-    const Vector3f& rVecW, bool bIsRow)
+SEMatrix3f::SEMatrix3f(const SEVector3f& rVecU, const SEVector3f& rVecV, 
+    const SEVector3f& rVecW, bool bIsRow)
 {
     Zero();
 
@@ -101,97 +101,97 @@ Matrix3f::Matrix3f(const Vector3f& rVecU, const Vector3f& rVecV,
 	}
 }
 //----------------------------------------------------------------------------
-Matrix3f::Matrix3f(float fM11, float fM22, float fM33)
+SEMatrix3f::SEMatrix3f(float fM11, float fM22, float fM33)
 {
     Zero();
 
     Diagonal(fM11, fM22, fM33);
 }
 //----------------------------------------------------------------------------
-Matrix3f::Matrix3f(const Vector3f& rAxisVec, float fAngle)
+SEMatrix3f::SEMatrix3f(const SEVector3f& rAxisVec, float fAngle)
 {
     Zero();
 
     FromAxisAngle(rAxisVec, fAngle);
 }
 //----------------------------------------------------------------------------
-Matrix3f::Matrix3f(const Vector3f& rVecU, const Vector3f& rVecV)
+SEMatrix3f::SEMatrix3f(const SEVector3f& rVecU, const SEVector3f& rVecV)
 {
     Zero();
 
     TensorProduct(rVecU, rVecV);
 }
 //----------------------------------------------------------------------------
-Matrix3f::operator const float*() const
+SEMatrix3f::operator const float*() const
 {
     return &m_fData[0][0];
 }
 //----------------------------------------------------------------------------
-Matrix3f::operator float*()
+SEMatrix3f::operator float*()
 {
     return &m_fData[0][0];
 }
 //----------------------------------------------------------------------------
-const float* Matrix3f::operator[](int iCurRow) const
+const float* SEMatrix3f::operator[](int iCurRow) const
 {
     return &m_fData[iCurRow][0];
 }
 //----------------------------------------------------------------------------
-float* Matrix3f::operator[](int iCurRow)
+float* SEMatrix3f::operator[](int iCurRow)
 {
     return &m_fData[iCurRow][0];
 }
 //----------------------------------------------------------------------------
-float Matrix3f::operator()(int iCurRow, int iCurCol) const
+float SEMatrix3f::operator()(int iCurRow, int iCurCol) const
 {
     return m_fData[iCurRow][iCurCol];
 }
 //----------------------------------------------------------------------------
-float& Matrix3f::operator()(int iCurRow, int iCurCol)
+float& SEMatrix3f::operator()(int iCurRow, int iCurCol)
 {
     return m_fData[iCurRow][iCurCol];
 }
 //----------------------------------------------------------------------------
-Matrix3f& Matrix3f::operator=(const Matrix3f& rMat)
+SEMatrix3f& SEMatrix3f::operator=(const SEMatrix3f& rMat)
 {
     memcpy(m_fData, rMat.m_fData, /*12*/9*sizeof(float));
 
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Matrix3f::operator==(const Matrix3f& rMat) const
+bool SEMatrix3f::operator==(const SEMatrix3f& rMat) const
 {
     return CompareData(rMat) == 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix3f::operator!=(const Matrix3f& rMat) const
+bool SEMatrix3f::operator!=(const SEMatrix3f& rMat) const
 {
     return CompareData(rMat) != 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix3f::operator<(const Matrix3f& rMat) const
+bool SEMatrix3f::operator<(const SEMatrix3f& rMat) const
 {
     return CompareData(rMat) < 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix3f::operator<=(const Matrix3f& rMat) const
+bool SEMatrix3f::operator<=(const SEMatrix3f& rMat) const
 {
     return CompareData(rMat) <= 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix3f::operator>(const Matrix3f& rMat) const
+bool SEMatrix3f::operator>(const SEMatrix3f& rMat) const
 {
     return CompareData(rMat) > 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix3f::operator>=(const Matrix3f& rMat) const
+bool SEMatrix3f::operator>=(const SEMatrix3f& rMat) const
 {
     return CompareData(rMat) >= 0;
 }
 //----------------------------------------------------------------------------
-Matrix3f Matrix3f::operator+(const Matrix3f& rRhsMat) const
+SEMatrix3f SEMatrix3f::operator+(const SEMatrix3f& rRhsMat) const
 {
-    Matrix3f ResMat;
+    SEMatrix3f ResMat;
 
     ResMat.m_fData[0][0] = m_fData[0][0] + rRhsMat.m_fData[0][0];
     ResMat.m_fData[0][1] = m_fData[0][1] + rRhsMat.m_fData[0][1];
@@ -208,9 +208,9 @@ Matrix3f Matrix3f::operator+(const Matrix3f& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix3f Matrix3f::operator-(const Matrix3f& rRhsMat) const
+SEMatrix3f SEMatrix3f::operator-(const SEMatrix3f& rRhsMat) const
 {
-    Matrix3f ResMat;
+    SEMatrix3f ResMat;
 
     ResMat.m_fData[0][0] = m_fData[0][0] - rRhsMat.m_fData[0][0];
     ResMat.m_fData[0][1] = m_fData[0][1] - rRhsMat.m_fData[0][1];
@@ -227,9 +227,9 @@ Matrix3f Matrix3f::operator-(const Matrix3f& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix3f Matrix3f::operator*(const Matrix3f& rRhsMat) const
+SEMatrix3f SEMatrix3f::operator*(const SEMatrix3f& rRhsMat) const
 {
-    Matrix3f ResMat;
+    SEMatrix3f ResMat;
 
 #ifdef _SIMD
     __asm
@@ -327,9 +327,9 @@ Matrix3f Matrix3f::operator*(const Matrix3f& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix3f Matrix3f::operator*(float fScalar) const
+SEMatrix3f SEMatrix3f::operator*(float fScalar) const
 {
-    Matrix3f ResMat;
+    SEMatrix3f ResMat;
 
     ResMat.m_fData[0][0] = m_fData[0][0] * fScalar;
     ResMat.m_fData[0][1] = m_fData[0][1] * fScalar;
@@ -346,10 +346,10 @@ Matrix3f Matrix3f::operator*(float fScalar) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix3f Matrix3f::operator/(float fScalar) const
+SEMatrix3f SEMatrix3f::operator/(float fScalar) const
 {
     // 注意除数不能为0
-    Matrix3f ResMat;
+    SEMatrix3f ResMat;
     float fInvScalar = 1.0f / fScalar;
 
     ResMat.m_fData[0][0] = m_fData[0][0] * fInvScalar;
@@ -367,9 +367,9 @@ Matrix3f Matrix3f::operator/(float fScalar) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix3f Matrix3f::operator-() const
+SEMatrix3f SEMatrix3f::operator-() const
 {
-    Matrix3f ResMat;
+    SEMatrix3f ResMat;
 
     ResMat.m_fData[0][0] = -m_fData[0][0];
     ResMat.m_fData[0][1] = -m_fData[0][1];
@@ -386,7 +386,7 @@ Matrix3f Matrix3f::operator-() const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix3f& Matrix3f::operator+=(const Matrix3f& rRhsMat)
+SEMatrix3f& SEMatrix3f::operator+=(const SEMatrix3f& rRhsMat)
 {
 	m_fData[0][0] += rRhsMat.m_fData[0][0];
     m_fData[0][1] += rRhsMat.m_fData[0][1];
@@ -403,7 +403,7 @@ Matrix3f& Matrix3f::operator+=(const Matrix3f& rRhsMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3f& Matrix3f::operator-=(const Matrix3f& rRhsMat)
+SEMatrix3f& SEMatrix3f::operator-=(const SEMatrix3f& rRhsMat)
 {
 	m_fData[0][0] -= rRhsMat.m_fData[0][0];
     m_fData[0][1] -= rRhsMat.m_fData[0][1];
@@ -420,7 +420,7 @@ Matrix3f& Matrix3f::operator-=(const Matrix3f& rRhsMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3f& Matrix3f::operator*=(float fScalar)
+SEMatrix3f& SEMatrix3f::operator*=(float fScalar)
 {
 	m_fData[0][0] *= fScalar;
     m_fData[0][1] *= fScalar;
@@ -437,7 +437,7 @@ Matrix3f& Matrix3f::operator*=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3f& Matrix3f::operator/=(float fScalar)
+SEMatrix3f& SEMatrix3f::operator/=(float fScalar)
 {
     // 注意除数不能为0
     float fInvScalar = 1.0f / fScalar;
@@ -456,9 +456,9 @@ Matrix3f& Matrix3f::operator/=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector3f Matrix3f::operator*(const Vector3f& rRhsVec) const
+SEVector3f SEMatrix3f::operator*(const SEVector3f& rRhsVec) const
 {
-    Vector3f ResVec;
+    SEVector3f ResVec;
    
     ResVec[0] = m_fData[0][0]*rRhsVec[0] + m_fData[0][1]*rRhsVec[1] + 
         m_fData[0][2]*rRhsVec[2];
@@ -470,42 +470,42 @@ Vector3f Matrix3f::operator*(const Vector3f& rRhsVec) const
     return ResVec;
 }
 //----------------------------------------------------------------------------
-void Matrix3f::Transpose()
+void SEMatrix3f::Transpose()
 {
-    Matrix3f tempMat;
+    SEMatrix3f tempMat;
 	GetTranspose(tempMat);
 	*this = tempMat;
 }
 //----------------------------------------------------------------------------
-void Matrix3f::Inverse()
+void SEMatrix3f::Inverse()
 {
-    Matrix3f tempMat;
+    SEMatrix3f tempMat;
 	GetInverse(tempMat);
 	*this = tempMat;
 }
 //----------------------------------------------------------------------------
-Matrix3f& Matrix3f::FromEulerAnglesXYZ(float fYAngle, float fPAngle, 
+SEMatrix3f& SEMatrix3f::FromEulerAnglesXYZ(float fYAngle, float fPAngle, 
     float fRAngle)
 {
     float fCos, fSin;
 
-    fCos = Math<float>::Cos(fYAngle);
-    fSin = Math<float>::Sin(fYAngle);
-    Matrix3f RotXMat(
+    fCos = SEMath<float>::Cos(fYAngle);
+    fSin = SEMath<float>::Sin(fYAngle);
+    SEMatrix3f RotXMat(
         1.0f,0.0f,0.0f,
         0.0f,fCos,fSin,
         0.0f,-fSin,fCos);
 
-    fCos = Math<float>::Cos(fPAngle);
-    fSin = Math<float>::Sin(fPAngle);
-    Matrix3f RotYMat(
+    fCos = SEMath<float>::Cos(fPAngle);
+    fSin = SEMath<float>::Sin(fPAngle);
+    SEMatrix3f RotYMat(
         fCos,0.0f,-fSin,
         0.0f,1.0f,0.0f,
         fSin,0.0f,fCos);
 
-    fCos = Math<float>::Cos(fRAngle);
-    fSin = Math<float>::Sin(fRAngle);
-    Matrix3f RotZMat(
+    fCos = SEMath<float>::Cos(fRAngle);
+    fSin = SEMath<float>::Sin(fRAngle);
+    SEMatrix3f RotZMat(
         fCos,fSin,0.0f,
         -fSin,fCos,0.0f,
         0.0f,0.0f,1.0f);
@@ -514,28 +514,28 @@ Matrix3f& Matrix3f::FromEulerAnglesXYZ(float fYAngle, float fPAngle,
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3f& Matrix3f::FromEulerAnglesXZY(float fYAngle, float fPAngle, 
+SEMatrix3f& SEMatrix3f::FromEulerAnglesXZY(float fYAngle, float fPAngle, 
     float fRAngle)
 {
     float fCos, fSin;
 
-    fCos = Math<float>::Cos(fYAngle);
-    fSin = Math<float>::Sin(fYAngle);
-    Matrix3f RotXMat(
+    fCos = SEMath<float>::Cos(fYAngle);
+    fSin = SEMath<float>::Sin(fYAngle);
+    SEMatrix3f RotXMat(
         1.0f,0.0f,0.0f,
         0.0f,fCos,fSin,
         0.0f,-fSin,fCos);
 
-    fCos = Math<float>::Cos(fPAngle);
-    fSin = Math<float>::Sin(fPAngle);
-    Matrix3f RotZMat(
+    fCos = SEMath<float>::Cos(fPAngle);
+    fSin = SEMath<float>::Sin(fPAngle);
+    SEMatrix3f RotZMat(
         fCos,fSin,0.0f,
         -fSin,fCos,0.0f,
         0.0f,0.0f,1.0f);
 
-    fCos = Math<float>::Cos(fRAngle);
-    fSin = Math<float>::Sin(fRAngle);
-    Matrix3f RotYMat(
+    fCos = SEMath<float>::Cos(fRAngle);
+    fSin = SEMath<float>::Sin(fRAngle);
+    SEMatrix3f RotYMat(
         fCos,0.0f,-fSin,
         0.0f,1.0f,0.0f,
         fSin,0.0f,fCos);
@@ -544,28 +544,28 @@ Matrix3f& Matrix3f::FromEulerAnglesXZY(float fYAngle, float fPAngle,
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3f& Matrix3f::FromEulerAnglesYXZ(float fYAngle, float fPAngle, 
+SEMatrix3f& SEMatrix3f::FromEulerAnglesYXZ(float fYAngle, float fPAngle, 
     float fRAngle)
 {
     float fCos, fSin;
 
-    fCos = Math<float>::Cos(fYAngle);
-    fSin = Math<float>::Sin(fYAngle);
-    Matrix3f RotYMat(
+    fCos = SEMath<float>::Cos(fYAngle);
+    fSin = SEMath<float>::Sin(fYAngle);
+    SEMatrix3f RotYMat(
         fCos,0.0f,-fSin,
         0.0f,1.0f,0.0f,
         fSin,0.0f,fCos);
 
-    fCos = Math<float>::Cos(fPAngle);
-    fSin = Math<float>::Sin(fPAngle);
-    Matrix3f RotXMat(
+    fCos = SEMath<float>::Cos(fPAngle);
+    fSin = SEMath<float>::Sin(fPAngle);
+    SEMatrix3f RotXMat(
         1.0f,0.0f,0.0f,
         0.0f,fCos,fSin,
         0.0f,-fSin,fCos);
 
-    fCos = Math<float>::Cos(fRAngle);
-    fSin = Math<float>::Sin(fRAngle);
-    Matrix3f RotZMat(
+    fCos = SEMath<float>::Cos(fRAngle);
+    fSin = SEMath<float>::Sin(fRAngle);
+    SEMatrix3f RotZMat(
         fCos,fSin,0.0f,
         -fSin,fCos,0.0f,
         0.0f,0.0f,1.0f);
@@ -574,28 +574,28 @@ Matrix3f& Matrix3f::FromEulerAnglesYXZ(float fYAngle, float fPAngle,
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3f& Matrix3f::FromEulerAnglesYZX(float fYAngle, float fPAngle, 
+SEMatrix3f& SEMatrix3f::FromEulerAnglesYZX(float fYAngle, float fPAngle, 
     float fRAngle)
 {
     float fCos, fSin;
 
-    fCos = Math<float>::Cos(fYAngle);
-    fSin = Math<float>::Sin(fYAngle);
-    Matrix3f RotYMat(
+    fCos = SEMath<float>::Cos(fYAngle);
+    fSin = SEMath<float>::Sin(fYAngle);
+    SEMatrix3f RotYMat(
         fCos,0.0f,-fSin,
         0.0f,1.0f,0.0f,
         fSin,0.0f,fCos);
 
-    fCos = Math<float>::Cos(fPAngle);
-    fSin = Math<float>::Sin(fPAngle);
-    Matrix3f RotZMat(
+    fCos = SEMath<float>::Cos(fPAngle);
+    fSin = SEMath<float>::Sin(fPAngle);
+    SEMatrix3f RotZMat(
         fCos,fSin,0.0f,
         -fSin,fCos,0.0f,
         0.0f,0.0f,1.0f);
 
-    fCos = Math<float>::Cos(fRAngle);
-    fSin = Math<float>::Sin(fRAngle);
-    Matrix3f RotXMat(
+    fCos = SEMath<float>::Cos(fRAngle);
+    fSin = SEMath<float>::Sin(fRAngle);
+    SEMatrix3f RotXMat(
         1.0f,0.0f,0.0f,
         0.0f,fCos,fSin,
         0.0f,-fSin,fCos);
@@ -604,28 +604,28 @@ Matrix3f& Matrix3f::FromEulerAnglesYZX(float fYAngle, float fPAngle,
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3f& Matrix3f::FromEulerAnglesZXY(float fYAngle, float fPAngle, 
+SEMatrix3f& SEMatrix3f::FromEulerAnglesZXY(float fYAngle, float fPAngle, 
     float fRAngle)
 {
     float fCos, fSin;
 
-    fCos = Math<float>::Cos(fYAngle);
-    fSin = Math<float>::Sin(fYAngle);
-    Matrix3f RotZMat(
+    fCos = SEMath<float>::Cos(fYAngle);
+    fSin = SEMath<float>::Sin(fYAngle);
+    SEMatrix3f RotZMat(
         fCos,fSin,0.0f,
         -fSin,fCos,0.0f,
         0.0f,0.0f,1.0f);
 
-    fCos = Math<float>::Cos(fPAngle);
-    fSin = Math<float>::Sin(fPAngle);
-    Matrix3f RotXMat(
+    fCos = SEMath<float>::Cos(fPAngle);
+    fSin = SEMath<float>::Sin(fPAngle);
+    SEMatrix3f RotXMat(
         1.0f,0.0f,0.0f,
         0.0f,fCos,fSin,
         0.0f,-fSin,fCos);
 
-    fCos = Math<float>::Cos(fRAngle);
-    fSin = Math<float>::Sin(fRAngle);
-    Matrix3f RotYMat(
+    fCos = SEMath<float>::Cos(fRAngle);
+    fSin = SEMath<float>::Sin(fRAngle);
+    SEMatrix3f RotYMat(
         fCos,0.0f,-fSin,
         0.0f,1.0f,0.0f,
         fSin,0.0f,fCos);
@@ -634,28 +634,28 @@ Matrix3f& Matrix3f::FromEulerAnglesZXY(float fYAngle, float fPAngle,
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3f& Matrix3f::FromEulerAnglesZYX(float fYAngle, float fPAngle, 
+SEMatrix3f& SEMatrix3f::FromEulerAnglesZYX(float fYAngle, float fPAngle, 
     float fRAngle)
 {
     float fCos, fSin;
 
-    fCos = Math<float>::Cos(fYAngle);
-    fSin = Math<float>::Sin(fYAngle);
-    Matrix3f RotZMat(
+    fCos = SEMath<float>::Cos(fYAngle);
+    fSin = SEMath<float>::Sin(fYAngle);
+    SEMatrix3f RotZMat(
         fCos,fSin,0.0f,
         -fSin,fCos,0.0f,
         0.0f,0.0f,1.0f);
 
-    fCos = Math<float>::Cos(fPAngle);
-    fSin = Math<float>::Sin(fPAngle);
-    Matrix3f RotYMat(
+    fCos = SEMath<float>::Cos(fPAngle);
+    fSin = SEMath<float>::Sin(fPAngle);
+    SEMatrix3f RotYMat(
         fCos,0.0f,-fSin,
         0.0f,1.0f,0.0f,
         fSin,0.0f,fCos);
 
-    fCos = Math<float>::Cos(fRAngle);
-    fSin = Math<float>::Sin(fRAngle);
-    Matrix3f RotXMat(
+    fCos = SEMath<float>::Cos(fRAngle);
+    fSin = SEMath<float>::Sin(fRAngle);
+    SEMatrix3f RotXMat(
         1.0f,0.0f,0.0f,
         0.0f,fCos,fSin,
         0.0f,-fSin,fCos);
@@ -664,7 +664,7 @@ Matrix3f& Matrix3f::FromEulerAnglesZYX(float fYAngle, float fPAngle,
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Matrix3f::ToEulerAnglesXYZ(float& rfXAngle, float& rfYAngle, 
+bool SEMatrix3f::ToEulerAnglesXYZ(float& rfXAngle, float& rfYAngle, 
     float& rfZAngle) const
 {
     // R = Rx * Ry * Rz
@@ -692,9 +692,9 @@ bool Matrix3f::ToEulerAnglesXYZ(float& rfXAngle, float& rfYAngle,
     {
         if( m_fData[0][2] < 1.0f )
         {
-            rfXAngle = Math<float>::ATan2(m_fData[1][2], m_fData[2][2]);
+            rfXAngle = SEMath<float>::ATan2(m_fData[1][2], m_fData[2][2]);
             rfYAngle = (float)asin(-(double)m_fData[0][2]);
-            rfZAngle = Math<float>::ATan2(m_fData[0][1], m_fData[0][0]);
+            rfZAngle = SEMath<float>::ATan2(m_fData[0][1], m_fData[0][0]);
 
             return true;
         }
@@ -703,8 +703,8 @@ bool Matrix3f::ToEulerAnglesXYZ(float& rfXAngle, float& rfYAngle,
             // y = -pi/2,
             // 结果不唯一,
             // x + z = atan2(r10,r11)
-            rfXAngle = Math<float>::ATan2(-m_fData[1][0], m_fData[1][1]);
-            rfYAngle = -Math<float>::HALF_PI;
+            rfXAngle = SEMath<float>::ATan2(-m_fData[1][0], m_fData[1][1]);
+            rfYAngle = -SEMath<float>::HALF_PI;
             rfZAngle = 0.0f;
 
             return false;
@@ -715,15 +715,15 @@ bool Matrix3f::ToEulerAnglesXYZ(float& rfXAngle, float& rfYAngle,
         // y = pi/2,
         // 结果不唯一,
         // x - z = atan2(r10,r11)
-        rfXAngle = Math<float>::ATan2(m_fData[1][0], m_fData[1][1]);
-        rfYAngle = Math<float>::HALF_PI;
+        rfXAngle = SEMath<float>::ATan2(m_fData[1][0], m_fData[1][1]);
+        rfYAngle = SEMath<float>::HALF_PI;
         rfZAngle = 0.0f;
 
         return false;
     }
 }
 //----------------------------------------------------------------------------
-bool Matrix3f::ToEulerAnglesXZY(float& rfXAngle, float& rfZAngle, 
+bool SEMatrix3f::ToEulerAnglesXZY(float& rfXAngle, float& rfZAngle, 
     float& rfYAngle) const
 {
     // R = Rx * Rz * Ry
@@ -751,9 +751,9 @@ bool Matrix3f::ToEulerAnglesXZY(float& rfXAngle, float& rfZAngle,
     {
         if( m_fData[0][1] < 1.0f )
         {
-            rfXAngle = Math<float>::ATan2(-m_fData[2][1], m_fData[1][1]);
+            rfXAngle = SEMath<float>::ATan2(-m_fData[2][1], m_fData[1][1]);
             rfZAngle = (float)asin((double)m_fData[0][1]);
-            rfYAngle = Math<float>::ATan2(-m_fData[0][2], m_fData[0][0]);
+            rfYAngle = SEMath<float>::ATan2(-m_fData[0][2], m_fData[0][0]);
 
             return true;
         }
@@ -762,8 +762,8 @@ bool Matrix3f::ToEulerAnglesXZY(float& rfXAngle, float& rfZAngle,
             // z = pi/2,
             // 结果不唯一,
             // x + y = atan2(r20,r22)
-            rfXAngle = Math<float>::ATan2(m_fData[2][0], m_fData[2][2]);
-            rfZAngle = Math<float>::HALF_PI;
+            rfXAngle = SEMath<float>::ATan2(m_fData[2][0], m_fData[2][2]);
+            rfZAngle = SEMath<float>::HALF_PI;
             rfYAngle = 0.0f;
 
             return false;
@@ -774,15 +774,15 @@ bool Matrix3f::ToEulerAnglesXZY(float& rfXAngle, float& rfZAngle,
         // z = -pi/2,
         // 结果不唯一,
         // x - y = atan2(-r20,r22)
-        rfXAngle = Math<float>::ATan2(-m_fData[2][0], m_fData[2][2]);
-        rfZAngle = -Math<float>::HALF_PI;
+        rfXAngle = SEMath<float>::ATan2(-m_fData[2][0], m_fData[2][2]);
+        rfZAngle = -SEMath<float>::HALF_PI;
         rfYAngle = 0.0f;
 
         return false;
     }
 }
 //----------------------------------------------------------------------------
-bool Matrix3f::ToEulerAnglesYXZ(float& rfYAngle, float& rfXAngle, 
+bool SEMatrix3f::ToEulerAnglesYXZ(float& rfYAngle, float& rfXAngle, 
     float& rfZAngle) const
 {
     // R = Ry * Rx * Rz
@@ -810,9 +810,9 @@ bool Matrix3f::ToEulerAnglesYXZ(float& rfYAngle, float& rfXAngle,
     {
         if( m_fData[1][2] < 1.0f )
         {
-            rfYAngle = Math<float>::ATan2(-m_fData[0][2], m_fData[2][2]);
+            rfYAngle = SEMath<float>::ATan2(-m_fData[0][2], m_fData[2][2]);
             rfXAngle = (float)asin((double)m_fData[1][2]);
-            rfZAngle = Math<float>::ATan2(-m_fData[1][0], m_fData[1][1]);
+            rfZAngle = SEMath<float>::ATan2(-m_fData[1][0], m_fData[1][1]);
 
             return true;
         }
@@ -821,8 +821,8 @@ bool Matrix3f::ToEulerAnglesYXZ(float& rfYAngle, float& rfXAngle,
             // x = pi/2,
             // 结果不唯一,
             // y + z = atan2(r01,r00)
-            rfYAngle = Math<float>::ATan2(m_fData[0][1], m_fData[0][0]);
-            rfXAngle = Math<float>::HALF_PI;
+            rfYAngle = SEMath<float>::ATan2(m_fData[0][1], m_fData[0][0]);
+            rfXAngle = SEMath<float>::HALF_PI;
             rfZAngle = 0.0f;
 
             return false;
@@ -833,15 +833,15 @@ bool Matrix3f::ToEulerAnglesYXZ(float& rfYAngle, float& rfXAngle,
         // x = -pi/2,
         // 结果不唯一,
         // y - z = atan2(-r01,r00)
-        rfYAngle = Math<float>::ATan2(-m_fData[0][1], m_fData[0][0]);
-        rfXAngle = -Math<float>::HALF_PI;
+        rfYAngle = SEMath<float>::ATan2(-m_fData[0][1], m_fData[0][0]);
+        rfXAngle = -SEMath<float>::HALF_PI;
         rfZAngle = 0.0f;
 
         return false;
     }
 }
 //----------------------------------------------------------------------------
-bool Matrix3f::ToEulerAnglesYZX(float& rfYAngle, float& rfZAngle, 
+bool SEMatrix3f::ToEulerAnglesYZX(float& rfYAngle, float& rfZAngle, 
     float& rfXAngle) const
 {
     // R = Ry * Rz * Rx
@@ -869,9 +869,9 @@ bool Matrix3f::ToEulerAnglesYZX(float& rfYAngle, float& rfZAngle,
     {
         if( m_fData[1][0] < 1.0f )
         {
-            rfYAngle = Math<float>::ATan2(m_fData[2][0], m_fData[0][0]);
+            rfYAngle = SEMath<float>::ATan2(m_fData[2][0], m_fData[0][0]);
             rfZAngle = (float)asin(-(double)m_fData[1][0]);
-            rfXAngle = Math<float>::ATan2(m_fData[1][2], m_fData[1][1]);
+            rfXAngle = SEMath<float>::ATan2(m_fData[1][2], m_fData[1][1]);
 
             return true;
         }
@@ -880,8 +880,8 @@ bool Matrix3f::ToEulerAnglesYZX(float& rfYAngle, float& rfZAngle,
             // z = -pi/2,
             // 结果不唯一,
             // x + y = atan2(-r21,r22)
-            rfYAngle = Math<float>::ATan2(-m_fData[2][1], m_fData[2][2]);
-            rfZAngle = -Math<float>::HALF_PI;
+            rfYAngle = SEMath<float>::ATan2(-m_fData[2][1], m_fData[2][2]);
+            rfZAngle = -SEMath<float>::HALF_PI;
             rfXAngle = 0.0f;
 
             return false;
@@ -892,15 +892,15 @@ bool Matrix3f::ToEulerAnglesYZX(float& rfYAngle, float& rfZAngle,
         // z = pi/2,
         // 结果不唯一,
         // x - y = atan2(-r21,r22)
-        rfYAngle = -Math<float>::ATan2(-m_fData[2][1], m_fData[2][2]);
-        rfZAngle = Math<float>::HALF_PI;
+        rfYAngle = -SEMath<float>::ATan2(-m_fData[2][1], m_fData[2][2]);
+        rfZAngle = SEMath<float>::HALF_PI;
         rfXAngle = 0.0f;
 
         return false;
     }
 }
 //----------------------------------------------------------------------------
-bool Matrix3f::ToEulerAnglesZXY(float& rfZAngle, float& rfXAngle, 
+bool SEMatrix3f::ToEulerAnglesZXY(float& rfZAngle, float& rfXAngle, 
     float& rfYAngle) const
 {
     // R = Rz * Rx * Ry
@@ -928,9 +928,9 @@ bool Matrix3f::ToEulerAnglesZXY(float& rfZAngle, float& rfXAngle,
     {
         if( m_fData[2][1] < 1.0f )
         {
-            rfZAngle = Math<float>::ATan2(m_fData[0][1], m_fData[1][1]);
+            rfZAngle = SEMath<float>::ATan2(m_fData[0][1], m_fData[1][1]);
             rfXAngle = (float)asin(-(double)m_fData[2][1]);
-            rfYAngle = Math<float>::ATan2(m_fData[2][0], m_fData[2][2]);
+            rfYAngle = SEMath<float>::ATan2(m_fData[2][0], m_fData[2][2]);
 
             return true;
         }
@@ -939,8 +939,8 @@ bool Matrix3f::ToEulerAnglesZXY(float& rfZAngle, float& rfXAngle,
             // x = -pi/2,
             // 结果不唯一,
             // y + z = atan(-r02,r00)
-            rfZAngle = Math<float>::ATan2(-m_fData[0][2], m_fData[0][0]);
-            rfXAngle = -Math<float>::HALF_PI;
+            rfZAngle = SEMath<float>::ATan2(-m_fData[0][2], m_fData[0][0]);
+            rfXAngle = -SEMath<float>::HALF_PI;
             rfYAngle = 0.0f;
 
             return false;
@@ -951,15 +951,15 @@ bool Matrix3f::ToEulerAnglesZXY(float& rfZAngle, float& rfXAngle,
         // x = pi/2,
         // 结果不唯一,
         // y - z = atan2(-r02,r00)
-        rfZAngle = -Math<float>::ATan2(-m_fData[0][2], m_fData[0][0]);
-        rfXAngle = Math<float>::HALF_PI;
+        rfZAngle = -SEMath<float>::ATan2(-m_fData[0][2], m_fData[0][0]);
+        rfXAngle = SEMath<float>::HALF_PI;
         rfYAngle = 0.0f;
 
         return false;
     }
 }
 //----------------------------------------------------------------------------
-bool Matrix3f::ToEulerAnglesZYX(float& rfZAngle, float& rfYAngle, 
+bool SEMatrix3f::ToEulerAnglesZYX(float& rfZAngle, float& rfYAngle, 
     float& rfXAngle) const
 {
     // R = Rz * Ry * Rx
@@ -987,9 +987,9 @@ bool Matrix3f::ToEulerAnglesZYX(float& rfZAngle, float& rfYAngle,
     {
         if( m_fData[2][0] < 1.0f )
         {
-            rfZAngle = Math<float>::ATan2(-m_fData[1][0], m_fData[0][0]);
+            rfZAngle = SEMath<float>::ATan2(-m_fData[1][0], m_fData[0][0]);
             rfYAngle = (float)asin((double)m_fData[2][0]);
-            rfXAngle = Math<float>::ATan2(-m_fData[2][1], m_fData[2][2]);
+            rfXAngle = SEMath<float>::ATan2(-m_fData[2][1], m_fData[2][2]);
 
             return true;
         }
@@ -998,8 +998,8 @@ bool Matrix3f::ToEulerAnglesZYX(float& rfZAngle, float& rfYAngle,
             // y = pi/2,
             // 结果不唯一,
             // x + z = atan2(r01,-r02)
-            rfZAngle = Math<float>::ATan2(m_fData[0][1], -m_fData[0][2]);
-            rfYAngle = Math<float>::HALF_PI;
+            rfZAngle = SEMath<float>::ATan2(m_fData[0][1], -m_fData[0][2]);
+            rfYAngle = SEMath<float>::HALF_PI;
             rfXAngle = 0.0f;
 
             return false;
@@ -1010,22 +1010,22 @@ bool Matrix3f::ToEulerAnglesZYX(float& rfZAngle, float& rfYAngle,
         // y = -pi/2,
         // 结果不唯一,
         // z - x = atan2(r01,r02)
-        rfZAngle = Math<float>::ATan2(m_fData[0][1], m_fData[0][2]);
-        rfYAngle = -Math<float>::HALF_PI;
+        rfZAngle = SEMath<float>::ATan2(m_fData[0][1], m_fData[0][2]);
+        rfYAngle = -SEMath<float>::HALF_PI;
         rfXAngle = 0.0f;
 
         return false;
     }
 }
 //----------------------------------------------------------------------------
-Matrix3f Swing::operator*(float fLhsScalar, const Matrix3f& rRhsMat)
+SEMatrix3f Swing::operator*(float fLhsScalar, const SEMatrix3f& rRhsMat)
 {
     return rRhsMat * fLhsScalar;
 }
 //----------------------------------------------------------------------------
-Vector3f Swing::operator*(const Vector3f& rLhsVec, const Matrix3f& rRhsMat)
+SEVector3f Swing::operator*(const SEVector3f& rLhsVec, const SEMatrix3f& rRhsMat)
 {
-    return Vector3f(
+    return SEVector3f(
         rLhsVec[0]*rRhsMat[0][0] + rLhsVec[1]*rRhsMat[1][0] + 
         rLhsVec[2]*rRhsMat[2][0],
         rLhsVec[0]*rRhsMat[0][1] + rLhsVec[1]*rRhsMat[1][1] + 
@@ -1034,7 +1034,7 @@ Vector3f Swing::operator*(const Vector3f& rLhsVec, const Matrix3f& rRhsMat)
         rLhsVec[2]*rRhsMat[2][2]);
 }
 //----------------------------------------------------------------------------
-void Matrix3f::Orthonormalize()
+void SEMatrix3f::Orthonormalize()
 {
     // 待检查
     // Algorithm uses Gram-Schmidt orthogonalization.  If 'this' matrix is
@@ -1048,7 +1048,7 @@ void Matrix3f::Orthonormalize()
     // product of vectors A and B.
 
     // compute q0
-    float fInvLength = Math<float>::InvSqrt(m_fData[0][0]*m_fData[0][0] +
+    float fInvLength = SEMath<float>::InvSqrt(m_fData[0][0]*m_fData[0][0] +
         m_fData[1][0]*m_fData[1][0] + m_fData[2][0]*m_fData[2][0]);
 
     m_fData[0][0] *= fInvLength;
@@ -1063,7 +1063,7 @@ void Matrix3f::Orthonormalize()
     m_fData[1][1] -= fDot0*m_fData[1][0];
     m_fData[2][1] -= fDot0*m_fData[2][0];
 
-    fInvLength = Math<float>::InvSqrt(m_fData[0][1]*m_fData[0][1] +
+    fInvLength = SEMath<float>::InvSqrt(m_fData[0][1]*m_fData[0][1] +
         m_fData[1][1]*m_fData[1][1] + m_fData[2][1]*m_fData[2][1]);
 
     m_fData[0][1] *= fInvLength;
@@ -1081,7 +1081,7 @@ void Matrix3f::Orthonormalize()
     m_fData[1][2] -= fDot0*m_fData[1][0] + fDot1*m_fData[1][1];
     m_fData[2][2] -= fDot0*m_fData[2][0] + fDot1*m_fData[2][1];
 
-    fInvLength = Math<float>::InvSqrt(m_fData[0][2]*m_fData[0][2] +
+    fInvLength = SEMath<float>::InvSqrt(m_fData[0][2]*m_fData[0][2] +
         m_fData[1][2]*m_fData[1][2] + m_fData[2][2]*m_fData[2][2]);
 
     m_fData[0][2] *= fInvLength;
@@ -1094,25 +1094,25 @@ void Matrix3f::Orthonormalize()
 // 双精度3阶方阵类
 //----------------------------------------------------------------------------
 
-const Matrix3d Matrix3d::ZERO(0.0, 0.0, 0.0,
+const SEMatrix3d SEMatrix3d::ZERO(0.0, 0.0, 0.0,
                               0.0, 0.0, 0.0,
                               0.0, 0.0, 0.0);
-const Matrix3d Matrix3d::IDENTITY(1.0, 0.0, 0.0,
+const SEMatrix3d SEMatrix3d::IDENTITY(1.0, 0.0, 0.0,
                                   0.0, 1.0, 0.0,
                                   0.0, 0.0, 1.0);
 
 //----------------------------------------------------------------------------
-Matrix3d::Matrix3d()
+SEMatrix3d::SEMatrix3d()
 {
     Zero();
 }
 //----------------------------------------------------------------------------
-Matrix3d::Matrix3d(const Matrix3d& rMat)
+SEMatrix3d::SEMatrix3d(const SEMatrix3d& rMat)
 {
     memcpy(m_dData, rMat.m_dData, /*12*/9*sizeof(double));
 }
 //----------------------------------------------------------------------------
-Matrix3d::Matrix3d(double dM11, double dM12, double dM13, 
+SEMatrix3d::SEMatrix3d(double dM11, double dM12, double dM13, 
                    double dM21, double dM22, double dM23, 
                    double dM31, double dM32, double dM33)
 {
@@ -1137,8 +1137,8 @@ Matrix3d::Matrix3d(double dM11, double dM12, double dM13,
     //m_dData[3][3] = 0.0;
 }
 //----------------------------------------------------------------------------
-Matrix3d::Matrix3d(const Vector3d& rVecU, const Vector3d& rVecV, 
-    const Vector3d& rVecW, bool bIsRow)
+SEMatrix3d::SEMatrix3d(const SEVector3d& rVecU, const SEVector3d& rVecV, 
+    const SEVector3d& rVecW, bool bIsRow)
 {
     Zero();
 
@@ -1168,97 +1168,97 @@ Matrix3d::Matrix3d(const Vector3d& rVecU, const Vector3d& rVecV,
 	}
 }
 //----------------------------------------------------------------------------
-Matrix3d::Matrix3d(double dM11, double dM22, double dM33)
+SEMatrix3d::SEMatrix3d(double dM11, double dM22, double dM33)
 {
     Zero();
 
     Diagonal(dM11, dM22, dM33);
 }
 //----------------------------------------------------------------------------
-Matrix3d::Matrix3d(const Vector3d& rAxisVec, double dAngle)
+SEMatrix3d::SEMatrix3d(const SEVector3d& rAxisVec, double dAngle)
 {
     Zero();
 
     FromAxisAngle(rAxisVec, dAngle);
 }
 //----------------------------------------------------------------------------
-Matrix3d::Matrix3d(const Vector3d& rVecU, const Vector3d& rVecV)
+SEMatrix3d::SEMatrix3d(const SEVector3d& rVecU, const SEVector3d& rVecV)
 {
     Zero();
 
     TensorProduct(rVecU, rVecV);
 }
 //----------------------------------------------------------------------------
-Matrix3d::operator const double*() const
+SEMatrix3d::operator const double*() const
 {
     return &m_dData[0][0];
 }
 //----------------------------------------------------------------------------
-Matrix3d::operator double*()
+SEMatrix3d::operator double*()
 {
     return &m_dData[0][0];
 }
 //----------------------------------------------------------------------------
-const double* Matrix3d::operator[](int iCurRow) const
+const double* SEMatrix3d::operator[](int iCurRow) const
 {
     return &m_dData[iCurRow][0];
 }
 //----------------------------------------------------------------------------
-double* Matrix3d::operator[](int iCurRow)
+double* SEMatrix3d::operator[](int iCurRow)
 {
     return &m_dData[iCurRow][0];
 }
 //----------------------------------------------------------------------------
-double Matrix3d::operator()(int iCurRow, int iCurCol) const
+double SEMatrix3d::operator()(int iCurRow, int iCurCol) const
 {
     return m_dData[iCurRow][iCurCol];
 }
 //----------------------------------------------------------------------------
-double& Matrix3d::operator()(int iCurRow, int iCurCol)
+double& SEMatrix3d::operator()(int iCurRow, int iCurCol)
 {
     return m_dData[iCurRow][iCurCol];
 }
 //----------------------------------------------------------------------------
-Matrix3d& Matrix3d::operator=(const Matrix3d& rMat)
+SEMatrix3d& SEMatrix3d::operator=(const SEMatrix3d& rMat)
 {
     memcpy(m_dData, rMat.m_dData, /*12*/9*sizeof(double));
 
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Matrix3d::operator==(const Matrix3d& rMat) const
+bool SEMatrix3d::operator==(const SEMatrix3d& rMat) const
 {
     return CompareData(rMat) == 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix3d::operator!=(const Matrix3d& rMat) const
+bool SEMatrix3d::operator!=(const SEMatrix3d& rMat) const
 {
     return CompareData(rMat) != 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix3d::operator<(const Matrix3d& rMat) const
+bool SEMatrix3d::operator<(const SEMatrix3d& rMat) const
 {
     return CompareData(rMat) < 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix3d::operator<=(const Matrix3d& rMat) const
+bool SEMatrix3d::operator<=(const SEMatrix3d& rMat) const
 {
     return CompareData(rMat) <= 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix3d::operator>(const Matrix3d& rMat) const
+bool SEMatrix3d::operator>(const SEMatrix3d& rMat) const
 {
     return CompareData(rMat) > 0;
 }
 //----------------------------------------------------------------------------
-bool Matrix3d::operator>=(const Matrix3d& rMat) const
+bool SEMatrix3d::operator>=(const SEMatrix3d& rMat) const
 {
     return CompareData(rMat) >= 0;
 }
 //----------------------------------------------------------------------------
-Matrix3d Matrix3d::operator+(const Matrix3d& rRhsMat) const
+SEMatrix3d SEMatrix3d::operator+(const SEMatrix3d& rRhsMat) const
 {
-    Matrix3d ResMat;
+    SEMatrix3d ResMat;
 
     ResMat.m_dData[0][0] = m_dData[0][0] + rRhsMat.m_dData[0][0];
     ResMat.m_dData[0][1] = m_dData[0][1] + rRhsMat.m_dData[0][1];
@@ -1275,9 +1275,9 @@ Matrix3d Matrix3d::operator+(const Matrix3d& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix3d Matrix3d::operator-(const Matrix3d& rRhsMat) const
+SEMatrix3d SEMatrix3d::operator-(const SEMatrix3d& rRhsMat) const
 {
-    Matrix3d ResMat;
+    SEMatrix3d ResMat;
 
     ResMat.m_dData[0][0] = m_dData[0][0] - rRhsMat.m_dData[0][0];
     ResMat.m_dData[0][1] = m_dData[0][1] - rRhsMat.m_dData[0][1];
@@ -1294,9 +1294,9 @@ Matrix3d Matrix3d::operator-(const Matrix3d& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix3d Matrix3d::operator*(const Matrix3d& rRhsMat) const
+SEMatrix3d SEMatrix3d::operator*(const SEMatrix3d& rRhsMat) const
 {
-    Matrix3d ResMat;
+    SEMatrix3d ResMat;
 
 #ifdef _SIMD
     // 待实现.
@@ -1337,9 +1337,9 @@ Matrix3d Matrix3d::operator*(const Matrix3d& rRhsMat) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix3d Matrix3d::operator*(double dScalar) const
+SEMatrix3d SEMatrix3d::operator*(double dScalar) const
 {
-    Matrix3d ResMat;
+    SEMatrix3d ResMat;
 
     ResMat.m_dData[0][0] = m_dData[0][0] * dScalar;
     ResMat.m_dData[0][1] = m_dData[0][1] * dScalar;
@@ -1356,10 +1356,10 @@ Matrix3d Matrix3d::operator*(double dScalar) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix3d Matrix3d::operator/(double dScalar) const
+SEMatrix3d SEMatrix3d::operator/(double dScalar) const
 {
     // 注意除数不能为0
-    Matrix3d ResMat;
+    SEMatrix3d ResMat;
     double dInvScalar = 1.0 / dScalar;
 
     ResMat.m_dData[0][0] = m_dData[0][0] * dInvScalar;
@@ -1377,9 +1377,9 @@ Matrix3d Matrix3d::operator/(double dScalar) const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix3d Matrix3d::operator-() const
+SEMatrix3d SEMatrix3d::operator-() const
 {
-    Matrix3d ResMat;
+    SEMatrix3d ResMat;
 
     ResMat.m_dData[0][0] = -m_dData[0][0];
     ResMat.m_dData[0][1] = -m_dData[0][1];
@@ -1396,7 +1396,7 @@ Matrix3d Matrix3d::operator-() const
     return ResMat;
 }
 //----------------------------------------------------------------------------
-Matrix3d& Matrix3d::operator+=(const Matrix3d& rRhsMat)
+SEMatrix3d& SEMatrix3d::operator+=(const SEMatrix3d& rRhsMat)
 {
 	m_dData[0][0] += rRhsMat.m_dData[0][0];
     m_dData[0][1] += rRhsMat.m_dData[0][1];
@@ -1413,7 +1413,7 @@ Matrix3d& Matrix3d::operator+=(const Matrix3d& rRhsMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3d& Matrix3d::operator-=(const Matrix3d& rRhsMat)
+SEMatrix3d& SEMatrix3d::operator-=(const SEMatrix3d& rRhsMat)
 {
 	m_dData[0][0] -= rRhsMat.m_dData[0][0];
     m_dData[0][1] -= rRhsMat.m_dData[0][1];
@@ -1430,7 +1430,7 @@ Matrix3d& Matrix3d::operator-=(const Matrix3d& rRhsMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3d& Matrix3d::operator*=(double dScalar)
+SEMatrix3d& SEMatrix3d::operator*=(double dScalar)
 {
 	m_dData[0][0] *= dScalar;
     m_dData[0][1] *= dScalar;
@@ -1447,7 +1447,7 @@ Matrix3d& Matrix3d::operator*=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3d& Matrix3d::operator/=(double dScalar)
+SEMatrix3d& SEMatrix3d::operator/=(double dScalar)
 {
     // 注意除数不能为0
     double dInvScalar = 1.0 / dScalar;
@@ -1466,9 +1466,9 @@ Matrix3d& Matrix3d::operator/=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector3d Matrix3d::operator*(const Vector3d& rRhsVec) const
+SEVector3d SEMatrix3d::operator*(const SEVector3d& rRhsVec) const
 {
-    Vector3d ResVec;
+    SEVector3d ResVec;
    
     ResVec[0] = m_dData[0][0]*rRhsVec[0] + m_dData[0][1]*rRhsVec[1] + 
         m_dData[0][2]*rRhsVec[2];
@@ -1480,42 +1480,42 @@ Vector3d Matrix3d::operator*(const Vector3d& rRhsVec) const
     return ResVec;
 }
 //----------------------------------------------------------------------------
-void Matrix3d::Transpose()
+void SEMatrix3d::Transpose()
 {
-    Matrix3d tempMat;
+    SEMatrix3d tempMat;
 	GetTranspose(tempMat);
 	*this = tempMat;
 }
 //----------------------------------------------------------------------------
-void Matrix3d::Inverse()
+void SEMatrix3d::Inverse()
 {
-    Matrix3d tempMat;
+    SEMatrix3d tempMat;
 	GetInverse(tempMat);
 	*this = tempMat;
 }
 //----------------------------------------------------------------------------
-Matrix3d& Matrix3d::FromEulerAnglesXYZ(double dYAngle, double dPAngle, 
+SEMatrix3d& SEMatrix3d::FromEulerAnglesXYZ(double dYAngle, double dPAngle, 
     double dRAngle)
 {
     double dCos, dSin;
 
-    dCos = Math<double>::Cos(dYAngle);
-    dSin = Math<double>::Sin(dYAngle);
-    Matrix3d RotXMat(
+    dCos = SEMath<double>::Cos(dYAngle);
+    dSin = SEMath<double>::Sin(dYAngle);
+    SEMatrix3d RotXMat(
         1.0,0.0,0.0,
         0.0,dCos,dSin,
         0.0,-dSin,dCos);
 
-    dCos = Math<double>::Cos(dPAngle);
-    dSin = Math<double>::Sin(dPAngle);
-    Matrix3d RotYMat(
+    dCos = SEMath<double>::Cos(dPAngle);
+    dSin = SEMath<double>::Sin(dPAngle);
+    SEMatrix3d RotYMat(
         dCos,0.0,-dSin,
         0.0,1.0,0.0,
         dSin,0.0,dCos);
 
-    dCos = Math<double>::Cos(dRAngle);
-    dSin = Math<double>::Sin(dRAngle);
-    Matrix3d RotZMat(
+    dCos = SEMath<double>::Cos(dRAngle);
+    dSin = SEMath<double>::Sin(dRAngle);
+    SEMatrix3d RotZMat(
         dCos,dSin,0.0,
         -dSin,dCos,0.0,
         0.0,0.0,1.0);
@@ -1524,28 +1524,28 @@ Matrix3d& Matrix3d::FromEulerAnglesXYZ(double dYAngle, double dPAngle,
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3d& Matrix3d::FromEulerAnglesXZY(double dYAngle, double dPAngle, 
+SEMatrix3d& SEMatrix3d::FromEulerAnglesXZY(double dYAngle, double dPAngle, 
     double dRAngle)
 {
     double dCos, dSin;
 
-    dCos = Math<double>::Cos(dYAngle);
-    dSin = Math<double>::Sin(dYAngle);
-    Matrix3d RotXMat(
+    dCos = SEMath<double>::Cos(dYAngle);
+    dSin = SEMath<double>::Sin(dYAngle);
+    SEMatrix3d RotXMat(
         1.0,0.0,0.0,
         0.0,dCos,dSin,
         0.0,-dSin,dCos);
 
-    dCos = Math<double>::Cos(dPAngle);
-    dSin = Math<double>::Sin(dPAngle);
-    Matrix3d RotZMat(
+    dCos = SEMath<double>::Cos(dPAngle);
+    dSin = SEMath<double>::Sin(dPAngle);
+    SEMatrix3d RotZMat(
         dCos,dSin,0.0,
         -dSin,dCos,0.0,
         0.0,0.0,1.0);
 
-    dCos = Math<double>::Cos(dRAngle);
-    dSin = Math<double>::Sin(dRAngle);
-    Matrix3d RotYMat(
+    dCos = SEMath<double>::Cos(dRAngle);
+    dSin = SEMath<double>::Sin(dRAngle);
+    SEMatrix3d RotYMat(
         dCos,0.0,-dSin,
         0.0,1.0,0.0,
         dSin,0.0,dCos);
@@ -1554,28 +1554,28 @@ Matrix3d& Matrix3d::FromEulerAnglesXZY(double dYAngle, double dPAngle,
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3d& Matrix3d::FromEulerAnglesYXZ(double dYAngle, double dPAngle, 
+SEMatrix3d& SEMatrix3d::FromEulerAnglesYXZ(double dYAngle, double dPAngle, 
     double dRAngle)
 {
     double dCos, dSin;
 
-    dCos = Math<double>::Cos(dYAngle);
-    dSin = Math<double>::Sin(dYAngle);
-    Matrix3d RotYMat(
+    dCos = SEMath<double>::Cos(dYAngle);
+    dSin = SEMath<double>::Sin(dYAngle);
+    SEMatrix3d RotYMat(
         dCos,0.0,-dSin,
         0.0,1.0,0.0,
         dSin,0.0,dCos);
 
-    dCos = Math<double>::Cos(dPAngle);
-    dSin = Math<double>::Sin(dPAngle);
-    Matrix3d RotXMat(
+    dCos = SEMath<double>::Cos(dPAngle);
+    dSin = SEMath<double>::Sin(dPAngle);
+    SEMatrix3d RotXMat(
         1.0,0.0,0.0,
         0.0,dCos,dSin,
         0.0,-dSin,dCos);
 
-    dCos = Math<double>::Cos(dRAngle);
-    dSin = Math<double>::Sin(dRAngle);
-    Matrix3d RotZMat(
+    dCos = SEMath<double>::Cos(dRAngle);
+    dSin = SEMath<double>::Sin(dRAngle);
+    SEMatrix3d RotZMat(
         dCos,dSin,0.0,
         -dSin,dCos,0.0,
         0.0,0.0,1.0);
@@ -1584,28 +1584,28 @@ Matrix3d& Matrix3d::FromEulerAnglesYXZ(double dYAngle, double dPAngle,
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3d& Matrix3d::FromEulerAnglesYZX(double dYAngle, double dPAngle, 
+SEMatrix3d& SEMatrix3d::FromEulerAnglesYZX(double dYAngle, double dPAngle, 
     double dRAngle)
 {
     double dCos, dSin;
 
-    dCos = Math<double>::Cos(dYAngle);
-    dSin = Math<double>::Sin(dYAngle);
-    Matrix3d RotYMat(
+    dCos = SEMath<double>::Cos(dYAngle);
+    dSin = SEMath<double>::Sin(dYAngle);
+    SEMatrix3d RotYMat(
         dCos,0.0,-dSin,
         0.0,1.0,0.0,
         dSin,0.0,dCos);
 
-    dCos = Math<double>::Cos(dPAngle);
-    dSin = Math<double>::Sin(dPAngle);
-    Matrix3d RotZMat(
+    dCos = SEMath<double>::Cos(dPAngle);
+    dSin = SEMath<double>::Sin(dPAngle);
+    SEMatrix3d RotZMat(
         dCos,dSin,0.0,
         -dSin,dCos,0.0,
         0.0,0.0,1.0);
 
-    dCos = Math<double>::Cos(dRAngle);
-    dSin = Math<double>::Sin(dRAngle);
-    Matrix3d RotXMat(
+    dCos = SEMath<double>::Cos(dRAngle);
+    dSin = SEMath<double>::Sin(dRAngle);
+    SEMatrix3d RotXMat(
         1.0,0.0,0.0,
         0.0,dCos,dSin,
         0.0,-dSin,dCos);
@@ -1614,28 +1614,28 @@ Matrix3d& Matrix3d::FromEulerAnglesYZX(double dYAngle, double dPAngle,
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3d& Matrix3d::FromEulerAnglesZXY(double dYAngle, double dPAngle, 
+SEMatrix3d& SEMatrix3d::FromEulerAnglesZXY(double dYAngle, double dPAngle, 
     double dRAngle)
 {
     double dCos, dSin;
 
-    dCos = Math<double>::Cos(dYAngle);
-    dSin = Math<double>::Sin(dYAngle);
-    Matrix3d RotZMat(
+    dCos = SEMath<double>::Cos(dYAngle);
+    dSin = SEMath<double>::Sin(dYAngle);
+    SEMatrix3d RotZMat(
         dCos,dSin,0.0,
         -dSin,dCos,0.0,
         0.0,0.0,1.0);
 
-    dCos = Math<double>::Cos(dPAngle);
-    dSin = Math<double>::Sin(dPAngle);
-    Matrix3d RotXMat(
+    dCos = SEMath<double>::Cos(dPAngle);
+    dSin = SEMath<double>::Sin(dPAngle);
+    SEMatrix3d RotXMat(
         1.0,0.0,0.0,
         0.0,dCos,dSin,
         0.0,-dSin,dCos);
 
-    dCos = Math<double>::Cos(dRAngle);
-    dSin = Math<double>::Sin(dRAngle);
-    Matrix3d RotYMat(
+    dCos = SEMath<double>::Cos(dRAngle);
+    dSin = SEMath<double>::Sin(dRAngle);
+    SEMatrix3d RotYMat(
         dCos,0.0,-dSin,
         0.0,1.0,0.0,
         dSin,0.0,dCos);
@@ -1644,28 +1644,28 @@ Matrix3d& Matrix3d::FromEulerAnglesZXY(double dYAngle, double dPAngle,
     return *this;
 }
 //----------------------------------------------------------------------------
-Matrix3d& Matrix3d::FromEulerAnglesZYX(double dYAngle, double dPAngle, 
+SEMatrix3d& SEMatrix3d::FromEulerAnglesZYX(double dYAngle, double dPAngle, 
     double dRAngle)
 {
     double dCos, dSin;
 
-    dCos = Math<double>::Cos(dYAngle);
-    dSin = Math<double>::Sin(dYAngle);
-    Matrix3d RotZMat(
+    dCos = SEMath<double>::Cos(dYAngle);
+    dSin = SEMath<double>::Sin(dYAngle);
+    SEMatrix3d RotZMat(
         dCos,dSin,0.0,
         -dSin,dCos,0.0,
         0.0,0.0,1.0);
 
-    dCos = Math<double>::Cos(dPAngle);
-    dSin = Math<double>::Sin(dPAngle);
-    Matrix3d RotYMat(
+    dCos = SEMath<double>::Cos(dPAngle);
+    dSin = SEMath<double>::Sin(dPAngle);
+    SEMatrix3d RotYMat(
         dCos,0.0,-dSin,
         0.0,1.0,0.0,
         dSin,0.0,dCos);
 
-    dCos = Math<double>::Cos(dRAngle);
-    dSin = Math<double>::Sin(dRAngle);
-    Matrix3d RotXMat(
+    dCos = SEMath<double>::Cos(dRAngle);
+    dSin = SEMath<double>::Sin(dRAngle);
+    SEMatrix3d RotXMat(
         1.0,0.0,0.0,
         0.0,dCos,dSin,
         0.0,-dSin,dCos);
@@ -1674,7 +1674,7 @@ Matrix3d& Matrix3d::FromEulerAnglesZYX(double dYAngle, double dPAngle,
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Matrix3d::ToEulerAnglesXYZ(double& rdXAngle, double& rdYAngle, 
+bool SEMatrix3d::ToEulerAnglesXYZ(double& rdXAngle, double& rdYAngle, 
     double& rdZAngle) const
 {
     // R = Rx * Ry * Rz
@@ -1702,9 +1702,9 @@ bool Matrix3d::ToEulerAnglesXYZ(double& rdXAngle, double& rdYAngle,
     {
         if( m_dData[0][2] < 1.0 )
         {
-            rdXAngle = Math<double>::ATan2(m_dData[1][2], m_dData[2][2]);
+            rdXAngle = SEMath<double>::ATan2(m_dData[1][2], m_dData[2][2]);
             rdYAngle = asin(-m_dData[0][2]);
-            rdZAngle = Math<double>::ATan2(m_dData[0][1], m_dData[0][0]);
+            rdZAngle = SEMath<double>::ATan2(m_dData[0][1], m_dData[0][0]);
 
             return true;
         }
@@ -1713,8 +1713,8 @@ bool Matrix3d::ToEulerAnglesXYZ(double& rdXAngle, double& rdYAngle,
             // y = -pi/2,
             // 结果不唯一,
             // x + z = atan2(r10,r11)
-            rdXAngle = Math<double>::ATan2(-m_dData[1][0], m_dData[1][1]);
-            rdYAngle = -Math<double>::HALF_PI;
+            rdXAngle = SEMath<double>::ATan2(-m_dData[1][0], m_dData[1][1]);
+            rdYAngle = -SEMath<double>::HALF_PI;
             rdZAngle = 0.0;
 
             return false;
@@ -1725,15 +1725,15 @@ bool Matrix3d::ToEulerAnglesXYZ(double& rdXAngle, double& rdYAngle,
         // y = pi/2,
         // 结果不唯一,
         // x - z = atan2(r10,r11)
-        rdXAngle = Math<double>::ATan2(m_dData[1][0], m_dData[1][1]);
-        rdYAngle = Math<double>::HALF_PI;
+        rdXAngle = SEMath<double>::ATan2(m_dData[1][0], m_dData[1][1]);
+        rdYAngle = SEMath<double>::HALF_PI;
         rdZAngle = 0.0;
 
         return false;
     }
 }
 //----------------------------------------------------------------------------
-bool Matrix3d::ToEulerAnglesXZY(double& rdXAngle, double& rdZAngle, 
+bool SEMatrix3d::ToEulerAnglesXZY(double& rdXAngle, double& rdZAngle, 
     double& rdYAngle) const
 {
     // R = Rx * Rz * Ry
@@ -1761,9 +1761,9 @@ bool Matrix3d::ToEulerAnglesXZY(double& rdXAngle, double& rdZAngle,
     {
         if( m_dData[0][1] < 1.0 )
         {
-            rdXAngle = Math<double>::ATan2(-m_dData[2][1], m_dData[1][1]);
+            rdXAngle = SEMath<double>::ATan2(-m_dData[2][1], m_dData[1][1]);
             rdZAngle = asin(m_dData[0][1]);
-            rdYAngle = Math<double>::ATan2(-m_dData[0][2], m_dData[0][0]);
+            rdYAngle = SEMath<double>::ATan2(-m_dData[0][2], m_dData[0][0]);
 
             return true;
         }
@@ -1772,8 +1772,8 @@ bool Matrix3d::ToEulerAnglesXZY(double& rdXAngle, double& rdZAngle,
             // z = pi/2,
             // 结果不唯一,
             // x + y = atan2(r20,r22)
-            rdXAngle = Math<double>::ATan2(m_dData[2][0], m_dData[2][2]);
-            rdZAngle = Math<double>::HALF_PI;
+            rdXAngle = SEMath<double>::ATan2(m_dData[2][0], m_dData[2][2]);
+            rdZAngle = SEMath<double>::HALF_PI;
             rdYAngle = 0.0;
 
             return false;
@@ -1784,15 +1784,15 @@ bool Matrix3d::ToEulerAnglesXZY(double& rdXAngle, double& rdZAngle,
         // z = -pi/2,
         // 结果不唯一,
         // x - y = atan2(-r20,r22)
-        rdXAngle = Math<double>::ATan2(-m_dData[2][0], m_dData[2][2]);
-        rdZAngle = -Math<double>::HALF_PI;
+        rdXAngle = SEMath<double>::ATan2(-m_dData[2][0], m_dData[2][2]);
+        rdZAngle = -SEMath<double>::HALF_PI;
         rdYAngle = 0.0;
 
         return false;
     }
 }
 //----------------------------------------------------------------------------
-bool Matrix3d::ToEulerAnglesYXZ(double& rdYAngle, double& rdXAngle, 
+bool SEMatrix3d::ToEulerAnglesYXZ(double& rdYAngle, double& rdXAngle, 
     double& rdZAngle) const
 {
     // R = Ry * Rx * Rz
@@ -1820,9 +1820,9 @@ bool Matrix3d::ToEulerAnglesYXZ(double& rdYAngle, double& rdXAngle,
     {
         if( m_dData[1][2] < 1.0 )
         {
-            rdYAngle = Math<double>::ATan2(-m_dData[0][2], m_dData[2][2]);
+            rdYAngle = SEMath<double>::ATan2(-m_dData[0][2], m_dData[2][2]);
             rdXAngle = asin(m_dData[1][2]);
-            rdZAngle = Math<double>::ATan2(-m_dData[1][0], m_dData[1][1]);
+            rdZAngle = SEMath<double>::ATan2(-m_dData[1][0], m_dData[1][1]);
 
             return true;
         }
@@ -1831,8 +1831,8 @@ bool Matrix3d::ToEulerAnglesYXZ(double& rdYAngle, double& rdXAngle,
             // x = pi/2,
             // 结果不唯一,
             // y + z = atan2(r01,r00)
-            rdYAngle = Math<double>::ATan2(m_dData[0][1], m_dData[0][0]);
-            rdXAngle = Math<double>::HALF_PI;
+            rdYAngle = SEMath<double>::ATan2(m_dData[0][1], m_dData[0][0]);
+            rdXAngle = SEMath<double>::HALF_PI;
             rdZAngle = 0.0;
 
             return false;
@@ -1843,15 +1843,15 @@ bool Matrix3d::ToEulerAnglesYXZ(double& rdYAngle, double& rdXAngle,
         // x = -pi/2,
         // 结果不唯一,
         // y - z = atan2(-r01,r00)
-        rdYAngle = Math<double>::ATan2(-m_dData[0][1], m_dData[0][0]);
-        rdXAngle = -Math<double>::HALF_PI;
+        rdYAngle = SEMath<double>::ATan2(-m_dData[0][1], m_dData[0][0]);
+        rdXAngle = -SEMath<double>::HALF_PI;
         rdZAngle = 0.0;
 
         return false;
     }
 }
 //----------------------------------------------------------------------------
-bool Matrix3d::ToEulerAnglesYZX(double& rdYAngle, double& rdZAngle, 
+bool SEMatrix3d::ToEulerAnglesYZX(double& rdYAngle, double& rdZAngle, 
     double& rdXAngle) const
 {
     // R = Ry * Rz * Rx
@@ -1879,9 +1879,9 @@ bool Matrix3d::ToEulerAnglesYZX(double& rdYAngle, double& rdZAngle,
     {
         if( m_dData[1][0] < 1.0 )
         {
-            rdYAngle = Math<double>::ATan2(m_dData[2][0], m_dData[0][0]);
+            rdYAngle = SEMath<double>::ATan2(m_dData[2][0], m_dData[0][0]);
             rdZAngle = asin(-m_dData[1][0]);
-            rdXAngle = Math<double>::ATan2(m_dData[1][2], m_dData[1][1]);
+            rdXAngle = SEMath<double>::ATan2(m_dData[1][2], m_dData[1][1]);
 
             return true;
         }
@@ -1890,8 +1890,8 @@ bool Matrix3d::ToEulerAnglesYZX(double& rdYAngle, double& rdZAngle,
             // z = -pi/2,
             // 结果不唯一,
             // x + y = atan2(-r21,r22)
-            rdYAngle = Math<double>::ATan2(-m_dData[2][1], m_dData[2][2]);
-            rdZAngle = -Math<double>::HALF_PI;
+            rdYAngle = SEMath<double>::ATan2(-m_dData[2][1], m_dData[2][2]);
+            rdZAngle = -SEMath<double>::HALF_PI;
             rdXAngle = 0.0;
 
             return false;
@@ -1902,15 +1902,15 @@ bool Matrix3d::ToEulerAnglesYZX(double& rdYAngle, double& rdZAngle,
         // z = pi/2,
         // 结果不唯一,
         // x - y = atan2(-r21,r22)
-        rdYAngle = -Math<double>::ATan2(-m_dData[2][1], m_dData[2][2]);
-        rdZAngle = Math<double>::HALF_PI;
+        rdYAngle = -SEMath<double>::ATan2(-m_dData[2][1], m_dData[2][2]);
+        rdZAngle = SEMath<double>::HALF_PI;
         rdXAngle = 0.0;
 
         return false;
     }
 }
 //----------------------------------------------------------------------------
-bool Matrix3d::ToEulerAnglesZXY(double& rdZAngle, double& rdXAngle, 
+bool SEMatrix3d::ToEulerAnglesZXY(double& rdZAngle, double& rdXAngle, 
     double& rdYAngle) const
 {
     // R = Rz * Rx * Ry
@@ -1938,9 +1938,9 @@ bool Matrix3d::ToEulerAnglesZXY(double& rdZAngle, double& rdXAngle,
     {
         if( m_dData[2][1] < 1.0 )
         {
-            rdZAngle = Math<double>::ATan2(m_dData[0][1], m_dData[1][1]);
+            rdZAngle = SEMath<double>::ATan2(m_dData[0][1], m_dData[1][1]);
             rdXAngle = asin(-m_dData[2][1]);
-            rdYAngle = Math<double>::ATan2(m_dData[2][0], m_dData[2][2]);
+            rdYAngle = SEMath<double>::ATan2(m_dData[2][0], m_dData[2][2]);
 
             return true;
         }
@@ -1949,8 +1949,8 @@ bool Matrix3d::ToEulerAnglesZXY(double& rdZAngle, double& rdXAngle,
             // x = -pi/2,
             // 结果不唯一,
             // y + z = atan(-r02,r00)
-            rdZAngle = Math<double>::ATan2(-m_dData[0][2], m_dData[0][0]);
-            rdXAngle = -Math<double>::HALF_PI;
+            rdZAngle = SEMath<double>::ATan2(-m_dData[0][2], m_dData[0][0]);
+            rdXAngle = -SEMath<double>::HALF_PI;
             rdYAngle = 0.0;
 
             return false;
@@ -1961,15 +1961,15 @@ bool Matrix3d::ToEulerAnglesZXY(double& rdZAngle, double& rdXAngle,
         // x = pi/2,
         // 结果不唯一,
         // y - z = atan2(-r02,r00)
-        rdZAngle = -Math<double>::ATan2(-m_dData[0][2], m_dData[0][0]);
-        rdXAngle = Math<double>::HALF_PI;
+        rdZAngle = -SEMath<double>::ATan2(-m_dData[0][2], m_dData[0][0]);
+        rdXAngle = SEMath<double>::HALF_PI;
         rdYAngle = 0.0;
 
         return false;
     }
 }
 //----------------------------------------------------------------------------
-bool Matrix3d::ToEulerAnglesZYX(double& rdZAngle, double& rdYAngle, 
+bool SEMatrix3d::ToEulerAnglesZYX(double& rdZAngle, double& rdYAngle, 
     double& rdXAngle) const
 {
     // R = Rz * Ry * Rx
@@ -1997,9 +1997,9 @@ bool Matrix3d::ToEulerAnglesZYX(double& rdZAngle, double& rdYAngle,
     {
         if( m_dData[2][0] < 1.0 )
         {
-            rdZAngle = Math<double>::ATan2(-m_dData[1][0], m_dData[0][0]);
+            rdZAngle = SEMath<double>::ATan2(-m_dData[1][0], m_dData[0][0]);
             rdYAngle = asin(m_dData[2][0]);
-            rdXAngle = Math<double>::ATan2(-m_dData[2][1], m_dData[2][2]);
+            rdXAngle = SEMath<double>::ATan2(-m_dData[2][1], m_dData[2][2]);
 
             return true;
         }
@@ -2008,8 +2008,8 @@ bool Matrix3d::ToEulerAnglesZYX(double& rdZAngle, double& rdYAngle,
             // y = pi/2,
             // 结果不唯一,
             // x + z = atan2(r01,-r02)
-            rdZAngle = Math<double>::ATan2(m_dData[0][1], -m_dData[0][2]);
-            rdYAngle = Math<double>::HALF_PI;
+            rdZAngle = SEMath<double>::ATan2(m_dData[0][1], -m_dData[0][2]);
+            rdYAngle = SEMath<double>::HALF_PI;
             rdXAngle = 0.0;
 
             return false;
@@ -2020,22 +2020,22 @@ bool Matrix3d::ToEulerAnglesZYX(double& rdZAngle, double& rdYAngle,
         // y = -pi/2,
         // 结果不唯一,
         // z - x = atan2(r01,r02)
-        rdZAngle = Math<double>::ATan2(m_dData[0][1], m_dData[0][2]);
-        rdYAngle = -Math<double>::HALF_PI;
+        rdZAngle = SEMath<double>::ATan2(m_dData[0][1], m_dData[0][2]);
+        rdYAngle = -SEMath<double>::HALF_PI;
         rdXAngle = 0.0;
 
         return false;
     }
 }
 //----------------------------------------------------------------------------
-Matrix3d Swing::operator*(double dLhsScalar, const Matrix3d& rRhsMat)
+SEMatrix3d Swing::operator*(double dLhsScalar, const SEMatrix3d& rRhsMat)
 {
     return rRhsMat * dLhsScalar;
 }
 //----------------------------------------------------------------------------
-Vector3d Swing::operator*(const Vector3d& rLhsVec, const Matrix3d& rRhsMat)
+SEVector3d Swing::operator*(const SEVector3d& rLhsVec, const SEMatrix3d& rRhsMat)
 {
-    return Vector3d(
+    return SEVector3d(
         rLhsVec[0]*rRhsMat[0][0] + rLhsVec[1]*rRhsMat[1][0] + 
         rLhsVec[2]*rRhsMat[2][0],
         rLhsVec[0]*rRhsMat[0][1] + rLhsVec[1]*rRhsMat[1][1] + 
@@ -2044,7 +2044,7 @@ Vector3d Swing::operator*(const Vector3d& rLhsVec, const Matrix3d& rRhsMat)
         rLhsVec[2]*rRhsMat[2][2]);
 }
 //----------------------------------------------------------------------------
-void Matrix3d::Orthonormalize()
+void SEMatrix3d::Orthonormalize()
 {
     // 待检查
     // Algorithm uses Gram-Schmidt orthogonalization.  If 'this' matrix is
@@ -2058,7 +2058,7 @@ void Matrix3d::Orthonormalize()
     // product of vectors A and B.
 
     // compute q0
-    double dInvLength = Math<double>::InvSqrt(m_dData[0][0]*m_dData[0][0] +
+    double dInvLength = SEMath<double>::InvSqrt(m_dData[0][0]*m_dData[0][0] +
         m_dData[1][0]*m_dData[1][0] + m_dData[2][0]*m_dData[2][0]);
 
     m_dData[0][0] *= dInvLength;
@@ -2073,7 +2073,7 @@ void Matrix3d::Orthonormalize()
     m_dData[1][1] -= dDot0*m_dData[1][0];
     m_dData[2][1] -= dDot0*m_dData[2][0];
 
-    dInvLength = Math<double>::InvSqrt(m_dData[0][1]*m_dData[0][1] +
+    dInvLength = SEMath<double>::InvSqrt(m_dData[0][1]*m_dData[0][1] +
         m_dData[1][1]*m_dData[1][1] + m_dData[2][1]*m_dData[2][1]);
 
     m_dData[0][1] *= dInvLength;
@@ -2091,7 +2091,7 @@ void Matrix3d::Orthonormalize()
     m_dData[1][2] -= dDot0*m_dData[1][0] + dDot1*m_dData[1][1];
     m_dData[2][2] -= dDot0*m_dData[2][0] + dDot1*m_dData[2][1];
 
-    dInvLength = Math<double>::InvSqrt(m_dData[0][2]*m_dData[0][2] +
+    dInvLength = SEMath<double>::InvSqrt(m_dData[0][2]*m_dData[0][2] +
         m_dData[1][2]*m_dData[1][2] + m_dData[2][2]*m_dData[2][2]);
 
     m_dData[0][2] *= dInvLength;

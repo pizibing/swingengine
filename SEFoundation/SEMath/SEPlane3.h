@@ -40,27 +40,27 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20070522
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Plane3f
+class SE_FOUNDATION_API SEPlane3f
 {
 public:
-    Plane3f(void);
-    Plane3f(const Plane3f& rPlane);
+    SEPlane3f(void);
+    SEPlane3f(const SEPlane3f& rPlane);
     // 用单位向量法线和常量构建
-    Plane3f(const Vector3f& rNormal, float fConstant);
+    SEPlane3f(const SEVector3f& rNormal, float fConstant);
     // 用单位向量法线和平面上一点构建
-    Plane3f(const Vector3f& rNormal, const Vector3f& rP0);
+    SEPlane3f(const SEVector3f& rNormal, const SEVector3f& rP0);
     // 用平面上3点构建
-    Plane3f(const Vector3f& rP0, const Vector3f& rP1, const Vector3f& rP2);
+    SEPlane3f(const SEVector3f& rP0, const SEVector3f& rP1, const SEVector3f& rP2);
 
-    Plane3f& operator = (const Plane3f& rPlane);
+    SEPlane3f& operator = (const SEPlane3f& rPlane);
 
     // 点P在平面正面返回1,在平面上返回0,在平面负面返回-1
-    inline int OnWhichSide(const Vector3f& rP) const;
+    inline int OnWhichSide(const SEVector3f& rP) const;
     // 计算点P到平面的距离
-    inline float GetDistance(const Vector3f& rP) const;
+    inline float GetDistance(const SEVector3f& rP) const;
 
 public:
-    Vector3f Normal;
+    SEVector3f Normal;
     float Constant;
 };
 

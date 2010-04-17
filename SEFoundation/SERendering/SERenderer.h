@@ -103,8 +103,8 @@ public:
     virtual void ToggleFullscreen(void);
 
     // Back buffer clear color.
-    inline void SetClearColor(const ColorRGBA& rClearColor);
-    inline const ColorRGBA& GetClearColor(void) const;
+    inline void SetClearColor(const SEColorRGBA& rClearColor);
+    inline const SEColorRGBA& GetClearColor(void) const;
 
     // Depth buffer clear value.
     inline void SetClearDepth(float fClearDepth);
@@ -144,7 +144,7 @@ public:
         bool bItalic) = 0;
     virtual void UnloadFont(int iFontID) = 0;
     virtual bool SelectFont(int iFontID) = 0;
-    virtual void Draw(int iX, int iY, const ColorRGBA& rColor,
+    virtual void Draw(int iX, int iY, const SEColorRGBA& rColor,
         const char* pText) = 0;
 
     // 2D rendering.
@@ -289,7 +289,7 @@ public:
     // Include additional clip planes.  The input plane must be in model
     // coordinates.  It is transformed internally to camera coordinates to
     // support clipping in clip space.
-    virtual void EnableUserClipPlane(int i, const Plane3f& rPlane) = 0;
+    virtual void EnableUserClipPlane(int i, const SEPlane3f& rPlane) = 0;
     virtual void DisableUserClipPlane(int i) = 0;
 
     // Support for model-to-world transformation management.
@@ -298,13 +298,13 @@ public:
 
     // The input transformation is applied to world-space vertices before
     // the view matrix is applied.
-    void SetPostWorldTransformation(const Matrix4f& rMatrix);
+    void SetPostWorldTransformation(const SEMatrix4f& rMatrix);
     void RestorePostWorldTransformation(void);
 
     // Access the current state of the matrices.
-    inline const Matrix4f& GetWorldMatrix(void) const;
-    inline const Matrix4f& GetViewMatrix(void) const;
-    inline const Matrix4f& GetProjectionMatrix(void) const;
+    inline const SEMatrix4f& GetWorldMatrix(void) const;
+    inline const SEMatrix4f& GetViewMatrix(void) const;
+    inline const SEMatrix4f& GetProjectionMatrix(void) const;
 
 protected:
     // Abstract base class.
@@ -419,7 +419,7 @@ protected:
     //   1 = transpose of matrix
     //   2 = inverse of matrix
     //   3 = inverse-transpose of matrix
-    void GetTransform(const Matrix4f& rMat, int iOperation, float* afData);
+    void GetTransform(const SEMatrix4f& rMat, int iOperation, float* afData);
     void SetConstantWMatrix(int iOperation, float* afData);
     void SetConstantVMatrix(int iOperation, float* afData);
     void SetConstantPMatrix(int iOperation, float* afData);
@@ -512,7 +512,7 @@ protected:
     FrameBuffer::BufferingType m_eBuffering;
     FrameBuffer::MultisamplingType m_eMultisampling;
     int m_iWidth, m_iHeight;
-    ColorRGBA m_ClearColor;
+    SEColorRGBA m_ClearColor;
     float m_fClearDepth;
     unsigned int m_uiClearStencil;
     bool m_bAllowRed, m_bAllowGreen, m_bAllowBlue, m_bAllowAlpha;
@@ -538,9 +538,9 @@ protected:
 
     // 几何渲染管线所使用的矩阵变换.
     // 支持1x4的行向量乘以4x4矩阵.
-    Matrix4f m_WorldMatrix, m_SaveWorldMatrix;
-    Matrix4f m_ViewMatrix, m_SaveViewMatrix;
-    Matrix4f m_ProjectionMatrix, m_SaveProjectionMatrix;
+    SEMatrix4f m_WorldMatrix, m_SaveWorldMatrix;
+    SEMatrix4f m_ViewMatrix, m_SaveViewMatrix;
+    SEMatrix4f m_ProjectionMatrix, m_SaveProjectionMatrix;
 
     // 当前渲染的字体ID.
     int m_iFontID;

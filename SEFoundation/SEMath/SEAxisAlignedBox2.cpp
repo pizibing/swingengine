@@ -24,11 +24,11 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-AxisAlignedBox2f::AxisAlignedBox2f()
+SEAxisAlignedBox2f::SEAxisAlignedBox2f()
 {
 }
 //----------------------------------------------------------------------------
-AxisAlignedBox2f::AxisAlignedBox2f(float fXMin, float fXMax, float fYMin,
+SEAxisAlignedBox2f::SEAxisAlignedBox2f(float fXMin, float fXMax, float fYMin,
     float fYMax)
 {
     Min[0] = fXMin;
@@ -37,17 +37,17 @@ AxisAlignedBox2f::AxisAlignedBox2f(float fXMin, float fXMax, float fYMin,
     Max[1] = fYMax;
 }
 //----------------------------------------------------------------------------
-bool AxisAlignedBox2f::HasXOverlap(const AxisAlignedBox2f& rBox) const
+bool SEAxisAlignedBox2f::HasXOverlap(const SEAxisAlignedBox2f& rBox) const
 {
     return Max[0] >= rBox.Min[0] && Min[0] <= rBox.Max[0];
 }
 //----------------------------------------------------------------------------
-bool AxisAlignedBox2f::HasYOverlap(const AxisAlignedBox2f& rBox) const
+bool SEAxisAlignedBox2f::HasYOverlap(const SEAxisAlignedBox2f& rBox) const
 {
     return Max[1] >= rBox.Min[1] && Min[1] <= rBox.Max[1];
 }
 //----------------------------------------------------------------------------
-bool AxisAlignedBox2f::TestIntersection(const AxisAlignedBox2f& rBox) const
+bool SEAxisAlignedBox2f::TestIntersection(const SEAxisAlignedBox2f& rBox) const
 {
     for( int i = 0; i < 2; i++ )
     {
@@ -60,8 +60,8 @@ bool AxisAlignedBox2f::TestIntersection(const AxisAlignedBox2f& rBox) const
     return true;
 }
 //----------------------------------------------------------------------------
-bool AxisAlignedBox2f::FindIntersection(const AxisAlignedBox2f& rBox,
-    AxisAlignedBox2f& rIntr) const
+bool SEAxisAlignedBox2f::FindIntersection(const SEAxisAlignedBox2f& rBox,
+    SEAxisAlignedBox2f& rIntr) const
 {
     int i;
     for( i = 0; i < 2; i++ )

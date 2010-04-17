@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Polyhedron3f::Polyhedron3f(int iVCount, Vector3f* aVertex, int iTCount, 
+SEPolyhedron3f::SEPolyhedron3f(int iVCount, SEVector3f* aVertex, int iTCount, 
     int* aiIndex, bool bOwner)
 {
     // polyhedron必须至少是个四面体.
@@ -38,7 +38,7 @@ Polyhedron3f::Polyhedron3f(int iVCount, Vector3f* aVertex, int iTCount,
     m_bOwner = bOwner;
 }
 //----------------------------------------------------------------------------
-Polyhedron3f::Polyhedron3f(const Polyhedron3f& rPoly)
+SEPolyhedron3f::SEPolyhedron3f(const SEPolyhedron3f& rPoly)
 {
     m_aVertex = 0;
     m_aiIndex = 0;
@@ -46,7 +46,7 @@ Polyhedron3f::Polyhedron3f(const Polyhedron3f& rPoly)
     *this = rPoly;
 }
 //----------------------------------------------------------------------------
-Polyhedron3f::~Polyhedron3f()
+SEPolyhedron3f::~SEPolyhedron3f()
 {
     if( m_bOwner )
     {
@@ -55,7 +55,7 @@ Polyhedron3f::~Polyhedron3f()
     }
 }
 //----------------------------------------------------------------------------
-Polyhedron3f& Polyhedron3f::operator=(const Polyhedron3f& rPoly)
+SEPolyhedron3f& SEPolyhedron3f::operator=(const SEPolyhedron3f& rPoly)
 {
     if( m_bOwner )
     {
@@ -69,8 +69,8 @@ Polyhedron3f& Polyhedron3f::operator=(const Polyhedron3f& rPoly)
 
     if( m_bOwner )
     {
-        m_aVertex = SE_NEW Vector3f[m_iVCount];
-        size_t uiSize = m_iVCount * sizeof(Vector3f);
+        m_aVertex = SE_NEW SEVector3f[m_iVCount];
+        size_t uiSize = m_iVCount * sizeof(SEVector3f);
         SESystem::SE_Memcpy(m_aVertex, uiSize, rPoly.m_aVertex, uiSize);
         m_aiIndex = SE_NEW int[3 * m_iTCount];
         uiSize = 3 * m_iTCount * sizeof(int);
@@ -85,55 +85,55 @@ Polyhedron3f& Polyhedron3f::operator=(const Polyhedron3f& rPoly)
     return *this;
 }
 //----------------------------------------------------------------------------
-int Polyhedron3f::GetVCount() const
+int SEPolyhedron3f::GetVCount() const
 {
     return m_iVCount;
 }
 //----------------------------------------------------------------------------
-const Vector3f* Polyhedron3f::GetVertices() const
+const SEVector3f* SEPolyhedron3f::GetVertices() const
 {
     return m_aVertex;
 }
 //----------------------------------------------------------------------------
-const Vector3f& Polyhedron3f::GetVertex(int i) const
+const SEVector3f& SEPolyhedron3f::GetVertex(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iVCount );
 
     return m_aVertex[i];
 }
 //----------------------------------------------------------------------------
-int Polyhedron3f::GetTCount() const
+int SEPolyhedron3f::GetTCount() const
 {
     return m_iTCount;
 }
 //----------------------------------------------------------------------------
-const int* Polyhedron3f::GetIndices() const
+const int* SEPolyhedron3f::GetIndices() const
 {
     return m_aiIndex;
 }
 //----------------------------------------------------------------------------
-const int* Polyhedron3f::GetTriangle(int i) const
+const int* SEPolyhedron3f::GetTriangle(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iTCount );
 
     return &m_aiIndex[3 * i];
 }
 //----------------------------------------------------------------------------
-void Polyhedron3f::SetVertex(int i, const Vector3f& rV)
+void SEPolyhedron3f::SetVertex(int i, const SEVector3f& rV)
 {
     SE_ASSERT( 0 <= i && i < m_iVCount );
 
     m_aVertex[i] = rV;
 }
 //----------------------------------------------------------------------------
-Vector3f* Polyhedron3f::GetVertices()
+SEVector3f* SEPolyhedron3f::GetVertices()
 {
     return m_aVertex;
 }
 //----------------------------------------------------------------------------
-Vector3f Polyhedron3f::ComputeVertexAverage() const
+SEVector3f SEPolyhedron3f::ComputeVertexAverage() const
 {
-    Vector3f vec3fAverage = m_aVertex[0];
+    SEVector3f vec3fAverage = m_aVertex[0];
     for( int i = 1; i < m_iVCount; i++ )
     {
         vec3fAverage += m_aVertex[i];
@@ -144,7 +144,7 @@ Vector3f Polyhedron3f::ComputeVertexAverage() const
     return vec3fAverage;
 }
 //----------------------------------------------------------------------------
-float Polyhedron3f::ComputeSurfaceArea() const
+float SEPolyhedron3f::ComputeSurfaceArea() const
 {
     float fSurfaceArea = 0.0f;
 
@@ -154,9 +154,9 @@ float Polyhedron3f::ComputeSurfaceArea() const
         int iV0 = *piIndex++;
         int iV1 = *piIndex++;
         int iV2 = *piIndex++;
-        Vector3f vec3fEdge0 = m_aVertex[iV1] - m_aVertex[iV0];
-        Vector3f vec3fEdge1 = m_aVertex[iV2] - m_aVertex[iV0];
-        Vector3f vec3fCross = vec3fEdge0.Cross(vec3fEdge1);
+        SEVector3f vec3fEdge0 = m_aVertex[iV1] - m_aVertex[iV0];
+        SEVector3f vec3fEdge1 = m_aVertex[iV2] - m_aVertex[iV0];
+        SEVector3f vec3fCross = vec3fEdge0.Cross(vec3fEdge1);
         fSurfaceArea += vec3fCross.GetLength();
     }
 
@@ -165,7 +165,7 @@ float Polyhedron3f::ComputeSurfaceArea() const
     return fSurfaceArea;
 }
 //----------------------------------------------------------------------------
-float Polyhedron3f::ComputeVolume() const
+float SEPolyhedron3f::ComputeVolume() const
 {
     float fVolume = 0.0f;
 

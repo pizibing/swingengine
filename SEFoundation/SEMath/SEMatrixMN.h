@@ -33,14 +33,14 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20070706
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API MatrixMNf
+class SE_FOUNDATION_API SEMatrixMNf
 {
 public:
-    MatrixMNf(int iRows = 0, int iCols = 0);
-    MatrixMNf(int iRows, int iCols, const float* afData);
-    MatrixMNf(int iRows, int iCols, const float** aafEntry);
-    MatrixMNf(const MatrixMNf& rMat);
-    ~MatrixMNf(void);
+    SEMatrixMNf(int iRows = 0, int iCols = 0);
+    SEMatrixMNf(int iRows, int iCols, const float* afData);
+    SEMatrixMNf(int iRows, int iCols, const float** aafEntry);
+    SEMatrixMNf(const SEMatrixMNf& rMat);
+    ~SEMatrixMNf(void);
 
 public:
     inline void SetSize(int iRows, int iCols);
@@ -57,53 +57,53 @@ public:
     float operator () (int iRow, int iCol) const;
     float& operator () (int iRow, int iCol);
     
-    inline void SetRow(int iDesRow, const VectorNf& rSrcVec);
-    inline void GetRow(int iSrcRow, VectorNf& rDesVec) const;
-    inline void SetCol(int iDesCol, const VectorNf& rSrcVec);
-    inline void GetCol(int iSrcCol, VectorNf& rDesVec) const;
+    inline void SetRow(int iDesRow, const SEVectorNf& rSrcVec);
+    inline void GetRow(int iSrcRow, SEVectorNf& rDesVec) const;
+    inline void SetCol(int iDesCol, const SEVectorNf& rSrcVec);
+    inline void GetCol(int iSrcCol, SEVectorNf& rDesVec) const;
 
     void SetMatrix(int iRows, int iCols, const float* pData);
     void SetMatrix(int iRows, int iCols, const float** ppData);
 
-    MatrixMNf& operator = (const MatrixMNf& rMat);
+    SEMatrixMNf& operator = (const SEMatrixMNf& rMat);
 
-    bool operator == (const MatrixMNf& rMat) const;
-    bool operator != (const MatrixMNf& rMat) const;
-    bool operator <  (const MatrixMNf& rMat) const;
-    bool operator <= (const MatrixMNf& rMat) const;
-    bool operator >  (const MatrixMNf& rMat) const;
-    bool operator >= (const MatrixMNf& rMat) const;
+    bool operator == (const SEMatrixMNf& rMat) const;
+    bool operator != (const SEMatrixMNf& rMat) const;
+    bool operator <  (const SEMatrixMNf& rMat) const;
+    bool operator <= (const SEMatrixMNf& rMat) const;
+    bool operator >  (const SEMatrixMNf& rMat) const;
+    bool operator >= (const SEMatrixMNf& rMat) const;
 
-    MatrixMNf operator + (const MatrixMNf& rRhsMat) const;
-    MatrixMNf operator - (const MatrixMNf& rRhsMat) const;
-    MatrixMNf operator * (const MatrixMNf& rRhsMat) const;
-    MatrixMNf operator * (float fScalar) const;
-    MatrixMNf operator / (float fScalar) const;
-    MatrixMNf operator - (void) const;
+    SEMatrixMNf operator + (const SEMatrixMNf& rRhsMat) const;
+    SEMatrixMNf operator - (const SEMatrixMNf& rRhsMat) const;
+    SEMatrixMNf operator * (const SEMatrixMNf& rRhsMat) const;
+    SEMatrixMNf operator * (float fScalar) const;
+    SEMatrixMNf operator / (float fScalar) const;
+    SEMatrixMNf operator - (void) const;
 
-    MatrixMNf& operator += (const MatrixMNf& rRhsMat);
-    MatrixMNf& operator -= (const MatrixMNf& rRhsMat);
-    MatrixMNf& operator *= (float fScalar);
-    MatrixMNf& operator /= (float fScalar);
+    SEMatrixMNf& operator += (const SEMatrixMNf& rRhsMat);
+    SEMatrixMNf& operator -= (const SEMatrixMNf& rRhsMat);
+    SEMatrixMNf& operator *= (float fScalar);
+    SEMatrixMNf& operator /= (float fScalar);
 
     // 获取转置矩阵
-    inline void GetTranspose(MatrixMNf& rDesMat) const;
+    inline void GetTranspose(SEMatrixMNf& rDesMat) const;
     // 获取逆矩阵,矩阵必须是方阵,可逆方阵返回true
-    bool GetInverse(MatrixMNf& rDesMat) const;
+    bool GetInverse(SEMatrixMNf& rDesMat) const;
 
     // 乘以列向量
-    VectorNf operator * (const VectorNf& rRhsVec) const;
+    SEVectorNf operator * (const SEVectorNf& rRhsVec) const;
 
-    SE_FOUNDATION_API friend MatrixMNf operator * (float fLhsScalar,
-        const MatrixMNf& rRhsMat);
-    SE_FOUNDATION_API friend VectorNf operator * (const VectorNf& rLhsVec,
-        const MatrixMNf& rMRhsat);
+    SE_FOUNDATION_API friend SEMatrixMNf operator * (float fLhsScalar,
+        const SEMatrixMNf& rRhsMat);
+    SE_FOUNDATION_API friend SEVectorNf operator * (const SEVectorNf& rLhsVec,
+        const SEMatrixMNf& rMRhsat);
 
 private:
     inline void Allocate(bool bSetToZero);
     inline void Deallocate(void);
 
-    inline int CompareData(const MatrixMNf& rMat) const;
+    inline int CompareData(const SEMatrixMNf& rMat) const;
 
     int m_iRows, m_iCols, m_iCount;
 

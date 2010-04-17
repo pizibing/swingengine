@@ -24,20 +24,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistVector3Line3f::DistVector3Line3f(const Vector3f& rVector,
-    const Line3f& rLine)
+DistVector3Line3f::DistVector3Line3f(const SEVector3f& rVector,
+    const SELine3f& rLine)
     :
     m_pVector(&rVector),
     m_pLine(&rLine)
 {
 }
 //----------------------------------------------------------------------------
-const Vector3f& DistVector3Line3f::GetVector() const
+const SEVector3f& DistVector3Line3f::GetVector() const
 {
     return *m_pVector;
 }
 //----------------------------------------------------------------------------
-const Line3f& DistVector3Line3f::GetLine() const
+const SELine3f& DistVector3Line3f::GetLine() const
 {
     return *m_pLine;
 }
@@ -46,12 +46,12 @@ float DistVector3Line3f::Get()
 {
     float fSqrDist = GetSquared();
 
-    return Math<float>::Sqrt(fSqrDist);
+    return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistVector3Line3f::GetSquared()
 {
-    Vector3f vec3fDiff = *m_pVector - m_pLine->Origin;
+    SEVector3f vec3fDiff = *m_pVector - m_pLine->Origin;
     m_fLineParameter = m_pLine->Direction.Dot(vec3fDiff);
     m_ClosestPoint0 = *m_pVector;
     m_ClosestPoint1 = m_pLine->Origin + m_fLineParameter*m_pLine->Direction;
@@ -60,22 +60,22 @@ float DistVector3Line3f::GetSquared()
     return vec3fDiff.GetSquaredLength();
 }
 //----------------------------------------------------------------------------
-float DistVector3Line3f::Get(float fT, const Vector3f& rVelocity0,
-    const Vector3f& rVelocity1)
+float DistVector3Line3f::Get(float fT, const SEVector3f& rVelocity0,
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMVector = *m_pVector + fT*rVelocity0;
-    Vector3f vec3fMOrigin = m_pLine->Origin + fT*rVelocity1;
-    Line3f tempMLine(vec3fMOrigin, m_pLine->Direction);
+    SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
+    SEVector3f vec3fMOrigin = m_pLine->Origin + fT*rVelocity1;
+    SELine3f tempMLine(vec3fMOrigin, m_pLine->Direction);
 
     return DistVector3Line3f(vec3fMVector, tempMLine).Get();
 }
 //----------------------------------------------------------------------------
-float DistVector3Line3f::GetSquared(float fT, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistVector3Line3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMVector = *m_pVector + fT*rVelocity0;
-    Vector3f vec3fMOrigin = m_pLine->Origin + fT*rVelocity1;
-    Line3f tempMLine(vec3fMOrigin, m_pLine->Direction);
+    SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
+    SEVector3f vec3fMOrigin = m_pLine->Origin + fT*rVelocity1;
+    SELine3f tempMLine(vec3fMOrigin, m_pLine->Direction);
 
     return DistVector3Line3f(vec3fMVector, tempMLine).GetSquared();
 }

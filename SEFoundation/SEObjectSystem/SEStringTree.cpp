@@ -113,9 +113,9 @@ void SEStringTree::FormatFloat(float fValue, size_t uiStringSize,
     char* pString)
 {
     // 是否为有效区间内的浮点数
-    if( fValue > -Mathf::MAX_REAL )
+    if( fValue > -SEMathf::MAX_REAL )
     {
-        if( fValue < Mathf::MAX_REAL )
+        if( fValue < SEMathf::MAX_REAL )
         {
             SESystem::SE_Sprintf(pString, uiStringSize, "%f", fValue);
         }
@@ -134,9 +134,9 @@ void SEStringTree::FormatDouble(double dValue, size_t uiStringSize,
     char* pString)
 {
     // 是否为有效区间内的双精度浮点数
-    if( dValue > -Mathd::MAX_REAL )
+    if( dValue > -SEMathd::MAX_REAL )
     {
-        if( dValue < Mathd::MAX_REAL )
+        if( dValue < SEMathd::MAX_REAL )
         {
             SESystem::SE_Sprintf(pString, uiStringSize, "%lf", dValue);
         }
@@ -398,7 +398,7 @@ char* Swing::Format(const char* pPrefix, const BoundingVolume* pBV)
     return pString;
 }
 //----------------------------------------------------------------------------
-char* Swing::Format(const char* pPrefix, const ColorRGBA& rValue)
+char* Swing::Format(const char* pPrefix, const SEColorRGBA& rValue)
 {
     SE_ASSERT( pPrefix );
 
@@ -413,7 +413,7 @@ char* Swing::Format(const char* pPrefix, const ColorRGBA& rValue)
     return pString;
 }
 //----------------------------------------------------------------------------
-char* Swing::Format(const char* pPrefix, const ColorRGB& rValue)
+char* Swing::Format(const char* pPrefix, const SEColorRGB& rValue)
 {
     SE_ASSERT( pPrefix );
 
@@ -428,7 +428,7 @@ char* Swing::Format(const char* pPrefix, const ColorRGB& rValue)
     return pString;
 }
 //----------------------------------------------------------------------------
-char* Swing::Format(const char* pPrefix, const Line3f& rValue)
+char* Swing::Format(const char* pPrefix, const SELine3f& rValue)
 {
     SE_ASSERT( pPrefix );
 
@@ -445,7 +445,7 @@ char* Swing::Format(const char* pPrefix, const Line3f& rValue)
     return pString;
 }
 //----------------------------------------------------------------------------
-char* Swing::Format(const char* pPrefix, const Matrix2f& rValue)
+char* Swing::Format(const char* pPrefix, const SEMatrix2f& rValue)
 {
     SE_ASSERT( pPrefix );
 
@@ -461,7 +461,7 @@ char* Swing::Format(const char* pPrefix, const Matrix2f& rValue)
     return pString;
 }
 //----------------------------------------------------------------------------
-char* Swing::Format(const char* pPrefix, const Matrix3f& rValue)
+char* Swing::Format(const char* pPrefix, const SEMatrix3f& rValue)
 {
     SE_ASSERT( pPrefix );
 
@@ -479,7 +479,7 @@ char* Swing::Format(const char* pPrefix, const Matrix3f& rValue)
     return pString;
 }
 //----------------------------------------------------------------------------
-char* Swing::Format(const char* pPrefix, const Matrix4f& rValue)
+char* Swing::Format(const char* pPrefix, const SEMatrix4f& rValue)
 {
     SE_ASSERT( pPrefix );
 
@@ -498,7 +498,7 @@ char* Swing::Format(const char* pPrefix, const Matrix4f& rValue)
     return pString;
 }
 //----------------------------------------------------------------------------
-char* Swing::Format(const char* pPrefix, const Plane3f& rValue)
+char* Swing::Format(const char* pPrefix, const SEPlane3f& rValue)
 {
     SE_ASSERT( pPrefix );
 
@@ -514,7 +514,7 @@ char* Swing::Format(const char* pPrefix, const Plane3f& rValue)
     return pString;
 }
 //----------------------------------------------------------------------------
-char* Swing::Format(const char* pPrefix, const Quaternionf& rValue)
+char* Swing::Format(const char* pPrefix, const SEQuaternionf& rValue)
 {
     SE_ASSERT( pPrefix );
 
@@ -548,7 +548,7 @@ char* Swing::Format(const char* pPrefix, const SEVector2f& rValue)
     return pString;
 }
 //----------------------------------------------------------------------------
-char* Swing::Format(const char* pPrefix, const Vector3f& rValue)
+char* Swing::Format(const char* pPrefix, const SEVector3f& rValue)
 {
     SE_ASSERT( pPrefix );
 
@@ -568,7 +568,7 @@ char* Swing::Format(const char* pPrefix, const Vector3f& rValue)
     return pString;
 }
 //----------------------------------------------------------------------------
-char* Swing::Format(const char* pPrefix, const Vector4f& rValue)
+char* Swing::Format(const char* pPrefix, const SEVector4f& rValue)
 {
     SE_ASSERT( pPrefix );
 

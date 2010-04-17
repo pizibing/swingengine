@@ -62,16 +62,16 @@ public:
     // 默认up        U = (0,1,0)
     // 默认direction D = (0,0,1)
 
-    void SetFrame(const Vector3f& rLocation, const Vector3f& rRVector,
-        const Vector3f& rUVector, const Vector3f& rDVector);
-    void SetLocation(const Vector3f& rLocation);
-    void SetAxes(const Vector3f& rRVector, const Vector3f& rUVector, 
-        const Vector3f& rDVector);
+    void SetFrame(const SEVector3f& rLocation, const SEVector3f& rRVector,
+        const SEVector3f& rUVector, const SEVector3f& rDVector);
+    void SetLocation(const SEVector3f& rLocation);
+    void SetAxes(const SEVector3f& rRVector, const SEVector3f& rUVector, 
+        const SEVector3f& rDVector);
 
-    inline Vector3f GetLocation(void) const;
-    inline Vector3f GetRVector(void) const;
-    inline Vector3f GetUVector(void) const;
-    inline Vector3f GetDVector(void) const;
+    inline SEVector3f GetLocation(void) const;
+    inline SEVector3f GetRVector(void) const;
+    inline SEVector3f GetUVector(void) const;
+    inline SEVector3f GetDVector(void) const;
 
     // view frustum参数枚举.
     enum
@@ -135,7 +135,7 @@ public:
     // function returns 'true' if and only if the input point is located in
     // the current viewport. When 'true', the origin and direction values are
     // valid and are in world coordinates. The direction vector is unit length.
-    bool GetPickRay(int iX, int iY, int iWidth, int iHeight, Ray3f& rRay)
+    bool GetPickRay(int iX, int iY, int iWidth, int iHeight, SERay3f& rRay)
         const;
 
     // Virtual track ball rotation support. (x0,y0) and (x1,y1) input points
@@ -145,11 +145,11 @@ public:
     // function returns 'true' if and only if the two points are different.
     // When 'true', the rotation matrix is valid and is in world coordinates.
     bool GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1, 
-        Matrix3f& rMat) const;
+        SEMatrix3f& rMat) const;
 
 protected:
     // 摄像机E;R,U,D的世界坐标系表示.
-    Vector3f m_Location, m_RVector, m_UVector, m_DVector;
+    SEVector3f m_Location, m_RVector, m_UVector, m_DVector;
 
     // 截投体参数(near, far, bottom, top, left, right).
     float m_Frustum[VF_COUNT];

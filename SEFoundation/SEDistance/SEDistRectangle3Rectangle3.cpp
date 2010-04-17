@@ -26,19 +26,19 @@ using namespace Swing;
 
 //----------------------------------------------------------------------------
 DistRectangle3Rectangle3f::DistRectangle3Rectangle3f(
-    const Rectangle3f& rRectangle0, const Rectangle3f& rRectangle1)
+    const SERectangle3f& rRectangle0, const SERectangle3f& rRectangle1)
     :
     m_pRectangle0(&rRectangle0),
     m_pRectangle1(&rRectangle1)
 {
 }
 //----------------------------------------------------------------------------
-const Rectangle3f& DistRectangle3Rectangle3f::GetRectangle0() const
+const SERectangle3f& DistRectangle3Rectangle3f::GetRectangle0() const
 {
     return *m_pRectangle0;
 }
 //----------------------------------------------------------------------------
-const Rectangle3f& DistRectangle3Rectangle3f::GetRectangle1() const
+const SERectangle3f& DistRectangle3Rectangle3f::GetRectangle1() const
 {
     return *m_pRectangle1;
 }
@@ -47,14 +47,14 @@ float DistRectangle3Rectangle3f::Get()
 {
     float fSqrDist = GetSquared();
 
-    return Math<float>::Sqrt(fSqrDist);
+    return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistRectangle3Rectangle3f::GetSquared()
 {
     // 把rectangle0各边和rectangle1比较.
-    float fSqrDist = Math<float>::MAX_REAL, fSqrDistTmp;
-    Segment3f tempEdge;
+    float fSqrDist = SEMath<float>::MAX_REAL, fSqrDistTmp;
+    SESegment3f tempEdge;
     int i0, i1;
     for( i1 = 0; i1 < 2; i1++ )
     {
@@ -100,27 +100,27 @@ float DistRectangle3Rectangle3f::GetSquared()
     return fSqrDist;
 }
 //----------------------------------------------------------------------------
-float DistRectangle3Rectangle3f::Get(float fT, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistRectangle3Rectangle3f::Get(float fT, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMCenter0 = m_pRectangle0->Center + fT*rVelocity0;
-    Vector3f vec3fMCenter1 = m_pRectangle1->Center + fT*rVelocity1;
-    Rectangle3f tempMRectangle0(vec3fMCenter0, m_pRectangle0->Axis,
+    SEVector3f vec3fMCenter0 = m_pRectangle0->Center + fT*rVelocity0;
+    SEVector3f vec3fMCenter1 = m_pRectangle1->Center + fT*rVelocity1;
+    SERectangle3f tempMRectangle0(vec3fMCenter0, m_pRectangle0->Axis,
         m_pRectangle0->Extent);
-    Rectangle3f tempMRectangle1(vec3fMCenter1, m_pRectangle1->Axis,
+    SERectangle3f tempMRectangle1(vec3fMCenter1, m_pRectangle1->Axis,
         m_pRectangle1->Extent);
 
     return DistRectangle3Rectangle3f(tempMRectangle0, tempMRectangle1).Get();
 }
 //----------------------------------------------------------------------------
 float DistRectangle3Rectangle3f::GetSquared(float fT,
-    const Vector3f& rVelocity0, const Vector3f& rVelocity1)
+    const SEVector3f& rVelocity0, const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMCenter0 = m_pRectangle0->Center + fT*rVelocity0;
-    Vector3f vec3fMCenter1 = m_pRectangle1->Center + fT*rVelocity1;
-    Rectangle3f tempMRectangle0(vec3fMCenter0, m_pRectangle0->Axis,
+    SEVector3f vec3fMCenter0 = m_pRectangle0->Center + fT*rVelocity0;
+    SEVector3f vec3fMCenter1 = m_pRectangle1->Center + fT*rVelocity1;
+    SERectangle3f tempMRectangle0(vec3fMCenter0, m_pRectangle0->Axis,
         m_pRectangle0->Extent);
-    Rectangle3f tempMRectangle1(vec3fMCenter1, m_pRectangle1->Axis,
+    SERectangle3f tempMRectangle1(vec3fMCenter1, m_pRectangle1->Axis,
         m_pRectangle1->Extent);
 
     return DistRectangle3Rectangle3f(tempMRectangle0,

@@ -24,20 +24,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistSegment3Segment3f::DistSegment3Segment3f(const Segment3f& rSegment0, 
-    const Segment3f& rSegment1)
+DistSegment3Segment3f::DistSegment3Segment3f(const SESegment3f& rSegment0, 
+    const SESegment3f& rSegment1)
     :
     m_pSegment0(&rSegment0),
     m_pSegment1(&rSegment1)
 {
 }
 //----------------------------------------------------------------------------
-const Segment3f& DistSegment3Segment3f::GetSegment0() const
+const SESegment3f& DistSegment3Segment3f::GetSegment0() const
 {
     return *m_pSegment0;
 }
 //----------------------------------------------------------------------------
-const Segment3f& DistSegment3Segment3f::GetSegment1() const
+const SESegment3f& DistSegment3Segment3f::GetSegment1() const
 {
     return *m_pSegment1;
 }
@@ -46,20 +46,20 @@ float DistSegment3Segment3f::Get()
 {
     float fSqrDist = GetSquared();
 
-    return Math<float>::Sqrt(fSqrDist);
+    return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistSegment3Segment3f::GetSquared()
 {
-    Vector3f vec3fDiff = m_pSegment0->Origin - m_pSegment1->Origin;
+    SEVector3f vec3fDiff = m_pSegment0->Origin - m_pSegment1->Origin;
     float fA01 = -m_pSegment0->Direction.Dot(m_pSegment1->Direction);
     float fB0 = vec3fDiff.Dot(m_pSegment0->Direction);
     float fB1 = -vec3fDiff.Dot(m_pSegment1->Direction);
     float fC = vec3fDiff.GetSquaredLength();
-    float fDet = Math<float>::FAbs(1.0f - fA01*fA01);
+    float fDet = SEMath<float>::FAbs(1.0f - fA01*fA01);
     float fS0, fS1, fSqrDist, fExtDet0, fExtDet1, fTmpS0, fTmpS1;
 
-    if( fDet >= Math<float>::ZERO_TOLERANCE )
+    if( fDet >= SEMath<float>::ZERO_TOLERANCE )
     {
         // 两线段不平行.
         fS0 = fA01*fB1 - fB0;
@@ -367,30 +367,30 @@ float DistSegment3Segment3f::GetSquared()
     m_fSegment0Parameter = fS0;
     m_fSegment1Parameter = fS1;
 
-    return Math<float>::FAbs(fSqrDist);
+    return SEMath<float>::FAbs(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistSegment3Segment3f::Get(float fS1, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistSegment3Segment3f::Get(float fS1, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMOrigin0 = m_pSegment0->Origin + fS1*rVelocity0;
-    Vector3f vec3fMOrigin1 = m_pSegment1->Origin + fS1*rVelocity1;
-    Segment3f tempMSegment0(vec3fMOrigin0, m_pSegment0->Direction,
+    SEVector3f vec3fMOrigin0 = m_pSegment0->Origin + fS1*rVelocity0;
+    SEVector3f vec3fMOrigin1 = m_pSegment1->Origin + fS1*rVelocity1;
+    SESegment3f tempMSegment0(vec3fMOrigin0, m_pSegment0->Direction,
         m_pSegment0->Extent);
-    Segment3f tempMSegment1(vec3fMOrigin1, m_pSegment1->Direction,
+    SESegment3f tempMSegment1(vec3fMOrigin1, m_pSegment1->Direction,
         m_pSegment1->Extent);
 
     return DistSegment3Segment3f(tempMSegment0, tempMSegment1).Get();
 }
 //----------------------------------------------------------------------------
-float DistSegment3Segment3f::GetSquared(float fS1, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistSegment3Segment3f::GetSquared(float fS1, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMOrigin0 = m_pSegment0->Origin + fS1*rVelocity0;
-    Vector3f vec3fMOrigin1 = m_pSegment1->Origin + fS1*rVelocity1;
-    Segment3f tempMSegment0(vec3fMOrigin0, m_pSegment0->Direction,
+    SEVector3f vec3fMOrigin0 = m_pSegment0->Origin + fS1*rVelocity0;
+    SEVector3f vec3fMOrigin1 = m_pSegment1->Origin + fS1*rVelocity1;
+    SESegment3f tempMSegment0(vec3fMOrigin0, m_pSegment0->Direction,
         m_pSegment0->Extent);
-    Segment3f tempMSegment1(vec3fMOrigin1, m_pSegment1->Direction,
+    SESegment3f tempMSegment1(vec3fMOrigin1, m_pSegment1->Direction,
         m_pSegment1->Extent);
 
     return DistSegment3Segment3f(tempMSegment0, tempMSegment1).GetSquared();

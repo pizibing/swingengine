@@ -24,10 +24,10 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ConvexPolyhedron3f::ConvexPolyhedron3f(int iVCount, Vector3f* aVertex, 
-    int iTCount, int* aiIndex, Plane3f* aPlane, bool bOwner)
+SEConvexPolyhedron3f::SEConvexPolyhedron3f(int iVCount, SEVector3f* aVertex, 
+    int iTCount, int* aiIndex, SEPlane3f* aPlane, bool bOwner)
     :
-    Polyhedron3f(iVCount, aVertex, iTCount, aiIndex, bOwner)
+    SEPolyhedron3f(iVCount, aVertex, iTCount, aiIndex, bOwner)
 {
     if( aPlane )
     {
@@ -36,22 +36,22 @@ ConvexPolyhedron3f::ConvexPolyhedron3f(int iVCount, Vector3f* aVertex,
     }
     else
     {
-        m_aPlane = SE_NEW Plane3f[m_iTCount];
+        m_aPlane = SE_NEW SEPlane3f[m_iTCount];
         m_bPlaneOwner = true;
         UpdatePlanes();
     }
 }
 //----------------------------------------------------------------------------
-ConvexPolyhedron3f::ConvexPolyhedron3f(const ConvexPolyhedron3f& rPoly)
+SEConvexPolyhedron3f::SEConvexPolyhedron3f(const SEConvexPolyhedron3f& rPoly)
     :
-    Polyhedron3f(rPoly)
+    SEPolyhedron3f(rPoly)
 {
     m_aPlane = 0;
     m_bPlaneOwner = false;
     *this = rPoly;
 }
 //----------------------------------------------------------------------------
-ConvexPolyhedron3f::~ConvexPolyhedron3f()
+SEConvexPolyhedron3f::~SEConvexPolyhedron3f()
 {
     if( m_bPlaneOwner )
     {
@@ -59,10 +59,10 @@ ConvexPolyhedron3f::~ConvexPolyhedron3f()
     }
 }
 //----------------------------------------------------------------------------
-ConvexPolyhedron3f& ConvexPolyhedron3f::operator=(
-    const ConvexPolyhedron3f& rPoly)
+SEConvexPolyhedron3f& SEConvexPolyhedron3f::operator=(
+    const SEConvexPolyhedron3f& rPoly)
 {
-    Polyhedron3f::operator=(rPoly);
+    SEPolyhedron3f::operator=(rPoly);
 
     if( m_bPlaneOwner )
     {
@@ -73,8 +73,8 @@ ConvexPolyhedron3f& ConvexPolyhedron3f::operator=(
 
     if( m_bPlaneOwner )
     {
-        m_aPlane = SE_NEW Plane3f[m_iTCount];
-        size_t uiSize = m_iTCount * sizeof(Plane3f);
+        m_aPlane = SE_NEW SEPlane3f[m_iTCount];
+        size_t uiSize = m_iTCount * sizeof(SEPlane3f);
         SESystem::SE_Memcpy(m_aPlane, uiSize, rPoly.m_aPlane, uiSize);
     }
     else
@@ -87,21 +87,21 @@ ConvexPolyhedron3f& ConvexPolyhedron3f::operator=(
     return *this;
 }
 //----------------------------------------------------------------------------
-const Plane3f* ConvexPolyhedron3f::GetPlanes() const
+const SEPlane3f* SEConvexPolyhedron3f::GetPlanes() const
 {
     return m_aPlane;
 }
 //----------------------------------------------------------------------------
-const Plane3f& ConvexPolyhedron3f::GetPlane(int i) const
+const SEPlane3f& SEConvexPolyhedron3f::GetPlane(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iTCount );
 
     return m_aPlane[i];
 }
 //----------------------------------------------------------------------------
-void ConvexPolyhedron3f::SetVertex(int i, const Vector3f& rV)
+void SEConvexPolyhedron3f::SetVertex(int i, const SEVector3f& rV)
 {
-    Polyhedron3f::SetVertex(i, rV);
+    SEPolyhedron3f::SetVertex(i, rV);
 
     const int* piIndex = m_aiIndex;
     for( int j = 0; j < m_iTCount; j++ )
@@ -116,23 +116,23 @@ void ConvexPolyhedron3f::SetVertex(int i, const Vector3f& rV)
     }
 }
 //----------------------------------------------------------------------------
-void ConvexPolyhedron3f::UpdatePlane(int i, const Vector3f& rAverage)
+void SEConvexPolyhedron3f::UpdatePlane(int i, const SEVector3f& rAverage)
 {
     int iBase = 3 * i;
     int iV0 = m_aiIndex[iBase++];
     int iV1 = m_aiIndex[iBase++];
     int iV2 = m_aiIndex[iBase];
 
-    Vector3f& rV0 = m_aVertex[iV0];
-    Vector3f& rV1 = m_aVertex[iV1];
-    Vector3f& rV2 = m_aVertex[iV2];
+    SEVector3f& rV0 = m_aVertex[iV0];
+    SEVector3f& rV1 = m_aVertex[iV1];
+    SEVector3f& rV2 = m_aVertex[iV2];
 
-    Vector3f vec3fDiff = rAverage - rV0;
-    Vector3f vec3fE1 = rV1 - rV0;
-    Vector3f vec3fE2 = rV2 - rV0;
-    Vector3f vec3fNormal = vec3fE2.Cross(vec3fE1);
+    SEVector3f vec3fDiff = rAverage - rV0;
+    SEVector3f vec3fE1 = rV1 - rV0;
+    SEVector3f vec3fE2 = rV2 - rV0;
+    SEVector3f vec3fNormal = vec3fE2.Cross(vec3fE1);
     float fLength = vec3fNormal.GetLength();
-    if( fLength > Mathf::ZERO_TOLERANCE )
+    if( fLength > SEMathf::ZERO_TOLERANCE )
     {
         vec3fNormal /= fLength;
         float fDot = vec3fNormal.Dot(vec3fDiff);
@@ -152,12 +152,12 @@ void ConvexPolyhedron3f::UpdatePlane(int i, const Vector3f& rAverage)
     }
 
     // 法线指向多面体内部.
-    m_aPlane[i] = Plane3f(vec3fNormal, vec3fNormal.Dot(rV0));
+    m_aPlane[i] = SEPlane3f(vec3fNormal, vec3fNormal.Dot(rV0));
 }
 //----------------------------------------------------------------------------
-void ConvexPolyhedron3f::UpdatePlanes()
+void SEConvexPolyhedron3f::UpdatePlanes()
 {
-    Vector3f vec3fAverage = this->ComputeVertexAverage();
+    SEVector3f vec3fAverage = this->ComputeVertexAverage();
     int i;
 
     if( m_TModified.empty() )
@@ -178,12 +178,12 @@ void ConvexPolyhedron3f::UpdatePlanes()
     }
 }
 //----------------------------------------------------------------------------
-bool ConvexPolyhedron3f::IsConvex(float fThreshold) const
+bool SEConvexPolyhedron3f::IsConvex(float fThreshold) const
 {
-    float fMax = -Mathf::MAX_REAL, fMin = Mathf::MAX_REAL;
+    float fMax = -SEMathf::MAX_REAL, fMin = SEMathf::MAX_REAL;
     for( int j = 0; j < m_iTCount; j++ )
     {
-        const Plane3f& rPlane = m_aPlane[j];
+        const SEPlane3f& rPlane = m_aPlane[j];
         for( int i = 0; i < m_iVCount; i++ )
         {
             float fDistance = rPlane.GetDistance(m_aVertex[i]);
@@ -205,7 +205,7 @@ bool ConvexPolyhedron3f::IsConvex(float fThreshold) const
     return true;
 }
 //----------------------------------------------------------------------------
-bool ConvexPolyhedron3f::ContainsPoint(const Vector3f& rP, 
+bool SEConvexPolyhedron3f::ContainsPoint(const SEVector3f& rP, 
     float fThreshold) const
 {
     for( int i = 0; i < m_iTCount; i++ )

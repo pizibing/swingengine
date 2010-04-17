@@ -86,9 +86,9 @@ public:
     LightType Type;     // default: LT_AMBIENT
 
     // The colors of the light.
-    ColorRGB Ambient;   // default: ColorRGB(0,0,0)
-    ColorRGB Diffuse;   // default: ColorRGB(0,0,0)
-    ColorRGB Specular;  // default: ColorRGB(0,0,0)
+    SEColorRGB Ambient;   // default: SEColorRGB(0,0,0)
+    SEColorRGB Diffuse;   // default: SEColorRGB(0,0,0)
+    SEColorRGB Specular;  // default: SEColorRGB(0,0,0)
 
     // Attenuation is typically specified as a modulator
     //   m = 1/(C + L*d + Q*d*d)
@@ -122,10 +122,10 @@ public:
     //   default up        U = (0,1,0)
     //   default direction D = (0,0,1)
     // {P:R,U,D}构成左手坐标系.
-    Vector3f Position, RVector, UVector, DVector;
+    SEVector3f Position, RVector, UVector, DVector;
 
     // 设置方向向量D,同时自动计算并调整R,U.
-    void SetDirection(const Vector3f& rDirection, bool bUnitLength = true);
+    void SetDirection(const SEVector3f& rDirection, bool bUnitLength = true);
 
     // 在debug模式使用,判断是否为一个有效的左手规范坐标基.
     bool IsValidFrame(void) const;

@@ -54,7 +54,7 @@ inline float& RoamTerrain::UVBias()
     return m_fUVBias;
 }
 //----------------------------------------------------------------------------
-inline ColorRGBA& RoamTerrain::BorderColor()
+inline SEColorRGBA& RoamTerrain::BorderColor()
 {
     return m_BorderColor;
 }

@@ -105,7 +105,7 @@ public:
     float Reference;        // default: 0, always in [0,1]
 
     // TO DO.  New member, needs to be streamed.
-    ColorRGBA ConstantColor;   // default: (0,0,0,0)
+    SEColorRGBA ConstantColor;   // default: (0,0,0,0)
 
 private:
     static const char* ms_pSrcBlend[SBF_COUNT];

@@ -28,17 +28,17 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:LinComp虚基类
+// 名称:SELinComp虚基类
 // 说明:
 // 作者:Sun Che
 // 时间:20081219
 //----------------------------------------------------------------------------
 template <class Real>
-class LinComp
+class SELinComp
 {
 public:
     // 虚基类
-    virtual ~LinComp(void);
+    virtual ~SELinComp(void);
 
     // linear component被表示为P + t*D的形式,其中P是原点,D是单位长度方向向量.
     // 用户必须确保以上条件.t值的区间针对直线,射线,线段,点,空集稍后描述.
@@ -72,7 +72,7 @@ public:
     //                min = max = -MAX_REAL
     void SetInterval(Real fMin, Real fMax);
 
-    // 无需创建LinComp对象就可得知区间所属类型.
+    // 无需创建SELinComp对象就可得知区间所属类型.
     static int GetTypeFromInterval(Real fMin, Real fMax);
 
     // 各种linear component类型的规范化区间为:
@@ -104,10 +104,10 @@ public:
     bool Contains(Real fParam) const;
 
 protected:
-    LinComp(void);  // default : CT_NONE
+    SELinComp(void);  // default : CT_NONE
 
     // 赋值运算符重载.
-    LinComp& operator = (const LinComp& rComponent);
+    SELinComp& operator = (const SELinComp& rComponent);
 
     // component type.
     int m_iType;
@@ -118,8 +118,8 @@ protected:
 
 #include "SELinComp.inl"
 
-typedef LinComp<float> LinCompf;
-typedef LinComp<double> LinCompd;
+typedef SELinComp<float> SELinCompf;
+typedef SELinComp<double> SELinCompd;
 
 }
 

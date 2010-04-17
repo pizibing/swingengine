@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Mapper2f::Mapper2f(int iVCount, const SEVector2f* aVertex, float fEpsilon)
+SEMapper2f::SEMapper2f(int iVCount, const SEVector2f* aVertex, float fEpsilon)
 {
     SE_ASSERT( iVCount > 0 && aVertex && fEpsilon >= 0.0f );
 
@@ -94,8 +94,8 @@ Mapper2f::Mapper2f(int iVCount, const SEVector2f* aVertex, float fEpsilon)
     {
         SEVector2f vec2fDiff = aVertex[i] - m_Origin;
         float fL = m_aDirection[1].Dot(vec2fDiff);
-        float fSign = Mathf::Sign(fL);
-        fL = Mathf::FAbs(fL);
+        float fSign = SEMathf::Sign(fL);
+        fL = SEMathf::FAbs(fL);
         if( fL > fLMax )
         {
             fLMax = fL;
@@ -116,50 +116,50 @@ Mapper2f::Mapper2f(int iVCount, const SEVector2f* aVertex, float fEpsilon)
     m_bExtremeCCW = (fMaxSign > 0.0f ? true : false);
 }
 //----------------------------------------------------------------------------
-Mapper2f::~Mapper2f()
+SEMapper2f::~SEMapper2f()
 {
 }
 //----------------------------------------------------------------------------
-const SEVector2f& Mapper2f::GetMin() const
+const SEVector2f& SEMapper2f::GetMin() const
 {
     return m_Min;
 }
 //----------------------------------------------------------------------------
-const SEVector2f& Mapper2f::GetMax() const
+const SEVector2f& SEMapper2f::GetMax() const
 {
     return m_Max;
 }
 //----------------------------------------------------------------------------
-float Mapper2f::GetMaxRange() const
+float SEMapper2f::GetMaxRange() const
 {
     return m_fMaxRange;
 }
 //----------------------------------------------------------------------------
-int Mapper2f::GetDimension() const
+int SEMapper2f::GetDimension() const
 {
     return m_iDimension;
 }
 //----------------------------------------------------------------------------
-const SEVector2f& Mapper2f::GetOrigin() const
+const SEVector2f& SEMapper2f::GetOrigin() const
 {
     return m_Origin;
 }
 //----------------------------------------------------------------------------
-const SEVector2f& Mapper2f::GetDirection(int i) const
+const SEVector2f& SEMapper2f::GetDirection(int i) const
 {
     SE_ASSERT( 0 <= i && i < 2 );
 
     return m_aDirection[i];
 }
 //----------------------------------------------------------------------------
-int Mapper2f::GetExtremeIndex(int i) const
+int SEMapper2f::GetExtremeIndex(int i) const
 {
     SE_ASSERT( 0 <= i && i < 3 );
 
     return m_aiExtreme[i];
 }
 //----------------------------------------------------------------------------
-bool Mapper2f::GetExtremeCCW() const
+bool SEMapper2f::GetExtremeCCW() const
 {
     return m_bExtremeCCW;
 }

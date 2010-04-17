@@ -279,7 +279,7 @@ void Node::GetUnculledSet(Culler& rCuller, bool bNoCull)
     }
 }
 //----------------------------------------------------------------------------
-void Node::DoPick(const Ray3f& rRay, PickArray& rResults)
+void Node::DoPick(const SERay3f& rRay, PickArray& rResults)
 {
     if( WorldBound->TestIntersection(rRay) )
     {

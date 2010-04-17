@@ -35,33 +35,33 @@ namespace Swing
 // 时间:20090119
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API DistTriangle3Triangle3f
-    : public Distance<float, Vector3f>
+    : public Distance<float, SEVector3f>
 {
 public:
-    DistTriangle3Triangle3f(const Triangle3f& rTriangle0,
-        const Triangle3f& rTriangle1);
+    DistTriangle3Triangle3f(const SETriangle3f& rTriangle0,
+        const SETriangle3f& rTriangle1);
 
     // 对象访问.
-    const Triangle3f& GetTriangle0(void) const;
-    const Triangle3f& GetTriangle1(void) const;
+    const SETriangle3f& GetTriangle0(void) const;
+    const SETriangle3f& GetTriangle1(void) const;
 
     // static distance查询.
     virtual float Get(void);
     virtual float GetSquared(void);
 
     // 用于dynamic distance查询的convex function计算.
-    virtual float Get(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
-    virtual float GetSquared(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual float Get(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
+    virtual float GetSquared(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
     // 最近点相关信息.
     float GetTriangleBary0(int i) const;
     float GetTriangleBary1(int i) const;
 
 private:
-    const Triangle3f* m_pTriangle0;
-    const Triangle3f* m_pTriangle1;
+    const SETriangle3f* m_pTriangle0;
+    const SETriangle3f* m_pTriangle1;
 
     // 最近点相关信息.
     float m_afTriangleBary0[3];  // closest0 = sum_{i=0}^2 bary0[i]*vertex0[i]

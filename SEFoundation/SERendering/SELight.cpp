@@ -46,7 +46,7 @@ Light::Light(LightType eType)
     Linear = 0.0f;
     Quadratic = 0.0f;
     Intensity = 1.0f;
-    Angle = Mathf::PI;
+    Angle = SEMathf::PI;
     CosAngle = -1.0f;
     SinAngle = 0.0f;
     Exponent = 1.0f;
@@ -58,42 +58,42 @@ Light::~Light()
 //----------------------------------------------------------------------------
 void Light::SetAngle(float fAngle)
 {
-    SE_ASSERT( 0.0f < fAngle && fAngle <= Mathf::PI );
+    SE_ASSERT( 0.0f < fAngle && fAngle <= SEMathf::PI );
 
     Angle = fAngle;
-    CosAngle = Mathf::Cos(fAngle);
-    SinAngle = Mathf::Sin(fAngle);
+    CosAngle = SEMathf::Cos(fAngle);
+    SinAngle = SEMathf::Sin(fAngle);
 }
 //----------------------------------------------------------------------------
-void Light::SetDirection(const Vector3f& rDirection, bool bUnitLength)
+void Light::SetDirection(const SEVector3f& rDirection, bool bUnitLength)
 {
     DVector = rDirection;
-    Vector3f::GetOrthonormalBasis(UVector, RVector, DVector, bUnitLength);
+    SEVector3f::GetOrthonormalBasis(UVector, RVector, DVector, bUnitLength);
 }
 //----------------------------------------------------------------------------
 bool Light::IsValidFrame() const
 {
     float fTest = DVector.Dot(UVector);
-    if( Mathf::FAbs(fTest) > Mathf::ZERO_TOLERANCE )
+    if( SEMathf::FAbs(fTest) > SEMathf::ZERO_TOLERANCE )
     {
         return false;
     }
 
     fTest = DVector.Dot(RVector);
-    if( Mathf::FAbs(fTest) > Mathf::ZERO_TOLERANCE )
+    if( SEMathf::FAbs(fTest) > SEMathf::ZERO_TOLERANCE )
     {
         return false;
     }
 
     fTest = UVector.Dot(RVector);
-    if( Mathf::FAbs(fTest) > Mathf::ZERO_TOLERANCE )
+    if( SEMathf::FAbs(fTest) > SEMathf::ZERO_TOLERANCE )
     {
         return false;
     }
 
     fTest = DVector.Dot(RVector.Cross(UVector));
 
-    return Mathf::FAbs(1.0f - fTest) <= Mathf::ZERO_TOLERANCE;
+    return SEMathf::FAbs(1.0f - fTest) <= SEMathf::ZERO_TOLERANCE;
 }
 //----------------------------------------------------------------------------
 

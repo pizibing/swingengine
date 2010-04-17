@@ -23,15 +23,15 @@
 
 using namespace Swing;
 
-const ColorRGBA ColorRGBA::SE_RGBA_BLACK(0.0f, 0.0f, 0.0f, 1.0f);
-const ColorRGBA ColorRGBA::SE_RGBA_WHITE(1.0f, 1.0f, 1.0f, 1.0f);
-const ColorRGBA ColorRGBA::SE_RGBA_RED(1.0f, 0.0f, 0.0f, 1.0f);
-const ColorRGBA ColorRGBA::SE_RGBA_GREEN(0.0f, 1.0f, 0.0f, 1.0f);
-const ColorRGBA ColorRGBA::SE_RGBA_BLUE(0.0f, 0.0f, 1.0f, 1.0f);
-const ColorRGBA ColorRGBA::SE_RGBA_INVALID(-1.0f, -1.0f, -1.0f, -1.0f);
+const SEColorRGBA SEColorRGBA::SE_RGBA_BLACK(0.0f, 0.0f, 0.0f, 1.0f);
+const SEColorRGBA SEColorRGBA::SE_RGBA_WHITE(1.0f, 1.0f, 1.0f, 1.0f);
+const SEColorRGBA SEColorRGBA::SE_RGBA_RED(1.0f, 0.0f, 0.0f, 1.0f);
+const SEColorRGBA SEColorRGBA::SE_RGBA_GREEN(0.0f, 1.0f, 0.0f, 1.0f);
+const SEColorRGBA SEColorRGBA::SE_RGBA_BLUE(0.0f, 0.0f, 1.0f, 1.0f);
+const SEColorRGBA SEColorRGBA::SE_RGBA_INVALID(-1.0f, -1.0f, -1.0f, -1.0f);
 
 //----------------------------------------------------------------------------
-ColorRGBA::ColorRGBA()
+SEColorRGBA::SEColorRGBA()
 {
     m_fData[0] = 0.0f;
     m_fData[1] = 0.0f;
@@ -39,7 +39,7 @@ ColorRGBA::ColorRGBA()
     m_fData[3] = 0.0f;
 }
 //----------------------------------------------------------------------------
-ColorRGBA::ColorRGBA(float fR, float fG, float fB, float fA)
+SEColorRGBA::SEColorRGBA(float fR, float fG, float fB, float fA)
 {
     m_fData[0] = fR;
     m_fData[1] = fG;
@@ -47,7 +47,7 @@ ColorRGBA::ColorRGBA(float fR, float fG, float fB, float fA)
     m_fData[3] = fA;
 }
 //----------------------------------------------------------------------------
-ColorRGBA::ColorRGBA(const float* pData)
+SEColorRGBA::SEColorRGBA(const float* pData)
 {
     m_fData[0] = pData[0];
     m_fData[1] = pData[1];
@@ -55,7 +55,7 @@ ColorRGBA::ColorRGBA(const float* pData)
     m_fData[3] = pData[3];
 }
 //----------------------------------------------------------------------------
-ColorRGBA::ColorRGBA(const ColorRGBA& rColor)
+SEColorRGBA::SEColorRGBA(const SEColorRGBA& rColor)
 {
     m_fData[0] = rColor.m_fData[0];
     m_fData[1] = rColor.m_fData[1];
@@ -63,7 +63,7 @@ ColorRGBA::ColorRGBA(const ColorRGBA& rColor)
     m_fData[3] = rColor.m_fData[3];
 }
 //----------------------------------------------------------------------------
-ColorRGBA& ColorRGBA::operator=(const ColorRGBA& rColor)
+SEColorRGBA& SEColorRGBA::operator=(const SEColorRGBA& rColor)
 {
     m_fData[0] = rColor.m_fData[0];
     m_fData[1] = rColor.m_fData[1];
@@ -73,7 +73,7 @@ ColorRGBA& ColorRGBA::operator=(const ColorRGBA& rColor)
     return *this;
 }
 //----------------------------------------------------------------------------
-bool ColorRGBA::operator==(const ColorRGBA& rColor) const
+bool SEColorRGBA::operator==(const SEColorRGBA& rColor) const
 {
     return
         m_fData[0] == rColor.m_fData[0] &&
@@ -82,7 +82,7 @@ bool ColorRGBA::operator==(const ColorRGBA& rColor) const
         m_fData[3] == rColor.m_fData[3];
 }
 //----------------------------------------------------------------------------
-bool ColorRGBA::operator!=(const ColorRGBA& rColor) const
+bool SEColorRGBA::operator!=(const SEColorRGBA& rColor) const
 {
     return
         m_fData[0] != rColor.m_fData[0] ||
@@ -91,72 +91,72 @@ bool ColorRGBA::operator!=(const ColorRGBA& rColor) const
         m_fData[3] != rColor.m_fData[3];
 }
 //----------------------------------------------------------------------------
-bool ColorRGBA::operator<(const ColorRGBA& rColor) const
+bool SEColorRGBA::operator<(const SEColorRGBA& rColor) const
 {
     return CompareData(rColor) < 0;
 }
 //----------------------------------------------------------------------------
-bool ColorRGBA::operator<=(const ColorRGBA& rColor) const
+bool SEColorRGBA::operator<=(const SEColorRGBA& rColor) const
 {
     return CompareData(rColor) <= 0;
 }
 //----------------------------------------------------------------------------
-bool ColorRGBA::operator>(const ColorRGBA& rColor) const
+bool SEColorRGBA::operator>(const SEColorRGBA& rColor) const
 {
     return CompareData(rColor) > 0;
 }
 //----------------------------------------------------------------------------
-bool ColorRGBA::operator>=(const ColorRGBA& rColor) const
+bool SEColorRGBA::operator>=(const SEColorRGBA& rColor) const
 {
     return CompareData(rColor) >= 0;
 }
 //----------------------------------------------------------------------------
-ColorRGBA ColorRGBA::operator+(const ColorRGBA& rColor) const
+SEColorRGBA SEColorRGBA::operator+(const SEColorRGBA& rColor) const
 {
-    return ColorRGBA(
+    return SEColorRGBA(
         m_fData[0] + rColor.m_fData[0],
         m_fData[1] + rColor.m_fData[1],
         m_fData[2] + rColor.m_fData[2],
         m_fData[3] + rColor.m_fData[3]);
 }
 //----------------------------------------------------------------------------
-ColorRGBA ColorRGBA::operator-(const ColorRGBA& rColor) const
+SEColorRGBA SEColorRGBA::operator-(const SEColorRGBA& rColor) const
 {
-    return ColorRGBA(
+    return SEColorRGBA(
         m_fData[0] - rColor.m_fData[0],
         m_fData[1] - rColor.m_fData[1],
         m_fData[2] - rColor.m_fData[2],
         m_fData[3] - rColor.m_fData[3]);
 }
 //----------------------------------------------------------------------------
-ColorRGBA ColorRGBA::operator*(const ColorRGBA& rColor) const
+SEColorRGBA SEColorRGBA::operator*(const SEColorRGBA& rColor) const
 {
-    return ColorRGBA(
+    return SEColorRGBA(
         m_fData[0] * rColor.m_fData[0],
         m_fData[1] * rColor.m_fData[1],
         m_fData[2] * rColor.m_fData[2],
         m_fData[3] * rColor.m_fData[3]);
 }
 //----------------------------------------------------------------------------
-ColorRGBA ColorRGBA::operator*(float fScalar) const
+SEColorRGBA SEColorRGBA::operator*(float fScalar) const
 {
-    return ColorRGBA(
+    return SEColorRGBA(
         fScalar * m_fData[0],
         fScalar * m_fData[1],
         fScalar * m_fData[2],
         fScalar * m_fData[3]);
 }
 //----------------------------------------------------------------------------
-ColorRGBA Swing::operator*(float fScalar, const ColorRGBA& rColor)
+SEColorRGBA Swing::operator*(float fScalar, const SEColorRGBA& rColor)
 {
-    return ColorRGBA(
+    return SEColorRGBA(
         fScalar * rColor.m_fData[0],
         fScalar * rColor.m_fData[1],
         fScalar * rColor.m_fData[2],
         fScalar * rColor.m_fData[3]);
 }
 //----------------------------------------------------------------------------
-ColorRGBA& ColorRGBA::operator+=(const ColorRGBA& rColor)
+SEColorRGBA& SEColorRGBA::operator+=(const SEColorRGBA& rColor)
 {
     m_fData[0] += rColor.m_fData[0];
     m_fData[1] += rColor.m_fData[1];
@@ -166,7 +166,7 @@ ColorRGBA& ColorRGBA::operator+=(const ColorRGBA& rColor)
     return *this;
 }
 //----------------------------------------------------------------------------
-ColorRGBA& ColorRGBA::operator-=(const ColorRGBA& rColor)
+SEColorRGBA& SEColorRGBA::operator-=(const SEColorRGBA& rColor)
 {
     m_fData[0] -= rColor.m_fData[0];
     m_fData[1] -= rColor.m_fData[1];
@@ -176,7 +176,7 @@ ColorRGBA& ColorRGBA::operator-=(const ColorRGBA& rColor)
     return *this;
 }
 //----------------------------------------------------------------------------
-ColorRGBA& ColorRGBA::operator*=(const ColorRGBA& rColor)
+SEColorRGBA& SEColorRGBA::operator*=(const SEColorRGBA& rColor)
 {
     m_fData[0] *= rColor.m_fData[0];
     m_fData[1] *= rColor.m_fData[1];
@@ -186,7 +186,7 @@ ColorRGBA& ColorRGBA::operator*=(const ColorRGBA& rColor)
     return *this;
 }
 //----------------------------------------------------------------------------
-ColorRGBA& ColorRGBA::operator*=(float fScalar)
+SEColorRGBA& SEColorRGBA::operator*=(float fScalar)
 {
     m_fData[0] *= fScalar;
     m_fData[1] *= fScalar;
@@ -196,7 +196,7 @@ ColorRGBA& ColorRGBA::operator*=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-void ColorRGBA::Clamp()
+void SEColorRGBA::Clamp()
 {
     for( int i = 0; i < 4; i++ )
     {
@@ -211,7 +211,7 @@ void ColorRGBA::Clamp()
     }
 }
 //----------------------------------------------------------------------------
-void ColorRGBA::ScaleByMax()
+void SEColorRGBA::ScaleByMax()
 {
     // 找到最大RGB值
     float fMax = m_fData[0];

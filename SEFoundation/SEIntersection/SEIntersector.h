@@ -63,11 +63,11 @@ public:
     // 相交集的信息.
     enum
     {
-        IT_EMPTY = LinComp<Real>::CT_EMPTY,
-        IT_POINT = LinComp<Real>::CT_POINT,
-        IT_SEGMENT = LinComp<Real>::CT_SEGMENT,
-        IT_RAY = LinComp<Real>::CT_RAY,
-        IT_LINE = LinComp<Real>::CT_LINE,
+        IT_EMPTY = SELinComp<Real>::CT_EMPTY,
+        IT_POINT = SELinComp<Real>::CT_POINT,
+        IT_SEGMENT = SELinComp<Real>::CT_SEGMENT,
+        IT_RAY = SELinComp<Real>::CT_RAY,
+        IT_LINE = SELinComp<Real>::CT_LINE,
         IT_POLYGON,
         IT_PLANE,
         IT_POLYHEDRON,
@@ -83,9 +83,9 @@ protected:
 };
 
 typedef Intersector<float, SEVector2f> Intersector2f;
-typedef Intersector<float, Vector3f> Intersector3f;
+typedef Intersector<float, SEVector3f> Intersector3f;
 //typedef Intersector<double, SEVector2d> Intersector2d;
-//typedef Intersector<double, Vector3d> Intersector3d;
+//typedef Intersector<double, SEVector3d> Intersector3d;
 
 }
 

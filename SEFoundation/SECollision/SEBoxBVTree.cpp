@@ -47,7 +47,7 @@ BoxBVTree::BoxBVTree(const TriMesh* pMesh, int iMaxTrisPerLeaf,
 }
 //----------------------------------------------------------------------------
 BoundingVolume* BoxBVTree::CreateModelBound(const TriMesh* pMesh, int i0,
-    int i1, int* aiISplit, Line3f& rLine)
+    int i1, int* aiISplit, SELine3f& rLine)
 {
     // 标记出在当前子网格中用过的那些顶点.
     int iVCount = pMesh->VBuffer->GetVertexCount();
@@ -64,7 +64,7 @@ BoundingVolume* BoxBVTree::CreateModelBound(const TriMesh* pMesh, int i0,
     }
 
     // 创建一个针对当前子网格的连续顶点数组.
-    std::vector<Vector3f> tempMeshVertices;
+    std::vector<SEVector3f> tempMeshVertices;
     for( i = 0; i < iVCount; i++ )
     {
         if( abValid[i] )

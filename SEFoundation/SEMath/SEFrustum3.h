@@ -28,12 +28,12 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Frustum3f类
+// 名称:SEFrustum3f类
 // 说明:
 // 作者:Sun Che
 // 时间:20090115
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Frustum3f
+class SE_FOUNDATION_API SEFrustum3f
 {
 public:
     // 规范正交截投体.设E为原点,R为右向量,U为上向量,D为方向向量.
@@ -46,9 +46,9 @@ public:
 
     // 默认值为: E = (0,0,0), R = (1,0,0), U = (0,1,0), D = (0,0,1),
     // RBound = 1, UBound = 1, DMin = 1, DMax = 2.
-    Frustum3f(void);
-    Frustum3f(const Vector3f& rOrigin, const Vector3f& rRVector,
-        const Vector3f& rUVector, const Vector3f& rDVector,
+    SEFrustum3f(void);
+    SEFrustum3f(const SEVector3f& rOrigin, const SEVector3f& rRVector,
+        const SEVector3f& rUVector, const SEVector3f& rDVector,
         float fRBound, float fUBound, float fDMin, float fDMax);
 
     // 当RBound,UBound,Dmin,Dmax发生改变时,必须调用Update()函数.
@@ -58,9 +58,9 @@ public:
     float GetMTwoUF(void) const;
     float GetMTwoRF(void) const;
 
-    void ComputeVertices(Vector3f aVertex[8]) const;
+    void ComputeVertices(SEVector3f aVertex[8]) const;
 
-    Vector3f Origin, RVector, UVector, DVector;
+    SEVector3f Origin, RVector, UVector, DVector;
     float RBound, UBound, DMin, DMax;
 
 protected:

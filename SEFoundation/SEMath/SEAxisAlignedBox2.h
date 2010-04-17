@@ -32,26 +32,26 @@ namespace Swing
 // Author:Sun Che
 // Date:20100121
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API AxisAlignedBox2f
+class SE_FOUNDATION_API SEAxisAlignedBox2f
 {
 public:
-    AxisAlignedBox2f(void);
+    SEAxisAlignedBox2f(void);
 
     // The caller must ensure that fXMin <= fXMax and fYMin <= fYMax. The
     // class will not check for validity of the input.
-    AxisAlignedBox2f(float fXMin, float fXMax, float fYMin, float fYMax);
+    SEAxisAlignedBox2f(float fXMin, float fXMax, float fYMin, float fYMax);
 
     // Overlap testing is in the strict sense. If the two boxes are just
     // touching along a common edge, the boxes are reported as overlapping.
-    bool HasXOverlap(const AxisAlignedBox2f& rBox) const;
-    bool HasYOverlap(const AxisAlignedBox2f& rBox) const;
-    bool TestIntersection(const AxisAlignedBox2f& rBox) const;
+    bool HasXOverlap(const SEAxisAlignedBox2f& rBox) const;
+    bool HasYOverlap(const SEAxisAlignedBox2f& rBox) const;
+    bool TestIntersection(const SEAxisAlignedBox2f& rBox) const;
 
     // The return value is 'true' if there is overlap. In this case the
     // intersection is stored in rIntr. If the return value is 'false',
     // if there is no overlap. In this case rIntr is undefined.
-    bool FindIntersection(const AxisAlignedBox2f& rBox,
-        AxisAlignedBox2f& rIntr) const;
+    bool FindIntersection(const SEAxisAlignedBox2f& rBox,
+        SEAxisAlignedBox2f& rIntr) const;
 
     float Min[2], Max[2];
 };

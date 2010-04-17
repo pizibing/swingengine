@@ -21,34 +21,34 @@
 //----------------------------------------------------------------------------
 // 单精度3维向量类
 //----------------------------------------------------------------------------
-inline int Vector3f::CompareData(const Vector3f& rVecV) const
+inline int SEVector3f::CompareData(const SEVector3f& rVecV) const
 {
     return memcmp(m_fData, rVecV.m_fData, 3*sizeof(float));
 }
 //----------------------------------------------------------------------------
-inline float Vector3f::GetLength() const
+inline float SEVector3f::GetLength() const
 {
-    return Math<float>::Sqrt(m_fData[0]*m_fData[0] +
+    return SEMath<float>::Sqrt(m_fData[0]*m_fData[0] +
         m_fData[1]*m_fData[1] + m_fData[2]*m_fData[2]);
 }
 //----------------------------------------------------------------------------
-inline float Vector3f::GetSquaredLength() const
+inline float SEVector3f::GetSquaredLength() const
 {
     return m_fData[0]*m_fData[0] + m_fData[1]*m_fData[1] + 
         m_fData[2]*m_fData[2];
 }
 //----------------------------------------------------------------------------
-inline float Vector3f::Dot(const Vector3f& rRhsVec) const
+inline float SEVector3f::Dot(const SEVector3f& rRhsVec) const
 {
     return m_fData[0]*rRhsVec.m_fData[0] + m_fData[1]*rRhsVec.m_fData[1] +
         m_fData[2]*rRhsVec.m_fData[2];
 }
 //----------------------------------------------------------------------------
-inline float Vector3f::Normalize()
+inline float SEVector3f::Normalize()
 {
     float fLength = GetLength();
 
-    if( fLength > Math<float>::ZERO_TOLERANCE )
+    if( fLength > SEMath<float>::ZERO_TOLERANCE )
     {
         float fInvLength = 1.0f / fLength;
         m_fData[0] *= fInvLength;
@@ -65,17 +65,17 @@ inline float Vector3f::Normalize()
     return fLength;
 }
 //----------------------------------------------------------------------------
-inline Vector3f Vector3f::Cross(const Vector3f& rRhsVec) const
+inline SEVector3f SEVector3f::Cross(const SEVector3f& rRhsVec) const
 {
-    return Vector3f(
+    return SEVector3f(
         m_fData[1]*rRhsVec.m_fData[2] - m_fData[2]*rRhsVec.m_fData[1],
         m_fData[2]*rRhsVec.m_fData[0] - m_fData[0]*rRhsVec.m_fData[2],
         m_fData[0]*rRhsVec.m_fData[1] - m_fData[1]*rRhsVec.m_fData[0]);
 }
 //----------------------------------------------------------------------------
-inline Vector3f Vector3f::UnitCross(const Vector3f& rRhsVec) const
+inline SEVector3f SEVector3f::UnitCross(const SEVector3f& rRhsVec) const
 {
-    Vector3f vec3fCross(
+    SEVector3f vec3fCross(
         m_fData[1]*rRhsVec.m_fData[2] - m_fData[2]*rRhsVec.m_fData[1],
         m_fData[2]*rRhsVec.m_fData[0] - m_fData[0]*rRhsVec.m_fData[2],
         m_fData[0]*rRhsVec.m_fData[1] - m_fData[1]*rRhsVec.m_fData[0]);
@@ -88,34 +88,34 @@ inline Vector3f Vector3f::UnitCross(const Vector3f& rRhsVec) const
 //----------------------------------------------------------------------------
 // 双精度3维向量类
 //----------------------------------------------------------------------------
-inline int Vector3d::CompareData(const Vector3d& rVecV) const
+inline int SEVector3d::CompareData(const SEVector3d& rVecV) const
 {
     return memcmp(m_dData, rVecV.m_dData, 3*sizeof(double));
 }
 //----------------------------------------------------------------------------
-inline double Vector3d::GetLength() const
+inline double SEVector3d::GetLength() const
 {
-    return Math<double>::Sqrt(m_dData[0]*m_dData[0] +
+    return SEMath<double>::Sqrt(m_dData[0]*m_dData[0] +
         m_dData[1]*m_dData[1] + m_dData[2]*m_dData[2]);
 }
 //----------------------------------------------------------------------------
-inline double Vector3d::GetSquaredLength() const
+inline double SEVector3d::GetSquaredLength() const
 {
     return m_dData[0]*m_dData[0] + m_dData[1]*m_dData[1] + 
         m_dData[2]*m_dData[2];
 }
 //----------------------------------------------------------------------------
-inline double Vector3d::Dot(const Vector3d& rRhsVec) const
+inline double SEVector3d::Dot(const SEVector3d& rRhsVec) const
 {
     return m_dData[0]*rRhsVec.m_dData[0] + m_dData[1]*rRhsVec.m_dData[1] +
         m_dData[2]*rRhsVec.m_dData[2];
 }
 //----------------------------------------------------------------------------
-inline double Vector3d::Normalize()
+inline double SEVector3d::Normalize()
 {
     double dLength = GetLength();
 
-    if( dLength > Math<double>::ZERO_TOLERANCE )
+    if( dLength > SEMath<double>::ZERO_TOLERANCE )
     {
         double dInvLength = 1.0 / dLength;
         m_dData[0] *= dInvLength;
@@ -132,17 +132,17 @@ inline double Vector3d::Normalize()
     return dLength;
 }
 //----------------------------------------------------------------------------
-inline Vector3d Vector3d::Cross(const Vector3d& rRhsVec) const
+inline SEVector3d SEVector3d::Cross(const SEVector3d& rRhsVec) const
 {
-    return Vector3d(
+    return SEVector3d(
         m_dData[1]*rRhsVec.m_dData[2] - m_dData[2]*rRhsVec.m_dData[1],
         m_dData[2]*rRhsVec.m_dData[0] - m_dData[0]*rRhsVec.m_dData[2],
         m_dData[0]*rRhsVec.m_dData[1] - m_dData[1]*rRhsVec.m_dData[0]);
 }
 //----------------------------------------------------------------------------
-inline Vector3d Vector3d::UnitCross(const Vector3d& rRhsVec) const
+inline SEVector3d SEVector3d::UnitCross(const SEVector3d& rRhsVec) const
 {
-    Vector3d vec3fCross(
+    SEVector3d vec3fCross(
         m_dData[1]*rRhsVec.m_dData[2] - m_dData[2]*rRhsVec.m_dData[1],
         m_dData[2]*rRhsVec.m_dData[0] - m_dData[0]*rRhsVec.m_dData[2],
         m_dData[0]*rRhsVec.m_dData[1] - m_dData[1]*rRhsVec.m_dData[0]);

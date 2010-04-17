@@ -35,28 +35,28 @@ namespace Swing
 // 时间:20090115
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API DistVector3Frustum3f 
-    : public Distance<float, Vector3f>
+    : public Distance<float, SEVector3f>
 {
 public:
-    DistVector3Frustum3f(const Vector3f& rVector, const Frustum3f& rFrustum);
+    DistVector3Frustum3f(const SEVector3f& rVector, const SEFrustum3f& rFrustum);
 
     // 对象访问.
-    const Vector3f& GetVector(void) const;
-    const Frustum3f& GetFrustum(void) const;
+    const SEVector3f& GetVector(void) const;
+    const SEFrustum3f& GetFrustum(void) const;
 
     // static distance查询.
     virtual float Get(void);
     virtual float GetSquared(void);
 
     // 用于dynamic distance查询的convex function计算.
-    virtual float Get(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
-    virtual float GetSquared(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual float Get(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
+    virtual float GetSquared(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
 private:
-    const Vector3f* m_pVector;
-    const Frustum3f* m_pFrustum;
+    const SEVector3f* m_pVector;
+    const SEFrustum3f* m_pFrustum;
 };
 
 }

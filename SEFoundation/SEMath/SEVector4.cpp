@@ -27,18 +27,18 @@ using namespace Swing;
 // 单精度4维向量类
 //----------------------------------------------------------------------------
 
-const Vector4f Vector4f::ZERO(0.0f, 0.0f, 0.0f, 0.0f);
-const Vector4f Vector4f::UNIT_X(1.0f, 0.0f, 0.0f, 0.0f);
-const Vector4f Vector4f::UNIT_Y(0.0f, 1.0f, 0.0f, 0.0f);
-const Vector4f Vector4f::UNIT_Z(0.0f, 0.0f, 1.0f, 0.0f);
-const Vector4f Vector4f::UNIT_W(0.0f, 0.0f, 0.0f, 1.0f);
+const SEVector4f SEVector4f::ZERO(0.0f, 0.0f, 0.0f, 0.0f);
+const SEVector4f SEVector4f::UNIT_X(1.0f, 0.0f, 0.0f, 0.0f);
+const SEVector4f SEVector4f::UNIT_Y(0.0f, 1.0f, 0.0f, 0.0f);
+const SEVector4f SEVector4f::UNIT_Z(0.0f, 0.0f, 1.0f, 0.0f);
+const SEVector4f SEVector4f::UNIT_W(0.0f, 0.0f, 0.0f, 1.0f);
 
 //----------------------------------------------------------------------------
-Vector4f::Vector4f()
+SEVector4f::SEVector4f()
 {
 }
 //----------------------------------------------------------------------------
-Vector4f::Vector4f(float fX, float fY, float fZ, float fW)
+SEVector4f::SEVector4f(float fX, float fY, float fZ, float fW)
 {
     m_fData[0] = fX;
     m_fData[1] = fY;
@@ -46,7 +46,7 @@ Vector4f::Vector4f(float fX, float fY, float fZ, float fW)
     m_fData[3] = fW;
 }
 //----------------------------------------------------------------------------
-Vector4f::Vector4f(const Vector4f& rVec)
+SEVector4f::SEVector4f(const SEVector4f& rVec)
 {
     m_fData[0] = rVec.m_fData[0];
     m_fData[1] = rVec.m_fData[1];
@@ -54,29 +54,29 @@ Vector4f::Vector4f(const Vector4f& rVec)
     m_fData[3] = rVec.m_fData[3];
 }
 //----------------------------------------------------------------------------
-Vector4f::operator const float*() const
+SEVector4f::operator const float*() const
 {
     return m_fData;
 }
 //----------------------------------------------------------------------------
-Vector4f::operator float*()
+SEVector4f::operator float*()
 {
     return m_fData;
 }
 //----------------------------------------------------------------------------
-float Vector4f::operator[](int i) const
+float SEVector4f::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i <= 3 );
     return m_fData[i];
 }
 //----------------------------------------------------------------------------
-float& Vector4f::operator[](int i)
+float& SEVector4f::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i <= 3 );
     return m_fData[i];
 }
 //----------------------------------------------------------------------------
-Vector4f& Vector4f::operator=(const Vector4f& rVec)
+SEVector4f& SEVector4f::operator=(const SEVector4f& rVec)
 {
     m_fData[0] = rVec.m_fData[0];
     m_fData[1] = rVec.m_fData[1];
@@ -85,66 +85,66 @@ Vector4f& Vector4f::operator=(const Vector4f& rVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Vector4f::operator==(const Vector4f& rVec) const
+bool SEVector4f::operator==(const SEVector4f& rVec) const
 {
     return CompareData(rVec) == 0;
 }
 //----------------------------------------------------------------------------
-bool Vector4f::operator!=(const Vector4f& rVec) const
+bool SEVector4f::operator!=(const SEVector4f& rVec) const
 {
     return CompareData(rVec) != 0;
 }
 //----------------------------------------------------------------------------
-bool Vector4f::operator<(const Vector4f& rVec) const
+bool SEVector4f::operator<(const SEVector4f& rVec) const
 {
     return CompareData(rVec) < 0;
 }
 //----------------------------------------------------------------------------
-bool Vector4f::operator<=(const Vector4f& rVec) const
+bool SEVector4f::operator<=(const SEVector4f& rVec) const
 {
     return CompareData(rVec) <= 0;
 }
 //----------------------------------------------------------------------------
-bool Vector4f::operator>(const Vector4f& rVec) const
+bool SEVector4f::operator>(const SEVector4f& rVec) const
 {
     return CompareData(rVec) > 0;
 }
 //----------------------------------------------------------------------------
-bool Vector4f::operator>=(const Vector4f& rVec) const
+bool SEVector4f::operator>=(const SEVector4f& rVec) const
 {
     return CompareData(rVec) >= 0;
 }
 //----------------------------------------------------------------------------
-Vector4f Vector4f::operator+(const Vector4f& rRhsVec) const
+SEVector4f SEVector4f::operator+(const SEVector4f& rRhsVec) const
 {
-    return Vector4f(
+    return SEVector4f(
                    m_fData[0] + rRhsVec.m_fData[0],
                    m_fData[1] + rRhsVec.m_fData[1],
                    m_fData[2] + rRhsVec.m_fData[2],
                    m_fData[3] + rRhsVec.m_fData[3]);
 }
 //----------------------------------------------------------------------------
-Vector4f Vector4f::operator-(const Vector4f& rRhsVec) const
+SEVector4f SEVector4f::operator-(const SEVector4f& rRhsVec) const
 {
-    return Vector4f(
+    return SEVector4f(
                    m_fData[0] - rRhsVec.m_fData[0],
                    m_fData[1] - rRhsVec.m_fData[1],
                    m_fData[2] - rRhsVec.m_fData[2],
                    m_fData[3] - rRhsVec.m_fData[3]);
 }
 //----------------------------------------------------------------------------
-Vector4f Vector4f::operator*(float fScalar) const
+SEVector4f SEVector4f::operator*(float fScalar) const
 {
-    return Vector4f(
+    return SEVector4f(
                    fScalar * m_fData[0],
                    fScalar * m_fData[1],
                    fScalar * m_fData[2],
                    fScalar * m_fData[3]);
 }
 //----------------------------------------------------------------------------
-Vector4f Vector4f::operator/(float fScalar) const
+SEVector4f SEVector4f::operator/(float fScalar) const
 {
-    Vector4f Res;
+    SEVector4f Res;
 
     if( fScalar != 0.0f )
     {
@@ -156,34 +156,34 @@ Vector4f Vector4f::operator/(float fScalar) const
     }
     else
     {
-        Res.m_fData[0] = Math<float>::MAX_REAL;
-        Res.m_fData[1] = Math<float>::MAX_REAL;
-        Res.m_fData[2] = Math<float>::MAX_REAL;
-        Res.m_fData[3] = Math<float>::MAX_REAL;
+        Res.m_fData[0] = SEMath<float>::MAX_REAL;
+        Res.m_fData[1] = SEMath<float>::MAX_REAL;
+        Res.m_fData[2] = SEMath<float>::MAX_REAL;
+        Res.m_fData[3] = SEMath<float>::MAX_REAL;
     }
 
     return Res;
 }
 //----------------------------------------------------------------------------
-Vector4f Vector4f::operator-() const
+SEVector4f SEVector4f::operator-() const
 {
-    return Vector4f(
+    return SEVector4f(
                    -m_fData[0],
                    -m_fData[1],
                    -m_fData[2],
                    -m_fData[3]);
 }
 //----------------------------------------------------------------------------
-Vector4f Swing::operator*(float fLhsScalar, const Vector4f& rRhsVec)
+SEVector4f Swing::operator*(float fLhsScalar, const SEVector4f& rRhsVec)
 {
-    return Vector4f(
+    return SEVector4f(
                    fLhsScalar * rRhsVec[0],
                    fLhsScalar * rRhsVec[1],
                    fLhsScalar * rRhsVec[2],
                    fLhsScalar * rRhsVec[3]);
 }
 //----------------------------------------------------------------------------
-Vector4f& Vector4f::operator+=(const Vector4f& rRhsVec)
+SEVector4f& SEVector4f::operator+=(const SEVector4f& rRhsVec)
 {
     m_fData[0] += rRhsVec.m_fData[0];
     m_fData[1] += rRhsVec.m_fData[1];
@@ -193,7 +193,7 @@ Vector4f& Vector4f::operator+=(const Vector4f& rRhsVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector4f& Vector4f::operator+=(float fScalar)
+SEVector4f& SEVector4f::operator+=(float fScalar)
 {
     m_fData[0] += fScalar;
     m_fData[1] += fScalar;
@@ -203,7 +203,7 @@ Vector4f& Vector4f::operator+=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector4f& Vector4f::operator-=(const Vector4f& rRhsVec)
+SEVector4f& SEVector4f::operator-=(const SEVector4f& rRhsVec)
 {
     m_fData[0] -= rRhsVec.m_fData[0];
     m_fData[1] -= rRhsVec.m_fData[1];
@@ -213,7 +213,7 @@ Vector4f& Vector4f::operator-=(const Vector4f& rRhsVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector4f& Vector4f::operator-=(float fScalar)
+SEVector4f& SEVector4f::operator-=(float fScalar)
 {
     m_fData[0] -= fScalar;
     m_fData[1] -= fScalar;
@@ -223,7 +223,7 @@ Vector4f& Vector4f::operator-=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector4f& Vector4f::operator*=(float fScalar)
+SEVector4f& SEVector4f::operator*=(float fScalar)
 {
     m_fData[0] *= fScalar;
     m_fData[1] *= fScalar;
@@ -233,7 +233,7 @@ Vector4f& Vector4f::operator*=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector4f& Vector4f::operator/=(float fScalar)
+SEVector4f& SEVector4f::operator/=(float fScalar)
 {
     if( fScalar != 0.0f )
     {
@@ -245,10 +245,10 @@ Vector4f& Vector4f::operator/=(float fScalar)
     }
     else
     {
-        m_fData[0] = Math<float>::MAX_REAL;
-        m_fData[1] = Math<float>::MAX_REAL;
-        m_fData[2] = Math<float>::MAX_REAL;
-        m_fData[3] = Math<float>::MAX_REAL;
+        m_fData[0] = SEMath<float>::MAX_REAL;
+        m_fData[1] = SEMath<float>::MAX_REAL;
+        m_fData[2] = SEMath<float>::MAX_REAL;
+        m_fData[3] = SEMath<float>::MAX_REAL;
     }
 
     return *this;
@@ -259,18 +259,18 @@ Vector4f& Vector4f::operator/=(float fScalar)
 // 双精度4维向量类
 //----------------------------------------------------------------------------
 
-const Vector4d Vector4d::ZERO(0.0, 0.0, 0.0, 0.0);
-const Vector4d Vector4d::UNIT_X(1.0, 0.0, 0.0, 0.0);
-const Vector4d Vector4d::UNIT_Y(0.0, 1.0, 0.0, 0.0);
-const Vector4d Vector4d::UNIT_Z(0.0, 0.0, 1.0, 0.0);
-const Vector4d Vector4d::UNIT_W(0.0, 0.0, 0.0, 1.0);
+const SEVector4d SEVector4d::ZERO(0.0, 0.0, 0.0, 0.0);
+const SEVector4d SEVector4d::UNIT_X(1.0, 0.0, 0.0, 0.0);
+const SEVector4d SEVector4d::UNIT_Y(0.0, 1.0, 0.0, 0.0);
+const SEVector4d SEVector4d::UNIT_Z(0.0, 0.0, 1.0, 0.0);
+const SEVector4d SEVector4d::UNIT_W(0.0, 0.0, 0.0, 1.0);
 
 //----------------------------------------------------------------------------
-Vector4d::Vector4d()
+SEVector4d::SEVector4d()
 {
 }
 //----------------------------------------------------------------------------
-Vector4d::Vector4d(double dX, double dY, double dZ, double dW)
+SEVector4d::SEVector4d(double dX, double dY, double dZ, double dW)
 {
     m_dData[0] = dX;
     m_dData[1] = dY;
@@ -278,7 +278,7 @@ Vector4d::Vector4d(double dX, double dY, double dZ, double dW)
     m_dData[3] = dW;
 }
 //----------------------------------------------------------------------------
-Vector4d::Vector4d(const Vector4d& rVec)
+SEVector4d::SEVector4d(const SEVector4d& rVec)
 {
     m_dData[0] = rVec.m_dData[0];
     m_dData[1] = rVec.m_dData[1];
@@ -286,29 +286,29 @@ Vector4d::Vector4d(const Vector4d& rVec)
     m_dData[3] = rVec.m_dData[3];
 }
 //----------------------------------------------------------------------------
-Vector4d::operator const double*() const
+SEVector4d::operator const double*() const
 {
     return m_dData;
 }
 //----------------------------------------------------------------------------
-Vector4d::operator double*()
+SEVector4d::operator double*()
 {
     return m_dData;
 }
 //----------------------------------------------------------------------------
-double Vector4d::operator[](int i) const
+double SEVector4d::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i <= 3 );
     return m_dData[i];
 }
 //----------------------------------------------------------------------------
-double& Vector4d::operator[](int i)
+double& SEVector4d::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i <= 3 );
     return m_dData[i];
 }
 //----------------------------------------------------------------------------
-Vector4d& Vector4d::operator=(const Vector4d& rVec)
+SEVector4d& SEVector4d::operator=(const SEVector4d& rVec)
 {
     m_dData[0] = rVec.m_dData[0];
     m_dData[1] = rVec.m_dData[1];
@@ -317,66 +317,66 @@ Vector4d& Vector4d::operator=(const Vector4d& rVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Vector4d::operator==(const Vector4d& rVec) const
+bool SEVector4d::operator==(const SEVector4d& rVec) const
 {
     return CompareData(rVec) == 0;
 }
 //----------------------------------------------------------------------------
-bool Vector4d::operator!=(const Vector4d& rVec) const
+bool SEVector4d::operator!=(const SEVector4d& rVec) const
 {
     return CompareData(rVec) != 0;
 }
 //----------------------------------------------------------------------------
-bool Vector4d::operator<(const Vector4d& rVec) const
+bool SEVector4d::operator<(const SEVector4d& rVec) const
 {
     return CompareData(rVec) < 0;
 }
 //----------------------------------------------------------------------------
-bool Vector4d::operator<=(const Vector4d& rVec) const
+bool SEVector4d::operator<=(const SEVector4d& rVec) const
 {
     return CompareData(rVec) <= 0;
 }
 //----------------------------------------------------------------------------
-bool Vector4d::operator>(const Vector4d& rVec) const
+bool SEVector4d::operator>(const SEVector4d& rVec) const
 {
     return CompareData(rVec) > 0;
 }
 //----------------------------------------------------------------------------
-bool Vector4d::operator>=(const Vector4d& rVec) const
+bool SEVector4d::operator>=(const SEVector4d& rVec) const
 {
     return CompareData(rVec) >= 0;
 }
 //----------------------------------------------------------------------------
-Vector4d Vector4d::operator+(const Vector4d& rRhsVec) const
+SEVector4d SEVector4d::operator+(const SEVector4d& rRhsVec) const
 {
-    return Vector4d(
+    return SEVector4d(
                    m_dData[0] + rRhsVec.m_dData[0],
                    m_dData[1] + rRhsVec.m_dData[1],
                    m_dData[2] + rRhsVec.m_dData[2],
                    m_dData[3] + rRhsVec.m_dData[3]);
 }
 //----------------------------------------------------------------------------
-Vector4d Vector4d::operator-(const Vector4d& rRhsVec) const
+SEVector4d SEVector4d::operator-(const SEVector4d& rRhsVec) const
 {
-    return Vector4d(
+    return SEVector4d(
                    m_dData[0] - rRhsVec.m_dData[0],
                    m_dData[1] - rRhsVec.m_dData[1],
                    m_dData[2] - rRhsVec.m_dData[2],
                    m_dData[3] - rRhsVec.m_dData[3]);
 }
 //----------------------------------------------------------------------------
-Vector4d Vector4d::operator*(double dScalar) const
+SEVector4d SEVector4d::operator*(double dScalar) const
 {
-    return Vector4d(
+    return SEVector4d(
                    dScalar * m_dData[0],
                    dScalar * m_dData[1],
                    dScalar * m_dData[2],
                    dScalar * m_dData[3]);
 }
 //----------------------------------------------------------------------------
-Vector4d Vector4d::operator/(double dScalar) const
+SEVector4d SEVector4d::operator/(double dScalar) const
 {
-    Vector4d Res;
+    SEVector4d Res;
 
     if( dScalar != 0.0 )
     {
@@ -388,34 +388,34 @@ Vector4d Vector4d::operator/(double dScalar) const
     }
     else
     {
-        Res.m_dData[0] = Math<double>::MAX_REAL;
-        Res.m_dData[1] = Math<double>::MAX_REAL;
-        Res.m_dData[2] = Math<double>::MAX_REAL;
-        Res.m_dData[3] = Math<double>::MAX_REAL;
+        Res.m_dData[0] = SEMath<double>::MAX_REAL;
+        Res.m_dData[1] = SEMath<double>::MAX_REAL;
+        Res.m_dData[2] = SEMath<double>::MAX_REAL;
+        Res.m_dData[3] = SEMath<double>::MAX_REAL;
     }
 
     return Res;
 }
 //----------------------------------------------------------------------------
-Vector4d Vector4d::operator-() const
+SEVector4d SEVector4d::operator-() const
 {
-    return Vector4d(
+    return SEVector4d(
                    -m_dData[0],
                    -m_dData[1],
                    -m_dData[2],
                    -m_dData[3]);
 }
 //----------------------------------------------------------------------------
-Vector4d Swing::operator*(double dLhsScalar, const Vector4d& rRhsVec)
+SEVector4d Swing::operator*(double dLhsScalar, const SEVector4d& rRhsVec)
 {
-    return Vector4d(
+    return SEVector4d(
                    dLhsScalar * rRhsVec[0],
                    dLhsScalar * rRhsVec[1],
                    dLhsScalar * rRhsVec[2],
                    dLhsScalar * rRhsVec[3]);
 }
 //----------------------------------------------------------------------------
-Vector4d& Vector4d::operator+=(const Vector4d& rRhsVec)
+SEVector4d& SEVector4d::operator+=(const SEVector4d& rRhsVec)
 {
     m_dData[0] += rRhsVec.m_dData[0];
     m_dData[1] += rRhsVec.m_dData[1];
@@ -425,7 +425,7 @@ Vector4d& Vector4d::operator+=(const Vector4d& rRhsVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector4d& Vector4d::operator+=(double dScalar)
+SEVector4d& SEVector4d::operator+=(double dScalar)
 {
     m_dData[0] += dScalar;
     m_dData[1] += dScalar;
@@ -435,7 +435,7 @@ Vector4d& Vector4d::operator+=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector4d& Vector4d::operator-=(const Vector4d& rRhsVec)
+SEVector4d& SEVector4d::operator-=(const SEVector4d& rRhsVec)
 {
     m_dData[0] -= rRhsVec.m_dData[0];
     m_dData[1] -= rRhsVec.m_dData[1];
@@ -445,7 +445,7 @@ Vector4d& Vector4d::operator-=(const Vector4d& rRhsVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector4d& Vector4d::operator-=(double dScalar)
+SEVector4d& SEVector4d::operator-=(double dScalar)
 {
     m_dData[0] -= dScalar;
     m_dData[1] -= dScalar;
@@ -455,7 +455,7 @@ Vector4d& Vector4d::operator-=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector4d& Vector4d::operator*=(double dScalar)
+SEVector4d& SEVector4d::operator*=(double dScalar)
 {
     m_dData[0] *= dScalar;
     m_dData[1] *= dScalar;
@@ -465,7 +465,7 @@ Vector4d& Vector4d::operator*=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector4d& Vector4d::operator/=(double dScalar)
+SEVector4d& SEVector4d::operator/=(double dScalar)
 {
     if( dScalar != 0.0 )
     {
@@ -477,10 +477,10 @@ Vector4d& Vector4d::operator/=(double dScalar)
     }
     else
     {
-        m_dData[0] = Math<double>::MAX_REAL;
-        m_dData[1] = Math<double>::MAX_REAL;
-        m_dData[2] = Math<double>::MAX_REAL;
-        m_dData[3] = Math<double>::MAX_REAL;
+        m_dData[0] = SEMath<double>::MAX_REAL;
+        m_dData[1] = SEMath<double>::MAX_REAL;
+        m_dData[2] = SEMath<double>::MAX_REAL;
+        m_dData[3] = SEMath<double>::MAX_REAL;
     }
 
     return *this;

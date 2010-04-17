@@ -58,12 +58,12 @@ inline Texture::WrapType Texture::GetWrapType(int i) const
     return m_eWrapTypes[i];
 }
 //----------------------------------------------------------------------------
-inline void Texture::SetBorderColor(const ColorRGBA& rBorderColor)
+inline void Texture::SetBorderColor(const SEColorRGBA& rBorderColor)
 {
     m_BorderColor = rBorderColor;
 }
 //----------------------------------------------------------------------------
-inline ColorRGBA Texture::GetBorderColor() const
+inline SEColorRGBA Texture::GetBorderColor() const
 {
     return m_BorderColor;
 }

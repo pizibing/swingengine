@@ -306,8 +306,8 @@ void RoamTerrainPatch::RecursTessellate(RoamTriTreeNode* pTriTreeNode,
     int iCenterY = (iLeftY + iRightY) >> 1;
 
     // 获取摄像机的世界位置.
-    Vector3f vec3fCLocWorld = pCamera->GetLocation();
-    Vector3f vec3fCLocLocal;
+    SEVector3f vec3fCLocWorld = pCamera->GetLocation();
+    SEVector3f vec3fCLocLocal;
     // 把摄像机的世界位置变换到当前patch所在page的模型空间.
     m_pPage->World.ApplyInverse(vec3fCLocWorld, vec3fCLocLocal);
     //vec3fCLocLocal.X = vec3fCLocWorld.X - m_pPage->m_Origin.X;
@@ -321,7 +321,7 @@ void RoamTerrainPatch::RecursTessellate(RoamTriTreeNode* pTriTreeNode,
         float fSqrDistance = SE_SQR(fCenterXLocal - vec3fCLocLocal.X) + 
             SE_SQR(fCenterYLocal - vec3fCLocLocal.Z);
 
-        float fInvDistance = Mathf::FastInvSqrt(fSqrDistance);
+        float fInvDistance = SEMathf::FastInvSqrt(fSqrDistance);
         fTriVariance = ((float)m_pCurrentVariance[iNode] * 
             (m_pPage->m_iSize << 1)) * fInvDistance;
     }
@@ -335,8 +335,8 @@ void RoamTerrainPatch::RecursTessellate(RoamTriTreeNode* pTriTreeNode,
         Split(pTriTreeNode);
 		
         if( pTriTreeNode->pLeftChild && 
-            ((Mathf::FAbs((float)(iLeftX - iRightX)) >= m_pPage->m_iSplitLevel) || 
-            (Mathf::FAbs((float)(iLeftY - iRightY)) >= m_pPage->m_iSplitLevel)) )
+            ((SEMathf::FAbs((float)(iLeftX - iRightX)) >= m_pPage->m_iSplitLevel) || 
+            (SEMathf::FAbs((float)(iLeftY - iRightY)) >= m_pPage->m_iSplitLevel)) )
         {
             RecursTessellate(pTriTreeNode->pLeftChild, pCamera,
                 iApexX, iApexY, iLeftX, iLeftY, iCenterX, iCenterY, iNode<<1);
@@ -360,11 +360,11 @@ float RoamTerrainPatch::RecursComputeVariance(int iLeftX, int iLeftY,
     float fLeftZ = m_pPage->GetHeight(iLeftIndex);
     float fRightZ = m_pPage->GetHeight(iRightIndex);
     // variance是中点高度值与中点线性Z值之差.
-    fMyVariance = Mathf::FAbs(fCenterZ - (fLeftZ + fRightZ) * 0.5f);
+    fMyVariance = SEMathf::FAbs(fCenterZ - (fLeftZ + fRightZ) * 0.5f);
 
     // 只递归计算variance到高度图上N*N的区域.
-    if( (Mathf::FAbs((float)(iLeftX - iRightX)) >= m_pPage->m_iVarianceLevel) ||
-        (Mathf::FAbs(float(iLeftY - iRightY)) >= m_pPage->m_iVarianceLevel) )
+    if( (SEMathf::FAbs((float)(iLeftX - iRightX)) >= m_pPage->m_iVarianceLevel) ||
+        (SEMathf::FAbs(float(iLeftY - iRightY)) >= m_pPage->m_iVarianceLevel) )
     {
         // 最终当前节点的variance取自自己和两个子树的最大variance.
         fMyVariance = SE_MAX(fMyVariance, RecursComputeVariance(iApexX, iApexY, 

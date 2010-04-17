@@ -78,14 +78,14 @@ public:
     // (4) SetScale函数会设置m_bIsUniformScale为false.SetUniformScale函数设置
     //     m_bIsUniformScale为true.如果m_bIsUniformScale为false,
     //     则GetUniformScale会产生断言.
-    void SetRotate(const Matrix3f& rRotate);
-    inline const Matrix3f& GetRotate(void) const;
-    void SetMatrix(const Matrix3f& rMatrix);
-    inline const Matrix3f& GetMatrix(void) const;
-    void SetTranslate(const Vector3f& rTranslate);
-    inline const Vector3f& GetTranslate(void) const;
-    void SetScale(const Vector3f& rScale);
-    inline const Vector3f& GetScale(void) const;
+    void SetRotate(const SEMatrix3f& rRotate);
+    inline const SEMatrix3f& GetRotate(void) const;
+    void SetMatrix(const SEMatrix3f& rMatrix);
+    inline const SEMatrix3f& GetMatrix(void) const;
+    void SetTranslate(const SEVector3f& rTranslate);
+    inline const SEVector3f& GetTranslate(void) const;
+    void SetScale(const SEVector3f& rScale);
+    inline const SEVector3f& GetScale(void) const;
     void SetUniformScale(float fScale);
     inline float GetUniformScale(void) const;
 
@@ -95,23 +95,23 @@ public:
     float GetNorm(void) const;
 
     // 正向顶点变换,计算Y = X*M + T.
-    void ApplyForward(const Vector3f& rInput, Vector3f& rOutput) const;
+    void ApplyForward(const SEVector3f& rInput, SEVector3f& rOutput) const;
     // 正向顶点数组变换,变换一组顶点.
-    void ApplyForward(int iCount, const Vector3f* aInput, Vector3f* aOutput)
+    void ApplyForward(int iCount, const SEVector3f* aInput, SEVector3f* aOutput)
         const;
 
     // 逆向顶点变换,计算X = (Y-T)*M^{-1}.
-    void ApplyInverse(const Vector3f& rInput, Vector3f& rOutput) const;
+    void ApplyInverse(const SEVector3f& rInput, SEVector3f& rOutput) const;
     // 逆向顶点变换,变换一组顶点.
-    void ApplyInverse(int iCount, const Vector3f* aInput, Vector3f* aOutput)
+    void ApplyInverse(int iCount, const SEVector3f* aInput, SEVector3f* aOutput)
         const;
 
     // 逆向向量变换,输入值是一个空间向量,因此不需要对其施加T变换.
     // V1 = V0*M^{-1}.
-    void InvertVector(const Vector3f& rInput, Vector3f& rOutput) const;
+    void InvertVector(const SEVector3f& rInput, SEVector3f& rOutput) const;
 
     // 对平面进行正向变换,平面法线必须为单位向量.
-    void ApplyForward(const Plane3f& rInput, Plane3f& rOutput) const;
+    void ApplyForward(const SEPlane3f& rInput, SEPlane3f& rOutput) const;
 
     // 计算*this = rLhsTrans*rRhsTrans.
     void Product(const Transformation& rLhsTrans,
@@ -123,23 +123,23 @@ public:
     void GetInverse(Transformation& rInvTrans);
 
     // 构造4x4Homogeneous矩阵,供1x4行向量左乘使用.
-    void GetHomogeneous(Matrix4f& rHMatrix) const;
+    void GetHomogeneous(SEMatrix4f& rHMatrix) const;
 
     static const Transformation IDENTITY;
 
     // stream操作时用到,此类写入磁盘的字节数.
     enum
     {
-        DISK_USED = sizeof(Matrix3f) + 2*sizeof(Vector3f) + 3
+        DISK_USED = sizeof(SEMatrix3f) + 2*sizeof(SEVector3f) + 3
     };
 
 private:
 	friend class SEStream;
     friend class Spatial;
 
-    Matrix3f m_Matrix;
-    Vector3f m_Translate;
-    Vector3f m_Scale;
+    SEMatrix3f m_Matrix;
+    SEVector3f m_Translate;
+    SEVector3f m_Scale;
 
     bool m_bIsIdentity;
     bool m_bIsSRMatrix;

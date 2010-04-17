@@ -49,10 +49,10 @@ public:
     MaterialState(void);
     virtual ~MaterialState(void);
 
-    ColorRGB Emissive;  // default: ColorRGB(0,0,0)
-    ColorRGB Ambient;   // default: ColorRGB(0.2,0.2,0.2)
-    ColorRGB Diffuse;   // default: ColorRGB(0.8,0.8,0.8)
-    ColorRGB Specular;  // default: ColorRGB(0,0,0)
+    SEColorRGB Emissive;  // default: SEColorRGB(0,0,0)
+    SEColorRGB Ambient;   // default: SEColorRGB(0.2,0.2,0.2)
+    SEColorRGB Diffuse;   // default: SEColorRGB(0.8,0.8,0.8)
+    SEColorRGB Specular;  // default: SEColorRGB(0,0,0)
     float Alpha;        // default: 1
     float Shininess;    // default: 1
 };

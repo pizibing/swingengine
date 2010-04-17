@@ -23,43 +23,43 @@
 
 using namespace Swing;
 
-const ColorRGB ColorRGB::SE_RGB_BLACK(0.0f, 0.0f, 0.0f);
-const ColorRGB ColorRGB::SE_RGB_WHITE(1.0f, 1.0f, 1.0f);
-const ColorRGB ColorRGB::SE_RGB_RED(1.0f, 0.0f, 0.0f);
-const ColorRGB ColorRGB::SE_RGB_GREEN(0.0f, 1.0f, 0.0f);
-const ColorRGB ColorRGB::SE_RGB_BLUE(0.0f, 0.0f, 1.0f);
-const ColorRGB ColorRGB::SE_RGB_INVALID(-1.0f, -1.0f, -1.0f);
+const SEColorRGB SEColorRGB::SE_RGB_BLACK(0.0f, 0.0f, 0.0f);
+const SEColorRGB SEColorRGB::SE_RGB_WHITE(1.0f, 1.0f, 1.0f);
+const SEColorRGB SEColorRGB::SE_RGB_RED(1.0f, 0.0f, 0.0f);
+const SEColorRGB SEColorRGB::SE_RGB_GREEN(0.0f, 1.0f, 0.0f);
+const SEColorRGB SEColorRGB::SE_RGB_BLUE(0.0f, 0.0f, 1.0f);
+const SEColorRGB SEColorRGB::SE_RGB_INVALID(-1.0f, -1.0f, -1.0f);
 
 //----------------------------------------------------------------------------
-ColorRGB::ColorRGB()
+SEColorRGB::SEColorRGB()
 {
     m_fData[0] = 0.0f;
     m_fData[1] = 0.0f;
     m_fData[2] = 0.0f;
 }
 //----------------------------------------------------------------------------
-ColorRGB::ColorRGB(float fR, float fG, float fB)
+SEColorRGB::SEColorRGB(float fR, float fG, float fB)
 {
     m_fData[0] = fR;
     m_fData[1] = fG;
     m_fData[2] = fB;
 }
 //----------------------------------------------------------------------------
-ColorRGB::ColorRGB(const float* pData)
+SEColorRGB::SEColorRGB(const float* pData)
 {
     m_fData[0] = pData[0];
     m_fData[1] = pData[1];
     m_fData[2] = pData[2];
 }
 //----------------------------------------------------------------------------
-ColorRGB::ColorRGB(const ColorRGB& rColor)
+SEColorRGB::SEColorRGB(const SEColorRGB& rColor)
 {
     m_fData[0] = rColor.m_fData[0];
     m_fData[1] = rColor.m_fData[1];
     m_fData[2] = rColor.m_fData[2];
 }
 //----------------------------------------------------------------------------
-ColorRGB& ColorRGB::operator=(const ColorRGB& rColor)
+SEColorRGB& SEColorRGB::operator=(const SEColorRGB& rColor)
 {
     m_fData[0] = rColor.m_fData[0];
     m_fData[1] = rColor.m_fData[1];
@@ -68,7 +68,7 @@ ColorRGB& ColorRGB::operator=(const ColorRGB& rColor)
     return *this;
 }
 //----------------------------------------------------------------------------
-bool ColorRGB::operator==(const ColorRGB& rColor) const
+bool SEColorRGB::operator==(const SEColorRGB& rColor) const
 {
     return
         m_fData[0] == rColor.m_fData[0] &&
@@ -76,7 +76,7 @@ bool ColorRGB::operator==(const ColorRGB& rColor) const
         m_fData[2] == rColor.m_fData[2];
 }
 //----------------------------------------------------------------------------
-bool ColorRGB::operator!=(const ColorRGB& rColor) const
+bool SEColorRGB::operator!=(const SEColorRGB& rColor) const
 {
     return
         m_fData[0] != rColor.m_fData[0] ||
@@ -84,67 +84,67 @@ bool ColorRGB::operator!=(const ColorRGB& rColor) const
         m_fData[2] != rColor.m_fData[2];
 }
 //----------------------------------------------------------------------------
-bool ColorRGB::operator<(const ColorRGB& rColor) const
+bool SEColorRGB::operator<(const SEColorRGB& rColor) const
 {
     return CompareData(rColor) < 0;
 }
 //----------------------------------------------------------------------------
-bool ColorRGB::operator<=(const ColorRGB& rColor) const
+bool SEColorRGB::operator<=(const SEColorRGB& rColor) const
 {
     return CompareData(rColor) <= 0;
 }
 //----------------------------------------------------------------------------
-bool ColorRGB::operator>(const ColorRGB& rColor) const
+bool SEColorRGB::operator>(const SEColorRGB& rColor) const
 {
     return CompareData(rColor) > 0;
 }
 //----------------------------------------------------------------------------
-bool ColorRGB::operator>=(const ColorRGB& rColor) const
+bool SEColorRGB::operator>=(const SEColorRGB& rColor) const
 {
     return CompareData(rColor) >= 0;
 }
 //----------------------------------------------------------------------------
-ColorRGB ColorRGB::operator+(const ColorRGB& rColor) const
+SEColorRGB SEColorRGB::operator+(const SEColorRGB& rColor) const
 {
-    return ColorRGB(
+    return SEColorRGB(
         m_fData[0] + rColor.m_fData[0],
         m_fData[1] + rColor.m_fData[1],
         m_fData[2] + rColor.m_fData[2]);
 }
 //----------------------------------------------------------------------------
-ColorRGB ColorRGB::operator-(const ColorRGB& rColor) const
+SEColorRGB SEColorRGB::operator-(const SEColorRGB& rColor) const
 {
-    return ColorRGB(
+    return SEColorRGB(
         m_fData[0] - rColor.m_fData[0],
         m_fData[1] - rColor.m_fData[1],
         m_fData[2] - rColor.m_fData[2]);
 }
 //----------------------------------------------------------------------------
-ColorRGB ColorRGB::operator*(const ColorRGB& rColor) const
+SEColorRGB SEColorRGB::operator*(const SEColorRGB& rColor) const
 {
-    return ColorRGB(
+    return SEColorRGB(
         m_fData[0] * rColor.m_fData[0],
         m_fData[1] * rColor.m_fData[1],
         m_fData[2] * rColor.m_fData[2]);
 }
 //----------------------------------------------------------------------------
-ColorRGB ColorRGB::operator*(float fScalar) const
+SEColorRGB SEColorRGB::operator*(float fScalar) const
 {
-    return ColorRGB(
+    return SEColorRGB(
         fScalar * m_fData[0],
         fScalar * m_fData[1],
         fScalar * m_fData[2]);
 }
 //----------------------------------------------------------------------------
-ColorRGB Swing::operator*(float fScalar, const ColorRGB& rColor)
+SEColorRGB Swing::operator*(float fScalar, const SEColorRGB& rColor)
 {
-    return ColorRGB(
+    return SEColorRGB(
         fScalar * rColor.m_fData[0],
         fScalar * rColor.m_fData[1],
         fScalar * rColor.m_fData[2]);
 }
 //----------------------------------------------------------------------------
-ColorRGB& ColorRGB::operator+=(const ColorRGB& rColor)
+SEColorRGB& SEColorRGB::operator+=(const SEColorRGB& rColor)
 {
     m_fData[0] += rColor.m_fData[0];
     m_fData[1] += rColor.m_fData[1];
@@ -153,7 +153,7 @@ ColorRGB& ColorRGB::operator+=(const ColorRGB& rColor)
     return *this;
 }
 //----------------------------------------------------------------------------
-ColorRGB& ColorRGB::operator-=(const ColorRGB& rColor)
+SEColorRGB& SEColorRGB::operator-=(const SEColorRGB& rColor)
 {
     m_fData[0] -= rColor.m_fData[0];
     m_fData[1] -= rColor.m_fData[1];
@@ -162,7 +162,7 @@ ColorRGB& ColorRGB::operator-=(const ColorRGB& rColor)
     return *this;
 }
 //----------------------------------------------------------------------------
-ColorRGB& ColorRGB::operator*=(const ColorRGB& rColor)
+SEColorRGB& SEColorRGB::operator*=(const SEColorRGB& rColor)
 {
     m_fData[0] *= rColor.m_fData[0];
     m_fData[1] *= rColor.m_fData[1];
@@ -171,7 +171,7 @@ ColorRGB& ColorRGB::operator*=(const ColorRGB& rColor)
     return *this;
 }
 //----------------------------------------------------------------------------
-ColorRGB& ColorRGB::operator*=(float fScalar)
+SEColorRGB& SEColorRGB::operator*=(float fScalar)
 {
     m_fData[0] *= fScalar;
     m_fData[1] *= fScalar;
@@ -180,7 +180,7 @@ ColorRGB& ColorRGB::operator*=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-void ColorRGB::Clamp()
+void SEColorRGB::Clamp()
 {
     for( int i = 0; i < 3; i++ )
     {
@@ -195,7 +195,7 @@ void ColorRGB::Clamp()
     }
 }
 //----------------------------------------------------------------------------
-void ColorRGB::ScaleByMax()
+void SEColorRGB::ScaleByMax()
 {
     float fMax = m_fData[0];
 

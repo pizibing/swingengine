@@ -28,22 +28,22 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Mapper3f类
+// 名称:SEMapper3f类
 // 说明:
 // 作者:Sun Che
 // 时间:20081202
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Mapper3f
+class SE_FOUNDATION_API SEMapper3f
 {
 public:
     // Construction and destruction.  The value of epsilon is used as a
     // relative error when computing the dimension of the point set.
-    Mapper3f(int iVCount, const Vector3f* aVertex, float fEpsilon);
-    ~Mapper3f(void);
+    SEMapper3f(int iVCount, const SEVector3f* aVertex, float fEpsilon);
+    ~SEMapper3f(void);
 
     // Axis-aligned bounding box of the input points.
-    const Vector3f& GetMin(void) const;
-    const Vector3f& GetMax(void) const;
+    const SEVector3f& GetMin(void) const;
+    const SEVector3f& GetMax(void) const;
     float GetMaxRange(void) const;
 
     // Dimension d of the set (0, 1, 2, or 3).
@@ -63,8 +63,8 @@ public:
     // to a triangle.  The next extreme index corresponds to the input point
     // that is farthest from this triangle in a direction perpendicular to
     // the triangle.
-    const Vector3f& GetOrigin(void) const;
-    const Vector3f& GetDirection(int i) const;
+    const SEVector3f& GetOrigin(void) const;
+    const SEVector3f& GetDirection(int i) const;
     int GetExtremeIndex(int i) const;
 
     // If d = 3, the direction vectors {U0,U1,U2} form a right-handed set.
@@ -75,7 +75,7 @@ public:
 private:
     // Axis-aligned bounding box of input points.  The maximum range is the
     // larger of max[0]-min[0], max[1]-min[1], and max[2]-min[2].
-    Vector3f m_Min, m_Max;
+    SEVector3f m_Min, m_Max;
     float m_fMaxRange;
 
     // The intrinsic dimension of the input set.  The parameter fEpsilon to
@@ -100,8 +100,8 @@ private:
 
     // See the comments describing the member functions which return these
     // values.
-    Vector3f m_Origin;
-    Vector3f m_aDirection[3];
+    SEVector3f m_Origin;
+    SEVector3f m_aDirection[3];
 };
 
 }

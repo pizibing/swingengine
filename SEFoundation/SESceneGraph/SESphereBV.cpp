@@ -45,11 +45,11 @@ BoundingVolume* BoundingVolume::Create()
 //----------------------------------------------------------------------------
 SphereBV::SphereBV()
     :
-    m_Sphere(Vector3f::ZERO, 0.0f)
+    m_Sphere(SEVector3f::ZERO, 0.0f)
 {
 }
 //----------------------------------------------------------------------------
-SphereBV::SphereBV(const Sphere3f& rSphere)
+SphereBV::SphereBV(const SESphere3f& rSphere)
     :
     m_Sphere(rSphere)
 {
@@ -60,7 +60,7 @@ void SphereBV::ComputeFromData(const Vector3fArray* pVertices)
     if( pVertices )
     {
         int iVCount = pVertices->GetCount();
-        const Vector3f* aVertex = pVertices->GetData();
+        const SEVector3f* aVertex = pVertices->GetData();
         m_Sphere = ContSphereAveragef(iVCount, aVertex);
     }
 }
@@ -73,7 +73,7 @@ void SphereBV::ComputeFromData(const VertexBuffer* pVBuffer)
     {
         int iPCount = pVBuffer->GetVertexCount();
 
-        m_Sphere.Center = Vector3f::ZERO;
+        m_Sphere.Center = SEVector3f::ZERO;
         m_Sphere.Radius = 0.0f;
         int i;
         for( i = 0; i < iPCount; i++ )
@@ -84,7 +84,7 @@ void SphereBV::ComputeFromData(const VertexBuffer* pVBuffer)
 
         for( i = 0; i < iPCount; i++ )
         {
-            Vector3f vec3fDiff = pVBuffer->Position3(i) - m_Sphere.Center;
+            SEVector3f vec3fDiff = pVBuffer->Position3(i) - m_Sphere.Center;
             float fRadiusSqr = vec3fDiff.GetSquaredLength();
             if( fRadiusSqr > m_Sphere.Radius )
             {
@@ -92,19 +92,19 @@ void SphereBV::ComputeFromData(const VertexBuffer* pVBuffer)
             }
         }
 
-        m_Sphere.Radius = Mathf::Sqrt(m_Sphere.Radius);
+        m_Sphere.Radius = SEMathf::Sqrt(m_Sphere.Radius);
     }
 }
 //----------------------------------------------------------------------------
 void SphereBV::TransformBy(const Transformation& rTransform,
     BoundingVolume* pResult)
 {
-    Sphere3f& rTarget = ((SphereBV*)pResult)->m_Sphere;
+    SESphere3f& rTarget = ((SphereBV*)pResult)->m_Sphere;
     rTransform.ApplyForward(m_Sphere.Center, rTarget.Center);
     rTarget.Radius = rTransform.GetNorm() * m_Sphere.Radius;
 }
 //----------------------------------------------------------------------------
-int SphereBV::OnWhichSide(const Plane3f& rPlane) const
+int SphereBV::OnWhichSide(const SEPlane3f& rPlane) const
 {
     float fDistance = rPlane.GetDistance(m_Sphere.Center);
 
@@ -121,7 +121,7 @@ int SphereBV::OnWhichSide(const Plane3f& rPlane) const
     return 0;
 }
 //----------------------------------------------------------------------------
-bool SphereBV::TestIntersection(const Ray3f& rRay) const
+bool SphereBV::TestIntersection(const SERay3f& rRay) const
 {
     return IntrRay3Sphere3f(rRay, m_Sphere).Test();
 }
@@ -142,7 +142,7 @@ void SphereBV::GrowToContain(const BoundingVolume* pInput)
     m_Sphere = MergeSpheresf(m_Sphere, ((SphereBV*)pInput)->m_Sphere);
 }
 //----------------------------------------------------------------------------
-bool SphereBV::Contains(const Vector3f& rPoint) const
+bool SphereBV::Contains(const SEVector3f& rPoint) const
 {
     return IsInSpheref(rPoint, m_Sphere);
 }

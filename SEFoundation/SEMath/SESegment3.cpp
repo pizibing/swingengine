@@ -24,11 +24,11 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Segment3f::Segment3f()
+SESegment3f::SESegment3f()
 {
 }
 //----------------------------------------------------------------------------
-Segment3f::Segment3f(const Vector3f& rOrigin, const Vector3f& rDirection, 
+SESegment3f::SESegment3f(const SEVector3f& rOrigin, const SEVector3f& rDirection, 
     float fExtent)
     :
     Origin(rOrigin),
@@ -37,12 +37,12 @@ Segment3f::Segment3f(const Vector3f& rOrigin, const Vector3f& rDirection,
 {
 }
 //----------------------------------------------------------------------------
-Vector3f Segment3f::GetPosEnd() const
+SEVector3f SESegment3f::GetPosEnd() const
 {
     return Origin + Extent*Direction;
 }
 //----------------------------------------------------------------------------
-Vector3f Segment3f::GetNegEnd() const
+SEVector3f SESegment3f::GetNegEnd() const
 {
     return Origin - Extent*Direction;
 }

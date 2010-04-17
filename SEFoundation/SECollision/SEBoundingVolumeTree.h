@@ -62,12 +62,12 @@ protected:
         int iMaxTrisPerLeaf = 1, bool bStoreInteriorTris = false);
 
     void BuildTree(int eBVType, int iMaxTrisPerLeaf, bool bStoreInteriorTris,
-        const Vector3f* aCentroid, int i0, int i1, int* aiISplit,
+        const SEVector3f* aCentroid, int i0, int i1, int* aiISplit,
         int* aiOSplit);
 
-    static void SplitTriangles(const Vector3f* aCentroid, int i0, int i1,
+    static void SplitTriangles(const SEVector3f* aCentroid, int i0, int i1,
         int* aiISplit, int& rj0, int& rj1, int* aiOSplit,
-        const Line3f& rLine);
+        const SELine3f& rLine);
 
     // 关于如何拆分一个三角网格:
     // 所有三角面的中心用于拆分网格.
@@ -84,7 +84,7 @@ protected:
     static int Compare(const void* pvElement0, const void* pvElement1);
 
     // 模型空间BV的工厂函数表.
-    typedef BoundingVolume* (*CreatorM)(const TriMesh*, int, int, int*, Line3f&);
+    typedef BoundingVolume* (*CreatorM)(const TriMesh*, int, int, int*, SELine3f&);
     static CreatorM ms_aoCreateModelBound[BoundingVolume::BV_COUNT];
 
     // 世界空间BV的工厂函数表.

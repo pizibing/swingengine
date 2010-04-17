@@ -39,12 +39,12 @@ class SE_FOUNDATION_API IntrTriangle2Triangle2f
     : public Intersector<float, SEVector2f>
 {
 public:
-    IntrTriangle2Triangle2f(const Triangle2f& rTriangle0,
-        const Triangle2f& rTriangle1);
+    IntrTriangle2Triangle2f(const SETriangle2f& rTriangle0,
+        const SETriangle2f& rTriangle1);
 
     // object access
-    const Triangle2f& GetTriangle0(void) const;
-    const Triangle2f& GetTriangle1(void) const;
+    const SETriangle2f& GetTriangle0(void) const;
+    const SETriangle2f& GetTriangle1(void) const;
 
     // static queries
     virtual bool Test(void);
@@ -98,8 +98,8 @@ private:
         const SEVector2f aV1[3], int& riCount, SEVector2f aVertex[6]);
 
     // the objects to intersect
-    const Triangle2f* m_pTriangle0;
-    const Triangle2f* m_pTriangle1;
+    const SETriangle2f* m_pTriangle0;
+    const SETriangle2f* m_pTriangle1;
 
     // information about the intersection set
     int m_iCount;

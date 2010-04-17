@@ -24,20 +24,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistVector3Rectangle3f::DistVector3Rectangle3f(const Vector3f& rVector, 
-    const Rectangle3f& rRectangle)
+DistVector3Rectangle3f::DistVector3Rectangle3f(const SEVector3f& rVector, 
+    const SERectangle3f& rRectangle)
     :
     m_pVector(&rVector),
     m_pRectangle(&rRectangle)
 {
 }
 //----------------------------------------------------------------------------
-const Vector3f& DistVector3Rectangle3f::GetVector() const
+const SEVector3f& DistVector3Rectangle3f::GetVector() const
 {
     return *m_pVector;
 }
 //----------------------------------------------------------------------------
-const Rectangle3f& DistVector3Rectangle3f::GetRectangle()
+const SERectangle3f& DistVector3Rectangle3f::GetRectangle()
     const
 {
     return *m_pRectangle;
@@ -47,12 +47,12 @@ float DistVector3Rectangle3f::Get()
 {
     float fSqrDist = GetSquared();
 
-    return Math<float>::Sqrt(fSqrDist);
+    return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistVector3Rectangle3f::GetSquared()
 {
-    Vector3f vec3fDiff = m_pRectangle->Center - *m_pVector;
+    SEVector3f vec3fDiff = m_pRectangle->Center - *m_pVector;
     float fB0 = vec3fDiff.Dot(m_pRectangle->Axis[0]);
     float fB1 = vec3fDiff.Dot(m_pRectangle->Axis[1]);
     float fS0 = -fB0, fS1 = -fB1;
@@ -93,24 +93,24 @@ float DistVector3Rectangle3f::GetSquared()
     return fSqrDistance;
 }
 //----------------------------------------------------------------------------
-float DistVector3Rectangle3f::Get(float fT, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistVector3Rectangle3f::Get(float fT, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMVector = *m_pVector + fT*rVelocity0;
-    Vector3f vec3fMCenter = m_pRectangle->Center + fT*rVelocity1;
-    Rectangle3f tempMRectangle(vec3fMCenter, m_pRectangle->Axis[0],
+    SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
+    SEVector3f vec3fMCenter = m_pRectangle->Center + fT*rVelocity1;
+    SERectangle3f tempMRectangle(vec3fMCenter, m_pRectangle->Axis[0],
         m_pRectangle->Axis[1], m_pRectangle->Extent[0], 
         m_pRectangle->Extent[1]);
 
     return DistVector3Rectangle3f(vec3fMVector, tempMRectangle).Get();
 }
 //----------------------------------------------------------------------------
-float DistVector3Rectangle3f::GetSquared(float fT, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistVector3Rectangle3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMVector = *m_pVector + fT*rVelocity0;
-    Vector3f vec3fMCenter = m_pRectangle->Center + fT*rVelocity1;
-    Rectangle3f tempMRectangle(vec3fMCenter, m_pRectangle->Axis[0],
+    SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
+    SEVector3f vec3fMCenter = m_pRectangle->Center + fT*rVelocity1;
+    SERectangle3f tempMRectangle(vec3fMCenter, m_pRectangle->Axis[0],
         m_pRectangle->Axis[1], m_pRectangle->Extent[0], 
         m_pRectangle->Extent[1]);
 

@@ -37,14 +37,14 @@ namespace Swing
 // 时间:20081219
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API IntrRay3Sphere3f
-    : public Intersector<float, Vector3f>
+    : public Intersector<float, SEVector3f>
 {
 public:
-    IntrRay3Sphere3f(const Ray3f& rRay, const Sphere3f& rSphere);
+    IntrRay3Sphere3f(const SERay3f& rRay, const SESphere3f& rSphere);
 
     // 对象访问.
-    const Ray3f& GetRay(void) const;
-    const Sphere3f& GetSphere(void) const;
+    const SERay3f& GetRay(void) const;
+    const SESphere3f& GetSphere(void) const;
 
     // test-intersection查询.
     virtual bool Test(void);
@@ -52,17 +52,17 @@ public:
     // find-intersection查询.
     virtual bool Find(void);
     int GetCount(void) const;
-    const Vector3f& GetPoint(int i) const;
+    const SEVector3f& GetPoint(int i) const;
     float GetRayT(int i) const;
 
 private:
     // 待检查是否相交的对象.
-    const Ray3f* m_pRay;
-    const Sphere3f* m_pSphere;
+    const SERay3f* m_pRay;
+    const SESphere3f* m_pSphere;
 
     // 相交集相关信息.
     int m_iCount;
-    Vector3f m_aPoint[2];
+    SEVector3f m_aPoint[2];
     float m_afRayT[2];
 };
 

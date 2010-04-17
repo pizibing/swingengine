@@ -54,12 +54,12 @@ int Query2Filteredf::ToLine(const SEVector2f& rP, int iV0, int iV1) const
     float fX1 = rV1[0] - rV0[0];
     float fY1 = rV1[1] - rV0[1];
 
-    float fLen0 = Mathf::Sqrt(fX0*fX0 + fY0*fY0);
-    float fLen1 = Mathf::Sqrt(fX1*fX1 + fY1*fY1);
+    float fLen0 = SEMathf::Sqrt(fX0*fX0 + fY0*fY0);
+    float fLen1 = SEMathf::Sqrt(fX1*fX1 + fY1*fY1);
     float fScaledUncertainty = m_fUncertainty * fLen0 * fLen1;
 
     float fDet2 = Det2(fX0, fY0, fX1, fY1);
-    if( Mathf::FAbs(fDet2) >= fScaledUncertainty )
+    if( SEMathf::FAbs(fDet2) >= fScaledUncertainty )
     {
         return (fDet2 > 0.0f ? +1 : (fDet2 < 0.0f ? -1 : 0));
     }
@@ -90,13 +90,13 @@ int Query2Filteredf::ToCircumcircle(const SEVector2f& rP, int iV0,
     float fZ1 = fS1x*fD1x + fS1y*fD1y;
     float fZ2 = fS2x*fD2x + fS2y*fD2y;
 
-    float fLen0 = Mathf::Sqrt(fD0x*fD0x + fD0y*fD0y + fZ0*fZ0);
-    float fLen1 = Mathf::Sqrt(fD1x*fD1x + fD1y*fD1y + fZ1*fZ1);
-    float fLen2 = Mathf::Sqrt(fD2x*fD2x + fD2y*fD2y + fZ2*fZ2);
+    float fLen0 = SEMathf::Sqrt(fD0x*fD0x + fD0y*fD0y + fZ0*fZ0);
+    float fLen1 = SEMathf::Sqrt(fD1x*fD1x + fD1y*fD1y + fZ1*fZ1);
+    float fLen2 = SEMathf::Sqrt(fD2x*fD2x + fD2y*fD2y + fZ2*fZ2);
     float fScaledUncertainty = m_fUncertainty * fLen0 * fLen1 * fLen2;
 
     float fDet3 = Det3(fD0x, fD0y, fZ0, fD1x, fD1y, fZ1, fD2x, fD2y, fZ2);
-    if( Mathf::FAbs(fDet3) >= fScaledUncertainty )
+    if( SEMathf::FAbs(fDet3) >= fScaledUncertainty )
     {
         return (fDet3 < 0.0f ? 1 : (fDet3 > 0.0f ? -1 : 0));
     }

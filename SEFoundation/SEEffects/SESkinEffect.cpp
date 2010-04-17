@@ -157,7 +157,7 @@ void SkinEffect::OnLoadPrograms(int, Program*, Program*, Program*)
 void SkinEffect::OnPreApplyEffect(Renderer*, bool)
 {
     Transformation tempT;
-    Matrix4f tempMat;
+    SEMatrix4f tempMat;
     for( int i = 0; i < m_iBoneCount; i++ )
     {
         tempT.Product(m_aOffset[i], m_apBones[i]->World);

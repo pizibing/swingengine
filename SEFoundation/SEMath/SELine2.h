@@ -33,14 +33,14 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090105
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Line2f
+class SE_FOUNDATION_API SELine2f
 {
 public:
     // 直线表示为参数方程形式:P + t*D,其中P是直线上一点,D是单位长度方向向量,
     // 必须确保D为单位向量.
 
-    Line2f(void);
-    Line2f(const SEVector2f& rOrigin, const SEVector2f& rDirection);
+    SELine2f(void);
+    SELine2f(const SEVector2f& rOrigin, const SEVector2f& rDirection);
 
     SEVector2f Origin, Direction;
 };

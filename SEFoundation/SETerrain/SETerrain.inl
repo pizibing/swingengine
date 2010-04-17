@@ -54,7 +54,7 @@ inline float& Terrain::UVBias()
     return m_fUVBias;
 }
 //----------------------------------------------------------------------------
-inline ColorRGBA& Terrain::BorderColor()
+inline SEColorRGBA& Terrain::BorderColor()
 {
     return m_BorderColor;
 }

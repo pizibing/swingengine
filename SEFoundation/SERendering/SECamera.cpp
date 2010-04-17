@@ -39,22 +39,22 @@ Camera::Camera()
     SetFrustum(-0.5f, 0.5f, -0.5f, 0.5f, 1.0f, 2.0f);
     SetViewport(0.0f, 1.0f, 1.0f, 0.0f);
     SetDepthRange(0.0f, 1.0f);
-    SetFrame(Vector3f::ZERO, Vector3f::UNIT_X, Vector3f::UNIT_Y, 
-        Vector3f::UNIT_Z); // 与世界空间坐标系重合
+    SetFrame(SEVector3f::ZERO, SEVector3f::UNIT_X, SEVector3f::UNIT_Y, 
+        SEVector3f::UNIT_Z); // 与世界空间坐标系重合
 }
 //----------------------------------------------------------------------------
 Camera::~Camera()
 {
 }
 //----------------------------------------------------------------------------
-void Camera::SetFrame(const Vector3f& rLocation, const Vector3f& rRVector,
-    const Vector3f& rUVector, const Vector3f& rDVector)
+void Camera::SetFrame(const SEVector3f& rLocation, const SEVector3f& rRVector,
+    const SEVector3f& rUVector, const SEVector3f& rDVector)
 {
     m_Location = rLocation;
     SetAxes(rRVector, rUVector, rDVector);
 }
 //----------------------------------------------------------------------------
-void Camera::SetLocation(const Vector3f& rLocation)
+void Camera::SetLocation(const SEVector3f& rLocation)
 {
     m_Location = rLocation;
 
@@ -64,18 +64,18 @@ void Camera::SetLocation(const Vector3f& rLocation)
     }
 }
 //----------------------------------------------------------------------------
-void Camera::SetAxes(const Vector3f& rRVector, const Vector3f& rUVector,
-    const Vector3f& rDVector)
+void Camera::SetAxes(const SEVector3f& rRVector, const SEVector3f& rUVector,
+    const SEVector3f& rDVector)
 {
     m_RVector = rRVector;
     m_UVector = rUVector;
     m_DVector = rDVector;
 
-    float fADet = Mathf::FAbs(m_DVector.Dot(m_RVector.Cross(m_UVector)));
-    if( Mathf::FAbs(1.0f-fADet) > 0.01f )
+    float fADet = SEMathf::FAbs(m_DVector.Dot(m_RVector.Cross(m_UVector)));
+    if( SEMathf::FAbs(1.0f-fADet) > 0.01f )
     {
         // R,U,D不构成规范正交基,因此重新正交规范化这组基向量.
-        Vector3f::Orthonormalize(m_RVector, m_UVector, m_DVector);
+        SEVector3f::Orthonormalize(m_RVector, m_UVector, m_DVector);
     }
 
     if( m_pRenderer )
@@ -114,8 +114,8 @@ void Camera::SetFrustum(const float* pFrustum)
 void Camera::SetFrustum(float fUpFovDegrees, float fAspectRatio, float fDMin,
     float fDMax)
 {
-    float fHalfAngleRadians = 0.5f * fUpFovDegrees * Mathf::DEG_TO_RAD;
-    m_Frustum[VF_UMAX] = fDMin * Mathf::Tan(fHalfAngleRadians);
+    float fHalfAngleRadians = 0.5f * fUpFovDegrees * SEMathf::DEG_TO_RAD;
+    m_Frustum[VF_UMAX] = fDMin * SEMathf::Tan(fHalfAngleRadians);
     m_Frustum[VF_RMAX] = fAspectRatio * m_Frustum[VF_UMAX];
     m_Frustum[VF_UMIN] = -m_Frustum[VF_UMAX];
     m_Frustum[VF_RMIN] = -m_Frustum[VF_RMAX];
@@ -147,7 +147,7 @@ bool Camera::GetFrustum(float& rUpFovDegrees, float& rAspectRatio,
     &&  m_Frustum[VF_UMIN] == -m_Frustum[VF_UMAX] )
     {
         float fTemp = m_Frustum[VF_UMAX] / m_Frustum[VF_DMIN];
-        rUpFovDegrees = 2.0f * Mathf::ATan(fTemp) * Mathf::RAD_TO_DEG;
+        rUpFovDegrees = 2.0f * SEMathf::ATan(fTemp) * SEMathf::RAD_TO_DEG;
         rAspectRatio = m_Frustum[VF_RMAX] / m_Frustum[VF_UMAX];
         rDMin = m_Frustum[VF_DMIN];
         rDMax = m_Frustum[VF_DMAX];
@@ -209,7 +209,7 @@ void Camera::GetDepthRange(float& rNear, float& rFar)
 }
 //----------------------------------------------------------------------------
 bool Camera::GetPickRay(int iX, int iY, int iWidth, int iHeight,
-    Ray3f& rRay) const
+    SERay3f& rRay) const
 {
     float fPortX = ((float)iX) / (float)(iWidth - 1);
     if( fPortX < m_fPortL || fPortX > m_fPortR )
@@ -251,7 +251,7 @@ bool Camera::GetPickRay(int iX, int iY, int iWidth, int iHeight,
 }
 //----------------------------------------------------------------------------
 bool Camera::GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1, 
-    Matrix3f& rMat) const
+    SEMatrix3f& rMat) const
 {
     if( fX0 == fX1 && fY0 == fY1 )
     {
@@ -259,7 +259,7 @@ bool Camera::GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1,
     }
 
     // 获取球上的第一向量.
-    float fLength = Mathf::Sqrt(fX0*fX0 + fY0*fY0), fInvLength, fZ0, fZ1;
+    float fLength = SEMathf::Sqrt(fX0*fX0 + fY0*fY0), fInvLength, fZ0, fZ1;
     if( fLength > 1.0f )
     {
         // 如果在单位圆之外,则投影到单位圆上.
@@ -272,15 +272,15 @@ bool Camera::GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1,
     {
         // 如果在单位圆内,则直接计算出所对应的负单位半球上的点(x0,y0,z0).
         fZ0 = 1.0f - fX0*fX0 - fY0*fY0;
-        fZ0 = (fZ0 <= 0.0f ? 0.0f : Mathf::Sqrt(fZ0));
+        fZ0 = (fZ0 <= 0.0f ? 0.0f : SEMathf::Sqrt(fZ0));
     }
     fZ0 *= -1.0f;
 
     // 摄像机世界坐标轴顺序为(R,U,D), 对应向量表示为(x,y,z).
-    Vector3f tempVec0(fX0, fY0, fZ0);
+    SEVector3f tempVec0(fX0, fY0, fZ0);
 
     // 获取球上的第二向量.
-    fLength = Mathf::Sqrt(fX1*fX1 + fY1*fY1);
+    fLength = SEMathf::Sqrt(fX1*fX1 + fY1*fY1);
     if( fLength > 1.0f )
     {
         // 如果在单位圆之外,则投影到单位圆上.
@@ -293,36 +293,36 @@ bool Camera::GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1,
     {
         // 如果在单位圆内,则直接计算出所对应的负单位半球上的点(x1,y1,z1).
         fZ1 = 1.0f - fX1*fX1 - fY1*fY1;
-        fZ1 = (fZ1 <= 0.0f ? 0.0f : Mathf::Sqrt(fZ1));
+        fZ1 = (fZ1 <= 0.0f ? 0.0f : SEMathf::Sqrt(fZ1));
     }
     fZ1 *= -1.0f;
 
     // 摄像机世界坐标轴顺序为(R,U,D), 对应向量表示为(x,y,z).
-    Vector3f tempVec1(fX1, fY1, fZ1);
+    SEVector3f tempVec1(fX1, fY1, fZ1);
 
     // 创建旋转矩阵所需的轴,角.
-    Vector3f vec3fAxis = tempVec1.Cross(tempVec0);
+    SEVector3f vec3fAxis = tempVec1.Cross(tempVec0);
     float fDot = tempVec0.Dot(tempVec1);
     float fAngle;
-    if( vec3fAxis.Normalize() > Mathf::ZERO_TOLERANCE )
+    if( vec3fAxis.Normalize() > SEMathf::ZERO_TOLERANCE )
     {
-        fAngle = Mathf::ACos(fDot); 
+        fAngle = SEMathf::ACos(fDot); 
     }
     else  // 两向量平行
     {
         if( fDot < 0.0f )
         {
             // 旋转pi弧度.
-            fInvLength = Mathf::InvSqrt(fX0*fX0 + fY0*fY0);
+            fInvLength = SEMathf::InvSqrt(fX0*fX0 + fY0*fY0);
             vec3fAxis.X = fY0 * fInvLength;
             vec3fAxis.Y = -fX0 * fInvLength;
             vec3fAxis.Z = 0.0f;
-            fAngle = Mathf::PI;
+            fAngle = SEMathf::PI;
         }
         else
         {
             // 旋转0弧度.
-            vec3fAxis = Vector3f::UNIT_X;
+            vec3fAxis = SEVector3f::UNIT_X;
             fAngle = 0.0f;
         }
     }
@@ -330,7 +330,7 @@ bool Camera::GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1,
     // 计算trackball运动所对应的世界旋转矩阵.
     // 之前算出的旋转轴处在摄像机坐标系下.需要转换到世界坐标系下.
     // 其世界坐标系下的向量表示为(xR + yU + zD).
-    Vector3f vec3fWorldAxis = vec3fAxis.X*m_RVector + vec3fAxis.Y*m_UVector +
+    SEVector3f vec3fWorldAxis = vec3fAxis.X*m_RVector + vec3fAxis.Y*m_UVector +
         vec3fAxis.Z*m_DVector;
 
     rMat.FromAxisAngle(vec3fWorldAxis, -fAngle);

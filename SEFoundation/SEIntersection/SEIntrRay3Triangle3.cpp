@@ -24,20 +24,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrRay3Triangle3f::IntrRay3Triangle3f(const Ray3f& rRay,
-    const Triangle3f& rTriangle)
+IntrRay3Triangle3f::IntrRay3Triangle3f(const SERay3f& rRay,
+    const SETriangle3f& rTriangle)
     :
     m_pRay(&rRay),
     m_pTriangle(&rTriangle)
 {
 }
 //----------------------------------------------------------------------------
-const Ray3f& IntrRay3Triangle3f::GetRay() const
+const SERay3f& IntrRay3Triangle3f::GetRay() const
 {
     return *m_pRay;
 }
 //----------------------------------------------------------------------------
-const Triangle3f& IntrRay3Triangle3f::GetTriangle() const
+const SETriangle3f& IntrRay3Triangle3f::GetTriangle() const
 {
     return *m_pTriangle;
 }
@@ -45,10 +45,10 @@ const Triangle3f& IntrRay3Triangle3f::GetTriangle() const
 bool IntrRay3Triangle3f::Test()
 {
     // 计算offset origin, edges, normal.
-    Vector3f vec3fDiff = m_pRay->Origin - m_pTriangle->V[0];
-    Vector3f vec3fEdge1 = m_pTriangle->V[1] - m_pTriangle->V[0];
-    Vector3f vec3fEdge2 = m_pTriangle->V[2] - m_pTriangle->V[0];
-    Vector3f vec3fNormal = vec3fEdge1.Cross(vec3fEdge2);
+    SEVector3f vec3fDiff = m_pRay->Origin - m_pTriangle->V[0];
+    SEVector3f vec3fEdge1 = m_pTriangle->V[1] - m_pTriangle->V[0];
+    SEVector3f vec3fEdge2 = m_pTriangle->V[2] - m_pTriangle->V[0];
+    SEVector3f vec3fNormal = vec3fEdge1.Cross(vec3fEdge2);
 
     // 根据射线与三角形所在面交点,建立等式: O + t*D = b0*V0 + b1*V1 + b2*V2,
     // 即, O + t*D = (1 - b1 - b2)*V0 + b1*V1 + b2*V2,
@@ -62,11 +62,11 @@ bool IntrRay3Triangle3f::Test()
     // 其中sign()为取符号函数.
     float fDdN = m_pRay->Direction.Dot(vec3fNormal);
     float fSign;
-    if( fDdN > Mathf::ZERO_TOLERANCE )
+    if( fDdN > SEMathf::ZERO_TOLERANCE )
     {
         fSign = 1.0f;
     }
-    else if( fDdN < -Mathf::ZERO_TOLERANCE )
+    else if( fDdN < -SEMathf::ZERO_TOLERANCE )
     {
         fSign = -1.0f;
         fDdN = -fDdN;
@@ -106,10 +106,10 @@ bool IntrRay3Triangle3f::Test()
 bool IntrRay3Triangle3f::Find()
 {
     // 计算offset origin, edges, normal.
-    Vector3f vec3fDiff = m_pRay->Origin - m_pTriangle->V[0];
-    Vector3f vec3fEdge1 = m_pTriangle->V[1] - m_pTriangle->V[0];
-    Vector3f vec3fEdge2 = m_pTriangle->V[2] - m_pTriangle->V[0];
-    Vector3f vec3fNormal = vec3fEdge1.Cross(vec3fEdge2);
+    SEVector3f vec3fDiff = m_pRay->Origin - m_pTriangle->V[0];
+    SEVector3f vec3fEdge1 = m_pTriangle->V[1] - m_pTriangle->V[0];
+    SEVector3f vec3fEdge2 = m_pTriangle->V[2] - m_pTriangle->V[0];
+    SEVector3f vec3fNormal = vec3fEdge1.Cross(vec3fEdge2);
 
     // 根据射线与三角形所在面交点,建立等式: O + t*D = b0*V0 + b1*V1 + b2*V2,
     // 即, O + t*D = (1 - b2 - b2)*V0 + b1*V1 + b2*V2,
@@ -123,11 +123,11 @@ bool IntrRay3Triangle3f::Find()
     // 其中sign()为取符号函数.
     float fDdN = m_pRay->Direction.Dot(vec3fNormal);
     float fSign;
-    if( fDdN > Mathf::ZERO_TOLERANCE )
+    if( fDdN > SEMathf::ZERO_TOLERANCE )
     {
         fSign = 1.0f;
     }
-    else if( fDdN < -Mathf::ZERO_TOLERANCE )
+    else if( fDdN < -SEMathf::ZERO_TOLERANCE )
     {
         fSign = -1.0f;
         fDdN = -fDdN;

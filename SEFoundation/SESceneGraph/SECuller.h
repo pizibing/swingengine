@@ -67,10 +67,10 @@ public:
     // PushPlane传入参数必须是世界空间平面.
     enum { US_MAX_PLANE_COUNT = 32 };
     inline int GetPlaneCount(void) const;
-    inline const Plane3f* GetPlanes(void) const;
+    inline const SEPlane3f* GetPlanes(void) const;
     inline void SetPlaneState(unsigned int uiPlaneState);
     inline unsigned int GetPlaneState(void) const;
-    inline void PushPlane(const Plane3f& rPlane);
+    inline void PushPlane(const SEPlane3f& rPlane);
     inline void PopPlane(void);
 
     // 把对象的世界空间BV和各个剔除平面比较,
@@ -79,7 +79,7 @@ public:
     bool IsInFrustum(const BoundingVolume* pBound);
 
     // 支持Portal::GetUnculledSet.
-    bool IsInFrustum(int iVertexCount, const Vector3f* aVertex,
+    bool IsInFrustum(int iVertexCount, const SEVector3f* aVertex,
         bool bIgnoreNearPlane);
 
     // 把对象的世界空间BV和各个剔除平面比较,
@@ -91,7 +91,7 @@ public:
     // 判断截投体与平面的位置情况,
     // 在平面正半空间返回+1,负半空间返回-1,相交返回0.
     // 传入平面为世界空间平面.
-    int OnWhichSide(const Plane3f& rPlane) const;
+    int OnWhichSide(const SEPlane3f& rPlane) const;
 
     // 剔除系统入口.
     // 通过遍历传入的场景视图树,创建潜在可视听对象集合.
@@ -114,7 +114,7 @@ protected:
     // 则可断定其所有子节点也均处在该平面的该半空间内,
     // 从而避免子节点的重复性剔除比较.
     int m_iPlaneCount;
-    Plane3f m_aPlane[US_MAX_PLANE_COUNT];
+    SEPlane3f m_aPlane[US_MAX_PLANE_COUNT];
     unsigned int m_uiPlaneState;
 
     // 调用ComputeUnculledSet后产生的潜在可视对象集合.

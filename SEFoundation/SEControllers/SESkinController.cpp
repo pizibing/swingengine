@@ -33,7 +33,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(SkinController, Controller);
 
 //----------------------------------------------------------------------------
 SkinController::SkinController(int iVertexCount, int iBoneCount,
-    Node** apBones, float** aafWeight, Vector3f** aaOffset)
+    Node** apBones, float** aafWeight, SEVector3f** aaOffset)
 {
     m_iVertexCount = iVertexCount;
     m_iBoneCount = iBoneCount;
@@ -55,7 +55,7 @@ SkinController::~SkinController()
 {
     SE_DELETE[] m_apBones;
     Deallocate<float>(m_aafWeight);
-    Deallocate<Vector3f>(m_aaOffset);
+    Deallocate<SEVector3f>(m_aaOffset);
 }
 //----------------------------------------------------------------------------
 bool SkinController::Update(double dAppTime)
@@ -75,7 +75,7 @@ bool SkinController::Update(double dAppTime)
     SE_ASSERT( m_iVertexCount == pGeometry->VBuffer->GetVertexCount() );
     for( int i = 0; i < m_iVertexCount; i++ )
     {
-        Vector3f vec3fTemp;
+        SEVector3f vec3fTemp;
         m_apBones[0]->World.ApplyForward(m_aaOffset[i][0], vec3fTemp);
         pGeometry->VBuffer->Position3(i) = m_aafWeight[i][0] * vec3fTemp;
         for( int j = 1; j < m_iBoneCount; j++ )
@@ -117,7 +117,7 @@ void SkinController::Load(SEStream& rStream, SEStream::Link* pLink)
         rStream.Read(m_iBoneCount, m_aafWeight[i]);
     }
 
-    Allocate<Vector3f>(m_iBoneCount, m_iVertexCount, m_aaOffset);
+    Allocate<SEVector3f>(m_iBoneCount, m_iVertexCount, m_aaOffset);
     for( i = 0; i < m_iVertexCount; i++ )
     {
         rStream.Read(m_iBoneCount, m_aaOffset[i]);

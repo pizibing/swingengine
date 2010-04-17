@@ -92,7 +92,7 @@ public:
     // UpdateGS函数向下计算每个节点的世界变换,向上计算世界BV.
     // UpdateBS函数只向上计算世界BV,当模型数据改变时,只需改变模型BV和世界BV,
     // 无需重新计算空间变换.
-    void UpdateGS(double dAppTime = -Mathd::MAX_REAL,
+    void UpdateGS(double dAppTime = -SEMathd::MAX_REAL,
         bool bInitiator = true);
     void UpdateBS(void);
 
@@ -158,7 +158,7 @@ public:
     // 射线的原点和方向向量都必须在世界坐标系下.
     // 应用程序不能释放PickArray中的所有pick record,
     // 因为这些pick record来自于全局内存池的堆内存.
-    virtual void DoPick(const Ray3f& rRay, PickArray& rResults);
+    virtual void DoPick(const SERay3f& rRay, PickArray& rResults);
 
     static PickRecord* GetClosest(PickArray& rResults);
 

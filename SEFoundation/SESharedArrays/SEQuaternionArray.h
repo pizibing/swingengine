@@ -27,7 +27,7 @@
 
 namespace Swing
 {
-typedef SharedArray<Quaternionf> QuaternionfArray;
+typedef SharedArray<SEQuaternionf> QuaternionfArray;
 typedef SESmartPointer<QuaternionfArray> QuaternionfArrayPtr;
 }
 

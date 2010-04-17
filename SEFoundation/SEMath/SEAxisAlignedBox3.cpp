@@ -24,11 +24,11 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-AxisAlignedBox3f::AxisAlignedBox3f()
+SEAxisAlignedBox3f::SEAxisAlignedBox3f()
 {
 }
 //----------------------------------------------------------------------------
-AxisAlignedBox3f::AxisAlignedBox3f(float fXMin, float fXMax, float fYMin,
+SEAxisAlignedBox3f::SEAxisAlignedBox3f(float fXMin, float fXMax, float fYMin,
     float fYMax, float fZMin, float fZMax)
 {
     Min[0] = fXMin;
@@ -39,22 +39,22 @@ AxisAlignedBox3f::AxisAlignedBox3f(float fXMin, float fXMax, float fYMin,
     Max[2] = fZMax;
 }
 //----------------------------------------------------------------------------
-bool AxisAlignedBox3f::HasXOverlap(const AxisAlignedBox3f& rBox) const
+bool SEAxisAlignedBox3f::HasXOverlap(const SEAxisAlignedBox3f& rBox) const
 {
     return Max[0] >= rBox.Min[0] && Min[0] <= rBox.Max[0];
 }
 //----------------------------------------------------------------------------
-bool AxisAlignedBox3f::HasYOverlap(const AxisAlignedBox3f& rBox) const
+bool SEAxisAlignedBox3f::HasYOverlap(const SEAxisAlignedBox3f& rBox) const
 {
     return Max[1] >= rBox.Min[1] && Min[1] <= rBox.Max[1];
 }
 //----------------------------------------------------------------------------
-bool AxisAlignedBox3f::HasZOverlap(const AxisAlignedBox3f& rBox) const
+bool SEAxisAlignedBox3f::HasZOverlap(const SEAxisAlignedBox3f& rBox) const
 {
     return Max[2] >= rBox.Min[2] && Min[2] <= rBox.Max[2];
 }
 //----------------------------------------------------------------------------
-bool AxisAlignedBox3f::TestIntersection(const AxisAlignedBox3f& rBox) const
+bool SEAxisAlignedBox3f::TestIntersection(const SEAxisAlignedBox3f& rBox) const
 {
     for( int i = 0; i < 3; i++ )
     {
@@ -67,8 +67,8 @@ bool AxisAlignedBox3f::TestIntersection(const AxisAlignedBox3f& rBox) const
     return true;
 }
 //----------------------------------------------------------------------------
-bool AxisAlignedBox3f::FindIntersection(const AxisAlignedBox3f& rBox,
-    AxisAlignedBox3f& rIntr) const
+bool SEAxisAlignedBox3f::FindIntersection(const SEAxisAlignedBox3f& rBox,
+    SEAxisAlignedBox3f& rIntr) const
 {
     int i;
     for( i = 0; i < 3; i++ )

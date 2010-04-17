@@ -32,12 +32,12 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(RoamTerrain, Node);
 //----------------------------------------------------------------------------
 RoamTerrain::RoamTerrain(const char* acHeightName, const char* acImageName,
     const Attributes& rAttr, Camera* pCamera, float fUVBias,
-    ColorRGBA* pBorderColor)
+    SEColorRGBA* pBorderColor)
     :
     m_Attr(rAttr),
     m_spCamera(pCamera),
     m_fUVBias(fUVBias),
-    m_BorderColor(pBorderColor ? *pBorderColor : ColorRGBA::SE_RGBA_BLACK)
+    m_BorderColor(pBorderColor ? *pBorderColor : SEColorRGBA::SE_RGBA_BLACK)
 {
     m_bLod = true;
 
@@ -80,7 +80,7 @@ RoamTerrain::RoamTerrain(const char* acHeightName, const char* acImageName,
 //----------------------------------------------------------------------------
 RoamTerrain::RoamTerrain()
     :
-    m_BorderColor(ColorRGBA::SE_RGBA_BLACK)
+    m_BorderColor(SEColorRGBA::SE_RGBA_BLACK)
 {
     m_bLod = true;
     m_iRows = 0;
@@ -157,14 +157,14 @@ RoamTerrainPage* RoamTerrain::GetCurrentPage(float fX, float fZ) const
     float fMSpaceX = fX - World.GetTranslate().X;
     float fMSpaceZ = fZ - World.GetTranslate().Z;
 
-    int iCol = (int)Mathf::Floor(fMSpaceX * fInvLength);
+    int iCol = (int)SEMathf::Floor(fMSpaceX * fInvLength);
     iCol %= m_iCols;
     if( iCol < 0 )
     {
         iCol += m_iCols;
     }
 
-    int iRow = (int)Mathf::Floor(fMSpaceZ * fInvLength);
+    int iRow = (int)SEMathf::Floor(fMSpaceZ * fInvLength);
     iRow %= m_iRows;
     if( iRow < 0 )
     {

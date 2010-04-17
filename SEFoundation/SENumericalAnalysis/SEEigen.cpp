@@ -35,7 +35,7 @@ Eigen::Eigen(int iSize)
     m_bIsRotation = false;
 }
 //----------------------------------------------------------------------------
-Eigen::Eigen(const Matrix2f& rMat)
+Eigen::Eigen(const SEMatrix2f& rMat)
     : m_Mat(2, 2, (const float*)rMat)
 {
     m_iSize = 2;
@@ -44,7 +44,7 @@ Eigen::Eigen(const Matrix2f& rMat)
     m_bIsRotation = false;
 }
 //----------------------------------------------------------------------------
-Eigen::Eigen(const Matrix3f& rMat)
+Eigen::Eigen(const SEMatrix3f& rMat)
     : m_Mat(3, 3, (const float*)rMat)
 {
     m_iSize = 3;
@@ -53,7 +53,7 @@ Eigen::Eigen(const Matrix3f& rMat)
     m_bIsRotation = false;
 }
 //----------------------------------------------------------------------------
-Eigen::Eigen(const MatrixMNf& rMat)
+Eigen::Eigen(const SEMatrixMNf& rMat)
     : m_Mat(rMat)
 {
     m_iSize = rMat.GetRows();
@@ -75,7 +75,7 @@ float& Eigen::operator()(int iRow, int iCol)
     return m_Mat[iRow][iCol];
 }
 //----------------------------------------------------------------------------
-Eigen& Eigen::operator=(const Matrix2f& rMat)
+Eigen& Eigen::operator=(const SEMatrix2f& rMat)
 {
     m_Mat.SetMatrix(2, 2, (const float*)rMat);
     m_iSize = 2;
@@ -87,7 +87,7 @@ Eigen& Eigen::operator=(const Matrix2f& rMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Eigen& Eigen::operator=(const Matrix3f& rMat)
+Eigen& Eigen::operator=(const SEMatrix3f& rMat)
 {
     m_Mat.SetMatrix(3, 3, (const float*)rMat);
     m_iSize = 3;
@@ -99,7 +99,7 @@ Eigen& Eigen::operator=(const Matrix3f& rMat)
     return *this;
 }
 //----------------------------------------------------------------------------
-Eigen& Eigen::operator=(const MatrixMNf& rMat)
+Eigen& Eigen::operator=(const SEMatrixMNf& rMat)
 {
     m_Mat = rMat;
 
@@ -133,7 +133,7 @@ void Eigen::GetEigenvector(int i, SEVector2f& rVec) const
     }
 }
 //----------------------------------------------------------------------------
-void Eigen::GetEigenvector(int i, Vector3f& rVec) const
+void Eigen::GetEigenvector(int i, SEVector3f& rVec) const
 {
     SE_ASSERT( m_iSize == 3 );
 
@@ -146,19 +146,19 @@ void Eigen::GetEigenvector(int i, Vector3f& rVec) const
     }
     else
     {
-        rVec = Vector3f::ZERO;
+        rVec = SEVector3f::ZERO;
     }
 }
 //----------------------------------------------------------------------------
-VectorNf Eigen::GetEigenvector(int i) const
+SEVectorNf Eigen::GetEigenvector(int i) const
 {
-    VectorNf ResVec;
+    SEVectorNf ResVec;
 	m_Mat.GetCol(i, ResVec);
 
     return ResVec;
 }
 //----------------------------------------------------------------------------
-const MatrixMNf& Eigen::GetEigenvectors() const
+const SEMatrixMNf& Eigen::GetEigenvectors() const
 {
     return m_Mat;
 }
@@ -189,9 +189,9 @@ void Eigen::Tridiagonal3()
 
     m_pDiag[0] = fM00;
     m_pSubd[2] = 0.0f;
-    if( Math<float>::FAbs(fM02) > Math<float>::ZERO_TOLERANCE )
+    if( SEMath<float>::FAbs(fM02) > SEMath<float>::ZERO_TOLERANCE )
     {
-        float fLength = Math<float>::Sqrt(fM01*fM01 + fM02*fM02);
+        float fLength = SEMath<float>::Sqrt(fM01*fM01 + fM02*fM02);
         float fInvLength = 1.0f / fLength;
         fM01 *= fInvLength;
         fM02 *= fInvLength;
@@ -244,7 +244,7 @@ void Eigen::TridiagonalN()
         {
             for( i2 = 0; i2 <= i3; i2++ )
             {
-                fScale += Math<float>::FAbs(m_Mat[i0][i2]);
+                fScale += SEMath<float>::FAbs(m_Mat[i0][i2]);
             }
             if( fScale == 0.0f )
             {
@@ -259,7 +259,7 @@ void Eigen::TridiagonalN()
                     fH += m_Mat[i0][i2] * m_Mat[i0][i2];
                 }
                 float fF = m_Mat[i0][i3];
-                float fG = Math<float>::Sqrt(fH);
+                float fG = SEMath<float>::Sqrt(fH);
                 if( fF > 0.0f )
                 {
                     fG = -fG;
@@ -355,9 +355,9 @@ bool Eigen::QLAlgorithm()
             int i2;
             for( i2 = i0; i2 <= m_iSize - 2; i2++ )
             {
-                float fTemp = Math<float>::FAbs(m_pDiag[i2]) + Math<float>::FAbs(m_pDiag[i2 + 1]);
+                float fTemp = SEMath<float>::FAbs(m_pDiag[i2]) + SEMath<float>::FAbs(m_pDiag[i2 + 1]);
 
-                if( Math<float>::FAbs(m_pSubd[i2]) + fTemp == fTemp )
+                if( SEMath<float>::FAbs(m_pSubd[i2]) + fTemp == fTemp )
                 {
                     break;
                 }
@@ -368,7 +368,7 @@ bool Eigen::QLAlgorithm()
             }
 
             float fG = (m_pDiag[i0 + 1] - m_pDiag[i0]) / (2.0f * m_pSubd[i0]);
-            float fR = Math<float>::Sqrt(fG*fG + 1.0f);
+            float fR = SEMath<float>::Sqrt(fG*fG + 1.0f);
             if( fG < 0.0f )
             {
                 fG = m_pDiag[i2] - m_pDiag[i0] + m_pSubd[i0]/(fG - fR);
@@ -382,10 +382,10 @@ bool Eigen::QLAlgorithm()
             {
                 float fF = fSin * m_pSubd[i3];
                 float fB = fCos * m_pSubd[i3];
-                if( Math<float>::FAbs(fF) >= Math<float>::FAbs(fG) )
+                if( SEMath<float>::FAbs(fF) >= SEMath<float>::FAbs(fG) )
                 {
                     fCos = fG / fF;
-                    fR = Math<float>::Sqrt(fCos*fCos + 1.0f);
+                    fR = SEMath<float>::Sqrt(fCos*fCos + 1.0f);
                     m_pSubd[i3 + 1] = fF * fR;
                     fSin = 1.0f / fR;
                     fCos *= fSin;
@@ -393,7 +393,7 @@ bool Eigen::QLAlgorithm()
                 else
                 {
                     fSin = fF / fG;
-                    fR = Math<float>::Sqrt(fSin*fSin + 1.0f);
+                    fR = SEMath<float>::Sqrt(fSin*fSin + 1.0f);
                     m_pSubd[i3 + 1] = fG * fR;
                     fCos = 1.0f / fR;
                     fSin *= fCos;

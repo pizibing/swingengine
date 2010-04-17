@@ -61,9 +61,9 @@ public:
     virtual int GetBVType(void) const = 0;
 
     // 所有BV都要定义中点和半径.
-    virtual void SetCenter(const Vector3f& rCenter) = 0;
+    virtual void SetCenter(const SEVector3f& rCenter) = 0;
     virtual void SetRadius(float fRadius) = 0;
-    virtual Vector3f GetCenter(void) const = 0;
+    virtual SEVector3f GetCenter(void) const = 0;
     virtual float GetRadius(void) const = 0;
 
     // 派生类中的一个必须实现这个工厂函数,引擎只能支持使用同一种BV,
@@ -79,10 +79,10 @@ public:
 
     // 判断BV是否在平面正半空间(平面法线所指向的空间),相交,负半空间,
     // 相应的返回值为+1,0,-1.
-    virtual int OnWhichSide(const Plane3f& rPlane) const = 0;
+    virtual int OnWhichSide(const SEPlane3f& rPlane) const = 0;
 
     // 测试BV是否和射线相交,不计算交点,射线方向必须为单位向量.
-    virtual bool TestIntersection(const Ray3f& rRay) const = 0;
+    virtual bool TestIntersection(const SERay3f& rRay) const = 0;
 
     // 测试是否和另一个BV相交.
     virtual bool TestIntersection(const BoundingVolume* pInput) const = 0;
@@ -94,7 +94,7 @@ public:
     virtual void GrowToContain(const BoundingVolume* pInput) = 0;
 
     // 是否包含传入点.
-    virtual bool Contains(const Vector3f& rPoint) const = 0;
+    virtual bool Contains(const SEVector3f& rPoint) const = 0;
 
 protected:
     BoundingVolume(void);

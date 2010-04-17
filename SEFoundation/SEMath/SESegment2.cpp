@@ -24,11 +24,11 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Segment2f::Segment2f()
+SESegment2f::SESegment2f()
 {
 }
 //----------------------------------------------------------------------------
-Segment2f::Segment2f(const SEVector2f& rOrigin, const SEVector2f& rDirection, 
+SESegment2f::SESegment2f(const SEVector2f& rOrigin, const SEVector2f& rDirection, 
     float fExtent)
     :
     Origin(rOrigin),
@@ -37,12 +37,12 @@ Segment2f::Segment2f(const SEVector2f& rOrigin, const SEVector2f& rDirection,
 {
 }
 //----------------------------------------------------------------------------
-SEVector2f Segment2f::GetPosEnd() const
+SEVector2f SESegment2f::GetPosEnd() const
 {
     return Origin + Direction*Extent;
 }
 //----------------------------------------------------------------------------
-SEVector2f Segment2f::GetNegEnd() const
+SEVector2f SESegment2f::GetNegEnd() const
 {
     return Origin - Direction*Extent;
 }

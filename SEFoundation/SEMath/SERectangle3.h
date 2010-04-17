@@ -33,7 +33,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090113
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Rectangle3f
+class SE_FOUNDATION_API SERectangle3f
 {
 public:
     // 矩形上的点表示为:R(s,t) = C + s0*U0 + s1*U1,其中C是矩形中心点,
@@ -41,22 +41,22 @@ public:
     // 参数s0和s1被限制在:|s0| <= e0且|s1| <= e1,
     // 其中e0 > 0,e1 > 0,称为矩形轴向延展长度.
 
-    Rectangle3f(void);
-    Rectangle3f(const Vector3f& rCenter, const Vector3f* aAxis,
+    SERectangle3f(void);
+    SERectangle3f(const SEVector3f& rCenter, const SEVector3f* aAxis,
         const float* afExtent);
-    Rectangle3f(const Vector3f& rCenter, const Vector3f& rAxis0,
-        const Vector3f& rAxis1, float fExtent0, float fExtent1);
+    SERectangle3f(const SEVector3f& rCenter, const SEVector3f& rAxis0,
+        const SEVector3f& rAxis1, float fExtent0, float fExtent1);
 
-    void ComputeVertices(Vector3f aVertex[4]) const;
+    void ComputeVertices(SEVector3f aVertex[4]) const;
 
     // 角顶点访问.
-    Vector3f GetPPCorner(void) const;  // C + e0*A0 + e1*A1
-    Vector3f GetPMCorner(void) const;  // C + e0*A0 - e1*A1
-    Vector3f GetMPCorner(void) const;  // C - e0*A0 + e1*A1
-    Vector3f GetMMCorner(void) const;  // C - e0*A0 - e1*A1
+    SEVector3f GetPPCorner(void) const;  // C + e0*A0 + e1*A1
+    SEVector3f GetPMCorner(void) const;  // C + e0*A0 - e1*A1
+    SEVector3f GetMPCorner(void) const;  // C - e0*A0 + e1*A1
+    SEVector3f GetMMCorner(void) const;  // C - e0*A0 - e1*A1
 
-    Vector3f Center;
-    Vector3f Axis[2];
+    SEVector3f Center;
+    SEVector3f Axis[2];
     float Extent[2];
 };
 

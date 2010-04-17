@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Mapper3f::Mapper3f(int iVCount, const Vector3f* aVertex, float fEpsilon)
+SEMapper3f::SEMapper3f(int iVCount, const SEVector3f* aVertex, float fEpsilon)
 {
     SE_ASSERT( iVCount > 0 && aVertex && fEpsilon >= 0.0f );
 
@@ -59,7 +59,7 @@ Mapper3f::Mapper3f(int iVCount, const Vector3f* aVertex, float fEpsilon)
     }
 
     // Determine the maximum range for the bounding box.
-    Vector3f vec3fRange = m_Max - m_Min;
+    SEVector3f vec3fRange = m_Max - m_Min;
     m_fMaxRange = vec3fRange[0];
     m_aiExtreme[0] = aiIMin[0];
     m_aiExtreme[1] = aiIMax[0];
@@ -84,9 +84,9 @@ Mapper3f::Mapper3f(int iVCount, const Vector3f* aVertex, float fEpsilon)
         m_aiExtreme[1] = m_aiExtreme[0];
         m_aiExtreme[2] = m_aiExtreme[0];
         m_aiExtreme[3] = m_aiExtreme[0];
-        m_aDirection[0] = Vector3f::ZERO;
-        m_aDirection[1] = Vector3f::ZERO;
-        m_aDirection[2] = Vector3f::ZERO;
+        m_aDirection[0] = SEVector3f::ZERO;
+        m_aDirection[1] = SEVector3f::ZERO;
+        m_aDirection[2] = SEVector3f::ZERO;
 
         return;
     }
@@ -98,9 +98,9 @@ Mapper3f::Mapper3f(int iVCount, const Vector3f* aVertex, float fEpsilon)
     m_aiExtreme[2] = m_aiExtreme[0];
     for( i = 0; i < iVCount; i++ )
     {
-        Vector3f vec3fDiff = aVertex[i] - m_Origin;
+        SEVector3f vec3fDiff = aVertex[i] - m_Origin;
         fDot = m_aDirection[0].Dot(vec3fDiff);
-        Vector3f vec3fProj = vec3fDiff - fDot*m_aDirection[0];
+        SEVector3f vec3fProj = vec3fDiff - fDot*m_aDirection[0];
         fL = vec3fProj.GetLength();
         if( fL > fLMax )
         {
@@ -114,8 +114,8 @@ Mapper3f::Mapper3f(int iVCount, const Vector3f* aVertex, float fEpsilon)
         m_iDimension = 1;
         m_aiExtreme[2] = m_aiExtreme[1];
         m_aiExtreme[3] = m_aiExtreme[1];
-        m_aDirection[1] = Vector3f::ZERO;
-        m_aDirection[2] = Vector3f::ZERO;
+        m_aDirection[1] = SEVector3f::ZERO;
+        m_aDirection[2] = SEVector3f::ZERO;
 
         return;
     }
@@ -131,10 +131,10 @@ Mapper3f::Mapper3f(int iVCount, const Vector3f* aVertex, float fEpsilon)
     m_aiExtreme[3] = m_aiExtreme[0];
     for( i = 0; i < iVCount; i++ )
     {
-        Vector3f vec3fDiff = aVertex[i] - m_Origin;
+        SEVector3f vec3fDiff = aVertex[i] - m_Origin;
         fL = m_aDirection[2].Dot(vec3fDiff);
-        fSign = Mathf::Sign(fL);
-        fL = Mathf::FAbs(fL);
+        fSign = SEMathf::Sign(fL);
+        fL = SEMathf::FAbs(fL);
         if( fL > fLMax )
         {
             fLMax = fL;
@@ -155,50 +155,50 @@ Mapper3f::Mapper3f(int iVCount, const Vector3f* aVertex, float fEpsilon)
     m_bExtremeCCW = (fMaxSign > 0.0f ? true : false);
 }
 //----------------------------------------------------------------------------
-Mapper3f::~Mapper3f()
+SEMapper3f::~SEMapper3f()
 {
 }
 //----------------------------------------------------------------------------
-const Vector3f& Mapper3f::GetMin() const
+const SEVector3f& SEMapper3f::GetMin() const
 {
     return m_Min;
 }
 //----------------------------------------------------------------------------
-const Vector3f& Mapper3f::GetMax() const
+const SEVector3f& SEMapper3f::GetMax() const
 {
     return m_Max;
 }
 //----------------------------------------------------------------------------
-float Mapper3f::GetMaxRange() const
+float SEMapper3f::GetMaxRange() const
 {
     return m_fMaxRange;
 }
 //----------------------------------------------------------------------------
-int Mapper3f::GetDimension() const
+int SEMapper3f::GetDimension() const
 {
     return m_iDimension;
 }
 //----------------------------------------------------------------------------
-const Vector3f& Mapper3f::GetOrigin() const
+const SEVector3f& SEMapper3f::GetOrigin() const
 {
     return m_Origin;
 }
 //----------------------------------------------------------------------------
-const Vector3f& Mapper3f::GetDirection(int i) const
+const SEVector3f& SEMapper3f::GetDirection(int i) const
 {
     SE_ASSERT( 0 <= i && i < 3 );
 
     return m_aDirection[i];
 }
 //----------------------------------------------------------------------------
-int Mapper3f::GetExtremeIndex(int i) const
+int SEMapper3f::GetExtremeIndex(int i) const
 {
     SE_ASSERT( 0 <= i && i < 4 );
 
     return m_aiExtreme[i];
 }
 //----------------------------------------------------------------------------
-bool Mapper3f::GetExtremeCCW() const
+bool SEMapper3f::GetExtremeCCW() const
 {
     return m_bExtremeCCW;
 }

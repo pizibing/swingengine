@@ -35,29 +35,29 @@ namespace Swing
 // 时间:20090119
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API DistRectangle3Rectangle3f
-    : public Distance<float, Vector3f>
+    : public Distance<float, SEVector3f>
 {
 public:
-    DistRectangle3Rectangle3f(const Rectangle3f& rRectangle0,
-        const Rectangle3f& rRectangle1);
+    DistRectangle3Rectangle3f(const SERectangle3f& rRectangle0,
+        const SERectangle3f& rRectangle1);
 
     // 对象访问.
-    const Rectangle3f& GetRectangle0(void) const;
-    const Rectangle3f& GetRectangle1(void) const;
+    const SERectangle3f& GetRectangle0(void) const;
+    const SERectangle3f& GetRectangle1(void) const;
 
     // static distance查询.
     virtual float Get(void);
     virtual float GetSquared(void);
 
     // 用于dynamic distance查询的convex function计算.
-    virtual float Get(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
-    virtual float GetSquared(float fT, const Vector3f& rVelocity0,
-        const Vector3f& rVelocity1);
+    virtual float Get(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
+    virtual float GetSquared(float fT, const SEVector3f& rVelocity0,
+        const SEVector3f& rVelocity1);
 
 private:
-    const Rectangle3f* m_pRectangle0;
-    const Rectangle3f* m_pRectangle1;
+    const SERectangle3f* m_pRectangle0;
+    const SERectangle3f* m_pRectangle1;
 };
 
 }

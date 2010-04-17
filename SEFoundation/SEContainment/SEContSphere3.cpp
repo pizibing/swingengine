@@ -24,22 +24,22 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Sphere3f Swing::ContSphereOfAABBf(int iCount, const Vector3f* aPoint)
+SESphere3f Swing::ContSphereOfAABBf(int iCount, const SEVector3f* aPoint)
 {
-    Vector3f vec3fMinPoint, vec3fMaxPoint;
-    Vector3f::ComputeExtremes(iCount, aPoint, vec3fMinPoint, vec3fMaxPoint);
+    SEVector3f vec3fMinPoint, vec3fMaxPoint;
+    SEVector3f::ComputeExtremes(iCount, aPoint, vec3fMinPoint, vec3fMaxPoint);
 
-    Sphere3f tempSphere;
+    SESphere3f tempSphere;
     tempSphere.Center = 0.5f * (vec3fMaxPoint + vec3fMinPoint);
-    Vector3f vec3fHalfDiagonal = 0.5f * (vec3fMaxPoint - vec3fMinPoint);
+    SEVector3f vec3fHalfDiagonal = 0.5f * (vec3fMaxPoint - vec3fMinPoint);
     tempSphere.Radius = vec3fHalfDiagonal.GetLength();
     
     return tempSphere;
 }
 //----------------------------------------------------------------------------
-Sphere3f Swing::ContSphereAveragef(int iCount, const Vector3f* aPoint)
+SESphere3f Swing::ContSphereAveragef(int iCount, const SEVector3f* aPoint)
 {
-    Sphere3f tempSphere;
+    SESphere3f tempSphere;
 
     tempSphere.Center = aPoint[0];
 	tempSphere.Radius = 0.0f;
@@ -53,7 +53,7 @@ Sphere3f Swing::ContSphereAveragef(int iCount, const Vector3f* aPoint)
 
     for( i = 0; i < iCount; i++ )
     {
-        Vector3f vec3fDiff = aPoint[i] - tempSphere.Center;
+        SEVector3f vec3fDiff = aPoint[i] - tempSphere.Center;
         float fRadiusSqr = vec3fDiff.GetSquaredLength();
 
         if( fRadiusSqr > tempSphere.Radius )
@@ -62,22 +62,22 @@ Sphere3f Swing::ContSphereAveragef(int iCount, const Vector3f* aPoint)
         }
     }
 
-    tempSphere.Radius = Math<float>::Sqrt(tempSphere.Radius);
+    tempSphere.Radius = SEMath<float>::Sqrt(tempSphere.Radius);
 
     return tempSphere;
 }
 //----------------------------------------------------------------------------
-bool Swing::IsInSpheref(const Vector3f& rPoint, const Sphere3f& rSphere)
+bool Swing::IsInSpheref(const SEVector3f& rPoint, const SESphere3f& rSphere)
 {
-    Vector3f vec3fDiff = rPoint - rSphere.Center;
+    SEVector3f vec3fDiff = rPoint - rSphere.Center;
 
     return vec3fDiff.GetSquaredLength() <= rSphere.Radius * rSphere.Radius;
 }
 //----------------------------------------------------------------------------
-Sphere3f Swing::MergeSpheresf(const Sphere3f& rSphere0, 
-    const Sphere3f& rSphere1)
+SESphere3f Swing::MergeSpheresf(const SESphere3f& rSphere0, 
+    const SESphere3f& rSphere1)
 {
-    Vector3f vec3fCenterDiff = rSphere1.Center - rSphere0.Center;
+    SEVector3f vec3fCenterDiff = rSphere1.Center - rSphere0.Center;
     float fLSqr = vec3fCenterDiff.GetSquaredLength();
     float fRadiusDiff = rSphere1.Radius - rSphere0.Radius;
     float fRadiusDiffSqr = fRadiusDiff * fRadiusDiff;
@@ -87,10 +87,10 @@ Sphere3f Swing::MergeSpheresf(const Sphere3f& rSphere0,
         return ( fRadiusDiff >= 0.0f ? rSphere1 : rSphere0 );
     }
 
-    float fLength = Math<float>::Sqrt(fLSqr);
-    Sphere3f tempSphere;
+    float fLength = SEMath<float>::Sqrt(fLSqr);
+    SESphere3f tempSphere;
 
-    if( fLength > Math<float>::ZERO_TOLERANCE )
+    if( fLength > SEMath<float>::ZERO_TOLERANCE )
     {
         float fCoeff = (fLength + fRadiusDiff) / (2.0f * fLength);
         tempSphere.Center = rSphere0.Center + fCoeff*vec3fCenterDiff;
@@ -109,10 +109,10 @@ Sphere3f Swing::MergeSpheresf(const Sphere3f& rSphere0,
 //----------------------------------------------------------------------------
 // MinSphere3f
 //
-// 所有最小球的内部计算函数都在Sphere3f对象中暂存平方半径,只有最后输出时才开方.
+// 所有最小球的内部计算函数都在SESphere3f对象中暂存平方半径,只有最后输出时才开方.
 //----------------------------------------------------------------------------
-MinSphere3f::MinSphere3f(int iCount, const Vector3f* aPoint, 
-    Sphere3f& rMinimal, float fEpsilon)
+MinSphere3f::MinSphere3f(int iCount, const SEVector3f* aPoint, 
+    SESphere3f& rMinimal, float fEpsilon)
 {
     m_fEpsilon = fEpsilon;
     m_aoUpdate[0] = 0;
@@ -127,11 +127,11 @@ MinSphere3f::MinSphere3f(int iCount, const Vector3f* aPoint,
     if( iCount >= 1 )
     {
         // 创建等同于输入顶点的新顶点集指针数组.
-        Vector3f** apPermute = new Vector3f*[iCount];
+        SEVector3f** apPermute = new SEVector3f*[iCount];
         int i;
         for( i = 0; i < iCount; i++ )
         {
-            apPermute[i] = (Vector3f*)&aPoint[i];
+            apPermute[i] = (SEVector3f*)&aPoint[i];
         }
 
         // 随机重新排列顶点顺序.
@@ -140,7 +140,7 @@ MinSphere3f::MinSphere3f(int iCount, const Vector3f* aPoint,
             int j = rand() % (i + 1);
             if( j != i )
             {
-                Vector3f* pTemp = apPermute[i];
+                SEVector3f* pTemp = apPermute[i];
                 apPermute[i] = apPermute[j];
                 apPermute[j] = pTemp;
             }
@@ -163,7 +163,7 @@ MinSphere3f::MinSphere3f(int iCount, const Vector3f* aPoint,
 					UpdateFunction oUpdate = m_aoUpdate[tempSupp.Count];
                     // 计算新的当前最小球,
                     // 使其能够同时包含当前support集合和当前顶点i.
-                    Sphere3f tempSphere =(this->*oUpdate)(i, apPermute, tempSupp);
+                    SESphere3f tempSphere =(this->*oUpdate)(i, apPermute, tempSupp);
                     if( tempSphere.Radius > rMinimal.Radius )
                     {
                         rMinimal = tempSphere;
@@ -183,13 +183,13 @@ MinSphere3f::MinSphere3f(int iCount, const Vector3f* aPoint,
         SE_ASSERT( false );
     }
 
-    rMinimal.Radius = Math<float>::Sqrt(rMinimal.Radius);
+    rMinimal.Radius = SEMath<float>::Sqrt(rMinimal.Radius);
 }
 //----------------------------------------------------------------------------
-bool MinSphere3f::Contains(const Vector3f& rPoint, const Sphere3f& rSphere, 
+bool MinSphere3f::Contains(const SEVector3f& rPoint, const SESphere3f& rSphere, 
     float& rfDistDiff)
 {
-    Vector3f vec3fDiff = rPoint - rSphere.Center;
+    SEVector3f vec3fDiff = rPoint - rSphere.Center;
     float fTest = vec3fDiff.GetSquaredLength();
 
     // 这里的sphere半径是平方半径.
@@ -198,28 +198,28 @@ bool MinSphere3f::Contains(const Vector3f& rPoint, const Sphere3f& rSphere,
     return rfDistDiff <= 0.0f;
 }
 //----------------------------------------------------------------------------
-Sphere3f MinSphere3f::ExactSphere1(const Vector3f& rPoint)
+SESphere3f MinSphere3f::ExactSphere1(const SEVector3f& rPoint)
 {
-    Sphere3f tempMinimal;
+    SESphere3f tempMinimal;
     tempMinimal.Center = rPoint;
     tempMinimal.Radius = 0.0f;
     
     return tempMinimal;
 }
 //----------------------------------------------------------------------------
-Sphere3f MinSphere3f::ExactSphere2(const Vector3f& rPoint0, 
-    const Vector3f& rPoint1)
+SESphere3f MinSphere3f::ExactSphere2(const SEVector3f& rPoint0, 
+    const SEVector3f& rPoint1)
 {
-    Sphere3f tempMinimal;
+    SESphere3f tempMinimal;
     tempMinimal.Center = 0.5f * (rPoint0 + rPoint1);
-    Vector3f vec3fDiff = rPoint1 - rPoint0;
+    SEVector3f vec3fDiff = rPoint1 - rPoint0;
     tempMinimal.Radius = 0.25f * vec3fDiff.GetSquaredLength();
     
     return tempMinimal;
 }
 //----------------------------------------------------------------------------
-Sphere3f MinSphere3f::ExactSphere3(const Vector3f& rPoint0, 
-    const Vector3f& rPoint1, const Vector3f& rPoint2)
+SESphere3f MinSphere3f::ExactSphere3(const SEVector3f& rPoint0, 
+    const SEVector3f& rPoint1, const SEVector3f& rPoint2)
 {
     // 计算经过三个顶点p0,p1,p2的球,球心C是三个顶点的重心,
     // 且K = u0*p0 + u1*p1 + u2*p2,其中u0 + u1 + u2 = 1,
@@ -242,16 +242,16 @@ Sphere3f MinSphere3f::ExactSphere3(const Vector3f& rPoint0,
     // 以下代码解该线性方程组,得到u0,u1,然后得到r,
     // 注意线性方程组无解的情况.
 
-    Vector3f vec3fA = rPoint0 - rPoint2;
-    Vector3f vec3fB = rPoint1 - rPoint2;
+    SEVector3f vec3fA = rPoint0 - rPoint2;
+    SEVector3f vec3fB = rPoint1 - rPoint2;
     float fAdA = vec3fA.Dot(vec3fA);
     float fAdB = vec3fA.Dot(vec3fB);
     float fBdB = vec3fB.Dot(vec3fB);
     float fDet = fAdA*fBdB - fAdB*fAdB;
 
-    Sphere3f tempMinimal;
+    SESphere3f tempMinimal;
 
-    if( Math<float>::FAbs(fDet) > m_fEpsilon )
+    if( SEMath<float>::FAbs(fDet) > m_fEpsilon )
     {
         float fHalfInvDet = 0.5f / fDet;
         float fU0 = fHalfInvDet * fBdB * (fAdA - fAdB);
@@ -259,20 +259,20 @@ Sphere3f MinSphere3f::ExactSphere3(const Vector3f& rPoint0,
         float fU2 = 1.0f - fU0 - fU1;
         
         tempMinimal.Center = fU0*rPoint0 + fU1*rPoint1 + fU2*rPoint2;
-        Vector3f vec3fTemp = fU0*vec3fA + fU1*vec3fB;
+        SEVector3f vec3fTemp = fU0*vec3fA + fU1*vec3fB;
         tempMinimal.Radius = vec3fTemp.GetSquaredLength();
     }
     else
     {
-        tempMinimal.Center = Vector3f::ZERO;
-        tempMinimal.Radius = Math<float>::MAX_REAL;
+        tempMinimal.Center = SEVector3f::ZERO;
+        tempMinimal.Radius = SEMath<float>::MAX_REAL;
     }
 
     return tempMinimal;
 }
 //----------------------------------------------------------------------------
-Sphere3f MinSphere3f::ExactSphere4(const Vector3f& rPoint0, 
-    const Vector3f& rPoint1, const Vector3f& rPoint2, const Vector3f& rPoint3)
+SESphere3f MinSphere3f::ExactSphere4(const SEVector3f& rPoint0, 
+    const SEVector3f& rPoint1, const SEVector3f& rPoint2, const SEVector3f& rPoint3)
 {
     // 计算经过四个顶点p0,p1,p2,p3的球,球心C是四个顶点的重心,
     // 且K = u0*p0 + u1*p1 + u2*p2 + u3*p3,其中u0 + u1 + u2 + u3 = 1,
@@ -299,9 +299,9 @@ Sphere3f MinSphere3f::ExactSphere4(const Vector3f& rPoint0,
     // 以下代码解该线性方程组,得到u0,u1,u2然后得到r,
     // 注意线性方程组无解的情况.
 
-    Vector3f vec3fE10 = rPoint0 - rPoint3;
-    Vector3f vec3fE20 = rPoint1 - rPoint3;
-    Vector3f vec3fE30 = rPoint2 - rPoint3;
+    SEVector3f vec3fE10 = rPoint0 - rPoint3;
+    SEVector3f vec3fE20 = rPoint1 - rPoint3;
+    SEVector3f vec3fE30 = rPoint2 - rPoint3;
 
     float aafA[3][3];
     aafA[0][0] = vec3fE10.Dot(vec3fE10);
@@ -332,9 +332,9 @@ Sphere3f MinSphere3f::ExactSphere4(const Vector3f& rPoint0,
     float fDet = aafA[0][0]*aafAInv[0][0] + aafA[0][1]*aafAInv[1][0] + 
         aafA[0][2]*aafAInv[2][0];
 
-    Sphere3f tempMinimal;
+    SESphere3f tempMinimal;
 
-    if( Math<float>::FAbs(fDet) > m_fEpsilon )
+    if( SEMath<float>::FAbs(fDet) > m_fEpsilon )
     {
         float fInvDet = 1.0f / fDet;
         int iRow, iCol;
@@ -359,40 +359,40 @@ Sphere3f MinSphere3f::ExactSphere4(const Vector3f& rPoint0,
         
         tempMinimal.Center = afU[0]*rPoint0 + afU[1]*rPoint1 + afU[2]*rPoint2 + 
             afU[3]*rPoint3;
-        Vector3f vec3fTemp = afU[0]*vec3fE10 + afU[1]*vec3fE20 + afU[2]*vec3fE30;
+        SEVector3f vec3fTemp = afU[0]*vec3fE10 + afU[1]*vec3fE20 + afU[2]*vec3fE30;
         tempMinimal.Radius = vec3fTemp.GetSquaredLength();
     }
     else
     {
-        tempMinimal.Center = Vector3f::ZERO;
-        tempMinimal.Radius = Math<float>::MAX_REAL;
+        tempMinimal.Center = SEVector3f::ZERO;
+        tempMinimal.Radius = SEMath<float>::MAX_REAL;
     }
 
     return tempMinimal;
 }
 //----------------------------------------------------------------------------
-Sphere3f MinSphere3f::UpdateSupport1(int i, Vector3f** apPermute, 
+SESphere3f MinSphere3f::UpdateSupport1(int i, SEVector3f** apPermute, 
     Support& rSupport)
 {
-    const Vector3f& rPoint0 = *apPermute[rSupport.Index[0]];
-    const Vector3f& rPoint1 = *apPermute[i];
+    const SEVector3f& rPoint0 = *apPermute[rSupport.Index[0]];
+    const SEVector3f& rPoint1 = *apPermute[i];
 
-    Sphere3f tempMinimal = ExactSphere2(rPoint0, rPoint1);
+    SESphere3f tempMinimal = ExactSphere2(rPoint0, rPoint1);
 	rSupport.Count = 2;
     rSupport.Index[1] = i;
 
     return tempMinimal;
 }
 //----------------------------------------------------------------------------
-Sphere3f MinSphere3f::UpdateSupport2(int i, Vector3f** apPermute, 
+SESphere3f MinSphere3f::UpdateSupport2(int i, SEVector3f** apPermute, 
     Support& rSupport)
 {
-    const Vector3f& rPoint0 = *apPermute[rSupport.Index[0]];
-    const Vector3f& rPoint1 = *apPermute[rSupport.Index[1]];
-    const Vector3f& rPoint2 = *apPermute[i];
+    const SEVector3f& rPoint0 = *apPermute[rSupport.Index[0]];
+    const SEVector3f& rPoint1 = *apPermute[rSupport.Index[1]];
+    const SEVector3f& rPoint2 = *apPermute[i];
 
-    Sphere3f tempSpheres[3];
-    float fMinRSqr = Math<float>::MAX_REAL;
+    SESphere3f tempSpheres[3];
+    float fMinRSqr = SEMath<float>::MAX_REAL;
     float fDistDiff;
     int iIndex = -1;
 
@@ -413,7 +413,7 @@ Sphere3f MinSphere3f::UpdateSupport2(int i, Vector3f** apPermute,
         }
     }
 
-    Sphere3f tempMinimal;
+    SESphere3f tempMinimal;
 
     if( iIndex != -1 )
     {
@@ -431,16 +431,16 @@ Sphere3f MinSphere3f::UpdateSupport2(int i, Vector3f** apPermute,
     return tempMinimal;
 }
 //----------------------------------------------------------------------------
-Sphere3f MinSphere3f::UpdateSupport3(int i, Vector3f** apPermute, 
+SESphere3f MinSphere3f::UpdateSupport3(int i, SEVector3f** apPermute, 
     Support& rSupport)
 {
-    const Vector3f& rPoint0 = *apPermute[rSupport.Index[0]];
-    const Vector3f& rPoint1 = *apPermute[rSupport.Index[1]];
-    const Vector3f& rPoint2 = *apPermute[rSupport.Index[2]];
-    const Vector3f& rPoint3 = *apPermute[i];
+    const SEVector3f& rPoint0 = *apPermute[rSupport.Index[0]];
+    const SEVector3f& rPoint1 = *apPermute[rSupport.Index[1]];
+    const SEVector3f& rPoint2 = *apPermute[rSupport.Index[2]];
+    const SEVector3f& rPoint3 = *apPermute[i];
 
-    Sphere3f tempSpheres[6];
-    float fMinRSqr = Math<float>::MAX_REAL;
+    SESphere3f tempSpheres[6];
+    float fMinRSqr = SEMath<float>::MAX_REAL;
     float fDistDiff;
     int iIndex = -1;
 
@@ -494,7 +494,7 @@ Sphere3f MinSphere3f::UpdateSupport3(int i, Vector3f** apPermute,
         iIndex = 5;
     }
 
-    Sphere3f tempMinimal;
+    SESphere3f tempMinimal;
 
     switch( iIndex )
     {
@@ -537,10 +537,10 @@ Sphere3f MinSphere3f::UpdateSupport3(int i, Vector3f** apPermute,
     return tempMinimal;
 }
 //----------------------------------------------------------------------------
-Sphere3f MinSphere3f::UpdateSupport4(int i, Vector3f** apPermute, 
+SESphere3f MinSphere3f::UpdateSupport4(int i, SEVector3f** apPermute, 
     Support& rSupport)
 {
-    const Vector3f* aPoint[4] =
+    const SEVector3f* aPoint[4] =
     {
         apPermute[rSupport.Index[0]],
         apPermute[rSupport.Index[1]],
@@ -548,7 +548,7 @@ Sphere3f MinSphere3f::UpdateSupport4(int i, Vector3f** apPermute,
         apPermute[rSupport.Index[3]]
     };
 
-    const Vector3f& rPoint4 = *apPermute[i];
+    const SEVector3f& rPoint4 = *apPermute[i];
 
     // 排列类型1.
     int aiT1[4][4] =
@@ -579,10 +579,10 @@ Sphere3f MinSphere3f::UpdateSupport4(int i, Vector3f** apPermute,
         {1,2,3, /*4*/ 0}
     };
 
-    Sphere3f tempSpheres[14];
-    float fMinRSqr = Math<float>::MAX_REAL;
+    SESphere3f tempSpheres[14];
+    float fMinRSqr = SEMath<float>::MAX_REAL;
     int iIndex = -1;
-    float fDistDiff, fMinDistDiff = Math<float>::MAX_REAL;
+    float fDistDiff, fMinDistDiff = SEMath<float>::MAX_REAL;
     int iMinIndex = -1;
     int k = 0;  // 球的索引
 
@@ -657,7 +657,7 @@ Sphere3f MinSphere3f::UpdateSupport4(int i, Vector3f** apPermute,
         iIndex = iMinIndex;
     }
 
-    Sphere3f tempMinimal = tempSpheres[iIndex];
+    SESphere3f tempMinimal = tempSpheres[iIndex];
 
     switch( iIndex )
     {

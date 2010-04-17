@@ -28,10 +28,10 @@ template <class Real, class TVector>
 Distance<Real, TVector>::Distance()
 {
     MaximumIterations = 8;
-    ZeroThreshold = Math<Real>::ZERO_TOLERANCE;
+    ZeroThreshold = SEMath<Real>::ZERO_TOLERANCE;
     SetDifferenceStep((Real)1e-03);
 
-    m_fContactTime = Math<Real>::MAX_REAL;
+    m_fContactTime = SEMath<Real>::MAX_REAL;
     m_bHasMultipleClosestPoints0 = false;
     m_bHasMultipleClosestPoints1 = false;
 }
@@ -370,9 +370,9 @@ Real Distance<Real, TVector>::GetSquared(Real fTMin, Real fTMax,
 // explicit instantiation
 //----------------------------------------------------------------------------
 template class Distance<float, SEVector2f>;
-template class Distance<float, Vector3f>;
+template class Distance<float, SEVector3f>;
 
 //template class Distance<double, SEVector2d>;
-//template class Distance<double, Vector3d>;
+//template class Distance<double, SEVector3d>;
 //----------------------------------------------------------------------------
 }

@@ -71,7 +71,7 @@ public:
 
     // 用于Newton's method和inverse parabolic interpolation.
     int MaximumIterations;  // default = 8
-    Real ZeroThreshold;     // default = Math<Real>::ZERO_TOLERANCE
+    Real ZeroThreshold;     // default = SEMath<Real>::ZERO_TOLERANCE
 
     // 用于导数估算.
     void SetDifferenceStep(Real fDifferenceStep);  // default = 1e-03
@@ -100,9 +100,9 @@ protected:
 };
 
 typedef Distance<float, SEVector2f> Distance2f;
-typedef Distance<float, Vector3f> Distance3f;
+typedef Distance<float, SEVector3f> Distance3f;
 //typedef Distance<double, SEVector2d> Distance2d;
-//typedef Distance<double, Vector3d> Distance3d;
+//typedef Distance<double, SEVector3d> Distance3d;
 
 }
 

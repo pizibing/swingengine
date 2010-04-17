@@ -24,7 +24,7 @@ inline float* ParticleController::PointLinearSpeed()
     return m_afPointLinearSpeed;
 }
 //----------------------------------------------------------------------------
-inline Vector3f* ParticleController::PointLinearAxis()
+inline SEVector3f* ParticleController::PointLinearAxis()
 {
     return m_aPointLinearAxis;
 }

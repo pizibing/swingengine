@@ -35,12 +35,12 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(BoxBV, BoundingVolume);
 //----------------------------------------------------------------------------
 BoxBV::BoxBV()
     :
-    m_Box(Vector3f::ZERO, Vector3f::UNIT_X, Vector3f::UNIT_Y, Vector3f::UNIT_Z,
+    m_Box(SEVector3f::ZERO, SEVector3f::UNIT_X, SEVector3f::UNIT_Y, SEVector3f::UNIT_Z,
     1.0f, 1.0f, 1.0f)
 {
 }
 //----------------------------------------------------------------------------
-BoxBV::BoxBV(const Box3f& rBox)
+BoxBV::BoxBV(const SEBox3f& rBox)
     :
     m_Box(rBox)
 {
@@ -77,7 +77,7 @@ void BoxBV::ComputeFromData(const Vector3fArray* pVertices)
     if( pVertices )
     {
         int iVCount = pVertices->GetCount();
-        const Vector3f* aVertex = pVertices->GetData();
+        const SEVector3f* aVertex = pVertices->GetData();
         m_Box = ContOBBf(iVCount, aVertex);
     }
 }
@@ -95,7 +95,7 @@ void BoxBV::ComputeFromData(const VertexBuffer* pVBuffer)
 void BoxBV::TransformBy(const Transformation& rTransform,
     BoundingVolume* pResult)
 {
-    Box3f& rTarget = ((BoxBV*)pResult)->m_Box;
+    SEBox3f& rTarget = ((BoxBV*)pResult)->m_Box;
     rTransform.ApplyForward(m_Box.Center, rTarget.Center);
     for( int i = 0; i < 3; i++ )
     {
@@ -104,12 +104,12 @@ void BoxBV::TransformBy(const Transformation& rTransform,
     }
 }
 //----------------------------------------------------------------------------
-int BoxBV::OnWhichSide(const Plane3f& rPlane) const
+int BoxBV::OnWhichSide(const SEPlane3f& rPlane) const
 {
     float fProjCenter = rPlane.Normal.Dot(m_Box.Center) - rPlane.Constant;
-    float fAbs0 = Mathf::FAbs(rPlane.Normal.Dot(m_Box.Axis[0]));
-    float fAbs1 = Mathf::FAbs(rPlane.Normal.Dot(m_Box.Axis[1]));
-    float fAbs2 = Mathf::FAbs(rPlane.Normal.Dot(m_Box.Axis[2]));
+    float fAbs0 = SEMathf::FAbs(rPlane.Normal.Dot(m_Box.Axis[0]));
+    float fAbs1 = SEMathf::FAbs(rPlane.Normal.Dot(m_Box.Axis[1]));
+    float fAbs2 = SEMathf::FAbs(rPlane.Normal.Dot(m_Box.Axis[2]));
     float fProjRadius = m_Box.Extent[0]*fAbs0 + m_Box.Extent[1]*fAbs1 +
         m_Box.Extent[2]*fAbs2;
 
@@ -126,7 +126,7 @@ int BoxBV::OnWhichSide(const Plane3f& rPlane) const
     return 0;
 }
 //----------------------------------------------------------------------------
-bool BoxBV::TestIntersection(const Ray3f& rRay) const
+bool BoxBV::TestIntersection(const SERay3f& rRay) const
 {
     return IntrRay3Box3f(rRay, m_Box).Test();
 }
@@ -146,7 +146,7 @@ void BoxBV::GrowToContain(const BoundingVolume* pInput)
     m_Box = MergeBoxesf(m_Box, ((BoxBV*)pInput)->m_Box);
 }
 //----------------------------------------------------------------------------
-bool BoxBV::Contains(const Vector3f& rPoint) const
+bool BoxBV::Contains(const SEVector3f& rPoint) const
 {
     return IsInBoxf(rPoint, m_Box);
 }

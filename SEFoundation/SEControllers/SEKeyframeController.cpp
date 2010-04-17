@@ -99,20 +99,20 @@ void KeyframeController::GetKeyInfo(float fCtrlTime, int iCount,
     }
 }
 //----------------------------------------------------------------------------
-Vector3f KeyframeController::GetTranslate(float fNormTime, int i0, int i1)
+SEVector3f KeyframeController::GetTranslate(float fNormTime, int i0, int i1)
 {
-    Vector3f* aTData = TranslationData->GetData();
+    SEVector3f* aTData = TranslationData->GetData();
 
     return aTData[i0] + fNormTime*(aTData[i1] - aTData[i0]);
 }
 //----------------------------------------------------------------------------
-Matrix3f KeyframeController::GetRotate(float fNormTime, int i0, int i1)
+SEMatrix3f KeyframeController::GetRotate(float fNormTime, int i0, int i1)
 {
-    Quaternionf* aRData = RotationData->GetData();
-    Quaternionf tempQuat;
+    SEQuaternionf* aRData = RotationData->GetData();
+    SEQuaternionf tempQuat;
     tempQuat.Slerp(fNormTime, aRData[i0], aRData[i1]);
 
-    Matrix3f tempRot;
+    SEMatrix3f tempRot;
     tempQuat.ToRotationMatrix(tempRot);
 
     return tempRot;

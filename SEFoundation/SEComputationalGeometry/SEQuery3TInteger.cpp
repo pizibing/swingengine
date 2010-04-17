@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Query3TIntegerf::Query3TIntegerf(int iVCount, const Vector3f* aVertex)
+Query3TIntegerf::Query3TIntegerf(int iVCount, const SEVector3f* aVertex)
     :
     Query3f(iVCount, aVertex)
 {
@@ -35,12 +35,12 @@ Query::Type Query3TIntegerf::GetType() const
     return Query::QT_INTEGER;
 }
 //----------------------------------------------------------------------------
-int Query3TIntegerf::ToPlane(const Vector3f& rP, int iV0, int iV1, int iV2) 
+int Query3TIntegerf::ToPlane(const SEVector3f& rP, int iV0, int iV1, int iV2) 
     const
 {
-    const Vector3f& rV0 = m_aVertex[iV0];
-    const Vector3f& rV1 = m_aVertex[iV1];
-    const Vector3f& rV2 = m_aVertex[iV2];
+    const SEVector3f& rV0 = m_aVertex[iV0];
+    const SEVector3f& rV1 = m_aVertex[iV1];
+    const SEVector3f& rV2 = m_aVertex[iV2];
 
     TInteger<4> tempX0((int)rP[0] - (int)rV0[0]);
     TInteger<4> tempY0((int)rP[1] - (int)rV0[1]);
@@ -58,13 +58,13 @@ int Query3TIntegerf::ToPlane(const Vector3f& rP, int iV0, int iV1, int iV2)
     return (tempDet3 > 0 ? +1 : (tempDet3 < 0 ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-int Query3TIntegerf::ToCircumsphere(const Vector3f& rP, int iV0, 
+int Query3TIntegerf::ToCircumsphere(const SEVector3f& rP, int iV0, 
     int iV1, int iV2, int iV3) const
 {
-    const Vector3f& rV0 = m_aVertex[iV0];
-    const Vector3f& rV1 = m_aVertex[iV1];
-    const Vector3f& rV2 = m_aVertex[iV2];
-    const Vector3f& rV3 = m_aVertex[iV3];
+    const SEVector3f& rV0 = m_aVertex[iV0];
+    const SEVector3f& rV1 = m_aVertex[iV1];
+    const SEVector3f& rV2 = m_aVertex[iV2];
+    const SEVector3f& rV3 = m_aVertex[iV3];
 
     int aiP[3] = { (int)rP[0], (int)rP[1], (int)rP[2] };
     int aiV0[3] = { (int)rV0[0], (int)rV0[1], (int)rV0[2] };

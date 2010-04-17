@@ -24,20 +24,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistVector3Triangle3f::DistVector3Triangle3f(const Vector3f& rVector, 
-    const Triangle3f& rTriangle)
+DistVector3Triangle3f::DistVector3Triangle3f(const SEVector3f& rVector, 
+    const SETriangle3f& rTriangle)
     :
     m_pVector(&rVector),
     m_pTriangle(&rTriangle)
 {
 }
 //----------------------------------------------------------------------------
-const Vector3f& DistVector3Triangle3f::GetVector() const
+const SEVector3f& DistVector3Triangle3f::GetVector() const
 {
     return *m_pVector;
 }
 //----------------------------------------------------------------------------
-const Triangle3f& DistVector3Triangle3f::GetTriangle() const
+const SETriangle3f& DistVector3Triangle3f::GetTriangle() const
 {
     return *m_pTriangle;
 }
@@ -46,21 +46,21 @@ float DistVector3Triangle3f::Get()
 {
     float fSqrDist = GetSquared();
 
-    return Math<float>::Sqrt(fSqrDist);
+    return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
 float DistVector3Triangle3f::GetSquared()
 {
-    Vector3f vec3fDiff = m_pTriangle->V[0] - *m_pVector;
-    Vector3f vec3fEdge0 = m_pTriangle->V[1] - m_pTriangle->V[0];
-    Vector3f vec3fEdge1 = m_pTriangle->V[2] - m_pTriangle->V[0];
+    SEVector3f vec3fDiff = m_pTriangle->V[0] - *m_pVector;
+    SEVector3f vec3fEdge0 = m_pTriangle->V[1] - m_pTriangle->V[0];
+    SEVector3f vec3fEdge1 = m_pTriangle->V[2] - m_pTriangle->V[0];
     float fA00 = vec3fEdge0.GetSquaredLength();
     float fA01 = vec3fEdge0.Dot(vec3fEdge1);
     float fA11 = vec3fEdge1.GetSquaredLength();
     float fB0 = vec3fDiff.Dot(vec3fEdge0);
     float fB1 = vec3fDiff.Dot(vec3fEdge1);
     float fC = vec3fDiff.GetSquaredLength();
-    float fDet = Math<float>::FAbs(fA00*fA11 - fA01*fA01);
+    float fDet = SEMath<float>::FAbs(fA00*fA11 - fA01*fA01);
     float fS = fA01*fB1 - fA11*fB0;
     float fT = fA01*fB0 - fA00*fB1;
     float fSqrDistance;
@@ -286,26 +286,26 @@ float DistVector3Triangle3f::GetSquared()
     return fSqrDistance;
 }
 //----------------------------------------------------------------------------
-float DistVector3Triangle3f::Get(float fT, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistVector3Triangle3f::Get(float fT, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMVector = *m_pVector + fT*rVelocity0;
-    Vector3f vec3fMV0 = m_pTriangle->V[0] + fT*rVelocity1;
-    Vector3f vec3fMV1 = m_pTriangle->V[1] + fT*rVelocity1;
-    Vector3f vec3fMV2 = m_pTriangle->V[2] + fT*rVelocity1;
-    Triangle3f tempMTriangle(vec3fMV0, vec3fMV1, vec3fMV2);
+    SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
+    SEVector3f vec3fMV0 = m_pTriangle->V[0] + fT*rVelocity1;
+    SEVector3f vec3fMV1 = m_pTriangle->V[1] + fT*rVelocity1;
+    SEVector3f vec3fMV2 = m_pTriangle->V[2] + fT*rVelocity1;
+    SETriangle3f tempMTriangle(vec3fMV0, vec3fMV1, vec3fMV2);
 
     return DistVector3Triangle3f(vec3fMVector, tempMTriangle).Get();
 }
 //----------------------------------------------------------------------------
-float DistVector3Triangle3f::GetSquared(float fT, const Vector3f& rVelocity0, 
-    const Vector3f& rVelocity1)
+float DistVector3Triangle3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
+    const SEVector3f& rVelocity1)
 {
-    Vector3f vec3fMVector = *m_pVector + fT*rVelocity0;
-    Vector3f vec3fMV0 = m_pTriangle->V[0] + fT*rVelocity1;
-    Vector3f vec3fMV1 = m_pTriangle->V[1] + fT*rVelocity1;
-    Vector3f vec3fMV2 = m_pTriangle->V[2] + fT*rVelocity1;
-    Triangle3f tempMTriangle(vec3fMV0, vec3fMV1, vec3fMV2);
+    SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
+    SEVector3f vec3fMV0 = m_pTriangle->V[0] + fT*rVelocity1;
+    SEVector3f vec3fMV1 = m_pTriangle->V[1] + fT*rVelocity1;
+    SEVector3f vec3fMV2 = m_pTriangle->V[2] + fT*rVelocity1;
+    SETriangle3f tempMTriangle(vec3fMV0, vec3fMV1, vec3fMV2);
 
     return DistVector3Triangle3f(vec3fMVector, tempMTriangle).GetSquared();
 }

@@ -33,7 +33,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20081124
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Polyhedron3f
+class SE_FOUNDATION_API SEPolyhedron3f
 {
 public:
     // simple polyhedron:每个edge最多被两个三角形共享,三角面没有自相交的情况.
@@ -42,41 +42,41 @@ public:
     // 从外侧观看mesh时,三角面的索引顺序应为顺时针方向.
     // bOwner为true时,polyhedron拥有传入数组的所有权.
     // 否则为false时,由调用者负责删除传入数组.
-    Polyhedron3f(int iVCount, Vector3f* aVertex, int iTCount,
+    SEPolyhedron3f(int iVCount, SEVector3f* aVertex, int iTCount,
         int* aiIndex, bool bOwner);
 
     // 如果传入的polyhedron拥有其数组数据,则为'this'对象复制其数组数据,
     // 从而使'this'对象也拥有其数组数据.
     // 如果传入的polyhedron不拥有其数组数据,则'this'对象也不拥有.只进行指针共享.
-    Polyhedron3f(const Polyhedron3f& rPoly);
+    SEPolyhedron3f(const SEPolyhedron3f& rPoly);
 
-    virtual ~Polyhedron3f(void);
+    virtual ~SEPolyhedron3f(void);
 
     // 如果传入的polyhedron拥有其数组数据,则为'this'对象复制其数组数据,
     // 从而使'this'对象也拥有其数组数据.
     // 如果传入的polyhedron不拥有其数组数据,则'this'对象也不拥有.只进行指针共享.
-    Polyhedron3f& operator = (const Polyhedron3f& rPoly);
+    SEPolyhedron3f& operator = (const SEPolyhedron3f& rPoly);
 
     int GetVCount(void) const;
-    const Vector3f* GetVertices(void) const;
-    const Vector3f& GetVertex(int i) const;
+    const SEVector3f* GetVertices(void) const;
+    const SEVector3f& GetVertex(int i) const;
     int GetTCount(void) const;
     const int* GetIndices(void) const;
     const int* GetTriangle(int i) const;
 
     // 允许对顶点进行修改.
     // 但不进行任何几何拓扑校验,不保证仍是simple polyhedron.
-    virtual void SetVertex(int i, const Vector3f& rV);
-    Vector3f* GetVertices(void);
+    virtual void SetVertex(int i, const SEVector3f& rV);
+    SEVector3f* GetVertices(void);
 
     // 计算polyhedron的各种相关信息.
-    Vector3f ComputeVertexAverage(void) const; // 平均顶点中心
+    SEVector3f ComputeVertexAverage(void) const; // 平均顶点中心
     float ComputeSurfaceArea(void) const; // 表面积
     float ComputeVolume(void) const; // 体积
 
 protected:
     int m_iVCount;
-    Vector3f* m_aVertex;
+    SEVector3f* m_aVertex;
     int m_iTCount;
     int* m_aiIndex;
     bool m_bOwner;
