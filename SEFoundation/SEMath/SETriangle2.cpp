@@ -29,15 +29,15 @@ Triangle2f::Triangle2f()
     // Œ¥≥ı ºªØ.
 }
 //----------------------------------------------------------------------------
-Triangle2f::Triangle2f(const Vector2f& rV0, const Vector2f& rV1, 
-    const Vector2f& rV2)
+Triangle2f::Triangle2f(const SEVector2f& rV0, const SEVector2f& rV1, 
+    const SEVector2f& rV2)
 {
     V[0] = rV0;
     V[1] = rV1;
     V[2] = rV2;
 }
 //----------------------------------------------------------------------------
-Triangle2f::Triangle2f(const Vector2f aV[3])
+Triangle2f::Triangle2f(const SEVector2f aV[3])
 {
     for( int i = 0; i < 3; i++ )
     {
@@ -45,10 +45,10 @@ Triangle2f::Triangle2f(const Vector2f aV[3])
     }
 }
 //----------------------------------------------------------------------------
-float Triangle2f::GetDistance(const Vector2f& rQ) const
+float Triangle2f::GetDistance(const SEVector2f& rQ) const
 {
-    Vector2f vec2fDiff = V[0] - rQ;
-    Vector2f vec2fE0 = V[1] - V[0], vec2fE1 = V[2] - V[0];
+    SEVector2f vec2fDiff = V[0] - rQ;
+    SEVector2f vec2fE0 = V[1] - V[0], vec2fE1 = V[2] - V[0];
     float fA00 = vec2fE0.GetSquaredLength();
     float fA01 = vec2fE0.Dot(vec2fE1);
     float fA11 = vec2fE1.GetSquaredLength();

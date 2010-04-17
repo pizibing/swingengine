@@ -46,7 +46,7 @@ const Triangle2f& IntrTriangle2Triangle2f::GetTriangle1() const
 bool IntrTriangle2Triangle2f::Test()
 {
     int i0 = 0, i1 = 0;
-    Vector2f vec2fDir;
+    SEVector2f vec2fDir;
 
     // test edges of triangle0 for separation
     for( i0 = 0, i1 = 2; i0 < 3; i1 = i0, i0++ )
@@ -90,7 +90,7 @@ bool IntrTriangle2Triangle2f::Find()
     for( int i1 = 2, i0 = 0; i0 < 3; i1 = i0, i0++ )
     {
         // clip against edge <V0[i1], V0[i0]>
-        Vector2f vec2fN(
+        SEVector2f vec2fN(
             m_pTriangle0->V[i1].Y - m_pTriangle0->V[i0].Y, 
             m_pTriangle0->V[i0].X - m_pTriangle0->V[i1].X);
         float fC = vec2fN.Dot(m_pTriangle0->V[i1]);
@@ -106,17 +106,17 @@ bool IntrTriangle2Triangle2f::Find()
 }
 //----------------------------------------------------------------------------
 bool IntrTriangle2Triangle2f::Test(float fTMax, 
-    const Vector2f& rVelocity0, const Vector2f& rVelocity1)
+    const SEVector2f& rVelocity0, const SEVector2f& rVelocity1)
 {
     // process as if V0-triangle is stationary and V1-triangle is moving
-    Vector2f vec2fW = rVelocity1 - rVelocity0;
+    SEVector2f vec2fW = rVelocity1 - rVelocity0;
     int iSide = 0;  // 0 = NONE, -1 = LEFT, +1 = RIGHT
     float fTFirst = 0.0f;
     float fTLast = Math<float>::MAX_REAL;
 
     Configuration tempCfg0, tempCfg1, tempTCfg0, tempTCfg1;
     int i0, i1, i2;
-    Vector2f vec2fD;
+    SEVector2f vec2fD;
     float fSpeed;
 
     // process edges of V0-triangle
@@ -161,17 +161,17 @@ bool IntrTriangle2Triangle2f::Test(float fTMax,
 }
 //----------------------------------------------------------------------------
 bool IntrTriangle2Triangle2f::Find (float fTMax, 
-    const Vector2f& rVelocity0, const Vector2f& rVelocity1)
+    const SEVector2f& rVelocity0, const SEVector2f& rVelocity1)
 {
     // process as if V0-triangle is stationary and V1-triangle is moving
-    Vector2f vec2fW = rVelocity1 - rVelocity0;
+    SEVector2f vec2fW = rVelocity1 - rVelocity0;
     int iSide = 0;  // 0 = NONE, -1 = LEFT, +1 = RIGHT
     float fTFirst = 0.0f;
     float fTLast = Math<float>::MAX_REAL;
 
     Configuration tempCfg0, tempCfg1, tempTCfg0, tempTCfg1;
     int i0, i1, i2;
-    Vector2f vec2fD;
+    SEVector2f vec2fD;
     float fSpeed;
 
     // process edges of V0-triangle
@@ -211,7 +211,7 @@ bool IntrTriangle2Triangle2f::Find (float fTMax,
     }
 
     // move triangles to first contact
-    Vector2f aMoveV0[3], aMoveV1[3];
+    SEVector2f aMoveV0[3], aMoveV1[3];
     for( int i = 0; i < 3; i++ )
     {
         aMoveV0[i] = m_pTriangle0->V[i] + fTFirst*rVelocity0;
@@ -231,15 +231,15 @@ int IntrTriangle2Triangle2f::GetCount() const
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-const Vector2f& IntrTriangle2Triangle2f::GetPoint(int i) const
+const SEVector2f& IntrTriangle2Triangle2f::GetPoint(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 
     return m_aPoint[i];
 }
 //----------------------------------------------------------------------------
-int IntrTriangle2Triangle2f::OnWhichSide(const Vector2f aV[3], 
-    const Vector2f& rP, const Vector2f& rD)
+int IntrTriangle2Triangle2f::OnWhichSide(const SEVector2f aV[3], 
+    const SEVector2f& rP, const SEVector2f& rD)
 {
     // Vertices are projected to the form P+t*D.  Return value is +1 if all
     // t > 0, -1 if all t < 0, 0 otherwise, in which case the line splits the
@@ -272,8 +272,8 @@ int IntrTriangle2Triangle2f::OnWhichSide(const Vector2f aV[3],
 }
 //----------------------------------------------------------------------------
 void IntrTriangle2Triangle2f::ClipConvexPolygonAgainstLine(
-    const Vector2f& rN, float fC, int& riCount, 
-    Vector2f aV[6])
+    const SEVector2f& rN, float fC, int& riCount, 
+    SEVector2f aV[6])
 {
     // The input vertices are assumed to be in counterclockwise order.  The
     // ordering is an invariant of this function.
@@ -304,7 +304,7 @@ void IntrTriangle2Triangle2f::ClipConvexPolygonAgainstLine(
         if( iNegative > 0 )
         {
             // line transversely intersects polygon
-            Vector2f aCV[6];
+            SEVector2f aCV[6];
             int iCCount = 0, iCur, iPrv;
             float fT;
 
@@ -378,7 +378,7 @@ void IntrTriangle2Triangle2f::ClipConvexPolygonAgainstLine(
             }
 
             riCount = iCCount;
-            size_t uiSize = iCCount * sizeof(Vector2f);
+            size_t uiSize = iCCount * sizeof(SEVector2f);
             SESystem::SE_Memcpy(aV, uiSize, aCV, uiSize);
         }
         // else polygon fully on positive side of line, nothing to do
@@ -391,7 +391,7 @@ void IntrTriangle2Triangle2f::ClipConvexPolygonAgainstLine(
 }
 //----------------------------------------------------------------------------
 void IntrTriangle2Triangle2f::ComputeTwo(Configuration& rCfg, 
-    const Vector2f aV[3], const Vector2f& rD, int i0, int i1, 
+    const SEVector2f aV[3], const SEVector2f& rD, int i0, int i1, 
     int i2)
 {
     rCfg.Map = M12;
@@ -403,8 +403,8 @@ void IntrTriangle2Triangle2f::ComputeTwo(Configuration& rCfg,
 }
 //----------------------------------------------------------------------------
 void IntrTriangle2Triangle2f::ComputeThree(Configuration& rCfg, 
-    const Vector2f aV[3], const Vector2f& rD, 
-    const Vector2f& rP)
+    const SEVector2f aV[3], const SEVector2f& rD, 
+    const SEVector2f& rP)
 {
     float fD0 = rD.Dot(aV[0] - rP);
     float fD1 = rD.Dot(aV[1] - rP);
@@ -631,11 +631,11 @@ bool IntrTriangle2Triangle2f::NoIntersect(
 //----------------------------------------------------------------------------
 void IntrTriangle2Triangle2f::GetIntersection(
     const Configuration& rCfg0, const Configuration& rCfg1, int iSide, 
-    const Vector2f aV0[3], const Vector2f aV1[3], int& riCount, 
-    Vector2f aVertex[6])
+    const SEVector2f aV0[3], const SEVector2f aV1[3], int& riCount, 
+    SEVector2f aVertex[6])
 {
-    Vector2f vec2fEdge, vec2fDiff;
-    const Vector2f* pOrigin;
+    SEVector2f vec2fEdge, vec2fDiff;
+    const SEVector2f* pOrigin;
     float fInvEdE, fMin, fMax;
     int i;
 

@@ -51,7 +51,7 @@ float DistRay2Segment2f::Get()
 //----------------------------------------------------------------------------
 float DistRay2Segment2f::GetSquared()
 {
-    Vector2f vec2fDiff = m_pRay->Origin - m_pSegment->Origin;
+    SEVector2f vec2fDiff = m_pRay->Origin - m_pSegment->Origin;
     float fA01 = -m_pRay->Direction.Dot(m_pSegment->Direction);
     float fB0 = vec2fDiff.Dot(m_pRay->Direction);
     float fB1 = -vec2fDiff.Dot(m_pSegment->Direction);
@@ -204,11 +204,11 @@ float DistRay2Segment2f::GetSquared()
     return Math<float>::FAbs(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistRay2Segment2f::Get(float fT, const Vector2f& rVelocity0,
-    const Vector2f& rVelocity1)
+float DistRay2Segment2f::Get(float fT, const SEVector2f& rVelocity0,
+    const SEVector2f& rVelocity1)
 {
-    Vector2f vec2fMOrigin0 = m_pRay->Origin + fT*rVelocity0;
-    Vector2f vec2fMOrigin1 = m_pSegment->Origin + fT*rVelocity1;
+    SEVector2f vec2fMOrigin0 = m_pRay->Origin + fT*rVelocity0;
+    SEVector2f vec2fMOrigin1 = m_pSegment->Origin + fT*rVelocity1;
     Ray2f tempMRay(vec2fMOrigin0, m_pRay->Direction);
     Segment2f tempMSegment(vec2fMOrigin1, m_pSegment->Direction,
         m_pSegment->Extent);
@@ -216,11 +216,11 @@ float DistRay2Segment2f::Get(float fT, const Vector2f& rVelocity0,
     return DistRay2Segment2f(tempMRay, tempMSegment).Get();
 }
 //----------------------------------------------------------------------------
-float DistRay2Segment2f::GetSquared(float fT, const Vector2f& rVelocity0, 
-    const Vector2f& rVelocity1)
+float DistRay2Segment2f::GetSquared(float fT, const SEVector2f& rVelocity0, 
+    const SEVector2f& rVelocity1)
 {
-    Vector2f vec2fMOrigin0 = m_pRay->Origin + fT*rVelocity0;
-    Vector2f vec2fMOrigin1 = m_pSegment->Origin + fT*rVelocity1;
+    SEVector2f vec2fMOrigin0 = m_pRay->Origin + fT*rVelocity0;
+    SEVector2f vec2fMOrigin1 = m_pSegment->Origin + fT*rVelocity1;
     Ray2f tempMRay(vec2fMOrigin0, m_pRay->Direction);
     Segment2f tempMSegment(vec2fMOrigin1, m_pSegment->Direction,
         m_pSegment->Extent);

@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Query2TIntegerf::Query2TIntegerf(int iVCount, const Vector2f* aVertex)
+Query2TIntegerf::Query2TIntegerf(int iVCount, const SEVector2f* aVertex)
     :
     Query2f(iVCount, aVertex)
 {
@@ -35,10 +35,10 @@ Query::Type Query2TIntegerf::GetType() const
     return Query::QT_INTEGER;
 }
 //----------------------------------------------------------------------------
-int Query2TIntegerf::ToLine(const Vector2f& rP, int iV0, int iV1) const
+int Query2TIntegerf::ToLine(const SEVector2f& rP, int iV0, int iV1) const
 {
-    const Vector2f& rV0 = m_aVertex[iV0];
-    const Vector2f& rV1 = m_aVertex[iV1];
+    const SEVector2f& rV0 = m_aVertex[iV0];
+    const SEVector2f& rV1 = m_aVertex[iV1];
 
     TInteger<2> tempX0((int)rP[0] - (int)rV0[0]);
     TInteger<2> tempY0((int)rP[1] - (int)rV0[1]);
@@ -50,12 +50,12 @@ int Query2TIntegerf::ToLine(const Vector2f& rP, int iV0, int iV1) const
     return (tempDet2 > 0 ? +1 : (tempDet2 < 0 ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-int Query2TIntegerf::ToCircumcircle(const Vector2f& rP, int iV0,
+int Query2TIntegerf::ToCircumcircle(const SEVector2f& rP, int iV0,
     int iV1, int iV2) const
 {
-    const Vector2f& rV0 = m_aVertex[iV0];
-    const Vector2f& rV1 = m_aVertex[iV1];
-    const Vector2f& rV2 = m_aVertex[iV2];
+    const SEVector2f& rV0 = m_aVertex[iV0];
+    const SEVector2f& rV1 = m_aVertex[iV1];
+    const SEVector2f& rV2 = m_aVertex[iV2];
 
     int aiP[2] = { (int)rP[0], (int)rP[1] };
     int aiV0[2] = { (int)rV0[0], (int)rV0[1] };

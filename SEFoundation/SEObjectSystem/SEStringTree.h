@@ -104,7 +104,7 @@ SE_FOUNDATION_API char* Format(const char* pPrefix, const Matrix3f&);
 SE_FOUNDATION_API char* Format(const char* pPrefix, const Matrix4f&);
 SE_FOUNDATION_API char* Format(const char* pPrefix, const Plane3f&);
 SE_FOUNDATION_API char* Format(const char* pPrefix, const Quaternionf&);
-SE_FOUNDATION_API char* Format(const char* pPrefix, const Vector2f&);
+SE_FOUNDATION_API char* Format(const char* pPrefix, const SEVector2f&);
 SE_FOUNDATION_API char* Format(const char* pPrefix, const Vector3f&);
 SE_FOUNDATION_API char* Format(const char* pPrefix, const Vector4f&);
 

@@ -82,9 +82,9 @@ protected:
     int m_iIntersectionType;
 };
 
-typedef Intersector<float, Vector2f> Intersector2f;
+typedef Intersector<float, SEVector2f> Intersector2f;
 typedef Intersector<float, Vector3f> Intersector3f;
-//typedef Intersector<double, Vector2d> Intersector2d;
+//typedef Intersector<double, SEVector2d> Intersector2d;
 //typedef Intersector<double, Vector3d> Intersector3d;
 
 }

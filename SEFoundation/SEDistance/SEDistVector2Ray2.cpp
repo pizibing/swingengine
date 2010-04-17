@@ -24,14 +24,14 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistVector2Ray2f::DistVector2Ray2f(const Vector2f& rVector, const Ray2f& rRay)
+DistVector2Ray2f::DistVector2Ray2f(const SEVector2f& rVector, const Ray2f& rRay)
     :
     m_pVector(&rVector),
     m_pRay(&rRay)
 {
 }
 //----------------------------------------------------------------------------
-const Vector2f& DistVector2Ray2f::GetVector() const
+const SEVector2f& DistVector2Ray2f::GetVector() const
 {
     return *m_pVector;
 }
@@ -50,7 +50,7 @@ float DistVector2Ray2f::Get()
 //----------------------------------------------------------------------------
 float DistVector2Ray2f::GetSquared()
 {
-    Vector2f vec2fDiff = *m_pVector - m_pRay->Origin;
+    SEVector2f vec2fDiff = *m_pVector - m_pRay->Origin;
     float fParam = m_pRay->Direction.Dot(vec2fDiff);
     if( fParam > 0.0f )
     {
@@ -67,21 +67,21 @@ float DistVector2Ray2f::GetSquared()
     return vec2fDiff.GetSquaredLength();
 }
 //----------------------------------------------------------------------------
-float DistVector2Ray2f::Get(float fT, const Vector2f& rVelocity0,
-    const Vector2f& rVelocity1)
+float DistVector2Ray2f::Get(float fT, const SEVector2f& rVelocity0,
+    const SEVector2f& rVelocity1)
 {
-    Vector2f vec2fMVector = *m_pVector + fT*rVelocity0;
-    Vector2f vec2fMOrigin = m_pRay->Origin + fT*rVelocity1;
+    SEVector2f vec2fMVector = *m_pVector + fT*rVelocity0;
+    SEVector2f vec2fMOrigin = m_pRay->Origin + fT*rVelocity1;
     Ray2f tempMRay(vec2fMOrigin, m_pRay->Direction);
 
     return DistVector2Ray2f(vec2fMVector, tempMRay).Get();
 }
 //----------------------------------------------------------------------------
-float DistVector2Ray2f::GetSquared(float fT, const Vector2f& rVelocity0, 
-    const Vector2f& rVelocity1)
+float DistVector2Ray2f::GetSquared(float fT, const SEVector2f& rVelocity0, 
+    const SEVector2f& rVelocity1)
 {
-    Vector2f vec2fMVector = *m_pVector + fT*rVelocity0;
-    Vector2f vec2fMOrigin = m_pRay->Origin + fT*rVelocity1;
+    SEVector2f vec2fMVector = *m_pVector + fT*rVelocity0;
+    SEVector2f vec2fMOrigin = m_pRay->Origin + fT*rVelocity1;
     Ray2f tempMRay(vec2fMOrigin, m_pRay->Direction);
 
     return DistVector2Ray2f(vec2fMVector, tempMRay).GetSquared();

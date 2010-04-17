@@ -28,12 +28,12 @@
 namespace Swing
 {
 //----------------------------------------------------------------------------
-// 名称:Vector2f共享数组类
+// 名称:SEVector2f共享数组类
 // 说明:
 // 作者:Sun Che
 // 时间:20080324
 //----------------------------------------------------------------------------
-typedef SharedArray<Vector2f> Vector2fArray;
+typedef SharedArray<SEVector2f> Vector2fArray;
 typedef SESmartPointer<Vector2fArray> Vector2fArrayPtr;
 }
 

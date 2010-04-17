@@ -126,7 +126,7 @@ template <class T> const T* StaticCast(const SEObject* pObject);
 template <class T> T* DynamicCast(SEObject* pObject);
 template <class T> const T* DynamicCast(const SEObject* pObject);
 
-typedef SESmartPointer<SEObject> ObjectPtr;
+typedef SESmartPointer<SEObject> SEObjectPtr;
 
 #include "SEObject.inl"
 

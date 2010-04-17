@@ -50,14 +50,14 @@ public:
     // exact arithmetic,  but is the slowest choice.  The choice Query::QT_REAL
     // uses floating-point arithmetic,  but is not robust in all cases.
 
-    ConvexHull2f(int iVertexCount,  Vector2f* aVertex,  float fEpsilon, 
+    ConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fEpsilon, 
         bool bOwner,  Query::Type eQueryType);
     virtual ~ConvexHull2f(void);
 
     // If GetDimension() returns 1,  then the points lie on a line.  You must
     // create a ConvexHull1f object using the function provided.
-    const Vector2f& GetLineOrigin(void) const;
-    const Vector2f& GetLineDirection(void) const;
+    const SEVector2f& GetLineOrigin(void) const;
+    const SEVector2f& GetLineDirection(void) const;
     ConvexHull1f* GetConvexHull1(void) const;
 
 private:
@@ -69,14 +69,14 @@ private:
     bool Update(HullEdge2f*& rpHull,  int i);
 
     // The input points.
-    Vector2f* m_aVertex;
+    SEVector2f* m_aVertex;
 
     // Support for robust queries.
-    Vector2f* m_aSVertex;
+    SEVector2f* m_aSVertex;
     Query2f* m_pQuery;
 
     // The line of containment if the dimension is 1.
-    Vector2f m_LineOrigin,  m_LineDirection;
+    SEVector2f m_LineOrigin,  m_LineDirection;
 };
 
 }

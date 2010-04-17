@@ -34,13 +34,13 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090114
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API DistVector2Box2f : public Distance<float, Vector2f>
+class SE_FOUNDATION_API DistVector2Box2f : public Distance<float, SEVector2f>
 {
 public:
-    DistVector2Box2f(const Vector2f& rVector, const Box2f& rBox);
+    DistVector2Box2f(const SEVector2f& rVector, const Box2f& rBox);
 
     // 对象访问.
-    const Vector2f& GetVector(void) const;
+    const SEVector2f& GetVector(void) const;
     const Box2f& GetBox(void) const;
 
     // static distance查询.
@@ -48,13 +48,13 @@ public:
     virtual float GetSquared(void);
 
     // 用于dynamic distance查询的convex function计算.
-    virtual float Get(float fT, const Vector2f& rVelocity0,
-        const Vector2f& rVelocity1);
-    virtual float GetSquared(float fT, const Vector2f& rVelocity0,
-        const Vector2f& rVelocity1);
+    virtual float Get(float fT, const SEVector2f& rVelocity0,
+        const SEVector2f& rVelocity1);
+    virtual float GetSquared(float fT, const SEVector2f& rVelocity0,
+        const SEVector2f& rVelocity1);
 
 private:
-    const Vector2f* m_pVector;
+    const SEVector2f* m_pVector;
     const Box2f* m_pBox;
 };
 

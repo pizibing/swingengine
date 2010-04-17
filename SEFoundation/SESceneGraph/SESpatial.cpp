@@ -193,7 +193,7 @@ void Spatial::AttachLight(Light* pLight)
 //----------------------------------------------------------------------------
 void Spatial::DetachLight(Light* pLight)
 {
-    std::vector<ObjectPtr>::iterator pIter = m_Lights.begin();
+    std::vector<SEObjectPtr>::iterator pIter = m_Lights.begin();
     for( /**/; pIter != m_Lights.end(); pIter++ )
     {
         if( pLight == *pIter )

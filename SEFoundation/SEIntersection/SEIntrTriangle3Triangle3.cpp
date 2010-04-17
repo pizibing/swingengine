@@ -615,9 +615,9 @@ bool IntrTriangle3Triangle3f::GetCoplanarIntersection(
     }
 
     // 2D triangle intersection routines require counterclockwise ordering
-    Vector2f vec2fSave;
-    Vector2f vec2fEdge0 = tempProjTri0.V[1] - tempProjTri0.V[0];
-    Vector2f vec2fEdge1 = tempProjTri0.V[2] - tempProjTri0.V[0];
+    SEVector2f vec2fSave;
+    SEVector2f vec2fEdge0 = tempProjTri0.V[1] - tempProjTri0.V[0];
+    SEVector2f vec2fEdge1 = tempProjTri0.V[2] - tempProjTri0.V[0];
     if( vec2fEdge0.GetDotPerp(vec2fEdge1) < 0.0f )
     {
         // triangle is clockwise, reorder it

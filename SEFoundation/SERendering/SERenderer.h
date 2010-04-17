@@ -527,7 +527,7 @@ protected:
     // 渲染器派生类必须在构造期间创建这个数组,包含m_iMaxLights个数组元素.
     // 渲染器派生类析构时释放该数组.
     int m_iNumActiveLights;
-    ObjectPtr* m_aspLight;
+    SEObjectPtr* m_aspLight;
 
     // 为某些特效提供方便的投影器,
     // 比如projected texture和shadow map.

@@ -55,7 +55,7 @@ inline void Matrix2f::FromAngle(float fAngle)
     m_fData[1][1] =  m_fData[0][0];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::TensorProduct(const Vector2f& rVecU, const Vector2f& rVecV)
+inline void Matrix2f::TensorProduct(const SEVector2f& rVecU, const SEVector2f& rVecV)
 {
     m_fData[0][0] = rVecU[0] * rVecV[0];
     m_fData[0][1] = rVecU[0] * rVecV[1];
@@ -63,7 +63,7 @@ inline void Matrix2f::TensorProduct(const Vector2f& rVecU, const Vector2f& rVecV
     m_fData[1][1] = rVecU[1] * rVecV[1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::SetRow(int iDesRow, const Vector2f& rSrcVec)
+inline void Matrix2f::SetRow(int iDesRow, const SEVector2f& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesRow && iDesRow < 2 );
 
@@ -71,7 +71,7 @@ inline void Matrix2f::SetRow(int iDesRow, const Vector2f& rSrcVec)
     m_fData[iDesRow][1] = rSrcVec.m_fData[1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::GetRow(int iSrcRow, Vector2f& rDesVec) const
+inline void Matrix2f::GetRow(int iSrcRow, SEVector2f& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcRow && iSrcRow < 2 );
 
@@ -79,7 +79,7 @@ inline void Matrix2f::GetRow(int iSrcRow, Vector2f& rDesVec) const
     rDesVec.m_fData[1] = m_fData[iSrcRow][1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::SetColumn(int iDesCol, const Vector2f& rSrcVec)
+inline void Matrix2f::SetColumn(int iDesCol, const SEVector2f& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesCol && iDesCol < 2 );
 
@@ -87,7 +87,7 @@ inline void Matrix2f::SetColumn(int iDesCol, const Vector2f& rSrcVec)
 	m_fData[1][iDesCol] = rSrcVec.m_fData[1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2f::GetColumn(int iSrcCol, Vector2f& rDesVec) const
+inline void Matrix2f::GetColumn(int iSrcCol, SEVector2f& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcCol && iSrcCol < 2 );
 
@@ -199,8 +199,8 @@ inline void Matrix2d::FromAngle(double dAngle)
     m_dData[1][1] =  m_dData[0][0];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::TensorProduct(const Vector2d& rVecU, 
-    const Vector2d& rVecV)
+inline void Matrix2d::TensorProduct(const SEVector2d& rVecU, 
+    const SEVector2d& rVecV)
 {
     m_dData[0][0] = rVecU[0] * rVecV[0];
     m_dData[0][1] = rVecU[0] * rVecV[1];
@@ -208,7 +208,7 @@ inline void Matrix2d::TensorProduct(const Vector2d& rVecU,
     m_dData[1][1] = rVecU[1] * rVecV[1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::SetRow(int iDesRow, const Vector2d& rSrcVec)
+inline void Matrix2d::SetRow(int iDesRow, const SEVector2d& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesRow && iDesRow < 2 );
 
@@ -216,7 +216,7 @@ inline void Matrix2d::SetRow(int iDesRow, const Vector2d& rSrcVec)
     m_dData[iDesRow][1] = rSrcVec.m_dData[1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::GetRow(int iSrcRow, Vector2d& rDesVec) const
+inline void Matrix2d::GetRow(int iSrcRow, SEVector2d& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcRow && iSrcRow < 2 );
 
@@ -224,7 +224,7 @@ inline void Matrix2d::GetRow(int iSrcRow, Vector2d& rDesVec) const
     rDesVec.m_dData[1] = m_dData[iSrcRow][1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::SetColumn(int iDesCol, const Vector2d& rSrcVec)
+inline void Matrix2d::SetColumn(int iDesCol, const SEVector2d& rSrcVec)
 {
     SE_ASSERT( 0 <= iDesCol && iDesCol < 2 );
 
@@ -232,7 +232,7 @@ inline void Matrix2d::SetColumn(int iDesCol, const Vector2d& rSrcVec)
 	m_dData[1][iDesCol] = rSrcVec.m_dData[1];
 }
 //----------------------------------------------------------------------------
-inline void Matrix2d::GetColumn(int iSrcCol, Vector2d& rDesVec) const
+inline void Matrix2d::GetColumn(int iSrcCol, SEVector2d& rDesVec) const
 {
     SE_ASSERT( 0 <= iSrcCol && iSrcCol < 2 );
 

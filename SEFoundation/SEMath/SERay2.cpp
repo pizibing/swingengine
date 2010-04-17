@@ -28,7 +28,7 @@ Ray2f::Ray2f()
 {
 }
 //----------------------------------------------------------------------------
-Ray2f::Ray2f(const Vector2f& rOrigin, const Vector2f& rDirection)
+Ray2f::Ray2f(const SEVector2f& rOrigin, const SEVector2f& rDirection)
     :
     Origin(rOrigin),
     Direction(rDirection)

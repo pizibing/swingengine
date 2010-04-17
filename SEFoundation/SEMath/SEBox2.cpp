@@ -28,7 +28,7 @@ Box2f::Box2f()
 {
 }
 //----------------------------------------------------------------------------
-Box2f::Box2f(const Vector2f& rCenter, const Vector2f* aAxis,
+Box2f::Box2f(const SEVector2f& rCenter, const SEVector2f* aAxis,
     const float* afExtent)
     :
     Center(rCenter)
@@ -40,8 +40,8 @@ Box2f::Box2f(const Vector2f& rCenter, const Vector2f* aAxis,
     }
 }
 //----------------------------------------------------------------------------
-Box2f::Box2f(const Vector2f& rCenter, const Vector2f& rAxis0,
-    const Vector2f& rAxis1, float fExtent0, float fExtent1)
+Box2f::Box2f(const SEVector2f& rCenter, const SEVector2f& rAxis0,
+    const SEVector2f& rAxis1, float fExtent0, float fExtent1)
     :
     Center(rCenter)
 {
@@ -51,9 +51,9 @@ Box2f::Box2f(const Vector2f& rCenter, const Vector2f& rAxis0,
     Extent[1] = fExtent1;
 }
 //----------------------------------------------------------------------------
-void Box2f::ComputeVertices(Vector2f aVertex[4]) const
+void Box2f::ComputeVertices(SEVector2f aVertex[4]) const
 {
-    Vector2f aEAxis[2] =
+    SEVector2f aEAxis[2] =
     {
         Axis[0] * Extent[0],
         Axis[1] * Extent[1]

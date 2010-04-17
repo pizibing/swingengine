@@ -195,7 +195,7 @@ void Terrain::LoadPage(int iRow, int iCol, const char* acHeightName,
 
     float fLength = m_fSpacing*(float)(m_iSize - 1);
     // 该page在terrain模型空间的原点.
-    Vector2f vec2fOrigin(iCol*fLength, iRow*fLength);
+    SEVector2f vec2fOrigin(iCol*fLength, iRow*fLength);
     TerrainPage* pPage = SE_NEW TerrainPage(m_Attr, m_iSize, ausHeight,
         vec2fOrigin, m_fMinElevation, m_fMaxElevation, m_fSpacing, m_fUVBias);
 
@@ -290,9 +290,9 @@ void Terrain::OnCameraMotion()
             for( int iCol = 0; iCol < m_iCols; iCol++ )
             {
                 TerrainPage* pPage = m_aaspPage[iRP][iCP];
-                Vector2f vec2fOldOrigin = pPage->GetOrigin();
-                Vector2f vec2fNewOrigin(iCO*fLength, iRO*fLength);
-                Vector2f vec2fTrn = vec2fNewOrigin - vec2fOldOrigin;
+                SEVector2f vec2fOldOrigin = pPage->GetOrigin();
+                SEVector2f vec2fNewOrigin(iCO*fLength, iRO*fLength);
+                SEVector2f vec2fTrn = vec2fNewOrigin - vec2fOldOrigin;
                 Vector3f vec3fPTrn(vec2fTrn.X, pPage->Local.GetTranslate().Y, 
                     vec2fTrn.Y);
                 pPage->Local.SetTranslate(vec3fPTrn);

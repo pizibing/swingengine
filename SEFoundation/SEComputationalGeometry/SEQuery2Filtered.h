@@ -46,7 +46,7 @@ public:
     // interval [0,1].  The uncertainty of 0 causes the class to behave
     // as if it were Query2f.  The uncertainty of 1 causes the class to
     // behave as if it were Query2TRationalf.
-    Query2Filteredf(int iVCount, const Vector2f* aVertex, float fUncertainty);
+    Query2Filteredf(int iVCount, const SEVector2f* aVertex, float fUncertainty);
     virtual ~Query2Filteredf(void);
 
     // run-time type information
@@ -54,9 +54,9 @@ public:
 
     // Queries about the relation of a point to various geometric objects.
 
-    virtual int ToLine(const Vector2f& rP, int iV0, int iV1) const;
+    virtual int ToLine(const SEVector2f& rP, int iV0, int iV1) const;
 
-    virtual int ToCircumcircle(const Vector2f& rP, int iV0, int iV1,
+    virtual int ToCircumcircle(const SEVector2f& rP, int iV0, int iV1,
         int iV2) const;
 
 private:

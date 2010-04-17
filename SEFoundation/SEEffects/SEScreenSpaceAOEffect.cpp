@@ -30,7 +30,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(ScreenSpaceAOEffect, ShaderEffect);
 
 //SE_REGISTER_STREAM(ScreenSpaceAOEffect);
 
-Vector2f ScreenSpaceAOEffect::ScreenSize = Vector2f::ZERO; 
+SEVector2f ScreenSpaceAOEffect::ScreenSize = SEVector2f::ZERO; 
 float ScreenSpaceAOEffect::FarClipDist = 0.0f;
 bool ScreenSpaceAOEffect::ms_bUCInitialized = false;
 

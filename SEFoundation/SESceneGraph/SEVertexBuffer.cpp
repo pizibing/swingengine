@@ -260,22 +260,22 @@ float VertexBuffer::TCoord1(int iUnit, int i) const
     return *(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-Vector2f& VertexBuffer::TCoord2(int iUnit, int i)
+SEVector2f& VertexBuffer::TCoord2(int iUnit, int i)
 {
     SE_ASSERT( m_Attributes.GetTCoordChannels(iUnit) == 2 );
 
     int iIndex = m_iVertexSize*i + m_Attributes.GetTCoordOffset(iUnit);
 
-    return *(Vector2f*)(m_pChannel + iIndex);
+    return *(SEVector2f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-Vector2f VertexBuffer::TCoord2(int iUnit, int i) const
+SEVector2f VertexBuffer::TCoord2(int iUnit, int i) const
 {
     SE_ASSERT( m_Attributes.GetTCoordChannels(iUnit) == 2 );
 
     int iIndex = m_iVertexSize*i + m_Attributes.GetTCoordOffset(iUnit);
 
-    return *(Vector2f*)(m_pChannel + iIndex);
+    return *(SEVector2f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
 Vector3f& VertexBuffer::TCoord3(int iUnit, int i)

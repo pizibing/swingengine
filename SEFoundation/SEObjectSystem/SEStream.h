@@ -192,8 +192,8 @@ public:
     void Read(int iCount, Plane3f* pValue);
     void Read(Quaternionf& rValue);
     void Read(int iCount, Quaternionf* pValue);
-    void Read(Vector2f& rValue);
-    void Read(int iCount, Vector2f* pValue);
+    void Read(SEVector2f& rValue);
+    void Read(int iCount, SEVector2f* pValue);
     void Read(Vector3f& rValue);
     void Read(int iCount, Vector3f* pValue);
     void Read(Vector4f& rValue);
@@ -244,8 +244,8 @@ public:
     void Write(int iCount, const Plane3f* pValue);
     void Write(const Quaternionf& rValue);
     void Write(int iCount, const Quaternionf* pValue);
-    void Write(const Vector2f& rValue);
-    void Write(int iCount, const Vector2f* pValue);
+    void Write(const SEVector2f& rValue);
+    void Write(int iCount, const SEVector2f* pValue);
     void Write(const Vector3f& rValue);
     void Write(int iCount, const Vector3f* pValue);
     void Write(const Vector4f& rValue);

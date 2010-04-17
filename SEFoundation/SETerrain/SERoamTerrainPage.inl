@@ -29,7 +29,7 @@ inline const unsigned short* RoamTerrainPage::GetHeights(void) const
     return m_ausHeight;
 }
 //----------------------------------------------------------------------------
-inline const Vector2f& RoamTerrainPage::GetOrigin(void) const
+inline const SEVector2f& RoamTerrainPage::GetOrigin(void) const
 {
     return m_Origin;
 }

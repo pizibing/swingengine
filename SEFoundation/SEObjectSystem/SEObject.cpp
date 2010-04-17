@@ -137,7 +137,7 @@ void SEObject::AttachController(Controller* pController)
 //----------------------------------------------------------------------------
 void SEObject::DetachController(Controller* pController)
 {
-    std::vector<ObjectPtr>::iterator pIter = m_Controllers.begin();
+    std::vector<SEObjectPtr>::iterator pIter = m_Controllers.begin();
     for( /**/; pIter != m_Controllers.end(); pIter++ )
     {
         if( pController == *pIter )
@@ -180,7 +180,7 @@ bool SEObject::UpdateControllers(double dAppTime)
 //----------------------------------------------------------------------------
 // copying
 //----------------------------------------------------------------------------
-ObjectPtr SEObject::Copy(bool bUniqueNames) const
+SEObjectPtr SEObject::Copy(bool bUniqueNames) const
 {
     // save the object to a memory buffer
     SEStream tempSaveStream;

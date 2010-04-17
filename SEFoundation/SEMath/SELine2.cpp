@@ -28,7 +28,7 @@ Line2f::Line2f()
 {
 }
 //----------------------------------------------------------------------------
-Line2f::Line2f(const Vector2f& rOrigin, const Vector2f& rDirection)
+Line2f::Line2f(const SEVector2f& rOrigin, const SEVector2f& rDirection)
     :
     Origin(rOrigin),
     Direction(rDirection)

@@ -99,9 +99,9 @@ protected:
     Real m_fDifferenceStep, m_fInvTwoDifferenceStep;
 };
 
-typedef Distance<float, Vector2f> Distance2f;
+typedef Distance<float, SEVector2f> Distance2f;
 typedef Distance<float, Vector3f> Distance3f;
-//typedef Distance<double, Vector2d> Distance2d;
+//typedef Distance<double, SEVector2d> Distance2d;
 //typedef Distance<double, Vector3d> Distance3d;
 
 }

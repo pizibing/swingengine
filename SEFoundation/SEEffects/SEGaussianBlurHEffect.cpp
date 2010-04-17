@@ -30,37 +30,37 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(GaussianBlurHEffect, ShaderEffect);
 
 //SE_REGISTER_STREAM(GaussianBlurHEffect);
 
-Vector2f GaussianBlurHEffect::ms_aTexelKernel[KERNEL_COUNT] = 
+SEVector2f GaussianBlurHEffect::ms_aTexelKernel[KERNEL_COUNT] = 
 {
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO
 };
-Vector2f GaussianBlurHEffect::ms_aPixelKernelH[KERNEL_COUNT] = 
+SEVector2f GaussianBlurHEffect::ms_aPixelKernelH[KERNEL_COUNT] = 
 {
-    Vector2f(-6.0f, 0.0f),
-    Vector2f(-5.0f, 0.0f),
-    Vector2f(-4.0f, 0.0f),
-    Vector2f(-3.0f, 0.0f),
-    Vector2f(-2.0f, 0.0f),
-    Vector2f(-1.0f, 0.0f),
-    Vector2f(0.0f, 0.0f),
-    Vector2f(1.0f, 0.0f),
-    Vector2f(2.0f, 0.0f),
-    Vector2f(3.0f, 0.0f),
-    Vector2f(4.0f, 0.0f),
-    Vector2f(5.0f, 0.0f),
-    Vector2f(6.0f, 0.0f)
+    SEVector2f(-6.0f, 0.0f),
+    SEVector2f(-5.0f, 0.0f),
+    SEVector2f(-4.0f, 0.0f),
+    SEVector2f(-3.0f, 0.0f),
+    SEVector2f(-2.0f, 0.0f),
+    SEVector2f(-1.0f, 0.0f),
+    SEVector2f(0.0f, 0.0f),
+    SEVector2f(1.0f, 0.0f),
+    SEVector2f(2.0f, 0.0f),
+    SEVector2f(3.0f, 0.0f),
+    SEVector2f(4.0f, 0.0f),
+    SEVector2f(5.0f, 0.0f),
+    SEVector2f(6.0f, 0.0f)
 };
 bool GaussianBlurHEffect::ms_bTexelKernelUCInitialized = false;
 

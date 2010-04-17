@@ -27,52 +27,52 @@ using namespace Swing;
 // 单精度2维向量类
 //----------------------------------------------------------------------------
 
-const Vector2f Vector2f::ZERO(0.0f, 0.0f);
-const Vector2f Vector2f::UNIT_X(1.0f, 0.0f);
-const Vector2f Vector2f::UNIT_Y(0.0f, 1.0f);
+const SEVector2f SEVector2f::ZERO(0.0f, 0.0f);
+const SEVector2f SEVector2f::UNIT_X(1.0f, 0.0f);
+const SEVector2f SEVector2f::UNIT_Y(0.0f, 1.0f);
 
 //----------------------------------------------------------------------------
-Vector2f::Vector2f()
+SEVector2f::SEVector2f()
 {
 }
 //----------------------------------------------------------------------------
-Vector2f::Vector2f(float fX, float fY)
+SEVector2f::SEVector2f(float fX, float fY)
 {
     m_fData[0] = fX;
     m_fData[1] = fY;
 }
 //----------------------------------------------------------------------------
-Vector2f::Vector2f(const Vector2f& rVec)
+SEVector2f::SEVector2f(const SEVector2f& rVec)
 {
     m_fData[0] = rVec.m_fData[0];
     m_fData[1] = rVec.m_fData[1];
 }
 //----------------------------------------------------------------------------
-Vector2f::operator const float*() const
+SEVector2f::operator const float*() const
 {
     return m_fData;
 }
 //----------------------------------------------------------------------------
-Vector2f::operator float*()
+SEVector2f::operator float*()
 {
     return m_fData;
 }
 //----------------------------------------------------------------------------
-float Vector2f::operator[](int i) const
+float SEVector2f::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i <= 1 );
 
     return m_fData[i];
 }
 //----------------------------------------------------------------------------
-float& Vector2f::operator[](int i)
+float& SEVector2f::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i <= 1 );
 
     return m_fData[i];
 }
 //----------------------------------------------------------------------------
-Vector2f& Vector2f::operator=(const Vector2f& rVec)
+SEVector2f& SEVector2f::operator=(const SEVector2f& rVec)
 {
     m_fData[0] = rVec.m_fData[0];
     m_fData[1] = rVec.m_fData[1];
@@ -80,60 +80,60 @@ Vector2f& Vector2f::operator=(const Vector2f& rVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Vector2f::operator==(const Vector2f& rVec) const
+bool SEVector2f::operator==(const SEVector2f& rVec) const
 {
     return CompareData(rVec) == 0;
 }
 //----------------------------------------------------------------------------
-bool Vector2f::operator!=(const Vector2f& rVec) const
+bool SEVector2f::operator!=(const SEVector2f& rVec) const
 {
     return CompareData(rVec) != 0;
 }
 //----------------------------------------------------------------------------
-bool Vector2f::operator<(const Vector2f& rVec) const
+bool SEVector2f::operator<(const SEVector2f& rVec) const
 {
     return CompareData(rVec) < 0;
 }
 //----------------------------------------------------------------------------
-bool Vector2f::operator<=(const Vector2f& rVec) const
+bool SEVector2f::operator<=(const SEVector2f& rVec) const
 {
     return CompareData(rVec) <= 0;
 }
 //----------------------------------------------------------------------------
-bool Vector2f::operator>(const Vector2f& rVec) const
+bool SEVector2f::operator>(const SEVector2f& rVec) const
 {
     return CompareData(rVec) > 0;
 }
 //----------------------------------------------------------------------------
-bool Vector2f::operator>=(const Vector2f& rVec) const
+bool SEVector2f::operator>=(const SEVector2f& rVec) const
 {
     return CompareData(rVec) >= 0;
 }
 //----------------------------------------------------------------------------
-Vector2f Vector2f::operator+(const Vector2f& rRhsVec) const
+SEVector2f SEVector2f::operator+(const SEVector2f& rRhsVec) const
 {
-    return Vector2f(
+    return SEVector2f(
                    m_fData[0] + rRhsVec.m_fData[0],
                    m_fData[1] + rRhsVec.m_fData[1]);
 }
 //----------------------------------------------------------------------------
-Vector2f Vector2f::operator-(const Vector2f& rRhsVec) const
+SEVector2f SEVector2f::operator-(const SEVector2f& rRhsVec) const
 {
-    return Vector2f(
+    return SEVector2f(
                    m_fData[0] - rRhsVec.m_fData[0],
                    m_fData[1] - rRhsVec.m_fData[1]);
 }
 //----------------------------------------------------------------------------
-Vector2f Vector2f::operator*(float fScalar) const
+SEVector2f SEVector2f::operator*(float fScalar) const
 {
-    return Vector2f(
+    return SEVector2f(
                    fScalar * m_fData[0],
                    fScalar * m_fData[1]);
 }
 //----------------------------------------------------------------------------
-Vector2f Vector2f::operator/(float fScalar) const
+SEVector2f SEVector2f::operator/(float fScalar) const
 {
-    Vector2f Res;
+    SEVector2f Res;
 
     if( fScalar != 0.0f )
     {
@@ -150,21 +150,21 @@ Vector2f Vector2f::operator/(float fScalar) const
     return Res;
 }
 //----------------------------------------------------------------------------
-Vector2f Vector2f::operator-() const
+SEVector2f SEVector2f::operator-() const
 {
-    return Vector2f(
+    return SEVector2f(
                    -m_fData[0],
                    -m_fData[1]);
 }
 //----------------------------------------------------------------------------
-Vector2f Swing::operator*(float fLhsScalar, const Vector2f& rRhsVec)
+SEVector2f Swing::operator*(float fLhsScalar, const SEVector2f& rRhsVec)
 {
-    return Vector2f(
+    return SEVector2f(
                    fLhsScalar * rRhsVec[0],
                    fLhsScalar * rRhsVec[1]);
 }
 //----------------------------------------------------------------------------
-Vector2f& Vector2f::operator+=(const Vector2f& rRhsVec)
+SEVector2f& SEVector2f::operator+=(const SEVector2f& rRhsVec)
 {
     m_fData[0] += rRhsVec.m_fData[0];
     m_fData[1] += rRhsVec.m_fData[1];
@@ -172,7 +172,7 @@ Vector2f& Vector2f::operator+=(const Vector2f& rRhsVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector2f& Vector2f::operator+=(float fScalar)
+SEVector2f& SEVector2f::operator+=(float fScalar)
 {
     m_fData[0] += fScalar;
     m_fData[1] += fScalar;
@@ -180,7 +180,7 @@ Vector2f& Vector2f::operator+=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector2f& Vector2f::operator-=(const Vector2f& rRhsVec)
+SEVector2f& SEVector2f::operator-=(const SEVector2f& rRhsVec)
 {
     m_fData[0] -= rRhsVec.m_fData[0];
     m_fData[1] -= rRhsVec.m_fData[1];
@@ -188,7 +188,7 @@ Vector2f& Vector2f::operator-=(const Vector2f& rRhsVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector2f& Vector2f::operator-=(float fScalar)
+SEVector2f& SEVector2f::operator-=(float fScalar)
 {
     m_fData[0] -= fScalar;
     m_fData[1] -= fScalar;
@@ -196,7 +196,7 @@ Vector2f& Vector2f::operator-=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector2f& Vector2f::operator*=(float fScalar)
+SEVector2f& SEVector2f::operator*=(float fScalar)
 {
     m_fData[0] *= fScalar;
     m_fData[1] *= fScalar;
@@ -204,7 +204,7 @@ Vector2f& Vector2f::operator*=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector2f& Vector2f::operator/=(float fScalar)
+SEVector2f& SEVector2f::operator/=(float fScalar)
 {
     if( fScalar != 0.0f )
     {
@@ -221,7 +221,7 @@ Vector2f& Vector2f::operator/=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-void Vector2f::Orthonormalize(Vector2f& rVecU, Vector2f& rVecV)
+void SEVector2f::Orthonormalize(SEVector2f& rVecU, SEVector2f& rVecV)
 {
     rVecU.Normalize();
     // V在U上的投影长度
@@ -231,7 +231,7 @@ void Vector2f::Orthonormalize(Vector2f& rVecU, Vector2f& rVecV)
     rVecV.Normalize();
 }
 //----------------------------------------------------------------------------
-void Vector2f::GetOrthonormalBasis(Vector2f& rVecU, Vector2f& rVecV, 
+void SEVector2f::GetOrthonormalBasis(SEVector2f& rVecU, SEVector2f& rVecV, 
     bool bUnitLengthV)
 {
     if( !bUnitLengthV )
@@ -245,52 +245,52 @@ void Vector2f::GetOrthonormalBasis(Vector2f& rVecU, Vector2f& rVecV,
 // 双精度2维向量类
 //----------------------------------------------------------------------------
 
-const Vector2d Vector2d::ZERO(0.0, 0.0);
-const Vector2d Vector2d::UNIT_X(1.0, 0.0);
-const Vector2d Vector2d::UNIT_Y(0.0, 1.0);
+const SEVector2d SEVector2d::ZERO(0.0, 0.0);
+const SEVector2d SEVector2d::UNIT_X(1.0, 0.0);
+const SEVector2d SEVector2d::UNIT_Y(0.0, 1.0);
 
 //----------------------------------------------------------------------------
-Vector2d::Vector2d()
+SEVector2d::SEVector2d()
 {
 }
 //----------------------------------------------------------------------------
-Vector2d::Vector2d(double dX, double dY)
+SEVector2d::SEVector2d(double dX, double dY)
 {
     m_dData[0] = dX;
     m_dData[1] = dY;
 }
 //----------------------------------------------------------------------------
-Vector2d::Vector2d(const Vector2d& rVec)
+SEVector2d::SEVector2d(const SEVector2d& rVec)
 {
     m_dData[0] = rVec.m_dData[0];
     m_dData[1] = rVec.m_dData[1];
 }
 //----------------------------------------------------------------------------
-Vector2d::operator const double*() const
+SEVector2d::operator const double*() const
 {
     return m_dData;
 }
 //----------------------------------------------------------------------------
-Vector2d::operator double*()
+SEVector2d::operator double*()
 {
     return m_dData;
 }
 //----------------------------------------------------------------------------
-double Vector2d::operator[](int i) const
+double SEVector2d::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i <= 1 );
 
     return m_dData[i];
 }
 //----------------------------------------------------------------------------
-double& Vector2d::operator[](int i)
+double& SEVector2d::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i <= 1 );
 
     return m_dData[i];
 }
 //----------------------------------------------------------------------------
-Vector2d& Vector2d::operator=(const Vector2d& rVec)
+SEVector2d& SEVector2d::operator=(const SEVector2d& rVec)
 {
     m_dData[0] = rVec.m_dData[0];
     m_dData[1] = rVec.m_dData[1];
@@ -298,60 +298,60 @@ Vector2d& Vector2d::operator=(const Vector2d& rVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-bool Vector2d::operator==(const Vector2d& rVec) const
+bool SEVector2d::operator==(const SEVector2d& rVec) const
 {
     return CompareData(rVec) == 0;
 }
 //----------------------------------------------------------------------------
-bool Vector2d::operator!=(const Vector2d& rVec) const
+bool SEVector2d::operator!=(const SEVector2d& rVec) const
 {
     return CompareData(rVec) != 0;
 }
 //----------------------------------------------------------------------------
-bool Vector2d::operator<(const Vector2d& rVec) const
+bool SEVector2d::operator<(const SEVector2d& rVec) const
 {
     return CompareData(rVec) < 0;
 }
 //----------------------------------------------------------------------------
-bool Vector2d::operator<=(const Vector2d& rVec) const
+bool SEVector2d::operator<=(const SEVector2d& rVec) const
 {
     return CompareData(rVec) <= 0;
 }
 //----------------------------------------------------------------------------
-bool Vector2d::operator>(const Vector2d& rVec) const
+bool SEVector2d::operator>(const SEVector2d& rVec) const
 {
     return CompareData(rVec) > 0;
 }
 //----------------------------------------------------------------------------
-bool Vector2d::operator>=(const Vector2d& rVec) const
+bool SEVector2d::operator>=(const SEVector2d& rVec) const
 {
     return CompareData(rVec) >= 0;
 }
 //----------------------------------------------------------------------------
-Vector2d Vector2d::operator+(const Vector2d& rRhsVec) const
+SEVector2d SEVector2d::operator+(const SEVector2d& rRhsVec) const
 {
-    return Vector2d(
+    return SEVector2d(
                    m_dData[0] + rRhsVec.m_dData[0],
                    m_dData[1] + rRhsVec.m_dData[1]);
 }
 //----------------------------------------------------------------------------
-Vector2d Vector2d::operator-(const Vector2d& rRhsVec) const
+SEVector2d SEVector2d::operator-(const SEVector2d& rRhsVec) const
 {
-    return Vector2d(
+    return SEVector2d(
                    m_dData[0] - rRhsVec.m_dData[0],
                    m_dData[1] - rRhsVec.m_dData[1]);
 }
 //----------------------------------------------------------------------------
-Vector2d Vector2d::operator*(double dScalar) const
+SEVector2d SEVector2d::operator*(double dScalar) const
 {
-    return Vector2d(
+    return SEVector2d(
                    dScalar * m_dData[0],
                    dScalar * m_dData[1]);
 }
 //----------------------------------------------------------------------------
-Vector2d Vector2d::operator/(double dScalar) const
+SEVector2d SEVector2d::operator/(double dScalar) const
 {
-    Vector2d Res;
+    SEVector2d Res;
 
     if( dScalar != 0.0 )
     {
@@ -368,21 +368,21 @@ Vector2d Vector2d::operator/(double dScalar) const
     return Res;
 }
 //----------------------------------------------------------------------------
-Vector2d Vector2d::operator-() const
+SEVector2d SEVector2d::operator-() const
 {
-    return Vector2d(
+    return SEVector2d(
                    -m_dData[0],
                    -m_dData[1]);
 }
 //----------------------------------------------------------------------------
-Vector2d Swing::operator*(double dLhsScalar, const Vector2d& rRhsVec)
+SEVector2d Swing::operator*(double dLhsScalar, const SEVector2d& rRhsVec)
 {
-    return Vector2d(
+    return SEVector2d(
                    dLhsScalar * rRhsVec[0],
                    dLhsScalar * rRhsVec[1]);
 }
 //----------------------------------------------------------------------------
-Vector2d& Vector2d::operator+=(const Vector2d& rRhsVec)
+SEVector2d& SEVector2d::operator+=(const SEVector2d& rRhsVec)
 {
     m_dData[0] += rRhsVec.m_dData[0];
     m_dData[1] += rRhsVec.m_dData[1];
@@ -390,7 +390,7 @@ Vector2d& Vector2d::operator+=(const Vector2d& rRhsVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector2d& Vector2d::operator+=(double dScalar)
+SEVector2d& SEVector2d::operator+=(double dScalar)
 {
     m_dData[0] += dScalar;
     m_dData[1] += dScalar;
@@ -398,7 +398,7 @@ Vector2d& Vector2d::operator+=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector2d& Vector2d::operator-=(const Vector2d& rRhsVec)
+SEVector2d& SEVector2d::operator-=(const SEVector2d& rRhsVec)
 {
     m_dData[0] -= rRhsVec.m_dData[0];
     m_dData[1] -= rRhsVec.m_dData[1];
@@ -406,7 +406,7 @@ Vector2d& Vector2d::operator-=(const Vector2d& rRhsVec)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector2d& Vector2d::operator-=(double dScalar)
+SEVector2d& SEVector2d::operator-=(double dScalar)
 {
     m_dData[0] -= dScalar;
     m_dData[1] -= dScalar;
@@ -414,7 +414,7 @@ Vector2d& Vector2d::operator-=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector2d& Vector2d::operator*=(double dScalar)
+SEVector2d& SEVector2d::operator*=(double dScalar)
 {
     m_dData[0] *= dScalar;
     m_dData[1] *= dScalar;
@@ -422,7 +422,7 @@ Vector2d& Vector2d::operator*=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector2d& Vector2d::operator/=(double dScalar)
+SEVector2d& SEVector2d::operator/=(double dScalar)
 {
     if( dScalar != 0.0 )
     {
@@ -439,7 +439,7 @@ Vector2d& Vector2d::operator/=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-void Vector2d::Orthonormalize(Vector2d& rVecU, Vector2d& rVecV)
+void SEVector2d::Orthonormalize(SEVector2d& rVecU, SEVector2d& rVecV)
 {
     rVecU.Normalize();
     // V在U上的投影长度
@@ -449,7 +449,7 @@ void Vector2d::Orthonormalize(Vector2d& rVecU, Vector2d& rVecV)
     rVecV.Normalize();
 }
 //----------------------------------------------------------------------------
-void Vector2d::GetOrthonormalBasis(Vector2d& rVecU, Vector2d& rVecV, 
+void SEVector2d::GetOrthonormalBasis(SEVector2d& rVecU, SEVector2d& rVecV, 
     bool bUnitLengthV)
 {
     if( !bUnitLengthV )

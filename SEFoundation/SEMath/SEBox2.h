@@ -37,15 +37,15 @@ class SE_FOUNDATION_API Box2f
 {
 public:
     Box2f(void);
-    Box2f(const Vector2f& rCenter, const Vector2f* aAxis,
+    Box2f(const SEVector2f& rCenter, const SEVector2f* aAxis,
         const float* afExtent);
-    Box2f(const Vector2f& rCenter, const Vector2f& rAxis0,
-        const Vector2f& rAxis1, float fExtent0, float fExtent1);
+    Box2f(const SEVector2f& rCenter, const SEVector2f& rAxis0,
+        const SEVector2f& rAxis1, float fExtent0, float fExtent1);
 
-    void ComputeVertices(Vector2f aVertex[4]) const;
+    void ComputeVertices(SEVector2f aVertex[4]) const;
 
-    Vector2f Center;  // 盒子中心
-    Vector2f Axis[2];  // 规范正交基
+    SEVector2f Center;  // 盒子中心
+    SEVector2f Axis[2];  // 规范正交基
     float Extent[2];  // 半长,半宽,均非负
 };
 

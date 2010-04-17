@@ -38,7 +38,7 @@ class Query2f : public Query
 {
 public:
     // The base class handles floating-point queries.
-    Query2f(int iVCount, const Vector2f* aVertex);
+    Query2f(int iVCount, const SEVector2f* aVertex);
     virtual ~Query2f(void);
 
     // run-time type information
@@ -46,7 +46,7 @@ public:
 
     // member access
     int GetCount(void) const;
-    const Vector2f* GetVertices(void) const;
+    const SEVector2f* GetVertices(void) const;
 
     // Queries about the relation of a point to various geometric objects.
 
@@ -55,14 +55,14 @@ public:
     //   -1, on left of line
     //    0, on the line
     virtual int ToLine(int i, int iV0, int iV1) const;
-    virtual int ToLine(const Vector2f& rP, int iV0, int iV1) const;
+    virtual int ToLine(const SEVector2f& rP, int iV0, int iV1) const;
 
     // returns
     //   +1, outside triangle
     //   -1, inside triangle
     //    0, on triangle
     virtual int ToTriangle(int i, int iV0, int iV1, int iV2) const;
-    virtual int ToTriangle(const Vector2f& rP, int iV0, int iV1,
+    virtual int ToTriangle(const SEVector2f& rP, int iV0, int iV1,
         int iV2) const;
 
     // returns
@@ -70,13 +70,13 @@ public:
     //   -1, inside circumcircle of triangle
     //    0, on circumcircle of triangle
     virtual int ToCircumcircle(int i, int iV0, int iV1, int iV2) const;
-    virtual int ToCircumcircle(const Vector2f& rP, int iV0, int iV1,
+    virtual int ToCircumcircle(const SEVector2f& rP, int iV0, int iV1,
         int iV2) const;
 
 protected:
     // input points
     int m_iVCount;
-    const Vector2f* m_aVertex;
+    const SEVector2f* m_aVertex;
 
     static float Dot(float fX0, float fY0, float fX1, float fY1);
 

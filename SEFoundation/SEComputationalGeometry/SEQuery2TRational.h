@@ -39,7 +39,7 @@ class Query2TRationalf : public Query2f
 public:
     // The components of the input vertices are represented exactly as
     // rational values.
-    Query2TRationalf(int iVCount,  const Vector2f* aVertex);
+    Query2TRationalf(int iVCount,  const SEVector2f* aVertex);
     virtual ~Query2TRationalf(void);
 
     // run-time type information
@@ -48,14 +48,14 @@ public:
     // Queries about the relation of a point to various geometric objects.
 
     virtual int ToLine(int i,  int iV0,  int iV1) const;
-    virtual int ToLine(const Vector2f& rP,  int iV0,  int iV1) const;
+    virtual int ToLine(const SEVector2f& rP,  int iV0,  int iV1) const;
 
     virtual int ToTriangle(int i,  int iV0,  int iV1,  int iV2) const;
-    virtual int ToTriangle(const Vector2f& rP,  int iV0,  int iV1, 
+    virtual int ToTriangle(const SEVector2f& rP,  int iV0,  int iV1, 
         int iV2) const;
 
     virtual int ToCircumcircle(int i,  int iV0,  int iV1,  int iV2) const;
-    virtual int ToCircumcircle(const Vector2f& rP,  int iV0,  int iV1, 
+    virtual int ToCircumcircle(const SEVector2f& rP,  int iV0,  int iV1, 
         int iV2) const;
 
 private:

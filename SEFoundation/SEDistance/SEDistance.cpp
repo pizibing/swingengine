@@ -369,10 +369,10 @@ Real Distance<Real, TVector>::GetSquared(Real fTMin, Real fTMax,
 //----------------------------------------------------------------------------
 // explicit instantiation
 //----------------------------------------------------------------------------
-template class Distance<float, Vector2f>;
+template class Distance<float, SEVector2f>;
 template class Distance<float, Vector3f>;
 
-//template class Distance<double, Vector2d>;
+//template class Distance<double, SEVector2d>;
 //template class Distance<double, Vector3d>;
 //----------------------------------------------------------------------------
 }

@@ -53,7 +53,7 @@ Matrix2f::Matrix2f(float fM11, float fM12, float fM21, float fM22)
     m_fData[1][1] = fM22;
 }
 //----------------------------------------------------------------------------
-Matrix2f::Matrix2f(const Vector2f& rVecU, const Vector2f& rVecV, bool bIsRow)
+Matrix2f::Matrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV, bool bIsRow)
 {
     if( bIsRow )
 	{
@@ -81,7 +81,7 @@ Matrix2f::Matrix2f(float fAngle)
     FromAngle(fAngle);
 }
 //----------------------------------------------------------------------------
-Matrix2f::Matrix2f(const Vector2f& rVecU, const Vector2f& rVecV)
+Matrix2f::Matrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV)
 {
     TensorProduct(rVecU, rVecV);
 }
@@ -279,9 +279,9 @@ Matrix2f& Matrix2f::operator/=(float fScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector2f Matrix2f::operator*(const Vector2f& rRhsVec) const
+SEVector2f Matrix2f::operator*(const SEVector2f& rRhsVec) const
 {
-    Vector2f ResVec;
+    SEVector2f ResVec;
     
     ResVec[0] = M11*rRhsVec[0] + M12*rRhsVec[1];
     ResVec[1] = M21*rRhsVec[0] + M22*rRhsVec[1];
@@ -308,9 +308,9 @@ Matrix2f Swing::operator*(float fLhsScalar, const Matrix2f& rRhsMat)
     return rRhsMat * fLhsScalar;
 }
 //----------------------------------------------------------------------------
-Vector2f Swing::operator*(const Vector2f& rVecV, const Matrix2f& rMat)
+SEVector2f Swing::operator*(const SEVector2f& rVecV, const Matrix2f& rMat)
 {
-    return Vector2f(
+    return SEVector2f(
                    rVecV[0]*rMat[0][0] + rVecV[1]*rMat[1][0],
                    rVecV[0]*rMat[0][1] + rVecV[1]*rMat[1][1]);
 }
@@ -346,7 +346,7 @@ Matrix2d::Matrix2d(double dM11, double dM12, double dM21, double dM22)
     m_dData[1][1] = dM22;
 }
 //----------------------------------------------------------------------------
-Matrix2d::Matrix2d(const Vector2d& rVecU, const Vector2d& rVecV, bool bIsRow)
+Matrix2d::Matrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV, bool bIsRow)
 {
     if( bIsRow )
 	{
@@ -374,7 +374,7 @@ Matrix2d::Matrix2d(double dAngle)
     FromAngle(dAngle);
 }
 //----------------------------------------------------------------------------
-Matrix2d::Matrix2d(const Vector2d& rVecU, const Vector2d& rVecV)
+Matrix2d::Matrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV)
 {
     TensorProduct(rVecU, rVecV);
 }
@@ -572,9 +572,9 @@ Matrix2d& Matrix2d::operator/=(double dScalar)
     return *this;
 }
 //----------------------------------------------------------------------------
-Vector2d Matrix2d::operator*(const Vector2d& rRhsVec) const
+SEVector2d Matrix2d::operator*(const SEVector2d& rRhsVec) const
 {
-    Vector2d ResVec;
+    SEVector2d ResVec;
     
     ResVec[0] = M11*rRhsVec[0] + M12*rRhsVec[1];
     ResVec[1] = M21*rRhsVec[0] + M22*rRhsVec[1];
@@ -601,9 +601,9 @@ Matrix2d Swing::operator*(double dLhsScalar, const Matrix2d& rRhsMat)
     return rRhsMat * dLhsScalar;
 }
 //----------------------------------------------------------------------------
-Vector2d Swing::operator*(const Vector2d& rVecV, const Matrix2d& rMat)
+SEVector2d Swing::operator*(const SEVector2d& rVecV, const Matrix2d& rMat)
 {
-    return Vector2d(
+    return SEVector2d(
                    rVecV[0]*rMat[0][0] + rVecV[1]*rMat[1][0],
                    rVecV[0]*rMat[0][1] + rVecV[1]*rMat[1][1]);
 }

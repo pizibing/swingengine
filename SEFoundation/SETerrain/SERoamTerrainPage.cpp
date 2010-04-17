@@ -35,7 +35,7 @@ int RoamTerrainPage::NumTrisRendered = 0;
 
 //----------------------------------------------------------------------------
 RoamTerrainPage::RoamTerrainPage(const Attributes& rAttr, int iSize,
-    unsigned short* ausHeight, const Vector2f& rOrigin,
+    unsigned short* ausHeight, const SEVector2f& rOrigin,
     float fMinElevation, float fMaxElevation, float fSpacing,
     float fUVBias, int iPoolSize, int iPatchSize, int iSplitLevel, 
     int iVarianceLevel)
@@ -88,7 +88,7 @@ RoamTerrainPage::RoamTerrainPage(const Attributes& rAttr, int iSize,
 //----------------------------------------------------------------------------
 RoamTerrainPage::RoamTerrainPage()
     :
-    m_Origin(Vector2f::ZERO)
+    m_Origin(SEVector2f::ZERO)
 {
     m_iSize = 0;
     m_ausHeight = 0;
@@ -172,8 +172,8 @@ float RoamTerrainPage::GetHeight(float fX, float fZ) const
             pCurTriangle = m_Patches[iPatchY][iPatchX].GetBaseRight();
         }
 
-        Vector2f Apex, Left, Right, CurPoint;
-        Vector2f A, B, C;
+        SEVector2f Apex, Left, Right, CurPoint;
+        SEVector2f A, B, C;
         float fCdA, fCdB;
 
         CurPoint.X = fTerrainMSpaceX;

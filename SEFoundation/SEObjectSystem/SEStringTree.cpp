@@ -530,7 +530,7 @@ char* Swing::Format(const char* pPrefix, const Quaternionf& rValue)
     return pString;
 }
 //----------------------------------------------------------------------------
-char* Swing::Format(const char* pPrefix, const Vector2f& rValue)
+char* Swing::Format(const char* pPrefix, const SEVector2f& rValue)
 {
     SE_ASSERT( pPrefix );
 

@@ -248,7 +248,7 @@ ConvexHull2f* ConvexHull3f::GetConvexHull2() const
         return 0;
     }
 
-    Vector2f* aProjection = SE_NEW Vector2f[m_iVertexCount];
+    SEVector2f* aProjection = SE_NEW SEVector2f[m_iVertexCount];
     for( int i = 0; i < m_iVertexCount; i++ )
     {
         Vector3f vec3fDiff = m_aVertex[i] - m_PlaneOrigin;

@@ -29,7 +29,7 @@ inline const unsigned short* TerrainPage::GetHeights() const
     return m_ausHeight;
 }
 //----------------------------------------------------------------------------
-inline const Vector2f& TerrainPage::GetOrigin() const
+inline const SEVector2f& TerrainPage::GetOrigin() const
 {
     return m_Origin;
 }

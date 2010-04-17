@@ -32,7 +32,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(TerrainPage, TriMesh);
 
 //----------------------------------------------------------------------------
 TerrainPage::TerrainPage(const Attributes& rAttr, int iSize,
-    unsigned short* ausHeight, const Vector2f& rOrigin, float fMinElevation,
+    unsigned short* ausHeight, const SEVector2f& rOrigin, float fMinElevation,
     float fMaxElevation, float fSpacing, float fUVBias)
     :
     m_Origin(rOrigin)
@@ -74,7 +74,7 @@ TerrainPage::TerrainPage(const Attributes& rAttr, int iSize,
 //----------------------------------------------------------------------------
 TerrainPage::TerrainPage()
     :
-    m_Origin(Vector2f::ZERO)
+    m_Origin(SEVector2f::ZERO)
 {
     m_iSize = 0;
     m_ausHeight = 0;

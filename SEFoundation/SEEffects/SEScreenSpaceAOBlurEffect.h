@@ -64,8 +64,8 @@ protected:
         ARBFP1_COUNT = 8,
         FP40_COUNT = 8
     };
-    static Vector2f ms_aTexelKernel[KERNEL_COUNT];
-    static Vector2f ms_aPixelKernel[KERNEL_COUNT];
+    static SEVector2f ms_aTexelKernel[KERNEL_COUNT];
+    static SEVector2f ms_aPixelKernel[KERNEL_COUNT];
     static bool ms_bTexelKernelUCInitialized;
 };
 

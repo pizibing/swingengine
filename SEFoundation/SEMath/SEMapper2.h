@@ -37,12 +37,12 @@ class SE_FOUNDATION_API Mapper2f
 {
 public:
     // 当计算传入顶点集合的维度时,epsilon值用作相对误差.
-    Mapper2f(int iVCount, const Vector2f* aVertex, float fEpsilon);
+    Mapper2f(int iVCount, const SEVector2f* aVertex, float fEpsilon);
     ~Mapper2f(void);
 
     // 传入顶点集合的AABBox.
-    const Vector2f& GetMin(void) const;
-    const Vector2f& GetMax(void) const;
+    const SEVector2f& GetMin(void) const;
+    const SEVector2f& GetMax(void) const;
     float GetMaxRange(void) const;
 
     // 集合的维度(0, 1, 或2).
@@ -55,8 +55,8 @@ public:
     // 如果d = 1,则所有顶点都在一条线段上.extreme index表示传入线段的端点.
     // 如果d = 2,则前两个extreme index表示一条线段.
     // 之后的extreme index表示在垂直于这条线段的方向上,距离该线段最远的顶点.
-    const Vector2f& GetOrigin(void) const;
-    const Vector2f& GetDirection(int i) const;
+    const SEVector2f& GetOrigin(void) const;
+    const SEVector2f& GetDirection(int i) const;
     int GetExtremeIndex(int i) const;
 
     // 如果d = 2,则方向向量{U0,U1}构成右手坐标系.
@@ -66,7 +66,7 @@ public:
 private:
     // 传入顶点的AABBox.
     // maximum range是max[0]-min[0]和max[1]-min[1]中的较大者.
-    Vector2f m_Min, m_Max;
+    SEVector2f m_Min, m_Max;
     float m_fMaxRange;
 
     // 传入顶点集合的固有维度.
@@ -83,8 +83,8 @@ private:
     int m_aiExtreme[3];
     bool m_bExtremeCCW;
 
-    Vector2f m_Origin;
-    Vector2f m_aDirection[2];
+    SEVector2f m_Origin;
+    SEVector2f m_aDirection[2];
 };
 
 }

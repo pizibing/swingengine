@@ -37,13 +37,13 @@ class SE_FOUNDATION_API Triangle2f
 {
 public:
     Triangle2f(void);  // 未初始化
-    Triangle2f(const Vector2f& rV0, const Vector2f& rV1, const Vector2f& rV2);
-    Triangle2f(const Vector2f aV[3]);
+    Triangle2f(const SEVector2f& rV0, const SEVector2f& rV1, const SEVector2f& rV2);
+    Triangle2f(const SEVector2f aV[3]);
 
     // 三角形到点Q的距离.
-    float GetDistance(const Vector2f& rQ) const;
+    float GetDistance(const SEVector2f& rQ) const;
 
-    Vector2f V[3];
+    SEVector2f V[3];
 };
 
 }

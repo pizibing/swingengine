@@ -97,8 +97,8 @@ public:
     ColorRGBA Color4(int iUnit, int i) const;
     float& TCoord1(int iUnit, int i);
     float TCoord1(int iUnit, int i) const;
-    Vector2f& TCoord2(int iUnit, int i);
-    Vector2f TCoord2(int iUnit, int i) const;
+    SEVector2f& TCoord2(int iUnit, int i);
+    SEVector2f TCoord2(int iUnit, int i) const;
     Vector3f& TCoord3(int iUnit, int i);
     Vector3f TCoord3(int iUnit, int i) const;
     Vector4f& TCoord4(int iUnit, int i);

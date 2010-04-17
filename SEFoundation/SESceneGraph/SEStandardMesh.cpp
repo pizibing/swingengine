@@ -145,7 +145,7 @@ TriMesh* StandardMesh::Rectangle(int iXSamples, int iYSamples,
 
             if( m_Attr.GetMaxTCoords() > 0 )
             {
-                Vector2f vec2fTCoord(fU, fV);
+                SEVector2f vec2fTCoord(fU, fV);
                 for( int iUnit = 0; iUnit < m_Attr.GetMaxTCoords(); iUnit++ )
                 {
                     if( m_Attr.HasTCoord(iUnit) )
@@ -195,7 +195,7 @@ TriMesh* StandardMesh::Disk(int iShellSamples, int iRadialSamples,
 
     // 生成geometry.
     int iR, iS, i, iUnit;
-    Vector2f vec2fTCoord;
+    SEVector2f vec2fTCoord;
 
     // disk中心.
     pVB->Position3(0) = Vector3f::ZERO;
@@ -206,7 +206,7 @@ TriMesh* StandardMesh::Disk(int iShellSamples, int iRadialSamples,
 
     if( m_Attr.GetMaxTCoords() > 0 )
     {
-        vec2fTCoord = Vector2f(0.5f, 0.5f);
+        vec2fTCoord = SEVector2f(0.5f, 0.5f);
         for( iUnit = 0; iUnit < m_Attr.GetMaxTCoords(); iUnit++ )
         {
             if( m_Attr.HasTCoord(iUnit) )
@@ -238,7 +238,7 @@ TriMesh* StandardMesh::Disk(int iShellSamples, int iRadialSamples,
 
             if( m_Attr.GetMaxTCoords() > 0 )
             {
-                vec2fTCoord = 0.5f * Vector2f(1.0f + vec3fFracRadial.X, 
+                vec2fTCoord = 0.5f * SEVector2f(1.0f + vec3fFracRadial.X, 
                     1.0f + vec3fFracRadial.Y);
                 for( iUnit = 0; iUnit < m_Attr.GetMaxTCoords(); iUnit++ )
                 {
@@ -323,30 +323,30 @@ TriMesh* StandardMesh::Box(float fXExtent, float fYExtent, float fZExtent)
         {
             if( m_Attr.HasTCoord(iUnit) )
             {
-                pVB->TCoord2(iUnit, 0) = Vector2f(0.25f, 0.75f);
-                pVB->TCoord2(iUnit, 1) = Vector2f(0.25f, 0.75f);
-                pVB->TCoord2(iUnit, 2) = Vector2f(0.25f, 0.75f);
-                pVB->TCoord2(iUnit, 3) = Vector2f(0.75f, 0.75f);
-                pVB->TCoord2(iUnit, 4) = Vector2f(0.75f, 0.75f);
-                pVB->TCoord2(iUnit, 5) = Vector2f(0.75f, 0.75f);
-                pVB->TCoord2(iUnit, 6) = Vector2f(0.75f, 0.25f);
-                pVB->TCoord2(iUnit, 7) = Vector2f(0.75f, 0.25f);
-                pVB->TCoord2(iUnit, 8) = Vector2f(0.75f, 0.25f);
-                pVB->TCoord2(iUnit, 9) = Vector2f(0.25f, 0.25f);
-                pVB->TCoord2(iUnit, 10) = Vector2f(0.25f, 0.25f);
-                pVB->TCoord2(iUnit, 11) = Vector2f(0.25f, 0.25f);
-                pVB->TCoord2(iUnit, 12) = Vector2f(0.0f, 1.0f);
-                pVB->TCoord2(iUnit, 13) = Vector2f(0.0f, 1.0f);
-                pVB->TCoord2(iUnit, 14) = Vector2f(0.0f, 1.0f);
-                pVB->TCoord2(iUnit, 15) = Vector2f(1.0f, 1.0f);
-                pVB->TCoord2(iUnit, 16) = Vector2f(1.0f, 1.0f);
-                pVB->TCoord2(iUnit, 17) = Vector2f(1.0f, 1.0f);
-                pVB->TCoord2(iUnit, 18) = Vector2f(1.0f, 0.0f);
-                pVB->TCoord2(iUnit, 19) = Vector2f(1.0f, 0.0f);
-                pVB->TCoord2(iUnit, 20) = Vector2f(1.0f, 0.0f);
-                pVB->TCoord2(iUnit, 21) = Vector2f(0.0f, 0.0f);
-                pVB->TCoord2(iUnit, 22) = Vector2f(0.0f, 0.0f);
-                pVB->TCoord2(iUnit, 23) = Vector2f(0.0f, 0.0f);
+                pVB->TCoord2(iUnit, 0) = SEVector2f(0.25f, 0.75f);
+                pVB->TCoord2(iUnit, 1) = SEVector2f(0.25f, 0.75f);
+                pVB->TCoord2(iUnit, 2) = SEVector2f(0.25f, 0.75f);
+                pVB->TCoord2(iUnit, 3) = SEVector2f(0.75f, 0.75f);
+                pVB->TCoord2(iUnit, 4) = SEVector2f(0.75f, 0.75f);
+                pVB->TCoord2(iUnit, 5) = SEVector2f(0.75f, 0.75f);
+                pVB->TCoord2(iUnit, 6) = SEVector2f(0.75f, 0.25f);
+                pVB->TCoord2(iUnit, 7) = SEVector2f(0.75f, 0.25f);
+                pVB->TCoord2(iUnit, 8) = SEVector2f(0.75f, 0.25f);
+                pVB->TCoord2(iUnit, 9) = SEVector2f(0.25f, 0.25f);
+                pVB->TCoord2(iUnit, 10) = SEVector2f(0.25f, 0.25f);
+                pVB->TCoord2(iUnit, 11) = SEVector2f(0.25f, 0.25f);
+                pVB->TCoord2(iUnit, 12) = SEVector2f(0.0f, 1.0f);
+                pVB->TCoord2(iUnit, 13) = SEVector2f(0.0f, 1.0f);
+                pVB->TCoord2(iUnit, 14) = SEVector2f(0.0f, 1.0f);
+                pVB->TCoord2(iUnit, 15) = SEVector2f(1.0f, 1.0f);
+                pVB->TCoord2(iUnit, 16) = SEVector2f(1.0f, 1.0f);
+                pVB->TCoord2(iUnit, 17) = SEVector2f(1.0f, 1.0f);
+                pVB->TCoord2(iUnit, 18) = SEVector2f(1.0f, 0.0f);
+                pVB->TCoord2(iUnit, 19) = SEVector2f(1.0f, 0.0f);
+                pVB->TCoord2(iUnit, 20) = SEVector2f(1.0f, 0.0f);
+                pVB->TCoord2(iUnit, 21) = SEVector2f(0.0f, 0.0f);
+                pVB->TCoord2(iUnit, 22) = SEVector2f(0.0f, 0.0f);
+                pVB->TCoord2(iUnit, 23) = SEVector2f(0.0f, 0.0f);
             }
         }
     }
@@ -398,7 +398,7 @@ TriMesh* StandardMesh::Cylinder(int iAxisSamples, int iRadialSamples,
         float fInvASm1 = 1.0f / (float)(iAxisSamples - 1);
         float fHalfHeight = 0.5f * fHeight;
         int iR, iA, iAStart, i, iUnit;
-        Vector2f vec2fTCoord;
+        SEVector2f vec2fTCoord;
 
         // Generate points on the unit circle to be used in computing the
         // mesh points on a cylinder slice.
@@ -443,7 +443,7 @@ TriMesh* StandardMesh::Cylinder(int iAxisSamples, int iRadialSamples,
 
                 if( m_Attr.GetMaxTCoords() > 0 )
                 {
-                    vec2fTCoord = Vector2f(fRadialFraction, fAxisFraction);
+                    vec2fTCoord = SEVector2f(fRadialFraction, fAxisFraction);
                     for( iUnit = 0; iUnit < m_Attr.GetMaxTCoords(); iUnit++ )
                     {
                         if( m_Attr.HasTCoord(iUnit) )
@@ -464,7 +464,7 @@ TriMesh* StandardMesh::Cylinder(int iAxisSamples, int iRadialSamples,
 
             if( m_Attr.GetMaxTCoords() > 0 )
             {
-                vec2fTCoord = Vector2f(1.0f, fAxisFraction);
+                vec2fTCoord = SEVector2f(1.0f, fAxisFraction);
                 for( iUnit = 0; iUnit < m_Attr.GetMaxTCoords(); iUnit++ )
                 {
                     if( m_Attr.HasTCoord(iUnit) )
@@ -567,7 +567,7 @@ TriMesh* StandardMesh::Sphere(int iZSamples, int iRadialSamples,
     float fInvRS = 1.0f / (float)iRadialSamples;
     float fZFactor = 2.0f / (float)iZSm1;
     int iR, iZ, iZStart, i, iUnit;
-    Vector2f vec2fTCoord;
+    SEVector2f vec2fTCoord;
 
     // Generate points on the unit circle to be used in computing the mesh
     // points on a cylinder slice.
@@ -618,7 +618,7 @@ TriMesh* StandardMesh::Sphere(int iZSamples, int iRadialSamples,
 
             if( m_Attr.GetMaxTCoords() > 0 )
             {
-                vec2fTCoord = Vector2f(fRadialFraction, 
+                vec2fTCoord = SEVector2f(fRadialFraction, 
                     0.5f*(fZFraction + 1.0f));
                 for( iUnit = 0; iUnit < m_Attr.GetMaxTCoords(); iUnit++ )
                 {
@@ -640,7 +640,7 @@ TriMesh* StandardMesh::Sphere(int iZSamples, int iRadialSamples,
 
         if( m_Attr.GetMaxTCoords() > 0 )
         {
-            vec2fTCoord = Vector2f(1.0f, 0.5f*(fZFraction + 1.0f));
+            vec2fTCoord = SEVector2f(1.0f, 0.5f*(fZFraction + 1.0f));
             for( iUnit = 0; iUnit < m_Attr.GetMaxTCoords(); iUnit++ )
             {
                 if( m_Attr.HasTCoord(iUnit) )
@@ -669,7 +669,7 @@ TriMesh* StandardMesh::Sphere(int iZSamples, int iRadialSamples,
 
     if( m_Attr.GetMaxTCoords() > 0 )
     {
-        vec2fTCoord = Vector2f(0.5f, 0.5f);
+        vec2fTCoord = SEVector2f(0.5f, 0.5f);
         for( iUnit = 0; iUnit < m_Attr.GetMaxTCoords(); iUnit++ )
         {
             if( m_Attr.HasTCoord(iUnit) )
@@ -697,7 +697,7 @@ TriMesh* StandardMesh::Sphere(int iZSamples, int iRadialSamples,
 
     if( m_Attr.GetMaxTCoords() > 0 )
     {
-        vec2fTCoord = Vector2f(0.5f, 1.0f);
+        vec2fTCoord = SEVector2f(0.5f, 1.0f);
         for( iUnit = 0; iUnit < m_Attr.GetMaxTCoords(); iUnit++ )
         {
             if( m_Attr.HasTCoord(iUnit) )
@@ -807,7 +807,7 @@ TriMesh* StandardMesh::Torus(int iCircleSamples, int iRadialSamples,
     float fInvCS = 1.0f / (float)iCircleSamples;
     float fInvRS = 1.0f / (float)iRadialSamples;
     int iC, iR, i, iUnit;
-    Vector2f vec2fTCoord;
+    SEVector2f vec2fTCoord;
 
     // generate the cylinder itself
     for( iC = 0, i = 0; iC < iCircleSamples; iC++ )
@@ -844,7 +844,7 @@ TriMesh* StandardMesh::Torus(int iCircleSamples, int iRadialSamples,
 
             if( m_Attr.GetMaxTCoords() > 0 )
             {
-                vec2fTCoord = Vector2f(fRadialFraction, fCircleFraction);
+                vec2fTCoord = SEVector2f(fRadialFraction, fCircleFraction);
                 for( iUnit = 0; iUnit < m_Attr.GetMaxTCoords(); iUnit++ )
                 {
                     if( m_Attr.HasTCoord(iUnit) )
@@ -865,7 +865,7 @@ TriMesh* StandardMesh::Torus(int iCircleSamples, int iRadialSamples,
 
         if( m_Attr.GetMaxTCoords() > 0 )
         {
-            vec2fTCoord = Vector2f(1.0f, fCircleFraction);
+            vec2fTCoord = SEVector2f(1.0f, fCircleFraction);
             for( iUnit = 0; iUnit < m_Attr.GetMaxTCoords(); iUnit++ )
             {
                 if( m_Attr.HasTCoord(iUnit) )
@@ -889,7 +889,7 @@ TriMesh* StandardMesh::Torus(int iCircleSamples, int iRadialSamples,
 
         if( m_Attr.GetMaxTCoords() > 0 )
         {
-            vec2fTCoord = Vector2f(pVB->TCoord2(0, iR).X, 1.0f);
+            vec2fTCoord = SEVector2f(pVB->TCoord2(0, iR).X, 1.0f);
             for( iUnit = 0; iUnit < m_Attr.GetMaxTCoords(); iUnit++ )
             {
                 if( m_Attr.HasTCoord(iUnit) )

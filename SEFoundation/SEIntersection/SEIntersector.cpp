@@ -89,13 +89,13 @@ bool Intersector<Real, TVector>::Find(Real, const TVector&, const TVector&)
 // explicit instantiation
 //----------------------------------------------------------------------------
 template SE_FOUNDATION_API
-class Intersector<float, Vector2f>;
+class Intersector<float, SEVector2f>;
 
 template SE_FOUNDATION_API
 class Intersector<float, Vector3f>;
 
 //template SE_FOUNDATION_API
-//class Intersector<double, Vector2d>;
+//class Intersector<double, SEVector2d>;
 //
 //template SE_FOUNDATION_API
 //class Intersector<double, Vector3d>;

@@ -78,13 +78,13 @@ public:
     Matrix2f(const Matrix2f& rMat);
     Matrix2f(float fM11, float fM12, float fM21, float fM22);
 	// 默认用行向量构建矩阵
-    Matrix2f(const Vector2f& rVecU, const Vector2f& rVecV, bool bIsRow = true);
+    Matrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV, bool bIsRow = true);
     // 创建对角矩阵
     Matrix2f(float fM11, float fM22);
 	// 创建旋转矩阵,弧度制,fAngle > 0为逆时针旋转
     Matrix2f(float fAngle);
     // 用列向量U和行向量V的张量积构建矩阵
-    Matrix2f(const Vector2f& rVecU, const Vector2f& rVecV);
+    Matrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV);
 
     operator const float* (void) const;
     operator float* (void);
@@ -93,10 +93,10 @@ public:
     float operator () (int iCurRow, int iCurCol) const;
     float& operator () (int iCurRow, int iCurCol);
 
-    inline void SetRow(int iDesRow, const Vector2f& rSrcVec);
-    inline void GetRow(int iSrcRow, Vector2f& rDesVec) const;
-    inline void SetColumn(int iDesCol, const Vector2f& rSrcVec);
-    inline void GetColumn(int SrciCol, Vector2f& rDesVec) const;
+    inline void SetRow(int iDesRow, const SEVector2f& rSrcVec);
+    inline void GetRow(int iSrcRow, SEVector2f& rDesVec) const;
+    inline void SetColumn(int iDesCol, const SEVector2f& rSrcVec);
+    inline void GetColumn(int SrciCol, SEVector2f& rDesVec) const;
 
     Matrix2f& operator = (const Matrix2f& rMat);
 
@@ -119,11 +119,11 @@ public:
     Matrix2f& operator *= (float fScalar);
     Matrix2f& operator /= (float fScalar);
 
-    Vector2f operator * (const Vector2f& rVec) const;
+    SEVector2f operator * (const SEVector2f& rVec) const;
 
     SE_FOUNDATION_API friend Matrix2f operator * (float fLhsScalar, 
         const Matrix2f& rRhsMat);
-    SE_FOUNDATION_API friend Vector2f operator * (const Vector2f& rLhsVec, 
+    SE_FOUNDATION_API friend SEVector2f operator * (const SEVector2f& rLhsVec, 
         const Matrix2f& rRhsMat);
 
     // 置为0矩阵
@@ -133,7 +133,7 @@ public:
     // 置为对角矩阵
     inline void Diagonal(float fM11, float fM22);
     // 列向量与行向量的张量积构建矩阵
-    inline void TensorProduct(const Vector2f& rVecU, const Vector2f& rVecV);
+    inline void TensorProduct(const SEVector2f& rVecU, const SEVector2f& rVecV);
     // 将自己转置
     void Transpose(void);
     // 获取转置矩阵
@@ -189,13 +189,13 @@ public:
     Matrix2d(const Matrix2d& rMat);
     Matrix2d(double dM11, double dM12, double dM21, double dM22);
 	// 默认用行向量构建矩阵
-    Matrix2d(const Vector2d& rVecU, const Vector2d& rVecV, bool bIsRow = true);
+    Matrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV, bool bIsRow = true);
     // 创建对角矩阵
     Matrix2d(double dM11, double dM22);
 	// 创建旋转矩阵,弧度制,dAngle > 0为逆时针旋转
     Matrix2d(double dAngle);
     // 用列向量U和行向量V的张量积构建矩阵
-    Matrix2d(const Vector2d& rVecU, const Vector2d& rVecV);
+    Matrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV);
 
     operator const double* (void) const;
     operator double* (void);
@@ -204,10 +204,10 @@ public:
     double operator () (int iCurRow, int iCurCol) const;
     double& operator () (int iCurRow, int iCurCol);
 
-    inline void SetRow(int iDesRow, const Vector2d& rSrcVec);
-    inline void GetRow(int iSrcRow, Vector2d& rDesVec) const;
-    inline void SetColumn(int iDesCol, const Vector2d& rSrcVec);
-    inline void GetColumn(int SrciCol, Vector2d& rDesVec) const;
+    inline void SetRow(int iDesRow, const SEVector2d& rSrcVec);
+    inline void GetRow(int iSrcRow, SEVector2d& rDesVec) const;
+    inline void SetColumn(int iDesCol, const SEVector2d& rSrcVec);
+    inline void GetColumn(int SrciCol, SEVector2d& rDesVec) const;
 
     Matrix2d& operator = (const Matrix2d& rMat);
 
@@ -230,11 +230,11 @@ public:
     Matrix2d& operator *= (double dScalar);
     Matrix2d& operator /= (double dScalar);
 
-    Vector2d operator * (const Vector2d& rVec) const;
+    SEVector2d operator * (const SEVector2d& rVec) const;
 
     SE_FOUNDATION_API friend Matrix2d operator * (double dLhsScalar, 
         const Matrix2d& rRhsMat);
-    SE_FOUNDATION_API friend Vector2d operator * (const Vector2d& rLhsVec, 
+    SE_FOUNDATION_API friend SEVector2d operator * (const SEVector2d& rLhsVec, 
         const Matrix2d& rRhsMat);
 
     // 置为0矩阵
@@ -244,7 +244,7 @@ public:
     // 置为对角矩阵
     inline void Diagonal(double dM11, double dM22);
     // 列向量与行向量的张量积构建矩阵
-    inline void TensorProduct(const Vector2d& rVecU, const Vector2d& rVecV);
+    inline void TensorProduct(const SEVector2d& rVecU, const SEVector2d& rVecV);
     // 将自己转置
     void Transpose(void);
     // 获取转置矩阵

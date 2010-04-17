@@ -35,7 +35,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090116
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API DistRay2Segment2f : public Distance<float, Vector2f>
+class SE_FOUNDATION_API DistRay2Segment2f : public Distance<float, SEVector2f>
 {
 public:
     DistRay2Segment2f(const Ray2f& rRay, const Segment2f& rSegment);
@@ -49,10 +49,10 @@ public:
     virtual float GetSquared(void);
 
     // 用于dynamic distance查询的convex function计算.
-    virtual float Get(float fT, const Vector2f& rVelocity0,
-        const Vector2f& rVelocity1);
-    virtual float GetSquared(float fT, const Vector2f& rVelocity0,
-        const Vector2f& rVelocity1);
+    virtual float Get(float fT, const SEVector2f& rVelocity0,
+        const SEVector2f& rVelocity1);
+    virtual float GetSquared(float fT, const SEVector2f& rVelocity0,
+        const SEVector2f& rVelocity1);
 
 private:
     const Ray2f* m_pRay;

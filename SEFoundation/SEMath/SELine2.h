@@ -40,9 +40,9 @@ public:
     // 必须确保D为单位向量.
 
     Line2f(void);
-    Line2f(const Vector2f& rOrigin, const Vector2f& rDirection);
+    Line2f(const SEVector2f& rOrigin, const SEVector2f& rDirection);
 
-    Vector2f Origin, Direction;
+    SEVector2f Origin, Direction;
 };
 
 }

@@ -188,7 +188,7 @@ protected:
     std::vector<GlobalStatePtr> m_GlobalStates;
 
     // 灯光数组.
-    std::vector<ObjectPtr> m_Lights; // 使用ObjectPtr避免头文件互相包含依赖
+    std::vector<SEObjectPtr> m_Lights; // 使用SEObjectPtr避免头文件互相包含依赖
 
     // effect数组.
     // 赋予Geometry对象时,单独作用于该对象,

@@ -51,7 +51,7 @@ float DistLine2Segment2f::Get()
 //----------------------------------------------------------------------------
 float DistLine2Segment2f::GetSquared()
 {
-    Vector2f vec2fDiff = m_pLine->Origin - m_pSegment->Origin;
+    SEVector2f vec2fDiff = m_pLine->Origin - m_pSegment->Origin;
     float fA01 = -m_pLine->Direction.Dot(m_pSegment->Direction);
     float fB0 = vec2fDiff.Dot(m_pLine->Direction);
     float fC = vec2fDiff.GetSquaredLength();
@@ -105,11 +105,11 @@ float DistLine2Segment2f::GetSquared()
     return Math<float>::FAbs(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistLine2Segment2f::Get(float fT, const Vector2f& rVelocity0,
-    const Vector2f& rVelocity1)
+float DistLine2Segment2f::Get(float fT, const SEVector2f& rVelocity0,
+    const SEVector2f& rVelocity1)
 {
-    Vector2f vec2fMOrigin0 = m_pLine->Origin + fT*rVelocity0;
-    Vector2f vec2fMOrigin1 = m_pSegment->Origin + fT*rVelocity1;
+    SEVector2f vec2fMOrigin0 = m_pLine->Origin + fT*rVelocity0;
+    SEVector2f vec2fMOrigin1 = m_pSegment->Origin + fT*rVelocity1;
     Line2f tempMLine(vec2fMOrigin0, m_pLine->Direction);
     Segment2f tempMSegment(vec2fMOrigin1, m_pSegment->Direction,
         m_pSegment->Extent);
@@ -118,10 +118,10 @@ float DistLine2Segment2f::Get(float fT, const Vector2f& rVelocity0,
 }
 //----------------------------------------------------------------------------
 float DistLine2Segment2f::GetSquared(float fT,
-    const Vector2f& rVelocity0, const Vector2f& rVelocity1)
+    const SEVector2f& rVelocity0, const SEVector2f& rVelocity1)
 {
-    Vector2f vec2fMOrigin0 = m_pLine->Origin + fT*rVelocity0;
-    Vector2f vec2fMOrigin1 = m_pSegment->Origin + fT*rVelocity1;
+    SEVector2f vec2fMOrigin0 = m_pLine->Origin + fT*rVelocity0;
+    SEVector2f vec2fMOrigin1 = m_pSegment->Origin + fT*rVelocity1;
     Line2f tempMLine(vec2fMOrigin0, m_pLine->Direction);
     Segment2f tempMSegment(vec2fMOrigin1, m_pSegment->Direction,
         m_pSegment->Extent);

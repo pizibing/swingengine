@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Query2Int64f::Query2Int64f(int iVCount, const Vector2f* aVertex)
+Query2Int64f::Query2Int64f(int iVCount, const SEVector2f* aVertex)
     :
     Query2f(iVCount, aVertex)
 {
@@ -35,10 +35,10 @@ Query::Type Query2Int64f::GetType() const
     return Query::QT_INT64;
 }
 //----------------------------------------------------------------------------
-int Query2Int64f::ToLine(const Vector2f& rP, int iV0, int iV1) const
+int Query2Int64f::ToLine(const SEVector2f& rP, int iV0, int iV1) const
 {
-    const Vector2f& rV0 = m_aVertex[iV0];
-    const Vector2f& rV1 = m_aVertex[iV1];
+    const SEVector2f& rV0 = m_aVertex[iV0];
+    const SEVector2f& rV1 = m_aVertex[iV1];
 
     SE_Int64 iX0 = (SE_Int64)rP[0] - (SE_Int64)rV0[0];
     SE_Int64 iY0 = (SE_Int64)rP[1] - (SE_Int64)rV0[1];
@@ -50,12 +50,12 @@ int Query2Int64f::ToLine(const Vector2f& rP, int iV0, int iV1) const
     return (iDet2 > 0 ? +1 : (iDet2 < 0 ? -1 : 0));
 }
 //----------------------------------------------------------------------------
-int Query2Int64f::ToCircumcircle(const Vector2f& rP, int iV0, 
+int Query2Int64f::ToCircumcircle(const SEVector2f& rP, int iV0, 
     int iV1, int iV2) const
 {
-    const Vector2f& rV0 = m_aVertex[iV0];
-    const Vector2f& rV1 = m_aVertex[iV1];
-    const Vector2f& rV2 = m_aVertex[iV2];
+    const SEVector2f& rV0 = m_aVertex[iV0];
+    const SEVector2f& rV1 = m_aVertex[iV1];
+    const SEVector2f& rV2 = m_aVertex[iV2];
 
     SE_Int64 aiP[2] = { (SE_Int64)rP[0], (SE_Int64)rP[1] };
     SE_Int64 aiV0[2] = { (SE_Int64)rV0[0], (SE_Int64)rV0[1] };

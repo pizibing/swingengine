@@ -30,48 +30,48 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(ScreenSpaceAOBlurEffect, ShaderEffect);
 
 //SE_REGISTER_STREAM(ScreenSpaceAOBlurEffect);
 
-Vector2f ScreenSpaceAOBlurEffect::ms_aTexelKernel[
+SEVector2f ScreenSpaceAOBlurEffect::ms_aTexelKernel[
     ScreenSpaceAOBlurEffect::KERNEL_COUNT] = 
 {
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO,
-    Vector2f::ZERO
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO,
+    SEVector2f::ZERO
 };
-Vector2f ScreenSpaceAOBlurEffect::ms_aPixelKernel[
+SEVector2f ScreenSpaceAOBlurEffect::ms_aPixelKernel[
     ScreenSpaceAOBlurEffect::KERNEL_COUNT] = 
 {
-    Vector2f(-1.0f, -1.0f),
-    Vector2f(0.0f, -1.0f),
-    Vector2f(1.0f, -1.0f),
-    Vector2f(2.0f, -1.0f),
+    SEVector2f(-1.0f, -1.0f),
+    SEVector2f(0.0f, -1.0f),
+    SEVector2f(1.0f, -1.0f),
+    SEVector2f(2.0f, -1.0f),
 
-    Vector2f(-1.0f, 0.0f),
-    Vector2f(0.0f, 0.0f),
-    Vector2f(1.0f, 0.0f),
-    Vector2f(2.0f, 0.0f),
+    SEVector2f(-1.0f, 0.0f),
+    SEVector2f(0.0f, 0.0f),
+    SEVector2f(1.0f, 0.0f),
+    SEVector2f(2.0f, 0.0f),
 
-    Vector2f(-1.0f, 1.0f),
-    Vector2f(0.0f, 1.0f),
-    Vector2f(1.0f, 1.0f),
-    Vector2f(2.0f, 1.0f),
+    SEVector2f(-1.0f, 1.0f),
+    SEVector2f(0.0f, 1.0f),
+    SEVector2f(1.0f, 1.0f),
+    SEVector2f(2.0f, 1.0f),
 
-    Vector2f(-1.0f, 2.0f),
-    Vector2f(0.0f, 2.0f),
-    Vector2f(1.0f, 2.0f),
-    Vector2f(2.0f, 2.0f)
+    SEVector2f(-1.0f, 2.0f),
+    SEVector2f(0.0f, 2.0f),
+    SEVector2f(1.0f, 2.0f),
+    SEVector2f(2.0f, 2.0f)
 };
 bool ScreenSpaceAOBlurEffect::ms_bTexelKernelUCInitialized = false;
 

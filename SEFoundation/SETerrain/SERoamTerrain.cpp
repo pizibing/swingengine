@@ -293,7 +293,7 @@ void RoamTerrain::LoadPage(int iRow, int iCol, const char* acHeightName,
 
     float fLength = m_fSpacing*(float)(m_iSize - 1);
     // 该page在terrain模型空间的原点.
-    Vector2f vec2fOrigin(iCol*fLength, iRow*fLength);
+    SEVector2f vec2fOrigin(iCol*fLength, iRow*fLength);
     // 创建page.
     RoamTerrainPage* pPage = SE_NEW RoamTerrainPage(m_Attr, m_iSize, ausHeight,
         vec2fOrigin, m_fMinElevation, m_fMaxElevation, m_fSpacing, m_fUVBias,

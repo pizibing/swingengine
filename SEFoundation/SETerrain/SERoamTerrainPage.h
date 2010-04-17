@@ -76,7 +76,7 @@ class SE_FOUNDATION_API RoamTerrainPage : public TriMesh
 
 public:
     RoamTerrainPage(const Attributes& rAttr, int iSize,
-        unsigned short* ausHeight, const Vector2f& rOrigin,
+        unsigned short* ausHeight, const SEVector2f& rOrigin,
         float fMinElevation, float fMaxElevation, float fSpacing,
         float fUVBias, int iPoolSize, int iPatchSize, int iSplitLevel, 
         int iVarianceLevel);
@@ -86,7 +86,7 @@ public:
     // 高度图访问.
     inline int GetSize(void) const;
     inline const unsigned short* GetHeights(void) const;
-    inline const Vector2f& GetOrigin(void) const;
+    inline const SEVector2f& GetOrigin(void) const;
     inline float GetMinElevation(void) const;
     inline float GetMaxElevation(void) const;
     inline float GetSpacing(void) const;
@@ -141,7 +141,7 @@ protected:
     // 高度图数据.
     int m_iSize, m_iSizeM1, m_iPatchSizeM1;
     unsigned short* m_ausHeight;
-    Vector2f m_Origin;
+    SEVector2f m_Origin;
     float m_fMinElevation, m_fMaxElevation, m_fSpacing;
     float m_fInvSpacing, m_fTextureSpacing, m_fMultiplier;
 

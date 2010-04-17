@@ -54,7 +54,7 @@ public:
     // 特征向量是特征矩阵的列
     float GetEigenvalue(int i) const;
     const float* GetEigenvalues(void) const;
-    void GetEigenvector(int i, Vector2f& rVec) const;
+    void GetEigenvector(int i, SEVector2f& rVec) const;
     void GetEigenvector(int i, Vector3f& rVec) const;
     VectorNf GetEigenvector(int i) const;
     const MatrixMNf& GetEigenvectors(void) const;

@@ -66,7 +66,7 @@ private:
     enum { PROGRAM_MAP_SIZE = 256 };
     std::string m_Name;
     StringHashTable<VertexProgram*> m_Entry;
-    ObjectPtr m_spDefaultVProgram;
+    SEObjectPtr m_spDefaultVProgram;
 
     Renderer* m_pRenderer;
 

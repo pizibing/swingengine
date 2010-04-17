@@ -116,7 +116,7 @@ const float* Eigen::GetEigenvalues() const
     return m_pDiag;
 }
 //----------------------------------------------------------------------------
-void Eigen::GetEigenvector(int i, Vector2f& rVec) const
+void Eigen::GetEigenvector(int i, SEVector2f& rVec) const
 {
     SE_ASSERT( m_iSize == 2 );
 
@@ -129,7 +129,7 @@ void Eigen::GetEigenvector(int i, Vector2f& rVec) const
     }
     else
     {
-        rVec = Vector2f::ZERO;
+        rVec = SEVector2f::ZERO;
     }
 }
 //----------------------------------------------------------------------------

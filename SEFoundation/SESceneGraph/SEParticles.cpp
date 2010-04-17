@@ -52,10 +52,10 @@ Particles::Particles(const Attributes& rAttr, Vector3fArray* pLocations,
         {
             for( i = 0, j = 0; i < iLCount; i++ )
             {
-                VBuffer->TCoord2(iUnit, j++) = Vector2f(0.0f, 1.0f);
-                VBuffer->TCoord2(iUnit, j++) = Vector2f(0.0f, 0.0f);
-                VBuffer->TCoord2(iUnit, j++) = Vector2f(1.0f, 0.0f);
-                VBuffer->TCoord2(iUnit, j++) = Vector2f(1.0f, 1.0f);
+                VBuffer->TCoord2(iUnit, j++) = SEVector2f(0.0f, 1.0f);
+                VBuffer->TCoord2(iUnit, j++) = SEVector2f(0.0f, 0.0f);
+                VBuffer->TCoord2(iUnit, j++) = SEVector2f(1.0f, 0.0f);
+                VBuffer->TCoord2(iUnit, j++) = SEVector2f(1.0f, 1.0f);
             }
         }
     }

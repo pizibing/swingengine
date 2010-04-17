@@ -39,16 +39,16 @@ public:
     // The components of the input vertices are truncated to 64-bit integer
     // values, so you should guarantee that the vertices are sufficiently
     // large to give a good distribution of numbers.
-    Query2Int64f(int iVCount, const Vector2f* aVertex);
+    Query2Int64f(int iVCount, const SEVector2f* aVertex);
 
     // run-time type information
     virtual Query::Type GetType(void) const;
 
     // Queries about the relation of a point to various geometric objects.
 
-    virtual int ToLine(const Vector2f& rP, int iV0, int iV1) const;
+    virtual int ToLine(const SEVector2f& rP, int iV0, int iV1) const;
 
-    virtual int ToCircumcircle(const Vector2f& rP, int iV0, int iV1, 
+    virtual int ToCircumcircle(const SEVector2f& rP, int iV0, int iV1, 
         int iV2) const;
 
 private:

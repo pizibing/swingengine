@@ -778,7 +778,7 @@ void SEStream::Read(int iCount, Quaternionf* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(Vector2f& rValue)
+void SEStream::Read(SEVector2f& rValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 2, 
         (float*)rValue);
@@ -786,7 +786,7 @@ void SEStream::Read(Vector2f& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(int iCount, Vector2f* pValue)
+void SEStream::Read(int iCount, SEVector2f* pValue)
 {
     m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 2*iCount, 
         (float*)pValue);
@@ -1198,7 +1198,7 @@ void SEStream::Write(int iCount, const Quaternionf* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(const Vector2f& rValue)
+void SEStream::Write(const SEVector2f& rValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 2, 
         (const float*)rValue);
@@ -1206,7 +1206,7 @@ void SEStream::Write(const Vector2f& rValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(int iCount, const Vector2f* pValue)
+void SEStream::Write(int iCount, const SEVector2f* pValue)
 {
     m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 2*iCount, 
         (const float*)pValue);

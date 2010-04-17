@@ -29,12 +29,12 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ConvexHull2f::ConvexHull2f(int iVertexCount,  Vector2f* aVertex,  float fEpsilon,  
+ConvexHull2f::ConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fEpsilon,  
     bool bOwner,  Query::Type eQueryType)
     :
     ConvexHullf(iVertexCount,  fEpsilon,  bOwner,  eQueryType), 
-    m_LineOrigin(Vector2f::ZERO), 
-    m_LineDirection(Vector2f::ZERO)
+    m_LineOrigin(SEVector2f::ZERO), 
+    m_LineDirection(SEVector2f::ZERO)
 {
     SE_ASSERT(aVertex);
 
@@ -66,13 +66,13 @@ ConvexHull2f::ConvexHull2f(int iVertexCount,  Vector2f* aVertex,  float fEpsilon
     int i1 = tempMapper.GetExtremeIndex(1);
     int i2 = tempMapper.GetExtremeIndex(2);
 
-    m_aSVertex = SE_NEW Vector2f[m_iVertexCount];
+    m_aSVertex = SE_NEW SEVector2f[m_iVertexCount];
     int i;
 
     if( eQueryType != Query::QT_RATIONAL && eQueryType != Query::QT_FILTERED )
     {
         // Transform the vertices to the square [0, 1]^2.
-        Vector2f vec2fMin = tempMapper.GetMin();
+        SEVector2f vec2fMin = tempMapper.GetMin();
         float fScale = 1.0f / tempMapper.GetMaxRange();
         for( i = 0; i < m_iVertexCount; i++ )
         {
@@ -110,7 +110,7 @@ ConvexHull2f::ConvexHull2f(int iVertexCount,  Vector2f* aVertex,  float fEpsilon
     {
         // No transformation needed for exact rational arithmetic or filtered
         // predicates.
-        size_t uiSize = m_iVertexCount * sizeof(Vector2f);
+        size_t uiSize = m_iVertexCount * sizeof(SEVector2f);
         SESystem::SE_Memcpy(m_aSVertex,  uiSize,  m_aVertex,  uiSize);
 
         if( eQueryType == Query::QT_RATIONAL )
@@ -170,12 +170,12 @@ ConvexHull2f::~ConvexHull2f()
     SE_DELETE m_pQuery;
 }
 //----------------------------------------------------------------------------
-const Vector2f& ConvexHull2f::GetLineOrigin() const
+const SEVector2f& ConvexHull2f::GetLineOrigin() const
 {
     return m_LineOrigin;
 }
 //----------------------------------------------------------------------------
-const Vector2f& ConvexHull2f::GetLineDirection() const
+const SEVector2f& ConvexHull2f::GetLineDirection() const
 {
     return m_LineDirection;
 }
@@ -192,7 +192,7 @@ ConvexHull1f* ConvexHull2f::GetConvexHull1() const
     float* afProjection = SE_NEW float[m_iVertexCount];
     for( int i = 0; i < m_iVertexCount; i++ )
     {
-        Vector2f vec2fDiff = m_aVertex[i] - m_LineOrigin;
+        SEVector2f vec2fDiff = m_aVertex[i] - m_LineOrigin;
         afProjection[i] = m_LineDirection.Dot(vec2fDiff);
     }
 
@@ -311,8 +311,8 @@ bool ConvexHull2f::Load(const char* acFilename)
     }
 
     m_bOwner = true;
-    m_aVertex = SE_NEW Vector2f[m_iVertexCount];
-    m_aSVertex = SE_NEW Vector2f[m_iVertexCount];
+    m_aVertex = SE_NEW SEVector2f[m_iVertexCount];
+    m_aSVertex = SE_NEW SEVector2f[m_iVertexCount];
 
     size_t uiSize = sizeof(float);
     int iVC = 2*m_iVertexCount;

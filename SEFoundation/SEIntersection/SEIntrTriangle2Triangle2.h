@@ -36,7 +36,7 @@ namespace Swing
 // Ê±¼ä:20081223
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API IntrTriangle2Triangle2f
-    : public Intersector<float, Vector2f>
+    : public Intersector<float, SEVector2f>
 {
 public:
     IntrTriangle2Triangle2f(const Triangle2f& rTriangle0,
@@ -51,21 +51,21 @@ public:
     virtual bool Find(void);
 
     // dynamic queries
-    virtual bool Test(float fTMax, const Vector2f& rVelocity0,
-        const Vector2f& rVelocity1);
-    virtual bool Find(float fTMax, const Vector2f& rVelocity0,
-        const Vector2f& rVelocity1);
+    virtual bool Test(float fTMax, const SEVector2f& rVelocity0,
+        const SEVector2f& rVelocity1);
+    virtual bool Find(float fTMax, const SEVector2f& rVelocity0,
+        const SEVector2f& rVelocity1);
 
     // information about the intersection set
     int GetCount(void) const;
-    const Vector2f& GetPoint(int i) const;
+    const SEVector2f& GetPoint(int i) const;
 
 private:
-    static int OnWhichSide(const Vector2f aV[3],
-        const Vector2f& rP, const Vector2f& rD);
+    static int OnWhichSide(const SEVector2f aV[3],
+        const SEVector2f& rP, const SEVector2f& rD);
 
-    static void ClipConvexPolygonAgainstLine(const Vector2f& rN,
-        float fC, int& riCount, Vector2f aV[6]);
+    static void ClipConvexPolygonAgainstLine(const SEVector2f& rN,
+        float fC, int& riCount, SEVector2f aV[6]);
 
     enum ProjectionMap
     {
@@ -82,11 +82,11 @@ private:
         float Min, Max;      // the interval is [min,max]
     };
 
-    void ComputeTwo(Configuration& rCfg, const Vector2f aV[3],
-        const Vector2f& rD, int iI0, int iI1, int iI2);
+    void ComputeTwo(Configuration& rCfg, const SEVector2f aV[3],
+        const SEVector2f& rD, int iI0, int iI1, int iI2);
 
-    void ComputeThree(Configuration& rCfg, const Vector2f aV[3],
-        const Vector2f& rD, const Vector2f& rP);
+    void ComputeThree(Configuration& rCfg, const SEVector2f aV[3],
+        const SEVector2f& rD, const SEVector2f& rP);
 
     static bool NoIntersect(const Configuration& rCfg0,
         const Configuration& rCfg1, float fTMax, float fSpeed, int& riSide,
@@ -94,8 +94,8 @@ private:
         float& rfTLast);
 
     static void GetIntersection(const Configuration& rCfg0,
-        const Configuration& rCfg1, int iSide, const Vector2f aV0[3],
-        const Vector2f aV1[3], int& riCount, Vector2f aVertex[6]);
+        const Configuration& rCfg1, int iSide, const SEVector2f aV0[3],
+        const SEVector2f aV1[3], int& riCount, SEVector2f aVertex[6]);
 
     // the objects to intersect
     const Triangle2f* m_pTriangle0;
@@ -103,7 +103,7 @@ private:
 
     // information about the intersection set
     int m_iCount;
-    Vector2f m_aPoint[6];
+    SEVector2f m_aPoint[6];
 };
 
 }

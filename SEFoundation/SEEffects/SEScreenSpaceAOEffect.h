@@ -44,7 +44,7 @@ public:
     ScreenSpaceAOEffect(const std::string& rRandom, const std::string& rDepth);
     virtual ~ScreenSpaceAOEffect(void);
 
-    static Vector2f ScreenSize;
+    static SEVector2f ScreenSize;
     static float FarClipDist;
 
 protected:

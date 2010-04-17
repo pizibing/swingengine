@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Query2TRationalf::Query2TRationalf(int iVCount, const Vector2f* aVertex)
+Query2TRationalf::Query2TRationalf(int iVCount, const SEVector2f* aVertex)
     :
     Query2f(iVCount, aVertex)
 {
@@ -52,7 +52,7 @@ int Query2TRationalf::ToLine(int i, int iV0, int iV1) const
     return ToLine(m_aRVertex[i], iV0, iV1);
 }
 //----------------------------------------------------------------------------
-int Query2TRationalf::ToLine(const Vector2f& rP, int iV0, int iV1) const
+int Query2TRationalf::ToLine(const SEVector2f& rP, int iV0, int iV1) const
 {
     RVector tempRP;
     tempRP[0] = Rational(rP[0]);
@@ -71,7 +71,7 @@ int Query2TRationalf::ToTriangle(int i, int iV0, int iV1, int iV2) const
     return ToTriangle(m_aRVertex[i], iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-int Query2TRationalf::ToTriangle(const Vector2f& rP, int iV0, int iV1, 
+int Query2TRationalf::ToTriangle(const SEVector2f& rP, int iV0, int iV1, 
     int iV2) const
 {
     RVector tempRP;
@@ -91,7 +91,7 @@ int Query2TRationalf::ToCircumcircle(int i, int iV0, int iV1, int iV2) const
     return ToCircumcircle(m_aRVertex[i], iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-int Query2TRationalf::ToCircumcircle(const Vector2f& rP, int iV0, int iV1, 
+int Query2TRationalf::ToCircumcircle(const SEVector2f& rP, int iV0, int iV1, 
     int iV2) const
 {
     RVector tempRP;

@@ -204,9 +204,9 @@ bool TriMesh::GenerateTangents(int iSrcTCoordUnit, int iTangentUnit,
         Vector3f& rV2 = VBuffer->Position3(iV2);
 
         // 获取顶点UV(iSrcTCoordUnit指定的源数据区).
-        Vector2f& rUV0 = VBuffer->TCoord2(iSrcTCoordUnit, iV0);
-        Vector2f& rUV1 = VBuffer->TCoord2(iSrcTCoordUnit, iV1);
-        Vector2f& rUV2 = VBuffer->TCoord2(iSrcTCoordUnit, iV2);
+        SEVector2f& rUV0 = VBuffer->TCoord2(iSrcTCoordUnit, iV0);
+        SEVector2f& rUV1 = VBuffer->TCoord2(iSrcTCoordUnit, iV1);
+        SEVector2f& rUV2 = VBuffer->TCoord2(iSrcTCoordUnit, iV2);
 
         Vector3f vec3fQ1 = rV1 - rV0;
         Vector3f vec3fQ2 = rV2 - rV0;

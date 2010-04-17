@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Query2Filteredf::Query2Filteredf(int iVCount, const Vector2f* aVertex, 
+Query2Filteredf::Query2Filteredf(int iVCount, const SEVector2f* aVertex, 
     float fUncertainty)
     :
     Query2f(iVCount, aVertex),
@@ -44,10 +44,10 @@ Query::Type Query2Filteredf::GetType() const
     return Query::QT_FILTERED;
 }
 //----------------------------------------------------------------------------
-int Query2Filteredf::ToLine(const Vector2f& rP, int iV0, int iV1) const
+int Query2Filteredf::ToLine(const SEVector2f& rP, int iV0, int iV1) const
 {
-    const Vector2f& rV0 = m_aVertex[iV0];
-    const Vector2f& rV1 = m_aVertex[iV1];
+    const SEVector2f& rV0 = m_aVertex[iV0];
+    const SEVector2f& rV1 = m_aVertex[iV1];
 
     float fX0 = rP[0] - rV0[0];
     float fY0 = rP[1] - rV0[1];
@@ -67,12 +67,12 @@ int Query2Filteredf::ToLine(const Vector2f& rP, int iV0, int iV1) const
     return m_RQuery.ToLine(rP, iV0, iV1);
 }
 //----------------------------------------------------------------------------
-int Query2Filteredf::ToCircumcircle(const Vector2f& rP, int iV0,
+int Query2Filteredf::ToCircumcircle(const SEVector2f& rP, int iV0,
     int iV1, int iV2) const
 {
-    const Vector2f& rV0 = m_aVertex[iV0];
-    const Vector2f& rV1 = m_aVertex[iV1];
-    const Vector2f& rV2 = m_aVertex[iV2];
+    const SEVector2f& rV0 = m_aVertex[iV0];
+    const SEVector2f& rV1 = m_aVertex[iV1];
+    const SEVector2f& rV2 = m_aVertex[iV2];
 
     float fS0x = rV0[0] + rP[0];
     float fD0x = rV0[0] - rP[0];

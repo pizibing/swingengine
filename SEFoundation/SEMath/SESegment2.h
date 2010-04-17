@@ -43,14 +43,14 @@ public:
     // 线段的表示方法类似于OBB.P是中点,D是单位轴向量,e是轴向延展长度.
 
     Segment2f(void);
-    Segment2f(const Vector2f& rOrigin, const Vector2f& rDirection,
+    Segment2f(const SEVector2f& rOrigin, const SEVector2f& rDirection,
         float fExtent);
 
     // 端点访问.
-    Vector2f GetPosEnd(void) const;  // P + e*D
-    Vector2f GetNegEnd(void) const;  // P - e*D
+    SEVector2f GetPosEnd(void) const;  // P + e*D
+    SEVector2f GetNegEnd(void) const;  // P - e*D
 
-    Vector2f Origin, Direction;
+    SEVector2f Origin, Direction;
     float Extent;
 };
 

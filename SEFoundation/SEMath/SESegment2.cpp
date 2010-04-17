@@ -28,7 +28,7 @@ Segment2f::Segment2f()
 {
 }
 //----------------------------------------------------------------------------
-Segment2f::Segment2f(const Vector2f& rOrigin, const Vector2f& rDirection, 
+Segment2f::Segment2f(const SEVector2f& rOrigin, const SEVector2f& rDirection, 
     float fExtent)
     :
     Origin(rOrigin),
@@ -37,12 +37,12 @@ Segment2f::Segment2f(const Vector2f& rOrigin, const Vector2f& rDirection,
 {
 }
 //----------------------------------------------------------------------------
-Vector2f Segment2f::GetPosEnd() const
+SEVector2f Segment2f::GetPosEnd() const
 {
     return Origin + Direction*Extent;
 }
 //----------------------------------------------------------------------------
-Vector2f Segment2f::GetNegEnd() const
+SEVector2f Segment2f::GetNegEnd() const
 {
     return Origin - Direction*Extent;
 }

@@ -66,7 +66,7 @@ private:
     enum { PROGRAM_MAP_SIZE = 256 };
     std::string m_Name;
     StringHashTable<GeometryProgram*> m_Entry;
-    ObjectPtr m_spDefaultGProgram;
+    SEObjectPtr m_spDefaultGProgram;
 
     Renderer* m_pRenderer;
 

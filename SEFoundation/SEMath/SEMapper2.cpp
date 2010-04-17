@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Mapper2f::Mapper2f(int iVCount, const Vector2f* aVertex, float fEpsilon)
+Mapper2f::Mapper2f(int iVCount, const SEVector2f* aVertex, float fEpsilon)
 {
     SE_ASSERT( iVCount > 0 && aVertex && fEpsilon >= 0.0f );
 
@@ -59,7 +59,7 @@ Mapper2f::Mapper2f(int iVCount, const Vector2f* aVertex, float fEpsilon)
     }
 
     // ÅÐ¶Ïbounding boxµÄ×î´ó·¶Î§.
-    Vector2f vec2fRange = m_Max - m_Min;
+    SEVector2f vec2fRange = m_Max - m_Min;
     m_fMaxRange = vec2fRange[0];
     m_aiExtreme[0] = aiIMin[0];
     m_aiExtreme[1] = aiIMax[0];
@@ -77,8 +77,8 @@ Mapper2f::Mapper2f(int iVCount, const Vector2f* aVertex, float fEpsilon)
         m_iDimension = 0;
         m_aiExtreme[1] = m_aiExtreme[0];
         m_aiExtreme[2] = m_aiExtreme[0];
-        m_aDirection[0] = Vector2f::ZERO;
-        m_aDirection[1] = Vector2f::ZERO;
+        m_aDirection[0] = SEVector2f::ZERO;
+        m_aDirection[1] = SEVector2f::ZERO;
 
         return;
     }
@@ -92,7 +92,7 @@ Mapper2f::Mapper2f(int iVCount, const Vector2f* aVertex, float fEpsilon)
     m_aiExtreme[2] = m_aiExtreme[0];
     for( i = 0; i < iVCount; i++ )
     {
-        Vector2f vec2fDiff = aVertex[i] - m_Origin;
+        SEVector2f vec2fDiff = aVertex[i] - m_Origin;
         float fL = m_aDirection[1].Dot(vec2fDiff);
         float fSign = Mathf::Sign(fL);
         fL = Mathf::FAbs(fL);
@@ -120,12 +120,12 @@ Mapper2f::~Mapper2f()
 {
 }
 //----------------------------------------------------------------------------
-const Vector2f& Mapper2f::GetMin() const
+const SEVector2f& Mapper2f::GetMin() const
 {
     return m_Min;
 }
 //----------------------------------------------------------------------------
-const Vector2f& Mapper2f::GetMax() const
+const SEVector2f& Mapper2f::GetMax() const
 {
     return m_Max;
 }
@@ -140,12 +140,12 @@ int Mapper2f::GetDimension() const
     return m_iDimension;
 }
 //----------------------------------------------------------------------------
-const Vector2f& Mapper2f::GetOrigin() const
+const SEVector2f& Mapper2f::GetOrigin() const
 {
     return m_Origin;
 }
 //----------------------------------------------------------------------------
-const Vector2f& Mapper2f::GetDirection(int i) const
+const SEVector2f& Mapper2f::GetDirection(int i) const
 {
     SE_ASSERT( 0 <= i && i < 2 );
 
