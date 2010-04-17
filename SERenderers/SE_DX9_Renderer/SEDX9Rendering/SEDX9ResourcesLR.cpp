@@ -533,7 +533,7 @@ void DX9Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
 
     // Copy the vertex buffer data to an array.  NOTE:  The output iChannels
     // will be smaller than vertexSize*vertexCount for pVBuffer whenever
-    // the vertex buffer attributes have colors.  This is because a ColorRGBA
+    // the vertex buffer attributes have colors.  This is because a SEColorRGBA
     // value is 4 floats but is packed into 1 float.
     int iChannels;
     float* afCompatible = 0;  // 由BuildCompatibleArray函数分配数据

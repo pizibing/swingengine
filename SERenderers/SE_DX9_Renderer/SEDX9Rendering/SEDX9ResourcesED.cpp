@@ -179,7 +179,7 @@ void DX9Renderer::OnEnableTexture(ResourceIdentifier* pID)
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 
     // Set the border color (for clamp to border).
-    const ColorRGBA& rBorderColor = pTexture->GetBorderColor();
+    const SEColorRGBA& rBorderColor = pTexture->GetBorderColor();
     ms_hResult = cgD3D9SetSamplerState(hParam, D3DSAMP_BORDERCOLOR, 
         D3DCOLOR_COLORVALUE(rBorderColor.R, rBorderColor.G, rBorderColor.B, 
         rBorderColor.A));

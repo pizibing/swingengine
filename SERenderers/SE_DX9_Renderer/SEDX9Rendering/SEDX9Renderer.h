@@ -79,7 +79,7 @@ public:
     virtual bool SelectFont(int iFontID);
     int LoadFont(const char* acFace, int iSize, bool bBold, bool bItalic);
     void UnloadFont(int iFontID);
-    virtual void Draw(int iX, int iY, const ColorRGBA& rColor,
+    virtual void Draw(int iX, int iY, const SEColorRGBA& rColor,
         const char* acText);
     virtual void Draw(const unsigned char* aucBuffer);
 
@@ -89,7 +89,7 @@ public:
 
     // 开启/关闭用户自定义裁减平面.
     // 传入平面必须是模型空间平面,它在内部被变换到摄像机空间参与clip空间裁减.
-    virtual void EnableUserClipPlane(int i, const Plane3f& rPlane);
+    virtual void EnableUserClipPlane(int i, const SEPlane3f& rPlane);
     virtual void DisableUserClipPlane(int i);
 
     // windows平台下的窗体应用程序开发中使用.

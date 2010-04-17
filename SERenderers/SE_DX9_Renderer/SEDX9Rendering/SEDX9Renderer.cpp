@@ -173,7 +173,7 @@ DX9Renderer::DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
 
     m_iMaxLights = (int)tempDeviceCaps.MaxActiveLights;
     SE_ASSERT( m_iMaxLights > 0 );
-    m_aspLight = SE_NEW ObjectPtr[m_iMaxLights];
+    m_aspLight = SE_NEW SEObjectPtr[m_iMaxLights];
 
     if( tempDeviceCaps.StencilCaps & (D3DSTENCILOP_KEEP | D3DSTENCILOP_REPLACE) )
     {
@@ -526,15 +526,15 @@ void DX9Renderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::EnableUserClipPlane(int i, const Plane3f& rPlane)
+void DX9Renderer::EnableUserClipPlane(int i, const SEPlane3f& rPlane)
 {
-    Vector4f vec4fMPlane(rPlane.Normal[0], rPlane.Normal[1], rPlane.Normal[2],
+    SEVector4f vec4fMPlane(rPlane.Normal[0], rPlane.Normal[1], rPlane.Normal[2],
         -rPlane.Constant);
-    Matrix4f mat4fWorldViewMatrix = m_WorldMatrix * m_ViewMatrix;
-    Matrix4f mat4fWVMatrixInv;
+    SEMatrix4f mat4fWorldViewMatrix = m_WorldMatrix * m_ViewMatrix;
+    SEMatrix4f mat4fWVMatrixInv;
     mat4fWorldViewMatrix.GetInverse(mat4fWVMatrixInv);
     // Plane * ((M^(-1))^T),把平面从模型空间变换到view空间下.
-    Vector4f vec4fCPlane = mat4fWVMatrixInv * vec4fMPlane;
+    SEVector4f vec4fCPlane = mat4fWVMatrixInv * vec4fMPlane;
 
     // 获取当前处于激活状态的裁减平面.
     DWORD dwClipPlanesEnabled;

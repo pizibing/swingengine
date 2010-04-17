@@ -60,7 +60,7 @@ public:
 private:
     enum { PROGRAM_MAP_SIZE = 256 };
     std::string m_Name;
-    StringHashTable<DX9ProgramInterface*> m_Entry;
+    SEStringHashTable<DX9ProgramInterface*> m_Entry;
 
     DX9Renderer* m_pRenderer;
 

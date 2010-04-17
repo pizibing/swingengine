@@ -34,7 +34,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090417
 //----------------------------------------------------------------------------
-class SE_RENDERER_API DX9ProgramInterface : public Object
+class SE_RENDERER_API DX9ProgramInterface : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -58,7 +58,7 @@ protected:
     CGprogram m_hCgProgram;
 };
 
-typedef SmartPointer<DX9ProgramInterface> DX9ProgramInterfacePtr;
+typedef SESmartPointer<DX9ProgramInterface> DX9ProgramInterfacePtr;
 
 #include "SEDX9ProgramInterface.inl"
 

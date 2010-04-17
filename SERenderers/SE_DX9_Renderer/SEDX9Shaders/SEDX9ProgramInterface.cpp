@@ -24,10 +24,10 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, DX9ProgramInterface, Object);
+SE_IMPLEMENT_RTTI(Swing, DX9ProgramInterface, SEObject);
 SE_IMPLEMENT_STREAM(DX9ProgramInterface);
-SE_IMPLEMENT_DEFAULT_STREAM(DX9ProgramInterface, Object);
-SE_IMPLEMENT_DEFAULT_NAME_ID(DX9ProgramInterface, Object);
+SE_IMPLEMENT_DEFAULT_STREAM(DX9ProgramInterface, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(DX9ProgramInterface, SEObject);
 
 //SE_REGISTER_STREAM(DX9ProgramInterface);
 

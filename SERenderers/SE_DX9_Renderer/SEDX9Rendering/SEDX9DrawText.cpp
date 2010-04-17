@@ -93,7 +93,7 @@ bool DX9Renderer::SelectFont(int iFontID)
     return false;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::Draw(int iX, int iY, const ColorRGBA& rColor, const char* acText)
+void DX9Renderer::Draw(int iX, int iY, const SEColorRGBA& rColor, const char* acText)
 {
     SE_ASSERT( acText );
 
