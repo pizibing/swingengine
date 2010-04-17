@@ -24,7 +24,7 @@
 // Foundation Register
 #include "SEFoundationRegister.h"
 
-// SEMath
+// Math
 #include "SEMath.h"
 #include "SEMatrix2.h"
 #include "SEMatrix3.h"
@@ -60,7 +60,7 @@
 #include "SERectangle3.h"
 #include "SEFrustum3.h"
 
-// SESystem
+// System
 #include "SECommand.h"
 #include "SEPlatforms.h"
 #include "SESystem.h"
@@ -95,7 +95,7 @@
 #include "SEParticles.h"
 #include "SEWidget.h"
 
-// SEObject SESystem
+// Object System
 #include "SESmartPointer.h"
 #include "SERTTI.h"
 #include "SEObject.h"
@@ -245,7 +245,7 @@
 
 // Computational Geometry:  Delaunay
 
-// Computational Geometry:  SEQuery
+// Computational Geometry:  Query
 #include "SEQuery.h"
 #include "SEQuery2.h"
 #include "SEQuery2Filtered.h"

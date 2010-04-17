@@ -26,7 +26,7 @@
 // Foundation Register
 #include "SEFoundationRegister.h"
 
-// SEMath
+// Math
 #include "SEMath.h"
 #include "SEMatrix2.h"
 #include "SEMatrix3.h"
@@ -62,7 +62,7 @@
 #include "SERectangle3.h"
 #include "SEFrustum3.h"
 
-// SESystem
+// System
 #include "SECommand.h"
 #include "SEPlatforms.h"
 #include "SESystem.h"
@@ -97,7 +97,7 @@
 #include "SEParticles.h"
 #include "SEWidget.h"
 
-// Object SESystem
+// Object System
 #include "SESmartPointer.h"
 #include "SERTTI.h"
 #include "SEObject.h"
