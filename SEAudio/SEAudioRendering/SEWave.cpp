@@ -26,9 +26,9 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Wave, Object);
+SE_IMPLEMENT_RTTI(Swing, Wave, SEObject);
 SE_IMPLEMENT_STREAM(Wave);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Wave, Object);
+SE_IMPLEMENT_DEFAULT_NAME_ID(Wave, SEObject);
 
 //SE_REGISTER_STREAM(Wave);
 
@@ -229,11 +229,11 @@ bool Wave::Save(const char* pFileName)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Wave::Load(Stream& rStream, Stream::Link* pLink)
+void Wave::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Object::Load(rStream, pLink);
+    SEObject::Load(rStream, pLink);
 
     // native data
     int iFormat;
@@ -263,21 +263,21 @@ void Wave::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(Wave);
 }
 //----------------------------------------------------------------------------
-void Wave::Link(Stream& rStream, Stream::Link* pLink)
+void Wave::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Object::Link(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Wave::Register(Stream& rStream) const
+bool Wave::Register(SEStream& rStream) const
 {
-    return Object::Register(rStream);
+    return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Wave::Save(Stream& rStream) const
+void Wave::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Object::Save(rStream);
+    SEObject::Save(rStream);
 
     // native data
     rStream.Write((int)m_eFormat);
@@ -301,9 +301,9 @@ void Wave::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Wave);
 }
 //----------------------------------------------------------------------------
-int Wave::GetDiskUsed(const StreamVersion& rVersion) const
+int Wave::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    int iSize = Object::GetDiskUsed(rVersion) +
+    int iSize = SEObject::GetDiskUsed(rVersion) +
         sizeof(int); // m_eFormat
 
     iSize += sizeof(m_uiFrequency) + sizeof(m_iDataSize);
@@ -312,9 +312,9 @@ int Wave::GetDiskUsed(const StreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-StringTree* Wave::SaveStrings(const char*)
+SEStringTree* Wave::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -322,7 +322,7 @@ StringTree* Wave::SaveStrings(const char*)
     pTree->Append(Format("frequency = ", m_uiFrequency));
 
     // children
-    pTree->Append(Object::SaveStrings());
+    pTree->Append(SEObject::SaveStrings());
 
     return pTree;
 }

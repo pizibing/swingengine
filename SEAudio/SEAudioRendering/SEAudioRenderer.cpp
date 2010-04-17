@@ -256,7 +256,7 @@ void AudioRenderer::PlayScene(UnculledSet& rAudibleSet)
     {
         if( pAudibleSet[i].IsRenderable() )
         {
-            Play((Sound*)pAudibleSet[i].Object);
+            Play((Sound*)pAudibleSet[i].SEObject);
         }
     }
 }
@@ -302,7 +302,7 @@ void AudioRenderer::StopScene(UnculledSet& rAudibleSet)
     {
         if( pAudibleSet[i].IsRenderable() )
         {
-            Stop((Sound*)pAudibleSet[i].Object);
+            Stop((Sound*)pAudibleSet[i].SEObject);
         }
     }
 }

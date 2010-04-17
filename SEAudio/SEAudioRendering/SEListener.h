@@ -46,7 +46,7 @@ class AudioRenderer;
 // 作者:Sun Che
 // 时间:20090618
 //----------------------------------------------------------------------------
-class SE_AUDIO_API Listener : public Object
+class SE_AUDIO_API Listener : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -62,23 +62,23 @@ public:
     // 默认up        U = (0,1,0)
     // 默认direction D = (0,0,1)
 
-    void SetFrame(const Vector3f& rLocation, const Vector3f& rRVector,
-        const Vector3f& rUVector, const Vector3f& rDVector);
-    void SetLocation(const Vector3f& rLocation);
-    void SetAxes(const Vector3f& rRVector, const Vector3f& rUVector, 
-        const Vector3f& rDVector);
+    void SetFrame(const SEVector3f& rLocation, const SEVector3f& rRVector,
+        const SEVector3f& rUVector, const SEVector3f& rDVector);
+    void SetLocation(const SEVector3f& rLocation);
+    void SetAxes(const SEVector3f& rRVector, const SEVector3f& rUVector, 
+        const SEVector3f& rDVector);
 
-    inline Vector3f GetLocation(void) const;
-    inline Vector3f GetRVector(void) const;
-    inline Vector3f GetUVector(void) const;
-    inline Vector3f GetDVector(void) const;
+    inline SEVector3f GetLocation(void) const;
+    inline SEVector3f GetRVector(void) const;
+    inline SEVector3f GetUVector(void) const;
+    inline SEVector3f GetDVector(void) const;
 
     void SetMasterGain(float fMasterGain);
     inline float GetMasterGain(void) const;
 
 protected:
     // listener E;R,U,D的世界坐标系表示.
-    Vector3f m_Location, m_RVector, m_UVector, m_DVector;
+    SEVector3f m_Location, m_RVector, m_UVector, m_DVector;
 
     // master gain.
     float m_fMasterGain;  // default: 1.0f
@@ -92,7 +92,7 @@ protected:
     AudioRenderer* m_pAudioRenderer;
 };
 
-typedef SmartPointer<Listener> ListenerPtr;
+typedef SESmartPointer<Listener> ListenerPtr;
 
 #include "SEListener.inl"
 

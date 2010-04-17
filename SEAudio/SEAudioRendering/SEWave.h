@@ -33,7 +33,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090617
 //----------------------------------------------------------------------------
-class SE_AUDIO_API Wave : public Object
+class SE_AUDIO_API Wave : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -66,7 +66,7 @@ public:
     // pWaveName用于wave共享时的唯一ID.
     // 构造函数的调用者可以提供一个wave name.
     // 如果没有提供,则构造函数将自动创建一个叫做"waveN.sewf"的唯一ID,
-    // 其中N是其Object::m_uiID.
+    // 其中N是其SEObject::m_uiID.
     // 出于wave共享的目的,系统维护着一个全局wave map.
     // 默认情况下,wave被成功创建后,将被插入到全局wave map,
     // 供稍后索引该资源时使用.然而用户也可以设置bInsert参数为false,
@@ -117,7 +117,7 @@ protected:
     static std::string ms_FormatName[WT_COUNT];
 };
 
-typedef SmartPointer<Wave> WavePtr;
+typedef SESmartPointer<Wave> WavePtr;
 
 #include "SEWave.inl"
 

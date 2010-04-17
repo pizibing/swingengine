@@ -115,7 +115,7 @@ protected:
     virtual void GetUnculledSet(Culler& rCuller, bool bNoCull);
 };
 
-typedef SmartPointer<Sound> SoundPtr;
+typedef SESmartPointer<Sound> SoundPtr;
 
 }
 

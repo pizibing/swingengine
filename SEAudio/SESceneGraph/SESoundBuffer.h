@@ -35,7 +35,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090618
 //----------------------------------------------------------------------------
-class SE_AUDIO_API SoundBuffer : public Object, public AudioBindable
+class SE_AUDIO_API SoundBuffer : public SEObject, public AudioBindable
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -61,7 +61,7 @@ protected:
     std::vector<WavePtr> m_Waves;
 };
 
-typedef SmartPointer<SoundBuffer> SoundBufferPtr;
+typedef SESmartPointer<SoundBuffer> SoundBufferPtr;
 
 #include "SESoundBuffer.inl"
 

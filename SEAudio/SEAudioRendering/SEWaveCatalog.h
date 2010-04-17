@@ -55,8 +55,8 @@ public:
 private:
     enum { WAVE_MAP_SIZE = 256 };
     std::string m_Name;
-    StringHashTable<Wave*> m_Entry;
-    ObjectPtr m_spDefaultWave;
+    SEStringHashTable<Wave*> m_Entry;
+    SEObjectPtr m_spDefaultWave;
 
     static const std::string ms_NullString;
     static const std::string ms_DefaultString;

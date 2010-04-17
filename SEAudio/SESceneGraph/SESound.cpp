@@ -92,9 +92,9 @@ Sound::PickRecord::PickRecord(Sound* pIObject, float fT)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* Sound::GetObjectByName(const std::string& rName)
+SEObject* Sound::GetObjectByName(const std::string& rName)
 {
-    Object* pFound = Spatial::GetObjectByName(rName);
+    SEObject* pFound = Spatial::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -122,7 +122,7 @@ Object* Sound::GetObjectByName(const std::string& rName)
 }
 //----------------------------------------------------------------------------
 void Sound::GetAllObjectsByName(const std::string& rName,
-    std::vector<Object*>& rObjects)
+    std::vector<SEObject*>& rObjects)
 {
     Spatial::GetAllObjectsByName(rName, rObjects);
 
@@ -137,9 +137,9 @@ void Sound::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-Object* Sound::GetObjectByID(unsigned int uiID)
+SEObject* Sound::GetObjectByID(unsigned int uiID)
 {
-    Object* pFound = Spatial::GetObjectByID(uiID);
+    SEObject* pFound = Spatial::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -170,7 +170,7 @@ Object* Sound::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Sound::Load(Stream& rStream, Stream::Link* pLink)
+void Sound::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -183,7 +183,7 @@ void Sound::Load(Stream& rStream, Stream::Link* pLink)
     rStream.Read(Looping);
 
     // link data
-    Object* pObject;
+    SEObject* pObject;
     rStream.Read(pObject);  // ModelBound
     pLink->Add(pObject);
 
@@ -193,18 +193,18 @@ void Sound::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(Sound);
 }
 //----------------------------------------------------------------------------
-void Sound::Link(Stream& rStream, Stream::Link* pLink)
+void Sound::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     Spatial::Link(rStream, pLink);
 
-    Object* pLinkID = pLink->GetLinkID();
+    SEObject* pLinkID = pLink->GetLinkID();
     ModelBound = (BoundingVolume*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
     SBuffer = (SoundBuffer*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool Sound::Register(Stream& rStream) const
+bool Sound::Register(SEStream& rStream) const
 {
     if( !Spatial::Register(rStream) )
     {
@@ -224,7 +224,7 @@ bool Sound::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Sound::Save(Stream& rStream) const
+void Sound::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -243,16 +243,16 @@ void Sound::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(Sound);
 }
 //----------------------------------------------------------------------------
-int Sound::GetDiskUsed(const StreamVersion& rVersion) const
+int Sound::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return Spatial::GetDiskUsed(rVersion) +
         sizeof(Pitch) + sizeof(Gain) + sizeof(RollOffRate) + sizeof(Looping) +
         sizeof(ModelBound) + sizeof(SBuffer);
 }
 //----------------------------------------------------------------------------
-StringTree* Sound::SaveStrings(const char*)
+SEStringTree* Sound::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
