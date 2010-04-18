@@ -61,7 +61,6 @@ class SEUnculledSet;
 class SERenderStateBlock;
 
 //----------------------------------------------------------------------------
-// Name:Renderer class
 // Description:Renderer abstract base class
 // Author:Sun Che
 // Date:20080320

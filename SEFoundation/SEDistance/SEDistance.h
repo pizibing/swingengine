@@ -29,17 +29,16 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Distance虚基类
 // 说明:
 // 作者:Sun Che
 // 时间:20090104
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-class SE_FOUNDATION_API Distance
+class SE_FOUNDATION_API SEDistance
 {
 public:
     // 虚基类.
-    virtual ~Distance(void);
+    virtual ~SEDistance(void);
 
     // static distance查询.
     virtual Real Get(void) = 0;     // distance
@@ -89,7 +88,7 @@ public:
     bool HasMultipleClosestPoints1(void) const;
 
 protected:
-    Distance(void);
+    SEDistance(void);
 
     Real m_fContactTime;
     TVector m_ClosestPoint0;
@@ -99,10 +98,10 @@ protected:
     Real m_fDifferenceStep, m_fInvTwoDifferenceStep;
 };
 
-typedef Distance<float, SEVector2f> Distance2f;
-typedef Distance<float, SEVector3f> Distance3f;
-//typedef Distance<double, SEVector2d> Distance2d;
-//typedef Distance<double, SEVector3d> Distance3d;
+typedef SEDistance<float, SEVector2f> SEDistance2f;
+typedef SEDistance<float, SEVector3f> SEDistance3f;
+typedef SEDistance<double, SEVector2d> SEDistance2d;
+typedef SEDistance<double, SEVector3d> SEDistance3d;
 
 }
 

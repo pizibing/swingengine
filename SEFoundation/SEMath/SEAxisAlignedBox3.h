@@ -27,7 +27,6 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:Single precision floating-point 3D axis aligned box class
 // Description:
 // Author:Sun Che
 // Date:20100121

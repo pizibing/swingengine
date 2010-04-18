@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistLine3Box3f::DistLine3Box3f(const SELine3f& rLine, const SEBox3f& rBox)
+SEDistLine3Box3f::SEDistLine3Box3f(const SELine3f& rLine, const SEBox3f& rBox)
     :
     m_pLine(&rLine), 
     m_pBox(&rBox)
@@ -32,24 +32,24 @@ DistLine3Box3f::DistLine3Box3f(const SELine3f& rLine, const SEBox3f& rBox)
     m_fLParam = 0.0f;
 }
 //----------------------------------------------------------------------------
-const SELine3f& DistLine3Box3f::GetLine() const
+const SELine3f& SEDistLine3Box3f::GetLine() const
 {
     return *m_pLine;
 }
 //----------------------------------------------------------------------------
-const SEBox3f& DistLine3Box3f::GetBox() const
+const SEBox3f& SEDistLine3Box3f::GetBox() const
 {
     return *m_pBox;
 }
 //----------------------------------------------------------------------------
-float DistLine3Box3f::Get()
+float SEDistLine3Box3f::Get()
 {
     float fSqrDist = GetSquared();
 
     return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistLine3Box3f::GetSquared()
+float SEDistLine3Box3f::GetSquared()
 {
     // 计算直线在box坐标体系下的坐标.
     SEVector3f vec3fDiff = m_pLine->Origin - m_pBox->Center;
@@ -152,7 +152,7 @@ float DistLine3Box3f::GetSquared()
     return fSqrDistance;
 }
 //----------------------------------------------------------------------------
-float DistLine3Box3f::Get(float fT, const SEVector3f& rVelocity0, 
+float SEDistLine3Box3f::Get(float fT, const SEVector3f& rVelocity0, 
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin = m_pLine->Origin + fT*rVelocity0;
@@ -160,10 +160,10 @@ float DistLine3Box3f::Get(float fT, const SEVector3f& rVelocity0,
     SELine3f tempMLine(vec3fMOrigin, m_pLine->Direction);
     SEBox3f tempMBox(vec3fMCenter, m_pBox->Axis, m_pBox->Extent);
 
-    return DistLine3Box3f(tempMLine, tempMBox).Get();
+    return SEDistLine3Box3f(tempMLine, tempMBox).Get();
 }
 //----------------------------------------------------------------------------
-float DistLine3Box3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
+float SEDistLine3Box3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin = m_pLine->Origin + fT*rVelocity0;
@@ -171,15 +171,15 @@ float DistLine3Box3f::GetSquared(float fT, const SEVector3f& rVelocity0,
     SELine3f tempMLine(vec3fMOrigin, m_pLine->Direction);
     SEBox3f tempMBox(vec3fMCenter, m_pBox->Axis, m_pBox->Extent);
 
-    return DistLine3Box3f(tempMLine, tempMBox).GetSquared();
+    return SEDistLine3Box3f(tempMLine, tempMBox).GetSquared();
 }
 //----------------------------------------------------------------------------
-float DistLine3Box3f::GetLineParameter() const
+float SEDistLine3Box3f::GetLineParameter() const
 {
     return m_fLParam;
 }
 //----------------------------------------------------------------------------
-void DistLine3Box3f::Face(int i0, int i1, int i2, SEVector3f& rPnt, 
+void SEDistLine3Box3f::Face(int i0, int i1, int i2, SEVector3f& rPnt, 
     const SEVector3f& rDir, const SEVector3f& rPmE, 
     float& rfSqrDistance)
 {
@@ -375,7 +375,7 @@ void DistLine3Box3f::Face(int i0, int i1, int i2, SEVector3f& rPnt,
     }
 }
 //----------------------------------------------------------------------------
-void DistLine3Box3f::CaseNoZeros(SEVector3f& rPnt, const SEVector3f& rDir, 
+void SEDistLine3Box3f::CaseNoZeros(SEVector3f& rPnt, const SEVector3f& rDir, 
     float& rfSqrDistance)
 {
     SEVector3f vec3fPmE(
@@ -419,7 +419,7 @@ void DistLine3Box3f::CaseNoZeros(SEVector3f& rPnt, const SEVector3f& rDir,
     }
 }
 //----------------------------------------------------------------------------
-void DistLine3Box3f::Case0(int i0, int i1, int i2, SEVector3f& rPnt, 
+void SEDistLine3Box3f::Case0(int i0, int i1, int i2, SEVector3f& rPnt, 
     const SEVector3f& rDir, float& rfSqrDistance)
 {
     float fPmE0 = rPnt[i0] - m_pBox->Extent[i0];
@@ -485,7 +485,7 @@ void DistLine3Box3f::Case0(int i0, int i1, int i2, SEVector3f& rPnt,
     }
 }
 //----------------------------------------------------------------------------
-void DistLine3Box3f::Case00(int i0, int i1, int i2, SEVector3f& rPnt, 
+void SEDistLine3Box3f::Case00(int i0, int i1, int i2, SEVector3f& rPnt, 
     const SEVector3f& rDir,  float& rfSqrDistance)
 {
     float fDelta;
@@ -521,7 +521,7 @@ void DistLine3Box3f::Case00(int i0, int i1, int i2, SEVector3f& rPnt,
     }
 }
 //----------------------------------------------------------------------------
-void DistLine3Box3f::Case000(SEVector3f& rPnt, float& rfSqrDistance)
+void SEDistLine3Box3f::Case000(SEVector3f& rPnt, float& rfSqrDistance)
 {
     float fDelta;
 

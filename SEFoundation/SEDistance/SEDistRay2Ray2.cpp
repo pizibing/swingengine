@@ -24,31 +24,31 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistRay2Ray2f::DistRay2Ray2f(const SERay2f& rRay0, const SERay2f& rRay1)
+SEDistRay2Ray2f::SEDistRay2Ray2f(const SERay2f& rRay0, const SERay2f& rRay1)
     :
     m_pRay0(&rRay0),
     m_pRay1(&rRay1)
 {
 }
 //----------------------------------------------------------------------------
-const SERay2f& DistRay2Ray2f::GetRay0() const
+const SERay2f& SEDistRay2Ray2f::GetRay0() const
 {
     return *m_pRay0;
 }
 //----------------------------------------------------------------------------
-const SERay2f& DistRay2Ray2f::GetRay1() const
+const SERay2f& SEDistRay2Ray2f::GetRay1() const
 {
     return *m_pRay1;
 }
 //----------------------------------------------------------------------------
-float DistRay2Ray2f::Get()
+float SEDistRay2Ray2f::Get()
 {
     float fSqrDist = GetSquared();
 
     return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistRay2Ray2f::GetSquared()
+float SEDistRay2Ray2f::GetSquared()
 {
     SEVector2f vec2fDiff = m_pRay0->Origin - m_pRay1->Origin;
     float fA01 = -m_pRay0->Direction.Dot(m_pRay1->Direction);
@@ -173,7 +173,7 @@ float DistRay2Ray2f::GetSquared()
     return SEMath<float>::FAbs(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistRay2Ray2f::Get(float fT, const SEVector2f& rVelocity0,
+float SEDistRay2Ray2f::Get(float fT, const SEVector2f& rVelocity0,
     const SEVector2f& rVelocity1)
 {
     SEVector2f vec2fMOrigin0 = m_pRay0->Origin + fT*rVelocity0;
@@ -181,10 +181,10 @@ float DistRay2Ray2f::Get(float fT, const SEVector2f& rVelocity0,
     SERay2f tempMRay0(vec2fMOrigin0, m_pRay0->Direction);
     SERay2f tempMRay1(vec2fMOrigin1, m_pRay1->Direction);
 
-    return DistRay2Ray2f(tempMRay0, tempMRay1).Get();
+    return SEDistRay2Ray2f(tempMRay0, tempMRay1).Get();
 }
 //----------------------------------------------------------------------------
-float DistRay2Ray2f::GetSquared(float fT, const SEVector2f& rVelocity0, 
+float SEDistRay2Ray2f::GetSquared(float fT, const SEVector2f& rVelocity0, 
     const SEVector2f& rVelocity1)
 {
     SEVector2f vec2fMOrigin0 = m_pRay0->Origin + fT*rVelocity0;
@@ -192,6 +192,6 @@ float DistRay2Ray2f::GetSquared(float fT, const SEVector2f& rVelocity0,
     SERay2f tempMRay0(vec2fMOrigin0, m_pRay0->Direction);
     SERay2f tempMRay1(vec2fMOrigin1, m_pRay1->Direction);
 
-    return DistRay2Ray2f(tempMRay0, tempMRay1).GetSquared();
+    return SEDistRay2Ray2f(tempMRay0, tempMRay1).GetSquared();
 }
 //----------------------------------------------------------------------------

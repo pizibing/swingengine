@@ -96,7 +96,6 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name: single precision floating-point 3x3 matrix class
 // Description:
 // Author: Sun Che
 // Date: 20070512
@@ -257,7 +256,6 @@ private:
 };
 
 //----------------------------------------------------------------------------
-// Name: double precision floating-point 3x3 matrix class
 // Description:
 // Author: Sun Che
 // Date: 20090517

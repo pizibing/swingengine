@@ -28,7 +28,6 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:TRational类
 // 说明:N is the number of 32-bit words per SETInteger numerator/denominator
 // 作者:Sun Che
 // 时间:20081202

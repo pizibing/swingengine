@@ -26,7 +26,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistSegment3Triangle3f::DistSegment3Triangle3f(const SESegment3f& rSegment, 
+SEDistSegment3Triangle3f::SEDistSegment3Triangle3f(const SESegment3f& rSegment, 
     const SETriangle3f& rTriangle)
     :
     m_pSegment(&rSegment),
@@ -34,26 +34,26 @@ DistSegment3Triangle3f::DistSegment3Triangle3f(const SESegment3f& rSegment,
 {
 }
 //----------------------------------------------------------------------------
-const SESegment3f& DistSegment3Triangle3f::GetSegment() const
+const SESegment3f& SEDistSegment3Triangle3f::GetSegment() const
 {
     return *m_pSegment;
 }
 //----------------------------------------------------------------------------
-const SETriangle3f& DistSegment3Triangle3f::GetTriangle() const
+const SETriangle3f& SEDistSegment3Triangle3f::GetTriangle() const
 {
     return *m_pTriangle;
 }
 //----------------------------------------------------------------------------
-float DistSegment3Triangle3f::Get()
+float SEDistSegment3Triangle3f::Get()
 {
     float fSqrDist = GetSquared();
 
     return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistSegment3Triangle3f::GetSquared()
+float SEDistSegment3Triangle3f::GetSquared()
 {
-    DistLine3Triangle3f tempLTDist(SELine3f(m_pSegment->Origin,
+    SEDistLine3Triangle3f tempLTDist(SELine3f(m_pSegment->Origin,
         m_pSegment->Direction), *m_pTriangle);
 
     float fSqrDist = tempLTDist.GetSquared();
@@ -72,7 +72,7 @@ float DistSegment3Triangle3f::GetSquared()
         else
         {
             m_ClosestPoint0 = m_pSegment->GetPosEnd();
-            DistVector3Triangle3f tempVTDist(m_ClosestPoint0, *m_pTriangle);
+            SEDistVector3Triangle3f tempVTDist(m_ClosestPoint0, *m_pTriangle);
             fSqrDist = tempVTDist.GetSquared();
             m_ClosestPoint1 = tempVTDist.GetClosestPoint1();
             m_fSegmentParameter = m_pSegment->Extent;
@@ -84,7 +84,7 @@ float DistSegment3Triangle3f::GetSquared()
     else
     {
         m_ClosestPoint0 = m_pSegment->GetNegEnd();
-        DistVector3Triangle3f tempVTDist(m_ClosestPoint0, *m_pTriangle);
+        SEDistVector3Triangle3f tempVTDist(m_ClosestPoint0, *m_pTriangle);
         fSqrDist = tempVTDist.GetSquared();
         m_ClosestPoint1 = tempVTDist.GetClosestPoint1();
         m_fSegmentParameter = -m_pSegment->Extent;
@@ -96,7 +96,7 @@ float DistSegment3Triangle3f::GetSquared()
     return fSqrDist;
 }
 //----------------------------------------------------------------------------
-float DistSegment3Triangle3f::Get(float fT, const SEVector3f& rVelocity0, 
+float SEDistSegment3Triangle3f::Get(float fT, const SEVector3f& rVelocity0, 
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin = m_pSegment->Origin + fT*rVelocity0;
@@ -107,10 +107,10 @@ float DistSegment3Triangle3f::Get(float fT, const SEVector3f& rVelocity0,
         m_pSegment->Extent);
     SETriangle3f tempMTriangle(vec3fMV0, vec3fMV1, vec3fMV2);
 
-    return DistSegment3Triangle3f(tempMSegment, tempMTriangle).Get();
+    return SEDistSegment3Triangle3f(tempMSegment, tempMTriangle).Get();
 }
 //----------------------------------------------------------------------------
-float DistSegment3Triangle3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
+float SEDistSegment3Triangle3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin = m_pSegment->Origin + fT*rVelocity0;
@@ -121,15 +121,15 @@ float DistSegment3Triangle3f::GetSquared(float fT, const SEVector3f& rVelocity0,
         m_pSegment->Extent);
     SETriangle3f tempMTriangle(vec3fMV0, vec3fMV1, vec3fMV2);
 
-    return DistSegment3Triangle3f(tempMSegment, tempMTriangle).GetSquared();
+    return SEDistSegment3Triangle3f(tempMSegment, tempMTriangle).GetSquared();
 }
 //----------------------------------------------------------------------------
-float DistSegment3Triangle3f::GetSegmentParameter() const
+float SEDistSegment3Triangle3f::GetSegmentParameter() const
 {
     return m_fSegmentParameter;
 }
 //----------------------------------------------------------------------------
-float DistSegment3Triangle3f::GetTriangleBary(int i) const
+float SEDistSegment3Triangle3f::GetTriangleBary(int i) const
 {
     SE_ASSERT( 0 <= i && i < 3 );
 

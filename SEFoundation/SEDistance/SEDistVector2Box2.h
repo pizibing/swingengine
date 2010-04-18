@@ -29,15 +29,15 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:DistVector2Box2f类
 // 说明:
 // 作者:Sun Che
 // 时间:20090114
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API DistVector2Box2f : public Distance<float, SEVector2f>
+class SE_FOUNDATION_API SEDistVector2Box2f : public SEDistance<float, 
+    SEVector2f>
 {
 public:
-    DistVector2Box2f(const SEVector2f& rVector, const SEBox2f& rBox);
+    SEDistVector2Box2f(const SEVector2f& rVector, const SEBox2f& rBox);
 
     // 对象访问.
     const SEVector2f& GetVector(void) const;

@@ -28,7 +28,6 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:属性类
 // 说明:用于指定VB顶点格式时类似于FVF,此外还用于指定shader input output参数属性,
 //      offset为指定数据在SEVertexBuffer中的float个数偏移量
 // 作者:Sun Che

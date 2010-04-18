@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistVector3Frustum3f::DistVector3Frustum3f(const SEVector3f& rVector,
+SEDistVector3Frustum3f::SEDistVector3Frustum3f(const SEVector3f& rVector,
     const SEFrustum3f& rFrustum)
     :
     m_pVector(&rVector),
@@ -32,22 +32,22 @@ DistVector3Frustum3f::DistVector3Frustum3f(const SEVector3f& rVector,
 {
 }
 //----------------------------------------------------------------------------
-const SEVector3f& DistVector3Frustum3f::GetVector() const
+const SEVector3f& SEDistVector3Frustum3f::GetVector() const
 {
     return *m_pVector;
 }
 //----------------------------------------------------------------------------
-const SEFrustum3f& DistVector3Frustum3f::GetFrustum() const
+const SEFrustum3f& SEDistVector3Frustum3f::GetFrustum() const
 {
     return *m_pFrustum;
 }
 //----------------------------------------------------------------------------
-float DistVector3Frustum3f::Get()
+float SEDistVector3Frustum3f::Get()
 {
     return SEMath<float>::Sqrt(GetSquared());
 }
 //----------------------------------------------------------------------------
-float DistVector3Frustum3f::GetSquared()
+float SEDistVector3Frustum3f::GetSquared()
 {
     // 计算顶点在截投体坐标体系下的坐标.
     SEVector3f vec3fDiff = *m_pVector - m_pFrustum->Origin;
@@ -445,7 +445,7 @@ float DistVector3Frustum3f::GetSquared()
     return vec3fDiff.GetSquaredLength();
 }
 //----------------------------------------------------------------------------
-float DistVector3Frustum3f::Get(float fT, const SEVector3f& rVelocity0, 
+float SEDistVector3Frustum3f::Get(float fT, const SEVector3f& rVelocity0, 
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
@@ -454,10 +454,10 @@ float DistVector3Frustum3f::Get(float fT, const SEVector3f& rVelocity0,
         m_pFrustum->UVector, m_pFrustum->DVector, m_pFrustum->RBound, 
         m_pFrustum->UBound, m_pFrustum->DMin, m_pFrustum->DMax);
 
-    return DistVector3Frustum3f(vec3fMVector, tempMFrustum).Get();
+    return SEDistVector3Frustum3f(vec3fMVector, tempMFrustum).Get();
 }
 //----------------------------------------------------------------------------
-float DistVector3Frustum3f::GetSquared(float fT,
+float SEDistVector3Frustum3f::GetSquared(float fT,
     const SEVector3f& rVelocity0, const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
@@ -466,6 +466,6 @@ float DistVector3Frustum3f::GetSquared(float fT,
         m_pFrustum->UVector, m_pFrustum->DVector, m_pFrustum->RBound, 
         m_pFrustum->UBound, m_pFrustum->DMin, m_pFrustum->DMax);
 
-    return DistVector3Frustum3f(vec3fMVector, tempMFrustum).GetSquared();
+    return SEDistVector3Frustum3f(vec3fMVector, tempMFrustum).GetSquared();
 }
 //----------------------------------------------------------------------------

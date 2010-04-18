@@ -30,15 +30,15 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:DistRay2Segment2f类
 // 说明:
 // 作者:Sun Che
 // 时间:20090116
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API DistRay2Segment2f : public Distance<float, SEVector2f>
+class SE_FOUNDATION_API SEDistRay2Segment2f : public SEDistance<float, 
+    SEVector2f>
 {
 public:
-    DistRay2Segment2f(const SERay2f& rRay, const SESegment2f& rSegment);
+    SEDistRay2Segment2f(const SERay2f& rRay, const SESegment2f& rSegment);
 
     // 对象访问.
     const SERay2f& GetRay(void) const;

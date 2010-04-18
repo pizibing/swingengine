@@ -26,7 +26,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistRay3Rectangle3f::DistRay3Rectangle3f(const SERay3f& rRay,
+SEDistRay3Rectangle3f::SEDistRay3Rectangle3f(const SERay3f& rRay,
     const SERectangle3f& rRectangle)
     :
     m_pRay(&rRay),
@@ -34,26 +34,26 @@ DistRay3Rectangle3f::DistRay3Rectangle3f(const SERay3f& rRay,
 {
 }
 //----------------------------------------------------------------------------
-const SERay3f& DistRay3Rectangle3f::GetRay() const
+const SERay3f& SEDistRay3Rectangle3f::GetRay() const
 {
     return *m_pRay;
 }
 //----------------------------------------------------------------------------
-const SERectangle3f& DistRay3Rectangle3f::GetRectangle() const
+const SERectangle3f& SEDistRay3Rectangle3f::GetRectangle() const
 {
     return *m_pRectangle;
 }
 //----------------------------------------------------------------------------
-float DistRay3Rectangle3f::Get()
+float SEDistRay3Rectangle3f::Get()
 {
     float fSqrDist = GetSquared();
 
     return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistRay3Rectangle3f::GetSquared()
+float SEDistRay3Rectangle3f::GetSquared()
 {
-    DistLine3Rectangle3f tempLRDist(SELine3f(m_pRay->Origin, m_pRay->Direction),
+    SEDistLine3Rectangle3f tempLRDist(SELine3f(m_pRay->Origin, m_pRay->Direction),
         *m_pRectangle);
 
     float fSqrDist = tempLRDist.GetSquared();
@@ -69,7 +69,7 @@ float DistRay3Rectangle3f::GetSquared()
     else
     {
         m_ClosestPoint0 = m_pRay->Origin;
-        DistVector3Rectangle3f tempVRDist(m_ClosestPoint0, *m_pRectangle);
+        SEDistVector3Rectangle3f tempVRDist(m_ClosestPoint0, *m_pRectangle);
         fSqrDist = tempVRDist.GetSquared();
         m_ClosestPoint1 = tempVRDist.GetClosestPoint1();
         m_fRayParameter = 0.0f;
@@ -80,7 +80,7 @@ float DistRay3Rectangle3f::GetSquared()
     return fSqrDist;
 }
 //----------------------------------------------------------------------------
-float DistRay3Rectangle3f::Get(float fT, const SEVector3f& rVelocity0, 
+float SEDistRay3Rectangle3f::Get(float fT, const SEVector3f& rVelocity0, 
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin = m_pRay->Origin + fT*rVelocity0;
@@ -89,10 +89,10 @@ float DistRay3Rectangle3f::Get(float fT, const SEVector3f& rVelocity0,
     SERectangle3f tempMRectangle(vec3fMCenter, m_pRectangle->Axis,
         m_pRectangle->Extent);
 
-    return DistRay3Rectangle3f(tempMRay, tempMRectangle).Get();
+    return SEDistRay3Rectangle3f(tempMRay, tempMRectangle).Get();
 }
 //----------------------------------------------------------------------------
-float DistRay3Rectangle3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
+float SEDistRay3Rectangle3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin = m_pRay->Origin + fT*rVelocity0;
@@ -101,15 +101,15 @@ float DistRay3Rectangle3f::GetSquared(float fT, const SEVector3f& rVelocity0,
     SERectangle3f tempMRectangle(vec3fMCenter, m_pRectangle->Axis,
         m_pRectangle->Extent);
 
-    return DistRay3Rectangle3f(tempMRay, tempMRectangle).GetSquared();
+    return SEDistRay3Rectangle3f(tempMRay, tempMRectangle).GetSquared();
 }
 //----------------------------------------------------------------------------
-float DistRay3Rectangle3f::GetRayParameter() const
+float SEDistRay3Rectangle3f::GetRayParameter() const
 {
     return m_fRayParameter;
 }
 //----------------------------------------------------------------------------
-float DistRay3Rectangle3f::GetRectangleCoordinate(int i) const
+float SEDistRay3Rectangle3f::GetRectangleCoordinate(int i) const
 {
     SE_ASSERT( 0 <= i && i < 2 );
 

@@ -30,7 +30,6 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:ROAM地形对象类
 // 说明:管理SERoamTerrainPage类,SERoamTerrain对象构成一个完整地形,
 //      注意相邻的SERoamTerrainPage之间需要进行缝合,
 //      否则衔接处将可能产生T-junction.

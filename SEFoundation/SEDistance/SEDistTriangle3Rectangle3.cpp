@@ -26,7 +26,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistTriangle3Rectangle3f::DistTriangle3Rectangle3f(
+SEDistTriangle3Rectangle3f::SEDistTriangle3Rectangle3f(
     const SETriangle3f& rTriangle, const SERectangle3f& rRectangle)
     :
     m_pTriangle(&rTriangle),
@@ -34,24 +34,24 @@ DistTriangle3Rectangle3f::DistTriangle3Rectangle3f(
 {
 }
 //----------------------------------------------------------------------------
-const SETriangle3f& DistTriangle3Rectangle3f::GetTriangle() const
+const SETriangle3f& SEDistTriangle3Rectangle3f::GetTriangle() const
 {
     return *m_pTriangle;
 }
 //----------------------------------------------------------------------------
-const SERectangle3f& DistTriangle3Rectangle3f::GetRectangle() const
+const SERectangle3f& SEDistTriangle3Rectangle3f::GetRectangle() const
 {
     return *m_pRectangle;
 }
 //----------------------------------------------------------------------------
-float DistTriangle3Rectangle3f::Get()
+float SEDistTriangle3Rectangle3f::Get()
 {
     float fSqrDist = GetSquared();
 
     return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistTriangle3Rectangle3f::GetSquared()
+float SEDistTriangle3Rectangle3f::GetSquared()
 {
     // 把triangle各边和rectangle比较.
     float fSqrDist = SEMath<float>::MAX_REAL, fSqrDistTmp;
@@ -62,7 +62,7 @@ float DistTriangle3Rectangle3f::GetSquared()
         tempEdge.Origin = 0.5f*(m_pTriangle->V[i0] + m_pTriangle->V[i1]);
         tempEdge.Direction = m_pTriangle->V[i1] - m_pTriangle->V[i0];
         tempEdge.Extent = 0.5f*tempEdge.Direction.Normalize();
-        DistSegment3Rectangle3f tempSRDist(tempEdge, *m_pRectangle);
+        SEDistSegment3Rectangle3f tempSRDist(tempEdge, *m_pRectangle);
         fSqrDistTmp = tempSRDist.GetSquared();
         if( fSqrDistTmp < fSqrDist )
         {
@@ -82,7 +82,7 @@ float DistTriangle3Rectangle3f::GetSquared()
                 m_pRectangle->Axis[1 - i1];
             tempEdge.Direction = m_pRectangle->Axis[i1];
             tempEdge.Extent = m_pRectangle->Extent[i1];
-            DistSegment3Triangle3f tempSTDist(tempEdge, *m_pTriangle);
+            SEDistSegment3Triangle3f tempSTDist(tempEdge, *m_pTriangle);
             fSqrDistTmp = tempSTDist.GetSquared();
             if( fSqrDistTmp < fSqrDist )
             {
@@ -96,7 +96,7 @@ float DistTriangle3Rectangle3f::GetSquared()
     return fSqrDist;
 }
 //----------------------------------------------------------------------------
-float DistTriangle3Rectangle3f::Get(float fT, const SEVector3f& rVelocity0, 
+float SEDistTriangle3Rectangle3f::Get(float fT, const SEVector3f& rVelocity0, 
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMV0 = m_pTriangle->V[0] + fT*rVelocity0;
@@ -107,10 +107,10 @@ float DistTriangle3Rectangle3f::Get(float fT, const SEVector3f& rVelocity0,
     SERectangle3f tempMRectangle(vec3fMCenter, m_pRectangle->Axis,
         m_pRectangle->Extent);
 
-    return DistTriangle3Rectangle3f(tempMTriangle, tempMRectangle).Get();
+    return SEDistTriangle3Rectangle3f(tempMTriangle, tempMRectangle).Get();
 }
 //----------------------------------------------------------------------------
-float DistTriangle3Rectangle3f::GetSquared(float fT, 
+float SEDistTriangle3Rectangle3f::GetSquared(float fT, 
     const SEVector3f& rVelocity0, const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMV0 = m_pTriangle->V[0] + fT*rVelocity0;
@@ -121,7 +121,7 @@ float DistTriangle3Rectangle3f::GetSquared(float fT,
     SERectangle3f tempMRectangle(vec3fMCenter, m_pRectangle->Axis,
         m_pRectangle->Extent);
 
-    return DistTriangle3Rectangle3f(tempMTriangle, 
+    return SEDistTriangle3Rectangle3f(tempMTriangle, 
         tempMRectangle).GetSquared();
 }
 //----------------------------------------------------------------------------

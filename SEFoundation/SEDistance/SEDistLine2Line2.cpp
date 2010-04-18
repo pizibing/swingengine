@@ -24,31 +24,31 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistLine2Line2f::DistLine2Line2f(const SELine2f& rLine0, const SELine2f& rLine1)
+SEDistLine2Line2f::SEDistLine2Line2f(const SELine2f& rLine0, const SELine2f& rLine1)
     :
     m_pLine0(&rLine0),
     m_pLine1(&rLine1)
 {
 }
 //----------------------------------------------------------------------------
-const SELine2f& DistLine2Line2f::GetLine0() const
+const SELine2f& SEDistLine2Line2f::GetLine0() const
 {
     return *m_pLine0;
 }
 //----------------------------------------------------------------------------
-const SELine2f& DistLine2Line2f::GetLine1() const
+const SELine2f& SEDistLine2Line2f::GetLine1() const
 {
     return *m_pLine1;
 }
 //----------------------------------------------------------------------------
-float DistLine2Line2f::Get()
+float SEDistLine2Line2f::Get()
 {
     float fSqrDist = GetSquared();
 
     return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistLine2Line2f::GetSquared()
+float SEDistLine2Line2f::GetSquared()
 {
     SEVector2f vec2fDiff = m_pLine0->Origin - m_pLine1->Origin;
     float fA01 = -m_pLine0->Direction.Dot(m_pLine1->Direction);
@@ -80,7 +80,7 @@ float DistLine2Line2f::GetSquared()
     return SEMath<float>::FAbs(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistLine2Line2f::Get(float fT, const SEVector2f& rVelocity0,
+float SEDistLine2Line2f::Get(float fT, const SEVector2f& rVelocity0,
     const SEVector2f& rVelocity1)
 {
     SEVector2f vec2fMOrigin0 = m_pLine0->Origin + fT*rVelocity0;
@@ -88,10 +88,10 @@ float DistLine2Line2f::Get(float fT, const SEVector2f& rVelocity0,
     SELine2f tempMLine0(vec2fMOrigin0, m_pLine0->Direction);
     SELine2f tempMLine1(vec2fMOrigin1, m_pLine1->Direction);
 
-    return DistLine2Line2f(tempMLine0, tempMLine1).Get();
+    return SEDistLine2Line2f(tempMLine0, tempMLine1).Get();
 }
 //----------------------------------------------------------------------------
-float DistLine2Line2f::GetSquared(float fT,
+float SEDistLine2Line2f::GetSquared(float fT,
     const SEVector2f& rVelocity0, const SEVector2f& rVelocity1)
 {
     SEVector2f vec2fMOrigin0 = m_pLine0->Origin + fT*rVelocity0;
@@ -99,6 +99,6 @@ float DistLine2Line2f::GetSquared(float fT,
     SELine2f tempMLine0(vec2fMOrigin0, m_pLine0->Direction);
     SELine2f tempMLine1(vec2fMOrigin1, m_pLine1->Direction);
 
-    return DistLine2Line2f(tempMLine0, tempMLine1).GetSquared();
+    return SEDistLine2Line2f(tempMLine0, tempMLine1).GetSquared();
 }
 //----------------------------------------------------------------------------

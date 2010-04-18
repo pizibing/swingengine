@@ -30,7 +30,6 @@ namespace Swing
 class SECollisionRecord;
 
 //----------------------------------------------------------------------------
-// 名称:Collision group类
 // 说明:
 // 作者:Sun Che
 // 时间:20081223

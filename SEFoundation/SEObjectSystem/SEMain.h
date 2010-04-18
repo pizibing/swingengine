@@ -35,7 +35,6 @@ class SEGeometryProgramCatalog;
 class SEPixelProgramCatalog;
 
 //----------------------------------------------------------------------------
-// 名称:应用程序入口类
 // 说明:管理在应用程序启动前和结束后所需的所有操作,
 //      一系列pre-main,post-main函数被调用用于创建和释放各个类型所需的全局数据,
 //      pre-main,post-main函数由派生类根据各自需求实现

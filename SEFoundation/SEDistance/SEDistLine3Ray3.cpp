@@ -24,31 +24,31 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistLine3Ray3f::DistLine3Ray3f(const SELine3f& rLine, const SERay3f& rRay)
+SEDistLine3Ray3f::SEDistLine3Ray3f(const SELine3f& rLine, const SERay3f& rRay)
     :
     m_pLine(&rLine),
     m_pRay(&rRay)
 {
 }
 //----------------------------------------------------------------------------
-const SELine3f& DistLine3Ray3f::GetLine() const
+const SELine3f& SEDistLine3Ray3f::GetLine() const
 {
     return *m_pLine;
 }
 //----------------------------------------------------------------------------
-const SERay3f& DistLine3Ray3f::GetRay() const
+const SERay3f& SEDistLine3Ray3f::GetRay() const
 {
     return *m_pRay;
 }
 //----------------------------------------------------------------------------
-float DistLine3Ray3f::Get()
+float SEDistLine3Ray3f::Get()
 {
     float fSqrDist = GetSquared();
 
     return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistLine3Ray3f::GetSquared()
+float SEDistLine3Ray3f::GetSquared()
 {
     SEVector3f vec3fDiff = m_pLine->Origin - m_pRay->Origin;
     float fA01 = -m_pLine->Direction.Dot(m_pRay->Direction);
@@ -95,7 +95,7 @@ float DistLine3Ray3f::GetSquared()
     return SEMath<float>::FAbs(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistLine3Ray3f::Get(float fT, const SEVector3f& rVelocity0,
+float SEDistLine3Ray3f::Get(float fT, const SEVector3f& rVelocity0,
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin0 = m_pLine->Origin + fT*rVelocity0;
@@ -103,10 +103,10 @@ float DistLine3Ray3f::Get(float fT, const SEVector3f& rVelocity0,
     SELine3f tempMLine(vec3fMOrigin0, m_pLine->Direction);
     SERay3f tempMRay(vec3fMOrigin1, m_pRay->Direction);
 
-    return DistLine3Ray3f(tempMLine, tempMRay).Get();
+    return SEDistLine3Ray3f(tempMLine, tempMRay).Get();
 }
 //----------------------------------------------------------------------------
-float DistLine3Ray3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
+float SEDistLine3Ray3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin0 = m_pLine->Origin + fT*rVelocity0;
@@ -114,15 +114,15 @@ float DistLine3Ray3f::GetSquared(float fT, const SEVector3f& rVelocity0,
     SELine3f tempMLine(vec3fMOrigin0, m_pLine->Direction);
     SERay3f tempMRay(vec3fMOrigin1, m_pRay->Direction);
 
-    return DistLine3Ray3f(tempMLine, tempMRay).GetSquared();
+    return SEDistLine3Ray3f(tempMLine, tempMRay).GetSquared();
 }
 //----------------------------------------------------------------------------
-float DistLine3Ray3f::GetLineParameter() const
+float SEDistLine3Ray3f::GetLineParameter() const
 {
     return m_fLineParameter;
 }
 //----------------------------------------------------------------------------
-float DistLine3Ray3f::GetRayParameter() const
+float SEDistLine3Ray3f::GetRayParameter() const
 {
     return m_fRayParameter;
 }

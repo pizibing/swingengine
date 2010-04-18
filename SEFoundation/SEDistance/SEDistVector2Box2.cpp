@@ -24,29 +24,29 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistVector2Box2f::DistVector2Box2f(const SEVector2f& rVector, const SEBox2f& rBox)
+SEDistVector2Box2f::SEDistVector2Box2f(const SEVector2f& rVector, const SEBox2f& rBox)
     :
     m_pVector(&rVector),
     m_pBox(&rBox)
 {
 }
 //----------------------------------------------------------------------------
-const SEVector2f& DistVector2Box2f::GetVector() const
+const SEVector2f& SEDistVector2Box2f::GetVector() const
 {
     return *m_pVector;
 }
 //----------------------------------------------------------------------------
-const SEBox2f& DistVector2Box2f::GetBox() const
+const SEBox2f& SEDistVector2Box2f::GetBox() const
 {
     return *m_pBox;
 }
 //----------------------------------------------------------------------------
-float DistVector2Box2f::Get()
+float SEDistVector2Box2f::Get()
 {
     return SEMath<float>::Sqrt(GetSquared());
 }
 //----------------------------------------------------------------------------
-float DistVector2Box2f::GetSquared()
+float SEDistVector2Box2f::GetSquared()
 {
     // 在box的坐标体系下计算.
     SEVector2f vec2fDiff = *m_pVector - m_pBox->Center;
@@ -82,23 +82,23 @@ float DistVector2Box2f::GetSquared()
     return fSqrDistance;
 }
 //----------------------------------------------------------------------------
-float DistVector2Box2f::Get(float fT, const SEVector2f& rVelocity0,
+float SEDistVector2Box2f::Get(float fT, const SEVector2f& rVelocity0,
     const SEVector2f& rVelocity1)
 {
     SEVector2f vec2fMVector = *m_pVector + fT*rVelocity0;
     SEVector2f vec2fMCenter = m_pBox->Center + fT*rVelocity1;
     SEBox2f tempMBox(vec2fMCenter, m_pBox->Axis, m_pBox->Extent);
 
-    return DistVector2Box2f(vec2fMVector, tempMBox).Get();
+    return SEDistVector2Box2f(vec2fMVector, tempMBox).Get();
 }
 //----------------------------------------------------------------------------
-float DistVector2Box2f::GetSquared(float fT, const SEVector2f& rVelocity0, 
+float SEDistVector2Box2f::GetSquared(float fT, const SEVector2f& rVelocity0, 
     const SEVector2f& rVelocity1)
 {
     SEVector2f vec2fMVector = *m_pVector + fT*rVelocity0;
     SEVector2f vec2fMCenter = m_pBox->Center + fT*rVelocity1;
     SEBox2f tempMBox(vec2fMCenter, m_pBox->Axis, m_pBox->Extent);
 
-    return DistVector2Box2f(vec2fMVector, tempMBox).GetSquared();
+    return SEDistVector2Box2f(vec2fMVector, tempMBox).GetSquared();
 }
 //----------------------------------------------------------------------------

@@ -26,7 +26,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistSegment3Box3f::DistSegment3Box3f(const SESegment3f& rSegment,
+SEDistSegment3Box3f::SEDistSegment3Box3f(const SESegment3f& rSegment,
     const SEBox3f& rBox)
     :
     m_pSegment(&rSegment),
@@ -34,27 +34,27 @@ DistSegment3Box3f::DistSegment3Box3f(const SESegment3f& rSegment,
 {
 }
 //----------------------------------------------------------------------------
-const SESegment3f& DistSegment3Box3f::GetSegment() const
+const SESegment3f& SEDistSegment3Box3f::GetSegment() const
 {
     return *m_pSegment;
 }
 //----------------------------------------------------------------------------
-const SEBox3f& DistSegment3Box3f::GetBox() const
+const SEBox3f& SEDistSegment3Box3f::GetBox() const
 {
     return *m_pBox;
 }
 //----------------------------------------------------------------------------
-float DistSegment3Box3f::Get()
+float SEDistSegment3Box3f::Get()
 {
     float fSqrDist = GetSquared();
 
     return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistSegment3Box3f::GetSquared()
+float SEDistSegment3Box3f::GetSquared()
 {
     SELine3f tempLine(m_pSegment->Origin, m_pSegment->Direction);
-    DistLine3Box3f tempLBDist(tempLine, *m_pBox);
+    SEDistLine3Box3f tempLBDist(tempLine, *m_pBox);
 
     float fSqrDistance = tempLBDist.GetSquared();
 
@@ -68,7 +68,7 @@ float DistSegment3Box3f::GetSquared()
         }
         else
         {
-            DistVector3Box3f tempVBDist(m_pSegment->GetPosEnd(), *m_pBox);
+            SEDistVector3Box3f tempVBDist(m_pSegment->GetPosEnd(), *m_pBox);
             fSqrDistance = tempVBDist.GetSquared();
             m_ClosestPoint0 = tempVBDist.GetClosestPoint0();
             m_ClosestPoint1 = tempVBDist.GetClosestPoint1();
@@ -76,7 +76,7 @@ float DistSegment3Box3f::GetSquared()
     }
     else
     {
-        DistVector3Box3f tempVBDist(m_pSegment->GetNegEnd(), *m_pBox);
+        SEDistVector3Box3f tempVBDist(m_pSegment->GetNegEnd(), *m_pBox);
         fSqrDistance = tempVBDist.GetSquared();
         m_ClosestPoint0 = tempVBDist.GetClosestPoint0();
         m_ClosestPoint1 = tempVBDist.GetClosestPoint1();
@@ -85,7 +85,7 @@ float DistSegment3Box3f::GetSquared()
     return fSqrDistance;
 }
 //----------------------------------------------------------------------------
-float DistSegment3Box3f::Get(float fT, const SEVector3f& rVelocity0,
+float SEDistSegment3Box3f::Get(float fT, const SEVector3f& rVelocity0,
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin = m_pSegment->Origin + fT*rVelocity0;
@@ -94,10 +94,10 @@ float DistSegment3Box3f::Get(float fT, const SEVector3f& rVelocity0,
         m_pSegment->Extent);
     SEBox3f tempMBox(vec3fMCenter, m_pBox->Axis, m_pBox->Extent);
 
-    return DistSegment3Box3f(tempMSegment, tempMBox).Get();
+    return SEDistSegment3Box3f(tempMSegment, tempMBox).Get();
 }
 //----------------------------------------------------------------------------
-float DistSegment3Box3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
+float SEDistSegment3Box3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin = m_pSegment->Origin + fT*rVelocity0;
@@ -106,6 +106,6 @@ float DistSegment3Box3f::GetSquared(float fT, const SEVector3f& rVelocity0,
         m_pSegment->Extent);
     SEBox3f tempMBox(vec3fMCenter, m_pBox->Axis, m_pBox->Extent);
 
-    return DistSegment3Box3f(tempMSegment, tempMBox).GetSquared();
+    return SEDistSegment3Box3f(tempMSegment, tempMBox).GetSquared();
 }
 //----------------------------------------------------------------------------

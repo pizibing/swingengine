@@ -25,7 +25,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistLine3Rectangle3f::DistLine3Rectangle3f(const SELine3f& rLine,
+SEDistLine3Rectangle3f::SEDistLine3Rectangle3f(const SELine3f& rLine,
     const SERectangle3f& rRectangle)
     :
     m_pLine(&rLine),
@@ -33,24 +33,24 @@ DistLine3Rectangle3f::DistLine3Rectangle3f(const SELine3f& rLine,
 {
 }
 //----------------------------------------------------------------------------
-const SELine3f& DistLine3Rectangle3f::GetLine() const
+const SELine3f& SEDistLine3Rectangle3f::GetLine() const
 {
     return *m_pLine;
 }
 //----------------------------------------------------------------------------
-const SERectangle3f& DistLine3Rectangle3f::GetRectangle() const
+const SERectangle3f& SEDistLine3Rectangle3f::GetRectangle() const
 {
     return *m_pRectangle;
 }
 //----------------------------------------------------------------------------
-float DistLine3Rectangle3f::Get()
+float SEDistLine3Rectangle3f::Get()
 {
     float fSqrDist = GetSquared();
 
     return SEMath<float>::Sqrt(fSqrDist);
 }
 //----------------------------------------------------------------------------
-float DistLine3Rectangle3f::GetSquared()
+float SEDistLine3Rectangle3f::GetSquared()
 {
     // 测试直线是否和矩形相交,如果相交则距离为零.
     SEVector3f vec3fN = m_pRectangle->Axis[0].Cross(m_pRectangle->Axis[1]);
@@ -117,7 +117,7 @@ float DistLine3Rectangle3f::GetSquared()
                 ((float)(2*i0 - 1))*aSDir[i1];
             tempSeg.Direction = m_pRectangle->Axis[1 - i1];
             tempSeg.Extent = m_pRectangle->Extent[1 - i1];
-            DistLine3Segment3f tempLSDist(*m_pLine, tempSeg);
+            SEDistLine3Segment3f tempLSDist(*m_pLine, tempSeg);
             float fSqrDistTmp = tempLSDist.GetSquared();
             if( fSqrDistTmp < fSqrDist )
             {
@@ -139,7 +139,7 @@ float DistLine3Rectangle3f::GetSquared()
     return fSqrDist;
 }
 //----------------------------------------------------------------------------
-float DistLine3Rectangle3f::Get (float fT, const SEVector3f& rVelocity0, 
+float SEDistLine3Rectangle3f::Get (float fT, const SEVector3f& rVelocity0, 
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin = m_pLine->Origin + fT*rVelocity0;
@@ -148,10 +148,10 @@ float DistLine3Rectangle3f::Get (float fT, const SEVector3f& rVelocity0,
     SERectangle3f tempMRectangle(vec3fMCenter, m_pRectangle->Axis,
         m_pRectangle->Extent);
 
-    return DistLine3Rectangle3f(tempMLine, tempMRectangle).Get();
+    return SEDistLine3Rectangle3f(tempMLine, tempMRectangle).Get();
 }
 //----------------------------------------------------------------------------
-float DistLine3Rectangle3f::GetSquared (float fT, const SEVector3f& rVelocity0, 
+float SEDistLine3Rectangle3f::GetSquared (float fT, const SEVector3f& rVelocity0, 
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin = m_pLine->Origin + fT*rVelocity0;
@@ -160,15 +160,15 @@ float DistLine3Rectangle3f::GetSquared (float fT, const SEVector3f& rVelocity0,
     SERectangle3f tempMRectangle(vec3fMCenter, m_pRectangle->Axis,
         m_pRectangle->Extent);
 
-    return DistLine3Rectangle3f(tempMLine, tempMRectangle).GetSquared();
+    return SEDistLine3Rectangle3f(tempMLine, tempMRectangle).GetSquared();
 }
 //----------------------------------------------------------------------------
-float DistLine3Rectangle3f::GetLineParameter() const
+float SEDistLine3Rectangle3f::GetLineParameter() const
 {
     return m_fLineParameter;
 }
 //----------------------------------------------------------------------------
-float DistLine3Rectangle3f::GetRectangleCoordinate(int i) const
+float SEDistLine3Rectangle3f::GetRectangleCoordinate(int i) const
 {
     SE_ASSERT( 0 <= i && i < 2 );
 

@@ -29,16 +29,15 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:DistSegment2Segment2f类
 // 说明:
 // 作者:Sun Che
 // 时间:20090119
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API DistSegment2Segment2f
-    : public Distance<float, SEVector2f>
+class SE_FOUNDATION_API SEDistSegment2Segment2f : public SEDistance<float, 
+    SEVector2f>
 {
 public:
-    DistSegment2Segment2f(const SESegment2f& rSegment0,
+    SEDistSegment2Segment2f(const SESegment2f& rSegment0,
         const SESegment2f& rSegment1);
 
     // 对象访问.

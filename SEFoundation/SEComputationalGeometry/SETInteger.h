@@ -30,7 +30,6 @@ namespace Swing
 template <int N> class SETRational;
 
 //----------------------------------------------------------------------------
-// 名称:TInteger类
 // 说明:N is the number of 32-bit words you want per SETInteger.
 // 作者:Sun Che
 // 时间:20081201

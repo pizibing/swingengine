@@ -26,12 +26,12 @@ inline float SEPlane3f::GetDistance(const SEVector3f& rP) const
 //----------------------------------------------------------------------------
 inline int SEPlane3f::OnWhichSide(const SEVector3f& rP) const
 {
-    float Distance = GetDistance(rP);
+    float SEDistance = GetDistance(rP);
 
-    if( Distance < 0.0f )
+    if( SEDistance < 0.0f )
         return -1;
 
-    if( Distance > 0.0f )
+    if( SEDistance > 0.0f )
         return +1;
 
     return 0;

@@ -25,7 +25,7 @@ namespace Swing
 {
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-Distance<Real, TVector>::Distance()
+SEDistance<Real, TVector>::SEDistance()
 {
     MaximumIterations = 8;
     ZeroThreshold = SEMath<Real>::ZERO_TOLERANCE;
@@ -37,48 +37,48 @@ Distance<Real, TVector>::Distance()
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-Distance<Real, TVector>::~Distance()
+SEDistance<Real, TVector>::~SEDistance()
 {
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-Real Distance<Real, TVector>::GetDifferenceStep() const
+Real SEDistance<Real, TVector>::GetDifferenceStep() const
 {
     return m_fDifferenceStep;
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-Real Distance<Real, TVector>::GetContactTime() const
+Real SEDistance<Real, TVector>::GetContactTime() const
 {
     return m_fContactTime;
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-const TVector& Distance<Real, TVector>::GetClosestPoint0() const
+const TVector& SEDistance<Real, TVector>::GetClosestPoint0() const
 {
     return m_ClosestPoint0;
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-const TVector& Distance<Real, TVector>::GetClosestPoint1() const
+const TVector& SEDistance<Real, TVector>::GetClosestPoint1() const
 {
     return m_ClosestPoint1;
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-bool Distance<Real, TVector>::HasMultipleClosestPoints0() const
+bool SEDistance<Real, TVector>::HasMultipleClosestPoints0() const
 {
     return m_bHasMultipleClosestPoints0;
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-bool Distance<Real, TVector>::HasMultipleClosestPoints1() const
+bool SEDistance<Real, TVector>::HasMultipleClosestPoints1() const
 {
     return m_bHasMultipleClosestPoints1;
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-void Distance<Real, TVector>::SetDifferenceStep(Real fDifferenceStep)
+void SEDistance<Real, TVector>::SetDifferenceStep(Real fDifferenceStep)
 {
     SE_ASSERT( fDifferenceStep > (Real)0.0 );
 
@@ -95,7 +95,7 @@ void Distance<Real, TVector>::SetDifferenceStep(Real fDifferenceStep)
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-Real Distance<Real, TVector>::GetDerivative(Real fT, 
+Real SEDistance<Real, TVector>::GetDerivative(Real fT, 
     const TVector& rVelocity0, const TVector& rVelocity1)
 {
     // 用有限差分估算导数: f'(t) = (f(t + h) - f(t - h))/(2 * h).
@@ -107,7 +107,7 @@ Real Distance<Real, TVector>::GetDerivative(Real fT,
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-Real Distance<Real, TVector>::GetDerivativeSquared(Real fT, 
+Real SEDistance<Real, TVector>::GetDerivativeSquared(Real fT, 
     const TVector& rVelocity0, const TVector& rVelocity1)
 {
     // 派生类如果有更快的方法计算距离平方的导数,则应重载这个函数.
@@ -118,7 +118,7 @@ Real Distance<Real, TVector>::GetDerivativeSquared(Real fT,
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-Real Distance<Real, TVector>::Get(Real fTMin, Real fTMax, 
+Real SEDistance<Real, TVector>::Get(Real fTMin, Real fTMax, 
     const TVector& rVelocity0, const TVector& rVelocity1)
 {
     // 假设基于函数f(t)是convex function的前提下.
@@ -242,7 +242,7 @@ Real Distance<Real, TVector>::Get(Real fTMin, Real fTMax,
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-Real Distance<Real, TVector>::GetSquared(Real fTMin, Real fTMax, 
+Real SEDistance<Real, TVector>::GetSquared(Real fTMin, Real fTMax, 
     const TVector& rVelocity0, const TVector& rVelocity1)
 {
     // 假设基于函数f(t)是convex function的前提下.
@@ -369,10 +369,10 @@ Real Distance<Real, TVector>::GetSquared(Real fTMin, Real fTMax,
 //----------------------------------------------------------------------------
 // explicit instantiation
 //----------------------------------------------------------------------------
-template class Distance<float, SEVector2f>;
-template class Distance<float, SEVector3f>;
+template class SEDistance<float, SEVector2f>;
+template class SEDistance<float, SEVector3f>;
 
-//template class Distance<double, SEVector2d>;
-//template class Distance<double, SEVector3d>;
+//template class SEDistance<double, SEVector2d>;
+//template class SEDistance<double, SEVector3d>;
 //----------------------------------------------------------------------------
 }

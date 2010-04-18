@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-DistVector3Plane3f::DistVector3Plane3f(const SEVector3f& rVector,
+SEDistVector3Plane3f::SEDistVector3Plane3f(const SEVector3f& rVector,
     const SEPlane3f& rPlane)
     :
     m_pVector(&rVector),
@@ -32,17 +32,17 @@ DistVector3Plane3f::DistVector3Plane3f(const SEVector3f& rVector,
 {
 }
 //----------------------------------------------------------------------------
-const SEVector3f& DistVector3Plane3f::GetVector() const
+const SEVector3f& SEDistVector3Plane3f::GetVector() const
 {
     return *m_pVector;
 }
 //----------------------------------------------------------------------------
-const SEPlane3f& DistVector3Plane3f::GetPlane() const
+const SEPlane3f& SEDistVector3Plane3f::GetPlane() const
 {
     return *m_pPlane;
 }
 //----------------------------------------------------------------------------
-float DistVector3Plane3f::Get()
+float SEDistVector3Plane3f::Get()
 {
     float fSigned = m_pPlane->Normal.Dot(*m_pVector) - m_pPlane->Constant;
     m_ClosestPoint0 = *m_pVector;
@@ -51,7 +51,7 @@ float DistVector3Plane3f::Get()
     return SEMath<float>::FAbs(fSigned);
 }
 //----------------------------------------------------------------------------
-float DistVector3Plane3f::GetSquared()
+float SEDistVector3Plane3f::GetSquared()
 {
     float fSigned = m_pPlane->Normal.Dot(*m_pVector) - m_pPlane->Constant;
     m_ClosestPoint0 = *m_pVector;
@@ -60,7 +60,7 @@ float DistVector3Plane3f::GetSquared()
     return fSigned*fSigned;
 }
 //----------------------------------------------------------------------------
-float DistVector3Plane3f::Get(float fT, const SEVector3f& rVelocity0,
+float SEDistVector3Plane3f::Get(float fT, const SEVector3f& rVelocity0,
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
@@ -68,10 +68,10 @@ float DistVector3Plane3f::Get(float fT, const SEVector3f& rVelocity0,
         fT*m_pPlane->Normal.Dot(rVelocity1);
     SEPlane3f tempMPlane(m_pPlane->Normal, fMConstant);
 
-    return DistVector3Plane3f(vec3fMVector, tempMPlane).Get();
+    return SEDistVector3Plane3f(vec3fMVector, tempMPlane).Get();
 }
 //----------------------------------------------------------------------------
-float DistVector3Plane3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
+float SEDistVector3Plane3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
     const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
@@ -79,6 +79,6 @@ float DistVector3Plane3f::GetSquared(float fT, const SEVector3f& rVelocity0,
         fT*m_pPlane->Normal.Dot(rVelocity1);
     SEPlane3f tempMPlane(m_pPlane->Normal, fMConstant);
 
-    return DistVector3Plane3f(vec3fMVector, tempMPlane).GetSquared();
+    return SEDistVector3Plane3f(vec3fMVector, tempMPlane).GetSquared();
 }
 //----------------------------------------------------------------------------

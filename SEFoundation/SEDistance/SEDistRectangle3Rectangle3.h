@@ -29,16 +29,15 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:DistRectangle3Rectangle3f类
 // 说明:
 // 作者:Sun Che
 // 时间:20090119
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API DistRectangle3Rectangle3f
-    : public Distance<float, SEVector3f>
+class SE_FOUNDATION_API SEDistRectangle3Rectangle3f
+    : public SEDistance<float, SEVector3f>
 {
 public:
-    DistRectangle3Rectangle3f(const SERectangle3f& rRectangle0,
+    SEDistRectangle3Rectangle3f(const SERectangle3f& rRectangle0,
         const SERectangle3f& rRectangle1);
 
     // 对象访问.

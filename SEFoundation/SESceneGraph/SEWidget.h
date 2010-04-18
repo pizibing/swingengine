@@ -29,7 +29,6 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:SEWidget class
 // Description:
 // Author:Sun Che
 // Date:20100111
