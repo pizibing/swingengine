@@ -27,22 +27,21 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:控制台应用程序基类
 // 说明:
 // 作者:Sun Che
 // 时间:20080809
 //----------------------------------------------------------------------------
-class ConsoleApplication : public Application
+class SEConsoleApplication : public SEApplication
 {
 public:
-    ConsoleApplication(void);
-    virtual ~ConsoleApplication(void);
+    SEConsoleApplication(void);
+    virtual ~SEConsoleApplication(void);
 
     // 应用程序负责实现入口函数,返回值为exit code.
-    virtual int Main(int iArgCount, char** apcArgument) = 0;
+    virtual int SEMain(int iArgCount, char** apcArgument) = 0;
 
 protected:
-    // 钩子函数调用入口函数Main.
+    // 钩子函数调用入口函数SEMain.
     static int Run(int iArgCount, char** apcArgument);
 };
 
