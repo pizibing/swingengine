@@ -27,23 +27,23 @@ SE_REGISTER_INITIALIZE(DefaultShader);
 //----------------------------------------------------------------------------
 DefaultShader::DefaultShader()
     :
-    WindowApplication3("DefaultShader", 0, 0, 640, 480, 
-        ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
+    SEWindowApplication3("DefaultShader", 0, 0, 640, 480, 
+        SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
 }
 //----------------------------------------------------------------------------
 bool DefaultShader::OnInitialize()
 {
-    if( !WindowApplication3::OnInitialize() )
+    if( !SEWindowApplication3::OnInitialize() )
     {
         return false;
     }
 
     m_spCamera->SetFrustum(-0.55f, 0.55f, -0.4125f, 0.4125f, 1.0f, 100.0f);
-    Vector3f tempCLoc(0.0f, 0.0f, -10.0f);
-    Vector3f tempCDir(0.0f, 0.0f, 1.0f);
-    Vector3f tempCUp(0.0f, 1.0f, 0.0f);
-    Vector3f tempCRight = tempCUp.Cross(tempCDir);
+    SEVector3f tempCLoc(0.0f, 0.0f, -10.0f);
+    SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
+    SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
+    SEVector3f tempCRight = tempCUp.Cross(tempCDir);
     m_spCamera->SetFrame(tempCLoc, tempCRight, tempCUp, tempCDir);
 
     CreateScene();
@@ -66,7 +66,7 @@ void DefaultShader::OnTerminate()
     m_spScene = 0;
     m_spMesh = 0;
     m_spWireframe = 0;
-    WindowApplication3::OnTerminate();
+    SEWindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void DefaultShader::OnIdle()
@@ -76,12 +76,12 @@ void DefaultShader::OnIdle()
     // Rotate the box.
     static double dCurTime = 0.0f;
     static double dLastTime = 0.0f;
-    dCurTime = System::SE_GetTime();
+    dCurTime = SESystem::SE_GetTime();
     if( dCurTime - dLastTime > 0.01f )
     {
         dLastTime = dCurTime;
 
-        Matrix3f mat3fRot(Vector3f::UNIT_Z, -0.01f);
+        SEMatrix3f mat3fRot(SEVector3f::UNIT_Z, -0.01f);
         m_spMesh->Local.SetRotate(m_spMesh->Local.GetRotate()*mat3fRot);
         m_spMesh->UpdateGS();
     }
@@ -101,7 +101,7 @@ void DefaultShader::OnIdle()
     if( m_pRenderer->BeginScene() )
     {
         m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
-        DrawFrameRate(8, 20, ColorRGBA::SE_RGBA_WHITE);
+        DrawFrameRate(8, 20, SEColorRGBA::SE_RGBA_WHITE);
         m_pRenderer->EndScene();
     }
     m_pRenderer->DisplayBackBuffer();
@@ -111,7 +111,7 @@ void DefaultShader::OnIdle()
 //----------------------------------------------------------------------------
 bool DefaultShader::OnKeyDown(unsigned char ucKey, int iX, int iY)
 {
-    if( WindowApplication3::OnKeyDown(ucKey, iX, iY) )
+    if( SEWindowApplication3::OnKeyDown(ucKey, iX, iY) )
     {
         return true;
     }
@@ -137,18 +137,18 @@ bool DefaultShader::OnKeyDown(unsigned char ucKey, int iX, int iY)
 //----------------------------------------------------------------------------
 void DefaultShader::CreateScene()
 {
-    m_spScene = SE_NEW Node;
-    m_spWireframe = SE_NEW WireframeState;
+    m_spScene = SE_NEW SENode;
+    m_spWireframe = SE_NEW SEWireframeState;
     m_spScene->AttachGlobalState(m_spWireframe);
 
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
-    StandardMesh tempSM(tempAttr);
+    SEStandardMesh tempSM(tempAttr);
     float fExt = 1.0f;
     m_spMesh = tempSM.Box(fExt, fExt, fExt);
     m_spScene->AttachChild(m_spMesh);
 
-    DefaultShaderEffect* pEffect = SE_NEW DefaultShaderEffect;
+    SEDefaultShaderEffect* pEffect = SE_NEW SEDefaultShaderEffect;
     m_spMesh->AttachEffect(pEffect);
 }
 //----------------------------------------------------------------------------
