@@ -1258,7 +1258,7 @@ void SETreeControl::CreateTreeRecursive(HTREEITEM hParent,
 
         // add subclass of object
         int iStart;
-        if( strncmp(pTree->GetString(0), "Swing.Object", 12) != 0)
+        if( strncmp(pTree->GetString(0), "Swing.SEObject", 14) != 0)
         {
             CreateTreeRecursive(tvs.hParent, pTree->GetChild(0), NT_SUBCLASS);
             iStart = 1;
