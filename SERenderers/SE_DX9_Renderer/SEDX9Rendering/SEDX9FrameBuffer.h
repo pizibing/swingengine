@@ -30,22 +30,21 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:DirectX9 Framebuffer类
 // 说明:
 // 作者:Sun Che
 // 时间:20080827
 //----------------------------------------------------------------------------
-class SE_RENDERER_API DX9FrameBuffer : public FrameBuffer
+class SE_RENDERER_API SEDX9FrameBuffer : public SEFrameBuffer
 {
     SE_DECLARE_INITIALIZE;
 
 public:
-    DX9FrameBuffer(FormatType eFormat, DepthType eDepth,
+    SEDX9FrameBuffer(FormatType eFormat, DepthType eDepth,
         StencilType eStencil, BufferingType eBuffering,
-        MultisamplingType eMultisampling, Renderer* pRenderer,
-        int iTCount, Texture** apTargets);
+        MultisamplingType eMultisampling, SERenderer* pRenderer,
+        int iTCount, SETexture** apTargets);
 
-    virtual ~DX9FrameBuffer(void);
+    virtual ~SEDX9FrameBuffer(void);
 
     bool InitializeBuffer(void);
     void TerminateBuffer(void);
@@ -79,12 +78,12 @@ protected:
     ID3DXRenderToSurface* m_pRenderToTexture;
 
     // 工厂函数
-    static FrameBuffer* Create(FormatType eFormat, DepthType eDepth,
+    static SEFrameBuffer* Create(FormatType eFormat, DepthType eDepth,
         StencilType eStencil, BufferingType eBuffering,
-        MultisamplingType eMultisampling, Renderer* pRenderer,
-        int iTCount, Texture** apTargets);
+        MultisamplingType eMultisampling, SERenderer* pRenderer,
+        int iTCount, SETexture** apTargets);
 
-    static void Destroy(FrameBuffer* pBuffer);
+    static void Destroy(SEFrameBuffer* pBuffer);
 };
 
 }

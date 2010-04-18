@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-int DX9Renderer::LoadFont(const char* acFace, int iSize, bool bBold, 
+int SEDX9Renderer::LoadFont(const char* acFace, int iSize, bool bBold, 
     bool bItalic)
 {
     // Find the first unused font location
@@ -69,7 +69,7 @@ int DX9Renderer::LoadFont(const char* acFace, int iSize, bool bBold,
     return iLoc;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::UnloadFont(int iFontID)
+void SEDX9Renderer::UnloadFont(int iFontID)
 {
     // You may not unload the default font (id = 0).
     if( 1 <= iFontID && iFontID < (int)m_FontArray.size() )
@@ -78,7 +78,7 @@ void DX9Renderer::UnloadFont(int iFontID)
     }
 }
 //----------------------------------------------------------------------------
-bool DX9Renderer::SelectFont(int iFontID)
+bool SEDX9Renderer::SelectFont(int iFontID)
 {
     if( 0 <= iFontID && iFontID < (int)m_FontArray.size() )
     {
@@ -93,7 +93,8 @@ bool DX9Renderer::SelectFont(int iFontID)
     return false;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::Draw(int iX, int iY, const SEColorRGBA& rColor, const char* acText)
+void SEDX9Renderer::Draw(int iX, int iY, const SEColorRGBA& rColor, const 
+    char* acText)
 {
     SE_ASSERT( acText );
 
@@ -108,7 +109,8 @@ void DX9Renderer::Draw(int iX, int iY, const SEColorRGBA& rColor, const char* ac
     TextRect.left = iX;
     TextRect.right = iX;
 
-    D3DCOLOR TextColor = D3DCOLOR_COLORVALUE(rColor.R, rColor.G, rColor.B, rColor.A);
+    D3DCOLOR TextColor = D3DCOLOR_COLORVALUE(rColor.R, rColor.G, rColor.B, 
+        rColor.A);
 
     ms_hResult = m_FontArray[m_iFontID]->DrawText(
         0,                                  // pSprite

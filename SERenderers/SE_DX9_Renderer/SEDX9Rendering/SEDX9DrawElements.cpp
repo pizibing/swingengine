@@ -25,33 +25,33 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void DX9Renderer::DrawElements()
+void SEDX9Renderer::DrawElements()
 {
     int iPCount, iACount;
     switch( m_pGeometry->Type )
     {
-    case Geometry::GT_TRIMESH:
+    case SEGeometry::GT_TRIMESH:
         iACount = m_pGeometry->VBuffer->GetVertexCount();
         iPCount = m_pGeometry->IBuffer->GetIndexCount()/3;
 
         break;
-    case Geometry::GT_POLYLINE_OPEN:
-        iACount = StaticCast<Polyline>(m_pGeometry)->GetActiveCount();
+    case SEGeometry::GT_POLYLINE_OPEN:
+        iACount = StaticCast<SEPolyline>(m_pGeometry)->GetActiveCount();
         iPCount = iACount;
 
         break;
-    case Geometry::GT_POLYLINE_CLOSED:
-        iACount = StaticCast<Polyline>(m_pGeometry)->GetActiveCount();
+    case SEGeometry::GT_POLYLINE_CLOSED:
+        iACount = StaticCast<SEPolyline>(m_pGeometry)->GetActiveCount();
         iPCount = iACount + 1;
 
         break;
-    case Geometry::GT_POLYLINE_SEGMENTS:
-        iACount = StaticCast<Polyline>(m_pGeometry)->GetActiveCount();
+    case SEGeometry::GT_POLYLINE_SEGMENTS:
+        iACount = StaticCast<SEPolyline>(m_pGeometry)->GetActiveCount();
         iPCount = iACount / 2;
 
         break;
-    case Geometry::GT_POLYPOINT:
-        iACount = StaticCast<Polyline>(m_pGeometry)->GetActiveCount();
+    case SEGeometry::GT_POLYPOINT:
+        iACount = StaticCast<SEPolyline>(m_pGeometry)->GetActiveCount();
         iPCount = iACount;
 
         break;

@@ -31,30 +31,29 @@
 namespace Swing
 {
 
-class DX9ProgramInterfaceCatalog;
+class SEDX9ProgramInterfaceCatalog;
 
 //----------------------------------------------------------------------------
-// 名称:DirectX9 Renderer类
 // 说明:
 // 作者:Sun Che
 // 时间:20080827
 //----------------------------------------------------------------------------
-class SE_RENDERER_API DX9Renderer : public Renderer
+class SE_RENDERER_API SEDX9Renderer : public SERenderer
 {
     SE_DECLARE_INITIALIZE;
     SE_DECLARE_TERMINATE;
 
 public:
     // RTTI.
-    virtual int GetType(void) const { return Renderer::DIRECTX9; }
+    virtual int GetType(void) const { return SERenderer::DIRECTX9; }
 
-    DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
-        FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,
-        FrameBuffer::BufferingType eBuffering,
-        FrameBuffer::MultisamplingType eMultisampling, int iWidth,
+    SEDX9Renderer(HWND hWnd, SEFrameBuffer::FormatType eFormat,
+        SEFrameBuffer::DepthType eDepth, SEFrameBuffer::StencilType eStencil,
+        SEFrameBuffer::BufferingType eBuffering,
+        SEFrameBuffer::MultisamplingType eMultisampling, int iWidth,
         int iHeight);
 
-    virtual ~DX9Renderer(void);
+    virtual ~SEDX9Renderer(void);
 
     virtual void ToggleFullscreen(void);
     virtual bool BeginScene(void);
@@ -111,21 +110,21 @@ protected:
     virtual void OnDepthRangeChange(void);
 
     // 全局渲染状态管理.
-    virtual void SetAlphaState(AlphaState* pState);
-    virtual void SetCullState(CullState* pState);
-    virtual void SetPolygonOffsetState(PolygonOffsetState* pState);
-    virtual void SetStencilState(StencilState* pState);
-    virtual void SetWireframeState(WireframeState* pState);
-    virtual void SetZBufferState(ZBufferState* pState);
+    virtual void SetAlphaState(SEAlphaState* pState);
+    virtual void SetCullState(SECullState* pState);
+    virtual void SetPolygonOffsetState(SEPolygonOffsetState* pState);
+    virtual void SetStencilState(SEStencilState* pState);
+    virtual void SetWireframeState(SEWireframeState* pState);
+    virtual void SetZBufferState(SEZBufferState* pState);
 
     // per-geometry pre/post-draw函数入口.
     virtual void OnPreDrawGeometry(void);
     virtual void OnPostDrawGeometry(void);
 
     // per-pass pre/post-draw函数入口,
-    virtual void OnPreDrawPass(ShaderEffect* pEffect, int iPass,
+    virtual void OnPreDrawPass(SEShaderEffect* pEffect, int iPass,
         bool bPrimaryEffect);
-    virtual void OnPostDrawPass(ShaderEffect* pEffect, int iPass,
+    virtual void OnPostDrawPass(SEShaderEffect* pEffect, int iPass,
         bool bPrimaryEffect);
 
     // 渲染器派生类渲染函数入口.
@@ -133,49 +132,49 @@ protected:
 
     // 渲染器资源装载与释放.
     // 针对显存,需要具体图形API负责实现.
-    virtual void OnLoadVProgram(ResourceIdentifier*& rpID,
-        VertexProgram* pVProgram);
-    virtual void OnReleaseVProgram(ResourceIdentifier* pID);
-    virtual void OnLoadPProgram(ResourceIdentifier*& rpID,
-        PixelProgram* pPProgram);
-    virtual void OnReleasePProgram(ResourceIdentifier* pID);
-    virtual void OnLoadTexture(ResourceIdentifier*& rpID,
-        Texture* pTexture);
-    virtual void OnReleaseTexture(ResourceIdentifier* pID);
-    virtual void OnLoadVBuffer(ResourceIdentifier*& rpID,
-        const Attributes& rIAttr, const Attributes& rOAttr,
-        VertexBuffer* pVBuffer, VertexProgram* pVProgram);
-    virtual void OnReleaseVBuffer(ResourceIdentifier* pID);
-    virtual void OnLoadIBuffer(ResourceIdentifier*& rpID,
-        IndexBuffer* pIBuffer);
-    virtual void OnReleaseIBuffer(ResourceIdentifier* pID);
+    virtual void OnLoadVProgram(SEResourceIdentifier*& rpID,
+        SEVertexProgram* pVProgram);
+    virtual void OnReleaseVProgram(SEResourceIdentifier* pID);
+    virtual void OnLoadPProgram(SEResourceIdentifier*& rpID,
+        SEPixelProgram* pPProgram);
+    virtual void OnReleasePProgram(SEResourceIdentifier* pID);
+    virtual void OnLoadTexture(SEResourceIdentifier*& rpID,
+        SETexture* pTexture);
+    virtual void OnReleaseTexture(SEResourceIdentifier* pID);
+    virtual void OnLoadVBuffer(SEResourceIdentifier*& rpID,
+        const SEAttributes& rIAttr, const SEAttributes& rOAttr,
+        SEVertexBuffer* pVBuffer, SEVertexProgram* pVProgram);
+    virtual void OnReleaseVBuffer(SEResourceIdentifier* pID);
+    virtual void OnLoadIBuffer(SEResourceIdentifier*& rpID,
+        SEIndexBuffer* pIBuffer);
+    virtual void OnReleaseIBuffer(SEResourceIdentifier* pID);
 
     // 渲染器资源开启与关闭.
-    virtual void SetVProgramRC(RendererConstant* pRC);
-    virtual void SetVProgramUC(UserConstant* pUC);
-    virtual void SetGProgramRC(RendererConstant* pRC);
-    virtual void SetGProgramUC(UserConstant* pUC);
-    virtual void SetPProgramRC(RendererConstant* pRC);
-    virtual void SetPProgramUC(UserConstant* pUC);
-    virtual void UpdateVProgramConstants(VertexProgram* pVProgram);
-    virtual void UpdateGProgramConstants(GeometryProgram* pGProgram);
-    virtual void UpdatePProgramConstants(PixelProgram* pPProgram);
-    virtual void OnEnableVProgram(ResourceIdentifier* pID);
-    virtual void OnDisableVProgram(ResourceIdentifier* pID);
-    virtual void OnEnablePProgram(ResourceIdentifier* pID);
-    virtual void OnDisablePProgram(ResourceIdentifier* pID);
-    virtual void OnEnableTexture(ResourceIdentifier* pID);
-    virtual void OnDisableTexture(ResourceIdentifier* pID);
-    virtual void OnEnableVBuffer(ResourceIdentifier* pID, 
-        VertexProgram* pVProgram);
-    virtual void OnDisableVBuffer(ResourceIdentifier* pID, 
-        VertexProgram* pVProgram);
-    virtual void OnEnableIBuffer(ResourceIdentifier* pID);
-    virtual void OnDisableIBuffer(ResourceIdentifier* pID);
+    virtual void SetVProgramRC(SERendererConstant* pRC);
+    virtual void SetVProgramUC(SEUserConstant* pUC);
+    virtual void SetGProgramRC(SERendererConstant* pRC);
+    virtual void SetGProgramUC(SEUserConstant* pUC);
+    virtual void SetPProgramRC(SERendererConstant* pRC);
+    virtual void SetPProgramUC(SEUserConstant* pUC);
+    virtual void UpdateVProgramConstants(SEVertexProgram* pVProgram);
+    virtual void UpdateGProgramConstants(SEGeometryProgram* pGProgram);
+    virtual void UpdatePProgramConstants(SEPixelProgram* pPProgram);
+    virtual void OnEnableVProgram(SEResourceIdentifier* pID);
+    virtual void OnDisableVProgram(SEResourceIdentifier* pID);
+    virtual void OnEnablePProgram(SEResourceIdentifier* pID);
+    virtual void OnDisablePProgram(SEResourceIdentifier* pID);
+    virtual void OnEnableTexture(SEResourceIdentifier* pID);
+    virtual void OnDisableTexture(SEResourceIdentifier* pID);
+    virtual void OnEnableVBuffer(SEResourceIdentifier* pID, 
+        SEVertexProgram* pVProgram);
+    virtual void OnDisableVBuffer(SEResourceIdentifier* pID, 
+        SEVertexProgram* pVProgram);
+    virtual void OnEnableIBuffer(SEResourceIdentifier* pID);
+    virtual void OnDisableIBuffer(SEResourceIdentifier* pID);
 
 // 成员变量
 protected:
-    friend class DX9FrameBuffer;
+    friend class SEDX9FrameBuffer;
 
     LPDIRECT3D9 m_pDXMain;
     LPDIRECT3DDEVICE9 m_pDXDevice;
@@ -189,7 +188,7 @@ protected:
     // D3D要求在device lost时释放相关VRAM资源(创建声明为D3DPOOL_DEFAULT),
     // 在device reset时重新装载这些VRAM资源.
     // 目前只有frame buffer索引的offscreen texture是该类型资源.
-    std::vector<DX9FrameBuffer*> m_FrameBuffers;
+    std::vector<SEDX9FrameBuffer*> m_FrameBuffers;
 
     // 字体库.
     std::vector<LPD3DXFONT> m_FontArray;
@@ -203,7 +202,7 @@ protected:
     // 错误检查与异常获取.
     static HRESULT ms_hResult;
 
-    static DX9ProgramInterfaceCatalog* ms_pProgramInterfaceCatalog;
+    static SEDX9ProgramInterfaceCatalog* ms_pProgramInterfaceCatalog;
 
     // 引擎层参数常量与DirectX渲染器层参数常量映射表.
     static D3DPRIMITIVETYPE ms_aeObjectType[];

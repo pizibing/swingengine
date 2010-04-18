@@ -34,18 +34,18 @@ using namespace Swing;
 void Swing::SE_DX9Renderer_Register()
 {
     // DX9Rendering
-    SE_REGISTER_INITIALIZE(DX9FrameBuffer);
-    SE_REGISTER_INITIALIZE(DX9Renderer);
-    SE_REGISTER_INITIALIZE(DX9Program);
-    SE_INVOKE_INITIALIZE(DX9FrameBuffer);
-    SE_INVOKE_INITIALIZE(DX9Renderer);
-    SE_INVOKE_INITIALIZE(DX9Program);
+    SE_REGISTER_INITIALIZE(SEDX9FrameBuffer);
+    SE_REGISTER_INITIALIZE(SEDX9Renderer);
+    SE_REGISTER_INITIALIZE(SEDX9Program);
+    SE_INVOKE_INITIALIZE(SEDX9FrameBuffer);
+    SE_INVOKE_INITIALIZE(SEDX9Renderer);
+    SE_INVOKE_INITIALIZE(SEDX9Program);
 
-    SE_REGISTER_TERMINATE(DX9Renderer);
-    SE_INVOKE_TERMINATE(DX9Renderer);
+    SE_REGISTER_TERMINATE(SEDX9Renderer);
+    SE_INVOKE_TERMINATE(SEDX9Renderer);
 
     // DX9Shaders
-    SE_REGISTER_STREAM(DX9ProgramInterface);
-    SE_INVOKE_STREAM(DX9ProgramInterface);
+    SE_REGISTER_STREAM(SEDX9ProgramInterface);
+    SE_INVOKE_STREAM(SEDX9ProgramInterface);
 }
 //----------------------------------------------------------------------------

@@ -24,9 +24,9 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void DX9Renderer::SetWireframeState(WireframeState* pState)
+void SEDX9Renderer::SetWireframeState(SEWireframeState* pState)
 {
-    Renderer::SetWireframeState(pState);
+    SERenderer::SetWireframeState(pState);
 
     if( pState->Enabled )
     {

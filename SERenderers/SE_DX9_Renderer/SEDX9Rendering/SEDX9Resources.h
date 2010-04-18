@@ -30,50 +30,50 @@
 namespace Swing
 {
 
-class SE_RENDERER_API VProgramID : public ResourceIdentifier
+class SE_RENDERER_API SEVProgramID : public SEResourceIdentifier
 {
 public:
     CGprogram ID;
 };
 
-class SE_RENDERER_API PProgramID : public ResourceIdentifier
+class SE_RENDERER_API SEPProgramID : public SEResourceIdentifier
 {
 public:
     CGprogram ID;
 };
 
-class SE_RENDERER_API TextureID : public ResourceIdentifier
+class SE_RENDERER_API SETextureID : public SEResourceIdentifier
 {
 public:
     IDirect3DBaseTexture9* ID;
-    Texture* TextureObject;
+    SETexture* TextureObject;
 };
 
-class SE_RENDERER_API VBufferID : public ResourceIdentifier
+class SE_RENDERER_API SEVBufferID : public SEResourceIdentifier
 {
 public:
-    Attributes IAttr;  // multipass时,用于shader输入属性匹配性检测.
-    Attributes OAttr;
+    SEAttributes IAttr;  // multipass时,用于shader输入属性匹配性检测.
+    SEAttributes OAttr;
     LPDIRECT3DVERTEXBUFFER9 ID;
     int VertexSize;
     DWORD Format;
 };
 
-class SE_RENDERER_API IBufferID : public ResourceIdentifier
+class SE_RENDERER_API SEIBufferID : public SEResourceIdentifier
 {
 public:
     LPDIRECT3DINDEXBUFFER9 ID;
 };
 
-class SE_RENDERER_API ProgramData
+class SE_RENDERER_API SEProgramData
 {
 public:
-    ProgramData(void){ ID = 0; }
+    SEProgramData(void){ ID = 0; }
 
     CGprogram ID;
 
     // 该程序所需的程序接口.
-    std::vector<DX9ProgramInterfacePtr> Interfaces;
+    std::vector<SEDX9ProgramInterfacePtr> Interfaces;
 };
 
 }

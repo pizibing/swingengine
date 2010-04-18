@@ -23,22 +23,22 @@
 
 using namespace Swing;
 
-DWORD DX9Renderer::ms_adwZBufferCompare[ZBufferState::CF_COUNT] = 
+DWORD SEDX9Renderer::ms_adwZBufferCompare[SEZBufferState::CF_COUNT] = 
 {
-    D3DCMP_NEVER,           // ZBufferState::CF_NEVER
-    D3DCMP_LESS,            // ZBufferState::CF_LESS
-    D3DCMP_EQUAL,           // ZBufferState::CF_EQUAL
-    D3DCMP_LESSEQUAL,       // ZBufferState::CF_LEQUAL
-    D3DCMP_GREATER,         // ZBufferState::CF_GREATER
-    D3DCMP_NOTEQUAL,        // ZBufferState::CF_NOTEQUAL
-    D3DCMP_GREATEREQUAL,    // ZBufferState::CF_GEQUAL
-    D3DCMP_ALWAYS,          // ZBufferState::CF_ALWAYS
+    D3DCMP_NEVER,           // SEZBufferState::CF_NEVER
+    D3DCMP_LESS,            // SEZBufferState::CF_LESS
+    D3DCMP_EQUAL,           // SEZBufferState::CF_EQUAL
+    D3DCMP_LESSEQUAL,       // SEZBufferState::CF_LEQUAL
+    D3DCMP_GREATER,         // SEZBufferState::CF_GREATER
+    D3DCMP_NOTEQUAL,        // SEZBufferState::CF_NOTEQUAL
+    D3DCMP_GREATEREQUAL,    // SEZBufferState::CF_GEQUAL
+    D3DCMP_ALWAYS,          // SEZBufferState::CF_ALWAYS
 };
 
 //----------------------------------------------------------------------------
-void DX9Renderer::SetZBufferState(ZBufferState* pState)
+void SEDX9Renderer::SetZBufferState(SEZBufferState* pState)
 {
-    Renderer::SetZBufferState(pState);
+    SERenderer::SetZBufferState(pState);
 
     if( pState->Enabled )
     {

@@ -25,32 +25,32 @@
 
 using namespace Swing;
 
-D3DFORMAT DX9Renderer::ms_aeImageFormat[Image::IT_COUNT] =
+D3DFORMAT SEDX9Renderer::ms_aeImageFormat[SEImage::IT_COUNT] =
 {
-    D3DFMT_A8R8G8B8,      // Image::IT_RGB888
-    D3DFMT_A8R8G8B8,      // Image::IT_RGBA8888
-    D3DFMT_D16,           // Image::IT_DEPTH16
-    D3DFMT_D24X8,         // Image::IT_DEPTH24
-    D3DFMT_D32,           // Image::IT_DEPTH32
-    D3DFMT_A8R8G8B8,      // Image::IT_CUBE_RGB888
-    D3DFMT_A8R8G8B8,      // Image::IT_CUBE_RGBA8888
-    D3DFMT_A32B32G32R32F, // Image::IT_RGB32
-    D3DFMT_A32B32G32R32F, // Image::IT_RGBA32
-    D3DFMT_L8,            // Image::IT_L8
-    D3DFMT_L16,           // Image::IT_L16
-    D3DFMT_R32F,          // Image::IT_R32
-    D3DFMT_A16B16G16R16F, // Image::IT_RGB16F
-    D3DFMT_A16B16G16R16F, // Image::IT_RGBA16F
-    D3DFMT_R5G6B5,        // Image::IT_RGB565
-    D3DFMT_A1R5G5B5,      // Image::IT_RGBA5551
-    D3DFMT_A4R4G4B4       // Image::IT_RGBA4444
+    D3DFMT_A8R8G8B8,      // SEImage::IT_RGB888
+    D3DFMT_A8R8G8B8,      // SEImage::IT_RGBA8888
+    D3DFMT_D16,           // SEImage::IT_DEPTH16
+    D3DFMT_D24X8,         // SEImage::IT_DEPTH24
+    D3DFMT_D32,           // SEImage::IT_DEPTH32
+    D3DFMT_A8R8G8B8,      // SEImage::IT_CUBE_RGB888
+    D3DFMT_A8R8G8B8,      // SEImage::IT_CUBE_RGBA8888
+    D3DFMT_A32B32G32R32F, // SEImage::IT_RGB32
+    D3DFMT_A32B32G32R32F, // SEImage::IT_RGBA32
+    D3DFMT_L8,            // SEImage::IT_L8
+    D3DFMT_L16,           // SEImage::IT_L16
+    D3DFMT_R32F,          // SEImage::IT_R32
+    D3DFMT_A16B16G16R16F, // SEImage::IT_RGB16F
+    D3DFMT_A16B16G16R16F, // SEImage::IT_RGBA16F
+    D3DFMT_R5G6B5,        // SEImage::IT_RGB565
+    D3DFMT_A1R5G5B5,      // SEImage::IT_RGBA5551
+    D3DFMT_A4R4G4B4       // SEImage::IT_RGBA4444
 };
 
 //----------------------------------------------------------------------------
 // 资源装载与移除(主要针对显存).
 //----------------------------------------------------------------------------
-void DX9Renderer::OnLoadVProgram(ResourceIdentifier*& rpID, 
-    VertexProgram* pVProgram)
+void SEDX9Renderer::OnLoadVProgram(SEResourceIdentifier*& rpID, 
+    SEVertexProgram* pVProgram)
 {
     // When using multiple renderers, cgD3D9 runtime can not support a 
     // one-to-one relationship between a cg context and a DX device.
@@ -62,8 +62,8 @@ void DX9Renderer::OnLoadVProgram(ResourceIdentifier*& rpID,
     cgD3D9SetDevice(m_pDXDevice);
     SE_DX9_DEBUG_CG_PROGRAM;
 
-    VProgramID* pResource = SE_NEW VProgramID;
-    ProgramData* pData = (ProgramData*)pVProgram->UserData;
+    SEVProgramID* pResource = SE_NEW SEVProgramID;
+    SEProgramData* pData = (SEProgramData*)pVProgram->UserData;
     pResource->ID = pData->ID;
     rpID = pResource;
 
@@ -71,14 +71,14 @@ void DX9Renderer::OnLoadVProgram(ResourceIdentifier*& rpID,
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnReleaseVProgram(ResourceIdentifier* pID)
+void SEDX9Renderer::OnReleaseVProgram(SEResourceIdentifier* pID)
 {
-    VProgramID* pResource = (VProgramID*)pID;
+    SEVProgramID* pResource = (SEVProgramID*)pID;
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnLoadPProgram(ResourceIdentifier*& rpID, 
-    PixelProgram* pPProgram)
+void SEDX9Renderer::OnLoadPProgram(SEResourceIdentifier*& rpID, 
+    SEPixelProgram* pPProgram)
 {
     // When using multiple renderers, cgD3D9 runtime can not support a 
     // one-to-one relationship between a cg context and a DX device.
@@ -90,8 +90,8 @@ void DX9Renderer::OnLoadPProgram(ResourceIdentifier*& rpID,
     cgD3D9SetDevice(m_pDXDevice);
     SE_DX9_DEBUG_CG_PROGRAM;
 
-    PProgramID* pResource = SE_NEW PProgramID;
-    ProgramData* pData = (ProgramData*)pPProgram->UserData;
+    SEPProgramID* pResource = SE_NEW SEPProgramID;
+    SEProgramData* pData = (SEProgramData*)pPProgram->UserData;
     pResource->ID = pData->ID;
     rpID = pResource;
 
@@ -99,24 +99,25 @@ void DX9Renderer::OnLoadPProgram(ResourceIdentifier*& rpID,
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnReleasePProgram(ResourceIdentifier* pID)
+void SEDX9Renderer::OnReleasePProgram(SEResourceIdentifier* pID)
 {
-    PProgramID* pResource = (PProgramID*)pID;
+    SEPProgramID* pResource = (SEPProgramID*)pID;
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
+void SEDX9Renderer::OnLoadTexture(SEResourceIdentifier*& rpID, SETexture* 
+    pTexture)
 {
     // 第一次遇到该纹理资源.
     // 为使用该纹理的设备设置纹理单元.
-    TextureID* pResource = SE_NEW TextureID;
+    SETextureID* pResource = SE_NEW SETextureID;
     pResource->TextureObject = pTexture;
     rpID = pResource;
 
     bool bOffscreen = pTexture->IsOffscreenTexture();
 
     // 把image数据从系统内存装载入显存..
-    const Image* pImage = pTexture->GetImage();
+    const SEImage* pImage = pTexture->GetImage();
     SE_ASSERT( pImage );
     int iDimension = pImage->GetDimension();
     bool bIsRegularImage = !pImage->IsCubeImage();
@@ -128,14 +129,14 @@ void DX9Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
     unsigned char* aucRSrc = 0;
     bool bOwnRSrc = true;
     int i, iSrcBase = 0, iRSrcBase = 0;
-    Image::FormatMode eFormat = pImage->GetFormat();
+    SEImage::FormatMode eFormat = pImage->GetFormat();
     D3DFORMAT eD3DFormat = ms_aeImageFormat[eFormat];
 
     if( aucSrc )
     {
         switch( eFormat )
         {
-        case Image::IT_RGB888:
+        case SEImage::IT_RGB888:
             // Swap R and B and pad to an RGBA image.
             iCount = pImage->GetCount();
             iByteCount = 4*iCount;
@@ -149,7 +150,7 @@ void DX9Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
             }
             break;
 
-        case Image::IT_RGBA8888:
+        case SEImage::IT_RGBA8888:
             iCount = pImage->GetCount();
             iByteCount = 4*iCount;
             aucRSrc = SE_NEW unsigned char[iByteCount];
@@ -162,7 +163,7 @@ void DX9Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
             }
             break;
 
-        case Image::IT_CUBE_RGB888:
+        case SEImage::IT_CUBE_RGB888:
             // Swap R and B and pad to an RGBA image.
             iCount = 6*pImage->GetCount();
             iByteCount = 4*iCount;
@@ -177,7 +178,7 @@ void DX9Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
             iByteCount = 4*pImage->GetCount();
             break;
 
-        case Image::IT_CUBE_RGBA8888:
+        case SEImage::IT_CUBE_RGBA8888:
             iCount = 6*pImage->GetCount();
             iByteCount = 4*iCount;
             aucRSrc = SE_NEW unsigned char[iByteCount];
@@ -191,7 +192,7 @@ void DX9Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
             iByteCount = 4*pImage->GetCount();
             break;
 
-        case Image::IT_RGB565:
+        case SEImage::IT_RGB565:
         {
             // Swap R and B.
             iCount = pImage->GetCount();
@@ -211,7 +212,7 @@ void DX9Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
             break;
         }
 
-        case Image::IT_RGBA5551:
+        case SEImage::IT_RGBA5551:
         {
             // Swap R and B.
             iCount = pImage->GetCount();
@@ -232,7 +233,7 @@ void DX9Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
             break;
         }
 
-        case Image::IT_RGBA4444:
+        case SEImage::IT_RGBA4444:
         {
             // Swap R and B.
             iCount = pImage->GetCount();
@@ -454,19 +455,19 @@ void DX9Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
     }
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnReleaseTexture(ResourceIdentifier* pID)
+void SEDX9Renderer::OnReleaseTexture(SEResourceIdentifier* pID)
 {
-    TextureID* pResource = (TextureID*)pID;
+    SETextureID* pResource = (SETextureID*)pID;
     ms_hResult = pResource->ID->Release();
     SE_ASSERT( SUCCEEDED(ms_hResult) );
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
-    const Attributes& rIAttr, const Attributes& rOAttr,
-    VertexBuffer* pVBuffer, VertexProgram*)
+void SEDX9Renderer::OnLoadVBuffer(SEResourceIdentifier*& rpID,
+    const SEAttributes& rIAttr, const SEAttributes& rOAttr,
+    SEVertexBuffer* pVBuffer, SEVertexProgram*)
 {
-    VBufferID* pResource = SE_NEW VBufferID;
+    SEVBufferID* pResource = SE_NEW SEVBufferID;
     rpID = pResource;
     pResource->IAttr = rIAttr;
     pResource->OAttr = rOAttr;
@@ -563,17 +564,18 @@ void DX9Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
     pResource->Format = dwFormat;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnReleaseVBuffer(ResourceIdentifier* pID)
+void SEDX9Renderer::OnReleaseVBuffer(SEResourceIdentifier* pID)
 {
-    VBufferID* pResource = (VBufferID*)pID;
+    SEVBufferID* pResource = (SEVBufferID*)pID;
     pResource->ID->Release();
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnLoadIBuffer(ResourceIdentifier*& rpID, IndexBuffer* pIBuffer)
+void SEDX9Renderer::OnLoadIBuffer(SEResourceIdentifier*& rpID, SEIndexBuffer* 
+    pIBuffer)
 {
     // The index buffer is encountered the first time.
-    IBufferID* pResource = SE_NEW IBufferID;
+    SEIBufferID* pResource = SE_NEW SEIBufferID;
     rpID = pResource;
 
     int iICount = pIBuffer->GetIndexCount();
@@ -600,9 +602,9 @@ void DX9Renderer::OnLoadIBuffer(ResourceIdentifier*& rpID, IndexBuffer* pIBuffer
     pResource->ID = pDXIBuffer;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnReleaseIBuffer(ResourceIdentifier* pID)
+void SEDX9Renderer::OnReleaseIBuffer(SEResourceIdentifier* pID)
 {
-    IBufferID* pResource = (IBufferID*)pID;
+    SEIBufferID* pResource = (SEIBufferID*)pID;
     pResource->ID->Release();
     SE_DELETE pResource;
 }

@@ -23,55 +23,55 @@
 
 using namespace Swing;
 
-DWORD DX9Renderer::ms_adwAlphaSrcBlend[AlphaState::SBF_COUNT] =
+DWORD SEDX9Renderer::ms_adwAlphaSrcBlend[SEAlphaState::SBF_COUNT] =
 {
-    D3DBLEND_ZERO,          // AlphaState::SBF_ZERO
-    D3DBLEND_ONE,           // AlphaState::SBF_ONE
-    D3DBLEND_DESTCOLOR,     // AlphaState::SBF_DST_COLOR
-    D3DBLEND_INVDESTCOLOR,  // AlphaState::SBF_ONE_MINUS_DST_COLOR
-    D3DBLEND_SRCALPHA,      // AlphaState::SBF_SRC_ALPHA
-    D3DBLEND_INVSRCALPHA,   // AlphaState::SBF_ONE_MINUS_SRC_ALPHA
-    D3DBLEND_DESTALPHA,     // AlphaState::SBF_DST_ALPHA
-    D3DBLEND_INVDESTALPHA,  // AlphaState::SBF_ONE_MINUS_DST_ALPHA
-    D3DBLEND_SRCALPHASAT,   // AlphaState::SBF_SRC_ALPHA_SATURATE
-    0,                      // AlphaState::SBF_CONSTANT_COLOR
-    0,                      // AlphaState::SBF_ONE_MINUS_CONSTANT_COLOR
-    0,                      // AlphaState::SBF_CONSTANT_ALPHA
-    0                       // AlphaState::SBF_ONE_MINUS_CONSTANT_ALPHA
+    D3DBLEND_ZERO,          // SEAlphaState::SBF_ZERO
+    D3DBLEND_ONE,           // SEAlphaState::SBF_ONE
+    D3DBLEND_DESTCOLOR,     // SEAlphaState::SBF_DST_COLOR
+    D3DBLEND_INVDESTCOLOR,  // SEAlphaState::SBF_ONE_MINUS_DST_COLOR
+    D3DBLEND_SRCALPHA,      // SEAlphaState::SBF_SRC_ALPHA
+    D3DBLEND_INVSRCALPHA,   // SEAlphaState::SBF_ONE_MINUS_SRC_ALPHA
+    D3DBLEND_DESTALPHA,     // SEAlphaState::SBF_DST_ALPHA
+    D3DBLEND_INVDESTALPHA,  // SEAlphaState::SBF_ONE_MINUS_DST_ALPHA
+    D3DBLEND_SRCALPHASAT,   // SEAlphaState::SBF_SRC_ALPHA_SATURATE
+    0,                      // SEAlphaState::SBF_CONSTANT_COLOR
+    0,                      // SEAlphaState::SBF_ONE_MINUS_CONSTANT_COLOR
+    0,                      // SEAlphaState::SBF_CONSTANT_ALPHA
+    0                       // SEAlphaState::SBF_ONE_MINUS_CONSTANT_ALPHA
 };
 
-DWORD DX9Renderer::ms_adwAlphaDstBlend[AlphaState::DBF_COUNT] =
+DWORD SEDX9Renderer::ms_adwAlphaDstBlend[SEAlphaState::DBF_COUNT] =
 {
-    D3DBLEND_ZERO,          // AlphaState::DBF_ZERO
-    D3DBLEND_ONE,           // AlphaState::DBF_ONE
-    D3DBLEND_SRCCOLOR,      // AlphaState::DBF_SRC_COLOR
-    D3DBLEND_INVSRCCOLOR,   // AlphaState::DBF_ONE_MINUS_SRC_COLOR
-    D3DBLEND_SRCALPHA,      // AlphaState::DBF_SRC_ALPHA
-    D3DBLEND_INVSRCALPHA,   // AlphaState::DBF_ONE_MINUS_SRC_ALPHA
-    D3DBLEND_DESTALPHA,     // AlphaState::DBF_DST_ALPHA
-    D3DBLEND_INVDESTALPHA,  // AlphaState::DBF_ONE_MINUS_DST_ALPHA
-    0,                      // AlphaState::DBF_CONSTANT_COLOR
-    0,                      // AlphaState::DBF_ONE_MINUS_CONSTANT_COLOR
-    0,                      // AlphaState::DBF_CONSTANT_ALPHA
-    0                       // AlphaState::DBF_ONE_MINUS_CONSTANT_ALPHA
+    D3DBLEND_ZERO,          // SEAlphaState::DBF_ZERO
+    D3DBLEND_ONE,           // SEAlphaState::DBF_ONE
+    D3DBLEND_SRCCOLOR,      // SEAlphaState::DBF_SRC_COLOR
+    D3DBLEND_INVSRCCOLOR,   // SEAlphaState::DBF_ONE_MINUS_SRC_COLOR
+    D3DBLEND_SRCALPHA,      // SEAlphaState::DBF_SRC_ALPHA
+    D3DBLEND_INVSRCALPHA,   // SEAlphaState::DBF_ONE_MINUS_SRC_ALPHA
+    D3DBLEND_DESTALPHA,     // SEAlphaState::DBF_DST_ALPHA
+    D3DBLEND_INVDESTALPHA,  // SEAlphaState::DBF_ONE_MINUS_DST_ALPHA
+    0,                      // SEAlphaState::DBF_CONSTANT_COLOR
+    0,                      // SEAlphaState::DBF_ONE_MINUS_CONSTANT_COLOR
+    0,                      // SEAlphaState::DBF_CONSTANT_ALPHA
+    0                       // SEAlphaState::DBF_ONE_MINUS_CONSTANT_ALPHA
 };
 
-DWORD DX9Renderer::ms_adwAlphaTest[AlphaState::TF_COUNT] =
+DWORD SEDX9Renderer::ms_adwAlphaTest[SEAlphaState::TF_COUNT] =
 {
-    D3DCMP_NEVER,           // AlphaState::TF_NEVER
-    D3DCMP_LESS,            // AlphaState::TF_LESS
-    D3DCMP_EQUAL,           // AlphaState::TF_EQUAL
-    D3DCMP_LESSEQUAL,       // AlphaState::TF_LEQUAL
-    D3DCMP_GREATER,         // AlphaState::TF_GREATER
-    D3DCMP_NOTEQUAL,        // AlphaState::TF_NOTEQUAL
-    D3DCMP_GREATEREQUAL,    // AlphaState::TF_GEQUAL
-    D3DCMP_ALWAYS           // AlphaState::TF_ALWAYS
+    D3DCMP_NEVER,           // SEAlphaState::TF_NEVER
+    D3DCMP_LESS,            // SEAlphaState::TF_LESS
+    D3DCMP_EQUAL,           // SEAlphaState::TF_EQUAL
+    D3DCMP_LESSEQUAL,       // SEAlphaState::TF_LEQUAL
+    D3DCMP_GREATER,         // SEAlphaState::TF_GREATER
+    D3DCMP_NOTEQUAL,        // SEAlphaState::TF_NOTEQUAL
+    D3DCMP_GREATEREQUAL,    // SEAlphaState::TF_GEQUAL
+    D3DCMP_ALWAYS           // SEAlphaState::TF_ALWAYS
 };
 
 //----------------------------------------------------------------------------
-void DX9Renderer::SetAlphaState(AlphaState* pState)
+void SEDX9Renderer::SetAlphaState(SEAlphaState* pState)
 {
-    Renderer::SetAlphaState(pState);
+    SERenderer::SetAlphaState(pState);
 
     if( pState->BlendEnabled )
     {
@@ -88,25 +88,25 @@ void DX9Renderer::SetAlphaState(AlphaState* pState)
         {
             switch( pState->SrcBlend )
             {
-            case AlphaState::SBF_CONSTANT_COLOR:
+            case SEAlphaState::SBF_CONSTANT_COLOR:
                 dwSrcBlend = D3DBLEND_BLENDFACTOR;
                 dwSrcConstantColor = D3DCOLOR_COLORVALUE(
                     pState->ConstantColor.R, pState->ConstantColor.G,
                     pState->ConstantColor.B, pState->ConstantColor.A);
                 break;
-            case AlphaState::SBF_ONE_MINUS_CONSTANT_COLOR:
+            case SEAlphaState::SBF_ONE_MINUS_CONSTANT_COLOR:
                 dwSrcBlend = D3DBLEND_INVBLENDFACTOR;
                 dwSrcConstantColor = D3DCOLOR_COLORVALUE(
                     pState->ConstantColor.R, pState->ConstantColor.G,
                     pState->ConstantColor.B, pState->ConstantColor.A);
                 break;
-            case AlphaState::SBF_CONSTANT_ALPHA:
+            case SEAlphaState::SBF_CONSTANT_ALPHA:
                 dwSrcBlend = D3DBLEND_BLENDFACTOR;
                 dwSrcConstantColor = D3DCOLOR_COLORVALUE(
                     pState->ConstantColor.A, pState->ConstantColor.A,
                     pState->ConstantColor.A, pState->ConstantColor.A);
                 break;
-            case AlphaState::SBF_ONE_MINUS_CONSTANT_ALPHA:
+            case SEAlphaState::SBF_ONE_MINUS_CONSTANT_ALPHA:
                 dwSrcBlend = D3DBLEND_INVBLENDFACTOR;
                 dwSrcConstantColor = D3DCOLOR_COLORVALUE(
                     pState->ConstantColor.A, pState->ConstantColor.A,
@@ -125,25 +125,25 @@ void DX9Renderer::SetAlphaState(AlphaState* pState)
         {
             switch( pState->DstBlend )
             {
-            case AlphaState::DBF_CONSTANT_COLOR:
+            case SEAlphaState::DBF_CONSTANT_COLOR:
                 dwDstBlend = D3DBLEND_BLENDFACTOR;
                 dwDstConstantColor = D3DCOLOR_COLORVALUE(
                     pState->ConstantColor.R, pState->ConstantColor.G,
                     pState->ConstantColor.B, pState->ConstantColor.A);
                 break;
-            case AlphaState::DBF_ONE_MINUS_CONSTANT_COLOR:
+            case SEAlphaState::DBF_ONE_MINUS_CONSTANT_COLOR:
                 dwDstBlend = D3DBLEND_INVBLENDFACTOR;
                 dwDstConstantColor = D3DCOLOR_COLORVALUE(
                     pState->ConstantColor.R, pState->ConstantColor.G,
                     pState->ConstantColor.B, pState->ConstantColor.A);
                 break;
-            case AlphaState::DBF_CONSTANT_ALPHA:
+            case SEAlphaState::DBF_CONSTANT_ALPHA:
                 dwDstBlend = D3DBLEND_BLENDFACTOR;
                 dwDstConstantColor = D3DCOLOR_COLORVALUE(
                     pState->ConstantColor.A, pState->ConstantColor.A,
                     pState->ConstantColor.A, pState->ConstantColor.A);
                 break;
-            case AlphaState::DBF_ONE_MINUS_CONSTANT_ALPHA:
+            case SEAlphaState::DBF_ONE_MINUS_CONSTANT_ALPHA:
                 dwDstBlend = D3DBLEND_INVBLENDFACTOR;
                 dwDstConstantColor = D3DCOLOR_COLORVALUE(
                     pState->ConstantColor.A, pState->ConstantColor.A,
@@ -173,11 +173,13 @@ void DX9Renderer::SetAlphaState(AlphaState* pState)
 
         ms_hResult = m_pDXDevice->SetRenderState(D3DRS_SRCBLEND, dwSrcBlend);
         ms_hResult = m_pDXDevice->SetRenderState(D3DRS_DESTBLEND, dwDstBlend);
-        ms_hResult = m_pDXDevice->SetRenderState(D3DRS_BLENDFACTOR, dwSrcConstantColor);
+        ms_hResult = m_pDXDevice->SetRenderState(D3DRS_BLENDFACTOR, 
+            dwSrcConstantColor);
     }
     else
     {
-        ms_hResult = m_pDXDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+        ms_hResult = m_pDXDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, 
+            FALSE);
         SE_ASSERT( SUCCEEDED(ms_hResult) );
     }
 
@@ -186,10 +188,12 @@ void DX9Renderer::SetAlphaState(AlphaState* pState)
         ms_hResult = m_pDXDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
         SE_ASSERT( SUCCEEDED(ms_hResult) );
 
-        ms_hResult = m_pDXDevice->SetRenderState(D3DRS_ALPHAFUNC, ms_adwAlphaTest[pState->Test]);
+        ms_hResult = m_pDXDevice->SetRenderState(D3DRS_ALPHAFUNC, 
+            ms_adwAlphaTest[pState->Test]);
         SE_ASSERT( SUCCEEDED(ms_hResult) );
 
-        ms_hResult = m_pDXDevice->SetRenderState(D3DRS_ALPHAREF, (DWORD)(255.0f*pState->Reference));
+        ms_hResult = m_pDXDevice->SetRenderState(D3DRS_ALPHAREF, 
+            (DWORD)(255.0f*pState->Reference));
         SE_ASSERT( SUCCEEDED(ms_hResult) );
     }
     else

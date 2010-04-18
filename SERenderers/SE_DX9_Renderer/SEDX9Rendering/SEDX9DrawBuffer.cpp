@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void DX9Renderer::Draw(const unsigned char* aucBuffer)
+void SEDX9Renderer::Draw(const unsigned char* aucBuffer)
 {
     if( !aucBuffer )
     {
@@ -32,7 +32,8 @@ void DX9Renderer::Draw(const unsigned char* aucBuffer)
     }
 
     IDirect3DSurface9* pBackBuffer = 0;
-    ms_hResult = m_pDXDevice->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer);
+    ms_hResult = m_pDXDevice->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, 
+        &pBackBuffer);
     SE_ASSERT( pBackBuffer );
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 

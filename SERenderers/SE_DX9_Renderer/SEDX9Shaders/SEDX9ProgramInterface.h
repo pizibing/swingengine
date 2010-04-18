@@ -29,12 +29,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:DirectX9 shader program interface类
 // 说明:
 // 作者:Sun Che
 // 时间:20090417
 //----------------------------------------------------------------------------
-class SE_RENDERER_API DX9ProgramInterface : public SEObject
+class SE_RENDERER_API SEDX9ProgramInterface : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -42,23 +41,23 @@ class SE_RENDERER_API DX9ProgramInterface : public SEObject
 
 public:
     // 必须通过Load来创建一个实例.
-    static DX9ProgramInterface* Load(CGprogram hCgProgram, CGcontext hCgContext, 
-        const std::string& rPInterfaceName);
-    ~DX9ProgramInterface(void);
+    static SEDX9ProgramInterface* Load(CGprogram hCgProgram, CGcontext 
+        hCgContext, const std::string& rPInterfaceName);
+    ~SEDX9ProgramInterface(void);
 
     inline CGtype GetProgramInterfaceType(void) const;
     inline CGparameter GetParam(void) const;
     inline CGprogram GetProgram(void) const;
 
 protected:
-    DX9ProgramInterface(void);
+    SEDX9ProgramInterface(void);
 
     CGtype m_eCgType;
     CGparameter m_hCgParam;
     CGprogram m_hCgProgram;
 };
 
-typedef SESmartPointer<DX9ProgramInterface> DX9ProgramInterfacePtr;
+typedef SESmartPointer<SEDX9ProgramInterface> SEDX9ProgramInterfacePtr;
 
 #include "SEDX9ProgramInterface.inl"
 

@@ -24,7 +24,7 @@
 using namespace Swing;
 
 // 固定管线这样做.
-//DWORD DX9Renderer::ms_adwFogDensity[FogState::DF_COUNT] = 
+//DWORD SEDX9Renderer::ms_adwFogDensity[FogState::DF_COUNT] = 
 //{
 //    D3DFOG_LINEAR,  // FogState::DF_LINEAR
 //    D3DFOG_EXP,     // FogState::DF_EXP
@@ -32,9 +32,9 @@ using namespace Swing;
 //};
 //
 ////----------------------------------------------------------------------------
-//void DX9Renderer::SetFogState(FogState* pState)
+//void SEDX9Renderer::SetFogState(FogState* pState)
 //{
-//    Renderer::SetFogState(pState);
+//    SERenderer::SetFogState(pState);
 //
 //    if( pState->Enabled )
 //    {

@@ -24,13 +24,13 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void DX9Renderer::SetPolygonOffsetState(PolygonOffsetState* pState)
+void SEDX9Renderer::SetPolygonOffsetState(SEPolygonOffsetState* pState)
 {
     // The LineEnabled and PointEnabled members are ignored by the DX9
     // renderer since DX9 does not support polygon offset for those
     // primitives.
 
-    Renderer::SetPolygonOffsetState(pState);
+    SERenderer::SetPolygonOffsetState(pState);
 
     if( pState->FillEnabled )
     {

@@ -25,9 +25,9 @@ using namespace Swing;
 
 // 固定管线这样做.
 ////----------------------------------------------------------------------------
-//void DX9Renderer::SetMaterialState(MaterialState* pState)
+//void SEDX9Renderer::SetMaterialState(MaterialState* pState)
 //{
-//    Renderer::SetMaterialState(pState);
+//    SERenderer::SetMaterialState(pState);
 //
 //    D3DMATERIAL9 TempMaterial;
 //

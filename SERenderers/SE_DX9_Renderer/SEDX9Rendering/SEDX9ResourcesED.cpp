@@ -25,139 +25,139 @@
 
 using namespace Swing;
 
-DWORD DX9Renderer::ms_adwTexMinFilter[Texture::MAX_FILTER_TYPES] =
+DWORD SEDX9Renderer::ms_adwTexMinFilter[SETexture::MAX_FILTER_TYPES] =
 {
-    D3DTEXF_POINT,  // Texture::MM_NEAREST
-    D3DTEXF_LINEAR, // Texture::MM_LINEAR
-    D3DTEXF_POINT,  // Texture::MM_NEAREST_NEAREST
-    D3DTEXF_POINT,  // Texture::MM_NEAREST_LINEAR
-    D3DTEXF_LINEAR, // Texture::MM_LINEAR_NEAREST
-    D3DTEXF_LINEAR, // Texture::MM_LINEAR_LINEAR
+    D3DTEXF_POINT,  // SETexture::MM_NEAREST
+    D3DTEXF_LINEAR, // SETexture::MM_LINEAR
+    D3DTEXF_POINT,  // SETexture::MM_NEAREST_NEAREST
+    D3DTEXF_POINT,  // SETexture::MM_NEAREST_LINEAR
+    D3DTEXF_LINEAR, // SETexture::MM_LINEAR_NEAREST
+    D3DTEXF_LINEAR, // SETexture::MM_LINEAR_LINEAR
 };
 
-DWORD DX9Renderer::ms_adwTexMipFilter[Texture::MAX_FILTER_TYPES] =
+DWORD SEDX9Renderer::ms_adwTexMipFilter[SETexture::MAX_FILTER_TYPES] =
 {
-    D3DTEXF_NONE,   // Texture::MM_NEAREST
-    D3DTEXF_NONE,   // Texture::MM_LINEAR
-    D3DTEXF_POINT,  // Texture::MM_NEAREST_NEAREST
-    D3DTEXF_LINEAR, // Texture::MM_NEAREST_LINEAR
-    D3DTEXF_POINT,  // Texture::MM_LINEAR_NEAREST
-    D3DTEXF_LINEAR, // Texture::MM_LINEAR_LINEAR
+    D3DTEXF_NONE,   // SETexture::MM_NEAREST
+    D3DTEXF_NONE,   // SETexture::MM_LINEAR
+    D3DTEXF_POINT,  // SETexture::MM_NEAREST_NEAREST
+    D3DTEXF_LINEAR, // SETexture::MM_NEAREST_LINEAR
+    D3DTEXF_POINT,  // SETexture::MM_LINEAR_NEAREST
+    D3DTEXF_LINEAR, // SETexture::MM_LINEAR_LINEAR
 };
 
-DWORD DX9Renderer::ms_adwTexWrapMode[Texture::MAX_WRAP_TYPES] =
+DWORD SEDX9Renderer::ms_adwTexWrapMode[SETexture::MAX_WRAP_TYPES] =
 {
-    D3DTADDRESS_CLAMP,      // Texture::CLAMP
-    D3DTADDRESS_WRAP,       // Texture::REPEAT
-    D3DTADDRESS_MIRROR,     // Texture::MIRRORED_REPEAT
-    D3DTADDRESS_BORDER,     // Texture::CLAMP_BORDER
-    D3DTADDRESS_CLAMP,      // Texture::CLAMP_EDGE
+    D3DTADDRESS_CLAMP,      // SETexture::CLAMP
+    D3DTADDRESS_WRAP,       // SETexture::REPEAT
+    D3DTADDRESS_MIRROR,     // SETexture::MIRRORED_REPEAT
+    D3DTADDRESS_BORDER,     // SETexture::CLAMP_BORDER
+    D3DTADDRESS_CLAMP,      // SETexture::CLAMP_EDGE
 };
 
 //----------------------------------------------------------------------------
 // 资源开启与关闭.
 //----------------------------------------------------------------------------
-void DX9Renderer::SetVProgramRC(RendererConstant* pRC)
+void SEDX9Renderer::SetVProgramRC(SERendererConstant* pRC)
 {
     cgSetParameterValuefr((CGparameter)pRC->GetID(), pRC->GetDataCount(), 
         pRC->GetData());
     SE_DX9_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::SetVProgramUC(UserConstant* pUC)
+void SEDX9Renderer::SetVProgramUC(SEUserConstant* pUC)
 {
     cgSetParameterValuefr((CGparameter)pUC->GetID(), pUC->GetDataCount(), 
         pUC->GetData());
     SE_DX9_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::SetGProgramRC(RendererConstant* pRC)
+void SEDX9Renderer::SetGProgramRC(SERendererConstant* pRC)
 {
     cgSetParameterValuefr((CGparameter)pRC->GetID(), pRC->GetDataCount(), 
         pRC->GetData());
     SE_DX9_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::SetGProgramUC(UserConstant* pUC)
+void SEDX9Renderer::SetGProgramUC(SEUserConstant* pUC)
 {
     cgSetParameterValuefr((CGparameter)pUC->GetID(), pUC->GetDataCount(), 
         pUC->GetData());
     SE_DX9_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::SetPProgramRC(RendererConstant* pRC)
+void SEDX9Renderer::SetPProgramRC(SERendererConstant* pRC)
 {
     cgSetParameterValuefr((CGparameter)pRC->GetID(), pRC->GetDataCount(), 
         pRC->GetData());
     SE_DX9_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::SetPProgramUC(UserConstant* pUC)
+void SEDX9Renderer::SetPProgramUC(SEUserConstant* pUC)
 {
     cgSetParameterValuefr((CGparameter)pUC->GetID(), pUC->GetDataCount(), 
         pUC->GetData());
     SE_DX9_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::UpdateVProgramConstants(VertexProgram* pVProgram)
+void SEDX9Renderer::UpdateVProgramConstants(SEVertexProgram* pVProgram)
 {
-    ProgramData* pData = (ProgramData*)pVProgram->UserData;
+    SEProgramData* pData = (SEProgramData*)pVProgram->UserData;
     cgUpdateProgramParameters(pData->ID);
     SE_DX9_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::UpdateGProgramConstants(GeometryProgram* pGProgram)
+void SEDX9Renderer::UpdateGProgramConstants(SEGeometryProgram* pGProgram)
 {
-    ProgramData* pData = (ProgramData*)pGProgram->UserData;
+    SEProgramData* pData = (SEProgramData*)pGProgram->UserData;
     cgUpdateProgramParameters(pData->ID);
     SE_DX9_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::UpdatePProgramConstants(PixelProgram* pPProgram)
+void SEDX9Renderer::UpdatePProgramConstants(SEPixelProgram* pPProgram)
 {
-    ProgramData* pData = (ProgramData*)pPProgram->UserData;
+    SEProgramData* pData = (SEProgramData*)pPProgram->UserData;
     cgUpdateProgramParameters(pData->ID);
     SE_DX9_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnEnableVProgram(ResourceIdentifier* pID)
+void SEDX9Renderer::OnEnableVProgram(SEResourceIdentifier* pID)
 {
-    VProgramID* pResource = (VProgramID*)pID;
+    SEVProgramID* pResource = (SEVProgramID*)pID;
     ms_hResult = cgD3D9BindProgram(pResource->ID);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnDisableVProgram(ResourceIdentifier*)
+void SEDX9Renderer::OnDisableVProgram(SEResourceIdentifier*)
 {
     ms_hResult = m_pDXDevice->SetVertexShader(0);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnEnablePProgram(ResourceIdentifier* pID)
+void SEDX9Renderer::OnEnablePProgram(SEResourceIdentifier* pID)
 {
-    PProgramID* pResource = (PProgramID*)pID;
+    SEPProgramID* pResource = (SEPProgramID*)pID;
     ms_hResult = cgD3D9BindProgram(pResource->ID);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnDisablePProgram(ResourceIdentifier*)
+void SEDX9Renderer::OnDisablePProgram(SEResourceIdentifier*)
 {
     ms_hResult = m_pDXDevice->SetPixelShader(0);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnEnableTexture(ResourceIdentifier* pID)
+void SEDX9Renderer::OnEnableTexture(SEResourceIdentifier* pID)
 {
-    TextureID* pResource = (TextureID*)pID;
-    Texture* pTexture = pResource->TextureObject;
+    SETextureID* pResource = (SETextureID*)pID;
+    SETexture* pTexture = pResource->TextureObject;
 
-    SamplerInformation* pSI = m_apActiveSamplers[m_iCurrentSampler];
-    SamplerInformation::Type eSType = pSI->GetType();
+    SESamplerInformation* pSI = m_apActiveSamplers[m_iCurrentSampler];
+    SESamplerInformation::Type eSType = pSI->GetType();
     CGparameter hParam = (CGparameter)pSI->GetID();
 
     // Set the filter mode.
-    Texture::FilterType eFType = pTexture->GetFilterType();
-    if( eFType == Texture::NEAREST )
+    SETexture::FilterType eFType = pTexture->GetFilterType();
+    if( eFType == SETexture::NEAREST )
     {
         ms_hResult = cgD3D9SetSamplerState(hParam, D3DSAMP_MAGFILTER, 
             D3DTEXF_POINT);
@@ -187,7 +187,7 @@ void DX9Renderer::OnEnableTexture(ResourceIdentifier* pID)
 
     switch( eSType )
     {
-    case SamplerInformation::SAMPLER_1D:
+    case SESamplerInformation::SAMPLER_1D:
     {
         ms_hResult = cgD3D9SetSamplerState(hParam, D3DSAMP_ADDRESSU, 
             ms_adwTexWrapMode[pTexture->GetWrapType(0)]);
@@ -199,9 +199,9 @@ void DX9Renderer::OnEnableTexture(ResourceIdentifier* pID)
 
         break;
     }
-    case SamplerInformation::SAMPLER_2D:
-    case SamplerInformation::SAMPLER_PROJ:
-    case SamplerInformation::SAMPLER_CUBE:
+    case SESamplerInformation::SAMPLER_2D:
+    case SESamplerInformation::SAMPLER_PROJ:
+    case SESamplerInformation::SAMPLER_CUBE:
     {
         ms_hResult = cgD3D9SetSamplerState(hParam, D3DSAMP_ADDRESSU, 
             ms_adwTexWrapMode[pTexture->GetWrapType(0)]);
@@ -213,7 +213,7 @@ void DX9Renderer::OnEnableTexture(ResourceIdentifier* pID)
 
         break;
     }
-    case SamplerInformation::SAMPLER_3D:
+    case SESamplerInformation::SAMPLER_3D:
     {
         ms_hResult = cgD3D9SetSamplerState(hParam, D3DSAMP_ADDRESSU, 
             ms_adwTexWrapMode[pTexture->GetWrapType(0)]);
@@ -239,18 +239,19 @@ void DX9Renderer::OnEnableTexture(ResourceIdentifier* pID)
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnDisableTexture(ResourceIdentifier*)
+void SEDX9Renderer::OnDisableTexture(SEResourceIdentifier*)
 {
-    SamplerInformation* pSI = m_apActiveSamplers[m_iCurrentSampler];
+    SESamplerInformation* pSI = m_apActiveSamplers[m_iCurrentSampler];
     CGparameter hParam = (CGparameter)pSI->GetID();
 
     ms_hResult = cgD3D9SetTexture(hParam, 0);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnEnableVBuffer(ResourceIdentifier* pID, VertexProgram*)
+void SEDX9Renderer::OnEnableVBuffer(SEResourceIdentifier* pID, 
+    SEVertexProgram*)
 {
-    VBufferID* pResource = (VBufferID*)pID;
+    SEVBufferID* pResource = (SEVBufferID*)pID;
     ms_hResult = m_pDXDevice->SetStreamSource(0, pResource->ID, 0, 
         pResource->VertexSize);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
@@ -259,19 +260,19 @@ void DX9Renderer::OnEnableVBuffer(ResourceIdentifier* pID, VertexProgram*)
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnDisableVBuffer(ResourceIdentifier*, VertexProgram*)
+void SEDX9Renderer::OnDisableVBuffer(SEResourceIdentifier*, SEVertexProgram*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnEnableIBuffer(ResourceIdentifier* pID)
+void SEDX9Renderer::OnEnableIBuffer(SEResourceIdentifier* pID)
 {
-    IBufferID* pResource = (IBufferID*)pID;
+    SEIBufferID* pResource = (SEIBufferID*)pID;
     ms_hResult = m_pDXDevice->SetIndices(pResource->ID);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnDisableIBuffer(ResourceIdentifier*)
+void SEDX9Renderer::OnDisableIBuffer(SEResourceIdentifier*)
 {
     // 无需任何操作.
 }

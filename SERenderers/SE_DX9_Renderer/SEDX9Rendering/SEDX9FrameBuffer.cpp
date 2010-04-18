@@ -24,25 +24,25 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_INITIALIZE(DX9FrameBuffer);
+SE_IMPLEMENT_INITIALIZE(SEDX9FrameBuffer);
 
-//SE_REGISTER_INITIALIZE(DX9FrameBuffer);
+//SE_REGISTER_INITIALIZE(SEDX9FrameBuffer);
 
 //----------------------------------------------------------------------------
-void DX9FrameBuffer::Initialize()
+void SEDX9FrameBuffer::Initialize()
 {
-    ms_aoCreator[Renderer::DIRECTX9] = &DX9FrameBuffer::Create;
-    ms_aoDestroyer[Renderer::DIRECTX9] = &DX9FrameBuffer::Destroy;
+    ms_aoCreator[SERenderer::DIRECTX9] = &SEDX9FrameBuffer::Create;
+    ms_aoDestroyer[SERenderer::DIRECTX9] = &SEDX9FrameBuffer::Destroy;
 }
 //----------------------------------------------------------------------------
-FrameBuffer* DX9FrameBuffer::Create(FormatType eFormat, DepthType eDepth,
+SEFrameBuffer* SEDX9FrameBuffer::Create(FormatType eFormat, DepthType eDepth,
     StencilType eStencil, BufferingType eBuffering,
-    MultisamplingType eMultisampling, Renderer* pRenderer, int iTCount,
-    Texture** apTargets)
+    MultisamplingType eMultisampling, SERenderer* pRenderer, int iTCount,
+    SETexture** apTargets)
 {
     if( pRenderer && apTargets )
     {
-        DX9FrameBuffer* pBuffer = SE_NEW DX9FrameBuffer(eFormat,
+        SEDX9FrameBuffer* pBuffer = SE_NEW SEDX9FrameBuffer(eFormat,
             eDepth, eStencil, eBuffering, eMultisampling, pRenderer, iTCount,
             apTargets);
 
@@ -57,28 +57,28 @@ FrameBuffer* DX9FrameBuffer::Create(FormatType eFormat, DepthType eDepth,
     return 0;
 }
 //----------------------------------------------------------------------------
-void DX9FrameBuffer::Destroy(FrameBuffer* pBuffer)
+void SEDX9FrameBuffer::Destroy(SEFrameBuffer* pBuffer)
 {
-    ((DX9FrameBuffer*)pBuffer)->TerminateBuffer();
+    ((SEDX9FrameBuffer*)pBuffer)->TerminateBuffer();
     SE_DELETE pBuffer;
 }
 //----------------------------------------------------------------------------
-DX9FrameBuffer::DX9FrameBuffer(FormatType eFormat, DepthType eDepth,
+SEDX9FrameBuffer::SEDX9FrameBuffer(FormatType eFormat, DepthType eDepth,
     StencilType eStencil, BufferingType eBuffering,
-    MultisamplingType eMultisampling, Renderer* pRenderer, int iTCount, 
-    Texture** apTargets)
+    MultisamplingType eMultisampling, SERenderer* pRenderer, int iTCount, 
+    SETexture** apTargets)
     :
-    FrameBuffer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, 
+    SEFrameBuffer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, 
         pRenderer, iTCount, apTargets)
 {
     m_TargetItems.resize(iTCount);
-    ((DX9Renderer*)pRenderer)->m_FrameBuffers.push_back(this);
+    ((SEDX9Renderer*)pRenderer)->m_FrameBuffers.push_back(this);
 }
 //----------------------------------------------------------------------------
-DX9FrameBuffer::~DX9FrameBuffer()
+SEDX9FrameBuffer::~SEDX9FrameBuffer()
 {
-    DX9Renderer* pRenderer = (DX9Renderer*)m_pRenderer;
-    std::vector<DX9FrameBuffer*>& rFrameBuffers = pRenderer->m_FrameBuffers;
+    SEDX9Renderer* pRenderer = (SEDX9Renderer*)m_pRenderer;
+    std::vector<SEDX9FrameBuffer*>& rFrameBuffers = pRenderer->m_FrameBuffers;
 
     int iCount = (int)pRenderer->m_FrameBuffers.size();
     for( int i = 0; i < iCount; i++ )
@@ -99,14 +99,14 @@ DX9FrameBuffer::~DX9FrameBuffer()
     }
 }
 //----------------------------------------------------------------------------
-bool DX9FrameBuffer::InitializeBuffer()
+bool SEDX9FrameBuffer::InitializeBuffer()
 {
-    DX9Renderer* pRenderer = (DX9Renderer*)m_pRenderer;
+    SEDX9Renderer* pRenderer = (SEDX9Renderer*)m_pRenderer;
     HRESULT hResult;
 
     for( int i = 0; i < m_iCount; i++ )
     {
-        Image* pImage = m_apTargets[i]->GetImage();
+        SEImage* pImage = m_apTargets[i]->GetImage();
         if( pImage->IsCubeImage() )
         {
             // 待实现.
@@ -116,9 +116,9 @@ bool DX9FrameBuffer::InitializeBuffer()
         }
 
         // 确保用作frame buffer的纹理已经装载入显存.
-        ResourceIdentifier* pID = m_apTargets[i]->GetIdentifier(m_pRenderer);
+        SEResourceIdentifier* pID = m_apTargets[i]->GetIdentifier(m_pRenderer);
         SE_ASSERT( pID );
-        TextureID* pResource = (TextureID*)pID;
+        SETextureID* pResource = (SETextureID*)pID;
         m_TargetItems[i].TargetID = (IDirect3DTexture9*)pResource->ID;
 
         if( pImage->IsDepthImage() )
@@ -173,7 +173,7 @@ bool DX9FrameBuffer::InitializeBuffer()
     return true;
 }
 //----------------------------------------------------------------------------
-void DX9FrameBuffer::TerminateBuffer()
+void SEDX9FrameBuffer::TerminateBuffer()
 {
     SE_DX9_SAFE_RELEASE(m_pRenderToTexture);
 
@@ -193,9 +193,9 @@ void DX9FrameBuffer::TerminateBuffer()
     }
 }
 //----------------------------------------------------------------------------
-void DX9FrameBuffer::Enable()
+void SEDX9FrameBuffer::Enable()
 {
-    DX9Renderer* pRenderer = (DX9Renderer*)m_pRenderer;
+    SEDX9Renderer* pRenderer = (SEDX9Renderer*)m_pRenderer;
     HRESULT hResult;
 
     if( pRenderer->m_bBeginSceneActive )
@@ -238,7 +238,7 @@ void DX9FrameBuffer::Enable()
     pRenderer->OnFrustumChange();
     pRenderer->OnFrameChange();
 
-    Image* pImage = m_apTargets[0]->GetImage();
+    SEImage* pImage = m_apTargets[0]->GetImage();
     D3DVIEWPORT9 tempViewport;
     tempViewport.X = 0;
     tempViewport.Y = 0;
@@ -250,9 +250,9 @@ void DX9FrameBuffer::Enable()
     SE_ASSERT( SUCCEEDED(hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9FrameBuffer::Disable()
+void SEDX9FrameBuffer::Disable()
 {
-    DX9Renderer* pRenderer = (DX9Renderer*)m_pRenderer;
+    SEDX9Renderer* pRenderer = (SEDX9Renderer*)m_pRenderer;
     HRESULT hResult;
 
     if( pRenderer->m_bBeginSceneActive )
@@ -292,7 +292,7 @@ void DX9FrameBuffer::Disable()
     pRenderer->OnFrameChange();
 }
 //----------------------------------------------------------------------------
-void DX9FrameBuffer::CopyToTexture(int i)
+void SEDX9FrameBuffer::CopyToTexture(int i)
 {
     SE_ASSERT( i >= 0 && i < m_iCount );
     i = i < 0 ? 0 : (i >= m_iCount ? m_iCount - 1 : i );
@@ -301,14 +301,14 @@ void DX9FrameBuffer::CopyToTexture(int i)
     // DX9中,目前没有已知方法可以把深度图数据从VRAM复制到系统内存.
     if( !m_apTargets[i]->GetImage()->IsDepthImage() )
     {
-        Image* pImage = m_apTargets[i]->GetImage();
+        SEImage* pImage = m_apTargets[i]->GetImage();
         unsigned char* aucDst = pImage->GetData();
         int iCount = pImage->GetCount();
         int iByteCount = pImage->GetBytesPerPixel() * iCount;
         unsigned char* aucRDst = SE_NEW unsigned char[iByteCount];
         int j, iDstBase = 0, iRDstBase = 0;
 
-        DX9Renderer* pRenderer = (DX9Renderer*)m_pRenderer;
+        SEDX9Renderer* pRenderer = (SEDX9Renderer*)m_pRenderer;
         HRESULT hResult;
 
         // D3D API要求必须创建一个在系统内存中的D3D纹理,
@@ -374,7 +374,7 @@ void DX9FrameBuffer::CopyToTexture(int i)
     }
 }
 //----------------------------------------------------------------------------
-void DX9FrameBuffer::OnLostDevice()
+void SEDX9FrameBuffer::OnLostDevice()
 {
     m_pRenderToTexture->OnLostDevice();
 
@@ -386,7 +386,7 @@ void DX9FrameBuffer::OnLostDevice()
     }
 }
 //----------------------------------------------------------------------------
-void DX9FrameBuffer::OnResetDevice()
+void SEDX9FrameBuffer::OnResetDevice()
 {
     for( int i = 0; i < m_iCount; i++ )
     {

@@ -28,43 +28,42 @@
 namespace Swing
 {
 
-class DX9ProgramInterface;
+class SEDX9ProgramInterface;
 
 //----------------------------------------------------------------------------
-// 名称:DirectX9 shader program interface资源管理类
 // 说明:
 // 作者:Sun Che
 // 时间:20090417
 //----------------------------------------------------------------------------
-class SE_RENDERER_API DX9ProgramInterfaceCatalog
+class SE_RENDERER_API SEDX9ProgramInterfaceCatalog
 {
 public:
-    DX9ProgramInterfaceCatalog(const std::string& rName);
-    ~DX9ProgramInterfaceCatalog(void);
+    SEDX9ProgramInterfaceCatalog(const std::string& rName);
+    ~SEDX9ProgramInterfaceCatalog(void);
 
     // 开始时我们不知道渲染器类型,
     // 在应用程序层创建了一个渲染器后,才能调用此函数来设置catalog所属渲染器,
     // 应用程序层的相关函数为WindowApplication::SetRenderer
-    void SetRenderer(DX9Renderer* pRenderer);
+    void SetRenderer(SEDX9Renderer* pRenderer);
 
     const std::string& GetName(void) const;
-    bool Insert(DX9ProgramInterface* pProgramInterface);
-    bool Remove(DX9ProgramInterface* pProgramInterface);
-    DX9ProgramInterface* Find(CGprogram hCgProgram, 
+    bool Insert(SEDX9ProgramInterface* pProgramInterface);
+    bool Remove(SEDX9ProgramInterface* pProgramInterface);
+    SEDX9ProgramInterface* Find(CGprogram hCgProgram, 
         const std::string& rPInterfaceName);
     bool PrintContents(const std::string& rFileName) const;
 
-    static void SetActive(DX9ProgramInterfaceCatalog* pActive);
-    static DX9ProgramInterfaceCatalog* GetActive(void);
+    static void SetActive(SEDX9ProgramInterfaceCatalog* pActive);
+    static SEDX9ProgramInterfaceCatalog* GetActive(void);
 
 private:
     enum { PROGRAM_MAP_SIZE = 256 };
     std::string m_Name;
-    SEStringHashTable<DX9ProgramInterface*> m_Entry;
+    SEStringHashTable<SEDX9ProgramInterface*> m_Entry;
 
-    DX9Renderer* m_pRenderer;
+    SEDX9Renderer* m_pRenderer;
 
-    static DX9ProgramInterfaceCatalog* ms_pActive;
+    static SEDX9ProgramInterfaceCatalog* ms_pActive;
 };
 
 }

@@ -26,7 +26,7 @@
 
 using namespace Swing;
 
-D3DPRIMITIVETYPE DX9Renderer::ms_aeObjectType[Geometry::GT_MAX_COUNT] =
+D3DPRIMITIVETYPE SEDX9Renderer::ms_aeObjectType[SEGeometry::GT_MAX_COUNT] =
 {
     D3DPT_POINTLIST,      // GT_POLYPOINT
     D3DPT_LINELIST,       // GT_POLYLINE_SEGMENTS
@@ -35,40 +35,40 @@ D3DPRIMITIVETYPE DX9Renderer::ms_aeObjectType[Geometry::GT_MAX_COUNT] =
     D3DPT_TRIANGLELIST    // GT_TRIMESH
 };
 
-DX9ProgramInterfaceCatalog* DX9Renderer::ms_pProgramInterfaceCatalog = 0;
-HRESULT DX9Renderer::ms_hResult = 0;
+SEDX9ProgramInterfaceCatalog* SEDX9Renderer::ms_pProgramInterfaceCatalog = 0;
+HRESULT SEDX9Renderer::ms_hResult = 0;
 
-SE_IMPLEMENT_INITIALIZE(DX9Renderer);
-SE_IMPLEMENT_TERMINATE(DX9Renderer);
+SE_IMPLEMENT_INITIALIZE(SEDX9Renderer);
+SE_IMPLEMENT_TERMINATE(SEDX9Renderer);
 
-//SE_REGISTER_INITIALIZE(DX9Renderer);
-//SE_REGISTER_TERMINATE(DX9Renderer);
+//SE_REGISTER_INITIALIZE(SEDX9Renderer);
+//SE_REGISTER_TERMINATE(SEDX9Renderer);
 
 //#define SE_USING_PERFHUD
 
 //----------------------------------------------------------------------------
-void DX9Renderer::Initialize()
+void SEDX9Renderer::Initialize()
 {
-    ms_pProgramInterfaceCatalog = SE_NEW DX9ProgramInterfaceCatalog("Main");
-    DX9ProgramInterfaceCatalog::SetActive(ms_pProgramInterfaceCatalog);
+    ms_pProgramInterfaceCatalog = SE_NEW SEDX9ProgramInterfaceCatalog("Main");
+    SEDX9ProgramInterfaceCatalog::SetActive(ms_pProgramInterfaceCatalog);
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::Terminate()
+void SEDX9Renderer::Terminate()
 {
-    if( DX9ProgramInterfaceCatalog::GetActive() == 
+    if( SEDX9ProgramInterfaceCatalog::GetActive() == 
         ms_pProgramInterfaceCatalog )
     {
-        DX9ProgramInterfaceCatalog::SetActive(0);
+        SEDX9ProgramInterfaceCatalog::SetActive(0);
     }
     SE_DELETE ms_pProgramInterfaceCatalog;
 }
 //----------------------------------------------------------------------------
-DX9Renderer::DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
-    FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,
-    FrameBuffer::BufferingType eBuffering,
-    FrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight)
+SEDX9Renderer::SEDX9Renderer(HWND hWnd, SEFrameBuffer::FormatType eFormat,
+    SEFrameBuffer::DepthType eDepth, SEFrameBuffer::StencilType eStencil,
+    SEFrameBuffer::BufferingType eBuffering,
+    SEFrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight)
     :
-    Renderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth,
+    SERenderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth,
         iHeight)
 {
     m_pDXMain = Direct3DCreate9(D3D_SDK_VERSION);
@@ -96,7 +96,7 @@ DX9Renderer::DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     m_Present.SwapEffect = D3DSWAPEFFECT_FLIP; 
     m_Present.MultiSampleType = D3DMULTISAMPLE_NONE;
     m_Present.MultiSampleQuality = 0;
-    if( m_eMultisampling == FrameBuffer::MT_SAMPLING_4 )
+    if( m_eMultisampling == SEFrameBuffer::MT_SAMPLING_4 )
     {
         if( SUCCEEDED(m_pDXMain->CheckDeviceMultiSampleType(
             D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3DFMT_A8R8G8B8, FALSE,
@@ -106,7 +106,7 @@ DX9Renderer::DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
             m_Present.MultiSampleType = D3DMULTISAMPLE_4_SAMPLES;
         }
     }
-    else if( m_eMultisampling == FrameBuffer::MT_SAMPLING_2 )
+    else if( m_eMultisampling == SEFrameBuffer::MT_SAMPLING_2 )
     {
         if( SUCCEEDED(m_pDXMain->CheckDeviceMultiSampleType(
             D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3DFMT_A8R8G8B8, FALSE,
@@ -182,12 +182,12 @@ DX9Renderer::DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
 
     if( tempDeviceCaps.VertexShaderVersion >= D3DVS_VERSION(3, 0) )
     {
-        m_iMaxVShaderProfile = Renderer::VS_3_0;
+        m_iMaxVShaderProfile = SERenderer::VS_3_0;
         m_iMaxVShaderImages = 4;
     }
     else if( tempDeviceCaps.VertexShaderVersion >= D3DVS_VERSION(2, 0) )
     {
-        m_iMaxVShaderProfile = Renderer::VS_2_0;
+        m_iMaxVShaderProfile = SERenderer::VS_2_0;
     }
     else
     {
@@ -196,15 +196,15 @@ DX9Renderer::DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     }
 
     // DirectX9不支持geometry shader.
-    m_iMaxGShaderProfile = Renderer::GS_UNSUPPORTED;
+    m_iMaxGShaderProfile = SERenderer::GS_UNSUPPORTED;
 
     if( tempDeviceCaps.PixelShaderVersion >= D3DPS_VERSION(3, 0) )
     {
-        m_iMaxPShaderProfile = Renderer::PS_3_0;
+        m_iMaxPShaderProfile = SERenderer::PS_3_0;
     }
     else if( tempDeviceCaps.PixelShaderVersion >= D3DPS_VERSION(2, 0) )
     {
-        m_iMaxPShaderProfile = Renderer::PS_2_0;
+        m_iMaxPShaderProfile = SERenderer::PS_2_0;
     }
     else
     {
@@ -218,10 +218,10 @@ DX9Renderer::DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     if( m_iMaxActiveSamplerCount > 0 )
     {
         m_apActiveSamplers =
-            SE_NEW SamplerInformation*[m_iMaxActiveSamplerCount];
+            SE_NEW SESamplerInformation*[m_iMaxActiveSamplerCount];
 
         memset(m_apActiveSamplers, 0, m_iMaxActiveSamplerCount*
-            sizeof(SamplerInformation*));
+            sizeof(SESamplerInformation*));
     }
 
     // Cg runtime stuff begin.
@@ -241,7 +241,7 @@ DX9Renderer::DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     // Cg runtime stuff end.
 
     // 初始化全局渲染状态为引擎默认设置.
-    SetGlobalState(GlobalState::Default);
+    SetGlobalState(SEGlobalState::Default);
 
     // 关闭lighting(DirectX默认为开启).  
     // 待实现:  对于一个shader-based引擎,还有必要做这些吗?
@@ -253,7 +253,7 @@ DX9Renderer::DX9Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     m_bBeginSceneActive = false;
 }
 //----------------------------------------------------------------------------
-DX9Renderer::~DX9Renderer()
+SEDX9Renderer::~SEDX9Renderer()
 {
     // Release all fonts.
     for( int i = 0; i < (int)m_FontArray.size(); i++ )
@@ -284,9 +284,9 @@ DX9Renderer::~DX9Renderer()
     // Cg runtime stuff end.
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::ToggleFullscreen()
+void SEDX9Renderer::ToggleFullscreen()
 {
-    Renderer::ToggleFullscreen();
+    SERenderer::ToggleFullscreen();
     m_Present.Windowed = !m_Present.Windowed;
 
     if( m_Present.Windowed )
@@ -314,7 +314,7 @@ void DX9Renderer::ToggleFullscreen()
     }
 }
 //----------------------------------------------------------------------------
-bool DX9Renderer::BeginScene()
+bool SEDX9Renderer::BeginScene()
 {
     // When using multiple renderers, cgD3D9 runtime can not support a 
     // one-to-one relationship between a cg context and a DX device.
@@ -350,7 +350,7 @@ bool DX9Renderer::BeginScene()
     return true;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::EndScene()
+void SEDX9Renderer::EndScene()
 {
     ms_hResult = m_pDXDevice->EndScene();
     SE_ASSERT( SUCCEEDED(ms_hResult) );
@@ -358,7 +358,7 @@ void DX9Renderer::EndScene()
     m_bBeginSceneActive = false;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnLostDevice()
+void SEDX9Renderer::OnLostDevice()
 {
     // release font.
     m_FontArray[0]->OnLostDevice();
@@ -371,7 +371,7 @@ void DX9Renderer::OnLostDevice()
     }
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnResetDevice()
+void SEDX9Renderer::OnResetDevice()
 {
     ms_hResult = m_pDXDevice->Reset(&m_Present);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
@@ -391,7 +391,7 @@ void DX9Renderer::OnResetDevice()
     OnFrameChange();
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::ClearBackBuffer()
+void SEDX9Renderer::ClearBackBuffer()
 {
     DWORD dwClearColor = D3DCOLOR_COLORVALUE(m_ClearColor.R, m_ClearColor.G,
         m_ClearColor.B, m_ClearColor.A);
@@ -401,21 +401,21 @@ void DX9Renderer::ClearBackBuffer()
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::ClearZBuffer()
+void SEDX9Renderer::ClearZBuffer()
 {
     ms_hResult = m_pDXDevice->Clear(0, 0, D3DCLEAR_ZBUFFER, 0, m_fClearDepth, 
         0);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::ClearStencilBuffer()
+void SEDX9Renderer::ClearStencilBuffer()
 {
     ms_hResult = m_pDXDevice->Clear(0, 0, D3DCLEAR_STENCIL, 0, 1.0f, 
         (DWORD)m_uiClearStencil);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::ClearBuffers()
+void SEDX9Renderer::ClearBuffers()
 {
     DWORD dwClearColor = D3DCOLOR_COLORVALUE(m_ClearColor.R, m_ClearColor.G,
         m_ClearColor.B, m_ClearColor.A);
@@ -426,7 +426,8 @@ void DX9Renderer::ClearBuffers()
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::ClearBackBuffer(int iXPos, int iYPos, int iWidth, int iHeight)
+void SEDX9Renderer::ClearBackBuffer(int iXPos, int iYPos, int iWidth, int 
+    iHeight)
 {
     D3DRECT tempRect;
     tempRect.x1 = (long)iXPos;
@@ -442,7 +443,8 @@ void DX9Renderer::ClearBackBuffer(int iXPos, int iYPos, int iWidth, int iHeight)
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::ClearZBuffer(int iXPos, int iYPos, int iWidth, int iHeight)
+void SEDX9Renderer::ClearZBuffer(int iXPos, int iYPos, int iWidth, int 
+    iHeight)
 {
     D3DRECT tempRect;
     tempRect.x1 = (long)iXPos;
@@ -455,7 +457,7 @@ void DX9Renderer::ClearZBuffer(int iXPos, int iYPos, int iWidth, int iHeight)
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::ClearStencilBuffer(int iXPos, int iYPos, int iWidth, 
+void SEDX9Renderer::ClearStencilBuffer(int iXPos, int iYPos, int iWidth, 
     int iHeight)
 {
     D3DRECT tempRect;
@@ -469,7 +471,8 @@ void DX9Renderer::ClearStencilBuffer(int iXPos, int iYPos, int iWidth,
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::ClearBuffers(int iXPos, int iYPos, int iWidth, int iHeight)
+void SEDX9Renderer::ClearBuffers(int iXPos, int iYPos, int iWidth, int 
+    iHeight)
 {
     D3DRECT tempRect;
     tempRect.x1 = (long)iXPos;
@@ -486,7 +489,7 @@ void DX9Renderer::ClearBuffers(int iXPos, int iYPos, int iWidth, int iHeight)
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::DisplayBackBuffer()
+void SEDX9Renderer::DisplayBackBuffer()
 {
     ms_hResult = m_pDXDevice->Present(0, 0, 0, 0);
     if( ms_hResult != D3DERR_DEVICELOST )
@@ -495,10 +498,10 @@ void DX9Renderer::DisplayBackBuffer()
     }
 } 
 //----------------------------------------------------------------------------
-void DX9Renderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
+void SEDX9Renderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
     bool bAllowBlue, bool bAllowAlpha)
 {
-    Renderer::SetColorMask(bAllowRed, bAllowGreen, bAllowBlue, bAllowAlpha);
+    SERenderer::SetColorMask(bAllowRed, bAllowGreen, bAllowBlue, bAllowAlpha);
 
     DWORD dwMask = 0;
 
@@ -526,10 +529,10 @@ void DX9Renderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::EnableUserClipPlane(int i, const SEPlane3f& rPlane)
+void SEDX9Renderer::EnableUserClipPlane(int i, const SEPlane3f& rPlane)
 {
-    SEVector4f vec4fMPlane(rPlane.Normal[0], rPlane.Normal[1], rPlane.Normal[2],
-        -rPlane.Constant);
+    SEVector4f vec4fMPlane(rPlane.Normal[0], rPlane.Normal[1], 
+        rPlane.Normal[2], -rPlane.Constant);
     SEMatrix4f mat4fWorldViewMatrix = m_WorldMatrix * m_ViewMatrix;
     SEMatrix4f mat4fWVMatrixInv;
     mat4fWorldViewMatrix.GetInverse(mat4fWVMatrixInv);
@@ -552,7 +555,7 @@ void DX9Renderer::EnableUserClipPlane(int i, const SEPlane3f& rPlane)
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::DisableUserClipPlane(int i)
+void SEDX9Renderer::DisableUserClipPlane(int i)
 {
     DWORD dwClipPlanesEnabled;
     ms_hResult = m_pDXDevice->GetRenderState(D3DRS_CLIPPLANEENABLE,
@@ -565,34 +568,34 @@ void DX9Renderer::DisableUserClipPlane(int i)
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-const LPDIRECT3DDEVICE9 DX9Renderer::GetDevice()
+const LPDIRECT3DDEVICE9 SEDX9Renderer::GetDevice()
 {
     return m_pDXDevice;
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnPreDrawGeometry()
+void SEDX9Renderer::OnPreDrawGeometry()
 {
-    RenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
+    SERenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
     SE_ASSERT( pRStateBlock );
 
     SetGlobalState(pRStateBlock->States);
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnPostDrawGeometry()
+void SEDX9Renderer::OnPostDrawGeometry()
 {
-    RenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
+    SERenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
     SE_ASSERT( pRStateBlock );
 
     RestoreGlobalState(pRStateBlock->States);
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnPreDrawPass(ShaderEffect* pEffect, int iPass,
+void SEDX9Renderer::OnPreDrawPass(SEShaderEffect* pEffect, int iPass,
     bool bPrimaryEffect)
 {
     pEffect->SetGlobalState(iPass, this, bPrimaryEffect);
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnPostDrawPass(ShaderEffect* pEffect, int iPass,
+void SEDX9Renderer::OnPostDrawPass(SEShaderEffect* pEffect, int iPass,
     bool bPrimaryEffect)
 {
     pEffect->RestoreGlobalState(iPass, this, bPrimaryEffect);
@@ -602,22 +605,22 @@ void DX9Renderer::OnPostDrawPass(ShaderEffect* pEffect, int iPass,
 //----------------------------------------------------------------------------
 // Cg runtime相关
 //----------------------------------------------------------------------------
-CGcontext DX9Renderer::GetCgContext() const
+CGcontext SEDX9Renderer::GetCgContext() const
 {
     return m_CgContext;
 }
 //----------------------------------------------------------------------------
-CGprofile DX9Renderer::GetCgLatestVertexProfile() const
+CGprofile SEDX9Renderer::GetCgLatestVertexProfile() const
 {
     return m_CgLatestVProfile;
 }
 //----------------------------------------------------------------------------
-CGprofile DX9Renderer::GetCgLatestPixelProfile() const
+CGprofile SEDX9Renderer::GetCgLatestPixelProfile() const
 {
     return m_CgLatestPProfile;
 }
 //----------------------------------------------------------------------------
-CGprofile DX9Renderer::GetCgLatestGeometryProfile() const
+CGprofile SEDX9Renderer::GetCgLatestGeometryProfile() const
 {
     return m_CgLatestGProfile;
 }

@@ -23,16 +23,18 @@
 
 using namespace Swing;
 
-DWORD DX9Renderer::ms_adwCullType[CullState::FT_COUNT] = 
+DWORD SEDX9Renderer::ms_adwCullType[SECullState::FT_COUNT] = 
 {
-    D3DCULL_CW,    // CullState::FT_CCW (front faces are CCW,so cull backface CW in DX)
-    D3DCULL_CCW,   // CullState::FT_CW  (front faces are CW, so cull backface CCW in DX)
+    // SECullState::FT_CCW (front faces are CCW,so cull backface CW in DX)
+    D3DCULL_CW,
+    // SECullState::FT_CW  (front faces are CW, so cull backface CCW in DX)
+    D3DCULL_CCW,
 };
 
 //----------------------------------------------------------------------------
-void DX9Renderer::SetCullState(CullState* pState)
+void SEDX9Renderer::SetCullState(SECullState* pState)
 {
-    Renderer::SetCullState(pState);
+    SERenderer::SetCullState(pState);
 
     if( pState->Enabled )
     {
@@ -40,12 +42,14 @@ void DX9Renderer::SetCullState(CullState* pState)
         {
             if( ms_adwCullType[pState->CullFace] == D3DCULL_CW )
             {
-                ms_hResult = m_pDXDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+                ms_hResult = m_pDXDevice->SetRenderState(D3DRS_CULLMODE, 
+                    D3DCULL_CCW);
                 SE_ASSERT( SUCCEEDED(ms_hResult) );
             }
             else
             {
-                ms_hResult = m_pDXDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+                ms_hResult = m_pDXDevice->SetRenderState(D3DRS_CULLMODE, 
+                    D3DCULL_CW);
                 SE_ASSERT( SUCCEEDED(ms_hResult) );
             }
         } 
@@ -58,7 +62,8 @@ void DX9Renderer::SetCullState(CullState* pState)
     }
     else
     {
-        ms_hResult = m_pDXDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+        ms_hResult = m_pDXDevice->SetRenderState(D3DRS_CULLMODE, 
+            D3DCULL_NONE);
         SE_ASSERT( SUCCEEDED(ms_hResult) );
     }
 }

@@ -23,32 +23,32 @@
 
 using namespace Swing;
 
-DWORD DX9Renderer::ms_adwStencilCompare[StencilState::CF_COUNT] = 
+DWORD SEDX9Renderer::ms_adwStencilCompare[SEStencilState::CF_COUNT] = 
 {
-    D3DCMP_NEVER,           // StencilState::CF_NEVER
-    D3DCMP_LESS,            // StencilState::CF_LESS
-    D3DCMP_EQUAL,           // StencilState::CF_EQUAL
-    D3DCMP_LESSEQUAL,       // StencilState::CF_LEQUAL
-    D3DCMP_GREATER,         // StencilState::CF_GREATER
-    D3DCMP_NOTEQUAL,        // StencilState::CF_NOTEQUAL
-    D3DCMP_GREATEREQUAL,    // StencilState::CF_GEQUAL
-    D3DCMP_ALWAYS,          // StencilState::CF_ALWAYS
+    D3DCMP_NEVER,           // SEStencilState::CF_NEVER
+    D3DCMP_LESS,            // SEStencilState::CF_LESS
+    D3DCMP_EQUAL,           // SEStencilState::CF_EQUAL
+    D3DCMP_LESSEQUAL,       // SEStencilState::CF_LEQUAL
+    D3DCMP_GREATER,         // SEStencilState::CF_GREATER
+    D3DCMP_NOTEQUAL,        // SEStencilState::CF_NOTEQUAL
+    D3DCMP_GREATEREQUAL,    // SEStencilState::CF_GEQUAL
+    D3DCMP_ALWAYS,          // SEStencilState::CF_ALWAYS
 };
 
-DWORD DX9Renderer::ms_adwStencilOperation[StencilState::OT_COUNT] =
+DWORD SEDX9Renderer::ms_adwStencilOperation[SEStencilState::OT_COUNT] =
 {
-    D3DSTENCILOP_KEEP,      // StencilState::OT_KEEP
-    D3DSTENCILOP_ZERO,      // StencilState::OT_ZERO
-    D3DSTENCILOP_REPLACE,   // StencilState::OT_REPLACE
-    D3DSTENCILOP_INCR,      // StencilState::OT_INCREMENT
-    D3DSTENCILOP_DECR,      // StencilState::OT_DECREMENT
-    D3DSTENCILOP_INVERT     // StencilState::OT_INVERT
+    D3DSTENCILOP_KEEP,      // SEStencilState::OT_KEEP
+    D3DSTENCILOP_ZERO,      // SEStencilState::OT_ZERO
+    D3DSTENCILOP_REPLACE,   // SEStencilState::OT_REPLACE
+    D3DSTENCILOP_INCR,      // SEStencilState::OT_INCREMENT
+    D3DSTENCILOP_DECR,      // SEStencilState::OT_DECREMENT
+    D3DSTENCILOP_INVERT     // SEStencilState::OT_INVERT
 };
 
 //----------------------------------------------------------------------------
-void DX9Renderer::SetStencilState(StencilState* pState)
+void SEDX9Renderer::SetStencilState(SEStencilState* pState)
 {
-    Renderer::SetStencilState(pState);
+    SERenderer::SetStencilState(pState);
 
     if( pState->Enabled )
     {

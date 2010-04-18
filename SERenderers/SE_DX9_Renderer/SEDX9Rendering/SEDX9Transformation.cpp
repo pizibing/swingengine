@@ -25,7 +25,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void DX9Renderer::OnViewportChange()
+void SEDX9Renderer::OnViewportChange()
 {
     float fPortL, fPortR, fPortT, fPortB;
     if( m_pCamera )
@@ -59,7 +59,7 @@ void DX9Renderer::OnViewportChange()
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX9Renderer::OnDepthRangeChange()
+void SEDX9Renderer::OnDepthRangeChange()
 {
     D3DVIEWPORT9 TempViewport;
     ms_hResult = m_pDXDevice->GetViewport(&TempViewport);
