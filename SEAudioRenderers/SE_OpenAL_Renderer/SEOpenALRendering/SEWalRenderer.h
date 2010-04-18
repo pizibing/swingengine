@@ -28,16 +28,15 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Microsoft Windows OpenAL1.0 Renderer类
 // 说明:
 // 作者:Sun Che
 // 时间:20090623
 //----------------------------------------------------------------------------
-class SE_AUDIO_RENDERER_API WalRenderer : public OpenALRenderer
+class SE_AUDIO_RENDERER_API SEWalRenderer : public SEOpenALRenderer
 {
 public:
-    WalRenderer(void);
-    virtual ~WalRenderer(void);
+    SEWalRenderer(void);
+    virtual ~SEWalRenderer(void);
 
     // 参数访问.
     ALCdevice* GetALDevice(void){ return m_pALDevice; }

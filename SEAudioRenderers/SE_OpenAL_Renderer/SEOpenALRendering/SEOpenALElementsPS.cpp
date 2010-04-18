@@ -25,17 +25,17 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void OpenALRenderer::PlayElements(AudioResourceIdentifier* pID)
+void SEOpenALRenderer::PlayElements(SEAudioResourceIdentifier* pID)
 {
-    SoundID* pResource = (SoundID*)pID;
+    SESoundID* pResource = (SESoundID*)pID;
     SE_AL_BEGIN_DEBUG_ALAPI;
     alSourcePlay(pResource->ID);
     SE_AL_END_DEBUG_ALAPI;
 }
 //----------------------------------------------------------------------------
-void OpenALRenderer::StopElements(AudioResourceIdentifier* pID)
+void SEOpenALRenderer::StopElements(SEAudioResourceIdentifier* pID)
 {
-    SoundID* pResource = (SoundID*)pID;
+    SESoundID* pResource = (SESoundID*)pID;
     SE_AL_BEGIN_DEBUG_ALAPI;
     alSourceStop(pResource->ID);
     SE_AL_END_DEBUG_ALAPI;

@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-WalRenderer::WalRenderer()
+SEWalRenderer::SEWalRenderer()
 {
     m_pALDevice = 0;
     m_pALContext = 0;
@@ -43,7 +43,7 @@ WalRenderer::WalRenderer()
     InitializeState();
 }
 //----------------------------------------------------------------------------
-WalRenderer::~WalRenderer()
+SEWalRenderer::~SEWalRenderer()
 {
     //  Õ∑≈context∫Õdevice.
     alcMakeContextCurrent(0);

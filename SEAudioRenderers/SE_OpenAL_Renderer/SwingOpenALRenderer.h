@@ -21,10 +21,10 @@
 #ifndef Swing_OpenALRendererHead_H
 #define Swing_OpenALRendererHead_H
 
-// OpenALRenderer Register
+// OpenAL Renderer Register
 #include "SEOpenALRendererRegister.h"
 
-// OpenALRendering
+// OpenAL Rendering
 #include "SEOpenALRenderer.h"
 #include "SEOpenALResources.h"
 

@@ -21,7 +21,7 @@
 #include "SEOpenALRendererPCH.h"
 #include "SEOpenALRendererRegister.h"
 
-// OpenALRendering
+// OpenAL Rendering
 #include "SEOpenALRenderer.h"
 
 using namespace Swing;
@@ -30,10 +30,10 @@ using namespace Swing;
 void Swing::SE_OpenALRenderer_Register()
 {
     // OpenALRendering
-    SE_REGISTER_INITIALIZE(OpenALRenderer);
-    SE_INVOKE_INITIALIZE(OpenALRenderer);
+    SE_REGISTER_INITIALIZE(SEOpenALRenderer);
+    SE_INVOKE_INITIALIZE(SEOpenALRenderer);
 
-    SE_REGISTER_TERMINATE(OpenALRenderer);
-    SE_INVOKE_TERMINATE(OpenALRenderer);
+    SE_REGISTER_TERMINATE(SEOpenALRenderer);
+    SE_INVOKE_TERMINATE(SEOpenALRenderer);
 }
 //----------------------------------------------------------------------------

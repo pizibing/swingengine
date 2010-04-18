@@ -27,9 +27,9 @@ using namespace Swing;
 //----------------------------------------------------------------------------
 // 资源参数更新.
 //----------------------------------------------------------------------------
-void OpenALRenderer::OnUpdateSoundParams(AudioResourceIdentifier* pID)
+void SEOpenALRenderer::OnUpdateSoundParams(SEAudioResourceIdentifier* pID)
 {
-    SoundID* pResource = (SoundID*)pID;
+    SESoundID* pResource = (SESoundID*)pID;
 
     // 目前只更新sound世界姿态.
     // sound其他物理参数只允许在每次渲染前设置一次.

@@ -28,17 +28,17 @@
 namespace Swing
 {
 
-class SE_AUDIO_RENDERER_API SoundID : public AudioResourceIdentifier
+class SE_AUDIO_RENDERER_API SESoundID : public SEAudioResourceIdentifier
 {
 public:
     unsigned int ID;
-    Sound* SoundObject;
+    SESound* SoundObject;
 };
 
-class SE_AUDIO_RENDERER_API SBufferID : public AudioResourceIdentifier
+class SE_AUDIO_RENDERER_API SESBufferID : public SEAudioResourceIdentifier
 {
 public:
-    SoundBuffer* SBufferObject;
+    SESoundBuffer* SBufferObject;
 
     int BufferCount;
     unsigned int* Buffers;

@@ -26,53 +26,53 @@
 
 using namespace Swing;
 
-WaveCatalog* OpenALRenderer::ms_pWaveCatalog = 0;
+SEWaveCatalog* SEOpenALRenderer::ms_pWaveCatalog = 0;
 
-SE_IMPLEMENT_INITIALIZE(OpenALRenderer);
-SE_IMPLEMENT_TERMINATE(OpenALRenderer);
+SE_IMPLEMENT_INITIALIZE(SEOpenALRenderer);
+SE_IMPLEMENT_TERMINATE(SEOpenALRenderer);
 
-//SE_REGISTER_INITIALIZE(OpenALRenderer);
-//SE_REGISTER_TERMINATE(OpenALRenderer);
+//SE_REGISTER_INITIALIZE(SEOpenALRenderer);
+//SE_REGISTER_TERMINATE(SEOpenALRenderer);
 
 //----------------------------------------------------------------------------
-void OpenALRenderer::Initialize()
+void SEOpenALRenderer::Initialize()
 {
-    ms_pWaveCatalog = SE_NEW WaveCatalog("Main");
-    WaveCatalog::SetActive(ms_pWaveCatalog);
+    ms_pWaveCatalog = SE_NEW SEWaveCatalog("Main");
+    SEWaveCatalog::SetActive(ms_pWaveCatalog);
 }
 //----------------------------------------------------------------------------
-void OpenALRenderer::Terminate()
+void SEOpenALRenderer::Terminate()
 {
-    if( WaveCatalog::GetActive() == ms_pWaveCatalog )
+    if( SEWaveCatalog::GetActive() == ms_pWaveCatalog )
     {
-        WaveCatalog::SetActive(0);
+        SEWaveCatalog::SetActive(0);
     }
     SE_DELETE ms_pWaveCatalog;
 }
 //----------------------------------------------------------------------------
-OpenALRenderer::OpenALRenderer()
+SEOpenALRenderer::SEOpenALRenderer()
 {
 }
 //----------------------------------------------------------------------------
-OpenALRenderer::~OpenALRenderer()
+SEOpenALRenderer::~SEOpenALRenderer()
 {
 }
 //----------------------------------------------------------------------------
-void OpenALRenderer::InitializeState()
+void SEOpenALRenderer::InitializeState()
 {
     alDistanceModel(AL_INVERSE_DISTANCE);
 }
 //----------------------------------------------------------------------------
-void OpenALRenderer::OnMasterGainChange()
+void SEOpenALRenderer::OnMasterGainChange()
 {
     SE_AL_BEGIN_DEBUG_ALAPI;
     alListenerf(AL_GAIN, (ALfloat)m_pListener->GetMasterGain());
     SE_AL_END_DEBUG_ALAPI;
 }
 //----------------------------------------------------------------------------
-void OpenALRenderer::SetSoundParams(AudioResourceIdentifier* pID)
+void SEOpenALRenderer::SetSoundParams(SEAudioResourceIdentifier* pID)
 {
-    SoundID* pResource = (SoundID*)pID;
+    SESoundID* pResource = (SESoundID*)pID;
 
     // 更新sound世界姿态.
     SetSoundFrame(pResource->ID, m_pSound);
@@ -87,10 +87,10 @@ void OpenALRenderer::SetSoundParams(AudioResourceIdentifier* pID)
     SE_AL_END_DEBUG_ALAPI;
 }
 //----------------------------------------------------------------------------
-void OpenALRenderer::SetSoundFrame(unsigned int uiID, Sound* pSound)
+void SEOpenALRenderer::SetSoundFrame(unsigned int uiID, SESound* pSound)
 {
-    const Vector3f& rPos = pSound->World.GetTranslate();
-    Vector3f vec3fDir;
+    const SEVector3f& rPos = pSound->World.GetTranslate();
+    SEVector3f vec3fDir;
     pSound->World.GetRotate().GetRow(2, vec3fDir);
 
     SE_AL_BEGIN_DEBUG_ALAPI;

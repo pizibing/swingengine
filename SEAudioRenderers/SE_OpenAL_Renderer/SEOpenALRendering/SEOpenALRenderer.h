@@ -32,7 +32,7 @@
 #include <OpenAL/alc.h>
 #endif
 
-// 避免al.h中OPENAL宏定义和AudioRenderer::OPENAL枚举值定义冲突造成编译错误.
+// 避免al.h中OPENAL宏定义和SEAudioRenderer::OPENAL枚举值定义冲突造成编译错误.
 #if defined(OPENAL)
 #undef OPENAL
 #define OPENALUNDEFINED
@@ -62,66 +62,66 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:OpenAL1.0 Renderer虚基类
 // 说明:
 // 作者:Sun Che
 // 时间:20090623
 //----------------------------------------------------------------------------
-class SE_AUDIO_RENDERER_API OpenALRenderer : public AudioRenderer
+class SE_AUDIO_RENDERER_API SEOpenALRenderer : public SEAudioRenderer
 {
     SE_DECLARE_INITIALIZE;
     SE_DECLARE_TERMINATE;
 
 public:
     // RTTI.
-    virtual int GetType(void) const { return AudioRenderer::OPENAL; }
+    virtual int GetType(void) const { return SEAudioRenderer::OPENAL; }
 
     // 虚基类.
     // 在OpenAL context创建后,由派生类构造函数调用InitializeState函数.
-    virtual ~OpenALRenderer(void);
+    virtual ~SEOpenALRenderer(void);
     void InitializeState(void);
 
 protected:
-    OpenALRenderer(void);
+    SEOpenALRenderer(void);
 
     // listener更新.
     virtual void OnFrameChange(void);
     virtual void OnMasterGainChange(void);
 
     // 设置声音参数(声音世界空间姿态及其他声音物理参数).
-    virtual void SetSoundParams(AudioResourceIdentifier* pID);
+    virtual void SetSoundParams(SEAudioResourceIdentifier* pID);
 
     // 声音渲染器派生类渲染函数入口.
-    virtual void PlayElements(AudioResourceIdentifier* pID);
+    virtual void PlayElements(SEAudioResourceIdentifier* pID);
 
     // 声音渲染器派生类停止渲染函数入口.
-    virtual void StopElements(AudioResourceIdentifier* pID);
+    virtual void StopElements(SEAudioResourceIdentifier* pID);
 
     // 声音渲染器资源装载与释放.
-    virtual void OnLoadSound(AudioResourceIdentifier*& rpID, Sound* pSound);
-    virtual void OnReleaseSound(AudioResourceIdentifier* pID);
-    virtual void OnLoadSBuffer(AudioResourceIdentifier*& rpID,
-        SoundBuffer* pSBuffer);
-    virtual void OnReleaseSBuffer(AudioResourceIdentifier* pID);
+    virtual void OnLoadSound(SEAudioResourceIdentifier*& rpID, 
+        SESound* pSound);
+    virtual void OnReleaseSound(SEAudioResourceIdentifier* pID);
+    virtual void OnLoadSBuffer(SEAudioResourceIdentifier*& rpID,
+        SESoundBuffer* pSBuffer);
+    virtual void OnReleaseSBuffer(SEAudioResourceIdentifier* pID);
 
     // 声音渲染器资源开启与关闭.
-    virtual void OnEnableSound(AudioResourceIdentifier* pID);
-    virtual void OnDisableSound(AudioResourceIdentifier* pID);
-    virtual void OnEnableSBuffer(AudioResourceIdentifier* pID);
-    virtual void OnDisableSBuffer(AudioResourceIdentifier* pID);
-    virtual void OnAttachSBuffer(AudioResourceIdentifier* pSoundID,
-        AudioResourceIdentifier* pSBufferID);
+    virtual void OnEnableSound(SEAudioResourceIdentifier* pID);
+    virtual void OnDisableSound(SEAudioResourceIdentifier* pID);
+    virtual void OnEnableSBuffer(SEAudioResourceIdentifier* pID);
+    virtual void OnDisableSBuffer(SEAudioResourceIdentifier* pID);
+    virtual void OnAttachSBuffer(SEAudioResourceIdentifier* pSoundID,
+        SEAudioResourceIdentifier* pSBufferID);
 
     // 声音渲染器资源参数更新.
-    virtual void OnUpdateSoundParams(AudioResourceIdentifier* pID);
+    virtual void OnUpdateSoundParams(SEAudioResourceIdentifier* pID);
 
     // helper function, change sound source's frame.
-    void SetSoundFrame(unsigned int uiID, Sound* pSound);
+    void SetSoundFrame(unsigned int uiID, SESound* pSound);
 
-    static WaveCatalog* ms_pWaveCatalog;
+    static SEWaveCatalog* ms_pWaveCatalog;
 
     // 引擎层参数常量与OpenAL渲染器层参数常量映射表.
-    static ALenum ms_aeWaveType[Wave::WT_COUNT];
+    static ALenum ms_aeWaveType[SEWave::WT_COUNT];
 };
 
 }

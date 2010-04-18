@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-ALenum OpenALRenderer::ms_aeWaveType[Wave::WT_COUNT] =
+ALenum SEOpenALRenderer::ms_aeWaveType[SEWave::WT_COUNT] =
 {
     0,                     // WT_MONO4
     AL_FORMAT_MONO8,       // WT_MONO8
@@ -43,10 +43,10 @@ ALenum OpenALRenderer::ms_aeWaveType[Wave::WT_COUNT] =
 //----------------------------------------------------------------------------
 // 资源装载与释放.
 //----------------------------------------------------------------------------
-void OpenALRenderer::OnLoadSound(AudioResourceIdentifier*& rpID,
-    Sound* pSound)
+void SEOpenALRenderer::OnLoadSound(SEAudioResourceIdentifier*& rpID,
+    SESound* pSound)
 {
-    SoundID* pResource = SE_NEW SoundID;
+    SESoundID* pResource = SE_NEW SESoundID;
     pResource->SoundObject = pSound;
     rpID = pResource;
 
@@ -55,9 +55,9 @@ void OpenALRenderer::OnLoadSound(AudioResourceIdentifier*& rpID,
     SE_AL_END_DEBUG_ALAPI;
 }
 //----------------------------------------------------------------------------
-void OpenALRenderer::OnReleaseSound(AudioResourceIdentifier* pID)
+void SEOpenALRenderer::OnReleaseSound(SEAudioResourceIdentifier* pID)
 {
-    SoundID* pResource = (SoundID*)pID;
+    SESoundID* pResource = (SESoundID*)pID;
 
     SE_AL_BEGIN_DEBUG_ALAPI;
     alSourceStop(pResource->ID);
@@ -67,10 +67,10 @@ void OpenALRenderer::OnReleaseSound(AudioResourceIdentifier* pID)
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void OpenALRenderer::OnLoadSBuffer(AudioResourceIdentifier*& rpID,
-    SoundBuffer* pSBuffer)
+void SEOpenALRenderer::OnLoadSBuffer(SEAudioResourceIdentifier*& rpID,
+    SESoundBuffer* pSBuffer)
 {
-    SBufferID* pResource = SE_NEW SBufferID;
+    SESBufferID* pResource = SE_NEW SESBufferID;
     pResource->SBufferObject = pSBuffer;
     rpID = pResource;
 
@@ -82,7 +82,7 @@ void OpenALRenderer::OnLoadSBuffer(AudioResourceIdentifier*& rpID,
 
     for( int i = 0; i < pResource->BufferCount; i++ )
     {
-        Wave* pWave = pSBuffer->GetWave(i);
+        SEWave* pWave = pSBuffer->GetWave(i);
         if( pWave )
         {
             // load PCM wave data for this buffer.
@@ -96,9 +96,9 @@ void OpenALRenderer::OnLoadSBuffer(AudioResourceIdentifier*& rpID,
     }
 }
 //----------------------------------------------------------------------------
-void OpenALRenderer::OnReleaseSBuffer(AudioResourceIdentifier* pID)
+void SEOpenALRenderer::OnReleaseSBuffer(SEAudioResourceIdentifier* pID)
 {
-    SBufferID* pResource = (SBufferID*)pID;
+    SESBufferID* pResource = (SESBufferID*)pID;
 
     SE_AL_BEGIN_DEBUG_ALAPI;
     alDeleteBuffers((ALsizei)pResource->BufferCount, pResource->Buffers);

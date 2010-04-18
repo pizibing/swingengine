@@ -25,12 +25,12 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void OpenALRenderer::OnFrameChange()
+void SEOpenALRenderer::OnFrameChange()
 {
-    const Vector3f& rPos = m_pListener->GetLocation();
-    const Vector3f& rUVector = m_pListener->GetUVector();
-    const Vector3f& rDVector = m_pListener->GetDVector();
-    Vector3f vec3fLookAt = rPos + rDVector;
+    const SEVector3f& rPos = m_pListener->GetLocation();
+    const SEVector3f& rUVector = m_pListener->GetUVector();
+    const SEVector3f& rDVector = m_pListener->GetDVector();
+    SEVector3f vec3fLookAt = rPos + rDVector;
 
     SE_AL_BEGIN_DEBUG_ALAPI;
     ALfloat afValue[6];

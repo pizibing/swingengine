@@ -23,10 +23,10 @@
 
 #ifdef SE_USE_PRECOMPILED_HEADERS
 
-// OpenALRenderer Register
+// OpenAL Renderer Register
 #include "SEOpenALRendererRegister.h"
 
-// OpenALRendering
+// OpenAL Rendering
 #include "SEOpenALRenderer.h"
 #include "SEOpenALResources.h"
 

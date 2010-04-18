@@ -28,35 +28,35 @@ using namespace Swing;
 //----------------------------------------------------------------------------
 // 资源开启与关闭.
 //----------------------------------------------------------------------------
-void OpenALRenderer::OnEnableSound(AudioResourceIdentifier*)
+void SEOpenALRenderer::OnEnableSound(SEAudioResourceIdentifier*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void OpenALRenderer::OnDisableSound(AudioResourceIdentifier*)
+void SEOpenALRenderer::OnDisableSound(SEAudioResourceIdentifier*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void OpenALRenderer::OnEnableSBuffer(AudioResourceIdentifier*)
+void SEOpenALRenderer::OnEnableSBuffer(SEAudioResourceIdentifier*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void OpenALRenderer::OnDisableSBuffer(AudioResourceIdentifier*)
+void SEOpenALRenderer::OnDisableSBuffer(SEAudioResourceIdentifier*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void OpenALRenderer::OnAttachSBuffer(AudioResourceIdentifier* pSoundID,
-    AudioResourceIdentifier* pSBufferID)
+void SEOpenALRenderer::OnAttachSBuffer(SEAudioResourceIdentifier* pSoundID,
+    SEAudioResourceIdentifier* pSBufferID)
 {
-    SoundID* pSoundResource = (SoundID*)pSoundID;
-    SBufferID* pSBufferResource = (SBufferID*)pSBufferID;
+    SESoundID* pSoundResource = (SESoundID*)pSoundID;
+    SESBufferID* pSBufferResource = (SESBufferID*)pSBufferID;
 
     for( int i = 0; i < pSBufferResource->BufferCount; i++ )
     {
-        Wave* pWave = pSBufferResource->SBufferObject->GetWave(i);
+        SEWave* pWave = pSBufferResource->SBufferObject->GetWave(i);
         if( pWave )
         {
             // attach this buffer to the source.
