@@ -26,13 +26,13 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Wave, SEObject);
-SE_IMPLEMENT_STREAM(Wave);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Wave, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEWave, SEObject);
+SE_IMPLEMENT_STREAM(SEWave);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEWave, SEObject);
 
-//SE_REGISTER_STREAM(Wave);
+//SE_REGISTER_STREAM(SEWave);
 
-int Wave::ms_BytesPerSample[Wave::WT_COUNT] =
+int SEWave::ms_BytesPerSample[SEWave::WT_COUNT] =
 {
     1,  // WT_MONO4
     1,  // WT_MONO8
@@ -47,7 +47,7 @@ int Wave::ms_BytesPerSample[Wave::WT_COUNT] =
     2   // WT_71CHN16
 };
 
-int Wave::ms_ChannelsPerSample[Wave::WT_COUNT] =
+int SEWave::ms_ChannelsPerSample[SEWave::WT_COUNT] =
 {
     1,  // WT_MONO4
     1,  // WT_MONO8
@@ -62,7 +62,7 @@ int Wave::ms_ChannelsPerSample[Wave::WT_COUNT] =
     8   // WT_71CHN16
 };
 
-std::string Wave::ms_FormatName[Wave::WT_COUNT] =
+std::string SEWave::ms_FormatName[SEWave::WT_COUNT] =
 {
     "WT_MONO4",
     "WT_MONO8",
@@ -78,7 +78,7 @@ std::string Wave::ms_FormatName[Wave::WT_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-Wave::Wave(FormatMode eFormat, unsigned int uiFrequency, int iDataSize,
+SEWave::SEWave(FormatMode eFormat, unsigned int uiFrequency, int iDataSize,
     unsigned char* pData, const char* pWaveName, bool bInsert)
 {
     SE_ASSERT( pWaveName );
@@ -91,11 +91,11 @@ Wave::Wave(FormatMode eFormat, unsigned int uiFrequency, int iDataSize,
     m_bIsInCatalog = bInsert;
     if( bInsert )
     {
-        WaveCatalog::GetActive()->Insert(this);
+        SEWaveCatalog::GetActive()->Insert(this);
     }
 }
 //----------------------------------------------------------------------------
-Wave::Wave()
+SEWave::SEWave()
 {
     m_eFormat = WT_COUNT;
     m_uiFrequency = 0;
@@ -103,16 +103,16 @@ Wave::Wave()
     m_pData = 0;
 }
 //----------------------------------------------------------------------------
-Wave::~Wave()
+SEWave::~SEWave()
 {
     SE_DELETE[] m_pData;
     if( m_bIsInCatalog )
     {
-        WaveCatalog::GetActive()->Remove(this);
+        SEWaveCatalog::GetActive()->Remove(this);
     }
 }
 //----------------------------------------------------------------------------
-Wave* Wave::Load(const char* pWaveName)
+SEWave* SEWave::Load(const char* pWaveName)
 {
     SE_ASSERT( pWaveName );
 
@@ -132,7 +132,7 @@ Wave* Wave::Load(const char* pWaveName)
         // 文件不存在.
         return 0;
     }
-    if( iSize < WaveVersion::LENGTH )
+    if( iSize < SEWaveVersion::LENGTH )
     {
         // 文件太小.
         SE_DELETE[] acBuffer;
@@ -141,7 +141,7 @@ Wave* Wave::Load(const char* pWaveName)
     }
 
     // 获取文件版本.
-    WaveVersion tempVersion(acBuffer);
+    SEWaveVersion tempVersion(acBuffer);
     if( !tempVersion.IsValid() )
     {
         SE_DELETE[] acBuffer;
@@ -149,7 +149,7 @@ Wave* Wave::Load(const char* pWaveName)
         return 0;
     }
 
-    char* pcCurrent = acBuffer + WaveVersion::LENGTH;
+    char* pcCurrent = acBuffer + SEWaveVersion::LENGTH;
 
     // 获取wave format和frequency.
     int iFormat;
@@ -176,7 +176,7 @@ Wave* Wave::Load(const char* pWaveName)
         SESystem::SE_Read2le(pcCurrent, iDataSize>>1, pData);
     }
 
-    Wave* pWave = SE_NEW Wave(eFormat, uiFrequency, iDataSize, pData,
+    SEWave* pWave = SE_NEW SEWave(eFormat, uiFrequency, iDataSize, pData,
         pWaveName);
 
     SE_DELETE[] acBuffer;
@@ -184,7 +184,7 @@ Wave* Wave::Load(const char* pWaveName)
     return pWave;
 }
 //----------------------------------------------------------------------------
-bool Wave::Save(const char* pFileName)
+bool SEWave::Save(const char* pFileName)
 {
     if( !pFileName )
     {
@@ -198,7 +198,7 @@ bool Wave::Save(const char* pFileName)
     }
 
     // 写文件版本.
-    SESystem::SE_Write1(pFile, WaveVersion::LENGTH, WaveVersion::LABEL);
+    SESystem::SE_Write1(pFile, SEWaveVersion::LENGTH, SEWaveVersion::LABEL);
 
     // 写wave format和frequency.
     int iFormat = (int)m_eFormat;
@@ -229,7 +229,7 @@ bool Wave::Save(const char* pFileName)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Wave::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEWave::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -258,22 +258,22 @@ void Wave::Load(SEStream& rStream, SEStream::Link* pLink)
     }
 
     m_bIsInCatalog = true;
-    WaveCatalog::GetActive()->Insert(this);
+    SEWaveCatalog::GetActive()->Insert(this);
 
-    SE_END_DEBUG_STREAM_LOAD(Wave);
+    SE_END_DEBUG_STREAM_LOAD(SEWave);
 }
 //----------------------------------------------------------------------------
-void Wave::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEWave::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream, pLink);
+    SEObject::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Wave::Register(SEStream& rStream) const
+bool SEWave::Register(SEStream& rStream) const
 {
     return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Wave::Save(SEStream& rStream) const
+void SEWave::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -298,10 +298,10 @@ void Wave::Save(SEStream& rStream) const
         rStream.Write(m_iDataSize>>1, (unsigned short*)m_pData);
     }
 
-    SE_END_DEBUG_STREAM_SAVE(Wave);
+    SE_END_DEBUG_STREAM_SAVE(SEWave);
 }
 //----------------------------------------------------------------------------
-int Wave::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEWave::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     int iSize = SEObject::GetDiskUsed(rVersion) +
         sizeof(int); // m_eFormat
@@ -312,7 +312,7 @@ int Wave::GetDiskUsed(const SEStreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-SEStringTree* Wave::SaveStrings(const char*)
+SEStringTree* SEWave::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 

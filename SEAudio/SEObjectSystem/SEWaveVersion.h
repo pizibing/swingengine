@@ -39,17 +39,17 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090617
 //----------------------------------------------------------------------------
-class SE_AUDIO_API WaveVersion
+class SE_AUDIO_API SEWaveVersion
 {
 public:
     static const int MAJOR;     // 1
     static const int MINOR;     // 0
     static const char LABEL[];  // "Swing Engine Wave File 1.00"
     static const int LENGTH;    // 28 = strlen(LABEL)+1
-    static const WaveVersion CURRENT;
+    static const SEWaveVersion CURRENT;
 
-    WaveVersion(int iMajor = -1, int iMinor = -1);
-    WaveVersion(const char* pString);
+    SEWaveVersion(int iMajor = -1, int iMinor = -1);
+    SEWaveVersion(const char* pString);
 
     int GetMajor(void) const;
     int GetMinor(void) const;
@@ -58,13 +58,13 @@ public:
     bool IsValid(void) const;
 
     // For comparisons of versions.  This is useful whenever a change to the
-    // Wave class causes a file format change.
-    bool operator == (const WaveVersion& rVersion) const;
-    bool operator != (const WaveVersion& rVersion) const;
-    bool operator <  (const WaveVersion& rVersion) const;
-    bool operator <= (const WaveVersion& rVersion) const;
-    bool operator >  (const WaveVersion& rVersion) const;
-    bool operator >= (const WaveVersion& rVersion) const;
+    // SEWave class causes a file format change.
+    bool operator == (const SEWaveVersion& rVersion) const;
+    bool operator != (const SEWaveVersion& rVersion) const;
+    bool operator <  (const SEWaveVersion& rVersion) const;
+    bool operator <= (const SEWaveVersion& rVersion) const;
+    bool operator >  (const SEWaveVersion& rVersion) const;
+    bool operator >= (const SEWaveVersion& rVersion) const;
 
 protected:
     int GetCombined(void) const;  // 100*major + minor

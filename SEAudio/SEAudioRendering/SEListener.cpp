@@ -24,14 +24,14 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Listener, SEObject);
-SE_IMPLEMENT_STREAM(Listener);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Listener, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEListener, SEObject);
+SE_IMPLEMENT_STREAM(SEListener);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEListener, SEObject);
 
-//SE_REGISTER_STREAM(Listener);
+//SE_REGISTER_STREAM(SEListener);
 
 //----------------------------------------------------------------------------
-Listener::Listener()
+SEListener::SEListener()
 {
     m_fMasterGain = 1.0f;
     m_pAudioRenderer = 0;
@@ -40,18 +40,18 @@ Listener::Listener()
         SEVector3f::UNIT_Z); // 与世界空间坐标系重合
 }
 //----------------------------------------------------------------------------
-Listener::~Listener()
+SEListener::~SEListener()
 {
 }
 //----------------------------------------------------------------------------
-void Listener::SetFrame(const SEVector3f& rLocation, const SEVector3f& rRVector,
-    const SEVector3f& rUVector, const SEVector3f& rDVector)
+void SEListener::SetFrame(const SEVector3f& rLocation, const SEVector3f& 
+    rRVector, const SEVector3f& rUVector, const SEVector3f& rDVector)
 {
     m_Location = rLocation;
     SetAxes(rRVector, rUVector, rDVector);
 }
 //----------------------------------------------------------------------------
-void Listener::SetLocation(const SEVector3f& rLocation)
+void SEListener::SetLocation(const SEVector3f& rLocation)
 {
     m_Location = rLocation;
 
@@ -61,8 +61,8 @@ void Listener::SetLocation(const SEVector3f& rLocation)
     }
 }
 //----------------------------------------------------------------------------
-void Listener::SetAxes(const SEVector3f& rRVector, const SEVector3f& rUVector,
-    const SEVector3f& rDVector)
+void SEListener::SetAxes(const SEVector3f& rRVector, const SEVector3f& 
+    rUVector, const SEVector3f& rDVector)
 {
     m_RVector = rRVector;
     m_UVector = rUVector;
@@ -81,7 +81,7 @@ void Listener::SetAxes(const SEVector3f& rRVector, const SEVector3f& rUVector,
     }
 }
 //----------------------------------------------------------------------------
-void Listener::SetMasterGain(float fMasterGain)
+void SEListener::SetMasterGain(float fMasterGain)
 {
     m_fMasterGain = fMasterGain;
 
@@ -95,7 +95,7 @@ void Listener::SetMasterGain(float fMasterGain)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Listener::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEListener::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -108,20 +108,20 @@ void Listener::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(m_DVector);
     rStream.Read(m_fMasterGain);
 
-    SE_END_DEBUG_STREAM_LOAD(Listener);
+    SE_END_DEBUG_STREAM_LOAD(SEListener);
 }
 //----------------------------------------------------------------------------
-void Listener::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEListener::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream, pLink);
+    SEObject::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Listener::Register(SEStream& rStream) const
+bool SEListener::Register(SEStream& rStream) const
 {
     return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Listener::Save(SEStream& rStream) const
+void SEListener::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
     
@@ -134,10 +134,10 @@ void Listener::Save(SEStream& rStream) const
     rStream.Write(m_DVector);
     rStream.Write(m_fMasterGain);
 
-    SE_END_DEBUG_STREAM_SAVE(Listener);
+    SE_END_DEBUG_STREAM_SAVE(SEListener);
 }
 //----------------------------------------------------------------------------
-int Listener::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEListener::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     int iSize = SEObject::GetDiskUsed(rVersion) +
         sizeof(m_Location) +
@@ -149,7 +149,7 @@ int Listener::GetDiskUsed(const SEStreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-SEStringTree* Listener::SaveStrings(const char*)
+SEStringTree* SEListener::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 

@@ -29,38 +29,37 @@
 namespace Swing
 {
 
-class Wave;
+class SEWave;
 
 //----------------------------------------------------------------------------
-// 名称:wave资源管理类
 // 说明:只索引资源,不释放
 // 作者:Sun Che
 // 时间:20090618
 //----------------------------------------------------------------------------
-class SE_AUDIO_API WaveCatalog
+class SE_AUDIO_API SEWaveCatalog
 {
 public:
-    WaveCatalog(const std::string& rName);
-    ~WaveCatalog(void);
+    SEWaveCatalog(const std::string& rName);
+    ~SEWaveCatalog(void);
 
     const std::string& GetName(void) const;
-    bool Insert(Wave* pWave);
-    bool Remove(Wave* pWave);
-    Wave* Find(const std::string& rWaveName);
+    bool Insert(SEWave* pWave);
+    bool Remove(SEWave* pWave);
+    SEWave* Find(const std::string& rWaveName);
     bool PrintContents(const std::string& rFileName) const;
 
-    static void SetActive(WaveCatalog* pActive);
-    static WaveCatalog* GetActive(void);
+    static void SetActive(SEWaveCatalog* pActive);
+    static SEWaveCatalog* GetActive(void);
 
 private:
     enum { WAVE_MAP_SIZE = 256 };
     std::string m_Name;
-    SEStringHashTable<Wave*> m_Entry;
+    SEStringHashTable<SEWave*> m_Entry;
     SEObjectPtr m_spDefaultWave;
 
     static const std::string ms_NullString;
     static const std::string ms_DefaultString;
-    static WaveCatalog* ms_pActive;
+    static SEWaveCatalog* ms_pActive;
 };
 
 }

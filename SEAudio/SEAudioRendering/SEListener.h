@@ -38,23 +38,22 @@
 namespace Swing
 {
 
-class AudioRenderer;
+class SEAudioRenderer;
 
 //----------------------------------------------------------------------------
-// 名称:listener基类
 // 说明:
 // 作者:Sun Che
 // 时间:20090618
 //----------------------------------------------------------------------------
-class SE_AUDIO_API Listener : public SEObject
+class SE_AUDIO_API SEListener : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    Listener(void);
-    virtual ~Listener(void);
+    SEListener(void);
+    virtual ~SEListener(void);
 
     // listener{E;R,U,D}的世界坐标系下表示:
     // 默认location  E = (0,0,0)
@@ -88,11 +87,11 @@ protected:
     // listener不能同时添加给多个声音渲染器,但可以在多个声音渲染器之间共享,
     // 前提是确保只有一个声音渲染器正在使用该listener,
     // 声音渲染器有责任设置这个成员变量.
-    friend class AudioRenderer;
-    AudioRenderer* m_pAudioRenderer;
+    friend class SEAudioRenderer;
+    SEAudioRenderer* m_pAudioRenderer;
 };
 
-typedef SESmartPointer<Listener> ListenerPtr;
+typedef SESmartPointer<SEListener> SEListenerPtr;
 
 #include "SEListener.inl"
 

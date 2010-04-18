@@ -19,27 +19,27 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline SEVector3f Listener::GetLocation() const
+inline SEVector3f SEListener::GetLocation() const
 {
     return m_Location;
 }
 //----------------------------------------------------------------------------
-inline SEVector3f Listener::GetRVector() const
+inline SEVector3f SEListener::GetRVector() const
 {
     return m_RVector;
 }
 //----------------------------------------------------------------------------
-inline SEVector3f Listener::GetUVector() const
+inline SEVector3f SEListener::GetUVector() const
 {
     return m_UVector;
 }
 //----------------------------------------------------------------------------
-inline SEVector3f Listener::GetDVector() const
+inline SEVector3f SEListener::GetDVector() const
 {
     return m_DVector;
 }
 //----------------------------------------------------------------------------
-inline float Listener::GetMasterGain() const
+inline float SEListener::GetMasterGain() const
 {
     return m_fMasterGain;
 }

@@ -29,31 +29,30 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:场景视图声音节点基类
 // 说明:
 // 作者:Sun Che
 // 时间:20090618
 //----------------------------------------------------------------------------
-class SE_AUDIO_API Sound : public Spatial, public AudioBindable
+class SE_AUDIO_API SESound : public SESpatial, public SEAudioBindable
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
     // 注意:
-    // Sound节点用于表示3D空间中的发声音源.
-    // Sound节点存储与该音源相关的所需音源物理参数,
-    // Sound类及其派生类型只能作为场景视图树的叶子节点.
+    // SESound节点用于表示3D空间中的发声音源.
+    // SESound节点存储与该音源相关的所需音源物理参数,
+    // SESound类及其派生类型只能作为场景视图树的叶子节点.
     // 节点的世界变换体现了音源的空间定位姿态.
     // 用户有责任确保节点的空间变换不包含非统一缩放变换.
     // 节点的模型/世界空间BV是一个半径为0的质点.
-    // 根据音源的物理性质,我们不应该使用view frustum来对Sound节点进行可视剔除,
-    // 而应该根据其相对于空间中Listener对象的空间姿态,距离,以及指向性进行剔除,
-    // 目前由音频管线API来完成此工作.因此Sound节点的Culling应设置为CULL_NEVER,
+    // 根据音源的物理性质,我们不应该使用view frustum来对SESound节点进行可视剔除,
+    // 而应该根据其相对于空间中SEListener对象的空间姿态,距离,以及指向性进行剔除,
+    // 目前由音频管线API来完成此工作.因此SESound节点的Culling应设置为CULL_NEVER,
     // 从而确保其不被引擎图形管线的view frustum剔除.
     //
     // 当使用PCM wave作为音源数据时,只有WT_MONO*格式支持3D空间声音定位.
-    // 其他多声道格式都无法产生用户所期望的基于Sound节点对象和Listener对象的
+    // 其他多声道格式都无法产生用户所期望的基于SESound节点对象和SEListener对象的
     // 空间声音定位.
     //
     // 目前我们假设音源为静态音源,即:
@@ -77,12 +76,12 @@ class SE_AUDIO_API Sound : public Spatial, public AudioBindable
     // from: http://en.wikipedia.org/wiki/Doppler_effect
 
 public:
-    Sound(SoundBuffer* pSBuffer);
-    virtual ~Sound(void);
+    SESound(SESoundBuffer* pSBuffer);
+    virtual ~SESound(void);
 
     // 成员访问.
-    SoundBufferPtr SBuffer;
-    BoundingVolumePtr ModelBound;
+    SESoundBufferPtr SBuffer;
+    SEBoundingVolumePtr ModelBound;
 
     // 声音参数.
     float Pitch;        // default: 1.0f
@@ -92,30 +91,30 @@ public:
 
     // Picking support.
     // 这个类仅仅用于维护类派生链的完整性.
-    class SE_AUDIO_API PickRecord : public Spatial::PickRecord
+    class SE_AUDIO_API SEPickRecord : public SESpatial::SEPickRecord
     {
     protected:
-        PickRecord(Sound* pIObject, float fT);
+        SEPickRecord(SESound* pIObject, float fT);
     };
 
 protected:
-    Sound(void);
+    SESound(void);
 
     // 世界空间数据及相关音频参数更新.
     virtual void UpdateWorldData(double dAppTime);
     virtual void UpdateWorldBound(void);
 
     // 渲染状态更新,实现基类接口.
-    // 对于Sound类,这是一个空函数,
-    // 因为Sound对象收集几何管线的渲染状态是毫无意义的.
-    virtual void UpdateState(std::vector<GlobalState*>* aGStack,
-        std::vector<Light*>* pLStack);
+    // 对于SESound类,这是一个空函数,
+    // 因为SESound对象收集几何管线的渲染状态是毫无意义的.
+    virtual void UpdateState(std::vector<SEGlobalState*>* aGStack,
+        std::vector<SELight*>* pLStack);
 
     // 支持剔除系统,收集可渲染对象.
-    virtual void GetUnculledSet(Culler& rCuller, bool bNoCull);
+    virtual void GetUnculledSet(SECuller& rCuller, bool bNoCull);
 };
 
-typedef SESmartPointer<Sound> SoundPtr;
+typedef SESmartPointer<SESound> SESoundPtr;
 
 }
 

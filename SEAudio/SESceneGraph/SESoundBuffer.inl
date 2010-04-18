@@ -19,19 +19,19 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int SoundBuffer::GetWaveCount() const
+inline int SESoundBuffer::GetWaveCount() const
 {
     return (int)m_Waves.size();
 }
 //----------------------------------------------------------------------------
-inline Wave* SoundBuffer::GetWave(int i)
+inline SEWave* SESoundBuffer::GetWave(int i)
 {
     SE_ASSERT( 0 <= i && i < (int)m_Waves.size() );
 
     return m_Waves[i];
 }
 //----------------------------------------------------------------------------
-inline const Wave* SoundBuffer::GetWave(int i) const
+inline const SEWave* SESoundBuffer::GetWave(int i) const
 {
     SE_ASSERT( 0 <= i && i < (int)m_Waves.size() );
 

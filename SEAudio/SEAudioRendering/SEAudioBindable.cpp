@@ -24,20 +24,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-AudioBindable::AudioBindable()
+SEAudioBindable::SEAudioBindable()
 {
 }
 //----------------------------------------------------------------------------
-AudioBindable::~AudioBindable()
+SEAudioBindable::~SEAudioBindable()
 {
 }
 //----------------------------------------------------------------------------
-int AudioBindable::GetInfoCount() const
+int SEAudioBindable::GetInfoCount() const
 {
     return (int)m_InfoArray.size();
 }
 //----------------------------------------------------------------------------
-AudioResourceIdentifier* AudioBindable::GetIdentifier(AudioRenderer* pUser) const
+SEAudioResourceIdentifier* SEAudioBindable::GetIdentifier(SEAudioRenderer* pUser) const
 {
     for( int i = 0; i < (int)m_InfoArray.size(); i++ )
     {
@@ -52,7 +52,7 @@ AudioResourceIdentifier* AudioBindable::GetIdentifier(AudioRenderer* pUser) cons
     return 0;
 }
 //----------------------------------------------------------------------------
-AudioResourceIdentifier* AudioBindable::GetIdentifier(int i, AudioRenderer* pUser)
+SEAudioResourceIdentifier* SEAudioBindable::GetIdentifier(int i, SEAudioRenderer* pUser)
     const
 {
     if( 0 <= i && i < (int)m_InfoArray.size() )
@@ -68,7 +68,7 @@ AudioResourceIdentifier* AudioBindable::GetIdentifier(int i, AudioRenderer* pUse
     return 0;
 }
 //----------------------------------------------------------------------------
-void AudioBindable::Release()
+void SEAudioBindable::Release()
 {
     while( m_InfoArray.size() > 0 )
     {
@@ -77,7 +77,7 @@ void AudioBindable::Release()
     }
 }
 //----------------------------------------------------------------------------
-void AudioBindable::UpdateParams()
+void SEAudioBindable::UpdateParams()
 {
     for( int i = 0; i < (int)m_InfoArray.size(); i++ )
     {
@@ -89,10 +89,10 @@ void AudioBindable::UpdateParams()
     }
 }
 //----------------------------------------------------------------------------
-void AudioBindable::OnLoad(AudioRenderer* pUser,
-    AudioRenderer::ReleaseFunction oRelease,
-    AudioRenderer::UpdateParamsFunction oUpdateParams,
-    AudioResourceIdentifier* pID)
+void SEAudioBindable::OnLoad(SEAudioRenderer* pUser,
+    SEAudioRenderer::ReleaseFunction oRelease,
+    SEAudioRenderer::UpdateParamsFunction oUpdateParams,
+    SEAudioResourceIdentifier* pID)
 {
     Info tempData;
     tempData.User = pUser;
@@ -102,8 +102,8 @@ void AudioBindable::OnLoad(AudioRenderer* pUser,
     m_InfoArray.push_back(tempData);
 }
 //----------------------------------------------------------------------------
-void AudioBindable::OnRelease(AudioRenderer* pUser,
-    AudioResourceIdentifier* pID)
+void SEAudioBindable::OnRelease(SEAudioRenderer* pUser,
+    SEAudioResourceIdentifier* pID)
 {
     int iCount = (int)m_InfoArray.size();
     for( int i = 0; i < iCount; i++ )

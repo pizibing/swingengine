@@ -34,15 +34,15 @@ using namespace Swing;
 void Swing::SE_Audio_Register()
 {
     // Audio Rendering
-    SE_REGISTER_STREAM(Wave);
-    SE_REGISTER_STREAM(Listener);
-    SE_INVOKE_STREAM(Wave);
-    SE_INVOKE_STREAM(Listener);
+    SE_REGISTER_STREAM(SEWave);
+    SE_REGISTER_STREAM(SEListener);
+    SE_INVOKE_STREAM(SEWave);
+    SE_INVOKE_STREAM(SEListener);
 
     // Scene Graph
-    SE_REGISTER_STREAM(SoundBuffer);
-    SE_REGISTER_STREAM(Sound);
-    SE_INVOKE_STREAM(SoundBuffer);
-    SE_INVOKE_STREAM(Sound);
+    SE_REGISTER_STREAM(SESoundBuffer);
+    SE_REGISTER_STREAM(SESound);
+    SE_INVOKE_STREAM(SESoundBuffer);
+    SE_INVOKE_STREAM(SESound);
 }
 //----------------------------------------------------------------------------

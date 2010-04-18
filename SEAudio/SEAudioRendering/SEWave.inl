@@ -19,52 +19,52 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline Wave::FormatMode Wave::GetFormat() const
+inline SEWave::FormatMode SEWave::GetFormat() const
 {
     return m_eFormat;
 }
 //----------------------------------------------------------------------------
-inline const std::string& Wave::GetFormatName() const
+inline const std::string& SEWave::GetFormatName() const
 {
     return ms_FormatName[m_eFormat];
 }
 //----------------------------------------------------------------------------
-inline std::string Wave::GetFormatName(int eFormat)
+inline std::string SEWave::GetFormatName(int eFormat)
 {
     return ms_FormatName[eFormat];
 }
 //----------------------------------------------------------------------------
-inline int Wave::GetBytesPerSample() const
+inline int SEWave::GetBytesPerSample() const
 {
     return ms_BytesPerSample[m_eFormat];
 }
 //----------------------------------------------------------------------------
-inline int Wave::GetBytesPerSample(int eFormat)
+inline int SEWave::GetBytesPerSample(int eFormat)
 {
     return ms_BytesPerSample[eFormat];
 }
 //----------------------------------------------------------------------------
-inline int Wave::GetChannelsPerSample() const
+inline int SEWave::GetChannelsPerSample() const
 {
     return ms_ChannelsPerSample[m_eFormat];
 }
 //----------------------------------------------------------------------------
-inline int Wave::GetChannelsPerSample(int eFormat)
+inline int SEWave::GetChannelsPerSample(int eFormat)
 {
     return ms_ChannelsPerSample[eFormat];
 }
 //----------------------------------------------------------------------------
-inline unsigned int Wave::GetFrequency() const
+inline unsigned int SEWave::GetFrequency() const
 {
     return m_uiFrequency;
 }
 //----------------------------------------------------------------------------
-inline int Wave::GetDataSize() const
+inline int SEWave::GetDataSize() const
 {
     return m_iDataSize;
 }
 //----------------------------------------------------------------------------
-inline unsigned char* Wave::GetData() const
+inline unsigned char* SEWave::GetData() const
 {
     return m_pData;
 }

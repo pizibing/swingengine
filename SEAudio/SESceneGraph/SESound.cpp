@@ -24,67 +24,68 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Sound, Spatial);
-SE_IMPLEMENT_STREAM(Sound);
+SE_IMPLEMENT_RTTI(Swing, SESound, SESpatial);
+SE_IMPLEMENT_STREAM(SESound);
 
-//SE_REGISTER_STREAM(Sound);
+//SE_REGISTER_STREAM(SESound);
 
 //----------------------------------------------------------------------------
-Sound::Sound()
+SESound::SESound()
     :
-    ModelBound(BoundingVolume::Create())
+    ModelBound(SEBoundingVolume::Create())
 {
-    Culling = Spatial::CULL_NEVER;
+    Culling = SESpatial::CULL_NEVER;
     Pitch = 1.0f;
     Gain = 1.0f;
     RollOffRate = 1.0f;
     Looping = false;
 }
 //----------------------------------------------------------------------------
-Sound::Sound(SoundBuffer* pSBuffer)
+SESound::SESound(SESoundBuffer* pSBuffer)
     :
     SBuffer(pSBuffer),
-    ModelBound(BoundingVolume::Create())
+    ModelBound(SEBoundingVolume::Create())
 {
-    Culling = Spatial::CULL_NEVER;
+    Culling = SESpatial::CULL_NEVER;
     Pitch = 1.0f;
     Gain = 1.0f;
     RollOffRate = 1.0f;
     Looping = false;
 }
 //----------------------------------------------------------------------------
-Sound::~Sound()
+SESound::~SESound()
 {
-    // 通知所有使用此Sound的audio renderer,资源即将被释放,
-    // 从而允许audio renderer释放与此Sound有关的资源.
+    // 通知所有使用此SESound的audio renderer,资源即将被释放,
+    // 从而允许audio renderer释放与此SESound有关的资源.
     Release();
 }
 //----------------------------------------------------------------------------
-void Sound::UpdateWorldData(double dAppTime)
+void SESound::UpdateWorldData(double dAppTime)
 {
-    Spatial::UpdateWorldData(dAppTime);
+    SESpatial::UpdateWorldData(dAppTime);
 
     UpdateParams();
 }
 //----------------------------------------------------------------------------
-void Sound::UpdateWorldBound()
+void SESound::UpdateWorldBound()
 {
     ModelBound->TransformBy(World, WorldBound);
 }
 //----------------------------------------------------------------------------
-void Sound::UpdateState(std::vector<GlobalState*>*, std::vector<Light*>*)
+void SESound::UpdateState(std::vector<SEGlobalState*>*, 
+    std::vector<SELight*>*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void Sound::GetUnculledSet(Culler& rCuller, bool)
+void SESound::GetUnculledSet(SECuller& rCuller, bool)
 {
     rCuller.Insert(this, 0, true);
 }
 //----------------------------------------------------------------------------
-Sound::PickRecord::PickRecord(Sound* pIObject, float fT)
+SESound::SEPickRecord::SEPickRecord(SESound* pIObject, float fT)
     :
-    Spatial::PickRecord(pIObject, fT)
+    SESpatial::SEPickRecord(pIObject, fT)
 {
 }
 //----------------------------------------------------------------------------
@@ -92,9 +93,9 @@ Sound::PickRecord::PickRecord(Sound* pIObject, float fT)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-SEObject* Sound::GetObjectByName(const std::string& rName)
+SEObject* SESound::GetObjectByName(const std::string& rName)
 {
-    SEObject* pFound = Spatial::GetObjectByName(rName);
+    SEObject* pFound = SESpatial::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -121,10 +122,10 @@ SEObject* Sound::GetObjectByName(const std::string& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Sound::GetAllObjectsByName(const std::string& rName,
+void SESound::GetAllObjectsByName(const std::string& rName,
     std::vector<SEObject*>& rObjects)
 {
-    Spatial::GetAllObjectsByName(rName, rObjects);
+    SESpatial::GetAllObjectsByName(rName, rObjects);
 
     if( ModelBound )
     {
@@ -137,9 +138,9 @@ void Sound::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-SEObject* Sound::GetObjectByID(unsigned int uiID)
+SEObject* SESound::GetObjectByID(unsigned int uiID)
 {
-    SEObject* pFound = Spatial::GetObjectByID(uiID);
+    SEObject* pFound = SESpatial::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -170,11 +171,11 @@ SEObject* Sound::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Sound::Load(SEStream& rStream, SEStream::Link* pLink)
+void SESound::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Spatial::Load(rStream, pLink);
+    SESpatial::Load(rStream, pLink);
 
     // native data
     rStream.Read(Pitch);
@@ -190,23 +191,23 @@ void Sound::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(pObject);  // SBuffer
     pLink->Add(pObject);
 
-    SE_END_DEBUG_STREAM_LOAD(Sound);
+    SE_END_DEBUG_STREAM_LOAD(SESound);
 }
 //----------------------------------------------------------------------------
-void Sound::Link(SEStream& rStream, SEStream::Link* pLink)
+void SESound::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    Spatial::Link(rStream, pLink);
+    SESpatial::SELink(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
-    ModelBound = (BoundingVolume*)rStream.GetFromMap(pLinkID);
+    ModelBound = (SEBoundingVolume*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
-    SBuffer = (SoundBuffer*)rStream.GetFromMap(pLinkID);
+    SBuffer = (SESoundBuffer*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool Sound::Register(SEStream& rStream) const
+bool SESound::Register(SEStream& rStream) const
 {
-    if( !Spatial::Register(rStream) )
+    if( !SESpatial::Register(rStream) )
     {
         return false;
     }
@@ -224,11 +225,11 @@ bool Sound::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Sound::Save(SEStream& rStream) const
+void SESound::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Spatial::Save(rStream);
+    SESpatial::Save(rStream);
 
     // native data
     rStream.Write(Pitch);
@@ -240,17 +241,17 @@ void Sound::Save(SEStream& rStream) const
     rStream.Write(ModelBound);
     rStream.Write(SBuffer);
 
-    SE_END_DEBUG_STREAM_SAVE(Sound);
+    SE_END_DEBUG_STREAM_SAVE(SESound);
 }
 //----------------------------------------------------------------------------
-int Sound::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SESound::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Spatial::GetDiskUsed(rVersion) +
+    return SESpatial::GetDiskUsed(rVersion) +
         sizeof(Pitch) + sizeof(Gain) + sizeof(RollOffRate) + sizeof(Looping) +
         sizeof(ModelBound) + sizeof(SBuffer);
 }
 //----------------------------------------------------------------------------
-SEStringTree* Sound::SaveStrings(const char*)
+SEStringTree* SESound::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -262,7 +263,7 @@ SEStringTree* Sound::SaveStrings(const char*)
     pTree->Append(Format("looping = ", Looping));
 
     // children
-    pTree->Append(Spatial::SaveStrings());
+    pTree->Append(SESpatial::SaveStrings());
 
     if( ModelBound )
     {

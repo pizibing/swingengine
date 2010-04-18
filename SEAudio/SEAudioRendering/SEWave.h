@@ -28,12 +28,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:wave类
 // 说明:支持wave声音文件.
 // 作者:Sun Che
 // 时间:20090617
 //----------------------------------------------------------------------------
-class SE_AUDIO_API Wave : public SEObject
+class SE_AUDIO_API SEWave : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -62,7 +61,7 @@ public:
     // 因此在写入/读取16位采样数据时,如果当前系统是big endian的,则会产生swap.
 
     // 构造和析构.
-    // Wave有责任删除传入的数组数据.
+    // SEWave有责任删除传入的数组数据.
     // pWaveName用于wave共享时的唯一ID.
     // 构造函数的调用者可以提供一个wave name.
     // 如果没有提供,则构造函数将自动创建一个叫做"waveN.sewf"的唯一ID,
@@ -72,10 +71,10 @@ public:
     // 供稍后索引该资源时使用.然而用户也可以设置bInsert参数为false,
     // 从而该wave不会被插入全局wave map(比如在没有全局wave map时).
 
-    Wave(FormatMode eFormat, unsigned int uiFrequency, int iDataSize,
+    SEWave(FormatMode eFormat, unsigned int uiFrequency, int iDataSize,
         unsigned char* pData, const char* pWaveName, bool bInsert = true);
 
-    virtual ~Wave(void);
+    virtual ~SEWave(void);
 
     // 成员访问.
     inline FormatMode GetFormat(void) const;
@@ -93,8 +92,8 @@ public:
     // 对于Load函数,如果具有filename的wave已经载入内存,
     // 则该wave被找到并作为返回值(例如,出于共享的目的).
     // 否则,创建一个新的wave并返回.filename被用作wave name.
-    // 参考WaveCatalog::Find函数中对这个函数的调用.
-    static Wave* Load(const char* pWaveName);
+    // 参考SEWaveCatalog::Find函数中对这个函数的调用.
+    static SEWave* Load(const char* pWaveName);
 
     // 这个函数用来支持保存程序生成的wave数据,
     // 或者可以用来支持把其他类型的audio格式的数据转换为sewf格式.
@@ -103,7 +102,7 @@ public:
 
 protected:
     // support for streaming.
-    Wave(void);
+    SEWave(void);
 
     FormatMode m_eFormat;
     unsigned int m_uiFrequency;
@@ -117,7 +116,7 @@ protected:
     static std::string ms_FormatName[WT_COUNT];
 };
 
-typedef SESmartPointer<Wave> WavePtr;
+typedef SESmartPointer<SEWave> SEWavePtr;
 
 #include "SEWave.inl"
 

@@ -28,12 +28,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:audio资源ID类
 // 说明:
 // 作者:Sun Che
 // 时间:20090619
 //----------------------------------------------------------------------------
-class SE_AUDIO_API AudioResourceIdentifier
+class SE_AUDIO_API SEAudioResourceIdentifier
 {
 public:
     // 虚基类,注意析构函数不是虚函数,
@@ -43,17 +42,17 @@ public:
     // 这将允许派生类首先存储自己的成员变量,
     // 并且安全的进行如下所示的类型转换操作:
     //
-    //   class SubClassResourceIdentifier : public AudioResourceIdentifier
+    //   class SubClassResourceIdentifier : public SEAudioResourceIdentifier
     //   {
     //   public:  DataType SubClassMember;
     //   }
     //   SubClassResourceIdentifier* pID = <some identifier>;
     //   Type& rSubClassMember = *(DataType*)pID;
 
-    ~AudioResourceIdentifier(void){}
+    ~SEAudioResourceIdentifier(void){}
 
 protected:
-    AudioResourceIdentifier(void){}
+    SEAudioResourceIdentifier(void){}
 };
 
 //----------------------------------------------------------------------------
@@ -62,46 +61,47 @@ protected:
 // 作者:Sun Che
 // 时间:20090619
 //----------------------------------------------------------------------------
-class SE_AUDIO_API AudioBindable
+class SE_AUDIO_API SEAudioBindable
 {
 public:
-    AudioBindable(void);
-    ~AudioBindable(void);
+    SEAudioBindable(void);
+    ~SEAudioBindable(void);
 
     // 当资源在音频设备中有唯一表示时使用.
-    AudioResourceIdentifier* GetIdentifier(AudioRenderer* pUser) const;
+    SEAudioResourceIdentifier* GetIdentifier(SEAudioRenderer* pUser) const;
 
     // 当资源在音频设备中有多个表示时使用.
     int GetInfoCount(void) const;
-    AudioResourceIdentifier* GetIdentifier(int i, AudioRenderer* pUser) const;
+    SEAudioResourceIdentifier* GetIdentifier(int i, SEAudioRenderer* pUser) 
+        const;
 
     void Release(void);
 
     // 用于音频资源在世界体系下的空间姿态以及其他相关音频参数的动态更新.
-    // 由Sound对象在UpdateWorldDate函数中调用.
+    // 由SESound对象在UpdateWorldDate函数中调用.
     void UpdateParams(void);
 
 private:
-    friend class AudioRenderer;
+    friend class SEAudioRenderer;
 
-    void OnLoad(AudioRenderer* pUser, AudioRenderer::ReleaseFunction oRelease,
-        AudioRenderer::UpdateParamsFunction oUpdateParams,
-        AudioResourceIdentifier* pID);
+    void OnLoad(SEAudioRenderer* pUser, SEAudioRenderer::ReleaseFunction 
+        oRelease, SEAudioRenderer::UpdateParamsFunction oUpdateParams,
+        SEAudioResourceIdentifier* pID);
 
-    void OnRelease(AudioRenderer* pUser, AudioResourceIdentifier* pID);
+    void OnRelease(SEAudioRenderer* pUser, SEAudioResourceIdentifier* pID);
 
     struct Info
     {
         // 资源所绑定的audio renderer.
-        AudioRenderer* User;
+        SEAudioRenderer* User;
 
         // 释放资源时所需的audio renderer释放函数.
-        AudioRenderer::ReleaseFunction Release;
+        SEAudioRenderer::ReleaseFunction Release;
         // 更新资源参数时所需的audio renderer更新函数.
-        AudioRenderer::UpdateParamsFunction UpdateParams;
+        SEAudioRenderer::UpdateParamsFunction UpdateParams;
 
         // 资源在该audio renderer上的ID.
-        AudioResourceIdentifier* ID;
+        SEAudioResourceIdentifier* ID;
     };
 
     // 可以同时绑定给多个audio renderer,

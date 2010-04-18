@@ -24,12 +24,12 @@
 
 using namespace Swing;
 
-const std::string WaveCatalog::ms_NullString("");
-const std::string WaveCatalog::ms_DefaultString("Default");
-WaveCatalog* WaveCatalog::ms_pActive = 0;
+const std::string SEWaveCatalog::ms_NullString("");
+const std::string SEWaveCatalog::ms_DefaultString("Default");
+SEWaveCatalog* SEWaveCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
-WaveCatalog::WaveCatalog(const std::string& rName)
+SEWaveCatalog::SEWaveCatalog(const std::string& rName)
     :
     m_Name(rName),
     m_Entry(WAVE_MAP_SIZE)
@@ -39,16 +39,16 @@ WaveCatalog::WaveCatalog(const std::string& rName)
     m_spDefaultWave = 0;
 }
 //----------------------------------------------------------------------------
-WaveCatalog::~WaveCatalog()
+SEWaveCatalog::~SEWaveCatalog()
 {
 }
 //----------------------------------------------------------------------------
-const std::string& WaveCatalog::GetName() const
+const std::string& SEWaveCatalog::GetName() const
 {
     return m_Name;
 }
 //----------------------------------------------------------------------------
-bool WaveCatalog::Insert(Wave* pWave)
+bool SEWaveCatalog::Insert(SEWave* pWave)
 {
     if( !pWave )
     {
@@ -66,7 +66,7 @@ bool WaveCatalog::Insert(Wave* pWave)
     }
 
     // 首先在资源目录中查找
-    Wave** ppTempWave = m_Entry.Find(tempWaveName);
+    SEWave** ppTempWave = m_Entry.Find(tempWaveName);
     if( ppTempWave )
     {
         // 该wave已经存在
@@ -79,7 +79,7 @@ bool WaveCatalog::Insert(Wave* pWave)
     return true;
 }
 //----------------------------------------------------------------------------
-bool WaveCatalog::Remove(Wave* pWave)
+bool SEWaveCatalog::Remove(SEWave* pWave)
 {
     if( !pWave )
     {
@@ -97,7 +97,7 @@ bool WaveCatalog::Remove(Wave* pWave)
     }
 
     // 首先在资源目录中查找
-    Wave** ppTempWave = m_Entry.Find(tempWaveName);
+    SEWave** ppTempWave = m_Entry.Find(tempWaveName);
     if( !ppTempWave )
     {
         // 该wave不存在
@@ -110,16 +110,16 @@ bool WaveCatalog::Remove(Wave* pWave)
     return true;
 }
 //----------------------------------------------------------------------------
-Wave* WaveCatalog::Find(const std::string& rWaveName)
+SEWave* SEWaveCatalog::Find(const std::string& rWaveName)
 {
     if( rWaveName == ms_NullString 
     ||  rWaveName == ms_DefaultString )
     {
-        return StaticCast<Wave>(m_spDefaultWave);
+        return StaticCast<SEWave>(m_spDefaultWave);
     }
 
     // 首先在资源目录中查找
-    Wave** ppTempWave = m_Entry.Find(rWaveName);
+    SEWave** ppTempWave = m_Entry.Find(rWaveName);
     if( ppTempWave )
     {
         // 找到则返回
@@ -127,7 +127,7 @@ Wave* WaveCatalog::Find(const std::string& rWaveName)
     }
 
     // 在磁盘中查找
-    Wave* pWave = Wave::Load(rWaveName.c_str());
+    SEWave* pWave = SEWave::Load(rWaveName.c_str());
     if( pWave )
     {
         // 该资源存在,且已经在Load后被加入资源目录,不用再次调用Insert函数
@@ -135,10 +135,10 @@ Wave* WaveCatalog::Find(const std::string& rWaveName)
     }
 
     // wave不存在,则使用默认wave
-    return StaticCast<Wave>(m_spDefaultWave);
+    return StaticCast<SEWave>(m_spDefaultWave);
 }
 //----------------------------------------------------------------------------
-bool WaveCatalog::PrintContents(const std::string& rFileName) const
+bool SEWaveCatalog::PrintContents(const std::string& rFileName) const
 {
     const char* pDecorated = SESystem::SE_GetPath(rFileName.c_str(), 
         SESystem::SM_WRITE);
@@ -150,10 +150,10 @@ bool WaveCatalog::PrintContents(const std::string& rFileName) const
         SE_ASSERT( OStream );
 
         std::string tempWaveName;
-        Wave** ppTempWave = m_Entry.GetFirst(&tempWaveName);
+        SEWave** ppTempWave = m_Entry.GetFirst(&tempWaveName);
         while( ppTempWave )
         {
-            Wave* pWave = *ppTempWave;
+            SEWave* pWave = *ppTempWave;
             OStream << tempWaveName.c_str() << ":" << std::endl;
             OStream << "    format = " << pWave->GetFormatName().c_str()
                 << std::endl;
@@ -170,12 +170,12 @@ bool WaveCatalog::PrintContents(const std::string& rFileName) const
     return false;
 }
 //----------------------------------------------------------------------------
-void WaveCatalog::SetActive(WaveCatalog* pActive)
+void SEWaveCatalog::SetActive(SEWaveCatalog* pActive)
 {
     ms_pActive = pActive;
 }
 //----------------------------------------------------------------------------
-WaveCatalog* WaveCatalog::GetActive()
+SEWaveCatalog* SEWaveCatalog::GetActive()
 {
     return ms_pActive;
 }

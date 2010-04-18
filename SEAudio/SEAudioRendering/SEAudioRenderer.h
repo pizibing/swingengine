@@ -27,27 +27,26 @@
 namespace Swing
 {
 
-class AudioBindable;
-class AudioResourceIdentifier;
-class Listener;
-class Sound;
-class SoundBuffer;
-class Spatial;
-class UnculledObject;
-class UnculledSet;
+class SEAudioBindable;
+class SEAudioResourceIdentifier;
+class SEListener;
+class SESound;
+class SESoundBuffer;
+class SESpatial;
+class SEUnculledObject;
+class SEUnculledSet;
 
 //----------------------------------------------------------------------------
-// 名称:声音渲染器基类
 // 说明:
 // 作者:Sun Che
 // 时间:20090619
 //----------------------------------------------------------------------------
-class SE_AUDIO_API AudioRenderer
+class SE_AUDIO_API SEAudioRenderer
 {
 public:
     // 虚基类.
     // 声音渲染器抽象API.所有声音管线API都要实现这层.
-    virtual ~AudioRenderer(void);
+    virtual ~SEAudioRenderer(void);
 
     // RTTI信息.
     enum
@@ -59,45 +58,45 @@ public:
     virtual int GetType(void) const = 0; // 由声音渲染器派生类实现
 
     // listener访问.
-    void SetListener(Listener* pListener);
-    inline Listener* GetListener(void) const;
+    void SetListener(SEListener* pListener);
+    inline SEListener* GetListener(void) const;
 
     // 对象渲染入口.
-    virtual void PlayScene(UnculledSet& rAudibleSet);
-    virtual void Play(Sound* pSound);
+    virtual void PlayScene(SEUnculledSet& rAudibleSet);
+    virtual void Play(SESound* pSound);
 
     // 对象停止渲染入口.
-    virtual void StopScene(UnculledSet& rAudibleSet);
-    virtual void Stop(Sound* pSound);
+    virtual void StopScene(SEUnculledSet& rAudibleSet);
+    virtual void Stop(SESound* pSound);
 
     // 待实现.
     // 声音渲染器能力限制检测.
 
     // 声音渲染器绑定资源释放函数的函数指针类型.
-    typedef void (AudioRenderer::*ReleaseFunction)(AudioBindable*);
+    typedef void (SEAudioRenderer::*ReleaseFunction)(SEAudioBindable*);
     // 声音渲染器绑定资源参数更新回调函数的函数指针类型.
-    typedef void (AudioRenderer::*UpdateParamsFunction)(AudioBindable*);
+    typedef void (SEAudioRenderer::*UpdateParamsFunction)(SEAudioBindable*);
 
     // 声音渲染器资源装载与释放.
-    void LoadAllResources(Spatial* pScene);
-    void ReleaseAllResources(Spatial* pScene);
-    void LoadResources(Sound* pSound);
-    void ReleaseResources(Sound* pSound);
-    void LoadSound(Sound* pSound);
-    void ReleaseSound(AudioBindable* pSound);
-    void LoadSBuffer(SoundBuffer* pSBuffer);
-    void ReleaseSBuffer(AudioBindable* pSBuffer);
+    void LoadAllResources(SESpatial* pScene);
+    void ReleaseAllResources(SESpatial* pScene);
+    void LoadResources(SESound* pSound);
+    void ReleaseResources(SESound* pSound);
+    void LoadSound(SESound* pSound);
+    void ReleaseSound(SEAudioBindable* pSound);
+    void LoadSBuffer(SESoundBuffer* pSBuffer);
+    void ReleaseSBuffer(SEAudioBindable* pSBuffer);
 
     // 声音渲染器资源参数更新.
-    void UpdateSoundParams(AudioBindable* pSound);
+    void UpdateSoundParams(SEAudioBindable* pSound);
 
 protected:
     // 虚基类
-    AudioRenderer(void);
+    SEAudioRenderer(void);
 
     // 支持listener访问和相关更新操作.
     // 当listener相关数据改变时,调用这些回调函数.
-    friend class Listener;
+    friend class SEListener;
     virtual void OnFrameChange(void) = 0;       // {E:R,U,D}改变
     virtual void OnMasterGainChange(void) = 0;  // master gain改变.
 
@@ -106,39 +105,39 @@ protected:
     virtual void OnPostPlaySound(void);
 
     // 设置声音参数(声音世界空间姿态及其他声音物理参数).
-    virtual void SetSoundParams(AudioResourceIdentifier* pID) = 0;
+    virtual void SetSoundParams(SEAudioResourceIdentifier* pID) = 0;
 
     // 声音渲染器派生类渲染函数入口.
-    virtual void PlayElements(AudioResourceIdentifier* pID) = 0;
+    virtual void PlayElements(SEAudioResourceIdentifier* pID) = 0;
 
     // 声音渲染器派生类停止渲染函数入口.
-    virtual void StopElements(AudioResourceIdentifier* pID) = 0;
+    virtual void StopElements(SEAudioResourceIdentifier* pID) = 0;
 
     // 声音渲染器资源装载与释放.
     // 需要具体音频API负责实现.
-    virtual void OnLoadSound(AudioResourceIdentifier*& rpID,
-        Sound* pSound) = 0;
-    virtual void OnReleaseSound(AudioResourceIdentifier* pID) = 0;
-    virtual void OnLoadSBuffer(AudioResourceIdentifier*& rpID,
-        SoundBuffer* pSBuffer) = 0;
-    virtual void OnReleaseSBuffer(AudioResourceIdentifier* pID) = 0;
+    virtual void OnLoadSound(SEAudioResourceIdentifier*& rpID,
+        SESound* pSound) = 0;
+    virtual void OnReleaseSound(SEAudioResourceIdentifier* pID) = 0;
+    virtual void OnLoadSBuffer(SEAudioResourceIdentifier*& rpID,
+        SESoundBuffer* pSBuffer) = 0;
+    virtual void OnReleaseSBuffer(SEAudioResourceIdentifier* pID) = 0;
 
     // 声音渲染器资源开启与关闭入口.
-    AudioResourceIdentifier* EnableSound(void);
+    SEAudioResourceIdentifier* EnableSound(void);
     void DisableSound(void);
 
     // 声音渲染器资源开启与关闭.
     // 需要具体音频API负责实现.
-    virtual void OnEnableSound(AudioResourceIdentifier* pID) = 0;
-    virtual void OnDisableSound(AudioResourceIdentifier* pID) = 0;
-    virtual void OnEnableSBuffer(AudioResourceIdentifier* pID) = 0;
-    virtual void OnDisableSBuffer(AudioResourceIdentifier* pID) = 0;
-    virtual void OnAttachSBuffer(AudioResourceIdentifier* pSoundID,
-        AudioResourceIdentifier* pSBufferID) = 0;
+    virtual void OnEnableSound(SEAudioResourceIdentifier* pID) = 0;
+    virtual void OnDisableSound(SEAudioResourceIdentifier* pID) = 0;
+    virtual void OnEnableSBuffer(SEAudioResourceIdentifier* pID) = 0;
+    virtual void OnDisableSBuffer(SEAudioResourceIdentifier* pID) = 0;
+    virtual void OnAttachSBuffer(SEAudioResourceIdentifier* pSoundID,
+        SEAudioResourceIdentifier* pSBufferID) = 0;
 
     // 声音渲染器资源参数更新.
     // 需要具体音频API负责实现.
-    virtual void OnUpdateSoundParams(AudioResourceIdentifier* pID) = 0;
+    virtual void OnUpdateSoundParams(SEAudioResourceIdentifier* pID) = 0;
 
 // 数据成员:
 protected:
@@ -146,10 +145,10 @@ protected:
     // 资源限制,声音渲染器派生类负责设置.
 
     // 当前listener.
-    Listener* m_pListener;
+    SEListener* m_pListener;
 
     // 当前正在渲染的声音对象.
-    Sound* m_pSound;
+    SESound* m_pSound;
 };
 
 #include "SEAudioRenderer.inl"

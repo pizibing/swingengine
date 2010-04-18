@@ -23,20 +23,20 @@
 
 using namespace Swing;
 
-const int WaveVersion::MAJOR = 1;
-const int WaveVersion::MINOR = 0;
-const char WaveVersion::LABEL[] = "Swing Engine Wave File 1.00";
-const int WaveVersion::LENGTH = 28;
-const WaveVersion WaveVersion::CURRENT(MAJOR, MINOR);
+const int SEWaveVersion::MAJOR = 1;
+const int SEWaveVersion::MINOR = 0;
+const char SEWaveVersion::LABEL[] = "Swing Engine Wave File 1.00";
+const int SEWaveVersion::LENGTH = 28;
+const SEWaveVersion SEWaveVersion::CURRENT(MAJOR, MINOR);
 
 //----------------------------------------------------------------------------
-WaveVersion::WaveVersion(int iMajor, int iMinor)
+SEWaveVersion::SEWaveVersion(int iMajor, int iMinor)
 {
     m_iMajor = iMajor;
     m_iMinor = iMinor;
 }
 //----------------------------------------------------------------------------
-WaveVersion::WaveVersion(const char* pString)
+SEWaveVersion::SEWaveVersion(const char* pString)
 {
     m_iMajor = -1;
     m_iMinor = -1;
@@ -53,52 +53,52 @@ WaveVersion::WaveVersion(const char* pString)
     }
 }
 //----------------------------------------------------------------------------
-bool WaveVersion::IsValid() const
+bool SEWaveVersion::IsValid() const
 {
     return m_iMajor == MAJOR && 0 <= m_iMinor && m_iMinor < 100;
 }
 //----------------------------------------------------------------------------
-int WaveVersion::GetMajor() const
+int SEWaveVersion::GetMajor() const
 {
     return m_iMajor;
 }
 //----------------------------------------------------------------------------
-int WaveVersion::GetMinor() const
+int SEWaveVersion::GetMinor() const
 {
     return m_iMinor;
 }
 //----------------------------------------------------------------------------
-int WaveVersion::GetCombined() const
+int SEWaveVersion::GetCombined() const
 {
     return 100*m_iMajor + m_iMinor;
 }
 //----------------------------------------------------------------------------
-bool WaveVersion::operator==(const WaveVersion& rVersion) const
+bool SEWaveVersion::operator==(const SEWaveVersion& rVersion) const
 {
     return GetCombined() == rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool WaveVersion::operator!=(const WaveVersion& rVersion) const
+bool SEWaveVersion::operator!=(const SEWaveVersion& rVersion) const
 {
     return GetCombined() != rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool WaveVersion::operator<(const WaveVersion& rVersion) const
+bool SEWaveVersion::operator<(const SEWaveVersion& rVersion) const
 {
     return GetCombined() < rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool WaveVersion::operator<=(const WaveVersion& rVersion) const
+bool SEWaveVersion::operator<=(const SEWaveVersion& rVersion) const
 {
     return GetCombined() <= rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool WaveVersion::operator>(const WaveVersion& rVersion) const
+bool SEWaveVersion::operator>(const SEWaveVersion& rVersion) const
 {
     return GetCombined() > rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool WaveVersion::operator>=(const WaveVersion& rVersion) const
+bool SEWaveVersion::operator>=(const SEWaveVersion& rVersion) const
 {
     return GetCombined() >= rVersion.GetCombined();
 }

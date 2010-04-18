@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline Listener* AudioRenderer::GetListener() const
+inline SEListener* SEAudioRenderer::GetListener() const
 {
     return m_pListener;
 }

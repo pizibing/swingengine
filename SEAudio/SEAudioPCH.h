@@ -33,7 +33,7 @@
 #include "SEAudioBindable.h"
 #include "SEAudioRenderer.h"
 
-// Object SESystem
+// Object System
 #include "SEWaveVersion.h"
 
 // Scene Graph

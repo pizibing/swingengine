@@ -23,13 +23,13 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, SoundBuffer, SEObject);
-SE_IMPLEMENT_STREAM(SoundBuffer);
+SE_IMPLEMENT_RTTI(Swing, SESoundBuffer, SEObject);
+SE_IMPLEMENT_STREAM(SESoundBuffer);
 
-//SE_REGISTER_STREAM(SoundBuffer);
+//SE_REGISTER_STREAM(SESoundBuffer);
 
 //----------------------------------------------------------------------------
-SoundBuffer::SoundBuffer(int iWCount, Wave** apWaves)
+SESoundBuffer::SESoundBuffer(int iWCount, SEWave** apWaves)
 {
     SE_ASSERT( iWCount > 0 && apWaves );
 
@@ -40,7 +40,7 @@ SoundBuffer::SoundBuffer(int iWCount, Wave** apWaves)
     }
 }
 //----------------------------------------------------------------------------
-SoundBuffer::SoundBuffer(const SoundBuffer* pSBuffer)
+SESoundBuffer::SESoundBuffer(const SESoundBuffer* pSBuffer)
 {
     SE_ASSERT( pSBuffer );
 
@@ -51,11 +51,11 @@ SoundBuffer::SoundBuffer(const SoundBuffer* pSBuffer)
     }
 }
 //----------------------------------------------------------------------------
-SoundBuffer::SoundBuffer()
+SESoundBuffer::SESoundBuffer()
 {
 }
 //----------------------------------------------------------------------------
-SoundBuffer::~SoundBuffer()
+SESoundBuffer::~SESoundBuffer()
 {
     // 通知所有使用此SBuffer的audio renderer,资源即将被释放,
     // 从而允许audio renderer释放与此SB有关的资源.
@@ -66,7 +66,7 @@ SoundBuffer::~SoundBuffer()
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-SEObject* SoundBuffer::GetObjectByName(const std::string& rName)
+SEObject* SESoundBuffer::GetObjectByName(const std::string& rName)
 {
     SEObject* pFound = SEObject::GetObjectByName(rName);
     if( pFound )
@@ -89,7 +89,7 @@ SEObject* SoundBuffer::GetObjectByName(const std::string& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void SoundBuffer::GetAllObjectsByName(const std::string& rName,
+void SESoundBuffer::GetAllObjectsByName(const std::string& rName,
     std::vector<SEObject*>& rObjects)
 {
     SEObject::GetAllObjectsByName(rName, rObjects);
@@ -103,7 +103,7 @@ void SoundBuffer::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-SEObject* SoundBuffer::GetObjectByID(unsigned int uiID)
+SEObject* SESoundBuffer::GetObjectByID(unsigned int uiID)
 {
     SEObject* pFound = SEObject::GetObjectByID(uiID);
     if( pFound )
@@ -130,7 +130,7 @@ SEObject* SoundBuffer::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SoundBuffer::Load(SEStream& rStream, SEStream::Link* pLink)
+void SESoundBuffer::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -147,21 +147,21 @@ void SoundBuffer::Load(SEStream& rStream, SEStream::Link* pLink)
         pLink->Add(pObject);
     }
 
-    SE_END_DEBUG_STREAM_LOAD(SoundBuffer);
+    SE_END_DEBUG_STREAM_LOAD(SESoundBuffer);
 }
 //----------------------------------------------------------------------------
-void SoundBuffer::Link(SEStream& rStream, SEStream::Link* pLink)
+void SESoundBuffer::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream, pLink);
+    SEObject::SELink(rStream, pLink);
 
     for( int i = 0; i < (int)m_Waves.size(); i++ )
     {
         SEObject* pLinkID = pLink->GetLinkID();
-        m_Waves[i] = (Wave*)rStream.GetFromMap(pLinkID);
+        m_Waves[i] = (SEWave*)rStream.GetFromMap(pLinkID);
     }
 }
 //----------------------------------------------------------------------------
-bool SoundBuffer::Register(SEStream& rStream) const
+bool SESoundBuffer::Register(SEStream& rStream) const
 {
     if( !SEObject::Register(rStream) )
     {
@@ -179,7 +179,7 @@ bool SoundBuffer::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void SoundBuffer::Save(SEStream& rStream) const
+void SESoundBuffer::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -193,16 +193,16 @@ void SoundBuffer::Save(SEStream& rStream) const
         rStream.Write(m_Waves[i]);
     }
 
-    SE_END_DEBUG_STREAM_SAVE(SoundBuffer);
+    SE_END_DEBUG_STREAM_SAVE(SESoundBuffer);
 }
 //----------------------------------------------------------------------------
-int SoundBuffer::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SESoundBuffer::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SEObject::GetDiskUsed(rVersion) +
         sizeof(int) + (int)m_Waves.size()*sizeof(m_Waves[0]);
 }
 //----------------------------------------------------------------------------
-SEStringTree* SoundBuffer::SaveStrings(const char*)
+SEStringTree* SESoundBuffer::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 

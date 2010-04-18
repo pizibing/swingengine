@@ -30,38 +30,37 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:sound buffer类
 // 说明:wave数据可以作为音频资源绑定给音频设备.
 // 作者:Sun Che
 // 时间:20090618
 //----------------------------------------------------------------------------
-class SE_AUDIO_API SoundBuffer : public SEObject, public AudioBindable
+class SE_AUDIO_API SESoundBuffer : public SEObject, public SEAudioBindable
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    SoundBuffer(int iWCount, Wave** apWaves);
-    SoundBuffer(const SoundBuffer* pSBuffer);
-    virtual ~SoundBuffer(void);
+    SESoundBuffer(int iWCount, SEWave** apWaves);
+    SESoundBuffer(const SESoundBuffer* pSBuffer);
+    virtual ~SESoundBuffer(void);
 
     // 成员访问.
     inline int GetWaveCount(void) const;
-    inline Wave* GetWave(int i);
-    inline const Wave* GetWave(int i) const;
+    inline SEWave* GetWave(int i);
+    inline const SEWave* GetWave(int i) const;
 
 protected:
     // streaming support
-    SoundBuffer(void);
+    SESoundBuffer(void);
 
     void* m_pID;
 
     // wave数据.
-    std::vector<WavePtr> m_Waves;
+    std::vector<SEWavePtr> m_Waves;
 };
 
-typedef SESmartPointer<SoundBuffer> SoundBufferPtr;
+typedef SESmartPointer<SESoundBuffer> SESoundBufferPtr;
 
 #include "SESoundBuffer.inl"
 

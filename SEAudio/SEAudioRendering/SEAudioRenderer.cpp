@@ -27,19 +27,19 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-AudioRenderer::AudioRenderer()
+SEAudioRenderer::SEAudioRenderer()
 {
     // 派生类应该检测并设置设备能力.
     m_pListener = 0;
     m_pSound = 0;
 }
 //----------------------------------------------------------------------------
-AudioRenderer::~AudioRenderer()
+SEAudioRenderer::~SEAudioRenderer()
 {
     SetListener(0);
 }
 //----------------------------------------------------------------------------
-void AudioRenderer::SetListener(Listener* pListener)
+void SEAudioRenderer::SetListener(SEListener* pListener)
 {
     if( m_pListener )
     {
@@ -59,12 +59,12 @@ void AudioRenderer::SetListener(Listener* pListener)
     }
 }
 //----------------------------------------------------------------------------
-void AudioRenderer::OnPrePlaySound()
+void SEAudioRenderer::OnPrePlaySound()
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-void AudioRenderer::OnPostPlaySound()
+void SEAudioRenderer::OnPostPlaySound()
 {
     // 由派生类负责实现.
 }
@@ -73,20 +73,20 @@ void AudioRenderer::OnPostPlaySound()
 //----------------------------------------------------------------------------
 // 装载与释放资源
 //----------------------------------------------------------------------------
-void AudioRenderer::LoadAllResources(Spatial* pScene)
+void SEAudioRenderer::LoadAllResources(SESpatial* pScene)
 {
-    Sound* pSound = DynamicCast<Sound>(pScene);
+    SESound* pSound = DynamicCast<SESound>(pScene);
     if( pSound )
     {
         LoadResources(pSound);
     }
 
-    Node* pNode = DynamicCast<Node>(pScene);
+    SENode* pNode = DynamicCast<SENode>(pScene);
     if( pNode )
     {
         for( int i = 0; i < pNode->GetCount(); i++ )
         {
-            Spatial* pChild = pNode->GetChild(i);
+            SESpatial* pChild = pNode->GetChild(i);
             if( pChild )
             {
                 LoadAllResources(pChild);
@@ -95,20 +95,20 @@ void AudioRenderer::LoadAllResources(Spatial* pScene)
     }
 }
 //----------------------------------------------------------------------------
-void AudioRenderer::ReleaseAllResources(Spatial* pScene)
+void SEAudioRenderer::ReleaseAllResources(SESpatial* pScene)
 {
-    Sound* pSound = DynamicCast<Sound>(pScene);
+    SESound* pSound = DynamicCast<SESound>(pScene);
     if( pSound )
     {
         ReleaseResources(pSound);
     }
 
-    Node* pNode = DynamicCast<Node>(pScene);
+    SENode* pNode = DynamicCast<SENode>(pScene);
     if( pNode )
     {
         for( int i = 0; i < pNode->GetCount(); i++ )
         {
-            Spatial* pChild = pNode->GetChild(i);
+            SESpatial* pChild = pNode->GetChild(i);
             if( pChild )
             {
                 ReleaseAllResources(pChild);
@@ -117,7 +117,7 @@ void AudioRenderer::ReleaseAllResources(Spatial* pScene)
     }
 }
 //----------------------------------------------------------------------------
-void AudioRenderer::LoadResources(Sound* pSound)
+void SEAudioRenderer::LoadResources(SESound* pSound)
 {
     SE_ASSERT( pSound );
 
@@ -125,7 +125,7 @@ void AudioRenderer::LoadResources(Sound* pSound)
     LoadSound(pSound);
 }
 //----------------------------------------------------------------------------
-void AudioRenderer::ReleaseResources(Sound* pSound)
+void SEAudioRenderer::ReleaseResources(SESound* pSound)
 {
     SE_ASSERT( pSound );
 
@@ -133,24 +133,24 @@ void AudioRenderer::ReleaseResources(Sound* pSound)
     ReleaseSound(pSound);
 }
 //----------------------------------------------------------------------------
-void AudioRenderer::LoadSound(Sound* pSound)
+void SEAudioRenderer::LoadSound(SESound* pSound)
 {
     if( !pSound )
     {
         return;
     }
 
-    AudioResourceIdentifier* pSoundID = pSound->GetIdentifier(this);
+    SEAudioResourceIdentifier* pSoundID = pSound->GetIdentifier(this);
     if( !pSoundID )
     {
         OnLoadSound(pSoundID, pSound);
-        pSound->OnLoad(this, &AudioRenderer::ReleaseSound,
-            &AudioRenderer::UpdateSoundParams, pSoundID);
+        pSound->OnLoad(this, &SEAudioRenderer::ReleaseSound,
+            &SEAudioRenderer::UpdateSoundParams, pSoundID);
 
         if( pSound->SBuffer )
         {
             LoadSBuffer(pSound->SBuffer);
-            AudioResourceIdentifier* pSBufferID = 
+            SEAudioResourceIdentifier* pSBufferID = 
                 pSound->SBuffer->GetIdentifier(this);
 
             OnAttachSBuffer(pSoundID, pSBufferID);
@@ -158,14 +158,14 @@ void AudioRenderer::LoadSound(Sound* pSound)
     }
 }
 //----------------------------------------------------------------------------
-void AudioRenderer::ReleaseSound(AudioBindable* pSound)
+void SEAudioRenderer::ReleaseSound(SEAudioBindable* pSound)
 {
     if( !pSound )
     {
         return;
     }
 
-    AudioResourceIdentifier* pID = pSound->GetIdentifier(this);
+    SEAudioResourceIdentifier* pID = pSound->GetIdentifier(this);
     if( pID )
     {
         OnReleaseSound(pID);
@@ -173,29 +173,29 @@ void AudioRenderer::ReleaseSound(AudioBindable* pSound)
     }
 }
 //----------------------------------------------------------------------------
-void AudioRenderer::LoadSBuffer(SoundBuffer* pSBuffer)
+void SEAudioRenderer::LoadSBuffer(SESoundBuffer* pSBuffer)
 {
     if( !pSBuffer )
     {
         return;
     }
 
-    AudioResourceIdentifier* pID = pSBuffer->GetIdentifier(this);
+    SEAudioResourceIdentifier* pID = pSBuffer->GetIdentifier(this);
     if( !pID )
     {
         OnLoadSBuffer(pID, pSBuffer);
-        pSBuffer->OnLoad(this, &AudioRenderer::ReleaseSBuffer, 0, pID);
+        pSBuffer->OnLoad(this, &SEAudioRenderer::ReleaseSBuffer, 0, pID);
     }
 }
 //----------------------------------------------------------------------------
-void AudioRenderer::ReleaseSBuffer(AudioBindable* pSBuffer)
+void SEAudioRenderer::ReleaseSBuffer(SEAudioBindable* pSBuffer)
 {
     if( !pSBuffer )
     {
         return;
     }
 
-    AudioResourceIdentifier* pID = pSBuffer->GetIdentifier(this);
+    SEAudioResourceIdentifier* pID = pSBuffer->GetIdentifier(this);
     if( pID )
     {
         OnReleaseSBuffer(pID);
@@ -207,14 +207,14 @@ void AudioRenderer::ReleaseSBuffer(AudioBindable* pSBuffer)
 //----------------------------------------------------------------------------
 // 资源参数更新
 //----------------------------------------------------------------------------
-void AudioRenderer::UpdateSoundParams(AudioBindable* pSound)
+void SEAudioRenderer::UpdateSoundParams(SEAudioBindable* pSound)
 {
     if( !pSound )
     {
         return;
     }
 
-    AudioResourceIdentifier* pID = pSound->GetIdentifier(this);
+    SEAudioResourceIdentifier* pID = pSound->GetIdentifier(this);
     if( pID )
     {
         OnUpdateSoundParams(pID);
@@ -225,20 +225,20 @@ void AudioRenderer::UpdateSoundParams(AudioBindable* pSound)
 //----------------------------------------------------------------------------
 // 资源开启与关闭
 //----------------------------------------------------------------------------
-AudioResourceIdentifier* AudioRenderer::EnableSound()
+SEAudioResourceIdentifier* SEAudioRenderer::EnableSound()
 {
     // 确保sound及其sound buffer装载入音频设备.
     LoadSound(m_pSound);
-    AudioResourceIdentifier* pID = m_pSound->GetIdentifier(this);
+    SEAudioResourceIdentifier* pID = m_pSound->GetIdentifier(this);
     SE_ASSERT( pID );
 
     OnEnableSound(pID);
     return pID;
 }
 //----------------------------------------------------------------------------
-void AudioRenderer::DisableSound()
+void SEAudioRenderer::DisableSound()
 {
-    AudioResourceIdentifier* pID = m_pSound->GetIdentifier(this);
+    SEAudioResourceIdentifier* pID = m_pSound->GetIdentifier(this);
     SE_ASSERT( pID );
 
     OnDisableSound(pID);
@@ -248,20 +248,20 @@ void AudioRenderer::DisableSound()
 //----------------------------------------------------------------------------
 // 对象渲染入口
 //----------------------------------------------------------------------------
-void AudioRenderer::PlayScene(UnculledSet& rAudibleSet)
+void SEAudioRenderer::PlayScene(SEUnculledSet& rAudibleSet)
 {
     const int iAudibleCount = rAudibleSet.GetCount();
-    UnculledObject* pAudibleSet = rAudibleSet.GetUnculled();
+    SEUnculledObject* pAudibleSet = rAudibleSet.GetUnculled();
     for( int i = 0; i < iAudibleCount; i++ )
     {
         if( pAudibleSet[i].IsRenderable() )
         {
-            Play((Sound*)pAudibleSet[i].SEObject);
+            Play((SESound*)pAudibleSet[i].SEObject);
         }
     }
 }
 //----------------------------------------------------------------------------
-void AudioRenderer::Play(Sound* pSound)
+void SEAudioRenderer::Play(SESound* pSound)
 {
     SE_ASSERT( pSound );
 
@@ -272,7 +272,7 @@ void AudioRenderer::Play(Sound* pSound)
     OnPrePlaySound();
 
     // 开启当前可渲染对象的sound,并为其装载sound buffer.
-    AudioResourceIdentifier* pID = EnableSound();
+    SEAudioResourceIdentifier* pID = EnableSound();
 
     // 更新声音参数.
     SetSoundParams(pID);
@@ -294,24 +294,24 @@ void AudioRenderer::Play(Sound* pSound)
 //----------------------------------------------------------------------------
 // 对象停止渲染入口
 //----------------------------------------------------------------------------
-void AudioRenderer::StopScene(UnculledSet& rAudibleSet)
+void SEAudioRenderer::StopScene(SEUnculledSet& rAudibleSet)
 {
     const int iAudibleCount = rAudibleSet.GetCount();
-    UnculledObject* pAudibleSet = rAudibleSet.GetUnculled();
+    SEUnculledObject* pAudibleSet = rAudibleSet.GetUnculled();
     for( int i = 0; i < iAudibleCount; i++ )
     {
         if( pAudibleSet[i].IsRenderable() )
         {
-            Stop((Sound*)pAudibleSet[i].SEObject);
+            Stop((SESound*)pAudibleSet[i].SEObject);
         }
     }
 }
 //----------------------------------------------------------------------------
-void AudioRenderer::Stop(Sound* pSound)
+void SEAudioRenderer::Stop(SESound* pSound)
 {
     SE_ASSERT( pSound );
 
-    AudioResourceIdentifier* pID = pSound->GetIdentifier(this);
+    SEAudioResourceIdentifier* pID = pSound->GetIdentifier(this);
     if( pID )
     {
         // 停止渲染.
