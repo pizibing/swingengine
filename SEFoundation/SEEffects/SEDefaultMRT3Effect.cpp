@@ -35,7 +35,7 @@ SEDefaultMRT3Effect::SEDefaultMRT3Effect(const std::string& rBaseName)
     :
     SEShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW SEVertexShader("SETexture.v_Texture");
+    m_VShader[0] = SE_NEW SEVertexShader("Texture.v_Texture");
     m_PShader[0] = SE_NEW SEPixelShader("DefaultMRT3.p_DefaultMRT3");
 
     m_PShader[0]->SetTextureCount(1);

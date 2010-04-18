@@ -69,7 +69,7 @@ SEGaussianBlurVEffect::SEGaussianBlurVEffect(const std::string& rBaseName)
     :
     SEShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW SEVertexShader("SETexture.v_Texture");
+    m_VShader[0] = SE_NEW SEVertexShader("Texture.v_Texture");
     m_PShader[0] = SE_NEW SEPixelShader("GaussianBlur.p_GaussianBlur");
 
     m_PShader[0]->SetTextureCount(1);

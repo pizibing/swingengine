@@ -81,7 +81,7 @@ SEScreenSpaceAOBlurEffect::SEScreenSpaceAOBlurEffect(const std::string&
     :
     SEShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW SEVertexShader("SETexture.v_Texture");
+    m_VShader[0] = SE_NEW SEVertexShader("Texture.v_Texture");
     m_PShader[0] = SE_NEW SEPixelShader(
         "ScreenSpaceAOBlur.p_ScreenSpaceAOBlur");
 
