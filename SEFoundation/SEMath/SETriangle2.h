@@ -28,15 +28,16 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20081223
+// Description:
+// Author:Sun Che
+// Date:20081223
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SETriangle2f
 {
 public:
     SETriangle2f(void);  // 未初始化
-    SETriangle2f(const SEVector2f& rV0, const SEVector2f& rV1, const SEVector2f& rV2);
+    SETriangle2f(const SEVector2f& rV0, const SEVector2f& rV1, const 
+        SEVector2f& rV2);
     SETriangle2f(const SEVector2f aV[3]);
 
     // 三角形到点Q的距离.

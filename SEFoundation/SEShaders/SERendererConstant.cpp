@@ -245,7 +245,8 @@ std::string SERendererConstant::ms_StringMap[SERendererConstant::MAX_TYPES+1] =
     "MAX_TYPES"
 };
 
-SEStringHashTable<SERendererConstant::Type>* SERendererConstant::ms_pTypeMap = 0;
+SEStringHashTable<SERendererConstant::Type>* SERendererConstant::ms_pTypeMap 
+    = 0;
 SERendererConstant::ReleaseID SERendererConstant::OnReleaseID = 0;
 SERendererConstant::CopyID SERendererConstant::OnCopyID = 0;
 
@@ -254,7 +255,8 @@ void SERendererConstant::Initialize()
 {
     SE_ASSERT( ms_pTypeMap == 0 );
 
-    ms_pTypeMap = SE_NEW SEStringHashTable<SERendererConstant::Type>(MAX_TYPES);
+    ms_pTypeMap = SE_NEW SEStringHashTable<SERendererConstant::Type>(
+        MAX_TYPES);
 
     for( int i = 0; i < (int)MAX_TYPES; i++ )
     {

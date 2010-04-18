@@ -161,7 +161,8 @@ float SETerrainPage::GetHeight(float fX, float fZ) const
         {
             fH11 = m_fMinElevation + m_fMultiplier *
                 m_ausHeight[iIndex + 1 + m_iSize];
-            fHeight = (fSum - 1.0f)*fH11 + (1.0f - fDz)*fH10 + (1.0f - fDx)*fH01;
+            fHeight = (fSum - 1.0f)*fH11 + (1.0f - fDz)*fH10 + (1.0f - fDx)*
+                fH01;
         }
     }
 
@@ -172,7 +173,7 @@ float SETerrainPage::GetHeight(float fX, float fZ) const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SETerrainPage::Load(SEStream& rStream, SEStream::Link* pLink)
+void SETerrainPage::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -192,9 +193,9 @@ void SETerrainPage::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SETerrainPage);
 }
 //----------------------------------------------------------------------------
-void SETerrainPage::Link(SEStream& rStream, SEStream::Link* pLink)
+void SETerrainPage::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SETriMesh::Link(rStream, pLink);
+    SETriMesh::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SETerrainPage::Register(SEStream& rStream) const

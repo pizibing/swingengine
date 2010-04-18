@@ -23,18 +23,18 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, MaterialTexture2L1Effect, ShaderEffect);
-SE_IMPLEMENT_STREAM(MaterialTexture2L1Effect);
-SE_IMPLEMENT_DEFAULT_STREAM(MaterialTexture2L1Effect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(MaterialTexture2L1Effect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEMaterialTexture2L1Effect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEMaterialTexture2L1Effect);
+SE_IMPLEMENT_DEFAULT_STREAM(SEMaterialTexture2L1Effect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEMaterialTexture2L1Effect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(MaterialTexture2L1Effect);
+//SE_REGISTER_STREAM(SEMaterialTexture2L1Effect);
 
 //----------------------------------------------------------------------------
-MaterialTexture2L1Effect::MaterialTexture2L1Effect(const std::string& rT0, 
+SEMaterialTexture2L1Effect::SEMaterialTexture2L1Effect(const std::string& rT0, 
     const std::string& rT1)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = 
         SE_NEW SEVertexShader("MaterialTexture2L1.v_MaterialTexture2L1");
@@ -46,11 +46,11 @@ MaterialTexture2L1Effect::MaterialTexture2L1Effect(const std::string& rT0,
     m_PShader[0]->SetImageName(1, rT1);
 }
 //----------------------------------------------------------------------------
-MaterialTexture2L1Effect::MaterialTexture2L1Effect()
+SEMaterialTexture2L1Effect::SEMaterialTexture2L1Effect()
 {
 }
 //----------------------------------------------------------------------------
-MaterialTexture2L1Effect::~MaterialTexture2L1Effect()
+SEMaterialTexture2L1Effect::~SEMaterialTexture2L1Effect()
 {
 }
 //----------------------------------------------------------------------------

@@ -28,9 +28,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:oriented bounding box
-// 作者:Sun Che
-// 时间:20070705
+// Description:oriented bounding box
+// Author:Sun Che
+// Date:20070705
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEBox3f
 {

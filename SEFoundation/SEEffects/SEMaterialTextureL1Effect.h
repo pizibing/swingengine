@@ -28,27 +28,26 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:material texture with 1 light effect类
-// 说明:所依附的node必须带有material state对象.
-// 作者:Sun Che
-// 时间:20100302
+// Description:所依附的node必须带有material state对象.
+// Author:Sun Che
+// Date:20100302
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API MaterialTextureL1Effect : public ShaderEffect
+class SE_FOUNDATION_API SEMaterialTextureL1Effect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    MaterialTextureL1Effect(const std::string& rBaseName);
-    virtual ~MaterialTextureL1Effect(void);
+    SEMaterialTextureL1Effect(const std::string& rBaseName);
+    virtual ~SEMaterialTextureL1Effect(void);
 
 protected:
     // streaming
-    MaterialTextureL1Effect(void);
+    SEMaterialTextureL1Effect(void);
 };
 
-typedef SESmartPointer<MaterialTextureL1Effect> MaterialTextureL1EffectPtr;
+typedef SESmartPointer<SEMaterialTextureL1Effect> SEMaterialTextureL1EffectPtr;
 
 }
 

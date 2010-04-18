@@ -28,26 +28,25 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:Skin material texture2 with 1 light effect class
 // Description:由GPU进行蒙皮顶点计算.所依附的node必须带有material state对象.
 // Author:Sun Che
 // Date:20100227
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API SkinMaterialTexture2L1Effect : public SkinEffect
+class SE_FOUNDATION_API SESkinMaterialTexture2L1Effect : public SESkinEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    SkinMaterialTexture2L1Effect(const std::string& rT0, 
+    SESkinMaterialTexture2L1Effect(const std::string& rT0, 
         const std::string& rT1, int iBoneCount, SENode** apBones, 
         SETransformation* aOffset);
-    virtual ~SkinMaterialTexture2L1Effect(void);
+    virtual ~SESkinMaterialTexture2L1Effect(void);
 
 protected:
     // streaming
-    SkinMaterialTexture2L1Effect(void);
+    SESkinMaterialTexture2L1Effect(void);
 
     virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
         SEProgram* pPProgram, SEProgram* pGProgram);
@@ -55,8 +54,8 @@ protected:
     static bool ms_bUCInitialized;
 };
 
-typedef SESmartPointer<SkinMaterialTexture2L1Effect> 
-    SkinMaterialTexture2L1EffectPtr;
+typedef SESmartPointer<SESkinMaterialTexture2L1Effect> 
+    SESkinMaterialTexture2L1EffectPtr;
 
 }
 

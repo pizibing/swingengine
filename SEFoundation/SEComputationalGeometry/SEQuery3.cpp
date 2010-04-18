@@ -177,8 +177,8 @@ float SEQuery3f::Det3(float fX0, float fY0, float fZ0, float fX1, float fY1,
 }
 //----------------------------------------------------------------------------
 float SEQuery3f::Det4(float fX0, float fY0, float fZ0, float fW0, float fX1, 
-    float fY1, float fZ1, float fW1, float fX2, float fY2, float fZ2, float fW2, 
-    float fX3, float fY3, float fZ3, float fW3)
+    float fY1, float fZ1, float fW1, float fX2, float fY2, float fZ2, 
+    float fW2, float fX3, float fY3, float fZ3, float fW3)
 {
     float fA0 = fX0*fY1 - fX1*fY0;
     float fA1 = fX0*fY2 - fX2*fY0;

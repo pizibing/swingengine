@@ -23,35 +23,35 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, SkinMaterialEffect, SkinEffect);
-SE_IMPLEMENT_STREAM(SkinMaterialEffect);
-SE_IMPLEMENT_DEFAULT_STREAM(SkinMaterialEffect, SkinEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(SkinMaterialEffect, SkinEffect);
+SE_IMPLEMENT_RTTI(Swing, SESkinMaterialEffect, SESkinEffect);
+SE_IMPLEMENT_STREAM(SESkinMaterialEffect);
+SE_IMPLEMENT_DEFAULT_STREAM(SESkinMaterialEffect, SESkinEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SESkinMaterialEffect, SESkinEffect);
 
-//SE_REGISTER_STREAM(SkinMaterialEffect);
+//SE_REGISTER_STREAM(SESkinMaterialEffect);
 
-bool SkinMaterialEffect::ms_bUCInitialized = false;
+bool SESkinMaterialEffect::ms_bUCInitialized = false;
 
 //----------------------------------------------------------------------------
-SkinMaterialEffect::SkinMaterialEffect(int iBoneCount, SENode** apBones, 
+SESkinMaterialEffect::SESkinMaterialEffect(int iBoneCount, SENode** apBones, 
     SETransformation* aOffset)
     :
-    SkinEffect(iBoneCount, apBones, aOffset)
+    SESkinEffect(iBoneCount, apBones, aOffset)
 {
     m_VShader[0] = SE_NEW SEVertexShader("SkinMaterial.v_SkinMaterial");
     m_PShader[0] = SE_NEW SEPixelShader("SkinMaterial.p_SkinMaterial");
 }
 //----------------------------------------------------------------------------
-SkinMaterialEffect::SkinMaterialEffect()
+SESkinMaterialEffect::SESkinMaterialEffect()
 {
 }
 //----------------------------------------------------------------------------
-SkinMaterialEffect::~SkinMaterialEffect()
+SESkinMaterialEffect::~SESkinMaterialEffect()
 {
 }
 //----------------------------------------------------------------------------
-void SkinMaterialEffect::OnLoadPrograms(int, SEProgram* pVProgram, SEProgram*,
-    SEProgram*)
+void SESkinMaterialEffect::OnLoadPrograms(int, SEProgram* pVProgram, 
+    SEProgram*, SEProgram*)
 {
     if( !ms_bUCInitialized )
     {

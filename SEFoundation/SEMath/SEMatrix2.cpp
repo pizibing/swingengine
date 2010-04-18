@@ -53,7 +53,8 @@ SEMatrix2f::SEMatrix2f(float fM11, float fM12, float fM21, float fM22)
     m_fData[1][1] = fM22;
 }
 //----------------------------------------------------------------------------
-SEMatrix2f::SEMatrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV, bool bIsRow)
+SEMatrix2f::SEMatrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV, bool 
+    bIsRow)
 {
     if( bIsRow )
 	{
@@ -346,7 +347,8 @@ SEMatrix2d::SEMatrix2d(double dM11, double dM12, double dM21, double dM22)
     m_dData[1][1] = dM22;
 }
 //----------------------------------------------------------------------------
-SEMatrix2d::SEMatrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV, bool bIsRow)
+SEMatrix2d::SEMatrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV, bool 
+    bIsRow)
 {
     if( bIsRow )
 	{

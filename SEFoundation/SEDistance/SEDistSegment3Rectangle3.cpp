@@ -26,8 +26,8 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-SEDistSegment3Rectangle3f::SEDistSegment3Rectangle3f(const SESegment3f& rSegment, 
-    const SERectangle3f& rRectangle)
+SEDistSegment3Rectangle3f::SEDistSegment3Rectangle3f(const SESegment3f& 
+    rSegment, const SERectangle3f& rRectangle)
     :
     m_pSegment(&rSegment),
     m_pRectangle(&rRectangle)
@@ -117,7 +117,8 @@ float SEDistSegment3Rectangle3f::GetSquared(float fT,
     SERectangle3f tempMRectangle(vec3fMCenter, m_pRectangle->Axis,
         m_pRectangle->Extent);
 
-    return SEDistSegment3Rectangle3f(tempMSegment, tempMRectangle).GetSquared();
+    return SEDistSegment3Rectangle3f(tempMSegment, 
+        tempMRectangle).GetSquared();
 }
 //----------------------------------------------------------------------------
 float SEDistSegment3Rectangle3f::GetSegmentParameter() const

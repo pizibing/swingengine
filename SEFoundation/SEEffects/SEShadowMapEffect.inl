@@ -19,12 +19,12 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline void ShadowMapEffect::SetDepthBias(float fDepthBias)
+inline void SEShadowMapEffect::SetDepthBias(float fDepthBias)
 {
     m_afDepthBias[0] = fDepthBias;
 }
 //----------------------------------------------------------------------------
-inline float ShadowMapEffect::GetDepthBias() const
+inline float SEShadowMapEffect::GetDepthBias() const
 {
     return m_afDepthBias[0];
 }

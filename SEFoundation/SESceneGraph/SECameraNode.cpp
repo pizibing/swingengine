@@ -132,7 +132,7 @@ SEObject* SECameraNode::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SECameraNode::Load(SEStream& rStream, SEStream::Link* pLink)
+void SECameraNode::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -146,9 +146,9 @@ void SECameraNode::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SECameraNode);
 }
 //----------------------------------------------------------------------------
-void SECameraNode::Link(SEStream& rStream, SEStream::Link* pLink)
+void SECameraNode::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SENode::Link(rStream, pLink);
+    SENode::SELink(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     m_spCamera = (SECamera*)rStream.GetFromMap(pLinkID);

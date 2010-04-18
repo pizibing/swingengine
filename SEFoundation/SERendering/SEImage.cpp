@@ -396,8 +396,8 @@ SEImage* SEImage::GenerateRandomImage(FormatMode eFormat, int iBound0,
     return pImage;
 }
 //----------------------------------------------------------------------------
-SEImage* SEImage::GenerateColorImage(FormatMode eFormat, int iBound0, int iBound1,
-    const SEColorRGBA& rColor, const char* acImageName, bool bInsert)
+SEImage* SEImage::GenerateColorImage(FormatMode eFormat, int iBound0, int 
+    iBound1, const SEColorRGBA& rColor, const char* acImageName, bool bInsert)
 {
     //SE_ASSERT( IsPowerOfTwo((unsigned int)iBound0)
     //     && IsPowerOfTwo((unsigned int)iBound1) );
@@ -431,7 +431,7 @@ SEImage* SEImage::GenerateColorImage(FormatMode eFormat, int iBound0, int iBound
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEImage::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEImage::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -486,9 +486,9 @@ void SEImage::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEImage);
 }
 //----------------------------------------------------------------------------
-void SEImage::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEImage::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream, pLink);
+    SEObject::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEImage::Register(SEStream& rStream) const

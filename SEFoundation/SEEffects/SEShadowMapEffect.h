@@ -29,23 +29,22 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:shadow map effect类
-// 说明:
-// 作者:Sun Che
-// 时间:20090224
+// Description:
+// Author:Sun Che
+// Date:20090224
 //----------------------------------------------------------------------------
-class ShadowMapEffect : public Effect
+class SE_FOUNDATION_API SEShadowMapEffect : public SEEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    ShadowMapEffect(SECamera* pProjector, const std::string& rProjectionImage, 
-        SEImage::FormatMode eDepthFormat, int iDepthWidth, int iDepthHeight, 
-        float fDepthBias);
+    SEShadowMapEffect(SECamera* pProjector, const std::string& 
+        rProjectionImage, SEImage::FormatMode eDepthFormat, int iDepthWidth, 
+        int iDepthHeight, float fDepthBias);
 
-    virtual ~ShadowMapEffect(void);
+    virtual ~SEShadowMapEffect(void);
 
     virtual void Draw(SERenderer* pRenderer, SESpatial* pGlobalObject,
         int iMin, int iMax, SEUnculledObject* pVisibleSet);
@@ -54,20 +53,20 @@ public:
     inline float GetDepthBias(void) const;
 
 protected:
-    ShadowMapEffect(void);
+    SEShadowMapEffect(void);
 
     SECameraPtr m_spProjector;
-    ShaderEffectPtr m_spDepthEffect;
+    SEShaderEffectPtr m_spDepthEffect;
     SEFrameBuffer* m_pDepthBuffer;
-    ImagePtr m_spDepthImage;
-    ShaderEffectPtr m_spShadowEffect;
+    SEImagePtr m_spDepthImage;
+    SEShaderEffectPtr m_spShadowEffect;
     SETexture* m_pDepthTexture;  // 用于测试 (把深度图拷到系统内存).
 
     // depth bias存储在数组0索引位置.其他数组元素未使用.
     float m_afDepthBias[4];
 };
 
-typedef SESmartPointer<ShadowMapEffect> ShadowMapEffectPtr;
+typedef SESmartPointer<SEShadowMapEffect> SEShadowMapEffectPtr;
 
 #include "SEShadowMapEffect.inl"
 

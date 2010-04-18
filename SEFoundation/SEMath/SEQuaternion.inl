@@ -127,7 +127,8 @@ inline SEQuaternionf& SEQuaternionf::FromAxisAngle(const SEVector3f& rAxis,
     return *this;
 }
 //----------------------------------------------------------------------------
-inline void SEQuaternionf::ToAxisAngle(SEVector3f& rAxis, float& rfAngle) const
+inline void SEQuaternionf::ToAxisAngle(SEVector3f& rAxis, float& rfAngle) 
+    const
 {
     float fSqrLength = m_fData[1]*m_fData[1] + m_fData[2]*m_fData[2] + 
         m_fData[3]*m_fData[3];
@@ -150,7 +151,8 @@ inline void SEQuaternionf::ToAxisAngle(SEVector3f& rAxis, float& rfAngle) const
     }
 }
 //----------------------------------------------------------------------------
-inline SEQuaternionf& SEQuaternionf::FromRotationMatrix(const SEMatrix3f& rRotMat)
+inline SEQuaternionf& SEQuaternionf::FromRotationMatrix(const SEMatrix3f& 
+    rRotMat)
 {
     // Trace(R) = 2*Cos(theta) + 1.
     float fTrace = rRotMat(0, 0) + rRotMat(1, 1) + rRotMat(2, 2);
@@ -336,7 +338,8 @@ inline SEQuaterniond& SEQuaterniond::FromAxisAngle(const SEVector3d& rAxis,
     return *this;
 }
 //----------------------------------------------------------------------------
-inline void SEQuaterniond::ToAxisAngle(SEVector3d& rAxis, double& rdAngle) const
+inline void SEQuaterniond::ToAxisAngle(SEVector3d& rAxis, double& rdAngle) 
+    const
 {
     double dSqrLength = m_dData[1]*m_dData[1] + m_dData[2]*m_dData[2] + 
         m_dData[3]*m_dData[3];
@@ -359,7 +362,8 @@ inline void SEQuaterniond::ToAxisAngle(SEVector3d& rAxis, double& rdAngle) const
     }
 }
 //----------------------------------------------------------------------------
-inline SEQuaterniond& SEQuaterniond::FromRotationMatrix(const SEMatrix3d& rRotMat)
+inline SEQuaterniond& SEQuaterniond::FromRotationMatrix(const SEMatrix3d& 
+    rRotMat)
 {
     // Trace(R) = 2*Cos(theta) + 1.
     double dTrace = rRotMat(0, 0) + rRotMat(1, 1) + rRotMat(2, 2);

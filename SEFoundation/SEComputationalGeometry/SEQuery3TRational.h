@@ -29,9 +29,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20081202
+// Description:
+// Author:Sun Che
+// Date:20081202
 //----------------------------------------------------------------------------
 class SEQuery3TRationalf : public SEQuery3f
 {
@@ -61,7 +61,7 @@ public:
         int iV2, int iV3) const;
 
 private:
-    // Caching for rational representations of the input.  The conversion of
+    // Caching for rational representations of the input. The conversion of
     // floating-point numbers to SETRational form is slow, so it is better to
     // keep track of which values have been converted.
     typedef SETRational<8*sizeof(float)> Rational;

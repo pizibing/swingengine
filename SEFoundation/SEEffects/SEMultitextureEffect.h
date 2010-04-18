@@ -28,20 +28,19 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:multitexture effect类
-// 说明:
-// 作者:Sun Che
-// 时间:20081014
+// Description:
+// Author:Sun Che
+// Date:20081014
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API MultitextureEffect : public ShaderEffect
+class SE_FOUNDATION_API SEMultitextureEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    MultitextureEffect(int iTextureCount);
-    virtual ~MultitextureEffect(void);
+    SEMultitextureEffect(int iTextureCount);
+    virtual ~SEMultitextureEffect(void);
 
     // Selection of the textures to be used by the effect.  The first call
     // should be SetTextureCount for the desired number of textures.  For
@@ -59,13 +58,13 @@ public:
 
 protected:
     // streaming support
-    MultitextureEffect(void);
+    SEMultitextureEffect(void);
 
     int m_iTextureCount;
     std::string* m_aImageName;
 };
 
-typedef SESmartPointer<MultitextureEffect> MultitextureEffectPtr;
+typedef SESmartPointer<SEMultitextureEffect> SEMultitextureEffectPtr;
 
 }
 

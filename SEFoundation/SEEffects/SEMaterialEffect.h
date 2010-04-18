@@ -29,20 +29,19 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:material effect类
-// 说明:重新设计中,不要使用.
-// 作者:Sun Che
-// 时间:20080820
+// Description:重新设计中,不要使用.
+// Author:Sun Che
+// Date:20080820
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API MaterialEffect : public ShaderEffect
+class SE_FOUNDATION_API SEMaterialEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    MaterialEffect(void);
-    virtual ~MaterialEffect(void);
+    SEMaterialEffect(void);
+    virtual ~SEMaterialEffect(void);
 
     virtual void SetPassCount(int iPassCount);
 
@@ -68,7 +67,7 @@ protected:
     std::vector<SEGlobalStatePtr> m_ZBufferState;
 };
 
-typedef SESmartPointer<MaterialEffect> MaterialEffectPtr;
+typedef SESmartPointer<SEMaterialEffect> SEMaterialEffectPtr;
 
 }
 

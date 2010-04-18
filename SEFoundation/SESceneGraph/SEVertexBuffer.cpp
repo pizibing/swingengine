@@ -507,22 +507,13 @@ void SEVertexBuffer::BuildCompatibleArray(const SEAttributes& rIAttributes,
     }
     size_t uiSize = rChannels * sizeof(float);
     SESystem::SE_Memcpy(rCompatible, uiSize, &tempCompatible.front(), uiSize);
-
-    //FILE* pFile = SESystem::SE_Fopen("VB.txt", "at");
-    //SESystem::SE_Fprintf(pFile, "VB ID: %d\n", GetID());
-    //for( int i = 0; i < rChannels; i++ )
-    //{
-    //    SESystem::SE_Fprintf(pFile, "%d: %f\n", i, *((float*)&rCompatible[i]));
-    //}
-    //SESystem::SE_Fprintf(pFile, "\n");
-    //SESystem::SE_Fclose(pFile);
 }
 //----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEVertexBuffer::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEVertexBuffer::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -564,9 +555,9 @@ void SEVertexBuffer::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEVertexBuffer);
 }
 //----------------------------------------------------------------------------
-void SEVertexBuffer::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEVertexBuffer::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream, pLink);
+    SEObject::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEVertexBuffer::Register(SEStream& rStream) const

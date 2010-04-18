@@ -22,10 +22,10 @@
 #define Swing_ConvexHull1_H
 
 // A fancy class to compute the minimum and maximum of a collection of
-// real-valued numbers,  but this provides some convenience for SEConvexHull2f and
-// SEConvexHull3f when the input point set has intrinsic dimension smaller than
-// the containing space.  The interface of SEConvexHull1f is also the model for
-// those of SEConvexHull2f and SEConvexHull3f.
+// real-valued numbers, but this provides some convenience for SEConvexHull2f 
+// and SEConvexHull3f when the input point set has intrinsic dimension smaller
+// than the containing space. The interface of SEConvexHull1f is also the 
+// model for those of SEConvexHull2f and SEConvexHull3f.
 
 #include "SEFoundationLIB.h"
 #include "SEConvexHull.h"
@@ -34,9 +34,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20081201
+// Description:
+// Author:Sun Che
+// Date:20081201
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEConvexHull1f : public SEConvexHullf
 {

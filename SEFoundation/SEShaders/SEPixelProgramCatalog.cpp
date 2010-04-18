@@ -25,7 +25,8 @@
 using namespace Swing;
 
 const std::string SEPixelProgramCatalog::ms_NullString("");
-const std::string SEPixelProgramCatalog::ms_DefaultString("Default.p_Default");
+const std::string SEPixelProgramCatalog::ms_DefaultString(
+    "Default.p_Default");
 SEPixelProgramCatalog* SEPixelProgramCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------

@@ -36,9 +36,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080623
+// Description:
+// Author:Sun Che
+// Date:20080623
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEProgram : public SEObject, public SEBindable
 {

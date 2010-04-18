@@ -26,13 +26,13 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ShadowMapEffect, Effect);
-SE_IMPLEMENT_STREAM(ShadowMapEffect);
+SE_IMPLEMENT_RTTI(Swing, SEShadowMapEffect, SEEffect);
+SE_IMPLEMENT_STREAM(SEShadowMapEffect);
 
-//SE_REGISTER_STREAM(ShadowMapEffect);
+//SE_REGISTER_STREAM(SEShadowMapEffect);
 
 //----------------------------------------------------------------------------
-ShadowMapEffect::ShadowMapEffect(SECamera* pProjector,
+SEShadowMapEffect::SEShadowMapEffect(SECamera* pProjector,
     const std::string& rProjectionImage, SEImage::FormatMode eDepthFormat, 
     int iDepthWidth, int iDepthHeight, float fDepthBias)
     :
@@ -47,7 +47,7 @@ ShadowMapEffect::ShadowMapEffect(SECamera* pProjector,
         SE_NEW SEVertexShader("ProjectedShadow.v_ProjectedDepth");
     SEPixelShader* pPShader = 
        SE_NEW SEPixelShader("ProjectedShadow.p_ProjectedDepth");
-    m_spDepthEffect = SE_NEW ShaderEffect(1);
+    m_spDepthEffect = SE_NEW SEShaderEffect(1);
     m_spDepthEffect->SetVShader(0, pVShader);
     m_spDepthEffect->SetPShader(0, pPShader);
     m_pDepthBuffer = 0;  // 延迟创建,直到第一次Draw调用时.
@@ -66,7 +66,7 @@ ShadowMapEffect::ShadowMapEffect(SECamera* pProjector,
     pPShader->SetImageName(1, "DepthImage");
     SETexture* pProjectedTexture = pPShader->GetTexture(0);
     pProjectedTexture->SetFilterType(SETexture::LINEAR);
-    m_spShadowEffect = SE_NEW ShaderEffect(1);
+    m_spShadowEffect = SE_NEW SEShaderEffect(1);
     m_spShadowEffect->SetVShader(0, pVShader);
     m_spShadowEffect->SetPShader(0, pPShader);
     SEAlphaState* pAState = m_spShadowEffect->GetBlending(0);
@@ -76,19 +76,19 @@ ShadowMapEffect::ShadowMapEffect(SECamera* pProjector,
     m_afDepthBias[0] = fDepthBias;
 }
 //----------------------------------------------------------------------------
-ShadowMapEffect::ShadowMapEffect()
+SEShadowMapEffect::SEShadowMapEffect()
 {
     m_pDepthBuffer = 0;
     m_pDepthTexture = 0;
 }
 //----------------------------------------------------------------------------
-ShadowMapEffect::~ShadowMapEffect()
+SEShadowMapEffect::~SEShadowMapEffect()
 {
     SE_DELETE m_pDepthBuffer;
 }
 //----------------------------------------------------------------------------
-void ShadowMapEffect::Draw(SERenderer* pRenderer, SESpatial*, int iMin, int iMax, 
-    SEUnculledObject* pVisibleSet)
+void SEShadowMapEffect::Draw(SERenderer* pRenderer, SESpatial*, int iMin, int
+    iMax, SEUnculledObject* pVisibleSet)
 {
     // 由于需要用到具体的渲染器实例,所以depth buffer在这里延迟创建.
     // 因为shadow map effect可能会从磁盘通过stream装载,因此有必要延迟创建.
@@ -187,9 +187,9 @@ void ShadowMapEffect::Draw(SERenderer* pRenderer, SESpatial*, int iMin, int iMax
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-SEObject* ShadowMapEffect::GetObjectByName(const std::string& rName)
+SEObject* SEShadowMapEffect::GetObjectByName(const std::string& rName)
 {
-    SEObject* pFound = Effect::GetObjectByName(rName);
+    SEObject* pFound = SEEffect::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -234,10 +234,10 @@ SEObject* ShadowMapEffect::GetObjectByName(const std::string& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void ShadowMapEffect::GetAllObjectsByName(const std::string& rName,
+void SEShadowMapEffect::GetAllObjectsByName(const std::string& rName,
     std::vector<SEObject*>& rObjects)
 {
-    Effect::GetAllObjectsByName(rName, rObjects);
+    SEEffect::GetAllObjectsByName(rName, rObjects);
 
     if( m_spProjector )
     {
@@ -260,9 +260,9 @@ void ShadowMapEffect::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-SEObject* ShadowMapEffect::GetObjectByID(unsigned int uiID)
+SEObject* SEShadowMapEffect::GetObjectByID(unsigned int uiID)
 {
-    SEObject* pFound = Effect::GetObjectByID(uiID);
+    SEObject* pFound = SEEffect::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -311,11 +311,11 @@ SEObject* ShadowMapEffect::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void ShadowMapEffect::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEShadowMapEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Effect::Load(rStream, pLink);
+    SEEffect::Load(rStream, pLink);
 
     // native data
     rStream.Read(m_afDepthBias[0]);
@@ -331,26 +331,26 @@ void ShadowMapEffect::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(pObject);  // m_spShadowEffect
     pLink->Add(pObject);
 
-    SE_END_DEBUG_STREAM_LOAD(ShadowMapEffect);
+    SE_END_DEBUG_STREAM_LOAD(SEShadowMapEffect);
 }
 //----------------------------------------------------------------------------
-void ShadowMapEffect::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEShadowMapEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    Effect::Link(rStream, pLink);
+    SEEffect::SELink(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     m_spProjector = (SECamera*)rStream.GetFromMap(pLinkID);
     pLinkID = pLink->GetLinkID();
-    m_spDepthEffect = (ShaderEffect*)rStream.GetFromMap(pLinkID);
+    m_spDepthEffect = (SEShaderEffect*)rStream.GetFromMap(pLinkID);
     pLinkID = pLink->GetLinkID();
     m_spDepthImage = (SEImage*)rStream.GetFromMap(pLinkID);
     pLinkID = pLink->GetLinkID();
-    m_spShadowEffect = (ShaderEffect*)rStream.GetFromMap(pLinkID);
+    m_spShadowEffect = (SEShaderEffect*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool ShadowMapEffect::Register(SEStream& rStream) const
+bool SEShadowMapEffect::Register(SEStream& rStream) const
 {
-    if( !Effect::Register(rStream) )
+    if( !SEEffect::Register(rStream) )
     {
         return false;
     }
@@ -378,11 +378,11 @@ bool ShadowMapEffect::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void ShadowMapEffect::Save(SEStream& rStream) const
+void SEShadowMapEffect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Effect::Save(rStream);
+    SEEffect::Save(rStream);
 
     // native data
     rStream.Write(m_afDepthBias[0]);
@@ -393,12 +393,12 @@ void ShadowMapEffect::Save(SEStream& rStream) const
     rStream.Write(m_spDepthImage);
     rStream.Write(m_spShadowEffect);
 
-    SE_END_DEBUG_STREAM_SAVE(ShadowMapEffect);
+    SE_END_DEBUG_STREAM_SAVE(SEShadowMapEffect);
 }
 //----------------------------------------------------------------------------
-int ShadowMapEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEShadowMapEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Effect::GetDiskUsed(rVersion) +
+    return SEEffect::GetDiskUsed(rVersion) +
         sizeof(m_afDepthBias[0]) +
         sizeof(m_spProjector) +
         sizeof(m_spDepthEffect) +
@@ -406,7 +406,7 @@ int ShadowMapEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(m_spShadowEffect);
 }
 //----------------------------------------------------------------------------
-SEStringTree* ShadowMapEffect::SaveStrings(const char*)
+SEStringTree* SEShadowMapEffect::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -415,7 +415,7 @@ SEStringTree* ShadowMapEffect::SaveStrings(const char*)
     pTree->Append(Format("depth bias =", m_afDepthBias[0]));
 
     // children
-    pTree->Append(Effect::SaveStrings());
+    pTree->Append(SEEffect::SaveStrings());
 
     if( m_spProjector )
     {

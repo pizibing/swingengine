@@ -30,16 +30,15 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:IntrLine3Box3f类
-// 说明:
-// 作者:Sun Che
-// 时间:20081230
+// Description:
+// Author:Sun Che
+// Date:20081230
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API IntrLine3Box3f
-    : public Intersector<float, SEVector3f>
+class SE_FOUNDATION_API SEIntrLine3Box3f : public SEIntersector<float, 
+    SEVector3f>
 {
 public:
-    IntrLine3Box3f(const SELine3f& rLine, const SEBox3f& rBox);
+    SEIntrLine3Box3f(const SELine3f& rLine, const SEBox3f& rBox);
 
     // 对象访问.
     const SELine3f& GetLine(void) const;
@@ -64,7 +63,7 @@ private:
     int m_iCount;
     SEVector3f m_aPoint[2];
 
-// 内部使用(共享给IntrRay3Box3f和IntrSegment3Box3f)
+// 内部使用(共享给SEIntrRay3Box3f和SEIntrSegment3Box3f)
 public:
     // 使用梁友栋-Barsky裁减算法,计算linear component与box的交点.
     static bool DoClipping(float fT0, float fT1, const SEVector3f& rOrigin,

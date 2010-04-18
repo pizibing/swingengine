@@ -54,7 +54,8 @@ bool SEAxisAlignedBox3f::HasZOverlap(const SEAxisAlignedBox3f& rBox) const
     return Max[2] >= rBox.Min[2] && Min[2] <= rBox.Max[2];
 }
 //----------------------------------------------------------------------------
-bool SEAxisAlignedBox3f::TestIntersection(const SEAxisAlignedBox3f& rBox) const
+bool SEAxisAlignedBox3f::TestIntersection(const SEAxisAlignedBox3f& rBox) 
+    const
 {
     for( int i = 0; i < 3; i++ )
     {

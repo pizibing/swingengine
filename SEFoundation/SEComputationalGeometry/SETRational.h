@@ -28,9 +28,10 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:N is the number of 32-bit words per SETInteger numerator/denominator
-// 作者:Sun Che
-// 时间:20081202
+// Description:N is the number of 32-bit words per SETInteger numerator/
+//     denominator.
+// Author:Sun Che
+// Date:20081202
 //----------------------------------------------------------------------------
 template <int N>
 class SETRational
@@ -103,16 +104,16 @@ private:
 };
 
 template <int N>
-SETRational<N> operator + (const SETInteger<N>& rI,  const SETRational<N>& rR);
+SETRational<N> operator + (const SETInteger<N>& rI, const SETRational<N>& rR);
 
 template <int N>
-SETRational<N> operator - (const SETInteger<N>& rI,  const SETRational<N>& rR);
+SETRational<N> operator - (const SETInteger<N>& rI, const SETRational<N>& rR);
 
 template <int N>
-SETRational<N> operator * (const SETInteger<N>& rI,  const SETRational<N>& rR);
+SETRational<N> operator * (const SETInteger<N>& rI, const SETRational<N>& rR);
 
 template <int N>
-SETRational<N> operator / (const SETInteger<N>& rI,  const SETRational<N>& rR);
+SETRational<N> operator / (const SETInteger<N>& rI, const SETRational<N>& rR);
 
 #include "SETRational.inl"
 

@@ -24,24 +24,24 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrLine3Box3f::IntrLine3Box3f(const SELine3f& rLine, const SEBox3f& rBox)
+SEIntrLine3Box3f::SEIntrLine3Box3f(const SELine3f& rLine, const SEBox3f& rBox)
     :
     m_pLine(&rLine),
     m_pBox(&rBox)
 {
 }
 //----------------------------------------------------------------------------
-const SELine3f& IntrLine3Box3f::GetLine() const
+const SELine3f& SEIntrLine3Box3f::GetLine() const
 {
     return *m_pLine;
 }
 //----------------------------------------------------------------------------
-const SEBox3f& IntrLine3Box3f::GetBox() const
+const SEBox3f& SEIntrLine3Box3f::GetBox() const
 {
     return *m_pBox;
 }
 //----------------------------------------------------------------------------
-bool IntrLine3Box3f::Test()
+bool SEIntrLine3Box3f::Test()
 {
     float afAWdU[3], afAWxDdU[3], fRhs;
 
@@ -75,7 +75,7 @@ bool IntrLine3Box3f::Test()
     return true;
 }
 //----------------------------------------------------------------------------
-bool IntrLine3Box3f::Find()
+bool SEIntrLine3Box3f::Find()
 {
     float fT0 = -SEMath<float>::MAX_REAL, fT1 = SEMath<float>::MAX_REAL;
 
@@ -83,21 +83,21 @@ bool IntrLine3Box3f::Find()
         true, m_iCount, m_aPoint, m_iIntersectionType);
 }
 //----------------------------------------------------------------------------
-int IntrLine3Box3f::GetCount() const
+int SEIntrLine3Box3f::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& IntrLine3Box3f::GetPoint(int i) const
+const SEVector3f& SEIntrLine3Box3f::GetPoint(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 
     return m_aPoint[i];
 }
 //----------------------------------------------------------------------------
-bool IntrLine3Box3f::DoClipping(float fT0, float fT1, const SEVector3f& rOrigin, 
-    const SEVector3f& rDirection, const SEBox3f& rBox, bool bSolid, int& riCount,
-    SEVector3f aPoint[2], int& riIntrType)
+bool SEIntrLine3Box3f::DoClipping(float fT0, float fT1, const SEVector3f& 
+    rOrigin, const SEVector3f& rDirection, const SEBox3f& rBox, bool bSolid, 
+    int& riCount, SEVector3f aPoint[2], int& riIntrType)
 {
     SE_ASSERT( fT0 < fT1 );
 
@@ -148,7 +148,7 @@ bool IntrLine3Box3f::DoClipping(float fT0, float fT1, const SEVector3f& rOrigin,
     return riIntrType != IT_EMPTY;
 }
 //----------------------------------------------------------------------------
-bool IntrLine3Box3f::Clip(float fDenom, float fNumer, float& rfT0, 
+bool SEIntrLine3Box3f::Clip(float fDenom, float fNumer, float& rfT0, 
     float& rfT1)
 {
     // 如果线段与当前测试平面相交或在平面正半空间,则表明裁减成功,返回true.

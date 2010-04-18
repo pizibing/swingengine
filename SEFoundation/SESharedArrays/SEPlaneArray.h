@@ -28,9 +28,9 @@
 namespace Swing
 {
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080324
+// Description:
+// Author:Sun Che
+// Date:20080324
 //----------------------------------------------------------------------------
 typedef SESharedArray<SEPlane3f> SEPlane3fArray;
 typedef SESmartPointer<SEPlane3fArray> SEPlane3fArrayPtr;

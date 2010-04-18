@@ -29,26 +29,25 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:Texture tile effect class
 // Description:
 // Author:Sun Che
 // Date:20100203
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API TextureTileEffect : public ShaderEffect
+class SE_FOUNDATION_API SETextureTileEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    TextureTileEffect(const std::string& rTileName);
-    virtual ~TextureTileEffect(void);
+    SETextureTileEffect(const std::string& rTileName);
+    virtual ~SETextureTileEffect(void);
 
     float TileX, TileY;
 
 protected:
     // streaming
-    TextureTileEffect(void);
+    SETextureTileEffect(void);
 
     virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
         SEProgram* pPProgram, SEProgram* pGProgram);
@@ -57,7 +56,7 @@ protected:
     static float ms_afTileParams[2];
 };
 
-typedef SESmartPointer<TextureTileEffect> TextureTileEffectPtr;
+typedef SESmartPointer<SETextureTileEffect> SETextureTileEffectPtr;
 
 }
 

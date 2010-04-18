@@ -30,9 +30,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20090420
+// Description:
+// Author:Sun Che
+// Date:20090420
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEDescriptorItem : public SEObject
 {

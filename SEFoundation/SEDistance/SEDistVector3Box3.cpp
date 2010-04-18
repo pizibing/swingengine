@@ -24,7 +24,8 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-SEDistVector3Box3f::SEDistVector3Box3f(const SEVector3f& rVector, const SEBox3f& rBox)
+SEDistVector3Box3f::SEDistVector3Box3f(const SEVector3f& rVector, const 
+    SEBox3f& rBox)
     :
     m_pVector(&rVector),
     m_pBox(&rBox)

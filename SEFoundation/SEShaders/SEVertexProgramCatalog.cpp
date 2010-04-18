@@ -25,7 +25,8 @@
 using namespace Swing;
 
 const std::string SEVertexProgramCatalog::ms_NullString("");
-const std::string SEVertexProgramCatalog::ms_DefaultString("Default.v_Default");
+const std::string SEVertexProgramCatalog::ms_DefaultString(
+    "Default.v_Default");
 SEVertexProgramCatalog* SEVertexProgramCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
@@ -151,8 +152,8 @@ SEVertexProgram* SEVertexProgramCatalog::Find(const std::string& rProgramName,
     }
 
     // 在磁盘中查找
-    SEVertexProgram* pProgram = SEVertexProgram::Load(m_pRenderer, rProgramName, 
-        tempKey, pDescriptor);
+    SEVertexProgram* pProgram = SEVertexProgram::Load(m_pRenderer, 
+        rProgramName, tempKey, pDescriptor);
     if( pProgram )
     {
         // 该资源存在,且已经在Load后被加入资源目录,不用再次调用Insert函数

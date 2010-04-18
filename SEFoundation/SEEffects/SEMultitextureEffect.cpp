@@ -23,32 +23,32 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, MultitextureEffect, ShaderEffect);
-SE_IMPLEMENT_STREAM(MultitextureEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(MultitextureEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEMultitextureEffect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEMultitextureEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEMultitextureEffect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(MultitextureEffect);
+//SE_REGISTER_STREAM(SEMultitextureEffect);
 
 //----------------------------------------------------------------------------
-MultitextureEffect::MultitextureEffect(int iTextureCount)
+SEMultitextureEffect::SEMultitextureEffect(int iTextureCount)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_aImageName = 0;
     SetTextureCount(iTextureCount);
 }
 //----------------------------------------------------------------------------
-MultitextureEffect::MultitextureEffect()
+SEMultitextureEffect::SEMultitextureEffect()
 {
     m_iTextureCount = 0;
     m_aImageName = 0;
 }
 //----------------------------------------------------------------------------
-MultitextureEffect::~MultitextureEffect()
+SEMultitextureEffect::~SEMultitextureEffect()
 {
 }
 //----------------------------------------------------------------------------
-void MultitextureEffect::SetTextureCount(int iTextureCount)
+void SEMultitextureEffect::SetTextureCount(int iTextureCount)
 {
     SE_ASSERT( iTextureCount >= 1 );
 
@@ -60,26 +60,26 @@ void MultitextureEffect::SetTextureCount(int iTextureCount)
     SetDefaultAlphaState();
 }
 //----------------------------------------------------------------------------
-int MultitextureEffect::GetTextureCount() const
+int SEMultitextureEffect::GetTextureCount() const
 {
     return m_iTextureCount;
 }
 //----------------------------------------------------------------------------
-void MultitextureEffect::SetImageName(int i, const std::string& rImageName)
+void SEMultitextureEffect::SetImageName(int i, const std::string& rImageName)
 {
     SE_ASSERT( 0 <= i && i < m_iTextureCount );
 
     m_aImageName[i] = rImageName;
 }
 //----------------------------------------------------------------------------
-const std::string& MultitextureEffect::GetImageName(int i) const
+const std::string& SEMultitextureEffect::GetImageName(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iTextureCount );
 
     return m_aImageName[i];
 }
 //----------------------------------------------------------------------------
-void MultitextureEffect::Configure()
+void SEMultitextureEffect::Configure()
 {
     if( m_iTextureCount == 1 )
     {
@@ -136,11 +136,11 @@ void MultitextureEffect::Configure()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void MultitextureEffect::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEMultitextureEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    ShaderEffect::Load(rStream, pLink);
+    SEShaderEffect::Load(rStream, pLink);
 
     // native data
     rStream.Read(m_iTextureCount);
@@ -150,24 +150,24 @@ void MultitextureEffect::Load(SEStream& rStream, SEStream::Link* pLink)
         rStream.Read(m_aImageName[i]);
     }
 
-    SE_END_DEBUG_STREAM_LOAD(MultitextureEffect);
+    SE_END_DEBUG_STREAM_LOAD(SEMultitextureEffect);
 }
 //----------------------------------------------------------------------------
-void MultitextureEffect::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEMultitextureEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    ShaderEffect::Link(rStream, pLink);
+    SEShaderEffect::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool MultitextureEffect::Register(SEStream& rStream) const
+bool SEMultitextureEffect::Register(SEStream& rStream) const
 {
-    return ShaderEffect::Register(rStream);
+    return SEShaderEffect::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void MultitextureEffect::Save(SEStream& rStream) const
+void SEMultitextureEffect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    ShaderEffect::Save(rStream);
+    SEShaderEffect::Save(rStream);
 
     // native data
     rStream.Write(m_iTextureCount);
@@ -176,12 +176,12 @@ void MultitextureEffect::Save(SEStream& rStream) const
         rStream.Write(m_aImageName[i]);
     }
 
-    SE_END_DEBUG_STREAM_SAVE(MultitextureEffect);
+    SE_END_DEBUG_STREAM_SAVE(SEMultitextureEffect);
 }
 //----------------------------------------------------------------------------
-int MultitextureEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEMultitextureEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    int iSize = ShaderEffect::GetDiskUsed(rVersion) +
+    int iSize = SEShaderEffect::GetDiskUsed(rVersion) +
         sizeof(m_iTextureCount);
  
     for( int i = 0; i < m_iTextureCount; i++ )
@@ -192,7 +192,7 @@ int MultitextureEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-SEStringTree* MultitextureEffect::SaveStrings(const char*)
+SEStringTree* SEMultitextureEffect::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -209,7 +209,7 @@ SEStringTree* MultitextureEffect::SaveStrings(const char*)
     }
 
     // children
-    pTree->Append(ShaderEffect::SaveStrings());
+    pTree->Append(SEShaderEffect::SaveStrings());
 
     return pTree;
 }

@@ -101,7 +101,8 @@ float& SEMatrixMNf::operator()(int iRow, int iCol)
 //----------------------------------------------------------------------------
 void SEMatrixMNf::SwapRows(int iRow0, int iRow1)
 {
-    SE_ASSERT( 0 <= iRow0 && iRow0 < m_iRows && 0 <= iRow1 && iRow1 < m_iRows );
+    SE_ASSERT( 0 <= iRow0 && iRow0 < m_iRows && 0 <= iRow1 && iRow1 < 
+        m_iRows );
 
     float* pTemp = m_ppData[iRow0];
     m_ppData[iRow0] = m_ppData[iRow1];
@@ -266,7 +267,8 @@ SEMatrixMNf SEMatrixMNf::operator*(const SEMatrixMNf& rRhsMat) const
         {
             for( int iMid = 0; iMid < m_iCols; iMid++ )
             {
-                ResMat.m_ppData[iRow][iCol] += m_ppData[iRow][iMid] * rRhsMat.m_ppData[iMid][iCol];
+                ResMat.m_ppData[iRow][iCol] += m_ppData[iRow][iMid] * 
+                    rRhsMat.m_ppData[iMid][iCol];
             }
         }
     }
@@ -503,7 +505,8 @@ bool SEMatrixMNf::GetInverse(SEMatrixMNf& rDesMat) const
     return true;
 }
 //----------------------------------------------------------------------------
-SEVectorNf Swing::operator*(const SEVectorNf& rLhsVec, const SEMatrixMNf& rRhsMat)
+SEVectorNf Swing::operator*(const SEVectorNf& rLhsVec, const SEMatrixMNf& 
+    rRhsMat)
 {
     int iRows = rRhsMat.GetRows();
     int iCols = rRhsMat.GetCols();

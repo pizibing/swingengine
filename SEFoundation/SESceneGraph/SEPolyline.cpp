@@ -30,7 +30,8 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(SEPolyline, SEGeometry);
 //SE_REGISTER_STREAM(SEPolyline);
 
 //----------------------------------------------------------------------------
-SEPolyline::SEPolyline(SEVertexBuffer* pVBuffer, bool bClosed, bool bContiguous)
+SEPolyline::SEPolyline(SEVertexBuffer* pVBuffer, bool bClosed, bool 
+    bContiguous)
     :
     SEGeometry(pVBuffer, 0)
 {
@@ -143,7 +144,7 @@ void SEPolyline::SetContiguous(bool bContiguous)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEPolyline::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEPolyline::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -159,9 +160,9 @@ void SEPolyline::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEPolyline);
 }
 //----------------------------------------------------------------------------
-void SEPolyline::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEPolyline::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEGeometry::Link(rStream,pLink);
+    SEGeometry::SELink(rStream,pLink);
 }
 //----------------------------------------------------------------------------
 bool SEPolyline::Register(SEStream& rStream) const

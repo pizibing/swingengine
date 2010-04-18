@@ -113,18 +113,18 @@ void SEGeometry::UpdateState(std::vector<SEGlobalState*>* aGStack,
 
                 if( m_Effects.size() == 0 )
                 {
-                    m_Effects.push_back(StaticCast<Effect>(m_spLEffect));
+                    m_Effects.push_back(StaticCast<SEEffect>(m_spLEffect));
                 }
                 else if( m_Effects[0] != m_spLEffect )
                 {
-                    m_Effects.insert(m_Effects.begin(), StaticCast<Effect>(
+                    m_Effects.insert(m_Effects.begin(), StaticCast<SEEffect>(
                         m_spLEffect));
                 }
             }
             else
             {
-                m_spLEffect = SE_NEW LightingEffect;
-                m_Effects.insert(m_Effects.begin(), StaticCast<Effect>(
+                m_spLEffect = SE_NEW SELightingEffect;
+                m_Effects.insert(m_Effects.begin(), StaticCast<SEEffect>(
                     m_spLEffect));
             }
 
@@ -136,7 +136,7 @@ void SEGeometry::UpdateState(std::vector<SEGlobalState*>* aGStack,
 
             // 只要枚举顺序一致,则我们可以确保这个类型转换是安全的.
             m_spLEffect->Configure(
-                (LightingEffect::LightingMode)LightingMode);
+                (SELightingEffect::LightingMode)LightingMode);
         }
         else
         {
@@ -306,7 +306,7 @@ SEObject* SEGeometry::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEGeometry::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEGeometry::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -332,9 +332,9 @@ void SEGeometry::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEGeometry);
 }
 //----------------------------------------------------------------------------
-void SEGeometry::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEGeometry::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SESpatial::Link(rStream, pLink);
+    SESpatial::SELink(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     ModelBound = (SEBoundingVolume*)rStream.GetFromMap(pLinkID);
@@ -346,7 +346,7 @@ void SEGeometry::Link(SEStream& rStream, SEStream::Link* pLink)
     IBuffer = (SEIndexBuffer*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
-    m_spLEffect = (LightingEffect*)rStream.GetFromMap(pLinkID);
+    m_spLEffect = (SELightingEffect*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
 bool SEGeometry::Register(SEStream& rStream) const

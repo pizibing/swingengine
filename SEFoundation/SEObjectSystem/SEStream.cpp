@@ -185,11 +185,11 @@ bool SEStream::Load(char* pBuffer, int iSize)
     // link阶段,为所有载入的对象建立连接关系,构成原始scene graph,
     // 维护一个允许应用程序使用的对象列表,
     // 线性迭代唯一对象hash表,为所有对象建立连接关系
-    Link** ppLink = m_Map.GetFirst(&pObject);
+    SELink** ppLink = m_Map.GetFirst(&pObject);
     while( ppLink )
     {
         pObject = (*ppLink)->GetObject();  // 获取该对象当前内存地址
-        pObject->Link(*this, *ppLink);     // 为该对象建立连接关系
+        pObject->SELink(*this, *ppLink);     // 为该对象建立连接关系
         m_Ordered.push_back(pObject);      // 此时的顺序为迭代hash表的访问顺序
         ppLink = m_Map.GetNext(&pObject);
     }
@@ -321,7 +321,8 @@ bool SEStream::Load(const char* pFileName)
 bool SEStream::Save(const char* pFileName)
 {
     // 保存文件版本到磁盘
-    if( !SESystem::SE_Save(pFileName, SEStreamVersion::LABEL, SEStreamVersion::LENGTH) )
+    if( !SESystem::SE_Save(pFileName, SEStreamVersion::LABEL, 
+        SEStreamVersion::LENGTH) )
     {
         return false;
     }
@@ -363,14 +364,14 @@ bool SEStream::SaveText(const char* pFileName, int iTabSize)
     return Root.Save(pFileName, iTabSize);
 }
 //----------------------------------------------------------------------------
-bool SEStream::InsertInMap(SEObject* pObject, Link* pLink)
+bool SEStream::InsertInMap(SEObject* pObject, SELink* pLink)
 {
     return m_Map.Insert(pObject, pLink);
 }
 //----------------------------------------------------------------------------
 SEObject* SEStream::GetFromMap(SEObject* pLinkID)
 {
-    Link** ppLink = m_Map.Find(pLinkID);
+    SELink** ppLink = m_Map.Find(pLinkID);
 
     return (ppLink ? (*ppLink)->GetObject() : 0);
 }
@@ -400,33 +401,33 @@ int SEStream::GetDiskUsed() const
     return iSize;
 }
 //----------------------------------------------------------------------------
-SEStream::Link::Link(SEObject* pObject)
+SEStream::SELink::SELink(SEObject* pObject)
 {
     m_pObject = pObject;
     m_iCurrent = 0;
 }
 //----------------------------------------------------------------------------
-void SEStream::Link::Add(SEObject* pLinkID)
+void SEStream::SELink::Add(SEObject* pLinkID)
 {
     m_LinkID.push_back(pLinkID);
 }
 //----------------------------------------------------------------------------
-void SEStream::Link::SetObject(SEObject* pObject)
+void SEStream::SELink::SetObject(SEObject* pObject)
 {
     m_pObject = pObject;
 }
 //----------------------------------------------------------------------------
-SEObject* SEStream::Link::GetObject()
+SEObject* SEStream::SELink::GetObject()
 {
     return m_pObject;
 }
 //----------------------------------------------------------------------------
-int SEStream::Link::GetCount() const
+int SEStream::SELink::GetCount() const
 {
     return (int)m_LinkID.size();
 }
 //----------------------------------------------------------------------------
-SEObject* SEStream::Link::GetLinkID()
+SEObject* SEStream::SELink::GetLinkID()
 {
     SE_ASSERT( m_iCurrent < (int)m_LinkID.size() );
 
@@ -435,7 +436,8 @@ SEObject* SEStream::Link::GetLinkID()
 //----------------------------------------------------------------------------
 void SEStream::Read(SEObject*& rpValue)
 {
-    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 1, &rpValue);
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 1, 
+        &rpValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
@@ -717,7 +719,7 @@ void SEStream::Read(int iCount, SEMatrix2f* pValue)
 //----------------------------------------------------------------------------
 void SEStream::Read(SEMatrix3f& rValue)
 {
-    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, /*12*/9, 
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 9, 
         (float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -725,8 +727,8 @@ void SEStream::Read(SEMatrix3f& rValue)
 //----------------------------------------------------------------------------
 void SEStream::Read(int iCount, SEMatrix3f* pValue)
 {
-    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, /*12*/9*iCount, 
-        (float*)pValue);
+    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 
+        9*iCount, (float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
@@ -851,7 +853,8 @@ void SEStream::Read(int iCount, SETransformation* pValue)
 //----------------------------------------------------------------------------
 void SEStream::Write(const SEObject* pValue)
 {
-    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &pValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, 
+        &pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
@@ -866,7 +869,8 @@ void SEStream::Write(int iCount, SEObject** const ppValue)
 //----------------------------------------------------------------------------
 void SEStream::Write(const SESmartPointer<SEObject>& rspValue)
 {
-    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &rspValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, 
+        &rspValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
@@ -955,7 +959,8 @@ void SEStream::Write(int iCount, const unsigned char* pValue)
 //----------------------------------------------------------------------------
 void SEStream::Write(short sValue)
 {
-    m_iBufferNext += SESystem::SE_Write2le(m_pBuffer+m_iBufferNext, 1, &sValue);
+    m_iBufferNext += SESystem::SE_Write2le(m_pBuffer+m_iBufferNext, 1, 
+        &sValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
@@ -970,7 +975,8 @@ void SEStream::Write(int iCount, const short* pValue)
 //----------------------------------------------------------------------------
 void SEStream::Write(unsigned short usValue)
 {
-    m_iBufferNext += SESystem::SE_Write2le(m_pBuffer+m_iBufferNext, 1, &usValue);
+    m_iBufferNext += SESystem::SE_Write2le(m_pBuffer+m_iBufferNext, 1, 
+        &usValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
@@ -985,7 +991,8 @@ void SEStream::Write(int iCount, const unsigned short* pValue)
 //----------------------------------------------------------------------------
 void SEStream::Write(int iValue)
 {
-    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &iValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, 
+        &iValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
@@ -1000,7 +1007,8 @@ void SEStream::Write(int iCount, const int* pValue)
 //----------------------------------------------------------------------------
 void SEStream::Write(unsigned int uiValue)
 {
-    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &uiValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, 
+        &uiValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
@@ -1015,7 +1023,8 @@ void SEStream::Write(int iCount, const unsigned int* pValue)
 //----------------------------------------------------------------------------
 void SEStream::Write(long lValue)
 {
-    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &lValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, 
+        &lValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
@@ -1030,7 +1039,8 @@ void SEStream::Write(int iCount, const long* pValue)
 //----------------------------------------------------------------------------
 void SEStream::Write(unsigned long ulValue)
 {
-    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &ulValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, 
+        &ulValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
@@ -1045,7 +1055,8 @@ void SEStream::Write(int iCount, const unsigned long* pValue)
 //----------------------------------------------------------------------------
 void SEStream::Write(float fValue)
 {
-    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, &fValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, 
+        &fValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
@@ -1060,7 +1071,8 @@ void SEStream::Write(int iCount, const float* pValue)
 //----------------------------------------------------------------------------
 void SEStream::Write(double dValue)
 {
-    m_iBufferNext += SESystem::SE_Write8le(m_pBuffer+m_iBufferNext, 1, &dValue);
+    m_iBufferNext += SESystem::SE_Write8le(m_pBuffer+m_iBufferNext, 1, 
+        &dValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
@@ -1137,7 +1149,7 @@ void SEStream::Write(int iCount, const SEMatrix2f* pValue)
 //----------------------------------------------------------------------------
 void SEStream::Write(const SEMatrix3f& rValue)
 {
-    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, /*12*/9, 
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 9, 
         (const float*)rValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
@@ -1145,8 +1157,8 @@ void SEStream::Write(const SEMatrix3f& rValue)
 //----------------------------------------------------------------------------
 void SEStream::Write(int iCount, const SEMatrix3f* pValue)
 {
-    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, /*12*/9*iCount, 
-        (const float*)pValue);
+    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 
+        9*iCount, (const float*)pValue);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }

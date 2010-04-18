@@ -36,9 +36,9 @@ class SECuller;
 class SELight;
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080707
+// Description:
+// Author:Sun Che
+// Date:20080707
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SESpatial : public SEObject
 {
@@ -112,9 +112,9 @@ public:
 
     // effect state
     inline int GetEffectCount(void) const;
-    inline Effect* GetEffect(int i) const;
-    void AttachEffect(Effect* pEffect);
-    void DetachEffect(Effect* pEffect);
+    inline SEEffect* GetEffect(int i) const;
+    void AttachEffect(SEEffect* pEffect);
+    void DetachEffect(SEEffect* pEffect);
     inline void DetachAllEffects(void);
     inline void SetStartEffect(int i);
     inline int GetStartEffect(void) const;
@@ -130,7 +130,8 @@ public:
     // 每个派生自SESpatial类的子类都可以进一步派生出与其对应的SEPickRecord子类.
     // 在这些SEPickRecord子类中,可加入任何派生类想要的信息,DoPick函数返回时获取.
     // 在DoPick函数返回表示全部相交点的SEPickRecord数组后,
-    // 每个SEPickRecord的射线参数t可作为数组排序的key,从而反映出由近到远的相交顺序.
+    // 每个SEPickRecord的射线参数t可作为数组排序的key,从而反映出由近到远的相交
+    // 顺序.
     //
     // SEPickRecord类本身虽然不具备RTTI能力,
     // 但我们可以从其成员IObject那里间接获取其RTTI信息.
@@ -165,8 +166,10 @@ protected:
     SESpatial(void);
 
     // 几何数据更新.
-    virtual void UpdateWorldData(double dAppTime); // 派生类SENode实现向下进行AB递归
-    virtual void UpdateWorldBound(void) = 0; // 向上计算世界空间BV,派生类实现具体行为
+    // 派生类SENode实现向下进行AB递归.
+    // 向上计算世界空间BV,派生类实现具体行为.
+    virtual void UpdateWorldData(double dAppTime);
+    virtual void UpdateWorldBound(void) = 0;
     void PropagateBoundToRoot(void);
 
     // 渲染状态更新.
@@ -187,12 +190,13 @@ protected:
     std::vector<SEGlobalStatePtr> m_GlobalStates;
 
     // 灯光数组.
-    std::vector<SEObjectPtr> m_Lights; // 使用SEObjectPtr避免头文件互相包含依赖
+    // 使用SEObjectPtr避免头文件互相包含依赖.
+    std::vector<SEObjectPtr> m_Lights;
 
     // effect数组.
     // 赋予SEGeometry对象时,单独作用于该对象,
     // 赋予SENode对象时,作用于该SENode子树所有SEGeometry对象.
-    std::vector<EffectPtr> m_Effects;
+    std::vector<SEEffectPtr> m_Effects;
 
     // 通常情况下,所有依附于对象的effect都将被应用于该对象.
     // 但有时为了屏蔽一些effect,我们需要一个起始索引值供应用程序使用,
@@ -216,7 +220,7 @@ public:
     virtual void GetUnculledSet(SECuller& rCuller, bool bNoCull) = 0;
 };
 
-typedef SESmartPointer<SESpatial> SpatialPtr;
+typedef SESmartPointer<SESpatial> SESpatialPtr;
 
 #include "SESpatial.inl"
 

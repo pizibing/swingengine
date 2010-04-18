@@ -50,9 +50,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:封装SRT矩阵变换
-// 作者:Sun Che
-// 时间:20070523
+// Description:封装SRT矩阵变换
+// Author:Sun Che
+// Date:20070523
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SETransformation
 {
@@ -96,14 +96,14 @@ public:
     // 正向顶点变换,计算Y = X*M + T.
     void ApplyForward(const SEVector3f& rInput, SEVector3f& rOutput) const;
     // 正向顶点数组变换,变换一组顶点.
-    void ApplyForward(int iCount, const SEVector3f* aInput, SEVector3f* aOutput)
-        const;
+    void ApplyForward(int iCount, const SEVector3f* aInput, SEVector3f* 
+        aOutput) const;
 
     // 逆向顶点变换,计算X = (Y-T)*M^{-1}.
     void ApplyInverse(const SEVector3f& rInput, SEVector3f& rOutput) const;
     // 逆向顶点变换,变换一组顶点.
-    void ApplyInverse(int iCount, const SEVector3f* aInput, SEVector3f* aOutput)
-        const;
+    void ApplyInverse(int iCount, const SEVector3f* aInput, SEVector3f* 
+        aOutput) const;
 
     // 逆向向量变换,输入值是一个空间向量,因此不需要对其施加T变换.
     // V1 = V0*M^{-1}.

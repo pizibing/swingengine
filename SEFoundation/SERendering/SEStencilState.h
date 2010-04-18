@@ -29,9 +29,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080701
+// Description:
+// Author:Sun Che
+// Date:20080701
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEStencilState : public SEGlobalState
 {

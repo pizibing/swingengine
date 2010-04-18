@@ -25,8 +25,8 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-SEDistTriangle3Triangle3f::SEDistTriangle3Triangle3f(const SETriangle3f& rTriangle0, 
-    const SETriangle3f& rTriangle1)
+SEDistTriangle3Triangle3f::SEDistTriangle3Triangle3f(const SETriangle3f& 
+    rTriangle0, const SETriangle3f& rTriangle1)
     :
     m_pTriangle0(&rTriangle0),
     m_pTriangle1(&rTriangle1)
@@ -144,7 +144,8 @@ float SEDistTriangle3Triangle3f::GetSquared(float fT,
     SETriangle3f tempMTriangle0(vec3fMV00, vec3fMV01, vec3fMV02);
     SETriangle3f tempMTriangle1(vec3fMV10, vec3fMV11, vec3fMV12);
 
-    return SEDistTriangle3Triangle3f(tempMTriangle0, tempMTriangle1).GetSquared();
+    return SEDistTriangle3Triangle3f(tempMTriangle0, 
+        tempMTriangle1).GetSquared();
 }
 //----------------------------------------------------------------------------
 float SEDistTriangle3Triangle3f::GetTriangleBary0(int i) const

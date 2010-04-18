@@ -35,9 +35,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20070522
+// Description:
+// Author:Sun Che
+// Date:20070522
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEPlane3f
 {
@@ -49,7 +49,8 @@ public:
     // 用单位向量法线和平面上一点构建
     SEPlane3f(const SEVector3f& rNormal, const SEVector3f& rP0);
     // 用平面上3点构建
-    SEPlane3f(const SEVector3f& rP0, const SEVector3f& rP1, const SEVector3f& rP2);
+    SEPlane3f(const SEVector3f& rP0, const SEVector3f& rP1, const SEVector3f& 
+        rP2);
 
     SEPlane3f& operator = (const SEPlane3f& rPlane);
 

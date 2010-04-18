@@ -109,7 +109,8 @@ SESphere3f Swing::MergeSpheresf(const SESphere3f& rSphere0,
 //----------------------------------------------------------------------------
 // SEMinSphere3f
 //
-// 所有最小球的内部计算函数都在SESphere3f对象中暂存平方半径,只有最后输出时才开方.
+// 所有最小球的内部计算函数都在SESphere3f对象中暂存平方半径,只有最后输出时才
+// 开方.
 //----------------------------------------------------------------------------
 SEMinSphere3f::SEMinSphere3f(int iCount, const SEVector3f* aPoint, 
     SESphere3f& rMinimal, float fEpsilon)
@@ -163,7 +164,8 @@ SEMinSphere3f::SEMinSphere3f(int iCount, const SEVector3f* aPoint,
 					UpdateFunction oUpdate = m_aoUpdate[tempSupp.Count];
                     // 计算新的当前最小球,
                     // 使其能够同时包含当前support集合和当前顶点i.
-                    SESphere3f tempSphere =(this->*oUpdate)(i, apPermute, tempSupp);
+                    SESphere3f tempSphere =(this->*oUpdate)(i, apPermute, 
+                        tempSupp);
                     if( tempSphere.Radius > rMinimal.Radius )
                     {
                         rMinimal = tempSphere;
@@ -186,8 +188,8 @@ SEMinSphere3f::SEMinSphere3f(int iCount, const SEVector3f* aPoint,
     rMinimal.Radius = SEMath<float>::Sqrt(rMinimal.Radius);
 }
 //----------------------------------------------------------------------------
-bool SEMinSphere3f::Contains(const SEVector3f& rPoint, const SESphere3f& rSphere, 
-    float& rfDistDiff)
+bool SEMinSphere3f::Contains(const SEVector3f& rPoint, const SESphere3f& 
+    rSphere, float& rfDistDiff)
 {
     SEVector3f vec3fDiff = rPoint - rSphere.Center;
     float fTest = vec3fDiff.GetSquaredLength();
@@ -272,7 +274,8 @@ SESphere3f SEMinSphere3f::ExactSphere3(const SEVector3f& rPoint0,
 }
 //----------------------------------------------------------------------------
 SESphere3f SEMinSphere3f::ExactSphere4(const SEVector3f& rPoint0, 
-    const SEVector3f& rPoint1, const SEVector3f& rPoint2, const SEVector3f& rPoint3)
+    const SEVector3f& rPoint1, const SEVector3f& rPoint2, const SEVector3f& 
+    rPoint3)
 {
     // 计算经过四个顶点p0,p1,p2,p3的球,球心C是四个顶点的重心,
     // 且K = u0*p0 + u1*p1 + u2*p2 + u3*p3,其中u0 + u1 + u2 + u3 = 1,
@@ -359,7 +362,8 @@ SESphere3f SEMinSphere3f::ExactSphere4(const SEVector3f& rPoint0,
         
         tempMinimal.Center = afU[0]*rPoint0 + afU[1]*rPoint1 + afU[2]*rPoint2 + 
             afU[3]*rPoint3;
-        SEVector3f vec3fTemp = afU[0]*vec3fE10 + afU[1]*vec3fE20 + afU[2]*vec3fE30;
+        SEVector3f vec3fTemp = afU[0]*vec3fE10 + afU[1]*vec3fE20 + 
+            afU[2]*vec3fE30;
         tempMinimal.Radius = vec3fTemp.GetSquaredLength();
     }
     else

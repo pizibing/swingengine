@@ -152,8 +152,10 @@ void SERoamTerrainPatch::ComputeVariance()
     m_pCurrentVariance = m_VarianceRight;
     RecursComputeVariance(m_iMSpaceX, m_iMSpaceY + m_pPage->m_iPatchSizeM1,
         m_iMSpaceX + m_pPage->m_iPatchSizeM1, m_iMSpaceY,
-        m_iMSpaceX + m_pPage->m_iPatchSizeM1, m_iMSpaceY + m_pPage->m_iPatchSizeM1,
-        m_BaseRight.LeftIndex, m_BaseRight.RightIndex, m_BaseRight.ApexIndex, 1);
+        m_iMSpaceX + m_pPage->m_iPatchSizeM1, m_iMSpaceY + 
+        m_pPage->m_iPatchSizeM1,
+        m_BaseRight.LeftIndex, m_BaseRight.RightIndex, m_BaseRight.ApexIndex, 
+        1);
 
     m_bDirty = false;
 }
@@ -261,7 +263,7 @@ void SERoamTerrainPatch::Split(SERoamTriTreeNode* pTriTreeNode)
         pTriTreeNode->pRightChild->pLeftNeighbor = 0;
     }
 
-    int iCenterIndex = (pTriTreeNode->LeftIndex + pTriTreeNode->RightIndex) >> 1;
+    int iCenterIndex = (pTriTreeNode->LeftIndex + pTriTreeNode->RightIndex)>>1;
   
     // 这里填充其他信息.
 	
@@ -335,13 +337,16 @@ void SERoamTerrainPatch::RecursTessellate(SERoamTriTreeNode* pTriTreeNode,
         Split(pTriTreeNode);
 		
         if( pTriTreeNode->pLeftChild && 
-            ((SEMathf::FAbs((float)(iLeftX - iRightX)) >= m_pPage->m_iSplitLevel) || 
-            (SEMathf::FAbs((float)(iLeftY - iRightY)) >= m_pPage->m_iSplitLevel)) )
+            ((SEMathf::FAbs((float)(iLeftX - iRightX)) >= 
+            m_pPage->m_iSplitLevel) || 
+            (SEMathf::FAbs((float)(iLeftY - iRightY)) >= 
+            m_pPage->m_iSplitLevel)) )
         {
             RecursTessellate(pTriTreeNode->pLeftChild, pCamera,
                 iApexX, iApexY, iLeftX, iLeftY, iCenterX, iCenterY, iNode<<1);
             RecursTessellate(pTriTreeNode->pRightChild, pCamera,
-                iRightX, iRightY, iApexX, iApexY, iCenterX, iCenterY, 1+(iNode<<1));
+                iRightX, iRightY, iApexX, iApexY, iCenterX, iCenterY, 
+                1+(iNode<<1));
         }
     }
 }
@@ -363,16 +368,17 @@ float SERoamTerrainPatch::RecursComputeVariance(int iLeftX, int iLeftY,
     fMyVariance = SEMathf::FAbs(fCenterZ - (fLeftZ + fRightZ) * 0.5f);
 
     // 只递归计算variance到高度图上N*N的区域.
-    if( (SEMathf::FAbs((float)(iLeftX - iRightX)) >= m_pPage->m_iVarianceLevel) ||
+    if( (SEMathf::FAbs((float)(iLeftX - iRightX)) >= 
+        m_pPage->m_iVarianceLevel) ||
         (SEMathf::FAbs(float(iLeftY - iRightY)) >= m_pPage->m_iVarianceLevel) )
     {
         // 最终当前节点的variance取自自己和两个子树的最大variance.
         fMyVariance = SE_MAX(fMyVariance, RecursComputeVariance(iApexX, iApexY, 
             iLeftX, iLeftY, iCenterX, iCenterY, iApexIndex, iLeftIndex, 
             iCenterIndex, iNodeIndex<<1));
-        fMyVariance = SE_MAX(fMyVariance, RecursComputeVariance(iRightX, iRightY, 
-            iApexX, iApexY, iCenterX, iCenterY, iRightIndex, iApexIndex, 
-            iCenterIndex, 1+(iNodeIndex<<1)));
+        fMyVariance = SE_MAX(fMyVariance, RecursComputeVariance(iRightX, 
+            iRightY, iApexX, iApexY, iCenterX, iCenterY, iRightIndex, 
+            iApexIndex, iCenterIndex, 1+(iNodeIndex<<1)));
     }
 
     // 防止数组越界,同时variance最小应为1.

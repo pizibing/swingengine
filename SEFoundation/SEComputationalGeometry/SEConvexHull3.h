@@ -31,9 +31,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20081201
+// Description:
+// Author:Sun Che
+// Date:20081201
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEConvexHull3f : public SEConvexHullf
 {
@@ -44,11 +44,12 @@ public:
     // must delete them yourself.
     //
     // You have a choice of speed versus accuracy. The fastest choice is
-    // SEQuery::QT_INT64, but it gives up a lot of precision, scaling the points
-    // to [0, 2^{20}]^3. The choice SEQuery::QT_INTEGER gives up less precision, 
-    // scaling the points to [0, 2^{24}]^3. The choice SEQuery::QT_RATIONAL uses
-    // exact arithmetic, but is the slowest choice.  The choice SEQuery::QT_REAL
-    // uses floating-point arithmetic, but is not robust in all cases.
+    // SEQuery::QT_INT64, but it gives up a lot of precision, scaling the 
+    // points to [0, 2^{20}]^3. The choice SEQuery::QT_INTEGER gives up less 
+    // precision, scaling the points to [0, 2^{24}]^3. The choice 
+    // SEQuery::QT_RATIONAL uses exact arithmetic, but is the slowest choice. 
+    // The choice SEQuery::QT_REAL uses floating-point arithmetic, but is not 
+    // robust in all cases.
 
     SEConvexHull3f(int iVertexCount,  SEVector3f* aVertex,  float fEpsilon, 
         bool bOwner,  SEQuery::Type eQueryType);

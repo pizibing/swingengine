@@ -32,9 +32,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080707
+// Description:
+// Author:Sun Che
+// Date:20080707
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SECuller
 {
@@ -58,7 +58,7 @@ public:
     // 派生类可以重载此函数,比如SEUnculledObject数组可以被维护为有序数组,
     // 从而使渲染状态改变最小化,
     // 或者也可以成为一个对象unique list供portal系统使用.
-    virtual void Insert(SESpatial* pObject, Effect* pGlobalEffect,
+    virtual void Insert(SESpatial* pObject, SEEffect* pGlobalEffect,
         bool bIsAudible = false);
 
     // 世界空间剔除平面堆栈访问.

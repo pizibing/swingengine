@@ -23,18 +23,18 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ParallaxMapL1Effect, ShaderEffect);
-SE_IMPLEMENT_STREAM(ParallaxMapL1Effect);
-SE_IMPLEMENT_DEFAULT_STREAM(ParallaxMapL1Effect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ParallaxMapL1Effect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEParallaxMapL1Effect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEParallaxMapL1Effect);
+SE_IMPLEMENT_DEFAULT_STREAM(SEParallaxMapL1Effect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEParallaxMapL1Effect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(ParallaxMapL1Effect);
+//SE_REGISTER_STREAM(SEParallaxMapL1Effect);
 
 //----------------------------------------------------------------------------
-ParallaxMapL1Effect::ParallaxMapL1Effect(const char* acBaseName, 
+SEParallaxMapL1Effect::SEParallaxMapL1Effect(const char* acBaseName, 
     const char* acNormalName, const char* acHeightName)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader("ParallaxMapL1.v_ParallaxMapL1");
     m_PShader[0] = SE_NEW SEPixelShader("ParallaxMapL1.p_ParallaxMapL1");
@@ -45,11 +45,11 @@ ParallaxMapL1Effect::ParallaxMapL1Effect(const char* acBaseName,
     m_PShader[0]->SetImageName(2, acHeightName);
 }
 //----------------------------------------------------------------------------
-ParallaxMapL1Effect::ParallaxMapL1Effect()
+SEParallaxMapL1Effect::SEParallaxMapL1Effect()
 {
 }
 //----------------------------------------------------------------------------
-ParallaxMapL1Effect::~ParallaxMapL1Effect()
+SEParallaxMapL1Effect::~SEParallaxMapL1Effect()
 {
 }
 //----------------------------------------------------------------------------

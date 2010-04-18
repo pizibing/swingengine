@@ -23,22 +23,22 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ScreenSpaceAOEffect, ShaderEffect);
-SE_IMPLEMENT_STREAM(ScreenSpaceAOEffect);
-SE_IMPLEMENT_DEFAULT_STREAM(ScreenSpaceAOEffect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ScreenSpaceAOEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEScreenSpaceAOEffect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEScreenSpaceAOEffect);
+SE_IMPLEMENT_DEFAULT_STREAM(SEScreenSpaceAOEffect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEScreenSpaceAOEffect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(ScreenSpaceAOEffect);
+//SE_REGISTER_STREAM(SEScreenSpaceAOEffect);
 
-SEVector2f ScreenSpaceAOEffect::ScreenSize = SEVector2f::ZERO; 
-float ScreenSpaceAOEffect::FarClipDist = 0.0f;
-bool ScreenSpaceAOEffect::ms_bUCInitialized = false;
+SEVector2f SEScreenSpaceAOEffect::ScreenSize = SEVector2f::ZERO; 
+float SEScreenSpaceAOEffect::FarClipDist = 0.0f;
+bool SEScreenSpaceAOEffect::ms_bUCInitialized = false;
 
 //----------------------------------------------------------------------------
-ScreenSpaceAOEffect::ScreenSpaceAOEffect(const std::string& rRandom, 
+SEScreenSpaceAOEffect::SEScreenSpaceAOEffect(const std::string& rRandom, 
     const std::string& rDepth)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader("ScreenSpaceAO.v_ScreenSpaceAO");
     m_PShader[0] = SE_NEW SEPixelShader("ScreenSpaceAO.p_ScreenSpaceAO");
@@ -48,15 +48,15 @@ ScreenSpaceAOEffect::ScreenSpaceAOEffect(const std::string& rRandom,
     m_PShader[0]->SetImageName(1, rDepth);
 }
 //----------------------------------------------------------------------------
-ScreenSpaceAOEffect::ScreenSpaceAOEffect()
+SEScreenSpaceAOEffect::SEScreenSpaceAOEffect()
 {
 }
 //----------------------------------------------------------------------------
-ScreenSpaceAOEffect::~ScreenSpaceAOEffect()
+SEScreenSpaceAOEffect::~SEScreenSpaceAOEffect()
 {
 }
 //----------------------------------------------------------------------------
-void ScreenSpaceAOEffect::OnLoadPrograms(int, SEProgram*, 
+void SEScreenSpaceAOEffect::OnLoadPrograms(int, SEProgram*, 
     SEProgram* pPProgram, SEProgram*)
 {
     if( !ms_bUCInitialized )

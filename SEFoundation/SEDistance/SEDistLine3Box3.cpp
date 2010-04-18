@@ -253,8 +253,8 @@ void SEDistLine3Box3f::Face(int i0, int i1, int i2, SEVector3f& rPnt,
                 fDelta = rDir[i0]*rPmE[i0] + rDir[i1]*vec3fPpE[i1] +
                     rDir[i2]*fTmp;
                 fParam = -fDelta/fLSqr;
-                rfSqrDistance += rPmE[i0]*rPmE[i0] + vec3fPpE[i1]*vec3fPpE[i1] +
-                    fTmp*fTmp + fDelta*fParam;
+                rfSqrDistance += rPmE[i0]*rPmE[i0] + vec3fPpE[i1]*vec3fPpE[i1]
+                    + fTmp*fTmp + fDelta*fParam;
 
                 m_fLParam = fParam;
                 rPnt[i0] = m_pBox->Extent[i0];
@@ -267,8 +267,8 @@ void SEDistLine3Box3f::Face(int i0, int i1, int i2, SEVector3f& rPnt,
                 fDelta = rDir[i0]*rPmE[i0] + rDir[i1]*vec3fPpE[i1] +
                     rDir[i2]*rPmE[i2];
                 fParam = -fDelta/fLSqr;
-                rfSqrDistance += rPmE[i0]*rPmE[i0] + vec3fPpE[i1]*vec3fPpE[i1] +
-                    rPmE[i2]*rPmE[i2] + fDelta*fParam;
+                rfSqrDistance += rPmE[i0]*rPmE[i0] + vec3fPpE[i1]*vec3fPpE[i1]
+                    + rPmE[i2]*rPmE[i2] + fDelta*fParam;
 
                 m_fLParam = fParam;
                 rPnt[i0] = m_pBox->Extent[i0];
@@ -333,8 +333,8 @@ void SEDistLine3Box3f::Face(int i0, int i1, int i2, SEVector3f& rPnt,
                     fDelta = rDir[i0]*rPmE[i0] + rDir[i1]*vec3fPpE[i1] +
                         rDir[i2]*fTmp;
                     fParam = -fDelta/fLSqr;
-                    rfSqrDistance += rPmE[i0]*rPmE[i0] + vec3fPpE[i1]*vec3fPpE[i1] +
-                        fTmp*fTmp + fDelta*fParam;
+                    rfSqrDistance += rPmE[i0]*rPmE[i0] + 
+                        vec3fPpE[i1]*vec3fPpE[i1] + fTmp*fTmp + fDelta*fParam;
 
                     m_fLParam = fParam;
                     rPnt[i0] = m_pBox->Extent[i0];
@@ -347,8 +347,9 @@ void SEDistLine3Box3f::Face(int i0, int i1, int i2, SEVector3f& rPnt,
                     fDelta = rDir[i0]*rPmE[i0] + rDir[i1]*vec3fPpE[i1] +
                         rDir[i2]*rPmE[i2];
                     fParam = -fDelta/fLSqr;
-                    rfSqrDistance += rPmE[i0]*rPmE[i0] + vec3fPpE[i1]*vec3fPpE[i1] +
-                        rPmE[i2]*rPmE[i2] + fDelta*fParam;
+                    rfSqrDistance += rPmE[i0]*rPmE[i0] + 
+                        vec3fPpE[i1]*vec3fPpE[i1] + rPmE[i2]*rPmE[i2] + 
+                        fDelta*fParam;
 
                     m_fLParam = fParam;
                     rPnt[i0] = m_pBox->Extent[i0];

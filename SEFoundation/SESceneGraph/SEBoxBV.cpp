@@ -35,8 +35,8 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(SEBoxBV, SEBoundingVolume);
 //----------------------------------------------------------------------------
 SEBoxBV::SEBoxBV()
     :
-    m_Box(SEVector3f::ZERO, SEVector3f::UNIT_X, SEVector3f::UNIT_Y, SEVector3f::UNIT_Z,
-    1.0f, 1.0f, 1.0f)
+    m_Box(SEVector3f::ZERO, SEVector3f::UNIT_X, SEVector3f::UNIT_Y, 
+        SEVector3f::UNIT_Z, 1.0f, 1.0f, 1.0f)
 {
 }
 //----------------------------------------------------------------------------
@@ -128,12 +128,12 @@ int SEBoxBV::OnWhichSide(const SEPlane3f& rPlane) const
 //----------------------------------------------------------------------------
 bool SEBoxBV::TestIntersection(const SERay3f& rRay) const
 {
-    return IntrRay3Box3f(rRay, m_Box).Test();
+    return SEIntrRay3Box3f(rRay, m_Box).Test();
 }
 //----------------------------------------------------------------------------
 bool SEBoxBV::TestIntersection(const SEBoundingVolume* pInput) const
 {
-    return IntrBox3Box3f(m_Box, ((SEBoxBV*)pInput)->m_Box).Test();
+    return SEIntrBox3Box3f(m_Box, ((SEBoxBV*)pInput)->m_Box).Test();
 }
 //----------------------------------------------------------------------------
 void SEBoxBV::CopyFrom(const SEBoundingVolume* pInput)
@@ -155,7 +155,7 @@ bool SEBoxBV::Contains(const SEVector3f& rPoint) const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEBoxBV::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEBoxBV::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -173,9 +173,9 @@ void SEBoxBV::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEBoxBV);
 }
 //----------------------------------------------------------------------------
-void SEBoxBV::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEBoxBV::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEBoundingVolume::Link(rStream, pLink);
+    SEBoundingVolume::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEBoxBV::Register(SEStream& rStream) const

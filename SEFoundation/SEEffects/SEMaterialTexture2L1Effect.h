@@ -28,27 +28,27 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:material texture2 with 1 light effect¿‡
 // Description:
 // Author:Sun Che
 // Date:20100228
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API MaterialTexture2L1Effect : public ShaderEffect
+class SE_FOUNDATION_API SEMaterialTexture2L1Effect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    MaterialTexture2L1Effect(const std::string& rT0, const std::string& rT1);
-    virtual ~MaterialTexture2L1Effect(void);
+    SEMaterialTexture2L1Effect(const std::string& rT0, const std::string& rT1);
+    virtual ~SEMaterialTexture2L1Effect(void);
 
 protected:
     // streaming
-    MaterialTexture2L1Effect(void);
+    SEMaterialTexture2L1Effect(void);
 };
 
-typedef SESmartPointer<MaterialTexture2L1Effect> MaterialTexture2L1EffectPtr;
+typedef SESmartPointer<SEMaterialTexture2L1Effect> 
+    SEMaterialTexture2L1EffectPtr;
 
 }
 

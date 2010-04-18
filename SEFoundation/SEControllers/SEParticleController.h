@@ -29,9 +29,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20090602
+// Description:
+// Author:Sun Che
+// Date:20090602
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEParticleController : public SEController
 {

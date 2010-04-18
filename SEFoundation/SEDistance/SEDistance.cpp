@@ -371,8 +371,7 @@ Real SEDistance<Real, TVector>::GetSquared(Real fTMin, Real fTMax,
 //----------------------------------------------------------------------------
 template class SEDistance<float, SEVector2f>;
 template class SEDistance<float, SEVector3f>;
-
-//template class SEDistance<double, SEVector2d>;
-//template class SEDistance<double, SEVector3d>;
+template class SEDistance<double, SEVector2d>;
+template class SEDistance<double, SEVector3d>;
 //----------------------------------------------------------------------------
 }

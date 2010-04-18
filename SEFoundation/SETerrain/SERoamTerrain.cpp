@@ -63,7 +63,8 @@ SERoamTerrain::SERoamTerrain(const char* acHeightName, const char* acImageName,
             const size_t uiSize = 64;
             char acSuffix[uiSize];
             SESystem::SE_Sprintf(acSuffix, uiSize, "%d.%d", iRow, iCol);
-            LoadPage(iRow, iCol, acHeightName, acSuffix, acImageName, acSuffix);
+            LoadPage(iRow, iCol, acHeightName, acSuffix, acImageName, 
+                acSuffix);
         }
     }
 
@@ -295,19 +296,18 @@ void SERoamTerrain::LoadPage(int iRow, int iCol, const char* acHeightName,
     // 该page在terrain模型空间的原点.
     SEVector2f vec2fOrigin(iCol*fLength, iRow*fLength);
     // 创建page.
-    SERoamTerrainPage* pPage = SE_NEW SERoamTerrainPage(m_Attr, m_iSize, ausHeight,
-        vec2fOrigin, m_fMinElevation, m_fMaxElevation, m_fSpacing, m_fUVBias,
-        m_iPoolSize, m_iPatchSize, m_iSplitLevel, m_iVarianceLevel);
+    SERoamTerrainPage* pPage = SE_NEW SERoamTerrainPage(m_Attr, m_iSize, 
+        ausHeight, vec2fOrigin, m_fMinElevation, m_fMaxElevation, m_fSpacing, 
+        m_fUVBias, m_iPoolSize, m_iPatchSize, m_iSplitLevel, m_iVarianceLevel);
     pPage->SetPageGrid(iRow, iCol, this);
 
     // 为page添加effect.
-    SESystem::SE_Sprintf(acFileName, uiSize, "%s.%s", acImageName, acImageSuffix);
-    MultitextureEffect* pEffect = SE_NEW MultitextureEffect(1);
+    SESystem::SE_Sprintf(acFileName, uiSize, "%s.%s", acImageName, 
+        acImageSuffix);
+    SEMultitextureEffect* pEffect = SE_NEW SEMultitextureEffect(1);
     pEffect->SetImageName(0, acFileName);
     pEffect->Configure();
     pPage->AttachEffect(pEffect);
-    //DefaultShaderEffect* pEffect = SE_NEW DefaultShaderEffect;
-    //pPage->AttachEffect(pEffect);
 
     m_Pages[iRow][iCol] = pPage;
 }
@@ -316,7 +316,7 @@ void SERoamTerrain::LoadPage(int iRow, int iCol, const char* acHeightName,
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SERoamTerrain::Load(SEStream& rStream, SEStream::Link* pLink)
+void SERoamTerrain::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -354,9 +354,9 @@ void SERoamTerrain::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SERoamTerrain);
 }
 //----------------------------------------------------------------------------
-void SERoamTerrain::Link(SEStream& rStream, SEStream::Link* pLink)
+void SERoamTerrain::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SENode::Link(rStream, pLink);
+    SENode::SELink(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     m_spCamera = (SECamera*)rStream.GetFromMap(pLinkID);
@@ -488,7 +488,8 @@ SEStringTree* SERoamTerrain::SaveStrings(const char*)
         {
             const size_t uiSize = 64;
             char acPageName[uiSize];
-            SESystem::SE_Sprintf(acPageName, uiSize, "page[%d][%d] =", iRow, iCol);
+            SESystem::SE_Sprintf(acPageName, uiSize, "page[%d][%d] =", iRow, 
+                iCol);
             pTree->Append(m_Pages[iRow][iCol]->SaveStrings(acPageName));
         }
     }

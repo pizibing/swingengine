@@ -31,9 +31,10 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:帮助SEProgram类装载含有shader interface的程序,使其完成动态拼接并编译.
-// 作者:Sun Che
-// 时间:20090418
+// Description:帮助SEProgram类装载含有shader interface的程序,使其完成动态拼接
+//     并编译.
+// Author:Sun Che
+// Date:20090418
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEInterfaceDescriptor : public SEObject
 {

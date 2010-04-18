@@ -26,23 +26,23 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Effect, SEObject);
-SE_IMPLEMENT_STREAM(Effect);
-SE_IMPLEMENT_DEFAULT_STREAM(Effect, SEObject);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Effect, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEEffect, SEObject);
+SE_IMPLEMENT_STREAM(SEEffect);
+SE_IMPLEMENT_DEFAULT_STREAM(SEEffect, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEEffect, SEObject);
 
-//SE_REGISTER_STREAM(Effect);
+//SE_REGISTER_STREAM(SEEffect);
 
 //----------------------------------------------------------------------------
-Effect::Effect()
+SEEffect::SEEffect()
 {
 }
 //----------------------------------------------------------------------------
-Effect::~Effect()
+SEEffect::~SEEffect()
 {
 }
 //----------------------------------------------------------------------------
-void Effect::Draw(SERenderer* pRenderer, SESpatial*, int iMin, int iMax, 
+void SEEffect::Draw(SERenderer* pRenderer, SESpatial*, int iMin, int iMax, 
     SEUnculledObject* pVisibleSet)
 {
     // global effectµÄÄ¬ÈÏäÖÈ¾º¯Êý.
@@ -59,15 +59,15 @@ void Effect::Draw(SERenderer* pRenderer, SESpatial*, int iMin, int iMax,
     }
 }
 //----------------------------------------------------------------------------
-void Effect::OnUpdateData(void*)
+void SEEffect::OnUpdateData(void*)
 {
 }
 //----------------------------------------------------------------------------
-void Effect::LoadResources(SERenderer*, SEGeometry*)
+void SEEffect::LoadResources(SERenderer*, SEGeometry*)
 {
 }
 //----------------------------------------------------------------------------
-void Effect::ReleaseResources(SERenderer*, SEGeometry*)
+void SEEffect::ReleaseResources(SERenderer*, SEGeometry*)
 {
 }
 //----------------------------------------------------------------------------

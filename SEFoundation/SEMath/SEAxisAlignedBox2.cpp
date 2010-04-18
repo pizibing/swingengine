@@ -47,7 +47,8 @@ bool SEAxisAlignedBox2f::HasYOverlap(const SEAxisAlignedBox2f& rBox) const
     return Max[1] >= rBox.Min[1] && Min[1] <= rBox.Max[1];
 }
 //----------------------------------------------------------------------------
-bool SEAxisAlignedBox2f::TestIntersection(const SEAxisAlignedBox2f& rBox) const
+bool SEAxisAlignedBox2f::TestIntersection(const SEAxisAlignedBox2f& rBox) 
+    const
 {
     for( int i = 0; i < 2; i++ )
     {

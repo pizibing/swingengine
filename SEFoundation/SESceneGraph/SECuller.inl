@@ -44,7 +44,7 @@ inline SEUnculledSet& SECuller::GetAudibleSet()
     return m_AudibleSet;
 }
 //----------------------------------------------------------------------------
-inline void SECuller::Insert(SESpatial* pObject, Effect* pGlobalEffect,
+inline void SECuller::Insert(SESpatial* pObject, SEEffect* pGlobalEffect,
     bool bIsAudible)
 {
     if( !bIsAudible )

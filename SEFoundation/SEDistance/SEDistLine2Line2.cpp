@@ -24,7 +24,8 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-SEDistLine2Line2f::SEDistLine2Line2f(const SELine2f& rLine0, const SELine2f& rLine1)
+SEDistLine2Line2f::SEDistLine2Line2f(const SELine2f& rLine0, const SELine2f& 
+    rLine1)
     :
     m_pLine0(&rLine0),
     m_pLine1(&rLine1)

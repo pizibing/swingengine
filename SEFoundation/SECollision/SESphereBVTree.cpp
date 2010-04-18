@@ -47,8 +47,8 @@ SESphereBVTree::SESphereBVTree(const SETriMesh* pMesh, int iMaxTrisPerLeaf,
 {
 }
 //----------------------------------------------------------------------------
-SEBoundingVolume* SESphereBVTree::CreateModelBound(const SETriMesh* pMesh, int i0,
-    int i1, int* aiISplit, SELine3f& rLine)
+SEBoundingVolume* SESphereBVTree::CreateModelBound(const SETriMesh* pMesh, 
+    int i0, int i1, int* aiISplit, SELine3f& rLine)
 {
     // 标记出在当前子网格中用过的那些顶点.
     int iVCount = pMesh->VBuffer->GetVertexCount();

@@ -30,10 +30,10 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:支持1D,2D,3D图像.
+// Description:支持1D,2D,3D图像.
 //     注意,图像的每一个维度的长度都必须是2^n,其中n>=0.
-// 作者:Sun Che
-// 时间:20080629
+// Author:Sun Che
+// Date:20080629
 // 更新时间:20090305
 // 更新说明:为了支持任意width,height的render target纹理,
 //     取消纹理维度必须是power of two的限制.
@@ -171,7 +171,7 @@ protected:
     static std::string ms_FormatName[IT_COUNT];
 };
 
-typedef SESmartPointer<SEImage> ImagePtr;
+typedef SESmartPointer<SEImage> SEImagePtr;
 
 #include "SEImage.inl"
 

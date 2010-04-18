@@ -30,9 +30,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080627
+// Description:
+// Author:Sun Che
+// Date:20080627
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEPixelProgram : public SEProgram
 {
@@ -42,8 +42,9 @@ class SE_FOUNDATION_API SEPixelProgram : public SEProgram
 
 public:
     // 必须通过Load来创建一个实例.
-    static SEPixelProgram* Load(SERenderer* pRenderer, const std::string& rProgramName, 
-        const std::string& rKey, SEInterfaceDescriptor* pInterfaceDesc = 0);
+    static SEPixelProgram* Load(SERenderer* pRenderer, const std::string& 
+        rProgramName, const std::string& rKey, SEInterfaceDescriptor* 
+        pInterfaceDesc = 0);
     virtual ~SEPixelProgram(void);
 
 protected:

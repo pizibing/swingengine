@@ -31,20 +31,19 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:lighting effect类
-// 说明:
-// 作者:Sun Che
-// 时间:20080702
+// Description:
+// Author:Sun Che
+// Date:20080702
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API LightingEffect : public ShaderEffect
+class SE_FOUNDATION_API SELightingEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    LightingEffect(void);
-    virtual ~LightingEffect(void);
+    SELightingEffect(void);
+    virtual ~SELightingEffect(void);
 
     // 在添加或移除light后,需调用Configure函数来创建新的lighting shader程序.
     inline int GetLightCount(void) const;
@@ -64,7 +63,7 @@ public:
     void Configure(LightingMode eMode = LM_PIXEL);
 
     // 用户应根据具体渲染器所使用的shader系统,来实现此函数装载所需shader程序.
-    typedef void (*ConfigureLighting)(LightingEffect*);
+    typedef void (*ConfigureLighting)(SELightingEffect*);
     static ConfigureLighting OnConfigureLighting;
 
 protected:
@@ -72,7 +71,7 @@ protected:
     std::vector<SELightPtr> m_Lights;
 };
 
-typedef SESmartPointer<LightingEffect> LightingEffectPtr;
+typedef SESmartPointer<SELightingEffect> SELightingEffectPtr;
 
 #include "SELightingEffect.inl"
 

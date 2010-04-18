@@ -28,9 +28,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080315
+// Description:
+// Author:Sun Che
+// Date:20080315
 //----------------------------------------------------------------------------
 template <class Type>
 class SESharedArray : public SEObject

@@ -110,8 +110,8 @@ float SEDistSegment3Triangle3f::Get(float fT, const SEVector3f& rVelocity0,
     return SEDistSegment3Triangle3f(tempMSegment, tempMTriangle).Get();
 }
 //----------------------------------------------------------------------------
-float SEDistSegment3Triangle3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
-    const SEVector3f& rVelocity1)
+float SEDistSegment3Triangle3f::GetSquared(float fT, const SEVector3f& 
+    rVelocity0, const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin = m_pSegment->Origin + fT*rVelocity0;
     SEVector3f vec3fMV0 = m_pTriangle->V[0] + fT*rVelocity1;

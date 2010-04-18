@@ -23,14 +23,14 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, GaussianBlurHEffect, ShaderEffect);
-SE_IMPLEMENT_STREAM(GaussianBlurHEffect);
-SE_IMPLEMENT_DEFAULT_STREAM(GaussianBlurHEffect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(GaussianBlurHEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEGaussianBlurHEffect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEGaussianBlurHEffect);
+SE_IMPLEMENT_DEFAULT_STREAM(SEGaussianBlurHEffect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEGaussianBlurHEffect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(GaussianBlurHEffect);
+//SE_REGISTER_STREAM(SEGaussianBlurHEffect);
 
-SEVector2f GaussianBlurHEffect::ms_aTexelKernel[KERNEL_COUNT] = 
+SEVector2f SEGaussianBlurHEffect::ms_aTexelKernel[KERNEL_COUNT] = 
 {
     SEVector2f::ZERO,
     SEVector2f::ZERO,
@@ -46,7 +46,7 @@ SEVector2f GaussianBlurHEffect::ms_aTexelKernel[KERNEL_COUNT] =
     SEVector2f::ZERO,
     SEVector2f::ZERO
 };
-SEVector2f GaussianBlurHEffect::ms_aPixelKernelH[KERNEL_COUNT] = 
+SEVector2f SEGaussianBlurHEffect::ms_aPixelKernelH[KERNEL_COUNT] = 
 {
     SEVector2f(-6.0f, 0.0f),
     SEVector2f(-5.0f, 0.0f),
@@ -62,12 +62,12 @@ SEVector2f GaussianBlurHEffect::ms_aPixelKernelH[KERNEL_COUNT] =
     SEVector2f(5.0f, 0.0f),
     SEVector2f(6.0f, 0.0f)
 };
-bool GaussianBlurHEffect::ms_bTexelKernelUCInitialized = false;
+bool SEGaussianBlurHEffect::ms_bTexelKernelUCInitialized = false;
 
 //----------------------------------------------------------------------------
-GaussianBlurHEffect::GaussianBlurHEffect(const std::string& rBaseName)
+SEGaussianBlurHEffect::SEGaussianBlurHEffect(const std::string& rBaseName)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader("SETexture.v_Texture");
     m_PShader[0] = SE_NEW SEPixelShader("GaussianBlur.p_GaussianBlur");
@@ -76,15 +76,15 @@ GaussianBlurHEffect::GaussianBlurHEffect(const std::string& rBaseName)
     m_PShader[0]->SetImageName(0, rBaseName);
 }
 //----------------------------------------------------------------------------
-GaussianBlurHEffect::GaussianBlurHEffect()
+SEGaussianBlurHEffect::SEGaussianBlurHEffect()
 {
 }
 //----------------------------------------------------------------------------
-GaussianBlurHEffect::~GaussianBlurHEffect()
+SEGaussianBlurHEffect::~SEGaussianBlurHEffect()
 {
 }
 //----------------------------------------------------------------------------
-void GaussianBlurHEffect::OnLoadPrograms(int, SEProgram*, 
+void SEGaussianBlurHEffect::OnLoadPrograms(int, SEProgram*, 
     SEProgram* pPProgram, SEProgram*)
 {
     if( !ms_bTexelKernelUCInitialized )
@@ -105,7 +105,7 @@ void GaussianBlurHEffect::OnLoadPrograms(int, SEProgram*,
     }
 }
 //----------------------------------------------------------------------------
-void GaussianBlurHEffect::GenerateTexelKernel(int iWidth, int iHeight)
+void SEGaussianBlurHEffect::GenerateTexelKernel(int iWidth, int iHeight)
 {
     SE_ASSERT( iWidth > 0 && iHeight > 0 );
 

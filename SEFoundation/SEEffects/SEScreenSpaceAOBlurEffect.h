@@ -29,27 +29,26 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:SSAO blur effect类
-// 说明:
-// 作者:Sun Che
-// 时间:20090326
+// Description:
+// Author:Sun Che
+// Date:20090326
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API ScreenSpaceAOBlurEffect : public ShaderEffect
+class SE_FOUNDATION_API SEScreenSpaceAOBlurEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    ScreenSpaceAOBlurEffect(const std::string& rBaseName);
-    virtual ~ScreenSpaceAOBlurEffect(void);
+    SEScreenSpaceAOBlurEffect(const std::string& rBaseName);
+    virtual ~SEScreenSpaceAOBlurEffect(void);
 
     // 根据color buffer尺寸调整texel kernel.
     static void GenerateTexelKernel(int iWidth, int iHeight);
 
 protected:
     // streaming
-    ScreenSpaceAOBlurEffect(void);
+    SEScreenSpaceAOBlurEffect(void);
 
     virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
         SEProgram* pPProgram, SEProgram* pGProgram);
@@ -69,7 +68,7 @@ protected:
     static bool ms_bTexelKernelUCInitialized;
 };
 
-typedef SESmartPointer<ScreenSpaceAOBlurEffect> ScreenSpaceAOBlurEffectPtr;
+typedef SESmartPointer<SEScreenSpaceAOBlurEffect> SEScreenSpaceAOBlurEffectPtr;
 
 }
 

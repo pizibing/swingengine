@@ -23,18 +23,18 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, BumpMapL1Effect, ShaderEffect);
-SE_IMPLEMENT_STREAM(BumpMapL1Effect);
-SE_IMPLEMENT_DEFAULT_STREAM(BumpMapL1Effect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(BumpMapL1Effect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEBumpMapL1Effect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEBumpMapL1Effect);
+SE_IMPLEMENT_DEFAULT_STREAM(SEBumpMapL1Effect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEBumpMapL1Effect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(BumpMapL1Effect);
+//SE_REGISTER_STREAM(SEBumpMapL1Effect);
 
 //----------------------------------------------------------------------------
-BumpMapL1Effect::BumpMapL1Effect(const char* acBaseName, 
+SEBumpMapL1Effect::SEBumpMapL1Effect(const char* acBaseName, 
     const char* acNormalName)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader("BumpMapL1.v_BumpMapL1");
     m_PShader[0] = SE_NEW SEPixelShader("BumpMapL1.p_BumpMapL1");
@@ -44,11 +44,11 @@ BumpMapL1Effect::BumpMapL1Effect(const char* acBaseName,
     m_PShader[0]->SetImageName(1, acNormalName);
 }
 //----------------------------------------------------------------------------
-BumpMapL1Effect::BumpMapL1Effect()
+SEBumpMapL1Effect::SEBumpMapL1Effect()
 {
 }
 //----------------------------------------------------------------------------
-BumpMapL1Effect::~BumpMapL1Effect()
+SEBumpMapL1Effect::~SEBumpMapL1Effect()
 {
 }
 //----------------------------------------------------------------------------

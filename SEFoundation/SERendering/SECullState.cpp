@@ -71,7 +71,7 @@ SECullState::~SECullState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SECullState::Load(SEStream& rStream, SEStream::Link* pLink)
+void SECullState::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -88,9 +88,9 @@ void SECullState::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SECullState);
 }
 //----------------------------------------------------------------------------
-void SECullState::Link(SEStream& rStream, SEStream::Link* pLink)
+void SECullState::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEGlobalState::Link(rStream, pLink);
+    SEGlobalState::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SECullState::Register(SEStream& rStream) const

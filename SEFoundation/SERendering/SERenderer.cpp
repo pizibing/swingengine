@@ -421,7 +421,8 @@ void SERenderer::OnReleaseGProgram(SEResourceIdentifier*)
 //----------------------------------------------------------------------------
 // 可选render state block的资源装载与释放.
 //----------------------------------------------------------------------------
-void SERenderer::OnLoadRenderStateBlock(SEResourceIdentifier*&, SERenderStateBlock*)
+void SERenderer::OnLoadRenderStateBlock(SEResourceIdentifier*&, 
+    SERenderStateBlock*)
 {
     // 由派生类负责实现.
 }
@@ -463,7 +464,8 @@ void SERenderer::OnDisableRenderStateBlock(SEResourceIdentifier*)
 //----------------------------------------------------------------------------
 // 可选shader程序连接.
 //----------------------------------------------------------------------------
-bool SERenderer::OnLinkPrograms(SEVertexProgram*, SEGeometryProgram*, SEPixelProgram*)
+bool SERenderer::OnLinkPrograms(SEVertexProgram*, SEGeometryProgram*, 
+    SEPixelProgram*)
 {
     // 由派生类负责实现.
     return false;
@@ -585,7 +587,8 @@ void SERenderer::SetConstantProjectorMatrix(int, float* afData)
 
     // 最终投影器matrix.
     SEMatrix4f mat4fProjectorMatrix =
-        m_WorldMatrix * mat4fProjVMatrix * mat4fProjPMatrix * mat4fProjBSMatrix;
+        m_WorldMatrix * mat4fProjVMatrix * mat4fProjPMatrix * 
+        mat4fProjBSMatrix;
 
     GetTransform(mat4fProjectorMatrix, 0, afData);
 }
@@ -722,7 +725,8 @@ void SERenderer::SetConstantProjectorModelPosition(int, float* afData)
     SE_ASSERT( m_pProjector );
 
     SEVector3f vec3fMLocation;
-    m_pGeometry->World.ApplyInverse(m_pProjector->GetLocation(), vec3fMLocation);
+    m_pGeometry->World.ApplyInverse(m_pProjector->GetLocation(), 
+        vec3fMLocation);
 
     afData[0] = vec3fMLocation.X;
     afData[1] = vec3fMLocation.Y;
@@ -1022,9 +1026,10 @@ void SERenderer::SetRendererConstant(SERendererConstant::Type eRCType,
     {
         // 常量与material,camera,projector数据有关.
         // 第一参数iOperation被忽略掉,因此设置为0.
-        // iFunction中的"6"用于索引ms_aoSCFunction中的SetConstantMaterialEmissive.
-        // 其他的iFunction是一个相对偏移量,用于定位material,fog,camera,projector等
-        // 的SetConstant*函数.iFunction最大值为26.
+        // iFunction中的"6"用于索引ms_aoSCFunction中的
+        // SetConstantMaterialEmissive.
+        // 其他的iFunction是一个相对偏移量,用于定位material,fog,camera,
+        // projector等的SetConstant*函数.iFunction最大值为26.
         iFunction = 6 + iRCType - (int)SERendererConstant::MATERIAL_EMISSIVE;
         (this->*ms_aoSCFunction[iFunction])(0, afData);
     }
@@ -1034,11 +1039,13 @@ void SERenderer::SetRendererConstant(SERendererConstant::Type eRCType,
         // 这些数据以9个为一组:
         // model position, model direction, world position, world direction,
         // ambient, diffuse, specular, spotcutoff, shininess.
-        // iFunction中的"27"用于索引ms_aoSCFunction中的SetConstantLightModelPosition.
+        // iFunction中的"27"用于索引ms_aoSCFunction中的
+        // SetConstantLightModelPosition.
         // 其他的iFunction是一个相对偏移量,用于定位light的SetConstant*函数.
         // iFunction最大值为35.
         // 从LIGHT_ARRAY0_MODEL_POSITION开始,
-        // 是light0到light7对应的shader interface数组实例中的renderer constant.
+        // 是light0到light7对应的shader interface数组实例中的renderer 
+        // constant.
         int iDiff = iRCType - (int)SERendererConstant::LIGHT0_MODEL_POSITION;
         int iLight = iDiff / 9;
         iLight -= (iLight >= 8 ? 8 : 0);
@@ -1115,7 +1122,7 @@ void SERenderer::LoadResources(SEGeometry* pGeometry)
     const int iEffectCount = pGeometry->GetEffectCount();
     for( int i = 0; i < iEffectCount; i++ )
     {
-        Effect* pEffect = pGeometry->GetEffect(i);
+        SEEffect* pEffect = pGeometry->GetEffect(i);
         pEffect->LoadResources(this, pGeometry);
     }
 }
@@ -1139,19 +1146,19 @@ void SERenderer::ReleaseResources(SEGeometry* pGeometry)
     const int iEffectCount = pGeometry->GetEffectCount();
     for( int i = 0; i < iEffectCount; i++ )
     {
-        Effect* pEffect = pGeometry->GetEffect(i);
+        SEEffect* pEffect = pGeometry->GetEffect(i);
         pEffect->ReleaseResources(this, pGeometry);
     }
 }
 //----------------------------------------------------------------------------
-void SERenderer::LoadResources(Effect* pEffect)
+void SERenderer::LoadResources(SEEffect* pEffect)
 {
     SE_ASSERT( pEffect );
 
     pEffect->LoadResources(this, 0);
 }
 //----------------------------------------------------------------------------
-void SERenderer::ReleaseResources(Effect* pEffect)
+void SERenderer::ReleaseResources(SEEffect* pEffect)
 {
     SE_ASSERT( pEffect );
 
@@ -1609,8 +1616,9 @@ void SERenderer::DisableTexture(SETexture* pTexture)
     OnDisableTexture(pID);
 }
 //----------------------------------------------------------------------------
-SEResourceIdentifier* SERenderer::EnableVBuffer(const SEAttributes& rIAttributes,
-    const SEAttributes& rOAttributes, SEVertexProgram* pVProgram)
+SEResourceIdentifier* SERenderer::EnableVBuffer(const SEAttributes& 
+    rIAttributes, const SEAttributes& rOAttributes, SEVertexProgram* 
+    pVProgram)
 {
     // 确保当前要渲染的geometry的VB子集装载入显存.
     // 由rIAttributes确定当前VB子集需要哪些数据.
@@ -1693,8 +1701,9 @@ void SERenderer::DisableRenderStateBlock(SERenderStateBlock* pRStateBlock)
 void SERenderer::DrawScene(SEUnculledSet& rVisibleSet)
 {
     // 注意: 2-tuples堆栈最大元素数被限制为64.
-    // 理论上应该足够了,因为如果在同一个树型路径上收集到64个以上的global effect
-    // 将会带来过多的渲染工作量.如果应用程序真有这种需求,则修改iMaxTuples.
+    // 理论上应该足够了,因为如果在同一个树型路径上收集到64个以上的global 
+    // effect将会带来过多的渲染工作量.如果应用程序真有这种需求,则修改
+    // iMaxTuples.
     const int iMaxTuples = 64;    // 堆栈元素最大允许值
     int aaiStack[iMaxTuples][2];  // 堆栈元素(startIndex,finalIndex)
     int iTop = -1;                // 堆栈初始为空
@@ -1741,22 +1750,23 @@ void SERenderer::DrawScene(SEUnculledSet& rVisibleSet)
             int jMax = aaiStack[iTop][1];
 
             // 用栈顶global effect渲染作用域范围内的所有可渲染节点对象.
-            pVisibleSet[jMin].GlobalEffect->Draw(this, pVisibleSet[jMin].SEObject,
-                jMin+1, jMax, pVisibleSet);
+            pVisibleSet[jMin].GlobalEffect->Draw(this, 
+                pVisibleSet[jMin].SEObject, jMin+1, jMax, pVisibleSet);
 
             // 当前作用域弹出堆栈.
             if( --iTop >= 0 )
             {
-                // 如果堆栈中还有待渲染作用域存在,则更新该作用域的结束作用范围索引.
+                // 如果堆栈中还有待渲染作用域存在,则更新该作用域的结束作用范
+                // 围索引.
                 aaiStack[iTop][1] = jMax + 1;
             }
         }
     }
 }
 //----------------------------------------------------------------------------
-void SERenderer::ApplyEffect(ShaderEffect* pEffect, bool& rbPrimaryEffect)
+void SERenderer::ApplyEffect(SEShaderEffect* pEffect, bool& rbPrimaryEffect)
 {
-    // 允许ShaderEffect派生类自定义行为.
+    // 允许SEShaderEffect派生类自定义行为.
     pEffect->OnPreApplyEffect(this, rbPrimaryEffect);
 
     // 每个shader effect可以有多个pass.
@@ -1767,7 +1777,7 @@ void SERenderer::ApplyEffect(ShaderEffect* pEffect, bool& rbPrimaryEffect)
         // 确保pass所需shader程序及其纹理资源已装载到系统内存.
         pEffect->LoadPrograms(iPass, this);
 
-        // 允许ShaderEffect派生类自定义行为.
+        // 允许SEShaderEffect派生类自定义行为.
         // global state必须在开启shader程序之前被设置,
         // 因为shader程序将设置纹理采样器的采样状态.
         pEffect->OnPreApplyPass(iPass, this, rbPrimaryEffect);
@@ -1876,12 +1886,12 @@ void SERenderer::ApplyEffect(ShaderEffect* pEffect, bool& rbPrimaryEffect)
         // 关闭vertex shader程序.
         DisableVProgram(pVProgram);
 
-        // 允许ShaderEffect派生类自定义行为.
+        // 允许SEShaderEffect派生类自定义行为.
         // 恢复当前pass之前的global state.
         pEffect->OnPostApplyPass(iPass, this, rbPrimaryEffect);
     }
 
-    // 允许ShaderEffect派生类自定义行为.
+    // 允许SEShaderEffect派生类自定义行为.
     pEffect->OnPostApplyEffect(this, rbPrimaryEffect);
 
     // 首个effect渲染之后,color buffer上已经存在有效颜色值.
@@ -1917,9 +1927,10 @@ void SERenderer::Draw(SEGeometry* pGeometry)
     {
         // effect必须是shader effect.
         // DrawScene函数把受到同一个global effect影响的对象收集在一起.
-        // global effect的Draw函数应该注意到只能调用渲染器的Draw(SEGeometry*)函数,
-        // 不可调用渲染器的DrawScene函数,从而避免无限AB递归的产生.
-        ShaderEffect* pEffect = DynamicCast<ShaderEffect>(m_pGeometry->GetEffect(i));
+        // global effect的Draw函数应该注意到只能调用渲染器的Draw(SEGeometry*)
+        // 函数, 不可调用渲染器的DrawScene函数,从而避免无限AB递归的产生.
+        SEShaderEffect* pEffect = DynamicCast<SEShaderEffect>(
+            m_pGeometry->GetEffect(i));
         SE_ASSERT( pEffect );
 
         ApplyEffect(pEffect, bPrimaryEffect);

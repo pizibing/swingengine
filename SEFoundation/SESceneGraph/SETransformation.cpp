@@ -135,8 +135,8 @@ void SETransformation::SetMatrix(const SEMatrix3f& rMatrix)
     m_bIsUniformScale = false;
 }
 //----------------------------------------------------------------------------
-void SETransformation::ApplyForward(const SEVector3f& rInput, SEVector3f& rOutput)
-    const
+void SETransformation::ApplyForward(const SEVector3f& rInput, SEVector3f& 
+    rOutput) const
 {
     if( m_bIsIdentity )
     {
@@ -192,8 +192,8 @@ void SETransformation::ApplyForward(int iCount, const SEVector3f* aInput,
     }
 }
 //----------------------------------------------------------------------------
-void SETransformation::ApplyInverse(const SEVector3f& rInput, SEVector3f& rOutput)
-    const
+void SETransformation::ApplyInverse(const SEVector3f& rInput, SEVector3f& 
+    rOutput) const
 {
     if( m_bIsIdentity )
     {
@@ -298,8 +298,8 @@ void SETransformation::ApplyInverse(int iCount, const SEVector3f* aInput,
     }
 }
 //----------------------------------------------------------------------------
-void SETransformation::InvertVector(const SEVector3f& rInput, SEVector3f& rOutput)
-    const
+void SETransformation::InvertVector(const SEVector3f& rInput, SEVector3f& 
+    rOutput) const
 {
     if( m_bIsIdentity )
     {
@@ -339,8 +339,8 @@ void SETransformation::InvertVector(const SEVector3f& rInput, SEVector3f& rOutpu
     }
 }
 //----------------------------------------------------------------------------
-void SETransformation::ApplyForward(const SEPlane3f& rInput, SEPlane3f& rOutput)
-    const
+void SETransformation::ApplyForward(const SEPlane3f& rInput, SEPlane3f& 
+    rOutput) const
 {
     if( m_bIsIdentity )
     {

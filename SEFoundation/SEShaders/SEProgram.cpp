@@ -45,7 +45,8 @@ const std::string SEProgram::ms_TexCoordStr("TEXCOORD");
 
 //----------------------------------------------------------------------------
 bool SEProgram::Load(SERenderer* pRenderer, const std::string& rProgramName, 
-    SEProgram* pProgram, ProgramType eType, SEInterfaceDescriptor* pInterfaceDesc)
+    SEProgram* pProgram, ProgramType eType, SEInterfaceDescriptor* 
+    pInterfaceDesc)
 {
     SE_ASSERT( OnLoadProgram );
 
@@ -143,16 +144,16 @@ SESamplerInformation* SEProgram::GetSI(const std::string& rName)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEProgram::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEProgram::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
     SEObject::Load(rStream, pLink);
     SE_END_DEBUG_STREAM_LOAD(SEProgram);
 }
 //----------------------------------------------------------------------------
-void SEProgram::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEProgram::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream, pLink);
+    SEObject::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEProgram::Register(SEStream& rStream) const

@@ -27,12 +27,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:terrain effect类
-// 说明:
-// 作者:Sun Che
-// 时间:20081020
+// Description:
+// Author:Sun Che
+// Date:20081020
 //----------------------------------------------------------------------------
-class TerrainEffect : public ShaderEffect
+class SETerrainEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -41,9 +40,9 @@ class TerrainEffect : public ShaderEffect
 public:
     // fog factor计算为f = exp(-(d*z)^2),其中d是fog density,
     // z是view-space顶点位置的z分量.
-    TerrainEffect(const char* acBaseName, const char* acDetailName,
+    SETerrainEffect(const char* acBaseName, const char* acDetailName,
         const SEColorRGB& rFogColor, float fFogDensity);
-    virtual ~TerrainEffect(void);
+    virtual ~SETerrainEffect(void);
 
     inline void SetFogColor(const SEColorRGB& rFogColor);
     inline SEColorRGB GetFogColor(void) const;
@@ -57,7 +56,7 @@ public:
 
 protected:
     // streaming
-    TerrainEffect(void);
+    SETerrainEffect(void);
 
     // fog color存储在前三个分量中(R = 0, G = 1, B = 2).
     // fog density存储在最后一个分量中.
@@ -65,7 +64,7 @@ protected:
     static bool ms_bFogColorDensityUCInitialized;
 };
 
-typedef SESmartPointer<TerrainEffect> TerrainEffectPtr;
+typedef SESmartPointer<SETerrainEffect> SETerrainEffectPtr;
 
 #include "SETerrainEffect.inl"
 

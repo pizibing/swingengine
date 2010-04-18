@@ -29,16 +29,15 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:IntrBox3Box3f类
-// 说明:
-// 作者:Sun Che
-// 时间:20081230
+// Description:
+// Author:Sun Che
+// Date:20081230
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API IntrBox3Box3f
-    : public Intersector<float, SEVector3f>
+class SE_FOUNDATION_API SEIntrBox3Box3f : public SEIntersector<float, 
+    SEVector3f>
 {
 public:
-    IntrBox3Box3f(const SEBox3f& rBox0, const SEBox3f& rBox1);
+    SEIntrBox3Box3f(const SEBox3f& rBox0, const SEBox3f& rBox1);
 
     // 对象访问.
     const SEBox3f& GetBox0(void) const;

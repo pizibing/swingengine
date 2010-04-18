@@ -33,10 +33,10 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:SEGeometry类及其派生类型只能作为场景视图树的叶子节点.SEGeometry类也是
-//     可渲染节点的虚基类.
-// 作者:Sun Che
-// 时间:20080723
+// Description:SEGeometry类及其派生类型只能作为场景视图树的叶子节点.SEGeometry
+//    类也是可渲染节点的虚基类.
+// Author:Sun Che
+// Date:20080723
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEGeometry : public SESpatial
 {
@@ -49,10 +49,10 @@ public:
     virtual ~SEGeometry(void);
 
     // SEGeometry对象所使用的lighting类型.
-    // GLM_PIPELINE_VERTEX和GLM_PIPELINE_PIXEL必须与LightingEffect中的
+    // GLM_PIPELINE_VERTEX和GLM_PIPELINE_PIXEL必须与SELightingEffect中的
     // LM_VERTEX和LM_PIXEL枚举顺序保持一致.
     // GLM_USER表示用户使用自定义lighting,从而当用户调用UpdateRS函数时,
-    // SEGeometry对象将不会创建系统默认的LightingEffect对象.
+    // SEGeometry对象将不会创建系统默认的SELightingEffect对象.
     // GLM_DISABLE表示该SEGeometry对象禁止任何光照效果.
     enum GeometryLightingMode
     {
@@ -99,9 +99,9 @@ protected:
     // 管线动态光照.
     // 管线光照效果被放入SESpatial的effect数组并作为首元素,
     // 因此管线光照渲染发生在其他effect之前.
-    // LightingEffect是由根节点到达当前几何体节点时,
+    // SELightingEffect是由根节点到达当前几何体节点时,
     // 所收集到的所有SELight对象的最终合并形式.
-    LightingEffectPtr m_spLEffect;
+    SELightingEffectPtr m_spLEffect;
 
 // 内部使用
 public:

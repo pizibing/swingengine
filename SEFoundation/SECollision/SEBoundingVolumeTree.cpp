@@ -137,7 +137,8 @@ void SEBoundingVolumeTree::BuildTree(int eBVType, int iMaxTrisPerLeaf,
         }
 
         int j0, j1;
-        SplitTriangles(aCentroid, i0, i1, aiISplit, j0, j1, aiOSplit, tempLine);
+        SplitTriangles(aCentroid, i0, i1, aiISplit, j0, j1, aiOSplit, 
+            tempLine);
 
         // 左边区间的所有三角面用来继续构建左子树.
         m_pLChild = SE_NEW SEBoundingVolumeTree(m_pMesh);
@@ -154,8 +155,8 @@ void SEBoundingVolumeTree::BuildTree(int eBVType, int iMaxTrisPerLeaf,
 int SEBoundingVolumeTree::Compare(const void* pvElement0,
     const void* pvElement1)
 {
-    const ProjectionInfo* pInfo0 = (const ProjectionInfo*)pvElement0;
-    const ProjectionInfo* pInfo1 = (const ProjectionInfo*)pvElement1;
+    const SEProjectionInfo* pInfo0 = (const SEProjectionInfo*)pvElement0;
+    const SEProjectionInfo* pInfo1 = (const SEProjectionInfo*)pvElement1;
 
     if( pInfo0->m_fProjection < pInfo1->m_fProjection )
     {
@@ -176,7 +177,7 @@ void SEBoundingVolumeTree::SplitTriangles(const SEVector3f* aCentroid,
 {
     // 投影到指定直线上.
     int iCount = i1 - i0 + 1;
-    ProjectionInfo* aInfo = SE_NEW ProjectionInfo[iCount];
+    SEProjectionInfo* aInfo = SE_NEW SEProjectionInfo[iCount];
     int i, j;
     for( i = i0, j = 0; i <= i1; i++, j++ )
     {
@@ -187,7 +188,7 @@ void SEBoundingVolumeTree::SplitTriangles(const SEVector3f* aCentroid,
     }
 
     // 通过排序找到所有投影值的中间值.
-    qsort(aInfo, iCount, sizeof(ProjectionInfo), Compare);
+    qsort(aInfo, iCount, sizeof(SEProjectionInfo), Compare);
     int iMedian = (iCount - 1) / 2;
 
     // 根据中间值,把所有三角面二分化.

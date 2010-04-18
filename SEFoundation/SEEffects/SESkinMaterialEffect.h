@@ -28,24 +28,24 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Skin material effect class
-// 说明:由GPU进行蒙皮顶点计算.所依附的node必须带有material state对象.
-// 作者:Sun Che
-// 时间:20080904
+// Description:由GPU进行蒙皮顶点计算.所依附的node必须带有material state对象.
+// Author:Sun Che
+// Date:20080904
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API SkinMaterialEffect : public SkinEffect
+class SE_FOUNDATION_API SESkinMaterialEffect : public SESkinEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    SkinMaterialEffect(int iBoneCount, SENode** apBones, SETransformation* aOffset);
-    virtual ~SkinMaterialEffect(void);
+    SESkinMaterialEffect(int iBoneCount, SENode** apBones, SETransformation* 
+        aOffset);
+    virtual ~SESkinMaterialEffect(void);
 
 protected:
     // streaming
-    SkinMaterialEffect(void);
+    SESkinMaterialEffect(void);
 
     virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
         SEProgram* pPProgram, SEProgram* pGProgram);
@@ -53,7 +53,7 @@ protected:
     static bool ms_bUCInitialized;
 };
 
-typedef SESmartPointer<SkinMaterialEffect> SkinMaterialEffectPtr;
+typedef SESmartPointer<SESkinMaterialEffect> SESkinMaterialEffectPtr;
 
 }
 

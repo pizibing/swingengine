@@ -60,7 +60,8 @@ SERVector2<ISIZE>& SERVector2<ISIZE>::operator=(const SERVector2& rV)
 //----------------------------------------------------------------------------
 #ifndef SE_USING_VC70
 template <int ISIZE>
-SERVector2<ISIZE>& SERVector2<ISIZE>::operator=(const SETRVector<2,  ISIZE>& rV)
+SERVector2<ISIZE>& SERVector2<ISIZE>::operator=(const SETRVector<2,  ISIZE>& 
+    rV)
 {
     m_aTuple[0] = rV[0];
     m_aTuple[1] = rV[1];

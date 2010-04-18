@@ -28,10 +28,10 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:用于指定VB顶点格式时类似于FVF,此外还用于指定shader input output参数属性,
-//      offset为指定数据在SEVertexBuffer中的float个数偏移量
-// 作者:Sun Che
-// 时间:20080312
+// Description:用于指定VB顶点格式时类似于FVF,此外还用于指定shader input output
+//     参数属性, offset为指定数据在SEVertexBuffer中的float个数偏移量.
+// Author:Sun Che
+// Date:20080312
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEAttributes
 {
@@ -56,20 +56,20 @@ public:
     void SetColorChannels(int iUnit, int iCChannels);
     void SetTCoordChannels(int iUnit, int iTChannels);
 
-    // 获取所有属性的float通道总数
+    // 获取所有属性的float通道总数.
     inline int GetChannelCount(void) const;
 
-    // 访问position信息
+    // 访问position信息.
     inline int GetPositionOffset(void) const;
     inline int GetPositionChannels(void) const;
     inline bool HasPosition(void) const;
 
-    // 访问normal信息
+    // 访问normal信息.
     inline int GetNormalOffset(void) const;
     inline int GetNormalChannels(void) const;
     inline bool HasNormal(void) const;
 
-    // 访问color信息
+    // 访问color信息.
     inline int GetMaxColors(void) const; // 几组color
     int GetColorOffset(int iUnit) const;
     int GetColorChannels(int iUnit) const;
@@ -81,11 +81,12 @@ public:
     int GetTCoordChannels(int iUnit) const;
     bool HasTCoord(int iUnit) const;
 
-    // 对vertex program outputs和pixel program inputs进行比较
-    bool Matches(const SEAttributes& rAttributes, bool bIncludeP, bool bIncludeN,
-        bool bIncludeC, bool bIncludeT) const;
+    // 对vertex program outputs和pixel program inputs进行比较.
+    bool Matches(const SEAttributes& rAttributes, bool bIncludeP, bool 
+        bIncludeN, bool bIncludeC, bool bIncludeT) const;
 
-    // 对vertex buffer的vertex format和vertex program input的vertex format进行比较
+    // 对vertex buffer的vertex format和vertex program input的vertex 
+    // format进行比较.
     bool operator == (const SEAttributes& rAttributes) const;
     bool operator != (const SEAttributes& rAttributes) const;
 

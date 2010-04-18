@@ -35,9 +35,9 @@ namespace Swing
 class SEGeometryProgram;
 
 //----------------------------------------------------------------------------
-// 说明:只索引资源,不释放
-// 作者:Sun Che
-// 时间:20090523
+// Description:只索引资源,不释放
+// Author:Sun Che
+// Date:20090523
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEGeometryProgramCatalog
 {

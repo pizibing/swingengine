@@ -28,8 +28,8 @@ SERectangle3f::SERectangle3f()
 {
 }
 //----------------------------------------------------------------------------
-SERectangle3f::SERectangle3f(const SEVector3f& rCenter, const SEVector3f* aAxis, 
-    const float* afExtent)
+SERectangle3f::SERectangle3f(const SEVector3f& rCenter, const SEVector3f* 
+    aAxis, const float* afExtent)
     :
     Center(rCenter)
 {
@@ -40,8 +40,8 @@ SERectangle3f::SERectangle3f(const SEVector3f& rCenter, const SEVector3f* aAxis,
     }
 }
 //----------------------------------------------------------------------------
-SERectangle3f::SERectangle3f(const SEVector3f& rCenter, const SEVector3f& rAxis0, 
-    const SEVector3f& rAxis1, float fExtent0, float fExtent1)
+SERectangle3f::SERectangle3f(const SEVector3f& rCenter, const SEVector3f& 
+    rAxis0, const SEVector3f& rAxis1, float fExtent0, float fExtent1)
     :
     Center(rCenter)
 {

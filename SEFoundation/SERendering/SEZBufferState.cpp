@@ -71,7 +71,7 @@ SEZBufferState::~SEZBufferState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEZBufferState::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEZBufferState::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -87,9 +87,9 @@ void SEZBufferState::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEZBufferState);
 }
 //----------------------------------------------------------------------------
-void SEZBufferState::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEZBufferState::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEGlobalState::Link(rStream, pLink);
+    SEGlobalState::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEZBufferState::Register(SEStream& rStream) const

@@ -47,9 +47,9 @@ namespace Swing
 class SEObject;
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080329
+// Description:
+// Author:Sun Che
+// Date:20080329
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEStream
 {
@@ -92,10 +92,10 @@ public:
     inline SEStreamVersion GetVersion(void) const;
 
     // link类
-    class SE_FOUNDATION_API Link
+    class SE_FOUNDATION_API SELink
     {
     public:
-        Link(SEObject* pObject);
+        SELink(SEObject* pObject);
 
 	public:
         void SetObject(SEObject* pObject);
@@ -115,7 +115,7 @@ public:
 protected:
     friend class SEObject;
 
-    bool InsertInMap(SEObject* pObject, Link* pLink);
+    bool InsertInMap(SEObject* pObject, SELink* pLink);
     void InsertInOrdered(SEObject* pObject);
 
     // 最近一次文件读取的版本
@@ -126,7 +126,7 @@ protected:
 
     // save时使用的对象注册表,
     // 使用此表的目的在于快速检索出该对象是否已经注册过
-    mutable SEHashTable<SEObject*, Link*> m_Map;
+    mutable SEHashTable<SEObject*, SELink*> m_Map;
 
     // 唯一对象列表,由scene graph在register阶段生成,
     // 用于确保对象基于深度优先的遍历顺序存储,

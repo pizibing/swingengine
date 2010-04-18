@@ -30,16 +30,15 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:IntrTriangle2Triangle2f类
-// 说明:
-// 作者:Sun Che
-// 时间:20081223
+// Description:
+// Author:Sun Che
+// Date:20081223
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API IntrTriangle2Triangle2f
-    : public Intersector<float, SEVector2f>
+class SE_FOUNDATION_API SEIntrTriangle2Triangle2f : public SEIntersector<
+    float, SEVector2f>
 {
 public:
-    IntrTriangle2Triangle2f(const SETriangle2f& rTriangle0,
+    SEIntrTriangle2Triangle2f(const SETriangle2f& rTriangle0,
         const SETriangle2f& rTriangle1);
 
     // object access
@@ -74,27 +73,27 @@ private:
         M11   // 1 vertex maps to min, 1 vertex maps to max
     };
 
-    class Configuration
+    class SEConfiguration
     {
     public:
         ProjectionMap Map;  // how vertices map to the projection interval
         int Index[3];       // the sorted indices of the vertices
-        float Min, Max;      // the interval is [min,max]
+        float Min, Max;     // the interval is [min,max]
     };
 
-    void ComputeTwo(Configuration& rCfg, const SEVector2f aV[3],
+    void ComputeTwo(SEConfiguration& rCfg, const SEVector2f aV[3],
         const SEVector2f& rD, int iI0, int iI1, int iI2);
 
-    void ComputeThree(Configuration& rCfg, const SEVector2f aV[3],
+    void ComputeThree(SEConfiguration& rCfg, const SEVector2f aV[3],
         const SEVector2f& rD, const SEVector2f& rP);
 
-    static bool NoIntersect(const Configuration& rCfg0,
-        const Configuration& rCfg1, float fTMax, float fSpeed, int& riSide,
-        Configuration& rTCfg0, Configuration& rTCfg1, float& rfTFirst,
+    static bool NoIntersect(const SEConfiguration& rCfg0,
+        const SEConfiguration& rCfg1, float fTMax, float fSpeed, int& riSide,
+        SEConfiguration& rTCfg0, SEConfiguration& rTCfg1, float& rfTFirst,
         float& rfTLast);
 
-    static void GetIntersection(const Configuration& rCfg0,
-        const Configuration& rCfg1, int iSide, const SEVector2f aV0[3],
+    static void GetIntersection(const SEConfiguration& rCfg0,
+        const SEConfiguration& rCfg1, int iSide, const SEVector2f aV0[3],
         const SEVector2f aV1[3], int& riCount, SEVector2f aVertex[6]);
 
     // the objects to intersect

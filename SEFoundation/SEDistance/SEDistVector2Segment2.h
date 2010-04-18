@@ -29,15 +29,16 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20090115
+// Description:
+// Author:Sun Che
+// Date:20090115
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEDistVector2Segment2f 
     : public SEDistance<float, SEVector2f>
 {
 public:
-    SEDistVector2Segment2f(const SEVector2f& rVector, const SESegment2f& rSegment);
+    SEDistVector2Segment2f(const SEVector2f& rVector, const SESegment2f& 
+        rSegment);
 
     // 对象访问.
     const SEVector2f& GetVector(void) const;

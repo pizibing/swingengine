@@ -26,8 +26,10 @@
 
 using namespace Swing;
 
-SEFrameBuffer::Creator SEFrameBuffer::ms_aoCreator[SERenderer::MAX_RENDERER_TYPES];
-SEFrameBuffer::Destroyer SEFrameBuffer::ms_aoDestroyer[SERenderer::MAX_RENDERER_TYPES];
+SEFrameBuffer::Creator SEFrameBuffer::ms_aoCreator[
+    SERenderer::MAX_RENDERER_TYPES];
+SEFrameBuffer::Destroyer SEFrameBuffer::ms_aoDestroyer[
+    SERenderer::MAX_RENDERER_TYPES];
 
 //----------------------------------------------------------------------------
 SEFrameBuffer* SEFrameBuffer::Create(FormatType eFormat, DepthType eDepth,

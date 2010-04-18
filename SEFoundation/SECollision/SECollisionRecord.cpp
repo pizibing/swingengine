@@ -25,8 +25,8 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-SECollisionRecord::SECollisionRecord(SETriMesh* pMesh, SEBoundingVolumeTree* pTree,
-    SEVector3f* pVelocity, Callback oCallback, void* pvCallbackData)
+SECollisionRecord::SECollisionRecord(SETriMesh* pMesh, SEBoundingVolumeTree* 
+    pTree, SEVector3f* pVelocity, Callback oCallback, void* pvCallbackData)
 {
     SE_ASSERT( pMesh && pTree );
 
@@ -107,12 +107,14 @@ void SECollisionRecord::TestIntersection(SECollisionRecord& rRecord)
                     SETriangle3f tempTri1;
                     pMesh1->GetWorldTriangle(iT1, tempTri1);
 
-                    IntrTriangle3Triangle3f tempIntersector(tempTri0, tempTri1);
+                    SEIntrTriangle3Triangle3f tempIntersector(tempTri0, 
+                        tempTri1);
                     if( tempIntersector.Test() )
                     {
                         if( m_oCallback )
                         {
-                            m_oCallback(*this, iT0, rRecord, iT1, &tempIntersector);
+                            m_oCallback(*this, iT0, rRecord, iT1, 
+                                &tempIntersector);
                         }
 
                         if( rRecord.m_oCallback )
@@ -192,12 +194,14 @@ void SECollisionRecord::FindIntersection(SECollisionRecord& rRecord)
                     SETriangle3f tempTri1;
                     pMesh1->GetWorldTriangle(iT1, tempTri1);
 
-                    IntrTriangle3Triangle3f tempIntersector(tempTri0, tempTri1);
+                    SEIntrTriangle3Triangle3f tempIntersector(tempTri0, 
+                        tempTri1);
                     if( tempIntersector.Find() )
                     {
                         if( m_oCallback )
                         {
-                            m_oCallback(*this, iT0, rRecord, iT1, &tempIntersector);
+                            m_oCallback(*this, iT0, rRecord, iT1, 
+                                &tempIntersector);
                         }
 
                         if( rRecord.m_oCallback )
@@ -212,7 +216,8 @@ void SECollisionRecord::FindIntersection(SECollisionRecord& rRecord)
     }
 }
 //----------------------------------------------------------------------------
-void SECollisionRecord::TestIntersection(float fTMax, SECollisionRecord& rRecord)
+void SECollisionRecord::TestIntersection(float fTMax, SECollisionRecord& 
+    rRecord)
 {
     SEBoundingVolumeTree* pTree0 = m_pTree;
     SEBoundingVolumeTree* pTree1 = rRecord.m_pTree;
@@ -284,7 +289,8 @@ void SECollisionRecord::TestIntersection(float fTMax, SECollisionRecord& rRecord
                     SETriangle3f tempTri1;
                     pMesh1->GetWorldTriangle(iT1, tempTri1);
 
-                    IntrTriangle3Triangle3f tempIntersector(tempTri0, tempTri1);
+                    SEIntrTriangle3Triangle3f tempIntersector(tempTri0, 
+                        tempTri1);
                     if( tempIntersector.Test(fTMax, rVelocity0, rVelocity1) )
                     {
                         if( m_oCallback )
@@ -305,7 +311,8 @@ void SECollisionRecord::TestIntersection(float fTMax, SECollisionRecord& rRecord
     }
 }
 //----------------------------------------------------------------------------
-void SECollisionRecord::FindIntersection(float fTMax, SECollisionRecord& rRecord)
+void SECollisionRecord::FindIntersection(float fTMax, SECollisionRecord& 
+    rRecord)
 {
     SEBoundingVolumeTree* pTree0 = m_pTree;
     SEBoundingVolumeTree* pTree1 = rRecord.m_pTree;
@@ -377,7 +384,8 @@ void SECollisionRecord::FindIntersection(float fTMax, SECollisionRecord& rRecord
                     SETriangle3f tempTri1;
                     pMesh1->GetWorldTriangle(iT1, tempTri1);
 
-                    IntrTriangle3Triangle3f tempIntersector(tempTri0, tempTri1);
+                    SEIntrTriangle3Triangle3f tempIntersector(tempTri0, 
+                        tempTri1);
                     if( tempIntersector.Find(fTMax, rVelocity0, rVelocity1) )
                     {
                         if( m_oCallback )

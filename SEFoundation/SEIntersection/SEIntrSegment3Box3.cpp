@@ -25,7 +25,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrSegment3Box3f::IntrSegment3Box3f(const SESegment3f& rSegment,
+SEIntrSegment3Box3f::SEIntrSegment3Box3f(const SESegment3f& rSegment,
     const SEBox3f& rBox, bool bSolid)
     :
     m_pSegment(&rSegment),
@@ -34,23 +34,24 @@ IntrSegment3Box3f::IntrSegment3Box3f(const SESegment3f& rSegment,
     m_bSolid = bSolid;
 }
 //----------------------------------------------------------------------------
-const SESegment3f& IntrSegment3Box3f::GetSegment() const
+const SESegment3f& SEIntrSegment3Box3f::GetSegment() const
 {
     return *m_pSegment;
 }
 //----------------------------------------------------------------------------
-const SEBox3f& IntrSegment3Box3f::GetBox() const
+const SEBox3f& SEIntrSegment3Box3f::GetBox() const
 {
     return *m_pBox;
 }
 //----------------------------------------------------------------------------
-bool IntrSegment3Box3f::Test()
+bool SEIntrSegment3Box3f::Test()
 {
     float afAWdU[3], afADdU[3], afAWxDdU[3], fRhs;
 
     SEVector3f vec3fDiff = m_pSegment->Origin - m_pBox->Center;
 
-    afAWdU[0] = SEMath<float>::FAbs(m_pSegment->Direction.Dot(m_pBox->Axis[0]));
+    afAWdU[0] = SEMath<float>::FAbs(m_pSegment->Direction.Dot(
+        m_pBox->Axis[0]));
     afADdU[0] = SEMath<float>::FAbs(vec3fDiff.Dot(m_pBox->Axis[0]));
     fRhs = m_pBox->Extent[0] + m_pSegment->Extent*afAWdU[0];
     if( afADdU[0] > fRhs )
@@ -58,7 +59,8 @@ bool IntrSegment3Box3f::Test()
         return false;
     }
 
-    afAWdU[1] = SEMath<float>::FAbs(m_pSegment->Direction.Dot(m_pBox->Axis[1]));
+    afAWdU[1] = SEMath<float>::FAbs(m_pSegment->Direction.Dot(
+        m_pBox->Axis[1]));
     afADdU[1] = SEMath<float>::FAbs(vec3fDiff.Dot(m_pBox->Axis[1]));
     fRhs = m_pBox->Extent[1] + m_pSegment->Extent*afAWdU[1];
     if( afADdU[1] > fRhs )
@@ -66,7 +68,8 @@ bool IntrSegment3Box3f::Test()
         return false;
     }
 
-    afAWdU[2] = SEMath<float>::FAbs(m_pSegment->Direction.Dot(m_pBox->Axis[2]));
+    afAWdU[2] = SEMath<float>::FAbs(m_pSegment->Direction.Dot(
+        m_pBox->Axis[2]));
     afADdU[2] = SEMath<float>::FAbs(vec3fDiff.Dot(m_pBox->Axis[2]));
     fRhs = m_pBox->Extent[2] + m_pSegment->Extent*afAWdU[2];
     if( afADdU[2] > fRhs )
@@ -100,21 +103,21 @@ bool IntrSegment3Box3f::Test()
     return true;
 }
 //----------------------------------------------------------------------------
-bool IntrSegment3Box3f::Find()
+bool SEIntrSegment3Box3f::Find()
 {
     float fT0 = -m_pSegment->Extent, fT1 = m_pSegment->Extent;
 
-    return IntrLine3Box3f::DoClipping(fT0, fT1, m_pSegment->Origin,
+    return SEIntrLine3Box3f::DoClipping(fT0, fT1, m_pSegment->Origin,
         m_pSegment->Direction, *m_pBox, m_bSolid, m_iCount, m_aPoint,
         m_iIntersectionType);
 }
 //----------------------------------------------------------------------------
-int IntrSegment3Box3f::GetCount() const
+int SEIntrSegment3Box3f::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& IntrSegment3Box3f::GetPoint(int i) const
+const SEVector3f& SEIntrSegment3Box3f::GetPoint(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 

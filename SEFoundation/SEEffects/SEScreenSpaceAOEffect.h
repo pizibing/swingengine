@@ -29,27 +29,27 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:screen space ambient occlusion effect类
-// 说明:
-// 作者:Sun Che
-// 时间:20090317
+// Description:Screen space ambient occlusion effect.
+// Author:Sun Che
+// Date:20090317
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API ScreenSpaceAOEffect : public ShaderEffect
+class SE_FOUNDATION_API SEScreenSpaceAOEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    ScreenSpaceAOEffect(const std::string& rRandom, const std::string& rDepth);
-    virtual ~ScreenSpaceAOEffect(void);
+    SEScreenSpaceAOEffect(const std::string& rRandom, const std::string& 
+        rDepth);
+    virtual ~SEScreenSpaceAOEffect(void);
 
     static SEVector2f ScreenSize;
     static float FarClipDist;
 
 protected:
     // streaming
-    ScreenSpaceAOEffect(void);
+    SEScreenSpaceAOEffect(void);
 
     virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
         SEProgram* pPProgram, SEProgram* pGProgram);
@@ -57,7 +57,7 @@ protected:
     static bool ms_bUCInitialized;
 };
 
-typedef SESmartPointer<ScreenSpaceAOEffect> ScreenSpaceAOEffectPtr;
+typedef SESmartPointer<SEScreenSpaceAOEffect> SEScreenSpaceAOEffectPtr;
 
 }
 

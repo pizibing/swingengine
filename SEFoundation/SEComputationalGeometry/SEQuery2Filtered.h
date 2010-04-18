@@ -29,9 +29,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20081202
+// Description:
+// Author:Sun Che
+// Date:20081202
 //----------------------------------------------------------------------------
 class SEQuery2Filteredf : public SEQuery2f
 {
@@ -45,7 +45,8 @@ public:
     // interval [0,1].  The uncertainty of 0 causes the class to behave
     // as if it were SEQuery2f.  The uncertainty of 1 causes the class to
     // behave as if it were SEQuery2TRationalf.
-    SEQuery2Filteredf(int iVCount, const SEVector2f* aVertex, float fUncertainty);
+    SEQuery2Filteredf(int iVCount, const SEVector2f* aVertex, float 
+        fUncertainty);
     virtual ~SEQuery2Filteredf(void);
 
     // run-time type information

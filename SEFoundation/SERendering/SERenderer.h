@@ -44,14 +44,14 @@ namespace Swing
 class SEAttributes;
 class SEBindable;
 class SECamera;
-class Effect;
+class SEEffect;
 class SEGeometry;
 class SEGeometryProgram;
 class SEIndexBuffer;
 class SELight;
 class SEPixelProgram;
 class SEResourceIdentifier;
-class ShaderEffect;
+class SEShaderEffect;
 class SESpatial;
 class SETexture;
 class SEVertexBuffer;
@@ -230,8 +230,8 @@ public:
     void ReleaseAllResources(SESpatial* pScene);
     void LoadResources(SEGeometry* pGeometry);
     void ReleaseResources(SEGeometry* pGeometry);
-    void LoadResources(Effect* pEffect);
-    void ReleaseResources(Effect* pEffect);
+    void LoadResources(SEEffect* pEffect);
+    void ReleaseResources(SEEffect* pEffect);
     void LoadVProgram(SEVertexProgram* pVProgram);
     void ReleaseVProgram(SEBindable* pVProgram);
     void LoadGProgram(SEGeometryProgram* pGProgram);
@@ -307,8 +307,8 @@ public:
 
 protected:
     // Abstract base class.
-    SERenderer(SEFrameBuffer::FormatType eFormat, SEFrameBuffer::DepthType eDepth,
-        SEFrameBuffer::StencilType eStencil,
+    SERenderer(SEFrameBuffer::FormatType eFormat, SEFrameBuffer::DepthType 
+        eDepth, SEFrameBuffer::StencilType eStencil, 
         SEFrameBuffer::BufferingType eBuffering,
         SEFrameBuffer::MultisamplingType eMultisampling,
         int iWidth, int iHeight);
@@ -332,15 +332,15 @@ protected:
     virtual void OnPostDrawGeometry(void) = 0;
 
     // Per-pass pre/post-draw entry point.
-    // These functions are called by ShaderEffect class's OnPreApplyPass()/
+    // These functions are called by SEShaderEffect class's OnPreApplyPass()/
     // OnPostApplyPass().
     // CAUTION:
     // SERenderer derived class should implements the setup of render state for
     // drawing a pass.
-    friend class ShaderEffect;
-    virtual void OnPreDrawPass(ShaderEffect* pEffect, int iPass,
+    friend class SEShaderEffect;
+    virtual void OnPreDrawPass(SEShaderEffect* pEffect, int iPass,
         bool bPrimaryEffect) = 0;
-    virtual void OnPostDrawPass(ShaderEffect* pEffect, int iPass,
+    virtual void OnPostDrawPass(SEShaderEffect* pEffect, int iPass,
         bool bPrimaryEffect) = 0;
 
     // Support for light array management.
@@ -471,7 +471,7 @@ protected:
     void SetRendererConstant(SERendererConstant::Type eRCType, float* afData);
 
     // ∂‘œÛ‰÷»æ.
-    void ApplyEffect(ShaderEffect* pEffect, bool& rbPrimaryEffect);
+    void ApplyEffect(SEShaderEffect* pEffect, bool& rbPrimaryEffect);
 
 // Data member:
 protected:

@@ -179,7 +179,7 @@ void SEShader::OnReleaseProgram()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEShader::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEShader::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -216,9 +216,9 @@ void SEShader::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEShader);
 }
 //----------------------------------------------------------------------------
-void SEShader::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEShader::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream, pLink);
+    SEObject::SELink(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     m_spInterfaces = (SEInterfaceDescriptor*)rStream.GetFromMap(pLinkID);

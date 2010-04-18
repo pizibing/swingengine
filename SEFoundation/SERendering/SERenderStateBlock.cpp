@@ -44,7 +44,7 @@ SERenderStateBlock::~SERenderStateBlock()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SERenderStateBlock::Load(SEStream& rStream, SEStream::Link* pLink)
+void SERenderStateBlock::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -61,9 +61,9 @@ void SERenderStateBlock::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SERenderStateBlock);
 }
 //----------------------------------------------------------------------------
-void SERenderStateBlock::Link(SEStream& rStream, SEStream::Link* pLink)
+void SERenderStateBlock::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream, pLink);
+    SEObject::SELink(rStream, pLink);
 
     SEObject* pLinkID;
     for( int i = 0; i < SEGlobalState::MAX_STATE_TYPE; i++ )

@@ -46,7 +46,8 @@ SEPlane3f::SEPlane3f(const SEVector3f& rNormal, const SEVector3f& rP0)
     Constant = rNormal.Dot(rP0);
 }
 //----------------------------------------------------------------------------
-SEPlane3f::SEPlane3f(const SEVector3f& rP0, const SEVector3f& rP1, const SEVector3f& rP2)
+SEPlane3f::SEPlane3f(const SEVector3f& rP0, const SEVector3f& rP1, const 
+    SEVector3f& rP2)
 {
     SEVector3f Vec1 = rP1 - rP0;
     SEVector3f Vec2 = rP2 - rP0;

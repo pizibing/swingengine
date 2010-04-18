@@ -73,7 +73,8 @@ void SECuller::SetFrustum(const float* afFrustum)
 
     // 更新far plane
     m_aPlane[SECamera::VF_DMAX].Normal = -vec3fDVec;
-    m_aPlane[SECamera::VF_DMAX].Constant = -(fDdE + m_Frustum[SECamera::VF_DMAX]);
+    m_aPlane[SECamera::VF_DMAX].Constant = -(fDdE + m_Frustum[
+        SECamera::VF_DMAX]);
 
     // 更新bottom plane
     float fInvLength = 1.0f / SEMathf::Sqrt(fDMin2 + fUMin2);

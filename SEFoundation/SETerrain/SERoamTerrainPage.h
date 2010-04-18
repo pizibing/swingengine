@@ -63,9 +63,9 @@ class SERoamTerrain;
 // 在某些设备上,使用GPU直接处理大量顶点数据效率可能会更高.
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:jazzboysc
-// 时间:20070601
+// Description:
+// Author:jazzboysc
+// Date:20070601
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SERoamTerrainPage : public SETriMesh
 {

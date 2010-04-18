@@ -29,27 +29,26 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:Texture tile with 1 light effect class
 // Description:
 // Author:Sun Che
 // Date:20100318
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API TextureTileL1Effect : public ShaderEffect
+class SE_FOUNDATION_API SETextureTileL1Effect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    TextureTileL1Effect(const std::string& rTileName);
-    virtual ~TextureTileL1Effect(void);
+    SETextureTileL1Effect(const std::string& rTileName);
+    virtual ~SETextureTileL1Effect(void);
 
     float TileX, TileY;
     float AmbientWeight, DiffuseWeight, SpecularWeight;
 
 protected:
     // streaming
-    TextureTileL1Effect(void);
+    SETextureTileL1Effect(void);
 
     virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
         SEProgram* pPProgram, SEProgram* pGProgram);
@@ -59,7 +58,7 @@ protected:
     static float ms_afLightBlendWeight[3];
 };
 
-typedef SESmartPointer<TextureTileL1Effect> TextureTileL1EffectPtr;
+typedef SESmartPointer<SETextureTileL1Effect> SETextureTileL1EffectPtr;
 
 }
 

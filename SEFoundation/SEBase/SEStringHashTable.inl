@@ -46,7 +46,8 @@ int SEStringHashTable<TValue>::GetCount() const
 }
 //----------------------------------------------------------------------------
 template <class TValue>
-bool SEStringHashTable<TValue>::Insert(const std::string& rKey, const TValue& rValue)
+bool SEStringHashTable<TValue>::Insert(const std::string& rKey, const TValue& 
+    rValue)
 {
     int iIndex = HashFunction(rKey);
     SESHTItem* pItem = m_ppTable[iIndex];

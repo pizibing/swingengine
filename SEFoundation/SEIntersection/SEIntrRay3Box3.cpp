@@ -24,24 +24,24 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrRay3Box3f::IntrRay3Box3f(const SERay3f& rRay, const SEBox3f& rBox)
+SEIntrRay3Box3f::SEIntrRay3Box3f(const SERay3f& rRay, const SEBox3f& rBox)
     :
     m_pRay(&rRay),
     m_pBox(&rBox)
 {
 }
 //----------------------------------------------------------------------------
-const SERay3f& IntrRay3Box3f::GetRay() const
+const SERay3f& SEIntrRay3Box3f::GetRay() const
 {
     return *m_pRay;
 }
 //----------------------------------------------------------------------------
-const SEBox3f& IntrRay3Box3f::GetBox() const
+const SEBox3f& SEIntrRay3Box3f::GetBox() const
 {
     return *m_pBox;
 }
 //----------------------------------------------------------------------------
-bool IntrRay3Box3f::Test()
+bool SEIntrRay3Box3f::Test()
 {
     float afWdU[3], afAWdU[3], afDdU[3], afADdU[3], afAWxDdU[3], fRhs;
 
@@ -100,21 +100,21 @@ bool IntrRay3Box3f::Test()
     return true;
 }
 //----------------------------------------------------------------------------
-bool IntrRay3Box3f::Find()
+bool SEIntrRay3Box3f::Find()
 {
     float fT0 = 0.0f, fT1 = SEMath<float>::MAX_REAL;
 
-    return IntrLine3Box3f::DoClipping(fT0, fT1, m_pRay->Origin,
+    return SEIntrLine3Box3f::DoClipping(fT0, fT1, m_pRay->Origin,
         m_pRay->Direction, *m_pBox, true, m_iCount, m_aPoint,
         m_iIntersectionType);
 }
 //----------------------------------------------------------------------------
-int IntrRay3Box3f::GetCount() const
+int SEIntrRay3Box3f::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& IntrRay3Box3f::GetPoint(int i) const
+const SEVector3f& SEIntrRay3Box3f::GetPoint(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 

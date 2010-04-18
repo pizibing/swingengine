@@ -28,9 +28,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20081202
+// Description:
+// Author:Sun Che
+// Date:20081202
 //----------------------------------------------------------------------------
 template <int ISIZE>
 class SERVector2 : public SETRVector<2,  ISIZE>
@@ -44,19 +44,20 @@ public:
     SERVector2(const SETRVector<2,  ISIZE>& rV)
     {
         // The inline body is here because of an apparent MSVC++ .NET 2002
-        // compiler bug.  If placed in the *.inl file,  the compiler complains:
+        // compiler bug. If placed in the *.inl file, the compiler complains:
         //
-        //   error C2244: 'Swing::SERVector2<>::__ctor' : unable to match function
-        //       definition to an existing declaration
+        //   error C2244: 'Swing::SERVector2<>::__ctor' : unable to match 
+        //       function definition to an existing declaration
         //   definition
-        //       'Swing::SERVector2<>::SERVector2(const Swing::SETRVector<2, > &)'
-        //   existing declarations
-        //       'Swing::SERVector2<>::SERVector2(const Swing::SETRational<> &, 
-        //                                  const Swing::SETRational<> &)'
-        //       'Swing::SERVector2<>::SERVector2(const Swing::SETRVector<2, > &)'
-        //       'Swing::SERVector2<>::SERVector2(const Swing::SERVector2<> &)'
-        //       'Swing::SERVector2<>::SERVector2(void)'
-        // The "definition" is in the "existing declarations" list,  so I do
+        //       'Swing::SERVector2<>::SERVector2(const Swing::SETRVector<2, 
+        //       > &)' existing declarations
+        //       'Swing::SERVector2<>::SERVector2(const Swing::SETRational<
+        //       > &, const Swing::SETRational<> &)'
+        //       'Swing::SERVector2<>::SERVector2(const Swing::SETRVector<2, 
+        //       > &)'
+        //       'Swing::SERVector2<>::SERVector2(const Swing::SERVector2<
+        //       > &)' 'Swing::SERVector2<>::SERVector2(void)'
+        // The "definition" is in the "existing declarations" list, so I do
         // not know what the compiler is complaining about.
 
         m_aTuple[0] = rV[0];
@@ -81,7 +82,7 @@ public:
     SERVector2& operator = (const SETRVector<2,  ISIZE>& rV)
     {
         // The inline body is here because of an apparent MSVC++ .NET 2002
-        // compiler bug.  If placed in the *.inl file,  the compiler complains:
+        // compiler bug.  If placed in the *.inl file, the compiler complains:
         //
         //   error C2244: 'Swing::SERVector2<>::operator`='' : unable to match
         //       function definition to an existing declaration

@@ -1023,7 +1023,8 @@ SEMatrix3f Swing::operator*(float fLhsScalar, const SEMatrix3f& rRhsMat)
     return rRhsMat * fLhsScalar;
 }
 //----------------------------------------------------------------------------
-SEVector3f Swing::operator*(const SEVector3f& rLhsVec, const SEMatrix3f& rRhsMat)
+SEVector3f Swing::operator*(const SEVector3f& rLhsVec, const SEMatrix3f& 
+    rRhsMat)
 {
     return SEVector3f(
         rLhsVec[0]*rRhsMat[0][0] + rLhsVec[1]*rRhsMat[1][0] + 
@@ -2033,7 +2034,8 @@ SEMatrix3d Swing::operator*(double dLhsScalar, const SEMatrix3d& rRhsMat)
     return rRhsMat * dLhsScalar;
 }
 //----------------------------------------------------------------------------
-SEVector3d Swing::operator*(const SEVector3d& rLhsVec, const SEMatrix3d& rRhsMat)
+SEVector3d Swing::operator*(const SEVector3d& rLhsVec, const SEMatrix3d& 
+    rRhsMat)
 {
     return SEVector3d(
         rLhsVec[0]*rRhsMat[0][0] + rLhsVec[1]*rRhsMat[1][0] + 

@@ -147,7 +147,8 @@ inline void SEMatrix3f::Diagonal(float fM11, float fM22, float fM33)
     m_fData[2][2] = fM33;
 }
 //----------------------------------------------------------------------------
-inline void SEMatrix3f::FromAxisAngle(const SEVector3f& rAxisVec, float fAngle)
+inline void SEMatrix3f::FromAxisAngle(const SEVector3f& rAxisVec, float 
+    fAngle)
 {
     // 旋转轴向量为W(w0,w1,w2),且w0^2 + w1^2 + w2^2 = 1,
     // R = I + sin(theta)S + (1 - cos(theta))S^2,
@@ -184,7 +185,8 @@ inline void SEMatrix3f::FromAxisAngle(const SEVector3f& rAxisVec, float fAngle)
     m_fData[2][2] = fZ2*fOneMinusCos + fCos;
 }
 //----------------------------------------------------------------------------
-inline void SEMatrix3f::ToAxisAngle(SEVector3f& rAxisVec, float& rfAngle) const
+inline void SEMatrix3f::ToAxisAngle(SEVector3f& rAxisVec, float& rfAngle) 
+    const
 {
     // 旋转轴向量为W(w0,w1,w2),且w0^2 + w1^2 + w2^2 = 1,
     // R = I + sin(theta)S + (1 - cos(theta))S^2,
@@ -632,7 +634,8 @@ inline void SEMatrix3d::Diagonal(double dM11, double dM22, double dM33)
     m_dData[2][2] = dM33;
 }
 //----------------------------------------------------------------------------
-inline void SEMatrix3d::FromAxisAngle(const SEVector3d& rAxisVec, double dAngle)
+inline void SEMatrix3d::FromAxisAngle(const SEVector3d& rAxisVec, double 
+    dAngle)
 {
     // 旋转轴向量为W(w0,w1,w2),且w0^2 + w1^2 + w2^2 = 1,
     // R = I + sin(theta)S + (1 - cos(theta))S^2,
@@ -669,7 +672,8 @@ inline void SEMatrix3d::FromAxisAngle(const SEVector3d& rAxisVec, double dAngle)
     m_dData[2][2] = dZ2*dOneMinusCos + dCos;
 }
 //----------------------------------------------------------------------------
-inline void SEMatrix3d::ToAxisAngle(SEVector3d& rAxisVec, double& rdAngle) const
+inline void SEMatrix3d::ToAxisAngle(SEVector3d& rAxisVec, double& rdAngle) 
+    const
 {
     // 旋转轴向量为W(w0,w1,w2),且w0^2 + w1^2 + w2^2 = 1,
     // R = I + sin(theta)S + (1 - cos(theta))S^2,

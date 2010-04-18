@@ -31,12 +31,11 @@ class SENode;
 class SETransformation;
 
 //----------------------------------------------------------------------------
-// 名称:Skin effect class
-// 说明:This is the base class of all skin-derived effect classes.
-// 作者:Sun Che
-// 时间:20091126
+// Description:This is the base class of all skin-derived effect classes.
+// Author:Sun Che
+// Date:20091126
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API SkinEffect : public ShaderEffect
+class SE_FOUNDATION_API SESkinEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -45,7 +44,7 @@ class SE_FOUNDATION_API SkinEffect : public ShaderEffect
     SE_DECLARE_TERMINATE;
 
 public:
-    virtual ~SkinEffect(void);
+    virtual ~SESkinEffect(void);
 
     // Member access.
     // Do a copying of these data if you want to hold them in another place.
@@ -55,8 +54,8 @@ public:
 
 protected:
     // Abstract bass class.
-    SkinEffect(int iBoneCount, SENode** apBones, SETransformation* aOffset);
-    SkinEffect(void);
+    SESkinEffect(int iBoneCount, SENode** apBones, SETransformation* aOffset);
+    SESkinEffect(void);
 
     // All derived classes should call this helper function in their 
     // OnLoadPrograms() function to initialize their skin matrix UCs.
@@ -87,7 +86,7 @@ protected:
     static float* ms_apSkinMatrix;
 };
 
-typedef SESmartPointer<SkinEffect> SkinEffectPtr;
+typedef SESmartPointer<SESkinEffect> SESkinEffectPtr;
 
 }
 

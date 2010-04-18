@@ -100,7 +100,7 @@ SENode* SEWidget::CoordinateFrame(float fLengthOfAxis)
     pArrowZ->Local.SetTranslate(fAxisHeight*SEVector3f::UNIT_Z);
     pArrowZ->SetName("ArrowZ");
 
-    VertexColor3Effect* pEffect = SE_NEW VertexColor3Effect;
+    SEVertexColor3Effect* pEffect = SE_NEW SEVertexColor3Effect;
     pAxisX->AttachEffect(pEffect);
     pArrowX->AttachEffect(pEffect);
     pAxisY->AttachEffect(pEffect);
@@ -188,7 +188,7 @@ SENode* SEWidget::AABBFrame(const SEVector3f& rMin, const SEVector3f& rMax,
     SEPolyline* pAABBFrame = SE_NEW SEPolyline(pVBuffer, false, false);
     pAABBFrame->SetName("AABBFrame");
 
-    VertexColor3Effect* pEffect = SE_NEW VertexColor3Effect;
+    SEVertexColor3Effect* pEffect = SE_NEW SEVertexColor3Effect;
     pAABBFrame->AttachEffect(pEffect);
 
     pNode->AttachChild(pAABBFrame);

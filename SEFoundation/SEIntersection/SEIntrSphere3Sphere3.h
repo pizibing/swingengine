@@ -30,16 +30,16 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:IntrSphere3Sphere3f类
-// 说明:
-// 作者:Sun Che
-// 时间:20081219
+// Description:
+// Author:Sun Che
+// Date:20081219
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API IntrSphere3Sphere3f
-    : public Intersector<float, SEVector3f>
+class SE_FOUNDATION_API SEIntrSphere3Sphere3f : public SEIntersector<float, 
+    SEVector3f>
 {
 public:
-    IntrSphere3Sphere3f(const SESphere3f& rSphere0, const SESphere3f& rSphere1);
+    SEIntrSphere3Sphere3f(const SESphere3f& rSphere0, const SESphere3f& 
+        rSphere1);
 
     // 对象访问.
     const SESphere3f& GetSphere0(void) const;
@@ -70,7 +70,7 @@ public:
     const SEVector3f& GetContactPoint(void) const;
 
 private:
-    using Intersector<float, SEVector3f>::m_fContactTime;
+    using SEIntersector<float, SEVector3f>::m_fContactTime;
 
     // 待检查是否相交的对象.
     const SESphere3f* m_pSphere0;

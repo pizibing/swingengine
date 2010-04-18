@@ -277,7 +277,7 @@
 #include "SECollisionRecord.h"
 #include "SESphereBVTree.h"
 
-// SEDistance
+// Distance
 #include "SEDistance.h"
 #include "SEDistLine2Line2.h"
 #include "SEDistLine2Ray2.h"

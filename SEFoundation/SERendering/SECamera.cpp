@@ -47,8 +47,8 @@ SECamera::~SECamera()
 {
 }
 //----------------------------------------------------------------------------
-void SECamera::SetFrame(const SEVector3f& rLocation, const SEVector3f& rRVector,
-    const SEVector3f& rUVector, const SEVector3f& rDVector)
+void SECamera::SetFrame(const SEVector3f& rLocation, const SEVector3f& 
+    rRVector, const SEVector3f& rUVector, const SEVector3f& rDVector)
 {
     m_Location = rLocation;
     SetAxes(rRVector, rUVector, rDVector);
@@ -330,8 +330,8 @@ bool SECamera::GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1,
     // 计算trackball运动所对应的世界旋转矩阵.
     // 之前算出的旋转轴处在摄像机坐标系下.需要转换到世界坐标系下.
     // 其世界坐标系下的向量表示为(xR + yU + zD).
-    SEVector3f vec3fWorldAxis = vec3fAxis.X*m_RVector + vec3fAxis.Y*m_UVector +
-        vec3fAxis.Z*m_DVector;
+    SEVector3f vec3fWorldAxis = vec3fAxis.X*m_RVector + vec3fAxis.Y*m_UVector 
+        + vec3fAxis.Z*m_DVector;
 
     rMat.FromAxisAngle(vec3fWorldAxis, -fAngle);
     return true;
@@ -341,7 +341,7 @@ bool SECamera::GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1,
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SECamera::Load(SEStream& rStream, SEStream::Link* pLink)
+void SECamera::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -368,9 +368,9 @@ void SECamera::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SECamera);
 }
 //----------------------------------------------------------------------------
-void SECamera::Link(SEStream& rStream, SEStream::Link* pLink)
+void SECamera::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream, pLink);
+    SEObject::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SECamera::Register(SEStream& rStream) const

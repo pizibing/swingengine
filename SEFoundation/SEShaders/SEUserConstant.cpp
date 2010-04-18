@@ -35,7 +35,8 @@ SEUserConstant::ReleaseID SEUserConstant::OnReleaseID = 0;
 SEUserConstant::CopyID SEUserConstant::OnCopyID = 0;
 
 //----------------------------------------------------------------------------
-SEUserConstant::SEUserConstant(const std::string& rName, void* pID, int iDataCount)
+SEUserConstant::SEUserConstant(const std::string& rName, void* pID, int 
+    iDataCount)
     :
     m_Name(rName)
 {

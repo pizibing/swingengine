@@ -109,7 +109,7 @@ SEAlphaState::~SEAlphaState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEAlphaState::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEAlphaState::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -130,9 +130,9 @@ void SEAlphaState::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEAlphaState);
 }
 //----------------------------------------------------------------------------
-void SEAlphaState::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEAlphaState::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEGlobalState::Link(rStream, pLink);
+    SEGlobalState::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEAlphaState::Register(SEStream& rStream) const

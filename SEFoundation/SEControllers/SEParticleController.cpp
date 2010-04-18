@@ -162,7 +162,7 @@ bool SEParticleController::Update(double dAppTime)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEParticleController::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEParticleController::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -187,9 +187,9 @@ void SEParticleController::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEParticleController);
 }
 //----------------------------------------------------------------------------
-void SEParticleController::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEParticleController::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEController::Link(rStream, pLink);
+    SEController::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEParticleController::Register(SEStream& rStream) const

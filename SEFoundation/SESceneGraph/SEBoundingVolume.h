@@ -34,11 +34,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:封装包围体碰撞检测等问题.
+// Description:封装包围体碰撞检测等问题.
 //      SEBoundingVolume的工厂函数默认实现为创建SESphereBV对象,
 //      可以删除当前函数实现,使用另一个SEBoundingVolume派生类型.
-// 作者:Sun Che
-// 时间:20080312
+// Author:Sun Che
+// Date:20080312
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEBoundingVolume : public SEObject
 {
@@ -74,7 +74,8 @@ public:
     virtual void ComputeFromData(const SEVertexBuffer* pVB) = 0;
 
     // 变换BV(从模型空间到世界空间).
-    virtual void TransformBy(const SETransformation& rTransform, SEBoundingVolume* pResult) = 0;
+    virtual void TransformBy(const SETransformation& rTransform, 
+        SEBoundingVolume* pResult) = 0;
 
     // 判断BV是否在平面正半空间(平面法线所指向的空间),相交,负半空间,
     // 相应的返回值为+1,0,-1.

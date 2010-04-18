@@ -76,7 +76,8 @@ int SEQuery2f::ToTriangle(int i, int iV0, int iV1, int iV2) const
     return ToTriangle(m_aVertex[i], iV0, iV1, iV2);
 }
 //----------------------------------------------------------------------------
-int SEQuery2f::ToTriangle(const SEVector2f& rP, int iV0, int iV1, int iV2) const
+int SEQuery2f::ToTriangle(const SEVector2f& rP, int iV0, int iV1, int iV2) 
+    const
 {
     int iSign0 = ToLine(rP, iV1, iV2);
     if( iSign0 > 0 )

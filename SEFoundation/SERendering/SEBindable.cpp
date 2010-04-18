@@ -52,7 +52,8 @@ SEResourceIdentifier* SEBindable::GetIdentifier(SERenderer* pUser) const
     return 0;
 }
 //----------------------------------------------------------------------------
-SEResourceIdentifier* SEBindable::GetIdentifier(int i, SERenderer* pUser) const
+SEResourceIdentifier* SEBindable::GetIdentifier(int i, SERenderer* pUser) 
+    const
 {
     if( 0 <= i && i < (int)m_InfoArray.size() )
     {
@@ -76,8 +77,8 @@ void SEBindable::Release()
     }
 }
 //----------------------------------------------------------------------------
-void SEBindable::OnLoad(SERenderer* pUser, SERenderer::ReleaseFunction oRelease,
-    SEResourceIdentifier* pID)
+void SEBindable::OnLoad(SERenderer* pUser, SERenderer::ReleaseFunction 
+    oRelease, SEResourceIdentifier* pID)
 {
     Info TempData;
     TempData.User = pUser;

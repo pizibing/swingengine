@@ -86,7 +86,7 @@ SEStencilState::~SEStencilState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEStencilState::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEStencilState::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -110,9 +110,9 @@ void SEStencilState::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEStencilState);
 }
 //----------------------------------------------------------------------------
-void SEStencilState::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEStencilState::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEGlobalState::Link(rStream, pLink);
+    SEGlobalState::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEStencilState::Register(SEStream& rStream) const

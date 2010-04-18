@@ -29,9 +29,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20090105
+// Description:
+// Author:Sun Che
+// Date:20090105
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEDistLine2Line2f : public SEDistance<float, 
     SEVector2f>

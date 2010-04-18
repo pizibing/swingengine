@@ -23,23 +23,23 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, VertexColor3Effect, ShaderEffect);
-SE_IMPLEMENT_STREAM(VertexColor3Effect);
-SE_IMPLEMENT_DEFAULT_STREAM(VertexColor3Effect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(VertexColor3Effect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEVertexColor3Effect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEVertexColor3Effect);
+SE_IMPLEMENT_DEFAULT_STREAM(SEVertexColor3Effect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEVertexColor3Effect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(VertexColor3Effect);
+//SE_REGISTER_STREAM(SEVertexColor3Effect);
 
 //----------------------------------------------------------------------------
-VertexColor3Effect::VertexColor3Effect()
+SEVertexColor3Effect::SEVertexColor3Effect()
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader("VertexColor.v_VertexColor3");
     m_PShader[0] = SE_NEW SEPixelShader("VertexColor.p_VertexColor3");
 }
 //----------------------------------------------------------------------------
-VertexColor3Effect::~VertexColor3Effect()
+SEVertexColor3Effect::~SEVertexColor3Effect()
 {
 }
 //----------------------------------------------------------------------------

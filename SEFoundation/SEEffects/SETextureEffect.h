@@ -29,27 +29,26 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:texture effect类
-// 说明:
-// 作者:Sun Che
-// 时间:20080819
+// Description:
+// Author:Sun Che
+// Date:20080819
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API TextureEffect : public ShaderEffect
+class SE_FOUNDATION_API SETextureEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    TextureEffect(const std::string& rBaseName);
-    virtual ~TextureEffect(void);
+    SETextureEffect(const std::string& rBaseName);
+    virtual ~SETextureEffect(void);
 
 protected:
     // streaming
-    TextureEffect(void);
+    SETextureEffect(void);
 };
 
-typedef SESmartPointer<TextureEffect> TextureEffectPtr;
+typedef SESmartPointer<SETextureEffect> SETextureEffectPtr;
 
 }
 

@@ -189,7 +189,8 @@ public:
     // 置为对角矩阵
     inline void Diagonal(float fM11, float fM22, float fM33);
     // 列向量与行向量的张量积构建矩阵
-    inline void TensorProduct(const SEVector3f& rVecU, const SEVector3f& rVecV);
+    inline void TensorProduct(const SEVector3f& rVecU, const SEVector3f& 
+        rVecV);
     // 将自己转置
     void Transpose(void);
     // 获取转置矩阵
@@ -348,7 +349,8 @@ public:
     // 置为对角矩阵
     inline void Diagonal(double dM11, double dM22, double dM33);
     // 列向量与行向量的张量积构建矩阵
-    inline void TensorProduct(const SEVector3d& rVecU, const SEVector3d& rVecV);
+    inline void TensorProduct(const SEVector3d& rVecU, const SEVector3d& 
+        rVecV);
     // 将自己转置
     void Transpose(void);
     // 获取转置矩阵

@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrLine3Sphere3f::IntrLine3Sphere3f(const SELine3f& rLine,
+SEIntrLine3Sphere3f::SEIntrLine3Sphere3f(const SELine3f& rLine,
     const SESphere3f& rSphere)
     :
     m_pLine(&rLine),
@@ -33,17 +33,17 @@ IntrLine3Sphere3f::IntrLine3Sphere3f(const SELine3f& rLine,
     m_iCount = 0;
 }
 //----------------------------------------------------------------------------
-const SELine3f& IntrLine3Sphere3f::GetLine() const
+const SELine3f& SEIntrLine3Sphere3f::GetLine() const
 {
     return *m_pLine;
 }
 //----------------------------------------------------------------------------
-const SESphere3f& IntrLine3Sphere3f::GetSphere() const
+const SESphere3f& SEIntrLine3Sphere3f::GetSphere() const
 {
     return *m_pSphere;
 }
 //----------------------------------------------------------------------------
-bool IntrLine3Sphere3f::Test()
+bool SEIntrLine3Sphere3f::Test()
 {
     SEVector3f vec3fDiff = m_pLine->Origin - m_pSphere->Center;
     float fA0 = vec3fDiff.Dot(vec3fDiff) - m_pSphere->Radius*m_pSphere->Radius;
@@ -53,7 +53,7 @@ bool IntrLine3Sphere3f::Test()
     return fDiscr >= 0.0f;
 }
 //----------------------------------------------------------------------------
-bool IntrLine3Sphere3f::Find ()
+bool SEIntrLine3Sphere3f::Find ()
 {
     SEVector3f vec3fDiff = m_pLine->Origin - m_pSphere->Center;
     float fA0 = vec3fDiff.Dot(vec3fDiff) - m_pSphere->Radius*m_pSphere->Radius;
@@ -83,19 +83,19 @@ bool IntrLine3Sphere3f::Find ()
     return m_iCount > 0;
 }
 //----------------------------------------------------------------------------
-int IntrLine3Sphere3f::GetCount() const
+int SEIntrLine3Sphere3f::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& IntrLine3Sphere3f::GetPoint(int i) const
+const SEVector3f& SEIntrLine3Sphere3f::GetPoint(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 
     return m_aPoint[i];
 }
 //----------------------------------------------------------------------------
-float IntrLine3Sphere3f::GetLineT(int i) const
+float SEIntrLine3Sphere3f::GetLineT(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 

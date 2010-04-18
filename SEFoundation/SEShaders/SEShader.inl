@@ -29,7 +29,8 @@ inline int SEShader::GetTextureCount() const
     return (int)m_Textures.size();
 }
 //----------------------------------------------------------------------------
-inline void SEShader::SetInterfaceDescriptor(SEInterfaceDescriptor* pDescriptor)
+inline void SEShader::SetInterfaceDescriptor(SEInterfaceDescriptor* 
+    pDescriptor)
 {
     m_spInterfaces = pDescriptor;
 }

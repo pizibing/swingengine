@@ -29,10 +29,10 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-SEConvexHull2f::SEConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fEpsilon,  
-    bool bOwner,  SEQuery::Type eQueryType)
+SEConvexHull2f::SEConvexHull2f(int iVertexCount, SEVector2f* aVertex, float 
+    fEpsilon, bool bOwner, SEQuery::Type eQueryType)
     :
-    SEConvexHullf(iVertexCount,  fEpsilon,  bOwner,  eQueryType), 
+    SEConvexHullf(iVertexCount, fEpsilon, bOwner, eQueryType), 
     m_LineOrigin(SEVector2f::ZERO), 
     m_LineDirection(SEVector2f::ZERO)
 {
@@ -42,7 +42,7 @@ SEConvexHull2f::SEConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fE
     m_aSVertex = 0;
     m_pQuery = 0;
 
-    SEMapper2f tempMapper(m_iVertexCount,  m_aVertex,  m_fEpsilon);
+    SEMapper2f tempMapper(m_iVertexCount, m_aVertex, m_fEpsilon);
     if( tempMapper.GetDimension() == 0 )
     {
         // The values of m_iDimension,  m_aiIndex,  and m_aiAdjacent were
@@ -69,7 +69,8 @@ SEConvexHull2f::SEConvexHull2f(int iVertexCount,  SEVector2f* aVertex,  float fE
     m_aSVertex = SE_NEW SEVector2f[m_iVertexCount];
     int i;
 
-    if( eQueryType != SEQuery::QT_RATIONAL && eQueryType != SEQuery::QT_FILTERED )
+    if( eQueryType != SEQuery::QT_RATIONAL && eQueryType != 
+        SEQuery::QT_FILTERED )
     {
         // Transform the vertices to the square [0, 1]^2.
         SEVector2f vec2fMin = tempMapper.GetMin();

@@ -90,7 +90,7 @@ void SEDescriptorItem::GetDescription(std::string& rDesc) const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEDescriptorItem::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEDescriptorItem::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -111,9 +111,9 @@ void SEDescriptorItem::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEDescriptorItem);
 }
 //----------------------------------------------------------------------------
-void SEDescriptorItem::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEDescriptorItem::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream, pLink);
+    SEObject::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEDescriptorItem::Register(SEStream& rStream) const

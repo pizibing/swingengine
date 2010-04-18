@@ -99,7 +99,7 @@ bool SESkinController::Update(double dAppTime)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SESkinController::Load(SEStream& rStream, SEStream::Link* pLink)
+void SESkinController::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -134,9 +134,9 @@ void SESkinController::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SESkinController);
 }
 //----------------------------------------------------------------------------
-void SESkinController::Link(SEStream& rStream, SEStream::Link* pLink)
+void SESkinController::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEController::Link(rStream, pLink);
+    SEController::SELink(rStream, pLink);
 
     m_apBones = SE_NEW SENode*[m_iBoneCount];
     for( int i = 0; i < m_iBoneCount; i++ )

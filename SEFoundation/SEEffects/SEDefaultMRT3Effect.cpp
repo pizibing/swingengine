@@ -23,17 +23,17 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, DefaultMRT3Effect, ShaderEffect);
-SE_IMPLEMENT_STREAM(DefaultMRT3Effect);
-SE_IMPLEMENT_DEFAULT_STREAM(DefaultMRT3Effect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(DefaultMRT3Effect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEDefaultMRT3Effect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEDefaultMRT3Effect);
+SE_IMPLEMENT_DEFAULT_STREAM(SEDefaultMRT3Effect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEDefaultMRT3Effect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(DefaultMRT3Effect);
+//SE_REGISTER_STREAM(SEDefaultMRT3Effect);
 
 //----------------------------------------------------------------------------
-DefaultMRT3Effect::DefaultMRT3Effect(const std::string& rBaseName)
+SEDefaultMRT3Effect::SEDefaultMRT3Effect(const std::string& rBaseName)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader("SETexture.v_Texture");
     m_PShader[0] = SE_NEW SEPixelShader("DefaultMRT3.p_DefaultMRT3");
@@ -42,11 +42,11 @@ DefaultMRT3Effect::DefaultMRT3Effect(const std::string& rBaseName)
     m_PShader[0]->SetImageName(0, rBaseName);
 }
 //----------------------------------------------------------------------------
-DefaultMRT3Effect::DefaultMRT3Effect()
+SEDefaultMRT3Effect::SEDefaultMRT3Effect()
 {
 }
 //----------------------------------------------------------------------------
-DefaultMRT3Effect::~DefaultMRT3Effect()
+SEDefaultMRT3Effect::~SEDefaultMRT3Effect()
 {
 }
 //----------------------------------------------------------------------------

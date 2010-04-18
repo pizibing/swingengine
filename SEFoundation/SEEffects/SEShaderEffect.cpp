@@ -28,29 +28,29 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ShaderEffect, Effect);
-SE_IMPLEMENT_STREAM(ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEShaderEffect, SEEffect);
+SE_IMPLEMENT_STREAM(SEShaderEffect);
 
-//SE_REGISTER_STREAM(ShaderEffect);
+//SE_REGISTER_STREAM(SEShaderEffect);
 
 //----------------------------------------------------------------------------
-ShaderEffect::ShaderEffect(int iPassCount)
+SEShaderEffect::SEShaderEffect(int iPassCount)
 {
     SE_ASSERT( iPassCount > 0 );
 
     SetPassCount(iPassCount);
 }
 //----------------------------------------------------------------------------
-ShaderEffect::ShaderEffect()
+SEShaderEffect::SEShaderEffect()
 {
     m_iPassCount = 0;
 }
 //----------------------------------------------------------------------------
-ShaderEffect::~ShaderEffect()
+SEShaderEffect::~SEShaderEffect()
 {
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetPassCount(int iPassCount)
+void SEShaderEffect::SetPassCount(int iPassCount)
 {
     SE_ASSERT( iPassCount > 0 );
 
@@ -70,12 +70,12 @@ void ShaderEffect::SetPassCount(int iPassCount)
     SetDefaultAlphaState();
 }
 //----------------------------------------------------------------------------
-int ShaderEffect::GetPassCount() const
+int SEShaderEffect::GetPassCount() const
 {
     return m_iPassCount;
 }
 //----------------------------------------------------------------------------
-SEAlphaState* ShaderEffect::GetBlending(int iPass)
+SEAlphaState* SEShaderEffect::GetBlending(int iPass)
 {
     // 派生类也许希望通过使用alpha state来选择shader程序进行single-pass渲染.
     // 派生类可以改变render state block数组大小,
@@ -84,18 +84,19 @@ SEAlphaState* ShaderEffect::GetBlending(int iPass)
     // 这里不对iPass和m_iPassCount进行比较.
     SE_ASSERT( 0 <= iPass && iPass < (int)m_RStateBlocks.size() );
 
-    SEGlobalState* pState = m_RStateBlocks[iPass]->States[SEGlobalState::ALPHA];
+    SEGlobalState* pState = m_RStateBlocks[iPass]->States[
+        SEGlobalState::ALPHA];
     return (SEAlphaState*)pState;
 }
 //----------------------------------------------------------------------------
-SERenderStateBlock* ShaderEffect::GetRStateBlock(int iPass)
+SERenderStateBlock* SEShaderEffect::GetRStateBlock(int iPass)
 {
     SE_ASSERT( 0 <= iPass && iPass < (int)m_RStateBlocks.size() );
 
     return m_RStateBlocks[iPass];
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetGlobalState(int iPass, SERenderer* pRenderer,
+void SEShaderEffect::SetGlobalState(int iPass, SERenderer* pRenderer,
     bool bPrimaryEffect)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount && pRenderer );
@@ -116,7 +117,7 @@ void ShaderEffect::SetGlobalState(int iPass, SERenderer* pRenderer,
     }
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::RestoreGlobalState(int iPass, SERenderer* pRenderer,
+void SEShaderEffect::RestoreGlobalState(int iPass, SERenderer* pRenderer,
     bool bPrimaryEffect)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount && pRenderer );
@@ -133,35 +134,35 @@ void ShaderEffect::RestoreGlobalState(int iPass, SERenderer* pRenderer,
     }
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetVShader(int iPass, SEVertexShader* pVShader)
+void SEShaderEffect::SetVShader(int iPass, SEVertexShader* pVShader)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_VShader[iPass] = pVShader;
 }
 //----------------------------------------------------------------------------
-SEVertexShader* ShaderEffect::GetVShader(int iPass)
+SEVertexShader* SEShaderEffect::GetVShader(int iPass)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_VShader[iPass];
 }
 //----------------------------------------------------------------------------
-SEVertexProgram* ShaderEffect::GetVProgram(int iPass)
+SEVertexProgram* SEShaderEffect::GetVProgram(int iPass)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_VShader[iPass]->GetProgram();
 }
 //----------------------------------------------------------------------------
-const std::string& ShaderEffect::GetVShaderName(int iPass) const
+const std::string& SEShaderEffect::GetVShaderName(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_VShader[iPass]->GetShaderName();
 }
 //----------------------------------------------------------------------------
-int ShaderEffect::GetVConstantCount(int iPass) const
+int SEShaderEffect::GetVConstantCount(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -170,7 +171,7 @@ int ShaderEffect::GetVConstantCount(int iPass) const
     return pVProgram ? pVProgram->GetUCCount() : 0;
 }
 //----------------------------------------------------------------------------
-SEUserConstant* ShaderEffect::GetVConstant(int iPass, int i)
+SEUserConstant* SEShaderEffect::GetVConstant(int iPass, int i)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -185,7 +186,8 @@ SEUserConstant* ShaderEffect::GetVConstant(int iPass, int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-SEUserConstant* ShaderEffect::GetVConstant(int iPass, const std::string& rName)
+SEUserConstant* SEShaderEffect::GetVConstant(int iPass, const std::string& 
+    rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -194,77 +196,77 @@ SEUserConstant* ShaderEffect::GetVConstant(int iPass, const std::string& rName)
     return pVProgram ? pVProgram->GetUC(rName) : 0;
 }
 //----------------------------------------------------------------------------
-int ShaderEffect::GetVTextureCount(int iPass) const
+int SEShaderEffect::GetVTextureCount(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_VShader[iPass]->GetTextureCount();
 }
 //----------------------------------------------------------------------------
-SETexture* ShaderEffect::GetVTexture(int iPass, int i)
+SETexture* SEShaderEffect::GetVTexture(int iPass, int i)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_VShader[iPass]->GetTexture(i);
 }
 //----------------------------------------------------------------------------
-SETexture* ShaderEffect::GetVTexture(int iPass, const std::string& rName)
+SETexture* SEShaderEffect::GetVTexture(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_VShader[iPass]->GetTexture(rName);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetVTexture(int iPass, int i, SETexture* pTexture)
+void SEShaderEffect::SetVTexture(int iPass, int i, SETexture* pTexture)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_VShader[iPass]->SetTexture(i, pTexture);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetVImageName(int iPass, int i, const std::string& rName)
+void SEShaderEffect::SetVImageName(int iPass, int i, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_VShader[iPass]->SetImageName(i, rName);
 }
 //----------------------------------------------------------------------------
-const std::string& ShaderEffect::GetVImageName(int iPass, int i) const
+const std::string& SEShaderEffect::GetVImageName(int iPass, int i) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_VShader[iPass]->GetImageName(i);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetGShader(int iPass, SEGeometryShader* pGShader)
+void SEShaderEffect::SetGShader(int iPass, SEGeometryShader* pGShader)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_GShader[iPass] = pGShader;
 }
 //----------------------------------------------------------------------------
-SEGeometryShader* ShaderEffect::GetGShader(int iPass)
+SEGeometryShader* SEShaderEffect::GetGShader(int iPass)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_GShader[iPass];
 }
 //----------------------------------------------------------------------------
-SEGeometryProgram* ShaderEffect::GetGProgram(int iPass)
+SEGeometryProgram* SEShaderEffect::GetGProgram(int iPass)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_GShader[iPass]->GetProgram();
 }
 //----------------------------------------------------------------------------
-const std::string& ShaderEffect::GetGShaderName(int iPass) const
+const std::string& SEShaderEffect::GetGShaderName(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_GShader[iPass]->GetShaderName();
 }
 //----------------------------------------------------------------------------
-int ShaderEffect::GetGConstantCount(int iPass) const
+int SEShaderEffect::GetGConstantCount(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -273,7 +275,7 @@ int ShaderEffect::GetGConstantCount(int iPass) const
     return pGProgram ? pGProgram->GetUCCount() : 0;
 }
 //----------------------------------------------------------------------------
-SEUserConstant* ShaderEffect::GetGConstant(int iPass, int i)
+SEUserConstant* SEShaderEffect::GetGConstant(int iPass, int i)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -288,7 +290,8 @@ SEUserConstant* ShaderEffect::GetGConstant(int iPass, int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-SEUserConstant* ShaderEffect::GetGConstant(int iPass, const std::string& rName)
+SEUserConstant* SEShaderEffect::GetGConstant(int iPass, const std::string& 
+    rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -297,77 +300,77 @@ SEUserConstant* ShaderEffect::GetGConstant(int iPass, const std::string& rName)
     return pGProgram ? pGProgram->GetUC(rName) : 0;
 }
 //----------------------------------------------------------------------------
-int ShaderEffect::GetGTextureCount(int iPass) const
+int SEShaderEffect::GetGTextureCount(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_GShader[iPass]->GetTextureCount();
 }
 //----------------------------------------------------------------------------
-SETexture* ShaderEffect::GetGTexture(int iPass, int i)
+SETexture* SEShaderEffect::GetGTexture(int iPass, int i)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_GShader[iPass]->GetTexture(i);
 }
 //----------------------------------------------------------------------------
-SETexture* ShaderEffect::GetGTexture(int iPass, const std::string& rName)
+SETexture* SEShaderEffect::GetGTexture(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_GShader[iPass]->GetTexture(rName);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetGTexture(int iPass, int i, SETexture* pTexture)
+void SEShaderEffect::SetGTexture(int iPass, int i, SETexture* pTexture)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_GShader[iPass]->SetTexture(i, pTexture);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetGImageName(int iPass, int i, const std::string& rName)
+void SEShaderEffect::SetGImageName(int iPass, int i, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_GShader[iPass]->SetImageName(i, rName);
 }
 //----------------------------------------------------------------------------
-const std::string& ShaderEffect::GetGImageName(int iPass, int i) const
+const std::string& SEShaderEffect::GetGImageName(int iPass, int i) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_GShader[iPass]->GetImageName(i);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetPShader(int iPass, SEPixelShader* pPShader)
+void SEShaderEffect::SetPShader(int iPass, SEPixelShader* pPShader)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_PShader[iPass] = pPShader;
 }
 //----------------------------------------------------------------------------
-SEPixelShader* ShaderEffect::GetPShader(int iPass)
+SEPixelShader* SEShaderEffect::GetPShader(int iPass)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_PShader[iPass];
 }
 //----------------------------------------------------------------------------
-SEPixelProgram* ShaderEffect::GetPProgram(int iPass)
+SEPixelProgram* SEShaderEffect::GetPProgram(int iPass)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_PShader[iPass]->GetProgram();
 }
 //----------------------------------------------------------------------------
-const std::string& ShaderEffect::GetPShaderName(int iPass) const
+const std::string& SEShaderEffect::GetPShaderName(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_PShader[iPass]->GetShaderName();
 }
 //----------------------------------------------------------------------------
-int ShaderEffect::GetPConstantCount(int iPass) const
+int SEShaderEffect::GetPConstantCount(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -376,7 +379,7 @@ int ShaderEffect::GetPConstantCount(int iPass) const
     return pPProgram ? pPProgram->GetUCCount() : 0;
 }
 //----------------------------------------------------------------------------
-SEUserConstant* ShaderEffect::GetPConstant(int iPass, int i)
+SEUserConstant* SEShaderEffect::GetPConstant(int iPass, int i)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -391,7 +394,8 @@ SEUserConstant* ShaderEffect::GetPConstant(int iPass, int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-SEUserConstant* ShaderEffect::GetPConstant(int iPass, const std::string& rName)
+SEUserConstant* SEShaderEffect::GetPConstant(int iPass, const std::string& 
+    rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -400,7 +404,7 @@ SEUserConstant* ShaderEffect::GetPConstant(int iPass, const std::string& rName)
     return pPProgram ? pPProgram->GetUC(rName) : 0;
 }
 //----------------------------------------------------------------------------
-int ShaderEffect::GetPTextureCount(int iPass) const
+int SEShaderEffect::GetPTextureCount(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -409,42 +413,42 @@ int ShaderEffect::GetPTextureCount(int iPass) const
     return pPProgram ? pPProgram->GetSICount() : 0;
 }
 //----------------------------------------------------------------------------
-SETexture* ShaderEffect::GetPTexture(int iPass, int i)
+SETexture* SEShaderEffect::GetPTexture(int iPass, int i)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_PShader[iPass]->GetTexture(i);
 }
 //----------------------------------------------------------------------------
-SETexture* ShaderEffect::GetPTexture(int iPass, const std::string& rName)
+SETexture* SEShaderEffect::GetPTexture(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_PShader[iPass]->GetTexture(rName);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetPTexture(int iPass, int i, SETexture* pTexture)
+void SEShaderEffect::SetPTexture(int iPass, int i, SETexture* pTexture)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_PShader[iPass]->SetTexture(i, pTexture);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetPImageName(int iPass, int i, const std::string& rName)
+void SEShaderEffect::SetPImageName(int iPass, int i, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_PShader[iPass]->SetImageName(i, rName);
 }
 //----------------------------------------------------------------------------
-const std::string& ShaderEffect::GetPImageName(int iPass, int i) const
+const std::string& SEShaderEffect::GetPImageName(int iPass, int i) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_PShader[iPass]->GetImageName(i);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetDefaultAlphaState()
+void SEShaderEffect::SetDefaultAlphaState()
 {
     // 创建所有pass所需的默认alpha state.
     // 渲染器在multi-effect和multi-pass渲染时使用这些state.
@@ -476,7 +480,7 @@ void ShaderEffect::SetDefaultAlphaState()
     }
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::LoadPrograms(int iPass, SERenderer* pRenderer)
+void SEShaderEffect::LoadPrograms(int iPass, SERenderer* pRenderer)
 {
     // 当前pass的vertex/pixel shader都必须装载到系统内存,
     // geometry shader为可选stage.
@@ -613,12 +617,12 @@ void ShaderEffect::LoadPrograms(int iPass, SERenderer* pRenderer)
         m_GShader[iPass]->OnLoadProgram(spGProgram);
     }
 
-    // ShaderEffect派生类自定义行为入口.
+    // SEShaderEffect派生类自定义行为入口.
     // 派生类应该在这里为用户自定义常量指定存储位置.
     OnLoadPrograms(iPass, spVProgram, spPProgram, spGProgram);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::ReleasePrograms(int iPass)
+void SEShaderEffect::ReleasePrograms(int iPass)
 {
     SEProgram* pGProgram = 0;
     if( m_GShader[iPass] )
@@ -638,39 +642,41 @@ void ShaderEffect::ReleasePrograms(int iPass)
     }
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::OnLoadPrograms(int, SEProgram*, SEProgram*, SEProgram*)
+void SEShaderEffect::OnLoadPrograms(int, SEProgram*, SEProgram*, SEProgram*)
 {
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::OnReleasePrograms(int, SEProgram*, SEProgram*, SEProgram*)
+void SEShaderEffect::OnReleasePrograms(int, SEProgram*, SEProgram*, 
+    SEProgram*)
 {
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::OnPreApplyEffect(SERenderer*, bool)
+void SEShaderEffect::OnPreApplyEffect(SERenderer*, bool)
 {
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::OnPostApplyEffect(SERenderer*, bool)
+void SEShaderEffect::OnPostApplyEffect(SERenderer*, bool)
 {
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::OnPreApplyPass(int iPass, SERenderer* pRenderer,
+void SEShaderEffect::OnPreApplyPass(int iPass, SERenderer* pRenderer,
     bool bPrimaryEffect)
 {
     pRenderer->OnPreDrawPass(this, iPass, bPrimaryEffect);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::OnPostApplyPass(int iPass, SERenderer* pRenderer,
+void SEShaderEffect::OnPostApplyPass(int iPass, SERenderer* pRenderer,
     bool bPrimaryEffect)
 {
     pRenderer->OnPostDrawPass(this, iPass, bPrimaryEffect);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::OnUpdateData(void*)
+void SEShaderEffect::OnUpdateData(void*)
 {
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::LoadResources(SERenderer* pRenderer, SEGeometry* pGeometry)
+void SEShaderEffect::LoadResources(SERenderer* pRenderer, SEGeometry* 
+    pGeometry)
 {
     for( int iPass = 0; iPass < m_iPassCount; iPass++ )
     {
@@ -726,7 +732,7 @@ void ShaderEffect::LoadResources(SERenderer* pRenderer, SEGeometry* pGeometry)
     }
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::ReleaseResources(SERenderer* pRenderer, SEGeometry*)
+void SEShaderEffect::ReleaseResources(SERenderer* pRenderer, SEGeometry*)
 {
     for( int iPass = 0; iPass < m_iPassCount; iPass++ )
     {
@@ -768,9 +774,9 @@ void ShaderEffect::ReleaseResources(SERenderer* pRenderer, SEGeometry*)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-SEObject* ShaderEffect::GetObjectByName(const std::string& rName)
+SEObject* SEShaderEffect::GetObjectByName(const std::string& rName)
 {
-    SEObject* pFound = Effect::GetObjectByName(rName);
+    SEObject* pFound = SEEffect::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -809,10 +815,10 @@ SEObject* ShaderEffect::GetObjectByName(const std::string& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::GetAllObjectsByName(const std::string& rName,
+void SEShaderEffect::GetAllObjectsByName(const std::string& rName,
     std::vector<SEObject*>& rObjects)
 {
-    Effect::GetAllObjectsByName(rName, rObjects);
+    SEEffect::GetAllObjectsByName(rName, rObjects);
 
     for( int iPass = 0; iPass < m_iPassCount; iPass++ )
     {
@@ -833,9 +839,9 @@ void ShaderEffect::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-SEObject* ShaderEffect::GetObjectByID(unsigned int uiID)
+SEObject* SEShaderEffect::GetObjectByID(unsigned int uiID)
 {
-    SEObject* pFound = Effect::GetObjectByID(uiID);
+    SEObject* pFound = SEEffect::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -878,11 +884,11 @@ SEObject* ShaderEffect::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void ShaderEffect::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEShaderEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Effect::Load(rStream, pLink);
+    SEEffect::Load(rStream, pLink);
 
     // native data
     rStream.Read(m_iPassCount);
@@ -914,12 +920,12 @@ void ShaderEffect::Load(SEStream& rStream, SEStream::Link* pLink)
         pLink->Add(pObject);
     }
 
-    SE_END_DEBUG_STREAM_LOAD(ShaderEffect);
+    SE_END_DEBUG_STREAM_LOAD(SEShaderEffect);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEShaderEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    Effect::Link(rStream, pLink);
+    SEEffect::SELink(rStream, pLink);
 
     SEObject* pLinkID;
     for( int iPass = 0; iPass < m_iPassCount; iPass++ )
@@ -942,9 +948,9 @@ void ShaderEffect::Link(SEStream& rStream, SEStream::Link* pLink)
     }
 }
 //----------------------------------------------------------------------------
-bool ShaderEffect::Register(SEStream& rStream) const
+bool SEShaderEffect::Register(SEStream& rStream) const
 {
-    if( !Effect::Register(rStream) )
+    if( !SEEffect::Register(rStream) )
     {
         return false;
     }
@@ -978,11 +984,11 @@ bool ShaderEffect::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::Save(SEStream& rStream) const
+void SEShaderEffect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Effect::Save(rStream);
+    SEEffect::Save(rStream);
 
     // native data
     rStream.Write(m_iPassCount);
@@ -1002,12 +1008,12 @@ void ShaderEffect::Save(SEStream& rStream) const
         rStream.Write(m_RStateBlocks[i]);
     }
 
-    SE_END_DEBUG_STREAM_SAVE(ShaderEffect);
+    SE_END_DEBUG_STREAM_SAVE(SEShaderEffect);
 }
 //----------------------------------------------------------------------------
-int ShaderEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEShaderEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Effect::GetDiskUsed(rVersion) +
+    return SEEffect::GetDiskUsed(rVersion) +
         sizeof(m_iPassCount) +
         m_iPassCount*sizeof(m_VShader[0]) +
         m_iPassCount*sizeof(m_GShader[0]) +
@@ -1016,7 +1022,7 @@ int ShaderEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
         ((int)m_RStateBlocks.size())*sizeof(m_RStateBlocks[0]);
 }
 //----------------------------------------------------------------------------
-SEStringTree* ShaderEffect::SaveStrings(const char*)
+SEStringTree* SEShaderEffect::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -1025,7 +1031,7 @@ SEStringTree* ShaderEffect::SaveStrings(const char*)
     pTree->Append(Format("pass count =", m_iPassCount));
 
     // children
-    pTree->Append(Effect::SaveStrings());
+    pTree->Append(SEEffect::SaveStrings());
 
     if( m_iPassCount > 0 )
     {

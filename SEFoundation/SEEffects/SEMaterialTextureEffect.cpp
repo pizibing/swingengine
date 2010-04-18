@@ -23,17 +23,17 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, MaterialTextureEffect, ShaderEffect);
-SE_IMPLEMENT_STREAM(MaterialTextureEffect);
-SE_IMPLEMENT_DEFAULT_STREAM(MaterialTextureEffect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(MaterialTextureEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEMaterialTextureEffect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEMaterialTextureEffect);
+SE_IMPLEMENT_DEFAULT_STREAM(SEMaterialTextureEffect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEMaterialTextureEffect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(MaterialTextureEffect);
+//SE_REGISTER_STREAM(SEMaterialTextureEffect);
 
 //----------------------------------------------------------------------------
-MaterialTextureEffect::MaterialTextureEffect(const std::string& rBaseName)
+SEMaterialTextureEffect::SEMaterialTextureEffect(const std::string& rBaseName)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader("MaterialTexture.v_MaterialTexture");
     m_PShader[0] = SE_NEW SEPixelShader("MaterialTexture.p_MaterialTexture");
@@ -42,11 +42,11 @@ MaterialTextureEffect::MaterialTextureEffect(const std::string& rBaseName)
     m_PShader[0]->SetImageName(0, rBaseName);
 }
 //----------------------------------------------------------------------------
-MaterialTextureEffect::MaterialTextureEffect()
+SEMaterialTextureEffect::SEMaterialTextureEffect()
 {
 }
 //----------------------------------------------------------------------------
-MaterialTextureEffect::~MaterialTextureEffect()
+SEMaterialTextureEffect::~SEMaterialTextureEffect()
 {
 }
 //----------------------------------------------------------------------------

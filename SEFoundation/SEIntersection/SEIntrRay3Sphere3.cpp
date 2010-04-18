@@ -24,7 +24,8 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrRay3Sphere3f::IntrRay3Sphere3f(const SERay3f& rRay, const SESphere3f& rSphere)
+SEIntrRay3Sphere3f::SEIntrRay3Sphere3f(const SERay3f& rRay, const SESphere3f& 
+    rSphere)
     :
     m_pRay(&rRay),
     m_pSphere(&rSphere)
@@ -32,17 +33,17 @@ IntrRay3Sphere3f::IntrRay3Sphere3f(const SERay3f& rRay, const SESphere3f& rSpher
     m_iCount = 0;
 }
 //----------------------------------------------------------------------------
-const SERay3f& IntrRay3Sphere3f::GetRay() const
+const SERay3f& SEIntrRay3Sphere3f::GetRay() const
 {
     return *m_pRay;
 }
 //----------------------------------------------------------------------------
-const SESphere3f& IntrRay3Sphere3f::GetSphere() const
+const SESphere3f& SEIntrRay3Sphere3f::GetSphere() const
 {
     return *m_pSphere;
 }
 //----------------------------------------------------------------------------
-bool IntrRay3Sphere3f::Test()
+bool SEIntrRay3Sphere3f::Test()
 {
     SEVector3f vec3fDiff = m_pRay->Origin - m_pSphere->Center;
     float fA0 = vec3fDiff.Dot(vec3fDiff) - m_pSphere->Radius*m_pSphere->Radius;
@@ -63,7 +64,7 @@ bool IntrRay3Sphere3f::Test()
     return fA1*fA1 >= fA0;
 }
 //----------------------------------------------------------------------------
-bool IntrRay3Sphere3f::Find()
+bool SEIntrRay3Sphere3f::Find()
 {
     SEVector3f vec3fDiff = m_pRay->Origin - m_pSphere->Center;
     float fA0 = vec3fDiff.Dot(vec3fDiff) - m_pSphere->Radius*m_pSphere->Radius;
@@ -114,19 +115,19 @@ bool IntrRay3Sphere3f::Find()
     return m_iCount > 0;
 }
 //----------------------------------------------------------------------------
-int IntrRay3Sphere3f::GetCount() const
+int SEIntrRay3Sphere3f::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& IntrRay3Sphere3f::GetPoint(int i) const
+const SEVector3f& SEIntrRay3Sphere3f::GetPoint(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 
     return m_aPoint[i];
 }
 //----------------------------------------------------------------------------
-float IntrRay3Sphere3f::GetRayT(int i) const
+float SEIntrRay3Sphere3f::GetRayT(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 

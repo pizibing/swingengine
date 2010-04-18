@@ -135,7 +135,8 @@ SETriMesh* SEStandardMesh::Rectangle(int iXSamples, int iYSamples,
         for( i0 = 0; i0 < iXSamples; i0++ )
         {
             fU = i0 * fInv0;
-            SEVector3f vec3fXTmp = ((2.0f*fU - 1.0f)*fXExtent) * SEVector3f::UNIT_X;
+            SEVector3f vec3fXTmp = ((2.0f*fU - 1.0f)*fXExtent) * 
+                SEVector3f::UNIT_X;
             pVB->Position3(i) = vec3fXTmp + vec3fYTmp;
 
             if( m_Attr.HasNormal() )
@@ -592,7 +593,8 @@ SETriMesh* SEStandardMesh::Sphere(int iZSamples, int iRadialSamples,
         SEVector3f vec3fSliceCenter(0.0f, 0.0f, fZ);
 
         // compute radius of slice
-        float fSliceRadius = SEMathf::Sqrt(SEMathf::FAbs(fRadius*fRadius - fZ*fZ));
+        float fSliceRadius = SEMathf::Sqrt(SEMathf::FAbs(fRadius*fRadius - 
+            fZ*fZ));
 
         // compute slice vertices with duplication at end point
         SEVector3f vec3fNormal;
@@ -828,7 +830,8 @@ SETriMesh* SEStandardMesh::Torus(int iCircleSamples, int iRadialSamples,
             float fPhi = SEMathf::TWO_PI * fRadialFraction;
             float fCosPhi = SEMathf::Cos(fPhi);
             float fSinPhi = SEMathf::Sin(fPhi);
-            SEVector3f vec3fNormal = fCosPhi*vec3fRadial + fSinPhi*SEVector3f::UNIT_Z;
+            SEVector3f vec3fNormal = fCosPhi*vec3fRadial + 
+                fSinPhi*SEVector3f::UNIT_Z;
             pVB->Position3(i) = vec3fTorusMiddle + fInnerRadius*vec3fNormal;
             if( m_Attr.HasNormal() )
             {
@@ -946,7 +949,8 @@ SETriMesh* SEStandardMesh::Torus(int iCircleSamples, int iRadialSamples,
     return pMesh;
 }
 //----------------------------------------------------------------------------
-SETriMesh* SEStandardMesh::Cone(int iRadialSamples, float fRadius, float fHeight)
+SETriMesh* SEStandardMesh::Cone(int iRadialSamples, float fRadius, float 
+    fHeight)
 {
     SETriMesh* pDisk = Disk(2, iRadialSamples, fRadius);
     int iVCount = pDisk->VBuffer->GetVertexCount() + 1;
@@ -1156,42 +1160,6 @@ SETriMesh* SEStandardMesh::Dodecahedron()
     pVB->Position3(19) = SEVector3f(0.0f,  -fB, -fC);
 
     int* aiIndex = pIB->GetData();
-    //aiIndex[  0] =  0;  aiIndex[  1] =  9;  aiIndex[  2] =  8;
-    //aiIndex[  3] =  0;  aiIndex[  4] =  4;  aiIndex[  5] =  9;
-    //aiIndex[  6] =  0;  aiIndex[  7] = 16;  aiIndex[  8] =  4;
-    //aiIndex[  9] =  0;  aiIndex[ 10] = 13;  aiIndex[ 11] = 12;
-    //aiIndex[ 12] =  0;  aiIndex[ 13] =  1;  aiIndex[ 14] = 13;
-    //aiIndex[ 15] =  0;  aiIndex[ 16] =  8;  aiIndex[ 17] =  1;
-    //aiIndex[ 18] =  0;  aiIndex[ 19] = 17;  aiIndex[ 20] = 16;
-    //aiIndex[ 21] =  0;  aiIndex[ 22] =  2;  aiIndex[ 23] = 17;
-    //aiIndex[ 24] =  0;  aiIndex[ 25] = 12;  aiIndex[ 26] =  2;
-    //aiIndex[ 27] =  8;  aiIndex[ 28] = 18;  aiIndex[ 29] =  1;
-    //aiIndex[ 30] =  8;  aiIndex[ 31] =  5;  aiIndex[ 32] = 18;
-    //aiIndex[ 33] =  8;  aiIndex[ 34] =  9;  aiIndex[ 35] =  5;
-    //aiIndex[ 36] = 12;  aiIndex[ 37] = 10;  aiIndex[ 38] =  2;
-    //aiIndex[ 39] = 12;  aiIndex[ 40] =  3;  aiIndex[ 41] = 10;
-    //aiIndex[ 42] = 12;  aiIndex[ 43] = 13;  aiIndex[ 44] =  3;
-    //aiIndex[ 45] = 16;  aiIndex[ 46] = 14;  aiIndex[ 47] =  4;
-    //aiIndex[ 48] = 16;  aiIndex[ 49] =  6;  aiIndex[ 50] = 14;
-    //aiIndex[ 51] = 16;  aiIndex[ 52] = 17;  aiIndex[ 53] =  6;
-    //aiIndex[ 54] =  9;  aiIndex[ 55] = 15;  aiIndex[ 56] =  5;
-    //aiIndex[ 57] =  9;  aiIndex[ 58] = 14;  aiIndex[ 59] = 15;
-    //aiIndex[ 60] =  9;  aiIndex[ 61] =  4;  aiIndex[ 62] = 14;
-    //aiIndex[ 63] =  6;  aiIndex[ 64] = 10;  aiIndex[ 65] = 11;
-    //aiIndex[ 66] =  6;  aiIndex[ 67] =  2;  aiIndex[ 68] = 10;
-    //aiIndex[ 69] =  6;  aiIndex[ 70] = 17;  aiIndex[ 71] =  2;
-    //aiIndex[ 72] =  3;  aiIndex[ 73] = 18;  aiIndex[ 74] = 19;
-    //aiIndex[ 75] =  3;  aiIndex[ 76] =  1;  aiIndex[ 77] = 18;
-    //aiIndex[ 78] =  3;  aiIndex[ 79] = 13;  aiIndex[ 80] =  1;
-    //aiIndex[ 81] =  7;  aiIndex[ 82] =  5;  aiIndex[ 83] = 15;
-    //aiIndex[ 84] =  7;  aiIndex[ 85] = 18;  aiIndex[ 86] =  5;
-    //aiIndex[ 87] =  7;  aiIndex[ 88] = 19;  aiIndex[ 89] = 18;
-    //aiIndex[ 90] =  7;  aiIndex[ 91] =  6;  aiIndex[ 92] = 11;
-    //aiIndex[ 93] =  7;  aiIndex[ 94] = 14;  aiIndex[ 95] =  6;
-    //aiIndex[ 96] =  7;  aiIndex[ 97] = 15;  aiIndex[ 98] = 14;
-    //aiIndex[ 99] =  7;  aiIndex[100] =  3;  aiIndex[101] = 19;
-    //aiIndex[102] =  7;  aiIndex[103] = 10;  aiIndex[104] =  3;
-    //aiIndex[105] =  7;  aiIndex[106] = 11;  aiIndex[107] = 10;
     aiIndex[  0] =  0;  aiIndex[  1] =  8;  aiIndex[  2] =  9;
     aiIndex[  3] =  0;  aiIndex[  4] =  9;  aiIndex[  5] =  4;
     aiIndex[  6] =  0;  aiIndex[  7] =  4;  aiIndex[  8] = 16;
@@ -1268,26 +1236,6 @@ SETriMesh* SEStandardMesh::Icosahedron()
     pVB->Position3(11) = SEVector3f(0.0f, -fU, -fV);
 
     int* aiIndex = pIB->GetData();
-    //aiIndex[ 0] =  0;  aiIndex[ 1] =  4;  aiIndex[ 2] =  8;
-    //aiIndex[ 3] =  0;  aiIndex[ 4] = 10;  aiIndex[ 5] =  5;
-    //aiIndex[ 6] =  2;  aiIndex[ 7] =  9;  aiIndex[ 8] =  4;
-    //aiIndex[ 9] =  2;  aiIndex[10] =  5;  aiIndex[11] = 11;
-    //aiIndex[12] =  1;  aiIndex[13] =  8;  aiIndex[14] =  6;
-    //aiIndex[15] =  1;  aiIndex[16] =  7;  aiIndex[17] = 10;
-    //aiIndex[18] =  3;  aiIndex[19] =  6;  aiIndex[20] =  9;
-    //aiIndex[21] =  3;  aiIndex[22] = 11;  aiIndex[23] =  7;
-    //aiIndex[24] =  0;  aiIndex[25] =  8;  aiIndex[26] = 10;
-    //aiIndex[27] =  1;  aiIndex[28] = 10;  aiIndex[29] =  8;
-    //aiIndex[30] =  2;  aiIndex[31] = 11;  aiIndex[32] =  9;
-    //aiIndex[33] =  3;  aiIndex[34] =  9;  aiIndex[35] = 11;
-    //aiIndex[36] =  4;  aiIndex[37] =  0;  aiIndex[38] =  2;
-    //aiIndex[39] =  5;  aiIndex[40] =  2;  aiIndex[41] =  0;
-    //aiIndex[42] =  6;  aiIndex[43] =  3;  aiIndex[44] =  1;
-    //aiIndex[45] =  7;  aiIndex[46] =  1;  aiIndex[47] =  3;
-    //aiIndex[48] =  8;  aiIndex[49] =  4;  aiIndex[50] =  6;
-    //aiIndex[51] =  9;  aiIndex[52] =  6;  aiIndex[53] =  4;
-    //aiIndex[54] = 10;  aiIndex[55] =  7;  aiIndex[56] =  5;
-    //aiIndex[57] = 11;  aiIndex[58] =  5;  aiIndex[59] =  7;
     aiIndex[ 0] =  0;  aiIndex[ 1] =  8;  aiIndex[ 2] =  4;
     aiIndex[ 3] =  0;  aiIndex[ 4] =  5;  aiIndex[ 5] = 10;
     aiIndex[ 6] =  2;  aiIndex[ 7] =  4;  aiIndex[ 8] =  9;

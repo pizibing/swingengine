@@ -151,8 +151,8 @@ float SEDistLine3Rectangle3f::Get (float fT, const SEVector3f& rVelocity0,
     return SEDistLine3Rectangle3f(tempMLine, tempMRectangle).Get();
 }
 //----------------------------------------------------------------------------
-float SEDistLine3Rectangle3f::GetSquared (float fT, const SEVector3f& rVelocity0, 
-    const SEVector3f& rVelocity1)
+float SEDistLine3Rectangle3f::GetSquared (float fT, const SEVector3f& 
+    rVelocity0, const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin = m_pLine->Origin + fT*rVelocity0;
     SEVector3f vec3fMCenter = m_pRectangle->Center + fT*rVelocity1;

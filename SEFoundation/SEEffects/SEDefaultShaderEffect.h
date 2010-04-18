@@ -29,23 +29,22 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:默认shader effect类
-// 说明:
-// 作者:Sun Che
-// 时间:20080810
+// Description:
+// Author:Sun Che
+// Date:20080810
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API DefaultShaderEffect : public ShaderEffect
+class SE_FOUNDATION_API SEDefaultShaderEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    DefaultShaderEffect(void);
-    virtual ~DefaultShaderEffect(void);
+    SEDefaultShaderEffect(void);
+    virtual ~SEDefaultShaderEffect(void);
 };
 
-typedef SESmartPointer<DefaultShaderEffect> DefaultShaderEffectPtr;
+typedef SESmartPointer<SEDefaultShaderEffect> SEDefaultShaderEffectPtr;
 
 }
 

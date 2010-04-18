@@ -27,8 +27,8 @@ public: \
     static bool RegisterFactory(void); \
     static void InitializeFactory(void); \
     static SEObject* Factory(SEStream& rStream); \
-    virtual void Load(SEStream& rStream, SEStream::Link* pLink); \
-    virtual void Link(SEStream& rStream, SEStream::Link* pLink); \
+    virtual void Load(SEStream& rStream, SEStream::SELink* pLink); \
+    virtual void SELink(SEStream& rStream, SEStream::SELink* pLink); \
     virtual bool Register(SEStream& rStream) const; \
     virtual void Save(SEStream& rStream) const; \
     virtual int GetDiskUsed(const SEStreamVersion& rVersion) const; \
@@ -41,8 +41,8 @@ public: \
     static bool RegisterFactory(void); \
     static void InitializeFactory(void); \
     static SEObject* Factory(SEStream& rStream); \
-    virtual void Load(SEStream& rStream, SEStream::Link* pLink); \
-    virtual void Link(SEStream& rStream, SEStream::Link* pLink); \
+    virtual void Load(SEStream& rStream, SEStream::SELink* pLink); \
+    virtual void SELink(SEStream& rStream, SEStream::SELink* pLink); \
     virtual bool Register(SEStream& rStream) const; \
     virtual void Save(SEStream& rStream) const; \
     virtual int GetDiskUsed(const SEStreamVersion& rVersion) const; \
@@ -76,7 +76,7 @@ void classname::InitializeFactory() \
 SEObject* classname::Factory(SEStream& rStream) \
 { \
     classname* pObject = SE_NEW classname; \
-    SEStream::Link* pLink = SE_NEW SEStream::Link(pObject); \
+    SEStream::SELink* pLink = SE_NEW SEStream::SELink(pObject); \
     pObject->Load(rStream, pLink); \
     return pObject; \
 }
@@ -115,16 +115,16 @@ template <> \
 bool classname::ms_bStreamRegistered = false;
 //----------------------------------------------------------------------------
 #define SE_IMPLEMENT_DEFAULT_STREAM(classname, baseclassname) \
-void classname::Load(SEStream& rStream, SEStream::Link* pLink) \
+void classname::Load(SEStream& rStream, SEStream::SELink* pLink) \
 { \
     SE_BEGIN_DEBUG_STREAM_LOAD; \
     baseclassname::Load(rStream, pLink); \
     SE_END_DEBUG_STREAM_LOAD(classname); \
 } \
 \
-void classname::Link(SEStream& rStream, SEStream::Link* pLink) \
+void classname::SELink(SEStream& rStream, SEStream::SELink* pLink) \
 { \
-    baseclassname::Link(rStream, pLink); \
+    baseclassname::SELink(rStream, pLink); \
 } \
 \
 bool classname::Register(SEStream& rStream) const \

@@ -30,9 +30,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20081223
+// Description:
+// Author:Sun Che
+// Date:20081223
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEBoundingVolumeTree
 {
@@ -74,7 +74,7 @@ protected:
     // 拆分基于这些投影值的中间值.用对应中间值的三角面,对网格进行二分化.
 
     // 用于三角面中心在投影轴上的投影点的快速排序.
-    class SE_FOUNDATION_API ProjectionInfo
+    class SE_FOUNDATION_API SEProjectionInfo
     {
     public:
         int m_iTriangle;
@@ -83,7 +83,8 @@ protected:
     static int Compare(const void* pvElement0, const void* pvElement1);
 
     // 模型空间BV的工厂函数表.
-    typedef SEBoundingVolume* (*CreatorM)(const SETriMesh*, int, int, int*, SELine3f&);
+    typedef SEBoundingVolume* (*CreatorM)(const SETriMesh*, int, int, int*, 
+        SELine3f&);
     static CreatorM ms_aoCreateModelBound[SEBoundingVolume::BV_COUNT];
 
     // 世界空间BV的工厂函数表.

@@ -29,9 +29,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080707
+// Description:
+// Author:Sun Che
+// Date:20080707
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEUnculledSet
 {
@@ -44,7 +44,7 @@ public:
     inline SEUnculledObject& GetUnculled(int i);
 
     // 根据输入数据创建一个SEUnculledObject并放在可见对象集合尾部
-    void Insert(SESpatial* pObject, Effect* pGlobalEffect);
+    void Insert(SESpatial* pObject, SEEffect* pGlobalEffect);
     // 并不释放已分配数据
     inline void Clear(void);
     void Resize(int iMaxCount, int iGrowBy);

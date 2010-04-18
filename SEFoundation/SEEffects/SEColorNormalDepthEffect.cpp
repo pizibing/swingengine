@@ -23,37 +23,39 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColorNormalDepthEffect, ShaderEffect);
-SE_IMPLEMENT_STREAM(ColorNormalDepthEffect);
-SE_IMPLEMENT_DEFAULT_STREAM(ColorNormalDepthEffect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColorNormalDepthEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEColorNormalDepthEffect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEColorNormalDepthEffect);
+SE_IMPLEMENT_DEFAULT_STREAM(SEColorNormalDepthEffect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEColorNormalDepthEffect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(ColorNormalDepthEffect);
+//SE_REGISTER_STREAM(SEColorNormalDepthEffect);
 
-float ColorNormalDepthEffect::ms_fFarCilpDist = 0.0f;
+float SEColorNormalDepthEffect::ms_fFarCilpDist = 0.0f;
 
 //----------------------------------------------------------------------------
-ColorNormalDepthEffect::ColorNormalDepthEffect()
+SEColorNormalDepthEffect::SEColorNormalDepthEffect()
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW SEVertexShader("ColorNormalDepth.v_ColorNormalDepth");
-    m_PShader[0] = SE_NEW SEPixelShader("ColorNormalDepth.p_ColorNormalDepth");
+    m_VShader[0] = SE_NEW SEVertexShader(
+        "ColorNormalDepth.v_ColorNormalDepth");
+    m_PShader[0] = SE_NEW SEPixelShader(
+        "ColorNormalDepth.p_ColorNormalDepth");
 }
 //----------------------------------------------------------------------------
-ColorNormalDepthEffect::~ColorNormalDepthEffect()
+SEColorNormalDepthEffect::~SEColorNormalDepthEffect()
 {
 }
 //----------------------------------------------------------------------------
-void ColorNormalDepthEffect::OnLoadPrograms(int, SEProgram* pVProgram, SEProgram*,
-    SEProgram*)
+void SEColorNormalDepthEffect::OnLoadPrograms(int, SEProgram* pVProgram, 
+    SEProgram*, SEProgram*)
 {
     SEUserConstant* pUC = pVProgram->GetUC("fFarClipDist");
     if( pUC )
         pUC->SetDataSource(&ms_fFarCilpDist);
 }
 //----------------------------------------------------------------------------
-void ColorNormalDepthEffect::OnPreApplyEffect(SERenderer*, bool)
+void SEColorNormalDepthEffect::OnPreApplyEffect(SERenderer*, bool)
 {
     ms_fFarCilpDist = FarCilpDist;
 }

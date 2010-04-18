@@ -105,8 +105,8 @@ float SEDistVector3Rectangle3f::Get(float fT, const SEVector3f& rVelocity0,
     return SEDistVector3Rectangle3f(vec3fMVector, tempMRectangle).Get();
 }
 //----------------------------------------------------------------------------
-float SEDistVector3Rectangle3f::GetSquared(float fT, const SEVector3f& rVelocity0, 
-    const SEVector3f& rVelocity1)
+float SEDistVector3Rectangle3f::GetSquared(float fT, const SEVector3f& 
+    rVelocity0, const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMVector = *m_pVector + fT*rVelocity0;
     SEVector3f vec3fMCenter = m_pRectangle->Center + fT*rVelocity1;

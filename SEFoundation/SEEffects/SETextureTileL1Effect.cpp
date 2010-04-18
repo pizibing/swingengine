@@ -23,19 +23,19 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, TextureTileL1Effect, ShaderEffect);
-SE_IMPLEMENT_STREAM(TextureTileL1Effect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(TextureTileL1Effect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SETextureTileL1Effect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SETextureTileL1Effect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SETextureTileL1Effect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(TextureTileL1Effect);
+//SE_REGISTER_STREAM(SETextureTileL1Effect);
 
-float TextureTileL1Effect::ms_afTileParams[2] = 
+float SETextureTileL1Effect::ms_afTileParams[2] = 
 {
     1.0f,
     1.0f
 };
 
-float TextureTileL1Effect::ms_afLightBlendWeight[3] =
+float SETextureTileL1Effect::ms_afLightBlendWeight[3] =
 {
     0.2f,
     0.7f,
@@ -43,9 +43,9 @@ float TextureTileL1Effect::ms_afLightBlendWeight[3] =
 };
 
 //----------------------------------------------------------------------------
-TextureTileL1Effect::TextureTileL1Effect(const std::string& rTileName)
+SETextureTileL1Effect::SETextureTileL1Effect(const std::string& rTileName)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader("TextureTileL1.v_TextureTileL1");
     m_PShader[0] = SE_NEW SEPixelShader("TextureTileL1.p_TextureTileL1");
@@ -64,15 +64,15 @@ TextureTileL1Effect::TextureTileL1Effect(const std::string& rTileName)
     SpecularWeight = 0.1f;
 }
 //----------------------------------------------------------------------------
-TextureTileL1Effect::TextureTileL1Effect()
+SETextureTileL1Effect::SETextureTileL1Effect()
 {
 }
 //----------------------------------------------------------------------------
-TextureTileL1Effect::~TextureTileL1Effect()
+SETextureTileL1Effect::~SETextureTileL1Effect()
 {
 }
 //----------------------------------------------------------------------------
-void TextureTileL1Effect::OnLoadPrograms(int, SEProgram* pVProgram, 
+void SETextureTileL1Effect::OnLoadPrograms(int, SEProgram* pVProgram, 
     SEProgram* pPProgram, SEProgram*)
 {
     SEUserConstant* pUC = pVProgram->GetUC("TileParams");
@@ -90,7 +90,7 @@ void TextureTileL1Effect::OnLoadPrograms(int, SEProgram* pVProgram,
     }
 }
 //----------------------------------------------------------------------------
-void TextureTileL1Effect::OnPreApplyEffect(SERenderer*, bool)
+void SETextureTileL1Effect::OnPreApplyEffect(SERenderer*, bool)
 {
     ms_afTileParams[0] = TileX;
     ms_afTileParams[1] = TileY;
@@ -103,11 +103,11 @@ void TextureTileL1Effect::OnPreApplyEffect(SERenderer*, bool)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void TextureTileL1Effect::Load(SEStream& rStream, SEStream::Link* pLink)
+void SETextureTileL1Effect::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    ShaderEffect::Load(rStream, pLink);
+    SEShaderEffect::Load(rStream, pLink);
 
     // native data
     rStream.Read(TileX);
@@ -116,24 +116,24 @@ void TextureTileL1Effect::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(DiffuseWeight);
     rStream.Read(SpecularWeight);
 
-    SE_END_DEBUG_STREAM_LOAD(TextureTileL1Effect);
+    SE_END_DEBUG_STREAM_LOAD(SETextureTileL1Effect);
 }
 //----------------------------------------------------------------------------
-void TextureTileL1Effect::Link(SEStream& rStream, SEStream::Link* pLink)
+void SETextureTileL1Effect::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    ShaderEffect::Link(rStream, pLink);
+    SEShaderEffect::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool TextureTileL1Effect::Register(SEStream& rStream) const
+bool SETextureTileL1Effect::Register(SEStream& rStream) const
 {
-    return ShaderEffect::Register(rStream);
+    return SEShaderEffect::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void TextureTileL1Effect::Save(SEStream& rStream) const
+void SETextureTileL1Effect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    ShaderEffect::Save(rStream);
+    SEShaderEffect::Save(rStream);
 
     // native data
     rStream.Write(TileX);
@@ -142,19 +142,19 @@ void TextureTileL1Effect::Save(SEStream& rStream) const
     rStream.Write(DiffuseWeight);
     rStream.Write(SpecularWeight);
 
-    SE_END_DEBUG_STREAM_SAVE(TextureTileL1Effect);
+    SE_END_DEBUG_STREAM_SAVE(SETextureTileL1Effect);
 }
 //----------------------------------------------------------------------------
-int TextureTileL1Effect::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SETextureTileL1Effect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    int iSize = ShaderEffect::GetDiskUsed(rVersion) +
+    int iSize = SEShaderEffect::GetDiskUsed(rVersion) +
         sizeof(TileX) + sizeof(TileY) + sizeof(AmbientWeight) + 
         sizeof(DiffuseWeight) + sizeof(SpecularWeight);
 
     return iSize;
 }
 //----------------------------------------------------------------------------
-SEStringTree* TextureTileL1Effect::SaveStrings(const char*)
+SEStringTree* SETextureTileL1Effect::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -168,7 +168,7 @@ SEStringTree* TextureTileL1Effect::SaveStrings(const char*)
     pTree->Append(Format("specular weight", SpecularWeight));
 
     // children
-    pTree->Append(ShaderEffect::SaveStrings());
+    pTree->Append(SEShaderEffect::SaveStrings());
 
     return pTree;
 }

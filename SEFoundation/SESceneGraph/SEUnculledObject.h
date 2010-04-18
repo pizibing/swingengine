@@ -28,19 +28,19 @@
 namespace Swing
 {
 
-class Effect;
+class SEEffect;
 class SESpatial;
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080707
+// Description:
+// Author:Sun Che
+// Date:20080707
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEUnculledObject
 {
 public:
     SESpatial* SEObject;
-    Effect* GlobalEffect;
+    SEEffect* GlobalEffect;
 
     inline bool IsRenderable(void) const;
 };

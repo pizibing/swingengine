@@ -29,23 +29,22 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:vertex color3 effect类
-// 说明:
-// 作者:Sun Che
-// 时间:20080820
+// Description:
+// Author:Sun Che
+// Date:20080820
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API VertexColor3Effect : public ShaderEffect
+class SE_FOUNDATION_API SEVertexColor3Effect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    VertexColor3Effect(void);
-    virtual ~VertexColor3Effect(void);
+    SEVertexColor3Effect(void);
+    virtual ~SEVertexColor3Effect(void);
 };
 
-typedef SESmartPointer<VertexColor3Effect> VertexColor3EffectPtr;
+typedef SESmartPointer<SEVertexColor3Effect> SEVertexColor3EffectPtr;
 
 }
 

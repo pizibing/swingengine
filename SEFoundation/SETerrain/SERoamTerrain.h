@@ -30,11 +30,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:管理SERoamTerrainPage类,SERoamTerrain对象构成一个完整地形,
+// Description:管理SERoamTerrainPage类,SERoamTerrain对象构成一个完整地形,
 //      注意相邻的SERoamTerrainPage之间需要进行缝合,
 //      否则衔接处将可能产生T-junction.
-// 作者:Sun Che
-// 时间:20080104
+// Author:Sun Che
+// Date:20080104
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SERoamTerrain : public SENode
 {
@@ -75,11 +75,12 @@ public:
     // 允许一个page被替换掉.
     // 代码把旧有page解除缝合,装载一个新page并重新缝合.
     // 然后返回旧有page,从而允许应用程序cache旧有page,并在短期内重新使用它.
-    SERoamTerrainPagePtr ReplacePage(int iRow, int iCol, const char* acHeightName,
-        const char* acHeightSuffix, const char* acImageName,
+    SERoamTerrainPagePtr ReplacePage(int iRow, int iCol, const char* 
+        acHeightName, const char* acHeightSuffix, const char* acImageName,
         const char* acImageSuffix);
 
-    SERoamTerrainPagePtr ReplacePage(int iRow, int iCol, SERoamTerrainPage* pNewPage);
+    SERoamTerrainPagePtr ReplacePage(int iRow, int iCol, SERoamTerrainPage* 
+        pNewPage);
 
     // LOD入口函数.
     void Simplify(SECuller& rCuller);

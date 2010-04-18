@@ -19,25 +19,25 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline void TerrainEffect::SetFogColor(const SEColorRGB& rFogColor)
+inline void SETerrainEffect::SetFogColor(const SEColorRGB& rFogColor)
 {
     ms_afFogColorDensity[0] = rFogColor[0];
     ms_afFogColorDensity[1] = rFogColor[1];
     ms_afFogColorDensity[2] = rFogColor[2];
 }
 //----------------------------------------------------------------------------
-inline SEColorRGB TerrainEffect::GetFogColor() const
+inline SEColorRGB SETerrainEffect::GetFogColor() const
 {
     return SEColorRGB(ms_afFogColorDensity[0],ms_afFogColorDensity[1],
         ms_afFogColorDensity[2]);
 }
 //----------------------------------------------------------------------------
-inline void TerrainEffect::SetFogDensity(float fFogDensity)
+inline void SETerrainEffect::SetFogDensity(float fFogDensity)
 {
     ms_afFogColorDensity[3] = fFogDensity;
 }
 //----------------------------------------------------------------------------
-inline float TerrainEffect::GetFogDensity() const
+inline float SETerrainEffect::GetFogDensity() const
 {
     return ms_afFogColorDensity[3];
 }

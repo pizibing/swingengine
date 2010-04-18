@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrRay3Triangle3f::IntrRay3Triangle3f(const SERay3f& rRay,
+SEIntrRay3Triangle3f::SEIntrRay3Triangle3f(const SERay3f& rRay,
     const SETriangle3f& rTriangle)
     :
     m_pRay(&rRay),
@@ -32,17 +32,17 @@ IntrRay3Triangle3f::IntrRay3Triangle3f(const SERay3f& rRay,
 {
 }
 //----------------------------------------------------------------------------
-const SERay3f& IntrRay3Triangle3f::GetRay() const
+const SERay3f& SEIntrRay3Triangle3f::GetRay() const
 {
     return *m_pRay;
 }
 //----------------------------------------------------------------------------
-const SETriangle3f& IntrRay3Triangle3f::GetTriangle() const
+const SETriangle3f& SEIntrRay3Triangle3f::GetTriangle() const
 {
     return *m_pTriangle;
 }
 //----------------------------------------------------------------------------
-bool IntrRay3Triangle3f::Test()
+bool SEIntrRay3Triangle3f::Test()
 {
     // ¼ÆËãoffset origin, edges, normal.
     SEVector3f vec3fDiff = m_pRay->Origin - m_pTriangle->V[0];
@@ -80,7 +80,8 @@ bool IntrRay3Triangle3f::Test()
     float fDdQxE2 = fSign*m_pRay->Direction.Dot(vec3fDiff.Cross(vec3fEdge2));
     if( fDdQxE2 >= 0.0f )
     {
-        float fDdE1xQ = fSign*m_pRay->Direction.Dot(vec3fEdge1.Cross(vec3fDiff));
+        float fDdE1xQ = fSign*m_pRay->Direction.Dot(vec3fEdge1.Cross(
+            vec3fDiff));
         if( fDdE1xQ >= 0.0f )
         {
             if( fDdQxE2 + fDdE1xQ <= fDdN )
@@ -103,7 +104,7 @@ bool IntrRay3Triangle3f::Test()
     return false;
 }
 //----------------------------------------------------------------------------
-bool IntrRay3Triangle3f::Find()
+bool SEIntrRay3Triangle3f::Find()
 {
     // ¼ÆËãoffset origin, edges, normal.
     SEVector3f vec3fDiff = m_pRay->Origin - m_pTriangle->V[0];
@@ -141,7 +142,8 @@ bool IntrRay3Triangle3f::Find()
     float fDdQxE2 = fSign*m_pRay->Direction.Dot(vec3fDiff.Cross(vec3fEdge2));
     if( fDdQxE2 >= 0.0f )
     {
-        float fDdE1xQ = fSign*m_pRay->Direction.Dot(vec3fEdge1.Cross(vec3fDiff));
+        float fDdE1xQ = fSign*m_pRay->Direction.Dot(vec3fEdge1.Cross(
+            vec3fDiff));
         if( fDdE1xQ >= 0.0f )
         {
             if( fDdQxE2 + fDdE1xQ <= fDdN )
@@ -170,22 +172,22 @@ bool IntrRay3Triangle3f::Find()
     return false;
 }
 //----------------------------------------------------------------------------
-float IntrRay3Triangle3f::GetRayT() const
+float SEIntrRay3Triangle3f::GetRayT() const
 {
     return m_fRayT;
 }
 //----------------------------------------------------------------------------
-float IntrRay3Triangle3f::GetTriB0() const
+float SEIntrRay3Triangle3f::GetTriB0() const
 {
     return m_fTriB0;
 }
 //----------------------------------------------------------------------------
-float IntrRay3Triangle3f::GetTriB1() const
+float SEIntrRay3Triangle3f::GetTriB1() const
 {
     return m_fTriB1;
 }
 //----------------------------------------------------------------------------
-float IntrRay3Triangle3f::GetTriB2() const
+float SEIntrRay3Triangle3f::GetTriB2() const
 {
     return m_fTriB2;
 }

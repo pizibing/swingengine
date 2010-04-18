@@ -23,17 +23,18 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, CombineEffect, ShaderEffect);
-SE_IMPLEMENT_STREAM(CombineEffect);
-SE_IMPLEMENT_DEFAULT_STREAM(CombineEffect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(CombineEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SECombineEffect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SECombineEffect);
+SE_IMPLEMENT_DEFAULT_STREAM(SECombineEffect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SECombineEffect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(CombineEffect);
+//SE_REGISTER_STREAM(SECombineEffect);
 
 //----------------------------------------------------------------------------
-CombineEffect::CombineEffect(const std::string& rTName1, const std::string& rTName2)
+SECombineEffect::SECombineEffect(const std::string& rTName1, const 
+    std::string& rTName2)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader("Combine.v_Combine");
     m_PShader[0] = SE_NEW SEPixelShader("Combine.p_Combine");
@@ -43,11 +44,11 @@ CombineEffect::CombineEffect(const std::string& rTName1, const std::string& rTNa
     m_PShader[0]->SetImageName(1, rTName2);
 }
 //----------------------------------------------------------------------------
-CombineEffect::CombineEffect()
+SECombineEffect::SECombineEffect()
 {
 }
 //----------------------------------------------------------------------------
-CombineEffect::~CombineEffect()
+SECombineEffect::~SECombineEffect()
 {
 }
 //----------------------------------------------------------------------------

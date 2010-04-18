@@ -31,9 +31,9 @@ namespace Swing
 class SERoamTerrainPage;
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20070601
+// Description:
+// Author:Sun Che
+// Date:20070601
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SERoamTerrainPatch
 {
@@ -58,12 +58,12 @@ public:
 protected:
     void Split(SERoamTriTreeNode* pTriTreeNode);
     void RecursCollect(SERoamTriTreeNode* pTriTreeNode);
-    void RecursTessellate(SERoamTriTreeNode* pTriTreeNode, const SECamera* pCamera,
-        int iLeftX, int iLeftY, int iRightX, int iRightY, 
+    void RecursTessellate(SERoamTriTreeNode* pTriTreeNode, const SECamera* 
+        pCamera, int iLeftX, int iLeftY, int iRightX, int iRightY, 
         int iApexX, int iApexY, int iNode);
-    float RecursComputeVariance(int iLeftX, int iLeftY, int iRightX, int iRightY,
-        int iApexX, int iApexY, int iLeftIndex, int iRightIndex, int iApexIndex, 
-        int iNodeIndex);
+    float RecursComputeVariance(int iLeftX, int iLeftY, int iRightX, int 
+        iRightY, int iApexX, int iApexY, int iLeftIndex, int iRightIndex, 
+        int iApexIndex, int iNodeIndex);
 
     SERoamTerrainPage* m_pPage;
     int m_iPatchX, m_iPatchY;

@@ -338,7 +338,8 @@ SETInteger<N> SETInteger<N>::operator*(const SETInteger& rI) const
     SE_ASSERT( (ausResult[TINT_LAST] & 0x8000) == 0 );
 
     SETInteger tempResult;
-    SESystem::SE_Memcpy(tempResult.m_asBuffer, TINT_BYTES, ausResult, TINT_BYTES);
+    SESystem::SE_Memcpy(tempResult.m_asBuffer, TINT_BYTES, ausResult, 
+        TINT_BYTES);
     if( iSProduct < 0 )
     {
         tempResult = -tempResult;
@@ -643,8 +644,8 @@ SETInteger<N>& SETInteger<N>::operator>>=(int iShift)
 }
 //----------------------------------------------------------------------------
 template <int N>
-bool SETInteger<N>::GetDivMod(const SETInteger& rNumer, const SETInteger& rDenom, 
-    SETInteger& rQuo, SETInteger& rRem)
+bool SETInteger<N>::GetDivMod(const SETInteger& rNumer, const SETInteger& 
+    rDenom, SETInteger& rQuo, SETInteger& rRem)
 {
     if( rDenom == 0 )
     {
@@ -772,7 +773,7 @@ void SETInteger<N>::DivMultiple(const SETInteger& rNumer,
     // overflow when computing the product iAdjust*rNumer; an assertion will
     // fire in this case.  Ideally the overflow would be allowed and the
     // digit in the overflow position becomes the first digit of the numerator
-    // in the division algorithm.  This will require a mixture of SETInteger<N>
+    // in the division algorithm. This will require a mixture of SETInteger<N>
     // and SETInteger<N+1>, though.
     int iDInit = rDenom.GetLeadingBlock();
     int iLeadingDigit = rDenom.ToInt(iDInit);

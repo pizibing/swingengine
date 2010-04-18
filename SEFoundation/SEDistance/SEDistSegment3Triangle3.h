@@ -30,9 +30,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20090119
+// Description:
+// Author:Sun Che
+// Date:20090119
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEDistSegment3Triangle3f : public SEDistance<float, 
     SEVector3f>

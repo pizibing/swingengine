@@ -24,7 +24,8 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-SEDistVector2Ray2f::SEDistVector2Ray2f(const SEVector2f& rVector, const SERay2f& rRay)
+SEDistVector2Ray2f::SEDistVector2Ray2f(const SEVector2f& rVector, const 
+    SERay2f& rRay)
     :
     m_pVector(&rVector),
     m_pRay(&rRay)

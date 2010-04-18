@@ -28,24 +28,24 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Skin default effect class
-// 说明:由GPU进行蒙皮顶点计算.输出默认像素颜色.
-// 作者:Sun Che
-// 时间:20080904
+// Description:由GPU进行蒙皮顶点计算.输出默认像素颜色.
+// Author:Sun Che
+// Date:20080904
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API SkinDefaultEffect : public SkinEffect
+class SE_FOUNDATION_API SESkinDefaultEffect : public SESkinEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    SkinDefaultEffect(int iBoneCount, SENode** apBones, SETransformation* aOffset);
-    virtual ~SkinDefaultEffect(void);
+    SESkinDefaultEffect(int iBoneCount, SENode** apBones, SETransformation* 
+        aOffset);
+    virtual ~SESkinDefaultEffect(void);
 
 protected:
     // streaming
-    SkinDefaultEffect(void);
+    SESkinDefaultEffect(void);
 
     virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
         SEProgram* pPProgram, SEProgram* pGProgram);
@@ -53,7 +53,7 @@ protected:
     static bool ms_bUCInitialized;
 };
 
-typedef SESmartPointer<SkinDefaultEffect> SkinDefaultEffectPtr;
+typedef SESmartPointer<SESkinDefaultEffect> SESkinDefaultEffectPtr;
 
 }
 

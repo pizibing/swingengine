@@ -199,8 +199,9 @@ void SETerrain::LoadPage(int iRow, int iCol, const char* acHeightName,
     SETerrainPage* pPage = SE_NEW SETerrainPage(m_Attr, m_iSize, ausHeight,
         vec2fOrigin, m_fMinElevation, m_fMaxElevation, m_fSpacing, m_fUVBias);
 
-    SESystem::SE_Sprintf(acFileName, uiSize, "%s.%s", acImageName, acImageSuffix);
-    MultitextureEffect* pEffect = SE_NEW MultitextureEffect(1);
+    SESystem::SE_Sprintf(acFileName, uiSize, "%s.%s", acImageName, 
+        acImageSuffix);
+    SEMultitextureEffect* pEffect = SE_NEW SEMultitextureEffect(1);
     pEffect->SetImageName(0, acFileName);
     pEffect->Configure();
     pPage->AttachEffect(pEffect);
@@ -226,7 +227,8 @@ SETerrainPagePtr SETerrain::ReplacePage(int iRow, int iCol,
     return 0;
 }
 //----------------------------------------------------------------------------
-SETerrainPagePtr SETerrain::ReplacePage(int iRow, int iCol, SETerrainPage* pNewPage)
+SETerrainPagePtr SETerrain::ReplacePage(int iRow, int iCol, SETerrainPage* 
+    pNewPage)
 {
     SE_ASSERT( 0 <= iRow && iRow < m_iRows && 0 <= iCol && iCol < m_iCols );
 
@@ -318,7 +320,7 @@ void SETerrain::OnCameraMotion()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SETerrain::Load(SEStream& rStream, SEStream::Link* pLink)
+void SETerrain::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -352,9 +354,9 @@ void SETerrain::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SETerrain);
 }
 //----------------------------------------------------------------------------
-void SETerrain::Link(SEStream& rStream, SEStream::Link* pLink)
+void SETerrain::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SENode::Link(rStream, pLink);
+    SENode::SELink(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     m_spCamera = (SECamera*)rStream.GetFromMap(pLinkID);
@@ -468,7 +470,8 @@ SEStringTree* SETerrain::SaveStrings(const char*)
         {
             const size_t uiSize = 64;
             char acPageName[uiSize];
-            SESystem::SE_Sprintf(acPageName, uiSize, "page[%d][%d] =", iRow, iCol);
+            SESystem::SE_Sprintf(acPageName, uiSize, "page[%d][%d] =", iRow, 
+                iCol);
             pTree->Append(m_aaspPage[iRow][iCol]->SaveStrings(acPageName));
         }
     }

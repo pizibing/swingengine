@@ -30,16 +30,15 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:IntrLine3Sphere3f类
-// 说明:
-// 作者:Sun Che
-// 时间:20090203
+// Description:
+// Author:Sun Che
+// Date:20090203
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API IntrLine3Sphere3f
-    : public Intersector<float, SEVector3f>
+class SE_FOUNDATION_API SEIntrLine3Sphere3f : public SEIntersector<float, 
+    SEVector3f>
 {
 public:
-    IntrLine3Sphere3f(const SELine3f& rLine, const SESphere3f& rSphere);
+    SEIntrLine3Sphere3f(const SELine3f& rLine, const SESphere3f& rSphere);
 
     // 对象访问.
     const SELine3f& GetLine(void) const;

@@ -31,9 +31,9 @@ namespace Swing
 class SECamera;
 
 //----------------------------------------------------------------------------
-// 说明:没有进行LOD.	
-// 作者:Sun Che
-// 时间:20081014
+// Description:没有进行LOD.	
+// Author:Sun Che
+// Date:20081014
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SETerrain : public SENode
 {

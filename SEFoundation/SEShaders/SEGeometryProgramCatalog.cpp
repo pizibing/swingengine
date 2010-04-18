@@ -25,7 +25,8 @@
 using namespace Swing;
 
 const std::string SEGeometryProgramCatalog::ms_NullString("");
-const std::string SEGeometryProgramCatalog::ms_DefaultString("Default.g_Default");
+const std::string SEGeometryProgramCatalog::ms_DefaultString(
+    "Default.g_Default");
 SEGeometryProgramCatalog* SEGeometryProgramCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
@@ -126,8 +127,8 @@ bool SEGeometryProgramCatalog::Remove(SEGeometryProgram* pProgram)
     return true;
 }
 //----------------------------------------------------------------------------
-SEGeometryProgram* SEGeometryProgramCatalog::Find(const std::string& rProgramName,
-    SEInterfaceDescriptor* pDescriptor)
+SEGeometryProgram* SEGeometryProgramCatalog::Find(const std::string& 
+    rProgramName, SEInterfaceDescriptor* pDescriptor)
 {
     if( rProgramName == ms_NullString
     ||  rProgramName == ms_DefaultString )
@@ -163,7 +164,8 @@ SEGeometryProgram* SEGeometryProgramCatalog::Find(const std::string& rProgramNam
     return StaticCast<SEGeometryProgram>(m_spDefaultGProgram);
 }
 //----------------------------------------------------------------------------
-bool SEGeometryProgramCatalog::PrintContents(const std::string& rFileName) const
+bool SEGeometryProgramCatalog::PrintContents(const std::string& rFileName) 
+    const
 {
     const char* pDecorated = SESystem::SE_GetPath(rFileName.c_str(), 
         SESystem::SM_WRITE);

@@ -28,15 +28,16 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20081123
+// Description:
+// Author:Sun Che
+// Date:20081123
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEBasicMesh
 {
 public:
     // 输入的顶点数是iVCount.
-    // 顶点数组由aPoint传递,但传递的内容可以是任意数据类型(比如points+attributes).
+    // 顶点数组由aPoint传递,但传递的内容可以是任意数据类型(比如points+
+    // attributes).
     // 三角形数是iTCount.三角形由三个int索引表示,由aiIndex传递.
     // 调用者有责任删除传入的数组.
 

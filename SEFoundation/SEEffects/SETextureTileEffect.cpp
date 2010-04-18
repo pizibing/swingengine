@@ -23,22 +23,22 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, TextureTileEffect, ShaderEffect);
-SE_IMPLEMENT_STREAM(TextureTileEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(TextureTileEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SETextureTileEffect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SETextureTileEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SETextureTileEffect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(TextureTileEffect);
+//SE_REGISTER_STREAM(SETextureTileEffect);
 
-float TextureTileEffect::ms_afTileParams[2] = 
+float SETextureTileEffect::ms_afTileParams[2] = 
 {
     1.0f,
     1.0f
 };
 
 //----------------------------------------------------------------------------
-TextureTileEffect::TextureTileEffect(const std::string& rTileName)
+SETextureTileEffect::SETextureTileEffect(const std::string& rTileName)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader("TextureTile.v_TextureTile");
     m_PShader[0] = SE_NEW SEPixelShader("TextureTile.p_TextureTile");
@@ -54,15 +54,15 @@ TextureTileEffect::TextureTileEffect(const std::string& rTileName)
     TileY = 1.0f;
 }
 //----------------------------------------------------------------------------
-TextureTileEffect::TextureTileEffect()
+SETextureTileEffect::SETextureTileEffect()
 {
 }
 //----------------------------------------------------------------------------
-TextureTileEffect::~TextureTileEffect()
+SETextureTileEffect::~SETextureTileEffect()
 {
 }
 //----------------------------------------------------------------------------
-void TextureTileEffect::OnLoadPrograms(int, SEProgram* pVProgram, SEProgram*, 
+void SETextureTileEffect::OnLoadPrograms(int, SEProgram* pVProgram, SEProgram*, 
     SEProgram*)
 {
     SEUserConstant* pUC = pVProgram->GetUC("TileParams");
@@ -74,7 +74,7 @@ void TextureTileEffect::OnLoadPrograms(int, SEProgram* pVProgram, SEProgram*,
     }
 }
 //----------------------------------------------------------------------------
-void TextureTileEffect::OnPreApplyEffect(SERenderer*, bool)
+void SETextureTileEffect::OnPreApplyEffect(SERenderer*, bool)
 {
     ms_afTileParams[0] = TileX;
     ms_afTileParams[1] = TileY;
@@ -84,51 +84,51 @@ void TextureTileEffect::OnPreApplyEffect(SERenderer*, bool)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void TextureTileEffect::Load(SEStream& rStream, SEStream::Link* pLink)
+void SETextureTileEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    ShaderEffect::Load(rStream, pLink);
+    SEShaderEffect::Load(rStream, pLink);
 
     // native data
     rStream.Read(TileX);
     rStream.Read(TileY);
 
-    SE_END_DEBUG_STREAM_LOAD(TextureTileEffect);
+    SE_END_DEBUG_STREAM_LOAD(SETextureTileEffect);
 }
 //----------------------------------------------------------------------------
-void TextureTileEffect::Link(SEStream& rStream, SEStream::Link* pLink)
+void SETextureTileEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    ShaderEffect::Link(rStream, pLink);
+    SEShaderEffect::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool TextureTileEffect::Register(SEStream& rStream) const
+bool SETextureTileEffect::Register(SEStream& rStream) const
 {
-    return ShaderEffect::Register(rStream);
+    return SEShaderEffect::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void TextureTileEffect::Save(SEStream& rStream) const
+void SETextureTileEffect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    ShaderEffect::Save(rStream);
+    SEShaderEffect::Save(rStream);
 
     // native data
     rStream.Write(TileX);
     rStream.Write(TileY);
 
-    SE_END_DEBUG_STREAM_SAVE(TextureTileEffect);
+    SE_END_DEBUG_STREAM_SAVE(SETextureTileEffect);
 }
 //----------------------------------------------------------------------------
-int TextureTileEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SETextureTileEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    int iSize = ShaderEffect::GetDiskUsed(rVersion) +
+    int iSize = SEShaderEffect::GetDiskUsed(rVersion) +
         sizeof(TileX) + sizeof(TileY);
 
     return iSize;
 }
 //----------------------------------------------------------------------------
-SEStringTree* TextureTileEffect::SaveStrings(const char*)
+SEStringTree* SETextureTileEffect::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -139,7 +139,7 @@ SEStringTree* TextureTileEffect::SaveStrings(const char*)
     pTree->Append(Format("tile y =", TileY));
 
     // children
-    pTree->Append(ShaderEffect::SaveStrings());
+    pTree->Append(SEShaderEffect::SaveStrings());
 
     return pTree;
 }

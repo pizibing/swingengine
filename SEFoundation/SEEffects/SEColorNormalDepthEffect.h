@@ -29,20 +29,19 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:color normal depth effect类
-// 说明:使用的pixel shader输出color,normal,depth给color0,color1,color2.
-// 作者:Sun Che
-// 时间:20090316
+// Description:使用的pixel shader输出color,normal,depth给color0,color1,color2.
+// Author:Sun Che
+// Date:20090316
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API ColorNormalDepthEffect : public ShaderEffect
+class SE_FOUNDATION_API SEColorNormalDepthEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    ColorNormalDepthEffect(void);
-    virtual ~ColorNormalDepthEffect(void);
+    SEColorNormalDepthEffect(void);
+    virtual ~SEColorNormalDepthEffect(void);
 
     float FarCilpDist;
 
@@ -54,7 +53,7 @@ protected:
     static float ms_fFarCilpDist;
 };
 
-typedef SESmartPointer<ColorNormalDepthEffect> ColorNormalDepthEffectPtr;
+typedef SESmartPointer<SEColorNormalDepthEffect> SEColorNormalDepthEffectPtr;
 
 }
 

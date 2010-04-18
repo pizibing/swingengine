@@ -496,7 +496,8 @@ SEMatrix4f Swing::operator*(float fLhsScalar, const SEMatrix4f& rRhsMat)
     return rRhsMat * fLhsScalar;
 }
 //----------------------------------------------------------------------------
-SEVector4f Swing::operator*(const SEVector4f& rLhsVec, const SEMatrix4f& rRhsMat)
+SEVector4f Swing::operator*(const SEVector4f& rLhsVec, const SEMatrix4f& 
+    rRhsMat)
 {
     return SEVector4f(
         rLhsVec[0]*rRhsMat.M11 + rLhsVec[1]*rRhsMat.M21 + 
@@ -949,7 +950,8 @@ SEMatrix4d Swing::operator*(double dLhsScalar, const SEMatrix4d& rRhsMat)
     return rRhsMat * dLhsScalar;
 }
 //----------------------------------------------------------------------------
-SEVector4d Swing::operator*(const SEVector4d& rLhsVec, const SEMatrix4d& rRhsMat)
+SEVector4d Swing::operator*(const SEVector4d& rLhsVec, const SEMatrix4d& 
+    rRhsMat)
 {
     return SEVector4d(
         rLhsVec[0]*rRhsMat.M11 + rLhsVec[1]*rRhsMat.M21 + 

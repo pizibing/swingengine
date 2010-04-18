@@ -29,9 +29,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20081202
+// Description:
+// Author:Sun Che
+// Date:20081202
 //----------------------------------------------------------------------------
 class SEQuery3f : public SEQuery
 {
@@ -87,8 +87,8 @@ protected:
         float fZ1, float fX2, float fY2, float fZ2);
 
     static float Det4(float fX0, float fY0, float fZ0, float fW0, float fX1, 
-        float fY1, float fZ1, float fW1, float fX2, float fY2, float fZ2, float fW2, 
-        float fX3, float fY3, float fZ3, float fW3);
+        float fY1, float fZ1, float fW1, float fX2, float fY2, float fZ2, 
+        float fW2, float fX3, float fY3, float fZ3, float fW3);
 };
 
 }

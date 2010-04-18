@@ -23,17 +23,17 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, TextureEffect, ShaderEffect);
-SE_IMPLEMENT_STREAM(TextureEffect);
-SE_IMPLEMENT_DEFAULT_STREAM(TextureEffect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(TextureEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SETextureEffect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SETextureEffect);
+SE_IMPLEMENT_DEFAULT_STREAM(SETextureEffect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SETextureEffect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(TextureEffect);
+//SE_REGISTER_STREAM(SETextureEffect);
 
 //----------------------------------------------------------------------------
-TextureEffect::TextureEffect(const std::string& rBaseName)
+SETextureEffect::SETextureEffect(const std::string& rBaseName)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader("SETexture.v_Texture");
     m_PShader[0] = SE_NEW SEPixelShader("SETexture.p_Texture");
@@ -42,11 +42,11 @@ TextureEffect::TextureEffect(const std::string& rBaseName)
     m_PShader[0]->SetImageName(0, rBaseName);
 }
 //----------------------------------------------------------------------------
-TextureEffect::TextureEffect()
+SETextureEffect::SETextureEffect()
 {
 }
 //----------------------------------------------------------------------------
-TextureEffect::~TextureEffect()
+SETextureEffect::~SETextureEffect()
 {
 }
 //----------------------------------------------------------------------------

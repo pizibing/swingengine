@@ -19,24 +19,24 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int LightingEffect::GetLightCount() const
+inline int SELightingEffect::GetLightCount() const
 {
     return (int)m_Lights.size();
 }
 //----------------------------------------------------------------------------
-inline SELight* LightingEffect::GetLight(int i) const
+inline SELight* SELightingEffect::GetLight(int i) const
 {
     SE_ASSERT( 0 <= i && i < (int)m_Lights.size() );
 
     return m_Lights[i];
 }
 //----------------------------------------------------------------------------
-inline void LightingEffect::DetachAllLights()
+inline void SELightingEffect::DetachAllLights()
 {
     m_Lights.clear();
 }
 //----------------------------------------------------------------------------
-inline LightingEffect::LightingMode LightingEffect::GetLightingMode() const
+inline SELightingEffect::LightingMode SELightingEffect::GetLightingMode() const
 {
     return m_eMode;
 }

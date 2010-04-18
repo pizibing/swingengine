@@ -53,8 +53,8 @@ float SEDistRay3Triangle3f::Get()
 //----------------------------------------------------------------------------
 float SEDistRay3Triangle3f::GetSquared()
 {
-    SEDistLine3Triangle3f tempLTDist(SELine3f(m_pRay->Origin, m_pRay->Direction),
-        *m_pTriangle);
+    SEDistLine3Triangle3f tempLTDist(SELine3f(m_pRay->Origin, 
+        m_pRay->Direction), *m_pTriangle);
 
     float fSqrDist = tempLTDist.GetSquared();
 

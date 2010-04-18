@@ -68,11 +68,11 @@ inline int SESpatial::GetEffectCount() const
     return (int)m_Effects.size();
 }
 //----------------------------------------------------------------------------
-inline Effect* SESpatial::GetEffect(int i) const
+inline SEEffect* SESpatial::GetEffect(int i) const
 {
     SE_ASSERT( 0 <= i && i < (int)m_Effects.size() );
 
-    return StaticCast<Effect>(m_Effects[i]);
+    return StaticCast<SEEffect>(m_Effects[i]);
 }
 //----------------------------------------------------------------------------
 inline void SESpatial::DetachAllEffects()

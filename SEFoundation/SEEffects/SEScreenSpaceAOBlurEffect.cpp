@@ -23,15 +23,15 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ScreenSpaceAOBlurEffect, ShaderEffect);
-SE_IMPLEMENT_STREAM(ScreenSpaceAOBlurEffect);
-SE_IMPLEMENT_DEFAULT_STREAM(ScreenSpaceAOBlurEffect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ScreenSpaceAOBlurEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEScreenSpaceAOBlurEffect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEScreenSpaceAOBlurEffect);
+SE_IMPLEMENT_DEFAULT_STREAM(SEScreenSpaceAOBlurEffect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEScreenSpaceAOBlurEffect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(ScreenSpaceAOBlurEffect);
+//SE_REGISTER_STREAM(SEScreenSpaceAOBlurEffect);
 
-SEVector2f ScreenSpaceAOBlurEffect::ms_aTexelKernel[
-    ScreenSpaceAOBlurEffect::KERNEL_COUNT] = 
+SEVector2f SEScreenSpaceAOBlurEffect::ms_aTexelKernel[
+    SEScreenSpaceAOBlurEffect::KERNEL_COUNT] = 
 {
     SEVector2f::ZERO,
     SEVector2f::ZERO,
@@ -50,8 +50,8 @@ SEVector2f ScreenSpaceAOBlurEffect::ms_aTexelKernel[
     SEVector2f::ZERO,
     SEVector2f::ZERO
 };
-SEVector2f ScreenSpaceAOBlurEffect::ms_aPixelKernel[
-    ScreenSpaceAOBlurEffect::KERNEL_COUNT] = 
+SEVector2f SEScreenSpaceAOBlurEffect::ms_aPixelKernel[
+    SEScreenSpaceAOBlurEffect::KERNEL_COUNT] = 
 {
     SEVector2f(-1.0f, -1.0f),
     SEVector2f(0.0f, -1.0f),
@@ -73,29 +73,31 @@ SEVector2f ScreenSpaceAOBlurEffect::ms_aPixelKernel[
     SEVector2f(1.0f, 2.0f),
     SEVector2f(2.0f, 2.0f)
 };
-bool ScreenSpaceAOBlurEffect::ms_bTexelKernelUCInitialized = false;
+bool SEScreenSpaceAOBlurEffect::ms_bTexelKernelUCInitialized = false;
 
 //----------------------------------------------------------------------------
-ScreenSpaceAOBlurEffect::ScreenSpaceAOBlurEffect(const std::string& rBaseName)
+SEScreenSpaceAOBlurEffect::SEScreenSpaceAOBlurEffect(const std::string& 
+    rBaseName)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader("SETexture.v_Texture");
-    m_PShader[0] = SE_NEW SEPixelShader("ScreenSpaceAOBlur.p_ScreenSpaceAOBlur");
+    m_PShader[0] = SE_NEW SEPixelShader(
+        "ScreenSpaceAOBlur.p_ScreenSpaceAOBlur");
 
     m_PShader[0]->SetTextureCount(1);
     m_PShader[0]->SetImageName(0, rBaseName);
 }
 //----------------------------------------------------------------------------
-ScreenSpaceAOBlurEffect::ScreenSpaceAOBlurEffect()
+SEScreenSpaceAOBlurEffect::SEScreenSpaceAOBlurEffect()
 {
 }
 //----------------------------------------------------------------------------
-ScreenSpaceAOBlurEffect::~ScreenSpaceAOBlurEffect()
+SEScreenSpaceAOBlurEffect::~SEScreenSpaceAOBlurEffect()
 {
 }
 //----------------------------------------------------------------------------
-void ScreenSpaceAOBlurEffect::OnLoadPrograms(int, SEProgram*, 
+void SEScreenSpaceAOBlurEffect::OnLoadPrograms(int, SEProgram*, 
     SEProgram* pPProgram, SEProgram*)
 {
     if( !ms_bTexelKernelUCInitialized )
@@ -116,7 +118,7 @@ void ScreenSpaceAOBlurEffect::OnLoadPrograms(int, SEProgram*,
     }
 }
 //----------------------------------------------------------------------------
-void ScreenSpaceAOBlurEffect::GenerateTexelKernel(int iWidth, int iHeight)
+void SEScreenSpaceAOBlurEffect::GenerateTexelKernel(int iWidth, int iHeight)
 {
     SE_ASSERT( iWidth > 0 && iHeight > 0 );
 

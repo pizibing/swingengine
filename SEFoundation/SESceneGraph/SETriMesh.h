@@ -31,9 +31,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080803
+// Description:
+// Author:Sun Che
+// Date:20080803
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SETriMesh : public SEGeometry
 {
@@ -68,8 +68,8 @@ public:
     class SE_FOUNDATION_API SEPickRecord : public SEGeometry::SEPickRecord
     {
     public:
-        SEPickRecord(SETriMesh* pIObject, float fT, int iTriangle, float fBary0,
-            float fBary1, float fBary2);
+        SEPickRecord(SETriMesh* pIObject, float fT, int iTriangle, float 
+            fBary0, float fBary1, float fBary2);
         SEPickRecord(void);
 
         // 与射线相交的三角形索引值.
@@ -89,7 +89,8 @@ public:
     // 应用程序初始化时,负责调用InitializePickRecordPool函数.
     // 应用程序终止时,负责调用TerminatePickRecordPool函数.
     // 应用程序调用DoPick函数遍历场景视图前,应先调用ResetPickRecordPool函数.
-    static void InitializePickRecordPool(int iMaxCount = 32, int iGrowBy = 32);
+    static void InitializePickRecordPool(int iMaxCount = 32, int iGrowBy = 
+        32);
     static void TerminatePickRecordPool(void);
     static void ResetPickRecordPool(void);
 

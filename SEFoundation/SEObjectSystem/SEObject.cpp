@@ -336,7 +336,7 @@ SEObject* SEObject::Factory(SEStream&)
     return 0;
 }
 //----------------------------------------------------------------------------
-void SEObject::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEObject::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -362,7 +362,7 @@ void SEObject::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEObject);
 }
 //----------------------------------------------------------------------------
-void SEObject::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEObject::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
     for( int i = 0; i < (int)m_Controllers.size(); i++ )
     {

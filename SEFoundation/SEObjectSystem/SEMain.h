@@ -35,11 +35,11 @@ class SEGeometryProgramCatalog;
 class SEPixelProgramCatalog;
 
 //----------------------------------------------------------------------------
-// 说明:管理在应用程序启动前和结束后所需的所有操作,
+// Description:管理在应用程序启动前和结束后所需的所有操作,
 //      一系列pre-main,post-main函数被调用用于创建和释放各个类型所需的全局数据,
 //      pre-main,post-main函数由派生类根据各自需求实现
-// 作者:Sun Che
-// 时间:20080324
+// Author:Sun Che
+// Date:20080324
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEMain
 {

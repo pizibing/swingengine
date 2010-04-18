@@ -29,9 +29,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080327
+// Description:
+// Author:Sun Che
+// Date:20080327
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEController : public SEObject
 {
@@ -75,7 +75,8 @@ protected:
     // 派生类在其update函数中可以使用这个函数.
     double GetControlTime(double dAppTime);
 
-    // 常规指针指向被控制的object,避免object和controller的smart pointer互指问题
+    // 常规指针指向被控制的object,避免object和controller的smart pointer
+    // 互指问题.
     SEObject* m_pObject;
 
     double m_dLastAppTime;

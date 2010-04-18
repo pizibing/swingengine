@@ -25,7 +25,7 @@ namespace Swing
 {
 //----------------------------------------------------------------------------
 template <class Real>
-Intersector1<Real>::Intersector1(Real fU0, Real fU1, Real fV0, Real fV1)
+SEIntersector1<Real>::SEIntersector1(Real fU0, Real fU1, Real fV0, Real fV1)
 {
     SE_ASSERT( fU0 <= fU1 && fV0 <= fV1 );
 
@@ -39,7 +39,7 @@ Intersector1<Real>::Intersector1(Real fU0, Real fU1, Real fV0, Real fV1)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Intersector1<Real>::Intersector1(Real afU[2], Real afV[2])
+SEIntersector1<Real>::SEIntersector1(Real afU[2], Real afV[2])
 {
     SE_ASSERT( afU[0] <= afU[1] && afV[0] <= afV[1] );
 
@@ -54,12 +54,12 @@ Intersector1<Real>::Intersector1(Real afU[2], Real afV[2])
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Intersector1<Real>::~Intersector1()
+SEIntersector1<Real>::~SEIntersector1()
 {
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Intersector1<Real>::GetU(int i) const
+Real SEIntersector1<Real>::GetU(int i) const
 {
     SE_ASSERT( 0 <= i && i < 2 );
 
@@ -67,7 +67,7 @@ Real Intersector1<Real>::GetU(int i) const
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Intersector1<Real>::GetV(int i) const
+Real SEIntersector1<Real>::GetV(int i) const
 {
     SE_ASSERT( 0 <= i && i < 2 );
 
@@ -75,13 +75,13 @@ Real Intersector1<Real>::GetV(int i) const
 }
 //----------------------------------------------------------------------------
 template <class Real>
-bool Intersector1<Real>::Test()
+bool SEIntersector1<Real>::Test()
 {
     return m_afU[0] <= m_afV[1] && m_afU[1] >= m_afV[0];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-bool Intersector1<Real>::Find()
+bool SEIntersector1<Real>::Find()
 {
     if( m_afU[1] < m_afV[0] || m_afU[0] > m_afV[1] )
     {
@@ -115,7 +115,7 @@ bool Intersector1<Real>::Find()
 }
 //----------------------------------------------------------------------------
 template <class Real>
-bool Intersector1<Real>::Test(Real fTMax, Real fSpeedU, Real fSpeedV)
+bool SEIntersector1<Real>::Test(Real fTMax, Real fSpeedU, Real fSpeedV)
 {
     Real fDiffSpeed, fInvDiffSpeed, fDiffPos;
 
@@ -181,7 +181,7 @@ bool Intersector1<Real>::Test(Real fTMax, Real fSpeedU, Real fSpeedV)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-bool Intersector1<Real>::Find(Real fTMax, Real fSpeedU, Real fSpeedV)
+bool SEIntersector1<Real>::Find(Real fTMax, Real fSpeedU, Real fSpeedV)
 {
     Real fDiffSpeed, fInvDiffSpeed, fDiffPos;
 
@@ -273,25 +273,25 @@ bool Intersector1<Real>::Find(Real fTMax, Real fSpeedU, Real fSpeedV)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Intersector1<Real>::GetFirstTime() const
+Real SEIntersector1<Real>::GetFirstTime() const
 {
     return m_fFirstTime;
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Intersector1<Real>::GetLastTime() const
+Real SEIntersector1<Real>::GetLastTime() const
 {
     return m_fLastTime;
 }
 //----------------------------------------------------------------------------
 template <class Real>
-int Intersector1<Real>::GetCount() const
+int SEIntersector1<Real>::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Intersector1<Real>::GetOverlap(int i) const
+Real SEIntersector1<Real>::GetOverlap(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 
@@ -303,9 +303,9 @@ Real Intersector1<Real>::GetOverlap(int i) const
 // explicit instantiation
 //----------------------------------------------------------------------------
 template SE_FOUNDATION_API
-class Intersector1<float>;
+class SEIntersector1<float>;
 
 template SE_FOUNDATION_API
-class Intersector1<double>;
+class SEIntersector1<double>;
 //----------------------------------------------------------------------------
 }

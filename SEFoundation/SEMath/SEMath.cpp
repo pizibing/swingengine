@@ -41,7 +41,8 @@ template<> const double SEMath<double>::PI = 4.0*atan(1.0);
 template<> const double SEMath<double>::TWO_PI = 2.0*SEMath<double>::PI;
 template<> const double SEMath<double>::HALF_PI = 0.5*SEMath<double>::PI;
 template<> const double SEMath<double>::INV_PI = 1.0/SEMath<double>::PI;
-template<> const double SEMath<double>::INV_TWO_PI = 1.0/SEMath<double>::TWO_PI;
+template<> const double SEMath<double>::INV_TWO_PI = 
+    1.0/SEMath<double>::TWO_PI;
 template<> const double SEMath<double>::DEG_TO_RAD = SEMath<double>::PI/180.0;
 template<> const double SEMath<double>::RAD_TO_DEG = 180.0/SEMath<double>::PI;
 

@@ -78,7 +78,7 @@ void SEPolypoint::SetActiveCount(int iActiveCount)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEPolypoint::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEPolypoint::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -90,9 +90,9 @@ void SEPolypoint::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEPolypoint);
 }
 //----------------------------------------------------------------------------
-void SEPolypoint::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEPolypoint::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEGeometry::Link(rStream, pLink);
+    SEGeometry::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEPolypoint::Register(SEStream& rStream) const

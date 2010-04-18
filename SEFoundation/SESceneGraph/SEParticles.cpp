@@ -33,8 +33,8 @@ SE_IMPLEMENT_STREAM(SEParticles);
 //SE_REGISTER_STREAM(SEParticles);
 
 //----------------------------------------------------------------------------
-SEParticles::SEParticles(const SEAttributes& rAttr, SEVector3fArray* pLocations,
-    SEFloatArray* pSizes)
+SEParticles::SEParticles(const SEAttributes& rAttr, SEVector3fArray* 
+    pLocations, SEFloatArray* pSizes)
     :
     Locations(pLocations),
     Sizes(pSizes)
@@ -240,7 +240,7 @@ SEObject* SEParticles::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEParticles::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEParticles::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -262,9 +262,9 @@ void SEParticles::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEParticles);
 }
 //----------------------------------------------------------------------------
-void SEParticles::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEParticles::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SETriMesh::Link(rStream, pLink);
+    SETriMesh::SELink(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     Locations = (SEVector3fArray*)rStream.GetFromMap(pLinkID);

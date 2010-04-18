@@ -121,11 +121,13 @@ bool SETRational<N>::operator<=(const SETRational& rR) const
     SETInteger<N> tempProd1 = m_Denom * rR.m_Numer;
     if( m_Denom > 0 )
     {
-        return (rR.m_Denom > 0 ? tempProd0 <= tempProd1 : tempProd0 >= tempProd1);
+        return (rR.m_Denom > 0 ? tempProd0 <= tempProd1 : tempProd0 >= 
+            tempProd1);
     }
     else
     {
-        return (rR.m_Denom > 0 ? tempProd0 >= tempProd1 : tempProd0 <= tempProd1);
+        return (rR.m_Denom > 0 ? tempProd0 >= tempProd1 : tempProd0 <= 
+            tempProd1);
     }
 }
 //----------------------------------------------------------------------------
@@ -136,11 +138,13 @@ bool SETRational<N>::operator<(const SETRational& rR) const
     SETInteger<N> tempProd1 = m_Denom * rR.m_Numer;
     if( m_Denom > 0 )
     {
-        return (rR.m_Denom > 0 ? tempProd0 < tempProd1 : tempProd0 > tempProd1);
+        return (rR.m_Denom > 0 ? tempProd0 < tempProd1 : tempProd0 > 
+            tempProd1);
     }
     else
     {
-        return (rR.m_Denom > 0 ? tempProd0 > tempProd1 : tempProd0 < tempProd1);
+        return (rR.m_Denom > 0 ? tempProd0 > tempProd1 : tempProd0 < 
+            tempProd1);
     }
 }
 //----------------------------------------------------------------------------
@@ -151,11 +155,13 @@ bool SETRational<N>::operator>=(const SETRational& rR) const
     SETInteger<N> tempProd1 = m_Denom * rR.m_Numer;
     if( m_Denom > 0 )
     {
-        return (rR.m_Denom > 0 ? tempProd0 >= tempProd1 : tempProd0 <= tempProd1);
+        return (rR.m_Denom > 0 ? tempProd0 >= tempProd1 : tempProd0 <= 
+            tempProd1);
     }
     else
     {
-        return (rR.m_Denom > 0 ? tempProd0 <= tempProd1 : tempProd0 >= tempProd1);
+        return (rR.m_Denom > 0 ? tempProd0 <= tempProd1 : tempProd0 >= 
+            tempProd1);
     }
 }
 //----------------------------------------------------------------------------
@@ -166,11 +172,13 @@ bool SETRational<N>::operator>(const SETRational& rR) const
     SETInteger<N> tempProd1 = m_Denom * rR.m_Numer;
     if( m_Denom > 0 )
     {
-        return (rR.m_Denom > 0 ? tempProd0 > tempProd1 : tempProd0 < tempProd1);
+        return (rR.m_Denom > 0 ? tempProd0 > tempProd1 : tempProd0 < 
+            tempProd1);
     }
     else
     {
-        return (rR.m_Denom > 0 ? tempProd0 < tempProd1 : tempProd0 > tempProd1);
+        return (rR.m_Denom > 0 ? tempProd0 < tempProd1 : tempProd0 > 
+            tempProd1);
     }
 }
 //----------------------------------------------------------------------------
@@ -580,7 +588,7 @@ void SETRational<N>::GetPositiveFloat(const SETInteger<N>& rDenom,
     if( iFirstBit >= 23 )
     {
         // quotient provides all of 1.mantissa
-        for( uiMask = 0x00400000; uiMask; uiMask >>= 1,  iFirstBit-- )
+        for( uiMask = 0x00400000; uiMask; uiMask >>= 1, iFirstBit-- )
         {
             if( rQuo.GetBit(iFirstBit) )
             {
@@ -591,7 +599,7 @@ void SETRational<N>::GetPositiveFloat(const SETInteger<N>& rDenom,
     else
     {
         // quotient contribution to 1.mantissa
-        for( uiMask = 0x00400000; iFirstBit >= 0; uiMask >>= 1,  iFirstBit-- )
+        for( uiMask = 0x00400000; iFirstBit >= 0; uiMask >>= 1, iFirstBit-- )
         {
             if( rQuo.GetBit(iFirstBit) )
             {
@@ -650,14 +658,14 @@ SETRational<N>::SETRational(double dValue)
     SETInteger<N> tempTwo(2);
     m_Numer = tempOne;
     unsigned int uiMask;
-    for( uiMask = 0x00080000; uiMask; uiMask >>= 1,  tempFraction /= tempTwo )
+    for( uiMask = 0x00080000; uiMask; uiMask >>= 1, tempFraction /= tempTwo )
     {
         if( uiMantissaHi & uiMask )
         {
             *this += tempFraction;
         }
     }
-    for( uiMask = 0x80000000u; uiMask; uiMask >>= 1,  tempFraction /= tempTwo )
+    for( uiMask = 0x80000000u; uiMask; uiMask >>= 1, tempFraction /= tempTwo )
     {
         if( uiMantissaLo & uiMask )
         {
@@ -777,8 +785,8 @@ void SETRational<N>::ConvertTo(double& rdValue) const
 
         if( iBlock == 63 )
         {
-            unsigned int uiValueHi = tempQuo.ToUnsignedInt(iBlock-1,  iBlock);
-            unsigned int uiValueLo = tempQuo.ToUnsignedInt(iBlock-3,  iBlock-2);
+            unsigned int uiValueHi = tempQuo.ToUnsignedInt(iBlock-1, iBlock);
+            unsigned int uiValueLo = tempQuo.ToUnsignedInt(iBlock-3, iBlock-2);
             if( (uiValueHi & 0xFFFFFFFF) == 0xFFFFFFFF
             &&  (uiValueLo & 0xFFFFF800) == 0xFFFFF800 )
             {
@@ -811,8 +819,8 @@ void SETRational<N>::ConvertTo(double& rdValue) const
         }
 
         // quotient smaller than the maximum float
-        GetPositiveDouble(tempAbsDenom,  tempQuo,  tempRem,  iBlock,  uiExponent,  
-            uiMantissaHi,  uiMantissaLo);
+        GetPositiveDouble(tempAbsDenom, tempQuo, tempRem, iBlock, uiExponent,  
+            uiMantissaHi, uiMantissaLo);
         auiResult[1] = uiExponent | uiMantissaHi;
         auiResult[0] = uiMantissaLo;
         if( iSign < 0 )
@@ -849,7 +857,7 @@ void SETRational<N>::ConvertTo(double& rdValue) const
         }
     }
 
-    if( iBlock == 64 || (iBlock == 63 && tempQuo.ToUnsignedInt(0) >= 4 /*?*/) )
+    if( iBlock == 64 || (iBlock == 63 && tempQuo.ToUnsignedInt(0) >= 4 ) )
     {
         // rational number smaller than the minimum floating point number
         if( iSign > 0 )

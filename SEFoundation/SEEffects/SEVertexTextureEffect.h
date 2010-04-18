@@ -29,28 +29,27 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:vertex texture effect类
-// 说明:需要vs_3_0或vp40的shader profile支持.
+// Description:需要vs_3_0或vp40的shader profile支持.
 //    vs_3_0最大支持4个sampler,vp40的还没查到.
-// 作者:Sun Che
-// 时间:20090302
+// Author:Sun Che
+// Date:20090302
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API VertexTextureEffect : public ShaderEffect
+class SE_FOUNDATION_API SEVertexTextureEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    VertexTextureEffect(const std::string& rBaseName);
-    virtual ~VertexTextureEffect(void);
+    SEVertexTextureEffect(const std::string& rBaseName);
+    virtual ~SEVertexTextureEffect(void);
 
 protected:
     // streaming
-    VertexTextureEffect(void);
+    SEVertexTextureEffect(void);
 };
 
-typedef SESmartPointer<VertexTextureEffect> VertexTextureEffectPtr;
+typedef SESmartPointer<SEVertexTextureEffect> SEVertexTextureEffectPtr;
 
 }
 

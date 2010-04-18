@@ -35,7 +35,7 @@ SEUnculledSet::~SEUnculledSet()
     SE_DELETE[] m_pUnculled;
 }
 //----------------------------------------------------------------------------
-void SEUnculledSet::Insert(SESpatial* pObject, Effect* pGlobalEffect)
+void SEUnculledSet::Insert(SESpatial* pObject, SEEffect* pGlobalEffect)
 {
     if( ++m_iCount > m_iMaxCount )
     {

@@ -27,8 +27,8 @@ SESamplerInformation::ReleaseID SESamplerInformation::OnReleaseID = 0;
 SESamplerInformation::CopyID SESamplerInformation::OnCopyID = 0;
 
 //----------------------------------------------------------------------------
-SESamplerInformation::SESamplerInformation(const std::string& rName, Type eType,
-    void* pID)
+SESamplerInformation::SESamplerInformation(const std::string& rName, Type 
+    eType, void* pID)
     :
     m_Name(rName)
 {

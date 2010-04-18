@@ -55,9 +55,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20070512
+// Description:
+// Author:Sun Che
+// Date:20070512
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEMatrix2f
 {
@@ -77,7 +77,8 @@ public:
     SEMatrix2f(const SEMatrix2f& rMat);
     SEMatrix2f(float fM11, float fM12, float fM21, float fM22);
 	// 默认用行向量构建矩阵
-    SEMatrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV, bool bIsRow = true);
+    SEMatrix2f(const SEVector2f& rVecU, const SEVector2f& rVecV, bool bIsRow = 
+        true);
     // 创建对角矩阵
     SEMatrix2f(float fM11, float fM22);
 	// 创建旋转矩阵,弧度制,fAngle > 0为逆时针旋转
@@ -122,8 +123,8 @@ public:
 
     SE_FOUNDATION_API friend SEMatrix2f operator * (float fLhsScalar, 
         const SEMatrix2f& rRhsMat);
-    SE_FOUNDATION_API friend SEVector2f operator * (const SEVector2f& rLhsVec, 
-        const SEMatrix2f& rRhsMat);
+    SE_FOUNDATION_API friend SEVector2f operator * (const SEVector2f& 
+        rLhsVec, const SEMatrix2f& rRhsMat);
 
     // 置为0矩阵
     inline void Zero(void);
@@ -132,7 +133,8 @@ public:
     // 置为对角矩阵
     inline void Diagonal(float fM11, float fM22);
     // 列向量与行向量的张量积构建矩阵
-    inline void TensorProduct(const SEVector2f& rVecU, const SEVector2f& rVecV);
+    inline void TensorProduct(const SEVector2f& rVecU, const SEVector2f& 
+        rVecV);
     // 将自己转置
     void Transpose(void);
     // 获取转置矩阵
@@ -165,9 +167,9 @@ private:
 };
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20090516
+// Description:
+// Author:Sun Che
+// Date:20090516
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEMatrix2d
 {
@@ -187,7 +189,8 @@ public:
     SEMatrix2d(const SEMatrix2d& rMat);
     SEMatrix2d(double dM11, double dM12, double dM21, double dM22);
 	// 默认用行向量构建矩阵
-    SEMatrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV, bool bIsRow = true);
+    SEMatrix2d(const SEVector2d& rVecU, const SEVector2d& rVecV, bool bIsRow = 
+        true);
     // 创建对角矩阵
     SEMatrix2d(double dM11, double dM22);
 	// 创建旋转矩阵,弧度制,dAngle > 0为逆时针旋转
@@ -242,7 +245,8 @@ public:
     // 置为对角矩阵
     inline void Diagonal(double dM11, double dM22);
     // 列向量与行向量的张量积构建矩阵
-    inline void TensorProduct(const SEVector2d& rVecU, const SEVector2d& rVecV);
+    inline void TensorProduct(const SEVector2d& rVecU, const SEVector2d& 
+        rVecV);
     // 将自己转置
     void Transpose(void);
     // 获取转置矩阵

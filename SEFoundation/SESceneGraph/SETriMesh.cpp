@@ -318,8 +318,8 @@ void SETriMesh::UpdateModelNormals()
     }
 }
 //----------------------------------------------------------------------------
-SETriMesh::SEPickRecord::SEPickRecord(SETriMesh* pIObject, float fT, int iTriangle,
-    float fBary0, float fBary1, float fBary2)
+SETriMesh::SEPickRecord::SEPickRecord(SETriMesh* pIObject, float fT, int 
+    iTriangle, float fBary0, float fBary1, float fBary2)
     :
     SEGeometry::SEPickRecord(pIObject, fT)
 {
@@ -362,14 +362,15 @@ void SETriMesh::DoPick(const SERay3f& rRay, PickArray& rResults)
             SETriangle3f tempTriangle(VBuffer->Position3(iV0),
                 VBuffer->Position3(iV1), VBuffer->Position3(iV2));
 
-            IntrRay3Triangle3f tempIntr(tempRay, tempTriangle);
+            SEIntrRay3Triangle3f tempIntr(tempRay, tempTriangle);
             if( tempIntr.Find() )
             {
                 // TODO:
                 // T will be used as a key value for sorting the picking 
-                // result array. If two SETriMesh objects have different scale
-                // transformation, their t values should not be compared 
-                // directly. Instead, (t' = t * norm) does the right thing.
+                // result array. If two SETriMesh objects have different
+                // scale transformation, their t values should not be 
+                // compared directly. Instead, (t' = t * norm) does the 
+                // right thing.
                 // Do we have a better solution to make the computation 
                 // faster?
                 SEPickRecord* pRecord = AllocatePickRecord();

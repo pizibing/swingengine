@@ -64,7 +64,8 @@ SETRational<ISIZE>& SETRVector<VSIZE,  ISIZE>::operator[](int i)
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-SETRVector<VSIZE,  ISIZE>& SETRVector<VSIZE,  ISIZE>::operator=(const SETRVector& rV)
+SETRVector<VSIZE,  ISIZE>& SETRVector<VSIZE,  ISIZE>::operator=(const 
+    SETRVector& rV)
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -137,8 +138,8 @@ bool SETRVector<VSIZE,  ISIZE>::operator>=(const SETRVector& rV) const
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-SETRVector<VSIZE,  ISIZE> SETRVector<VSIZE,  ISIZE>::operator+(const SETRVector& rV)
-    const
+SETRVector<VSIZE,  ISIZE> SETRVector<VSIZE,  ISIZE>::operator+(const 
+    SETRVector& rV) const
 {
     SETRVector<VSIZE,  ISIZE> tempSum;
     for( int i = 0; i < VSIZE; i++ )
@@ -150,8 +151,8 @@ SETRVector<VSIZE,  ISIZE> SETRVector<VSIZE,  ISIZE>::operator+(const SETRVector&
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-SETRVector<VSIZE,  ISIZE> SETRVector<VSIZE,  ISIZE>::operator-(const SETRVector& rV)
-    const
+SETRVector<VSIZE,  ISIZE> SETRVector<VSIZE,  ISIZE>::operator-(const 
+    SETRVector& rV) const
 {
     SETRVector<VSIZE,  ISIZE> tempDiff;
     for( int i = 0; i < VSIZE; i++ )
@@ -216,7 +217,8 @@ SETRVector<VSIZE,  ISIZE> operator*(const SETRational<ISIZE>& rR,
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-SETRVector<VSIZE,  ISIZE>& SETRVector<VSIZE,  ISIZE>::operator+=(const SETRVector& rV)
+SETRVector<VSIZE,  ISIZE>& SETRVector<VSIZE,  ISIZE>::operator+=(const 
+    SETRVector& rV)
 {
     for( int i = 0; i < VSIZE; i++ )
     {
@@ -227,7 +229,8 @@ SETRVector<VSIZE,  ISIZE>& SETRVector<VSIZE,  ISIZE>::operator+=(const SETRVecto
 }
 //----------------------------------------------------------------------------
 template <int VSIZE,  int ISIZE>
-SETRVector<VSIZE,  ISIZE>& SETRVector<VSIZE,  ISIZE>::operator-=(const SETRVector& rV)
+SETRVector<VSIZE,  ISIZE>& SETRVector<VSIZE,  ISIZE>::operator-=(const 
+    SETRVector& rV)
 {
     for( int i = 0; i < VSIZE; i++ )
     {

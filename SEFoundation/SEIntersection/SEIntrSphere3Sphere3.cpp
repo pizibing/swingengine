@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrSphere3Sphere3f::IntrSphere3Sphere3f(const SESphere3f& rSphere0,
+SEIntrSphere3Sphere3f::SEIntrSphere3Sphere3f(const SESphere3f& rSphere0,
     const SESphere3f& rSphere1)
     :
     m_pSphere0(&rSphere0),
@@ -32,17 +32,17 @@ IntrSphere3Sphere3f::IntrSphere3Sphere3f(const SESphere3f& rSphere0,
 {
 }
 //----------------------------------------------------------------------------
-const SESphere3f& IntrSphere3Sphere3f::GetSphere0() const
+const SESphere3f& SEIntrSphere3Sphere3f::GetSphere0() const
 {
     return *m_pSphere0;
 }
 //----------------------------------------------------------------------------
-const SESphere3f& IntrSphere3Sphere3f::GetSphere1() const
+const SESphere3f& SEIntrSphere3Sphere3f::GetSphere1() const
 {
     return *m_pSphere1;
 }
 //----------------------------------------------------------------------------
-bool IntrSphere3Sphere3f::Test()
+bool SEIntrSphere3Sphere3f::Test()
 {
     SEVector3f vec3fDiff = m_pSphere1->Center - m_pSphere0->Center;
     float fRSum = m_pSphere0->Radius + m_pSphere1->Radius;
@@ -50,7 +50,7 @@ bool IntrSphere3Sphere3f::Test()
     return vec3fDiff.GetSquaredLength() <= fRSum*fRSum;
 }
 //----------------------------------------------------------------------------
-bool IntrSphere3Sphere3f::Find()
+bool SEIntrSphere3Sphere3f::Find()
 {
     // 相交平面必有法线N.
     m_Normal = m_pSphere1->Center - m_pSphere0->Center;
@@ -87,7 +87,7 @@ bool IntrSphere3Sphere3f::Find()
     return true;
 }
 //----------------------------------------------------------------------------
-bool IntrSphere3Sphere3f::Test(float fTMax,
+bool SEIntrSphere3Sphere3f::Test(float fTMax,
     const SEVector3f& rVelocity0, const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fVDiff = rVelocity1 - rVelocity0;
@@ -116,7 +116,7 @@ bool IntrSphere3Sphere3f::Test(float fTMax,
     return fC <= fRSumSqr;
 }
 //----------------------------------------------------------------------------
-bool IntrSphere3Sphere3f::Find(float fTMax,
+bool SEIntrSphere3Sphere3f::Find(float fTMax,
     const SEVector3f& rVelocity0, const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fVDiff = rVelocity1 - rVelocity0;
@@ -185,32 +185,32 @@ bool IntrSphere3Sphere3f::Find(float fTMax,
     return false;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& IntrSphere3Sphere3f::GetCenter() const
+const SEVector3f& SEIntrSphere3Sphere3f::GetCenter() const
 {
     return m_Center;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& IntrSphere3Sphere3f::GetUAxis() const
+const SEVector3f& SEIntrSphere3Sphere3f::GetUAxis() const
 {
     return m_UAxis;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& IntrSphere3Sphere3f::GetVAxis() const
+const SEVector3f& SEIntrSphere3Sphere3f::GetVAxis() const
 {
     return m_VAxis;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& IntrSphere3Sphere3f::GetNormal() const
+const SEVector3f& SEIntrSphere3Sphere3f::GetNormal() const
 {
     return m_Normal;
 }
 //----------------------------------------------------------------------------
-float IntrSphere3Sphere3f::GetRadius() const
+float SEIntrSphere3Sphere3f::GetRadius() const
 {
     return m_fRadius;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& IntrSphere3Sphere3f::GetContactPoint() const
+const SEVector3f& SEIntrSphere3Sphere3f::GetContactPoint() const
 {
     return m_ContactPoint;
 }

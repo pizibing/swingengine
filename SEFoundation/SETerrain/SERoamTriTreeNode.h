@@ -29,9 +29,9 @@ namespace Swing
 class SERoamTerrainPatch;
 
 //----------------------------------------------------------------------------
-// 说明:每一个ROAM Patch有两个二叉三角树
-// 作者:Sun Che
-// 时间:20070601
+// Description:每一个ROAM Patch有两个二叉三角树
+// Author:Sun Che
+// Date:20070601
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SERoamTriTreeNode
 {

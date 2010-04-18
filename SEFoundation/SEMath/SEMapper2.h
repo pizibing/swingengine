@@ -28,9 +28,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20081202
+// Description:
+// Author:Sun Che
+// Date:20081202
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEMapper2f
 {
@@ -77,8 +77,8 @@ private:
     // 这两个顶点定义了具备最大extent的坐标轴向.
     // 如果固有维度是2,则m_aiExtreme[2]是另一个有效的顶点索引,
     // 该顶点定义了垂直于m_aiExtreme[0]和m_aiExtreme[1]坐标轴向上的最大extent.
-    // 三角形<V[extreme0],V[extreme1],V[extreme2]>可以是顺时针或者逆时针索引顺序,
-    // 由m_bExtremeCCW表明.
+    // 三角形<V[extreme0],V[extreme1],V[extreme2]>可以是顺时针或者逆时针索引
+    // 顺序, 由m_bExtremeCCW表明.
     int m_aiExtreme[3];
     bool m_bExtremeCCW;
 

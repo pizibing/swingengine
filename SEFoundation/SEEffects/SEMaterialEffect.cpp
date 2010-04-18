@@ -23,27 +23,27 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, MaterialEffect, ShaderEffect);
-SE_IMPLEMENT_STREAM(MaterialEffect);
-SE_IMPLEMENT_DEFAULT_STREAM(MaterialEffect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(MaterialEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEMaterialEffect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEMaterialEffect);
+SE_IMPLEMENT_DEFAULT_STREAM(SEMaterialEffect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEMaterialEffect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(MaterialEffect);
+//SE_REGISTER_STREAM(SEMaterialEffect);
 
 //----------------------------------------------------------------------------
-MaterialEffect::MaterialEffect()
+SEMaterialEffect::SEMaterialEffect()
     :
-    ShaderEffect()
+    SEShaderEffect()
 {
 }
 //----------------------------------------------------------------------------
-MaterialEffect::~MaterialEffect()
+SEMaterialEffect::~SEMaterialEffect()
 {
 }
 //----------------------------------------------------------------------------
-void MaterialEffect::SetPassCount(int iPassCount)
+void SEMaterialEffect::SetPassCount(int iPassCount)
 {
-    ShaderEffect::SetPassCount(iPassCount);
+    SEShaderEffect::SetPassCount(iPassCount);
 
     m_MaterialState.resize(iPassCount);
     m_CullState.resize(iPassCount);
@@ -63,10 +63,10 @@ void MaterialEffect::SetPassCount(int iPassCount)
     }
 }
 //----------------------------------------------------------------------------
-void MaterialEffect::SetGlobalState(int iPass, SERenderer* pRenderer,
+void SEMaterialEffect::SetGlobalState(int iPass, SERenderer* pRenderer,
         bool bPrimaryEffect)
 {
-    ShaderEffect::SetGlobalState(iPass, pRenderer, bPrimaryEffect);
+    SEShaderEffect::SetGlobalState(iPass, pRenderer, bPrimaryEffect);
 
     if( m_MaterialState[iPass] )
     {
@@ -117,10 +117,10 @@ void MaterialEffect::SetGlobalState(int iPass, SERenderer* pRenderer,
     }
 }
 //----------------------------------------------------------------------------
-void MaterialEffect::RestoreGlobalState(int iPass, SERenderer* pRenderer,
+void SEMaterialEffect::RestoreGlobalState(int iPass, SERenderer* pRenderer,
         bool bPrimaryEffect)
 {
-    ShaderEffect::RestoreGlobalState(iPass, pRenderer, bPrimaryEffect);
+    SEShaderEffect::RestoreGlobalState(iPass, pRenderer, bPrimaryEffect);
 
     if( m_MaterialState[iPass] )
     {
@@ -171,7 +171,7 @@ void MaterialEffect::RestoreGlobalState(int iPass, SERenderer* pRenderer,
     }
 }
 //----------------------------------------------------------------------------
-void MaterialEffect::AttachPassGlobalState(int iPass, SEGlobalState* pState)
+void SEMaterialEffect::AttachPassGlobalState(int iPass, SEGlobalState* pState)
 {
     SE_ASSERT( iPass >= 0 && iPass < m_iPassCount );
     SE_ASSERT( pState );
@@ -202,7 +202,7 @@ void MaterialEffect::AttachPassGlobalState(int iPass, SEGlobalState* pState)
     }
 }
 //----------------------------------------------------------------------------
-void MaterialEffect::DetachPassGlobalState(int iPass, 
+void SEMaterialEffect::DetachPassGlobalState(int iPass, 
     SEGlobalState::StateType eType)
 {
     SE_ASSERT( iPass >= 0 && iPass < m_iPassCount );
@@ -232,7 +232,7 @@ void MaterialEffect::DetachPassGlobalState(int iPass,
     }
 }
 //----------------------------------------------------------------------------
-SEGlobalState* MaterialEffect::GetPassGlobalState(int iPass, 
+SEGlobalState* SEMaterialEffect::GetPassGlobalState(int iPass, 
     SEGlobalState::StateType eType) const
 {
     SE_ASSERT( iPass >= 0 && iPass < m_iPassCount );
@@ -262,7 +262,7 @@ SEGlobalState* MaterialEffect::GetPassGlobalState(int iPass,
     }
 }
 //----------------------------------------------------------------------------
-void MaterialEffect::ConfigureShader()
+void SEMaterialEffect::ConfigureShader()
 {
     for( int i = 0; i < m_iPassCount; i++ )
     {

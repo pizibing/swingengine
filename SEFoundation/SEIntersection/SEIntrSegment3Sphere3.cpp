@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrSegment3Sphere3f::IntrSegment3Sphere3f(const SESegment3f& rSegment, 
+SEIntrSegment3Sphere3f::SEIntrSegment3Sphere3f(const SESegment3f& rSegment, 
     const SESphere3f& rSphere)
     :
     m_pSegment(&rSegment),
@@ -34,17 +34,17 @@ IntrSegment3Sphere3f::IntrSegment3Sphere3f(const SESegment3f& rSegment,
     ZeroThreshold = SEMath<float>::ZERO_TOLERANCE;
 }
 //----------------------------------------------------------------------------
-const SESegment3f& IntrSegment3Sphere3f::GetSegment() const
+const SESegment3f& SEIntrSegment3Sphere3f::GetSegment() const
 {
     return *m_pSegment;
 }
 //----------------------------------------------------------------------------
-const SESphere3f& IntrSegment3Sphere3f::GetSphere() const
+const SESphere3f& SEIntrSegment3Sphere3f::GetSphere() const
 {
     return *m_pSphere;
 }
 //----------------------------------------------------------------------------
-bool IntrSegment3Sphere3f::Test()
+bool SEIntrSegment3Sphere3f::Test()
 {
     SEVector3f vec3fDiff = m_pSegment->Origin - m_pSphere->Center;
     float fA0 = vec3fDiff.Dot(vec3fDiff) - m_pSphere->Radius*m_pSphere->Radius;
@@ -67,7 +67,7 @@ bool IntrSegment3Sphere3f::Test()
     return fQM > 0.0f && SEMath<float>::FAbs(fA1) < m_pSegment->Extent;
 }
 //----------------------------------------------------------------------------
-bool IntrSegment3Sphere3f::Find()
+bool SEIntrSegment3Sphere3f::Find()
 {
     // 待检查.
     // 线段端点在球上的情况过于复杂.
@@ -234,33 +234,31 @@ bool IntrSegment3Sphere3f::Find()
     return m_iCount > 0;
 }
 //----------------------------------------------------------------------------
-bool IntrSegment3Sphere3f::Test(float/*fTMax*/, const SEVector3f&/*rVelocity0*/, 
-    const SEVector3f&/*rVelocity1*/)
+bool SEIntrSegment3Sphere3f::Test(float, const SEVector3f&, const SEVector3f&)
 {
     // 待实现.
     return false;
 }
 //----------------------------------------------------------------------------
-bool IntrSegment3Sphere3f::Find(float/*fTMax*/, const SEVector3f&/*rVelocity0*/, 
-    const SEVector3f&/*rVelocity1*/)
+bool SEIntrSegment3Sphere3f::Find(float, const SEVector3f&, const SEVector3f&)
 {
     // 待实现.
     return false;
 }
 //----------------------------------------------------------------------------
-int IntrSegment3Sphere3f::GetCount() const
+int SEIntrSegment3Sphere3f::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-const SEVector3f& IntrSegment3Sphere3f::GetPoint(int i) const
+const SEVector3f& SEIntrSegment3Sphere3f::GetPoint(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 
     return m_aPoint[i];
 }
 //----------------------------------------------------------------------------
-float IntrSegment3Sphere3f::GetSegmentT(int i) const
+float SEIntrSegment3Sphere3f::GetSegmentT(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 

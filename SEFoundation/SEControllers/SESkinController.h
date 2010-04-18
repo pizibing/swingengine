@@ -32,9 +32,9 @@ namespace Swing
 class SENode;
 
 //----------------------------------------------------------------------------
-// 说明:由CPU进行蒙皮顶点计算.
-// 作者:Sun Che
-// 时间:20080826
+// Description:由CPU进行蒙皮顶点计算.
+// Author:Sun Che
+// Date:20080826
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SESkinController : public SEController
 {

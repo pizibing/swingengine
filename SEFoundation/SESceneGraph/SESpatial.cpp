@@ -205,7 +205,7 @@ void SESpatial::DetachLight(SELight* pLight)
     }
 }
 //----------------------------------------------------------------------------
-void SESpatial::AttachEffect(Effect* pEffect)
+void SESpatial::AttachEffect(SEEffect* pEffect)
 {
     SE_ASSERT( pEffect );
 
@@ -223,9 +223,9 @@ void SESpatial::AttachEffect(Effect* pEffect)
     m_Effects.push_back(pEffect);
 }
 //----------------------------------------------------------------------------
-void SESpatial::DetachEffect(Effect* pEffect)
+void SESpatial::DetachEffect(SEEffect* pEffect)
 {
-    std::vector<EffectPtr>::iterator pIter = m_Effects.begin();
+    std::vector<SEEffectPtr>::iterator pIter = m_Effects.begin();
     for( /**/; pIter != m_Effects.end(); pIter++ )
     {
         if( pEffect == *pIter )
@@ -247,8 +247,9 @@ void SESpatial::UpdateRS(std::vector<SEGlobalState*>* aGStack,
         // render state应用顺序:
         //   (1) 默认global state.
         //   (2) SEGeometry覆盖默认global state.
-        //   (3) Effect所带state覆盖以上两者.
-        aGStack = SE_NEW std::vector<SEGlobalState*>[SEGlobalState::MAX_STATE_TYPE];
+        //   (3) SEEffect所带state覆盖以上两者.
+        aGStack = SE_NEW std::vector<SEGlobalState*>[
+            SEGlobalState::MAX_STATE_TYPE];
         for( int i = 0; i < SEGlobalState::MAX_STATE_TYPE; i++ )
         {
             aGStack[i].push_back(0);
@@ -553,7 +554,7 @@ SEObject* SESpatial::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SESpatial::Load(SEStream& rStream, SEStream::Link* pLink)
+void SESpatial::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -614,9 +615,9 @@ void SESpatial::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SESpatial);
 }
 //----------------------------------------------------------------------------
-void SESpatial::Link(SEStream& rStream, SEStream::Link* pLink)
+void SESpatial::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream, pLink);
+    SEObject::SELink(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     WorldBound = (SEBoundingVolume*)rStream.GetFromMap(pLinkID);
@@ -637,7 +638,7 @@ void SESpatial::Link(SEStream& rStream, SEStream::Link* pLink)
     for( i = 0; i < (int)m_Effects.size(); i++ )
     {
         pLinkID = pLink->GetLinkID();
-        m_Effects[i] = (Effect*)rStream.GetFromMap(pLinkID);
+        m_Effects[i] = (SEEffect*)rStream.GetFromMap(pLinkID);
     }
 }
 //----------------------------------------------------------------------------
@@ -749,7 +750,7 @@ int SESpatial::GetDiskUsed(const SEStreamVersion& rVersion) const
     iSize +=
         sizeof(int) + ((int)m_GlobalStates.size())*sizeof(SEGlobalStatePtr) +
         sizeof(int) + ((int)m_Lights.size())*sizeof(SELightPtr) +
-        sizeof(int) + ((int)m_Effects.size())*sizeof(EffectPtr);
+        sizeof(int) + ((int)m_Effects.size())*sizeof(SEEffectPtr);
 
     return iSize;
 }

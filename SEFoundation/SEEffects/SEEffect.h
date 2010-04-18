@@ -34,12 +34,11 @@ class SERenderer;
 class SEUnculledObject;
 
 //----------------------------------------------------------------------------
-// 名称:effect基类
-// 说明:
-// 作者:Sun Che
-// 时间:20080702
+// Description:
+// Author:Sun Che
+// Date:20080702
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Effect : public SEObject
+class SE_FOUNDATION_API SEEffect : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -47,7 +46,7 @@ class SE_FOUNDATION_API Effect : public SEObject
 
 public:
     // 虚基类
-    virtual ~Effect(void);
+    virtual ~SEEffect(void);
 
     // 重载这个函数从而可获得effect派生类的自定义渲染行为.
     // 默认情况下是依次渲染pVisibleSet中的geometry对象.
@@ -62,13 +61,14 @@ public:
     // 这些函数被SERenderer::LoadResources和SERenderer::ReleaseResources调用,
     // 用于geometry和effect对象.
     virtual void LoadResources(SERenderer* pRenderer, SEGeometry* pGeometry);
-    virtual void ReleaseResources(SERenderer* pRenderer, SEGeometry* pGeometry);
+    virtual void ReleaseResources(SERenderer* pRenderer, 
+        SEGeometry* pGeometry);
 
 protected:
-    Effect(void);
+    SEEffect(void);
 };
 
-typedef SESmartPointer<Effect> EffectPtr;
+typedef SESmartPointer<SEEffect> SEEffectPtr;
 
 }
 

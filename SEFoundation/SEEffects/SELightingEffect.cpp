@@ -23,28 +23,28 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, LightingEffect, ShaderEffect);
-SE_IMPLEMENT_STREAM(LightingEffect);
-SE_IMPLEMENT_DEFAULT_STREAM(LightingEffect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(LightingEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SELightingEffect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SELightingEffect);
+SE_IMPLEMENT_DEFAULT_STREAM(SELightingEffect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SELightingEffect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(LightingEffect);
+//SE_REGISTER_STREAM(SELightingEffect);
 
-LightingEffect::ConfigureLighting LightingEffect::OnConfigureLighting = 0;
+SELightingEffect::ConfigureLighting SELightingEffect::OnConfigureLighting = 0;
 
 //----------------------------------------------------------------------------
-LightingEffect::LightingEffect()
+SELightingEffect::SELightingEffect()
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     // 如果没有light,则Configure函数将会关闭该effect.
 }
 //----------------------------------------------------------------------------
-LightingEffect::~LightingEffect()
+SELightingEffect::~SELightingEffect()
 {
 }
 //----------------------------------------------------------------------------
-void LightingEffect::AttachLight(SELight* pLight)
+void SELightingEffect::AttachLight(SELight* pLight)
 {
     SE_ASSERT( pLight );
 
@@ -62,7 +62,7 @@ void LightingEffect::AttachLight(SELight* pLight)
     m_Lights.push_back(pLight);
 }
 //----------------------------------------------------------------------------
-void LightingEffect::DetachLight(SELight* pLight)
+void SELightingEffect::DetachLight(SELight* pLight)
 {
     std::vector<SELightPtr>::iterator pIter = m_Lights.begin();
     for( /**/; pIter != m_Lights.end(); pIter++ )
@@ -76,7 +76,7 @@ void LightingEffect::DetachLight(SELight* pLight)
     }
 }
 //----------------------------------------------------------------------------
-void LightingEffect::Configure(LightingMode eMode)
+void SELightingEffect::Configure(LightingMode eMode)
 {
     m_eMode = eMode;
 

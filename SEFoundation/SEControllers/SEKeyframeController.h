@@ -32,9 +32,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080825
+// Description:
+// Author:Sun Che
+// Date:20080825
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEKeyframeController : public SEController
 {

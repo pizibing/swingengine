@@ -28,21 +28,20 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Intersector1类
-// 说明:
-// 作者:Sun Che
-// 时间:20081223
+// Description:
+// Author:Sun Che
+// Date:20081223
 //----------------------------------------------------------------------------
 template <class Real>
-class SE_FOUNDATION_API Intersector1
+class SE_FOUNDATION_API SEIntersector1
 {
 public:
     // 用于1维区间[u0,u1]和[v0,v1]的intersection类.
     // 端点顺序必须是: u0 <= u1 且 v0 <= v1.值允许是MAX_REAL和-MAX_REAL,
     // 同时也允许退化的区间: u0 = u1 或 v0 = v1.
-    Intersector1(Real fU0, Real fU1, Real fV0, Real fV1);
-    Intersector1(Real afU[2], Real afV[2]);
-    virtual ~Intersector1(void);
+    SEIntersector1(Real fU0, Real fU1, Real fV0, Real fV1);
+    SEIntersector1(Real afU[2], Real afV[2]);
+    virtual ~SEIntersector1(void);
 
     // 区间访问.
     Real GetU(int i) const;
@@ -74,8 +73,8 @@ protected:
     Real m_afOverlap[2];
 };
 
-typedef Intersector1<float> Intersector1f;
-typedef Intersector1<double> Intersector1d;
+typedef SEIntersector1<float> SEIntersector1f;
+typedef SEIntersector1<double> SEIntersector1d;
 
 }
 

@@ -37,9 +37,9 @@ namespace Swing
 class SEController;
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080329
+// Description:
+// Author:Sun Che
+// Date:20080329
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEObject
 {
@@ -109,8 +109,8 @@ public:
     static void InitializeFactory(void);
     static void TerminateFactory(void);
     static SEObject* Factory(SEStream& rStream);
-    virtual void Load(SEStream& rStream, SEStream::Link* pLink);
-    virtual void Link(SEStream& rStream, SEStream::Link* pLink);
+    virtual void Load(SEStream& rStream, SEStream::SELink* pLink);
+    virtual void SELink(SEStream& rStream, SEStream::SELink* pLink);
     virtual bool Register(SEStream& rStream) const;
     virtual void Save(SEStream& rStream) const;
     virtual int GetDiskUsed(const SEStreamVersion& rVersion) const;

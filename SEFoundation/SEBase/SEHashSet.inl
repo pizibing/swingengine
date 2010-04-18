@@ -213,7 +213,8 @@ int SEHashSet<TKey>::HashFunction(const TKey& rKey) const
 
     static double s_dHashMultiplier = 0.5 * (sqrt(5.0) - 1.0);
     unsigned int uiKey;
-    SESystem::SE_Memcpy(&uiKey, sizeof(unsigned int), &rKey, sizeof(unsigned int));
+    SESystem::SE_Memcpy(&uiKey, sizeof(unsigned int), &rKey, 
+        sizeof(unsigned int));
     uiKey %= m_iTableSize;
     double dFraction = fmod(s_dHashMultiplier*uiKey, 1.0);
 

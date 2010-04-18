@@ -40,9 +40,9 @@ class SECuller;
 //  0 --------- 3
 
 //----------------------------------------------------------------------------
-// 说明:基于动态刷新VB的particle system.
-// 作者:Sun Che
-// 时间:20090602
+// Description:基于动态刷新VB的particle system.
+// Author:Sun Che
+// Date:20090602
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEParticles : public SETriMesh
 {

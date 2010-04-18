@@ -23,20 +23,20 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, TerrainEffect, ShaderEffect);
-SE_IMPLEMENT_STREAM(TerrainEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(TerrainEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SETerrainEffect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SETerrainEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SETerrainEffect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(TerrainEffect);
+//SE_REGISTER_STREAM(SETerrainEffect);
 
-float TerrainEffect::ms_afFogColorDensity[4] = {0.0f, 0.0f, 0.0f, 0.0f};
-bool TerrainEffect::ms_bFogColorDensityUCInitialized = false;
+float SETerrainEffect::ms_afFogColorDensity[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+bool SETerrainEffect::ms_bFogColorDensityUCInitialized = false;
 
 //----------------------------------------------------------------------------
-TerrainEffect::TerrainEffect(const char* acBaseName,
+SETerrainEffect::SETerrainEffect(const char* acBaseName,
     const char* acDetailName, const SEColorRGB& rFogColor, float fFogDensity)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader(
         "BaseMulDetailFogExpSqr.v_BaseMulDetailFogExpSqr");
@@ -59,15 +59,15 @@ TerrainEffect::TerrainEffect(const char* acBaseName,
     SetFogDensity(fFogDensity);
 }
 //----------------------------------------------------------------------------
-TerrainEffect::TerrainEffect()
+SETerrainEffect::SETerrainEffect()
 {
 }
 //----------------------------------------------------------------------------
-TerrainEffect::~TerrainEffect()
+SETerrainEffect::~SETerrainEffect()
 {
 }
 //----------------------------------------------------------------------------
-void TerrainEffect::OnLoadPrograms(int, SEProgram* pVProgram,
+void SETerrainEffect::OnLoadPrograms(int, SEProgram* pVProgram,
     SEProgram* pPProgram, SEProgram*)
 {
     if( !ms_bFogColorDensityUCInitialized )
@@ -88,45 +88,45 @@ void TerrainEffect::OnLoadPrograms(int, SEProgram* pVProgram,
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void TerrainEffect::Load(SEStream& rStream, SEStream::Link* pLink)
+void SETerrainEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    ShaderEffect::Load(rStream, pLink);
+    SEShaderEffect::Load(rStream, pLink);
 
     rStream.Read(4, ms_afFogColorDensity);
 
-    SE_END_DEBUG_STREAM_LOAD(TerrainEffect);
+    SE_END_DEBUG_STREAM_LOAD(SETerrainEffect);
 }
 //----------------------------------------------------------------------------
-void TerrainEffect::Link(SEStream& rStream, SEStream::Link* pLink)
+void SETerrainEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    ShaderEffect::Link(rStream, pLink);
+    SEShaderEffect::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool TerrainEffect::Register(SEStream& rStream) const
+bool SETerrainEffect::Register(SEStream& rStream) const
 {
-    return ShaderEffect::Register(rStream);
+    return SEShaderEffect::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void TerrainEffect::Save(SEStream& rStream) const
+void SETerrainEffect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    ShaderEffect::Save(rStream);
+    SEShaderEffect::Save(rStream);
 
     rStream.Write(4, ms_afFogColorDensity);
 
-    SE_END_DEBUG_STREAM_SAVE(TerrainEffect);
+    SE_END_DEBUG_STREAM_SAVE(SETerrainEffect);
 }
 //----------------------------------------------------------------------------
-int TerrainEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SETerrainEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return ShaderEffect::GetDiskUsed(rVersion) +
+    return SEShaderEffect::GetDiskUsed(rVersion) +
         4*sizeof(ms_afFogColorDensity[0]);
 }
 //----------------------------------------------------------------------------
-SEStringTree* TerrainEffect::SaveStrings(const char*)
+SEStringTree* SETerrainEffect::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -138,7 +138,7 @@ SEStringTree* TerrainEffect::SaveStrings(const char*)
     pTree->Append(Format("fog density =", ms_afFogColorDensity[3]));
 
     // children
-    pTree->Append(ShaderEffect::SaveStrings());
+    pTree->Append(SEShaderEffect::SaveStrings());
 
     return pTree;
 }

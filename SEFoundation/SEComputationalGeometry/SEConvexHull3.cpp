@@ -86,7 +86,8 @@ SEConvexHull3f::SEConvexHull3f(int iVertexCount,  SEVector3f* aVertex,
     m_aSVertex = SE_NEW SEVector3f[m_iVertexCount];
     int i;
 
-    if( eQueryType != SEQuery::QT_RATIONAL && eQueryType != SEQuery::QT_FILTERED )
+    if( eQueryType != SEQuery::QT_RATIONAL && eQueryType != 
+        SEQuery::QT_FILTERED )
     {
         // Transform the vertices to the cube [0, 1]^3.
         SEVector3f vec3fMin = tempMapper.GetMin();
@@ -132,7 +133,7 @@ SEConvexHull3f::SEConvexHull3f(int iVertexCount,  SEVector3f* aVertex,
 
         if( eQueryType == SEQuery::QT_RATIONAL )
         {
-            m_pQuery = SE_NEW SEQuery3TRationalf(m_iVertexCount,  m_aSVertex);
+            m_pQuery = SE_NEW SEQuery3TRationalf(m_iVertexCount, m_aSVertex);
         }
         else // eQueryType == SEQuery::QT_FILTERED
         {
@@ -315,8 +316,8 @@ bool SEConvexHull3f::Update(int i)
                     // Adjacent triangle is invisible.
                     iV0 = pTri->V[j];
                     iV1 = pTri->V[(j + 1) % 3];
-                    tempTerminator[iV0] = SETerminatorData(iV0,  iV1,  iNullIndex, 
-                        pAdj);
+                    tempTerminator[iV0] = SETerminatorData(iV0, iV1, 
+                        iNullIndex, pAdj);
                 }
             }
         }
@@ -504,23 +505,23 @@ bool SEConvexHull3f::Save(const char* acFilename) const
     int iVC = 3 * m_iVertexCount;
     if( uiSize == 4 )
     {
-        SESystem::SE_Write4le(pOFile,  iVC,  m_aVertex);
-        SESystem::SE_Write4le(pOFile,  iVC,  m_aSVertex);
-        SESystem::SE_Write4le(pOFile,  3,  (const float*)m_LineOrigin);
-        SESystem::SE_Write4le(pOFile,  3,  (const float*)m_LineDirection);
-        SESystem::SE_Write4le(pOFile,  3,  (const float*)m_PlaneOrigin);
-        SESystem::SE_Write4le(pOFile,  3,  (const float*)m_aPlaneDirection[0]);
-        SESystem::SE_Write4le(pOFile,  3,  (const float*)m_aPlaneDirection[1]);
+        SESystem::SE_Write4le(pOFile, iVC, m_aVertex);
+        SESystem::SE_Write4le(pOFile, iVC, m_aSVertex);
+        SESystem::SE_Write4le(pOFile, 3, (const float*)m_LineOrigin);
+        SESystem::SE_Write4le(pOFile, 3, (const float*)m_LineDirection);
+        SESystem::SE_Write4le(pOFile, 3, (const float*)m_PlaneOrigin);
+        SESystem::SE_Write4le(pOFile, 3, (const float*)m_aPlaneDirection[0]);
+        SESystem::SE_Write4le(pOFile, 3, (const float*)m_aPlaneDirection[1]);
     }
     else // iSize == 8
     {
-        SESystem::SE_Write8le(pOFile,  iVC,  m_aVertex);
-        SESystem::SE_Write8le(pOFile,  iVC,  m_aSVertex);
-        SESystem::SE_Write8le(pOFile,  3,  (const float*)m_LineOrigin);
-        SESystem::SE_Write8le(pOFile,  3,  (const float*)m_LineDirection);
-        SESystem::SE_Write8le(pOFile,  3,  (const float*)m_PlaneOrigin);
-        SESystem::SE_Write8le(pOFile,  3,  (const float*)m_aPlaneDirection[0]);
-        SESystem::SE_Write8le(pOFile,  3,  (const float*)m_aPlaneDirection[1]);
+        SESystem::SE_Write8le(pOFile, iVC, m_aVertex);
+        SESystem::SE_Write8le(pOFile, iVC, m_aSVertex);
+        SESystem::SE_Write8le(pOFile, 3, (const float*)m_LineOrigin);
+        SESystem::SE_Write8le(pOFile, 3, (const float*)m_LineDirection);
+        SESystem::SE_Write8le(pOFile, 3, (const float*)m_PlaneOrigin);
+        SESystem::SE_Write8le(pOFile, 3, (const float*)m_aPlaneDirection[0]);
+        SESystem::SE_Write8le(pOFile, 3, (const float*)m_aPlaneDirection[1]);
     }
 
     SESystem::SE_Fclose(pOFile);

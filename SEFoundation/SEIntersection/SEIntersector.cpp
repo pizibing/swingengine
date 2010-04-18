@@ -25,31 +25,31 @@ namespace Swing
 {
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-Intersector<Real, TVector>::Intersector()
+SEIntersector<Real, TVector>::SEIntersector()
 {
     m_fContactTime = (Real)0.0;
     m_iIntersectionType = IT_EMPTY;
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-Intersector<Real, TVector>::~Intersector()
+SEIntersector<Real, TVector>::~SEIntersector()
 {
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-Real Intersector<Real, TVector>::GetContactTime() const
+Real SEIntersector<Real, TVector>::GetContactTime() const
 {
     return m_fContactTime;
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-int Intersector<Real, TVector>::GetIntersectionType() const
+int SEIntersector<Real, TVector>::GetIntersectionType() const
 {
     return m_iIntersectionType;
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-bool Intersector<Real, TVector>::Test()
+bool SEIntersector<Real, TVector>::Test()
 {
     // 由派生类负责实现.
     SE_ASSERT( false );
@@ -58,7 +58,7 @@ bool Intersector<Real, TVector>::Test()
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-bool Intersector<Real, TVector>::Find()
+bool SEIntersector<Real, TVector>::Find()
 {
     // 由派生类负责实现.
     SE_ASSERT( false );
@@ -67,7 +67,7 @@ bool Intersector<Real, TVector>::Find()
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-bool Intersector<Real, TVector>::Test(Real, const TVector&, const TVector&)
+bool SEIntersector<Real, TVector>::Test(Real, const TVector&, const TVector&)
 {
     // 由派生类负责实现.
     SE_ASSERT( false );
@@ -76,7 +76,7 @@ bool Intersector<Real, TVector>::Test(Real, const TVector&, const TVector&)
 }
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-bool Intersector<Real, TVector>::Find(Real, const TVector&, const TVector&)
+bool SEIntersector<Real, TVector>::Find(Real, const TVector&, const TVector&)
 {
     // 由派生类负责实现.
     SE_ASSERT( false );
@@ -89,15 +89,15 @@ bool Intersector<Real, TVector>::Find(Real, const TVector&, const TVector&)
 // explicit instantiation
 //----------------------------------------------------------------------------
 template SE_FOUNDATION_API
-class Intersector<float, SEVector2f>;
+class SEIntersector<float, SEVector2f>;
 
 template SE_FOUNDATION_API
-class Intersector<float, SEVector3f>;
+class SEIntersector<float, SEVector3f>;
 
 //template SE_FOUNDATION_API
-//class Intersector<double, SEVector2d>;
+//class SEIntersector<double, SEVector2d>;
 //
 //template SE_FOUNDATION_API
-//class Intersector<double, SEVector3d>;
+//class SEIntersector<double, SEVector3d>;
 //----------------------------------------------------------------------------
 }

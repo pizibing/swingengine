@@ -29,27 +29,26 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Gaussian blur vertically effect类
-// 说明:
-// 作者:Sun Che
-// 时间:20090310
+// Description:
+// Author:Sun Che
+// Date:20090310
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API GaussianBlurVEffect : public ShaderEffect
+class SE_FOUNDATION_API SEGaussianBlurVEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    GaussianBlurVEffect(const std::string& rBaseName);
-    virtual ~GaussianBlurVEffect(void);
+    SEGaussianBlurVEffect(const std::string& rBaseName);
+    virtual ~SEGaussianBlurVEffect(void);
 
     // 根据color buffer尺寸调整texel kernel.
     static void GenerateTexelKernel(int iWidth, int iHeight);
 
 protected:
     // streaming
-    GaussianBlurVEffect(void);
+    SEGaussianBlurVEffect(void);
 
     virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
         SEProgram* pPProgram, SEProgram* pGProgram);
@@ -69,7 +68,7 @@ protected:
     static bool ms_bTexelKernelUCInitialized;
 };
 
-typedef SESmartPointer<GaussianBlurVEffect> GaussianBlurVEffectPtr;
+typedef SESmartPointer<SEGaussianBlurVEffect> SEGaussianBlurVEffectPtr;
 
 }
 

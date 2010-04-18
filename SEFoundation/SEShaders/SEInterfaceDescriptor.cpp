@@ -60,7 +60,8 @@ void SEInterfaceDescriptor::DetachItem(SEDescriptorItem* pItem)
     SE_ASSERT( pItem );
 
     // ÊÇ·ñ´æÔÚ¸Ãitem.
-    std::vector<SEDescriptorItemPtr>::iterator pIter = m_DescriptorItems.begin();
+    std::vector<SEDescriptorItemPtr>::iterator pIter = 
+        m_DescriptorItems.begin();
     for( /**/ ; pIter != m_DescriptorItems.end(); pIter++ )
     {
         if( *pIter == pItem )
@@ -93,7 +94,7 @@ void SEInterfaceDescriptor::GetDescription(std::string& rDesc) const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEInterfaceDescriptor::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEInterfaceDescriptor::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -113,9 +114,9 @@ void SEInterfaceDescriptor::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEInterfaceDescriptor);
 }
 //----------------------------------------------------------------------------
-void SEInterfaceDescriptor::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEInterfaceDescriptor::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream, pLink);
+    SEObject::SELink(rStream, pLink);
 
     for( int i = 0; i < (int)m_DescriptorItems.size(); i++ )
     {

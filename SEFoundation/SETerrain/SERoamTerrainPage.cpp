@@ -182,12 +182,18 @@ float SERoamTerrainPage::GetHeight(float fX, float fZ) const
         // 获取当前所在最小triangle.
         while( pCurTriangle->pLeftChild != 0 )
         {
-            Apex.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).X;
-            Apex.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).Z;
-            Left.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).X;
-            Left.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).Z;
-            Right.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).X;
-            Right.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).Z;
+            Apex.X = (*(SEVector3f*)VBuffer->PositionTuple(
+                pCurTriangle->ApexIndex)).X;
+            Apex.Y = (*(SEVector3f*)VBuffer->PositionTuple(
+                pCurTriangle->ApexIndex)).Z;
+            Left.X = (*(SEVector3f*)VBuffer->PositionTuple(
+                pCurTriangle->LeftIndex)).X;
+            Left.Y = (*(SEVector3f*)VBuffer->PositionTuple(
+                pCurTriangle->LeftIndex)).Z;
+            Right.X = (*(SEVector3f*)VBuffer->PositionTuple(
+                pCurTriangle->RightIndex)).X;
+            Right.Y = (*(SEVector3f*)VBuffer->PositionTuple(
+                pCurTriangle->RightIndex)).Z;
 
             A = Left - Apex;
             B = Right - Apex;
@@ -209,12 +215,18 @@ float SERoamTerrainPage::GetHeight(float fX, float fZ) const
         }
 
         // 插值计算所在点高度.
-        Apex.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).X;
-        Apex.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).Z;
-        Left.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).X;
-        Left.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).Z;
-        Right.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).X;
-        Right.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).Z;
+        Apex.X = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->ApexIndex)).X;
+        Apex.Y = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->ApexIndex)).Z;
+        Left.X = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->LeftIndex)).X;
+        Left.Y = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->LeftIndex)).Z;
+        Right.X = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->RightIndex)).X;
+        Right.Y = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->RightIndex)).Z;
 
         A = Left - Apex;
         B = Right - Apex;
@@ -228,15 +240,24 @@ float SERoamTerrainPage::GetHeight(float fX, float fZ) const
         fCdB = C.Dot(B);
 
         SEVector3f Apex3, Left3, Right3, CurPoint3;
-        Apex3.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).X;
-        Apex3.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).Z;
-        Apex3.Z = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->ApexIndex)).Y;
-        Left3.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).X;
-        Left3.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).Z;
-        Left3.Z = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->LeftIndex)).Y;
-        Right3.X = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).X;
-        Right3.Y = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).Z;
-        Right3.Z = (*(SEVector3f*)VBuffer->PositionTuple(pCurTriangle->RightIndex)).Y;
+        Apex3.X = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->ApexIndex)).X;
+        Apex3.Y = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->ApexIndex)).Z;
+        Apex3.Z = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->ApexIndex)).Y;
+        Left3.X = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->LeftIndex)).X;
+        Left3.Y = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->LeftIndex)).Z;
+        Left3.Z = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->LeftIndex)).Y;
+        Right3.X = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->RightIndex)).X;
+        Right3.Y = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->RightIndex)).Z;
+        Right3.Z = (*(SEVector3f*)VBuffer->PositionTuple(
+            pCurTriangle->RightIndex)).Y;
 
         float fdLAHeight = Left3.Z - Apex3.Z;
         float fdRAHeight = Right3.Z - Apex3.Z;
@@ -253,13 +274,17 @@ float SERoamTerrainPage::GetHeight(float fX, float fZ) const
         float fdY = fMSpaceZ - iCellY;
 
         float fLBHeight = 
-            (*(SEVector3f*)VBuffer->PositionTuple(iCellX + iCellY*m_iSize)).Y;
+            (*(SEVector3f*)VBuffer->PositionTuple(iCellX + 
+            iCellY*m_iSize)).Y;
         float fRBHeight = 
-            (*(SEVector3f*)VBuffer->PositionTuple(iCellX + 1 + iCellY*m_iSize)).Y;
+            (*(SEVector3f*)VBuffer->PositionTuple(iCellX + 1 + 
+            iCellY*m_iSize)).Y;
         float fLTHeight = 
-            (*(SEVector3f*)VBuffer->PositionTuple(iCellX + (iCellY + 1)*m_iSize)).Y;
+            (*(SEVector3f*)VBuffer->PositionTuple(iCellX + (iCellY + 1)*
+            m_iSize)).Y;
         float fRTHeight = 
-            (*(SEVector3f*)VBuffer->PositionTuple(iCellX + 1 + (iCellY + 1)*m_iSize)).Y;
+            (*(SEVector3f*)VBuffer->PositionTuple(iCellX + 1 + (iCellY + 1)*
+            m_iSize)).Y;
 
         if( fdY <= -fdX + 1 )
         {
@@ -273,7 +298,8 @@ float SERoamTerrainPage::GetHeight(float fX, float fZ) const
             float fdTopHeight = fLTHeight - fRTHeight;
             float fdRightHeight = fRBHeight - fRTHeight;
             
-            fTempHeight = fRTHeight + (1.0f - fdX)*fdTopHeight + (1.0f - fdY)*fdRightHeight;
+            fTempHeight = fRTHeight + (1.0f - fdX)*fdTopHeight + (1.0f - fdY)
+                *fdRightHeight;
         }
     }
 
@@ -362,7 +388,8 @@ void SERoamTerrainPage::ResetPatches()
                             m_pTerrain->GetPage(m_iRow, m_iCol - 1);
                         pBaseLeft = m_Patches[iPatchY][iPatchX].GetBaseLeft();
                         pBaseLeft->pRightNeighbor = 
-                            pLeftPage->m_Patches[iPatchY][m_iPatchesPerSide - 1].GetBaseRight();
+                            pLeftPage->m_Patches[iPatchY][m_iPatchesPerSide - 
+                            1].GetBaseRight();
                     }
                 }
 
@@ -409,8 +436,8 @@ void SERoamTerrainPage::ResetPatches()
                         SERoamTerrainPage* pDownwardPage = 
                             m_pTerrain->GetPage(m_iRow - 1, m_iCol);
                         pBaseLeft = m_Patches[iPatchY][iPatchX].GetBaseLeft();
-                        pBaseLeft->pLeftNeighbor = 
-                            pDownwardPage->m_Patches[m_iPatchesPerSide - 1][iPatchX].GetBaseRight();
+                        pBaseLeft->pLeftNeighbor = pDownwardPage->m_Patches[
+                            m_iPatchesPerSide - 1][iPatchX].GetBaseRight();
                     }
                 }
 
@@ -432,7 +459,8 @@ void SERoamTerrainPage::ResetPatches()
                         // 这里应该连接到上面相邻的SERoamTerrainPage.
                         SERoamTerrainPage* pUpwardPage = 
                             m_pTerrain->GetPage(m_iRow + 1, m_iCol);
-                        pBaseRight = m_Patches[iPatchY][iPatchX].GetBaseRight();
+                        pBaseRight = m_Patches[iPatchY][
+                            iPatchX].GetBaseRight();
                         pBaseRight->pLeftNeighbor = 
                             pUpwardPage->m_Patches[0][iPatchX].GetBaseLeft();
                     }
@@ -442,7 +470,8 @@ void SERoamTerrainPage::ResetPatches()
     }
 }
 //----------------------------------------------------------------------------
-void SERoamTerrainPage::SimplifyPatches(const SECamera* pCamera, SECuller& rCuller)
+void SERoamTerrainPage::SimplifyPatches(const SECamera* pCamera, SECuller& 
+    rCuller)
 {
     bool bSingleVisible = rCuller.IsSingleInFrustum(WorldBound);
     if( !bSingleVisible )
@@ -566,7 +595,7 @@ SERoamTriTreeNode* SERoamTerrainPage::AllocateTri()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SERoamTerrainPage::Load(SEStream& rStream, SEStream::Link* pLink)
+void SERoamTerrainPage::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -590,9 +619,9 @@ void SERoamTerrainPage::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SERoamTerrainPage);
 }
 //----------------------------------------------------------------------------
-void SERoamTerrainPage::Link(SEStream& rStream, SEStream::Link* pLink)
+void SERoamTerrainPage::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SETriMesh::Link(rStream, pLink);
+    SETriMesh::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SERoamTerrainPage::Register(SEStream& rStream) const

@@ -29,9 +29,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080312
+// Description:
+// Author:Sun Che
+// Date:20080312
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEColorRGB
 {
@@ -73,7 +73,8 @@ public:
     SEColorRGB operator - (const SEColorRGB& rColor) const;
     SEColorRGB operator * (const SEColorRGB& rColor) const;
     SEColorRGB operator * (float fScalar) const;
-    SE_FOUNDATION_API friend SEColorRGB operator * (float fScalar, const SEColorRGB& rColor);
+    SE_FOUNDATION_API friend SEColorRGB operator * (float fScalar, const 
+        SEColorRGB& rColor);
 
     SEColorRGB& operator += (const SEColorRGB& rColor);
     SEColorRGB& operator -= (const SEColorRGB& rColor);

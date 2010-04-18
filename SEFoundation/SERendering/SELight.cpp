@@ -100,7 +100,7 @@ bool SELight::IsValidFrame() const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SELight::Load(SEStream& rStream, SEStream::Link* pLink)
+void SELight::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -127,9 +127,9 @@ void SELight::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SELight);
 }
 //----------------------------------------------------------------------------
-void SELight::Link(SEStream& rStream, SEStream::Link* pLink)
+void SELight::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream, pLink);
+    SEObject::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SELight::Register(SEStream& rStream) const

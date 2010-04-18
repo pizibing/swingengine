@@ -44,7 +44,8 @@ inline SEFrameBuffer::BufferingType SERenderer::GetBufferingType() const
     return m_eBuffering;
 }
 //----------------------------------------------------------------------------
-inline SEFrameBuffer::MultisamplingType SERenderer::GetMultisamplingType() const
+inline SEFrameBuffer::MultisamplingType SERenderer::GetMultisamplingType() 
+    const
 {
     return m_eMultisampling;
 }

@@ -36,11 +36,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:VB原始数据保存在系统内存中,
+// Description:VB原始数据保存在系统内存中,
 //      在显存中可以存在多个该VB的实例,由具体图形API负责创建,
 //      每个显存实例都是该VB数据的子集,供某effect使用.
-// 作者:Sun Che
-// 时间:20080319
+// Author:Sun Che
+// Date:20080319
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEVertexBuffer : public SEObject, public SEBindable
 {
@@ -104,8 +104,9 @@ public:
     SEVector4f TCoord4(int iUnit, int i) const;
 
     // 用来根据当前VB创建一个与vertex program inputs兼容的数组数据,
-    // rCompatible保存该兼容数组,如果rCompatible传入空指针,则此函数动态为其分配内存,
-    // 调用者有责任删除该内存,也可以传入非空指针,前提是你已经知道该数据区大小.
+    // rCompatible保存该兼容数组,如果rCompatible传入空指针,则此函数动态为其分
+    // 配内存,调用者有责任删除该内存,也可以传入非空指针,前提是你已经知道该数据
+    // 区大小.
     //
     // bPackARGB目前针对DirectX9,因为DirectX9需要ARGB(8-bit,共32-bit)颜色通道,
     // 而不是OpenGL的[0,1]区间浮点值颜色通道(32-bit,共128-bit),

@@ -31,17 +31,16 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Intersector虚基类
-// 说明:
-// 作者:Sun Che
-// 时间:20081219
+// Description:
+// Author:Sun Che
+// Date:20081219
 //----------------------------------------------------------------------------
 template <class Real, class TVector>
-class SE_FOUNDATION_API Intersector
+class SE_FOUNDATION_API SEIntersector
 {
 public:
     // 虚基类
-    virtual ~Intersector(void);
+    virtual ~SEIntersector(void);
 
     // 静态相交查询.默认实现返回false.
     // Find查询返回一个相交集.派生类有责任提供访问该集合的功能,
@@ -76,16 +75,16 @@ public:
     int GetIntersectionType(void) const;
 
 protected:
-    Intersector(void);
+    SEIntersector(void);
 
     Real m_fContactTime;
     int m_iIntersectionType;
 };
 
-typedef Intersector<float, SEVector2f> Intersector2f;
-typedef Intersector<float, SEVector3f> Intersector3f;
-//typedef Intersector<double, SEVector2d> Intersector2d;
-//typedef Intersector<double, SEVector3d> Intersector3d;
+typedef SEIntersector<float, SEVector2f> SEIntersector2f;
+typedef SEIntersector<float, SEVector3f> SEIntersector3f;
+typedef SEIntersector<double, SEVector2d> SEIntersector2d;
+typedef SEIntersector<double, SEVector3d> SEIntersector3d;
 
 }
 

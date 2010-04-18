@@ -32,9 +32,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:支持1D,2D,3D纹理
-// 作者:Sun Che
-// 时间:20080630
+// Description:支持1D,2D,3D纹理
+// Author:Sun Che
+// Date:20080630
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SETexture : public SEObject, public SEBindable
 {
@@ -104,7 +104,7 @@ public:
     inline void SetOffscreenTexture(bool bOffscreenTexture);
 
 protected:
-    ImagePtr m_spImage;
+    SEImagePtr m_spImage;
     FilterType m_eFType;       // default = LINEAR
     WrapType m_eWrapTypes[3];  // default = CLAMP_EDGE
     SEColorRGBA m_BorderColor;   // default = BLACK

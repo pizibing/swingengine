@@ -383,8 +383,8 @@ float SEDistSegment3Segment3f::Get(float fS1, const SEVector3f& rVelocity0,
     return SEDistSegment3Segment3f(tempMSegment0, tempMSegment1).Get();
 }
 //----------------------------------------------------------------------------
-float SEDistSegment3Segment3f::GetSquared(float fS1, const SEVector3f& rVelocity0, 
-    const SEVector3f& rVelocity1)
+float SEDistSegment3Segment3f::GetSquared(float fS1, const SEVector3f& 
+    rVelocity0, const SEVector3f& rVelocity1)
 {
     SEVector3f vec3fMOrigin0 = m_pSegment0->Origin + fS1*rVelocity0;
     SEVector3f vec3fMOrigin1 = m_pSegment1->Origin + fS1*rVelocity1;

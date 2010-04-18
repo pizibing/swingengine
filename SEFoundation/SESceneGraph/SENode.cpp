@@ -37,7 +37,7 @@ SENode::~SENode()
 {
     for( int i = 0; i < (int)m_Child.size(); i++ )
     {
-        SpatialPtr spChild = DetachChildAt(i);
+        SESpatialPtr spChild = DetachChildAt(i);
         spChild = 0;
     }
 }
@@ -49,8 +49,9 @@ int SENode::AttachChild(SESpatial* pChild)
     // 这个断言的使用,使开发者意识到当前子节点的原有亲子关系正要被破坏,
     // 为了安全考虑,你应该首先调用DetachChild函数使子节点脱离原有亲子关系,
     // 之后再调用AttachChild或SetChild函数.
-    // 但是一定要注意到,调用DetachChild时有可能使你的子节点引用计数为0从而自我析构,
-    // 安全的做法是,用一个智能指针引用该子节点,然后调用DetachChild,如下所示:
+    // 但是一定要注意到,调用DetachChild时有可能使你的子节点引用计数为0从而自我
+    // 析构,安全的做法是,用一个智能指针引用该子节点,然后调用DetachChild,如下
+    // 所示:
     //
     //     SENode* pNode0 = SE_NEW SENode;
     //     SESpatial* pChild0 = <...>;
@@ -61,7 +62,7 @@ int SENode::AttachChild(SESpatial* pChild)
     //     pNode1->AttachChild(pChild0);
     //
     //     // 取而代之我们应这样做,同时防止子节点自我析构.
-    //     SpatialPtr spSaveChild = pNode0->GetChild(0);
+    //     SESpatialPtr spSaveChild = pNode0->GetChild(0);
     //     pNode0->DetachChild(spSaveChild);
     //     pNode1->AttachChild(spSaveChild);
 
@@ -109,11 +110,11 @@ int SENode::DetachChild(SESpatial* pChild)
     return -1;
 }
 //----------------------------------------------------------------------------
-SpatialPtr SENode::DetachChildAt(int i)
+SESpatialPtr SENode::DetachChildAt(int i)
 {
     if( 0 <= i && i < (int)m_Child.size() )
     {
-        SpatialPtr spChild = m_Child[i];
+        SESpatialPtr spChild = m_Child[i];
         if( spChild )
         {
             // 存在则移除
@@ -127,15 +128,16 @@ SpatialPtr SENode::DetachChildAt(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-SpatialPtr SENode::SetChild(int i, SESpatial* pChild)
+SESpatialPtr SENode::SetChild(int i, SESpatial* pChild)
 {
     // 一些开发者希望node节点对象可以有多个父节点,从而使场景视图成为DAG.
     // 实际上不是这样,场景视图结构是一个树型结构.
     // 这个断言的使用,使开发者意识到当前子节点的原有亲子关系正要被破坏,
     // 为了安全考虑,你应该首先调用DetachChild函数使子节点脱离原有亲子关系,
     // 之后再调用AttachChild或SetChild函数.
-    // 但是一定要注意到,调用DetachChild时有可能使你的子节点引用计数为0从而自我析构,
-    // 安全的做法是,用一个智能指针引用该子节点,然后调用DetachChild,如下所示:
+    // 但是一定要注意到,调用DetachChild时有可能使你的子节点引用计数为0从而自我
+    // 析构,安全的做法是,用一个智能指针引用该子节点,然后调用DetachChild,如下
+    // 所示:
     //
     //     SENode* pNode0 = SE_NEW SENode;
     //     SESpatial* pChild0 = <...>;
@@ -146,7 +148,7 @@ SpatialPtr SENode::SetChild(int i, SESpatial* pChild)
     //     pNode1->AttachChild(pChild0);
     //
     //     // 取而代之我们应这样做,同时防止子节点自我析构.
-    //     SpatialPtr spSaveChild = pNode0->GetChild(0);
+    //     SESpatialPtr spSaveChild = pNode0->GetChild(0);
     //     pNode0->DetachChild(spSaveChild);
     //     pNode1->AttachChild(spSaveChild);
 
@@ -158,7 +160,7 @@ SpatialPtr SENode::SetChild(int i, SESpatial* pChild)
     if( 0 <= i && i < (int)m_Child.size() )
     {
         // 移除slot中旧有子节点
-        SpatialPtr spPreviousChild = m_Child[i];
+        SESpatialPtr spPreviousChild = m_Child[i];
         if( spPreviousChild )
         {
             spPreviousChild->SetParent(0);
@@ -182,7 +184,7 @@ SpatialPtr SENode::SetChild(int i, SESpatial* pChild)
     return 0;
 }
 //----------------------------------------------------------------------------
-SpatialPtr SENode::GetChild(int i)
+SESpatialPtr SENode::GetChild(int i)
 {
     if( 0 <= i && i < (int)m_Child.size() )
     {
@@ -261,8 +263,8 @@ void SENode::GetUnculledSet(SECuller& rCuller, bool bNoCull)
     }
 
     // SENode节点有责任进行AB递归,从而完成场景视图树的遍历.
-    // 所有被加入可见对象集中的SEGeometry子节点都处在当前节点global effect的作用域中,
-    // 这些SEGeometry子节点都将使用该global effect进行渲染.
+    // 所有被加入可见对象集中的SEGeometry子节点都处在当前节点global effect的作
+    // 用域中,这些SEGeometry子节点都将使用该global effect进行渲染.
     for( i = 0; i < (int)m_Child.size(); i++ )
     {
         SESpatial* pChild = m_Child[i];
@@ -365,7 +367,7 @@ SEObject* SENode::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SENode::Load(SEStream& rStream, SEStream::Link* pLink)
+void SENode::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -391,9 +393,9 @@ void SENode::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SENode);
 }
 //----------------------------------------------------------------------------
-void SENode::Link(SEStream& rStream, SEStream::Link* pLink)
+void SENode::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SESpatial::Link(rStream, pLink);
+    SESpatial::SELink(rStream, pLink);
 
     for( int i = 0; i < (int)m_Child.size(); i++ )
     {

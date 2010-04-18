@@ -30,9 +30,9 @@ namespace Swing
 template <int N> class SETRational;
 
 //----------------------------------------------------------------------------
-// 说明:N is the number of 32-bit words you want per SETInteger.
-// 作者:Sun Che
-// 时间:20081201
+// Description:N is the number of 32-bit words you want per SETInteger.
+// Author:Sun Che
+// Date:20081201
 //----------------------------------------------------------------------------
 template <int N>
 class SETInteger
@@ -77,20 +77,20 @@ public:
     SETInteger& operator >>= (int iShift);
 
 private:
-    // Support for comparisons.  The return value of Compare is -1 if I0 < I1, 
+    // Support for comparisons. The return value of Compare is -1 if I0 < I1, 
     // is 0 if I0 == I1,  or is +1 if I0 > I1.
-    static int Compare(const SETInteger& rI0,  const SETInteger& rI1);
+    static int Compare(const SETInteger& rI0, const SETInteger& rI1);
     int GetSign(void) const;
 
     // support for division and modulo
-    static bool GetDivMod(const SETInteger& rNumer,  const SETInteger& rDenom, 
-        SETInteger& rQuotient,  SETInteger& rRemainder);
+    static bool GetDivMod(const SETInteger& rNumer, const SETInteger& rDenom, 
+        SETInteger& rQuotient, SETInteger& rRemainder);
 
-    static void DivSingle(const SETInteger& rNumer,  short usDenom, 
-        SETInteger& rQuo,  SETInteger& rRem);
+    static void DivSingle(const SETInteger& rNumer, short usDenom, 
+        SETInteger& rQuo, SETInteger& rRem);
 
-    static void DivMultiple(const SETInteger& rNumer,  const SETInteger& rDenom, 
-        SETInteger& rQuo,  SETInteger& rRem);
+    static void DivMultiple(const SETInteger& rNumer, const SETInteger& rDenom, 
+        SETInteger& rQuo, SETInteger& rRem);
 
     // miscellaneous utilities
     int GetLeadingBlock(void) const;

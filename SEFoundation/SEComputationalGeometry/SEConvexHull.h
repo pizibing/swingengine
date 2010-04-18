@@ -29,9 +29,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20081201
+// Description:
+// Author:Sun Che
+// Date:20081201
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEConvexHullf
 {
@@ -85,12 +85,12 @@ public:
     //   vertex[2] = V[I[3*i+2]]
 
 protected:
-    // Abstract base class.  The number of vertices to be processed is
-    // iVCount.  The value of fEpsilon is a tolerance used for determining
-    // the intrinsic dimension of the input set of vertices.  Ownership of the
+    // Abstract base class. The number of vertices to be processed is
+    // iVCount. The value of fEpsilon is a tolerance used for determining
+    // the intrinsic dimension of the input set of vertices. Ownership of the
     // input points to the constructors for the derived classes may be
-    // transferred to this class.  If you want the input vertices to be
-    // deleted by this class,  set bOwner to 'true'; otherwise,  you own the
+    // transferred to this class. If you want the input vertices to be
+    // deleted by this class, set bOwner to 'true'; otherwise, you own the
     // array and must delete it yourself.
     SEConvexHullf(int iVertexCount,  float fEpsilon,  bool bOwner, 
         SEQuery::Type eQueryType);

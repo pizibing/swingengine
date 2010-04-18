@@ -30,9 +30,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080723
+// Description:
+// Author:Sun Che
+// Date:20080723
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SENode : public SESpatial
 {
@@ -48,9 +48,9 @@ public:
     inline int GetCount(void) const;
     int AttachChild(SESpatial* pChild);
     int DetachChild(SESpatial* pChild);
-    SpatialPtr DetachChildAt(int i);
-    SpatialPtr SetChild(int i, SESpatial* pChild);
-    SpatialPtr GetChild(int i);
+    SESpatialPtr DetachChildAt(int i);
+    SESpatialPtr SetChild(int i, SESpatial* pChild);
+    SESpatialPtr GetChild(int i);
 
     // Picking support.
     // 射线的原点和方向向量都必须在世界坐标系下.
@@ -70,7 +70,7 @@ protected:
     virtual void GetUnculledSet(SECuller& rCuller, bool bNoCull);
 
     // 子节点数组
-    std::vector<SpatialPtr> m_Child;
+    std::vector<SESpatialPtr> m_Child;
 };
 
 typedef SESmartPointer<SENode> SENodePtr;

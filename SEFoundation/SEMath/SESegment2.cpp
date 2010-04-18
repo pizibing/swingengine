@@ -28,8 +28,8 @@ SESegment2f::SESegment2f()
 {
 }
 //----------------------------------------------------------------------------
-SESegment2f::SESegment2f(const SEVector2f& rOrigin, const SEVector2f& rDirection, 
-    float fExtent)
+SESegment2f::SESegment2f(const SEVector2f& rOrigin, const SEVector2f& 
+    rDirection, float fExtent)
     :
     Origin(rOrigin),
     Direction(rDirection),

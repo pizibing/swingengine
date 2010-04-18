@@ -355,7 +355,8 @@ bool SEEigen::QLAlgorithm()
             int i2;
             for( i2 = i0; i2 <= m_iSize - 2; i2++ )
             {
-                float fTemp = SEMath<float>::FAbs(m_pDiag[i2]) + SEMath<float>::FAbs(m_pDiag[i2 + 1]);
+                float fTemp = SEMath<float>::FAbs(m_pDiag[i2]) + 
+                    SEMath<float>::FAbs(m_pDiag[i2 + 1]);
 
                 if( SEMath<float>::FAbs(m_pSubd[i2]) + fTemp == fTemp )
                 {

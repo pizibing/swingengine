@@ -32,9 +32,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20070627
+// Description:
+// Author:Sun Che
+// Date:20070627
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEQuaternionf
 {
@@ -137,9 +137,9 @@ private:
 };
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20090725
+// Description:
+// Author:Sun Che
+// Date:20090725
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEQuaterniond
 {
@@ -204,7 +204,8 @@ public:
     void ToRotationMatrix(SEVector3d aRot[3], bool bIsRow = true) const;
 
     // 旋转轴必须是单位向量.
-    inline SEQuaterniond& FromAxisAngle(const SEVector3d& rAxis, double dAngle);
+    inline SEQuaterniond& FromAxisAngle(const SEVector3d& rAxis, double 
+        dAngle);
     inline void ToAxisAngle(SEVector3d& rAxis, double& rdAngle) const;
 
     // 获取长度.

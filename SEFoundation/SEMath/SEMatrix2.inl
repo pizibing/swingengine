@@ -55,7 +55,8 @@ inline void SEMatrix2f::FromAngle(float fAngle)
     m_fData[1][1] =  m_fData[0][0];
 }
 //----------------------------------------------------------------------------
-inline void SEMatrix2f::TensorProduct(const SEVector2f& rVecU, const SEVector2f& rVecV)
+inline void SEMatrix2f::TensorProduct(const SEVector2f& rVecU, const 
+    SEVector2f& rVecV)
 {
     m_fData[0][0] = rVecU[0] * rVecV[0];
     m_fData[0][1] = rVecU[0] * rVecV[1];
@@ -141,7 +142,8 @@ inline void SEMatrix2f::ToAngle(float& rfAngle) const
     rfAngle = SEMath<float>::ATan2(m_fData[1][0], m_fData[0][0]);
 }
 //----------------------------------------------------------------------------
-inline void SEMatrix2f::GetTransposeTimes(const SEMatrix2f& rRhsMat, SEMatrix2f& rDesMat) const
+inline void SEMatrix2f::GetTransposeTimes(const SEMatrix2f& rRhsMat, 
+    SEMatrix2f& rDesMat) const
 {
     // C = A^T * B
     rDesMat.M11 = M11*rRhsMat.M11 + M21*rRhsMat.M21;
@@ -151,7 +153,8 @@ inline void SEMatrix2f::GetTransposeTimes(const SEMatrix2f& rRhsMat, SEMatrix2f&
     rDesMat.M22 = M12*rRhsMat.M12 + M22*rRhsMat.M22;
 }
 //----------------------------------------------------------------------------
-inline void SEMatrix2f::GetTimesTranspose(const SEMatrix2f& rRhsMat, SEMatrix2f& rDesMat) const
+inline void SEMatrix2f::GetTimesTranspose(const SEMatrix2f& rRhsMat, 
+    SEMatrix2f& rDesMat) const
 {
     // C = A * B^T
     rDesMat.M11 = M11*rRhsMat.M11 + M12*rRhsMat.M12;

@@ -23,21 +23,21 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, SkinMaterialTexture2L1Effect, SkinEffect);
-SE_IMPLEMENT_STREAM(SkinMaterialTexture2L1Effect);
-SE_IMPLEMENT_DEFAULT_STREAM(SkinMaterialTexture2L1Effect, SkinEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(SkinMaterialTexture2L1Effect, SkinEffect);
+SE_IMPLEMENT_RTTI(Swing, SESkinMaterialTexture2L1Effect, SESkinEffect);
+SE_IMPLEMENT_STREAM(SESkinMaterialTexture2L1Effect);
+SE_IMPLEMENT_DEFAULT_STREAM(SESkinMaterialTexture2L1Effect, SESkinEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SESkinMaterialTexture2L1Effect, SESkinEffect);
 
-//SE_REGISTER_STREAM(SkinMaterialTexture2L1Effect);
+//SE_REGISTER_STREAM(SESkinMaterialTexture2L1Effect);
 
-bool SkinMaterialTexture2L1Effect::ms_bUCInitialized = false;
+bool SESkinMaterialTexture2L1Effect::ms_bUCInitialized = false;
 
 //----------------------------------------------------------------------------
-SkinMaterialTexture2L1Effect::SkinMaterialTexture2L1Effect(
+SESkinMaterialTexture2L1Effect::SESkinMaterialTexture2L1Effect(
     const std::string& rT0, const std::string& rT1, int iBoneCount, 
     SENode** apBones, SETransformation* aOffset)
     :
-    SkinEffect(iBoneCount, apBones, aOffset)
+    SESkinEffect(iBoneCount, apBones, aOffset)
 {
     m_VShader[0] = SE_NEW SEVertexShader(
         "SkinMaterialTexture2L1.v_SkinMaterialTexture2L1");
@@ -49,15 +49,15 @@ SkinMaterialTexture2L1Effect::SkinMaterialTexture2L1Effect(
     m_PShader[0]->SetImageName(1, rT1);
 }
 //----------------------------------------------------------------------------
-SkinMaterialTexture2L1Effect::SkinMaterialTexture2L1Effect()
+SESkinMaterialTexture2L1Effect::SESkinMaterialTexture2L1Effect()
 {
 }
 //----------------------------------------------------------------------------
-SkinMaterialTexture2L1Effect::~SkinMaterialTexture2L1Effect()
+SESkinMaterialTexture2L1Effect::~SESkinMaterialTexture2L1Effect()
 {
 }
 //----------------------------------------------------------------------------
-void SkinMaterialTexture2L1Effect::OnLoadPrograms(int, SEProgram* pVProgram,
+void SESkinMaterialTexture2L1Effect::OnLoadPrograms(int, SEProgram* pVProgram,
     SEProgram*, SEProgram*)
 {
     if( !ms_bUCInitialized )

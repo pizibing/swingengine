@@ -72,7 +72,8 @@ SEBasicMesh::SEBasicMesh(int iVCount, const void* aPoint, int iTCount,
             m_aVertex[rTriangle.V[i1]].InsertTriangle(iT);
 
             SEEdgeKey tempKey(rTriangle.V[i0], rTriangle.V[i1]);
-            std::map<SEEdgeKey, int>::iterator tempEIter = tempEMap.find(tempKey);
+            std::map<SEEdgeKey, int>::iterator tempEIter = tempEMap.find(
+                tempKey);
             if( tempEIter == tempEMap.end() )
             {
                 // 第一次遇到该edge.

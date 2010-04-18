@@ -23,17 +23,17 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, VertexTextureEffect, ShaderEffect);
-SE_IMPLEMENT_STREAM(VertexTextureEffect);
-SE_IMPLEMENT_DEFAULT_STREAM(VertexTextureEffect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(VertexTextureEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEVertexTextureEffect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEVertexTextureEffect);
+SE_IMPLEMENT_DEFAULT_STREAM(SEVertexTextureEffect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEVertexTextureEffect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(VertexTextureEffect);
+//SE_REGISTER_STREAM(SEVertexTextureEffect);
 
 //----------------------------------------------------------------------------
-VertexTextureEffect::VertexTextureEffect(const std::string& rBaseName)
+SEVertexTextureEffect::SEVertexTextureEffect(const std::string& rBaseName)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader("VertexTexture");
     m_PShader[0] = SE_NEW SEPixelShader("PassThrough4");
@@ -42,11 +42,11 @@ VertexTextureEffect::VertexTextureEffect(const std::string& rBaseName)
     m_VShader[0]->SetImageName(0, rBaseName);
 }
 //----------------------------------------------------------------------------
-VertexTextureEffect::VertexTextureEffect()
+SEVertexTextureEffect::SEVertexTextureEffect()
 {
 }
 //----------------------------------------------------------------------------
-VertexTextureEffect::~VertexTextureEffect()
+SEVertexTextureEffect::~SEVertexTextureEffect()
 {
 }
 //----------------------------------------------------------------------------

@@ -28,30 +28,29 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:parallax map with 1 light effect类
-// 说明:
-// 作者:Sun Che
-// 时间:20090220
+// Description:
+// Author:Sun Che
+// Date:20090220
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API ParallaxMapL1Effect : public ShaderEffect
+class SE_FOUNDATION_API SEParallaxMapL1Effect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    ParallaxMapL1Effect(const char* acBaseName, const char* acNormalName,
+    SEParallaxMapL1Effect(const char* acBaseName, const char* acNormalName,
         const char* acHeightName);
-    virtual ~ParallaxMapL1Effect(void);
+    virtual ~SEParallaxMapL1Effect(void);
 
     SEVector3f LightDirection;
 
 protected:
     // streaming
-    ParallaxMapL1Effect(void);
+    SEParallaxMapL1Effect(void);
 };
 
-typedef SESmartPointer<ParallaxMapL1Effect> ParallaxMapL1dEffectPtr;
+typedef SESmartPointer<SEParallaxMapL1Effect> SEParallaxMapL1dEffectPtr;
 
 }
 

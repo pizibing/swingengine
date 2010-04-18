@@ -26,34 +26,34 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, SkinEffect, ShaderEffect);
-SE_IMPLEMENT_ABSTRACT_STREAM(SkinEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(SkinEffect, ShaderEffect);
-SE_IMPLEMENT_INITIALIZE(SkinEffect);
-SE_IMPLEMENT_TERMINATE(SkinEffect);
+SE_IMPLEMENT_RTTI(Swing, SESkinEffect, SEShaderEffect);
+SE_IMPLEMENT_ABSTRACT_STREAM(SESkinEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SESkinEffect, SEShaderEffect);
+SE_IMPLEMENT_INITIALIZE(SESkinEffect);
+SE_IMPLEMENT_TERMINATE(SESkinEffect);
 
-//SE_REGISTER_STREAM(SkinEffect);
-//SE_REGISTER_INITIALIZE(SkinEffect);
-//SE_REGISTER_TERMINATE(SkinEffect);
+//SE_REGISTER_STREAM(SESkinEffect);
+//SE_REGISTER_INITIALIZE(SESkinEffect);
+//SE_REGISTER_TERMINATE(SESkinEffect);
 
-float* SkinEffect::ms_apSkinMatrix = 0;
+float* SESkinEffect::ms_apSkinMatrix = 0;
 
 //----------------------------------------------------------------------------
-void SkinEffect::Initialize()
+void SESkinEffect::Initialize()
 {
     ms_apSkinMatrix = SE_NEW float[SM_COUNT*16];
 }
 //----------------------------------------------------------------------------
-void SkinEffect::Terminate()
+void SESkinEffect::Terminate()
 {
     SE_DELETE ms_apSkinMatrix;
     ms_apSkinMatrix = 0;
 }
 //----------------------------------------------------------------------------
-SkinEffect::SkinEffect(int iBoneCount, SENode** apBones, 
+SESkinEffect::SESkinEffect(int iBoneCount, SENode** apBones, 
     SETransformation* aOffset)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     SE_ASSERT( iBoneCount < SM_COUNT );
 
@@ -62,35 +62,35 @@ SkinEffect::SkinEffect(int iBoneCount, SENode** apBones,
     m_aOffset = aOffset;
 }
 //----------------------------------------------------------------------------
-SkinEffect::SkinEffect()
+SESkinEffect::SESkinEffect()
 {
     m_iBoneCount = 0;
     m_apBones = 0;
     m_aOffset = 0;
 }
 //----------------------------------------------------------------------------
-SkinEffect::~SkinEffect()
+SESkinEffect::~SESkinEffect()
 {
     SE_DELETE[] m_apBones;
     SE_DELETE[] m_aOffset;
 }
 //----------------------------------------------------------------------------
-int SkinEffect::GetBoneCount() const
+int SESkinEffect::GetBoneCount() const
 {
     return m_iBoneCount;
 }
 //----------------------------------------------------------------------------
-SENode** SkinEffect::GetBones()
+SENode** SESkinEffect::GetBones()
 {
     return m_apBones;
 }
 //----------------------------------------------------------------------------
-SETransformation* SkinEffect::GetOffsets()
+SETransformation* SESkinEffect::GetOffsets()
 {
     return m_aOffset;
 }
 //----------------------------------------------------------------------------
-void SkinEffect::InitializeUserConstants(SEProgram* pVProgram)
+void SESkinEffect::InitializeUserConstants(SEProgram* pVProgram)
 {
     int iMaxCount = 0;
     int iVProfile = SEVertexProgramCatalog::GetActive()->GetProfile();
@@ -149,12 +149,12 @@ void SkinEffect::InitializeUserConstants(SEProgram* pVProgram)
     }
 }
 //----------------------------------------------------------------------------
-void SkinEffect::OnLoadPrograms(int, SEProgram*, SEProgram*, SEProgram*)
+void SESkinEffect::OnLoadPrograms(int, SEProgram*, SEProgram*, SEProgram*)
 {
     // Stub for derived classes.
 }
 //----------------------------------------------------------------------------
-void SkinEffect::OnPreApplyEffect(SERenderer*, bool)
+void SESkinEffect::OnPreApplyEffect(SERenderer*, bool)
 {
     SETransformation tempT;
     SEMatrix4f tempMat;
@@ -190,11 +190,11 @@ void SkinEffect::OnPreApplyEffect(SERenderer*, bool)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SkinEffect::Load(SEStream& rStream, SEStream::Link* pLink)
+void SESkinEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    ShaderEffect::Load(rStream, pLink);
+    SEShaderEffect::Load(rStream, pLink);
 
     // native data
     rStream.Read(m_iBoneCount);
@@ -215,12 +215,12 @@ void SkinEffect::Load(SEStream& rStream, SEStream::Link* pLink)
         pLink->Add(pObject);
     }
 
-    SE_END_DEBUG_STREAM_LOAD(SkinEffect);
+    SE_END_DEBUG_STREAM_LOAD(SESkinEffect);
 }
 //----------------------------------------------------------------------------
-void SkinEffect::Link(SEStream& rStream, SEStream::Link* pLink)
+void SESkinEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    ShaderEffect::Link(rStream, pLink);
+    SEShaderEffect::SELink(rStream, pLink);
 
     m_apBones = SE_NEW SENode*[m_iBoneCount];
     for( int i = 0; i < m_iBoneCount; i++ )
@@ -230,9 +230,9 @@ void SkinEffect::Link(SEStream& rStream, SEStream::Link* pLink)
     }
 }
 //----------------------------------------------------------------------------
-bool SkinEffect::Register(SEStream& rStream) const
+bool SESkinEffect::Register(SEStream& rStream) const
 {
-    if( !ShaderEffect::Register(rStream) )
+    if( !SEShaderEffect::Register(rStream) )
     {
         return false;
     }
@@ -248,11 +248,11 @@ bool SkinEffect::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void SkinEffect::Save(SEStream& rStream) const
+void SESkinEffect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    ShaderEffect::Save(rStream);
+    SEShaderEffect::Save(rStream);
 
     // native data
     rStream.Write(m_iBoneCount);
@@ -270,18 +270,18 @@ void SkinEffect::Save(SEStream& rStream) const
         rStream.Write(m_apBones[i]);
     }
 
-    SE_END_DEBUG_STREAM_SAVE(SkinEffect);
+    SE_END_DEBUG_STREAM_SAVE(SESkinEffect);
 }
 //----------------------------------------------------------------------------
-int SkinEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SESkinEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return ShaderEffect::GetDiskUsed(rVersion) +
+    return SEShaderEffect::GetDiskUsed(rVersion) +
         sizeof(m_iBoneCount) + 
         m_iBoneCount*SETransformation::DISK_USED +
         m_iBoneCount*sizeof(m_apBones[0]);
 }
 //----------------------------------------------------------------------------
-SEStringTree* SkinEffect::SaveStrings(const char*)
+SEStringTree* SESkinEffect::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -290,7 +290,7 @@ SEStringTree* SkinEffect::SaveStrings(const char*)
     pTree->Append(Format("bone count = ", m_iBoneCount));
 
     // children
-    pTree->Append(ShaderEffect::SaveStrings());
+    pTree->Append(SEShaderEffect::SaveStrings());
     pTree->Append(Format("bones", m_iBoneCount, m_apBones));
 
     return pTree;

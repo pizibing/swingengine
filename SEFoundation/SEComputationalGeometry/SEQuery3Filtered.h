@@ -29,9 +29,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20081202
+// Description:
+// Author:Sun Che
+// Date:20081202
 //----------------------------------------------------------------------------
 class SEQuery3Filteredf : public SEQuery3f
 {
@@ -45,7 +45,8 @@ public:
     // interval [0, 1].  The uncertainty of 0 causes the class to behave
     // as if it were SEQuery3f.  The uncertainty of 1 causes the class to
     // behave as if it were SEQuery3TRationalf.
-    SEQuery3Filteredf(int iVCount, const SEVector3f* aVertex, float fUncertainty);
+    SEQuery3Filteredf(int iVCount, const SEVector3f* aVertex, float 
+        fUncertainty);
     virtual ~SEQuery3Filteredf(void);
 
     // run-time type information

@@ -118,7 +118,7 @@ bool SEController::Update(double dAppTime)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SEController::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEController::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -144,9 +144,9 @@ void SEController::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEController);
 }
 //----------------------------------------------------------------------------
-void SEController::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEController::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream, pLink);
+    SEObject::SELink(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     m_pObject = rStream.GetFromMap(pLinkID);

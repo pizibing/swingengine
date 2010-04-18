@@ -35,8 +35,8 @@ SEQuery::Type SEQuery3TIntegerf::GetType() const
     return SEQuery::QT_INTEGER;
 }
 //----------------------------------------------------------------------------
-int SEQuery3TIntegerf::ToPlane(const SEVector3f& rP, int iV0, int iV1, int iV2) 
-    const
+int SEQuery3TIntegerf::ToPlane(const SEVector3f& rP, int iV0, int iV1, int 
+    iV2) const
 {
     const SEVector3f& rV0 = m_aVertex[iV0];
     const SEVector3f& rV1 = m_aVertex[iV1];

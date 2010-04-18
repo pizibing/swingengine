@@ -123,12 +123,12 @@ int SESphereBV::OnWhichSide(const SEPlane3f& rPlane) const
 //----------------------------------------------------------------------------
 bool SESphereBV::TestIntersection(const SERay3f& rRay) const
 {
-    return IntrRay3Sphere3f(rRay, m_Sphere).Test();
+    return SEIntrRay3Sphere3f(rRay, m_Sphere).Test();
 }
 //----------------------------------------------------------------------------
 bool SESphereBV::TestIntersection(const SEBoundingVolume* pInput) const
 {
-    return IntrSphere3Sphere3f(m_Sphere,
+    return SEIntrSphere3Sphere3f(m_Sphere,
         ((SESphereBV*)pInput)->m_Sphere).Test();
 }
 //----------------------------------------------------------------------------
@@ -151,7 +151,7 @@ bool SESphereBV::Contains(const SEVector3f& rPoint) const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SESphereBV::Load(SEStream& rStream, SEStream::Link* pLink)
+void SESphereBV::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -164,9 +164,9 @@ void SESphereBV::Load(SEStream& rStream, SEStream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(SESphereBV);
 }
 //----------------------------------------------------------------------------
-void SESphereBV::Link(SEStream& rStream, SEStream::Link* pLink)
+void SESphereBV::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEBoundingVolume::Link(rStream, pLink);
+    SEBoundingVolume::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SESphereBV::Register(SEStream& rStream) const

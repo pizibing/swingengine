@@ -31,16 +31,15 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:IntrTriangle3Triangle3f类
-// 说明:
-// 作者:Sun Che
-// 时间:20081223
+// Description:
+// Author:Sun Che
+// Date:20081223
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API IntrTriangle3Triangle3f
-    : public Intersector<float, SEVector3f>
+class SE_FOUNDATION_API SEIntrTriangle3Triangle3f : public SEIntersector<
+    float, SEVector3f>
 {
 public:
-    IntrTriangle3Triangle3f(const SETriangle3f& rTriangle0,
+    SEIntrTriangle3Triangle3f(const SETriangle3f& rTriangle0,
         const SETriangle3f& rTriangle1);
 
     // object access
@@ -99,29 +98,29 @@ private:
         CS_NONE
     };
 
-    class SE_FOUNDATION_API Configuration
+    class SE_FOUNDATION_API SEConfiguration
     {
     public:
         ProjectionMap Map;  // how vertices map to the projection interval
         int Index[8];       // the sorted indices of the vertices
-        float Min, Max;      // the interval is [min,max]
+        float Min, Max;     // the interval is [min,max]
     };
 
     static void ProjectOntoAxis(const SETriangle3f& rTri,
-        const SEVector3f& rAxis, Configuration& rCfg);
+        const SEVector3f& rAxis, SEConfiguration& rCfg);
 
-    bool FindOverlap(float fTMax, float fSpeed, const Configuration& rUC, 
-        const Configuration& rVC, ContactSide& reSide, Configuration& rTUC, 
-        Configuration& rTVC, float& rfTFirst, float& rfTLast);
+    bool FindOverlap(float fTMax, float fSpeed, const SEConfiguration& rUC, 
+        const SEConfiguration& rVC, ContactSide& reSide, SEConfiguration& rTUC, 
+        SEConfiguration& rTVC, float& rfTFirst, float& rfTLast);
 
     bool FindOverlap(const SEVector3f& rAxis, float fTMax,
         const SEVector3f& rVelocity, ContactSide& reSide,
-        Configuration& rTCfg0, Configuration& rTCfg1, float& rfTFirst,
+        SEConfiguration& rTCfg0, SEConfiguration& rTCfg1, float& rfTFirst,
         float& rfTLast);
 
     void FindContactSet(const SETriangle3f& rTri0,
         const SETriangle3f& rTri1, ContactSide& reSide,
-        Configuration& rCfg0, Configuration& rCfg1);
+        SEConfiguration& rCfg0, SEConfiguration& rCfg1);
 
     void GetEdgeEdgeIntersection(const SEVector3f& rU0,
         const SEVector3f& rU1, const SEVector3f& rV0,

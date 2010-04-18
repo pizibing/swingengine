@@ -30,9 +30,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080726
+// Description:
+// Author:Sun Che
+// Date:20080726
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SESphereBV : public SEBoundingVolume
 {
@@ -60,7 +60,8 @@ public:
     virtual void ComputeFromData(const SEVertexBuffer* pVBuffer);
 
     // 变换BV(从模型空间到世界空间).
-    virtual void TransformBy(const SETransformation& rTransform, SEBoundingVolume* pResult);
+    virtual void TransformBy(const SETransformation& rTransform, 
+        SEBoundingVolume* pResult);
 
     // 判断BV是否在平面正半空间(平面法线所指向的空间),相交,负半空间,
     // 相应的返回值为+1,0,-1.

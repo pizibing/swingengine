@@ -112,7 +112,7 @@ template <class T>
 SEObject* SESharedArray<T>::Factory(SEStream& rStream) 
 { 
     SESharedArray<T>* pObject = SE_NEW SESharedArray<T>; 
-    SEStream::Link* pLink = SE_NEW SEStream::Link(pObject);
+    SEStream::SELink* pLink = SE_NEW SEStream::SELink(pObject);
     pObject->Load(rStream, pLink);
 
     return pObject; 
@@ -160,7 +160,7 @@ SEObject* SESharedArray<T>::GetObjectByID(unsigned int uiID)
 }
 //----------------------------------------------------------------------------
 template <class T>
-void SESharedArray<T>::Load(SEStream& rStream, SEStream::Link* pLink)
+void SESharedArray<T>::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -173,9 +173,9 @@ void SESharedArray<T>::Load(SEStream& rStream, SEStream::Link* pLink)
 }
 //----------------------------------------------------------------------------
 template <class T>
-void SESharedArray<T>::Link(SEStream& rStream, SEStream::Link* pLink)
+void SESharedArray<T>::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::Link(rStream,pLink);
+    SEObject::SELink(rStream,pLink);
 }
 //----------------------------------------------------------------------------
 template <class T>

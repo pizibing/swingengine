@@ -29,28 +29,27 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:default multiple render targets 3 effect类
-// 说明:使用的pixel shader输出3个color4给color0,color1,color2.
+// Description:使用的pixel shader输出3个color4给color0,color1,color2.
 //    示范MRT功能.
-// 作者:Sun Che
-// 时间:20090309
+// Author:Sun Che
+// Date:20090309
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API DefaultMRT3Effect : public ShaderEffect
+class SE_FOUNDATION_API SEDefaultMRT3Effect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    DefaultMRT3Effect(const std::string& rBaseName);
-    virtual ~DefaultMRT3Effect(void);
+    SEDefaultMRT3Effect(const std::string& rBaseName);
+    virtual ~SEDefaultMRT3Effect(void);
 
 protected:
     // streaming
-    DefaultMRT3Effect(void);
+    SEDefaultMRT3Effect(void);
 };
 
-typedef SESmartPointer<DefaultMRT3Effect> DefaultMRT3EffectPtr;
+typedef SESmartPointer<SEDefaultMRT3Effect> SEDefaultMRT3EffectPtr;
 
 }
 

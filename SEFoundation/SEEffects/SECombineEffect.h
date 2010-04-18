@@ -29,27 +29,26 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:combine effect类
-// 说明:
-// 作者:Sun Che
-// 时间:20090311
+// Description:
+// Author:Sun Che
+// Date:20090311
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API CombineEffect : public ShaderEffect
+class SE_FOUNDATION_API SECombineEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    CombineEffect(const std::string& rTName1, const std::string& rTName2);
-    virtual ~CombineEffect(void);
+    SECombineEffect(const std::string& rTName1, const std::string& rTName2);
+    virtual ~SECombineEffect(void);
 
 protected:
     // streaming
-    CombineEffect(void);
+    SECombineEffect(void);
 };
 
-typedef SESmartPointer<CombineEffect> CombineEffectPtr;
+typedef SESmartPointer<SECombineEffect> SECombineEffectPtr;
 
 }
 

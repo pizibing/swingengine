@@ -28,8 +28,8 @@ SESegment3f::SESegment3f()
 {
 }
 //----------------------------------------------------------------------------
-SESegment3f::SESegment3f(const SEVector3f& rOrigin, const SEVector3f& rDirection, 
-    float fExtent)
+SESegment3f::SESegment3f(const SEVector3f& rOrigin, const SEVector3f& 
+    rDirection, float fExtent)
     :
     Origin(rOrigin),
     Direction(rDirection),

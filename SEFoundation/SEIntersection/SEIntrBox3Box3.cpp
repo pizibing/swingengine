@@ -24,24 +24,24 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrBox3Box3f::IntrBox3Box3f(const SEBox3f& rBox0, const SEBox3f& rBox1)
+SEIntrBox3Box3f::SEIntrBox3Box3f(const SEBox3f& rBox0, const SEBox3f& rBox1)
     :
     m_pBox0(&rBox0), 
     m_pBox1(&rBox1)
 {
 }
 //----------------------------------------------------------------------------
-const SEBox3f& IntrBox3Box3f::GetBox0() const
+const SEBox3f& SEIntrBox3Box3f::GetBox0() const
 {
     return *m_pBox0;
 }
 //----------------------------------------------------------------------------
-const SEBox3f& IntrBox3Box3f::GetBox1() const
+const SEBox3f& SEIntrBox3Box3f::GetBox1() const
 {
     return *m_pBox1;
 }
 //----------------------------------------------------------------------------
-bool IntrBox3Box3f::Test()
+bool SEIntrBox3Box3f::Test()
 {
     // 两box轴之间夹角的cos值的阀值.当大于此阀值时,则认为两向量平行.
     // 用于判断两box所有轴中,是否至少存在一对平行向量.
@@ -249,7 +249,7 @@ bool IntrBox3Box3f::Test()
     return true;
 }
 //----------------------------------------------------------------------------
-bool IntrBox3Box3f::Test(float fTMax, const SEVector3f& rVelocity0, 
+bool SEIntrBox3Box3f::Test(float fTMax, const SEVector3f& rVelocity0, 
     const SEVector3f& rVelocity1)
 {
     if( rVelocity0 == rVelocity1 )
@@ -478,7 +478,7 @@ bool IntrBox3Box3f::Test(float fTMax, const SEVector3f& rVelocity0,
     return true;
 }
 //----------------------------------------------------------------------------
-bool IntrBox3Box3f::IsSeparated(float fMin0, float fMax0, float fMin1, 
+bool SEIntrBox3Box3f::IsSeparated(float fMin0, float fMax0, float fMin1, 
     float fMax1, float fSpeed, float fTMax, float& rfTFirst, float& rfTLast)
 {
     float fInvSpeed, fT;

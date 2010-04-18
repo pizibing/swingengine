@@ -29,16 +29,16 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20081223
+// Description:
+// Author:Sun Che
+// Date:20081223
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SECollisionRecord
 {
 public:
     typedef void (*Callback)(SECollisionRecord& rRecord0, int iT0,
         SECollisionRecord& rRecord1, int iT1,
-        Intersector<float, SEVector3f>* pIntersector);
+        SEIntersector<float, SEVector3f>* pIntersector);
 
     // SECollisionRecord被假设为有责任删除传入的pTree,因此pTree应动态分配.
     SECollisionRecord(SETriMesh* pMesh, SEBoundingVolumeTree* pTree,

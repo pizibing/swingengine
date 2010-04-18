@@ -29,9 +29,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20081202
+// Description:
+// Author:Sun Che
+// Date:20081202
 //----------------------------------------------------------------------------
 class SEQuery2TRationalf : public SEQuery2f
 {
@@ -58,8 +58,8 @@ public:
         int iV2) const;
 
 private:
-    // Caching for rational representations of the input.  The conversion of
-    // floating-point numbers to SETRational form is slow,  so it is better to
+    // Caching for rational representations of the input. The conversion of
+    // floating-point numbers to SETRational form is slow, so it is better to
     // keep track of which values have been converted.
     typedef SETRational<4*sizeof(float)> Rational;
     typedef SERVector2<4*sizeof(float)> RVector;
@@ -70,7 +70,8 @@ private:
 
     int ToLine(const RVector& rRP,  int iV0,  int iV1) const;
     int ToTriangle(const RVector& rRP,  int iV0,  int iV1,  int iV2) const;
-    int ToCircumcircle(const RVector& rRP,  int iV0,  int iV1,  int iV2) const;
+    int ToCircumcircle(const RVector& rRP,  int iV0,  int iV1,  int iV2) 
+        const;
 
     static Rational Dot(Rational& rX0,  Rational& rY0,  Rational& rX1, 
         Rational& rY1);

@@ -208,7 +208,8 @@ float SEDistVector3Frustum3f::GetSquared()
             }
             else
             {
-                fRUDDot = fRMin*vec3fTest.X + fUMin*vec3fTest.Y + fDMin*vec3fTest.Z;
+                fRUDDot = fRMin*vec3fTest.X + fUMin*vec3fTest.Y + 
+                    fDMin*vec3fTest.Z;
                 fREdgeDot = fUMin*fRUDDot - fMinRUDDot*vec3fTest.Y;
                 if( fREdgeDot >= 0.0f )
                 {
@@ -352,7 +353,8 @@ float SEDistVector3Frustum3f::GetSquared()
             }
             else
             {
-                fRUDDot = fRMin*vec3fTest.X + fUMin*vec3fTest.Y + fDMin*vec3fTest.Z;
+                fRUDDot = fRMin*vec3fTest.X + fUMin*vec3fTest.Y + 
+                    fDMin*vec3fTest.Z;
                 fREdgeDot = fUMin*fRUDDot - fMinRUDDot*vec3fTest.Y;
                 if( fREdgeDot >= 0.0f )
                 {

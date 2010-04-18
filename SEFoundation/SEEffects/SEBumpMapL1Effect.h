@@ -28,27 +28,26 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:bumpmap with 1 light effect类
-// 说明:
-// 作者:Sun Che
-// 时间:20090218
+// Description:
+// Author:Sun Che
+// Date:20090218
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API BumpMapL1Effect : public ShaderEffect
+class SE_FOUNDATION_API SEBumpMapL1Effect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    BumpMapL1Effect(const char* acBaseName, const char* acNormalName);
-    virtual ~BumpMapL1Effect(void);
+    SEBumpMapL1Effect(const char* acBaseName, const char* acNormalName);
+    virtual ~SEBumpMapL1Effect(void);
 
 protected:
     // streaming
-    BumpMapL1Effect(void);
+    SEBumpMapL1Effect(void);
 };
 
-typedef SESmartPointer<BumpMapL1Effect> BumpMapL1EffectPtr;
+typedef SESmartPointer<SEBumpMapL1Effect> SEBumpMapL1EffectPtr;
 
 }
 

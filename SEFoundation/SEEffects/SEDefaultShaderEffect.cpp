@@ -23,23 +23,23 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, DefaultShaderEffect, ShaderEffect);
-SE_IMPLEMENT_STREAM(DefaultShaderEffect);
-SE_IMPLEMENT_DEFAULT_STREAM(DefaultShaderEffect, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(DefaultShaderEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEDefaultShaderEffect, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEDefaultShaderEffect);
+SE_IMPLEMENT_DEFAULT_STREAM(SEDefaultShaderEffect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEDefaultShaderEffect, SEShaderEffect);
 
-//SE_REGISTER_STREAM(DefaultShaderEffect);
+//SE_REGISTER_STREAM(SEDefaultShaderEffect);
 
 //----------------------------------------------------------------------------
-DefaultShaderEffect::DefaultShaderEffect()
+SEDefaultShaderEffect::SEDefaultShaderEffect()
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_VShader[0] = SE_NEW SEVertexShader("Default.v_Default");
     m_PShader[0] = SE_NEW SEPixelShader("Default.p_Default");
 }
 //----------------------------------------------------------------------------
-DefaultShaderEffect::~DefaultShaderEffect()
+SEDefaultShaderEffect::~SEDefaultShaderEffect()
 {
 }
 //----------------------------------------------------------------------------

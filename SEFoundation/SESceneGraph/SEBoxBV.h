@@ -30,9 +30,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20080330
+// Description:
+// Author:Sun Che
+// Date:20080330
 //----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEBoxBV : public SEBoundingVolume
 {

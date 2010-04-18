@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-IntrTriangle2Triangle2f::IntrTriangle2Triangle2f(
+SEIntrTriangle2Triangle2f::SEIntrTriangle2Triangle2f(
     const SETriangle2f& rTriangle0, const SETriangle2f& rTriangle1)
     :
     m_pTriangle0(&rTriangle0), 
@@ -33,17 +33,17 @@ IntrTriangle2Triangle2f::IntrTriangle2Triangle2f(
     m_iCount = 0;
 }
 //----------------------------------------------------------------------------
-const SETriangle2f& IntrTriangle2Triangle2f::GetTriangle0() const
+const SETriangle2f& SEIntrTriangle2Triangle2f::GetTriangle0() const
 {
     return *m_pTriangle0;
 }
 //----------------------------------------------------------------------------
-const SETriangle2f& IntrTriangle2Triangle2f::GetTriangle1() const
+const SETriangle2f& SEIntrTriangle2Triangle2f::GetTriangle1() const
 {
     return *m_pTriangle1;
 }
 //----------------------------------------------------------------------------
-bool IntrTriangle2Triangle2f::Test()
+bool SEIntrTriangle2Triangle2f::Test()
 {
     int i0 = 0, i1 = 0;
     SEVector2f vec2fDir;
@@ -77,7 +77,7 @@ bool IntrTriangle2Triangle2f::Test()
     return true;
 }
 //----------------------------------------------------------------------------
-bool IntrTriangle2Triangle2f::Find()
+bool SEIntrTriangle2Triangle2f::Find()
 {
     // The potential intersection is initialized to triangle1.  The set of
     // vertices is refined based on clipping against each edge of triangle0.
@@ -105,7 +105,7 @@ bool IntrTriangle2Triangle2f::Find()
     return true;
 }
 //----------------------------------------------------------------------------
-bool IntrTriangle2Triangle2f::Test(float fTMax, 
+bool SEIntrTriangle2Triangle2f::Test(float fTMax, 
     const SEVector2f& rVelocity0, const SEVector2f& rVelocity1)
 {
     // process as if V0-triangle is stationary and V1-triangle is moving
@@ -114,7 +114,7 @@ bool IntrTriangle2Triangle2f::Test(float fTMax,
     float fTFirst = 0.0f;
     float fTLast = SEMath<float>::MAX_REAL;
 
-    Configuration tempCfg0, tempCfg1, tempTCfg0, tempTCfg1;
+    SEConfiguration tempCfg0, tempCfg1, tempTCfg0, tempTCfg1;
     int i0, i1, i2;
     SEVector2f vec2fD;
     float fSpeed;
@@ -130,8 +130,8 @@ bool IntrTriangle2Triangle2f::Test(float fTMax,
         ComputeTwo(tempCfg0, m_pTriangle0->V, vec2fD, i0, i1, i2);
         ComputeThree(tempCfg1, m_pTriangle1->V, vec2fD, m_pTriangle0->V[i1]);
 
-        if( NoIntersect(tempCfg0, tempCfg1, fTMax, fSpeed, iSide, tempTCfg0, tempTCfg1, 
-            fTFirst, fTLast) )
+        if( NoIntersect(tempCfg0, tempCfg1, fTMax, fSpeed, iSide, tempTCfg0, 
+            tempTCfg1, fTFirst, fTLast) )
         {
             return false;
         }
@@ -148,8 +148,8 @@ bool IntrTriangle2Triangle2f::Test(float fTMax,
         ComputeTwo(tempCfg1, m_pTriangle1->V, vec2fD, i0, i1, i2);
         ComputeThree(tempCfg0, m_pTriangle0->V, vec2fD, m_pTriangle1->V[i1]);
 
-        if( NoIntersect(tempCfg0, tempCfg1, fTMax, fSpeed, iSide, tempTCfg0, tempTCfg1, 
-            fTFirst, fTLast) )
+        if( NoIntersect(tempCfg0, tempCfg1, fTMax, fSpeed, iSide, tempTCfg0, 
+            tempTCfg1, fTFirst, fTLast) )
         {
             return false;
         }
@@ -160,7 +160,7 @@ bool IntrTriangle2Triangle2f::Test(float fTMax,
     return true;
 }
 //----------------------------------------------------------------------------
-bool IntrTriangle2Triangle2f::Find (float fTMax, 
+bool SEIntrTriangle2Triangle2f::Find (float fTMax, 
     const SEVector2f& rVelocity0, const SEVector2f& rVelocity1)
 {
     // process as if V0-triangle is stationary and V1-triangle is moving
@@ -169,7 +169,7 @@ bool IntrTriangle2Triangle2f::Find (float fTMax,
     float fTFirst = 0.0f;
     float fTLast = SEMath<float>::MAX_REAL;
 
-    Configuration tempCfg0, tempCfg1, tempTCfg0, tempTCfg1;
+    SEConfiguration tempCfg0, tempCfg1, tempTCfg0, tempTCfg1;
     int i0, i1, i2;
     SEVector2f vec2fD;
     float fSpeed;
@@ -185,8 +185,8 @@ bool IntrTriangle2Triangle2f::Find (float fTMax,
         ComputeTwo(tempCfg0, m_pTriangle0->V, vec2fD, i0, i1, i2);
         ComputeThree(tempCfg1, m_pTriangle1->V, vec2fD, m_pTriangle0->V[i1]);
 
-        if( NoIntersect(tempCfg0, tempCfg1, fTMax, fSpeed, iSide, tempTCfg0, tempTCfg1, 
-            fTFirst, fTLast) )
+        if( NoIntersect(tempCfg0, tempCfg1, fTMax, fSpeed, iSide, tempTCfg0, 
+            tempTCfg1, fTFirst, fTLast) )
         {
             return false;
         }
@@ -203,8 +203,8 @@ bool IntrTriangle2Triangle2f::Find (float fTMax,
         ComputeTwo(tempCfg1, m_pTriangle1->V, vec2fD, i0, i1, i2);
         ComputeThree(tempCfg0, m_pTriangle0->V, vec2fD, m_pTriangle1->V[i1]);
 
-        if( NoIntersect(tempCfg0, tempCfg1, fTMax, fSpeed, iSide, tempTCfg0, tempTCfg1, 
-            fTFirst, fTLast) )
+        if( NoIntersect(tempCfg0, tempCfg1, fTMax, fSpeed, iSide, tempTCfg0, 
+            tempTCfg1, fTFirst, fTLast) )
         {
             return false;
         }
@@ -226,19 +226,19 @@ bool IntrTriangle2Triangle2f::Find (float fTMax,
     return m_iCount > 0;
 }
 //----------------------------------------------------------------------------
-int IntrTriangle2Triangle2f::GetCount() const
+int SEIntrTriangle2Triangle2f::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-const SEVector2f& IntrTriangle2Triangle2f::GetPoint(int i) const
+const SEVector2f& SEIntrTriangle2Triangle2f::GetPoint(int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 
     return m_aPoint[i];
 }
 //----------------------------------------------------------------------------
-int IntrTriangle2Triangle2f::OnWhichSide(const SEVector2f aV[3], 
+int SEIntrTriangle2Triangle2f::OnWhichSide(const SEVector2f aV[3], 
     const SEVector2f& rP, const SEVector2f& rD)
 {
     // Vertices are projected to the form P+t*D.  Return value is +1 if all
@@ -271,7 +271,7 @@ int IntrTriangle2Triangle2f::OnWhichSide(const SEVector2f aV[3],
     return (iZero == 0 ? (iPositive > 0 ? 1 : -1) : 0);
 }
 //----------------------------------------------------------------------------
-void IntrTriangle2Triangle2f::ClipConvexPolygonAgainstLine(
+void SEIntrTriangle2Triangle2f::ClipConvexPolygonAgainstLine(
     const SEVector2f& rN, float fC, int& riCount, 
     SEVector2f aV[6])
 {
@@ -390,7 +390,7 @@ void IntrTriangle2Triangle2f::ClipConvexPolygonAgainstLine(
     }
 }
 //----------------------------------------------------------------------------
-void IntrTriangle2Triangle2f::ComputeTwo(Configuration& rCfg, 
+void SEIntrTriangle2Triangle2f::ComputeTwo(SEConfiguration& rCfg, 
     const SEVector2f aV[3], const SEVector2f& rD, int i0, int i1, 
     int i2)
 {
@@ -402,7 +402,7 @@ void IntrTriangle2Triangle2f::ComputeTwo(Configuration& rCfg,
     rCfg.Max = 0.0f;
 }
 //----------------------------------------------------------------------------
-void IntrTriangle2Triangle2f::ComputeThree(Configuration& rCfg, 
+void SEIntrTriangle2Triangle2f::ComputeThree(SEConfiguration& rCfg, 
     const SEVector2f aV[3], const SEVector2f& rD, 
     const SEVector2f& rP)
 {
@@ -506,10 +506,10 @@ void IntrTriangle2Triangle2f::ComputeThree(Configuration& rCfg,
     }
 }
 //----------------------------------------------------------------------------
-bool IntrTriangle2Triangle2f::NoIntersect(
-    const Configuration& rCfg0, const Configuration& rCfg1, float fTMax, 
-    float fSpeed, int& riSide, Configuration& rTCfg0, Configuration& rTCfg1, 
-    float& rfTFirst, float& rfTLast)
+bool SEIntrTriangle2Triangle2f::NoIntersect(
+    const SEConfiguration& rCfg0, const SEConfiguration& rCfg1, float fTMax, 
+    float fSpeed, int& riSide, SEConfiguration& rTCfg0, SEConfiguration& 
+    rTCfg1, float& rfTFirst, float& rfTLast)
 {
     float fInvSpeed, fT;
 
@@ -629,8 +629,8 @@ bool IntrTriangle2Triangle2f::NoIntersect(
     return false;
 }
 //----------------------------------------------------------------------------
-void IntrTriangle2Triangle2f::GetIntersection(
-    const Configuration& rCfg0, const Configuration& rCfg1, int iSide, 
+void SEIntrTriangle2Triangle2f::GetIntersection(
+    const SEConfiguration& rCfg0, const SEConfiguration& rCfg1, int iSide, 
     const SEVector2f aV0[3], const SEVector2f aV1[3], int& riCount, 
     SEVector2f aVertex[6])
 {
@@ -662,7 +662,7 @@ void IntrTriangle2Triangle2f::GetIntersection(
             fMax = vec2fEdge.Dot(vec2fDiff) * fInvEdE;
             SE_ASSERT( fMin <= fMax );
 
-            Intersector1<float> tempIntr(0.0f, 1.0f, fMin, fMax);
+            SEIntersector1<float> tempIntr(0.0f, 1.0f, fMin, fMax);
             riCount = tempIntr.GetCount();
             SE_ASSERT( riCount > 0 );
 
@@ -695,7 +695,7 @@ void IntrTriangle2Triangle2f::GetIntersection(
             fMax = vec2fEdge.Dot(vec2fDiff) * fInvEdE;
             SE_ASSERT( fMin <= fMax );
 
-            Intersector1<float> tempIntr(0.0f, 1.0f, fMin, fMax);
+            SEIntersector1<float> tempIntr(0.0f, 1.0f, fMin, fMax);
             riCount = tempIntr.GetCount();
             SE_ASSERT( riCount > 0 );
 
@@ -708,7 +708,7 @@ void IntrTriangle2Triangle2f::GetIntersection(
     else  // triangles were initially intersecting
     {
         SETriangle2f tempTri0(aV0), tempTri1(aV1);
-        IntrTriangle2Triangle2f tempIntr(tempTri0, tempTri1);
+        SEIntrTriangle2Triangle2f tempIntr(tempTri0, tempTri1);
         tempIntr.Find();
         riCount = tempIntr.GetCount();
         for( i = 0; i < riCount; i++ )
