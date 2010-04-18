@@ -69,8 +69,8 @@ GaussianBlurVEffect::GaussianBlurVEffect(const std::string& rBaseName)
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("Texture.v_Texture");
-    m_PShader[0] = SE_NEW PixelShader("GaussianBlur.p_GaussianBlur");
+    m_VShader[0] = SE_NEW SEVertexShader("SETexture.v_Texture");
+    m_PShader[0] = SE_NEW SEPixelShader("GaussianBlur.p_GaussianBlur");
 
     m_PShader[0]->SetTextureCount(1);
     m_PShader[0]->SetImageName(0, rBaseName);
@@ -84,8 +84,8 @@ GaussianBlurVEffect::~GaussianBlurVEffect()
 {
 }
 //----------------------------------------------------------------------------
-void GaussianBlurVEffect::OnLoadPrograms(int, Program*, 
-    Program* pPProgram, Program*)
+void GaussianBlurVEffect::OnLoadPrograms(int, SEProgram*, 
+    SEProgram* pPProgram, SEProgram*)
 {
     if( !ms_bTexelKernelUCInitialized )
     {
@@ -94,7 +94,7 @@ void GaussianBlurVEffect::OnLoadPrograms(int, Program*,
         for( int i = 0; i < KERNEL_COUNT; i++ )
         {
             SESystem::SE_Sprintf(tempName, 16, "TexelKernel[%d]", i);
-            UserConstant* pUC = pPProgram->GetUC(tempName);
+            SEUserConstant* pUC = pPProgram->GetUC(tempName);
             SE_ASSERT( pUC );
 
             if( pUC )

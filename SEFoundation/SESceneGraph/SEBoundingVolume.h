@@ -36,12 +36,12 @@ namespace Swing
 //----------------------------------------------------------------------------
 // 名称:包围体虚基类
 // 说明:封装包围体碰撞检测等问题.
-//      BoundingVolume的工厂函数默认实现为创建SphereBV对象,
-//      可以删除当前函数实现,使用另一个BoundingVolume派生类型.
+//      SEBoundingVolume的工厂函数默认实现为创建SESphereBV对象,
+//      可以删除当前函数实现,使用另一个SEBoundingVolume派生类型.
 // 作者:Sun Che
 // 时间:20080312
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API BoundingVolume : public SEObject
+class SE_FOUNDATION_API SEBoundingVolume : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -49,7 +49,7 @@ class SE_FOUNDATION_API BoundingVolume : public SEObject
 
 public:
     // 虚基类
-    virtual ~BoundingVolume(void);
+    virtual ~SEBoundingVolume(void);
 
     // RTTI信息
     enum BVType
@@ -68,14 +68,14 @@ public:
 
     // 派生类中的一个必须实现这个工厂函数,引擎只能支持使用同一种BV,
     // 默认实现在SphererBV中.
-    static BoundingVolume* Create(void);
+    static SEBoundingVolume* Create(void);
 
     // 根据传入顶点集合创建BV.
-    virtual void ComputeFromData(const Vector3fArray* pVertices) = 0;
-    virtual void ComputeFromData(const VertexBuffer* pVB) = 0;
+    virtual void ComputeFromData(const SEVector3fArray* pVertices) = 0;
+    virtual void ComputeFromData(const SEVertexBuffer* pVB) = 0;
 
     // 变换BV(从模型空间到世界空间).
-    virtual void TransformBy(const Transformation& rTransform, BoundingVolume* pResult) = 0;
+    virtual void TransformBy(const SETransformation& rTransform, SEBoundingVolume* pResult) = 0;
 
     // 判断BV是否在平面正半空间(平面法线所指向的空间),相交,负半空间,
     // 相应的返回值为+1,0,-1.
@@ -85,22 +85,22 @@ public:
     virtual bool TestIntersection(const SERay3f& rRay) const = 0;
 
     // 测试是否和另一个BV相交.
-    virtual bool TestIntersection(const BoundingVolume* pInput) const = 0;
+    virtual bool TestIntersection(const SEBoundingVolume* pInput) const = 0;
 
     // 用另一个BV复制出自己.
-    virtual void CopyFrom(const BoundingVolume* pInput) = 0;
+    virtual void CopyFrom(const SEBoundingVolume* pInput) = 0;
 
     // 当前BV增长,包含传入的BV和之前的自己.
-    virtual void GrowToContain(const BoundingVolume* pInput) = 0;
+    virtual void GrowToContain(const SEBoundingVolume* pInput) = 0;
 
     // 是否包含传入点.
     virtual bool Contains(const SEVector3f& rPoint) const = 0;
 
 protected:
-    BoundingVolume(void);
+    SEBoundingVolume(void);
 };
 
-typedef SESmartPointer<BoundingVolume> BoundingVolumePtr;
+typedef SESmartPointer<SEBoundingVolume> SEBoundingVolumePtr;
 
 }
 

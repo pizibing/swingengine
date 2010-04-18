@@ -40,8 +40,8 @@ ScreenSpaceAOEffect::ScreenSpaceAOEffect(const std::string& rRandom,
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("ScreenSpaceAO.v_ScreenSpaceAO");
-    m_PShader[0] = SE_NEW PixelShader("ScreenSpaceAO.p_ScreenSpaceAO");
+    m_VShader[0] = SE_NEW SEVertexShader("ScreenSpaceAO.v_ScreenSpaceAO");
+    m_PShader[0] = SE_NEW SEPixelShader("ScreenSpaceAO.p_ScreenSpaceAO");
 
     m_PShader[0]->SetTextureCount(2);
     m_PShader[0]->SetImageName(0, rRandom);
@@ -56,12 +56,12 @@ ScreenSpaceAOEffect::~ScreenSpaceAOEffect()
 {
 }
 //----------------------------------------------------------------------------
-void ScreenSpaceAOEffect::OnLoadPrograms(int, Program*, 
-    Program* pPProgram, Program*)
+void ScreenSpaceAOEffect::OnLoadPrograms(int, SEProgram*, 
+    SEProgram* pPProgram, SEProgram*)
 {
     if( !ms_bUCInitialized )
     {
-        UserConstant* pUC = pPProgram->GetUC("kScreenSize");
+        SEUserConstant* pUC = pPProgram->GetUC("kScreenSize");
         if( pUC )
             pUC->SetDataSource((float*)ScreenSize);
 

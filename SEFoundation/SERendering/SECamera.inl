@@ -19,62 +19,62 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline SEVector3f Camera::GetLocation() const
+inline SEVector3f SECamera::GetLocation() const
 {
     return m_Location;
 }
 //----------------------------------------------------------------------------
-inline SEVector3f Camera::GetRVector() const
+inline SEVector3f SECamera::GetRVector() const
 {
     return m_RVector;
 }
 //----------------------------------------------------------------------------
-inline SEVector3f Camera::GetUVector() const
+inline SEVector3f SECamera::GetUVector() const
 {
     return m_UVector;
 }
 //----------------------------------------------------------------------------
-inline SEVector3f Camera::GetDVector() const
+inline SEVector3f SECamera::GetDVector() const
 {
     return m_DVector;
 }
 //----------------------------------------------------------------------------
-inline const float* Camera::GetFrustum() const
+inline const float* SECamera::GetFrustum() const
 {
     return m_Frustum;
 }
 //----------------------------------------------------------------------------
-inline float Camera::GetDMin() const
+inline float SECamera::GetDMin() const
 {
     return m_Frustum[VF_DMIN];
 }
 //----------------------------------------------------------------------------
-inline float Camera::GetDMax() const
+inline float SECamera::GetDMax() const
 {
     return m_Frustum[VF_DMAX];
 }
 //----------------------------------------------------------------------------
-inline float Camera::GetUMin() const
+inline float SECamera::GetUMin() const
 {
     return m_Frustum[VF_UMIN];
 }
 //----------------------------------------------------------------------------
-inline float Camera::GetUMax() const
+inline float SECamera::GetUMax() const
 {
     return m_Frustum[VF_UMAX];
 }
 //----------------------------------------------------------------------------
-inline float Camera::GetRMin() const
+inline float SECamera::GetRMin() const
 {
     return m_Frustum[VF_RMIN];
 }
 //----------------------------------------------------------------------------
-inline float Camera::GetRMax() const
+inline float SECamera::GetRMax() const
 {
     return m_Frustum[VF_RMAX];
 }
 //----------------------------------------------------------------------------
-inline bool Camera::IsPerspective() const
+inline bool SECamera::IsPerspective() const
 {
     return m_bPerspective;
 }

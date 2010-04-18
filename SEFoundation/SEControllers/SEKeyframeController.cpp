@@ -132,7 +132,7 @@ bool SEKeyframeController::Update(double dAppTime)
         return false;
     }
 
-    Spatial* pSpatial = StaticCast<Spatial>(m_pObject);
+    SESpatial* pSpatial = StaticCast<SESpatial>(m_pObject);
     float fCtrlTime = (float)GetControlTime(dAppTime);
     float fNormTime = 0.0f;
     int i0 = 0, i1 = 0;
@@ -463,22 +463,22 @@ void SEKeyframeController::Link(SEStream& rStream, SEStream::Link* pLink)
     SEController::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
-    TranslationTimes = (FloatArray*)rStream.GetFromMap(pLinkID);
+    TranslationTimes = (SEFloatArray*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
-    TranslationData = (Vector3fArray*)rStream.GetFromMap(pLinkID);
+    TranslationData = (SEVector3fArray*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
-    RotationTimes = (FloatArray*)rStream.GetFromMap(pLinkID);
+    RotationTimes = (SEFloatArray*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
-    RotationData = (QuaternionfArray*)rStream.GetFromMap(pLinkID);
+    RotationData = (SEQuaternionfArray*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
-    ScaleTimes = (FloatArray*)rStream.GetFromMap(pLinkID);
+    ScaleTimes = (SEFloatArray*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
-    ScaleData = (FloatArray*)rStream.GetFromMap(pLinkID);
+    ScaleData = (SEFloatArray*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
 bool SEKeyframeController::Register(SEStream& rStream) const

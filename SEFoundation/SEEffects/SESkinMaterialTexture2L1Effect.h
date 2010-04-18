@@ -41,16 +41,16 @@ class SE_FOUNDATION_API SkinMaterialTexture2L1Effect : public SkinEffect
 
 public:
     SkinMaterialTexture2L1Effect(const std::string& rT0, 
-        const std::string& rT1, int iBoneCount, Node** apBones, 
-        Transformation* aOffset);
+        const std::string& rT1, int iBoneCount, SENode** apBones, 
+        SETransformation* aOffset);
     virtual ~SkinMaterialTexture2L1Effect(void);
 
 protected:
     // streaming
     SkinMaterialTexture2L1Effect(void);
 
-    virtual void OnLoadPrograms(int iPass, Program* pVProgram,
-        Program* pPProgram, Program* pGProgram);
+    virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
+        SEProgram* pPProgram, SEProgram* pGProgram);
 
     static bool ms_bUCInitialized;
 };

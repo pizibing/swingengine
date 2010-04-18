@@ -19,24 +19,24 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int UnculledSet::GetCount() const
+inline int SEUnculledSet::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-inline UnculledObject* UnculledSet::GetUnculled()
+inline SEUnculledObject* SEUnculledSet::GetUnculled()
 {
     return m_pUnculled;
 }
 //----------------------------------------------------------------------------
-inline UnculledObject& UnculledSet::GetUnculled(int i)
+inline SEUnculledObject& SEUnculledSet::GetUnculled(int i)
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 
     return m_pUnculled[i];
 }
 //----------------------------------------------------------------------------
-inline void UnculledSet::Clear()
+inline void SEUnculledSet::Clear()
 {
     m_iCount = 0;
 }

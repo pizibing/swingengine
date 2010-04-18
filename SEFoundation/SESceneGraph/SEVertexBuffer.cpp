@@ -23,14 +23,14 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, VertexBuffer, SEObject);
-SE_IMPLEMENT_STREAM(VertexBuffer);
-SE_IMPLEMENT_DEFAULT_NAME_ID(VertexBuffer, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEVertexBuffer, SEObject);
+SE_IMPLEMENT_STREAM(SEVertexBuffer);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEVertexBuffer, SEObject);
 
-//SE_REGISTER_STREAM(VertexBuffer);
+//SE_REGISTER_STREAM(SEVertexBuffer);
 
 //----------------------------------------------------------------------------
-VertexBuffer::VertexBuffer(const Attributes& rAttributes,
+SEVertexBuffer::SEVertexBuffer(const SEAttributes& rAttributes,
     int iVertexCount)
     :
     m_Attributes(rAttributes)
@@ -44,7 +44,7 @@ VertexBuffer::VertexBuffer(const Attributes& rAttributes,
     memset(m_pChannel, 0, m_iChannelCount*sizeof(float));
 }
 //----------------------------------------------------------------------------
-VertexBuffer::VertexBuffer(const VertexBuffer* pVBuffer)
+SEVertexBuffer::SEVertexBuffer(const SEVertexBuffer* pVBuffer)
 {
     SE_ASSERT( pVBuffer );
 
@@ -57,7 +57,7 @@ VertexBuffer::VertexBuffer(const VertexBuffer* pVBuffer)
     SESystem::SE_Memcpy(m_pChannel, uiSize, pVBuffer->m_pChannel, uiSize);
 }
 //----------------------------------------------------------------------------
-VertexBuffer::VertexBuffer()
+SEVertexBuffer::SEVertexBuffer()
 {
     m_iVertexCount = 0;
     m_iVertexSize = 0;
@@ -65,7 +65,7 @@ VertexBuffer::VertexBuffer()
     m_pChannel = 0;
 }
 //----------------------------------------------------------------------------
-VertexBuffer::~VertexBuffer()
+SEVertexBuffer::~SEVertexBuffer()
 {
     // 通知所有正在使用此VB的render,此资源正要被释放,
     // 因此这些render可以及时释放掉与此VB有关的其他资源(VRAM中)
@@ -74,7 +74,7 @@ VertexBuffer::~VertexBuffer()
     SE_DELETE[] m_pChannel;
 }
 //----------------------------------------------------------------------------
-float* VertexBuffer::PositionTuple(int i)
+float* SEVertexBuffer::PositionTuple(int i)
 {
     if( m_Attributes.HasPosition() && 0 <= i && i < m_iVertexCount )
     {
@@ -86,7 +86,7 @@ float* VertexBuffer::PositionTuple(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-const float* VertexBuffer::PositionTuple(int i) const
+const float* SEVertexBuffer::PositionTuple(int i) const
 {
     if( m_Attributes.HasPosition() && 0 <= i && i < m_iVertexCount )
     {
@@ -98,7 +98,7 @@ const float* VertexBuffer::PositionTuple(int i) const
     return 0;
 }
 //----------------------------------------------------------------------------
-float* VertexBuffer::NormalTuple(int i)
+float* SEVertexBuffer::NormalTuple(int i)
 {
     if( m_Attributes.HasNormal() && 0 <= i && i < m_iVertexCount )
     {
@@ -110,7 +110,7 @@ float* VertexBuffer::NormalTuple(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-const float* VertexBuffer::NormalTuple (int i) const
+const float* SEVertexBuffer::NormalTuple (int i) const
 {
     if( m_Attributes.HasNormal() && 0 <= i && i < m_iVertexCount )
     {
@@ -122,7 +122,7 @@ const float* VertexBuffer::NormalTuple (int i) const
     return 0;
 }
 //----------------------------------------------------------------------------
-float* VertexBuffer::ColorTuple(int iUnit, int i)
+float* SEVertexBuffer::ColorTuple(int iUnit, int i)
 {
     if( m_Attributes.HasColor(iUnit) && 0 <= i && i < m_iVertexCount )
     {
@@ -134,7 +134,7 @@ float* VertexBuffer::ColorTuple(int iUnit, int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-const float* VertexBuffer::ColorTuple(int iUnit, int i) const
+const float* SEVertexBuffer::ColorTuple(int iUnit, int i) const
 {
     if( m_Attributes.HasColor(iUnit) && 0 <= i && i < m_iVertexCount )
     {
@@ -146,7 +146,7 @@ const float* VertexBuffer::ColorTuple(int iUnit, int i) const
     return 0;
 }
 //----------------------------------------------------------------------------
-float* VertexBuffer::TCoordTuple(int iUnit, int i)
+float* SEVertexBuffer::TCoordTuple(int iUnit, int i)
 {
     if( m_Attributes.HasTCoord(iUnit) && 0 <= i && i < m_iVertexCount )
     {
@@ -158,7 +158,7 @@ float* VertexBuffer::TCoordTuple(int iUnit, int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-const float* VertexBuffer::TCoordTuple(int iUnit, int i) const
+const float* SEVertexBuffer::TCoordTuple(int iUnit, int i) const
 {
     if( m_Attributes.HasTCoord(iUnit) && 0 <= i && i < m_iVertexCount )
     {
@@ -170,7 +170,7 @@ const float* VertexBuffer::TCoordTuple(int iUnit, int i) const
     return 0;
 }
 //----------------------------------------------------------------------------
-SEVector3f& VertexBuffer::Position3(int i)
+SEVector3f& SEVertexBuffer::Position3(int i)
 {
     SE_ASSERT( m_Attributes.GetPositionChannels() == 3 );
 
@@ -179,7 +179,7 @@ SEVector3f& VertexBuffer::Position3(int i)
     return *(SEVector3f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-SEVector3f VertexBuffer::Position3(int i) const
+SEVector3f SEVertexBuffer::Position3(int i) const
 {
     SE_ASSERT( m_Attributes.GetPositionChannels() == 3 );
 
@@ -188,7 +188,7 @@ SEVector3f VertexBuffer::Position3(int i) const
     return *(SEVector3f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-SEVector3f& VertexBuffer::Normal3(int i)
+SEVector3f& SEVertexBuffer::Normal3(int i)
 {
     SE_ASSERT( m_Attributes.GetNormalChannels() == 3 );
 
@@ -197,7 +197,7 @@ SEVector3f& VertexBuffer::Normal3(int i)
     return *(SEVector3f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-SEVector3f VertexBuffer::Normal3(int i) const
+SEVector3f SEVertexBuffer::Normal3(int i) const
 {
     SE_ASSERT( m_Attributes.GetNormalChannels() == 3 );
 
@@ -206,7 +206,7 @@ SEVector3f VertexBuffer::Normal3(int i) const
     return *(SEVector3f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-SEColorRGB& VertexBuffer::Color3(int iUnit, int i)
+SEColorRGB& SEVertexBuffer::Color3(int iUnit, int i)
 {
     SE_ASSERT( m_Attributes.GetColorChannels(iUnit) == 3 );
 
@@ -215,7 +215,7 @@ SEColorRGB& VertexBuffer::Color3(int iUnit, int i)
     return *(SEColorRGB*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-SEColorRGB VertexBuffer::Color3(int iUnit, int i) const
+SEColorRGB SEVertexBuffer::Color3(int iUnit, int i) const
 {
     SE_ASSERT( m_Attributes.GetColorChannels(iUnit) == 3 );
 
@@ -224,7 +224,7 @@ SEColorRGB VertexBuffer::Color3(int iUnit, int i) const
     return *(SEColorRGB*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-SEColorRGBA& VertexBuffer::Color4(int iUnit, int i)
+SEColorRGBA& SEVertexBuffer::Color4(int iUnit, int i)
 {
     SE_ASSERT( m_Attributes.GetColorChannels(iUnit) == 4 );
 
@@ -233,7 +233,7 @@ SEColorRGBA& VertexBuffer::Color4(int iUnit, int i)
     return *(SEColorRGBA*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-SEColorRGBA VertexBuffer::Color4(int iUnit, int i) const
+SEColorRGBA SEVertexBuffer::Color4(int iUnit, int i) const
 {
     SE_ASSERT( m_Attributes.GetColorChannels(iUnit) == 4 );
 
@@ -242,7 +242,7 @@ SEColorRGBA VertexBuffer::Color4(int iUnit, int i) const
     return *(SEColorRGBA*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-float& VertexBuffer::TCoord1(int iUnit, int i)
+float& SEVertexBuffer::TCoord1(int iUnit, int i)
 {
     SE_ASSERT( m_Attributes.GetTCoordChannels(iUnit) == 1 );
 
@@ -251,7 +251,7 @@ float& VertexBuffer::TCoord1(int iUnit, int i)
     return *(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-float VertexBuffer::TCoord1(int iUnit, int i) const
+float SEVertexBuffer::TCoord1(int iUnit, int i) const
 {
     SE_ASSERT( m_Attributes.GetTCoordChannels(iUnit) == 1 );
 
@@ -260,7 +260,7 @@ float VertexBuffer::TCoord1(int iUnit, int i) const
     return *(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-SEVector2f& VertexBuffer::TCoord2(int iUnit, int i)
+SEVector2f& SEVertexBuffer::TCoord2(int iUnit, int i)
 {
     SE_ASSERT( m_Attributes.GetTCoordChannels(iUnit) == 2 );
 
@@ -269,7 +269,7 @@ SEVector2f& VertexBuffer::TCoord2(int iUnit, int i)
     return *(SEVector2f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-SEVector2f VertexBuffer::TCoord2(int iUnit, int i) const
+SEVector2f SEVertexBuffer::TCoord2(int iUnit, int i) const
 {
     SE_ASSERT( m_Attributes.GetTCoordChannels(iUnit) == 2 );
 
@@ -278,7 +278,7 @@ SEVector2f VertexBuffer::TCoord2(int iUnit, int i) const
     return *(SEVector2f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-SEVector3f& VertexBuffer::TCoord3(int iUnit, int i)
+SEVector3f& SEVertexBuffer::TCoord3(int iUnit, int i)
 {
     SE_ASSERT( m_Attributes.GetTCoordChannels(iUnit) == 3 );
 
@@ -287,7 +287,7 @@ SEVector3f& VertexBuffer::TCoord3(int iUnit, int i)
     return *(SEVector3f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-SEVector3f VertexBuffer::TCoord3(int iUnit, int i) const
+SEVector3f SEVertexBuffer::TCoord3(int iUnit, int i) const
 {
     SE_ASSERT( m_Attributes.GetTCoordChannels(iUnit) == 3 );
 
@@ -296,7 +296,7 @@ SEVector3f VertexBuffer::TCoord3(int iUnit, int i) const
     return *(SEVector3f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-SEVector4f& VertexBuffer::TCoord4(int iUnit, int i)
+SEVector4f& SEVertexBuffer::TCoord4(int iUnit, int i)
 {
     SE_ASSERT( m_Attributes.GetTCoordChannels(iUnit) == 4 );
 
@@ -305,7 +305,7 @@ SEVector4f& VertexBuffer::TCoord4(int iUnit, int i)
     return *(SEVector4f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-SEVector4f VertexBuffer::TCoord4(int iUnit, int i) const
+SEVector4f SEVertexBuffer::TCoord4(int iUnit, int i) const
 {
     SE_ASSERT( m_Attributes.GetTCoordChannels(iUnit) == 4 );
 
@@ -314,7 +314,7 @@ SEVector4f VertexBuffer::TCoord4(int iUnit, int i) const
     return *(SEVector4f*)(m_pChannel + iIndex);
 }
 //----------------------------------------------------------------------------
-void VertexBuffer::BuildCompatibleArray(const Attributes& rIAttributes,
+void SEVertexBuffer::BuildCompatibleArray(const SEAttributes& rIAttributes,
     bool bPackARGB, int& rChannels, float*& rCompatible) const
 {
     // 注意这里使用unsigned int来存储数据,
@@ -522,7 +522,7 @@ void VertexBuffer::BuildCompatibleArray(const Attributes& rIAttributes,
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void VertexBuffer::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEVertexBuffer::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -561,20 +561,20 @@ void VertexBuffer::Load(SEStream& rStream, SEStream::Link* pLink)
         m_Attributes.SetTCoordChannels(i, iTChannels);
     }
 
-    SE_END_DEBUG_STREAM_LOAD(VertexBuffer);
+    SE_END_DEBUG_STREAM_LOAD(SEVertexBuffer);
 }
 //----------------------------------------------------------------------------
-void VertexBuffer::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEVertexBuffer::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool VertexBuffer::Register(SEStream& rStream) const
+bool SEVertexBuffer::Register(SEStream& rStream) const
 {
     return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void VertexBuffer::Save(SEStream& rStream) const
+void SEVertexBuffer::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -599,10 +599,10 @@ void VertexBuffer::Save(SEStream& rStream) const
         rStream.Write(m_Attributes.GetTCoordChannels(i));
     }
 
-    SE_END_DEBUG_STREAM_SAVE(VertexBuffer);
+    SE_END_DEBUG_STREAM_SAVE(SEVertexBuffer);
 }
 //----------------------------------------------------------------------------
-int VertexBuffer::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEVertexBuffer::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SEObject::GetDiskUsed(rVersion) +
         sizeof(m_iVertexSize) +
@@ -614,7 +614,7 @@ int VertexBuffer::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(int)*m_Attributes.GetMaxTCoords();
 }
 //----------------------------------------------------------------------------
-SEStringTree* VertexBuffer::SaveStrings(const char* pTitle)
+SEStringTree* SEVertexBuffer::SaveStrings(const char* pTitle)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 

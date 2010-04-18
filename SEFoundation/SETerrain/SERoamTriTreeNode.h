@@ -26,7 +26,7 @@
 namespace Swing
 {
 
-class RoamTerrainPatch;
+class SERoamTerrainPatch;
 
 //----------------------------------------------------------------------------
 // 名称:二叉三角树结点
@@ -34,24 +34,24 @@ class RoamTerrainPatch;
 // 作者:Sun Che
 // 时间:20070601
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API RoamTriTreeNode
+class SE_FOUNDATION_API SERoamTriTreeNode
 {
 public:
-    RoamTriTreeNode(void);
-    ~RoamTriTreeNode(void);
+    SERoamTriTreeNode(void);
+    ~SERoamTriTreeNode(void);
 
-    RoamTriTreeNode* pLeftChild;
-    RoamTriTreeNode* pRightChild;
-    RoamTriTreeNode* pBaseNeighbor;
-    RoamTriTreeNode* pLeftNeighbor;
-    RoamTriTreeNode* pRightNeighbor;
+    SERoamTriTreeNode* pLeftChild;
+    SERoamTriTreeNode* pRightChild;
+    SERoamTriTreeNode* pBaseNeighbor;
+    SERoamTriTreeNode* pLeftNeighbor;
+    SERoamTriTreeNode* pRightNeighbor;
 
     int LeftIndex;  // 左底角顶点索引
     int RightIndex; // 右底角顶点索引
     int ApexIndex;  // 顶角顶点索引
 
     // 用于地形调试
-    RoamTerrainPatch* pPatch;
+    SERoamTerrainPatch* pPatch;
 };
 
 }

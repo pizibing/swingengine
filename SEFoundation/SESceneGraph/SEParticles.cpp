@@ -27,14 +27,14 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Particles, TriMesh);
-SE_IMPLEMENT_STREAM(Particles);
+SE_IMPLEMENT_RTTI(Swing, SEParticles, SETriMesh);
+SE_IMPLEMENT_STREAM(SEParticles);
 
-//SE_REGISTER_STREAM(Particles);
+//SE_REGISTER_STREAM(SEParticles);
 
 //----------------------------------------------------------------------------
-Particles::Particles(const Attributes& rAttr, Vector3fArray* pLocations,
-    FloatArray* pSizes)
+SEParticles::SEParticles(const SEAttributes& rAttr, SEVector3fArray* pLocations,
+    SEFloatArray* pSizes)
     :
     Locations(pLocations),
     Sizes(pSizes)
@@ -42,7 +42,7 @@ Particles::Particles(const Attributes& rAttr, Vector3fArray* pLocations,
     // 分配模型空间顶点存储,每个粒子使用4个顶点构成一个quad广告牌.
     int iLCount = Locations->GetCount();
     int iVCount = 4*iLCount;
-    VBuffer = SE_NEW VertexBuffer(rAttr, iVCount);
+    VBuffer = SE_NEW SEVertexBuffer(rAttr, iVCount);
 
     // 为这些quad广告牌设置2D纹理坐标.
     int i, j;
@@ -62,7 +62,7 @@ Particles::Particles(const Attributes& rAttr, Vector3fArray* pLocations,
 
     // 为这些quad广告牌创建IB.
     int iICount = 6*iLCount;
-    IBuffer = SE_NEW IndexBuffer(iICount);
+    IBuffer = SE_NEW SEIndexBuffer(iICount);
     int* aiIndex = IBuffer->GetData();
     for( i = 0, j = 0; i < iLCount; i++ )
     {
@@ -82,17 +82,17 @@ Particles::Particles(const Attributes& rAttr, Vector3fArray* pLocations,
     m_iActiveCount = iLCount;
 }
 //----------------------------------------------------------------------------
-Particles::Particles()
+SEParticles::SEParticles()
 {
     SizeAdjust = 0.0f;
     m_iActiveCount = 0;
 }
 //----------------------------------------------------------------------------
-Particles::~Particles()
+SEParticles::~SEParticles()
 {
 }
 //----------------------------------------------------------------------------
-void Particles::SetActiveCount(int iActiveCount)
+void SEParticles::SetActiveCount(int iActiveCount)
 {
     int iLCount = Locations->GetCount();
     if( 0 <= iActiveCount && iActiveCount <= iLCount )
@@ -112,7 +112,7 @@ void Particles::SetActiveCount(int iActiveCount)
     VBuffer->Release();
 }
 //----------------------------------------------------------------------------
-void Particles::GenerateParticles(const Camera* pCamera)
+void SEParticles::GenerateParticles(const SECamera* pCamera)
 {
     int i, j;
 
@@ -152,19 +152,19 @@ void Particles::GenerateParticles(const Camera* pCamera)
     UpdateMS(true);
 }
 //----------------------------------------------------------------------------
-void Particles::GetUnculledSet(Culler& rCuller, bool bNoCull)
+void SEParticles::GetUnculledSet(SECuller& rCuller, bool bNoCull)
 {
     GenerateParticles(rCuller.GetCamera());
-    TriMesh::GetUnculledSet(rCuller, bNoCull);
+    SETriMesh::GetUnculledSet(rCuller, bNoCull);
 }
 //----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-SEObject* Particles::GetObjectByName(const std::string& rName)
+SEObject* SEParticles::GetObjectByName(const std::string& rName)
 {
-    SEObject* pFound = TriMesh::GetObjectByName(rName);
+    SEObject* pFound = SETriMesh::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -191,10 +191,10 @@ SEObject* Particles::GetObjectByName(const std::string& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Particles::GetAllObjectsByName(const std::string& rName,
+void SEParticles::GetAllObjectsByName(const std::string& rName,
     std::vector<SEObject*>& rObjects)
 {
-    TriMesh::GetAllObjectsByName(rName, rObjects);
+    SETriMesh::GetAllObjectsByName(rName, rObjects);
 
     if( Locations )
     {
@@ -207,9 +207,9 @@ void Particles::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-SEObject* Particles::GetObjectByID(unsigned int uiID)
+SEObject* SEParticles::GetObjectByID(unsigned int uiID)
 {
-    SEObject* pFound = TriMesh::GetObjectByID(uiID);
+    SEObject* pFound = SETriMesh::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -240,11 +240,11 @@ SEObject* Particles::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Particles::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEParticles::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    TriMesh::Load(rStream, pLink);
+    SETriMesh::Load(rStream, pLink);
 
     // native data
     rStream.Read(SizeAdjust);
@@ -259,23 +259,23 @@ void Particles::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(pObject);  // Sizes
     pLink->Add(pObject);
 
-    SE_END_DEBUG_STREAM_LOAD(Particles);
+    SE_END_DEBUG_STREAM_LOAD(SEParticles);
 }
 //----------------------------------------------------------------------------
-void Particles::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEParticles::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    TriMesh::Link(rStream, pLink);
+    SETriMesh::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
-    Locations = (Vector3fArray*)rStream.GetFromMap(pLinkID);
+    Locations = (SEVector3fArray*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
-    Sizes = (FloatArray*)rStream.GetFromMap(pLinkID);
+    Sizes = (SEFloatArray*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool Particles::Register(SEStream& rStream) const
+bool SEParticles::Register(SEStream& rStream) const
 {
-    if( !TriMesh::Register(rStream) )
+    if( !SETriMesh::Register(rStream) )
     {
         return false;
     }
@@ -293,11 +293,11 @@ bool Particles::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Particles::Save(SEStream& rStream) const
+void SEParticles::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    TriMesh::Save(rStream);
+    SETriMesh::Save(rStream);
 
     // native data
     rStream.Write(SizeAdjust);
@@ -307,19 +307,19 @@ void Particles::Save(SEStream& rStream) const
     rStream.Write(Locations);
     rStream.Write(Sizes);
 
-    SE_END_DEBUG_STREAM_SAVE(Particles);
+    SE_END_DEBUG_STREAM_SAVE(SEParticles);
 }
 //----------------------------------------------------------------------------
-int Particles::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEParticles::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return TriMesh::GetDiskUsed(rVersion) +
+    return SETriMesh::GetDiskUsed(rVersion) +
         sizeof(SizeAdjust) +
         sizeof(m_iActiveCount) +
         sizeof(Locations) +
         sizeof(Sizes);
 }
 //----------------------------------------------------------------------------
-SEStringTree* Particles::SaveStrings(const char*)
+SEStringTree* SEParticles::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -329,7 +329,7 @@ SEStringTree* Particles::SaveStrings(const char*)
     pTree->Append(Format("active count =", m_iActiveCount));
 
     // children
-    pTree->Append(TriMesh::SaveStrings());
+    pTree->Append(SETriMesh::SaveStrings());
     pTree->Append(Locations->SaveStrings());
     pTree->Append(Sizes->SaveStrings());
 

@@ -23,29 +23,29 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Program, SEObject);
-SE_IMPLEMENT_STREAM(Program);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Program, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEProgram, SEObject);
+SE_IMPLEMENT_STREAM(SEProgram);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEProgram, SEObject);
 
-//SE_REGISTER_STREAM(Program);
+//SE_REGISTER_STREAM(SEProgram);
 
-Program::LoadProgram Program::OnLoadProgram = 0;
-Program::ReleaseUserData Program::OnReleaseUserData = 0;
+SEProgram::LoadProgram SEProgram::OnLoadProgram = 0;
+SEProgram::ReleaseUserData SEProgram::OnReleaseUserData = 0;
 
-const std::string Program::ms_PositionStr("POSITION");
-const std::string Program::ms_Position0Str("POSITION0");
-const std::string Program::ms_NormalStr("NORMAL");
-const std::string Program::ms_Normal0Str("NORMAL0");
-const std::string Program::ms_ColorStr("COLOR");
-const std::string Program::ms_Color0Str("COLOR0");
-const std::string Program::ms_Color1Str("COLOR1");
-const std::string Program::ms_Color2Str("COLOR2");
-const std::string Program::ms_Color3Str("COLOR3");
-const std::string Program::ms_TexCoordStr("TEXCOORD");
+const std::string SEProgram::ms_PositionStr("POSITION");
+const std::string SEProgram::ms_Position0Str("POSITION0");
+const std::string SEProgram::ms_NormalStr("NORMAL");
+const std::string SEProgram::ms_Normal0Str("NORMAL0");
+const std::string SEProgram::ms_ColorStr("COLOR");
+const std::string SEProgram::ms_Color0Str("COLOR0");
+const std::string SEProgram::ms_Color1Str("COLOR1");
+const std::string SEProgram::ms_Color2Str("COLOR2");
+const std::string SEProgram::ms_Color3Str("COLOR3");
+const std::string SEProgram::ms_TexCoordStr("TEXCOORD");
 
 //----------------------------------------------------------------------------
-bool Program::Load(Renderer* pRenderer, const std::string& rProgramName, 
-    Program* pProgram, ProgramType eType, InterfaceDescriptor* pInterfaceDesc)
+bool SEProgram::Load(SERenderer* pRenderer, const std::string& rProgramName, 
+    SEProgram* pProgram, ProgramType eType, SEInterfaceDescriptor* pInterfaceDesc)
 {
     SE_ASSERT( OnLoadProgram );
 
@@ -53,12 +53,12 @@ bool Program::Load(Renderer* pRenderer, const std::string& rProgramName,
         pInterfaceDesc);
 }
 //----------------------------------------------------------------------------
-Program::Program()
+SEProgram::SEProgram()
 {
     UserData = 0;
 }
 //----------------------------------------------------------------------------
-Program::~Program()
+SEProgram::~SEProgram()
 {
     Release();
 
@@ -70,7 +70,7 @@ Program::~Program()
     }
 }
 //----------------------------------------------------------------------------
-RendererConstant* Program::GetRC(int i)
+SERendererConstant* SEProgram::GetRC(int i)
 {
     if( 0 <= i && i < (int)m_RendererConstants.size() )
     {
@@ -80,7 +80,7 @@ RendererConstant* Program::GetRC(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-RendererConstant* Program::GetRC(RendererConstant::Type eType)
+SERendererConstant* SEProgram::GetRC(SERendererConstant::Type eType)
 {
     for( int i = 0; i < (int)m_RendererConstants.size(); i++ )
     {
@@ -93,7 +93,7 @@ RendererConstant* Program::GetRC(RendererConstant::Type eType)
     return 0;
 }
 //----------------------------------------------------------------------------
-UserConstant* Program::GetUC(int i)
+SEUserConstant* SEProgram::GetUC(int i)
 {
     if( 0 <= i && i < (int)m_UserConstants.size() )
     {
@@ -103,7 +103,7 @@ UserConstant* Program::GetUC(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-UserConstant* Program::GetUC(const std::string& rName)
+SEUserConstant* SEProgram::GetUC(const std::string& rName)
 {
     for( int i = 0; i < (int)m_UserConstants.size(); i++ )
     {
@@ -116,7 +116,7 @@ UserConstant* Program::GetUC(const std::string& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-SamplerInformation* Program::GetSI(int i)
+SESamplerInformation* SEProgram::GetSI(int i)
 {
     if( 0 <= i && i < (int)m_SamplerInformation.size() )
     {
@@ -126,7 +126,7 @@ SamplerInformation* Program::GetSI(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-SamplerInformation* Program::GetSI(const std::string& rName)
+SESamplerInformation* SEProgram::GetSI(const std::string& rName)
 {
     for( int i = 0; i < (int)m_SamplerInformation.size(); i++ )
     {
@@ -143,36 +143,36 @@ SamplerInformation* Program::GetSI(const std::string& rName)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Program::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEProgram::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
     SEObject::Load(rStream, pLink);
-    SE_END_DEBUG_STREAM_LOAD(Program);
+    SE_END_DEBUG_STREAM_LOAD(SEProgram);
 }
 //----------------------------------------------------------------------------
-void Program::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEProgram::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Program::Register(SEStream& rStream) const
+bool SEProgram::Register(SEStream& rStream) const
 {
     return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Program::Save(SEStream& rStream) const
+void SEProgram::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
     SEObject::Save(rStream);
-    SE_END_DEBUG_STREAM_SAVE(Program);
+    SE_END_DEBUG_STREAM_SAVE(SEProgram);
 }
 //----------------------------------------------------------------------------
-int Program::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEProgram::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SEObject::GetDiskUsed(rVersion);
 }
 //----------------------------------------------------------------------------
-SEStringTree* Program::SaveStrings(const char*)
+SEStringTree* SEProgram::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -186,7 +186,7 @@ SEStringTree* Program::SaveStrings(const char*)
     for( i = 0; i < (int)m_RendererConstants.size(); i++ )
     {
         SESystem::SE_Sprintf(acTitle, uiTitleSize, "RC[%d] name =", i);
-        pTree->Append(Format(acTitle, RendererConstant::GetName(
+        pTree->Append(Format(acTitle, SERendererConstant::GetName(
             m_RendererConstants[i].GetType()).c_str()));
 
         iDataCount = m_RendererConstants[i].GetDataCount();

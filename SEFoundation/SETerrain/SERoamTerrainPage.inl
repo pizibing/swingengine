@@ -19,75 +19,75 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int RoamTerrainPage::GetSize(void) const
+inline int SERoamTerrainPage::GetSize(void) const
 {
     return m_iSize;
 }
 //----------------------------------------------------------------------------
-inline const unsigned short* RoamTerrainPage::GetHeights(void) const
+inline const unsigned short* SERoamTerrainPage::GetHeights(void) const
 {
     return m_ausHeight;
 }
 //----------------------------------------------------------------------------
-inline const SEVector2f& RoamTerrainPage::GetOrigin(void) const
+inline const SEVector2f& SERoamTerrainPage::GetOrigin(void) const
 {
     return m_Origin;
 }
 //----------------------------------------------------------------------------
-inline float RoamTerrainPage::GetMinElevation(void) const
+inline float SERoamTerrainPage::GetMinElevation(void) const
 {
     return m_fMinElevation;
 }
 //----------------------------------------------------------------------------
-inline float RoamTerrainPage::GetMaxElevation(void) const
+inline float SERoamTerrainPage::GetMaxElevation(void) const
 {
     return m_fMaxElevation;
 }
 //----------------------------------------------------------------------------
-inline float RoamTerrainPage::GetSpacing(void) const
+inline float SERoamTerrainPage::GetSpacing(void) const
 {
     return m_fSpacing;
 }
 //----------------------------------------------------------------------------
-inline float& RoamTerrainPage::UVBias()
+inline float& SERoamTerrainPage::UVBias()
 {
     return m_fUVBias;
 }
 //----------------------------------------------------------------------------
-inline int RoamTerrainPage::GetNextTriNode() const
+inline int SERoamTerrainPage::GetNextTriNode() const
 { 
     return m_iNextTriNode;
 }
 //----------------------------------------------------------------------------
-inline void RoamTerrainPage::SetNextTriNode(int iNextNode) 
+inline void SERoamTerrainPage::SetNextTriNode(int iNextNode) 
 { 
     m_iNextTriNode = iNextNode; 
 }
 //----------------------------------------------------------------------------
-inline void RoamTerrainPage::SetPageGrid(int iRow, int iCol, 
-    RoamTerrain* pTerrain)
+inline void SERoamTerrainPage::SetPageGrid(int iRow, int iCol, 
+    SERoamTerrain* pTerrain)
 {
     m_iRow = iRow;
     m_iCol = iCol;
     m_pTerrain = pTerrain;
 }
 //----------------------------------------------------------------------------
-inline float RoamTerrainPage::GetX(int iX) const
+inline float SERoamTerrainPage::GetX(int iX) const
 {
     return m_Origin.X + m_fSpacing*float(iX);
 }
 //----------------------------------------------------------------------------
-inline float RoamTerrainPage::GetZ(int iZ) const
+inline float SERoamTerrainPage::GetZ(int iZ) const
 {
     return m_Origin.Y + m_fSpacing*float(iZ);
 }
 //----------------------------------------------------------------------------
-inline float RoamTerrainPage::GetHeight(int iIndex) const
+inline float SERoamTerrainPage::GetHeight(int iIndex) const
 {
     return m_fMinElevation + m_fMultiplier*float(m_ausHeight[iIndex]);
 }
 //----------------------------------------------------------------------------
-inline float RoamTerrainPage::GetTextureCoordinate(int iIndex) const
+inline float SERoamTerrainPage::GetTextureCoordinate(int iIndex) const
 {
     return m_fTextureSpacing * float(iIndex);
 }

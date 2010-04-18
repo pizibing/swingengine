@@ -31,22 +31,22 @@ SE_IMPLEMENT_INITIALIZE(SEBoxBVTree);
 //----------------------------------------------------------------------------
 void SEBoxBVTree::Initialize()
 {
-    ms_aoCreateModelBound[BoundingVolume::BV_BOX] =
+    ms_aoCreateModelBound[SEBoundingVolume::BV_BOX] =
         &SEBoxBVTree::CreateModelBound;
 
-    ms_aoCreateWorldBound[BoundingVolume::BV_BOX] =
+    ms_aoCreateWorldBound[SEBoundingVolume::BV_BOX] =
         &SEBoxBVTree::CreateWorldBound;
 }
 //----------------------------------------------------------------------------
-SEBoxBVTree::SEBoxBVTree(const TriMesh* pMesh, int iMaxTrisPerLeaf,
+SEBoxBVTree::SEBoxBVTree(const SETriMesh* pMesh, int iMaxTrisPerLeaf,
     bool bStoreInteriorTris)
     :
-    SEBoundingVolumeTree(BoundingVolume::BV_BOX, pMesh, iMaxTrisPerLeaf,
+    SEBoundingVolumeTree(SEBoundingVolume::BV_BOX, pMesh, iMaxTrisPerLeaf,
         bStoreInteriorTris)
 {
 }
 //----------------------------------------------------------------------------
-BoundingVolume* SEBoxBVTree::CreateModelBound(const TriMesh* pMesh, int i0,
+SEBoundingVolume* SEBoxBVTree::CreateModelBound(const SETriMesh* pMesh, int i0,
     int i1, int* aiISplit, SELine3f& rLine)
 {
     // 标记出在当前子网格中用过的那些顶点.
@@ -74,7 +74,7 @@ BoundingVolume* SEBoxBVTree::CreateModelBound(const TriMesh* pMesh, int i0,
     }
     SE_DELETE[] abValid;
 
-    BoxBV* pModelBound = SE_NEW BoxBV;
+    SEBoxBV* pModelBound = SE_NEW SEBoxBV;
     pModelBound->Box() = ContOBBf((int)tempMeshVertices.size(),
         &tempMeshVertices.front());
 
@@ -85,8 +85,8 @@ BoundingVolume* SEBoxBVTree::CreateModelBound(const TriMesh* pMesh, int i0,
     return pModelBound;
 }
 //----------------------------------------------------------------------------
-BoundingVolume* SEBoxBVTree::CreateWorldBound()
+SEBoundingVolume* SEBoxBVTree::CreateWorldBound()
 {
-    return SE_NEW BoxBV;
+    return SE_NEW SEBoxBV;
 }
 //----------------------------------------------------------------------------

@@ -19,47 +19,47 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int Attributes::GetChannelCount() const
+inline int SEAttributes::GetChannelCount() const
 {
     return m_iChannelCount;
 }
 //----------------------------------------------------------------------------
-inline int Attributes::GetPositionOffset() const
+inline int SEAttributes::GetPositionOffset() const
 {
     return m_iPositionOffset;
 }
 //----------------------------------------------------------------------------
-inline int Attributes::GetPositionChannels() const
+inline int SEAttributes::GetPositionChannels() const
 {
     return m_iPositionChannels;
 }
 //----------------------------------------------------------------------------
-inline bool Attributes::HasPosition() const
+inline bool SEAttributes::HasPosition() const
 {
     return m_iPositionChannels > 0;
 }
 //----------------------------------------------------------------------------
-inline int Attributes::GetNormalOffset() const
+inline int SEAttributes::GetNormalOffset() const
 {
     return m_iNormalOffset;
 }
 //----------------------------------------------------------------------------
-inline int Attributes::GetNormalChannels() const
+inline int SEAttributes::GetNormalChannels() const
 {
     return m_iNormalChannels;
 }
 //----------------------------------------------------------------------------
-inline bool Attributes::HasNormal() const
+inline bool SEAttributes::HasNormal() const
 {
     return m_iNormalChannels > 0;
 }
 //----------------------------------------------------------------------------
-inline int Attributes::GetMaxColors() const
+inline int SEAttributes::GetMaxColors() const
 {
     return (int)m_ColorChannels.size();
 }
 //----------------------------------------------------------------------------
-inline int Attributes::GetMaxTCoords() const
+inline int SEAttributes::GetMaxTCoords() const
 {
     return (int)m_TCoordChannels.size();
 }

@@ -19,22 +19,22 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline const std::string& UserConstant::GetName() const
+inline const std::string& SEUserConstant::GetName() const
 {
     return m_Name;
 }
 //----------------------------------------------------------------------------
-inline void* UserConstant::GetID() const
+inline void* SEUserConstant::GetID() const
 {
     return m_pID;
 }
 //----------------------------------------------------------------------------
-inline int UserConstant::GetDataCount() const
+inline int SEUserConstant::GetDataCount() const
 {
     return m_iDataCount;
 }
 //----------------------------------------------------------------------------
-inline float* UserConstant::GetData() const
+inline float* SEUserConstant::GetData() const
 {
     return m_pData;
 }

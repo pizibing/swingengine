@@ -35,16 +35,16 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080621
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API IndexBuffer : public SEObject, public Bindable
+class SE_FOUNDATION_API SEIndexBuffer : public SEObject, public SEBindable
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    IndexBuffer(int iICount);
-    IndexBuffer(const IndexBuffer* pIBuffer);
-    virtual ~IndexBuffer(void);
+    SEIndexBuffer(int iICount);
+    SEIndexBuffer(const SEIndexBuffer* pIBuffer);
+    virtual ~SEIndexBuffer(void);
 
     inline int operator [] (int i) const;
     inline int& operator [] (int i);
@@ -62,14 +62,14 @@ public:
 
 protected:
     // streaming support
-    IndexBuffer(void);
+    SEIndexBuffer(void);
 
 	// 索引缓冲区数据
     int m_iICount;
     int* m_pIndex;
 };
 
-typedef SESmartPointer<IndexBuffer> IndexBufferPtr;
+typedef SESmartPointer<SEIndexBuffer> SEIndexBufferPtr;
 
 #include "SEIndexBuffer.inl"
 

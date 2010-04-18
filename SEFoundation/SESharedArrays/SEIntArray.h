@@ -32,8 +32,8 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080324
 //----------------------------------------------------------------------------
-typedef SharedArray<int> IntArray;
-typedef SESmartPointer<IntArray> IntArrayPtr;
+typedef SESharedArray<int> SEIntArray;
+typedef SESmartPointer<SEIntArray> SEIntArrayPtr;
 }
 
 #endif

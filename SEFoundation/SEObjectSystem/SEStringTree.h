@@ -33,7 +33,7 @@
 namespace Swing
 {
 
-class BoundingVolume;
+class SEBoundingVolume;
 class SEColorRGB;
 class SEColorRGBA;
 class SERTTI;
@@ -95,7 +95,7 @@ SE_FOUNDATION_API char* Format(const char* pPrefix, void*);
 SE_FOUNDATION_API char* Format(const char* pPrefix, const char*);
 
 // 非内置变量类型的字符串生成函数
-SE_FOUNDATION_API char* Format(const char* pPrefix, const BoundingVolume*);
+SE_FOUNDATION_API char* Format(const char* pPrefix, const SEBoundingVolume*);
 SE_FOUNDATION_API char* Format(const char* pPrefix, const SEColorRGBA&);
 SE_FOUNDATION_API char* Format(const char* pPrefix, const SEColorRGB&);
 SE_FOUNDATION_API char* Format(const char* pPrefix, const SELine3f&);

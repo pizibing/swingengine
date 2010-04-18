@@ -39,14 +39,14 @@ class SE_FOUNDATION_API SESphereBVTree : public SEBoundingVolumeTree
     SE_DECLARE_INITIALIZE;
 
 public:
-    SESphereBVTree(const TriMesh* pMesh, int iMaxTrisPerLeaf = 1,
+    SESphereBVTree(const SETriMesh* pMesh, int iMaxTrisPerLeaf = 1,
         bool bStoreInteriorTris = false);
 
 protected:
-    static BoundingVolume* CreateModelBound(const TriMesh* pMesh, int i0,
+    static SEBoundingVolume* CreateModelBound(const SETriMesh* pMesh, int i0,
         int i1, int* aiISplit, SELine3f& rLine);
 
-    static BoundingVolume* CreateWorldBound(void);
+    static SEBoundingVolume* CreateWorldBound(void);
 };
 
 }

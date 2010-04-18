@@ -19,37 +19,37 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int SphereBV::GetBVType() const
+inline int SESphereBV::GetBVType() const
 {
-    return BoundingVolume::BV_SPHERE;
+    return SEBoundingVolume::BV_SPHERE;
 }
 //----------------------------------------------------------------------------
-inline void SphereBV::SetCenter(const SEVector3f& rCenter)
+inline void SESphereBV::SetCenter(const SEVector3f& rCenter)
 {
     m_Sphere.Center = rCenter;
 }
 //----------------------------------------------------------------------------
-inline void SphereBV::SetRadius(float fRadius)
+inline void SESphereBV::SetRadius(float fRadius)
 {
     m_Sphere.Radius = fRadius;
 }
 //----------------------------------------------------------------------------
-inline SEVector3f SphereBV::GetCenter() const
+inline SEVector3f SESphereBV::GetCenter() const
 {
     return m_Sphere.Center;
 }
 //----------------------------------------------------------------------------
-inline float SphereBV::GetRadius() const
+inline float SESphereBV::GetRadius() const
 {
     return m_Sphere.Radius;
 }
 //----------------------------------------------------------------------------
-inline SESphere3f& SphereBV::Sphere()
+inline SESphere3f& SESphereBV::Sphere()
 {
     return m_Sphere;
 }
 //----------------------------------------------------------------------------
-inline const SESphere3f& SphereBV::GetSphere() const
+inline const SESphere3f& SESphereBV::GetSphere() const
 {
     return m_Sphere;
 }

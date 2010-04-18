@@ -40,15 +40,15 @@ class SE_FOUNDATION_API SkinDefaultEffect : public SkinEffect
     SE_DECLARE_STREAM;
 
 public:
-    SkinDefaultEffect(int iBoneCount, Node** apBones, Transformation* aOffset);
+    SkinDefaultEffect(int iBoneCount, SENode** apBones, SETransformation* aOffset);
     virtual ~SkinDefaultEffect(void);
 
 protected:
     // streaming
     SkinDefaultEffect(void);
 
-    virtual void OnLoadPrograms(int iPass, Program* pVProgram,
-        Program* pPProgram, Program* pGProgram);
+    virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
+        SEProgram* pPProgram, SEProgram* pGProgram);
 
     static bool ms_bUCInitialized;
 };

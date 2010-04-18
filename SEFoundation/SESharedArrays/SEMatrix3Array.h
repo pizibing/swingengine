@@ -28,13 +28,13 @@
 namespace Swing
 {
 //----------------------------------------------------------------------------
-// 名称:SEMatrix3f共享数组类
+// 名称:Matrix3f共享数组类
 // 说明:
 // 作者:Sun Che
 // 时间:20080324
 //----------------------------------------------------------------------------
-typedef SharedArray<SEMatrix3f> Matrix3fArray;
-typedef SESmartPointer<Matrix3fArray> Matrix3fArrayPtr;
+typedef SESharedArray<SEMatrix3f> SEMatrix3fArray;
+typedef SESmartPointer<SEMatrix3fArray> SEMatrix3fArrayPtr;
 }
 
 #endif

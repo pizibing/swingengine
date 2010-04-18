@@ -29,10 +29,10 @@
 namespace Swing
 {
 
-class ImageCatalog;
-class VertexProgramCatalog;
-class GeometryProgramCatalog;
-class PixelProgramCatalog;
+class SEImageCatalog;
+class SEVertexProgramCatalog;
+class SEGeometryProgramCatalog;
+class SEPixelProgramCatalog;
 
 //----------------------------------------------------------------------------
 // 名称:应用程序入口类
@@ -61,10 +61,10 @@ private:
     static int ms_iStartObjects;
     static int ms_iFinalObjects;
 
-    static ImageCatalog* ms_pImageCatalog;
-    static VertexProgramCatalog* ms_pVertexProgramCatalog;
-    static GeometryProgramCatalog* ms_pGeometryProgramCatalog;
-    static PixelProgramCatalog* ms_pPixelProgramCatalog;
+    static SEImageCatalog* ms_pImageCatalog;
+    static SEVertexProgramCatalog* ms_pVertexProgramCatalog;
+    static SEGeometryProgramCatalog* ms_pGeometryProgramCatalog;
+    static SEPixelProgramCatalog* ms_pPixelProgramCatalog;
 };
 
 }

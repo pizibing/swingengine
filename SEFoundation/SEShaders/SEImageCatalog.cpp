@@ -24,12 +24,12 @@
 
 using namespace Swing;
 
-const std::string ImageCatalog::ms_NullString("");
-const std::string ImageCatalog::ms_DefaultString("Default");
-ImageCatalog* ImageCatalog::ms_pActive = 0;
+const std::string SEImageCatalog::ms_NullString("");
+const std::string SEImageCatalog::ms_DefaultString("Default");
+SEImageCatalog* SEImageCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
-ImageCatalog::ImageCatalog(const std::string& rName)
+SEImageCatalog::SEImageCatalog(const std::string& rName)
     :
     m_Name(rName),
     m_Entry(IMAGE_MAP_SIZE)
@@ -54,20 +54,20 @@ ImageCatalog::ImageCatalog(const std::string& rName)
     pData[14] = 0;
     pData[15] = 0;
 
-    m_spDefaultImage = SE_NEW Image(Image::IT_RGBA8888, 2, 2, pData,
+    m_spDefaultImage = SE_NEW SEImage(SEImage::IT_RGBA8888, 2, 2, pData,
         ms_DefaultString.c_str());
 }
 //----------------------------------------------------------------------------
-ImageCatalog::~ImageCatalog()
+SEImageCatalog::~SEImageCatalog()
 {
 }
 //----------------------------------------------------------------------------
-const std::string& ImageCatalog::GetName() const
+const std::string& SEImageCatalog::GetName() const
 {
     return m_Name;
 }
 //----------------------------------------------------------------------------
-bool ImageCatalog::Insert(Image* pImage)
+bool SEImageCatalog::Insert(SEImage* pImage)
 {
     if( !pImage )
     {
@@ -85,7 +85,7 @@ bool ImageCatalog::Insert(Image* pImage)
     }
 
     // 首先在资源目录中查找
-    Image** ppTempImage = m_Entry.Find(StrImageName);
+    SEImage** ppTempImage = m_Entry.Find(StrImageName);
     if( ppTempImage )
     {
         // 该image已经存在
@@ -98,7 +98,7 @@ bool ImageCatalog::Insert(Image* pImage)
     return true;
 }
 //----------------------------------------------------------------------------
-bool ImageCatalog::Remove(Image* pImage)
+bool SEImageCatalog::Remove(SEImage* pImage)
 {
     if( !pImage )
     {
@@ -116,7 +116,7 @@ bool ImageCatalog::Remove(Image* pImage)
     }
 
     // 首先在资源目录中查找
-    Image** ppTempImage = m_Entry.Find(StrImageName);
+    SEImage** ppTempImage = m_Entry.Find(StrImageName);
     if( !ppTempImage )
     {
         // 该image不存在
@@ -129,16 +129,16 @@ bool ImageCatalog::Remove(Image* pImage)
     return true;
 }
 //----------------------------------------------------------------------------
-Image* ImageCatalog::Find(const std::string& rImageName)
+SEImage* SEImageCatalog::Find(const std::string& rImageName)
 {
     if( rImageName == ms_NullString 
     ||  rImageName == ms_DefaultString )
     {
-        return StaticCast<Image>(m_spDefaultImage);
+        return StaticCast<SEImage>(m_spDefaultImage);
     }
 
     // 首先在资源目录中查找
-    Image** ppTempImage = m_Entry.Find(rImageName);
+    SEImage** ppTempImage = m_Entry.Find(rImageName);
     if( ppTempImage )
     {
         // 找到则返回
@@ -146,7 +146,7 @@ Image* ImageCatalog::Find(const std::string& rImageName)
     }
 
     // 在磁盘中查找
-    Image* pImage = Image::Load(rImageName.c_str());
+    SEImage* pImage = SEImage::Load(rImageName.c_str());
     if( pImage )
     {
         // 该资源存在,且已经在Load后被加入资源目录,不用再次调用Insert函数
@@ -154,10 +154,10 @@ Image* ImageCatalog::Find(const std::string& rImageName)
     }
 
     // image不存在,则使用默认image
-    return StaticCast<Image>(m_spDefaultImage);
+    return StaticCast<SEImage>(m_spDefaultImage);
 }
 //----------------------------------------------------------------------------
-bool ImageCatalog::PrintContents(const std::string& rFileName) const
+bool SEImageCatalog::PrintContents(const std::string& rFileName) const
 {
     const char* pDecorated = SESystem::SE_GetPath(rFileName.c_str(), 
         SESystem::SM_WRITE);
@@ -169,10 +169,10 @@ bool ImageCatalog::PrintContents(const std::string& rFileName) const
         SE_ASSERT( OStream );
 
         std::string StrImageName;
-        Image** ppTempImage = m_Entry.GetFirst(&StrImageName);
+        SEImage** ppTempImage = m_Entry.GetFirst(&StrImageName);
         while( ppTempImage )
         {
-            Image* pImage = *ppTempImage;
+            SEImage* pImage = *ppTempImage;
             OStream << StrImageName.c_str() << ":" << std::endl;
             OStream << "    dimension = " << pImage->GetDimension()
                 << std::endl;
@@ -194,12 +194,12 @@ bool ImageCatalog::PrintContents(const std::string& rFileName) const
     return false;
 }
 //----------------------------------------------------------------------------
-void ImageCatalog::SetActive(ImageCatalog* pActive)
+void SEImageCatalog::SetActive(SEImageCatalog* pActive)
 {
     ms_pActive = pActive;
 }
 //----------------------------------------------------------------------------
-ImageCatalog* ImageCatalog::GetActive()
+SEImageCatalog* SEImageCatalog::GetActive()
 {
     return ms_pActive;
 }

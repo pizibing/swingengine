@@ -35,8 +35,8 @@ VertexTextureEffect::VertexTextureEffect(const std::string& rBaseName)
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("VertexTexture");
-    m_PShader[0] = SE_NEW PixelShader("PassThrough4");
+    m_VShader[0] = SE_NEW SEVertexShader("VertexTexture");
+    m_PShader[0] = SE_NEW SEPixelShader("PassThrough4");
 
     m_VShader[0]->SetTextureCount(1);
     m_VShader[0]->SetImageName(0, rBaseName);

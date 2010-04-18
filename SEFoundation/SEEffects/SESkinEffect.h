@@ -27,8 +27,8 @@
 namespace Swing
 {
 
-class Node;
-class Transformation;
+class SENode;
+class SETransformation;
 
 //----------------------------------------------------------------------------
 // Ãû³Æ:Skin effect class
@@ -50,25 +50,25 @@ public:
     // Member access.
     // Do a copying of these data if you want to hold them in another place.
     int GetBoneCount(void) const;
-    Node** GetBones(void);
-    Transformation* GetOffsets(void);
+    SENode** GetBones(void);
+    SETransformation* GetOffsets(void);
 
 protected:
     // Abstract bass class.
-    SkinEffect(int iBoneCount, Node** apBones, Transformation* aOffset);
+    SkinEffect(int iBoneCount, SENode** apBones, SETransformation* aOffset);
     SkinEffect(void);
 
     // All derived classes should call this helper function in their 
     // OnLoadPrograms() function to initialize their skin matrix UCs.
-    void InitializeUserConstants(Program* pVProgram);
+    void InitializeUserConstants(SEProgram* pVProgram);
 
-    virtual void OnLoadPrograms(int iPass, Program* pVProgram,
-        Program* pPProgram, Program* pGProgram);
-    virtual void OnPreApplyEffect(Renderer* pRenderer, bool bPrimaryEffect);
+    virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
+        SEProgram* pPProgram, SEProgram* pGProgram);
+    virtual void OnPreApplyEffect(SERenderer* pRenderer, bool bPrimaryEffect);
 
     int m_iBoneCount;          // bc
-    Node** m_apBones;          // bones[bc]
-    Transformation* m_aOffset; // offset[bc]
+    SENode** m_apBones;          // bones[bc]
+    SETransformation* m_aOffset; // offset[bc]
 
     // Max number of skin matrices.
     enum { SM_COUNT = 32 };

@@ -19,12 +19,12 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline const TriMesh* SEBoundingVolumeTree::GetMesh() const
+inline const SETriMesh* SEBoundingVolumeTree::GetMesh() const
 {
     return m_pMesh;
 }
 //----------------------------------------------------------------------------
-inline const BoundingVolume* SEBoundingVolumeTree::GetWorldBound() const
+inline const SEBoundingVolume* SEBoundingVolumeTree::GetWorldBound() const
 {
     return m_spWorldBound;
 }

@@ -20,27 +20,27 @@
 
 //----------------------------------------------------------------------------
 template <class T>
-SharedArray<T>::SharedArray(int iCount, T* pArray)
+SESharedArray<T>::SESharedArray(int iCount, T* pArray)
 {
     m_iCount = iCount;
     m_pArray = pArray;
 }
 //----------------------------------------------------------------------------
 template <class T>
-SharedArray<T>::SharedArray(const SharedArray& rShared)
+SESharedArray<T>::SESharedArray(const SESharedArray& rShared)
 {
     m_pArray = 0;
     *this = rShared;
 }
 //----------------------------------------------------------------------------
 template <class T>
-SharedArray<T>::~SharedArray()
+SESharedArray<T>::~SESharedArray()
 {
     SE_DELETE[] m_pArray;
 }
 //----------------------------------------------------------------------------
 template <class T>
-SharedArray<T>& SharedArray<T>::operator=(const SharedArray& rShared)
+SESharedArray<T>& SESharedArray<T>::operator=(const SESharedArray& rShared)
 {
     SE_DELETE[] m_pArray;
     m_iCount = rShared.m_iCount;
@@ -61,31 +61,31 @@ SharedArray<T>& SharedArray<T>::operator=(const SharedArray& rShared)
 }
 //----------------------------------------------------------------------------
 template <class T>
-int SharedArray<T>::GetCount() const
+int SESharedArray<T>::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
 template <class T>
-T* SharedArray<T>::GetData() const
+T* SESharedArray<T>::GetData() const
 {
     return m_pArray;
 }
 //----------------------------------------------------------------------------
 template <class T>
-SharedArray<T>::operator const T*() const
+SESharedArray<T>::operator const T*() const
 {
     return m_pArray;
 }
 //----------------------------------------------------------------------------
 template <class T>
-SharedArray<T>::operator T*()
+SESharedArray<T>::operator T*()
 {
     return m_pArray;
 }
 //----------------------------------------------------------------------------
 template <class T>
-const T& SharedArray<T>::operator[](int i) const
+const T& SESharedArray<T>::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 
@@ -93,7 +93,7 @@ const T& SharedArray<T>::operator[](int i) const
 }
 //----------------------------------------------------------------------------
 template <class T>
-T& SharedArray<T>::operator[](int i)
+T& SESharedArray<T>::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i < m_iCount );
 
@@ -101,7 +101,7 @@ T& SharedArray<T>::operator[](int i)
 }
 //----------------------------------------------------------------------------
 template <class T>
-void SharedArray<T>::SetActiveCount(int iActiveCount)
+void SESharedArray<T>::SetActiveCount(int iActiveCount)
 {
     SE_ASSERT( iActiveCount >= 0 );
 
@@ -109,9 +109,9 @@ void SharedArray<T>::SetActiveCount(int iActiveCount)
 }
 //----------------------------------------------------------------------------
 template <class T> 
-SEObject* SharedArray<T>::Factory(SEStream& rStream) 
+SEObject* SESharedArray<T>::Factory(SEStream& rStream) 
 { 
-    SharedArray<T>* pObject = SE_NEW SharedArray<T>; 
+    SESharedArray<T>* pObject = SE_NEW SESharedArray<T>; 
     SEStream::Link* pLink = SE_NEW SEStream::Link(pObject);
     pObject->Load(rStream, pLink);
 
@@ -119,21 +119,21 @@ SEObject* SharedArray<T>::Factory(SEStream& rStream)
 } 
 //----------------------------------------------------------------------------
 template <class T> 
-void SharedArray<T>::InitializeFactory() 
+void SESharedArray<T>::InitializeFactory() 
 { 
     if( !ms_pFactory )
     { 
         ms_pFactory = SE_NEW SEStringHashTable<FactoryFunction>(FACTORY_MAP_SIZE);
     } 
-    ms_pFactory->Insert(TYPE.GetName(), (FactoryFunction)SharedArray<T>::Factory);
+    ms_pFactory->Insert(TYPE.GetName(), (FactoryFunction)SESharedArray<T>::Factory);
 } 
 //----------------------------------------------------------------------------
 template <class T> 
-bool SharedArray<T>::RegisterFactory() 
+bool SESharedArray<T>::RegisterFactory() 
 { 
     if( !ms_bStreamRegistered ) 
     { 
-        SEMain::AddInitializer(SharedArray<T>::InitializeFactory); 
+        SEMain::AddInitializer(SESharedArray<T>::InitializeFactory); 
         ms_bStreamRegistered = true; 
     }
 
@@ -141,26 +141,26 @@ bool SharedArray<T>::RegisterFactory()
 }
 //----------------------------------------------------------------------------
 template <class T>
-SEObject* SharedArray<T>::GetObjectByName(const std::string& rName)
+SEObject* SESharedArray<T>::GetObjectByName(const std::string& rName)
 {
     return SEObject::GetObjectByName(rName);
 }
 //----------------------------------------------------------------------------
 template <class T>
-void SharedArray<T>::GetAllObjectsByName(const std::string& rName,
+void SESharedArray<T>::GetAllObjectsByName(const std::string& rName,
     std::vector<SEObject*>& rObjects)
 {
     SEObject::GetAllObjectsByName(rName,rObjects);
 }
 //----------------------------------------------------------------------------
 template <class T>
-SEObject* SharedArray<T>::GetObjectByID(unsigned int uiID)
+SEObject* SESharedArray<T>::GetObjectByID(unsigned int uiID)
 {
     return SEObject::GetObjectByID(uiID);
 }
 //----------------------------------------------------------------------------
 template <class T>
-void SharedArray<T>::Load(SEStream& rStream, SEStream::Link* pLink)
+void SESharedArray<T>::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -169,23 +169,23 @@ void SharedArray<T>::Load(SEStream& rStream, SEStream::Link* pLink)
     m_pArray = SE_NEW T[m_iCount];
     rStream.Read(m_iCount, m_pArray);
 
-    SE_END_DEBUG_STREAM_LOAD(SharedArray<T>);
+    SE_END_DEBUG_STREAM_LOAD(SESharedArray<T>);
 }
 //----------------------------------------------------------------------------
 template <class T>
-void SharedArray<T>::Link(SEStream& rStream, SEStream::Link* pLink)
+void SESharedArray<T>::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     SEObject::Link(rStream,pLink);
 }
 //----------------------------------------------------------------------------
 template <class T>
-bool SharedArray<T>::Register(SEStream& rStream) const
+bool SESharedArray<T>::Register(SEStream& rStream) const
 {
     return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
 template <class T>
-void SharedArray<T>::Save(SEStream& rStream) const
+void SESharedArray<T>::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -193,17 +193,17 @@ void SharedArray<T>::Save(SEStream& rStream) const
     rStream.Write(m_iCount);
     rStream.Write(m_iCount, m_pArray);
 
-    SE_END_DEBUG_STREAM_SAVE(SharedArray<T>);
+    SE_END_DEBUG_STREAM_SAVE(SESharedArray<T>);
 }
 //----------------------------------------------------------------------------
 template <class T>
-int SharedArray<T>::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SESharedArray<T>::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SEObject::GetDiskUsed(rVersion) + sizeof(m_iCount) + m_iCount*sizeof(T);
 }
 //----------------------------------------------------------------------------
 template <class T>
-SEStringTree* SharedArray<T>::SaveStrings(const char* pTitle)
+SEStringTree* SESharedArray<T>::SaveStrings(const char* pTitle)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 

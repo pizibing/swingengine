@@ -24,13 +24,13 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, SEBillboardNode, Node);
+SE_IMPLEMENT_RTTI(Swing, SEBillboardNode, SENode);
 SE_IMPLEMENT_STREAM(SEBillboardNode);
 
 //SE_REGISTER_STREAM(SEBillboardNode);
 
 //----------------------------------------------------------------------------
-SEBillboardNode::SEBillboardNode(Camera* pCamera)
+SEBillboardNode::SEBillboardNode(SECamera* pCamera)
     :
     m_spCamera(pCamera)
 {
@@ -43,9 +43,9 @@ SEBillboardNode::~SEBillboardNode()
 void SEBillboardNode::UpdateWorldData(double dAppTime)
 {
     // 根据billboard的local和其父节点的world变换计算其world变换.
-    // 注意不能调用Node::UpdateWorldData,否则该函数将更新当前节点的子节点.
+    // 注意不能调用SENode::UpdateWorldData,否则该函数将更新当前节点的子节点.
     // 稍后我们根据摄像机调整当前billboard节点姿态后,才能更新这些子节点.
-    Spatial::UpdateWorldData(dAppTime);
+    SESpatial::UpdateWorldData(dAppTime);
 
     if( m_spCamera )
     {
@@ -65,7 +65,7 @@ void SEBillboardNode::UpdateWorldData(double dAppTime)
     // billboard的变换已经根据camera更新,从而继续更新其子节点.
     for( int i = 0; i < (int)m_Child.size(); i++ )
     {
-        Spatial* pChild = m_Child[i];
+        SESpatial* pChild = m_Child[i];
         if( pChild )
         {
             pChild->UpdateGS(dAppTime, false);
@@ -100,7 +100,7 @@ SEObject* SEBillboardNode::GetObjectByName(const std::string& rName)
 void SEBillboardNode::GetAllObjectsByName(const std::string& rName,
     std::vector<SEObject*>& rObjects)
 {
-    Node::GetAllObjectsByName(rName, rObjects);
+    SENode::GetAllObjectsByName(rName, rObjects);
 
     if( m_spCamera )
     {
@@ -136,7 +136,7 @@ void SEBillboardNode::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Node::Load(rStream, pLink);
+    SENode::Load(rStream, pLink);
 
     // link data
     SEObject* pObject;
@@ -148,15 +148,15 @@ void SEBillboardNode::Load(SEStream& rStream, SEStream::Link* pLink)
 //----------------------------------------------------------------------------
 void SEBillboardNode::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Node::Link(rStream, pLink);
+    SENode::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
-    m_spCamera = (Camera*)rStream.GetFromMap(pLinkID);
+    m_spCamera = (SECamera*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
 bool SEBillboardNode::Register(SEStream& rStream) const
 {
-    if( !Node::Register(rStream) )
+    if( !SENode::Register(rStream) )
     {
         return false;
     }
@@ -173,7 +173,7 @@ void SEBillboardNode::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Node::Save(rStream);
+    SENode::Save(rStream);
 
     // link data
     rStream.Write(m_spCamera);
@@ -183,7 +183,7 @@ void SEBillboardNode::Save(SEStream& rStream) const
 //----------------------------------------------------------------------------
 int SEBillboardNode::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Node::GetDiskUsed(rVersion) +
+    return SENode::GetDiskUsed(rVersion) +
         sizeof(m_spCamera);
 }
 //----------------------------------------------------------------------------
@@ -195,7 +195,7 @@ SEStringTree* SEBillboardNode::SaveStrings(const char*)
     pTree->Append(Format(&TYPE, GetName().c_str()));
 
     // children
-    pTree->Append(Node::SaveStrings());
+    pTree->Append(SENode::SaveStrings());
 
     if( m_spCamera )
     {

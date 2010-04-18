@@ -32,7 +32,7 @@
 namespace Swing
 {
 
-class GeometryProgram;
+class SEGeometryProgram;
 
 //----------------------------------------------------------------------------
 // 名称:geometry shader程序资源管理类
@@ -40,39 +40,39 @@ class GeometryProgram;
 // 作者:Sun Che
 // 时间:20090523
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API GeometryProgramCatalog
+class SE_FOUNDATION_API SEGeometryProgramCatalog
 {
 public:
-    GeometryProgramCatalog(const std::string& rName);
-    ~GeometryProgramCatalog(void);
+    SEGeometryProgramCatalog(const std::string& rName);
+    ~SEGeometryProgramCatalog(void);
 
     // 开始时我们不知道渲染器类型,
     // 在应用程序层创建了一个渲染器后,才能调用此函数来设置catalog所属渲染器,
-    // 应用程序层的相关函数为WindowApplication::SetRenderer
-    void SetRenderer(Renderer* pRenderer);
+    // 应用程序层的相关函数为SEWindowApplication::SetRenderer
+    void SetRenderer(SERenderer* pRenderer);
 
     const std::string& GetName(void) const;
-    bool Insert(GeometryProgram* pProgram);
-    bool Remove(GeometryProgram* pProgram);
-    GeometryProgram* Find(const std::string& rProgramName,
-        InterfaceDescriptor* pDescriptor = 0);
+    bool Insert(SEGeometryProgram* pProgram);
+    bool Remove(SEGeometryProgram* pProgram);
+    SEGeometryProgram* Find(const std::string& rProgramName,
+        SEInterfaceDescriptor* pDescriptor = 0);
     bool PrintContents(const std::string& rFileName) const;
     int GetProfile(void) const;
 
-    static void SetActive(GeometryProgramCatalog* pActive);
-    static GeometryProgramCatalog* GetActive(void);
+    static void SetActive(SEGeometryProgramCatalog* pActive);
+    static SEGeometryProgramCatalog* GetActive(void);
 
 private:
     enum { PROGRAM_MAP_SIZE = 256 };
     std::string m_Name;
-    SEStringHashTable<GeometryProgram*> m_Entry;
+    SEStringHashTable<SEGeometryProgram*> m_Entry;
     SEObjectPtr m_spDefaultGProgram;
 
-    Renderer* m_pRenderer;
+    SERenderer* m_pRenderer;
 
     static const std::string ms_NullString;
     static const std::string ms_DefaultString;
-    static GeometryProgramCatalog* ms_pActive;
+    static SEGeometryProgramCatalog* ms_pActive;
 };
 
 }

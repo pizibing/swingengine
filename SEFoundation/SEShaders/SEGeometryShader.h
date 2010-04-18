@@ -35,23 +35,23 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090523
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API GeometryShader : public Shader
+class SE_FOUNDATION_API SEGeometryShader : public SEShader
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    GeometryShader(const std::string& rShaderName);
-    virtual ~GeometryShader(void);
+    SEGeometryShader(const std::string& rShaderName);
+    virtual ~SEGeometryShader(void);
 
-    GeometryProgram* GetProgram(void) const;
+    SEGeometryProgram* GetProgram(void) const;
 
 protected:
-    GeometryShader(void);
+    SEGeometryShader(void);
 };
 
-typedef SESmartPointer<GeometryShader> GeometryShaderPtr;
+typedef SESmartPointer<SEGeometryShader> SEGeometryShaderPtr;
 
 }
 

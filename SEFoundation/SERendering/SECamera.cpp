@@ -24,14 +24,14 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Camera, SEObject);
-SE_IMPLEMENT_STREAM(Camera);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Camera, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SECamera, SEObject);
+SE_IMPLEMENT_STREAM(SECamera);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SECamera, SEObject);
 
-//SE_REGISTER_STREAM(Camera);
+//SE_REGISTER_STREAM(SECamera);
 
 //----------------------------------------------------------------------------
-Camera::Camera()
+SECamera::SECamera()
 {
     m_pRenderer = 0;
     m_bPerspective = true;
@@ -43,18 +43,18 @@ Camera::Camera()
         SEVector3f::UNIT_Z); // 与世界空间坐标系重合
 }
 //----------------------------------------------------------------------------
-Camera::~Camera()
+SECamera::~SECamera()
 {
 }
 //----------------------------------------------------------------------------
-void Camera::SetFrame(const SEVector3f& rLocation, const SEVector3f& rRVector,
+void SECamera::SetFrame(const SEVector3f& rLocation, const SEVector3f& rRVector,
     const SEVector3f& rUVector, const SEVector3f& rDVector)
 {
     m_Location = rLocation;
     SetAxes(rRVector, rUVector, rDVector);
 }
 //----------------------------------------------------------------------------
-void Camera::SetLocation(const SEVector3f& rLocation)
+void SECamera::SetLocation(const SEVector3f& rLocation)
 {
     m_Location = rLocation;
 
@@ -64,7 +64,7 @@ void Camera::SetLocation(const SEVector3f& rLocation)
     }
 }
 //----------------------------------------------------------------------------
-void Camera::SetAxes(const SEVector3f& rRVector, const SEVector3f& rUVector,
+void SECamera::SetAxes(const SEVector3f& rRVector, const SEVector3f& rUVector,
     const SEVector3f& rDVector)
 {
     m_RVector = rRVector;
@@ -84,7 +84,7 @@ void Camera::SetAxes(const SEVector3f& rRVector, const SEVector3f& rUVector,
     }
 }
 //----------------------------------------------------------------------------
-void Camera::SetFrustum(float fRMin, float fRMax, float fUMin, float fUMax,
+void SECamera::SetFrustum(float fRMin, float fRMax, float fUMin, float fUMax,
     float fDMin, float fDMax)
 {
     m_Frustum[VF_DMIN] = fDMin;
@@ -100,7 +100,7 @@ void Camera::SetFrustum(float fRMin, float fRMax, float fUMin, float fUMax,
     }
 }
 //----------------------------------------------------------------------------
-void Camera::SetFrustum(const float* pFrustum)
+void SECamera::SetFrustum(const float* pFrustum)
 {
     size_t uiSize = VF_COUNT * sizeof(float);
     SESystem::SE_Memcpy(m_Frustum, uiSize, pFrustum, uiSize);
@@ -111,7 +111,7 @@ void Camera::SetFrustum(const float* pFrustum)
     }
 }
 //----------------------------------------------------------------------------
-void Camera::SetFrustum(float fUpFovDegrees, float fAspectRatio, float fDMin,
+void SECamera::SetFrustum(float fUpFovDegrees, float fAspectRatio, float fDMin,
     float fDMax)
 {
     float fHalfAngleRadians = 0.5f * fUpFovDegrees * SEMathf::DEG_TO_RAD;
@@ -128,7 +128,7 @@ void Camera::SetFrustum(float fUpFovDegrees, float fAspectRatio, float fDMin,
     }
 }
 //----------------------------------------------------------------------------
-void Camera::GetFrustum(float& rRMin, float& rRMax, float& rUMin,
+void SECamera::GetFrustum(float& rRMin, float& rRMax, float& rUMin,
     float& rUMax, float& rDMin, float& rDMax) const
 {
     rDMin = m_Frustum[VF_DMIN];
@@ -139,7 +139,7 @@ void Camera::GetFrustum(float& rRMin, float& rRMax, float& rUMin,
     rRMax = m_Frustum[VF_RMAX];
 }
 //----------------------------------------------------------------------------
-bool Camera::GetFrustum(float& rUpFovDegrees, float& rAspectRatio,
+bool SECamera::GetFrustum(float& rUpFovDegrees, float& rAspectRatio,
     float& rDMin, float& rDMax) const
 {
     // 必须是对称的frustum
@@ -158,7 +158,7 @@ bool Camera::GetFrustum(float& rUpFovDegrees, float& rAspectRatio,
     return false;
 }
 //----------------------------------------------------------------------------
-void Camera::SetPerspective(bool bPerspective)
+void SECamera::SetPerspective(bool bPerspective)
 {
     m_bPerspective = bPerspective;
 
@@ -168,7 +168,7 @@ void Camera::SetPerspective(bool bPerspective)
     }
 }
 //----------------------------------------------------------------------------
-void Camera::SetViewport(float fLeft, float fRight, float fTop,
+void SECamera::SetViewport(float fLeft, float fRight, float fTop,
     float fBottom)
 {
     m_fPortL = fLeft;
@@ -182,7 +182,7 @@ void Camera::SetViewport(float fLeft, float fRight, float fTop,
     }
 }
 //----------------------------------------------------------------------------
-void Camera::GetViewport(float& rLeft, float& rRight, float& rTop,
+void SECamera::GetViewport(float& rLeft, float& rRight, float& rTop,
     float& rBottom)
 {
     rLeft = m_fPortL;
@@ -191,7 +191,7 @@ void Camera::GetViewport(float& rLeft, float& rRight, float& rTop,
     rBottom = m_fPortB;
 }
 //----------------------------------------------------------------------------
-void Camera::SetDepthRange(float fNear, float fFar)
+void SECamera::SetDepthRange(float fNear, float fFar)
 {
     m_fPortN = fNear;
     m_fPortF = fFar;
@@ -202,13 +202,13 @@ void Camera::SetDepthRange(float fNear, float fFar)
     }
 }
 //----------------------------------------------------------------------------
-void Camera::GetDepthRange(float& rNear, float& rFar)
+void SECamera::GetDepthRange(float& rNear, float& rFar)
 {
     rNear = m_fPortN;
     rFar = m_fPortF;
 }
 //----------------------------------------------------------------------------
-bool Camera::GetPickRay(int iX, int iY, int iWidth, int iHeight,
+bool SECamera::GetPickRay(int iX, int iY, int iWidth, int iHeight,
     SERay3f& rRay) const
 {
     float fPortX = ((float)iX) / (float)(iWidth - 1);
@@ -250,7 +250,7 @@ bool Camera::GetPickRay(int iX, int iY, int iWidth, int iHeight,
     return true;
 }
 //----------------------------------------------------------------------------
-bool Camera::GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1, 
+bool SECamera::GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1, 
     SEMatrix3f& rMat) const
 {
     if( fX0 == fX1 && fY0 == fY1 )
@@ -341,7 +341,7 @@ bool Camera::GetTrackBallRotate(float fX0, float fY0, float fX1, float fY1,
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Camera::Load(SEStream& rStream, SEStream::Link* pLink)
+void SECamera::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -365,20 +365,20 @@ void Camera::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(m_fPortN);
     rStream.Read(m_fPortF);
 
-    SE_END_DEBUG_STREAM_LOAD(Camera);
+    SE_END_DEBUG_STREAM_LOAD(SECamera);
 }
 //----------------------------------------------------------------------------
-void Camera::Link(SEStream& rStream, SEStream::Link* pLink)
+void SECamera::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Camera::Register(SEStream& rStream) const
+bool SECamera::Register(SEStream& rStream) const
 {
     return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Camera::Save(SEStream& rStream) const
+void SECamera::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
     
@@ -402,10 +402,10 @@ void Camera::Save(SEStream& rStream) const
     rStream.Write(m_fPortN);
     rStream.Write(m_fPortF);
 
-    SE_END_DEBUG_STREAM_SAVE(Camera);
+    SE_END_DEBUG_STREAM_SAVE(SECamera);
 }
 //----------------------------------------------------------------------------
-int Camera::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SECamera::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     int iSize = SEObject::GetDiskUsed(rVersion) +
         sizeof(m_Location) +
@@ -428,7 +428,7 @@ int Camera::GetDiskUsed(const SEStreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-SEStringTree* Camera::SaveStrings(const char*)
+SEStringTree* SECamera::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 

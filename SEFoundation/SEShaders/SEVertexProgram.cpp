@@ -24,21 +24,21 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, VertexProgram, Program);
-SE_IMPLEMENT_STREAM(VertexProgram);
-SE_IMPLEMENT_DEFAULT_STREAM(VertexProgram, Program);
-SE_IMPLEMENT_DEFAULT_NAME_ID(VertexProgram, Program);
+SE_IMPLEMENT_RTTI(Swing, SEVertexProgram, SEProgram);
+SE_IMPLEMENT_STREAM(SEVertexProgram);
+SE_IMPLEMENT_DEFAULT_STREAM(SEVertexProgram, SEProgram);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEVertexProgram, SEProgram);
 
-//SE_REGISTER_STREAM(VertexProgram);
+//SE_REGISTER_STREAM(SEVertexProgram);
 
 //----------------------------------------------------------------------------
-VertexProgram* VertexProgram::Load(Renderer* pRenderer, 
+SEVertexProgram* SEVertexProgram::Load(SERenderer* pRenderer, 
     const std::string& rProgramName, const std::string& rKey, 
-    InterfaceDescriptor* pInterfaceDesc)
+    SEInterfaceDescriptor* pInterfaceDesc)
 {
-    VertexProgram* pProgram = SE_NEW VertexProgram;
-    bool bLoaded = Program::Load(pRenderer, rProgramName, pProgram,
-        Program::PT_VERTEX, pInterfaceDesc);
+    SEVertexProgram* pProgram = SE_NEW SEVertexProgram;
+    bool bLoaded = SEProgram::Load(pRenderer, rProgramName, pProgram,
+        SEProgram::PT_VERTEX, pInterfaceDesc);
 
     if( !bLoaded )
     {
@@ -47,17 +47,17 @@ VertexProgram* VertexProgram::Load(Renderer* pRenderer,
     }
 
     pProgram->SetName(rKey);
-    VertexProgramCatalog::GetActive()->Insert(pProgram);
+    SEVertexProgramCatalog::GetActive()->Insert(pProgram);
 
     return pProgram;
 }
 //----------------------------------------------------------------------------
-VertexProgram::VertexProgram()
+SEVertexProgram::SEVertexProgram()
 {
 }
 //----------------------------------------------------------------------------
-VertexProgram::~VertexProgram()
+SEVertexProgram::~SEVertexProgram()
 {
-    VertexProgramCatalog::GetActive()->Remove(this);
+    SEVertexProgramCatalog::GetActive()->Remove(this);
 }
 //----------------------------------------------------------------------------

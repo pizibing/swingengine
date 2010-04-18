@@ -35,7 +35,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080701
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API AlphaState : public GlobalState
+class SE_FOUNDATION_API SEAlphaState : public SEGlobalState
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -46,8 +46,8 @@ class SE_FOUNDATION_API AlphaState : public GlobalState
 public:
     virtual StateType GetStateType(void) const { return ALPHA; }
 
-    AlphaState(void);
-    virtual ~AlphaState(void);
+    SEAlphaState(void);
+    virtual ~SEAlphaState(void);
 
     enum SrcBlendMode
     {
@@ -113,7 +113,7 @@ private:
     static const char* ms_pTestMode[TF_COUNT];
 };
 
-typedef SESmartPointer<AlphaState> AlphaStatePtr;
+typedef SESmartPointer<SEAlphaState> SEAlphaStatePtr;
 
 }
 

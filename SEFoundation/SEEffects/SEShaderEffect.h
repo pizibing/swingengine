@@ -32,7 +32,7 @@
 namespace Swing
 {
 
-class Renderer;
+class SERenderer;
 
 //----------------------------------------------------------------------------
 // 名称:shader effect基类
@@ -76,75 +76,75 @@ public:
     // 目标模式系数为SDF_ZERO;也就是说,frame buffer的像素值被shader输出像素覆盖.
     // 如果多个effect应用于一个geometry对象,
     // 则混合模式0表明当前effect输出像素如何与frame buffer像素值进行混合.
-    AlphaState* GetBlending(int iPass);
+    SEAlphaState* GetBlending(int iPass);
 
     // per-pass render state block访问.
-    RenderStateBlock* GetRStateBlock(int iPass);
+    SERenderStateBlock* GetRStateBlock(int iPass);
 
     // 设置pass所需的任何global state并在稍后(渲染完毕)恢复相应state.
     // 基类默认实现:
     // 根据multipass和multieffect渲染的需要,开启和关闭alpha混合状态,
     // 从而使当前pass的输出像素值能够与frame buffer像素值正确混合.
-    virtual void SetGlobalState(int iPass, Renderer* pRenderer,
+    virtual void SetGlobalState(int iPass, SERenderer* pRenderer,
         bool bPrimaryEffect);
-    virtual void RestoreGlobalState(int iPass, Renderer* pRenderer,
+    virtual void RestoreGlobalState(int iPass, SERenderer* pRenderer,
         bool bPrimaryEffect);
 
     // vertex shader接口
-    void SetVShader(int iPass, VertexShader* pVShader);
-    VertexShader* GetVShader(int iPass);
-    VertexProgram* GetVProgram(int iPass);
+    void SetVShader(int iPass, SEVertexShader* pVShader);
+    SEVertexShader* GetVShader(int iPass);
+    SEVertexProgram* GetVProgram(int iPass);
     const std::string& GetVShaderName(int iPass) const;
     int GetVConstantCount(int iPass) const;
-    UserConstant* GetVConstant(int iPass, int i);
-    UserConstant* GetVConstant(int iPass, const std::string& rName);
+    SEUserConstant* GetVConstant(int iPass, int i);
+    SEUserConstant* GetVConstant(int iPass, const std::string& rName);
     int GetVTextureCount(int iPass) const;
-    Texture* GetVTexture(int iPass, int i);
-    Texture* GetVTexture(int iPass, const std::string& rName);
-    void SetVTexture(int iPass, int i, Texture* pTexture); // 允许应用程序指定纹理共享.
+    SETexture* GetVTexture(int iPass, int i);
+    SETexture* GetVTexture(int iPass, const std::string& rName);
+    void SetVTexture(int iPass, int i, SETexture* pTexture); // 允许应用程序指定纹理共享.
     void SetVImageName(int iPass, int i, const std::string& rName);
     const std::string& GetVImageName(int iPass, int i) const;
 
     // geometry shader接口
-    void SetGShader(int iPass, GeometryShader* pGShader);
-    GeometryShader* GetGShader(int iPass);
-    GeometryProgram* GetGProgram(int iPass);
+    void SetGShader(int iPass, SEGeometryShader* pGShader);
+    SEGeometryShader* GetGShader(int iPass);
+    SEGeometryProgram* GetGProgram(int iPass);
     const std::string& GetGShaderName(int iPass) const;
     int GetGConstantCount(int iPass) const;
-    UserConstant* GetGConstant(int iPass, int i);
-    UserConstant* GetGConstant(int iPass, const std::string& rName);
+    SEUserConstant* GetGConstant(int iPass, int i);
+    SEUserConstant* GetGConstant(int iPass, const std::string& rName);
     int GetGTextureCount(int iPass) const;
-    Texture* GetGTexture(int iPass, int i);
-    Texture* GetGTexture(int iPass, const std::string& rName);
-    void SetGTexture(int iPass, int i, Texture* pTexture); // 允许应用程序指定纹理共享.
+    SETexture* GetGTexture(int iPass, int i);
+    SETexture* GetGTexture(int iPass, const std::string& rName);
+    void SetGTexture(int iPass, int i, SETexture* pTexture); // 允许应用程序指定纹理共享.
     void SetGImageName(int iPass, int i, const std::string& rName);
     const std::string& GetGImageName(int iPass, int i) const;
 
     // pixel shader接口
-    void SetPShader(int iPass, PixelShader* pPShader);
-    PixelShader* GetPShader(int iPass);
-    PixelProgram* GetPProgram(int iPass);
+    void SetPShader(int iPass, SEPixelShader* pPShader);
+    SEPixelShader* GetPShader(int iPass);
+    SEPixelProgram* GetPProgram(int iPass);
     const std::string& GetPShaderName(int iPass) const;
     int GetPConstantCount(int iPass) const;
-    UserConstant* GetPConstant(int iPass, int i);
-    UserConstant* GetPConstant(int iPass, const std::string& rName);
+    SEUserConstant* GetPConstant(int iPass, int i);
+    SEUserConstant* GetPConstant(int iPass, const std::string& rName);
     int GetPTextureCount(int iPass) const;
-    Texture* GetPTexture(int iPass, int i);
-    Texture* GetPTexture(int iPass, const std::string& rName);
-    void SetPTexture(int iPass, int i, Texture* pTexture); // 允许应用程序指定纹理共享.
+    SETexture* GetPTexture(int iPass, int i);
+    SETexture* GetPTexture(int iPass, const std::string& rName);
+    void SetPTexture(int iPass, int i, SETexture* pTexture); // 允许应用程序指定纹理共享.
     void SetPImageName(int iPass, int i, const std::string& rName);
     const std::string& GetPImageName(int iPass, int i) const;
 
     // 待实现.
     // 目前只支持effect pass携带的alpha state.
-    // 在scene graph调用UpdateRS函数时,由Geometry类调用,
+    // 在scene graph调用UpdateRS函数时,由SEGeometry类调用,
     // 更新当前shader effect各pass的render state block.
     virtual void OnUpdateData(void* pUserData);
 
-    // 这些函数由Renderer::LoadResources和Renderer::ReleaseResources调用.
+    // 这些函数由SERenderer::LoadResources和SERenderer::ReleaseResources调用.
     // 也可以在应用程序中由用户手动调用初始化所需资源.
-    virtual void LoadResources(Renderer* pRenderer, Geometry* pGeometry);
-    virtual void ReleaseResources(Renderer* pRenderer, Geometry* pGeometry);
+    virtual void LoadResources(SERenderer* pRenderer, SEGeometry* pGeometry);
+    virtual void ReleaseResources(SERenderer* pRenderer, SEGeometry* pGeometry);
 
 protected:
     // streaming support
@@ -153,10 +153,10 @@ protected:
     void SetDefaultAlphaState(void);
 
     int m_iPassCount;
-    std::vector<VertexShaderPtr> m_VShader;
-    std::vector<GeometryShaderPtr> m_GShader;
-    std::vector<PixelShaderPtr> m_PShader;
-    std::vector<RenderStateBlockPtr> m_RStateBlocks;
+    std::vector<SEVertexShaderPtr> m_VShader;
+    std::vector<SEGeometryShaderPtr> m_GShader;
+    std::vector<SEPixelShaderPtr> m_PShader;
+    std::vector<SERenderStateBlockPtr> m_RStateBlocks;
 
 // 内部使用
 public:
@@ -168,31 +168,31 @@ public:
     // (3) shader程序需要更多的颜色参数,超过渲染器支持范围.
     // (4) shader程序需要更多的texture image单元,超过渲染器支持范围.
     // (5) shader程序需要更多组纹理坐标,超过渲染器支持范围.
-    void LoadPrograms(int iPass, Renderer* pRenderer);
+    void LoadPrograms(int iPass, SERenderer* pRenderer);
 
     void ReleasePrograms(int iPass);
 
     // 在LoadPrograms函数中,shader程序被创建后,会调用这个函数.
     // 这将允许ShaderEffect派生类重载该函数,从而实现自定义行为.
     // 派生类应该在这里为用户自定义常量指定存储位置.
-    virtual void OnLoadPrograms(int iPass, Program* pVProgram,
-        Program* pPProgram, Program* pGProgram);
+    virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
+        SEProgram* pPProgram, SEProgram* pGProgram);
 
     // 在ReleasePrograms函数中,shader程序被释放前,会调用这个函数.
     // 这将允许ShaderEffect派生类重载该函数,从而实现自定义行为.
-    virtual void OnReleasePrograms(int iPass, Program* pVProgram,
-        Program* pPProgram, Program* pGProgram);
+    virtual void OnReleasePrograms(int iPass, SEProgram* pVProgram,
+        SEProgram* pPProgram, SEProgram* pGProgram);
 
     // 在渲染器应用当前effect进行渲染前(后),会调用这些函数.
     // 这将允许ShaderEffect派生类重载这些函数,从而实现自定义行为.
-    virtual void OnPreApplyEffect(Renderer* pRenderer, bool bPrimaryEffect);
-    virtual void OnPostApplyEffect(Renderer* pRenderer, bool bPrimaryEffect);
+    virtual void OnPreApplyEffect(SERenderer* pRenderer, bool bPrimaryEffect);
+    virtual void OnPostApplyEffect(SERenderer* pRenderer, bool bPrimaryEffect);
 
     // 在渲染器应用当前effect的每个pass进行渲染前(后),会调用这些函数.
     // 这将允许ShaderEffect派生类重载这些函数,从而实现自定义行为.
-    virtual void OnPreApplyPass(int iPass, Renderer* pRenderer, 
+    virtual void OnPreApplyPass(int iPass, SERenderer* pRenderer, 
         bool bPrimaryEffect);
-    virtual void OnPostApplyPass(int iPass, Renderer* pRenderer, 
+    virtual void OnPostApplyPass(int iPass, SERenderer* pRenderer, 
         bool bPrimaryEffect);
 };
 

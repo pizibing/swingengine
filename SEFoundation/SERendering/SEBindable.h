@@ -36,27 +36,27 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080320
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API ResourceIdentifier
+class SE_FOUNDATION_API SEResourceIdentifier
 {
 public:
     // 虚基类,注意析构函数不是虚函数,
     // 因此被派生后,基类析构行为是未定义的,
     // 由于此类没有任何数据成员,也没有虚函数,
     // 从而避免了虚函数表指针的存在,
-    // 这将允许派生类VBufferIdentifier首先存储自己的成员变量,
+    // 这将允许派生类SEVBufferIdentifier首先存储自己的成员变量,
     // 并且安全的进行如下所示的类型转换操作:
     //
-    //   class VBufferIdentifier : public ResourceIdentifier
+    //   class SEVBufferIdentifier : public SEResourceIdentifier
     //   {
-    //   public:  Attributes IAttributes;
+    //   public:  SEAttributes IAttributes;
     //   }
-    //   VBufferIdentifier* pID = <some identifier>;
-    //   Attributes& rIAttributes = *(Attributes*)pID;
+    //   SEVBufferIdentifier* pID = <some identifier>;
+    //   SEAttributes& rIAttributes = *(SEAttributes*)pID;
 
-    ~ResourceIdentifier(void){}
+    ~SEResourceIdentifier(void){}
 
 protected:
-    ResourceIdentifier(void){}
+    SEResourceIdentifier(void){}
 };
 
 //----------------------------------------------------------------------------
@@ -65,39 +65,39 @@ protected:
 // 作者:Sun Che
 // 时间:20080320
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Bindable
+class SE_FOUNDATION_API SEBindable
 {
 public:
-    Bindable(void);
-    ~Bindable(void);
+    SEBindable(void);
+    ~SEBindable(void);
 
     // 当资源在VRAM中有唯一表示时使用(除了vertex buffers之外的所有资源)
-    ResourceIdentifier* GetIdentifier(Renderer* pUser) const;
+    SEResourceIdentifier* GetIdentifier(SERenderer* pUser) const;
 
     // 当资源在VRAM中有多个表示时使用(vertex buffers)
     int GetInfoCount(void) const;
-    ResourceIdentifier* GetIdentifier(int i, Renderer* pUser) const;
+    SEResourceIdentifier* GetIdentifier(int i, SERenderer* pUser) const;
 
     void Release(void);
 
 private:
-    friend class Renderer;
+    friend class SERenderer;
 
-    void OnLoad(Renderer* pUser, Renderer::ReleaseFunction oRelease,
-        ResourceIdentifier* pID);
+    void OnLoad(SERenderer* pUser, SERenderer::ReleaseFunction oRelease,
+        SEResourceIdentifier* pID);
 
-    void OnRelease(Renderer* pUser, ResourceIdentifier* pID);
+    void OnRelease(SERenderer* pUser, SEResourceIdentifier* pID);
 
     struct Info
     {
         // 资源所绑定的renderer
-        Renderer* User;
+        SERenderer* User;
 
         // 释放资源时所需的renderer释放函数
-        Renderer::ReleaseFunction Release;
+        SERenderer::ReleaseFunction Release;
 
         // 资源在该renderer上的ID
-        ResourceIdentifier* ID;
+        SEResourceIdentifier* ID;
     };
 
     // 可以同时绑定给多个renderer,主要用于绑定一个renderer的多个不同实例

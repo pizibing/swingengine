@@ -46,26 +46,26 @@ public:
 
     virtual void SetPassCount(int iPassCount);
 
-    virtual void SetGlobalState(int iPass, Renderer* pRenderer,
+    virtual void SetGlobalState(int iPass, SERenderer* pRenderer,
         bool bPrimaryEffect);
-    virtual void RestoreGlobalState(int iPass, Renderer* pRenderer,
+    virtual void RestoreGlobalState(int iPass, SERenderer* pRenderer,
         bool bPrimaryEffect);
 
-    void AttachPassGlobalState(int iPass, GlobalState* pState);
-    void DetachPassGlobalState(int iPass, GlobalState::StateType eType);
-    GlobalState* GetPassGlobalState(int iPass, 
-        GlobalState::StateType eType) const;
+    void AttachPassGlobalState(int iPass, SEGlobalState* pState);
+    void DetachPassGlobalState(int iPass, SEGlobalState::StateType eType);
+    SEGlobalState* GetPassGlobalState(int iPass, 
+        SEGlobalState::StateType eType) const;
 
     void ConfigureShader(void);
 
 protected:
     // 均与m_iPassCount数对应.
-    std::vector<GlobalStatePtr> m_MaterialState;
-    std::vector<GlobalStatePtr> m_CullState;
-    std::vector<GlobalStatePtr> m_PolygonOffsetState;
-    std::vector<GlobalStatePtr> m_WireframeState;
-    std::vector<GlobalStatePtr> m_StencilState;
-    std::vector<GlobalStatePtr> m_ZBufferState;
+    std::vector<SEGlobalStatePtr> m_MaterialState;
+    std::vector<SEGlobalStatePtr> m_CullState;
+    std::vector<SEGlobalStatePtr> m_PolygonOffsetState;
+    std::vector<SEGlobalStatePtr> m_WireframeState;
+    std::vector<SEGlobalStatePtr> m_StencilState;
+    std::vector<SEGlobalStatePtr> m_ZBufferState;
 };
 
 typedef SESmartPointer<MaterialEffect> MaterialEffectPtr;

@@ -23,30 +23,30 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, VertexShader, Shader);
-SE_IMPLEMENT_STREAM(VertexShader);
-SE_IMPLEMENT_DEFAULT_STREAM(VertexShader, Shader);
-SE_IMPLEMENT_DEFAULT_NAME_ID(VertexShader, Shader);
+SE_IMPLEMENT_RTTI(Swing, SEVertexShader, SEShader);
+SE_IMPLEMENT_STREAM(SEVertexShader);
+SE_IMPLEMENT_DEFAULT_STREAM(SEVertexShader, SEShader);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEVertexShader, SEShader);
 
-//SE_REGISTER_STREAM(VertexShader);
+//SE_REGISTER_STREAM(SEVertexShader);
 
 //----------------------------------------------------------------------------
-VertexShader::VertexShader(const std::string& rShaderName)
+SEVertexShader::SEVertexShader(const std::string& rShaderName)
     :
-    Shader(rShaderName)
+    SEShader(rShaderName)
 {
 }
 //----------------------------------------------------------------------------
-VertexShader::VertexShader()
+SEVertexShader::SEVertexShader()
 {
 }
 //----------------------------------------------------------------------------
-VertexShader::~VertexShader()
+SEVertexShader::~SEVertexShader()
 {
 }
 //----------------------------------------------------------------------------
-VertexProgram* VertexShader::GetProgram() const
+SEVertexProgram* SEVertexShader::GetProgram() const
 {
-    return StaticCast<VertexProgram>(m_spProgram);
+    return StaticCast<SEVertexProgram>(m_spProgram);
 }
 //----------------------------------------------------------------------------

@@ -28,13 +28,13 @@
 namespace Swing
 {
 //----------------------------------------------------------------------------
-// 名称:SEVector3f共享数组类
+// 名称:Vector3f共享数组类
 // 说明:
 // 作者:Sun Che
 // 时间:20080324
 //----------------------------------------------------------------------------
-typedef SharedArray<SEVector3f> Vector3fArray;
-typedef SESmartPointer<Vector3fArray> Vector3fArrayPtr;
+typedef SESharedArray<SEVector3f> SEVector3fArray;
+typedef SESmartPointer<SEVector3fArray> SEVector3fArrayPtr;
 }
 
 #endif

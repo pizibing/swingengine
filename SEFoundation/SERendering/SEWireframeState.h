@@ -34,7 +34,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080701
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API WireframeState : public GlobalState
+class SE_FOUNDATION_API SEWireframeState : public SEGlobalState
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -45,13 +45,13 @@ class SE_FOUNDATION_API WireframeState : public GlobalState
 public:
     virtual StateType GetStateType(void) const { return WIREFRAME; }
 
-    WireframeState(void);
-    virtual ~WireframeState(void);
+    SEWireframeState(void);
+    virtual ~SEWireframeState(void);
 
     bool Enabled;  // default: false
 };
 
-typedef SESmartPointer<WireframeState> WireframeStatePtr;
+typedef SESmartPointer<SEWireframeState> SEWireframeStatePtr;
 
 }
 

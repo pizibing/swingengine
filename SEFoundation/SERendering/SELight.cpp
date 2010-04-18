@@ -24,14 +24,14 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Light, SEObject);
-SE_IMPLEMENT_STREAM(Light);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Light, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SELight, SEObject);
+SE_IMPLEMENT_STREAM(SELight);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SELight, SEObject);
 
-//SE_REGISTER_STREAM(Light);
+//SE_REGISTER_STREAM(SELight);
 
 //----------------------------------------------------------------------------
-Light::Light(LightType eType)
+SELight::SELight(LightType eType)
     :
     Type(eType),
     Ambient(0.0f, 0.0f, 0.0f),
@@ -52,11 +52,11 @@ Light::Light(LightType eType)
     Exponent = 1.0f;
 }
 //----------------------------------------------------------------------------
-Light::~Light()
+SELight::~SELight()
 {
 }
 //----------------------------------------------------------------------------
-void Light::SetAngle(float fAngle)
+void SELight::SetAngle(float fAngle)
 {
     SE_ASSERT( 0.0f < fAngle && fAngle <= SEMathf::PI );
 
@@ -65,13 +65,13 @@ void Light::SetAngle(float fAngle)
     SinAngle = SEMathf::Sin(fAngle);
 }
 //----------------------------------------------------------------------------
-void Light::SetDirection(const SEVector3f& rDirection, bool bUnitLength)
+void SELight::SetDirection(const SEVector3f& rDirection, bool bUnitLength)
 {
     DVector = rDirection;
     SEVector3f::GetOrthonormalBasis(UVector, RVector, DVector, bUnitLength);
 }
 //----------------------------------------------------------------------------
-bool Light::IsValidFrame() const
+bool SELight::IsValidFrame() const
 {
     float fTest = DVector.Dot(UVector);
     if( SEMathf::FAbs(fTest) > SEMathf::ZERO_TOLERANCE )
@@ -100,7 +100,7 @@ bool Light::IsValidFrame() const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Light::Load(SEStream& rStream, SEStream::Link* pLink)
+void SELight::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -124,20 +124,20 @@ void Light::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(SinAngle);
     rStream.Read(Exponent);
 
-    SE_END_DEBUG_STREAM_LOAD(Light);
+    SE_END_DEBUG_STREAM_LOAD(SELight);
 }
 //----------------------------------------------------------------------------
-void Light::Link(SEStream& rStream, SEStream::Link* pLink)
+void SELight::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Light::Register(SEStream& rStream) const
+bool SELight::Register(SEStream& rStream) const
 {
     return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Light::Save(SEStream& rStream) const
+void SELight::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -161,10 +161,10 @@ void Light::Save(SEStream& rStream) const
     rStream.Write(SinAngle);
     rStream.Write(Exponent);
 
-    SE_END_DEBUG_STREAM_SAVE(Light);
+    SE_END_DEBUG_STREAM_SAVE(SELight);
 }
 //----------------------------------------------------------------------------
-int Light::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SELight::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SEObject::GetDiskUsed(rVersion) +
         sizeof(Type) +
@@ -185,7 +185,7 @@ int Light::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(Exponent);
 }
 //----------------------------------------------------------------------------
-SEStringTree* Light::SaveStrings(const char*)
+SEStringTree* SELight::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 

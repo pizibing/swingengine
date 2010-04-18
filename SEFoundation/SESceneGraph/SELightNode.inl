@@ -19,12 +19,12 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline Light* LightNode::GetLight()
+inline SELight* SELightNode::GetLight()
 {
     return m_spLight;
 }
 //----------------------------------------------------------------------------
-inline const Light* LightNode::GetLight() const
+inline const SELight* SELightNode::GetLight() const
 {
     return m_spLight;
 }

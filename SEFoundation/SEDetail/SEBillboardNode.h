@@ -34,7 +34,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090603
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API SEBillboardNode : public Node
+class SE_FOUNDATION_API SEBillboardNode : public SENode
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -43,17 +43,17 @@ class SE_FOUNDATION_API SEBillboardNode : public Node
 public:
     // billboard的模型空间up轴(0,1,0)被用来当作billboard的旋转轴.
 
-    SEBillboardNode(Camera* pCamera = 0);
+    SEBillboardNode(SECamera* pCamera = 0);
     virtual ~SEBillboardNode(void);
 
     // billboard当前所对齐的camera.
-    inline void AlignTo(Camera* pCamera);
+    inline void AlignTo(SECamera* pCamera);
 
 protected:
     // geometric updates
     virtual void UpdateWorldData(double dAppTime);
 
-    SESmartPointer<Camera> m_spCamera;
+    SESmartPointer<SECamera> m_spCamera;
 };
 
 typedef SESmartPointer<SEBillboardNode> SEBillboardNodePtr;

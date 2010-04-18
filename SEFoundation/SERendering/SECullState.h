@@ -34,7 +34,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080701
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API CullState : public GlobalState
+class SE_FOUNDATION_API SECullState : public SEGlobalState
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -45,8 +45,8 @@ class SE_FOUNDATION_API CullState : public GlobalState
 public:
     virtual StateType GetStateType(void) const { return CULL; }
 
-    CullState(void);
-    virtual ~CullState(void);
+    SECullState(void);
+    virtual ~SECullState(void);
 
     enum FrontMode
     {
@@ -71,7 +71,7 @@ private:
     static const char* ms_pCullMode[CT_COUNT];
 };
 
-typedef SESmartPointer<CullState> CullStatePtr;
+typedef SESmartPointer<SECullState> SECullStatePtr;
 
 }
 

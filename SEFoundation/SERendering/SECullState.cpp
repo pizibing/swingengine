@@ -23,47 +23,47 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, CullState, GlobalState);
-SE_IMPLEMENT_STREAM(CullState);
-SE_IMPLEMENT_DEFAULT_NAME_ID(CullState, GlobalState);
-SE_IMPLEMENT_INITIALIZE(CullState);
-SE_IMPLEMENT_TERMINATE(CullState);
+SE_IMPLEMENT_RTTI(Swing, SECullState, SEGlobalState);
+SE_IMPLEMENT_STREAM(SECullState);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SECullState, SEGlobalState);
+SE_IMPLEMENT_INITIALIZE(SECullState);
+SE_IMPLEMENT_TERMINATE(SECullState);
 
-//SE_REGISTER_STREAM(CullState);
-//SE_REGISTER_INITIALIZE(CullState);
-//SE_REGISTER_TERMINATE(CullState);
+//SE_REGISTER_STREAM(SECullState);
+//SE_REGISTER_INITIALIZE(SECullState);
+//SE_REGISTER_TERMINATE(SECullState);
 
-const char* CullState::ms_pFrontMode[FT_COUNT] =
+const char* SECullState::ms_pFrontMode[FT_COUNT] =
 {
     "FT_CCW",
     "FT_CW"
 };
 
-const char* CullState::ms_pCullMode[CT_COUNT] =
+const char* SECullState::ms_pCullMode[CT_COUNT] =
 {
     "CT_FRONT",
     "CT_BACK"
 };
 
 //----------------------------------------------------------------------------
-void CullState::Initialize()
+void SECullState::Initialize()
 {
-    Default[CULL] = SE_NEW CullState;
+    Default[CULL] = SE_NEW SECullState;
 }
 //----------------------------------------------------------------------------
-void CullState::Terminate()
+void SECullState::Terminate()
 {
     Default[CULL] = 0;
 }
 //----------------------------------------------------------------------------
-CullState::CullState()
+SECullState::SECullState()
 {
     Enabled = true;
     FrontFace = FT_CW;
     CullFace = CT_BACK;
 }
 //----------------------------------------------------------------------------
-CullState::~CullState()
+SECullState::~SECullState()
 {
 }
 //----------------------------------------------------------------------------
@@ -71,11 +71,11 @@ CullState::~CullState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void CullState::Load(SEStream& rStream, SEStream::Link* pLink)
+void SECullState::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    GlobalState::Load(rStream, pLink);
+    SEGlobalState::Load(rStream, pLink);
 
     // native data
     int iTemp;
@@ -85,42 +85,42 @@ void CullState::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(iTemp);
     CullFace = (CullMode)iTemp;
 
-    SE_END_DEBUG_STREAM_LOAD(CullState);
+    SE_END_DEBUG_STREAM_LOAD(SECullState);
 }
 //----------------------------------------------------------------------------
-void CullState::Link(SEStream& rStream, SEStream::Link* pLink)
+void SECullState::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    GlobalState::Link(rStream, pLink);
+    SEGlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool CullState::Register(SEStream& rStream) const
+bool SECullState::Register(SEStream& rStream) const
 {
-    return GlobalState::Register(rStream);
+    return SEGlobalState::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void CullState::Save(SEStream& rStream) const
+void SECullState::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    GlobalState::Save(rStream);
+    SEGlobalState::Save(rStream);
 
     // native data
     rStream.Write(Enabled);
     rStream.Write((int)FrontFace);
     rStream.Write((int)CullFace);
 
-    SE_END_DEBUG_STREAM_SAVE(CullState);
+    SE_END_DEBUG_STREAM_SAVE(SECullState);
 }
 //----------------------------------------------------------------------------
-int CullState::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SECullState::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return GlobalState::GetDiskUsed(rVersion) +
+    return SEGlobalState::GetDiskUsed(rVersion) +
         sizeof(char) + // Enabled
         sizeof(int) + // FrontFace
         sizeof(int); // CullFace
 }
 //----------------------------------------------------------------------------
-SEStringTree* CullState::SaveStrings(const char*)
+SEStringTree* SECullState::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -131,7 +131,7 @@ SEStringTree* CullState::SaveStrings(const char*)
     pTree->Append(Format("cull face = ", ms_pCullMode[CullFace]));
 
     // children
-    pTree->Append(GlobalState::SaveStrings());
+    pTree->Append(SEGlobalState::SaveStrings());
 
     return pTree;
 }

@@ -29,56 +29,56 @@
 
 using namespace Swing;
 
-Renderer::SetConstantFunction Renderer::ms_aoSCFunction[SC_COUNT] =
+SERenderer::SetConstantFunction SERenderer::ms_aoSCFunction[SC_COUNT] =
 {
-    &Renderer::SetConstantWMatrix,
-    &Renderer::SetConstantVMatrix,
-    &Renderer::SetConstantPMatrix,
-    &Renderer::SetConstantWVMatrix,
-    &Renderer::SetConstantVPMatrix,
-    &Renderer::SetConstantWVPMatrix,
+    &SERenderer::SetConstantWMatrix,
+    &SERenderer::SetConstantVMatrix,
+    &SERenderer::SetConstantPMatrix,
+    &SERenderer::SetConstantWVMatrix,
+    &SERenderer::SetConstantVPMatrix,
+    &SERenderer::SetConstantWVPMatrix,
 
-    &Renderer::SetConstantMaterialEmissive,
-    &Renderer::SetConstantMaterialAmbient,
-    &Renderer::SetConstantMaterialDiffuse,
-    &Renderer::SetConstantMaterialSpecular,
+    &SERenderer::SetConstantMaterialEmissive,
+    &SERenderer::SetConstantMaterialAmbient,
+    &SERenderer::SetConstantMaterialDiffuse,
+    &SERenderer::SetConstantMaterialSpecular,
 
-    &Renderer::SetConstantCameraModelPosition,
-    &Renderer::SetConstantCameraModelRight,
-    &Renderer::SetConstantCameraModelUp,
-    &Renderer::SetConstantCameraModelDirection,
-    &Renderer::SetConstantCameraWorldPosition,
-    &Renderer::SetConstantCameraWorldRight,
-    &Renderer::SetConstantCameraWorldUp,
-    &Renderer::SetConstantCameraWorldDirection,
+    &SERenderer::SetConstantCameraModelPosition,
+    &SERenderer::SetConstantCameraModelRight,
+    &SERenderer::SetConstantCameraModelUp,
+    &SERenderer::SetConstantCameraModelDirection,
+    &SERenderer::SetConstantCameraWorldPosition,
+    &SERenderer::SetConstantCameraWorldRight,
+    &SERenderer::SetConstantCameraWorldUp,
+    &SERenderer::SetConstantCameraWorldDirection,
 
-    &Renderer::SetConstantProjectorModelPosition,
-    &Renderer::SetConstantProjectorModelRight,
-    &Renderer::SetConstantProjectorModelUp,
-    &Renderer::SetConstantProjectorModelDirection,
-    &Renderer::SetConstantProjectorWorldPosition,
-    &Renderer::SetConstantProjectorWorldRight,
-    &Renderer::SetConstantProjectorWorldUp,
-    &Renderer::SetConstantProjectorWorldDirection,
-    &Renderer::SetConstantProjectorMatrix,
+    &SERenderer::SetConstantProjectorModelPosition,
+    &SERenderer::SetConstantProjectorModelRight,
+    &SERenderer::SetConstantProjectorModelUp,
+    &SERenderer::SetConstantProjectorModelDirection,
+    &SERenderer::SetConstantProjectorWorldPosition,
+    &SERenderer::SetConstantProjectorWorldRight,
+    &SERenderer::SetConstantProjectorWorldUp,
+    &SERenderer::SetConstantProjectorWorldDirection,
+    &SERenderer::SetConstantProjectorMatrix,
 
-    &Renderer::SetConstantLightModelPosition,
-    &Renderer::SetConstantLightModelDirection,
-    &Renderer::SetConstantLightWorldPosition,
-    &Renderer::SetConstantLightWorldDirection,
-    &Renderer::SetConstantLightAmbient,
-    &Renderer::SetConstantLightDiffuse,
-    &Renderer::SetConstantLightSpecular,
-    &Renderer::SetConstantLightSpotCutoff,
-    &Renderer::SetConstantLightAttenuation,
-    &Renderer::SetConstantLightCount
+    &SERenderer::SetConstantLightModelPosition,
+    &SERenderer::SetConstantLightModelDirection,
+    &SERenderer::SetConstantLightWorldPosition,
+    &SERenderer::SetConstantLightWorldDirection,
+    &SERenderer::SetConstantLightAmbient,
+    &SERenderer::SetConstantLightDiffuse,
+    &SERenderer::SetConstantLightSpecular,
+    &SERenderer::SetConstantLightSpotCutoff,
+    &SERenderer::SetConstantLightAttenuation,
+    &SERenderer::SetConstantLightCount
 };
 
 //----------------------------------------------------------------------------
-Renderer::Renderer(FrameBuffer::FormatType eFormat,
-    FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,
-    FrameBuffer::BufferingType eBuffering,
-    FrameBuffer::MultisamplingType eMultisampling,
+SERenderer::SERenderer(SEFrameBuffer::FormatType eFormat,
+    SEFrameBuffer::DepthType eDepth, SEFrameBuffer::StencilType eStencil,
+    SEFrameBuffer::BufferingType eBuffering,
+    SEFrameBuffer::MultisamplingType eMultisampling,
     int iWidth, int iHeight)
     :
     m_eFormat(eFormat),
@@ -131,14 +131,14 @@ Renderer::Renderer(FrameBuffer::FormatType eFormat,
     m_iFontID = 0;
 }
 //----------------------------------------------------------------------------
-Renderer::~Renderer()
+SERenderer::~SERenderer()
 {
     SE_DELETE[] m_apActiveSamplers;
     SE_DELETE[] m_aspLight;
     SetCamera(0);
 }
 //----------------------------------------------------------------------------
-void Renderer::SetCamera(Camera* pCamera)
+void SERenderer::SetCamera(SECamera* pCamera)
 {
     if( m_pCamera )
     {
@@ -160,7 +160,7 @@ void Renderer::SetCamera(Camera* pCamera)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::OnFrameChange()
+void SERenderer::OnFrameChange()
 {
     const SEVector3f& rEye = m_pCamera->GetLocation();
     const SEVector3f& rRVector = m_pCamera->GetRVector();
@@ -186,7 +186,7 @@ void Renderer::OnFrameChange()
     m_ViewMatrix[3][3] = 1.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::OnFrustumChange()
+void SERenderer::OnFrustumChange()
 {
     if( !m_pCamera )
     {
@@ -243,127 +243,127 @@ void Renderer::OnFrustumChange()
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::Resize(int iWidth, int iHeight)
+void SERenderer::Resize(int iWidth, int iHeight)
 {
     m_iWidth = iWidth;
     m_iHeight = iHeight;
     OnViewportChange();
 }
 //----------------------------------------------------------------------------
-void Renderer::SetGlobalState(GlobalStatePtr aspState[])
+void SERenderer::SetGlobalState(SEGlobalStatePtr aspState[])
 {
-    GlobalState* pState = aspState[GlobalState::ALPHA];
+    SEGlobalState* pState = aspState[SEGlobalState::ALPHA];
     if( pState )
     {
-        SetAlphaState((AlphaState*)pState);
+        SetAlphaState((SEAlphaState*)pState);
     }
 
-    pState = aspState[GlobalState::CULL];
+    pState = aspState[SEGlobalState::CULL];
     if( pState )
     {
-        SetCullState((CullState*)pState);
+        SetCullState((SECullState*)pState);
     }
 
-    pState = aspState[GlobalState::MATERIAL];
+    pState = aspState[SEGlobalState::MATERIAL];
     if( pState )
     {
-        SetMaterialState((MaterialState*)pState);
+        SetMaterialState((SEMaterialState*)pState);
     }
 
-    pState = aspState[GlobalState::POLYGONOFFSET];
+    pState = aspState[SEGlobalState::POLYGONOFFSET];
     if( pState )
     {
-        SetPolygonOffsetState((PolygonOffsetState*)pState);
+        SetPolygonOffsetState((SEPolygonOffsetState*)pState);
     }
 
-    pState = aspState[GlobalState::STENCIL];
+    pState = aspState[SEGlobalState::STENCIL];
     if( pState )
     {
-        SetStencilState((StencilState*)pState);
+        SetStencilState((SEStencilState*)pState);
     }
 
-    pState = aspState[GlobalState::WIREFRAME];
+    pState = aspState[SEGlobalState::WIREFRAME];
     if( pState )
     {
-        SetWireframeState((WireframeState*)pState);
+        SetWireframeState((SEWireframeState*)pState);
     }
 
-    pState = aspState[GlobalState::ZBUFFER];
+    pState = aspState[SEGlobalState::ZBUFFER];
     if( pState )
     {
-        SetZBufferState((ZBufferState*)pState);
+        SetZBufferState((SEZBufferState*)pState);
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::RestoreGlobalState(GlobalStatePtr aspState[])
+void SERenderer::RestoreGlobalState(SEGlobalStatePtr aspState[])
 {
-    GlobalState* pState;
+    SEGlobalState* pState;
     
-    if( aspState[GlobalState::ALPHA] )
+    if( aspState[SEGlobalState::ALPHA] )
     {
-        pState = GlobalState::Default[GlobalState::ALPHA];
-        SetAlphaState((AlphaState*)pState);
+        pState = SEGlobalState::Default[SEGlobalState::ALPHA];
+        SetAlphaState((SEAlphaState*)pState);
     }
 
-    if( aspState[GlobalState::CULL] )
+    if( aspState[SEGlobalState::CULL] )
     {
-        pState = GlobalState::Default[GlobalState::CULL];
-        SetCullState((CullState*)pState);
+        pState = SEGlobalState::Default[SEGlobalState::CULL];
+        SetCullState((SECullState*)pState);
     }
 
-    if( aspState[GlobalState::MATERIAL] )
+    if( aspState[SEGlobalState::MATERIAL] )
     {
-        pState = GlobalState::Default[GlobalState::MATERIAL];
-        SetMaterialState((MaterialState*)pState);
+        pState = SEGlobalState::Default[SEGlobalState::MATERIAL];
+        SetMaterialState((SEMaterialState*)pState);
     }
 
-    if( aspState[GlobalState::POLYGONOFFSET] )
+    if( aspState[SEGlobalState::POLYGONOFFSET] )
     {
-        pState = GlobalState::Default[GlobalState::POLYGONOFFSET];
-        SetPolygonOffsetState((PolygonOffsetState*)pState);
+        pState = SEGlobalState::Default[SEGlobalState::POLYGONOFFSET];
+        SetPolygonOffsetState((SEPolygonOffsetState*)pState);
     }
 
-    if( aspState[GlobalState::STENCIL] )
+    if( aspState[SEGlobalState::STENCIL] )
     {
-        pState = GlobalState::Default[GlobalState::STENCIL];
-        SetStencilState((StencilState*)pState);
+        pState = SEGlobalState::Default[SEGlobalState::STENCIL];
+        SetStencilState((SEStencilState*)pState);
     }
 
-    if( aspState[GlobalState::WIREFRAME] )
+    if( aspState[SEGlobalState::WIREFRAME] )
     {
-        pState = GlobalState::Default[GlobalState::WIREFRAME];
-        SetWireframeState((WireframeState*)pState);
+        pState = SEGlobalState::Default[SEGlobalState::WIREFRAME];
+        SetWireframeState((SEWireframeState*)pState);
     }
 
-    if( aspState[GlobalState::ZBUFFER] )
+    if( aspState[SEGlobalState::ZBUFFER] )
     {
-        pState = GlobalState::Default[GlobalState::ZBUFFER];
-        SetZBufferState((ZBufferState*)pState);
+        pState = SEGlobalState::Default[SEGlobalState::ZBUFFER];
+        SetZBufferState((SEZBufferState*)pState);
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::SetPostWorldTransformation(const SEMatrix4f& rMatrix)
+void SERenderer::SetPostWorldTransformation(const SEMatrix4f& rMatrix)
 {
     m_SaveViewMatrix = m_ViewMatrix;
     rMatrix.GetTransposeTimes(m_SaveViewMatrix, m_ViewMatrix);
 }
 //----------------------------------------------------------------------------
-void Renderer::RestorePostWorldTransformation()
+void SERenderer::RestorePostWorldTransformation()
 {
     m_ViewMatrix = m_SaveViewMatrix;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetWorldTransformation()
+void SERenderer::SetWorldTransformation()
 {
     m_pGeometry->World.GetHomogeneous(m_WorldMatrix);
 }
 //----------------------------------------------------------------------------
-void Renderer::RestoreWorldTransformation()
+void SERenderer::RestoreWorldTransformation()
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-void Renderer::SetLights()
+void SERenderer::SetLights()
 {
     int iLCount = (int)m_pGeometry->Lights.size();
     for( int i = 0; i < iLCount; i++ )
@@ -374,7 +374,7 @@ void Renderer::SetLights()
     SetLightCount(iLCount);
 }
 //----------------------------------------------------------------------------
-void Renderer::RestoreLights()
+void SERenderer::RestoreLights()
 {
     int iLCount = (int)m_pGeometry->Lights.size();
     for( int i = 0; i < iLCount; i++ )
@@ -385,7 +385,7 @@ void Renderer::RestoreLights()
     SetLightCount(0);
 }
 //----------------------------------------------------------------------------
-void Renderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
+void SERenderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
     bool bAllowBlue, bool bAllowAlpha)
 {
     m_bAllowRed = bAllowRed;
@@ -394,7 +394,7 @@ void Renderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
     m_bAllowAlpha = bAllowAlpha;
 }
 //----------------------------------------------------------------------------
-void Renderer::GetColorMask(bool& rbAllowRed, bool& rbAllowGreen,
+void SERenderer::GetColorMask(bool& rbAllowRed, bool& rbAllowGreen,
     bool& rbAllowBlue, bool& rbAllowAlpha)
 {
     rbAllowRed = m_bAllowRed;
@@ -407,12 +407,12 @@ void Renderer::GetColorMask(bool& rbAllowRed, bool& rbAllowGreen,
 //----------------------------------------------------------------------------
 // 可选geometry shader stage的资源装载与释放.
 //----------------------------------------------------------------------------
-void Renderer::OnLoadGProgram(ResourceIdentifier*&, GeometryProgram*)
+void SERenderer::OnLoadGProgram(SEResourceIdentifier*&, SEGeometryProgram*)
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-void Renderer::OnReleaseGProgram(ResourceIdentifier*)
+void SERenderer::OnReleaseGProgram(SEResourceIdentifier*)
 {
     // 由派生类负责实现.
 }
@@ -421,12 +421,12 @@ void Renderer::OnReleaseGProgram(ResourceIdentifier*)
 //----------------------------------------------------------------------------
 // 可选render state block的资源装载与释放.
 //----------------------------------------------------------------------------
-void Renderer::OnLoadRenderStateBlock(ResourceIdentifier*&, RenderStateBlock*)
+void SERenderer::OnLoadRenderStateBlock(SEResourceIdentifier*&, SERenderStateBlock*)
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-void Renderer::OnReleaseRenderStateBlock(ResourceIdentifier*)
+void SERenderer::OnReleaseRenderStateBlock(SEResourceIdentifier*)
 {
     // 由派生类负责实现.
 }
@@ -435,12 +435,12 @@ void Renderer::OnReleaseRenderStateBlock(ResourceIdentifier*)
 //----------------------------------------------------------------------------
 // 可选geometry shader stage的资源开启与关闭.
 //----------------------------------------------------------------------------
-void Renderer::OnEnableGProgram(ResourceIdentifier*)
+void SERenderer::OnEnableGProgram(SEResourceIdentifier*)
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-void Renderer::OnDisableGProgram(ResourceIdentifier*)
+void SERenderer::OnDisableGProgram(SEResourceIdentifier*)
 {
     // 由派生类负责实现.
 }
@@ -449,12 +449,12 @@ void Renderer::OnDisableGProgram(ResourceIdentifier*)
 //----------------------------------------------------------------------------
 // 可选render state block的资源开启与关闭.
 //----------------------------------------------------------------------------
-void Renderer::OnEnableRenderStateBlock(ResourceIdentifier*)
+void SERenderer::OnEnableRenderStateBlock(SEResourceIdentifier*)
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-void Renderer::OnDisableRenderStateBlock(ResourceIdentifier*)
+void SERenderer::OnDisableRenderStateBlock(SEResourceIdentifier*)
 {
     // 由派生类负责实现.
 }
@@ -463,7 +463,7 @@ void Renderer::OnDisableRenderStateBlock(ResourceIdentifier*)
 //----------------------------------------------------------------------------
 // 可选shader程序连接.
 //----------------------------------------------------------------------------
-bool Renderer::OnLinkPrograms(VertexProgram*, GeometryProgram*, PixelProgram*)
+bool SERenderer::OnLinkPrograms(SEVertexProgram*, SEGeometryProgram*, SEPixelProgram*)
 {
     // 由派生类负责实现.
     return false;
@@ -473,7 +473,7 @@ bool Renderer::OnLinkPrograms(VertexProgram*, GeometryProgram*, PixelProgram*)
 //----------------------------------------------------------------------------
 // 设置shader程序所需的渲染器常量.
 //----------------------------------------------------------------------------
-void Renderer::GetTransform(const SEMatrix4f& rMat, int iOperation,
+void SERenderer::GetTransform(const SEMatrix4f& rMat, int iOperation,
     float* afData)
 {
     const size_t uiSize = 16 * sizeof(float);
@@ -507,40 +507,40 @@ void Renderer::GetTransform(const SEMatrix4f& rMat, int iOperation,
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantWMatrix(int iOperation, float* afData)
+void SERenderer::SetConstantWMatrix(int iOperation, float* afData)
 {
     GetTransform(m_WorldMatrix, iOperation, afData);
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantVMatrix(int iOperation, float* afData)
+void SERenderer::SetConstantVMatrix(int iOperation, float* afData)
 {
     GetTransform(m_ViewMatrix, iOperation, afData);
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantPMatrix(int iOperation, float* afData)
+void SERenderer::SetConstantPMatrix(int iOperation, float* afData)
 {
     GetTransform(m_ProjectionMatrix, iOperation, afData);
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantWVMatrix(int iOperation, float* afData)
+void SERenderer::SetConstantWVMatrix(int iOperation, float* afData)
 {
     SEMatrix4f mat4fWV = m_WorldMatrix * m_ViewMatrix;
     GetTransform(mat4fWV, iOperation, afData);
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantVPMatrix(int iOperation, float* afData)
+void SERenderer::SetConstantVPMatrix(int iOperation, float* afData)
 {
     SEMatrix4f mat4fVP = m_ViewMatrix * m_ProjectionMatrix;
     GetTransform(mat4fVP, iOperation, afData);
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantWVPMatrix(int iOperation, float* afData)
+void SERenderer::SetConstantWVPMatrix(int iOperation, float* afData)
 {
     SEMatrix4f mat4fWVP = m_WorldMatrix * m_ViewMatrix * m_ProjectionMatrix;
     GetTransform(mat4fWVP, iOperation, afData);
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantProjectorMatrix(int, float* afData)
+void SERenderer::SetConstantProjectorMatrix(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
@@ -590,47 +590,47 @@ void Renderer::SetConstantProjectorMatrix(int, float* afData)
     GetTransform(mat4fProjectorMatrix, 0, afData);
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantMaterialEmissive(int, float* afData)
+void SERenderer::SetConstantMaterialEmissive(int, float* afData)
 {
-    MaterialState* pMaterial = StaticCast<MaterialState>(
-        m_aspState[GlobalState::MATERIAL]);
+    SEMaterialState* pMaterial = StaticCast<SEMaterialState>(
+        m_aspState[SEGlobalState::MATERIAL]);
     afData[0] = pMaterial->Emissive.R;
     afData[1] = pMaterial->Emissive.G;
     afData[2] = pMaterial->Emissive.B;
     afData[3] = 1.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantMaterialAmbient(int, float* afData)
+void SERenderer::SetConstantMaterialAmbient(int, float* afData)
 {
-    MaterialState* pMaterial = StaticCast<MaterialState>(
-        m_aspState[GlobalState::MATERIAL]);
+    SEMaterialState* pMaterial = StaticCast<SEMaterialState>(
+        m_aspState[SEGlobalState::MATERIAL]);
     afData[0] = pMaterial->Ambient.R;
     afData[1] = pMaterial->Ambient.G;
     afData[2] = pMaterial->Ambient.B;
     afData[3] = 1.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantMaterialDiffuse(int, float* afData)
+void SERenderer::SetConstantMaterialDiffuse(int, float* afData)
 {
-    MaterialState* pMaterial = StaticCast<MaterialState>(
-        m_aspState[GlobalState::MATERIAL]);
+    SEMaterialState* pMaterial = StaticCast<SEMaterialState>(
+        m_aspState[SEGlobalState::MATERIAL]);
     afData[0] = pMaterial->Diffuse.R;
     afData[1] = pMaterial->Diffuse.G;
     afData[2] = pMaterial->Diffuse.B;
     afData[3] = pMaterial->Alpha;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantMaterialSpecular(int, float* afData)
+void SERenderer::SetConstantMaterialSpecular(int, float* afData)
 {
-    MaterialState* pMaterial = StaticCast<MaterialState>(
-        m_aspState[GlobalState::MATERIAL]);
+    SEMaterialState* pMaterial = StaticCast<SEMaterialState>(
+        m_aspState[SEGlobalState::MATERIAL]);
     afData[0] = pMaterial->Specular.R;
     afData[1] = pMaterial->Specular.G;
     afData[2] = pMaterial->Specular.B;
     afData[3] = pMaterial->Shininess;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantCameraModelPosition(int, float* afData)
+void SERenderer::SetConstantCameraModelPosition(int, float* afData)
 {
     SEVector3f vec3fMLocation;
     m_pGeometry->World.ApplyInverse(m_pCamera->GetLocation(), vec3fMLocation);
@@ -641,7 +641,7 @@ void Renderer::SetConstantCameraModelPosition(int, float* afData)
     afData[3] = 1.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantCameraModelRight(int, float* afData)
+void SERenderer::SetConstantCameraModelRight(int, float* afData)
 {
     SEVector3f vec3fMRVector;
     m_pGeometry->World.InvertVector(m_pCamera->GetRVector(), vec3fMRVector);
@@ -653,7 +653,7 @@ void Renderer::SetConstantCameraModelRight(int, float* afData)
     afData[3] = 0.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantCameraModelUp(int, float* afData)
+void SERenderer::SetConstantCameraModelUp(int, float* afData)
 {
     SEVector3f vec3fMUVector;
     m_pGeometry->World.InvertVector(m_pCamera->GetUVector(), vec3fMUVector);
@@ -665,7 +665,7 @@ void Renderer::SetConstantCameraModelUp(int, float* afData)
     afData[3] = 0.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantCameraModelDirection(int, float* afData)
+void SERenderer::SetConstantCameraModelDirection(int, float* afData)
 {
     SEVector3f vec3fMDVector;
     m_pGeometry->World.InvertVector(m_pCamera->GetDVector(), vec3fMDVector);
@@ -677,7 +677,7 @@ void Renderer::SetConstantCameraModelDirection(int, float* afData)
     afData[3] = 0.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantCameraWorldPosition(int, float* afData)
+void SERenderer::SetConstantCameraWorldPosition(int, float* afData)
 {
     SEVector3f vec3fWLocation = m_pCamera->GetLocation();
 
@@ -687,7 +687,7 @@ void Renderer::SetConstantCameraWorldPosition(int, float* afData)
     afData[3] = 1.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantCameraWorldRight(int, float* afData)
+void SERenderer::SetConstantCameraWorldRight(int, float* afData)
 {
     SEVector3f vec3fWRVector = m_pCamera->GetRVector();
 
@@ -697,7 +697,7 @@ void Renderer::SetConstantCameraWorldRight(int, float* afData)
     afData[3] = 0.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantCameraWorldUp(int, float* afData)
+void SERenderer::SetConstantCameraWorldUp(int, float* afData)
 {
     SEVector3f vec3fWUVector = m_pCamera->GetUVector();
 
@@ -707,7 +707,7 @@ void Renderer::SetConstantCameraWorldUp(int, float* afData)
     afData[3] = 0.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantCameraWorldDirection(int, float* afData)
+void SERenderer::SetConstantCameraWorldDirection(int, float* afData)
 {
     SEVector3f vec3fWDVector = m_pCamera->GetDVector();
 
@@ -717,7 +717,7 @@ void Renderer::SetConstantCameraWorldDirection(int, float* afData)
     afData[3] = 0.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantProjectorModelPosition(int, float* afData)
+void SERenderer::SetConstantProjectorModelPosition(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
@@ -730,7 +730,7 @@ void Renderer::SetConstantProjectorModelPosition(int, float* afData)
     afData[3] = 1.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantProjectorModelRight(int, float* afData)
+void SERenderer::SetConstantProjectorModelRight(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
@@ -744,7 +744,7 @@ void Renderer::SetConstantProjectorModelRight(int, float* afData)
     afData[3] = 0.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantProjectorModelUp(int, float* afData)
+void SERenderer::SetConstantProjectorModelUp(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
@@ -758,7 +758,7 @@ void Renderer::SetConstantProjectorModelUp(int, float* afData)
     afData[3] = 0.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantProjectorModelDirection(int, float* afData)
+void SERenderer::SetConstantProjectorModelDirection(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
@@ -772,7 +772,7 @@ void Renderer::SetConstantProjectorModelDirection(int, float* afData)
     afData[3] = 0.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantProjectorWorldPosition(int, float* afData)
+void SERenderer::SetConstantProjectorWorldPosition(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
@@ -784,7 +784,7 @@ void Renderer::SetConstantProjectorWorldPosition(int, float* afData)
     afData[3] = 1.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantProjectorWorldRight(int, float* afData)
+void SERenderer::SetConstantProjectorWorldRight(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
@@ -796,7 +796,7 @@ void Renderer::SetConstantProjectorWorldRight(int, float* afData)
     afData[3] = 0.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantProjectorWorldUp(int, float* afData)
+void SERenderer::SetConstantProjectorWorldUp(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
@@ -808,7 +808,7 @@ void Renderer::SetConstantProjectorWorldUp(int, float* afData)
     afData[3] = 0.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantProjectorWorldDirection(int, float* afData)
+void SERenderer::SetConstantProjectorWorldDirection(int, float* afData)
 {
     SE_ASSERT( m_pProjector );
 
@@ -820,9 +820,9 @@ void Renderer::SetConstantProjectorWorldDirection(int, float* afData)
     afData[3] = 0.0f;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantLightModelPosition(int iLight, float* afData)
+void SERenderer::SetConstantLightModelPosition(int iLight, float* afData)
 {
-    Light* pLight = GetLight(iLight);
+    SELight* pLight = GetLight(iLight);
     if( pLight )
     {
         SEVector3f vec3fMPosition;
@@ -831,7 +831,7 @@ void Renderer::SetConstantLightModelPosition(int iLight, float* afData)
         afData[0] = vec3fMPosition[0];
         afData[1] = vec3fMPosition[1];
         afData[2] = vec3fMPosition[2];
-        afData[3] = (int)pLight->Type < (int)Light::LT_POINT ? 0.0f : 1.0f;
+        afData[3] = (int)pLight->Type < (int)SELight::LT_POINT ? 0.0f : 1.0f;
     }
     else
     {
@@ -842,9 +842,9 @@ void Renderer::SetConstantLightModelPosition(int iLight, float* afData)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantLightModelDirection(int iLight, float* afData)
+void SERenderer::SetConstantLightModelDirection(int iLight, float* afData)
 {
-    Light* pLight = GetLight(iLight);
+    SELight* pLight = GetLight(iLight);
     if( pLight )
     {
         SEVector3f vec3fMDVector;
@@ -865,15 +865,15 @@ void Renderer::SetConstantLightModelDirection(int iLight, float* afData)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantLightWorldPosition(int iLight, float* afData)
+void SERenderer::SetConstantLightWorldPosition(int iLight, float* afData)
 {
-    Light* pLight = GetLight(iLight);
+    SELight* pLight = GetLight(iLight);
     if( pLight )
     {
         afData[0] = pLight->Position[0];
         afData[1] = pLight->Position[1];
         afData[2] = pLight->Position[2];
-        afData[3] = (int)pLight->Type < (int)Light::LT_POINT ? 0.0f : 1.0f;
+        afData[3] = (int)pLight->Type < (int)SELight::LT_POINT ? 0.0f : 1.0f;
     }
     else
     {
@@ -884,9 +884,9 @@ void Renderer::SetConstantLightWorldPosition(int iLight, float* afData)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantLightWorldDirection(int iLight, float* afData)
+void SERenderer::SetConstantLightWorldDirection(int iLight, float* afData)
 {
-    Light* pLight = GetLight(iLight);
+    SELight* pLight = GetLight(iLight);
     if( pLight )
     {
         afData[0] = pLight->DVector[0];
@@ -903,9 +903,9 @@ void Renderer::SetConstantLightWorldDirection(int iLight, float* afData)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantLightAmbient(int iLight, float* afData)
+void SERenderer::SetConstantLightAmbient(int iLight, float* afData)
 {
-    Light* pLight = GetLight(iLight);
+    SELight* pLight = GetLight(iLight);
     if( pLight )
     {
         afData[0] = pLight->Ambient.R;
@@ -922,9 +922,9 @@ void Renderer::SetConstantLightAmbient(int iLight, float* afData)
     }
  }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantLightDiffuse(int iLight, float* afData)
+void SERenderer::SetConstantLightDiffuse(int iLight, float* afData)
 {
-    Light* pLight = GetLight(iLight);
+    SELight* pLight = GetLight(iLight);
     if( pLight )
     {
         afData[0] = pLight->Diffuse.R;
@@ -941,9 +941,9 @@ void Renderer::SetConstantLightDiffuse(int iLight, float* afData)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantLightSpecular(int iLight, float* afData)
+void SERenderer::SetConstantLightSpecular(int iLight, float* afData)
 {
-    Light* pLight = GetLight(iLight);
+    SELight* pLight = GetLight(iLight);
     if( pLight )
     {
         afData[0] = pLight->Specular.R;
@@ -960,9 +960,9 @@ void Renderer::SetConstantLightSpecular(int iLight, float* afData)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantLightSpotCutoff(int iLight, float* afData)
+void SERenderer::SetConstantLightSpotCutoff(int iLight, float* afData)
 {
-    Light* pLight = GetLight(iLight);
+    SELight* pLight = GetLight(iLight);
     if( pLight )
     {
         afData[0] = pLight->Angle;
@@ -979,9 +979,9 @@ void Renderer::SetConstantLightSpotCutoff(int iLight, float* afData)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantLightAttenuation(int iLight, float* afData)
+void SERenderer::SetConstantLightAttenuation(int iLight, float* afData)
 {
-    Light* pLight = GetLight(iLight);
+    SELight* pLight = GetLight(iLight);
     if( pLight )
     {
         afData[0] = pLight->Constant;
@@ -998,18 +998,18 @@ void Renderer::SetConstantLightAttenuation(int iLight, float* afData)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::SetConstantLightCount(int, float* afData)
+void SERenderer::SetConstantLightCount(int, float* afData)
 {
     afData[0] = (float)m_iNumActiveLights;
 }
 //----------------------------------------------------------------------------
-void Renderer::SetRendererConstant(RendererConstant::Type eRCType,
+void SERenderer::SetRendererConstant(SERendererConstant::Type eRCType,
     float* afData)
 {
     int iRCType = (int)eRCType;
     int iFunction;
 
-    if( iRCType <= (int)RendererConstant::WVP_MATRIX_INVERSE_TRANSPOSE )
+    if( iRCType <= (int)SERendererConstant::WVP_MATRIX_INVERSE_TRANSPOSE )
     {
         // 常量与矩阵数据有关.
         // 这些数据以6个为一组:
@@ -1018,17 +1018,17 @@ void Renderer::SetRendererConstant(RendererConstant::Type eRCType,
         iFunction = iRCType % 6;
         (this->*ms_aoSCFunction[iFunction])(iOperation, afData);
     }
-    else if( iRCType <= (int)RendererConstant::PROJECTOR_MATRIX )
+    else if( iRCType <= (int)SERendererConstant::PROJECTOR_MATRIX )
     {
         // 常量与material,camera,projector数据有关.
         // 第一参数iOperation被忽略掉,因此设置为0.
         // iFunction中的"6"用于索引ms_aoSCFunction中的SetConstantMaterialEmissive.
         // 其他的iFunction是一个相对偏移量,用于定位material,fog,camera,projector等
         // 的SetConstant*函数.iFunction最大值为26.
-        iFunction = 6 + iRCType - (int)RendererConstant::MATERIAL_EMISSIVE;
+        iFunction = 6 + iRCType - (int)SERendererConstant::MATERIAL_EMISSIVE;
         (this->*ms_aoSCFunction[iFunction])(0, afData);
     }
-    else if( iRCType < (int)RendererConstant::LIGHT_COUNT )
+    else if( iRCType < (int)SERendererConstant::LIGHT_COUNT )
     {
         // 常量与light有关.
         // 这些数据以9个为一组:
@@ -1039,7 +1039,7 @@ void Renderer::SetRendererConstant(RendererConstant::Type eRCType,
         // iFunction最大值为35.
         // 从LIGHT_ARRAY0_MODEL_POSITION开始,
         // 是light0到light7对应的shader interface数组实例中的renderer constant.
-        int iDiff = iRCType - (int)RendererConstant::LIGHT0_MODEL_POSITION;
+        int iDiff = iRCType - (int)SERendererConstant::LIGHT0_MODEL_POSITION;
         int iLight = iDiff / 9;
         iLight -= (iLight >= 8 ? 8 : 0);
         int iAttribute = iDiff % 9;
@@ -1058,20 +1058,20 @@ void Renderer::SetRendererConstant(RendererConstant::Type eRCType,
 //----------------------------------------------------------------------------
 // 装载与释放资源
 //----------------------------------------------------------------------------
-void Renderer::LoadAllResources(Spatial* pScene)
+void SERenderer::LoadAllResources(SESpatial* pScene)
 {
-    Geometry* pGeometry = DynamicCast<Geometry>(pScene);
+    SEGeometry* pGeometry = DynamicCast<SEGeometry>(pScene);
     if( pGeometry )
     {
         LoadResources(pGeometry);
     }
 
-    Node* pNode = DynamicCast<Node>(pScene);
+    SENode* pNode = DynamicCast<SENode>(pScene);
     if( pNode )
     {
         for( int i = 0; i < pNode->GetCount(); i++ )
         {
-            Spatial* pChild = pNode->GetChild(i);
+            SESpatial* pChild = pNode->GetChild(i);
             if( pChild )
             {
                 LoadAllResources(pChild);
@@ -1080,20 +1080,20 @@ void Renderer::LoadAllResources(Spatial* pScene)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::ReleaseAllResources(Spatial* pScene)
+void SERenderer::ReleaseAllResources(SESpatial* pScene)
 {
-    Geometry* pGeometry = DynamicCast<Geometry>(pScene);
+    SEGeometry* pGeometry = DynamicCast<SEGeometry>(pScene);
     if( pGeometry )
     {
         ReleaseResources(pGeometry);
     }
 
-    Node* pNode = DynamicCast<Node>(pScene);
+    SENode* pNode = DynamicCast<SENode>(pScene);
     if( pNode )
     {
         for( int i = 0; i < pNode->GetCount(); i++ )
         {
-            Spatial* pChild = pNode->GetChild(i);
+            SESpatial* pChild = pNode->GetChild(i);
             if( pChild )
             {
                 ReleaseAllResources(pChild);
@@ -1102,7 +1102,7 @@ void Renderer::ReleaseAllResources(Spatial* pScene)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::LoadResources(Geometry* pGeometry)
+void SERenderer::LoadResources(SEGeometry* pGeometry)
 {
     SE_ASSERT( pGeometry );
     SE_ASSERT( pGeometry->VBuffer );
@@ -1120,7 +1120,7 @@ void Renderer::LoadResources(Geometry* pGeometry)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::ReleaseResources(Geometry* pGeometry)
+void SERenderer::ReleaseResources(SEGeometry* pGeometry)
 {
     SE_ASSERT( pGeometry );
     SE_ASSERT( pGeometry->VBuffer );
@@ -1144,43 +1144,43 @@ void Renderer::ReleaseResources(Geometry* pGeometry)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::LoadResources(Effect* pEffect)
+void SERenderer::LoadResources(Effect* pEffect)
 {
     SE_ASSERT( pEffect );
 
     pEffect->LoadResources(this, 0);
 }
 //----------------------------------------------------------------------------
-void Renderer::ReleaseResources(Effect* pEffect)
+void SERenderer::ReleaseResources(Effect* pEffect)
 {
     SE_ASSERT( pEffect );
 
     pEffect->ReleaseResources(this, 0);
 }
 //----------------------------------------------------------------------------
-void Renderer::LoadVProgram(VertexProgram* pVProgram)
+void SERenderer::LoadVProgram(SEVertexProgram* pVProgram)
 {
     if( !pVProgram )
     {
         return;
     }
 
-    ResourceIdentifier* pID = pVProgram->GetIdentifier(this);
+    SEResourceIdentifier* pID = pVProgram->GetIdentifier(this);
     if( !pID )
     {
         OnLoadVProgram(pID, pVProgram);
-        pVProgram->OnLoad(this, &Renderer::ReleaseVProgram, pID);
+        pVProgram->OnLoad(this, &SERenderer::ReleaseVProgram, pID);
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::ReleaseVProgram(Bindable* pVProgram)
+void SERenderer::ReleaseVProgram(SEBindable* pVProgram)
 {
     if( !pVProgram )
     {
         return;
     }
 
-    ResourceIdentifier* pID = pVProgram->GetIdentifier(this);
+    SEResourceIdentifier* pID = pVProgram->GetIdentifier(this);
     if( pID )
     {
         OnReleaseVProgram(pID);
@@ -1188,29 +1188,29 @@ void Renderer::ReleaseVProgram(Bindable* pVProgram)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::LoadGProgram(GeometryProgram* pGProgram)
+void SERenderer::LoadGProgram(SEGeometryProgram* pGProgram)
 {
     if( !pGProgram )
     {
         return;
     }
 
-    ResourceIdentifier* pID = pGProgram->GetIdentifier(this);
+    SEResourceIdentifier* pID = pGProgram->GetIdentifier(this);
     if( !pID )
     {
         OnLoadGProgram(pID, pGProgram);
-        pGProgram->OnLoad(this, &Renderer::ReleaseGProgram, pID);
+        pGProgram->OnLoad(this, &SERenderer::ReleaseGProgram, pID);
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::ReleaseGProgram(Bindable* pGProgram)
+void SERenderer::ReleaseGProgram(SEBindable* pGProgram)
 {
     if( !pGProgram )
     {
         return;
     }
 
-    ResourceIdentifier* pID = pGProgram->GetIdentifier(this);
+    SEResourceIdentifier* pID = pGProgram->GetIdentifier(this);
     if( pID )
     {
         OnReleaseGProgram(pID);
@@ -1218,29 +1218,29 @@ void Renderer::ReleaseGProgram(Bindable* pGProgram)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::LoadPProgram(PixelProgram* pPProgram)
+void SERenderer::LoadPProgram(SEPixelProgram* pPProgram)
 {
     if( !pPProgram )
     {
         return;
     }
 
-    ResourceIdentifier* pID = pPProgram->GetIdentifier(this);
+    SEResourceIdentifier* pID = pPProgram->GetIdentifier(this);
     if( !pID )
     {
         OnLoadPProgram(pID, pPProgram);
-        pPProgram->OnLoad(this, &Renderer::ReleasePProgram, pID);
+        pPProgram->OnLoad(this, &SERenderer::ReleasePProgram, pID);
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::ReleasePProgram(Bindable* pPProgram)
+void SERenderer::ReleasePProgram(SEBindable* pPProgram)
 {
     if( !pPProgram )
     {
         return;
     }
 
-    ResourceIdentifier* pID = pPProgram->GetIdentifier(this);
+    SEResourceIdentifier* pID = pPProgram->GetIdentifier(this);
     if( pID )
     {
         OnReleasePProgram(pID);
@@ -1248,29 +1248,29 @@ void Renderer::ReleasePProgram(Bindable* pPProgram)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::LoadTexture(Texture* pTexture)
+void SERenderer::LoadTexture(SETexture* pTexture)
 {
     if( !pTexture )
     {
         return;
     }
 
-    ResourceIdentifier* pID = pTexture->GetIdentifier(this);
+    SEResourceIdentifier* pID = pTexture->GetIdentifier(this);
     if( !pID )
     {
         OnLoadTexture(pID, pTexture);
-        pTexture->OnLoad(this, &Renderer::ReleaseTexture, pID);
+        pTexture->OnLoad(this, &SERenderer::ReleaseTexture, pID);
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::ReleaseTexture(Bindable* pTexture)
+void SERenderer::ReleaseTexture(SEBindable* pTexture)
 {
     if( !pTexture )
     {
         return;
     }
 
-    ResourceIdentifier* pID = pTexture->GetIdentifier(this);
+    SEResourceIdentifier* pID = pTexture->GetIdentifier(this);
     if( pID )
     {
         OnReleaseTexture(pID);
@@ -1278,9 +1278,9 @@ void Renderer::ReleaseTexture(Bindable* pTexture)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::LoadVBuffer(const Attributes& rIAttributes,
-    const Attributes& rOAttributes, VertexBuffer* pVBuffer,
-    VertexProgram* pVProgram)
+void SERenderer::LoadVBuffer(const SEAttributes& rIAttributes,
+    const SEAttributes& rOAttributes, SEVertexBuffer* pVBuffer,
+    SEVertexProgram* pVProgram)
 {
     if( !pVBuffer )
     {
@@ -1288,13 +1288,13 @@ void Renderer::LoadVBuffer(const Attributes& rIAttributes,
     }
 
     // 试图在之前passes使用过的VB显存实例中查找匹配当前需求的VB子集.
-    ResourceIdentifier* pID = 0;
+    SEResourceIdentifier* pID = 0;
     for( int i = 0; i < pVBuffer->GetInfoCount(); i++ )
     {
         pID = pVBuffer->GetIdentifier(i, this);
         if( pID )
         {
-            if( rIAttributes == *(Attributes*)pID )
+            if( rIAttributes == *(SEAttributes*)pID )
             {
                 // 如果找到则不需重新装载该VB子集.
                 return;
@@ -1304,7 +1304,7 @@ void Renderer::LoadVBuffer(const Attributes& rIAttributes,
 
     // 第一次遇到该VB子集,
     // 待实现:当前只支持3-tuples顶点和法线.
-    const Attributes& rVBAttributes = pVBuffer->GetAttributes();
+    const SEAttributes& rVBAttributes = pVBuffer->GetAttributes();
     SE_ASSERT( rIAttributes.GetPositionChannels() == 3 && 
         rVBAttributes.GetPositionChannels() == 3 );
 
@@ -1316,10 +1316,10 @@ void Renderer::LoadVBuffer(const Attributes& rIAttributes,
     (void)rVBAttributes;  // 避免Release版本编译器警告
 
     OnLoadVBuffer(pID, rIAttributes, rOAttributes, pVBuffer, pVProgram);
-    pVBuffer->OnLoad(this, &Renderer::ReleaseVBuffer, pID);
+    pVBuffer->OnLoad(this, &SERenderer::ReleaseVBuffer, pID);
 }
 //----------------------------------------------------------------------------
-void Renderer::ReleaseVBuffer(Bindable* pVBuffer)
+void SERenderer::ReleaseVBuffer(SEBindable* pVBuffer)
 {
     if( !pVBuffer )
     {
@@ -1328,7 +1328,7 @@ void Renderer::ReleaseVBuffer(Bindable* pVBuffer)
 
     for( int i = 0; i < pVBuffer->GetInfoCount(); i++ )
     {
-        ResourceIdentifier* pID = pVBuffer->GetIdentifier(i, this);
+        SEResourceIdentifier* pID = pVBuffer->GetIdentifier(i, this);
         if( pID )
         {
             OnReleaseVBuffer(pID);
@@ -1339,29 +1339,29 @@ void Renderer::ReleaseVBuffer(Bindable* pVBuffer)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::LoadIBuffer(IndexBuffer* pIBuffer)
+void SERenderer::LoadIBuffer(SEIndexBuffer* pIBuffer)
 {
     if( !pIBuffer )
     {
         return;
     }
 
-    ResourceIdentifier* pID = pIBuffer->GetIdentifier(this);
+    SEResourceIdentifier* pID = pIBuffer->GetIdentifier(this);
     if( !pID )
     {
         OnLoadIBuffer(pID, pIBuffer);
-        pIBuffer->OnLoad(this, &Renderer::ReleaseIBuffer, pID);
+        pIBuffer->OnLoad(this, &SERenderer::ReleaseIBuffer, pID);
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::ReleaseIBuffer(Bindable* pIBuffer)
+void SERenderer::ReleaseIBuffer(SEBindable* pIBuffer)
 {
     if( !pIBuffer )
     {
         return;
     }
 
-    ResourceIdentifier* pID = pIBuffer->GetIdentifier(this);
+    SEResourceIdentifier* pID = pIBuffer->GetIdentifier(this);
     if( pID )
     {
         OnReleaseIBuffer(pID);
@@ -1369,29 +1369,29 @@ void Renderer::ReleaseIBuffer(Bindable* pIBuffer)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::LoadRenderStateBlock(RenderStateBlock* pRStateBlock)
+void SERenderer::LoadRenderStateBlock(SERenderStateBlock* pRStateBlock)
 {
     if( !pRStateBlock )
     {
         return;
     }
 
-    ResourceIdentifier* pID = pRStateBlock->GetIdentifier(this);
+    SEResourceIdentifier* pID = pRStateBlock->GetIdentifier(this);
     if( !pID )
     {
         OnLoadRenderStateBlock(pID, pRStateBlock);
-        pRStateBlock->OnLoad(this, &Renderer::ReleaseRenderStateBlock, pID);
+        pRStateBlock->OnLoad(this, &SERenderer::ReleaseRenderStateBlock, pID);
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::ReleaseRenderStateBlock(Bindable* pRStateBlock)
+void SERenderer::ReleaseRenderStateBlock(SEBindable* pRStateBlock)
 {
     if( !pRStateBlock )
     {
         return;
     }
 
-    ResourceIdentifier* pID = pRStateBlock->GetIdentifier(this);
+    SEResourceIdentifier* pID = pRStateBlock->GetIdentifier(this);
     if( pID )
     {
         OnReleaseRenderStateBlock(pID);
@@ -1403,13 +1403,13 @@ void Renderer::ReleaseRenderStateBlock(Bindable* pRStateBlock)
 //----------------------------------------------------------------------------
 // 资源开启与关闭
 //----------------------------------------------------------------------------
-void Renderer::EnableVProgram(VertexProgram* pVProgram)
+void SERenderer::EnableVProgram(SEVertexProgram* pVProgram)
 {
     SE_ASSERT( pVProgram );
 
     // Ensure that the shader program is loaded to VRAM.
     LoadVProgram(pVProgram);
-    ResourceIdentifier* pID = pVProgram->GetIdentifier(this);
+    SEResourceIdentifier* pID = pVProgram->GetIdentifier(this);
     SE_ASSERT( pID );
 
     OnEnableVProgram(pID);
@@ -1428,7 +1428,7 @@ void Renderer::EnableVProgram(VertexProgram* pVProgram)
     iCount = pVProgram->GetRCCount();
     for( i = 0; i < iCount; i++ )
     {
-        RendererConstant* pRC = pVProgram->GetRC(i);
+        SERendererConstant* pRC = pVProgram->GetRC(i);
         SE_ASSERT(pRC);
 
         // Set pipeline's T&L date to system RAM.
@@ -1442,7 +1442,7 @@ void Renderer::EnableVProgram(VertexProgram* pVProgram)
     iCount = pVProgram->GetUCCount();
     for( i = 0; i < iCount; i++ )
     {
-        UserConstant* pUC = pVProgram->GetUC(i);
+        SEUserConstant* pUC = pVProgram->GetUC(i);
         SE_ASSERT( pUC );
 
         // Set the data to VRAM.
@@ -1455,23 +1455,23 @@ void Renderer::EnableVProgram(VertexProgram* pVProgram)
     UpdateVProgramConstants(pVProgram);
 }
 //----------------------------------------------------------------------------
-void Renderer::DisableVProgram(VertexProgram* pVProgram)
+void SERenderer::DisableVProgram(SEVertexProgram* pVProgram)
 {
     SE_ASSERT( pVProgram );
 
-    ResourceIdentifier* pID = pVProgram->GetIdentifier(this);
+    SEResourceIdentifier* pID = pVProgram->GetIdentifier(this);
     SE_ASSERT( pID );
 
     OnDisableVProgram(pID);
 }
 //----------------------------------------------------------------------------
-void Renderer::EnableGProgram(GeometryProgram* pGProgram)
+void SERenderer::EnableGProgram(SEGeometryProgram* pGProgram)
 {
     SE_ASSERT( pGProgram );
 
     // Ensure that the shader program is loaded to VRAM.
     LoadGProgram(pGProgram);
-    ResourceIdentifier* pID = pGProgram->GetIdentifier(this);
+    SEResourceIdentifier* pID = pGProgram->GetIdentifier(this);
     SE_ASSERT( pID );
 
     OnEnableGProgram(pID);
@@ -1490,7 +1490,7 @@ void Renderer::EnableGProgram(GeometryProgram* pGProgram)
     iCount = pGProgram->GetRCCount();
     for( i = 0; i < iCount; i++ )
     {
-        RendererConstant* pRC = pGProgram->GetRC(i);
+        SERendererConstant* pRC = pGProgram->GetRC(i);
         SE_ASSERT(pRC);
 
         // Set pipeline's T&L date to system RAM.
@@ -1504,7 +1504,7 @@ void Renderer::EnableGProgram(GeometryProgram* pGProgram)
     iCount = pGProgram->GetUCCount();
     for( i = 0; i < iCount; i++ )
     {
-        UserConstant* pUC = pGProgram->GetUC(i);
+        SEUserConstant* pUC = pGProgram->GetUC(i);
         SE_ASSERT( pUC );
 
         // Set the data to VRAM.
@@ -1517,23 +1517,23 @@ void Renderer::EnableGProgram(GeometryProgram* pGProgram)
     UpdateGProgramConstants(pGProgram);
 }
 //----------------------------------------------------------------------------
-void Renderer::DisableGProgram(GeometryProgram* pGProgram)
+void SERenderer::DisableGProgram(SEGeometryProgram* pGProgram)
 {
     SE_ASSERT( pGProgram );
 
-    ResourceIdentifier* pID = pGProgram->GetIdentifier(this);
+    SEResourceIdentifier* pID = pGProgram->GetIdentifier(this);
     SE_ASSERT( pID );
 
     OnDisableGProgram(pID);
 }
 //----------------------------------------------------------------------------
-void Renderer::EnablePProgram(PixelProgram* pPProgram)
+void SERenderer::EnablePProgram(SEPixelProgram* pPProgram)
 {
     SE_ASSERT( pPProgram );
 
     // Ensure that the shader program is loaded to VRAM.
     LoadPProgram(pPProgram);
-    ResourceIdentifier* pID = pPProgram->GetIdentifier(this);
+    SEResourceIdentifier* pID = pPProgram->GetIdentifier(this);
     SE_ASSERT( pID );
 
     OnEnablePProgram(pID);
@@ -1552,7 +1552,7 @@ void Renderer::EnablePProgram(PixelProgram* pPProgram)
     iCount = pPProgram->GetRCCount();
     for( i = 0; i < iCount; i++ )
     {
-        RendererConstant* pRC = pPProgram->GetRC(i);
+        SERendererConstant* pRC = pPProgram->GetRC(i);
         SE_ASSERT( pRC );
 
         // Set pipeline's T&L date to system RAM.
@@ -1566,7 +1566,7 @@ void Renderer::EnablePProgram(PixelProgram* pPProgram)
     iCount = pPProgram->GetUCCount();
     for( i = 0; i < iCount; i++ )
     {
-        UserConstant* pUC = pPProgram->GetUC(i);
+        SEUserConstant* pUC = pPProgram->GetUC(i);
         SE_ASSERT( pUC );
 
         // Set the data to VRAM.
@@ -1579,54 +1579,54 @@ void Renderer::EnablePProgram(PixelProgram* pPProgram)
     UpdatePProgramConstants(pPProgram);
 }
 //----------------------------------------------------------------------------
-void Renderer::DisablePProgram(PixelProgram* pPProgram)
+void SERenderer::DisablePProgram(SEPixelProgram* pPProgram)
 {
     SE_ASSERT( pPProgram );
 
-    ResourceIdentifier* pID = pPProgram->GetIdentifier(this);
+    SEResourceIdentifier* pID = pPProgram->GetIdentifier(this);
     SE_ASSERT( pID );
 
     OnDisablePProgram(pID);
 }
 //----------------------------------------------------------------------------
-void Renderer::EnableTexture(Texture* pTexture)
+void SERenderer::EnableTexture(SETexture* pTexture)
 {
     SE_ASSERT( pTexture );
 
     // 确保texture装载入显存.
     LoadTexture(pTexture);
-    ResourceIdentifier* pID = pTexture->GetIdentifier(this);
+    SEResourceIdentifier* pID = pTexture->GetIdentifier(this);
     SE_ASSERT( pID );
 
     OnEnableTexture(pID);
 }
 //----------------------------------------------------------------------------
-void Renderer::DisableTexture(Texture* pTexture)
+void SERenderer::DisableTexture(SETexture* pTexture)
 {
-    ResourceIdentifier* pID = pTexture->GetIdentifier(this);
+    SEResourceIdentifier* pID = pTexture->GetIdentifier(this);
     SE_ASSERT( pID );
 
     OnDisableTexture(pID);
 }
 //----------------------------------------------------------------------------
-ResourceIdentifier* Renderer::EnableVBuffer(const Attributes& rIAttributes,
-    const Attributes& rOAttributes, VertexProgram* pVProgram)
+SEResourceIdentifier* SERenderer::EnableVBuffer(const SEAttributes& rIAttributes,
+    const SEAttributes& rOAttributes, SEVertexProgram* pVProgram)
 {
     // 确保当前要渲染的geometry的VB子集装载入显存.
     // 由rIAttributes确定当前VB子集需要哪些数据.
-    VertexBuffer* pVBuffer = m_pGeometry->VBuffer;
+    SEVertexBuffer* pVBuffer = m_pGeometry->VBuffer;
     LoadVBuffer(rIAttributes, rOAttributes, pVBuffer, pVProgram);
 
     // 待实现.
     // LoadVBuffer直接返回一个匹配当前需求的VB子集,避免下面的循环查找.
 
-    ResourceIdentifier* pID = 0;
+    SEResourceIdentifier* pID = 0;
     for( int i = 0; i < pVBuffer->GetInfoCount(); i++ )
     {
         pID = pVBuffer->GetIdentifier(i, this);
         if( pID )
         {
-            if( rIAttributes == *(Attributes*)pID )
+            if( rIAttributes == *(SEAttributes*)pID )
             {
                 // 在显存中找到一个匹配当前需求的VB子集.
                 break;
@@ -1640,47 +1640,47 @@ ResourceIdentifier* Renderer::EnableVBuffer(const Attributes& rIAttributes,
     return pID;
 }
 //----------------------------------------------------------------------------
-void Renderer::DisableVBuffer(ResourceIdentifier* pID, 
-    VertexProgram* pVProgram)
+void SERenderer::DisableVBuffer(SEResourceIdentifier* pID, 
+    SEVertexProgram* pVProgram)
 {
     OnDisableVBuffer(pID, pVProgram);
 }
 //----------------------------------------------------------------------------
-void Renderer::EnableIBuffer()
+void SERenderer::EnableIBuffer()
 {
     // 确保当前要渲染的geometry的IB装载入显存.
-    IndexBuffer* pIBuffer = m_pGeometry->IBuffer;
+    SEIndexBuffer* pIBuffer = m_pGeometry->IBuffer;
     LoadIBuffer(pIBuffer);
-    ResourceIdentifier* pID = pIBuffer->GetIdentifier(this);
+    SEResourceIdentifier* pID = pIBuffer->GetIdentifier(this);
     SE_ASSERT( pID );
 
     OnEnableIBuffer(pID);
 }
 //----------------------------------------------------------------------------
-void Renderer::DisableIBuffer()
+void SERenderer::DisableIBuffer()
 {
-    IndexBuffer* pIBuffer = m_pGeometry->IBuffer;
-    ResourceIdentifier* pID = pIBuffer->GetIdentifier(this);
+    SEIndexBuffer* pIBuffer = m_pGeometry->IBuffer;
+    SEResourceIdentifier* pID = pIBuffer->GetIdentifier(this);
     SE_ASSERT( pID );
 
     OnDisableIBuffer(pID);
 }
 //----------------------------------------------------------------------------
-void Renderer::EnableRenderStateBlock(RenderStateBlock* pRStateBlock)
+void SERenderer::EnableRenderStateBlock(SERenderStateBlock* pRStateBlock)
 {
     SE_ASSERT( pRStateBlock );
 
     // 确保render state block装载入设备.
     LoadRenderStateBlock(pRStateBlock);
-    ResourceIdentifier* pID = pRStateBlock->GetIdentifier(this);
+    SEResourceIdentifier* pID = pRStateBlock->GetIdentifier(this);
     SE_ASSERT( pID );
 
     OnEnableRenderStateBlock(pID);
 }
 //----------------------------------------------------------------------------
-void Renderer::DisableRenderStateBlock(RenderStateBlock* pRStateBlock)
+void SERenderer::DisableRenderStateBlock(SERenderStateBlock* pRStateBlock)
 {
-    ResourceIdentifier* pID = pRStateBlock->GetIdentifier(this);
+    SEResourceIdentifier* pID = pRStateBlock->GetIdentifier(this);
     SE_ASSERT( pID );
 
     OnDisableRenderStateBlock(pID);
@@ -1690,7 +1690,7 @@ void Renderer::DisableRenderStateBlock(RenderStateBlock* pRStateBlock)
 //----------------------------------------------------------------------------
 // 对象渲染入口
 //----------------------------------------------------------------------------
-void Renderer::DrawScene(UnculledSet& rVisibleSet)
+void SERenderer::DrawScene(SEUnculledSet& rVisibleSet)
 {
     // 注意: 2-tuples堆栈最大元素数被限制为64.
     // 理论上应该足够了,因为如果在同一个树型路径上收集到64个以上的global effect
@@ -1700,7 +1700,7 @@ void Renderer::DrawScene(UnculledSet& rVisibleSet)
     int iTop = -1;                // 堆栈初始为空
 
     const int iVisibleCount = rVisibleSet.GetCount();
-    UnculledObject* pVisibleSet = rVisibleSet.GetUnculled();
+    SEUnculledObject* pVisibleSet = rVisibleSet.GetUnculled();
     for( int i = 0; i < iVisibleCount; i++ )
     {
         if( pVisibleSet[i].SEObject )
@@ -1722,7 +1722,7 @@ void Renderer::DrawScene(UnculledSet& rVisibleSet)
                 if( iTop == -1 )
                 {
                     // 没有处在global effect作用域中,则直接渲染.
-                    Draw((Geometry*)pVisibleSet[i].SEObject);
+                    Draw((SEGeometry*)pVisibleSet[i].SEObject);
                 }
                 else
                 {
@@ -1754,7 +1754,7 @@ void Renderer::DrawScene(UnculledSet& rVisibleSet)
     }
 }
 //----------------------------------------------------------------------------
-void Renderer::ApplyEffect(ShaderEffect* pEffect, bool& rbPrimaryEffect)
+void SERenderer::ApplyEffect(ShaderEffect* pEffect, bool& rbPrimaryEffect)
 {
     // 允许ShaderEffect派生类自定义行为.
     pEffect->OnPreApplyEffect(this, rbPrimaryEffect);
@@ -1776,20 +1776,20 @@ void Renderer::ApplyEffect(ShaderEffect* pEffect, bool& rbPrimaryEffect)
         m_iNumActiveSamplers = 0;
 
         // 开启vertex shader程序,设置shader常量.
-        VertexProgram* pVProgram = pEffect->GetVProgram(iPass);
+        SEVertexProgram* pVProgram = pEffect->GetVProgram(iPass);
         EnableVProgram(pVProgram);
 
         // 可选geometry shader stage.开启geometry shader程序,设置shader常量.
         int iGTCount = 0;
-        GeometryShader* pGShader = pEffect->GetGShader(iPass);
+        SEGeometryShader* pGShader = pEffect->GetGShader(iPass);
         if( pGShader )
         {
-            GeometryProgram* pGProgram = pEffect->GetGProgram(iPass);
+            SEGeometryProgram* pGProgram = pEffect->GetGProgram(iPass);
             EnableGProgram(pGProgram);
         }
 
         // 开启pixel shader程序,设置shader常量.
-        PixelProgram* pPProgram = pEffect->GetPProgram(iPass);
+        SEPixelProgram* pPProgram = pEffect->GetPProgram(iPass);
         EnablePProgram(pPProgram);
 
         // Keep track of the current sampler to be used in enabling the
@@ -1825,9 +1825,9 @@ void Renderer::ApplyEffect(ShaderEffect* pEffect, bool& rbPrimaryEffect)
         }
 
         // 根据vertex shader程序的输入输出需求,新建或找到一个VB子集并开启.
-        const Attributes& rIAttributes = pVProgram->GetInputAttributes();
-        const Attributes& rOAttributes = pVProgram->GetOutputAttributes();
-        ResourceIdentifier* pID = EnableVBuffer(rIAttributes, rOAttributes,
+        const SEAttributes& rIAttributes = pVProgram->GetInputAttributes();
+        const SEAttributes& rOAttributes = pVProgram->GetOutputAttributes();
+        SEResourceIdentifier* pID = EnableVBuffer(rIAttributes, rOAttributes,
             pVProgram);
 
         // 一切准备就绪,渲染由具体图形API负责实现.
@@ -1889,7 +1889,7 @@ void Renderer::ApplyEffect(ShaderEffect* pEffect, bool& rbPrimaryEffect)
     rbPrimaryEffect = false;
 }
 //----------------------------------------------------------------------------
-void Renderer::Draw(Geometry* pGeometry)
+void SERenderer::Draw(SEGeometry* pGeometry)
 {
     SE_ASSERT( pGeometry );
 
@@ -1917,7 +1917,7 @@ void Renderer::Draw(Geometry* pGeometry)
     {
         // effect必须是shader effect.
         // DrawScene函数把受到同一个global effect影响的对象收集在一起.
-        // global effect的Draw函数应该注意到只能调用渲染器的Draw(Geometry*)函数,
+        // global effect的Draw函数应该注意到只能调用渲染器的Draw(SEGeometry*)函数,
         // 不可调用渲染器的DrawScene函数,从而避免无限AB递归的产生.
         ShaderEffect* pEffect = DynamicCast<ShaderEffect>(m_pGeometry->GetEffect(i));
         SE_ASSERT( pEffect );

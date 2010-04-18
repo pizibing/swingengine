@@ -32,7 +32,7 @@
 namespace Swing
 {
 
-class VertexProgram;
+class SEVertexProgram;
 
 //----------------------------------------------------------------------------
 // 名称:vertex shader程序资源管理类
@@ -40,39 +40,39 @@ class VertexProgram;
 // 作者:Sun Che
 // 时间:20080627
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API VertexProgramCatalog
+class SE_FOUNDATION_API SEVertexProgramCatalog
 {
 public:
-    VertexProgramCatalog(const std::string& rName);
-    ~VertexProgramCatalog(void);
+    SEVertexProgramCatalog(const std::string& rName);
+    ~SEVertexProgramCatalog(void);
 
     // 开始时我们不知道渲染器类型,
     // 在应用程序层创建了一个渲染器后,才能调用此函数来设置catalog所属渲染器,
-    // 应用程序层的相关函数为WindowApplication::SetRenderer
-    void SetRenderer(Renderer* pRenderer);
+    // 应用程序层的相关函数为SEWindowApplication::SetRenderer
+    void SetRenderer(SERenderer* pRenderer);
 
     const std::string& GetName(void) const;
-    bool Insert(VertexProgram* pProgram);
-    bool Remove(VertexProgram* pProgram);
-    VertexProgram* Find(const std::string& rProgramName,
-        InterfaceDescriptor* pDescriptor = 0);
+    bool Insert(SEVertexProgram* pProgram);
+    bool Remove(SEVertexProgram* pProgram);
+    SEVertexProgram* Find(const std::string& rProgramName,
+        SEInterfaceDescriptor* pDescriptor = 0);
     bool PrintContents(const std::string& rFileName) const;
     int GetProfile(void) const;
 
-    static void SetActive(VertexProgramCatalog* pActive);
-    static VertexProgramCatalog* GetActive(void);
+    static void SetActive(SEVertexProgramCatalog* pActive);
+    static SEVertexProgramCatalog* GetActive(void);
 
 private:
     enum { PROGRAM_MAP_SIZE = 256 };
     std::string m_Name;
-    SEStringHashTable<VertexProgram*> m_Entry;
+    SEStringHashTable<SEVertexProgram*> m_Entry;
     SEObjectPtr m_spDefaultVProgram;
 
-    Renderer* m_pRenderer;
+    SERenderer* m_pRenderer;
 
     static const std::string ms_NullString;
     static const std::string ms_DefaultString;
-    static VertexProgramCatalog* ms_pActive;
+    static SEVertexProgramCatalog* ms_pActive;
 };
 
 }

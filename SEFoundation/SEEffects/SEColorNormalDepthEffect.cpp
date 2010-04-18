@@ -37,23 +37,23 @@ ColorNormalDepthEffect::ColorNormalDepthEffect()
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("ColorNormalDepth.v_ColorNormalDepth");
-    m_PShader[0] = SE_NEW PixelShader("ColorNormalDepth.p_ColorNormalDepth");
+    m_VShader[0] = SE_NEW SEVertexShader("ColorNormalDepth.v_ColorNormalDepth");
+    m_PShader[0] = SE_NEW SEPixelShader("ColorNormalDepth.p_ColorNormalDepth");
 }
 //----------------------------------------------------------------------------
 ColorNormalDepthEffect::~ColorNormalDepthEffect()
 {
 }
 //----------------------------------------------------------------------------
-void ColorNormalDepthEffect::OnLoadPrograms(int, Program* pVProgram, Program*,
-    Program*)
+void ColorNormalDepthEffect::OnLoadPrograms(int, SEProgram* pVProgram, SEProgram*,
+    SEProgram*)
 {
-    UserConstant* pUC = pVProgram->GetUC("fFarClipDist");
+    SEUserConstant* pUC = pVProgram->GetUC("fFarClipDist");
     if( pUC )
         pUC->SetDataSource(&ms_fFarCilpDist);
 }
 //----------------------------------------------------------------------------
-void ColorNormalDepthEffect::OnPreApplyEffect(Renderer*, bool)
+void ColorNormalDepthEffect::OnPreApplyEffect(SERenderer*, bool)
 {
     ms_fFarCilpDist = FarCilpDist;
 }

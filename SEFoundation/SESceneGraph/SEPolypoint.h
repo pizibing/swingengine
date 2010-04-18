@@ -35,27 +35,27 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080808
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Polypoint : public Geometry
+class SE_FOUNDATION_API SEPolypoint : public SEGeometry
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    Polypoint(VertexBuffer* pVBuffer);
-    virtual ~Polypoint(void);
+    SEPolypoint(SEVertexBuffer* pVBuffer);
+    virtual ~SEPolypoint(void);
 
     void SetActiveCount(int iActiveCount);
     inline int GetActiveCount(void) const;
 
 protected:
-    Polypoint(void);
+    SEPolypoint(void);
 
     // 允许应用程序指定少于实际顶点数的顶点子集用于渲染.
     int m_iActiveCount;
 };
 
-typedef SESmartPointer<Polypoint> PolypointPtr;
+typedef SESmartPointer<SEPolypoint> SEPolypointPtr;
 
 #include "SEPolypoint.inl"
 

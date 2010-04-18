@@ -35,15 +35,15 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080726
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API SphereBV : public BoundingVolume
+class SE_FOUNDATION_API SESphereBV : public SEBoundingVolume
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    SphereBV(void);  // center (0,0,0), radius 0
-    SphereBV(const SESphere3f& rSphere);
+    SESphereBV(void);  // center (0,0,0), radius 0
+    SESphereBV(const SESphere3f& rSphere);
 
     virtual int GetBVType(void) const;
 
@@ -57,11 +57,11 @@ public:
     inline const SESphere3f& GetSphere(void) const;
 
     // 根据传入顶点集合创建BV.
-    virtual void ComputeFromData(const Vector3fArray* pVertices);
-    virtual void ComputeFromData(const VertexBuffer* pVBuffer);
+    virtual void ComputeFromData(const SEVector3fArray* pVertices);
+    virtual void ComputeFromData(const SEVertexBuffer* pVBuffer);
 
     // 变换BV(从模型空间到世界空间).
-    virtual void TransformBy(const Transformation& rTransform, BoundingVolume* pResult);
+    virtual void TransformBy(const SETransformation& rTransform, SEBoundingVolume* pResult);
 
     // 判断BV是否在平面正半空间(平面法线所指向的空间),相交,负半空间,
     // 相应的返回值为+1,0,-1.
@@ -71,13 +71,13 @@ public:
     virtual bool TestIntersection(const SERay3f& rRay) const;
 
     // 测试是否和另一个BV相交.
-    virtual bool TestIntersection(const BoundingVolume* pInput) const;
+    virtual bool TestIntersection(const SEBoundingVolume* pInput) const;
 
     // 用另一个BV复制出自己.
-    virtual void CopyFrom(const BoundingVolume* pInput);
+    virtual void CopyFrom(const SEBoundingVolume* pInput);
 
     // 当前BV增长,包含传入的BV和之前的自己.
-    virtual void GrowToContain(const BoundingVolume* pInput);
+    virtual void GrowToContain(const SEBoundingVolume* pInput);
 
     // 是否包含传入点.
     virtual bool Contains(const SEVector3f& rPoint) const;
@@ -86,7 +86,7 @@ protected:
     SESphere3f m_Sphere;
 };
 
-typedef SESmartPointer<SphereBV> SphereBVPtr;
+typedef SESmartPointer<SESphereBV> SESphereBVPtr;
 
 #include "SESphereBV.inl"
 

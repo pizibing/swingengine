@@ -23,13 +23,13 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Texture, SEObject);
-SE_IMPLEMENT_STREAM(Texture);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Texture, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SETexture, SEObject);
+SE_IMPLEMENT_STREAM(SETexture);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SETexture, SEObject);
 
-//SE_REGISTER_STREAM(Texture);
+//SE_REGISTER_STREAM(SETexture);
 
-const char* Texture::ms_pFilterType[MAX_FILTER_TYPES] =
+const char* SETexture::ms_pFilterType[MAX_FILTER_TYPES] =
 {
     "NEAREST",
     "LINEAR",
@@ -39,7 +39,7 @@ const char* Texture::ms_pFilterType[MAX_FILTER_TYPES] =
     "LINEAR_LINEAR"
 };
 
-const char* Texture::ms_pWrapType[MAX_WRAP_TYPES] =
+const char* SETexture::ms_pWrapType[MAX_WRAP_TYPES] =
 {
     "CLAMP",
     "REPEAT",
@@ -48,7 +48,7 @@ const char* Texture::ms_pWrapType[MAX_WRAP_TYPES] =
     "CLAMP_EDGE"
 };
 
-const char* Texture::ms_pDepthCompare[DC_COUNT] =
+const char* SETexture::ms_pDepthCompare[DC_COUNT] =
 {
     "DC_NEVER",
     "DC_LESS",
@@ -61,7 +61,7 @@ const char* Texture::ms_pDepthCompare[DC_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-Texture::Texture(Image* pImage)
+SETexture::SETexture(SEImage* pImage)
     :
     m_spImage(pImage),
     m_BorderColor(SEColorRGBA::SE_RGBA_BLACK)
@@ -83,7 +83,7 @@ Texture::Texture(Image* pImage)
     m_bOffscreenTexture = false;
 }
 //----------------------------------------------------------------------------
-Texture::Texture(Image* pDepthImage, DepthCompare eCompare)
+SETexture::SETexture(SEImage* pDepthImage, DepthCompare eCompare)
     :
     m_spImage(pDepthImage),
     m_BorderColor(SEColorRGBA::SE_RGBA_BLACK)
@@ -98,7 +98,7 @@ Texture::Texture(Image* pDepthImage, DepthCompare eCompare)
     m_bOffscreenTexture = false;
 }
 //----------------------------------------------------------------------------
-Texture::~Texture()
+SETexture::~SETexture()
 {
     // 通知所有正在使用此texture的renderer,此资源正要被释放,
     // 因此这些renderer可以及时释放掉与此texture有关的其他资源(VRAM中)
@@ -109,7 +109,7 @@ Texture::~Texture()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Texture::Load(SEStream& rStream, SEStream::Link* pLink)
+void SETexture::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -130,20 +130,20 @@ void Texture::Load(SEStream& rStream, SEStream::Link* pLink)
 
     // 数据成员m_spImage在程序运行时刻装载资源时设置.
 
-    SE_END_DEBUG_STREAM_LOAD(Texture);
+    SE_END_DEBUG_STREAM_LOAD(SETexture);
 }
 //----------------------------------------------------------------------------
-void Texture::Link(SEStream& rStream, SEStream::Link* pLink)
+void SETexture::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Texture::Register(SEStream& rStream) const
+bool SETexture::Register(SEStream& rStream) const
 {
     return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Texture::Save(SEStream& rStream) const
+void SETexture::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -160,10 +160,10 @@ void Texture::Save(SEStream& rStream) const
 
     // 数据成员m_spImage在程序运行时刻装载资源时设置.
 
-    SE_END_DEBUG_STREAM_SAVE(Texture);
+    SE_END_DEBUG_STREAM_SAVE(SETexture);
 }
 //----------------------------------------------------------------------------
-int Texture::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SETexture::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SEObject::GetDiskUsed(rVersion) +
         sizeof(int) + // m_eFType
@@ -173,7 +173,7 @@ int Texture::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(char);  // m_bOffscreenTexture
 }
 //----------------------------------------------------------------------------
-SEStringTree* Texture::SaveStrings(const char*)
+SEStringTree* SETexture::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 

@@ -23,17 +23,17 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, AlphaState, GlobalState);
-SE_IMPLEMENT_STREAM(AlphaState);
-SE_IMPLEMENT_DEFAULT_NAME_ID(AlphaState, GlobalState);
-SE_IMPLEMENT_INITIALIZE(AlphaState);
-SE_IMPLEMENT_TERMINATE(AlphaState);
+SE_IMPLEMENT_RTTI(Swing, SEAlphaState, SEGlobalState);
+SE_IMPLEMENT_STREAM(SEAlphaState);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEAlphaState, SEGlobalState);
+SE_IMPLEMENT_INITIALIZE(SEAlphaState);
+SE_IMPLEMENT_TERMINATE(SEAlphaState);
 
-//SE_REGISTER_STREAM(AlphaState);
-//SE_REGISTER_INITIALIZE(AlphaState);
-//SE_REGISTER_TERMINATE(AlphaState);
+//SE_REGISTER_STREAM(SEAlphaState);
+//SE_REGISTER_INITIALIZE(SEAlphaState);
+//SE_REGISTER_TERMINATE(SEAlphaState);
 
-const char* AlphaState::ms_pSrcBlend[SBF_COUNT] =
+const char* SEAlphaState::ms_pSrcBlend[SBF_COUNT] =
 {
     "SBF_ZERO",
     "SBF_ONE",
@@ -50,7 +50,7 @@ const char* AlphaState::ms_pSrcBlend[SBF_COUNT] =
     "SBF_ONE_MINUS_CONSTANT_ALPHA"
 };
 
-const char* AlphaState::ms_pDstBlend[DBF_COUNT] =
+const char* SEAlphaState::ms_pDstBlend[DBF_COUNT] =
 {
     "DBF_ZERO",
     "DBF_ONE",
@@ -66,7 +66,7 @@ const char* AlphaState::ms_pDstBlend[DBF_COUNT] =
     "DBF_ONE_MINUS_CONSTANT_ALPHA"
 };
 
-const char* AlphaState::ms_pTestMode[TF_COUNT] =
+const char* SEAlphaState::ms_pTestMode[TF_COUNT] =
 {
     "TF_NEVER",
     "TF_LESS",
@@ -79,17 +79,17 @@ const char* AlphaState::ms_pTestMode[TF_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-void AlphaState::Initialize()
+void SEAlphaState::Initialize()
 {
-    Default[ALPHA] = SE_NEW AlphaState;
+    Default[ALPHA] = SE_NEW SEAlphaState;
 }
 //----------------------------------------------------------------------------
-void AlphaState::Terminate()
+void SEAlphaState::Terminate()
 {
     Default[ALPHA] = 0;
 }
 //----------------------------------------------------------------------------
-AlphaState::AlphaState()
+SEAlphaState::SEAlphaState()
     :
     ConstantColor(0.0f,0.0f,0.0f,0.0f)
 {
@@ -101,7 +101,7 @@ AlphaState::AlphaState()
     Reference = 0.0f;
 }
 //----------------------------------------------------------------------------
-AlphaState::~AlphaState()
+SEAlphaState::~SEAlphaState()
 {
 }
 //----------------------------------------------------------------------------
@@ -109,11 +109,11 @@ AlphaState::~AlphaState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void AlphaState::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEAlphaState::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    GlobalState::Load(rStream, pLink);
+    SEGlobalState::Load(rStream, pLink);
 
     // native data
     int iTemp;
@@ -127,24 +127,24 @@ void AlphaState::Load(SEStream& rStream, SEStream::Link* pLink)
     Test = (TestMode)iTemp;
     rStream.Read(Reference);
 
-    SE_END_DEBUG_STREAM_LOAD(AlphaState);
+    SE_END_DEBUG_STREAM_LOAD(SEAlphaState);
 }
 //----------------------------------------------------------------------------
-void AlphaState::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEAlphaState::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    GlobalState::Link(rStream, pLink);
+    SEGlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool AlphaState::Register(SEStream& rStream) const
+bool SEAlphaState::Register(SEStream& rStream) const
 {
-    return GlobalState::Register(rStream);
+    return SEGlobalState::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void AlphaState::Save(SEStream& rStream) const
+void SEAlphaState::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    GlobalState::Save(rStream);
+    SEGlobalState::Save(rStream);
 
     // native data
     rStream.Write(BlendEnabled);
@@ -154,12 +154,12 @@ void AlphaState::Save(SEStream& rStream) const
     rStream.Write((int)Test);
     rStream.Write(Reference);
 
-    SE_END_DEBUG_STREAM_SAVE(AlphaState);
+    SE_END_DEBUG_STREAM_SAVE(SEAlphaState);
 }
 //----------------------------------------------------------------------------
-int AlphaState::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEAlphaState::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return GlobalState::GetDiskUsed(rVersion) +
+    return SEGlobalState::GetDiskUsed(rVersion) +
         sizeof(char) + // BlendEnabled
         sizeof(int) + // SrcBlend
         sizeof(int) +  // DstBlend
@@ -168,7 +168,7 @@ int AlphaState::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(Reference);
 }
 //----------------------------------------------------------------------------
-SEStringTree* AlphaState::SaveStrings(const char*)
+SEStringTree* SEAlphaState::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -182,7 +182,7 @@ SEStringTree* AlphaState::SaveStrings(const char*)
     pTree->Append(Format("test ref =", Reference));
 
     // children
-    pTree->Append(GlobalState::SaveStrings());
+    pTree->Append(SEGlobalState::SaveStrings());
 
     return pTree;
 }

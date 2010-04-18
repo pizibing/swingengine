@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-RoamTerrainPatch::RoamTerrainPatch()
+SERoamTerrainPatch::SERoamTerrainPatch()
 {
     m_pPage = 0;
     m_iPatchX = -1;
@@ -37,12 +37,12 @@ RoamTerrainPatch::RoamTerrainPatch()
     m_bVisible = false;
 }
 //----------------------------------------------------------------------------
-RoamTerrainPatch::~RoamTerrainPatch()
+SERoamTerrainPatch::~SERoamTerrainPatch()
 {
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPatch::Initialize(unsigned short* ausHeight, 
-    RoamTerrainPage* pPage, int iPatchX, int iPatchY)
+void SERoamTerrainPatch::Initialize(unsigned short* ausHeight, 
+    SERoamTerrainPage* pPage, int iPatchX, int iPatchY)
 {
     m_pPage = pPage;
     m_iPatchX = iPatchX;
@@ -95,7 +95,7 @@ void RoamTerrainPatch::Initialize(unsigned short* ausHeight,
         m_pPage->m_iSize + m_iMSpaceX + m_pPage->m_iPatchSizeM1;
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPatch::Reset()
+void SERoamTerrainPatch::Reset()
 {
     m_bVisible = true;
 
@@ -117,7 +117,7 @@ void RoamTerrainPatch::Reset()
     m_BaseRight.pPatch = this;
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPatch::Tessellate(const Camera* pCamera)
+void SERoamTerrainPatch::Tessellate(const SECamera* pCamera)
 {
     m_pCurrentVariance = m_VarianceLeft;
     RecursTessellate(&m_BaseLeft, pCamera,
@@ -133,13 +133,13 @@ void RoamTerrainPatch::Tessellate(const Camera* pCamera)
         m_pPage->m_iPatchSizeM1, 1);
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPatch::Collect()
+void SERoamTerrainPatch::Collect()
 {	
     RecursCollect(&m_BaseLeft);
     RecursCollect(&m_BaseRight);
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPatch::ComputeVariance()
+void SERoamTerrainPatch::ComputeVariance()
 {
     // 从Base三角开始递归计算variance.
 
@@ -158,7 +158,7 @@ void RoamTerrainPatch::ComputeVariance()
     m_bDirty = false;
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPatch::Split(RoamTriTreeNode* pTriTreeNode)
+void SERoamTerrainPatch::Split(SERoamTriTreeNode* pTriTreeNode)
 {
     SE_ASSERT( pTriTreeNode );
 
@@ -276,7 +276,7 @@ void RoamTerrainPatch::Split(RoamTriTreeNode* pTriTreeNode)
     pTriTreeNode->pRightChild->RightIndex = pTriTreeNode->ApexIndex;
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPatch::RecursCollect(RoamTriTreeNode* pTriTreeNode)
+void SERoamTerrainPatch::RecursCollect(SERoamTriTreeNode* pTriTreeNode)
 {
     SE_ASSERT( pTriTreeNode );
 
@@ -294,8 +294,8 @@ void RoamTerrainPatch::RecursCollect(RoamTriTreeNode* pTriTreeNode)
     }
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPatch::RecursTessellate(RoamTriTreeNode* pTriTreeNode, 
-    const Camera* pCamera, int iLeftX, int iLeftY, int iRightX, int iRightY, 
+void SERoamTerrainPatch::RecursTessellate(SERoamTriTreeNode* pTriTreeNode, 
+    const SECamera* pCamera, int iLeftX, int iLeftY, int iRightX, int iRightY, 
     int iApexX, int iApexY, int iNode)
 {
     SE_ASSERT( pTriTreeNode );
@@ -346,7 +346,7 @@ void RoamTerrainPatch::RecursTessellate(RoamTriTreeNode* pTriTreeNode,
     }
 }
 //----------------------------------------------------------------------------
-float RoamTerrainPatch::RecursComputeVariance(int iLeftX, int iLeftY, 
+float SERoamTerrainPatch::RecursComputeVariance(int iLeftX, int iLeftY, 
     int iRightX, int iRightY, int iApexX, int iApexY, 
     int iLeftIndex, int iRightIndex, int iApexIndex, int iNodeIndex)
 {

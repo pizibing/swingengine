@@ -19,37 +19,37 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline const Attributes& VertexBuffer::GetAttributes() const
+inline const SEAttributes& SEVertexBuffer::GetAttributes() const
 {
     return m_Attributes;
 }
 //----------------------------------------------------------------------------
-inline int VertexBuffer::GetVertexSize() const
+inline int SEVertexBuffer::GetVertexSize() const
 {
     return m_iVertexSize;
 }
 //----------------------------------------------------------------------------
-inline int VertexBuffer::GetVertexCount() const
+inline int SEVertexBuffer::GetVertexCount() const
 {
     return m_iVertexCount;
 }
 //----------------------------------------------------------------------------
-inline int VertexBuffer::GetChannelCount() const
+inline int SEVertexBuffer::GetChannelCount() const
 {
     return m_iChannelCount;
 }
 //----------------------------------------------------------------------------
-inline float* VertexBuffer::GetData()
+inline float* SEVertexBuffer::GetData()
 {
     return m_pChannel;
 }
 //----------------------------------------------------------------------------
-inline const float* VertexBuffer::GetData() const
+inline const float* SEVertexBuffer::GetData() const
 {
     return m_pChannel;
 }
 //----------------------------------------------------------------------------
-inline void VertexBuffer::SetVertexCount(int iVCount)
+inline void SEVertexBuffer::SetVertexCount(int iVCount)
 {
     m_iVertexCount = iVCount;
 }

@@ -23,33 +23,33 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, WireframeState, GlobalState);
-SE_IMPLEMENT_STREAM(WireframeState);
-SE_IMPLEMENT_DEFAULT_NAME_ID(WireframeState, GlobalState);
-SE_IMPLEMENT_INITIALIZE(WireframeState);
-SE_IMPLEMENT_TERMINATE(WireframeState);
+SE_IMPLEMENT_RTTI(Swing, SEWireframeState, SEGlobalState);
+SE_IMPLEMENT_STREAM(SEWireframeState);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEWireframeState, SEGlobalState);
+SE_IMPLEMENT_INITIALIZE(SEWireframeState);
+SE_IMPLEMENT_TERMINATE(SEWireframeState);
 
-//SE_REGISTER_STREAM(WireframeState);
-//SE_REGISTER_INITIALIZE(WireframeState);
-//SE_REGISTER_TERMINATE(WireframeState);
+//SE_REGISTER_STREAM(SEWireframeState);
+//SE_REGISTER_INITIALIZE(SEWireframeState);
+//SE_REGISTER_TERMINATE(SEWireframeState);
 
 //----------------------------------------------------------------------------
-void WireframeState::Initialize()
+void SEWireframeState::Initialize()
 {
-    Default[WIREFRAME] = SE_NEW WireframeState;
+    Default[WIREFRAME] = SE_NEW SEWireframeState;
 }
 //----------------------------------------------------------------------------
-void WireframeState::Terminate()
+void SEWireframeState::Terminate()
 {
     Default[WIREFRAME] = 0;
 }
 //----------------------------------------------------------------------------
-WireframeState::WireframeState()
+SEWireframeState::SEWireframeState()
 {
     Enabled = false;
 }
 //----------------------------------------------------------------------------
-WireframeState::~WireframeState()
+SEWireframeState::~SEWireframeState()
 {
 }
 //----------------------------------------------------------------------------
@@ -57,47 +57,47 @@ WireframeState::~WireframeState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void WireframeState::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEWireframeState::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    GlobalState::Load(rStream, pLink);
+    SEGlobalState::Load(rStream, pLink);
 
     // native data
     rStream.Read(Enabled);
 
-    SE_END_DEBUG_STREAM_LOAD(WireframeState);
+    SE_END_DEBUG_STREAM_LOAD(SEWireframeState);
 }
 //----------------------------------------------------------------------------
-void WireframeState::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEWireframeState::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    GlobalState::Link(rStream, pLink);
+    SEGlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool WireframeState::Register(SEStream& rStream) const
+bool SEWireframeState::Register(SEStream& rStream) const
 {
-    return GlobalState::Register(rStream);
+    return SEGlobalState::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void WireframeState::Save(SEStream& rStream) const
+void SEWireframeState::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    GlobalState::Save(rStream);
+    SEGlobalState::Save(rStream);
 
     // native data
     rStream.Write(Enabled);
 
-    SE_END_DEBUG_STREAM_SAVE(WireframeState);
+    SE_END_DEBUG_STREAM_SAVE(SEWireframeState);
 }
 //----------------------------------------------------------------------------
-int WireframeState::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEWireframeState::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return GlobalState::GetDiskUsed(rVersion) +
+    return SEGlobalState::GetDiskUsed(rVersion) +
         sizeof(char);  // Enabled
 }
 //----------------------------------------------------------------------------
-SEStringTree* WireframeState::SaveStrings(const char*)
+SEStringTree* SEWireframeState::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -106,7 +106,7 @@ SEStringTree* WireframeState::SaveStrings(const char*)
     pTree->Append(Format("enabled =", Enabled));
 
     // children
-    pTree->Append(GlobalState::SaveStrings());
+    pTree->Append(SEGlobalState::SaveStrings());
 
     return pTree;
 }

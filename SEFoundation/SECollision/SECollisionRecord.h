@@ -42,13 +42,13 @@ public:
         Intersector<float, SEVector3f>* pIntersector);
 
     // SECollisionRecord被假设为有责任删除传入的pTree,因此pTree应动态分配.
-    SECollisionRecord(TriMesh* pMesh, SEBoundingVolumeTree* pTree,
+    SECollisionRecord(SETriMesh* pMesh, SEBoundingVolumeTree* pTree,
         SEVector3f* pVelocity, Callback oCallback, void* pvCallbackData);
 
     ~SECollisionRecord(void);
 
     // 成员访问.
-    inline TriMesh* GetMesh(void);
+    inline SETriMesh* GetMesh(void);
     inline SEVector3f* GetVelocity(void);
     inline void* GetCallbackData(void);
 
@@ -59,7 +59,7 @@ public:
     void FindIntersection(float fTMax, SECollisionRecord& rRecord);
 
 protected:
-    TriMesh* m_pMesh;
+    SETriMesh* m_pMesh;
     SEBoundingVolumeTree* m_pTree;
     SEVector3f* m_pVelocity;
     Callback m_oCallback;

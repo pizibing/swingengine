@@ -24,7 +24,7 @@ inline int LightingEffect::GetLightCount() const
     return (int)m_Lights.size();
 }
 //----------------------------------------------------------------------------
-inline Light* LightingEffect::GetLight(int i) const
+inline SELight* LightingEffect::GetLight(int i) const
 {
     SE_ASSERT( 0 <= i && i < (int)m_Lights.size() );
 

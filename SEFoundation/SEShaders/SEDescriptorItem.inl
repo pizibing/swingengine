@@ -19,17 +19,17 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline void DescriptorItem::SetInstanceName(const std::string& rInstName)
+inline void SEDescriptorItem::SetInstanceName(const std::string& rInstName)
 {
     m_InstanceName = rInstName;
 }
 //----------------------------------------------------------------------------
-inline const std::string& DescriptorItem::GetInstanceName() const
+inline const std::string& SEDescriptorItem::GetInstanceName() const
 {
     return m_InstanceName;
 }
 //----------------------------------------------------------------------------
-inline int DescriptorItem::GetTypeCount() const
+inline int SEDescriptorItem::GetTypeCount() const
 {
     return (int)m_TypeNames.size();
 }

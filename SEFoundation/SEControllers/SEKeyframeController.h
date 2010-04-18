@@ -47,14 +47,14 @@ public:
     SEKeyframeController(void);
     virtual ~SEKeyframeController(void);
 
-    FloatArrayPtr TranslationTimes;
-    Vector3fArrayPtr TranslationData;
+    SEFloatArrayPtr TranslationTimes;
+    SEVector3fArrayPtr TranslationData;
 
-    FloatArrayPtr RotationTimes;
-    QuaternionfArrayPtr RotationData;
+    SEFloatArrayPtr RotationTimes;
+    SEQuaternionfArrayPtr RotationData;
 
-    FloatArrayPtr ScaleTimes;
-    FloatArrayPtr ScaleData;
+    SEFloatArrayPtr ScaleTimes;
+    SEFloatArrayPtr ScaleData;
 
     virtual bool Update(double dAppTime);
 

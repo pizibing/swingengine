@@ -35,7 +35,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090523
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API GeometryProgram : public Program
+class SE_FOUNDATION_API SEGeometryProgram : public SEProgram
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -43,16 +43,16 @@ class SE_FOUNDATION_API GeometryProgram : public Program
 
 public:
     // 必须通过Load来创建一个实例.
-    static GeometryProgram* Load(Renderer* pRenderer, 
+    static SEGeometryProgram* Load(SERenderer* pRenderer, 
         const std::string& rProgramName, const std::string& rKey, 
-        InterfaceDescriptor* pInterfaceDesc = 0);
-    virtual ~GeometryProgram(void);
+        SEInterfaceDescriptor* pInterfaceDesc = 0);
+    virtual ~SEGeometryProgram(void);
 
 protected:
-    GeometryProgram(void);
+    SEGeometryProgram(void);
 };
 
-typedef SESmartPointer<GeometryProgram> GeometryProgramPtr;
+typedef SESmartPointer<SEGeometryProgram> SEGeometryProgramPtr;
 
 }
 

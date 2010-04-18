@@ -35,8 +35,8 @@ MaterialTextureEffect::MaterialTextureEffect(const std::string& rBaseName)
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("MaterialTexture.v_MaterialTexture");
-    m_PShader[0] = SE_NEW PixelShader("MaterialTexture.p_MaterialTexture");
+    m_VShader[0] = SE_NEW SEVertexShader("MaterialTexture.v_MaterialTexture");
+    m_PShader[0] = SE_NEW SEPixelShader("MaterialTexture.p_MaterialTexture");
 
     m_PShader[0]->SetTextureCount(1);
     m_PShader[0]->SetImageName(0, rBaseName);

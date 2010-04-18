@@ -31,24 +31,24 @@ namespace Swing
 
 //----------------------------------------------------------------------------
 // 名称:ROAM地形对象类
-// 说明:管理RoamTerrainPage类,RoamTerrain对象构成一个完整地形,
-//      注意相邻的RoamTerrainPage之间需要进行缝合,
+// 说明:管理SERoamTerrainPage类,SERoamTerrain对象构成一个完整地形,
+//      注意相邻的SERoamTerrainPage之间需要进行缝合,
 //      否则衔接处将可能产生T-junction.
 // 作者:Sun Che
 // 时间:20080104
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API RoamTerrain : public Node
+class SE_FOUNDATION_API SERoamTerrain : public SENode
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    RoamTerrain(const char* acHeightName, const char* acImageName,
-        const Attributes& rAttr, Camera* pCamera, float fUVBias,
+    SERoamTerrain(const char* acHeightName, const char* acImageName,
+        const SEAttributes& rAttr, SECamera* pCamera, float fUVBias,
         SEColorRGBA* pBorderColor);
 
-    virtual ~RoamTerrain(void);
+    virtual ~SERoamTerrain(void);
 
     inline int GetRowCount(void) const;
     inline int GetColCount(void) const;
@@ -58,7 +58,7 @@ public:
     inline float GetSpacing(void) const;
     inline float& UVBias(void);
     inline SEColorRGBA& BorderColor(void);
-    inline void SetCamera(Camera* pCamera);
+    inline void SetCamera(SECamera* pCamera);
 
     inline int GetPoolSize(void) const;
     inline int GetPatchSize(void) const;
@@ -69,25 +69,25 @@ public:
     inline bool GetLod(void) const;
 
     // page管理.
-    RoamTerrainPage* GetPage(int iRow, int iCol);
-    RoamTerrainPage* GetCurrentPage(float fX, float fZ) const;
+    SERoamTerrainPage* GetPage(int iRow, int iCol);
+    SERoamTerrainPage* GetCurrentPage(float fX, float fZ) const;
     float GetHeight(float fX, float fZ) const;
 
     // 允许一个page被替换掉.
     // 代码把旧有page解除缝合,装载一个新page并重新缝合.
     // 然后返回旧有page,从而允许应用程序cache旧有page,并在短期内重新使用它.
-    RoamTerrainPagePtr ReplacePage(int iRow, int iCol, const char* acHeightName,
+    SERoamTerrainPagePtr ReplacePage(int iRow, int iCol, const char* acHeightName,
         const char* acHeightSuffix, const char* acImageName,
         const char* acImageSuffix);
 
-    RoamTerrainPagePtr ReplacePage(int iRow, int iCol, RoamTerrainPage* pNewPage);
+    SERoamTerrainPagePtr ReplacePage(int iRow, int iCol, SERoamTerrainPage* pNewPage);
 
     // LOD入口函数.
-    void Simplify(Culler& rCuller);
+    void Simplify(SECuller& rCuller);
 
 protected:
     // streaming support
-    RoamTerrain(void);
+    SERoamTerrain(void);
 
     void LoadHeader(const char* acHeightName);
     void LoadPage(int iRow, int iCol, const char* acHeightName,
@@ -95,13 +95,13 @@ protected:
         const char* acImageSuffix);
 
     // page所用VB的attribute.
-    Attributes m_Attr;
+    SEAttributes m_Attr;
 
     // page信息.
     int m_iRows, m_iCols;
     int m_iSize;
     float m_fMinElevation, m_fMaxElevation, m_fSpacing;
-    std::vector<std::vector<RoamTerrainPagePtr> > m_Pages;
+    std::vector<std::vector<SERoamTerrainPagePtr> > m_Pages;
 
     // ROAM相关page信息.
     int m_iPoolSize;
@@ -114,14 +114,14 @@ protected:
 
     // 包含camera的当前page.
     int m_iCameraRow, m_iCameraCol;
-    SESmartPointer<Camera> m_spCamera;
+    SESmartPointer<SECamera> m_spCamera;
 
     // texture参数.
     float m_fUVBias;
     SEColorRGBA m_BorderColor;
 };
 
-typedef SESmartPointer<RoamTerrain> RoamTerrainPtr;
+typedef SESmartPointer<SERoamTerrain> SERoamTerrainPtr;
 #include "SERoamTerrain.inl"
 
 }

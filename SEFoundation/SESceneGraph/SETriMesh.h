@@ -36,15 +36,15 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080803
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API TriMesh : public Geometry
+class SE_FOUNDATION_API SETriMesh : public SEGeometry
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    TriMesh(VertexBuffer* pVBuffer, IndexBuffer* pIBuffer);
-    virtual ~TriMesh(void);
+    SETriMesh(SEVertexBuffer* pVBuffer, SEIndexBuffer* pIBuffer);
+    virtual ~SETriMesh(void);
 
     // 成员访问.
     inline int GetTriangleCount(void) const;
@@ -66,12 +66,12 @@ public:
     // 此pick record派生类储存了与射线相交的三角形索引值.
     // 同时还储存了相交点的重心权重值.
     // 这将允许应用程序插值计算出相交点的顶点属性和其他具体数据.
-    class SE_FOUNDATION_API PickRecord : public Geometry::PickRecord
+    class SE_FOUNDATION_API SEPickRecord : public SEGeometry::SEPickRecord
     {
     public:
-        PickRecord(TriMesh* pIObject, float fT, int iTriangle, float fBary0,
+        SEPickRecord(SETriMesh* pIObject, float fT, int iTriangle, float fBary0,
             float fBary1, float fBary2);
-        PickRecord(void);
+        SEPickRecord(void);
 
         // 与射线相交的三角形索引值.
         int Triangle;
@@ -86,7 +86,7 @@ public:
     // 因为这些pick record来自于全局内存池的堆内存.
     virtual void DoPick(const SERay3f& rRay, PickArray& rResults);
 
-    // PickRecord内存池,避免调用DoPick函数时的频繁动态new和delete操作.
+    // SEPickRecord内存池,避免调用DoPick函数时的频繁动态new和delete操作.
     // 应用程序初始化时,负责调用InitializePickRecordPool函数.
     // 应用程序终止时,负责调用TerminatePickRecordPool函数.
     // 应用程序调用DoPick函数遍历场景视图前,应先调用ResetPickRecordPool函数.
@@ -95,21 +95,21 @@ public:
     static void ResetPickRecordPool(void);
 
 protected:
-    TriMesh(void);
+    SETriMesh(void);
 
     // 几何体数据更新.
     // 更新模型空间法线.
     virtual void UpdateModelNormals(void);
 
-    // PickRecord内存池相关参数.
-    inline PickRecord* AllocatePickRecord(void);
-    static std::vector<PickRecord> ms_PickRecordPool;
+    // SEPickRecord内存池相关参数.
+    inline SEPickRecord* AllocatePickRecord(void);
+    static std::vector<SEPickRecord> ms_PickRecordPool;
     static int ms_iMaxCount;
     static int ms_iGrowBy;
     static int ms_iCount;
 };
 
-typedef SESmartPointer<TriMesh> TriMeshPtr;
+typedef SESmartPointer<SETriMesh> SETriMeshPtr;
 
 #include "SETriMesh.inl"
 

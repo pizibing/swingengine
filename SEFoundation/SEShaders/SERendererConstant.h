@@ -36,7 +36,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080623
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API RendererConstant
+class SE_FOUNDATION_API SERendererConstant
 {
     SE_DECLARE_INITIALIZE;
     SE_DECLARE_TERMINATE;
@@ -261,9 +261,9 @@ public:
         MAX_TYPES
     };
 
-    RendererConstant(Type eType, void* pID, int iDataCount);
-    RendererConstant(const RendererConstant& rRC);
-    ~RendererConstant(void);
+    SERendererConstant(Type eType, void* pID, int iDataCount);
+    SERendererConstant(const SERendererConstant& rRC);
+    ~SERendererConstant(void);
 
     // 成员访问,renderer使用他们给图形API传递数据.
     inline Type GetType(void) const;

@@ -19,66 +19,66 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline Image::FormatMode Image::GetFormat() const
+inline SEImage::FormatMode SEImage::GetFormat() const
 {
     return m_eFormat;
 }
 //----------------------------------------------------------------------------
-inline const std::string& Image::GetFormatName() const
+inline const std::string& SEImage::GetFormatName() const
 {
     return ms_FormatName[m_eFormat];
 }
 //----------------------------------------------------------------------------
-inline std::string Image::GetFormatName(int eFormat)
+inline std::string SEImage::GetFormatName(int eFormat)
 {
     return ms_FormatName[eFormat];
 }
 //----------------------------------------------------------------------------
-inline bool Image::IsDepthImage() const
+inline bool SEImage::IsDepthImage() const
 {
     return m_eFormat == IT_DEPTH16
         || m_eFormat == IT_DEPTH24
         || m_eFormat == IT_DEPTH32;
 }
 //----------------------------------------------------------------------------
-inline bool Image::IsCubeImage() const
+inline bool SEImage::IsCubeImage() const
 {
     return m_eFormat == IT_CUBE_RGB888 || m_eFormat == IT_CUBE_RGBA8888;
 }
 //----------------------------------------------------------------------------
-inline int Image::GetBytesPerPixel() const
+inline int SEImage::GetBytesPerPixel() const
 {
     return ms_BytesPerPixel[m_eFormat];
 }
 //----------------------------------------------------------------------------
-inline int Image::GetBytesPerPixel(int eFormat)
+inline int SEImage::GetBytesPerPixel(int eFormat)
 {
     return ms_BytesPerPixel[eFormat];
 }
 //----------------------------------------------------------------------------
-inline int Image::GetDimension() const
+inline int SEImage::GetDimension() const
 {
     return m_iDimension;
 }
 //----------------------------------------------------------------------------
-inline int Image::GetBound(int i) const
+inline int SEImage::GetBound(int i) const
 {
     SE_ASSERT( 0 <= i && i < 3 );
 
     return m_Bound[i];
 }
 //----------------------------------------------------------------------------
-inline int Image::GetCount() const
+inline int SEImage::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-inline unsigned char* Image::GetData() const
+inline unsigned char* SEImage::GetData() const
 {
     return m_pData;
 }
 //----------------------------------------------------------------------------
-inline unsigned char* Image::operator()(int i)
+inline unsigned char* SEImage::operator()(int i)
 {
     return m_pData + i*ms_BytesPerPixel[m_eFormat];
 }

@@ -23,13 +23,13 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_INITIALIZE(RendererConstant);
-SE_IMPLEMENT_TERMINATE(RendererConstant);
+SE_IMPLEMENT_INITIALIZE(SERendererConstant);
+SE_IMPLEMENT_TERMINATE(SERendererConstant);
 
-//SE_REGISTER_INITIALIZE(RendererConstant);
-//SE_REGISTER_TERMINATE(RendererConstant);
+//SE_REGISTER_INITIALIZE(SERendererConstant);
+//SE_REGISTER_TERMINATE(SERendererConstant);
 
-std::string RendererConstant::ms_StringMap[RendererConstant::MAX_TYPES+1] =
+std::string SERendererConstant::ms_StringMap[SERendererConstant::MAX_TYPES+1] =
 {
     "WMatrix",
     "VMatrix",
@@ -245,16 +245,16 @@ std::string RendererConstant::ms_StringMap[RendererConstant::MAX_TYPES+1] =
     "MAX_TYPES"
 };
 
-SEStringHashTable<RendererConstant::Type>* RendererConstant::ms_pTypeMap = 0;
-RendererConstant::ReleaseID RendererConstant::OnReleaseID = 0;
-RendererConstant::CopyID RendererConstant::OnCopyID = 0;
+SEStringHashTable<SERendererConstant::Type>* SERendererConstant::ms_pTypeMap = 0;
+SERendererConstant::ReleaseID SERendererConstant::OnReleaseID = 0;
+SERendererConstant::CopyID SERendererConstant::OnCopyID = 0;
 
 //----------------------------------------------------------------------------
-void RendererConstant::Initialize()
+void SERendererConstant::Initialize()
 {
     SE_ASSERT( ms_pTypeMap == 0 );
 
-    ms_pTypeMap = SE_NEW SEStringHashTable<RendererConstant::Type>(MAX_TYPES);
+    ms_pTypeMap = SE_NEW SEStringHashTable<SERendererConstant::Type>(MAX_TYPES);
 
     for( int i = 0; i < (int)MAX_TYPES; i++ )
     {
@@ -262,12 +262,12 @@ void RendererConstant::Initialize()
     }
 }
 //----------------------------------------------------------------------------
-void RendererConstant::Terminate()
+void SERendererConstant::Terminate()
 {
     SE_DELETE ms_pTypeMap;
 }
 //----------------------------------------------------------------------------
-RendererConstant::RendererConstant(Type eType, void* pID, int iDataCount)
+SERendererConstant::SERendererConstant(Type eType, void* pID, int iDataCount)
 {
     SE_ASSERT( pID );
     SE_ASSERT( iDataCount > 0 && iDataCount <= 16 );
@@ -279,7 +279,7 @@ RendererConstant::RendererConstant(Type eType, void* pID, int iDataCount)
     memset(m_afData, 0, 16*sizeof(float));
 }
 //----------------------------------------------------------------------------
-RendererConstant::RendererConstant(const RendererConstant& rRC)
+SERendererConstant::SERendererConstant(const SERendererConstant& rRC)
 {
     m_eType = rRC.m_eType;
     m_iDataCount = rRC.m_iDataCount;
@@ -295,7 +295,7 @@ RendererConstant::RendererConstant(const RendererConstant& rRC)
     }
 }
 //----------------------------------------------------------------------------
-RendererConstant::~RendererConstant()
+SERendererConstant::~SERendererConstant()
 {
     if( OnReleaseID )
     {
@@ -303,12 +303,12 @@ RendererConstant::~RendererConstant()
     }
 }
 //----------------------------------------------------------------------------
-const std::string& RendererConstant::GetName(Type eType)
+const std::string& SERendererConstant::GetName(Type eType)
 {
     return ms_StringMap[eType];
 }
 //----------------------------------------------------------------------------
-RendererConstant::Type RendererConstant::GetType(const std::string& rName)
+SERendererConstant::Type SERendererConstant::GetType(const std::string& rName)
 {
     Type* pType = ms_pTypeMap->Find(rName);
 

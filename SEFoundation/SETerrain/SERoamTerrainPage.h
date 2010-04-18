@@ -29,7 +29,7 @@
 namespace Swing
 {
 
-class RoamTerrain;
+class SERoamTerrain;
 
 //   Y 
 //   |
@@ -49,7 +49,7 @@ class RoamTerrain;
 // 对齐世界坐标系的X轴,地形Z轴为采样高度轴,经过世界变换,对齐世界坐标系的Y轴,
 // 高度图为(2^N+1)*(2^N+1)的采样点数组,
 // 一个Terrain page对应一个高度图,
-// 一个Terrain page由N*N个Terrain patch组成,
+// 一个Terrain page由N*N个SETerrain patch组成,
 // 一个Terrain patch由Left base triangle与Right base triangle组成,如上图.
 //
 // ROAM(Real-time Optimally Adapting Meshes) Terrain LOD:
@@ -68,20 +68,20 @@ class RoamTerrain;
 // 作者:jazzboysc
 // 时间:20070601
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API RoamTerrainPage : public TriMesh
+class SE_FOUNDATION_API SERoamTerrainPage : public SETriMesh
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    RoamTerrainPage(const Attributes& rAttr, int iSize,
+    SERoamTerrainPage(const SEAttributes& rAttr, int iSize,
         unsigned short* ausHeight, const SEVector2f& rOrigin,
         float fMinElevation, float fMaxElevation, float fSpacing,
         float fUVBias, int iPoolSize, int iPatchSize, int iSplitLevel, 
         int iVarianceLevel);
 
-    virtual ~RoamTerrainPage(void);
+    virtual ~SERoamTerrainPage(void);
 
     // 高度图访问.
     inline int GetSize(void) const;
@@ -108,23 +108,23 @@ public:
     static int DesiredTris;
     // 当前frame已经渲染的三角形数量
     static int NumTrisRendered;
-    std::vector<RoamTriTreeNode*> Triangles;
+    std::vector<SERoamTriTreeNode*> Triangles;
 
 protected:
     // streaming support.
-    RoamTerrainPage(void);
+    SERoamTerrainPage(void);
     void InitializeDerivedData(void);
 
     // simplification.
-    friend class RoamTerrain;
+    friend class SERoamTerrain;
     void ResetPatches(void);
-    void SimplifyPatches(const Camera* pCamera, Culler& rCuller);
+    void SimplifyPatches(const SECamera* pCamera, SECuller& rCuller);
     void CollectPatches(void);
 
     // page管理信息.
-    inline void SetPageGrid(int iRow, int iCol, RoamTerrain* pTerrain);
+    inline void SetPageGrid(int iRow, int iCol, SERoamTerrain* pTerrain);
     int m_iRow, m_iCol;
-    RoamTerrain* m_pTerrain;  // 避免智能指针互指,不需要streaming.
+    SERoamTerrain* m_pTerrain;  // 避免智能指针互指,不需要streaming.
 
     // tessellation.
     inline float GetX(int iX) const;
@@ -133,7 +133,7 @@ protected:
     inline float GetTextureCoordinate(int iIndex) const;
 
     // 用于重建IB.
-    virtual void GetUnculledSet(Culler& rCuller, bool bNoCull);
+    virtual void GetUnculledSet(SECuller& rCuller, bool bNoCull);
 	
     inline int GetNextTriNode(void) const;
     inline void SetNextTriNode(int iNextNode);
@@ -160,18 +160,18 @@ protected:
     bool m_bNeedsResetIB;
 
     // patch数组,必须是n*n个patch.
-    mutable std::vector<std::vector<RoamTerrainPatch> > m_Patches;
+    mutable std::vector<std::vector<SERoamTerrainPatch> > m_Patches;
 
-    friend class RoamTerrainPatch;
-    RoamTriTreeNode* AllocateTri(void);
+    friend class SERoamTerrainPatch;
+    SERoamTriTreeNode* AllocateTri(void);
     int m_iNextTriNode;										
-    std::vector<RoamTriTreeNode> m_TriPool;
+    std::vector<SERoamTriTreeNode> m_TriPool;
 
     // texture参数.
     float m_fUVBias;
 };
 
-typedef SESmartPointer<RoamTerrainPage> RoamTerrainPagePtr;
+typedef SESmartPointer<SERoamTerrainPage> SERoamTerrainPagePtr;
 #include "SERoamTerrainPage.inl"
 
 }

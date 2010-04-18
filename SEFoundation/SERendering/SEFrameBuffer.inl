@@ -19,43 +19,43 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline FrameBuffer::FormatType FrameBuffer::GetFormatType() const
+inline SEFrameBuffer::FormatType SEFrameBuffer::GetFormatType() const
 {
     return m_eFormat;
 }
 //----------------------------------------------------------------------------
-inline FrameBuffer::DepthType FrameBuffer::GetDepthType() const
+inline SEFrameBuffer::DepthType SEFrameBuffer::GetDepthType() const
 {
     return m_eDepth;
 }
 //----------------------------------------------------------------------------
-inline FrameBuffer::StencilType FrameBuffer::GetStencilType() const
+inline SEFrameBuffer::StencilType SEFrameBuffer::GetStencilType() const
 {
     return m_eStencil;
 }
 //----------------------------------------------------------------------------
-inline FrameBuffer::BufferingType FrameBuffer::GetBufferingType() const
+inline SEFrameBuffer::BufferingType SEFrameBuffer::GetBufferingType() const
 {
     return m_eBuffering;
 }
 //----------------------------------------------------------------------------
-inline FrameBuffer::MultisamplingType FrameBuffer::GetMultisamplingType()
+inline SEFrameBuffer::MultisamplingType SEFrameBuffer::GetMultisamplingType()
     const
 {
     return m_eMultisampling;
 }
 //----------------------------------------------------------------------------
-inline Renderer* FrameBuffer::GetRenderer()
+inline SERenderer* SEFrameBuffer::GetRenderer()
 {
     return m_pRenderer;
 }
 //----------------------------------------------------------------------------
-inline int FrameBuffer::GetCount() const
+inline int SEFrameBuffer::GetCount() const
 {
     return m_iCount;
 }
 //----------------------------------------------------------------------------
-inline Texture* FrameBuffer::GetTarget(int i)
+inline SETexture* SEFrameBuffer::GetTarget(int i)
 {
     return m_apTargets[i];
 }

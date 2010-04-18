@@ -29,8 +29,8 @@ using namespace Swing;
 // normal,uv,IB
 
 //----------------------------------------------------------------------------
-StandardMesh::StandardMesh(const Attributes& rAttr, bool bInside, 
-    const Transformation* pXFrm)
+SEStandardMesh::SEStandardMesh(const SEAttributes& rAttr, bool bInside, 
+    const SETransformation* pXFrm)
     :
     m_Attr(rAttr)
 {
@@ -59,21 +59,21 @@ StandardMesh::StandardMesh(const Attributes& rAttr, bool bInside,
     m_pIBuffer = 0;
 }
 //----------------------------------------------------------------------------
-StandardMesh::~StandardMesh()
+SEStandardMesh::~SEStandardMesh()
 {
 }
 //----------------------------------------------------------------------------
-void StandardMesh::SetTransformation(const Transformation& rXFrm)
+void SEStandardMesh::SetTransformation(const SETransformation& rXFrm)
 {
     m_XFrm = rXFrm;
 }
 //----------------------------------------------------------------------------
-const Transformation& StandardMesh::GetTransformation() const
+const SETransformation& SEStandardMesh::GetTransformation() const
 {
     return m_XFrm;
 }
 //----------------------------------------------------------------------------
-void StandardMesh::TransformData(VertexBuffer* pVB)
+void SEStandardMesh::TransformData(SEVertexBuffer* pVB)
 {
     if( m_XFrm.IsIdentity() )
     {
@@ -104,7 +104,7 @@ void StandardMesh::TransformData(VertexBuffer* pVB)
     }
 }
 //----------------------------------------------------------------------------
-void StandardMesh::ReverseTriangleOrder(int iTCount, int* aiIndex)
+void SEStandardMesh::ReverseTriangleOrder(int iTCount, int* aiIndex)
 {
     for( int i = 0; i < iTCount; i++ )
     {
@@ -115,13 +115,13 @@ void StandardMesh::ReverseTriangleOrder(int iTCount, int* aiIndex)
     }
 }
 //----------------------------------------------------------------------------
-TriMesh* StandardMesh::Rectangle(int iXSamples, int iYSamples, 
+SETriMesh* SEStandardMesh::Rectangle(int iXSamples, int iYSamples, 
     float fXExtent, float fYExtent)
 {
     int iVCount = iXSamples * iYSamples;
     int iTCount = 2 * (iXSamples - 1) * (iYSamples - 1);
-    VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
-    IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
+    SEVertexBuffer* pVB = SE_NEW SEVertexBuffer(m_Attr, iVCount);
+    SEIndexBuffer* pIB = SE_NEW SEIndexBuffer(3 * iTCount);
 
     // 生成geometry.
     float fInv0 = 1.0f / (iXSamples - 1.0f);
@@ -179,19 +179,19 @@ TriMesh* StandardMesh::Rectangle(int iXSamples, int iYSamples,
     }
 
     TransformData(pVB);
-    TriMesh* pMesh = SE_NEW TriMesh(pVB, pIB);
+    SETriMesh* pMesh = SE_NEW SETriMesh(pVB, pIB);
 
     return pMesh;
 }
 //----------------------------------------------------------------------------
-TriMesh* StandardMesh::Disk(int iShellSamples, int iRadialSamples, 
+SETriMesh* SEStandardMesh::Disk(int iShellSamples, int iRadialSamples, 
     float fRadius)
 {
     int iRSm1 = iRadialSamples - 1, iSSm1 = iShellSamples - 1;
     int iVCount = 1 + iRadialSamples * iSSm1;
     int iTCount = iRadialSamples * (2*iSSm1 - 1);
-    VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
-    IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
+    SEVertexBuffer* pVB = SE_NEW SEVertexBuffer(m_Attr, iVCount);
+    SEIndexBuffer* pIB = SE_NEW SEIndexBuffer(3 * iTCount);
 
     // 生成geometry.
     int iR, iS, i, iUnit;
@@ -279,17 +279,17 @@ TriMesh* StandardMesh::Disk(int iShellSamples, int iRadialSamples,
     SE_ASSERT( iT == iTCount );
 
     TransformData(pVB);
-    TriMesh* pMesh = SE_NEW TriMesh(pVB, pIB);
+    SETriMesh* pMesh = SE_NEW SETriMesh(pVB, pIB);
 
     return pMesh;
 }
 //----------------------------------------------------------------------------
-TriMesh* StandardMesh::Box(float fXExtent, float fYExtent, float fZExtent)
+SETriMesh* SEStandardMesh::Box(float fXExtent, float fYExtent, float fZExtent)
 {
     int iVCount = 24;
     int iTCount = 12;
-    VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
-    IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
+    SEVertexBuffer* pVB = SE_NEW SEVertexBuffer(m_Attr, iVCount);
+    SEIndexBuffer* pIB = SE_NEW SEIndexBuffer(3 * iTCount);
 
     // 生成geometry.
     pVB->Position3(0) = SEVector3f(-fXExtent, -fYExtent, -fZExtent);
@@ -375,23 +375,23 @@ TriMesh* StandardMesh::Box(float fXExtent, float fYExtent, float fZExtent)
     }
 
     TransformData(pVB);
-    TriMesh* pMesh = SE_NEW TriMesh(pVB, pIB);
+    SETriMesh* pMesh = SE_NEW SETriMesh(pVB, pIB);
     pMesh->UpdateMS(true);
 
     return pMesh;
 }
 //----------------------------------------------------------------------------
-TriMesh* StandardMesh::Cylinder(int iAxisSamples, int iRadialSamples, 
+SETriMesh* SEStandardMesh::Cylinder(int iAxisSamples, int iRadialSamples, 
     float fRadius, float fHeight, bool bOpen)
 {
-    TriMesh* pMesh;
+    SETriMesh* pMesh;
 
     if( bOpen )
     {
         int iVCount = iAxisSamples * (iRadialSamples + 1);
         int iTCount = 2 * (iAxisSamples - 1) * iRadialSamples;
-        VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
-        IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
+        SEVertexBuffer* pVB = SE_NEW SEVertexBuffer(m_Attr, iVCount);
+        SEIndexBuffer* pIB = SE_NEW SEIndexBuffer(3 * iTCount);
 
         // generate geometry.
         float fInvRS = 1.0f / (float)iRadialSamples;
@@ -513,12 +513,12 @@ TriMesh* StandardMesh::Cylinder(int iAxisSamples, int iRadialSamples,
         SE_DELETE[] afSin;
 
         TransformData(pVB);
-        pMesh = SE_NEW TriMesh(pVB, pIB);
+        pMesh = SE_NEW SETriMesh(pVB, pIB);
     }
     else
     {
         pMesh = Sphere(iAxisSamples, iRadialSamples, fRadius);
-        VertexBuffer* pVB = pMesh->VBuffer;
+        SEVertexBuffer* pVB = pMesh->VBuffer;
         int iVCount = pVB->GetVertexCount();
 
         // flatten sphere at poles
@@ -553,15 +553,15 @@ TriMesh* StandardMesh::Cylinder(int iAxisSamples, int iRadialSamples,
     return pMesh;
 }
 //----------------------------------------------------------------------------
-TriMesh* StandardMesh::Sphere(int iZSamples, int iRadialSamples, 
+SETriMesh* SEStandardMesh::Sphere(int iZSamples, int iRadialSamples, 
     float fRadius)
 {
     int iZSm1 = iZSamples - 1, iZSm2 = iZSamples - 2, iZSm3 = iZSamples - 3;
     int iRSp1 = iRadialSamples + 1;
     int iVCount = iZSm2*iRSp1 + 2;
     int iTCount = 2 * iZSm2 * iRadialSamples;
-    VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
-    IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
+    SEVertexBuffer* pVB = SE_NEW SEVertexBuffer(m_Attr, iVCount);
+    SEIndexBuffer* pIB = SE_NEW SEIndexBuffer(3 * iTCount);
 
     // generate geometry
     float fInvRS = 1.0f / (float)iRadialSamples;
@@ -784,7 +784,7 @@ TriMesh* StandardMesh::Sphere(int iZSamples, int iRadialSamples,
     SE_DELETE[] afSin;
 
     TransformData(pVB);
-    TriMesh* pMesh = SE_NEW TriMesh(pVB, pIB);
+    SETriMesh* pMesh = SE_NEW SETriMesh(pVB, pIB);
 
     // The duplication of vertices at the seam cause the automatically
     // generated bounding volume to be slightly off center.  Reset the bound
@@ -795,13 +795,13 @@ TriMesh* StandardMesh::Sphere(int iZSamples, int iRadialSamples,
     return pMesh;
 }
 //----------------------------------------------------------------------------
-TriMesh* StandardMesh::Torus(int iCircleSamples, int iRadialSamples, 
+SETriMesh* SEStandardMesh::Torus(int iCircleSamples, int iRadialSamples, 
     float fOuterRadius, float fInnerRadius)
 {
     int iVCount = (iCircleSamples + 1) * (iRadialSamples + 1);
     int iTCount = 2 * iCircleSamples * iRadialSamples;
-    VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
-    IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
+    SEVertexBuffer* pVB = SE_NEW SEVertexBuffer(m_Attr, iVCount);
+    SEIndexBuffer* pIB = SE_NEW SEIndexBuffer(3 * iTCount);
 
     // generate geometry
     float fInvCS = 1.0f / (float)iCircleSamples;
@@ -935,7 +935,7 @@ TriMesh* StandardMesh::Torus(int iCircleSamples, int iRadialSamples,
     }
 
     TransformData(pVB);
-    TriMesh* pMesh = SE_NEW TriMesh(pVB, pIB);
+    SETriMesh* pMesh = SE_NEW SETriMesh(pVB, pIB);
 
     // The duplication of vertices at the seam cause the automatically
     // generated bounding volume to be slightly off center.  Reset the bound
@@ -946,9 +946,9 @@ TriMesh* StandardMesh::Torus(int iCircleSamples, int iRadialSamples,
     return pMesh;
 }
 //----------------------------------------------------------------------------
-TriMesh* StandardMesh::Cone(int iRadialSamples, float fRadius, float fHeight)
+SETriMesh* SEStandardMesh::Cone(int iRadialSamples, float fRadius, float fHeight)
 {
-    TriMesh* pDisk = Disk(2, iRadialSamples, fRadius);
+    SETriMesh* pDisk = Disk(2, iRadialSamples, fRadius);
     int iVCount = pDisk->VBuffer->GetVertexCount() + 1;
     int iICount = pDisk->IBuffer->GetIndexCount()*2;
     int iTCount = pDisk->IBuffer->GetIndexCount()/3;
@@ -956,8 +956,8 @@ TriMesh* StandardMesh::Cone(int iRadialSamples, float fRadius, float fHeight)
     int iIBSize = pDisk->IBuffer->GetIndexCount()*sizeof(int);
     int iVertexSize = m_Attr.GetChannelCount()*sizeof(float);
 
-    VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
-    IndexBuffer* pIB = SE_NEW IndexBuffer(iICount);
+    SEVertexBuffer* pVB = SE_NEW SEVertexBuffer(m_Attr, iVCount);
+    SEIndexBuffer* pIB = SE_NEW SEIndexBuffer(iICount);
 
     // Setup data for the new VB.
     float* pSrcVData = pDisk->VBuffer->GetData();
@@ -988,13 +988,13 @@ TriMesh* StandardMesh::Cone(int iRadialSamples, float fRadius, float fHeight)
     
     SE_DELETE pDisk;
 
-    TriMesh* pMesh = SE_NEW TriMesh(pVB, pIB);
+    SETriMesh* pMesh = SE_NEW SETriMesh(pVB, pIB);
     pMesh->UpdateMS();
 
     return pMesh;
 }
 //----------------------------------------------------------------------------
-TriMesh* StandardMesh::Tetrahedron()
+SETriMesh* SEStandardMesh::Tetrahedron()
 {
     float fSqrt2Div3 = SEMathf::Sqrt(2.0f) / 3.0f;
     float fSqrt6Div3 = SEMathf::Sqrt(6.0f) / 3.0f;
@@ -1003,8 +1003,8 @@ TriMesh* StandardMesh::Tetrahedron()
 
     int iVCount = 12;
     int iTCount = 4;
-    VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
-    IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
+    SEVertexBuffer* pVB = SE_NEW SEVertexBuffer(m_Attr, iVCount);
+    SEIndexBuffer* pIB = SE_NEW SEIndexBuffer(3 * iTCount);
 
     pVB->Position3(0) = SEVector3f(0.0f, 0.0f, 1.0f);
     pVB->Position3(1) = SEVector3f(0.0f, 0.0f, 1.0f);
@@ -1035,20 +1035,20 @@ TriMesh* StandardMesh::Tetrahedron()
     }
 
     TransformData(pVB);
-    TriMesh* pMesh = SE_NEW TriMesh(pVB, pIB);
+    SETriMesh* pMesh = SE_NEW SETriMesh(pVB, pIB);
     pMesh->UpdateMS(true);
 
     return pMesh;
 }
 //----------------------------------------------------------------------------
-TriMesh* StandardMesh::Hexahedron()
+SETriMesh* SEStandardMesh::Hexahedron()
 {
     float fSqrtThird = SEMathf::Sqrt(1.0f / 3.0f);
 
     int iVCount = 8;
     int iTCount = 12;
-    VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
-    IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
+    SEVertexBuffer* pVB = SE_NEW SEVertexBuffer(m_Attr, iVCount);
+    SEIndexBuffer* pIB = SE_NEW SEIndexBuffer(3 * iTCount);
 
     pVB->Position3(0) = SEVector3f(-fSqrtThird, -fSqrtThird, -fSqrtThird);
     pVB->Position3(1) = SEVector3f( fSqrtThird, -fSqrtThird, -fSqrtThird);
@@ -1081,17 +1081,17 @@ TriMesh* StandardMesh::Hexahedron()
     }
 
     TransformData(pVB);
-    TriMesh* pMesh = SE_NEW TriMesh(pVB, pIB);
+    SETriMesh* pMesh = SE_NEW SETriMesh(pVB, pIB);
 
     return pMesh;
 }
 //----------------------------------------------------------------------------
-TriMesh* StandardMesh::Octahedron()
+SETriMesh* SEStandardMesh::Octahedron()
 {
     int iVCount = 6;
     int iTCount = 8;
-    VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
-    IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
+    SEVertexBuffer* pVB = SE_NEW SEVertexBuffer(m_Attr, iVCount);
+    SEIndexBuffer* pIB = SE_NEW SEIndexBuffer(3 * iTCount);
 
     pVB->Position3(0) = SEVector3f( 1.0f, 0.0f, 0.0f);
     pVB->Position3(1) = SEVector3f(-1.0f, 0.0f, 0.0f);
@@ -1118,12 +1118,12 @@ TriMesh* StandardMesh::Octahedron()
     }
 
     TransformData(pVB);
-    TriMesh* pMesh = SE_NEW TriMesh(pVB, pIB);
+    SETriMesh* pMesh = SE_NEW SETriMesh(pVB, pIB);
 
     return pMesh;
 }
 //----------------------------------------------------------------------------
-TriMesh* StandardMesh::Dodecahedron()
+SETriMesh* SEStandardMesh::Dodecahedron()
 {
     float fA = 1.0f / SEMathf::Sqrt(3.0f);
     float fB = SEMathf::Sqrt((3.0f - SEMathf::Sqrt(5.0f))/6.0f);
@@ -1131,8 +1131,8 @@ TriMesh* StandardMesh::Dodecahedron()
 
     int iVCount = 20;
     int iTCount = 36;
-    VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
-    IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
+    SEVertexBuffer* pVB = SE_NEW SEVertexBuffer(m_Attr, iVCount);
+    SEIndexBuffer* pIB = SE_NEW SEIndexBuffer(3 * iTCount);
 
     pVB->Position3( 0) = SEVector3f( fA, fA, fA);
     pVB->Position3( 1) = SEVector3f( fA, fA, -fA);
@@ -1237,12 +1237,12 @@ TriMesh* StandardMesh::Dodecahedron()
     }
 
     TransformData(pVB);
-    TriMesh* pMesh = SE_NEW TriMesh(pVB, pIB);
+    SETriMesh* pMesh = SE_NEW SETriMesh(pVB, pIB);
 
     return pMesh;
 }
 //----------------------------------------------------------------------------
-TriMesh* StandardMesh::Icosahedron()
+SETriMesh* SEStandardMesh::Icosahedron()
 {
     float fGoldenRatio = 0.5f * (1.0f + SEMathf::Sqrt(5.0f));
     float fInvRoot = 1.0f / SEMathf::Sqrt(1.0f + fGoldenRatio*fGoldenRatio);
@@ -1251,8 +1251,8 @@ TriMesh* StandardMesh::Icosahedron()
 
     int iVCount = 12;
     int iTCount = 20;
-    VertexBuffer* pVB = SE_NEW VertexBuffer(m_Attr, iVCount);
-    IndexBuffer* pIB = SE_NEW IndexBuffer(3 * iTCount);
+    SEVertexBuffer* pVB = SE_NEW SEVertexBuffer(m_Attr, iVCount);
+    SEIndexBuffer* pIB = SE_NEW SEIndexBuffer(3 * iTCount);
 
     pVB->Position3( 0) = SEVector3f(  fU,  fV, 0.0f);
     pVB->Position3( 1) = SEVector3f( -fU,  fV, 0.0f);
@@ -1317,12 +1317,12 @@ TriMesh* StandardMesh::Icosahedron()
     }
 
     TransformData(pVB);
-    TriMesh* pMesh = SE_NEW TriMesh(pVB, pIB);
+    SETriMesh* pMesh = SE_NEW SETriMesh(pVB, pIB);
 
     return pMesh;
 }
 //----------------------------------------------------------------------------
-void StandardMesh::CreatePlatonicNormals(VertexBuffer* pVBuffer)
+void SEStandardMesh::CreatePlatonicNormals(SEVertexBuffer* pVBuffer)
 {
     if( m_Attr.HasNormal() )
     {
@@ -1333,7 +1333,7 @@ void StandardMesh::CreatePlatonicNormals(VertexBuffer* pVBuffer)
     }
 }
 //----------------------------------------------------------------------------
-void StandardMesh::CreatePlatonicUVs(VertexBuffer* pVBuffer)
+void SEStandardMesh::CreatePlatonicUVs(SEVertexBuffer* pVBuffer)
 {
     if( m_Attr.GetMaxTCoords() > 0 )
     {

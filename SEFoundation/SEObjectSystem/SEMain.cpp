@@ -32,10 +32,10 @@ SEMain::InitializerArray* SEMain::ms_pInitializers = 0;
 SEMain::TerminatorArray* SEMain::ms_pTerminators = 0;
 int SEMain::ms_iStartObjects = 0;
 int SEMain::ms_iFinalObjects = 0;
-ImageCatalog* SEMain::ms_pImageCatalog = 0;
-VertexProgramCatalog* SEMain::ms_pVertexProgramCatalog = 0;
-GeometryProgramCatalog* SEMain::ms_pGeometryProgramCatalog = 0;
-PixelProgramCatalog* SEMain::ms_pPixelProgramCatalog = 0;
+SEImageCatalog* SEMain::ms_pImageCatalog = 0;
+SEVertexProgramCatalog* SEMain::ms_pVertexProgramCatalog = 0;
+SEGeometryProgramCatalog* SEMain::ms_pGeometryProgramCatalog = 0;
+SEPixelProgramCatalog* SEMain::ms_pPixelProgramCatalog = 0;
 
 //----------------------------------------------------------------------------
 void SEMain::AddInitializer(Initializer FuncInitialize)
@@ -61,17 +61,17 @@ void SEMain::Initialize()
     }
     SE_ASSERT( bCountIsCorrect );
 
-    ms_pImageCatalog = SE_NEW ImageCatalog("SEMain");
-    ImageCatalog::SetActive(ms_pImageCatalog);
+    ms_pImageCatalog = SE_NEW SEImageCatalog("SEMain");
+    SEImageCatalog::SetActive(ms_pImageCatalog);
 
-    ms_pVertexProgramCatalog = SE_NEW VertexProgramCatalog("SEMain");
-    VertexProgramCatalog::SetActive(ms_pVertexProgramCatalog);
+    ms_pVertexProgramCatalog = SE_NEW SEVertexProgramCatalog("SEMain");
+    SEVertexProgramCatalog::SetActive(ms_pVertexProgramCatalog);
 
-    ms_pGeometryProgramCatalog = SE_NEW GeometryProgramCatalog("SEMain");
-    GeometryProgramCatalog::SetActive(ms_pGeometryProgramCatalog);
+    ms_pGeometryProgramCatalog = SE_NEW SEGeometryProgramCatalog("SEMain");
+    SEGeometryProgramCatalog::SetActive(ms_pGeometryProgramCatalog);
 
-    ms_pPixelProgramCatalog = SE_NEW PixelProgramCatalog("SEMain");
-    PixelProgramCatalog::SetActive(ms_pPixelProgramCatalog);
+    ms_pPixelProgramCatalog = SE_NEW SEPixelProgramCatalog("SEMain");
+    SEPixelProgramCatalog::SetActive(ms_pPixelProgramCatalog);
 
     // 调用各个类型的pre-main函数
     if( ms_pInitializers )
@@ -142,27 +142,27 @@ void SEMain::Terminate()
     SE_DELETE ms_pTerminators;
     ms_pTerminators = 0;
 
-    if( PixelProgramCatalog::GetActive() == ms_pPixelProgramCatalog )
+    if( SEPixelProgramCatalog::GetActive() == ms_pPixelProgramCatalog )
     {
-        PixelProgramCatalog::SetActive(0);
+        SEPixelProgramCatalog::SetActive(0);
     }
     SE_DELETE ms_pPixelProgramCatalog;
 
-    if( GeometryProgramCatalog::GetActive() == ms_pGeometryProgramCatalog )
+    if( SEGeometryProgramCatalog::GetActive() == ms_pGeometryProgramCatalog )
     {
-        GeometryProgramCatalog::SetActive(0);
+        SEGeometryProgramCatalog::SetActive(0);
     }
     SE_DELETE ms_pGeometryProgramCatalog;
 
-    if( VertexProgramCatalog::GetActive() == ms_pVertexProgramCatalog )
+    if( SEVertexProgramCatalog::GetActive() == ms_pVertexProgramCatalog )
     {
-        VertexProgramCatalog::SetActive(0);
+        SEVertexProgramCatalog::SetActive(0);
     }
     SE_DELETE ms_pVertexProgramCatalog;
 
-    if( ImageCatalog::GetActive() == ms_pImageCatalog )
+    if( SEImageCatalog::GetActive() == ms_pImageCatalog )
     {
-        ImageCatalog::SetActive(0);
+        SEImageCatalog::SetActive(0);
     }
     SE_DELETE ms_pImageCatalog;
 

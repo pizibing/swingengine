@@ -42,8 +42,8 @@ Effect::~Effect()
 {
 }
 //----------------------------------------------------------------------------
-void Effect::Draw(Renderer* pRenderer, Spatial*, int iMin, int iMax, 
-    UnculledObject* pVisibleSet)
+void Effect::Draw(SERenderer* pRenderer, SESpatial*, int iMin, int iMax, 
+    SEUnculledObject* pVisibleSet)
 {
     // global effect的默认渲染函数.
     // 实际上,只是将该effect作为local effect临时添加给每个待渲染geometry对象.
@@ -51,7 +51,7 @@ void Effect::Draw(Renderer* pRenderer, Spatial*, int iMin, int iMax,
     {
         if( pVisibleSet[i].IsRenderable() )
         {
-            Geometry* pGeometry = (Geometry*)pVisibleSet[i].SEObject;
+            SEGeometry* pGeometry = (SEGeometry*)pVisibleSet[i].SEObject;
             pGeometry->AttachEffect(this);
             pRenderer->Draw(pGeometry);
             pGeometry->DetachEffect(this);
@@ -63,11 +63,11 @@ void Effect::OnUpdateData(void*)
 {
 }
 //----------------------------------------------------------------------------
-void Effect::LoadResources(Renderer*, Geometry*)
+void Effect::LoadResources(SERenderer*, SEGeometry*)
 {
 }
 //----------------------------------------------------------------------------
-void Effect::ReleaseResources(Renderer*, Geometry*)
+void Effect::ReleaseResources(SERenderer*, SEGeometry*)
 {
 }
 //----------------------------------------------------------------------------

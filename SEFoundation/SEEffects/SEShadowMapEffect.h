@@ -41,14 +41,14 @@ class ShadowMapEffect : public Effect
     SE_DECLARE_STREAM;
 
 public:
-    ShadowMapEffect(Camera* pProjector, const std::string& rProjectionImage, 
-        Image::FormatMode eDepthFormat, int iDepthWidth, int iDepthHeight, 
+    ShadowMapEffect(SECamera* pProjector, const std::string& rProjectionImage, 
+        SEImage::FormatMode eDepthFormat, int iDepthWidth, int iDepthHeight, 
         float fDepthBias);
 
     virtual ~ShadowMapEffect(void);
 
-    virtual void Draw(Renderer* pRenderer, Spatial* pGlobalObject,
-        int iMin, int iMax, UnculledObject* pVisibleSet);
+    virtual void Draw(SERenderer* pRenderer, SESpatial* pGlobalObject,
+        int iMin, int iMax, SEUnculledObject* pVisibleSet);
 
     inline void SetDepthBias(float fDepthBias);
     inline float GetDepthBias(void) const;
@@ -56,12 +56,12 @@ public:
 protected:
     ShadowMapEffect(void);
 
-    CameraPtr m_spProjector;
+    SECameraPtr m_spProjector;
     ShaderEffectPtr m_spDepthEffect;
-    FrameBuffer* m_pDepthBuffer;
+    SEFrameBuffer* m_pDepthBuffer;
     ImagePtr m_spDepthImage;
     ShaderEffectPtr m_spShadowEffect;
-    Texture* m_pDepthTexture;  // 用于测试 (把深度图拷到系统内存).
+    SETexture* m_pDepthTexture;  // 用于测试 (把深度图拷到系统内存).
 
     // depth bias存储在数组0索引位置.其他数组元素未使用.
     float m_afDepthBias[4];

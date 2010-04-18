@@ -26,12 +26,12 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Spatial, SEObject);
-SE_IMPLEMENT_ABSTRACT_STREAM(Spatial);
+SE_IMPLEMENT_RTTI(Swing, SESpatial, SEObject);
+SE_IMPLEMENT_ABSTRACT_STREAM(SESpatial);
 
-//SE_REGISTER_STREAM(Spatial);
+//SE_REGISTER_STREAM(SESpatial);
 
-const char* Spatial::ms_aacCullingMode[MAX_CULLING_MODE] =
+const char* SESpatial::ms_aacCullingMode[MAX_CULLING_MODE] =
 {
     "CULL_DYNAMIC",
     "CULL_ALWAYS",
@@ -39,9 +39,9 @@ const char* Spatial::ms_aacCullingMode[MAX_CULLING_MODE] =
 };
 
 //----------------------------------------------------------------------------
-Spatial::Spatial()
+SESpatial::SESpatial()
     :
-    WorldBound(BoundingVolume::Create())
+    WorldBound(SEBoundingVolume::Create())
 {
     Culling = CULL_DYNAMIC;
     WorldIsCurrent = false;
@@ -50,18 +50,18 @@ Spatial::Spatial()
     m_iStartEffect = 0;
 }
 //----------------------------------------------------------------------------
-Spatial::~Spatial()
+SESpatial::~SESpatial()
 {
     DetachAllGlobalStates();
     DetachAllLights();
     DetachAllEffects();
 }
 //----------------------------------------------------------------------------
-void Spatial::UpdateGS(double dAppTime, bool bInitiator)
+void SESpatial::UpdateGS(double dAppTime, bool bInitiator)
 {
     // 更新controller,计算世界变换,
-    // 此外,派生类Node通过此虚函数实现AB递归遍历子树,
-    // Geometry没有重载此函数.
+    // 此外,派生类SENode通过此虚函数实现AB递归遍历子树,
+    // SEGeometry没有重载此函数.
     UpdateWorldData(dAppTime);
     // 从以上函数返回后,才能进行世界空间BV更新.
     UpdateWorldBound();
@@ -73,13 +73,13 @@ void Spatial::UpdateGS(double dAppTime, bool bInitiator)
     }
 }
 //----------------------------------------------------------------------------
-void Spatial::UpdateBS()
+void SESpatial::UpdateBS()
 {
     UpdateWorldBound();
     PropagateBoundToRoot();
 }
 //----------------------------------------------------------------------------
-void Spatial::UpdateWorldData(double dAppTime)
+void SESpatial::UpdateWorldData(double dAppTime)
 {
     // 更新所有当前对象的controller
     UpdateControllers(dAppTime);
@@ -114,7 +114,7 @@ void Spatial::UpdateWorldData(double dAppTime)
     }
 }
 //----------------------------------------------------------------------------
-void Spatial::PropagateBoundToRoot()
+void SESpatial::PropagateBoundToRoot()
 {
     if( m_pParent )
     {
@@ -123,7 +123,7 @@ void Spatial::PropagateBoundToRoot()
     }
 }
 //----------------------------------------------------------------------------
-GlobalState* Spatial::GetGlobalState(GlobalState::StateType eType) const
+SEGlobalState* SESpatial::GetGlobalState(SEGlobalState::StateType eType) const
 {
     // 是否存在该类型的渲染状态
     for( int i = 0; i < (int)m_GlobalStates.size(); i++ )
@@ -138,7 +138,7 @@ GlobalState* Spatial::GetGlobalState(GlobalState::StateType eType) const
     return 0;
 }
 //----------------------------------------------------------------------------
-void Spatial::AttachGlobalState(GlobalState* pState)
+void SESpatial::AttachGlobalState(SEGlobalState* pState)
 {
     SE_ASSERT( pState );
 
@@ -158,12 +158,12 @@ void Spatial::AttachGlobalState(GlobalState* pState)
     m_GlobalStates.push_back(pState);
 }
 //----------------------------------------------------------------------------
-void Spatial::DetachGlobalState(GlobalState::StateType eType)
+void SESpatial::DetachGlobalState(SEGlobalState::StateType eType)
 {
-    std::vector<GlobalStatePtr>::iterator pIter = m_GlobalStates.begin();
+    std::vector<SEGlobalStatePtr>::iterator pIter = m_GlobalStates.begin();
     for( /**/; pIter != m_GlobalStates.end(); pIter++ )
     {
-        GlobalState* pState = *pIter;
+        SEGlobalState* pState = *pIter;
         if( pState->GetStateType() == eType )
         {
             m_GlobalStates.erase(pIter);
@@ -173,7 +173,7 @@ void Spatial::DetachGlobalState(GlobalState::StateType eType)
     }
 }
 //----------------------------------------------------------------------------
-void Spatial::AttachLight(Light* pLight)
+void SESpatial::AttachLight(SELight* pLight)
 {
     SE_ASSERT( pLight );
 
@@ -191,7 +191,7 @@ void Spatial::AttachLight(Light* pLight)
     m_Lights.push_back(pLight);
 }
 //----------------------------------------------------------------------------
-void Spatial::DetachLight(Light* pLight)
+void SESpatial::DetachLight(SELight* pLight)
 {
     std::vector<SEObjectPtr>::iterator pIter = m_Lights.begin();
     for( /**/; pIter != m_Lights.end(); pIter++ )
@@ -205,7 +205,7 @@ void Spatial::DetachLight(Light* pLight)
     }
 }
 //----------------------------------------------------------------------------
-void Spatial::AttachEffect(Effect* pEffect)
+void SESpatial::AttachEffect(Effect* pEffect)
 {
     SE_ASSERT( pEffect );
 
@@ -223,7 +223,7 @@ void Spatial::AttachEffect(Effect* pEffect)
     m_Effects.push_back(pEffect);
 }
 //----------------------------------------------------------------------------
-void Spatial::DetachEffect(Effect* pEffect)
+void SESpatial::DetachEffect(Effect* pEffect)
 {
     std::vector<EffectPtr>::iterator pIter = m_Effects.begin();
     for( /**/; pIter != m_Effects.end(); pIter++ )
@@ -237,8 +237,8 @@ void Spatial::DetachEffect(Effect* pEffect)
     }
 }
 //----------------------------------------------------------------------------
-void Spatial::UpdateRS(std::vector<GlobalState*>* aGStack,
-    std::vector<Light*>* pLStack)
+void SESpatial::UpdateRS(std::vector<SEGlobalState*>* aGStack,
+    std::vector<SELight*>* pLStack)
 {
     bool bInitiator = (aGStack == 0);
 
@@ -246,16 +246,16 @@ void Spatial::UpdateRS(std::vector<GlobalState*>* aGStack,
     {
         // render state应用顺序:
         //   (1) 默认global state.
-        //   (2) Geometry覆盖默认global state.
+        //   (2) SEGeometry覆盖默认global state.
         //   (3) Effect所带state覆盖以上两者.
-        aGStack = SE_NEW std::vector<GlobalState*>[GlobalState::MAX_STATE_TYPE];
-        for( int i = 0; i < GlobalState::MAX_STATE_TYPE; i++ )
+        aGStack = SE_NEW std::vector<SEGlobalState*>[SEGlobalState::MAX_STATE_TYPE];
+        for( int i = 0; i < SEGlobalState::MAX_STATE_TYPE; i++ )
         {
             aGStack[i].push_back(0);
         }
 
         // 初始时stack没有light.
-        pLStack = SE_NEW std::vector<Light*>;
+        pLStack = SE_NEW std::vector<SELight*>;
 
         // 追溯到当前路径根部,收集沿途render state,light,
         // 压栈顺序为从上至下.
@@ -268,8 +268,8 @@ void Spatial::UpdateRS(std::vector<GlobalState*>* aGStack,
     }
 
     // 向子树递归传播render state,light,
-    // 派生类Node负责AB递归,
-    // 派生类Geometry负责收集作用于其上的所有render state,light.
+    // 派生类SENode负责AB递归,
+    // 派生类SEGeometry负责收集作用于其上的所有render state,light.
     UpdateState(aGStack, pLStack);
 
     if( bInitiator )
@@ -284,8 +284,8 @@ void Spatial::UpdateRS(std::vector<GlobalState*>* aGStack,
     }
 }
 //----------------------------------------------------------------------------
-void Spatial::PropagateStateFromRoot(std::vector<GlobalState*>* aGStack,
-    std::vector<Light*>* pLStack)
+void SESpatial::PropagateStateFromRoot(std::vector<SEGlobalState*>* aGStack,
+    std::vector<SELight*>* pLStack)
 {
     // 首先一直追溯到根部.
     if( m_pParent )
@@ -297,8 +297,8 @@ void Spatial::PropagateStateFromRoot(std::vector<GlobalState*>* aGStack,
     PushState(aGStack, pLStack);
 }
 //----------------------------------------------------------------------------
-void Spatial::PushState(std::vector<GlobalState*>* aGStack,
-    std::vector<Light*>* pLStack)
+void SESpatial::PushState(std::vector<SEGlobalState*>* aGStack,
+    std::vector<SELight*>* pLStack)
 {
     int i;
     for( i = 0; i < (int)m_GlobalStates.size(); i++ )
@@ -309,13 +309,13 @@ void Spatial::PushState(std::vector<GlobalState*>* aGStack,
 
     for( i = 0; i < (int)m_Lights.size(); i++ )
     {
-        Light* pLight = StaticCast<Light>(m_Lights[i]);
+        SELight* pLight = StaticCast<SELight>(m_Lights[i]);
         pLStack->push_back(pLight);
     }
 }
 //----------------------------------------------------------------------------
-void Spatial::PopState(std::vector<GlobalState*>* aGStack,
-    std::vector<Light*>* pLStack)
+void SESpatial::PopState(std::vector<SEGlobalState*>* aGStack,
+    std::vector<SELight*>* pLStack)
 {
     int i;
     for( i = 0; i < (int)m_GlobalStates.size(); i++ )
@@ -330,7 +330,7 @@ void Spatial::PopState(std::vector<GlobalState*>* aGStack,
     }
 }
 //----------------------------------------------------------------------------
-void Spatial::OnGetUnculledSet(Culler& rCuller, bool bNoCull)
+void SESpatial::OnGetUnculledSet(SECuller& rCuller, bool bNoCull)
 {
     if( Culling == CULL_ALWAYS )
     {
@@ -345,8 +345,8 @@ void Spatial::OnGetUnculledSet(Culler& rCuller, bool bNoCull)
     unsigned int uiSavePlaneState = rCuller.GetPlaneState();
     if( bNoCull || rCuller.IsInFrustum(WorldBound) )
     {
-        // 派生类Node实现AB递归,收集global effect,并将剔除过程传播给子树,
-        // 派生类Geometry实现未被剔除的可渲染对象收集
+        // 派生类SENode实现AB递归,收集global effect,并将剔除过程传播给子树,
+        // 派生类SEGeometry实现未被剔除的可渲染对象收集
         GetUnculledSet(rCuller, bNoCull);
     }
     rCuller.SetPlaneState(uiSavePlaneState);
@@ -356,24 +356,24 @@ void Spatial::OnGetUnculledSet(Culler& rCuller, bool bNoCull)
 //----------------------------------------------------------------------------
 // picking support
 //----------------------------------------------------------------------------
-Spatial::PickRecord::PickRecord(Spatial* pIObject, float fT)
+SESpatial::SEPickRecord::SEPickRecord(SESpatial* pIObject, float fT)
     :
     IObject(pIObject)
 {
     T = fT;
 }
 //----------------------------------------------------------------------------
-Spatial::PickRecord::~PickRecord()
+SESpatial::SEPickRecord::~SEPickRecord()
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-void Spatial::DoPick(const SERay3f&, PickArray&)
+void SESpatial::DoPick(const SERay3f&, PickArray&)
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-Spatial::PickRecord* Spatial::GetClosest(PickArray& rResults)
+SESpatial::SEPickRecord* SESpatial::GetClosest(PickArray& rResults)
 {
     if( rResults.size() == 0 )
     {
@@ -399,7 +399,7 @@ Spatial::PickRecord* Spatial::GetClosest(PickArray& rResults)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-SEObject* Spatial::GetObjectByName(const std::string& rName)
+SEObject* SESpatial::GetObjectByName(const std::string& rName)
 {
     SEObject* pFound = SEObject::GetObjectByName(rName);
     if( pFound )
@@ -456,7 +456,7 @@ SEObject* Spatial::GetObjectByName(const std::string& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Spatial::GetAllObjectsByName(const std::string& rName,
+void SESpatial::GetAllObjectsByName(const std::string& rName,
     std::vector<SEObject*>& rObjects)
 {
     SEObject::GetAllObjectsByName(rName, rObjects);
@@ -492,7 +492,7 @@ void Spatial::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-SEObject* Spatial::GetObjectByID(unsigned int uiID)
+SEObject* SESpatial::GetObjectByID(unsigned int uiID)
 {
     SEObject* pFound = SEObject::GetObjectByID(uiID);
     if( pFound )
@@ -553,7 +553,7 @@ SEObject* Spatial::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Spatial::Load(SEStream& rStream, SEStream::Link* pLink)
+void SESpatial::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -611,27 +611,27 @@ void Spatial::Load(SEStream& rStream, SEStream::Link* pLink)
         pLink->Add(pObject);
     }
 
-    SE_END_DEBUG_STREAM_LOAD(Spatial);
+    SE_END_DEBUG_STREAM_LOAD(SESpatial);
 }
 //----------------------------------------------------------------------------
-void Spatial::Link(SEStream& rStream, SEStream::Link* pLink)
+void SESpatial::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     SEObject::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
-    WorldBound = (BoundingVolume*)rStream.GetFromMap(pLinkID);
+    WorldBound = (SEBoundingVolume*)rStream.GetFromMap(pLinkID);
 
     int i;
     for( i = 0; i < (int)m_GlobalStates.size(); i++ )
     {
         pLinkID = pLink->GetLinkID();
-        m_GlobalStates[i] = (GlobalState*)rStream.GetFromMap(pLinkID);
+        m_GlobalStates[i] = (SEGlobalState*)rStream.GetFromMap(pLinkID);
     }
 
     for( i = 0; i < (int)m_Lights.size(); i++ )
     {
         pLinkID = pLink->GetLinkID();
-        m_Lights[i] = (Light*)rStream.GetFromMap(pLinkID);
+        m_Lights[i] = (SELight*)rStream.GetFromMap(pLinkID);
     }
 
     for( i = 0; i < (int)m_Effects.size(); i++ )
@@ -641,7 +641,7 @@ void Spatial::Link(SEStream& rStream, SEStream::Link* pLink)
     }
 }
 //----------------------------------------------------------------------------
-bool Spatial::Register(SEStream& rStream) const
+bool SESpatial::Register(SEStream& rStream) const
 {
     if( !SEObject::Register(rStream) )
     {
@@ -684,7 +684,7 @@ bool Spatial::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Spatial::Save(SEStream& rStream) const
+void SESpatial::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -725,14 +725,14 @@ void Spatial::Save(SEStream& rStream) const
     // m_pParent不需要在这里save到文件,
     // 在load阶段,会被动态赋予.
 
-    SE_END_DEBUG_STREAM_SAVE(Spatial);
+    SE_END_DEBUG_STREAM_SAVE(SESpatial);
 }
 //----------------------------------------------------------------------------
-int Spatial::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SESpatial::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     int iSize = SEObject::GetDiskUsed(rVersion) +
-        Transformation::DISK_USED +  // Local
-        Transformation::DISK_USED +  // World
+        SETransformation::DISK_USED +  // Local
+        SETransformation::DISK_USED +  // World
         sizeof(char) + // WorldIsCurrent
         sizeof(char) + // WorldBoundIsCurrent
         sizeof(WorldBound);
@@ -747,14 +747,14 @@ int Spatial::GetDiskUsed(const SEStreamVersion& rVersion) const
     }
 
     iSize +=
-        sizeof(int) + ((int)m_GlobalStates.size())*sizeof(GlobalStatePtr) +
-        sizeof(int) + ((int)m_Lights.size())*sizeof(LightPtr) +
+        sizeof(int) + ((int)m_GlobalStates.size())*sizeof(SEGlobalStatePtr) +
+        sizeof(int) + ((int)m_Lights.size())*sizeof(SELightPtr) +
         sizeof(int) + ((int)m_Effects.size())*sizeof(EffectPtr);
 
     return iSize;
 }
 //----------------------------------------------------------------------------
-SEStringTree* Spatial::SaveStrings(const char*)
+SEStringTree* SESpatial::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 

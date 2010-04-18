@@ -23,7 +23,7 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_TEMPLATE_RTTI(Swing, Vector2fArray, SEObject);
-SE_IMPLEMENT_TEMPLATE_STREAM(Vector2fArray);
+SE_IMPLEMENT_TEMPLATE_RTTI(Swing, SEVector2fArray, SEObject);
+SE_IMPLEMENT_TEMPLATE_STREAM(SEVector2fArray);
 
-//SE_REGISTER_STREAM(Vector2fArray);
+//SE_REGISTER_STREAM(SEVector2fArray);

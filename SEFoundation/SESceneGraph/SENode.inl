@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int Node::GetCount() const
+inline int SENode::GetCount() const
 {
     return (int)m_Child.size();
 }

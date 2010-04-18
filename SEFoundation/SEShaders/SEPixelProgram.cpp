@@ -24,21 +24,21 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, PixelProgram, Program);
-SE_IMPLEMENT_STREAM(PixelProgram);
-SE_IMPLEMENT_DEFAULT_STREAM(PixelProgram, Program);
-SE_IMPLEMENT_DEFAULT_NAME_ID(PixelProgram, Program);
+SE_IMPLEMENT_RTTI(Swing, SEPixelProgram, SEProgram);
+SE_IMPLEMENT_STREAM(SEPixelProgram);
+SE_IMPLEMENT_DEFAULT_STREAM(SEPixelProgram, SEProgram);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEPixelProgram, SEProgram);
 
-//SE_REGISTER_STREAM(PixelProgram);
+//SE_REGISTER_STREAM(SEPixelProgram);
 
 //----------------------------------------------------------------------------
-PixelProgram* PixelProgram::Load(Renderer* pRenderer, 
+SEPixelProgram* SEPixelProgram::Load(SERenderer* pRenderer, 
     const std::string& rProgramName, const std::string& rKey, 
-    InterfaceDescriptor* pInterfaceDesc)
+    SEInterfaceDescriptor* pInterfaceDesc)
 {
-    PixelProgram* pProgram = SE_NEW PixelProgram;
-	bool bLoaded = Program::Load(pRenderer, rProgramName, pProgram, 
-        Program::PT_PIXEL, pInterfaceDesc);
+    SEPixelProgram* pProgram = SE_NEW SEPixelProgram;
+	bool bLoaded = SEProgram::Load(pRenderer, rProgramName, pProgram, 
+        SEProgram::PT_PIXEL, pInterfaceDesc);
 
     if( !bLoaded )
     {
@@ -47,17 +47,17 @@ PixelProgram* PixelProgram::Load(Renderer* pRenderer,
     }
 
     pProgram->SetName(rKey);
-    PixelProgramCatalog::GetActive()->Insert(pProgram);
+    SEPixelProgramCatalog::GetActive()->Insert(pProgram);
 
     return pProgram;
 }
 //----------------------------------------------------------------------------
-PixelProgram::PixelProgram()
+SEPixelProgram::SEPixelProgram()
 {
 }
 //----------------------------------------------------------------------------
-PixelProgram::~PixelProgram()
+SEPixelProgram::~SEPixelProgram()
 {
-    PixelProgramCatalog::GetActive()->Remove(this);
+    SEPixelProgramCatalog::GetActive()->Remove(this);
 }
 //----------------------------------------------------------------------------

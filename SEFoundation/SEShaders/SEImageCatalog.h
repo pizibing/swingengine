@@ -30,7 +30,7 @@
 namespace Swing
 {
 
-class Image;
+class SEImage;
 
 //----------------------------------------------------------------------------
 // 名称:image资源管理类
@@ -38,30 +38,30 @@ class Image;
 // 作者:Sun Che
 // 时间:20080629
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API ImageCatalog
+class SE_FOUNDATION_API SEImageCatalog
 {
 public:
-    ImageCatalog(const std::string& rName);
-    ~ImageCatalog(void);
+    SEImageCatalog(const std::string& rName);
+    ~SEImageCatalog(void);
 
     const std::string& GetName(void) const;
-    bool Insert(Image* pImage);
-    bool Remove(Image* pImage);
-    Image* Find(const std::string& rImageName);
+    bool Insert(SEImage* pImage);
+    bool Remove(SEImage* pImage);
+    SEImage* Find(const std::string& rImageName);
     bool PrintContents(const std::string& rFileName) const;
 
-    static void SetActive(ImageCatalog* pActive);
-    static ImageCatalog* GetActive(void);
+    static void SetActive(SEImageCatalog* pActive);
+    static SEImageCatalog* GetActive(void);
 
 private:
     enum { IMAGE_MAP_SIZE = 256 };
     std::string m_Name;
-    SEStringHashTable<Image*> m_Entry;
+    SEStringHashTable<SEImage*> m_Entry;
     SEObjectPtr m_spDefaultImage;
 
     static const std::string ms_NullString;
     static const std::string ms_DefaultString;
-    static ImageCatalog* ms_pActive;
+    static SEImageCatalog* ms_pActive;
 };
 
 }

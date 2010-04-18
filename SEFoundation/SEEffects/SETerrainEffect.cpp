@@ -38,22 +38,22 @@ TerrainEffect::TerrainEffect(const char* acBaseName,
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader(
+    m_VShader[0] = SE_NEW SEVertexShader(
         "BaseMulDetailFogExpSqr.v_BaseMulDetailFogExpSqr");
-    m_PShader[0] = SE_NEW PixelShader(
+    m_PShader[0] = SE_NEW SEPixelShader(
         "BaseMulDetailFogExpSqr.p_BaseMulDetailFogExpSqr");
 
     m_PShader[0]->SetTextureCount(2);
     m_PShader[0]->SetImageName(0, acBaseName);
     m_PShader[0]->SetImageName(1, acDetailName);
 
-    Texture* pBase = m_PShader[0]->GetTexture(0);
-    pBase->SetFilterType(Texture::LINEAR_LINEAR);
-    pBase->SetWrapType(0, Texture::REPEAT);
-    pBase->SetWrapType(1, Texture::REPEAT);
+    SETexture* pBase = m_PShader[0]->GetTexture(0);
+    pBase->SetFilterType(SETexture::LINEAR_LINEAR);
+    pBase->SetWrapType(0, SETexture::REPEAT);
+    pBase->SetWrapType(1, SETexture::REPEAT);
 
-    Texture* pDetail = m_PShader[0]->GetTexture(1);
-    pDetail->SetFilterType(Texture::LINEAR_LINEAR);
+    SETexture* pDetail = m_PShader[0]->GetTexture(1);
+    pDetail->SetFilterType(SETexture::LINEAR_LINEAR);
 
     SetFogColor(rFogColor);
     SetFogDensity(fFogDensity);
@@ -67,12 +67,12 @@ TerrainEffect::~TerrainEffect()
 {
 }
 //----------------------------------------------------------------------------
-void TerrainEffect::OnLoadPrograms(int, Program* pVProgram,
-    Program* pPProgram, Program*)
+void TerrainEffect::OnLoadPrograms(int, SEProgram* pVProgram,
+    SEProgram* pPProgram, SEProgram*)
 {
     if( !ms_bFogColorDensityUCInitialized )
 	{
-        UserConstant* pUC = pVProgram->GetUC("FogColorDensity");
+        SEUserConstant* pUC = pVProgram->GetUC("FogColorDensity");
         if( pUC )
             pUC->SetDataSource(ms_afFogColorDensity);
 

@@ -23,19 +23,19 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, RenderStateBlock, SEObject);
-SE_IMPLEMENT_STREAM(RenderStateBlock);
-SE_IMPLEMENT_DEFAULT_NAME_ID(RenderStateBlock, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SERenderStateBlock, SEObject);
+SE_IMPLEMENT_STREAM(SERenderStateBlock);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SERenderStateBlock, SEObject);
 
-//SE_REGISTER_STREAM(RenderStateBlock);
+//SE_REGISTER_STREAM(SERenderStateBlock);
 
 //----------------------------------------------------------------------------
-RenderStateBlock::RenderStateBlock()
+SERenderStateBlock::SERenderStateBlock()
 {
-    memset(States, 0, GlobalState::MAX_STATE_TYPE*sizeof(GlobalState*));
+    memset(States, 0, SEGlobalState::MAX_STATE_TYPE*sizeof(SEGlobalState*));
 }
 //----------------------------------------------------------------------------
-RenderStateBlock::~RenderStateBlock()
+SERenderStateBlock::~SERenderStateBlock()
 {
     Release();
 }
@@ -44,7 +44,7 @@ RenderStateBlock::~RenderStateBlock()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void RenderStateBlock::Load(SEStream& rStream, SEStream::Link* pLink)
+void SERenderStateBlock::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -52,35 +52,35 @@ void RenderStateBlock::Load(SEStream& rStream, SEStream::Link* pLink)
 
     // link data
     SEObject* pObject;
-    for( int i = 0; i < GlobalState::MAX_STATE_TYPE; i++ )
+    for( int i = 0; i < SEGlobalState::MAX_STATE_TYPE; i++ )
     {
         rStream.Read(pObject);  // States[i]
         pLink->Add(pObject);
     }
 
-    SE_END_DEBUG_STREAM_LOAD(RenderStateBlock);
+    SE_END_DEBUG_STREAM_LOAD(SERenderStateBlock);
 }
 //----------------------------------------------------------------------------
-void RenderStateBlock::Link(SEStream& rStream, SEStream::Link* pLink)
+void SERenderStateBlock::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     SEObject::Link(rStream, pLink);
 
     SEObject* pLinkID;
-    for( int i = 0; i < GlobalState::MAX_STATE_TYPE; i++ )
+    for( int i = 0; i < SEGlobalState::MAX_STATE_TYPE; i++ )
     {
         pLinkID = pLink->GetLinkID();
-        States[i] = (GlobalState*)rStream.GetFromMap(pLinkID);
+        States[i] = (SEGlobalState*)rStream.GetFromMap(pLinkID);
     }
 }
 //----------------------------------------------------------------------------
-bool RenderStateBlock::Register(SEStream& rStream) const
+bool SERenderStateBlock::Register(SEStream& rStream) const
 {
     if( !SEObject::Register(rStream) )
     {
         return false;
     }
 
-    for( int i = 0; i < GlobalState::MAX_STATE_TYPE; i++ )
+    for( int i = 0; i < SEGlobalState::MAX_STATE_TYPE; i++ )
     {
         if( States[i] )
         {
@@ -91,28 +91,28 @@ bool RenderStateBlock::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void RenderStateBlock::Save(SEStream& rStream) const
+void SERenderStateBlock::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
     SEObject::Save(rStream);
 
     // link data
-    for( int i = 0; i < GlobalState::MAX_STATE_TYPE; i++ )
+    for( int i = 0; i < SEGlobalState::MAX_STATE_TYPE; i++ )
     {
         rStream.Write(States[i]);
     }
 
-    SE_END_DEBUG_STREAM_SAVE(RenderStateBlock);
+    SE_END_DEBUG_STREAM_SAVE(SERenderStateBlock);
 }
 //----------------------------------------------------------------------------
-int RenderStateBlock::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SERenderStateBlock::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SEObject::GetDiskUsed(rVersion) +
-        GlobalState::MAX_STATE_TYPE*sizeof(States[0]);
+        SEGlobalState::MAX_STATE_TYPE*sizeof(States[0]);
 }
 //----------------------------------------------------------------------------
-SEStringTree* RenderStateBlock::SaveStrings(const char*)
+SEStringTree* SERenderStateBlock::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -122,7 +122,7 @@ SEStringTree* RenderStateBlock::SaveStrings(const char*)
     // children
     pTree->Append(SEObject::SaveStrings());
 
-    for( int i = 0; i < GlobalState::MAX_STATE_TYPE; i++ )
+    for( int i = 0; i < SEGlobalState::MAX_STATE_TYPE; i++ )
     {
         if( States[i] )
         {

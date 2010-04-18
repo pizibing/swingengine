@@ -29,7 +29,7 @@
 namespace Swing
 {
 
-class Node;
+class SENode;
 
 //----------------------------------------------------------------------------
 // 名称:蒙皮控制器类
@@ -46,13 +46,13 @@ class SE_FOUNDATION_API SESkinController : public SEController
 public:
     // SESkinController负责删除构造函数传入的这些数组.
     // weight和offset数组必须是已经通过SESystem.h中的模板函数创建的数组.
-    SESkinController(int iVertexCount, int iBoneCount, Node** apBones,
+    SESkinController(int iVertexCount, int iBoneCount, SENode** apBones,
         float** aafWeight, SEVector3f** aaOffset);
     virtual ~SESkinController(void);
 
     inline int GetVertexCount(void) const;
     inline int GetBoneCount(void) const;
-    inline Node* GetBone(int iBone) const;
+    inline SENode* GetBone(int iBone) const;
     inline float& Weight(int iVertex, int iBone);
     inline SEVector3f& Offset(int iVertex, int iBone);
 
@@ -63,7 +63,7 @@ protected:
 
     int m_iVertexCount;    // vc
     int m_iBoneCount;      // bc
-    Node** m_apBones;      // bones[bc]
+    SENode** m_apBones;      // bones[bc]
     float** m_aafWeight;   // weight[vc][bc]
     SEVector3f** m_aaOffset; // offset[vc][bc]
 };

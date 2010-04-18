@@ -19,36 +19,36 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int IndexBuffer::GetIndexCount() const
+inline int SEIndexBuffer::GetIndexCount() const
 {
     return m_iICount;
 }
 //----------------------------------------------------------------------------
-inline int* IndexBuffer::GetData()
+inline int* SEIndexBuffer::GetData()
 {
     return m_pIndex;
 }
 //----------------------------------------------------------------------------
-inline const int* IndexBuffer::GetData() const
+inline const int* SEIndexBuffer::GetData() const
 {
     return m_pIndex;
 }
 //----------------------------------------------------------------------------
-inline int IndexBuffer::operator[](int i) const
+inline int SEIndexBuffer::operator[](int i) const
 {
     SE_ASSERT( 0 <= i && i < m_iICount );
 
     return m_pIndex[i];
 }
 //----------------------------------------------------------------------------
-inline int& IndexBuffer::operator[](int i)
+inline int& SEIndexBuffer::operator[](int i)
 {
     SE_ASSERT( 0 <= i && i < m_iICount );
 
     return m_pIndex[i];
 }
 //----------------------------------------------------------------------------
-inline void IndexBuffer::SetIndexCount(int iICount)
+inline void SEIndexBuffer::SetIndexCount(int iICount)
 {
     m_iICount = iICount;
 }

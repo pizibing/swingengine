@@ -26,38 +26,38 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, BoxBV, BoundingVolume);
-SE_IMPLEMENT_STREAM(BoxBV);
-SE_IMPLEMENT_DEFAULT_NAME_ID(BoxBV, BoundingVolume);
+SE_IMPLEMENT_RTTI(Swing, SEBoxBV, SEBoundingVolume);
+SE_IMPLEMENT_STREAM(SEBoxBV);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEBoxBV, SEBoundingVolume);
 
-//SE_REGISTER_STREAM(BoxBV);
+//SE_REGISTER_STREAM(SEBoxBV);
 
 //----------------------------------------------------------------------------
-BoxBV::BoxBV()
+SEBoxBV::SEBoxBV()
     :
     m_Box(SEVector3f::ZERO, SEVector3f::UNIT_X, SEVector3f::UNIT_Y, SEVector3f::UNIT_Z,
     1.0f, 1.0f, 1.0f)
 {
 }
 //----------------------------------------------------------------------------
-BoxBV::BoxBV(const SEBox3f& rBox)
+SEBoxBV::SEBoxBV(const SEBox3f& rBox)
     :
     m_Box(rBox)
 {
 }
 //----------------------------------------------------------------------------
-BoxBV::~BoxBV()
+SEBoxBV::~SEBoxBV()
 {
 }
 //----------------------------------------------------------------------------
-void BoxBV::SetRadius(float fRadius)
+void SEBoxBV::SetRadius(float fRadius)
 {
     m_Box.Extent[0] = fRadius;
     m_Box.Extent[1] = fRadius;
     m_Box.Extent[2] = fRadius;
 }
 //----------------------------------------------------------------------------
-float BoxBV::GetRadius() const
+float SEBoxBV::GetRadius() const
 {
     float fRadius = m_Box.Extent[0];
     if( fRadius < m_Box.Extent[1] )
@@ -72,7 +72,7 @@ float BoxBV::GetRadius() const
     return fRadius;
 }
 //----------------------------------------------------------------------------
-void BoxBV::ComputeFromData(const Vector3fArray* pVertices)
+void SEBoxBV::ComputeFromData(const SEVector3fArray* pVertices)
 {
     if( pVertices )
     {
@@ -82,7 +82,7 @@ void BoxBV::ComputeFromData(const Vector3fArray* pVertices)
     }
 }
 //----------------------------------------------------------------------------
-void BoxBV::ComputeFromData(const VertexBuffer* pVBuffer)
+void SEBoxBV::ComputeFromData(const SEVertexBuffer* pVBuffer)
 {
     // 待实现.
     // 需要实现支持带有stride的顶点数组的ContOBBf函数.
@@ -92,10 +92,10 @@ void BoxBV::ComputeFromData(const VertexBuffer* pVBuffer)
     }
 }
 //----------------------------------------------------------------------------
-void BoxBV::TransformBy(const Transformation& rTransform,
-    BoundingVolume* pResult)
+void SEBoxBV::TransformBy(const SETransformation& rTransform,
+    SEBoundingVolume* pResult)
 {
-    SEBox3f& rTarget = ((BoxBV*)pResult)->m_Box;
+    SEBox3f& rTarget = ((SEBoxBV*)pResult)->m_Box;
     rTransform.ApplyForward(m_Box.Center, rTarget.Center);
     for( int i = 0; i < 3; i++ )
     {
@@ -104,7 +104,7 @@ void BoxBV::TransformBy(const Transformation& rTransform,
     }
 }
 //----------------------------------------------------------------------------
-int BoxBV::OnWhichSide(const SEPlane3f& rPlane) const
+int SEBoxBV::OnWhichSide(const SEPlane3f& rPlane) const
 {
     float fProjCenter = rPlane.Normal.Dot(m_Box.Center) - rPlane.Constant;
     float fAbs0 = SEMathf::FAbs(rPlane.Normal.Dot(m_Box.Axis[0]));
@@ -126,27 +126,27 @@ int BoxBV::OnWhichSide(const SEPlane3f& rPlane) const
     return 0;
 }
 //----------------------------------------------------------------------------
-bool BoxBV::TestIntersection(const SERay3f& rRay) const
+bool SEBoxBV::TestIntersection(const SERay3f& rRay) const
 {
     return IntrRay3Box3f(rRay, m_Box).Test();
 }
 //----------------------------------------------------------------------------
-bool BoxBV::TestIntersection(const BoundingVolume* pInput) const
+bool SEBoxBV::TestIntersection(const SEBoundingVolume* pInput) const
 {
-    return IntrBox3Box3f(m_Box, ((BoxBV*)pInput)->m_Box).Test();
+    return IntrBox3Box3f(m_Box, ((SEBoxBV*)pInput)->m_Box).Test();
 }
 //----------------------------------------------------------------------------
-void BoxBV::CopyFrom(const BoundingVolume* pInput)
+void SEBoxBV::CopyFrom(const SEBoundingVolume* pInput)
 {
-    m_Box = ((BoxBV*)pInput)->m_Box;
+    m_Box = ((SEBoxBV*)pInput)->m_Box;
 }
 //----------------------------------------------------------------------------
-void BoxBV::GrowToContain(const BoundingVolume* pInput)
+void SEBoxBV::GrowToContain(const SEBoundingVolume* pInput)
 {
-    m_Box = MergeBoxesf(m_Box, ((BoxBV*)pInput)->m_Box);
+    m_Box = MergeBoxesf(m_Box, ((SEBoxBV*)pInput)->m_Box);
 }
 //----------------------------------------------------------------------------
-bool BoxBV::Contains(const SEVector3f& rPoint) const
+bool SEBoxBV::Contains(const SEVector3f& rPoint) const
 {
     return IsInBoxf(rPoint, m_Box);
 }
@@ -155,11 +155,11 @@ bool BoxBV::Contains(const SEVector3f& rPoint) const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void BoxBV::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEBoxBV::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    BoundingVolume::Load(rStream, pLink);
+    SEBoundingVolume::Load(rStream, pLink);
 
     // native data
     rStream.Read(m_Box.Center);
@@ -170,24 +170,24 @@ void BoxBV::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(m_Box.Extent[1]);
     rStream.Read(m_Box.Extent[2]);
 
-    SE_END_DEBUG_STREAM_LOAD(BoxBV);
+    SE_END_DEBUG_STREAM_LOAD(SEBoxBV);
 }
 //----------------------------------------------------------------------------
-void BoxBV::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEBoxBV::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    BoundingVolume::Link(rStream, pLink);
+    SEBoundingVolume::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool BoxBV::Register(SEStream& rStream) const
+bool SEBoxBV::Register(SEStream& rStream) const
 {
-    return BoundingVolume::Register(rStream);
+    return SEBoundingVolume::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void BoxBV::Save(SEStream& rStream) const
+void SEBoxBV::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    BoundingVolume::Save(rStream);
+    SEBoundingVolume::Save(rStream);
 
     // native data
     rStream.Write(m_Box.Center);
@@ -198,16 +198,16 @@ void BoxBV::Save(SEStream& rStream) const
     rStream.Write(m_Box.Extent[1]);
     rStream.Write(m_Box.Extent[2]);
 
-    SE_END_DEBUG_STREAM_SAVE(BoxBV);
+    SE_END_DEBUG_STREAM_SAVE(SEBoxBV);
 }
 //----------------------------------------------------------------------------
-int BoxBV::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEBoxBV::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return BoundingVolume::GetDiskUsed(rVersion) +
+    return SEBoundingVolume::GetDiskUsed(rVersion) +
         sizeof(m_Box);
 }
 //----------------------------------------------------------------------------
-SEStringTree* BoxBV::SaveStrings(const char*)
+SEStringTree* SEBoxBV::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -222,7 +222,7 @@ SEStringTree* BoxBV::SaveStrings(const char*)
     pTree->Append(Format("extent2 =", m_Box.Extent[2]));
 
     // children
-    pTree->Append(BoundingVolume::SaveStrings());
+    pTree->Append(SEBoundingVolume::SaveStrings());
 
     return pTree;
 }

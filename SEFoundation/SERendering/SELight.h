@@ -36,7 +36,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080702
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Light : public SEObject
+class SE_FOUNDATION_API SELight : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -52,36 +52,36 @@ public:
         LT_COUNT
     };
 
-    Light(LightType eType = LT_AMBIENT);
-    virtual ~Light(void);
+    SELight(LightType eType = LT_AMBIENT);
+    virtual ~SELight(void);
 
-    // 如果Light类没有数据,或只有环境光颜色和强度,
+    // 如果SELight类没有数据,或只有环境光颜色和强度,
     // 则可以使用一个标准的类层级体系:
     //
-    //   class Light
+    //   class SELight
     //       [ambient, intensity]
-    //   class AmbientLight : public Light
+    //   class SEAmbientLight : public SELight
     //       [没有额外数据]
-    //   class DirectionalLight : public Light
+    //   class SEDirectionalLight : public SELight
     //       [direction, diffuse, specular]
-    //   class PointLight : public Light
+    //   class SEPointLight : public SELight
     //       [position, diffuse, specular, attenuation]
-    //   class SpotLight : public PointLight
+    //   class SESpotLight : public SEPointLight
     //       [cone axis, cone angle, spot exponent]
     //
-    // 渲染器通过基类Light来把握所有Light.
+    // 渲染器通过基类SELight来把握所有light类型.
     // 使用以上标准类层级体系,渲染器必须通过动态类型转换来判断具体的灯光类型,
-    // 之后根据具体灯光类型,通过Renderer::SetConstantLightFOOBAR系列函数,
+    // 之后根据具体灯光类型,通过SERenderer::SetConstantLightFOOBAR系列函数,
     // 设置shader程序常量,希望能够避免这种低效率的做法.
     //
-    // 另一种做法是,允许Light类在public作用域存储所有灯光所需的数据,
-    // 使用一个被保护的基类Light来派生出特定的子Light类.
+    // 另一种做法是,允许SELight类在public作用域存储所有灯光所需的数据,
+    // 使用一个被保护的基类SELight来派生出特定的SELight子类.
     // 因此,渲染器在不使用动态类型转换的情况下可以访问到所有灯光数据,
     // 并且派生类通过类成员函数来访问与其类型相关的灯光数据.
     // 但不幸的是,你会遇到SEObject类成员访问权受限的问题(例如智能指针增减索引计数).
     //
     // 最终,还是使用了完全开放的策略,
-    // Light类作为一个通用类,存储了派生类所需的各种数据.
+    // SELight类作为一个通用类,存储了派生类所需的各种数据.
 
     LightType Type;     // default: LT_AMBIENT
 
@@ -115,7 +115,7 @@ public:
     void SetAngle(float fAngle);
 
     // 尽管标准的方向光和聚光灯都只需要一个方向向量,
-    // 但为了支持使用完整坐标系的新的派生类型,还是在Light基类中存储了这个坐标系.
+    // 但为了支持使用完整坐标系的新的派生类型,还是在SELight基类中存储了这个坐标系.
     // 灯光坐标系表示总是基于世界坐标系.
     //   default position  P = (0,0,0)
     //   default right     R = (1,0,0)
@@ -133,7 +133,7 @@ public:
 protected:
 };
 
-typedef SESmartPointer<Light> LightPtr;
+typedef SESmartPointer<SELight> SELightPtr;
 
 }
 

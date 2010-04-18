@@ -24,20 +24,20 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Bindable::Bindable()
+SEBindable::SEBindable()
 {
 }
 //----------------------------------------------------------------------------
-Bindable::~Bindable()
+SEBindable::~SEBindable()
 {
 }
 //----------------------------------------------------------------------------
-int Bindable::GetInfoCount() const
+int SEBindable::GetInfoCount() const
 {
     return (int)m_InfoArray.size();
 }
 //----------------------------------------------------------------------------
-ResourceIdentifier* Bindable::GetIdentifier(Renderer* pUser) const
+SEResourceIdentifier* SEBindable::GetIdentifier(SERenderer* pUser) const
 {
     for( int i = 0; i < (int)m_InfoArray.size(); i++ )
     {
@@ -52,7 +52,7 @@ ResourceIdentifier* Bindable::GetIdentifier(Renderer* pUser) const
     return 0;
 }
 //----------------------------------------------------------------------------
-ResourceIdentifier* Bindable::GetIdentifier(int i, Renderer* pUser) const
+SEResourceIdentifier* SEBindable::GetIdentifier(int i, SERenderer* pUser) const
 {
     if( 0 <= i && i < (int)m_InfoArray.size() )
     {
@@ -67,7 +67,7 @@ ResourceIdentifier* Bindable::GetIdentifier(int i, Renderer* pUser) const
     return 0;
 }
 //----------------------------------------------------------------------------
-void Bindable::Release()
+void SEBindable::Release()
 {
     while( m_InfoArray.size() > 0 )
     {
@@ -76,8 +76,8 @@ void Bindable::Release()
     }
 }
 //----------------------------------------------------------------------------
-void Bindable::OnLoad(Renderer* pUser, Renderer::ReleaseFunction oRelease,
-    ResourceIdentifier* pID)
+void SEBindable::OnLoad(SERenderer* pUser, SERenderer::ReleaseFunction oRelease,
+    SEResourceIdentifier* pID)
 {
     Info TempData;
     TempData.User = pUser;
@@ -86,7 +86,7 @@ void Bindable::OnLoad(Renderer* pUser, Renderer::ReleaseFunction oRelease,
     m_InfoArray.push_back(TempData);
 }
 //----------------------------------------------------------------------------
-void Bindable::OnRelease(Renderer* pUser, ResourceIdentifier* pID)
+void SEBindable::OnRelease(SERenderer* pUser, SEResourceIdentifier* pID)
 {
     int iCount = (int)m_InfoArray.size();
     for( int i = 0; i < iCount; i++ )

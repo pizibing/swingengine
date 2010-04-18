@@ -26,14 +26,14 @@
 
 using namespace Swing;
 
-FrameBuffer::Creator FrameBuffer::ms_aoCreator[Renderer::MAX_RENDERER_TYPES];
-FrameBuffer::Destroyer FrameBuffer::ms_aoDestroyer[Renderer::MAX_RENDERER_TYPES];
+SEFrameBuffer::Creator SEFrameBuffer::ms_aoCreator[SERenderer::MAX_RENDERER_TYPES];
+SEFrameBuffer::Destroyer SEFrameBuffer::ms_aoDestroyer[SERenderer::MAX_RENDERER_TYPES];
 
 //----------------------------------------------------------------------------
-FrameBuffer* FrameBuffer::Create(FormatType eFormat, DepthType eDepth,
+SEFrameBuffer* SEFrameBuffer::Create(FormatType eFormat, DepthType eDepth,
     StencilType eStencil, BufferingType eBuffering,
-    MultisamplingType eMultisampling, Renderer* pRenderer, int iTCount, 
-    Texture** apTargets)
+    MultisamplingType eMultisampling, SERenderer* pRenderer, int iTCount, 
+    SETexture** apTargets)
 {
     Creator pCreator = ms_aoCreator[pRenderer->GetType()];
 
@@ -53,9 +53,9 @@ FrameBuffer* FrameBuffer::Create(FormatType eFormat, DepthType eDepth,
     return 0;
 }
 //----------------------------------------------------------------------------
-void FrameBuffer::Destroy(FrameBuffer* pBuffer)
+void SEFrameBuffer::Destroy(SEFrameBuffer* pBuffer)
 {
-    Renderer* pRenderer = pBuffer->GetRenderer();
+    SERenderer* pRenderer = pBuffer->GetRenderer();
     Destroyer pDestroyer = ms_aoDestroyer[pRenderer->GetType()];
 
     SE_ASSERT( pDestroyer );
@@ -66,10 +66,10 @@ void FrameBuffer::Destroy(FrameBuffer* pBuffer)
     }
 }
 //----------------------------------------------------------------------------
-FrameBuffer::FrameBuffer(FormatType eFormat, DepthType eDepth,
+SEFrameBuffer::SEFrameBuffer(FormatType eFormat, DepthType eDepth,
     StencilType eStencil, BufferingType eBuffering,
-    MultisamplingType eMultisampling, Renderer* pRenderer, int iTCount, 
-    Texture** apTargets)
+    MultisamplingType eMultisampling, SERenderer* pRenderer, int iTCount, 
+    SETexture** apTargets)
 {
     m_eFormat = eFormat;
     m_eDepth = eDepth;
@@ -81,7 +81,7 @@ FrameBuffer::FrameBuffer(FormatType eFormat, DepthType eDepth,
     m_apTargets = apTargets;
 }
 //----------------------------------------------------------------------------
-FrameBuffer::~FrameBuffer()
+SEFrameBuffer::~SEFrameBuffer()
 {
     SE_DELETE[] m_apTargets;
 }

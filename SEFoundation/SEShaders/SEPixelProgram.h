@@ -35,7 +35,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080627
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API PixelProgram : public Program
+class SE_FOUNDATION_API SEPixelProgram : public SEProgram
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -43,15 +43,15 @@ class SE_FOUNDATION_API PixelProgram : public Program
 
 public:
     // 必须通过Load来创建一个实例.
-    static PixelProgram* Load(Renderer* pRenderer, const std::string& rProgramName, 
-        const std::string& rKey, InterfaceDescriptor* pInterfaceDesc = 0);
-    virtual ~PixelProgram(void);
+    static SEPixelProgram* Load(SERenderer* pRenderer, const std::string& rProgramName, 
+        const std::string& rKey, SEInterfaceDescriptor* pInterfaceDesc = 0);
+    virtual ~SEPixelProgram(void);
 
 protected:
-    PixelProgram(void);
+    SEPixelProgram(void);
 };
 
-typedef SESmartPointer<PixelProgram> PixelProgramPtr;
+typedef SESmartPointer<SEPixelProgram> SEPixelProgramPtr;
 
 }
 

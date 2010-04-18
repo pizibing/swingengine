@@ -29,7 +29,7 @@ inline int SESkinController::GetBoneCount() const
     return m_iBoneCount;
 }
 //----------------------------------------------------------------------------
-inline Node* SESkinController::GetBone(int iBone) const
+inline SENode* SESkinController::GetBone(int iBone) const
 {
     SE_ASSERT( 0 <= iBone && iBone < m_iBoneCount );
 

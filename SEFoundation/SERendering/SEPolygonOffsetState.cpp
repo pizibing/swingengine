@@ -23,28 +23,28 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, PolygonOffsetState, GlobalState);
-SE_IMPLEMENT_STREAM(PolygonOffsetState);
-SE_IMPLEMENT_DEFAULT_NAME_ID(PolygonOffsetState, GlobalState);
-SE_IMPLEMENT_INITIALIZE(PolygonOffsetState);
-SE_IMPLEMENT_TERMINATE(PolygonOffsetState);
+SE_IMPLEMENT_RTTI(Swing, SEPolygonOffsetState, SEGlobalState);
+SE_IMPLEMENT_STREAM(SEPolygonOffsetState);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEPolygonOffsetState, SEGlobalState);
+SE_IMPLEMENT_INITIALIZE(SEPolygonOffsetState);
+SE_IMPLEMENT_TERMINATE(SEPolygonOffsetState);
 
-//SE_REGISTER_STREAM(PolygonOffsetState);
-//SE_REGISTER_INITIALIZE(PolygonOffsetState);
-//SE_REGISTER_TERMINATE(PolygonOffsetState);
+//SE_REGISTER_STREAM(SEPolygonOffsetState);
+//SE_REGISTER_INITIALIZE(SEPolygonOffsetState);
+//SE_REGISTER_TERMINATE(SEPolygonOffsetState);
 
 //----------------------------------------------------------------------------
-void PolygonOffsetState::Initialize()
+void SEPolygonOffsetState::Initialize()
 {
-    Default[POLYGONOFFSET] = SE_NEW PolygonOffsetState;
+    Default[POLYGONOFFSET] = SE_NEW SEPolygonOffsetState;
 }
 //----------------------------------------------------------------------------
-void PolygonOffsetState::Terminate()
+void SEPolygonOffsetState::Terminate()
 {
     Default[POLYGONOFFSET] = 0;
 }
 //----------------------------------------------------------------------------
-PolygonOffsetState::PolygonOffsetState()
+SEPolygonOffsetState::SEPolygonOffsetState()
 {
     FillEnabled = false;
     LineEnabled = false;
@@ -53,7 +53,7 @@ PolygonOffsetState::PolygonOffsetState()
     Bias = 0.0f;
 }
 //----------------------------------------------------------------------------
-PolygonOffsetState::~PolygonOffsetState()
+SEPolygonOffsetState::~SEPolygonOffsetState()
 {
 }
 //----------------------------------------------------------------------------
@@ -61,11 +61,11 @@ PolygonOffsetState::~PolygonOffsetState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void PolygonOffsetState::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEPolygonOffsetState::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    GlobalState::Load(rStream, pLink);
+    SEGlobalState::Load(rStream, pLink);
 
     // native data
     rStream.Read(FillEnabled);
@@ -74,24 +74,24 @@ void PolygonOffsetState::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(Scale);
     rStream.Read(Bias);
 
-    SE_END_DEBUG_STREAM_LOAD(PolygonOffsetState);
+    SE_END_DEBUG_STREAM_LOAD(SEPolygonOffsetState);
 }
 //----------------------------------------------------------------------------
-void PolygonOffsetState::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEPolygonOffsetState::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    GlobalState::Link(rStream, pLink);
+    SEGlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool PolygonOffsetState::Register(SEStream& rStream) const
+bool SEPolygonOffsetState::Register(SEStream& rStream) const
 {
-    return GlobalState::Register(rStream);
+    return SEGlobalState::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void PolygonOffsetState::Save(SEStream& rStream) const
+void SEPolygonOffsetState::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    GlobalState::Save(rStream);
+    SEGlobalState::Save(rStream);
 
     // native data
     rStream.Write(FillEnabled);
@@ -100,12 +100,12 @@ void PolygonOffsetState::Save(SEStream& rStream) const
     rStream.Write(Scale);
     rStream.Write(Bias);
 
-    SE_END_DEBUG_STREAM_SAVE(PolygonOffsetState);
+    SE_END_DEBUG_STREAM_SAVE(SEPolygonOffsetState);
 }
 //----------------------------------------------------------------------------
-int PolygonOffsetState::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEPolygonOffsetState::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return GlobalState::GetDiskUsed(rVersion) +
+    return SEGlobalState::GetDiskUsed(rVersion) +
         sizeof(char) + // FillEnabled
         sizeof(char) + // LineEnabled
         sizeof(char) + // PointEnabled
@@ -113,7 +113,7 @@ int PolygonOffsetState::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(Bias);
 }
 //----------------------------------------------------------------------------
-SEStringTree* PolygonOffsetState::SaveStrings(const char*)
+SEStringTree* SEPolygonOffsetState::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -126,7 +126,7 @@ SEStringTree* PolygonOffsetState::SaveStrings(const char*)
     pTree->Append(Format("bias =", Bias));
 
     // children
-    pTree->Append(GlobalState::SaveStrings());
+    pTree->Append(SEGlobalState::SaveStrings());
 
     return pTree;
 }

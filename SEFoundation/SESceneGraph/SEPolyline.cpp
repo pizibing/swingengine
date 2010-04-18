@@ -23,16 +23,16 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Polyline, Geometry);
-SE_IMPLEMENT_STREAM(Polyline);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Polyline, Geometry);
+SE_IMPLEMENT_RTTI(Swing, SEPolyline, SEGeometry);
+SE_IMPLEMENT_STREAM(SEPolyline);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEPolyline, SEGeometry);
 
-//SE_REGISTER_STREAM(Polyline);
+//SE_REGISTER_STREAM(SEPolyline);
 
 //----------------------------------------------------------------------------
-Polyline::Polyline(VertexBuffer* pVBuffer, bool bClosed, bool bContiguous)
+SEPolyline::SEPolyline(SEVertexBuffer* pVBuffer, bool bClosed, bool bContiguous)
     :
-    Geometry(pVBuffer, 0)
+    SEGeometry(pVBuffer, 0)
 {
     int iVCount = VBuffer->GetVertexCount();
     SE_ASSERT( iVCount >= 2 );
@@ -42,7 +42,7 @@ Polyline::Polyline(VertexBuffer* pVBuffer, bool bClosed, bool bContiguous)
     m_bContiguous = bContiguous;
 
     // 为闭合线段多分配一个slot,aiIndex[iVCount] = aiIndex[0].
-    IBuffer = SE_NEW IndexBuffer(iVCount+1);
+    IBuffer = SE_NEW SEIndexBuffer(iVCount+1);
     int* aiIndex = IBuffer->GetData();
     for( int i = 0; i < iVCount; i++ )
     {
@@ -60,7 +60,7 @@ Polyline::Polyline(VertexBuffer* pVBuffer, bool bClosed, bool bContiguous)
     LightingMode = GLM_DISABLE;
 }
 //----------------------------------------------------------------------------
-Polyline::Polyline()
+SEPolyline::SEPolyline()
 {
     m_iActiveCount = 0;
     m_bClosed = false;
@@ -69,11 +69,11 @@ Polyline::Polyline()
     LightingMode = GLM_DISABLE;
 }
 //----------------------------------------------------------------------------
-Polyline::~Polyline()
+SEPolyline::~SEPolyline()
 {
 }
 //----------------------------------------------------------------------------
-void Polyline::SetGeometryType()
+void SEPolyline::SetGeometryType()
 {
     if( m_bContiguous )
     {
@@ -112,7 +112,7 @@ void Polyline::SetGeometryType()
     }
 }
 //----------------------------------------------------------------------------
-void Polyline::SetActiveCount(int iActiveCount)
+void SEPolyline::SetActiveCount(int iActiveCount)
 {
     int iVCount = VBuffer->GetVertexCount();
     if( 0 <= iActiveCount && iActiveCount <= iVCount )
@@ -127,13 +127,13 @@ void Polyline::SetActiveCount(int iActiveCount)
     IBuffer->SetIndexCount(m_iActiveCount);
 }
 //----------------------------------------------------------------------------
-void Polyline::SetClosed(bool bClosed)
+void SEPolyline::SetClosed(bool bClosed)
 {
     m_bClosed = bClosed;
     SetGeometryType();
 }
 //----------------------------------------------------------------------------
-void Polyline::SetContiguous(bool bContiguous)
+void SEPolyline::SetContiguous(bool bContiguous)
 {
     m_bContiguous = bContiguous;
     SetGeometryType();
@@ -143,11 +143,11 @@ void Polyline::SetContiguous(bool bContiguous)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Polyline::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEPolyline::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Geometry::Load(rStream,pLink);
+    SEGeometry::Load(rStream,pLink);
 
     // native data
     rStream.Read(m_iActiveCount);
@@ -156,42 +156,42 @@ void Polyline::Load(SEStream& rStream, SEStream::Link* pLink)
 
     SetGeometryType();
 
-    SE_END_DEBUG_STREAM_LOAD(Polyline);
+    SE_END_DEBUG_STREAM_LOAD(SEPolyline);
 }
 //----------------------------------------------------------------------------
-void Polyline::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEPolyline::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Geometry::Link(rStream,pLink);
+    SEGeometry::Link(rStream,pLink);
 }
 //----------------------------------------------------------------------------
-bool Polyline::Register(SEStream& rStream) const
+bool SEPolyline::Register(SEStream& rStream) const
 {
-    return Geometry::Register(rStream);
+    return SEGeometry::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Polyline::Save(SEStream& rStream) const
+void SEPolyline::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Geometry::Save(rStream);
+    SEGeometry::Save(rStream);
 
     // native data
     rStream.Write(m_iActiveCount);
     rStream.Write(m_bClosed);
     rStream.Write(m_bContiguous);
 
-    SE_END_DEBUG_STREAM_SAVE(Polyline);
+    SE_END_DEBUG_STREAM_SAVE(SEPolyline);
 }
 //----------------------------------------------------------------------------
-int Polyline::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEPolyline::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Geometry::GetDiskUsed(rVersion) +
+    return SEGeometry::GetDiskUsed(rVersion) +
         sizeof(m_iActiveCount) +
         sizeof(char) + // m_bClosed
         sizeof(char);  // m_bContiguous
 }
 //----------------------------------------------------------------------------
-SEStringTree* Polyline::SaveStrings(const char*)
+SEStringTree* SEPolyline::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -202,7 +202,7 @@ SEStringTree* Polyline::SaveStrings(const char*)
     pTree->Append(Format("contiguous =", m_bContiguous));
 
     // children
-    pTree->Append(Geometry::SaveStrings());
+    pTree->Append(SEGeometry::SaveStrings());
 
     return pTree;
 }

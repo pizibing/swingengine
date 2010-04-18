@@ -23,28 +23,28 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, DescriptorItem, SEObject);
-SE_IMPLEMENT_STREAM(DescriptorItem);
-SE_IMPLEMENT_DEFAULT_NAME_ID(DescriptorItem, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEDescriptorItem, SEObject);
+SE_IMPLEMENT_STREAM(SEDescriptorItem);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEDescriptorItem, SEObject);
 
-//SE_REGISTER_STREAM(DescriptorItem);
+//SE_REGISTER_STREAM(SEDescriptorItem);
 
 //----------------------------------------------------------------------------
-DescriptorItem::DescriptorItem()
+SEDescriptorItem::SEDescriptorItem()
 {
     IsArray = false;
 }
 //----------------------------------------------------------------------------
-DescriptorItem::~DescriptorItem()
+SEDescriptorItem::~SEDescriptorItem()
 {
 }
 //----------------------------------------------------------------------------
-void DescriptorItem::AttachTypeName(const std::string& rTypeName)
+void SEDescriptorItem::AttachTypeName(const std::string& rTypeName)
 {
     m_TypeNames.push_back(rTypeName);
 }
 //----------------------------------------------------------------------------
-void DescriptorItem::DetachTypeName(const std::string& rTypeName)
+void SEDescriptorItem::DetachTypeName(const std::string& rTypeName)
 {
     std::vector<std::string>::iterator pIter;
     for( pIter = m_TypeNames.begin(); pIter != m_TypeNames.end(); pIter++ )
@@ -58,7 +58,7 @@ void DescriptorItem::DetachTypeName(const std::string& rTypeName)
     }
 }
 //----------------------------------------------------------------------------
-void DescriptorItem::DetachTypeName(int i)
+void SEDescriptorItem::DetachTypeName(int i)
 {
     SE_ASSERT( i >= 0 && i < (int)m_TypeNames.size() );
 
@@ -67,14 +67,14 @@ void DescriptorItem::DetachTypeName(int i)
     m_TypeNames.pop_back();
 }
 //----------------------------------------------------------------------------
-const std::string& DescriptorItem::GetTypeName(int i) const
+const std::string& SEDescriptorItem::GetTypeName(int i) const
 {
     SE_ASSERT( i >= 0 && i < (int)m_TypeNames.size() );
 
     return m_TypeNames[i];
 }
 //----------------------------------------------------------------------------
-void DescriptorItem::GetDescription(std::string& rDesc) const
+void SEDescriptorItem::GetDescription(std::string& rDesc) const
 {
     rDesc = m_InstanceName;
     rDesc += "[";
@@ -90,7 +90,7 @@ void DescriptorItem::GetDescription(std::string& rDesc) const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void DescriptorItem::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEDescriptorItem::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -108,20 +108,20 @@ void DescriptorItem::Load(SEStream& rStream, SEStream::Link* pLink)
         rStream.Read(m_TypeNames[i]);
     }
 
-    SE_END_DEBUG_STREAM_LOAD(DescriptorItem);
+    SE_END_DEBUG_STREAM_LOAD(SEDescriptorItem);
 }
 //----------------------------------------------------------------------------
-void DescriptorItem::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEDescriptorItem::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool DescriptorItem::Register(SEStream& rStream) const
+bool SEDescriptorItem::Register(SEStream& rStream) const
 {
     return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void DescriptorItem::Save(SEStream& rStream) const
+void SEDescriptorItem::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -138,10 +138,10 @@ void DescriptorItem::Save(SEStream& rStream) const
         rStream.Write(m_TypeNames[i]);
     }
 
-    SE_END_DEBUG_STREAM_SAVE(DescriptorItem);
+    SE_END_DEBUG_STREAM_SAVE(SEDescriptorItem);
 }
 //----------------------------------------------------------------------------
-int DescriptorItem::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEDescriptorItem::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     int iSize = SEObject::GetDiskUsed(rVersion) + sizeof(char) +
         sizeof(int) + (int)m_InstanceName.length();
@@ -156,7 +156,7 @@ int DescriptorItem::GetDiskUsed(const SEStreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-SEStringTree* DescriptorItem::SaveStrings(const char*)
+SEStringTree* SEDescriptorItem::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 

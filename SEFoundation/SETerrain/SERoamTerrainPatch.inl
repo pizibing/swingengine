@@ -19,32 +19,32 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline RoamTriTreeNode* RoamTerrainPatch::GetBaseLeft()  
+inline SERoamTriTreeNode* SERoamTerrainPatch::GetBaseLeft()  
 { 
     return &m_BaseLeft;
 }
 //----------------------------------------------------------------------------
-inline RoamTriTreeNode* RoamTerrainPatch::GetBaseRight() 
+inline SERoamTriTreeNode* SERoamTerrainPatch::GetBaseRight() 
 { 
     return &m_BaseRight; 
 }
 //----------------------------------------------------------------------------
-inline bool RoamTerrainPatch::GetDirty() const
+inline bool SERoamTerrainPatch::GetDirty() const
 { 
     return m_bDirty; 
 }
 //----------------------------------------------------------------------------
-inline void RoamTerrainPatch::SetDirty(bool bDirty)
+inline void SERoamTerrainPatch::SetDirty(bool bDirty)
 { 
     m_bDirty = bDirty; 
 }
 //----------------------------------------------------------------------------
-inline bool RoamTerrainPatch::IsVisible() const
+inline bool SERoamTerrainPatch::IsVisible() const
 { 
     return m_bVisible; 
 }
 //----------------------------------------------------------------------------
-inline void RoamTerrainPatch::SetVisible(bool bVisible)
+inline void SERoamTerrainPatch::SetVisible(bool bVisible)
 { 
     m_bVisible = bVisible; 
 }

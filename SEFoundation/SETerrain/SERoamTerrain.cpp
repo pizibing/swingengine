@@ -23,15 +23,15 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, RoamTerrain, Node);
-SE_IMPLEMENT_STREAM(RoamTerrain);
-SE_IMPLEMENT_DEFAULT_NAME_ID(RoamTerrain, Node);
+SE_IMPLEMENT_RTTI(Swing, SERoamTerrain, SENode);
+SE_IMPLEMENT_STREAM(SERoamTerrain);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SERoamTerrain, SENode);
 
-//SE_REGISTER_STREAM(RoamTerrain);
+//SE_REGISTER_STREAM(SERoamTerrain);
 
 //----------------------------------------------------------------------------
-RoamTerrain::RoamTerrain(const char* acHeightName, const char* acImageName,
-    const Attributes& rAttr, Camera* pCamera, float fUVBias,
+SERoamTerrain::SERoamTerrain(const char* acHeightName, const char* acImageName,
+    const SEAttributes& rAttr, SECamera* pCamera, float fUVBias,
     SEColorRGBA* pBorderColor)
     :
     m_Attr(rAttr),
@@ -78,7 +78,7 @@ RoamTerrain::RoamTerrain(const char* acHeightName, const char* acImageName,
     }
 }
 //----------------------------------------------------------------------------
-RoamTerrain::RoamTerrain()
+SERoamTerrain::SERoamTerrain()
     :
     m_BorderColor(SEColorRGBA::SE_RGBA_BLACK)
 {
@@ -98,7 +98,7 @@ RoamTerrain::RoamTerrain()
     m_iVarianceLevel = 0;
 }
 //----------------------------------------------------------------------------
-RoamTerrain::~RoamTerrain()
+SERoamTerrain::~SERoamTerrain()
 {
     for( int iRow = 0; iRow < m_iRows; iRow++ )
     {
@@ -111,7 +111,7 @@ RoamTerrain::~RoamTerrain()
     m_spCamera = 0;
 }
 //----------------------------------------------------------------------------
-void RoamTerrain::SetLod(bool bLod)
+void SERoamTerrain::SetLod(bool bLod)
 {
     m_bLod = bLod;
 
@@ -137,7 +137,7 @@ void RoamTerrain::SetLod(bool bLod)
     }
 }
 //----------------------------------------------------------------------------
-RoamTerrainPage* RoamTerrain::GetPage(int iRow, int iCol)
+SERoamTerrainPage* SERoamTerrain::GetPage(int iRow, int iCol)
 {
     SE_ASSERT( 0 <= iRow && iRow < m_iRows && 0 <= iCol && iCol < m_iCols );
 
@@ -149,7 +149,7 @@ RoamTerrainPage* RoamTerrain::GetPage(int iRow, int iCol)
     return 0;
 }
 //----------------------------------------------------------------------------
-RoamTerrainPage* RoamTerrain::GetCurrentPage(float fX, float fZ) const
+SERoamTerrainPage* SERoamTerrain::GetCurrentPage(float fX, float fZ) const
 {
     float fInvLength = 1.0f / (m_fSpacing*(float)(m_iSize - 1));
 
@@ -174,14 +174,14 @@ RoamTerrainPage* RoamTerrain::GetCurrentPage(float fX, float fZ) const
     return m_Pages[iRow][iCol];
 }
 //----------------------------------------------------------------------------
-float RoamTerrain::GetHeight(float fX, float fZ) const
+float SERoamTerrain::GetHeight(float fX, float fZ) const
 {
-    RoamTerrainPage* pPage = GetCurrentPage(fX, fZ);
+    SERoamTerrainPage* pPage = GetCurrentPage(fX, fZ);
 
     return pPage->GetHeight(fX, fZ);
 }
 //----------------------------------------------------------------------------
-RoamTerrainPagePtr RoamTerrain::ReplacePage(int iRow, int iCol,
+SERoamTerrainPagePtr SERoamTerrain::ReplacePage(int iRow, int iCol,
     const char* acHeightName, const char* acHeightSuffix,
     const char* acImageName, const char* acImageSuffix)
 {
@@ -189,7 +189,7 @@ RoamTerrainPagePtr RoamTerrain::ReplacePage(int iRow, int iCol,
 
     if( 0 <= iRow && iRow < m_iRows && 0 <= iCol && iCol < m_iCols )
     {
-        RoamTerrainPagePtr spSave = m_Pages[iRow][iCol];
+        SERoamTerrainPagePtr spSave = m_Pages[iRow][iCol];
         LoadPage(iRow, iCol, acHeightName, acHeightSuffix, acImageName,
             acImageSuffix);
 
@@ -199,14 +199,14 @@ RoamTerrainPagePtr RoamTerrain::ReplacePage(int iRow, int iCol,
     return 0;
 }
 //----------------------------------------------------------------------------
-RoamTerrainPagePtr RoamTerrain::ReplacePage(int iRow, int iCol, 
-    RoamTerrainPage* pNewPage)
+SERoamTerrainPagePtr SERoamTerrain::ReplacePage(int iRow, int iCol, 
+    SERoamTerrainPage* pNewPage)
 {
     SE_ASSERT( 0 <= iRow && iRow < m_iRows && 0 <= iCol && iCol < m_iCols );
 
     if( 0 <= iRow && iRow < m_iRows && 0 <= iCol && iCol < m_iCols )
     {
-        RoamTerrainPagePtr spSave = m_Pages[iRow][iCol];
+        SERoamTerrainPagePtr spSave = m_Pages[iRow][iCol];
         m_Pages[iRow][iCol] = pNewPage;
 
         return spSave;
@@ -215,7 +215,7 @@ RoamTerrainPagePtr RoamTerrain::ReplacePage(int iRow, int iCol,
     return 0;
 }
 //----------------------------------------------------------------------------
-void RoamTerrain::Simplify(Culler& rCuller)
+void SERoamTerrain::Simplify(SECuller& rCuller)
 {
     if( m_bLod )
     {
@@ -238,7 +238,7 @@ void RoamTerrain::Simplify(Culler& rCuller)
     }
 }
 //----------------------------------------------------------------------------
-void RoamTerrain::LoadHeader(const char* acHeightName)
+void SERoamTerrain::LoadHeader(const char* acHeightName)
 {
     char acFilename[512];
     SESystem::SE_Sprintf(acFilename, 512, "%s.sehf", acHeightName);
@@ -265,7 +265,7 @@ void RoamTerrain::LoadHeader(const char* acHeightName)
     m_iVarianceLevel = 4;
 }
 //----------------------------------------------------------------------------
-void RoamTerrain::LoadPage(int iRow, int iCol, const char* acHeightName,
+void SERoamTerrain::LoadPage(int iRow, int iCol, const char* acHeightName,
     const char* acHeightSuffix, const char* acImageName,
     const char* acImageSuffix)
 {
@@ -295,7 +295,7 @@ void RoamTerrain::LoadPage(int iRow, int iCol, const char* acHeightName,
     // 该page在terrain模型空间的原点.
     SEVector2f vec2fOrigin(iCol*fLength, iRow*fLength);
     // 创建page.
-    RoamTerrainPage* pPage = SE_NEW RoamTerrainPage(m_Attr, m_iSize, ausHeight,
+    SERoamTerrainPage* pPage = SE_NEW SERoamTerrainPage(m_Attr, m_iSize, ausHeight,
         vec2fOrigin, m_fMinElevation, m_fMaxElevation, m_fSpacing, m_fUVBias,
         m_iPoolSize, m_iPatchSize, m_iSplitLevel, m_iVarianceLevel);
     pPage->SetPageGrid(iRow, iCol, this);
@@ -316,11 +316,11 @@ void RoamTerrain::LoadPage(int iRow, int iCol, const char* acHeightName,
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void RoamTerrain::Load(SEStream& rStream, SEStream::Link* pLink)
+void SERoamTerrain::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Node::Load(rStream, pLink);
+    SENode::Load(rStream, pLink);
 
     // native data
     rStream.Read(m_iRows);
@@ -351,15 +351,15 @@ void RoamTerrain::Load(SEStream& rStream, SEStream::Link* pLink)
         }
     }
 
-    SE_END_DEBUG_STREAM_LOAD(RoamTerrain);
+    SE_END_DEBUG_STREAM_LOAD(SERoamTerrain);
 }
 //----------------------------------------------------------------------------
-void RoamTerrain::Link(SEStream& rStream, SEStream::Link* pLink)
+void SERoamTerrain::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Node::Link(rStream, pLink);
+    SENode::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
-    m_spCamera = (Camera*)rStream.GetFromMap(pLinkID);
+    m_spCamera = (SECamera*)rStream.GetFromMap(pLinkID);
 
     m_Pages.resize(m_iRows);
     for( int i = 0; i < m_iRows; i++ )
@@ -372,16 +372,16 @@ void RoamTerrain::Link(SEStream& rStream, SEStream::Link* pLink)
         {
             pLinkID = pLink->GetLinkID();
             m_Pages[iRow][iCol] =
-                (RoamTerrainPage*)rStream.GetFromMap(pLinkID);
+                (SERoamTerrainPage*)rStream.GetFromMap(pLinkID);
 
             m_Pages[iRow][iCol]->SetPageGrid(iRow, iCol, this);
         }
     }
 }
 //----------------------------------------------------------------------------
-bool RoamTerrain::Register(SEStream& rStream) const
+bool SERoamTerrain::Register(SEStream& rStream) const
 {
-    if( !Node::Register(rStream) )
+    if( !SENode::Register(rStream) )
     {
         return false;
     }
@@ -402,11 +402,11 @@ bool RoamTerrain::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void RoamTerrain::Save(SEStream& rStream) const
+void SERoamTerrain::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Node::Save(rStream);
+    SENode::Save(rStream);
 
     // native data
     rStream.Write(m_iRows);
@@ -434,12 +434,12 @@ void RoamTerrain::Save(SEStream& rStream) const
         }
     }
 
-    SE_END_DEBUG_STREAM_SAVE(RoamTerrain);
+    SE_END_DEBUG_STREAM_SAVE(SERoamTerrain);
 }
 //----------------------------------------------------------------------------
-int RoamTerrain::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SERoamTerrain::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Node::GetDiskUsed(rVersion) +
+    return SENode::GetDiskUsed(rVersion) +
         sizeof(m_iRows) +
         sizeof(m_iCols) +
         sizeof(m_iSize) +
@@ -458,7 +458,7 @@ int RoamTerrain::GetDiskUsed(const SEStreamVersion& rVersion) const
         m_iRows*m_iCols*sizeof(m_Pages[0][0]);
 }
 //----------------------------------------------------------------------------
-SEStringTree* RoamTerrain::SaveStrings(const char*)
+SEStringTree* SERoamTerrain::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -480,7 +480,7 @@ SEStringTree* RoamTerrain::SaveStrings(const char*)
     pTree->Append(Format("border color =", m_BorderColor));
 
     // children
-    pTree->Append(Node::SaveStrings());
+    pTree->Append(SENode::SaveStrings());
 
     for( int iRow = 0; iRow < m_iRows; iRow++ )
     {

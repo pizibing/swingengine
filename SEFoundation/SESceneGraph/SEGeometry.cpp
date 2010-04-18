@@ -25,36 +25,36 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Geometry, Spatial);
-SE_IMPLEMENT_ABSTRACT_STREAM(Geometry);
+SE_IMPLEMENT_RTTI(Swing, SEGeometry, SESpatial);
+SE_IMPLEMENT_ABSTRACT_STREAM(SEGeometry);
 
-//SE_REGISTER_STREAM(Geometry);
+//SE_REGISTER_STREAM(SEGeometry);
 
 //----------------------------------------------------------------------------
-Geometry::Geometry()
+SEGeometry::SEGeometry()
     :
-    ModelBound(BoundingVolume::Create())
+    ModelBound(SEBoundingVolume::Create())
 {
-    RStateBlock = SE_NEW RenderStateBlock;
+    RStateBlock = SE_NEW SERenderStateBlock;
     LightingMode = GLM_PIPELINE_PIXEL;
 }
 //----------------------------------------------------------------------------
-Geometry::Geometry(VertexBuffer* pVBuffer, IndexBuffer* pIBuffer)
+SEGeometry::SEGeometry(SEVertexBuffer* pVBuffer, SEIndexBuffer* pIBuffer)
     :
     VBuffer(pVBuffer),
     IBuffer(pIBuffer),
-    ModelBound(BoundingVolume::Create())
+    ModelBound(SEBoundingVolume::Create())
 {
-    RStateBlock = SE_NEW RenderStateBlock;
+    RStateBlock = SE_NEW SERenderStateBlock;
     LightingMode = GLM_PIPELINE_PIXEL;
     UpdateModelBound();
 }
 //----------------------------------------------------------------------------
-Geometry::~Geometry()
+SEGeometry::~SEGeometry()
 {
 }
 //----------------------------------------------------------------------------
-void Geometry::UpdateMS(bool bUpdateNormals)
+void SEGeometry::UpdateMS(bool bUpdateNormals)
 {
     UpdateModelBound();
     if( bUpdateNormals )
@@ -63,18 +63,18 @@ void Geometry::UpdateMS(bool bUpdateNormals)
     }
 }
 //----------------------------------------------------------------------------
-void Geometry::UpdateModelBound()
+void SEGeometry::UpdateModelBound()
 {
     ModelBound->ComputeFromData(VBuffer);
 }
 //----------------------------------------------------------------------------
-void Geometry::UpdateWorldBound()
+void SEGeometry::UpdateWorldBound()
 {
     ModelBound->TransformBy(World, WorldBound);
 }
 //----------------------------------------------------------------------------
-void Geometry::UpdateState(std::vector<GlobalState*>* aGStack,
-    std::vector<Light*>* pLStack)
+void SEGeometry::UpdateState(std::vector<SEGlobalState*>* aGStack,
+    std::vector<SELight*>* pLStack)
 {
     // 更新当前几何体的render state block.
     // 收集到影响当前节点的所有栈顶元素.
@@ -86,13 +86,13 @@ void Geometry::UpdateState(std::vector<GlobalState*>* aGStack,
     }
     else
     {
-        RStateBlock = SE_NEW RenderStateBlock;
+        RStateBlock = SE_NEW SERenderStateBlock;
     }
 
     int i;
-    for( i = 0; i < GlobalState::MAX_STATE_TYPE; i++ )
+    for( i = 0; i < SEGlobalState::MAX_STATE_TYPE; i++ )
     {
-        GlobalState* pGState = 0;
+        SEGlobalState* pGState = 0;
         pGState = aGStack[i].back();
         RStateBlock->States[i] = pGState;
     }
@@ -190,14 +190,14 @@ void Geometry::UpdateState(std::vector<GlobalState*>* aGStack,
     }
 }
 //----------------------------------------------------------------------------
-void Geometry::GetUnculledSet(Culler& rCuller, bool)
+void SEGeometry::GetUnculledSet(SECuller& rCuller, bool)
 {
     rCuller.Insert(this, 0);
 }
 //----------------------------------------------------------------------------
-Geometry::PickRecord::PickRecord(Geometry* pIObject, float fT)
+SEGeometry::SEPickRecord::SEPickRecord(SEGeometry* pIObject, float fT)
     :
-    Spatial::PickRecord(pIObject, fT)
+    SESpatial::SEPickRecord(pIObject, fT)
 {
 }
 //----------------------------------------------------------------------------
@@ -205,9 +205,9 @@ Geometry::PickRecord::PickRecord(Geometry* pIObject, float fT)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-SEObject* Geometry::GetObjectByName(const std::string& rName)
+SEObject* SEGeometry::GetObjectByName(const std::string& rName)
 {
-    SEObject* pFound = Spatial::GetObjectByName(rName);
+    SEObject* pFound = SESpatial::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -243,10 +243,10 @@ SEObject* Geometry::GetObjectByName(const std::string& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Geometry::GetAllObjectsByName(const std::string& rName,
+void SEGeometry::GetAllObjectsByName(const std::string& rName,
     std::vector<SEObject*>& rObjects)
 {
-    Spatial::GetAllObjectsByName(rName, rObjects);
+    SESpatial::GetAllObjectsByName(rName, rObjects);
 
     if( ModelBound )
     {
@@ -264,9 +264,9 @@ void Geometry::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-SEObject* Geometry::GetObjectByID(unsigned int uiID)
+SEObject* SEGeometry::GetObjectByID(unsigned int uiID)
 {
-    SEObject* pFound = Spatial::GetObjectByID(uiID);
+    SEObject* pFound = SESpatial::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -306,11 +306,11 @@ SEObject* Geometry::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Geometry::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEGeometry::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Spatial::Load(rStream, pLink);
+    SESpatial::Load(rStream, pLink);
 
     // native data
     rStream.Read((int&)LightingMode);
@@ -329,29 +329,29 @@ void Geometry::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(pObject);  // m_spLEffect
     pLink->Add(pObject);
 
-    SE_END_DEBUG_STREAM_LOAD(Geometry);
+    SE_END_DEBUG_STREAM_LOAD(SEGeometry);
 }
 //----------------------------------------------------------------------------
-void Geometry::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEGeometry::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Spatial::Link(rStream, pLink);
+    SESpatial::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
-    ModelBound = (BoundingVolume*)rStream.GetFromMap(pLinkID);
+    ModelBound = (SEBoundingVolume*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
-    VBuffer = (VertexBuffer*)rStream.GetFromMap(pLinkID);
+    VBuffer = (SEVertexBuffer*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
-    IBuffer = (IndexBuffer*)rStream.GetFromMap(pLinkID);
+    IBuffer = (SEIndexBuffer*)rStream.GetFromMap(pLinkID);
 
     pLinkID = pLink->GetLinkID();
     m_spLEffect = (LightingEffect*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool Geometry::Register(SEStream& rStream) const
+bool SEGeometry::Register(SEStream& rStream) const
 {
-    if( !Spatial::Register(rStream) )
+    if( !SESpatial::Register(rStream) )
     {
         return false;
     }
@@ -379,11 +379,11 @@ bool Geometry::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Geometry::Save(SEStream& rStream) const
+void SEGeometry::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Spatial::Save(rStream);
+    SESpatial::Save(rStream);
 
     // native data
     rStream.Write((int)LightingMode);
@@ -394,12 +394,12 @@ void Geometry::Save(SEStream& rStream) const
     rStream.Write(IBuffer);
     rStream.Write(m_spLEffect);
 
-    SE_END_DEBUG_STREAM_SAVE(Geometry);
+    SE_END_DEBUG_STREAM_SAVE(SEGeometry);
 }
 //----------------------------------------------------------------------------
-int Geometry::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEGeometry::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Spatial::GetDiskUsed(rVersion) +
+    return SESpatial::GetDiskUsed(rVersion) +
         sizeof(LightingMode) +
         sizeof(ModelBound) +
         sizeof(VBuffer) +
@@ -407,7 +407,7 @@ int Geometry::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(m_spLEffect);
 }
 //----------------------------------------------------------------------------
-SEStringTree* Geometry::SaveStrings(const char*)
+SEStringTree* SEGeometry::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -416,7 +416,7 @@ SEStringTree* Geometry::SaveStrings(const char*)
     pTree->Append(Format("lighting mode =", (int)LightingMode));
 
     // children
-    pTree->Append(Spatial::SaveStrings());
+    pTree->Append(SESpatial::SaveStrings());
 
     if( ModelBound )
     {

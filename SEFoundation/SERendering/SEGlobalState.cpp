@@ -23,21 +23,21 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, GlobalState, SEObject);
-SE_IMPLEMENT_ABSTRACT_STREAM(GlobalState);
-SE_IMPLEMENT_DEFAULT_STREAM(GlobalState, SEObject);
-SE_IMPLEMENT_DEFAULT_NAME_ID(GlobalState, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEGlobalState, SEObject);
+SE_IMPLEMENT_ABSTRACT_STREAM(SEGlobalState);
+SE_IMPLEMENT_DEFAULT_STREAM(SEGlobalState, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEGlobalState, SEObject);
 
-//SE_REGISTER_STREAM(GlobalState);
+//SE_REGISTER_STREAM(SEGlobalState);
 
-GlobalStatePtr GlobalState::Default[GlobalState::MAX_STATE_TYPE];
+SEGlobalStatePtr SEGlobalState::Default[SEGlobalState::MAX_STATE_TYPE];
 
 //----------------------------------------------------------------------------
-GlobalState::GlobalState()
+SEGlobalState::SEGlobalState()
 {
 }
 //----------------------------------------------------------------------------
-GlobalState::~GlobalState()
+SEGlobalState::~SEGlobalState()
 {
 }
 //----------------------------------------------------------------------------

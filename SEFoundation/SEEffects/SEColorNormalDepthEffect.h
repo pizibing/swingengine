@@ -47,9 +47,9 @@ public:
     float FarCilpDist;
 
 protected:
-    virtual void OnLoadPrograms(int iPass, Program* pVProgram,
-        Program* pPProgram, Program* pGProgram);
-    virtual void OnPreApplyEffect(Renderer* pRenderer, bool bPrimaryEffect);
+    virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
+        SEProgram* pPProgram, SEProgram* pGProgram);
+    virtual void OnPreApplyEffect(SERenderer* pRenderer, bool bPrimaryEffect);
 
     static float ms_fFarCilpDist;
 };

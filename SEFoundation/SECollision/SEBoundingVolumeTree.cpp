@@ -26,13 +26,13 @@
 using namespace Swing;
 
 SEBoundingVolumeTree::CreatorM
-SEBoundingVolumeTree::ms_aoCreateModelBound[BoundingVolume::BV_COUNT];
+SEBoundingVolumeTree::ms_aoCreateModelBound[SEBoundingVolume::BV_COUNT];
 
 SEBoundingVolumeTree::CreatorW
-SEBoundingVolumeTree::ms_aoCreateWorldBound[BoundingVolume::BV_COUNT];
+SEBoundingVolumeTree::ms_aoCreateWorldBound[SEBoundingVolume::BV_COUNT];
 
 //----------------------------------------------------------------------------
-SEBoundingVolumeTree::SEBoundingVolumeTree(const TriMesh* pMesh)
+SEBoundingVolumeTree::SEBoundingVolumeTree(const SETriMesh* pMesh)
 {
     m_pMesh = pMesh;
     m_pLChild = 0;
@@ -41,7 +41,7 @@ SEBoundingVolumeTree::SEBoundingVolumeTree(const TriMesh* pMesh)
     m_aiTriangle = 0;
 }
 //----------------------------------------------------------------------------
-SEBoundingVolumeTree::SEBoundingVolumeTree(int eBVType, const TriMesh* pMesh,
+SEBoundingVolumeTree::SEBoundingVolumeTree(int eBVType, const SETriMesh* pMesh,
     int iMaxTrisPerLeaf, bool bStoreInteriorTris)
     :
     m_pMesh(pMesh)
@@ -213,7 +213,7 @@ void SEBoundingVolumeTree::UpdateWorldBound()
 
 #ifdef _DEBUG_TEST
 
-bool SEBoundingVolumeTree::ContainsLeafData(const VertexBuffer* pVBuffer,
+bool SEBoundingVolumeTree::ContainsLeafData(const SEVertexBuffer* pVBuffer,
     const int* aiIndex, float fEpsilon) const
 {
     if( m_pLChild )

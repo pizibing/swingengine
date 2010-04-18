@@ -34,15 +34,15 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080808
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Polyline : public Geometry
+class SE_FOUNDATION_API SEPolyline : public SEGeometry
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    Polyline(VertexBuffer* pVBuffer, bool bClosed, bool bContiguous);
-    virtual ~Polyline(void);
+    SEPolyline(SEVertexBuffer* pVBuffer, bool bClosed, bool bContiguous);
+    virtual ~SEPolyline(void);
 
     void SetActiveCount(int iActiveCount);
     inline int GetActiveCount(void) const;
@@ -54,7 +54,7 @@ public:
     inline bool GetContiguous(void) const;
 
 protected:
-    Polyline(void);
+    SEPolyline(void);
     void SetGeometryType(void);
 
     // 允许应用程序指定少于实际顶点数的顶点子集用于渲染.
@@ -64,7 +64,7 @@ protected:
     bool m_bClosed, m_bContiguous;
 };
 
-typedef SESmartPointer<Polyline> PolylinePtr;
+typedef SESmartPointer<SEPolyline> SEPolylinePtr;
 
 #include "SEPolyline.inl"
 

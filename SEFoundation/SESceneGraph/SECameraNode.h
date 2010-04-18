@@ -34,7 +34,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090224
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API CameraNode : public Node
+class SE_FOUNDATION_API SECameraNode : public SENode
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -51,24 +51,24 @@ public:
     //   local rotation row 0 = camera right
     //   local rotation row 1 = camera up
     //   local rotation row 2 = camera direction
-    CameraNode(Camera* pCamera = 0);
-    virtual ~CameraNode(void);
+    SECameraNode(SECamera* pCamera = 0);
+    virtual ~SECameraNode(void);
 
     // 当设置camera时,节点的局部变换被设置为camera的当前坐标体系.
     // 节点的世界变换被计算出来,然后camera的坐标体系被设置为使用节点的世界变换.
-    void SetCamera(Camera* pCamera);
+    void SetCamera(SECamera* pCamera);
 
-    inline Camera* GetCamera(void);
-    inline const Camera* GetCamera(void) const;
+    inline SECamera* GetCamera(void);
+    inline const SECamera* GetCamera(void) const;
 
 protected:
     // geometric updates
     virtual void UpdateWorldData(double dAppTime);
 
-    CameraPtr m_spCamera;
+    SECameraPtr m_spCamera;
 };
 
-typedef SESmartPointer<CameraNode> CameraNodePtr;
+typedef SESmartPointer<SECameraNode> SECameraNodePtr;
 
 #include "SECameraNode.inl"
 

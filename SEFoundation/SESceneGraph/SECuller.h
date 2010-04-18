@@ -37,29 +37,29 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080707
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Culler
+class SE_FOUNDATION_API SECuller
 {
 public:
     // 前两个参数用于创建潜在可视听对象集容器.
     // 如果没有传递camera,稍后应在使用ComputeUnculledSet之前,
     // 通过SetCamera设置camera.
-    Culler(int iMaxCount = 0, int iGrowBy = 0, const Camera* pCamera = 0);
-    virtual ~Culler(void);
+    SECuller(int iMaxCount = 0, int iGrowBy = 0, const SECamera* pCamera = 0);
+    virtual ~SECuller(void);
 
     // 访问camera,frustum copy,潜在可视听对象容器.
-    inline void SetCamera(const Camera* pCamera);
-    inline const Camera* GetCamera(void) const;
+    inline void SetCamera(const SECamera* pCamera);
+    inline const SECamera* GetCamera(void) const;
     void SetFrustum(const float* afFrustum);
     inline const float* GetFrustum(void) const;
-    inline UnculledSet& GetVisibleSet(void);
-    inline UnculledSet& GetAudibleSet(void);
+    inline SEUnculledSet& GetVisibleSet(void);
+    inline SEUnculledSet& GetAudibleSet(void);
 
-    // 基类默认行为是根据传入参数创建一个UnculledObject,
-    // 并将其添加到UnculledObject数组末尾.
-    // 派生类可以重载此函数,比如UnculledObject数组可以被维护为有序数组,
+    // 基类默认行为是根据传入参数创建一个SEUnculledObject,
+    // 并将其添加到SEUnculledObject数组末尾.
+    // 派生类可以重载此函数,比如SEUnculledObject数组可以被维护为有序数组,
     // 从而使渲染状态改变最小化,
     // 或者也可以成为一个对象unique list供portal系统使用.
-    virtual void Insert(Spatial* pObject, Effect* pGlobalEffect,
+    virtual void Insert(SESpatial* pObject, Effect* pGlobalEffect,
         bool bIsAudible = false);
 
     // 世界空间剔除平面堆栈访问.
@@ -75,8 +75,8 @@ public:
 
     // 把对象的世界空间BV和各个剔除平面比较,
     // 并记录各个平面与之比较的结果,供剔除系统在场景剔除遍历过程中使用.
-    // 只有Spatial类需要调用这个函数.
-    bool IsInFrustum(const BoundingVolume* pBound);
+    // 只有SESpatial类需要调用这个函数.
+    bool IsInFrustum(const SEBoundingVolume* pBound);
 
     // 支持Portal::GetUnculledSet.
     bool IsInFrustum(int iVertexCount, const SEVector3f* aVertex,
@@ -84,8 +84,8 @@ public:
 
     // 把对象的世界空间BV和各个剔除平面比较,
     // 只判断该对象是否在frustum中,不记录比较结果.
-    // 支持RoamTerrainPage::Simplify.
-    bool IsSingleInFrustum(const BoundingVolume* pBound) const;
+    // 支持SERoamTerrainPage::Simplify.
+    bool IsSingleInFrustum(const SEBoundingVolume* pBound) const;
 
     // 支持BspNode::GetUnculledSet.
     // 判断截投体与平面的位置情况,
@@ -95,16 +95,16 @@ public:
 
     // 剔除系统入口.
     // 通过遍历传入的场景视图树,创建潜在可视听对象集合.
-    void ComputeUnculledSet(Spatial* pScene);
+    void ComputeUnculledSet(SESpatial* pScene);
 
 protected:
     // 剔除系统需要知道当前摄像机的相关信息.
-    const Camera* m_pCamera;
+    const SECamera* m_pCamera;
 
     // 传入摄像机截投体参数的拷贝值.
     // 这将允许各种子系统在剔除过程中(比如portal系统),
     // 改变截投体参数而不影响当前摄像机.
-    float m_Frustum[Camera::VF_COUNT];
+    float m_Frustum[SECamera::VF_COUNT];
 
     // 世界空间平面数组,包含6个截投体平面,允许26个用户自定义平面.
     // m_uiPlaneState的32位对应32个剔除平面的状态,
@@ -118,10 +118,10 @@ protected:
     unsigned int m_uiPlaneState;
 
     // 调用ComputeUnculledSet后产生的潜在可视对象集合.
-    UnculledSet m_VisibleSet;
+    SEUnculledSet m_VisibleSet;
 
     // 调用ComputeUnculledSet后产生的潜在可听对象集合.
-    UnculledSet m_AudibleSet;
+    SEUnculledSet m_AudibleSet;
 };
 
 #include "SECuller.inl"

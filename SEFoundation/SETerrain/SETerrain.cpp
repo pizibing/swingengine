@@ -25,15 +25,15 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Terrain, Node);
-SE_IMPLEMENT_STREAM(Terrain);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Terrain, Node);
+SE_IMPLEMENT_RTTI(Swing, SETerrain, SENode);
+SE_IMPLEMENT_STREAM(SETerrain);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SETerrain, SENode);
 
-//SE_REGISTER_STREAM(Terrain);
+//SE_REGISTER_STREAM(SETerrain);
 
 //----------------------------------------------------------------------------
-Terrain::Terrain(const char* acHeightName, const char* acImageName,
-    const Attributes& rAttr, Camera* pCamera, float fUVBias,
+SETerrain::SETerrain(const char* acHeightName, const char* acImageName,
+    const SEAttributes& rAttr, SECamera* pCamera, float fUVBias,
     SEColorRGBA* pBorderColor)
     :
     m_Attr(rAttr),
@@ -50,7 +50,7 @@ Terrain::Terrain(const char* acHeightName, const char* acImageName,
     LoadHeader(acHeightName);
 
     // 装载全部terrain page.
-    Allocate<TerrainPagePtr>(m_iCols, m_iRows, m_aaspPage);
+    Allocate<SETerrainPagePtr>(m_iCols, m_iRows, m_aaspPage);
     int iRow, iCol;
     for( iRow = 0; iRow < m_iRows; iRow++ )
     {
@@ -74,7 +74,7 @@ Terrain::Terrain(const char* acHeightName, const char* acImageName,
     }
 }
 //----------------------------------------------------------------------------
-Terrain::Terrain()
+SETerrain::SETerrain()
     :
     m_BorderColor(SEColorRGBA::SE_RGBA_BLACK)
 {
@@ -90,7 +90,7 @@ Terrain::Terrain()
     m_fUVBias = 0.0f;
 }
 //----------------------------------------------------------------------------
-Terrain::~Terrain()
+SETerrain::~SETerrain()
 {
     for( int iRow = 0; iRow < m_iRows; iRow++ )
     {
@@ -99,12 +99,12 @@ Terrain::~Terrain()
             m_aaspPage[iRow][iCol] = 0;
         }
     }
-    Deallocate<TerrainPagePtr>(m_aaspPage);
+    Deallocate<SETerrainPagePtr>(m_aaspPage);
 
     m_spCamera = 0;
 }
 //----------------------------------------------------------------------------
-TerrainPage* Terrain::GetPage(int iRow, int iCol)
+SETerrainPage* SETerrain::GetPage(int iRow, int iCol)
 {
     SE_ASSERT( 0 <= iRow && iRow < m_iRows && 0 <= iCol && iCol < m_iCols );
 
@@ -116,7 +116,7 @@ TerrainPage* Terrain::GetPage(int iRow, int iCol)
     return 0;
 }
 //----------------------------------------------------------------------------
-TerrainPage* Terrain::GetCurrentPage(float fX, float fZ) const
+SETerrainPage* SETerrain::GetCurrentPage(float fX, float fZ) const
 {
     float fInvLength = 1.0f / (m_fSpacing*(float)(m_iSize - 1));
 
@@ -137,9 +137,9 @@ TerrainPage* Terrain::GetCurrentPage(float fX, float fZ) const
     return m_aaspPage[iRow][iCol];
 }
 //----------------------------------------------------------------------------
-float Terrain::GetHeight(float fX, float fZ) const
+float SETerrain::GetHeight(float fX, float fZ) const
 {
-    TerrainPage* pPage = GetCurrentPage(fX, fZ);
+    SETerrainPage* pPage = GetCurrentPage(fX, fZ);
 
     // 减去由wrap-around造成的page平移变换.
     fX -= pPage->Local.GetTranslate().X;
@@ -148,7 +148,7 @@ float Terrain::GetHeight(float fX, float fZ) const
     return pPage->GetHeight(fX, fZ);
 }
 //----------------------------------------------------------------------------
-void Terrain::LoadHeader(const char* acHeightName)
+void SETerrain::LoadHeader(const char* acHeightName)
 {
     char acFilename[512];
     SESystem::SE_Sprintf(acFilename, 512, "%s.sehf", acHeightName);
@@ -168,7 +168,7 @@ void Terrain::LoadHeader(const char* acHeightName)
     SESystem::SE_Fclose(pHeader);
 }
 //----------------------------------------------------------------------------
-void Terrain::LoadPage(int iRow, int iCol, const char* acHeightName,
+void SETerrain::LoadPage(int iRow, int iCol, const char* acHeightName,
     const char* acHeightSuffix, const char* acImageName,
     const char* acImageSuffix)
 {
@@ -196,7 +196,7 @@ void Terrain::LoadPage(int iRow, int iCol, const char* acHeightName,
     float fLength = m_fSpacing*(float)(m_iSize - 1);
     // 该page在terrain模型空间的原点.
     SEVector2f vec2fOrigin(iCol*fLength, iRow*fLength);
-    TerrainPage* pPage = SE_NEW TerrainPage(m_Attr, m_iSize, ausHeight,
+    SETerrainPage* pPage = SE_NEW SETerrainPage(m_Attr, m_iSize, ausHeight,
         vec2fOrigin, m_fMinElevation, m_fMaxElevation, m_fSpacing, m_fUVBias);
 
     SESystem::SE_Sprintf(acFileName, uiSize, "%s.%s", acImageName, acImageSuffix);
@@ -208,7 +208,7 @@ void Terrain::LoadPage(int iRow, int iCol, const char* acHeightName,
     m_aaspPage[iRow][iCol] = pPage;
 }
 //----------------------------------------------------------------------------
-TerrainPagePtr Terrain::ReplacePage(int iRow, int iCol,
+SETerrainPagePtr SETerrain::ReplacePage(int iRow, int iCol,
     const char* acHeightName, const char* acHeightSuffix,
     const char* acImageName, const char* acImageSuffix)
 {
@@ -216,7 +216,7 @@ TerrainPagePtr Terrain::ReplacePage(int iRow, int iCol,
 
     if( 0 <= iRow && iRow < m_iRows && 0 <= iCol && iCol < m_iCols )
     {
-        TerrainPagePtr spSave = m_aaspPage[iRow][iCol];
+        SETerrainPagePtr spSave = m_aaspPage[iRow][iCol];
         LoadPage(iRow, iCol, acHeightName, acHeightSuffix, acImageName,
             acImageSuffix);
 
@@ -226,13 +226,13 @@ TerrainPagePtr Terrain::ReplacePage(int iRow, int iCol,
     return 0;
 }
 //----------------------------------------------------------------------------
-TerrainPagePtr Terrain::ReplacePage(int iRow, int iCol, TerrainPage* pNewPage)
+SETerrainPagePtr SETerrain::ReplacePage(int iRow, int iCol, SETerrainPage* pNewPage)
 {
     SE_ASSERT( 0 <= iRow && iRow < m_iRows && 0 <= iCol && iCol < m_iCols );
 
     if( 0 <= iRow && iRow < m_iRows && 0 <= iCol && iCol < m_iCols )
     {
-        TerrainPagePtr spSave = m_aaspPage[iRow][iCol];
+        SETerrainPagePtr spSave = m_aaspPage[iRow][iCol];
         m_aaspPage[iRow][iCol] = pNewPage;
 
         return spSave;
@@ -241,7 +241,7 @@ TerrainPagePtr Terrain::ReplacePage(int iRow, int iCol, TerrainPage* pNewPage)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Terrain::OnCameraMotion()
+void SETerrain::OnCameraMotion()
 {
     SE_ASSERT( m_spCamera );
 
@@ -289,7 +289,7 @@ void Terrain::OnCameraMotion()
             int iCO = iCMinO, iCP = iCMinP;
             for( int iCol = 0; iCol < m_iCols; iCol++ )
             {
-                TerrainPage* pPage = m_aaspPage[iRP][iCP];
+                SETerrainPage* pPage = m_aaspPage[iRP][iCP];
                 SEVector2f vec2fOldOrigin = pPage->GetOrigin();
                 SEVector2f vec2fNewOrigin(iCO*fLength, iRO*fLength);
                 SEVector2f vec2fTrn = vec2fNewOrigin - vec2fOldOrigin;
@@ -318,11 +318,11 @@ void Terrain::OnCameraMotion()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Terrain::Load(SEStream& rStream, SEStream::Link* pLink)
+void SETerrain::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Node::Load(rStream, pLink);
+    SENode::Load(rStream, pLink);
 
     // native data
     rStream.Read(m_iRows);
@@ -349,31 +349,31 @@ void Terrain::Load(SEStream& rStream, SEStream::Link* pLink)
         }
     }
 
-    SE_END_DEBUG_STREAM_LOAD(Terrain);
+    SE_END_DEBUG_STREAM_LOAD(SETerrain);
 }
 //----------------------------------------------------------------------------
-void Terrain::Link(SEStream& rStream, SEStream::Link* pLink)
+void SETerrain::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Node::Link(rStream, pLink);
+    SENode::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
-    m_spCamera = (Camera*)rStream.GetFromMap(pLinkID);
+    m_spCamera = (SECamera*)rStream.GetFromMap(pLinkID);
 
-    Allocate<TerrainPagePtr>(m_iCols, m_iRows, m_aaspPage);
+    Allocate<SETerrainPagePtr>(m_iCols, m_iRows, m_aaspPage);
     for( int iRow = 0; iRow < m_iRows; iRow++ )
     {
         for( int iCol = 0; iCol < m_iCols; iCol++ )
         {
             pLinkID = pLink->GetLinkID();
             m_aaspPage[iRow][iCol] =
-                (TerrainPage*)rStream.GetFromMap(pLinkID);
+                (SETerrainPage*)rStream.GetFromMap(pLinkID);
         }
     }
 }
 //----------------------------------------------------------------------------
-bool Terrain::Register(SEStream& rStream) const
+bool SETerrain::Register(SEStream& rStream) const
 {
-    if( !Node::Register(rStream) )
+    if( !SENode::Register(rStream) )
     {
         return false;
     }
@@ -394,11 +394,11 @@ bool Terrain::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Terrain::Save(SEStream& rStream) const
+void SETerrain::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Node::Save(rStream);
+    SENode::Save(rStream);
 
     // native data
     rStream.Write(m_iRows);
@@ -422,12 +422,12 @@ void Terrain::Save(SEStream& rStream) const
         }
     }
 
-    SE_END_DEBUG_STREAM_SAVE(Terrain);
+    SE_END_DEBUG_STREAM_SAVE(SETerrain);
 }
 //----------------------------------------------------------------------------
-int Terrain::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SETerrain::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Node::GetDiskUsed(rVersion) +
+    return SENode::GetDiskUsed(rVersion) +
         sizeof(m_iRows) +
         sizeof(m_iCols) +
         sizeof(m_iSize) +
@@ -442,7 +442,7 @@ int Terrain::GetDiskUsed(const SEStreamVersion& rVersion) const
         m_iRows*m_iCols*sizeof(m_aaspPage[0][0]);
 }
 //----------------------------------------------------------------------------
-SEStringTree* Terrain::SaveStrings(const char*)
+SEStringTree* SETerrain::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -460,7 +460,7 @@ SEStringTree* Terrain::SaveStrings(const char*)
     pTree->Append(Format("border color =", m_BorderColor));
 
     // children
-    pTree->Append(Node::SaveStrings());
+    pTree->Append(SENode::SaveStrings());
 
     for( int iRow = 0; iRow < m_iRows; iRow++ )
     {

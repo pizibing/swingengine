@@ -32,8 +32,8 @@
 namespace Swing
 {
 
-class Culler;
-class Light;
+class SECuller;
+class SELight;
 
 //----------------------------------------------------------------------------
 // 名称:场景视图空间节点虚基类
@@ -41,7 +41,7 @@ class Light;
 // 作者:Sun Che
 // 时间:20080707
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Spatial : public SEObject
+class SE_FOUNDATION_API SESpatial : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -49,24 +49,24 @@ class SE_FOUNDATION_API Spatial : public SEObject
 
 public:
     // 虚基类
-    virtual ~Spatial(void);
+    virtual ~SESpatial(void);
 
     // Local和World变换.
-    // 在某些情况下你也许需要跳过Spatial::UpdateGS()模块从而直接设置world变换,
+    // 某些情况下你也许需要跳过SESpatial::UpdateGS()模块从而直接设置world变换,
     // 此时应设置WorldIsCurrent为true.
     // 比如IK controller和Skin controller都需要这种能力.
-    Transformation Local;
-    Transformation World;
+    SETransformation Local;
+    SETransformation World;
     bool WorldIsCurrent;
 
     // 世界空间BV.
-    // 在某些情况下你也许需要跳过Spatial::UpdateGS()模块从而直接设置世界空间BV,
+    // 某些情况下你也许需要跳过SESpatial::UpdateGS()模块从而直接设置世界空间BV,
     // 此时应设置WorldBoundIsCurrent为true.
-    BoundingVolumePtr WorldBound;
+    SEBoundingVolumePtr WorldBound;
     bool WorldBoundIsCurrent;
 
     // 注意:
-    // Spatial不需要体现模型空间BV.
+    // SESpatial不需要体现模型空间BV.
 
     // 剔除模式
     enum CullingMode
@@ -74,11 +74,11 @@ public:
         // 根据世界空间BV与世界空间剔除平面,进行动态剔除.
         CULL_DYNAMIC,
 
-        // 强制剔除,如果是一个Node节点,则其整个子树都将被剔除.
+        // 强制剔除,如果是一个SENode节点,则其整个子树都将被剔除.
         CULL_ALWAYS,
 
-        // 强制不剔除,如果是一个Node节点,则其整个子树都不被剔除.
-        // 当首次遇到此Node节点后,bNoCull参数被设置为true,
+        // 强制不剔除,如果是一个SENode节点,则其整个子树都不被剔除.
+        // 当首次遇到此SENode节点后,bNoCull参数被设置为true,
         // 并传递给GetUnculledSet/OnGetUnculledSet AB递归链,
         // 从而使递归路径上的所有子节点都不会被剔除.
         CULL_NEVER,
@@ -88,7 +88,7 @@ public:
 
     CullingMode Culling;
 
-    // Geometric state和SEController更新入口.
+    // Geometric state和Controller更新入口.
     // UpdateGS函数向下计算每个节点的世界变换,向上计算世界BV.
     // UpdateBS函数只向上计算世界BV,当模型数据改变时,只需改变模型BV和世界BV,
     // 无需重新计算空间变换.
@@ -98,17 +98,17 @@ public:
 
     // global state
     inline int GetGlobalStateCount(void) const;
-    inline GlobalState* GetGlobalState(int i) const;
-    GlobalState* GetGlobalState(GlobalState::StateType eType) const;
-    void AttachGlobalState(GlobalState* pState);
-    void DetachGlobalState(GlobalState::StateType eType);
+    inline SEGlobalState* GetGlobalState(int i) const;
+    SEGlobalState* GetGlobalState(SEGlobalState::StateType eType) const;
+    void AttachGlobalState(SEGlobalState* pState);
+    void DetachGlobalState(SEGlobalState::StateType eType);
     inline void DetachAllGlobalStates(void);
 
     // light state
     inline int GetLightCount(void) const;
-    inline Light* GetLight(int i) const;
-    void AttachLight(Light* pLight);
-    void DetachLight(Light* pLight);
+    inline SELight* GetLight(int i) const;
+    void AttachLight(SELight* pLight);
+    void DetachLight(SELight* pLight);
     inline void DetachAllLights(void);
 
     // effect state
@@ -121,78 +121,78 @@ public:
     inline int GetStartEffect(void) const;
 
     // Render state更新入口.
-    virtual void UpdateRS(std::vector<GlobalState*>* aGStack = 0,
-        std::vector<Light*>* pLStack = 0);
+    virtual void UpdateRS(std::vector<SEGlobalState*>* aGStack = 0,
+        std::vector<SELight*>* pLStack = 0);
 
     // 访问父节点.
-    inline Spatial* GetParent(void);
+    inline SESpatial* GetParent(void);
 
     // Picking system.
-    // 每个派生自spatial类的子类都可以进一步派生出与其对应的PickRecord子类.
-    // 在这些PickRecord子类中,可加入任何派生类想要的信息,DoPick函数返回时获取.
-    // 在DoPick函数返回表示全部相交点的PickRecord数组后,
-    // 每个PickRecord的射线参数t可作为数组排序的key,从而反映出由近到远的相交顺序.
+    // 每个派生自SESpatial类的子类都可以进一步派生出与其对应的SEPickRecord子类.
+    // 在这些SEPickRecord子类中,可加入任何派生类想要的信息,DoPick函数返回时获取.
+    // 在DoPick函数返回表示全部相交点的SEPickRecord数组后,
+    // 每个SEPickRecord的射线参数t可作为数组排序的key,从而反映出由近到远的相交顺序.
     //
-    // PickRecord类本身虽然不具备SERTTI能力,
-    // 但我们可以从其成员IObject那里间接获取其SERTTI信息.
+    // SEPickRecord类本身虽然不具备RTTI能力,
+    // 但我们可以从其成员IObject那里间接获取其RTTI信息.
     // 只要我们知道了IObject的具体类型,
-    // 则该PickRecord可以被动态类型转换为对应的PickRecord派生类.
-    class SE_FOUNDATION_API PickRecord
+    // 则该SEPickRecord可以被动态类型转换为对应的SEPickRecord派生类.
+    class SE_FOUNDATION_API SEPickRecord
     {
     public:
-        virtual ~PickRecord(void);
+        virtual ~SEPickRecord(void);
 
         // 与射线相交的对象.
-        SESmartPointer<Spatial> IObject;
+        SESmartPointer<SESpatial> IObject;
 
         // 相交点处,世界射线的参数t值,非负.
         // 即,如果世界射线是P + t*D,则t >= 0.
         float T;
 
     protected:
-        PickRecord(Spatial* pIObject, float fT);
+        SEPickRecord(SESpatial* pIObject, float fT);
     };
 
-    typedef std::vector<PickRecord*> PickArray;
+    typedef std::vector<SEPickRecord*> PickArray;
 
     // 射线的原点和方向向量都必须在世界坐标系下.
     // 应用程序不能释放PickArray中的所有pick record,
     // 因为这些pick record来自于全局内存池的堆内存.
     virtual void DoPick(const SERay3f& rRay, PickArray& rResults);
 
-    static PickRecord* GetClosest(PickArray& rResults);
+    static SEPickRecord* GetClosest(PickArray& rResults);
 
 protected:
-    Spatial(void);
+    SESpatial(void);
 
     // 几何数据更新.
-    virtual void UpdateWorldData(double dAppTime); // 派生类Node实现向下进行AB递归
+    virtual void UpdateWorldData(double dAppTime); // 派生类SENode实现向下进行AB递归
     virtual void UpdateWorldBound(void) = 0; // 向上计算世界空间BV,派生类实现具体行为
     void PropagateBoundToRoot(void);
 
     // 渲染状态更新.
-    void PropagateStateFromRoot(std::vector<GlobalState*>* aGStack,
-        std::vector<Light*>* pLStack);
-    void PushState(std::vector<GlobalState*>* aGStack,
-        std::vector<Light*>* pLStack);
-    void PopState(std::vector<GlobalState*>* aGStack,
-        std::vector<Light*>* pLStack);
-    // 派生类Node实现向下进行AB递归,
-    // 派生类Geometry实现收集最终渲染状态.
-    virtual void UpdateState(std::vector<GlobalState*>* aGStack,
-        std::vector<Light*>* pLStack) = 0;
+    void PropagateStateFromRoot(std::vector<SEGlobalState*>* aGStack,
+        std::vector<SELight*>* pLStack);
+    void PushState(std::vector<SEGlobalState*>* aGStack,
+        std::vector<SELight*>* pLStack);
+    void PopState(std::vector<SEGlobalState*>* aGStack,
+        std::vector<SELight*>* pLStack);
+    // 派生类SENode实现向下进行AB递归,
+    // 派生类SEGeometry实现收集最终渲染状态.
+    virtual void UpdateState(std::vector<SEGlobalState*>* aGStack,
+        std::vector<SELight*>* pLStack) = 0;
 
-    Spatial* m_pParent;
+    SESpatial* m_pParent;
 
     // 全局渲染状态数组.
-    std::vector<GlobalStatePtr> m_GlobalStates;
+    std::vector<SEGlobalStatePtr> m_GlobalStates;
 
     // 灯光数组.
     std::vector<SEObjectPtr> m_Lights; // 使用SEObjectPtr避免头文件互相包含依赖
 
     // effect数组.
-    // 赋予Geometry对象时,单独作用于该对象,
-    // 赋予Node对象时,作用于该Node子树所有Geometry对象.
+    // 赋予SEGeometry对象时,单独作用于该对象,
+    // 赋予SENode对象时,作用于该SENode子树所有SEGeometry对象.
     std::vector<EffectPtr> m_Effects;
 
     // 通常情况下,所有依附于对象的effect都将被应用于该对象.
@@ -210,14 +210,14 @@ private:
 
 // 内部使用
 public:
-    inline void SetParent(Spatial* pParent);
+    inline void SetParent(SESpatial* pParent);
 
     // 剔除系统的AB递归函数.
-    void OnGetUnculledSet(Culler& rCuller, bool bNoCull);
-    virtual void GetUnculledSet(Culler& rCuller, bool bNoCull) = 0;
+    void OnGetUnculledSet(SECuller& rCuller, bool bNoCull);
+    virtual void GetUnculledSet(SECuller& rCuller, bool bNoCull) = 0;
 };
 
-typedef SESmartPointer<Spatial> SpatialPtr;
+typedef SESmartPointer<SESpatial> SpatialPtr;
 
 #include "SESpatial.inl"
 

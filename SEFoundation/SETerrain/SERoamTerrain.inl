@@ -19,72 +19,72 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int RoamTerrain::GetRowCount() const
+inline int SERoamTerrain::GetRowCount() const
 {
     return m_iRows;
 }
 //----------------------------------------------------------------------------
-inline int RoamTerrain::GetColCount() const
+inline int SERoamTerrain::GetColCount() const
 {
     return m_iCols;
 }
 //----------------------------------------------------------------------------
-inline int RoamTerrain::GetSize() const
+inline int SERoamTerrain::GetSize() const
 {
     return m_iSize;
 }
 //----------------------------------------------------------------------------
-inline float RoamTerrain::GetMinElevation() const
+inline float SERoamTerrain::GetMinElevation() const
 {
     return m_fMinElevation;
 }
 //----------------------------------------------------------------------------
-inline float RoamTerrain::GetMaxElevation() const
+inline float SERoamTerrain::GetMaxElevation() const
 {
     return m_fMaxElevation;
 }
 //----------------------------------------------------------------------------
-inline float RoamTerrain::GetSpacing() const
+inline float SERoamTerrain::GetSpacing() const
 {
     return m_fSpacing;
 }
 //----------------------------------------------------------------------------
-inline float& RoamTerrain::UVBias()
+inline float& SERoamTerrain::UVBias()
 {
     return m_fUVBias;
 }
 //----------------------------------------------------------------------------
-inline SEColorRGBA& RoamTerrain::BorderColor()
+inline SEColorRGBA& SERoamTerrain::BorderColor()
 {
     return m_BorderColor;
 }
 //----------------------------------------------------------------------------
-inline int RoamTerrain::GetPoolSize(void) const
+inline int SERoamTerrain::GetPoolSize(void) const
 {
     return m_iPoolSize;
 }
 //----------------------------------------------------------------------------
-inline int RoamTerrain::GetPatchSize(void) const
+inline int SERoamTerrain::GetPatchSize(void) const
 {
     return m_iPatchSize;
 }
 //----------------------------------------------------------------------------
-inline int RoamTerrain::GetSplitLevel(void) const
+inline int SERoamTerrain::GetSplitLevel(void) const
 {
     return m_iSplitLevel;
 }
 //----------------------------------------------------------------------------
-inline int RoamTerrain::GetVarianceLevel(void) const
+inline int SERoamTerrain::GetVarianceLevel(void) const
 {
     return m_iVarianceLevel;
 }
 //----------------------------------------------------------------------------
-inline bool RoamTerrain::GetLod() const
+inline bool SERoamTerrain::GetLod() const
 {
     return m_bLod;
 }
 //----------------------------------------------------------------------------
-inline void RoamTerrain::SetCamera(Camera* pCamera)
+inline void SERoamTerrain::SetCamera(SECamera* pCamera)
 {
     m_spCamera = pCamera;
 }

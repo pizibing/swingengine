@@ -35,8 +35,8 @@ DefaultMRT3Effect::DefaultMRT3Effect(const std::string& rBaseName)
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("Texture.v_Texture");
-    m_PShader[0] = SE_NEW PixelShader("DefaultMRT3.p_DefaultMRT3");
+    m_VShader[0] = SE_NEW SEVertexShader("SETexture.v_Texture");
+    m_PShader[0] = SE_NEW SEPixelShader("DefaultMRT3.p_DefaultMRT3");
 
     m_PShader[0]->SetTextureCount(1);
     m_PShader[0]->SetImageName(0, rBaseName);

@@ -35,8 +35,8 @@ DefaultShaderEffect::DefaultShaderEffect()
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("Default.v_Default");
-    m_PShader[0] = SE_NEW PixelShader("Default.p_Default");
+    m_VShader[0] = SE_NEW SEVertexShader("Default.v_Default");
+    m_PShader[0] = SE_NEW SEPixelShader("Default.p_Default");
 }
 //----------------------------------------------------------------------------
 DefaultShaderEffect::~DefaultShaderEffect()

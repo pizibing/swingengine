@@ -37,9 +37,9 @@ MaterialTexture2L1Effect::MaterialTexture2L1Effect(const std::string& rT0,
     ShaderEffect(1)
 {
     m_VShader[0] = 
-        SE_NEW VertexShader("MaterialTexture2L1.v_MaterialTexture2L1");
+        SE_NEW SEVertexShader("MaterialTexture2L1.v_MaterialTexture2L1");
     m_PShader[0] = 
-        SE_NEW PixelShader("MaterialTexture2L1.p_MaterialTexture2L1");
+        SE_NEW SEPixelShader("MaterialTexture2L1.p_MaterialTexture2L1");
 
     m_PShader[0]->SetTextureCount(2);
     m_PShader[0]->SetImageName(0, rT0);

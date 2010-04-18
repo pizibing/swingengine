@@ -24,41 +24,41 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Shader, SEObject);
-SE_IMPLEMENT_ABSTRACT_STREAM(Shader);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Shader, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEShader, SEObject);
+SE_IMPLEMENT_ABSTRACT_STREAM(SEShader);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEShader, SEObject);
 
-//SE_REGISTER_STREAM(Shader);
+//SE_REGISTER_STREAM(SEShader);
 
 //----------------------------------------------------------------------------
-Shader::Shader()
+SEShader::SEShader()
 {
 }
 //----------------------------------------------------------------------------
-Shader::Shader(const std::string& rShaderName)
+SEShader::SEShader(const std::string& rShaderName)
     :
     m_ShaderName(rShaderName)
 {
 }
 //----------------------------------------------------------------------------
-Shader::~Shader()
+SEShader::~SEShader()
 {
 }
 //----------------------------------------------------------------------------
-void Shader::SetTextureCount(int iCount)
+void SEShader::SetTextureCount(int iCount)
 {
     m_Textures.clear();
     m_Textures.resize(iCount);
     for( int i = 0; i < iCount; i++ )
     {
-        m_Textures[i] = SE_NEW Texture;
+        m_Textures[i] = SE_NEW SETexture;
     }
 
     m_ImageNames.clear();
     m_ImageNames.resize(iCount);
 }
 //----------------------------------------------------------------------------
-Texture* Shader::GetTexture(int i)
+SETexture* SEShader::GetTexture(int i)
 {
     if( 0 <= i && i < (int)m_Textures.size() )
     {
@@ -68,7 +68,7 @@ Texture* Shader::GetTexture(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-Texture* Shader::GetTexture(const std::string& rName)
+SETexture* SEShader::GetTexture(const std::string& rName)
 {
     for( int i = 0; i < (int)m_Textures.size(); i++ )
     {
@@ -81,7 +81,7 @@ Texture* Shader::GetTexture(const std::string& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-const Texture* Shader::GetTexture(int i) const
+const SETexture* SEShader::GetTexture(int i) const
 {
     if( 0 <= i && i < (int)m_Textures.size() )
     {
@@ -91,7 +91,7 @@ const Texture* Shader::GetTexture(int i) const
     return 0;
 }
 //----------------------------------------------------------------------------
-const Texture* Shader::GetTexture(const std::string& rName) const
+const SETexture* SEShader::GetTexture(const std::string& rName) const
 {
     for( int i = 0; i < (int)m_Textures.size(); i++ )
     {
@@ -104,7 +104,7 @@ const Texture* Shader::GetTexture(const std::string& rName) const
     return 0;
 }
 //----------------------------------------------------------------------------
-void Shader::SetTexture(int i, Texture* pTexture)
+void SEShader::SetTexture(int i, SETexture* pTexture)
 {
     if( 0 <= i && i < (int)m_Textures.size() )
     {
@@ -117,7 +117,7 @@ void Shader::SetTexture(int i, Texture* pTexture)
     }
 }
 //----------------------------------------------------------------------------
-void Shader::SetImageName(int i, const std::string& rName)
+void SEShader::SetImageName(int i, const std::string& rName)
 {
     int iCount = (int)m_ImageNames.size();
     if( i >= iCount )
@@ -128,14 +128,14 @@ void Shader::SetImageName(int i, const std::string& rName)
     m_ImageNames[i] = rName;
 }
 //----------------------------------------------------------------------------
-const std::string& Shader::GetImageName(int i) const
+const std::string& SEShader::GetImageName(int i) const
 {
     SE_ASSERT( 0 <= i && i < (int)m_ImageNames.size() );
 
     return m_ImageNames[i];
 }
 //----------------------------------------------------------------------------
-void Shader::OnLoadProgram(Program* pProgram)
+void SEShader::OnLoadProgram(SEProgram* pProgram)
 {
     SE_ASSERT( !m_spProgram && pProgram );
 
@@ -150,13 +150,13 @@ void Shader::OnLoadProgram(Program* pProgram)
     for( int i = 0; i < iSICount; i++ )
     {
         // 之前必须已经通过SetImageName函数设置过image名字.
-        Image* pImage = ImageCatalog::GetActive()->Find(m_ImageNames[i]);
+        SEImage* pImage = SEImageCatalog::GetActive()->Find(m_ImageNames[i]);
 
         SE_ASSERT( pImage );
 
         if( !m_Textures[i] )
         {
-            m_Textures[i] = SE_NEW Texture(pImage);
+            m_Textures[i] = SE_NEW SETexture(pImage);
         }
         else
         {
@@ -165,7 +165,7 @@ void Shader::OnLoadProgram(Program* pProgram)
     }
 }
 //----------------------------------------------------------------------------
-void Shader::OnReleaseProgram()
+void SEShader::OnReleaseProgram()
 {
     // 这里只释放shader程序.
     // 稍后shader自身析构时,如果texture image存在,则将会自动释放,
@@ -179,7 +179,7 @@ void Shader::OnReleaseProgram()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Shader::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEShader::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -213,24 +213,24 @@ void Shader::Load(SEStream& rStream, SEStream::Link* pLink)
     // The data members m_spProgram and m_UserData are both set during
     // resource loading at program runtime.
 
-    SE_END_DEBUG_STREAM_LOAD(Shader);
+    SE_END_DEBUG_STREAM_LOAD(SEShader);
 }
 //----------------------------------------------------------------------------
-void Shader::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEShader::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     SEObject::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
-    m_spInterfaces = (InterfaceDescriptor*)rStream.GetFromMap(pLinkID);
+    m_spInterfaces = (SEInterfaceDescriptor*)rStream.GetFromMap(pLinkID);
 
     for( int i = 0; i < (int)m_Textures.size(); i++ )
     {
         pLinkID = pLink->GetLinkID();
-        m_Textures[i] = (Texture*)rStream.GetFromMap(pLinkID);
+        m_Textures[i] = (SETexture*)rStream.GetFromMap(pLinkID);
     }
 }
 //----------------------------------------------------------------------------
-bool Shader::Register(SEStream& rStream) const
+bool SEShader::Register(SEStream& rStream) const
 {
     if( !SEObject::Register(rStream) )
     {
@@ -253,7 +253,7 @@ bool Shader::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Shader::Save(SEStream& rStream) const
+void SEShader::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -283,10 +283,10 @@ void Shader::Save(SEStream& rStream) const
     // The data members m_spProgram and m_UserData are both set during
     // resource loading at program runtime.
 
-    SE_END_DEBUG_STREAM_SAVE(Shader);
+    SE_END_DEBUG_STREAM_SAVE(SEShader);
 }
 //----------------------------------------------------------------------------
-int Shader::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEShader::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     int iSize = SEObject::GetDiskUsed(rVersion) +
         sizeof(int) + (int)m_ShaderName.length() + sizeof(m_spInterfaces);
@@ -305,7 +305,7 @@ int Shader::GetDiskUsed(const SEStreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-SEStringTree* Shader::SaveStrings(const char*)
+SEStringTree* SEShader::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 

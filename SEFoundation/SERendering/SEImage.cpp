@@ -26,13 +26,13 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Image, SEObject);
-SE_IMPLEMENT_STREAM(Image);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Image, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEImage, SEObject);
+SE_IMPLEMENT_STREAM(SEImage);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEImage, SEObject);
 
-//SE_REGISTER_STREAM(Image);
+//SE_REGISTER_STREAM(SEImage);
 
-int Image::ms_BytesPerPixel[Image::IT_COUNT] =
+int SEImage::ms_BytesPerPixel[SEImage::IT_COUNT] =
 {
     3,  // IT_RGB888
     4,  // IT_RGBA8888
@@ -53,7 +53,7 @@ int Image::ms_BytesPerPixel[Image::IT_COUNT] =
     2   // IT_RGBA4444
 };
 
-std::string Image::ms_FormatName[Image::IT_COUNT] =
+std::string SEImage::ms_FormatName[SEImage::IT_COUNT] =
 {
     "IT_RGB888",
     "IT_RGBA8888",
@@ -75,7 +75,7 @@ std::string Image::ms_FormatName[Image::IT_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-Image::Image(FormatMode eFormat, int iBound0, unsigned char* pData,
+SEImage::SEImage(FormatMode eFormat, int iBound0, unsigned char* pData,
     const char* pImageName, bool bInsert)
 {
     // 20090305更新.
@@ -93,11 +93,11 @@ Image::Image(FormatMode eFormat, int iBound0, unsigned char* pData,
     m_bIsInCatalog = bInsert;
     if( bInsert )
     {
-        ImageCatalog::GetActive()->Insert(this);
+        SEImageCatalog::GetActive()->Insert(this);
     }
 }
 //----------------------------------------------------------------------------
-Image::Image(FormatMode eFormat, int iBound0, int iBound1,
+SEImage::SEImage(FormatMode eFormat, int iBound0, int iBound1,
     unsigned char* pData, const char* pImageName, bool bInsert)
 {
     // 20090305更新.
@@ -116,11 +116,11 @@ Image::Image(FormatMode eFormat, int iBound0, int iBound1,
     m_bIsInCatalog = bInsert;
     if( bInsert )
     {
-        ImageCatalog::GetActive()->Insert(this);
+        SEImageCatalog::GetActive()->Insert(this);
     }
 }
 //----------------------------------------------------------------------------
-Image::Image(FormatMode eFormat, int iBound0, int iBound1, int iBound2,
+SEImage::SEImage(FormatMode eFormat, int iBound0, int iBound1, int iBound2,
     unsigned char* pData, const char* pImageName, bool bInsert)
 {
     // 20090305更新.
@@ -140,11 +140,11 @@ Image::Image(FormatMode eFormat, int iBound0, int iBound1, int iBound2,
     m_bIsInCatalog = bInsert;
     if( bInsert )
     {
-        ImageCatalog::GetActive()->Insert(this);
+        SEImageCatalog::GetActive()->Insert(this);
     }
 }
 //----------------------------------------------------------------------------
-Image::Image()
+SEImage::SEImage()
 {
     m_eFormat = IT_COUNT;
     m_iDimension = 0;
@@ -155,16 +155,16 @@ Image::Image()
     m_pData = 0;
 }
 //----------------------------------------------------------------------------
-Image::~Image()
+SEImage::~SEImage()
 {
     SE_DELETE[] m_pData;
     if( m_bIsInCatalog )
     {
-        ImageCatalog::GetActive()->Remove(this);
+        SEImageCatalog::GetActive()->Remove(this);
     }
 }
 //----------------------------------------------------------------------------
-SEColorRGBA* Image::CreateRGBA() const
+SEColorRGBA* SEImage::CreateRGBA() const
 {
     if( !IsCubeImage() )
     {
@@ -178,7 +178,7 @@ SEColorRGBA* Image::CreateRGBA() const
     return 0;
 }
 //----------------------------------------------------------------------------
-void Image::CopyRGBA(SEColorRGBA* pColorImage) const
+void SEImage::CopyRGBA(SEColorRGBA* pColorImage) const
 {
     const float fInv255 = 1.0f / 255.0f;
     SEColorRGBA* pColorValue;
@@ -230,7 +230,7 @@ void Image::CopyRGBA(SEColorRGBA* pColorImage) const
     }
 }
 //----------------------------------------------------------------------------
-Image* Image::Load(const char* pImageName)
+SEImage* SEImage::Load(const char* pImageName)
 {
     SE_ASSERT( pImageName );
 
@@ -299,18 +299,18 @@ Image* Image::Load(const char* pImageName)
     unsigned char* pData = SE_NEW unsigned char[iDataSize];
     SESystem::SE_Read1(pcCurrent, iDataSize, pData);
 
-    Image* pImage = 0;
+    SEImage* pImage = 0;
     switch( iDimension )
     {
     case 1:
-        pImage = SE_NEW Image(eFormat, aiBound[0], pData, pImageName);
+        pImage = SE_NEW SEImage(eFormat, aiBound[0], pData, pImageName);
         break;
     case 2:
-        pImage = SE_NEW Image(eFormat, aiBound[0], aiBound[1], pData,
+        pImage = SE_NEW SEImage(eFormat, aiBound[0], aiBound[1], pData,
             pImageName);
         break;
     case 3:
-        pImage = SE_NEW Image(eFormat, aiBound[0], aiBound[1], aiBound[2],
+        pImage = SE_NEW SEImage(eFormat, aiBound[0], aiBound[1], aiBound[2],
             pData, pImageName);
         break;
     default:
@@ -322,7 +322,7 @@ Image* Image::Load(const char* pImageName)
     return pImage;
 }
 //----------------------------------------------------------------------------
-bool Image::Save(const char* pFileName)
+bool SEImage::Save(const char* pFileName)
 {
     if( !pFileName )
     {
@@ -355,7 +355,7 @@ bool Image::Save(const char* pFileName)
     return true;
 }
 //----------------------------------------------------------------------------
-Image* Image::GenerateRandomImage(FormatMode eFormat, int iBound0, 
+SEImage* SEImage::GenerateRandomImage(FormatMode eFormat, int iBound0, 
     int iBound1, unsigned int uiSeed, const char* acImageName, bool bInsert)
 {
     //SE_ASSERT( IsPowerOfTwo((unsigned int)iBound0)
@@ -364,7 +364,7 @@ Image* Image::GenerateRandomImage(FormatMode eFormat, int iBound0,
 
     // 待实现.
     // 当前只支持IT_RGBA8888格式.
-    eFormat = Image::IT_RGBA8888;
+    eFormat = SEImage::IT_RGBA8888;
     int iDataSize = iBound0 * iBound1 * ms_BytesPerPixel[eFormat];
 
     unsigned char* aucData = SE_NEW unsigned char[iDataSize];
@@ -390,13 +390,13 @@ Image* Image::GenerateRandomImage(FormatMode eFormat, int iBound0,
         *pucData++ = (unsigned char)iB;
         *pucData++ = (unsigned char)iA;
     }
-    Image* pImage = SE_NEW Image(Image::IT_RGBA8888, iBound0, iBound1,
+    SEImage* pImage = SE_NEW SEImage(SEImage::IT_RGBA8888, iBound0, iBound1,
         aucData, acImageName, bInsert);
 
     return pImage;
 }
 //----------------------------------------------------------------------------
-Image* Image::GenerateColorImage(FormatMode eFormat, int iBound0, int iBound1,
+SEImage* SEImage::GenerateColorImage(FormatMode eFormat, int iBound0, int iBound1,
     const SEColorRGBA& rColor, const char* acImageName, bool bInsert)
 {
     //SE_ASSERT( IsPowerOfTwo((unsigned int)iBound0)
@@ -405,7 +405,7 @@ Image* Image::GenerateColorImage(FormatMode eFormat, int iBound0, int iBound1,
 
     // 待实现.
     // 当前只支持IT_RGBA8888,IT_R32格式.
-    SE_ASSERT( eFormat == Image::IT_RGBA8888 || eFormat == Image::IT_R32 ); 
+    SE_ASSERT( eFormat == SEImage::IT_RGBA8888 || eFormat == SEImage::IT_R32 ); 
     int iDataSize = iBound0 * iBound1 * ms_BytesPerPixel[eFormat];
 
     unsigned char* aucData = SE_NEW unsigned char[iDataSize];
@@ -421,7 +421,7 @@ Image* Image::GenerateColorImage(FormatMode eFormat, int iBound0, int iBound1,
         *pucData++ = (unsigned char)iB;
         *pucData++ = (unsigned char)iA;
     }
-    Image* pImage = SE_NEW Image(eFormat, iBound0, iBound1,
+    SEImage* pImage = SE_NEW SEImage(eFormat, iBound0, iBound1,
         aucData, acImageName, bInsert);
 
     return pImage;
@@ -431,7 +431,7 @@ Image* Image::GenerateColorImage(FormatMode eFormat, int iBound0, int iBound1,
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Image::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEImage::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -481,22 +481,22 @@ void Image::Load(SEStream& rStream, SEStream::Link* pLink)
     }
 
     m_bIsInCatalog = true;
-    ImageCatalog::GetActive()->Insert(this);
+    SEImageCatalog::GetActive()->Insert(this);
 
-    SE_END_DEBUG_STREAM_LOAD(Image);
+    SE_END_DEBUG_STREAM_LOAD(SEImage);
 }
 //----------------------------------------------------------------------------
-void Image::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEImage::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Image::Register(SEStream& rStream) const
+bool SEImage::Register(SEStream& rStream) const
 {
     return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Image::Save(SEStream& rStream) const
+void SEImage::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -525,10 +525,10 @@ void Image::Save(SEStream& rStream) const
     int iBytes = ms_BytesPerPixel[m_eFormat]*m_iCount;
     rStream.Write(iBytes, m_pData);
 
-    SE_END_DEBUG_STREAM_SAVE(Image);
+    SE_END_DEBUG_STREAM_SAVE(SEImage);
 }
 //----------------------------------------------------------------------------
-int Image::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEImage::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     int iSize = SEObject::GetDiskUsed(rVersion) +
         sizeof(int); // m_eFormat
@@ -564,7 +564,7 @@ int Image::GetDiskUsed(const SEStreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-SEStringTree* Image::SaveStrings(const char*)
+SEStringTree* SEImage::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 

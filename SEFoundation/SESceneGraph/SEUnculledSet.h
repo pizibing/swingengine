@@ -34,18 +34,18 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080707
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API UnculledSet
+class SE_FOUNDATION_API SEUnculledSet
 {
 public:
-    UnculledSet(int iMaxCount = 0, int iGrowBy = 0);
-    virtual ~UnculledSet(void);
+    SEUnculledSet(int iMaxCount = 0, int iGrowBy = 0);
+    virtual ~SEUnculledSet(void);
 
     inline int GetCount(void) const;
-    inline UnculledObject* GetUnculled(void);
-    inline UnculledObject& GetUnculled(int i);
+    inline SEUnculledObject* GetUnculled(void);
+    inline SEUnculledObject& GetUnculled(int i);
 
-    // 根据输入数据创建一个UnculledObject并放在可见对象集合尾部
-    void Insert(Spatial* pObject, Effect* pGlobalEffect);
+    // 根据输入数据创建一个SEUnculledObject并放在可见对象集合尾部
+    void Insert(SESpatial* pObject, Effect* pGlobalEffect);
     // 并不释放已分配数据
     inline void Clear(void);
     void Resize(int iMaxCount, int iGrowBy);
@@ -58,7 +58,7 @@ private:
     };
 
     int m_iMaxCount, m_iGrowBy, m_iCount;
-    UnculledObject* m_pUnculled;
+    SEUnculledObject* m_pUnculled;
 };
 
 #include "SEUnculledSet.inl"

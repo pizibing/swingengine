@@ -63,138 +63,138 @@ void MaterialEffect::SetPassCount(int iPassCount)
     }
 }
 //----------------------------------------------------------------------------
-void MaterialEffect::SetGlobalState(int iPass, Renderer* pRenderer,
+void MaterialEffect::SetGlobalState(int iPass, SERenderer* pRenderer,
         bool bPrimaryEffect)
 {
     ShaderEffect::SetGlobalState(iPass, pRenderer, bPrimaryEffect);
 
     if( m_MaterialState[iPass] )
     {
-        GlobalState* pState = m_MaterialState[iPass];
-        MaterialStatePtr spSave = pRenderer->GetMaterialState();
-        pRenderer->SetMaterialState((MaterialState*)pState);
+        SEGlobalState* pState = m_MaterialState[iPass];
+        SEMaterialStatePtr spSave = pRenderer->GetMaterialState();
+        pRenderer->SetMaterialState((SEMaterialState*)pState);
         m_MaterialState[iPass] = spSave;
     }
 
     if( m_CullState[iPass] )
     {
-        GlobalState* pState = m_CullState[iPass];
-        CullStatePtr spSave = pRenderer->GetCullState();
-        pRenderer->SetCullState((CullState*)pState);
+        SEGlobalState* pState = m_CullState[iPass];
+        SECullStatePtr spSave = pRenderer->GetCullState();
+        pRenderer->SetCullState((SECullState*)pState);
         m_CullState[iPass] = spSave;
     }
 
     if( m_PolygonOffsetState[iPass] )
     {
-        GlobalState* pState = m_PolygonOffsetState[iPass];
-        PolygonOffsetStatePtr spSave = pRenderer->GetPolygonOffsetState();
-        pRenderer->SetPolygonOffsetState((PolygonOffsetState*)pState);
+        SEGlobalState* pState = m_PolygonOffsetState[iPass];
+        SEPolygonOffsetStatePtr spSave = pRenderer->GetPolygonOffsetState();
+        pRenderer->SetPolygonOffsetState((SEPolygonOffsetState*)pState);
         m_PolygonOffsetState[iPass] = spSave;
     }
 
     if( m_WireframeState[iPass] )
     {
-        GlobalState* pState = m_WireframeState[iPass];
-        WireframeStatePtr spSave = pRenderer->GetWireframeState();
-        pRenderer->SetWireframeState((WireframeState*)pState);
+        SEGlobalState* pState = m_WireframeState[iPass];
+        SEWireframeStatePtr spSave = pRenderer->GetWireframeState();
+        pRenderer->SetWireframeState((SEWireframeState*)pState);
         m_WireframeState[iPass] = spSave;
     }
 
     if( m_StencilState[iPass] )
     {
-        GlobalState* pState = m_StencilState[iPass];
-        StencilStatePtr spSave = pRenderer->GetStencilState();
-        pRenderer->SetStencilState((StencilState*)pState);
+        SEGlobalState* pState = m_StencilState[iPass];
+        SEStencilStatePtr spSave = pRenderer->GetStencilState();
+        pRenderer->SetStencilState((SEStencilState*)pState);
         m_StencilState[iPass] = spSave;
     }
 
     if( m_ZBufferState[iPass] )
     {
-        GlobalState* pState = m_ZBufferState[iPass];
-        ZBufferStatePtr spSave = pRenderer->GetZBufferState();
-        pRenderer->SetZBufferState((ZBufferState*)pState);
+        SEGlobalState* pState = m_ZBufferState[iPass];
+        SEZBufferStatePtr spSave = pRenderer->GetZBufferState();
+        pRenderer->SetZBufferState((SEZBufferState*)pState);
         m_ZBufferState[iPass] = spSave;
     }
 }
 //----------------------------------------------------------------------------
-void MaterialEffect::RestoreGlobalState(int iPass, Renderer* pRenderer,
+void MaterialEffect::RestoreGlobalState(int iPass, SERenderer* pRenderer,
         bool bPrimaryEffect)
 {
     ShaderEffect::RestoreGlobalState(iPass, pRenderer, bPrimaryEffect);
 
     if( m_MaterialState[iPass] )
     {
-        GlobalState* pState = m_MaterialState[iPass];
-        MaterialStatePtr spSave = pRenderer->GetMaterialState();
-        pRenderer->SetMaterialState((MaterialState*)pState);
+        SEGlobalState* pState = m_MaterialState[iPass];
+        SEMaterialStatePtr spSave = pRenderer->GetMaterialState();
+        pRenderer->SetMaterialState((SEMaterialState*)pState);
         m_MaterialState[iPass] = spSave;
     }
 
     if( m_CullState[iPass] )
     {
-        GlobalState* pState = m_CullState[iPass];
-        CullStatePtr spSave = pRenderer->GetCullState();
-        pRenderer->SetCullState((CullState*)pState);
+        SEGlobalState* pState = m_CullState[iPass];
+        SECullStatePtr spSave = pRenderer->GetCullState();
+        pRenderer->SetCullState((SECullState*)pState);
         m_CullState[iPass] = spSave;
     }
 
     if( m_PolygonOffsetState[iPass] )
     {
-        GlobalState* pState = m_PolygonOffsetState[iPass];
-        PolygonOffsetStatePtr spSave = pRenderer->GetPolygonOffsetState();
-        pRenderer->SetPolygonOffsetState((PolygonOffsetState*)pState);
+        SEGlobalState* pState = m_PolygonOffsetState[iPass];
+        SEPolygonOffsetStatePtr spSave = pRenderer->GetPolygonOffsetState();
+        pRenderer->SetPolygonOffsetState((SEPolygonOffsetState*)pState);
         m_PolygonOffsetState[iPass] = spSave;
     }
 
     if( m_WireframeState[iPass] )
     {
-        GlobalState* pState = m_WireframeState[iPass];
-        WireframeStatePtr spSave = pRenderer->GetWireframeState();
-        pRenderer->SetWireframeState((WireframeState*)pState);
+        SEGlobalState* pState = m_WireframeState[iPass];
+        SEWireframeStatePtr spSave = pRenderer->GetWireframeState();
+        pRenderer->SetWireframeState((SEWireframeState*)pState);
         m_WireframeState[iPass] = spSave;
     }
 
     if( m_StencilState[iPass] )
     {
-        GlobalState* pState = m_StencilState[iPass];
-        StencilStatePtr spSave = pRenderer->GetStencilState();
-        pRenderer->SetStencilState((StencilState*)pState);
+        SEGlobalState* pState = m_StencilState[iPass];
+        SEStencilStatePtr spSave = pRenderer->GetStencilState();
+        pRenderer->SetStencilState((SEStencilState*)pState);
         m_StencilState[iPass] = spSave;
     }
 
     if( m_ZBufferState[iPass] )
     {
-        GlobalState* pState = m_ZBufferState[iPass];
-        ZBufferStatePtr spSave = pRenderer->GetZBufferState();
-        pRenderer->SetZBufferState((ZBufferState*)pState);
+        SEGlobalState* pState = m_ZBufferState[iPass];
+        SEZBufferStatePtr spSave = pRenderer->GetZBufferState();
+        pRenderer->SetZBufferState((SEZBufferState*)pState);
         m_ZBufferState[iPass] = spSave;
     }
 }
 //----------------------------------------------------------------------------
-void MaterialEffect::AttachPassGlobalState(int iPass, GlobalState* pState)
+void MaterialEffect::AttachPassGlobalState(int iPass, SEGlobalState* pState)
 {
     SE_ASSERT( iPass >= 0 && iPass < m_iPassCount );
     SE_ASSERT( pState );
 
-    GlobalState::StateType eType = pState->GetStateType();
+    SEGlobalState::StateType eType = pState->GetStateType();
     switch( eType )
     {
-    case GlobalState::MATERIAL:
+    case SEGlobalState::MATERIAL:
         m_MaterialState[iPass] = pState;
         break;
-    case GlobalState::CULL:
+    case SEGlobalState::CULL:
         m_CullState[iPass] = pState;
         break;
-    case GlobalState::POLYGONOFFSET:
+    case SEGlobalState::POLYGONOFFSET:
         m_PolygonOffsetState[iPass] = pState;
         break;
-    case GlobalState::WIREFRAME:
+    case SEGlobalState::WIREFRAME:
         m_WireframeState[iPass] = pState;
         break;
-    case GlobalState::STENCIL:
+    case SEGlobalState::STENCIL:
         m_StencilState[iPass] = pState;
         break;
-    case GlobalState::ZBUFFER:
+    case SEGlobalState::ZBUFFER:
         m_ZBufferState[iPass] = pState;
         break;
     default:
@@ -203,28 +203,28 @@ void MaterialEffect::AttachPassGlobalState(int iPass, GlobalState* pState)
 }
 //----------------------------------------------------------------------------
 void MaterialEffect::DetachPassGlobalState(int iPass, 
-    GlobalState::StateType eType)
+    SEGlobalState::StateType eType)
 {
     SE_ASSERT( iPass >= 0 && iPass < m_iPassCount );
 
     switch( eType )
     {
-    case GlobalState::MATERIAL:
+    case SEGlobalState::MATERIAL:
         m_MaterialState[iPass] = 0;
         break;
-    case GlobalState::CULL:
+    case SEGlobalState::CULL:
         m_CullState[iPass] = 0;
         break;
-    case GlobalState::POLYGONOFFSET:
+    case SEGlobalState::POLYGONOFFSET:
         m_PolygonOffsetState[iPass] = 0;
         break;
-    case GlobalState::WIREFRAME:
+    case SEGlobalState::WIREFRAME:
         m_WireframeState[iPass] = 0;
         break;
-    case GlobalState::STENCIL:
+    case SEGlobalState::STENCIL:
         m_StencilState[iPass] = 0;
         break;
-    case GlobalState::ZBUFFER:
+    case SEGlobalState::ZBUFFER:
         m_ZBufferState[iPass] = 0;
         break;
     default:
@@ -232,29 +232,29 @@ void MaterialEffect::DetachPassGlobalState(int iPass,
     }
 }
 //----------------------------------------------------------------------------
-GlobalState* MaterialEffect::GetPassGlobalState(int iPass, 
-    GlobalState::StateType eType) const
+SEGlobalState* MaterialEffect::GetPassGlobalState(int iPass, 
+    SEGlobalState::StateType eType) const
 {
     SE_ASSERT( iPass >= 0 && iPass < m_iPassCount );
 
     switch( eType )
     {
-    case GlobalState::MATERIAL:
+    case SEGlobalState::MATERIAL:
         return m_MaterialState[iPass];
 
-    case GlobalState::CULL:
+    case SEGlobalState::CULL:
         return m_CullState[iPass];
 
-    case GlobalState::POLYGONOFFSET:
+    case SEGlobalState::POLYGONOFFSET:
         return m_PolygonOffsetState[iPass];
 
-    case GlobalState::WIREFRAME:
+    case SEGlobalState::WIREFRAME:
         return m_WireframeState[iPass];
 
-    case GlobalState::STENCIL:
+    case SEGlobalState::STENCIL:
         return m_StencilState[iPass];
 
-    case GlobalState::ZBUFFER:
+    case SEGlobalState::ZBUFFER:
         return m_ZBufferState[iPass];
 
     default:
@@ -266,8 +266,8 @@ void MaterialEffect::ConfigureShader()
 {
     for( int i = 0; i < m_iPassCount; i++ )
     {
-        m_VShader[i] = SE_NEW VertexShader("IMaterial.v_Material");
-        m_PShader[i] = SE_NEW PixelShader("IMaterial.p_Material");
+        m_VShader[i] = SE_NEW SEVertexShader("IMaterial.v_Material");
+        m_PShader[i] = SE_NEW SEPixelShader("IMaterial.p_Material");
     }
 }
 //----------------------------------------------------------------------------

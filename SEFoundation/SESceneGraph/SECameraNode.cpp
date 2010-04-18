@@ -23,13 +23,13 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, CameraNode, Node);
-SE_IMPLEMENT_STREAM(CameraNode);
+SE_IMPLEMENT_RTTI(Swing, SECameraNode, SENode);
+SE_IMPLEMENT_STREAM(SECameraNode);
 
-//SE_REGISTER_STREAM(CameraNode);
+//SE_REGISTER_STREAM(SECameraNode);
 
 //----------------------------------------------------------------------------
-CameraNode::CameraNode(Camera* pCamera)
+SECameraNode::SECameraNode(SECamera* pCamera)
     :
     m_spCamera(pCamera)
 {
@@ -41,11 +41,11 @@ CameraNode::CameraNode(Camera* pCamera)
     }
 }
 //----------------------------------------------------------------------------
-CameraNode::~CameraNode()
+SECameraNode::~SECameraNode()
 {
 }
 //----------------------------------------------------------------------------
-void CameraNode::SetCamera(Camera* pCamera)
+void SECameraNode::SetCamera(SECamera* pCamera)
 {
     m_spCamera = pCamera;
 
@@ -59,9 +59,9 @@ void CameraNode::SetCamera(Camera* pCamera)
     }
 }
 //----------------------------------------------------------------------------
-void CameraNode::UpdateWorldData(double dAppTime)
+void SECameraNode::UpdateWorldData(double dAppTime)
 {
-    Node::UpdateWorldData(dAppTime);
+    SENode::UpdateWorldData(dAppTime);
 
     if( m_spCamera )
     {
@@ -77,9 +77,9 @@ void CameraNode::UpdateWorldData(double dAppTime)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-SEObject* CameraNode::GetObjectByName(const std::string& rName)
+SEObject* SECameraNode::GetObjectByName(const std::string& rName)
 {
-    SEObject* pFound = Node::GetObjectByName(rName);
+    SEObject* pFound = SENode::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -97,10 +97,10 @@ SEObject* CameraNode::GetObjectByName(const std::string& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void CameraNode::GetAllObjectsByName(const std::string& rName,
+void SECameraNode::GetAllObjectsByName(const std::string& rName,
     std::vector<SEObject*>& rObjects)
 {
-    Node::GetAllObjectsByName(rName, rObjects);
+    SENode::GetAllObjectsByName(rName, rObjects);
 
     if( m_spCamera )
     {
@@ -108,9 +108,9 @@ void CameraNode::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-SEObject* CameraNode::GetObjectByID(unsigned int uiID)
+SEObject* SECameraNode::GetObjectByID(unsigned int uiID)
 {
-    SEObject* pFound = Node::GetObjectByID(uiID);
+    SEObject* pFound = SENode::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -132,31 +132,31 @@ SEObject* CameraNode::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void CameraNode::Load(SEStream& rStream, SEStream::Link* pLink)
+void SECameraNode::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Node::Load(rStream, pLink);
+    SENode::Load(rStream, pLink);
 
     // link data
     SEObject* pObject;
     rStream.Read(pObject);  // m_spCamera
     pLink->Add(pObject);
 
-    SE_END_DEBUG_STREAM_LOAD(CameraNode);
+    SE_END_DEBUG_STREAM_LOAD(SECameraNode);
 }
 //----------------------------------------------------------------------------
-void CameraNode::Link(SEStream& rStream, SEStream::Link* pLink)
+void SECameraNode::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Node::Link(rStream, pLink);
+    SENode::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
-    m_spCamera = (Camera*)rStream.GetFromMap(pLinkID);
+    m_spCamera = (SECamera*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
-bool CameraNode::Register(SEStream& rStream) const
+bool SECameraNode::Register(SEStream& rStream) const
 {
-    if( !Node::Register(rStream) )
+    if( !SENode::Register(rStream) )
     {
         return false;
     }
@@ -169,24 +169,24 @@ bool CameraNode::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void CameraNode::Save(SEStream& rStream) const
+void SECameraNode::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Node::Save(rStream);
+    SENode::Save(rStream);
 
     // link data
     rStream.Write(m_spCamera);
 
-    SE_END_DEBUG_STREAM_SAVE(CameraNode);
+    SE_END_DEBUG_STREAM_SAVE(SECameraNode);
 }
 //----------------------------------------------------------------------------
-int CameraNode::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SECameraNode::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Node::GetDiskUsed(rVersion) + sizeof(m_spCamera);
+    return SENode::GetDiskUsed(rVersion) + sizeof(m_spCamera);
 }
 //----------------------------------------------------------------------------
-SEStringTree* CameraNode::SaveStrings(const char*)
+SEStringTree* SECameraNode::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -194,7 +194,7 @@ SEStringTree* CameraNode::SaveStrings(const char*)
     pTree->Append(Format(&TYPE, GetName().c_str()));
 
     // children
-    pTree->Append(Node::SaveStrings());
+    pTree->Append(SENode::SaveStrings());
     if( m_spCamera )
     {
         pTree->Append(m_spCamera->SaveStrings());

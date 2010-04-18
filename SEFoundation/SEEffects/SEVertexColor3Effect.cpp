@@ -35,8 +35,8 @@ VertexColor3Effect::VertexColor3Effect()
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("VertexColor.v_VertexColor3");
-    m_PShader[0] = SE_NEW PixelShader("VertexColor.p_VertexColor3");
+    m_VShader[0] = SE_NEW SEVertexShader("VertexColor.v_VertexColor3");
+    m_PShader[0] = SE_NEW SEPixelShader("VertexColor.p_VertexColor3");
 }
 //----------------------------------------------------------------------------
 VertexColor3Effect::~VertexColor3Effect()

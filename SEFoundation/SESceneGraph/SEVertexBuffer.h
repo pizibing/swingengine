@@ -43,19 +43,19 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080319
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API VertexBuffer : public SEObject, public Bindable
+class SE_FOUNDATION_API SEVertexBuffer : public SEObject, public SEBindable
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    VertexBuffer(const Attributes& rAttributes, int iVertexCount);
-    VertexBuffer(const VertexBuffer* pVBuffer);
-    virtual ~VertexBuffer(void);
+    SEVertexBuffer(const SEAttributes& rAttributes, int iVertexCount);
+    SEVertexBuffer(const SEVertexBuffer* pVBuffer);
+    virtual ~SEVertexBuffer(void);
 
     // 获取缓冲区的顶点格式.
-    inline const Attributes& GetAttributes(void) const;
+    inline const SEAttributes& GetAttributes(void) const;
 
     // 返回每个顶点大小,单位是"float",
     // 字节数大小用GetVertexSize()*sizeof(float)获得.
@@ -113,7 +113,7 @@ public:
     // DirectX10也支持[0,1]区间浮点值颜色通道(32-bit,共128-bit).
     // 因此bPackARGB为true时为DirectX9,否则为OpenGL/DirectX10/software renderers,
     // 如果今后还需要支持其他格式,则扩展此标志为多状态标志.
-    void BuildCompatibleArray(const Attributes& rIAttributes, bool bPackARGB,
+    void BuildCompatibleArray(const SEAttributes& rIAttributes, bool bPackARGB,
         int& rChannels, float*& rCompatible) const;
 
     // 用户可能想设置顶点的"active count",使用此函数来设置,
@@ -124,10 +124,10 @@ public:
 
 private:
     // streaming support
-    VertexBuffer(void);
+    SEVertexBuffer(void);
 
     // 顶点属性.
-    Attributes m_Attributes;
+    SEAttributes m_Attributes;
 
     // 每个顶点大小,单位是"float".
     int m_iVertexSize;
@@ -140,7 +140,7 @@ private:
     float* m_pChannel;
 };
 
-typedef SESmartPointer<VertexBuffer> VertexBufferPtr;
+typedef SESmartPointer<SEVertexBuffer> SEVertexBufferPtr;
 
 #include "SEVertexBuffer.inl"
 

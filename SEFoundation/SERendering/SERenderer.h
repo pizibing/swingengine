@@ -41,24 +41,24 @@
 namespace Swing
 {
 
-class Attributes;
-class Bindable;
-class Camera;
+class SEAttributes;
+class SEBindable;
+class SECamera;
 class Effect;
-class Geometry;
-class GeometryProgram;
-class IndexBuffer;
-class Light;
-class PixelProgram;
-class ResourceIdentifier;
+class SEGeometry;
+class SEGeometryProgram;
+class SEIndexBuffer;
+class SELight;
+class SEPixelProgram;
+class SEResourceIdentifier;
 class ShaderEffect;
-class Spatial;
-class Texture;
-class VertexBuffer;
-class VertexProgram;
-class UnculledObject;
-class UnculledSet;
-class RenderStateBlock;
+class SESpatial;
+class SETexture;
+class SEVertexBuffer;
+class SEVertexProgram;
+class SEUnculledObject;
+class SEUnculledSet;
+class SERenderStateBlock;
 
 //----------------------------------------------------------------------------
 // Name:Renderer class
@@ -66,11 +66,11 @@ class RenderStateBlock;
 // Author:Sun Che
 // Date:20080320
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Renderer
+class SE_FOUNDATION_API SERenderer
 {
 public:
     // Abstract base class.
-    virtual ~Renderer(void);
+    virtual ~SERenderer(void);
 
     // RTTI.
     enum
@@ -85,16 +85,16 @@ public:
     };
     virtual int GetType(void) const = 0;
 
-    // Camera access.
-    void SetCamera(Camera* pCamera);
-    inline Camera* GetCamera(void) const;
+    // SECamera access.
+    void SetCamera(SECamera* pCamera);
+    inline SECamera* GetCamera(void) const;
 
     // Frame buffer parameters.
-    inline FrameBuffer::FormatType GetFormatType(void) const;
-    inline FrameBuffer::DepthType GetDepthType(void) const;
-    inline FrameBuffer::StencilType GetStencilType(void) const;
-    inline FrameBuffer::BufferingType GetBufferingType(void) const;
-    inline FrameBuffer::MultisamplingType GetMultisamplingType(void) const;
+    inline SEFrameBuffer::FormatType GetFormatType(void) const;
+    inline SEFrameBuffer::DepthType GetDepthType(void) const;
+    inline SEFrameBuffer::StencilType GetStencilType(void) const;
+    inline SEFrameBuffer::BufferingType GetBufferingType(void) const;
+    inline SEFrameBuffer::MultisamplingType GetMultisamplingType(void) const;
 
     // Window parameters.
     inline int GetWidth(void) const;
@@ -136,8 +136,8 @@ public:
         int iHeight) = 0;
 
     // SEObject rendering entry point.
-    virtual void DrawScene(UnculledSet& rVisibleSet);
-    virtual void Draw(Geometry* pGeometry);
+    virtual void DrawScene(SEUnculledSet& rVisibleSet);
+    virtual void Draw(SEGeometry* pGeometry);
 
     // Text rendering.
     virtual int LoadFont(const char* acFace, int iSize, bool bBold,
@@ -163,8 +163,8 @@ public:
         MAX_VP_TYPES
     };
 
-    // Geometry shader profiles.
-    // Geometry shader stage is an optional stage,
+    // SEGeometry shader profiles.
+    // SEGeometry shader stage is an optional stage,
     // DirectX10 and OpenGL3 could support it for now.
     enum
     {
@@ -206,78 +206,78 @@ public:
     inline bool HasShaderCompiler(void) const;
 
     // Render state management.
-    virtual void SetAlphaState(AlphaState* pState);
-    virtual void SetCullState(CullState* pState);
-    virtual void SetMaterialState(MaterialState* pState);
-    virtual void SetPolygonOffsetState(PolygonOffsetState* pState);
-    virtual void SetStencilState(StencilState* pState);
-    virtual void SetWireframeState(WireframeState* pState);
-    virtual void SetZBufferState(ZBufferState* pState);
-    inline AlphaState* GetAlphaState(void);
-    inline CullState* GetCullState(void);
-    inline MaterialState* GetMaterialState(void);
-    inline PolygonOffsetState* GetPolygonOffsetState(void);
-    inline StencilState* GetStencilState(void);
-    inline WireframeState* GetWireframeState(void);
-    inline ZBufferState* GetZBufferState(void);
+    virtual void SetAlphaState(SEAlphaState* pState);
+    virtual void SetCullState(SECullState* pState);
+    virtual void SetMaterialState(SEMaterialState* pState);
+    virtual void SetPolygonOffsetState(SEPolygonOffsetState* pState);
+    virtual void SetStencilState(SEStencilState* pState);
+    virtual void SetWireframeState(SEWireframeState* pState);
+    virtual void SetZBufferState(SEZBufferState* pState);
+    inline SEAlphaState* GetAlphaState(void);
+    inline SECullState* GetCullState(void);
+    inline SEMaterialState* GetMaterialState(void);
+    inline SEPolygonOffsetState* GetPolygonOffsetState(void);
+    inline SEStencilState* GetStencilState(void);
+    inline SEWireframeState* GetWireframeState(void);
+    inline SEZBufferState* GetZBufferState(void);
     inline void SetReverseCullFace(bool bReverseCullFace);
     inline bool GetReverseCullFace(void) const;
 
     // Prototype of bindable resource release function.
-    typedef void (Renderer::*ReleaseFunction)(Bindable*);
+    typedef void (SERenderer::*ReleaseFunction)(SEBindable*);
 
     // Resource loading/releasing functions.
-    void LoadAllResources(Spatial* pScene);
-    void ReleaseAllResources(Spatial* pScene);
-    void LoadResources(Geometry* pGeometry);
-    void ReleaseResources(Geometry* pGeometry);
+    void LoadAllResources(SESpatial* pScene);
+    void ReleaseAllResources(SESpatial* pScene);
+    void LoadResources(SEGeometry* pGeometry);
+    void ReleaseResources(SEGeometry* pGeometry);
     void LoadResources(Effect* pEffect);
     void ReleaseResources(Effect* pEffect);
-    void LoadVProgram(VertexProgram* pVProgram);
-    void ReleaseVProgram(Bindable* pVProgram);
-    void LoadGProgram(GeometryProgram* pGProgram);
-    void ReleaseGProgram(Bindable* pGProgram);
-    void LoadPProgram(PixelProgram* pPProgram);
-    void ReleasePProgram(Bindable* pPProgram);
-    void LoadTexture(Texture* pTexture);
-    void ReleaseTexture(Bindable* pTexture);
-    void LoadVBuffer(const Attributes& rIAttributes, 
-        const Attributes& rOAttributes,
-        VertexBuffer* pVBuffer, VertexProgram* pVProgram);
-    void ReleaseVBuffer(Bindable* pVBuffer);
-    void LoadIBuffer(IndexBuffer* pIBuffer);
-    void ReleaseIBuffer(Bindable* pIBuffer);
+    void LoadVProgram(SEVertexProgram* pVProgram);
+    void ReleaseVProgram(SEBindable* pVProgram);
+    void LoadGProgram(SEGeometryProgram* pGProgram);
+    void ReleaseGProgram(SEBindable* pGProgram);
+    void LoadPProgram(SEPixelProgram* pPProgram);
+    void ReleasePProgram(SEBindable* pPProgram);
+    void LoadTexture(SETexture* pTexture);
+    void ReleaseTexture(SEBindable* pTexture);
+    void LoadVBuffer(const SEAttributes& rIAttributes, 
+        const SEAttributes& rOAttributes,
+        SEVertexBuffer* pVBuffer, SEVertexProgram* pVProgram);
+    void ReleaseVBuffer(SEBindable* pVBuffer);
+    void LoadIBuffer(SEIndexBuffer* pIBuffer);
+    void ReleaseIBuffer(SEBindable* pIBuffer);
     // DirectX10 specific functions.
-    void LoadRenderStateBlock(RenderStateBlock* pRStateBlock);
-    void ReleaseRenderStateBlock(Bindable* pRStateBlock);
+    void LoadRenderStateBlock(SERenderStateBlock* pRStateBlock);
+    void ReleaseRenderStateBlock(SEBindable* pRStateBlock);
 
     // Resource enabling/disabling functions.
-    void EnableVProgram(VertexProgram* pVProgram);
-    void DisableVProgram(VertexProgram* pVProgram);
-    void EnableGProgram(GeometryProgram* pGProgram);
-    void DisableGProgram(GeometryProgram* pGProgram);
-    void EnablePProgram(PixelProgram* pPProgram);
-    void DisablePProgram(PixelProgram* pPProgram);
-    void EnableTexture(Texture* pTexture);
-    void DisableTexture(Texture* pTexture);
-    ResourceIdentifier* EnableVBuffer(const Attributes& rIAttributes,
-        const Attributes& rOAttributes, VertexProgram* pVProgram = 0);
-    void DisableVBuffer(ResourceIdentifier* pID, 
-        VertexProgram* pVProgram = 0);
+    void EnableVProgram(SEVertexProgram* pVProgram);
+    void DisableVProgram(SEVertexProgram* pVProgram);
+    void EnableGProgram(SEGeometryProgram* pGProgram);
+    void DisableGProgram(SEGeometryProgram* pGProgram);
+    void EnablePProgram(SEPixelProgram* pPProgram);
+    void DisablePProgram(SEPixelProgram* pPProgram);
+    void EnableTexture(SETexture* pTexture);
+    void DisableTexture(SETexture* pTexture);
+    SEResourceIdentifier* EnableVBuffer(const SEAttributes& rIAttributes,
+        const SEAttributes& rOAttributes, SEVertexProgram* pVProgram = 0);
+    void DisableVBuffer(SEResourceIdentifier* pID, 
+        SEVertexProgram* pVProgram = 0);
     void EnableIBuffer(void);
     void DisableIBuffer(void);
     // DirectX10 specific functions.
-    void EnableRenderStateBlock(RenderStateBlock* pRStateBlock);
-    void DisableRenderStateBlock(RenderStateBlock* pRStateBlock);
+    void EnableRenderStateBlock(SERenderStateBlock* pRStateBlock);
+    void DisableRenderStateBlock(SERenderStateBlock* pRStateBlock);
 
     // For use by effects with lights.
     inline void SetLightCount(int iCount);
-    inline void SetLight(int i, Light* pLight);
-    inline Light* GetLight(int i);
+    inline void SetLight(int i, SELight* pLight);
+    inline SELight* GetLight(int i);
 
     // For use by effects with projectors.
-    inline void SetProjector(Camera* pProjector);
-    inline Camera* GetProjector(void);
+    inline void SetProjector(SECamera* pProjector);
+    inline SECamera* GetProjector(void);
 
     // Enable or disable which color channels will be written to the color
     // buffer.
@@ -308,26 +308,26 @@ public:
 
 protected:
     // Abstract base class.
-    Renderer(FrameBuffer::FormatType eFormat, FrameBuffer::DepthType eDepth,
-        FrameBuffer::StencilType eStencil,
-        FrameBuffer::BufferingType eBuffering,
-        FrameBuffer::MultisamplingType eMultisampling,
+    SERenderer(SEFrameBuffer::FormatType eFormat, SEFrameBuffer::DepthType eDepth,
+        SEFrameBuffer::StencilType eStencil,
+        SEFrameBuffer::BufferingType eBuffering,
+        SEFrameBuffer::MultisamplingType eMultisampling,
         int iWidth, int iHeight);
 
     // Support for camera access and transformation setting.
-    friend class Camera;
+    friend class SECamera;
     void OnFrameChange(void);
     void OnFrustumChange(void);
     virtual void OnViewportChange(void) = 0;
     virtual void OnDepthRangeChange(void) = 0;
 
     // Global render state management.
-    void SetGlobalState(GlobalStatePtr aspState[]);
-    void RestoreGlobalState(GlobalStatePtr aspState[]);
+    void SetGlobalState(SEGlobalStatePtr aspState[]);
+    void RestoreGlobalState(SEGlobalStatePtr aspState[]);
 
     // Per-geometry pre/post-draw entry point.
     // CAUTION:
-    // Renderer derived class should implements the setup of render state for
+    // SERenderer derived class should implements the setup of render state for
     // drawing a geometry.
     virtual void OnPreDrawGeometry(void) = 0;
     virtual void OnPostDrawGeometry(void) = 0;
@@ -336,7 +336,7 @@ protected:
     // These functions are called by ShaderEffect class's OnPreApplyPass()/
     // OnPostApplyPass().
     // CAUTION:
-    // Renderer derived class should implements the setup of render state for
+    // SERenderer derived class should implements the setup of render state for
     // drawing a pass.
     friend class ShaderEffect;
     virtual void OnPreDrawPass(ShaderEffect* pEffect, int iPass,
@@ -352,65 +352,65 @@ protected:
     virtual void DrawElements(void) = 0;
 
     // Resource loading/releasing functions.
-    virtual void OnLoadVProgram(ResourceIdentifier*& rpID,
-        VertexProgram* pVProgram) = 0;
-    virtual void OnReleaseVProgram(ResourceIdentifier* pID) = 0;
-    virtual void OnLoadGProgram(ResourceIdentifier*& rpID,
-        GeometryProgram* pGProgram);
-    virtual void OnReleaseGProgram(ResourceIdentifier* pID);
-    virtual void OnLoadPProgram(ResourceIdentifier*& rpID,
-        PixelProgram* pPProgram) = 0;
-    virtual void OnReleasePProgram(ResourceIdentifier* pID) = 0;
-    virtual void OnLoadTexture(ResourceIdentifier*& rpID,
-        Texture* pTexture) = 0;
-    virtual void OnReleaseTexture(ResourceIdentifier* pID) = 0;
-    virtual void OnLoadVBuffer(ResourceIdentifier*& rpID,
-        const Attributes& rIAttributes, const Attributes& rOAttributes,
-        VertexBuffer* pVBuffer, VertexProgram* pVProgram) = 0;
-    virtual void OnReleaseVBuffer(ResourceIdentifier* pID) = 0;
-    virtual void OnLoadIBuffer(ResourceIdentifier*& rpID,
-        IndexBuffer* pIBuffer) = 0;
-    virtual void OnReleaseIBuffer(ResourceIdentifier* pID) = 0;
+    virtual void OnLoadVProgram(SEResourceIdentifier*& rpID,
+        SEVertexProgram* pVProgram) = 0;
+    virtual void OnReleaseVProgram(SEResourceIdentifier* pID) = 0;
+    virtual void OnLoadGProgram(SEResourceIdentifier*& rpID,
+        SEGeometryProgram* pGProgram);
+    virtual void OnReleaseGProgram(SEResourceIdentifier* pID);
+    virtual void OnLoadPProgram(SEResourceIdentifier*& rpID,
+        SEPixelProgram* pPProgram) = 0;
+    virtual void OnReleasePProgram(SEResourceIdentifier* pID) = 0;
+    virtual void OnLoadTexture(SEResourceIdentifier*& rpID,
+        SETexture* pTexture) = 0;
+    virtual void OnReleaseTexture(SEResourceIdentifier* pID) = 0;
+    virtual void OnLoadVBuffer(SEResourceIdentifier*& rpID,
+        const SEAttributes& rIAttributes, const SEAttributes& rOAttributes,
+        SEVertexBuffer* pVBuffer, SEVertexProgram* pVProgram) = 0;
+    virtual void OnReleaseVBuffer(SEResourceIdentifier* pID) = 0;
+    virtual void OnLoadIBuffer(SEResourceIdentifier*& rpID,
+        SEIndexBuffer* pIBuffer) = 0;
+    virtual void OnReleaseIBuffer(SEResourceIdentifier* pID) = 0;
     // DirectX10 specific functions.
-    virtual void OnLoadRenderStateBlock(ResourceIdentifier*& rpID,
-        RenderStateBlock* pRStateBlock);
-    virtual void OnReleaseRenderStateBlock(ResourceIdentifier* pID);
+    virtual void OnLoadRenderStateBlock(SEResourceIdentifier*& rpID,
+        SERenderStateBlock* pRStateBlock);
+    virtual void OnReleaseRenderStateBlock(SEResourceIdentifier* pID);
 
     // Resource enabling/disabling functions.
-    virtual void SetVProgramRC(RendererConstant* pRC) = 0;
-    virtual void SetVProgramUC(UserConstant* pUC) = 0;
-    virtual void SetGProgramRC(RendererConstant* pRC) = 0;
-    virtual void SetGProgramUC(UserConstant* pUC) = 0;
-    virtual void SetPProgramRC(RendererConstant* pRC) = 0;
-    virtual void SetPProgramUC(UserConstant* pUC) = 0;
-    virtual void UpdateVProgramConstants(VertexProgram* pVProgram) = 0;
-    virtual void UpdateGProgramConstants(GeometryProgram* pGProgram) = 0;
-    virtual void UpdatePProgramConstants(PixelProgram* pPProgram) = 0;
-    virtual void OnEnableVProgram(ResourceIdentifier* pID) = 0;
-    virtual void OnDisableVProgram(ResourceIdentifier* pID) = 0;
-    virtual void OnEnableGProgram(ResourceIdentifier* pID);
-    virtual void OnDisableGProgram(ResourceIdentifier* pID);
-    virtual void OnEnablePProgram(ResourceIdentifier* pID) = 0;
-    virtual void OnDisablePProgram(ResourceIdentifier* pID) = 0;
-    virtual void OnEnableTexture(ResourceIdentifier* pID) = 0;
-    virtual void OnDisableTexture(ResourceIdentifier* pID) = 0;
-    virtual void OnEnableVBuffer(ResourceIdentifier* pID, 
-        VertexProgram* pVProgram) = 0;
-    virtual void OnDisableVBuffer(ResourceIdentifier* pID, 
-        VertexProgram* pVProgram) = 0;
-    virtual void OnEnableIBuffer(ResourceIdentifier* pID) = 0;
-    virtual void OnDisableIBuffer(ResourceIdentifier* pID) = 0;
+    virtual void SetVProgramRC(SERendererConstant* pRC) = 0;
+    virtual void SetVProgramUC(SEUserConstant* pUC) = 0;
+    virtual void SetGProgramRC(SERendererConstant* pRC) = 0;
+    virtual void SetGProgramUC(SEUserConstant* pUC) = 0;
+    virtual void SetPProgramRC(SERendererConstant* pRC) = 0;
+    virtual void SetPProgramUC(SEUserConstant* pUC) = 0;
+    virtual void UpdateVProgramConstants(SEVertexProgram* pVProgram) = 0;
+    virtual void UpdateGProgramConstants(SEGeometryProgram* pGProgram) = 0;
+    virtual void UpdatePProgramConstants(SEPixelProgram* pPProgram) = 0;
+    virtual void OnEnableVProgram(SEResourceIdentifier* pID) = 0;
+    virtual void OnDisableVProgram(SEResourceIdentifier* pID) = 0;
+    virtual void OnEnableGProgram(SEResourceIdentifier* pID);
+    virtual void OnDisableGProgram(SEResourceIdentifier* pID);
+    virtual void OnEnablePProgram(SEResourceIdentifier* pID) = 0;
+    virtual void OnDisablePProgram(SEResourceIdentifier* pID) = 0;
+    virtual void OnEnableTexture(SEResourceIdentifier* pID) = 0;
+    virtual void OnDisableTexture(SEResourceIdentifier* pID) = 0;
+    virtual void OnEnableVBuffer(SEResourceIdentifier* pID, 
+        SEVertexProgram* pVProgram) = 0;
+    virtual void OnDisableVBuffer(SEResourceIdentifier* pID, 
+        SEVertexProgram* pVProgram) = 0;
+    virtual void OnEnableIBuffer(SEResourceIdentifier* pID) = 0;
+    virtual void OnDisableIBuffer(SEResourceIdentifier* pID) = 0;
     // DirectX10 specific functions.
-    virtual void OnEnableRenderStateBlock(ResourceIdentifier* pID);
-    virtual void OnDisableRenderStateBlock(ResourceIdentifier* pID);
+    virtual void OnEnableRenderStateBlock(SEResourceIdentifier* pID);
+    virtual void OnDisableRenderStateBlock(SEResourceIdentifier* pID);
 
     // 可选shader程序连接.
     // 某些图形管线的shader系统要求对已经装载并编译的shader程序进行连接.
     // 如GLSL,ESSL系统.
     // OpenGL ES2渲染器需要重载这个函数.
     // 连接过程发生后返回true,默认情况下没有连接过程时,返回false.
-    virtual bool OnLinkPrograms(VertexProgram* pVProgram,
-        GeometryProgram* pGProgram, PixelProgram* pPProgram);
+    virtual bool OnLinkPrograms(SEVertexProgram* pVProgram,
+        SEGeometryProgram* pGProgram, SEPixelProgram* pPProgram);
 
     // 管线T&L的数据,主要靠设置shader程序的相关渲染器常量来实现.
 
@@ -467,9 +467,9 @@ protected:
     void SetConstantLightCount(int, float* afData);
 
     enum { SC_COUNT = 37 };
-    typedef void (Renderer::*SetConstantFunction)(int, float*);
+    typedef void (SERenderer::*SetConstantFunction)(int, float*);
     static SetConstantFunction ms_aoSCFunction[SC_COUNT];
-    void SetRendererConstant(RendererConstant::Type eRCType, float* afData);
+    void SetRendererConstant(SERendererConstant::Type eRCType, float* afData);
 
     // 对象渲染.
     void ApplyEffect(ShaderEffect* pEffect, bool& rbPrimaryEffect);
@@ -496,7 +496,7 @@ protected:
     int m_iNumActiveSamplers;
     int m_iCurrentSampler;
     int m_iMaxActiveSamplerCount;
-    SamplerInformation** m_apActiveSamplers;
+    SESamplerInformation** m_apActiveSamplers;
 
     // 渲染器是否具备shader compiler,
     // shader compiler可以提供shader源代码在装载阶段的online compilation.
@@ -506,11 +506,11 @@ protected:
     bool m_bHasShaderCompiler;  // default: true
 
     // 窗口和frame buffer参数.
-    FrameBuffer::FormatType m_eFormat;
-    FrameBuffer::DepthType m_eDepth;
-    FrameBuffer::StencilType m_eStencil;
-    FrameBuffer::BufferingType m_eBuffering;
-    FrameBuffer::MultisamplingType m_eMultisampling;
+    SEFrameBuffer::FormatType m_eFormat;
+    SEFrameBuffer::DepthType m_eDepth;
+    SEFrameBuffer::StencilType m_eStencil;
+    SEFrameBuffer::BufferingType m_eBuffering;
+    SEFrameBuffer::MultisamplingType m_eMultisampling;
     int m_iWidth, m_iHeight;
     SEColorRGBA m_ClearColor;
     float m_fClearDepth;
@@ -518,10 +518,10 @@ protected:
     bool m_bAllowRed, m_bAllowGreen, m_bAllowBlue, m_bAllowAlpha;
 
     // 用于建立截投体的当前摄像机.
-    Camera* m_pCamera;
+    SECamera* m_pCamera;
 
     // 全局渲染状态数组.
-    GlobalStatePtr m_aspState[GlobalState::MAX_STATE_TYPE];
+    SEGlobalStatePtr m_aspState[SEGlobalState::MAX_STATE_TYPE];
 
     // shader常量设置函数用于查找的light数组.
     // 渲染器派生类必须在构造期间创建这个数组,包含m_iMaxLights个数组元素.
@@ -531,10 +531,10 @@ protected:
 
     // 为某些特效提供方便的投影器,
     // 比如projected texture和shadow map.
-    Camera* m_pProjector;
+    SECamera* m_pProjector;
 
     // 当前正在渲染的几何体对象.
-    Geometry* m_pGeometry;
+    SEGeometry* m_pGeometry;
 
     // 几何渲染管线所使用的矩阵变换.
     // 支持1x4的行向量乘以4x4矩阵.

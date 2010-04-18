@@ -19,27 +19,27 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int BoxBV::GetBVType() const
+inline int SEBoxBV::GetBVType() const
 {
-    return BoundingVolume::BV_BOX;
+    return SEBoundingVolume::BV_BOX;
 }
 //----------------------------------------------------------------------------
-inline void BoxBV::SetCenter(const SEVector3f& rCenter)
+inline void SEBoxBV::SetCenter(const SEVector3f& rCenter)
 {
     m_Box.Center = rCenter;
 }
 //----------------------------------------------------------------------------
-inline SEVector3f BoxBV::GetCenter() const
+inline SEVector3f SEBoxBV::GetCenter() const
 {
     return m_Box.Center;
 }
 //----------------------------------------------------------------------------
-inline SEBox3f& BoxBV::Box()
+inline SEBox3f& SEBoxBV::Box()
 {
     return m_Box;
 }
 //----------------------------------------------------------------------------
-inline const SEBox3f& BoxBV::GetBox() const
+inline const SEBox3f& SEBoxBV::GetBox() const
 {
     return m_Box;
 }

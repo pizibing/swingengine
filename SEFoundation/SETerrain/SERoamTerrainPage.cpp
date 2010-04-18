@@ -23,18 +23,18 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, RoamTerrainPage, TriMesh);
-SE_IMPLEMENT_STREAM(RoamTerrainPage);
-SE_IMPLEMENT_DEFAULT_NAME_ID(RoamTerrainPage, TriMesh);
+SE_IMPLEMENT_RTTI(Swing, SERoamTerrainPage, SETriMesh);
+SE_IMPLEMENT_STREAM(SERoamTerrainPage);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SERoamTerrainPage, SETriMesh);
 
-//SE_REGISTER_STREAM(RoamTerrainPage);
+//SE_REGISTER_STREAM(SERoamTerrainPage);
 
-//float RoamTerrainPage::FrameVariance = 50.0f;
-int RoamTerrainPage::DesiredTris = 20000;
-int RoamTerrainPage::NumTrisRendered = 0;
+//float SERoamTerrainPage::FrameVariance = 50.0f;
+int SERoamTerrainPage::DesiredTris = 20000;
+int SERoamTerrainPage::NumTrisRendered = 0;
 
 //----------------------------------------------------------------------------
-RoamTerrainPage::RoamTerrainPage(const Attributes& rAttr, int iSize,
+SERoamTerrainPage::SERoamTerrainPage(const SEAttributes& rAttr, int iSize,
     unsigned short* ausHeight, const SEVector2f& rOrigin,
     float fMinElevation, float fMaxElevation, float fSpacing,
     float fUVBias, int iPoolSize, int iPatchSize, int iSplitLevel, 
@@ -56,7 +56,7 @@ RoamTerrainPage::RoamTerrainPage(const Attributes& rAttr, int iSize,
     FrameVariance = 50.0f;
     m_iNextTriNode = 0;
 
-    // 稍后待构造函数结束,由RoamTerrain对象调用SetPageGrid函数设置.
+    // 稍后待构造函数结束,由SERoamTerrain对象调用SetPageGrid函数设置.
     m_iRow = -1;
     m_iCol = -1;
     m_pTerrain = 0;
@@ -64,10 +64,10 @@ RoamTerrainPage::RoamTerrainPage(const Attributes& rAttr, int iSize,
     InitializeDerivedData();
 
     // 创建mesh.
-    StandardMesh tempSM(rAttr);
+    SEStandardMesh tempSM(rAttr);
 
     float fExtent = m_fSpacing * m_iSizeM1;
-    TriMesh* pMesh = tempSM.Rectangle(m_iSize, m_iSize, fExtent, fExtent);
+    SETriMesh* pMesh = tempSM.Rectangle(m_iSize, m_iSize, fExtent, fExtent);
     VBuffer = pMesh->VBuffer;
     IBuffer = pMesh->IBuffer;
 
@@ -86,7 +86,7 @@ RoamTerrainPage::RoamTerrainPage(const Attributes& rAttr, int iSize,
     UpdateMS();
 }
 //----------------------------------------------------------------------------
-RoamTerrainPage::RoamTerrainPage()
+SERoamTerrainPage::SERoamTerrainPage()
     :
     m_Origin(SEVector2f::ZERO)
 {
@@ -120,12 +120,12 @@ RoamTerrainPage::RoamTerrainPage()
     m_bNeedsResetIB = false;
 }
 //----------------------------------------------------------------------------
-RoamTerrainPage::~RoamTerrainPage()
+SERoamTerrainPage::~SERoamTerrainPage()
 {
     SE_DELETE[] m_ausHeight;
 }
 //----------------------------------------------------------------------------
-float RoamTerrainPage::GetHeight(float fX, float fZ) const
+float SERoamTerrainPage::GetHeight(float fX, float fZ) const
 {
     float fTempHeight = 0.0f;
     // 将世界空间X,Z变换到terrain空间.
@@ -162,7 +162,7 @@ float RoamTerrainPage::GetHeight(float fX, float fZ) const
         float fdX = fMSpaceX - fPatchRBX;
         float fdY = fMSpaceZ - fPatchRBY;
 
-        RoamTriTreeNode* pCurTriangle = 0;
+        SERoamTriTreeNode* pCurTriangle = 0;
         if( -fdX >= fdY )
         {
             pCurTriangle = m_Patches[iPatchY][iPatchX].GetBaseLeft();
@@ -280,7 +280,7 @@ float RoamTerrainPage::GetHeight(float fX, float fZ) const
     return fTempHeight + World.GetTranslate().Y;
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPage::InitializeDerivedData()
+void SERoamTerrainPage::InitializeDerivedData()
 {
     m_iSizeM1 = m_iSize - 1;
     m_iPatchSizeM1 = m_iPatchSize - 1;
@@ -314,7 +314,7 @@ void RoamTerrainPage::InitializeDerivedData()
     }
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPage::ResetPatches()
+void SERoamTerrainPage::ResetPatches()
 {
     // 回收Pool中的所有资源.
     SetNextTriNode(0);
@@ -339,8 +339,8 @@ void RoamTerrainPage::ResetPatches()
             if( m_Patches[iPatchY][iPatchX].IsVisible() )
             {
                 // 把patch相互连接起来.
-                RoamTriTreeNode* pBaseLeft;
-                RoamTriTreeNode* pBaseRight;
+                SERoamTriTreeNode* pBaseLeft;
+                SERoamTriTreeNode* pBaseRight;
 
                 if( iPatchX > 0 )
                 {
@@ -357,8 +357,8 @@ void RoamTerrainPage::ResetPatches()
                     }
                     else
                     {
-                        // 这里应该连接到左边相邻的RoamTerrainPage.
-                        RoamTerrainPage* pLeftPage = 
+                        // 这里应该连接到左边相邻的SERoamTerrainPage.
+                        SERoamTerrainPage* pLeftPage = 
                             m_pTerrain->GetPage(m_iRow, m_iCol - 1);
                         pBaseLeft = m_Patches[iPatchY][iPatchX].GetBaseLeft();
                         pBaseLeft->pRightNeighbor = 
@@ -381,8 +381,8 @@ void RoamTerrainPage::ResetPatches()
                     }
                     else
                     {
-                        // 这里应该连接到右边相邻的RoamTerrainPage.
-                        RoamTerrainPage* pRightPage = 
+                        // 这里应该连接到右边相邻的SERoamTerrainPage.
+                        SERoamTerrainPage* pRightPage = 
                             m_pTerrain->GetPage(m_iRow, m_iCol + 1);
                         pBaseRight = m_Patches[iPatchY][iPatchX].GetBaseRight();
                         pBaseRight->pRightNeighbor = 
@@ -405,8 +405,8 @@ void RoamTerrainPage::ResetPatches()
                     }
                     else
                     {
-                        // 这里应该连接到下面相邻的RoamTerrainPage.
-                        RoamTerrainPage* pDownwardPage = 
+                        // 这里应该连接到下面相邻的SERoamTerrainPage.
+                        SERoamTerrainPage* pDownwardPage = 
                             m_pTerrain->GetPage(m_iRow - 1, m_iCol);
                         pBaseLeft = m_Patches[iPatchY][iPatchX].GetBaseLeft();
                         pBaseLeft->pLeftNeighbor = 
@@ -429,8 +429,8 @@ void RoamTerrainPage::ResetPatches()
                     }
                     else
                     {
-                        // 这里应该连接到上面相邻的RoamTerrainPage.
-                        RoamTerrainPage* pUpwardPage = 
+                        // 这里应该连接到上面相邻的SERoamTerrainPage.
+                        SERoamTerrainPage* pUpwardPage = 
                             m_pTerrain->GetPage(m_iRow + 1, m_iCol);
                         pBaseRight = m_Patches[iPatchY][iPatchX].GetBaseRight();
                         pBaseRight->pLeftNeighbor = 
@@ -442,7 +442,7 @@ void RoamTerrainPage::ResetPatches()
     }
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPage::SimplifyPatches(const Camera* pCamera, Culler& rCuller)
+void SERoamTerrainPage::SimplifyPatches(const SECamera* pCamera, SECuller& rCuller)
 {
     bool bSingleVisible = rCuller.IsSingleInFrustum(WorldBound);
     if( !bSingleVisible )
@@ -460,7 +460,7 @@ void RoamTerrainPage::SimplifyPatches(const Camera* pCamera, Culler& rCuller)
     m_bNeedsTessellation = true;
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPage::CollectPatches()
+void SERoamTerrainPage::CollectPatches()
 {
     Triangles.clear();
     for( int i = 0; i < m_iPatchesPerSide; i++ )
@@ -473,7 +473,7 @@ void RoamTerrainPage::CollectPatches()
     }
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPage::GetUnculledSet(Culler& rCuller, bool bNoCull)
+void SERoamTerrainPage::GetUnculledSet(SECuller& rCuller, bool bNoCull)
 {
     SE_ASSERT( m_pTerrain );
 
@@ -495,7 +495,7 @@ void RoamTerrainPage::GetUnculledSet(Culler& rCuller, bool bNoCull)
             int* aiIndex = IBuffer->GetData();
             for( int i = 0; i < iCount; i++ )
             {
-                RoamTriTreeNode* pTriangle = Triangles[i];
+                SERoamTriTreeNode* pTriangle = Triangles[i];
                 aiIndex[3*i    ] = pTriangle->LeftIndex;
                 aiIndex[3*i + 1] = pTriangle->ApexIndex;
                 aiIndex[3*i + 2] = pTriangle->RightIndex;
@@ -545,13 +545,13 @@ void RoamTerrainPage::GetUnculledSet(Culler& rCuller, bool bNoCull)
 
     if( IBuffer->GetIndexCount() > 0 )
     {
-        TriMesh::GetUnculledSet(rCuller, bNoCull);
+        SETriMesh::GetUnculledSet(rCuller, bNoCull);
     }
 }
 //----------------------------------------------------------------------------
-RoamTriTreeNode* RoamTerrainPage::AllocateTri()
+SERoamTriTreeNode* SERoamTerrainPage::AllocateTri()
 {
-    RoamTriTreeNode* pTriTreeNode;
+    SERoamTriTreeNode* pTriTreeNode;
     if( m_iNextTriNode >= m_iPoolSize )
         return 0;
 
@@ -566,11 +566,11 @@ RoamTriTreeNode* RoamTerrainPage::AllocateTri()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void RoamTerrainPage::Load(SEStream& rStream, SEStream::Link* pLink)
+void SERoamTerrainPage::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    TriMesh::Load(rStream, pLink);
+    SETriMesh::Load(rStream, pLink);
 
     rStream.Read(m_iSize);
     int iVCount = m_iSize * m_iSize;
@@ -587,24 +587,24 @@ void RoamTerrainPage::Load(SEStream& rStream, SEStream::Link* pLink)
 
     InitializeDerivedData();
 
-    SE_END_DEBUG_STREAM_LOAD(RoamTerrainPage);
+    SE_END_DEBUG_STREAM_LOAD(SERoamTerrainPage);
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPage::Link(SEStream& rStream, SEStream::Link* pLink)
+void SERoamTerrainPage::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    TriMesh::Link(rStream, pLink);
+    SETriMesh::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool RoamTerrainPage::Register(SEStream& rStream) const
+bool SERoamTerrainPage::Register(SEStream& rStream) const
 {
-    return TriMesh::Register(rStream);
+    return SETriMesh::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void RoamTerrainPage::Save(SEStream& rStream) const
+void SERoamTerrainPage::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    TriMesh::Save(rStream);
+    SETriMesh::Save(rStream);
 
     rStream.Write(m_iSize);
     int iVCount = VBuffer->GetVertexCount();
@@ -618,12 +618,12 @@ void RoamTerrainPage::Save(SEStream& rStream) const
     rStream.Write(m_iSplitLevel);
     rStream.Write(m_iVarianceLevel);
 
-    SE_END_DEBUG_STREAM_SAVE(RoamTerrainPage);
+    SE_END_DEBUG_STREAM_SAVE(SERoamTerrainPage);
 }
 //----------------------------------------------------------------------------
-int RoamTerrainPage::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SERoamTerrainPage::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return TriMesh::GetDiskUsed(rVersion) +
+    return SETriMesh::GetDiskUsed(rVersion) +
         sizeof(m_iSize) +
         m_iSize*m_iSize*sizeof(m_ausHeight[0]) +
         sizeof(m_Origin) +
@@ -636,7 +636,7 @@ int RoamTerrainPage::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(m_iVarianceLevel);
 }
 //----------------------------------------------------------------------------
-SEStringTree* RoamTerrainPage::SaveStrings(const char*)
+SEStringTree* SERoamTerrainPage::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -654,7 +654,7 @@ SEStringTree* RoamTerrainPage::SaveStrings(const char*)
     pTree->Append(Format("uv bias =", m_fUVBias));
 
     // children
-    pTree->Append(TriMesh::SaveStrings());
+    pTree->Append(SETriMesh::SaveStrings());
 
     return pTree;
 }

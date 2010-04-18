@@ -23,10 +23,10 @@
 
 using namespace Swing;
 
-const Transformation Transformation::IDENTITY;
+const SETransformation SETransformation::IDENTITY;
 
 //----------------------------------------------------------------------------
-Transformation::Transformation()
+SETransformation::SETransformation()
     :
     m_Matrix(1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f),
     m_Translate(0.0f, 0.0f, 0.0f),
@@ -37,11 +37,11 @@ Transformation::Transformation()
     m_bIsUniformScale = true;
 }
 //----------------------------------------------------------------------------
-Transformation::~Transformation()
+SETransformation::~SETransformation()
 {
 }
 //----------------------------------------------------------------------------
-void Transformation::Identity()
+void SETransformation::Identity()
 {
     m_Matrix = SEMatrix3f::IDENTITY;
     m_Translate = SEVector3f::ZERO;
@@ -51,7 +51,7 @@ void Transformation::Identity()
     m_bIsUniformScale = true;
 }
 //----------------------------------------------------------------------------
-void Transformation::UnitScale()
+void SETransformation::UnitScale()
 {
     SE_ASSERT( m_bIsSRMatrix );
 
@@ -59,7 +59,7 @@ void Transformation::UnitScale()
     m_bIsUniformScale = true;
 }
 //----------------------------------------------------------------------------
-float Transformation::GetNorm() const
+float SETransformation::GetNorm() const
 {
     if( m_bIsSRMatrix )
     {
@@ -95,20 +95,20 @@ float Transformation::GetNorm() const
     return fMaxColSum;
 }
 //----------------------------------------------------------------------------
-void Transformation::SetRotate(const SEMatrix3f& rRotate)
+void SETransformation::SetRotate(const SEMatrix3f& rRotate)
 {
     m_Matrix = rRotate;
     m_bIsIdentity = false;
     m_bIsSRMatrix = true;
 }
 //----------------------------------------------------------------------------
-void Transformation::SetTranslate(const SEVector3f& rTranslate)
+void SETransformation::SetTranslate(const SEVector3f& rTranslate)
 {
     m_Translate = rTranslate;
     m_bIsIdentity = false;
 }
 //----------------------------------------------------------------------------
-void Transformation::SetScale(const SEVector3f& rScale)
+void SETransformation::SetScale(const SEVector3f& rScale)
 {
     SE_ASSERT( m_bIsSRMatrix && rScale.X != 0.0f && rScale.Y != 0.0f &&
         rScale.Z != 0.0f );
@@ -118,7 +118,7 @@ void Transformation::SetScale(const SEVector3f& rScale)
     m_bIsUniformScale = false;
 }
 //----------------------------------------------------------------------------
-void Transformation::SetUniformScale(float fScale)
+void SETransformation::SetUniformScale(float fScale)
 {
     SE_ASSERT( m_bIsSRMatrix && fScale != 0.0f );
 
@@ -127,7 +127,7 @@ void Transformation::SetUniformScale(float fScale)
     m_bIsUniformScale = true;
 }
 //----------------------------------------------------------------------------
-void Transformation::SetMatrix(const SEMatrix3f& rMatrix)
+void SETransformation::SetMatrix(const SEMatrix3f& rMatrix)
 {
     m_Matrix = rMatrix;
     m_bIsIdentity = false;
@@ -135,7 +135,7 @@ void Transformation::SetMatrix(const SEMatrix3f& rMatrix)
     m_bIsUniformScale = false;
 }
 //----------------------------------------------------------------------------
-void Transformation::ApplyForward(const SEVector3f& rInput, SEVector3f& rOutput)
+void SETransformation::ApplyForward(const SEVector3f& rInput, SEVector3f& rOutput)
     const
 {
     if( m_bIsIdentity )
@@ -159,7 +159,7 @@ void Transformation::ApplyForward(const SEVector3f& rInput, SEVector3f& rOutput)
     rOutput = rInput*m_Matrix + m_Translate;
 }
 //----------------------------------------------------------------------------
-void Transformation::ApplyForward(int iCount, const SEVector3f* aInput,
+void SETransformation::ApplyForward(int iCount, const SEVector3f* aInput,
     SEVector3f* aOutput) const
 {
     if( m_bIsIdentity )
@@ -192,7 +192,7 @@ void Transformation::ApplyForward(int iCount, const SEVector3f* aInput,
     }
 }
 //----------------------------------------------------------------------------
-void Transformation::ApplyInverse(const SEVector3f& rInput, SEVector3f& rOutput)
+void SETransformation::ApplyInverse(const SEVector3f& rInput, SEVector3f& rOutput)
     const
 {
     if( m_bIsIdentity )
@@ -242,7 +242,7 @@ void Transformation::ApplyInverse(const SEVector3f& rInput, SEVector3f& rOutput)
     }
 }
 //----------------------------------------------------------------------------
-void Transformation::ApplyInverse(int iCount, const SEVector3f* aInput,
+void SETransformation::ApplyInverse(int iCount, const SEVector3f* aInput,
     SEVector3f* aOutput) const
 {
     if( m_bIsIdentity )
@@ -298,7 +298,7 @@ void Transformation::ApplyInverse(int iCount, const SEVector3f* aInput,
     }
 }
 //----------------------------------------------------------------------------
-void Transformation::InvertVector(const SEVector3f& rInput, SEVector3f& rOutput)
+void SETransformation::InvertVector(const SEVector3f& rInput, SEVector3f& rOutput)
     const
 {
     if( m_bIsIdentity )
@@ -339,7 +339,7 @@ void Transformation::InvertVector(const SEVector3f& rInput, SEVector3f& rOutput)
     }
 }
 //----------------------------------------------------------------------------
-void Transformation::ApplyForward(const SEPlane3f& rInput, SEPlane3f& rOutput)
+void SETransformation::ApplyForward(const SEPlane3f& rInput, SEPlane3f& rOutput)
     const
 {
     if( m_bIsIdentity )
@@ -426,8 +426,8 @@ void Transformation::ApplyForward(const SEPlane3f& rInput, SEPlane3f& rOutput)
         rOutput.Normal.Dot(m_Translate);
 }
 //----------------------------------------------------------------------------
-void Transformation::Product(const Transformation& rLhsTrans,
-    const Transformation& rRhsTrans)
+void SETransformation::Product(const SETransformation& rLhsTrans,
+    const SETransformation& rRhsTrans)
 {
     if( rLhsTrans.IsIdentity() )
     {
@@ -490,7 +490,7 @@ void Transformation::Product(const Transformation& rLhsTrans,
     SetTranslate(rLhsTrans.m_Translate*MatB + rRhsTrans.m_Translate);
 }
 //----------------------------------------------------------------------------
-void Transformation::GetInverse(Transformation& rInvTrans)
+void SETransformation::GetInverse(SETransformation& rInvTrans)
 {
     if( m_bIsIdentity )
     {
@@ -523,7 +523,7 @@ void Transformation::GetInverse(Transformation& rInvTrans)
     rInvTrans.m_bIsUniformScale = false;
 }
 //----------------------------------------------------------------------------
-void Transformation::GetHomogeneous(SEMatrix4f& rHMatrix) const
+void SETransformation::GetHomogeneous(SEMatrix4f& rHMatrix) const
 {
     if( m_bIsSRMatrix )
     {

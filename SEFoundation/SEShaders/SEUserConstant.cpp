@@ -23,7 +23,7 @@
 
 using namespace Swing;
 
-float UserConstant::ms_afDefaultData[16] = 
+float SEUserConstant::ms_afDefaultData[16] = 
 {
     0.0f, 0.0f, 0.0f, 0.0f,
     0.0f, 0.0f, 0.0f, 0.0f,
@@ -31,11 +31,11 @@ float UserConstant::ms_afDefaultData[16] =
     0.0f, 0.0f, 0.0f, 0.0f
 };
 
-UserConstant::ReleaseID UserConstant::OnReleaseID = 0;
-UserConstant::CopyID UserConstant::OnCopyID = 0;
+SEUserConstant::ReleaseID SEUserConstant::OnReleaseID = 0;
+SEUserConstant::CopyID SEUserConstant::OnCopyID = 0;
 
 //----------------------------------------------------------------------------
-UserConstant::UserConstant(const std::string& rName, void* pID, int iDataCount)
+SEUserConstant::SEUserConstant(const std::string& rName, void* pID, int iDataCount)
     :
     m_Name(rName)
 {
@@ -51,7 +51,7 @@ UserConstant::UserConstant(const std::string& rName, void* pID, int iDataCount)
     Active = true;
 }
 //----------------------------------------------------------------------------
-UserConstant::UserConstant(const UserConstant& rUC)
+SEUserConstant::SEUserConstant(const SEUserConstant& rUC)
 {
     m_Name = rUC.m_Name;
     m_iDataCount = rUC.m_iDataCount;
@@ -69,7 +69,7 @@ UserConstant::UserConstant(const UserConstant& rUC)
     Active = true;
 }
 //----------------------------------------------------------------------------
-UserConstant::~UserConstant()
+SEUserConstant::~SEUserConstant()
 {
     // 注意m_pData只索引数据,不在这里释放.
 
@@ -79,7 +79,7 @@ UserConstant::~UserConstant()
     }
 }
 //----------------------------------------------------------------------------
-void UserConstant::SetDataSource(float* pData)
+void SEUserConstant::SetDataSource(float* pData)
 {
     SE_ASSERT( pData );
 

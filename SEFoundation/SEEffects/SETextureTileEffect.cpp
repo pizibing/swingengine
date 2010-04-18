@@ -40,15 +40,15 @@ TextureTileEffect::TextureTileEffect(const std::string& rTileName)
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("TextureTile.v_TextureTile");
-    m_PShader[0] = SE_NEW PixelShader("TextureTile.p_TextureTile");
+    m_VShader[0] = SE_NEW SEVertexShader("TextureTile.v_TextureTile");
+    m_PShader[0] = SE_NEW SEPixelShader("TextureTile.p_TextureTile");
 
     m_PShader[0]->SetTextureCount(1);
     m_PShader[0]->SetImageName(0, rTileName);
 
-    Texture* pTile = m_PShader[0]->GetTexture(0);
-    pTile->SetWrapType(0, Texture::REPEAT);
-    pTile->SetWrapType(1, Texture::REPEAT);
+    SETexture* pTile = m_PShader[0]->GetTexture(0);
+    pTile->SetWrapType(0, SETexture::REPEAT);
+    pTile->SetWrapType(1, SETexture::REPEAT);
 
     TileX = 1.0f;
     TileY = 1.0f;
@@ -62,10 +62,10 @@ TextureTileEffect::~TextureTileEffect()
 {
 }
 //----------------------------------------------------------------------------
-void TextureTileEffect::OnLoadPrograms(int, Program* pVProgram, Program*, 
-    Program*)
+void TextureTileEffect::OnLoadPrograms(int, SEProgram* pVProgram, SEProgram*, 
+    SEProgram*)
 {
-    UserConstant* pUC = pVProgram->GetUC("TileParams");
+    SEUserConstant* pUC = pVProgram->GetUC("TileParams");
     SE_ASSERT( pUC );
 
     if( pUC )
@@ -74,7 +74,7 @@ void TextureTileEffect::OnLoadPrograms(int, Program* pVProgram, Program*,
     }
 }
 //----------------------------------------------------------------------------
-void TextureTileEffect::OnPreApplyEffect(Renderer*, bool)
+void TextureTileEffect::OnPreApplyEffect(SERenderer*, bool)
 {
     ms_afTileParams[0] = TileX;
     ms_afTileParams[1] = TileY;

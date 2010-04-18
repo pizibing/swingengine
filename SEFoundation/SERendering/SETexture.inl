@@ -19,61 +19,61 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline void Texture::SetImage(Image* pImage)
+inline void SETexture::SetImage(SEImage* pImage)
 {
     m_spImage = pImage;
 }
 //----------------------------------------------------------------------------
-inline Image* Texture::GetImage()
+inline SEImage* SETexture::GetImage()
 {
     return m_spImage;
 }
 //----------------------------------------------------------------------------
-inline const Image* Texture::GetImage() const
+inline const SEImage* SETexture::GetImage() const
 {
     return m_spImage;
 }
 //----------------------------------------------------------------------------
-inline void Texture::SetFilterType(FilterType eFType)
+inline void SETexture::SetFilterType(FilterType eFType)
 {
     m_eFType = eFType;
 }
 //----------------------------------------------------------------------------
-inline Texture::FilterType Texture::GetFilterType() const
+inline SETexture::FilterType SETexture::GetFilterType() const
 {
     return m_eFType;
 }
 //----------------------------------------------------------------------------
-inline void Texture::SetWrapType(int i, WrapType eWType)
+inline void SETexture::SetWrapType(int i, WrapType eWType)
 {
     SE_ASSERT( 0 <= i && i < 3 );
 
     m_eWrapTypes[i] = eWType;
 }
 //----------------------------------------------------------------------------
-inline Texture::WrapType Texture::GetWrapType(int i) const
+inline SETexture::WrapType SETexture::GetWrapType(int i) const
 {
     SE_ASSERT( 0 <= i && i < 3 );
 
     return m_eWrapTypes[i];
 }
 //----------------------------------------------------------------------------
-inline void Texture::SetBorderColor(const SEColorRGBA& rBorderColor)
+inline void SETexture::SetBorderColor(const SEColorRGBA& rBorderColor)
 {
     m_BorderColor = rBorderColor;
 }
 //----------------------------------------------------------------------------
-inline SEColorRGBA Texture::GetBorderColor() const
+inline SEColorRGBA SETexture::GetBorderColor() const
 {
     return m_BorderColor;
 }
 //----------------------------------------------------------------------------
-inline bool Texture::IsOffscreenTexture() const
+inline bool SETexture::IsOffscreenTexture() const
 {
     return m_bOffscreenTexture;
 }
 //----------------------------------------------------------------------------
-inline void Texture::SetOffscreenTexture(bool bOffscreenTexture)
+inline void SETexture::SetOffscreenTexture(bool bOffscreenTexture)
 {
     m_bOffscreenTexture = bOffscreenTexture;
 }

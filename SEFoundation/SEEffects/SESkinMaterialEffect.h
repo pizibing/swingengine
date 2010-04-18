@@ -40,15 +40,15 @@ class SE_FOUNDATION_API SkinMaterialEffect : public SkinEffect
     SE_DECLARE_STREAM;
 
 public:
-    SkinMaterialEffect(int iBoneCount, Node** apBones, Transformation* aOffset);
+    SkinMaterialEffect(int iBoneCount, SENode** apBones, SETransformation* aOffset);
     virtual ~SkinMaterialEffect(void);
 
 protected:
     // streaming
     SkinMaterialEffect(void);
 
-    virtual void OnLoadPrograms(int iPass, Program* pVProgram,
-        Program* pPProgram, Program* pGProgram);
+    virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
+        SEProgram* pPProgram, SEProgram* pGProgram);
 
     static bool ms_bUCInitialized;
 };

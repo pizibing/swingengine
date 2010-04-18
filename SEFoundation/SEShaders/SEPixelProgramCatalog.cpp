@@ -24,12 +24,12 @@
 
 using namespace Swing;
 
-const std::string PixelProgramCatalog::ms_NullString("");
-const std::string PixelProgramCatalog::ms_DefaultString("Default.p_Default");
-PixelProgramCatalog* PixelProgramCatalog::ms_pActive = 0;
+const std::string SEPixelProgramCatalog::ms_NullString("");
+const std::string SEPixelProgramCatalog::ms_DefaultString("Default.p_Default");
+SEPixelProgramCatalog* SEPixelProgramCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
-PixelProgramCatalog::PixelProgramCatalog(const std::string& rName)
+SEPixelProgramCatalog::SEPixelProgramCatalog(const std::string& rName)
     :
     m_Name(rName),
     m_Entry(PROGRAM_MAP_SIZE)
@@ -38,17 +38,17 @@ PixelProgramCatalog::PixelProgramCatalog(const std::string& rName)
     m_spDefaultPProgram = 0;
 }
 //----------------------------------------------------------------------------
-PixelProgramCatalog::~PixelProgramCatalog()
+SEPixelProgramCatalog::~SEPixelProgramCatalog()
 {
 }
 //----------------------------------------------------------------------------
-void PixelProgramCatalog::SetRenderer(Renderer* pRenderer)
+void SEPixelProgramCatalog::SetRenderer(SERenderer* pRenderer)
 {
     m_pRenderer = pRenderer;
 
     if( m_pRenderer )
     {
-        m_spDefaultPProgram = PixelProgram::Load(m_pRenderer, 
+        m_spDefaultPProgram = SEPixelProgram::Load(m_pRenderer, 
             ms_DefaultString, ms_DefaultString, 0);
 
         SE_ASSERT( m_spDefaultPProgram );
@@ -59,12 +59,12 @@ void PixelProgramCatalog::SetRenderer(Renderer* pRenderer)
     }
 }
 //----------------------------------------------------------------------------
-const std::string& PixelProgramCatalog::GetName() const
+const std::string& SEPixelProgramCatalog::GetName() const
 {
     return m_Name;
 }
 //----------------------------------------------------------------------------
-bool PixelProgramCatalog::Insert(PixelProgram* pProgram)
+bool SEPixelProgramCatalog::Insert(SEPixelProgram* pProgram)
 {
     if( !pProgram )
     {
@@ -82,7 +82,7 @@ bool PixelProgramCatalog::Insert(PixelProgram* pProgram)
     }
 
     // 首先在资源目录中查找
-    PixelProgram** ppTempProgram = m_Entry.Find(StrProgramName);
+    SEPixelProgram** ppTempProgram = m_Entry.Find(StrProgramName);
     if( ppTempProgram )
     {
         // 该程序已经存在
@@ -95,7 +95,7 @@ bool PixelProgramCatalog::Insert(PixelProgram* pProgram)
     return true;
 }
 //----------------------------------------------------------------------------
-bool PixelProgramCatalog::Remove(PixelProgram* pProgram)
+bool SEPixelProgramCatalog::Remove(SEPixelProgram* pProgram)
 {
     if( !pProgram )
     {
@@ -113,7 +113,7 @@ bool PixelProgramCatalog::Remove(PixelProgram* pProgram)
     }
 
     // 首先在资源目录中查找
-    PixelProgram** ppTempProgram = m_Entry.Find(StrProgramName);
+    SEPixelProgram** ppTempProgram = m_Entry.Find(StrProgramName);
     if( !ppTempProgram )
     {
         // 该程序不存在
@@ -126,13 +126,13 @@ bool PixelProgramCatalog::Remove(PixelProgram* pProgram)
     return true;
 }
 //----------------------------------------------------------------------------
-PixelProgram* PixelProgramCatalog::Find(const std::string& rProgramName,
-    InterfaceDescriptor* pDescriptor)
+SEPixelProgram* SEPixelProgramCatalog::Find(const std::string& rProgramName,
+    SEInterfaceDescriptor* pDescriptor)
 {
     if( rProgramName == ms_NullString
     ||  rProgramName == ms_DefaultString)
     {
-        return StaticCast<PixelProgram>(m_spDefaultPProgram);
+        return StaticCast<SEPixelProgram>(m_spDefaultPProgram);
     }
 
     // 首先在资源目录中查找
@@ -143,7 +143,7 @@ PixelProgram* PixelProgramCatalog::Find(const std::string& rProgramName,
         pDescriptor->GetDescription(tempPostFix);
         tempKey += tempPostFix;
     }
-    PixelProgram** ppTempProgram = m_Entry.Find(tempKey);
+    SEPixelProgram** ppTempProgram = m_Entry.Find(tempKey);
     if( ppTempProgram )
     {
         // 找到则返回
@@ -151,7 +151,7 @@ PixelProgram* PixelProgramCatalog::Find(const std::string& rProgramName,
     }
 
     // 在磁盘中查找
-    PixelProgram* pProgram = PixelProgram::Load(m_pRenderer, rProgramName, 
+    SEPixelProgram* pProgram = SEPixelProgram::Load(m_pRenderer, rProgramName, 
         tempKey, pDescriptor);
     if( pProgram )
     {
@@ -160,10 +160,10 @@ PixelProgram* PixelProgramCatalog::Find(const std::string& rProgramName,
     }
 
     // 程序不存在,则使用默认程序
-    return StaticCast<PixelProgram>(m_spDefaultPProgram);
+    return StaticCast<SEPixelProgram>(m_spDefaultPProgram);
 }
 //----------------------------------------------------------------------------
-bool PixelProgramCatalog::PrintContents(const std::string& rFileName) const
+bool SEPixelProgramCatalog::PrintContents(const std::string& rFileName) const
 {
     const char* pDecorated = SESystem::SE_GetPath(rFileName.c_str(), 
         SESystem::SM_WRITE);
@@ -175,7 +175,7 @@ bool PixelProgramCatalog::PrintContents(const std::string& rFileName) const
         SE_ASSERT( OStream );
 
         std::string StrProgramName;
-		PixelProgram** ppTempProgram = m_Entry.GetFirst(&StrProgramName);
+		SEPixelProgram** ppTempProgram = m_Entry.GetFirst(&StrProgramName);
         while( ppTempProgram )
         {
             OStream << StrProgramName.c_str() << std::endl;
@@ -190,17 +190,17 @@ bool PixelProgramCatalog::PrintContents(const std::string& rFileName) const
     return false;
 }
 //----------------------------------------------------------------------------
-int PixelProgramCatalog::GetProfile() const
+int SEPixelProgramCatalog::GetProfile() const
 {
     return m_pRenderer ? m_pRenderer->GetMaxPShaderProfile() : -1;
 }
 //----------------------------------------------------------------------------
-void PixelProgramCatalog::SetActive(PixelProgramCatalog* pActive)
+void SEPixelProgramCatalog::SetActive(SEPixelProgramCatalog* pActive)
 {
     ms_pActive = pActive;
 }
 //----------------------------------------------------------------------------
-PixelProgramCatalog* PixelProgramCatalog::GetActive()
+SEPixelProgramCatalog* SEPixelProgramCatalog::GetActive()
 {
     return ms_pActive;
 }

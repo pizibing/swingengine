@@ -198,8 +198,8 @@ public:
     void Read(int iCount, SEVector3f* pValue);
     void Read(SEVector4f& rValue);
     void Read(int iCount, SEVector4f* pValue);
-    void Read(Transformation& rValue);
-    void Read(int iCount, Transformation* pValue);
+    void Read(SETransformation& rValue);
+    void Read(int iCount, SETransformation* pValue);
 
     void Write(const SEObject* pValue);
     void Write(int iCount, SEObject** const ppValue);
@@ -250,8 +250,8 @@ public:
     void Write(int iCount, const SEVector3f* pValue);
     void Write(const SEVector4f& rValue);
     void Write(int iCount, const SEVector4f* pValue);
-    void Write(const Transformation& rValue);
-    void Write(int iCount, const Transformation* pValue);
+    void Write(const SETransformation& rValue);
+    void Write(int iCount, const SETransformation* pValue);
 };
 
 typedef SEObject* (*FactoryFunction)(SEStream&);

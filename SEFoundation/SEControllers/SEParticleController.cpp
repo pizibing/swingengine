@@ -93,8 +93,8 @@ void SEParticleController::SetObject(SEObject* pObject)
 
     if( pObject )
     {
-        SE_ASSERT( pObject->IsDerived(Particles::TYPE) );
-        Particles* pParticles = StaticCast<Particles>(pObject);
+        SE_ASSERT( pObject->IsDerived(SEParticles::TYPE) );
+        SEParticles* pParticles = StaticCast<SEParticles>(pObject);
         Reallocate(pParticles->Locations->GetCount());
     }
     else
@@ -105,7 +105,7 @@ void SEParticleController::SetObject(SEObject* pObject)
 //----------------------------------------------------------------------------
 void SEParticleController::UpdateSystemMotion(float fCtrlTime)
 {
-    Particles* pParticle = StaticCast<Particles>(m_pObject);
+    SEParticles* pParticle = StaticCast<SEParticles>(m_pObject);
 
     float fDSize = fCtrlTime*SystemSizeChange;
     pParticle->SizeAdjust += fDSize;
@@ -125,7 +125,7 @@ void SEParticleController::UpdateSystemMotion(float fCtrlTime)
 //----------------------------------------------------------------------------
 void SEParticleController::UpdatePointMotion(float fCtrlTime)
 {
-    Particles* pParticle = StaticCast<Particles>(m_pObject);
+    SEParticles* pParticle = StaticCast<SEParticles>(m_pObject);
     int i, iACount = pParticle->GetActiveCount();
     float* afSize = pParticle->Sizes->GetData();
 

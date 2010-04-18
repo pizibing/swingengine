@@ -19,57 +19,57 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int TerrainPage::GetSize() const
+inline int SETerrainPage::GetSize() const
 {
     return m_iSize;
 }
 //----------------------------------------------------------------------------
-inline const unsigned short* TerrainPage::GetHeights() const
+inline const unsigned short* SETerrainPage::GetHeights() const
 {
     return m_ausHeight;
 }
 //----------------------------------------------------------------------------
-inline const SEVector2f& TerrainPage::GetOrigin() const
+inline const SEVector2f& SETerrainPage::GetOrigin() const
 {
     return m_Origin;
 }
 //----------------------------------------------------------------------------
-inline float TerrainPage::GetMinElevation() const
+inline float SETerrainPage::GetMinElevation() const
 {
     return m_fMinElevation;
 }
 //----------------------------------------------------------------------------
-inline float TerrainPage::GetMaxElevation() const
+inline float SETerrainPage::GetMaxElevation() const
 {
     return m_fMaxElevation;
 }
 //----------------------------------------------------------------------------
-inline float TerrainPage::GetSpacing() const
+inline float SETerrainPage::GetSpacing() const
 {
     return m_fSpacing;
 }
 //----------------------------------------------------------------------------
-inline float TerrainPage::GetX(int iX) const
+inline float SETerrainPage::GetX(int iX) const
 {
     return m_Origin.X + m_fSpacing*float(iX);
 }
 //----------------------------------------------------------------------------
-inline float TerrainPage::GetZ(int iZ) const
+inline float SETerrainPage::GetZ(int iZ) const
 {
     return m_Origin.Y + m_fSpacing*float(iZ);
 }
 //----------------------------------------------------------------------------
-inline float TerrainPage::GetHeight(int iIndex) const
+inline float SETerrainPage::GetHeight(int iIndex) const
 {
     return m_fMinElevation + m_fMultiplier*float(m_ausHeight[iIndex]);
 }
 //----------------------------------------------------------------------------
-inline float& TerrainPage::UVBias()
+inline float& SETerrainPage::UVBias()
 {
     return m_fUVBias;
 }
 //----------------------------------------------------------------------------
-inline float TerrainPage::GetTextureCoordinate(int iIndex) const
+inline float SETerrainPage::GetTextureCoordinate(int iIndex) const
 {
     return m_fTextureSpacing * float(iIndex);
 }

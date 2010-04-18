@@ -28,13 +28,13 @@
 namespace Swing
 {
 //----------------------------------------------------------------------------
-// 名称:SEMatrix2f共享数组类
+// 名称:Matrix2f共享数组类
 // 说明:
 // 作者:Sun Che
 // 时间:20080324
 //----------------------------------------------------------------------------
-typedef SharedArray<SEMatrix2f> Matrix2fArray;
-typedef SESmartPointer<Matrix2fArray> Matrix2fArrayPtr;
+typedef SESharedArray<SEMatrix2f> SEMatrix2fArray;
+typedef SESmartPointer<SEMatrix2fArray> SEMatrix2fArrayPtr;
 }
 
 #endif

@@ -19,46 +19,46 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline bool Transformation::IsIdentity() const
+inline bool SETransformation::IsIdentity() const
 {
     return m_bIsIdentity;
 }
 //----------------------------------------------------------------------------
-inline bool Transformation::IsSRMatrix() const
+inline bool SETransformation::IsSRMatrix() const
 {
     return m_bIsSRMatrix;
 }
 //----------------------------------------------------------------------------
-inline bool Transformation::IsUniformScale() const
+inline bool SETransformation::IsUniformScale() const
 {
     return m_bIsSRMatrix && m_bIsUniformScale;
 }
 //----------------------------------------------------------------------------
-inline const SEMatrix3f& Transformation::GetRotate() const
+inline const SEMatrix3f& SETransformation::GetRotate() const
 {
     SE_ASSERT( m_bIsSRMatrix );
 
     return m_Matrix;
 }
 //----------------------------------------------------------------------------
-inline const SEMatrix3f& Transformation::GetMatrix() const
+inline const SEMatrix3f& SETransformation::GetMatrix() const
 {
     return m_Matrix;
 }
 //----------------------------------------------------------------------------
-inline const SEVector3f& Transformation::GetTranslate() const
+inline const SEVector3f& SETransformation::GetTranslate() const
 {
     return m_Translate;
 }
 //----------------------------------------------------------------------------
-inline const SEVector3f& Transformation::GetScale() const
+inline const SEVector3f& SETransformation::GetScale() const
 {
     SE_ASSERT( m_bIsSRMatrix );
 
     return m_Scale;
 }
 //----------------------------------------------------------------------------
-inline float Transformation::GetUniformScale() const
+inline float SETransformation::GetUniformScale() const
 {
     SE_ASSERT( m_bIsSRMatrix && m_bIsUniformScale );
 

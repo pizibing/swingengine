@@ -52,8 +52,8 @@ public:
     inline float GetFogDensity(void) const;
 
     // 设置user-defined常量使用本地存储位置.
-    virtual void OnLoadPrograms(int iPass, Program* pVProgram,
-        Program* pPProgram, Program* pGProgram);
+    virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
+        SEProgram* pPProgram, SEProgram* pGProgram);
 
 protected:
     // streaming

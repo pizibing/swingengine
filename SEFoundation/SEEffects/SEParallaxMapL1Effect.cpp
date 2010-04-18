@@ -36,8 +36,8 @@ ParallaxMapL1Effect::ParallaxMapL1Effect(const char* acBaseName,
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("ParallaxMapL1.v_ParallaxMapL1");
-    m_PShader[0] = SE_NEW PixelShader("ParallaxMapL1.p_ParallaxMapL1");
+    m_VShader[0] = SE_NEW SEVertexShader("ParallaxMapL1.v_ParallaxMapL1");
+    m_PShader[0] = SE_NEW SEPixelShader("ParallaxMapL1.p_ParallaxMapL1");
 
     m_PShader[0]->SetTextureCount(3);
     m_PShader[0]->SetImageName(0, acBaseName);

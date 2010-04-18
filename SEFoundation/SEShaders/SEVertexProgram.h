@@ -35,7 +35,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080627
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API VertexProgram : public Program
+class SE_FOUNDATION_API SEVertexProgram : public SEProgram
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -43,15 +43,15 @@ class SE_FOUNDATION_API VertexProgram : public Program
 
 public:
     // 必须通过Load来创建一个实例.
-    static VertexProgram* Load(Renderer* pRenderer, const std::string& rProgramName, 
-        const std::string& rKey, InterfaceDescriptor* pInterfaceDesc = 0);
-    virtual ~VertexProgram(void);
+    static SEVertexProgram* Load(SERenderer* pRenderer, const std::string& rProgramName, 
+        const std::string& rKey, SEInterfaceDescriptor* pInterfaceDesc = 0);
+    virtual ~SEVertexProgram(void);
 
 protected:
-    VertexProgram(void);
+    SEVertexProgram(void);
 };
 
-typedef SESmartPointer<VertexProgram> VertexProgramPtr;
+typedef SESmartPointer<SEVertexProgram> SEVertexProgramPtr;
 
 }
 

@@ -19,75 +19,75 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline void Spatial::SetParent(Spatial* pParent)
+inline void SESpatial::SetParent(SESpatial* pParent)
 {
     m_pParent = pParent;
 }
 //----------------------------------------------------------------------------
-inline Spatial* Spatial::GetParent()
+inline SESpatial* SESpatial::GetParent()
 {
     return m_pParent;
 }
 //----------------------------------------------------------------------------
-inline int Spatial::GetGlobalStateCount() const
+inline int SESpatial::GetGlobalStateCount() const
 {
     return (int)m_GlobalStates.size();
 }
 //----------------------------------------------------------------------------
-inline GlobalState* Spatial::GetGlobalState(int i) const
+inline SEGlobalState* SESpatial::GetGlobalState(int i) const
 {
     SE_ASSERT( 0 <= i && i < (int)m_GlobalStates.size() );
 
     return m_GlobalStates[i];
 }
 //----------------------------------------------------------------------------
-inline void Spatial::DetachAllGlobalStates()
+inline void SESpatial::DetachAllGlobalStates()
 {
     m_GlobalStates.clear();
 }
 //----------------------------------------------------------------------------
-inline int Spatial::GetLightCount() const
+inline int SESpatial::GetLightCount() const
 {
     return (int)m_Lights.size();
 }
 //----------------------------------------------------------------------------
-inline Light* Spatial::GetLight(int i) const
+inline SELight* SESpatial::GetLight(int i) const
 {
     SE_ASSERT( 0 <= i && i < (int)m_Lights.size() );
 
-    return StaticCast<Light>(m_Lights[i]);
+    return StaticCast<SELight>(m_Lights[i]);
 }
 //----------------------------------------------------------------------------
-inline void Spatial::DetachAllLights()
+inline void SESpatial::DetachAllLights()
 {
     m_Lights.clear();
 }
 //----------------------------------------------------------------------------
-inline int Spatial::GetEffectCount() const
+inline int SESpatial::GetEffectCount() const
 {
     return (int)m_Effects.size();
 }
 //----------------------------------------------------------------------------
-inline Effect* Spatial::GetEffect(int i) const
+inline Effect* SESpatial::GetEffect(int i) const
 {
     SE_ASSERT( 0 <= i && i < (int)m_Effects.size() );
 
     return StaticCast<Effect>(m_Effects[i]);
 }
 //----------------------------------------------------------------------------
-inline void Spatial::DetachAllEffects()
+inline void SESpatial::DetachAllEffects()
 {
     m_Effects.clear();
 }
 //----------------------------------------------------------------------------
-inline void Spatial::SetStartEffect(int i)
+inline void SESpatial::SetStartEffect(int i)
 {
     SE_ASSERT( 0 <= i && i < (int)m_Effects.size() );
 
     m_iStartEffect = i;
 }
 //----------------------------------------------------------------------------
-inline int Spatial::GetStartEffect() const
+inline int SESpatial::GetStartEffect() const
 {
     return m_iStartEffect;
 }

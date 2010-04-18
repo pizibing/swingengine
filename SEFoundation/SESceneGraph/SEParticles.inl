@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int Particles::GetActiveCount() const
+inline int SEParticles::GetActiveCount() const
 {
     return m_iActiveCount;
 }

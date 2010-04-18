@@ -46,15 +46,15 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080707
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Camera : public SEObject
+class SE_FOUNDATION_API SECamera : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    Camera(void);
-    virtual ~Camera(void);
+    SECamera(void);
+    virtual ~SECamera(void);
 
     // 摄像机{E;R,U,D}的世界坐标系下表示:
     // 默认location  E = (0,0,0)
@@ -170,11 +170,11 @@ protected:
     // 摄像机不能同时添加给多个渲染器,但可以在多个渲染器之间共享,
     // 前提是确保只有一个渲染器正在使用该摄像机,
     // 渲染器有责任设置这个成员变量.
-    friend class Renderer;
-    Renderer* m_pRenderer;
+    friend class SERenderer;
+    SERenderer* m_pRenderer;
 };
 
-typedef SESmartPointer<Camera> CameraPtr;
+typedef SESmartPointer<SECamera> SECameraPtr;
 
 #include "SECamera.inl"
 

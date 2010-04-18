@@ -28,8 +28,8 @@
 namespace Swing
 {
 
-class Camera;
-class Culler;
+class SECamera;
+class SECuller;
 
 // particle's billboard quad.
 //
@@ -45,39 +45,39 @@ class Culler;
 // 作者:Sun Che
 // 时间:20090602
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Particles : public TriMesh
+class SE_FOUNDATION_API SEParticles : public SETriMesh
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    Particles(const Attributes& rAttr, Vector3fArray* pLocations,
-        FloatArray* pSizes);
-    virtual ~Particles(void);
+    SEParticles(const SEAttributes& rAttr, SEVector3fArray* pLocations,
+        SEFloatArray* pSizes);
+    virtual ~SEParticles(void);
 
     // 数据成员.
-    Vector3fArrayPtr Locations;
-    FloatArrayPtr Sizes;
+    SEVector3fArrayPtr Locations;
+    SEFloatArrayPtr Sizes;
     float SizeAdjust;
 
     void SetActiveCount(int iActiveCount);
     inline int GetActiveCount(void) const;
 
 protected:
-    Particles(void);
+    SEParticles(void);
 
     // 所有粒子都是朝向camera的广告牌.
-    void GenerateParticles(const Camera* pCamera);
+    void GenerateParticles(const SECamera* pCamera);
 
     // culling.
-    virtual void GetUnculledSet(Culler& rCuller, bool bNoCull);
+    virtual void GetUnculledSet(SECuller& rCuller, bool bNoCull);
 
     // 允许用户指定少于实际最大数量的粒子数用于draw.
     int m_iActiveCount;
 };
 
-typedef SESmartPointer<Particles> ParticlesPtr;
+typedef SESmartPointer<SEParticles> SEParticlesPtr;
 
 #include "SEParticles.inl"
 

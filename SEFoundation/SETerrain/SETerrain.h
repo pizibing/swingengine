@@ -28,7 +28,7 @@
 namespace Swing
 {
 
-class Camera;
+class SECamera;
 
 //----------------------------------------------------------------------------
 // 名称:Terrain类
@@ -36,18 +36,18 @@ class Camera;
 // 作者:Sun Che
 // 时间:20081014
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Terrain : public Node
+class SE_FOUNDATION_API SETerrain : public SENode
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    Terrain(const char* acHeightName, const char* acImageName,
-        const Attributes& rAttr, Camera* pCamera, float fUVBias,
+    SETerrain(const char* acHeightName, const char* acImageName,
+        const SEAttributes& rAttr, SECamera* pCamera, float fUVBias,
         SEColorRGBA* pBorderColor);
 
-    virtual ~Terrain(void);
+    virtual ~SETerrain(void);
 
     int GetRowCount(void) const;
     int GetColCount(void) const;
@@ -57,28 +57,28 @@ public:
     float GetSpacing(void) const;
     float& UVBias(void);
     SEColorRGBA& BorderColor(void);
-    void SetCamera(Camera* pCamera);
+    void SetCamera(SECamera* pCamera);
 
     // page管理.
-    TerrainPage* GetPage(int iRow, int iCol);
-    TerrainPage* GetCurrentPage(float fX, float fZ) const;
+    SETerrainPage* GetPage(int iRow, int iCol);
+    SETerrainPage* GetCurrentPage(float fX, float fZ) const;
     float GetHeight(float fX, float fZ) const;
 
     // 允许一个page被替换掉.
     // 代码装载一个新page.
     // 然后返回旧有page,从而允许应用程序cache旧有page,并在短期内重新使用它.
-    TerrainPagePtr ReplacePage(int iRow, int iCol, const char* acHeightName,
+    SETerrainPagePtr ReplacePage(int iRow, int iCol, const char* acHeightName,
         const char* acHeightSuffix, const char* acImageName,
         const char* acImageSuffix);
 
-    TerrainPagePtr ReplacePage(int iRow, int iCol, TerrainPage* pNewPage);
+    SETerrainPagePtr ReplacePage(int iRow, int iCol, SETerrainPage* pNewPage);
 
     // 更新terrain pages的active set.
     void OnCameraMotion(void);
 
 protected:
     // streaming support
-    Terrain(void);
+    SETerrain(void);
 
     void LoadHeader(const char* acHeightName);
     void LoadPage(int iRow, int iCol, const char* acHeightName,
@@ -86,24 +86,24 @@ protected:
         const char* acImageSuffix);
 
     // page所用VB的attribute.
-    Attributes m_Attr;
+    SEAttributes m_Attr;
 
     // page信息.
     int m_iRows, m_iCols;
     int m_iSize;
     float m_fMinElevation, m_fMaxElevation, m_fSpacing;
-    TerrainPagePtr** m_aaspPage;  // 第1维是row,第2维是col
+    SETerrainPagePtr** m_aaspPage;  // 第1维是row,第2维是col
 
     // 包含camera的当前page.
     int m_iCameraRow, m_iCameraCol;
-    SESmartPointer<Camera> m_spCamera;
+    SESmartPointer<SECamera> m_spCamera;
 
     // texture参数.
     float m_fUVBias;
     SEColorRGBA m_BorderColor;
 };
 
-typedef SESmartPointer<Terrain> TerrainPtr;
+typedef SESmartPointer<SETerrain> SETerrainPtr;
 #include "SETerrain.inl"
 
 }

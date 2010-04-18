@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int InterfaceDescriptor::GetCount() const
+inline int SEInterfaceDescriptor::GetCount() const
 {
     return (int)m_DescriptorItems.size();
 }

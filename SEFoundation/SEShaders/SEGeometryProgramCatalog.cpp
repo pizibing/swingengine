@@ -24,12 +24,12 @@
 
 using namespace Swing;
 
-const std::string GeometryProgramCatalog::ms_NullString("");
-const std::string GeometryProgramCatalog::ms_DefaultString("Default.g_Default");
-GeometryProgramCatalog* GeometryProgramCatalog::ms_pActive = 0;
+const std::string SEGeometryProgramCatalog::ms_NullString("");
+const std::string SEGeometryProgramCatalog::ms_DefaultString("Default.g_Default");
+SEGeometryProgramCatalog* SEGeometryProgramCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
-GeometryProgramCatalog::GeometryProgramCatalog(const std::string& rName)
+SEGeometryProgramCatalog::SEGeometryProgramCatalog(const std::string& rName)
     :
     m_Name(rName),
     m_Entry(PROGRAM_MAP_SIZE)
@@ -38,17 +38,17 @@ GeometryProgramCatalog::GeometryProgramCatalog(const std::string& rName)
     m_spDefaultGProgram = 0;
 }
 //----------------------------------------------------------------------------
-GeometryProgramCatalog::~GeometryProgramCatalog()
+SEGeometryProgramCatalog::~SEGeometryProgramCatalog()
 {
 }
 //----------------------------------------------------------------------------
-void GeometryProgramCatalog::SetRenderer(Renderer* pRenderer)
+void SEGeometryProgramCatalog::SetRenderer(SERenderer* pRenderer)
 {
     m_pRenderer = pRenderer;
 
     if( m_pRenderer )
     {
-        m_spDefaultGProgram = GeometryProgram::Load(m_pRenderer, 
+        m_spDefaultGProgram = SEGeometryProgram::Load(m_pRenderer, 
             ms_DefaultString, ms_DefaultString, 0);
 
         SE_ASSERT( m_spDefaultGProgram );
@@ -59,12 +59,12 @@ void GeometryProgramCatalog::SetRenderer(Renderer* pRenderer)
     }
 }
 //----------------------------------------------------------------------------
-const std::string& GeometryProgramCatalog::GetName() const
+const std::string& SEGeometryProgramCatalog::GetName() const
 {
     return m_Name;
 }
 //----------------------------------------------------------------------------
-bool GeometryProgramCatalog::Insert(GeometryProgram* pProgram)
+bool SEGeometryProgramCatalog::Insert(SEGeometryProgram* pProgram)
 {
     if( !pProgram )
     {
@@ -82,7 +82,7 @@ bool GeometryProgramCatalog::Insert(GeometryProgram* pProgram)
     }
 
     // 首先在资源目录中查找
-    GeometryProgram** ppTempProgram = m_Entry.Find(StrProgramName);
+    SEGeometryProgram** ppTempProgram = m_Entry.Find(StrProgramName);
     if( ppTempProgram )
     {
         // 该程序已经存在
@@ -95,7 +95,7 @@ bool GeometryProgramCatalog::Insert(GeometryProgram* pProgram)
     return true;
 }
 //----------------------------------------------------------------------------
-bool GeometryProgramCatalog::Remove(GeometryProgram* pProgram)
+bool SEGeometryProgramCatalog::Remove(SEGeometryProgram* pProgram)
 {
     if( !pProgram )
     {
@@ -113,7 +113,7 @@ bool GeometryProgramCatalog::Remove(GeometryProgram* pProgram)
     }
 
     // 首先在资源目录中查找
-    GeometryProgram** ppTempProgram = m_Entry.Find(StrProgramName);
+    SEGeometryProgram** ppTempProgram = m_Entry.Find(StrProgramName);
     if( !ppTempProgram )
     {
         // 该程序不存在
@@ -126,13 +126,13 @@ bool GeometryProgramCatalog::Remove(GeometryProgram* pProgram)
     return true;
 }
 //----------------------------------------------------------------------------
-GeometryProgram* GeometryProgramCatalog::Find(const std::string& rProgramName,
-    InterfaceDescriptor* pDescriptor)
+SEGeometryProgram* SEGeometryProgramCatalog::Find(const std::string& rProgramName,
+    SEInterfaceDescriptor* pDescriptor)
 {
     if( rProgramName == ms_NullString
     ||  rProgramName == ms_DefaultString )
     {
-        return StaticCast<GeometryProgram>(m_spDefaultGProgram);
+        return StaticCast<SEGeometryProgram>(m_spDefaultGProgram);
     }
 
     // 首先在资源目录中查找
@@ -143,7 +143,7 @@ GeometryProgram* GeometryProgramCatalog::Find(const std::string& rProgramName,
         pDescriptor->GetDescription(tempPostFix);
         tempKey += tempPostFix;
     }
-    GeometryProgram** ppTempProgram = m_Entry.Find(tempKey);
+    SEGeometryProgram** ppTempProgram = m_Entry.Find(tempKey);
     if( ppTempProgram )
     {
         // 找到则返回
@@ -151,7 +151,7 @@ GeometryProgram* GeometryProgramCatalog::Find(const std::string& rProgramName,
     }
 
     // 在磁盘中查找
-    GeometryProgram* pProgram = GeometryProgram::Load(m_pRenderer, 
+    SEGeometryProgram* pProgram = SEGeometryProgram::Load(m_pRenderer, 
         rProgramName, tempKey, pDescriptor);
     if( pProgram )
     {
@@ -160,10 +160,10 @@ GeometryProgram* GeometryProgramCatalog::Find(const std::string& rProgramName,
     }
 
     // 程序不存在,则使用默认程序
-    return StaticCast<GeometryProgram>(m_spDefaultGProgram);
+    return StaticCast<SEGeometryProgram>(m_spDefaultGProgram);
 }
 //----------------------------------------------------------------------------
-bool GeometryProgramCatalog::PrintContents(const std::string& rFileName) const
+bool SEGeometryProgramCatalog::PrintContents(const std::string& rFileName) const
 {
     const char* pDecorated = SESystem::SE_GetPath(rFileName.c_str(), 
         SESystem::SM_WRITE);
@@ -175,7 +175,7 @@ bool GeometryProgramCatalog::PrintContents(const std::string& rFileName) const
         SE_ASSERT( OStream );
 
 		std::string StrProgramName;
-		GeometryProgram** ppTempProgram = m_Entry.GetFirst(&StrProgramName);
+		SEGeometryProgram** ppTempProgram = m_Entry.GetFirst(&StrProgramName);
         while( ppTempProgram )
         {
             OStream << StrProgramName.c_str() << std::endl;
@@ -190,17 +190,17 @@ bool GeometryProgramCatalog::PrintContents(const std::string& rFileName) const
     return false;
 }
 //----------------------------------------------------------------------------
-int GeometryProgramCatalog::GetProfile() const
+int SEGeometryProgramCatalog::GetProfile() const
 {
     return m_pRenderer ? m_pRenderer->GetMaxGShaderProfile() : -1;
 }
 //----------------------------------------------------------------------------
-void GeometryProgramCatalog::SetActive(GeometryProgramCatalog* pActive)
+void SEGeometryProgramCatalog::SetActive(SEGeometryProgramCatalog* pActive)
 {
     ms_pActive = pActive;
 }
 //----------------------------------------------------------------------------
-GeometryProgramCatalog* GeometryProgramCatalog::GetActive()
+SEGeometryProgramCatalog* SEGeometryProgramCatalog::GetActive()
 {
     return ms_pActive;
 }

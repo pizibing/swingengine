@@ -41,7 +41,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080623
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Program : public SEObject, public Bindable
+class SE_FOUNDATION_API SEProgram : public SEObject, public SEBindable
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -49,7 +49,7 @@ class SE_FOUNDATION_API Program : public SEObject, public Bindable
 
 public:
     // 虚基类.
-    virtual ~Program(void);
+    virtual ~SEProgram(void);
 
     enum ProgramType
     {
@@ -60,27 +60,27 @@ public:
     };
     inline ProgramType GetProgramType(void) const;
 
-    inline const Attributes& GetInputAttributes(void) const;
-    inline const Attributes& GetOutputAttributes(void) const;
+    inline const SEAttributes& GetInputAttributes(void) const;
+    inline const SEAttributes& GetOutputAttributes(void) const;
 
     // 访问renderer constants.
     inline int GetRCCount(void) const;
-    RendererConstant* GetRC(int i);
-    RendererConstant* GetRC(RendererConstant::Type eType);
+    SERendererConstant* GetRC(int i);
+    SERendererConstant* GetRC(SERendererConstant::Type eType);
 
     // 访问user constants.
     inline int GetUCCount(void) const;
-    UserConstant* GetUC(int i);
-    UserConstant* GetUC(const std::string& rName);
+    SEUserConstant* GetUC(int i);
+    SEUserConstant* GetUC(const std::string& rName);
 
     // 访问samplers.
     inline int GetSICount(void) const;
-    SamplerInformation* GetSI(int i);
-    SamplerInformation* GetSI(const std::string& rName);
+    SESamplerInformation* GetSI(int i);
+    SESamplerInformation* GetSI(const std::string& rName);
 
     // 用户必须实现这个代理函数,用于创建一个shader program对象并填充其数据.
-    typedef bool (*LoadProgram)(Renderer*, const std::string&, Program*, 
-        ProgramType, InterfaceDescriptor*);
+    typedef bool (*LoadProgram)(SERenderer*, const std::string&, SEProgram*, 
+        ProgramType, SEInterfaceDescriptor*);
 
     // 用户必须实现这个代理函数,用于释放shader program自定义数据.
     typedef void (*ReleaseUserData)(void*);
@@ -94,27 +94,27 @@ public:
     void* UserData;
 
 protected:
-    static bool Load(Renderer* pRenderer, const std::string& rProgramName,
-        Program* pProgram, ProgramType eType, 
-        InterfaceDescriptor* pInterfaceDesc);
+    static bool Load(SERenderer* pRenderer, const std::string& rProgramName,
+        SEProgram* pProgram, ProgramType eType, 
+        SEInterfaceDescriptor* pInterfaceDesc);
 
-    Program(void);
+    SEProgram(void);
 
     ProgramType m_eProgramType;
 
     // shader程序的输入输出数据格式.
-    Attributes m_InputAttributes;
-    Attributes m_OutputAttributes;
+    SEAttributes m_InputAttributes;
+    SEAttributes m_OutputAttributes;
 
     // 该程序所需的渲染器常量.
-    std::vector<RendererConstant> m_RendererConstants;
+    std::vector<SERendererConstant> m_RendererConstants;
 
     // 该程序所需的用户定义常量,
     // 用户定义常量由应用程序自由设置.
-    std::vector<UserConstant> m_UserConstants;
+    std::vector<SEUserConstant> m_UserConstants;
 
     // 该程序所需的采样器单元信息.
-    std::vector<SamplerInformation> m_SamplerInformation;
+    std::vector<SESamplerInformation> m_SamplerInformation;
 
     // parsing shader程序时使用.
     static const std::string ms_PositionStr;
@@ -129,7 +129,7 @@ protected:
     static const std::string ms_TexCoordStr;
 };
 
-typedef SESmartPointer<Program> ProgramPtr;
+typedef SESmartPointer<SEProgram> SEProgramPtr;
 
 #include "SEProgram.inl"
 

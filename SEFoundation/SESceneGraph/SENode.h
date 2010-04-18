@@ -31,27 +31,26 @@ namespace Swing
 
 //----------------------------------------------------------------------------
 // 名称:场景视图关系节点基类
-// 说明:一些开发者希望Node节点对象可以有多个父节点,从而使场景视图成为DAG.
-//      实际上不是这样,场景视图结构是一个树型结构.
+// 说明:
 // 作者:Sun Che
 // 时间:20080723
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Node : public Spatial
+class SE_FOUNDATION_API SENode : public SESpatial
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    Node(void);
-    virtual ~Node(void);
+    SENode(void);
+    virtual ~SENode(void);
 
     // 子节点访问.
     inline int GetCount(void) const;
-    int AttachChild(Spatial* pChild);
-    int DetachChild(Spatial* pChild);
+    int AttachChild(SESpatial* pChild);
+    int DetachChild(SESpatial* pChild);
     SpatialPtr DetachChildAt(int i);
-    SpatialPtr SetChild(int i, Spatial* pChild);
+    SpatialPtr SetChild(int i, SESpatial* pChild);
     SpatialPtr GetChild(int i);
 
     // Picking support.
@@ -65,17 +64,17 @@ protected:
     virtual void UpdateWorldBound(void);
 
     // 渲染状态更新
-    virtual void UpdateState(std::vector<GlobalState*>* aGStack,
-        std::vector<Light*>* pLStack);
+    virtual void UpdateState(std::vector<SEGlobalState*>* aGStack,
+        std::vector<SELight*>* pLStack);
 
     // 支持剔除系统
-    virtual void GetUnculledSet(Culler& rCuller, bool bNoCull);
+    virtual void GetUnculledSet(SECuller& rCuller, bool bNoCull);
 
     // 子节点数组
     std::vector<SpatialPtr> m_Child;
 };
 
-typedef SESmartPointer<Node> NodePtr;
+typedef SESmartPointer<SENode> SENodePtr;
 
 #include "SENode.inl"
 

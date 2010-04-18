@@ -25,7 +25,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-SECollisionRecord::SECollisionRecord(TriMesh* pMesh, SEBoundingVolumeTree* pTree,
+SECollisionRecord::SECollisionRecord(SETriMesh* pMesh, SEBoundingVolumeTree* pTree,
     SEVector3f* pVelocity, Callback oCallback, void* pvCallbackData)
 {
     SE_ASSERT( pMesh && pTree );
@@ -46,14 +46,14 @@ void SECollisionRecord::TestIntersection(SECollisionRecord& rRecord)
 {
     SEBoundingVolumeTree* pTree0 = m_pTree;
     SEBoundingVolumeTree* pTree1 = rRecord.m_pTree;
-    const TriMesh* pMesh0 = m_pTree->GetMesh();
-    const TriMesh* pMesh1 = rRecord.m_pTree->GetMesh();
+    const SETriMesh* pMesh0 = m_pTree->GetMesh();
+    const SETriMesh* pMesh1 = rRecord.m_pTree->GetMesh();
 
     pTree0->UpdateWorldBound();
     pTree1->UpdateWorldBound();
 
-    const BoundingVolume* pWorldBV0 = pTree0->GetWorldBound();
-    const BoundingVolume* pWorldBV1 = pTree1->GetWorldBound();
+    const SEBoundingVolume* pWorldBV0 = pTree0->GetWorldBound();
+    const SEBoundingVolume* pWorldBV1 = pTree1->GetWorldBound();
     if( pWorldBV0->TestIntersection(pWorldBV1) )
     {
         SEBoundingVolumeTree* pRoot;
@@ -131,14 +131,14 @@ void SECollisionRecord::FindIntersection(SECollisionRecord& rRecord)
 {
     SEBoundingVolumeTree* pTree0 = m_pTree;
     SEBoundingVolumeTree* pTree1 = rRecord.m_pTree;
-    const TriMesh* pMesh0 = m_pTree->GetMesh();
-    const TriMesh* pMesh1 = rRecord.m_pTree->GetMesh();
+    const SETriMesh* pMesh0 = m_pTree->GetMesh();
+    const SETriMesh* pMesh1 = rRecord.m_pTree->GetMesh();
 
     pTree0->UpdateWorldBound();
     pTree1->UpdateWorldBound();
 
-    const BoundingVolume* pWorldBV0 = pTree0->GetWorldBound();
-    const BoundingVolume* pWorldBV1 = pTree1->GetWorldBound();
+    const SEBoundingVolume* pWorldBV0 = pTree0->GetWorldBound();
+    const SEBoundingVolume* pWorldBV1 = pTree1->GetWorldBound();
     if( pWorldBV0->TestIntersection(pWorldBV1) )
     {
         SEBoundingVolumeTree* pRoot;
@@ -216,8 +216,8 @@ void SECollisionRecord::TestIntersection(float fTMax, SECollisionRecord& rRecord
 {
     SEBoundingVolumeTree* pTree0 = m_pTree;
     SEBoundingVolumeTree* pTree1 = rRecord.m_pTree;
-    const TriMesh* pMesh0 = m_pTree->GetMesh();
-    const TriMesh* pMesh1 = rRecord.m_pTree->GetMesh();
+    const SETriMesh* pMesh0 = m_pTree->GetMesh();
+    const SETriMesh* pMesh1 = rRecord.m_pTree->GetMesh();
     const SEVector3f& rVelocity0 = (m_pVelocity ? *m_pVelocity :
         SEVector3f::ZERO);
     const SEVector3f& rVelocity1 = (rRecord.m_pVelocity ?
@@ -226,8 +226,8 @@ void SECollisionRecord::TestIntersection(float fTMax, SECollisionRecord& rRecord
     pTree0->UpdateWorldBound();
     pTree1->UpdateWorldBound();
 
-    const BoundingVolume* pWorldBV0 = pTree0->GetWorldBound();
-    const BoundingVolume* pWorldBV1 = pTree1->GetWorldBound();
+    const SEBoundingVolume* pWorldBV0 = pTree0->GetWorldBound();
+    const SEBoundingVolume* pWorldBV1 = pTree1->GetWorldBound();
 
     // 待实现.
     // TestIntersection应该支持运动的BV.
@@ -309,8 +309,8 @@ void SECollisionRecord::FindIntersection(float fTMax, SECollisionRecord& rRecord
 {
     SEBoundingVolumeTree* pTree0 = m_pTree;
     SEBoundingVolumeTree* pTree1 = rRecord.m_pTree;
-    const TriMesh* pMesh0 = m_pTree->GetMesh();
-    const TriMesh* pMesh1 = rRecord.m_pTree->GetMesh();
+    const SETriMesh* pMesh0 = m_pTree->GetMesh();
+    const SETriMesh* pMesh1 = rRecord.m_pTree->GetMesh();
     const SEVector3f& rVelocity0 = (m_pVelocity ? *m_pVelocity :
         SEVector3f::ZERO);
     const SEVector3f& rVelocity1 = (rRecord.m_pVelocity ?
@@ -319,8 +319,8 @@ void SECollisionRecord::FindIntersection(float fTMax, SECollisionRecord& rRecord
     pTree0->UpdateWorldBound();
     pTree1->UpdateWorldBound();
 
-    const BoundingVolume* pWorldBV0 = pTree0->GetWorldBound();
-    const BoundingVolume* pWorldBV1 = pTree1->GetWorldBound();
+    const SEBoundingVolume* pWorldBV0 = pTree0->GetWorldBound();
+    const SEBoundingVolume* pWorldBV1 = pTree1->GetWorldBound();
 
     // 待实现.
     // TestIntersection应该支持运动的BV.

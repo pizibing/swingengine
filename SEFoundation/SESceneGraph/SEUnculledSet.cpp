@@ -24,24 +24,24 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-UnculledSet::UnculledSet(int iMaxCount, int iGrowBy)
+SEUnculledSet::SEUnculledSet(int iMaxCount, int iGrowBy)
 {
     m_pUnculled = 0;
     Resize(iMaxCount, iGrowBy);
 }
 //----------------------------------------------------------------------------
-UnculledSet::~UnculledSet()
+SEUnculledSet::~SEUnculledSet()
 {
     SE_DELETE[] m_pUnculled;
 }
 //----------------------------------------------------------------------------
-void UnculledSet::Insert(Spatial* pObject, Effect* pGlobalEffect)
+void SEUnculledSet::Insert(SESpatial* pObject, Effect* pGlobalEffect)
 {
     if( ++m_iCount > m_iMaxCount )
     {
         int iNewMaxCount = m_iMaxCount + m_iGrowBy;
-        UnculledObject* pNewVisible = SE_NEW UnculledObject[iNewMaxCount];
-        size_t uiSize = m_iCount * sizeof(UnculledObject);
+        SEUnculledObject* pNewVisible = SE_NEW SEUnculledObject[iNewMaxCount];
+        size_t uiSize = m_iCount * sizeof(SEUnculledObject);
         SESystem::SE_Memcpy(pNewVisible, uiSize, m_pUnculled, uiSize);
         SE_DELETE[] m_pUnculled;
         m_pUnculled = pNewVisible;
@@ -53,7 +53,7 @@ void UnculledSet::Insert(Spatial* pObject, Effect* pGlobalEffect)
     m_pUnculled[iIndex].GlobalEffect = pGlobalEffect;
 }
 //----------------------------------------------------------------------------
-void UnculledSet::Resize(int iMaxCount, int iGrowBy)
+void SEUnculledSet::Resize(int iMaxCount, int iGrowBy)
 {
     if( iMaxCount > 0 )
     {
@@ -75,6 +75,6 @@ void UnculledSet::Resize(int iMaxCount, int iGrowBy)
 
     SE_DELETE[] m_pUnculled;
     m_iCount = 0;
-    m_pUnculled = SE_NEW UnculledObject[m_iMaxCount];
+    m_pUnculled = SE_NEW SEUnculledObject[m_iMaxCount];
 }
 //----------------------------------------------------------------------------

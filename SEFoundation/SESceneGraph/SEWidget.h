@@ -23,25 +23,25 @@
 
 #include "SEFoundationLIB.h"
 #include "SENode.h"
-//#include "SEColorRGB.h"
+#include "SEColorRGB.h"
 
 namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:Widget class
+// Name:SEWidget class
 // Description:
 // Author:Sun Che
 // Date:20100111
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Widget
+class SE_FOUNDATION_API SEWidget
 {
 public:
-    static Node* CoordinateFrame(float fLengthOfAxis);
-    static Node* ScaleFrame(void);
-    static Node* RotationFrame(void);
-    static Node* TranslationFrame(void);
-    static Node* AABBFrame(const SEVector3f& rMin, const SEVector3f& rMax, 
+    static SENode* CoordinateFrame(float fLengthOfAxis);
+    static SENode* ScaleFrame(void);
+    static SENode* RotationFrame(void);
+    static SENode* TranslationFrame(void);
+    static SENode* AABBFrame(const SEVector3f& rMin, const SEVector3f& rMax, 
         const SEColorRGB& rColor);
 };
 

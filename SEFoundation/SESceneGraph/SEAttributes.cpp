@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Attributes::Attributes()
+SEAttributes::SEAttributes()
 {
     m_iChannelCount = 0;
     m_iPositionOffset = -1;
@@ -33,11 +33,11 @@ Attributes::Attributes()
     m_iNormalChannels = 0;
 }
 //----------------------------------------------------------------------------
-Attributes::~Attributes()
+SEAttributes::~SEAttributes()
 {
 }
 //----------------------------------------------------------------------------
-void Attributes::SetPositionChannels(int iPChannels)
+void SEAttributes::SetPositionChannels(int iPChannels)
 {
     SE_ASSERT( 0 <= iPChannels && iPChannels <= 4 );
 
@@ -45,7 +45,7 @@ void Attributes::SetPositionChannels(int iPChannels)
     UpdateOffsets();
 }
 //----------------------------------------------------------------------------
-void Attributes::SetNormalChannels(int iNChannels)
+void SEAttributes::SetNormalChannels(int iNChannels)
 {
     SE_ASSERT( 0 <= iNChannels && iNChannels <= 4 );
 
@@ -53,7 +53,7 @@ void Attributes::SetNormalChannels(int iNChannels)
     UpdateOffsets();
 }
 //----------------------------------------------------------------------------
-void Attributes::SetColorChannels(int iUnit, int iCChannels)
+void SEAttributes::SetColorChannels(int iUnit, int iCChannels)
 {
     SE_ASSERT( 0 <= iUnit && 0 <= iCChannels && iCChannels <= 4 );
 
@@ -67,7 +67,7 @@ void Attributes::SetColorChannels(int iUnit, int iCChannels)
     UpdateOffsets();
 }
 //----------------------------------------------------------------------------
-void Attributes::SetTCoordChannels(int iUnit, int iTChannels)
+void SEAttributes::SetTCoordChannels(int iUnit, int iTChannels)
 {
     SE_ASSERT( 0 <= iUnit && 0 <= iTChannels && iTChannels <= 4 );
 
@@ -81,7 +81,7 @@ void Attributes::SetTCoordChannels(int iUnit, int iTChannels)
     UpdateOffsets();
 }
 //----------------------------------------------------------------------------
-int Attributes::GetColorOffset(int iUnit) const
+int SEAttributes::GetColorOffset(int iUnit) const
 {
     if( 0 <= iUnit && iUnit < (int)m_ColorOffset.size() )
     {
@@ -90,7 +90,7 @@ int Attributes::GetColorOffset(int iUnit) const
     return -1;
 }
 //----------------------------------------------------------------------------
-int Attributes::GetColorChannels(int iUnit) const
+int SEAttributes::GetColorChannels(int iUnit) const
 {
     if( 0 <= iUnit && iUnit < (int)m_ColorChannels.size() )
     {
@@ -99,7 +99,7 @@ int Attributes::GetColorChannels(int iUnit) const
     return 0;
 }
 //----------------------------------------------------------------------------
-bool Attributes::HasColor(int iUnit) const
+bool SEAttributes::HasColor(int iUnit) const
 {
     if( 0 <= iUnit && iUnit < (int)m_ColorChannels.size() )
     {
@@ -108,7 +108,7 @@ bool Attributes::HasColor(int iUnit) const
     return false;
 }
 //----------------------------------------------------------------------------
-int Attributes::GetTCoordOffset(int iUnit) const
+int SEAttributes::GetTCoordOffset(int iUnit) const
 {
     if( 0 <= iUnit && iUnit < (int)m_TCoordOffset.size() )
     {
@@ -117,7 +117,7 @@ int Attributes::GetTCoordOffset(int iUnit) const
     return -1;
 }
 //----------------------------------------------------------------------------
-int Attributes::GetTCoordChannels(int iUnit) const
+int SEAttributes::GetTCoordChannels(int iUnit) const
 {
     if( 0 <= iUnit && iUnit < (int)m_TCoordChannels.size() )
     {
@@ -126,7 +126,7 @@ int Attributes::GetTCoordChannels(int iUnit) const
     return 0;
 }
 //----------------------------------------------------------------------------
-bool Attributes::HasTCoord(int iUnit) const
+bool SEAttributes::HasTCoord(int iUnit) const
 {
     if( 0 <= iUnit && iUnit < (int)m_TCoordChannels.size() )
     {
@@ -135,7 +135,7 @@ bool Attributes::HasTCoord(int iUnit) const
     return false;
 }
 //----------------------------------------------------------------------------
-bool Attributes::Matches(const Attributes& rAttributes, bool bIncludeP,
+bool SEAttributes::Matches(const SEAttributes& rAttributes, bool bIncludeP,
     bool bIncludeN, bool bIncludeC, bool bIncludeT) const
 {
     int i;
@@ -189,7 +189,7 @@ bool Attributes::Matches(const Attributes& rAttributes, bool bIncludeP,
     return true;
 }
 //----------------------------------------------------------------------------
-bool Attributes::operator==(const Attributes& rAttributes) const
+bool SEAttributes::operator==(const SEAttributes& rAttributes) const
 {
     // 所有值必须都相等
     int i;
@@ -231,12 +231,12 @@ bool Attributes::operator==(const Attributes& rAttributes) const
     return true;
 }
 //----------------------------------------------------------------------------
-bool Attributes::operator!=(const Attributes& rAttributes) const
+bool SEAttributes::operator!=(const SEAttributes& rAttributes) const
 {
     return !operator==(rAttributes);
 }
 //----------------------------------------------------------------------------
-void Attributes::UpdateOffsets()
+void SEAttributes::UpdateOffsets()
 {
     m_iChannelCount = 0;
     m_iPositionOffset = -1;

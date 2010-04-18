@@ -35,15 +35,15 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090420
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API DescriptorItem : public SEObject
+class SE_FOUNDATION_API SEDescriptorItem : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    DescriptorItem(void);
-    ~DescriptorItem(void);
+    SEDescriptorItem(void);
+    ~SEDescriptorItem(void);
 
     inline void SetInstanceName(const std::string& rInstName);
     inline const std::string& GetInstanceName(void) const;
@@ -63,7 +63,7 @@ private:
     std::vector<std::string> m_TypeNames;
 };
 
-typedef SESmartPointer<DescriptorItem> DescriptorItemPtr;
+typedef SESmartPointer<SEDescriptorItem> SEDescriptorItemPtr;
 
 #include "SEDescriptorItem.inl"
 

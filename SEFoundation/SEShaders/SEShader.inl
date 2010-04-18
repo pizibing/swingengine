@@ -19,22 +19,22 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline const std::string& Shader::GetShaderName() const
+inline const std::string& SEShader::GetShaderName() const
 {
     return m_ShaderName;
 }
 //----------------------------------------------------------------------------
-inline int Shader::GetTextureCount() const
+inline int SEShader::GetTextureCount() const
 {
     return (int)m_Textures.size();
 }
 //----------------------------------------------------------------------------
-inline void Shader::SetInterfaceDescriptor(InterfaceDescriptor* pDescriptor)
+inline void SEShader::SetInterfaceDescriptor(SEInterfaceDescriptor* pDescriptor)
 {
     m_spInterfaces = pDescriptor;
 }
 //----------------------------------------------------------------------------
-inline InterfaceDescriptor* Shader::GetInterfaceDescriptor() const
+inline SEInterfaceDescriptor* SEShader::GetInterfaceDescriptor() const
 {
     return m_spInterfaces;
 }

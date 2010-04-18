@@ -19,42 +19,42 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int Terrain::GetRowCount() const
+inline int SETerrain::GetRowCount() const
 {
     return m_iRows;
 }
 //----------------------------------------------------------------------------
-inline int Terrain::GetColCount() const
+inline int SETerrain::GetColCount() const
 {
     return m_iCols;
 }
 //----------------------------------------------------------------------------
-inline int Terrain::GetSize() const
+inline int SETerrain::GetSize() const
 {
     return m_iSize;
 }
 //----------------------------------------------------------------------------
-inline float Terrain::GetMinElevation() const
+inline float SETerrain::GetMinElevation() const
 {
     return m_fMinElevation;
 }
 //----------------------------------------------------------------------------
-inline float Terrain::GetMaxElevation() const
+inline float SETerrain::GetMaxElevation() const
 {
     return m_fMaxElevation;
 }
 //----------------------------------------------------------------------------
-inline float Terrain::GetSpacing() const
+inline float SETerrain::GetSpacing() const
 {
     return m_fSpacing;
 }
 //----------------------------------------------------------------------------
-inline float& Terrain::UVBias()
+inline float& SETerrain::UVBias()
 {
     return m_fUVBias;
 }
 //----------------------------------------------------------------------------
-inline SEColorRGBA& Terrain::BorderColor()
+inline SEColorRGBA& SETerrain::BorderColor()
 {
     return m_BorderColor;
 }

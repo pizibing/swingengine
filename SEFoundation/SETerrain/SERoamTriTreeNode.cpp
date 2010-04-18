@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-RoamTriTreeNode::RoamTriTreeNode()
+SERoamTriTreeNode::SERoamTriTreeNode()
 {
     pLeftChild = 0;
     pRightChild = 0;
@@ -37,7 +37,7 @@ RoamTriTreeNode::RoamTriTreeNode()
     pPatch = 0;
 }
 //----------------------------------------------------------------------------
-RoamTriTreeNode::~RoamTriTreeNode()
+SERoamTriTreeNode::~SERoamTriTreeNode()
 {
 }
 //----------------------------------------------------------------------------

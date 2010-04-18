@@ -23,30 +23,30 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, PixelShader, Shader);
-SE_IMPLEMENT_STREAM(PixelShader);
-SE_IMPLEMENT_DEFAULT_STREAM(PixelShader, Shader);
-SE_IMPLEMENT_DEFAULT_NAME_ID(PixelShader, Shader);
+SE_IMPLEMENT_RTTI(Swing, SEPixelShader, SEShader);
+SE_IMPLEMENT_STREAM(SEPixelShader);
+SE_IMPLEMENT_DEFAULT_STREAM(SEPixelShader, SEShader);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEPixelShader, SEShader);
 
-//SE_REGISTER_STREAM(PixelShader);
+//SE_REGISTER_STREAM(SEPixelShader);
 
 //----------------------------------------------------------------------------
-PixelShader::PixelShader(const std::string& rShaderName)
+SEPixelShader::SEPixelShader(const std::string& rShaderName)
     :
-    Shader(rShaderName)
+    SEShader(rShaderName)
 {
 }
 //----------------------------------------------------------------------------
-PixelShader::PixelShader()
+SEPixelShader::SEPixelShader()
 {
 }
 //----------------------------------------------------------------------------
-PixelShader::~PixelShader()
+SEPixelShader::~SEPixelShader()
 {
 }
 //----------------------------------------------------------------------------
-PixelProgram* PixelShader::GetProgram() const
+SEPixelProgram* SEPixelShader::GetProgram() const
 {
-    return StaticCast<PixelProgram>(m_spProgram);
+    return StaticCast<SEPixelProgram>(m_spProgram);
 }
 //----------------------------------------------------------------------------

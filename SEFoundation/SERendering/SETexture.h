@@ -37,7 +37,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080630
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Texture : public SEObject, public Bindable
+class SE_FOUNDATION_API SETexture : public SEObject, public SEBindable
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -78,14 +78,14 @@ public:
         DC_COUNT
     };
 
-    Texture(Image* pImage = 0);
-    Texture(Image* pDepthImage, DepthCompare eCompare);
-    virtual ~Texture(void);
+    SETexture(SEImage* pImage = 0);
+    SETexture(SEImage* pDepthImage, DepthCompare eCompare);
+    virtual ~SETexture(void);
 
     // 访问image
-    inline void SetImage(Image* pImage);
-    inline Image* GetImage(void);
-    inline const Image* GetImage(void) const;
+    inline void SetImage(SEImage* pImage);
+    inline SEImage* GetImage(void);
+    inline const SEImage* GetImage(void) const;
 
     // 访问纹理采样模式,默认是LINEAR
     inline void SetFilterType(FilterType eFType);
@@ -123,7 +123,7 @@ private:
     static const char* ms_pDepthCompare[DC_COUNT];
 };
 
-typedef SESmartPointer<Texture> TexturePtr;
+typedef SESmartPointer<SETexture> SETexturePtr;
 
 #include "SETexture.inl"
 

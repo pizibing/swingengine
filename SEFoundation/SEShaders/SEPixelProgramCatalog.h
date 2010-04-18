@@ -32,7 +32,7 @@
 namespace Swing
 {
 
-class PixelProgram;
+class SEPixelProgram;
 
 //----------------------------------------------------------------------------
 // 名称:pixel shader程序资源管理类
@@ -40,39 +40,39 @@ class PixelProgram;
 // 作者:Sun Che
 // 时间:20080627
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API PixelProgramCatalog
+class SE_FOUNDATION_API SEPixelProgramCatalog
 {
 public:
-    PixelProgramCatalog(const std::string& rName);
-    ~PixelProgramCatalog(void);
+    SEPixelProgramCatalog(const std::string& rName);
+    ~SEPixelProgramCatalog(void);
 
     // 开始时我们不知道渲染器类型,
     // 在应用程序层创建了一个渲染器后,才能调用此函数来设置catalog所属渲染器,
-    // 应用程序层的相关函数为WindowApplication::SetRenderer
-    void SetRenderer(Renderer* pRenderer);
+    // 应用程序层的相关函数为SEWindowApplication::SetRenderer
+    void SetRenderer(SERenderer* pRenderer);
 
     const std::string& GetName(void) const;
-    bool Insert(PixelProgram* pProgram);
-    bool Remove(PixelProgram* pProgram);
-    PixelProgram* Find(const std::string& rProgramName, 
-        InterfaceDescriptor* pDescriptor = 0);
+    bool Insert(SEPixelProgram* pProgram);
+    bool Remove(SEPixelProgram* pProgram);
+    SEPixelProgram* Find(const std::string& rProgramName, 
+        SEInterfaceDescriptor* pDescriptor = 0);
     bool PrintContents(const std::string& rFileName) const;
     int GetProfile(void) const;
 
-    static void SetActive(PixelProgramCatalog* pActive);
-    static PixelProgramCatalog* GetActive(void);
+    static void SetActive(SEPixelProgramCatalog* pActive);
+    static SEPixelProgramCatalog* GetActive(void);
 
 private:
     enum { PROGRAM_MAP_SIZE = 256 };
     std::string m_Name;
-    SEStringHashTable<PixelProgram*> m_Entry;
+    SEStringHashTable<SEPixelProgram*> m_Entry;
     SEObjectPtr m_spDefaultPProgram;
 
-    Renderer* m_pRenderer;
+    SERenderer* m_pRenderer;
 
     static const std::string ms_NullString;
     static const std::string ms_DefaultString;
-    static PixelProgramCatalog* ms_pActive;
+    static SEPixelProgramCatalog* ms_pActive;
 };
 
 }

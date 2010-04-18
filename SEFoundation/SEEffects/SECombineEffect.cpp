@@ -35,8 +35,8 @@ CombineEffect::CombineEffect(const std::string& rTName1, const std::string& rTNa
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("Combine.v_Combine");
-    m_PShader[0] = SE_NEW PixelShader("Combine.p_Combine");
+    m_VShader[0] = SE_NEW SEVertexShader("Combine.v_Combine");
+    m_PShader[0] = SE_NEW SEPixelShader("Combine.p_Combine");
 
     m_PShader[0]->SetTextureCount(2);
     m_PShader[0]->SetImageName(0, rTName1);

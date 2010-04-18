@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int TriMesh::GetTriangleCount() const
+inline int SETriMesh::GetTriangleCount() const
 {
     return IBuffer->GetIndexCount()/3;
 }

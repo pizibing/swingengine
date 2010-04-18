@@ -30,15 +30,15 @@ namespace Swing
 //----------------------------------------------------------------------------
 // 名称:属性类
 // 说明:用于指定VB顶点格式时类似于FVF,此外还用于指定shader input output参数属性,
-//      offset为指定数据在VertexBuffer中的float个数偏移量
+//      offset为指定数据在SEVertexBuffer中的float个数偏移量
 // 作者:Sun Che
 // 时间:20080312
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Attributes
+class SE_FOUNDATION_API SEAttributes
 {
 public:
-    Attributes(void);
-    ~Attributes(void);
+    SEAttributes(void);
+    ~SEAttributes(void);
 
     // 当前支持的顶点属性:
     //    p  = position
@@ -83,12 +83,12 @@ public:
     bool HasTCoord(int iUnit) const;
 
     // 对vertex program outputs和pixel program inputs进行比较
-    bool Matches(const Attributes& rAttributes, bool bIncludeP, bool bIncludeN,
+    bool Matches(const SEAttributes& rAttributes, bool bIncludeP, bool bIncludeN,
         bool bIncludeC, bool bIncludeT) const;
 
     // 对vertex buffer的vertex format和vertex program input的vertex format进行比较
-    bool operator == (const Attributes& rAttributes) const;
-    bool operator != (const Attributes& rAttributes) const;
+    bool operator == (const SEAttributes& rAttributes) const;
+    bool operator != (const SEAttributes& rAttributes) const;
 
 private:
     void UpdateOffsets(void);

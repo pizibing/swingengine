@@ -27,8 +27,8 @@
 namespace Swing
 {
 
-class Renderer;
-class Texture;
+class SERenderer;
+class SETexture;
 
 //----------------------------------------------------------------------------
 // 名称:frame buffer类
@@ -48,7 +48,7 @@ class Texture;
 //
 //     frame buffer对象支持多个对象嵌套调用,即:
 //
-//        FrameBuffer A,B;
+//        SEFrameBuffer A,B;
 //        A.Enable();
 //        rendering code...
 //            B.Enable();
@@ -57,7 +57,7 @@ class Texture;
 //        rendering code...
 //        A.Disable();
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API FrameBuffer
+class SE_FOUNDATION_API SEFrameBuffer
 {
 public:
     // 支持MRT后,framebuffer的具体格式由每个target纹理决定,这个枚举没有意义了.
@@ -101,32 +101,32 @@ public:
         MT_SAMPLING_8
     };
 
-    // 虚基类,FrameBuffer::Create和FrameBuffer::Destroy构成工厂函数,
+    // 虚基类,SEFrameBuffer::Create和SEFrameBuffer::Destroy构成工厂函数,
     // 输入纹理apTargets必须是一组SAMPLER_2D目标,frame buffer是一组2D数据区,
     // 用户有责任确保传入的纹理数组中的每个纹理对象都具有相同的width,height,
     // 以及纹理类型,纹理格式.
-    // 传入的纹理指针数组必须是由调用者动态创建的,由FrameBuffer负责删除.
-    static FrameBuffer* Create(FormatType eFormat, DepthType eDepth,
+    // 传入的纹理指针数组必须是由调用者动态创建的,由SEFrameBuffer负责删除.
+    static SEFrameBuffer* Create(FormatType eFormat, DepthType eDepth,
         StencilType eStencil, BufferingType eBuffering,
-        MultisamplingType eMultisampling, Renderer* pRenderer,
-        int iTCount, Texture** apTargets);
+        MultisamplingType eMultisampling, SERenderer* pRenderer,
+        int iTCount, SETexture** apTargets);
 
-    static void Destroy(FrameBuffer* pBuffer);
+    static void Destroy(SEFrameBuffer* pBuffer);
 
-    FrameBuffer(FormatType eFormat, DepthType eDepth, StencilType eStencil,
+    SEFrameBuffer(FormatType eFormat, DepthType eDepth, StencilType eStencil,
         BufferingType eBuffering, MultisamplingType eSampling,
-        Renderer* pRenderer, int iTCount, Texture** apTargets);
+        SERenderer* pRenderer, int iTCount, SETexture** apTargets);
 
-    virtual ~FrameBuffer(void);
+    virtual ~SEFrameBuffer(void);
 
     inline FormatType GetFormatType(void) const;
     inline DepthType GetDepthType(void) const;
     inline StencilType GetStencilType(void) const;
     inline BufferingType GetBufferingType(void) const;
     inline MultisamplingType GetMultisamplingType(void) const;
-    inline Renderer* GetRenderer(void);
+    inline SERenderer* GetRenderer(void);
     inline int GetCount(void) const;
-    inline Texture* GetTarget(int i);
+    inline SETexture* GetTarget(int i);
 
     virtual void Enable(void) = 0;   // 由具体渲染器派生类实现
     virtual void Disable(void) = 0;  // 由具体渲染器派生类实现
@@ -141,16 +141,16 @@ protected:
     StencilType m_eStencil;
     BufferingType m_eBuffering;
     MultisamplingType m_eMultisampling;
-    Renderer* m_pRenderer;   // 当前渲染器
+    SERenderer* m_pRenderer;   // 当前渲染器
 
     int m_iCount;
-    Texture** m_apTargets;
+    SETexture** m_apTargets;
 
     // frame buffer工厂函数声明,每个派生类实现一个Creator和Destroyer,
     // 并且把函数指针赋给以下静态数组成员
-    typedef FrameBuffer* (*Creator)(FormatType, DepthType, StencilType,
-        BufferingType, MultisamplingType, Renderer*, int, Texture**);
-    typedef void (*Destroyer)(FrameBuffer*);
+    typedef SEFrameBuffer* (*Creator)(FormatType, DepthType, StencilType,
+        BufferingType, MultisamplingType, SERenderer*, int, SETexture**);
+    typedef void (*Destroyer)(SEFrameBuffer*);
 
     static Creator ms_aoCreator[];
     static Destroyer ms_aoDestroyer[];

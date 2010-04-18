@@ -24,36 +24,36 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, TriMesh, Geometry);
-SE_IMPLEMENT_STREAM(TriMesh);
-SE_IMPLEMENT_DEFAULT_STREAM(TriMesh, Geometry);
-SE_IMPLEMENT_DEFAULT_NAME_ID(TriMesh, Geometry);
+SE_IMPLEMENT_RTTI(Swing, SETriMesh, SEGeometry);
+SE_IMPLEMENT_STREAM(SETriMesh);
+SE_IMPLEMENT_DEFAULT_STREAM(SETriMesh, SEGeometry);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SETriMesh, SEGeometry);
 
-//SE_REGISTER_STREAM(TriMesh);
+//SE_REGISTER_STREAM(SETriMesh);
 
-std::vector<TriMesh::PickRecord> TriMesh::ms_PickRecordPool;
-int TriMesh::ms_iMaxCount = 0;
-int TriMesh::ms_iGrowBy = 0;
-int TriMesh::ms_iCount = 0;
+std::vector<SETriMesh::SEPickRecord> SETriMesh::ms_PickRecordPool;
+int SETriMesh::ms_iMaxCount = 0;
+int SETriMesh::ms_iGrowBy = 0;
+int SETriMesh::ms_iCount = 0;
 
 //----------------------------------------------------------------------------
-TriMesh::TriMesh()
+SETriMesh::SETriMesh()
 {
     Type = GT_TRIMESH;
 }
 //----------------------------------------------------------------------------
-TriMesh::TriMesh(VertexBuffer* pVBuffer, IndexBuffer* pIBuffer)
+SETriMesh::SETriMesh(SEVertexBuffer* pVBuffer, SEIndexBuffer* pIBuffer)
     :
-    Geometry(pVBuffer, pIBuffer)
+    SEGeometry(pVBuffer, pIBuffer)
 {
     Type = GT_TRIMESH;
 }
 //----------------------------------------------------------------------------
-TriMesh::~TriMesh()
+SETriMesh::~SETriMesh()
 {
 }
 //----------------------------------------------------------------------------
-void TriMesh::GetModelTriangle(int i, SETriangle3f& rMTri) const
+void SETriMesh::GetModelTriangle(int i, SETriangle3f& rMTri) const
 {
     SE_ASSERT( 0 <= i && 3*i < IBuffer->GetIndexCount() );
 
@@ -66,7 +66,7 @@ void TriMesh::GetModelTriangle(int i, SETriangle3f& rMTri) const
     rMTri.V[2] = VBuffer->Position3(*piIndex  );
 }
 //----------------------------------------------------------------------------
-void TriMesh::GetWorldTriangle(int i, SETriangle3f& rWTri) const
+void SETriMesh::GetWorldTriangle(int i, SETriangle3f& rWTri) const
 {
     SE_ASSERT( 0 <= i && 3*i < IBuffer->GetIndexCount() );
 
@@ -79,14 +79,14 @@ void TriMesh::GetWorldTriangle(int i, SETriangle3f& rWTri) const
     World.ApplyForward(VBuffer->Position3(*piIndex  ), rWTri.V[2]);
 }
 //----------------------------------------------------------------------------
-void TriMesh::GenerateNormals()
+void SETriMesh::GenerateNormals()
 {
     if( !VBuffer->GetAttributes().HasNormal() )
     {
         // 如果目前没有法线,则重新创建带有法线数据的VB.
-        Attributes VBAttr = VBuffer->GetAttributes();
+        SEAttributes VBAttr = VBuffer->GetAttributes();
         VBAttr.SetNormalChannels(3);
-        VertexBuffer* pVBufferPlusNormals = SE_NEW VertexBuffer(VBAttr,
+        SEVertexBuffer* pVBufferPlusNormals = SE_NEW SEVertexBuffer(VBAttr,
             VBuffer->GetVertexCount());
         int iChannels;
         float* afData = pVBufferPlusNormals->GetData();
@@ -99,10 +99,10 @@ void TriMesh::GenerateNormals()
     UpdateModelNormals();
 }
 //----------------------------------------------------------------------------
-bool TriMesh::GenerateTangents(int iSrcTCoordUnit, int iTangentUnit, 
+bool SETriMesh::GenerateTangents(int iSrcTCoordUnit, int iTangentUnit, 
     int iBiTangentUnit)
 {
-    Attributes AttrOld = VBuffer->GetAttributes();
+    SEAttributes AttrOld = VBuffer->GetAttributes();
 
     // 源数据区不存在.
     if( !AttrOld.HasTCoord(iSrcTCoordUnit) ||
@@ -118,7 +118,7 @@ bool TriMesh::GenerateTangents(int iSrcTCoordUnit, int iTangentUnit,
         return false;
     }
 
-    Attributes AttrNew = VBuffer->GetAttributes();
+    SEAttributes AttrNew = VBuffer->GetAttributes();
     if( !AttrOld.HasNormal() )
     {
         AttrNew.SetNormalChannels(3);
@@ -137,7 +137,7 @@ bool TriMesh::GenerateTangents(int iSrcTCoordUnit, int iTangentUnit,
     // 是否有必要创建新VB.
     if( AttrNew != AttrOld )
     {
-        VertexBuffer* pVBufferNew = SE_NEW VertexBuffer(AttrNew,
+        SEVertexBuffer* pVBufferNew = SE_NEW SEVertexBuffer(AttrNew,
             VBuffer->GetVertexCount());
         int iChannels;
         float* afData = pVBufferNew->GetData();
@@ -271,7 +271,7 @@ bool TriMesh::GenerateTangents(int iSrcTCoordUnit, int iTangentUnit,
     return true;
 }
 //----------------------------------------------------------------------------
-void TriMesh::UpdateModelNormals()
+void SETriMesh::UpdateModelNormals()
 {
     // 根据共享顶点的带权三角面(由三角面面积体现权值)法线,
     // 计算最终顶点平均法线.
@@ -318,10 +318,10 @@ void TriMesh::UpdateModelNormals()
     }
 }
 //----------------------------------------------------------------------------
-TriMesh::PickRecord::PickRecord(TriMesh* pIObject, float fT, int iTriangle,
+SETriMesh::SEPickRecord::SEPickRecord(SETriMesh* pIObject, float fT, int iTriangle,
     float fBary0, float fBary1, float fBary2)
     :
-    Geometry::PickRecord(pIObject, fT)
+    SEGeometry::SEPickRecord(pIObject, fT)
 {
     Triangle = iTriangle;
     Bary0 = fBary0;
@@ -329,9 +329,9 @@ TriMesh::PickRecord::PickRecord(TriMesh* pIObject, float fT, int iTriangle,
     Bary2 = fBary2;
 }
 //----------------------------------------------------------------------------
-TriMesh::PickRecord::PickRecord()
+SETriMesh::SEPickRecord::SEPickRecord()
     :
-    Geometry::PickRecord(0, 0.0f)
+    SEGeometry::SEPickRecord(0, 0.0f)
 {
     Triangle = -1;
     Bary0 = 0.0f;
@@ -339,7 +339,7 @@ TriMesh::PickRecord::PickRecord()
     Bary2 = 0.0f;
 }
 //----------------------------------------------------------------------------
-void TriMesh::DoPick(const SERay3f& rRay, PickArray& rResults)
+void SETriMesh::DoPick(const SERay3f& rRay, PickArray& rResults)
 {
     if( WorldBound->TestIntersection(rRay) )
     {
@@ -367,12 +367,12 @@ void TriMesh::DoPick(const SERay3f& rRay, PickArray& rResults)
             {
                 // TODO:
                 // T will be used as a key value for sorting the picking 
-                // result array. If two TriMesh objects have different scale
+                // result array. If two SETriMesh objects have different scale
                 // transformation, their t values should not be compared 
                 // directly. Instead, (t' = t * norm) does the right thing.
                 // Do we have a better solution to make the computation 
                 // faster?
-                PickRecord* pRecord = AllocatePickRecord();
+                SEPickRecord* pRecord = AllocatePickRecord();
                 pRecord->IObject = this;
                 pRecord->T = tempIntr.GetRayT()*World.GetNorm();
                 pRecord->Triangle = i;
@@ -385,7 +385,7 @@ void TriMesh::DoPick(const SERay3f& rRay, PickArray& rResults)
     }
 }
 //----------------------------------------------------------------------------
-void TriMesh::InitializePickRecordPool(int iMaxCount, int iGrowBy)
+void SETriMesh::InitializePickRecordPool(int iMaxCount, int iGrowBy)
 {
     SE_ASSERT( iMaxCount > 0 && iGrowBy > 0 );
 
@@ -395,7 +395,7 @@ void TriMesh::InitializePickRecordPool(int iMaxCount, int iGrowBy)
     ms_iCount = 0;
 }
 //----------------------------------------------------------------------------
-void TriMesh::TerminatePickRecordPool()
+void SETriMesh::TerminatePickRecordPool()
 {
     for( int i = 0; i < (int)ms_PickRecordPool.size(); i++ )
     {
@@ -403,12 +403,12 @@ void TriMesh::TerminatePickRecordPool()
     }
 }
 //----------------------------------------------------------------------------
-void TriMesh::ResetPickRecordPool()
+void SETriMesh::ResetPickRecordPool()
 {
     ms_iCount = 0;
 }
 //----------------------------------------------------------------------------
-inline TriMesh::PickRecord* TriMesh::AllocatePickRecord()
+inline SETriMesh::SEPickRecord* SETriMesh::AllocatePickRecord()
 {
     if( ms_iCount >= ms_iMaxCount )
     {

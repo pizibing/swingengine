@@ -35,23 +35,23 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080701
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API PixelShader : public Shader
+class SE_FOUNDATION_API SEPixelShader : public SEShader
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    PixelShader(const std::string& rShaderName);
-    virtual ~PixelShader(void);
+    SEPixelShader(const std::string& rShaderName);
+    virtual ~SEPixelShader(void);
 
-    PixelProgram* GetProgram(void) const;
+    SEPixelProgram* GetProgram(void) const;
 
 protected:
-    PixelShader(void);
+    SEPixelShader(void);
 };
 
-typedef SESmartPointer<PixelShader> PixelShaderPtr;
+typedef SESmartPointer<SEPixelShader> SEPixelShaderPtr;
 
 }
 

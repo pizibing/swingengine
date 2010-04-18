@@ -23,23 +23,23 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Polypoint, Geometry);
-SE_IMPLEMENT_STREAM(Polypoint);
-SE_IMPLEMENT_DEFAULT_NAME_ID(Polypoint, Geometry);
+SE_IMPLEMENT_RTTI(Swing, SEPolypoint, SEGeometry);
+SE_IMPLEMENT_STREAM(SEPolypoint);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEPolypoint, SEGeometry);
 
-//SE_REGISTER_STREAM(Polypoint);
+//SE_REGISTER_STREAM(SEPolypoint);
 
 //----------------------------------------------------------------------------
-Polypoint::Polypoint(VertexBuffer* pVBuffer)
+SEPolypoint::SEPolypoint(SEVertexBuffer* pVBuffer)
     :
-    Geometry(pVBuffer, 0)
+    SEGeometry(pVBuffer, 0)
 {
     Type = GT_POLYPOINT;
 
     int iVCount = VBuffer->GetVertexCount();
     m_iActiveCount = iVCount;
 
-    IBuffer = SE_NEW IndexBuffer(iVCount);
+    IBuffer = SE_NEW SEIndexBuffer(iVCount);
     int* aiIndex = IBuffer->GetData();
     for( int i = 0; i < iVCount; i++ )
     {
@@ -48,18 +48,18 @@ Polypoint::Polypoint(VertexBuffer* pVBuffer)
     LightingMode = GLM_DISABLE;
 }
 //----------------------------------------------------------------------------
-Polypoint::Polypoint()
+SEPolypoint::SEPolypoint()
 {
     Type = GT_POLYPOINT;
     m_iActiveCount = 0;
     LightingMode = GLM_DISABLE;
 }
 //----------------------------------------------------------------------------
-Polypoint::~Polypoint()
+SEPolypoint::~SEPolypoint()
 {
 }
 //----------------------------------------------------------------------------
-void Polypoint::SetActiveCount(int iActiveCount)
+void SEPolypoint::SetActiveCount(int iActiveCount)
 {
     int iVCount = VBuffer->GetVertexCount();
     if( 0 <= iActiveCount && iActiveCount <= iVCount )
@@ -78,47 +78,47 @@ void Polypoint::SetActiveCount(int iActiveCount)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Polypoint::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEPolypoint::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Geometry::Load(rStream, pLink);
+    SEGeometry::Load(rStream, pLink);
 
     // native data
     rStream.Read(m_iActiveCount);
 
-    SE_END_DEBUG_STREAM_LOAD(Polypoint);
+    SE_END_DEBUG_STREAM_LOAD(SEPolypoint);
 }
 //----------------------------------------------------------------------------
-void Polypoint::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEPolypoint::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Geometry::Link(rStream, pLink);
+    SEGeometry::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool Polypoint::Register(SEStream& rStream) const
+bool SEPolypoint::Register(SEStream& rStream) const
 {
-    return Geometry::Register(rStream);
+    return SEGeometry::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void Polypoint::Save(SEStream& rStream) const
+void SEPolypoint::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Geometry::Save(rStream);
+    SEGeometry::Save(rStream);
 
     // native data
     rStream.Write(m_iActiveCount);
 
-    SE_END_DEBUG_STREAM_SAVE(Polypoint);
+    SE_END_DEBUG_STREAM_SAVE(SEPolypoint);
 }
 //----------------------------------------------------------------------------
-int Polypoint::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEPolypoint::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Geometry::GetDiskUsed(rVersion) +
+    return SEGeometry::GetDiskUsed(rVersion) +
         sizeof(m_iActiveCount);
 }
 //----------------------------------------------------------------------------
-SEStringTree* Polypoint::SaveStrings(const char*)
+SEStringTree* SEPolypoint::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -127,7 +127,7 @@ SEStringTree* Polypoint::SaveStrings(const char*)
     pTree->Append(Format("active quantity =", m_iActiveCount));
 
     // children
-    pTree->Append(Geometry::SaveStrings());
+    pTree->Append(SEGeometry::SaveStrings());
 
     return pTree;
 }

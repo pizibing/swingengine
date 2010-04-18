@@ -34,7 +34,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080624
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API SamplerInformation
+class SE_FOUNDATION_API SESamplerInformation
 {
 public:
     enum Type
@@ -54,9 +54,9 @@ public:
     //
     // 当有了新的类似fx文件的文件系统后,filter模式和wrap模式将由文件指定,
     // 因此要有新的模块来支持读取模式并提供给纹理对象的功能
-    SamplerInformation(const std::string& rName, Type eType, void* pID);
-    SamplerInformation(const SamplerInformation& rSI);
-    ~SamplerInformation(void);
+    SESamplerInformation(const std::string& rName, Type eType, void* pID);
+    SESamplerInformation(const SESamplerInformation& rSI);
+    ~SESamplerInformation(void);
 
     inline const std::string& GetName(void) const;
     inline Type GetType(void) const;

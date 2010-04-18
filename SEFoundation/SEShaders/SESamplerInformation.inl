@@ -19,22 +19,22 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline const std::string& SamplerInformation::GetName() const
+inline const std::string& SESamplerInformation::GetName() const
 {
     return m_Name;
 }
 //----------------------------------------------------------------------------
-inline SamplerInformation::Type SamplerInformation::GetType() const
+inline SESamplerInformation::Type SESamplerInformation::GetType() const
 {
     return m_eType;
 }
 //----------------------------------------------------------------------------
-inline void* SamplerInformation::GetID() const
+inline void* SESamplerInformation::GetID() const
 {
     return m_pID;
 }
 //----------------------------------------------------------------------------
-inline int SamplerInformation::GetDimension() const
+inline int SESamplerInformation::GetDimension() const
 {
     return m_iDimension;
 }

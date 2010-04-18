@@ -19,22 +19,22 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline RendererConstant::Type RendererConstant::GetType() const
+inline SERendererConstant::Type SERendererConstant::GetType() const
 {
     return m_eType;
 }
 //----------------------------------------------------------------------------
-inline void* RendererConstant::GetID() const
+inline void* SERendererConstant::GetID() const
 {
     return m_pID;
 }
 //----------------------------------------------------------------------------
-inline int RendererConstant::GetDataCount() const
+inline int SERendererConstant::GetDataCount() const
 {
     return m_iDataCount;
 }
 //----------------------------------------------------------------------------
-inline float* RendererConstant::GetData() const
+inline float* SERendererConstant::GetData() const
 {
     return (float*)&m_afData[0];
 }

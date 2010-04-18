@@ -35,23 +35,23 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080701
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API VertexShader : public Shader
+class SE_FOUNDATION_API SEVertexShader : public SEShader
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    VertexShader(const std::string& rShaderName);
-    virtual ~VertexShader(void);
+    SEVertexShader(const std::string& rShaderName);
+    virtual ~SEVertexShader(void);
 
-    VertexProgram* GetProgram(void) const;
+    SEVertexProgram* GetProgram(void) const;
 
 protected:
-    VertexShader(void);
+    SEVertexShader(void);
 };
 
-typedef SESmartPointer<VertexShader> VertexShaderPtr;
+typedef SESmartPointer<SEVertexShader> SEVertexShaderPtr;
 
 }
 

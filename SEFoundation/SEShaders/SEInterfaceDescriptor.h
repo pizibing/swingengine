@@ -32,34 +32,34 @@ namespace Swing
 
 //----------------------------------------------------------------------------
 // 名称:interface descriptor类
-// 说明:帮助Program类装载含有shader interface的程序,使其完成动态拼接并编译.
+// 说明:帮助SEProgram类装载含有shader interface的程序,使其完成动态拼接并编译.
 // 作者:Sun Che
 // 时间:20090418
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API InterfaceDescriptor : public SEObject
+class SE_FOUNDATION_API SEInterfaceDescriptor : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    InterfaceDescriptor(void);
-    ~InterfaceDescriptor(void);
+    SEInterfaceDescriptor(void);
+    ~SEInterfaceDescriptor(void);
 
     // descriptor item访问.
     inline int GetCount(void) const;
-    void AttachItem(DescriptorItem* pItem);
-    void DetachItem(DescriptorItem* pItem);
-    DescriptorItem* GetItem(int i) const;
+    void AttachItem(SEDescriptorItem* pItem);
+    void DetachItem(SEDescriptorItem* pItem);
+    SEDescriptorItem* GetItem(int i) const;
 
     // 获取接口描述.
     void GetDescription(std::string& rDesc) const;
 
 protected:
-    std::vector<DescriptorItemPtr> m_DescriptorItems;
+    std::vector<SEDescriptorItemPtr> m_DescriptorItems;
 };
 
-typedef SESmartPointer<InterfaceDescriptor> InterfaceDescriptorPtr;
+typedef SESmartPointer<SEInterfaceDescriptor> SEInterfaceDescriptorPtr;
 
 #include "SEInterfaceDescriptor.inl"
 

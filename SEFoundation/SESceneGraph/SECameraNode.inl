@@ -19,12 +19,12 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline Camera* CameraNode::GetCamera()
+inline SECamera* SECameraNode::GetCamera()
 {
     return m_spCamera;
 }
 //----------------------------------------------------------------------------
-inline const Camera* CameraNode::GetCamera() const
+inline const SECamera* SECameraNode::GetCamera() const
 {
     return m_spCamera;
 }

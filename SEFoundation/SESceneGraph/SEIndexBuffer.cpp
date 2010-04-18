@@ -23,14 +23,14 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, IndexBuffer, SEObject);
-SE_IMPLEMENT_STREAM(IndexBuffer);
-SE_IMPLEMENT_DEFAULT_NAME_ID(IndexBuffer, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEIndexBuffer, SEObject);
+SE_IMPLEMENT_STREAM(SEIndexBuffer);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEIndexBuffer, SEObject);
 
-//SE_REGISTER_STREAM(IndexBuffer);
+//SE_REGISTER_STREAM(SEIndexBuffer);
 
 //----------------------------------------------------------------------------
-IndexBuffer::IndexBuffer(int iICount)
+SEIndexBuffer::SEIndexBuffer(int iICount)
 {
     SE_ASSERT( iICount > 0 );
 
@@ -39,7 +39,7 @@ IndexBuffer::IndexBuffer(int iICount)
     memset(m_pIndex, 0, m_iICount * sizeof(int));
 }
 //----------------------------------------------------------------------------
-IndexBuffer::IndexBuffer(const IndexBuffer* pIBuffer)
+SEIndexBuffer::SEIndexBuffer(const SEIndexBuffer* pIBuffer)
 {
     SE_ASSERT(pIBuffer);
 
@@ -49,13 +49,13 @@ IndexBuffer::IndexBuffer(const IndexBuffer* pIBuffer)
     SESystem::SE_Memcpy(m_pIndex, uiSize, pIBuffer->m_pIndex, uiSize);
 }
 //----------------------------------------------------------------------------
-IndexBuffer::IndexBuffer()
+SEIndexBuffer::SEIndexBuffer()
 {
     m_iICount = 0;
     m_pIndex = 0;
 }
 //----------------------------------------------------------------------------
-IndexBuffer::~IndexBuffer()
+SEIndexBuffer::~SEIndexBuffer()
 {
     // 通知所有使用此IB的renderer,资源即将被释放,
     // 从而允许renderer释放与此IB有关的资源(VRAM中)
@@ -68,7 +68,7 @@ IndexBuffer::~IndexBuffer()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void IndexBuffer::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEIndexBuffer::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -78,20 +78,20 @@ void IndexBuffer::Load(SEStream& rStream, SEStream::Link* pLink)
     m_pIndex = SE_NEW int[m_iICount];
     rStream.Read(m_iICount, m_pIndex);
 
-    SE_END_DEBUG_STREAM_LOAD(IndexBuffer);
+    SE_END_DEBUG_STREAM_LOAD(SEIndexBuffer);
 }
 //----------------------------------------------------------------------------
-void IndexBuffer::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEIndexBuffer::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool IndexBuffer::Register(SEStream& rStream) const
+bool SEIndexBuffer::Register(SEStream& rStream) const
 {
     return SEObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void IndexBuffer::Save(SEStream& rStream) const
+void SEIndexBuffer::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
@@ -99,17 +99,17 @@ void IndexBuffer::Save(SEStream& rStream) const
     rStream.Write(m_iICount);
     rStream.Write(m_iICount, m_pIndex);
 
-    SE_END_DEBUG_STREAM_SAVE(IndexBuffer);
+    SE_END_DEBUG_STREAM_SAVE(SEIndexBuffer);
 }
 //----------------------------------------------------------------------------
-int IndexBuffer::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEIndexBuffer::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SEObject::GetDiskUsed(rVersion) +
         sizeof(m_iICount) +
         m_iICount*sizeof(m_pIndex[0]);
 }
 //----------------------------------------------------------------------------
-SEStringTree* IndexBuffer::SaveStrings(const char*)
+SEStringTree* SEIndexBuffer::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 

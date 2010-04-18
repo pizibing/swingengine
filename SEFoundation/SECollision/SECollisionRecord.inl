@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline TriMesh* SECollisionRecord::GetMesh()
+inline SETriMesh* SECollisionRecord::GetMesh()
 {
     return m_pMesh;
 }

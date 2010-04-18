@@ -29,7 +29,7 @@ namespace Swing
 {
 
 class Effect;
-class Spatial;
+class SESpatial;
 
 //----------------------------------------------------------------------------
 // 名称:可视听对象类
@@ -37,10 +37,10 @@ class Spatial;
 // 作者:Sun Che
 // 时间:20080707
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API UnculledObject
+class SE_FOUNDATION_API SEUnculledObject
 {
 public:
-    Spatial* SEObject;
+    SESpatial* SEObject;
     Effect* GlobalEffect;
 
     inline bool IsRenderable(void) const;

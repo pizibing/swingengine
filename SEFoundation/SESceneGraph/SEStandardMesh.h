@@ -28,60 +28,60 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:StandardMesh类
+// 名称:Standard mesh类
 // 说明:	
 // 作者:Sun Che
 // 时间:20081015
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API StandardMesh
+class SE_FOUNDATION_API SEStandardMesh
 {
 public:
-    StandardMesh(const Attributes& rAttr, bool bInside = false,
-        const Transformation* pXFrm = 0);
-    ~StandardMesh(void);
+    SEStandardMesh(const SEAttributes& rAttr, bool bInside = false,
+        const SETransformation* pXFrm = 0);
+    ~SEStandardMesh(void);
 
-    void SetTransformation(const Transformation& rXFrm);
-    const Transformation& GetTransformation(void) const;
+    void SetTransformation(const SETransformation& rXFrm);
+    const SETransformation& GetTransformation(void) const;
 
     // 各种标准网格mesh. 
     // 每个mesh以(0,0,0)为中心,up-axis为(0,0,-1).其他axes为(1,0,0)和(0,1,0).
     // 应用程序可以对mesh进行变换.
 
-    TriMesh* Rectangle(int iXSamples, int iYSamples, float fXExtent,
+    SETriMesh* Rectangle(int iXSamples, int iYSamples, float fXExtent,
         float fYExtent);
 
-    TriMesh* Disk(int iShellSamples, int iRadialSamples, float fRadius);
+    SETriMesh* Disk(int iShellSamples, int iRadialSamples, float fRadius);
 
-    TriMesh* Box(float fXExtent, float fYExtent, float fZExtent);
+    SETriMesh* Box(float fXExtent, float fYExtent, float fZExtent);
 
-    TriMesh* Cylinder(int iAxisSamples, int iRadialSamples, float fRadius,
+    SETriMesh* Cylinder(int iAxisSamples, int iRadialSamples, float fRadius,
         float fHeight, bool bOpen);
 
-    TriMesh* Sphere(int iZSamples, int iRadialSamples, float fRadius);
+    SETriMesh* Sphere(int iZSamples, int iRadialSamples, float fRadius);
 
-    TriMesh* Torus(int iCircleSamples, int iRadialSamples,
+    SETriMesh* Torus(int iCircleSamples, int iRadialSamples,
         float fOuterRadius, float fInnerRadius);
 
-    TriMesh* Cone(int iRadialSamples, float fRadius, float fHeight);
+    SETriMesh* Cone(int iRadialSamples, float fRadius, float fHeight);
 
     // 各种platonic多面体, 内接在一个以(0,0,0)为中心的单位球中.
-    TriMesh* Tetrahedron(void);  // 四面体
-    TriMesh* Hexahedron(void);   // 六面体
-    TriMesh* Octahedron(void);   // 八面体
-    TriMesh* Dodecahedron(void); // 十二面体
-    TriMesh* Icosahedron(void);  // 二十面体
+    SETriMesh* Tetrahedron(void);  // 四面体
+    SETriMesh* Hexahedron(void);   // 六面体
+    SETriMesh* Octahedron(void);   // 八面体
+    SETriMesh* Dodecahedron(void); // 十二面体
+    SETriMesh* Icosahedron(void);  // 二十面体
 
 private:
-    void CreatePlatonicNormals(VertexBuffer* pVBuffer);
-    void CreatePlatonicUVs(VertexBuffer* pVBuffer);
+    void CreatePlatonicNormals(SEVertexBuffer* pVBuffer);
+    void CreatePlatonicUVs(SEVertexBuffer* pVBuffer);
     void ReverseTriangleOrder(int iTCount, int* aiIndex);
-    void TransformData(VertexBuffer* pVBuffer);
+    void TransformData(SEVertexBuffer* pVBuffer);
 
-    Attributes m_Attr;
-    Transformation m_XFrm;
+    SEAttributes m_Attr;
+    SETransformation m_XFrm;
     bool m_bInside;
-    VertexBuffer* m_pVBuffer;
-    IndexBuffer* m_pIBuffer;
+    SEVertexBuffer* m_pVBuffer;
+    SEIndexBuffer* m_pIBuffer;
 };
 
 }

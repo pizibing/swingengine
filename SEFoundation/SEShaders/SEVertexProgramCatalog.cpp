@@ -24,12 +24,12 @@
 
 using namespace Swing;
 
-const std::string VertexProgramCatalog::ms_NullString("");
-const std::string VertexProgramCatalog::ms_DefaultString("Default.v_Default");
-VertexProgramCatalog* VertexProgramCatalog::ms_pActive = 0;
+const std::string SEVertexProgramCatalog::ms_NullString("");
+const std::string SEVertexProgramCatalog::ms_DefaultString("Default.v_Default");
+SEVertexProgramCatalog* SEVertexProgramCatalog::ms_pActive = 0;
 
 //----------------------------------------------------------------------------
-VertexProgramCatalog::VertexProgramCatalog(const std::string& rName)
+SEVertexProgramCatalog::SEVertexProgramCatalog(const std::string& rName)
     :
     m_Name(rName),
     m_Entry(PROGRAM_MAP_SIZE)
@@ -38,17 +38,17 @@ VertexProgramCatalog::VertexProgramCatalog(const std::string& rName)
     m_spDefaultVProgram = 0;
 }
 //----------------------------------------------------------------------------
-VertexProgramCatalog::~VertexProgramCatalog()
+SEVertexProgramCatalog::~SEVertexProgramCatalog()
 {
 }
 //----------------------------------------------------------------------------
-void VertexProgramCatalog::SetRenderer(Renderer* pRenderer)
+void SEVertexProgramCatalog::SetRenderer(SERenderer* pRenderer)
 {
     m_pRenderer = pRenderer;
 
     if( m_pRenderer )
     {
-        m_spDefaultVProgram = VertexProgram::Load(m_pRenderer, 
+        m_spDefaultVProgram = SEVertexProgram::Load(m_pRenderer, 
             ms_DefaultString, ms_DefaultString, 0);
 
         SE_ASSERT( m_spDefaultVProgram );
@@ -59,12 +59,12 @@ void VertexProgramCatalog::SetRenderer(Renderer* pRenderer)
     }
 }
 //----------------------------------------------------------------------------
-const std::string& VertexProgramCatalog::GetName() const
+const std::string& SEVertexProgramCatalog::GetName() const
 {
     return m_Name;
 }
 //----------------------------------------------------------------------------
-bool VertexProgramCatalog::Insert(VertexProgram* pProgram)
+bool SEVertexProgramCatalog::Insert(SEVertexProgram* pProgram)
 {
     if( !pProgram )
     {
@@ -82,7 +82,7 @@ bool VertexProgramCatalog::Insert(VertexProgram* pProgram)
     }
 
     // 首先在资源目录中查找
-    VertexProgram** ppTempProgram = m_Entry.Find(StrProgramName);
+    SEVertexProgram** ppTempProgram = m_Entry.Find(StrProgramName);
     if( ppTempProgram )
     {
         // 该程序已经存在
@@ -95,7 +95,7 @@ bool VertexProgramCatalog::Insert(VertexProgram* pProgram)
     return true;
 }
 //----------------------------------------------------------------------------
-bool VertexProgramCatalog::Remove(VertexProgram* pProgram)
+bool SEVertexProgramCatalog::Remove(SEVertexProgram* pProgram)
 {
     if( !pProgram )
     {
@@ -113,7 +113,7 @@ bool VertexProgramCatalog::Remove(VertexProgram* pProgram)
     }
 
     // 首先在资源目录中查找
-    VertexProgram** ppTempProgram = m_Entry.Find(StrProgramName);
+    SEVertexProgram** ppTempProgram = m_Entry.Find(StrProgramName);
     if( !ppTempProgram )
     {
         // 该程序不存在
@@ -126,13 +126,13 @@ bool VertexProgramCatalog::Remove(VertexProgram* pProgram)
     return true;
 }
 //----------------------------------------------------------------------------
-VertexProgram* VertexProgramCatalog::Find(const std::string& rProgramName,
-    InterfaceDescriptor* pDescriptor)
+SEVertexProgram* SEVertexProgramCatalog::Find(const std::string& rProgramName,
+    SEInterfaceDescriptor* pDescriptor)
 {
     if( rProgramName == ms_NullString
     ||  rProgramName == ms_DefaultString )
     {
-        return StaticCast<VertexProgram>(m_spDefaultVProgram);
+        return StaticCast<SEVertexProgram>(m_spDefaultVProgram);
     }
 
     // 首先在资源目录中查找
@@ -143,7 +143,7 @@ VertexProgram* VertexProgramCatalog::Find(const std::string& rProgramName,
         pDescriptor->GetDescription(tempPostFix);
         tempKey += tempPostFix;
     }
-    VertexProgram** ppTempProgram = m_Entry.Find(tempKey);
+    SEVertexProgram** ppTempProgram = m_Entry.Find(tempKey);
     if( ppTempProgram )
     {
         // 找到则返回
@@ -151,7 +151,7 @@ VertexProgram* VertexProgramCatalog::Find(const std::string& rProgramName,
     }
 
     // 在磁盘中查找
-    VertexProgram* pProgram = VertexProgram::Load(m_pRenderer, rProgramName, 
+    SEVertexProgram* pProgram = SEVertexProgram::Load(m_pRenderer, rProgramName, 
         tempKey, pDescriptor);
     if( pProgram )
     {
@@ -160,10 +160,10 @@ VertexProgram* VertexProgramCatalog::Find(const std::string& rProgramName,
     }
 
     // 程序不存在,则使用默认程序
-    return StaticCast<VertexProgram>(m_spDefaultVProgram);
+    return StaticCast<SEVertexProgram>(m_spDefaultVProgram);
 }
 //----------------------------------------------------------------------------
-bool VertexProgramCatalog::PrintContents(const std::string& rFileName) const
+bool SEVertexProgramCatalog::PrintContents(const std::string& rFileName) const
 {
     const char* pDecorated = SESystem::SE_GetPath(rFileName.c_str(), 
         SESystem::SM_WRITE);
@@ -175,7 +175,7 @@ bool VertexProgramCatalog::PrintContents(const std::string& rFileName) const
         SE_ASSERT( OStream );
 
 		std::string StrProgramName;
-		VertexProgram** ppTempProgram = m_Entry.GetFirst(&StrProgramName);
+		SEVertexProgram** ppTempProgram = m_Entry.GetFirst(&StrProgramName);
         while( ppTempProgram )
         {
             OStream << StrProgramName.c_str() << std::endl;
@@ -190,17 +190,17 @@ bool VertexProgramCatalog::PrintContents(const std::string& rFileName) const
     return false;
 }
 //----------------------------------------------------------------------------
-int VertexProgramCatalog::GetProfile() const
+int SEVertexProgramCatalog::GetProfile() const
 {
     return m_pRenderer ? m_pRenderer->GetMaxVShaderProfile() : -1;
 }
 //----------------------------------------------------------------------------
-void VertexProgramCatalog::SetActive(VertexProgramCatalog* pActive)
+void SEVertexProgramCatalog::SetActive(SEVertexProgramCatalog* pActive)
 {
     ms_pActive = pActive;
 }
 //----------------------------------------------------------------------------
-VertexProgramCatalog* VertexProgramCatalog::GetActive()
+SEVertexProgramCatalog* SEVertexProgramCatalog::GetActive()
 {
     return ms_pActive;
 }

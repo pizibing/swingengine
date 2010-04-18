@@ -26,36 +26,36 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, SphereBV, BoundingVolume);
-SE_IMPLEMENT_STREAM(SphereBV);
-SE_IMPLEMENT_DEFAULT_NAME_ID(SphereBV, BoundingVolume);
+SE_IMPLEMENT_RTTI(Swing, SESphereBV, SEBoundingVolume);
+SE_IMPLEMENT_STREAM(SESphereBV);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SESphereBV, SEBoundingVolume);
 
-//SE_REGISTER_STREAM(SphereBV);
+//SE_REGISTER_STREAM(SESphereBV);
 
 //----------------------------------------------------------------------------
-// BoundingVolume的工厂函数默认实现为创建SphereBV对象,
-// 可以删除当前函数实现,使用另一个BoundingVolume派生类型.
+// SEBoundingVolume的工厂函数默认实现为创建SESphereBV对象,
+// 可以删除当前函数实现,使用另一个SEBoundingVolume派生类型.
 //----------------------------------------------------------------------------
-BoundingVolume* BoundingVolume::Create()
+SEBoundingVolume* SEBoundingVolume::Create()
 {
-    return SE_NEW SphereBV;
+    return SE_NEW SESphereBV;
 }
 //----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
-SphereBV::SphereBV()
+SESphereBV::SESphereBV()
     :
     m_Sphere(SEVector3f::ZERO, 0.0f)
 {
 }
 //----------------------------------------------------------------------------
-SphereBV::SphereBV(const SESphere3f& rSphere)
+SESphereBV::SESphereBV(const SESphere3f& rSphere)
     :
     m_Sphere(rSphere)
 {
 }
 //----------------------------------------------------------------------------
-void SphereBV::ComputeFromData(const Vector3fArray* pVertices)
+void SESphereBV::ComputeFromData(const SEVector3fArray* pVertices)
 {
     if( pVertices )
     {
@@ -65,7 +65,7 @@ void SphereBV::ComputeFromData(const Vector3fArray* pVertices)
     }
 }
 //----------------------------------------------------------------------------
-void SphereBV::ComputeFromData(const VertexBuffer* pVBuffer)
+void SESphereBV::ComputeFromData(const SEVertexBuffer* pVBuffer)
 {
     // 待实现.
     // 如果传入VB的顶点为(x,y,z,w),且w不等于1,怎么办?
@@ -96,15 +96,15 @@ void SphereBV::ComputeFromData(const VertexBuffer* pVBuffer)
     }
 }
 //----------------------------------------------------------------------------
-void SphereBV::TransformBy(const Transformation& rTransform,
-    BoundingVolume* pResult)
+void SESphereBV::TransformBy(const SETransformation& rTransform,
+    SEBoundingVolume* pResult)
 {
-    SESphere3f& rTarget = ((SphereBV*)pResult)->m_Sphere;
+    SESphere3f& rTarget = ((SESphereBV*)pResult)->m_Sphere;
     rTransform.ApplyForward(m_Sphere.Center, rTarget.Center);
     rTarget.Radius = rTransform.GetNorm() * m_Sphere.Radius;
 }
 //----------------------------------------------------------------------------
-int SphereBV::OnWhichSide(const SEPlane3f& rPlane) const
+int SESphereBV::OnWhichSide(const SEPlane3f& rPlane) const
 {
     float fDistance = rPlane.GetDistance(m_Sphere.Center);
 
@@ -121,28 +121,28 @@ int SphereBV::OnWhichSide(const SEPlane3f& rPlane) const
     return 0;
 }
 //----------------------------------------------------------------------------
-bool SphereBV::TestIntersection(const SERay3f& rRay) const
+bool SESphereBV::TestIntersection(const SERay3f& rRay) const
 {
     return IntrRay3Sphere3f(rRay, m_Sphere).Test();
 }
 //----------------------------------------------------------------------------
-bool SphereBV::TestIntersection(const BoundingVolume* pInput) const
+bool SESphereBV::TestIntersection(const SEBoundingVolume* pInput) const
 {
     return IntrSphere3Sphere3f(m_Sphere,
-        ((SphereBV*)pInput)->m_Sphere).Test();
+        ((SESphereBV*)pInput)->m_Sphere).Test();
 }
 //----------------------------------------------------------------------------
-void SphereBV::CopyFrom(const BoundingVolume* pInput)
+void SESphereBV::CopyFrom(const SEBoundingVolume* pInput)
 {
-    m_Sphere = ((SphereBV*)pInput)->m_Sphere;
+    m_Sphere = ((SESphereBV*)pInput)->m_Sphere;
 }
 //----------------------------------------------------------------------------
-void SphereBV::GrowToContain(const BoundingVolume* pInput)
+void SESphereBV::GrowToContain(const SEBoundingVolume* pInput)
 {
-    m_Sphere = MergeSpheresf(m_Sphere, ((SphereBV*)pInput)->m_Sphere);
+    m_Sphere = MergeSpheresf(m_Sphere, ((SESphereBV*)pInput)->m_Sphere);
 }
 //----------------------------------------------------------------------------
-bool SphereBV::Contains(const SEVector3f& rPoint) const
+bool SESphereBV::Contains(const SEVector3f& rPoint) const
 {
     return IsInSpheref(rPoint, m_Sphere);
 }
@@ -151,49 +151,49 @@ bool SphereBV::Contains(const SEVector3f& rPoint) const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void SphereBV::Load(SEStream& rStream, SEStream::Link* pLink)
+void SESphereBV::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    BoundingVolume::Load(rStream, pLink);
+    SEBoundingVolume::Load(rStream, pLink);
 
     // native data
     rStream.Read(m_Sphere.Center);
     rStream.Read(m_Sphere.Radius);
 
-    SE_END_DEBUG_STREAM_LOAD(SphereBV);
+    SE_END_DEBUG_STREAM_LOAD(SESphereBV);
 }
 //----------------------------------------------------------------------------
-void SphereBV::Link(SEStream& rStream, SEStream::Link* pLink)
+void SESphereBV::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    BoundingVolume::Link(rStream, pLink);
+    SEBoundingVolume::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool SphereBV::Register(SEStream& rStream) const
+bool SESphereBV::Register(SEStream& rStream) const
 {
-    return BoundingVolume::Register(rStream);
+    return SEBoundingVolume::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void SphereBV::Save(SEStream& rStream) const
+void SESphereBV::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    BoundingVolume::Save(rStream);
+    SEBoundingVolume::Save(rStream);
 
     // native data
     rStream.Write(m_Sphere.Center);
     rStream.Write(m_Sphere.Radius);
 
-    SE_END_DEBUG_STREAM_SAVE(SphereBV);
+    SE_END_DEBUG_STREAM_SAVE(SESphereBV);
 }
 //----------------------------------------------------------------------------
-int SphereBV::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SESphereBV::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return BoundingVolume::GetDiskUsed(rVersion) +
+    return SEBoundingVolume::GetDiskUsed(rVersion) +
         sizeof(m_Sphere);
 }
 //----------------------------------------------------------------------------
-SEStringTree* SphereBV::SaveStrings(const char*)
+SEStringTree* SESphereBV::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -203,7 +203,7 @@ SEStringTree* SphereBV::SaveStrings(const char*)
     pTree->Append(Format("radius =", m_Sphere.Radius));
 
     // children
-    pTree->Append(BoundingVolume::SaveStrings());
+    pTree->Append(SEBoundingVolume::SaveStrings());
 
     return pTree;
 }

@@ -35,12 +35,12 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080623
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API UserConstant
+class SE_FOUNDATION_API SEUserConstant
 {
 public:
-    UserConstant(const std::string& rName, void* pID, int iDataCount);
-    UserConstant(const UserConstant& rUC);
-    ~UserConstant(void);
+    SEUserConstant(const std::string& rName, void* pID, int iDataCount);
+    SEUserConstant(const SEUserConstant& rUC);
+    ~SEUserConstant(void);
 
     // 成员访问,renderer使用他们给图形API传递数据
     inline const std::string& GetName(void) const;

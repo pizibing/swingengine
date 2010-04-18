@@ -53,7 +53,7 @@ public:
     bool IsValid(void) const;
 
     // For comparisons of versions.  This is useful whenever a change to the
-    // Image class causes a file format change.
+    // SEImage class causes a file format change.
     bool operator == (const SEImageVersion& rVersion) const;
     bool operator != (const SEImageVersion& rVersion) const;
     bool operator <  (const SEImageVersion& rVersion) const;

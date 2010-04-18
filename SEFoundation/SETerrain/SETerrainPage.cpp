@@ -24,14 +24,14 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, TerrainPage, TriMesh);
-SE_IMPLEMENT_STREAM(TerrainPage);
-SE_IMPLEMENT_DEFAULT_NAME_ID(TerrainPage, TriMesh);
+SE_IMPLEMENT_RTTI(Swing, SETerrainPage, SETriMesh);
+SE_IMPLEMENT_STREAM(SETerrainPage);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SETerrainPage, SETriMesh);
 
-//SE_REGISTER_STREAM(TerrainPage);
+//SE_REGISTER_STREAM(SETerrainPage);
 
 //----------------------------------------------------------------------------
-TerrainPage::TerrainPage(const Attributes& rAttr, int iSize,
+SETerrainPage::SETerrainPage(const SEAttributes& rAttr, int iSize,
     unsigned short* ausHeight, const SEVector2f& rOrigin, float fMinElevation,
     float fMaxElevation, float fSpacing, float fUVBias)
     :
@@ -50,10 +50,10 @@ TerrainPage::TerrainPage(const Attributes& rAttr, int iSize,
     InitializeDerivedData();
 
     // ´´½¨mesh.
-    StandardMesh tempSM(rAttr);
+    SEStandardMesh tempSM(rAttr);
 
     float fExtent = m_fSpacing * m_iSizeM1;
-    TriMesh* pMesh = tempSM.Rectangle(m_iSize, m_iSize, fExtent, fExtent);
+    SETriMesh* pMesh = tempSM.Rectangle(m_iSize, m_iSize, fExtent, fExtent);
     VBuffer = pMesh->VBuffer;
     IBuffer = pMesh->IBuffer;
 
@@ -72,7 +72,7 @@ TerrainPage::TerrainPage(const Attributes& rAttr, int iSize,
     UpdateMS();
 }
 //----------------------------------------------------------------------------
-TerrainPage::TerrainPage()
+SETerrainPage::SETerrainPage()
     :
     m_Origin(SEVector2f::ZERO)
 {
@@ -87,12 +87,12 @@ TerrainPage::TerrainPage()
     m_fMultiplier = 0.0f;
 }
 //----------------------------------------------------------------------------
-TerrainPage::~TerrainPage()
+SETerrainPage::~SETerrainPage()
 {
     SE_DELETE[] m_ausHeight;
 }
 //----------------------------------------------------------------------------
-void TerrainPage::InitializeDerivedData()
+void SETerrainPage::InitializeDerivedData()
 {
     m_iSizeM1 = m_iSize - 1;
     m_fInvSpacing = 1.0f / m_fSpacing;
@@ -100,7 +100,7 @@ void TerrainPage::InitializeDerivedData()
     m_fMultiplier = (m_fMaxElevation - m_fMinElevation) / 65535.0f;
 }
 //----------------------------------------------------------------------------
-float TerrainPage::GetHeight(float fX, float fZ) const
+float SETerrainPage::GetHeight(float fX, float fZ) const
 {
     // ´ý¼ì²é.
 
@@ -172,11 +172,11 @@ float TerrainPage::GetHeight(float fX, float fZ) const
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void TerrainPage::Load(SEStream& rStream, SEStream::Link* pLink)
+void SETerrainPage::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    TriMesh::Load(rStream, pLink);
+    SETriMesh::Load(rStream, pLink);
 
     rStream.Read(m_iSize);
     int iVCount = m_iSize * m_iSize;
@@ -189,24 +189,24 @@ void TerrainPage::Load(SEStream& rStream, SEStream::Link* pLink)
 
     InitializeDerivedData();
 
-    SE_END_DEBUG_STREAM_LOAD(TerrainPage);
+    SE_END_DEBUG_STREAM_LOAD(SETerrainPage);
 }
 //----------------------------------------------------------------------------
-void TerrainPage::Link(SEStream& rStream, SEStream::Link* pLink)
+void SETerrainPage::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    TriMesh::Link(rStream, pLink);
+    SETriMesh::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool TerrainPage::Register(SEStream& rStream) const
+bool SETerrainPage::Register(SEStream& rStream) const
 {
-    return TriMesh::Register(rStream);
+    return SETriMesh::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void TerrainPage::Save(SEStream& rStream) const
+void SETerrainPage::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    TriMesh::Save(rStream);
+    SETriMesh::Save(rStream);
 
     rStream.Write(m_iSize);
     int iVCount = VBuffer->GetVertexCount();
@@ -216,12 +216,12 @@ void TerrainPage::Save(SEStream& rStream) const
     rStream.Write(m_fMaxElevation);
     rStream.Write(m_fSpacing);
 
-    SE_END_DEBUG_STREAM_SAVE(TerrainPage);
+    SE_END_DEBUG_STREAM_SAVE(SETerrainPage);
 }
 //----------------------------------------------------------------------------
-int TerrainPage::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SETerrainPage::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return TriMesh::GetDiskUsed(rVersion) +
+    return SETriMesh::GetDiskUsed(rVersion) +
         sizeof(m_iSize) +
         m_iSize*m_iSize*sizeof(m_ausHeight[0]) +
         sizeof(m_Origin) +
@@ -230,7 +230,7 @@ int TerrainPage::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(m_fSpacing);
 }
 //----------------------------------------------------------------------------
-SEStringTree* TerrainPage::SaveStrings(const char*)
+SEStringTree* SETerrainPage::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -244,7 +244,7 @@ SEStringTree* TerrainPage::SaveStrings(const char*)
     pTree->Append(Format("uv bias =", m_fUVBias));
 
     // children
-    pTree->Append(TriMesh::SaveStrings());
+    pTree->Append(SETriMesh::SaveStrings());
 
     return pTree;
 }

@@ -19,17 +19,17 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int Polyline::GetActiveCount() const
+inline int SEPolyline::GetActiveCount() const
 {
     return m_iActiveCount;
 }
 //----------------------------------------------------------------------------
-inline bool Polyline::GetClosed() const
+inline bool SEPolyline::GetClosed() const
 {
     return m_bClosed;
 }
 //----------------------------------------------------------------------------
-inline bool Polyline::GetContiguous() const
+inline bool SEPolyline::GetContiguous() const
 {
     return m_bContiguous;
 }

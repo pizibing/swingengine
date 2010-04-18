@@ -19,32 +19,32 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline void Culler::SetCamera(const Camera* pCamera)
+inline void SECuller::SetCamera(const SECamera* pCamera)
 {
     m_pCamera = pCamera;
 }
 //----------------------------------------------------------------------------
-inline const Camera* Culler::GetCamera() const
+inline const SECamera* SECuller::GetCamera() const
 {
     return m_pCamera;
 }
 //----------------------------------------------------------------------------
-inline const float* Culler::GetFrustum() const
+inline const float* SECuller::GetFrustum() const
 {
     return m_Frustum;
 }
 //----------------------------------------------------------------------------
-inline UnculledSet& Culler::GetVisibleSet()
+inline SEUnculledSet& SECuller::GetVisibleSet()
 {
     return m_VisibleSet;
 }
 //----------------------------------------------------------------------------
-inline UnculledSet& Culler::GetAudibleSet()
+inline SEUnculledSet& SECuller::GetAudibleSet()
 {
     return m_AudibleSet;
 }
 //----------------------------------------------------------------------------
-inline void Culler::Insert(Spatial* pObject, Effect* pGlobalEffect,
+inline void SECuller::Insert(SESpatial* pObject, Effect* pGlobalEffect,
     bool bIsAudible)
 {
     if( !bIsAudible )
@@ -57,27 +57,27 @@ inline void Culler::Insert(Spatial* pObject, Effect* pGlobalEffect,
     }
 }
 //----------------------------------------------------------------------------
-inline int Culler::GetPlaneCount() const
+inline int SECuller::GetPlaneCount() const
 {
     return m_iPlaneCount;
 }
 //----------------------------------------------------------------------------
-inline const SEPlane3f* Culler::GetPlanes() const
+inline const SEPlane3f* SECuller::GetPlanes() const
 {
     return m_aPlane;
 }
 //----------------------------------------------------------------------------
-inline void Culler::SetPlaneState(unsigned int uiPlaneState)
+inline void SECuller::SetPlaneState(unsigned int uiPlaneState)
 {
     m_uiPlaneState = uiPlaneState;
 }
 //----------------------------------------------------------------------------
-inline unsigned int Culler::GetPlaneState() const
+inline unsigned int SECuller::GetPlaneState() const
 {
     return m_uiPlaneState;
 }
 //----------------------------------------------------------------------------
-inline void Culler::PushPlane(const SEPlane3f& rPlane)
+inline void SECuller::PushPlane(const SEPlane3f& rPlane)
 {
     if( m_iPlaneCount < US_MAX_PLANE_COUNT )
     {
@@ -85,9 +85,9 @@ inline void Culler::PushPlane(const SEPlane3f& rPlane)
     }
 }
 //----------------------------------------------------------------------------
-inline void Culler::PopPlane()
+inline void SECuller::PopPlane()
 {
-    if( m_iPlaneCount > Camera::VF_COUNT )
+    if( m_iPlaneCount > SECamera::VF_COUNT )
     {
         // 截投体平面不能被弹出
         m_iPlaneCount--;

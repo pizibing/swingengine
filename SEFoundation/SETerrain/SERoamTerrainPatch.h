@@ -28,7 +28,7 @@
 namespace Swing
 {
 
-class RoamTerrainPage;
+class SERoamTerrainPage;
 
 //----------------------------------------------------------------------------
 // 名称:ROAM地形页面Patch类
@@ -36,37 +36,37 @@ class RoamTerrainPage;
 // 作者:Sun Che
 // 时间:20070601
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API RoamTerrainPatch
+class SE_FOUNDATION_API SERoamTerrainPatch
 {
 public:
-    RoamTerrainPatch(void);
-    virtual ~RoamTerrainPatch(void);
+    SERoamTerrainPatch(void);
+    virtual ~SERoamTerrainPatch(void);
 
-    inline RoamTriTreeNode*	GetBaseLeft(void);
-    inline RoamTriTreeNode*	GetBaseRight(void);
+    inline SERoamTriTreeNode*	GetBaseLeft(void);
+    inline SERoamTriTreeNode*	GetBaseRight(void);
     inline bool GetDirty(void) const;
     inline void SetDirty(bool bDirty);
     inline bool IsVisible(void) const;
     inline void SetVisible(bool bVisible);
 
-    void Initialize(unsigned short* ausHeight, RoamTerrainPage* pPage,
+    void Initialize(unsigned short* ausHeight, SERoamTerrainPage* pPage,
         int iPatchX, int iPatchY);
     void Reset(void);
-    void Tessellate(const Camera* pCamera);
+    void Tessellate(const SECamera* pCamera);
     void Collect(void);
     void ComputeVariance(void);
 
 protected:
-    void Split(RoamTriTreeNode* pTriTreeNode);
-    void RecursCollect(RoamTriTreeNode* pTriTreeNode);
-    void RecursTessellate(RoamTriTreeNode* pTriTreeNode, const Camera* pCamera,
+    void Split(SERoamTriTreeNode* pTriTreeNode);
+    void RecursCollect(SERoamTriTreeNode* pTriTreeNode);
+    void RecursTessellate(SERoamTriTreeNode* pTriTreeNode, const SECamera* pCamera,
         int iLeftX, int iLeftY, int iRightX, int iRightY, 
         int iApexX, int iApexY, int iNode);
     float RecursComputeVariance(int iLeftX, int iLeftY, int iRightX, int iRightY,
         int iApexX, int iApexY, int iLeftIndex, int iRightIndex, int iApexIndex, 
         int iNodeIndex);
 
-    RoamTerrainPage* m_pPage;
+    SERoamTerrainPage* m_pPage;
     int m_iPatchX, m_iPatchY;
     int m_iMSpaceX, m_iMSpaceY; // 模型空间坐标
 
@@ -80,8 +80,8 @@ protected:
 	enum { VARIANCE_DEPTH = 8 };
     float m_VarianceLeft[1<<(VARIANCE_DEPTH)]; // 左variance树
     float m_VarianceRight[1<<(VARIANCE_DEPTH)]; // 右variance树
-    RoamTriTreeNode m_BaseLeft; // 左二叉三角树根节点
-    RoamTriTreeNode m_BaseRight; // 右二叉三角树根节点
+    SERoamTriTreeNode m_BaseLeft; // 左二叉三角树根节点
+    SERoamTriTreeNode m_BaseRight; // 右二叉三角树根节点
 };
 
 #include "SERoamTerrainPatch.inl"

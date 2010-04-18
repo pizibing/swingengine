@@ -28,13 +28,13 @@
 namespace Swing
 {
 //----------------------------------------------------------------------------
-// 名称:SEColorRGB共享数组类
+// 名称:ColorRGB共享数组类
 // 说明:
 // 作者:Sun Che
 // 时间:20080324
 //----------------------------------------------------------------------------
-typedef SharedArray<SEColorRGB> ColorRGBArray;
-typedef SESmartPointer<ColorRGBArray> ColorRGBArrayPtr;
+typedef SESharedArray<SEColorRGB> SEColorRGBArray;
+typedef SESmartPointer<SEColorRGBArray> SEColorRGBArrayPtr;
 }
 
 #endif

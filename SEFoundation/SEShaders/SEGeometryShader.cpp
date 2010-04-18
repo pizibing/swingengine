@@ -23,30 +23,30 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, GeometryShader, Shader);
-SE_IMPLEMENT_STREAM(GeometryShader);
-SE_IMPLEMENT_DEFAULT_STREAM(GeometryShader, Shader);
-SE_IMPLEMENT_DEFAULT_NAME_ID(GeometryShader, Shader);
+SE_IMPLEMENT_RTTI(Swing, SEGeometryShader, SEShader);
+SE_IMPLEMENT_STREAM(SEGeometryShader);
+SE_IMPLEMENT_DEFAULT_STREAM(SEGeometryShader, SEShader);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEGeometryShader, SEShader);
 
-//SE_REGISTER_STREAM(GeometryShader);
+//SE_REGISTER_STREAM(SEGeometryShader);
 
 //----------------------------------------------------------------------------
-GeometryShader::GeometryShader(const std::string& rShaderName)
+SEGeometryShader::SEGeometryShader(const std::string& rShaderName)
     :
-    Shader(rShaderName)
+    SEShader(rShaderName)
 {
 }
 //----------------------------------------------------------------------------
-GeometryShader::GeometryShader()
+SEGeometryShader::SEGeometryShader()
 {
 }
 //----------------------------------------------------------------------------
-GeometryShader::~GeometryShader()
+SEGeometryShader::~SEGeometryShader()
 {
 }
 //----------------------------------------------------------------------------
-GeometryProgram* GeometryShader::GetProgram() const
+SEGeometryProgram* SEGeometryShader::GetProgram() const
 {
-    return StaticCast<GeometryProgram>(m_spProgram);
+    return StaticCast<SEGeometryProgram>(m_spProgram);
 }
 //----------------------------------------------------------------------------

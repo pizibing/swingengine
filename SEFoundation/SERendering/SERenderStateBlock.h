@@ -37,20 +37,21 @@ namespace Swing
 // Author:Sun Che
 // Date:20090524
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API RenderStateBlock : public SEObject, public Bindable
+class SE_FOUNDATION_API SERenderStateBlock : public SEObject, 
+    public SEBindable
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    RenderStateBlock(void);
-    virtual ~RenderStateBlock(void);
+    SERenderStateBlock(void);
+    virtual ~SERenderStateBlock(void);
 
-    GlobalStatePtr States[GlobalState::MAX_STATE_TYPE];
+    SEGlobalStatePtr States[SEGlobalState::MAX_STATE_TYPE];
 };
 
-typedef SESmartPointer<RenderStateBlock> RenderStateBlockPtr;
+typedef SESmartPointer<SERenderStateBlock> SERenderStateBlockPtr;
 
 }
 

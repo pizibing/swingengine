@@ -34,13 +34,13 @@ bool SkinMaterialTextureEffect::ms_bUCInitialized = false;
 
 //----------------------------------------------------------------------------
 SkinMaterialTextureEffect::SkinMaterialTextureEffect(const std::string& rBaseName,
-    int iBoneCount, Node** apBones, Transformation* aOffset)
+    int iBoneCount, SENode** apBones, SETransformation* aOffset)
     :
     SkinEffect(iBoneCount, apBones, aOffset)
 {
-    m_VShader[0] = SE_NEW VertexShader(
+    m_VShader[0] = SE_NEW SEVertexShader(
         "SkinMaterialTexture.v_SkinMaterialTexture");
-    m_PShader[0] = SE_NEW PixelShader(
+    m_PShader[0] = SE_NEW SEPixelShader(
         "SkinMaterialTexture.p_SkinMaterialTexture");
 
     m_PShader[0]->SetTextureCount(1);
@@ -55,8 +55,8 @@ SkinMaterialTextureEffect::~SkinMaterialTextureEffect()
 {
 }
 //----------------------------------------------------------------------------
-void SkinMaterialTextureEffect::OnLoadPrograms(int, Program* pVProgram,
-    Program*, Program*)
+void SkinMaterialTextureEffect::OnLoadPrograms(int, SEProgram* pVProgram,
+    SEProgram*, SEProgram*)
 {
     if( !ms_bUCInitialized )
     {

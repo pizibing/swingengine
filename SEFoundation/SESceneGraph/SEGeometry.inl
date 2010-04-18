@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline void Geometry::UpdateModelNormals()
+inline void SEGeometry::UpdateModelNormals()
 {
     // 由派生类负责实现.
 }

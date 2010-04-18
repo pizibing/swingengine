@@ -377,7 +377,7 @@ char* Swing::Format(const char* pPrefix, const char* pValue)
     return pString;
 }
 //----------------------------------------------------------------------------
-char* Swing::Format(const char* pPrefix, const BoundingVolume* pBV)
+char* Swing::Format(const char* pPrefix, const SEBoundingVolume* pBV)
 {
     SE_ASSERT( pPrefix );
 

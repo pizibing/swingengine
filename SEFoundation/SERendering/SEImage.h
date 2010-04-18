@@ -39,7 +39,7 @@ namespace Swing
 // 更新说明:为了支持任意width,height的render target纹理,
 //     取消纹理维度必须是power of two的限制.
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Image : public SEObject
+class SE_FOUNDATION_API SEImage : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -88,7 +88,7 @@ public:
     // 将会被转换为[0,1]区间float值.
 
     // 构造和析构.
-    // Image有责任删除传入的数组数据.
+    // SEImage有责任删除传入的数组数据.
     // pImageName用于image共享时的唯一ID.
     // 构造函数的调用者可以提供一个image name.
     // 如果没有提供,则构造函数将自动创建一个叫做"imageN.seif"的唯一ID,
@@ -99,18 +99,18 @@ public:
     // 从而该image不会被插入全局image map(比如在没有全局image map时).
 
     // 1D image.
-    Image(FormatMode eFormat, int iBound0, unsigned char* pData, 
+    SEImage(FormatMode eFormat, int iBound0, unsigned char* pData, 
         const char* pImageName, bool bInsert = true);
 
     // 2D image.
-    Image(FormatMode eFormat, int iBound0, int iBound1,
+    SEImage(FormatMode eFormat, int iBound0, int iBound1,
         unsigned char* pData, const char* pImageName, bool bInsert = true);
 
     // 3D image.
-    Image(FormatMode eFormat, int iBound0, int iBound1, int iBound2,
+    SEImage(FormatMode eFormat, int iBound0, int iBound1, int iBound2,
         unsigned char* pData, const char* pImageName, bool bInsert = true);
 
-    virtual ~Image(void);
+    virtual ~SEImage(void);
 
     inline FormatMode GetFormat(void) const;
     inline const std::string& GetFormatName(void) const;
@@ -138,8 +138,8 @@ public:
     // 对于Load函数,如果具有filename的image已经载入内存,
     // 则该image被找到并作为返回值(例如,出于共享的目的).
     // 否则,创建一个新的image并返回.filename被用作image name.
-    // 参考ImageCatalog::Find函数中对这个函数的调用.
-    static Image* Load(const char* pImageName);
+    // 参考SEImageCatalog::Find函数中对这个函数的调用.
+    static SEImage* Load(const char* pImageName);
 
     // 这个函数用来支持保存程序生成的image数据,
     // 或者可以用来支持把其他类型的image格式的数据转换为seif格式.
@@ -147,18 +147,18 @@ public:
     bool Save(const char* pFileName);
 
     // 创建一个2D random image.
-    static Image* GenerateRandomImage(FormatMode eFormat, int iBound0, 
+    static SEImage* GenerateRandomImage(FormatMode eFormat, int iBound0, 
         int iBound1, unsigned int uiSeed, const char* acImageName, 
         bool bInsert = true);
 
     // 创建一个2D color image.
-    static Image* GenerateColorImage(FormatMode eFormat, int iBound0, 
+    static SEImage* GenerateColorImage(FormatMode eFormat, int iBound0, 
         int iBound1, const SEColorRGBA& rColor, const char* acImageName, 
         bool bInsert = true);
 
 protected:
     // support for streaming.
-    Image(void);
+    SEImage(void);
 
     FormatMode m_eFormat;
     int m_iDimension;
@@ -172,7 +172,7 @@ protected:
     static std::string ms_FormatName[IT_COUNT];
 };
 
-typedef SESmartPointer<Image> ImagePtr;
+typedef SESmartPointer<SEImage> ImagePtr;
 
 #include "SEImage.inl"
 

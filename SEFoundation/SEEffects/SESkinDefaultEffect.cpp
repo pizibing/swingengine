@@ -33,13 +33,13 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(SkinDefaultEffect, SkinEffect);
 bool SkinDefaultEffect::ms_bUCInitialized = false;
 
 //----------------------------------------------------------------------------
-SkinDefaultEffect::SkinDefaultEffect(int iBoneCount, Node** apBones, 
-    Transformation* aOffset)
+SkinDefaultEffect::SkinDefaultEffect(int iBoneCount, SENode** apBones, 
+    SETransformation* aOffset)
     :
     SkinEffect(iBoneCount, apBones, aOffset)
 {
-    m_VShader[0] = SE_NEW VertexShader("SkinDefault.v_SkinDefault");
-    m_PShader[0] = SE_NEW PixelShader("SkinDefault.p_SkinDefault");
+    m_VShader[0] = SE_NEW SEVertexShader("SkinDefault.v_SkinDefault");
+    m_PShader[0] = SE_NEW SEPixelShader("SkinDefault.p_SkinDefault");
 }
 //----------------------------------------------------------------------------
 SkinDefaultEffect::SkinDefaultEffect()
@@ -50,8 +50,8 @@ SkinDefaultEffect::~SkinDefaultEffect()
 {
 }
 //----------------------------------------------------------------------------
-void SkinDefaultEffect::OnLoadPrograms(int, Program* pVProgram, Program*,
-    Program*)
+void SkinDefaultEffect::OnLoadPrograms(int, SEProgram* pVProgram, SEProgram*,
+    SEProgram*)
 {
     if( !ms_bUCInitialized )
     {

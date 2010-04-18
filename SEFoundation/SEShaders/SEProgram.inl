@@ -19,32 +19,32 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline Program::ProgramType Program::GetProgramType() const
+inline SEProgram::ProgramType SEProgram::GetProgramType() const
 {
     return m_eProgramType;
 }
 //----------------------------------------------------------------------------
-inline const Attributes& Program::GetInputAttributes() const
+inline const SEAttributes& SEProgram::GetInputAttributes() const
 {
     return m_InputAttributes;
 }
 //----------------------------------------------------------------------------
-inline const Attributes& Program::GetOutputAttributes() const
+inline const SEAttributes& SEProgram::GetOutputAttributes() const
 {
     return m_OutputAttributes;
 }
 //----------------------------------------------------------------------------
-inline int Program::GetRCCount() const
+inline int SEProgram::GetRCCount() const
 {
     return (int)m_RendererConstants.size();
 }
 //----------------------------------------------------------------------------
-inline int Program::GetUCCount() const
+inline int SEProgram::GetUCCount() const
 {
     return (int)m_UserConstants.size();
 }
 //----------------------------------------------------------------------------
-inline int Program::GetSICount() const
+inline int SEProgram::GetSICount() const
 {
     return (int)m_SamplerInformation.size();
 }

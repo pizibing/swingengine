@@ -34,7 +34,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080701
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API PolygonOffsetState : public GlobalState
+class SE_FOUNDATION_API SEPolygonOffsetState : public SEGlobalState
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -45,8 +45,8 @@ class SE_FOUNDATION_API PolygonOffsetState : public GlobalState
 public:
     virtual StateType GetStateType(void) const { return POLYGONOFFSET; }
 
-    PolygonOffsetState(void);
-    virtual ~PolygonOffsetState(void);
+    SEPolygonOffsetState(void);
+    virtual ~SEPolygonOffsetState(void);
 
     // 针对各种多边形渲染填充模式(fill, line, point),设置是否允许offset.
     bool FillEnabled;   // default: false
@@ -61,7 +61,7 @@ public:
     float Bias;   // default: 0.0
 };
 
-typedef SESmartPointer<PolygonOffsetState> PolygonOffsetStatePtr;
+typedef SESmartPointer<SEPolygonOffsetState> SEPolygonOffsetStatePtr;
 
 }
 

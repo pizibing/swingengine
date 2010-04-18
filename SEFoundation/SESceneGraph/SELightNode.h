@@ -34,7 +34,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090224
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API LightNode : public Node
+class SE_FOUNDATION_API SELightNode : public SENode
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -51,24 +51,24 @@ public:
     //   local rotation row 0 = light right
     //   local rotation row 1 = light up
     //   local rotation row 2 = light direction
-    LightNode(Light* pLight = 0);
-    virtual ~LightNode(void);
+    SELightNode(SELight* pLight = 0);
+    virtual ~SELightNode(void);
 
     // 当设置light时,节点的局部变换被设置为light的当前坐标体系.
     // 节点的世界变换被计算出来,然后light的坐标体系被设置为使用节点的世界变换.
-    void SetLight(Light* pLight);
+    void SetLight(SELight* pLight);
 
-    inline Light* GetLight(void);
-    inline const Light* GetLight(void) const;
+    inline SELight* GetLight(void);
+    inline const SELight* GetLight(void) const;
 
 protected:
     // geometric updates
     virtual void UpdateWorldData(double dAppTime);
 
-    LightPtr m_spLight;
+    SELightPtr m_spLight;
 };
 
-typedef SESmartPointer<LightNode> LightNodePtr;
+typedef SESmartPointer<SELightNode> SELightNodePtr;
 
 #include "SELightNode.inl"
 

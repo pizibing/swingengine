@@ -51,8 +51,8 @@ protected:
     // streaming
     GaussianBlurHEffect(void);
 
-    virtual void OnLoadPrograms(int iPass, Program* pVProgram,
-        Program* pPProgram, Program* pGProgram);
+    virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
+        SEProgram* pPProgram, SEProgram* pGProgram);
 
     // 纹理采样的Kernel最大值
     enum { KERNEL_COUNT = 13 };

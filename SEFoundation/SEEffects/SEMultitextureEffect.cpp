@@ -83,8 +83,8 @@ void MultitextureEffect::Configure()
 {
     if( m_iTextureCount == 1 )
     {
-        m_VShader[0] = SE_NEW VertexShader("Texture.v_Texture");
-        m_PShader[0] = SE_NEW PixelShader("Texture.p_Texture");
+        m_VShader[0] = SE_NEW SEVertexShader("SETexture.v_Texture");
+        m_PShader[0] = SE_NEW SEPixelShader("SETexture.p_Texture");
         m_PShader[0]->SetTextureCount(1);
         m_PShader[0]->SetImageName(0, m_aImageName[0]);
 
@@ -108,8 +108,8 @@ void MultitextureEffect::Configure()
         tempVShaderName += std::string(acNumber) + std::string("d2");
         tempPShaderName += std::string(acNumber);
 
-        GlobalState* pState = m_RStateBlocks[i]->States[GlobalState::ALPHA];
-        AlphaState* pAS = (AlphaState*)pState;
+        SEGlobalState* pState = m_RStateBlocks[i]->States[SEGlobalState::ALPHA];
+        SEAlphaState* pAS = (SEAlphaState*)pState;
 
         // Source blending mode.
         tempPShaderName += "s";
@@ -123,8 +123,8 @@ void MultitextureEffect::Configure()
     }
     tempVShaderName += std::string("PassThrough");
 
-    m_VShader[0] = SE_NEW VertexShader(tempVShaderName);
-    m_PShader[0] = SE_NEW PixelShader(tempPShaderName);
+    m_VShader[0] = SE_NEW SEVertexShader(tempVShaderName);
+    m_PShader[0] = SE_NEW SEPixelShader(tempPShaderName);
     m_PShader[0]->SetTextureCount(m_iTextureCount);
     for( i = 0; i < m_iTextureCount; i++ )
     {

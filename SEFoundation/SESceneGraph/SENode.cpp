@@ -23,17 +23,17 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, Node, Spatial);
-SE_IMPLEMENT_STREAM(Node);
+SE_IMPLEMENT_RTTI(Swing, SENode, SESpatial);
+SE_IMPLEMENT_STREAM(SENode);
 
-//SE_REGISTER_STREAM(Node);
+//SE_REGISTER_STREAM(SENode);
 
 //----------------------------------------------------------------------------
-Node::Node()
+SENode::SENode()
 {
 }
 //----------------------------------------------------------------------------
-Node::~Node()
+SENode::~SENode()
 {
     for( int i = 0; i < (int)m_Child.size(); i++ )
     {
@@ -42,7 +42,7 @@ Node::~Node()
     }
 }
 //----------------------------------------------------------------------------
-int Node::AttachChild(Spatial* pChild)
+int SENode::AttachChild(SESpatial* pChild)
 {
     // 一些开发者希望node节点对象可以有多个父节点,从而使场景视图成为DAG.
     // 实际上不是这样,场景视图结构是一个树型结构.
@@ -52,10 +52,10 @@ int Node::AttachChild(Spatial* pChild)
     // 但是一定要注意到,调用DetachChild时有可能使你的子节点引用计数为0从而自我析构,
     // 安全的做法是,用一个智能指针引用该子节点,然后调用DetachChild,如下所示:
     //
-    //     Node* pNode0 = SE_NEW Node;
-    //     Spatial* pChild0 = <...>;
+    //     SENode* pNode0 = SE_NEW SENode;
+    //     SESpatial* pChild0 = <...>;
     //     pNode0->AttachChild(pChild0);  // child at index 0
-    //     Node* pNode1 = <...>;
+    //     SENode* pNode1 = <...>;
     //
     //     // 这将会产生断言,因为pChild0已经有父节点(pNode0).
     //     pNode1->AttachChild(pChild0);
@@ -88,7 +88,7 @@ int Node::AttachChild(Spatial* pChild)
     return iCount;
 }
 //----------------------------------------------------------------------------
-int Node::DetachChild(Spatial* pChild)
+int SENode::DetachChild(SESpatial* pChild)
 {
     if( pChild )
     {
@@ -109,7 +109,7 @@ int Node::DetachChild(Spatial* pChild)
     return -1;
 }
 //----------------------------------------------------------------------------
-SpatialPtr Node::DetachChildAt(int i)
+SpatialPtr SENode::DetachChildAt(int i)
 {
     if( 0 <= i && i < (int)m_Child.size() )
     {
@@ -127,7 +127,7 @@ SpatialPtr Node::DetachChildAt(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-SpatialPtr Node::SetChild(int i, Spatial* pChild)
+SpatialPtr SENode::SetChild(int i, SESpatial* pChild)
 {
     // 一些开发者希望node节点对象可以有多个父节点,从而使场景视图成为DAG.
     // 实际上不是这样,场景视图结构是一个树型结构.
@@ -137,10 +137,10 @@ SpatialPtr Node::SetChild(int i, Spatial* pChild)
     // 但是一定要注意到,调用DetachChild时有可能使你的子节点引用计数为0从而自我析构,
     // 安全的做法是,用一个智能指针引用该子节点,然后调用DetachChild,如下所示:
     //
-    //     Node* pNode0 = SE_NEW Node;
-    //     Spatial* pChild0 = <...>;
+    //     SENode* pNode0 = SE_NEW SENode;
+    //     SESpatial* pChild0 = <...>;
     //     pNode0->AttachChild(pChild0);  // child at index 0
-    //     Node* pNode1 = <...>;
+    //     SENode* pNode1 = <...>;
     //
     //     // 这将会产生断言,因为pChild0已经有父节点(pNode0).
     //     pNode1->AttachChild(pChild0);
@@ -182,7 +182,7 @@ SpatialPtr Node::SetChild(int i, Spatial* pChild)
     return 0;
 }
 //----------------------------------------------------------------------------
-SpatialPtr Node::GetChild(int i)
+SpatialPtr SENode::GetChild(int i)
 {
     if( 0 <= i && i < (int)m_Child.size() )
     {
@@ -192,14 +192,14 @@ SpatialPtr Node::GetChild(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Node::UpdateWorldData(double dAppTime)
+void SENode::UpdateWorldData(double dAppTime)
 {
-    Spatial::UpdateWorldData(dAppTime);
+    SESpatial::UpdateWorldData(dAppTime);
 
-    // Node节点有责任进行AB递归,从而完成树的遍历.
+    // SENode节点有责任进行AB递归,从而完成树的遍历.
     for( int i = 0; i < (int)m_Child.size(); i++ )
     {
-        Spatial* pChild = m_Child[i];
+        SESpatial* pChild = m_Child[i];
         if( pChild )
         {
             pChild->UpdateGS(dAppTime, false);
@@ -207,7 +207,7 @@ void Node::UpdateWorldData(double dAppTime)
     }
 }
 //----------------------------------------------------------------------------
-void Node::UpdateWorldBound()
+void SENode::UpdateWorldBound()
 {
     if( !WorldBoundIsCurrent )
     {
@@ -217,7 +217,7 @@ void Node::UpdateWorldBound()
         bool bFoundFirstBound = false;
         for( int i = 0; i < (int)m_Child.size(); i++ )
         {
-            Spatial* pChild = m_Child[i];
+            SESpatial* pChild = m_Child[i];
             if( pChild )
             {
                 if( bFoundFirstBound )
@@ -236,13 +236,13 @@ void Node::UpdateWorldBound()
     }
 }
 //----------------------------------------------------------------------------
-void Node::UpdateState(std::vector<GlobalState*>* aGStack,
-    std::vector<Light*>* pLStack)
+void SENode::UpdateState(std::vector<SEGlobalState*>* aGStack,
+    std::vector<SELight*>* pLStack)
 {
-    // Node节点有责任进行AB递归,从而完成树的遍历.
+    // SENode节点有责任进行AB递归,从而完成树的遍历.
     for( int i = 0; i < (int)m_Child.size(); i++ )
     {
-        Spatial* pChild = m_Child[i];
+        SESpatial* pChild = m_Child[i];
         if( pChild )
         {
             pChild->UpdateRS(aGStack, pLStack);
@@ -250,7 +250,7 @@ void Node::UpdateState(std::vector<GlobalState*>* aGStack,
     }
 }
 //----------------------------------------------------------------------------
-void Node::GetUnculledSet(Culler& rCuller, bool bNoCull)
+void SENode::GetUnculledSet(SECuller& rCuller, bool bNoCull)
 {
     int i;
     for( i = 0; i < (int)m_Effects.size(); i++ )
@@ -260,12 +260,12 @@ void Node::GetUnculledSet(Culler& rCuller, bool bNoCull)
         rCuller.Insert(this, m_Effects[i]);
     }
 
-    // Node节点有责任进行AB递归,从而完成场景视图树的遍历.
-    // 所有被加入可见对象集中的Geometry子节点都处在当前节点global effect的作用域中,
-    // 这些Geometry子节点都将使用该global effect进行渲染.
+    // SENode节点有责任进行AB递归,从而完成场景视图树的遍历.
+    // 所有被加入可见对象集中的SEGeometry子节点都处在当前节点global effect的作用域中,
+    // 这些SEGeometry子节点都将使用该global effect进行渲染.
     for( i = 0; i < (int)m_Child.size(); i++ )
     {
-        Spatial* pChild = m_Child[i];
+        SESpatial* pChild = m_Child[i];
         if( pChild )
         {
             pChild->OnGetUnculledSet(rCuller, bNoCull);
@@ -279,13 +279,13 @@ void Node::GetUnculledSet(Culler& rCuller, bool bNoCull)
     }
 }
 //----------------------------------------------------------------------------
-void Node::DoPick(const SERay3f& rRay, PickArray& rResults)
+void SENode::DoPick(const SERay3f& rRay, PickArray& rResults)
 {
     if( WorldBound->TestIntersection(rRay) )
     {
         for( int i = 0; i < (int)m_Child.size(); i++ )
         {
-            Spatial* pChild = m_Child[i];
+            SESpatial* pChild = m_Child[i];
             if( pChild )
             {
                 pChild->DoPick(rRay, rResults);
@@ -298,9 +298,9 @@ void Node::DoPick(const SERay3f& rRay, PickArray& rResults)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-SEObject* Node::GetObjectByName(const std::string& rName)
+SEObject* SENode::GetObjectByName(const std::string& rName)
 {
-    SEObject* pFound = Spatial::GetObjectByName(rName);
+    SEObject* pFound = SESpatial::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -308,7 +308,7 @@ SEObject* Node::GetObjectByName(const std::string& rName)
 
     for( int i = 0; i < (int)m_Child.size(); i++ )
     {
-        Spatial* pChild = m_Child[i];
+        SESpatial* pChild = m_Child[i];
         if( pChild )
         {
             pFound = pChild->GetObjectByName(rName);
@@ -322,14 +322,14 @@ SEObject* Node::GetObjectByName(const std::string& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Node::GetAllObjectsByName(const std::string& rName,
+void SENode::GetAllObjectsByName(const std::string& rName,
     std::vector<SEObject*>& rObjects)
 {
-    Spatial::GetAllObjectsByName(rName, rObjects);
+    SESpatial::GetAllObjectsByName(rName, rObjects);
 
     for( int i = 0; i < (int)m_Child.size(); i++ )
     {
-        Spatial* pChild = m_Child[i];
+        SESpatial* pChild = m_Child[i];
         if( pChild )
         {
             pChild->GetAllObjectsByName(rName, rObjects);
@@ -337,9 +337,9 @@ void Node::GetAllObjectsByName(const std::string& rName,
     }
 }
 //----------------------------------------------------------------------------
-SEObject* Node::GetObjectByID(unsigned int uiID)
+SEObject* SENode::GetObjectByID(unsigned int uiID)
 {
-    SEObject* pFound = Spatial::GetObjectByID(uiID);
+    SEObject* pFound = SESpatial::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -347,7 +347,7 @@ SEObject* Node::GetObjectByID(unsigned int uiID)
 
     for( int i = 0; i < (int)m_Child.size(); i++ )
     {
-        Spatial* pChild = m_Child[i];
+        SESpatial* pChild = m_Child[i];
         if( pChild )
         {
             pFound = pChild->GetObjectByID(uiID);
@@ -365,11 +365,11 @@ SEObject* Node::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void Node::Load(SEStream& rStream, SEStream::Link* pLink)
+void SENode::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Spatial::Load(rStream, pLink);
+    SESpatial::Load(rStream, pLink);
 
     // link data
     int iMaxCount, iGrowBy, iCount;
@@ -388,17 +388,17 @@ void Node::Load(SEStream& rStream, SEStream::Link* pLink)
         pLink->Add(pObject);
     }
 
-    SE_END_DEBUG_STREAM_LOAD(Node);
+    SE_END_DEBUG_STREAM_LOAD(SENode);
 }
 //----------------------------------------------------------------------------
-void Node::Link(SEStream& rStream, SEStream::Link* pLink)
+void SENode::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    Spatial::Link(rStream, pLink);
+    SESpatial::Link(rStream, pLink);
 
     for( int i = 0; i < (int)m_Child.size(); i++ )
     {
         SEObject* pLinkID = pLink->GetLinkID();
-        Spatial* pChild = (Spatial*)rStream.GetFromMap(pLinkID);
+        SESpatial* pChild = (SESpatial*)rStream.GetFromMap(pLinkID);
         if( pChild )
         {
             SetChild(i, pChild);
@@ -406,9 +406,9 @@ void Node::Link(SEStream& rStream, SEStream::Link* pLink)
     }
 }
 //----------------------------------------------------------------------------
-bool Node::Register(SEStream& rStream) const
+bool SENode::Register(SEStream& rStream) const
 {
-    if( !Spatial::Register(rStream) )
+    if( !SESpatial::Register(rStream) )
     {
         return false;
     }
@@ -424,11 +424,11 @@ bool Node::Register(SEStream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void Node::Save(SEStream& rStream) const
+void SENode::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Spatial::Save(rStream);
+    SESpatial::Save(rStream);
 
     // link data
     rStream.Write((int)m_Child.size());  // was maxcount
@@ -443,17 +443,17 @@ void Node::Save(SEStream& rStream) const
         rStream.Write(m_Child[i]);
     }
 
-    SE_END_DEBUG_STREAM_SAVE(Node);
+    SE_END_DEBUG_STREAM_SAVE(SENode);
 }
 //----------------------------------------------------------------------------
-int Node::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SENode::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return Spatial::GetDiskUsed(rVersion) +
+    return SESpatial::GetDiskUsed(rVersion) +
         3*sizeof(int) +  // m_Child maxcount, growby, count
         ((int)m_Child.size())*sizeof(m_Child[0]);
 }
 //----------------------------------------------------------------------------
-SEStringTree* Node::SaveStrings(const char*)
+SEStringTree* SENode::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -462,10 +462,10 @@ SEStringTree* Node::SaveStrings(const char*)
     pTree->Append(Format("child count =", (int)m_Child.size()));
 
     // children
-    pTree->Append(Spatial::SaveStrings());
+    pTree->Append(SESpatial::SaveStrings());
     for( int i = 0; i < (int)m_Child.size(); i++ )
     {
-        Spatial* pChild = m_Child[i];
+        SESpatial* pChild = m_Child[i];
         if( pChild )
         {
             pTree->Append(pChild->SaveStrings());

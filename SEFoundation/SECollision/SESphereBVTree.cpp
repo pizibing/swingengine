@@ -32,22 +32,22 @@ SE_IMPLEMENT_INITIALIZE(SESphereBVTree);
 //----------------------------------------------------------------------------
 void SESphereBVTree::Initialize()
 {
-    ms_aoCreateModelBound[BoundingVolume::BV_SPHERE] =
+    ms_aoCreateModelBound[SEBoundingVolume::BV_SPHERE] =
         &SESphereBVTree::CreateModelBound;
 
-    ms_aoCreateWorldBound[BoundingVolume::BV_SPHERE] =
+    ms_aoCreateWorldBound[SEBoundingVolume::BV_SPHERE] =
         &SESphereBVTree::CreateWorldBound;
 }
 //----------------------------------------------------------------------------
-SESphereBVTree::SESphereBVTree(const TriMesh* pMesh, int iMaxTrisPerLeaf,
+SESphereBVTree::SESphereBVTree(const SETriMesh* pMesh, int iMaxTrisPerLeaf,
     bool bStoreInteriorTris)
     :
-    SEBoundingVolumeTree(BoundingVolume::BV_SPHERE, pMesh, iMaxTrisPerLeaf,
+    SEBoundingVolumeTree(SEBoundingVolume::BV_SPHERE, pMesh, iMaxTrisPerLeaf,
         bStoreInteriorTris)
 {
 }
 //----------------------------------------------------------------------------
-BoundingVolume* SESphereBVTree::CreateModelBound(const TriMesh* pMesh, int i0,
+SEBoundingVolume* SESphereBVTree::CreateModelBound(const SETriMesh* pMesh, int i0,
     int i1, int* aiISplit, SELine3f& rLine)
 {
     // 标记出在当前子网格中用过的那些顶点.
@@ -75,7 +75,7 @@ BoundingVolume* SESphereBVTree::CreateModelBound(const TriMesh* pMesh, int i0,
     }
     SE_DELETE[] abValid;
 
-    SphereBV* pModelBound = SE_NEW SphereBV;
+    SESphereBV* pModelBound = SE_NEW SESphereBV;
     pModelBound->Sphere() = ContSphereAveragef((int)tempMeshVertices.size(),
         &tempMeshVertices.front());
 
@@ -85,8 +85,8 @@ BoundingVolume* SESphereBVTree::CreateModelBound(const TriMesh* pMesh, int i0,
     return pModelBound;
 }
 //----------------------------------------------------------------------------
-BoundingVolume* SESphereBVTree::CreateWorldBound()
+SEBoundingVolume* SESphereBVTree::CreateWorldBound()
 {
-    return SE_NEW SphereBV;
+    return SE_NEW SESphereBV;
 }
 //----------------------------------------------------------------------------

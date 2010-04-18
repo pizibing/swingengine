@@ -34,7 +34,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080701
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API StencilState : public GlobalState
+class SE_FOUNDATION_API SEStencilState : public SEGlobalState
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -45,8 +45,8 @@ class SE_FOUNDATION_API StencilState : public GlobalState
 public:
     virtual StateType GetStateType(void) const { return STENCIL; }
 
-    StencilState(void);
-    virtual ~StencilState(void);
+    SEStencilState(void);
+    virtual ~SEStencilState(void);
 
     enum CompareFunction
     {
@@ -86,7 +86,7 @@ private:
     static const char* ms_pOperation[OT_COUNT];
 };
 
-typedef SESmartPointer<StencilState> StencilStatePtr;
+typedef SESmartPointer<SEStencilState> SEStencilStatePtr;
 
 }
 

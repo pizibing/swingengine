@@ -50,8 +50,8 @@ void SkinEffect::Terminate()
     ms_apSkinMatrix = 0;
 }
 //----------------------------------------------------------------------------
-SkinEffect::SkinEffect(int iBoneCount, Node** apBones, 
-    Transformation* aOffset)
+SkinEffect::SkinEffect(int iBoneCount, SENode** apBones, 
+    SETransformation* aOffset)
     :
     ShaderEffect(1)
 {
@@ -80,22 +80,22 @@ int SkinEffect::GetBoneCount() const
     return m_iBoneCount;
 }
 //----------------------------------------------------------------------------
-Node** SkinEffect::GetBones()
+SENode** SkinEffect::GetBones()
 {
     return m_apBones;
 }
 //----------------------------------------------------------------------------
-Transformation* SkinEffect::GetOffsets()
+SETransformation* SkinEffect::GetOffsets()
 {
     return m_aOffset;
 }
 //----------------------------------------------------------------------------
-void SkinEffect::InitializeUserConstants(Program* pVProgram)
+void SkinEffect::InitializeUserConstants(SEProgram* pVProgram)
 {
     int iMaxCount = 0;
-    int iVProfile = VertexProgramCatalog::GetActive()->GetProfile();
+    int iVProfile = SEVertexProgramCatalog::GetActive()->GetProfile();
 
-    if( iVProfile == Renderer::OES2VP1 )
+    if( iVProfile == SERenderer::OES2VP1 )
     {
         char tempName[16]; // "SkinArray[xx].M"
 
@@ -103,7 +103,7 @@ void SkinEffect::InitializeUserConstants(Program* pVProgram)
         for( int i = 0; i < iMaxCount; i++ )
         {
             SESystem::SE_Sprintf(tempName, 16, "SkinArray[%d].M", i);
-            UserConstant* pUC = pVProgram->GetUC(tempName);
+            SEUserConstant* pUC = pVProgram->GetUC(tempName);
             SE_ASSERT( pUC );
         
             if( pUC )
@@ -118,19 +118,19 @@ void SkinEffect::InitializeUserConstants(Program* pVProgram)
 
         switch( iVProfile )
         {
-        case Renderer::VS_2_0:
+        case SERenderer::VS_2_0:
             iMaxCount = VS_2_0_COUNT;
             break;
-        case Renderer::VS_3_0:
+        case SERenderer::VS_3_0:
             iMaxCount = VS_3_0_COUNT;
             break;
-        case Renderer::ARBVP1:
+        case SERenderer::ARBVP1:
             iMaxCount = ARBVP1_COUNT;
             break;
-        case Renderer::VP40:
+        case SERenderer::VP40:
             iMaxCount = VP40_COUNT;
             break;
-        case Renderer::SFTVP1:
+        case SERenderer::SFTVP1:
             iMaxCount = SFTVP1_COUNT;
             break;
         }
@@ -138,7 +138,7 @@ void SkinEffect::InitializeUserConstants(Program* pVProgram)
         for( int i = 0; i < iMaxCount; i++ )
         {
             SESystem::SE_Sprintf(tempName, 15, "SkinMatrix[%d]", i);
-            UserConstant* pUC = pVProgram->GetUC(tempName);
+            SEUserConstant* pUC = pVProgram->GetUC(tempName);
             SE_ASSERT( pUC );
         
             if( pUC )
@@ -149,14 +149,14 @@ void SkinEffect::InitializeUserConstants(Program* pVProgram)
     }
 }
 //----------------------------------------------------------------------------
-void SkinEffect::OnLoadPrograms(int, Program*, Program*, Program*)
+void SkinEffect::OnLoadPrograms(int, SEProgram*, SEProgram*, SEProgram*)
 {
     // Stub for derived classes.
 }
 //----------------------------------------------------------------------------
-void SkinEffect::OnPreApplyEffect(Renderer*, bool)
+void SkinEffect::OnPreApplyEffect(SERenderer*, bool)
 {
-    Transformation tempT;
+    SETransformation tempT;
     SEMatrix4f tempMat;
     for( int i = 0; i < m_iBoneCount; i++ )
     {
@@ -201,7 +201,7 @@ void SkinEffect::Load(SEStream& rStream, SEStream::Link* pLink)
 
     int i;
 
-    m_aOffset = SE_NEW Transformation[m_iBoneCount];
+    m_aOffset = SE_NEW SETransformation[m_iBoneCount];
     for( i = 0; i < m_iBoneCount; i++ )
     {
         rStream.Read(m_aOffset[i]);
@@ -222,11 +222,11 @@ void SkinEffect::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     ShaderEffect::Link(rStream, pLink);
 
-    m_apBones = SE_NEW Node*[m_iBoneCount];
+    m_apBones = SE_NEW SENode*[m_iBoneCount];
     for( int i = 0; i < m_iBoneCount; i++ )
     {
         SEObject* pLinkID = pLink->GetLinkID();
-        m_apBones[i] = (Node*)rStream.GetFromMap(pLinkID);
+        m_apBones[i] = (SENode*)rStream.GetFromMap(pLinkID);
     }
 }
 //----------------------------------------------------------------------------
@@ -277,7 +277,7 @@ int SkinEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return ShaderEffect::GetDiskUsed(rVersion) +
         sizeof(m_iBoneCount) + 
-        m_iBoneCount*Transformation::DISK_USED +
+        m_iBoneCount*SETransformation::DISK_USED +
         m_iBoneCount*sizeof(m_apBones[0]);
 }
 //----------------------------------------------------------------------------

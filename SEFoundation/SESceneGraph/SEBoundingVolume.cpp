@@ -23,19 +23,19 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, BoundingVolume, SEObject);
-SE_IMPLEMENT_ABSTRACT_STREAM(BoundingVolume);
-SE_IMPLEMENT_DEFAULT_STREAM(BoundingVolume, SEObject);
-SE_IMPLEMENT_DEFAULT_NAME_ID(BoundingVolume, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEBoundingVolume, SEObject);
+SE_IMPLEMENT_ABSTRACT_STREAM(SEBoundingVolume);
+SE_IMPLEMENT_DEFAULT_STREAM(SEBoundingVolume, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEBoundingVolume, SEObject);
 
-//SE_REGISTER_STREAM(BoundingVolume);
+//SE_REGISTER_STREAM(SEBoundingVolume);
 
 //----------------------------------------------------------------------------
-BoundingVolume::BoundingVolume()
+SEBoundingVolume::SEBoundingVolume()
 {
 }
 //----------------------------------------------------------------------------
-BoundingVolume::~BoundingVolume()
+SEBoundingVolume::~SEBoundingVolume()
 {
 }
 //----------------------------------------------------------------------------

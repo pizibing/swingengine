@@ -32,19 +32,19 @@
 // Y = X*M + T的逆变换的一般形式为X = (Y-T)*M^{-1}.如果M = S*R,
 // 则逆变换可转换为X = (Y-T)*R^T*S^{-1}.
 //
-// Transformation和矩阵运算的连接方式一致,也采用向右连接.
+// SETransformation和矩阵运算的连接方式一致,也采用向右连接.
 //
 // 执行效能分析(基于AMD Athlon64 3000+,1G,ATI X800).
 // 1000000次乘积运算,release模式,执行时间约为260ms(统一缩放SRT),
 // 440ms(非统一缩放SRT),DirectX齐次矩阵约为50ms.
 // 10000次乘积运算,release模式,执行时间 < 0ms,DirectX齐次矩阵 < 0ms.
-// 因此Transformation类可用于引擎应用层,针对场景节点树进行10000为数量级的矩阵
-// 运算,与DirectX齐次矩阵没有明显差异.
+// 因此SETransformation类可用于引擎应用层,针对场景节点树进行10000为数量级的矩
+// 阵运算,与DirectX齐次矩阵没有明显差异.
 // 而运用于引擎管线层(光栅器,绘图管线)则将明显落后于DirectX齐次矩阵.
-// 采用Transformation封装矩阵运算的优点:
+// 采用SETransformation封装矩阵运算的优点:
 //     (1) 在能够直接获取SRT分量的情况下,逆变换将得到加速.
 //     (2) 矩阵运算,空间变换是API无关的.
-// 采用Transformation封装矩阵运算的缺点:如果用于软件光栅器则速度较慢.
+// 采用SETransformation封装矩阵运算的缺点:如果用于软件光栅器则速度较慢.
 
 namespace Swing
 {
@@ -55,11 +55,11 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20070523
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Transformation
+class SE_FOUNDATION_API SETransformation
 {
 public:
-    Transformation(void);
-    ~Transformation(void);
+    SETransformation(void);
+    ~SETransformation(void);
 
     // 将变换设为单位矩阵变换.
     void Identity(void);
@@ -114,18 +114,18 @@ public:
     void ApplyForward(const SEPlane3f& rInput, SEPlane3f& rOutput) const;
 
     // 计算*this = rLhsTrans*rRhsTrans.
-    void Product(const Transformation& rLhsTrans,
-        const Transformation& rRhsTrans);
+    void Product(const SETransformation& rLhsTrans,
+        const SETransformation& rRhsTrans);
 
     // 设当前变换为Y = X*M + T,则当前变换的逆变换为X = (Y-T)*M^{-1}.
     // 如果当前变换为Y = X*S*R + T,则当前变换的逆变换为X = (Y-T)*R^T*S^{-1}.
     // 也就是M' = M^{-1} = R^T*S^{-1},T' = -T*M^{-1} = -T*R^T*S^{-1}.
-    void GetInverse(Transformation& rInvTrans);
+    void GetInverse(SETransformation& rInvTrans);
 
     // 构造4x4Homogeneous矩阵,供1x4行向量左乘使用.
     void GetHomogeneous(SEMatrix4f& rHMatrix) const;
 
-    static const Transformation IDENTITY;
+    static const SETransformation IDENTITY;
 
     // stream操作时用到,此类写入磁盘的字节数.
     enum
@@ -135,7 +135,7 @@ public:
 
 private:
 	friend class SEStream;
-    friend class Spatial;
+    friend class SESpatial;
 
     SEMatrix3f m_Matrix;
     SEVector3f m_Translate;

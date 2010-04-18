@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Culler::Culler(int iMaxCount, int iGrowBy, const Camera* pCamera)
+SECuller::SECuller(int iMaxCount, int iGrowBy, const SECamera* pCamera)
     :
     m_VisibleSet(iMaxCount, iGrowBy),
     m_AudibleSet(iMaxCount, iGrowBy)
@@ -35,11 +35,11 @@ Culler::Culler(int iMaxCount, int iGrowBy, const Camera* pCamera)
     // m_Frustum, m_aPlane, m_uiPlaneState 都在ComputeUnculledSet里初始化.
 }
 //----------------------------------------------------------------------------
-Culler::~Culler()
+SECuller::~SECuller()
 {
 }
 //----------------------------------------------------------------------------
-void Culler::SetFrustum(const float* afFrustum)
+void SECuller::SetFrustum(const float* afFrustum)
 {
     // 我们要根据截投体参数计算新的截投体平面方程,
     // 注意所有公式的叉积符号都使用左手原则推导.
@@ -52,13 +52,13 @@ void Culler::SetFrustum(const float* afFrustum)
     }
 
     // 复制截投体参数
-    size_t uiSize = Camera::VF_COUNT * sizeof(float);
+    size_t uiSize = SECamera::VF_COUNT * sizeof(float);
     SESystem::SE_Memcpy(m_Frustum, uiSize, afFrustum, uiSize);
-    float fDMin2 = m_Frustum[Camera::VF_DMIN] * m_Frustum[Camera::VF_DMIN];
-    float fRMin2 = m_Frustum[Camera::VF_RMIN] * m_Frustum[Camera::VF_RMIN];
-    float fRMax2 = m_Frustum[Camera::VF_RMAX] * m_Frustum[Camera::VF_RMAX];
-    float fUMin2 = m_Frustum[Camera::VF_UMIN] * m_Frustum[Camera::VF_UMIN];
-    float fUMax2 = m_Frustum[Camera::VF_UMAX] * m_Frustum[Camera::VF_UMAX];
+    float fDMin2 = m_Frustum[SECamera::VF_DMIN] * m_Frustum[SECamera::VF_DMIN];
+    float fRMin2 = m_Frustum[SECamera::VF_RMIN] * m_Frustum[SECamera::VF_RMIN];
+    float fRMax2 = m_Frustum[SECamera::VF_RMAX] * m_Frustum[SECamera::VF_RMAX];
+    float fUMin2 = m_Frustum[SECamera::VF_UMIN] * m_Frustum[SECamera::VF_UMIN];
+    float fUMax2 = m_Frustum[SECamera::VF_UMAX] * m_Frustum[SECamera::VF_UMAX];
 
     // 获取摄像机坐标系,E:RUD
     SEVector3f vec3fLoc = m_pCamera->GetLocation();
@@ -68,50 +68,50 @@ void Culler::SetFrustum(const float* afFrustum)
     float fDdE = vec3fDVec.Dot(vec3fLoc);
 
     // 更新near plane
-    m_aPlane[Camera::VF_DMIN].Normal = vec3fDVec;
-    m_aPlane[Camera::VF_DMIN].Constant = fDdE + m_Frustum[Camera::VF_DMIN];
+    m_aPlane[SECamera::VF_DMIN].Normal = vec3fDVec;
+    m_aPlane[SECamera::VF_DMIN].Constant = fDdE + m_Frustum[SECamera::VF_DMIN];
 
     // 更新far plane
-    m_aPlane[Camera::VF_DMAX].Normal = -vec3fDVec;
-    m_aPlane[Camera::VF_DMAX].Constant = -(fDdE + m_Frustum[Camera::VF_DMAX]);
+    m_aPlane[SECamera::VF_DMAX].Normal = -vec3fDVec;
+    m_aPlane[SECamera::VF_DMAX].Constant = -(fDdE + m_Frustum[SECamera::VF_DMAX]);
 
     // 更新bottom plane
     float fInvLength = 1.0f / SEMathf::Sqrt(fDMin2 + fUMin2);
-    float fC0 = -m_Frustum[Camera::VF_UMIN]*fInvLength;  // D component
-    float fC1 = +m_Frustum[Camera::VF_DMIN]*fInvLength;  // U component
-    m_aPlane[Camera::VF_UMIN].Normal = fC0*vec3fDVec + fC1*vec3fUVec;
-    m_aPlane[Camera::VF_UMIN].Constant = vec3fLoc.Dot(
-        m_aPlane[Camera::VF_UMIN].Normal);
+    float fC0 = -m_Frustum[SECamera::VF_UMIN]*fInvLength;  // D component
+    float fC1 = +m_Frustum[SECamera::VF_DMIN]*fInvLength;  // U component
+    m_aPlane[SECamera::VF_UMIN].Normal = fC0*vec3fDVec + fC1*vec3fUVec;
+    m_aPlane[SECamera::VF_UMIN].Constant = vec3fLoc.Dot(
+        m_aPlane[SECamera::VF_UMIN].Normal);
 
     // 更新top plane
     fInvLength = 1.0f / SEMathf::Sqrt(fDMin2 + fUMax2);
-    fC0 = +m_Frustum[Camera::VF_UMAX]*fInvLength;  // D component
-    fC1 = -m_Frustum[Camera::VF_DMIN]*fInvLength;  // U component
-    m_aPlane[Camera::VF_UMAX].Normal = fC0*vec3fDVec + fC1*vec3fUVec;
-    m_aPlane[Camera::VF_UMAX].Constant = vec3fLoc.Dot(
-        m_aPlane[Camera::VF_UMAX].Normal);
+    fC0 = +m_Frustum[SECamera::VF_UMAX]*fInvLength;  // D component
+    fC1 = -m_Frustum[SECamera::VF_DMIN]*fInvLength;  // U component
+    m_aPlane[SECamera::VF_UMAX].Normal = fC0*vec3fDVec + fC1*vec3fUVec;
+    m_aPlane[SECamera::VF_UMAX].Constant = vec3fLoc.Dot(
+        m_aPlane[SECamera::VF_UMAX].Normal);
 
     // 更新left plane
     fInvLength = 1.0f / SEMathf::Sqrt(fDMin2 + fRMin2);
-    fC0 = -m_Frustum[Camera::VF_RMIN]*fInvLength;  // D component
-    fC1 = +m_Frustum[Camera::VF_DMIN]*fInvLength;  // R component
-    m_aPlane[Camera::VF_RMIN].Normal = fC0*vec3fDVec + fC1*vec3fRVec;
-    m_aPlane[Camera::VF_RMIN].Constant = vec3fLoc.Dot(
-        m_aPlane[Camera::VF_RMIN].Normal);
+    fC0 = -m_Frustum[SECamera::VF_RMIN]*fInvLength;  // D component
+    fC1 = +m_Frustum[SECamera::VF_DMIN]*fInvLength;  // R component
+    m_aPlane[SECamera::VF_RMIN].Normal = fC0*vec3fDVec + fC1*vec3fRVec;
+    m_aPlane[SECamera::VF_RMIN].Constant = vec3fLoc.Dot(
+        m_aPlane[SECamera::VF_RMIN].Normal);
 
     // 更新right plane
     fInvLength = 1.0f / SEMathf::Sqrt(fDMin2 + fRMax2);
-    fC0 = +m_Frustum[Camera::VF_RMAX]*fInvLength;  // D component
-    fC1 = -m_Frustum[Camera::VF_DMIN]*fInvLength;  // R component
-    m_aPlane[Camera::VF_RMAX].Normal = fC0*vec3fDVec + fC1*vec3fRVec;
-    m_aPlane[Camera::VF_RMAX].Constant = vec3fLoc.Dot(
-        m_aPlane[Camera::VF_RMAX].Normal);
+    fC0 = +m_Frustum[SECamera::VF_RMAX]*fInvLength;  // D component
+    fC1 = -m_Frustum[SECamera::VF_DMIN]*fInvLength;  // R component
+    m_aPlane[SECamera::VF_RMAX].Normal = fC0*vec3fDVec + fC1*vec3fRVec;
+    m_aPlane[SECamera::VF_RMAX].Constant = vec3fLoc.Dot(
+        m_aPlane[SECamera::VF_RMAX].Normal);
 
     // 所有平面初始化为激活状态
     m_uiPlaneState = (unsigned int)~0;
 }
 //----------------------------------------------------------------------------
-bool Culler::IsInFrustum(const BoundingVolume* pBound)
+bool SECuller::IsInFrustum(const SEBoundingVolume* pBound)
 {
     // 开始于尾部,很有可能是最容易剔除对象的用户自定义平面.
     int iP = m_iPlaneCount - 1;
@@ -143,7 +143,7 @@ bool Culler::IsInFrustum(const BoundingVolume* pBound)
     return true;
 }
 //----------------------------------------------------------------------------
-bool Culler::IsInFrustum(int iVertexCount, const SEVector3f* aVertex,
+bool SECuller::IsInFrustum(int iVertexCount, const SEVector3f* aVertex,
     bool bIgnoreNearPlane)
 {
     // The Boolean variable bIgnoreNearPlane should be set to 'true' when
@@ -160,7 +160,7 @@ bool Culler::IsInFrustum(int iVertexCount, const SEVector3f* aVertex,
     for( int i = 0; i < m_iPlaneCount; i++, iP-- )
     {
         SEPlane3f& rPlane = m_aPlane[iP];
-        if( bIgnoreNearPlane && iP == Camera::VF_DMIN )
+        if( bIgnoreNearPlane && iP == SECamera::VF_DMIN )
         {
             continue;
         }
@@ -186,7 +186,7 @@ bool Culler::IsInFrustum(int iVertexCount, const SEVector3f* aVertex,
     return true;
 }
 //----------------------------------------------------------------------------
-bool Culler::IsSingleInFrustum(const BoundingVolume* pBound) const
+bool SECuller::IsSingleInFrustum(const SEBoundingVolume* pBound) const
 {
     // 开始于尾部,很有可能是最容易剔除对象的用户自定义平面.
     int iP = m_iPlaneCount - 1;
@@ -206,7 +206,7 @@ bool Culler::IsSingleInFrustum(const BoundingVolume* pBound) const
     return true;
 }
 //----------------------------------------------------------------------------
-int Culler::OnWhichSide(const SEPlane3f& rPlane) const
+int SECuller::OnWhichSide(const SEPlane3f& rPlane) const
 {
     // The plane is N*(X-C) = 0 where the * indicates dot product. The signed
     // distance from the camera location E to the plane is N*(E-C).
@@ -215,17 +215,17 @@ int Culler::OnWhichSide(const SEPlane3f& rPlane) const
     float fNdD = rPlane.Normal.Dot(m_pCamera->GetDVector());
     float fNdU = rPlane.Normal.Dot(m_pCamera->GetUVector());
     float fNdR = rPlane.Normal.Dot(m_pCamera->GetRVector());
-    float fFdN = m_Frustum[Camera::VF_DMAX]/m_Frustum[Camera::VF_DMIN];
+    float fFdN = m_Frustum[SECamera::VF_DMAX]/m_Frustum[SECamera::VF_DMIN];
 
     int iPositive = 0, iNegative = 0;
     float fSgnDist;
 
     // check near-plane vertices
-    float fPDMin = m_Frustum[Camera::VF_DMIN]*fNdD;
-    float fNUMin = m_Frustum[Camera::VF_UMIN]*fNdU;
-    float fNUMax = m_Frustum[Camera::VF_UMAX]*fNdU;
-    float fNRMin = m_Frustum[Camera::VF_RMIN]*fNdR;
-    float fNRMax = m_Frustum[Camera::VF_RMAX]*fNdR;
+    float fPDMin = m_Frustum[SECamera::VF_DMIN]*fNdD;
+    float fNUMin = m_Frustum[SECamera::VF_UMIN]*fNdU;
+    float fNUMax = m_Frustum[SECamera::VF_UMAX]*fNdU;
+    float fNRMin = m_Frustum[SECamera::VF_RMIN]*fNdR;
+    float fNRMax = m_Frustum[SECamera::VF_RMAX]*fNdR;
 
     // V = E + dmin*D + umin*U + rmin*R
     // N*(V-C) = N*(E-C) + dmin*(N*D) + umin*(N*U) + rmin*(N*R)
@@ -276,7 +276,7 @@ int Culler::OnWhichSide(const SEPlane3f& rPlane) const
     }
 
     // check far-plane vertices (s = dmax/dmin)
-    float fPDMax = m_Frustum[Camera::VF_DMAX]*fNdD;
+    float fPDMax = m_Frustum[SECamera::VF_DMAX]*fNdD;
     float fFUMin = fFdN*fNUMin;
     float fFUMax = fFdN*fNUMax;
     float fFRMin = fFdN*fNRMin;
@@ -346,7 +346,7 @@ int Culler::OnWhichSide(const SEPlane3f& rPlane) const
     return -1;
 }
 //----------------------------------------------------------------------------
-void Culler::ComputeUnculledSet(Spatial* pScene)
+void SECuller::ComputeUnculledSet(SESpatial* pScene)
 {
     SE_ASSERT( m_pCamera && pScene );
 

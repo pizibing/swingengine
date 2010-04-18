@@ -19,280 +19,280 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline Camera* Renderer::GetCamera() const
+inline SECamera* SERenderer::GetCamera() const
 {
     return m_pCamera;
 }
 //----------------------------------------------------------------------------
-inline FrameBuffer::FormatType Renderer::GetFormatType() const
+inline SEFrameBuffer::FormatType SERenderer::GetFormatType() const
 {
     return m_eFormat;
 }
 //----------------------------------------------------------------------------
-inline FrameBuffer::DepthType Renderer::GetDepthType() const
+inline SEFrameBuffer::DepthType SERenderer::GetDepthType() const
 {
     return m_eDepth;
 }
 //----------------------------------------------------------------------------
-inline FrameBuffer::StencilType Renderer::GetStencilType() const
+inline SEFrameBuffer::StencilType SERenderer::GetStencilType() const
 {
     return m_eStencil;
 }
 //----------------------------------------------------------------------------
-inline FrameBuffer::BufferingType Renderer::GetBufferingType() const
+inline SEFrameBuffer::BufferingType SERenderer::GetBufferingType() const
 {
     return m_eBuffering;
 }
 //----------------------------------------------------------------------------
-inline FrameBuffer::MultisamplingType Renderer::GetMultisamplingType() const
+inline SEFrameBuffer::MultisamplingType SERenderer::GetMultisamplingType() const
 {
     return m_eMultisampling;
 }
 //----------------------------------------------------------------------------
-inline int Renderer::GetWidth() const
+inline int SERenderer::GetWidth() const
 {
     return m_iWidth;
 }
 //----------------------------------------------------------------------------
-inline int Renderer::GetHeight() const
+inline int SERenderer::GetHeight() const
 {
     return m_iHeight;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::ToggleFullscreen()
+inline void SERenderer::ToggleFullscreen()
 {
     m_bFullscreen = !m_bFullscreen;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetClearColor(const SEColorRGBA& rClearColor)
+inline void SERenderer::SetClearColor(const SEColorRGBA& rClearColor)
 {
     m_ClearColor = rClearColor;
 }
 //----------------------------------------------------------------------------
-inline const SEColorRGBA& Renderer::GetClearColor() const
+inline const SEColorRGBA& SERenderer::GetClearColor() const
 {
     return m_ClearColor;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetClearDepth(float fClearDepth)
+inline void SERenderer::SetClearDepth(float fClearDepth)
 {
     m_fClearDepth = fClearDepth;
 }
 //----------------------------------------------------------------------------
-inline float Renderer::GetClearDepth() const
+inline float SERenderer::GetClearDepth() const
 {
     return m_fClearDepth;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetClearStencil(unsigned int uiClearStencil)
+inline void SERenderer::SetClearStencil(unsigned int uiClearStencil)
 {
     m_uiClearStencil = uiClearStencil;
 }
 //----------------------------------------------------------------------------
-inline unsigned int Renderer::GetClearStencil() const
+inline unsigned int SERenderer::GetClearStencil() const
 {
     return m_uiClearStencil;
 }
 //----------------------------------------------------------------------------
-inline bool Renderer::BeginScene()
+inline bool SERenderer::BeginScene()
 {
     // 由派生类负责实现.
     return true;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::EndScene()
+inline void SERenderer::EndScene()
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-inline int Renderer::GetMaxLights() const
+inline int SERenderer::GetMaxLights() const
 {
     return m_iMaxLights;
 }
 //----------------------------------------------------------------------------
-inline int Renderer::GetMaxColors() const
+inline int SERenderer::GetMaxColors() const
 {
     return m_iMaxColors;
 }
 //----------------------------------------------------------------------------
-inline int Renderer::GetMaxTCoords() const
+inline int SERenderer::GetMaxTCoords() const
 {
     return m_iMaxTCoords;
 }
 //----------------------------------------------------------------------------
-inline int Renderer::GetMaxVShaderImages() const
+inline int SERenderer::GetMaxVShaderImages() const
 {
     return m_iMaxVShaderImages;
 }
 //----------------------------------------------------------------------------
-inline int Renderer::GetMaxGShaderImages() const
+inline int SERenderer::GetMaxGShaderImages() const
 {
     return m_iMaxGShaderImages;
 }
 //----------------------------------------------------------------------------
-inline int Renderer::GetMaxPShaderImages() const
+inline int SERenderer::GetMaxPShaderImages() const
 {
     return m_iMaxPShaderImages;
 }
 //----------------------------------------------------------------------------
-inline int Renderer::GetMaxStencilIndices() const
+inline int SERenderer::GetMaxStencilIndices() const
 {
     return m_iMaxStencilIndices;
 }
 //----------------------------------------------------------------------------
-inline int Renderer::GetMaxUserClipPlanes() const
+inline int SERenderer::GetMaxUserClipPlanes() const
 {
     return m_iMaxUserClipPlanes;
 }
 //----------------------------------------------------------------------------
-inline int Renderer::GetMaxVShaderProfile() const
+inline int SERenderer::GetMaxVShaderProfile() const
 {
     return m_iMaxVShaderProfile;
 }
 //----------------------------------------------------------------------------
-inline int Renderer::GetMaxGShaderProfile() const
+inline int SERenderer::GetMaxGShaderProfile() const
 {
     return m_iMaxGShaderProfile;
 }
 //----------------------------------------------------------------------------
-inline int Renderer::GetMaxPShaderProfile() const
+inline int SERenderer::GetMaxPShaderProfile() const
 {
     return m_iMaxPShaderProfile;
 }
 //----------------------------------------------------------------------------
-inline int Renderer::GetMaxRenderTargets() const
+inline int SERenderer::GetMaxRenderTargets() const
 {
     return m_iMaxRenderTargets;
 }
 //----------------------------------------------------------------------------
-inline bool Renderer::HasShaderCompiler() const
+inline bool SERenderer::HasShaderCompiler() const
 {
     return m_bHasShaderCompiler;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetAlphaState(AlphaState* pState)
+inline void SERenderer::SetAlphaState(SEAlphaState* pState)
 {
-    m_aspState[GlobalState::ALPHA] = pState;
+    m_aspState[SEGlobalState::ALPHA] = pState;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetCullState(CullState* pState)
+inline void SERenderer::SetCullState(SECullState* pState)
 {
-    m_aspState[GlobalState::CULL] = pState;
+    m_aspState[SEGlobalState::CULL] = pState;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetMaterialState(MaterialState* pState)
+inline void SERenderer::SetMaterialState(SEMaterialState* pState)
 {
-    m_aspState[GlobalState::MATERIAL] = pState;
+    m_aspState[SEGlobalState::MATERIAL] = pState;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetPolygonOffsetState(PolygonOffsetState* pState)
+inline void SERenderer::SetPolygonOffsetState(SEPolygonOffsetState* pState)
 {
-    m_aspState[GlobalState::POLYGONOFFSET] = pState;
+    m_aspState[SEGlobalState::POLYGONOFFSET] = pState;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetStencilState(StencilState* pState)
+inline void SERenderer::SetStencilState(SEStencilState* pState)
 {
-    m_aspState[GlobalState::STENCIL] = pState;
+    m_aspState[SEGlobalState::STENCIL] = pState;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetWireframeState(WireframeState* pState)
+inline void SERenderer::SetWireframeState(SEWireframeState* pState)
 {
-    m_aspState[GlobalState::WIREFRAME] = pState;
+    m_aspState[SEGlobalState::WIREFRAME] = pState;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetZBufferState(ZBufferState* pState)
+inline void SERenderer::SetZBufferState(SEZBufferState* pState)
 {
-    m_aspState[GlobalState::ZBUFFER] = pState;
+    m_aspState[SEGlobalState::ZBUFFER] = pState;
 }
 //----------------------------------------------------------------------------
-inline AlphaState* Renderer::GetAlphaState()
+inline SEAlphaState* SERenderer::GetAlphaState()
 {
-    return StaticCast<AlphaState>(m_aspState[GlobalState::ALPHA]);
+    return StaticCast<SEAlphaState>(m_aspState[SEGlobalState::ALPHA]);
 }
 //----------------------------------------------------------------------------
-inline CullState* Renderer::GetCullState()
+inline SECullState* SERenderer::GetCullState()
 {
-    return StaticCast<CullState>(m_aspState[GlobalState::CULL]);
+    return StaticCast<SECullState>(m_aspState[SEGlobalState::CULL]);
 }
 //----------------------------------------------------------------------------
-inline MaterialState* Renderer::GetMaterialState()
+inline SEMaterialState* SERenderer::GetMaterialState()
 {
-    return StaticCast<MaterialState>(m_aspState[GlobalState::MATERIAL]);
+    return StaticCast<SEMaterialState>(m_aspState[SEGlobalState::MATERIAL]);
 }
 //----------------------------------------------------------------------------
-inline PolygonOffsetState* Renderer::GetPolygonOffsetState()
+inline SEPolygonOffsetState* SERenderer::GetPolygonOffsetState()
 {
-    return StaticCast<PolygonOffsetState>(
-        m_aspState[GlobalState::POLYGONOFFSET]);
+    return StaticCast<SEPolygonOffsetState>(
+        m_aspState[SEGlobalState::POLYGONOFFSET]);
 }
 //----------------------------------------------------------------------------
-inline StencilState* Renderer::GetStencilState()
+inline SEStencilState* SERenderer::GetStencilState()
 {
-    return StaticCast<StencilState>(m_aspState[GlobalState::STENCIL]);
+    return StaticCast<SEStencilState>(m_aspState[SEGlobalState::STENCIL]);
 }
 //----------------------------------------------------------------------------
-inline WireframeState* Renderer::GetWireframeState()
+inline SEWireframeState* SERenderer::GetWireframeState()
 {
-    return StaticCast<WireframeState>(m_aspState[GlobalState::WIREFRAME]);
+    return StaticCast<SEWireframeState>(m_aspState[SEGlobalState::WIREFRAME]);
 }
 //----------------------------------------------------------------------------
-inline ZBufferState* Renderer::GetZBufferState()
+inline SEZBufferState* SERenderer::GetZBufferState()
 {
-    return StaticCast<ZBufferState>(m_aspState[GlobalState::ZBUFFER]);
+    return StaticCast<SEZBufferState>(m_aspState[SEGlobalState::ZBUFFER]);
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetReverseCullFace(bool bReverseCullFace)
+inline void SERenderer::SetReverseCullFace(bool bReverseCullFace)
 {
     m_bReverseCullFace = bReverseCullFace;
 }
 //----------------------------------------------------------------------------
-inline bool Renderer::GetReverseCullFace() const
+inline bool SERenderer::GetReverseCullFace() const
 {
     return m_bReverseCullFace;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetLightCount(int iCount)
+inline void SERenderer::SetLightCount(int iCount)
 {
     SE_ASSERT( 0 <= iCount && iCount <= m_iMaxLights );
 
     m_iNumActiveLights = iCount;
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetLight(int i, Light* pLight)
+inline void SERenderer::SetLight(int i, SELight* pLight)
 {
     SE_ASSERT( 0 <= i && i < m_iMaxLights );
 
     m_aspLight[i] = (SEObject*)pLight;
 }
 //----------------------------------------------------------------------------
-inline Light* Renderer::GetLight(int i)
+inline SELight* SERenderer::GetLight(int i)
 {
     SE_ASSERT( 0 <= i && i < m_iMaxLights );
 
-    return StaticCast<Light>(m_aspLight[i]);
+    return StaticCast<SELight>(m_aspLight[i]);
 }
 //----------------------------------------------------------------------------
-inline void Renderer::SetProjector(Camera* pProjector)
+inline void SERenderer::SetProjector(SECamera* pProjector)
 {
     m_pProjector = pProjector;
 }
 //----------------------------------------------------------------------------
-inline Camera* Renderer::GetProjector()
+inline SECamera* SERenderer::GetProjector()
 {
     return m_pProjector;
 }
 //----------------------------------------------------------------------------
-inline const SEMatrix4f& Renderer::GetWorldMatrix(void) const
+inline const SEMatrix4f& SERenderer::GetWorldMatrix(void) const
 {
     return m_WorldMatrix;
 }
 //----------------------------------------------------------------------------
-inline const SEMatrix4f& Renderer::GetViewMatrix(void) const
+inline const SEMatrix4f& SERenderer::GetViewMatrix(void) const
 {
     return m_ViewMatrix;
 }
 //----------------------------------------------------------------------------
-inline const SEMatrix4f& Renderer::GetProjectionMatrix(void) const
+inline const SEMatrix4f& SERenderer::GetProjectionMatrix(void) const
 {
     return m_ProjectionMatrix;
 }

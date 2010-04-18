@@ -36,8 +36,8 @@ BumpMapL1Effect::BumpMapL1Effect(const char* acBaseName,
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("BumpMapL1.v_BumpMapL1");
-    m_PShader[0] = SE_NEW PixelShader("BumpMapL1.p_BumpMapL1");
+    m_VShader[0] = SE_NEW SEVertexShader("BumpMapL1.v_BumpMapL1");
+    m_PShader[0] = SE_NEW SEPixelShader("BumpMapL1.p_BumpMapL1");
 
     m_PShader[0]->SetTextureCount(2);
     m_PShader[0]->SetImageName(0, acBaseName);

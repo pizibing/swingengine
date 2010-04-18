@@ -28,10 +28,10 @@
 namespace Swing
 {
 
-class Spatial;
-class Geometry;
-class Renderer;
-class UnculledObject;
+class SESpatial;
+class SEGeometry;
+class SERenderer;
+class SEUnculledObject;
 
 //----------------------------------------------------------------------------
 // 名称:effect基类
@@ -51,18 +51,18 @@ public:
 
     // 重载这个函数从而可获得effect派生类的自定义渲染行为.
     // 默认情况下是依次渲染pVisibleSet中的geometry对象.
-    virtual void Draw(Renderer* pRenderer, Spatial* pGlobalObject,
-        int iMin, int iMax, UnculledObject* pVisibleSet);
+    virtual void Draw(SERenderer* pRenderer, SESpatial* pGlobalObject,
+        int iMin, int iMax, SEUnculledObject* pVisibleSet);
 
     // 重载这个函数从而可以更新effect派生类所需的自定义数据.
     virtual void OnUpdateData(void* pUserData);
 
     // 重载这些函数从而可获得effect派生类的自定义资源装载.
     // 默认情况下什么都不做.
-    // 这些函数被Renderer::LoadResources和Renderer::ReleaseResources调用,
+    // 这些函数被SERenderer::LoadResources和SERenderer::ReleaseResources调用,
     // 用于geometry和effect对象.
-    virtual void LoadResources(Renderer* pRenderer, Geometry* pGeometry);
-    virtual void ReleaseResources(Renderer* pRenderer, Geometry* pGeometry);
+    virtual void LoadResources(SERenderer* pRenderer, SEGeometry* pGeometry);
+    virtual void ReleaseResources(SERenderer* pRenderer, SEGeometry* pGeometry);
 
 protected:
     Effect(void);

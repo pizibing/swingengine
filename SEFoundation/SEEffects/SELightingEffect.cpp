@@ -44,7 +44,7 @@ LightingEffect::~LightingEffect()
 {
 }
 //----------------------------------------------------------------------------
-void LightingEffect::AttachLight(Light* pLight)
+void LightingEffect::AttachLight(SELight* pLight)
 {
     SE_ASSERT( pLight );
 
@@ -62,9 +62,9 @@ void LightingEffect::AttachLight(Light* pLight)
     m_Lights.push_back(pLight);
 }
 //----------------------------------------------------------------------------
-void LightingEffect::DetachLight(Light* pLight)
+void LightingEffect::DetachLight(SELight* pLight)
 {
-    std::vector<LightPtr>::iterator pIter = m_Lights.begin();
+    std::vector<SELightPtr>::iterator pIter = m_Lights.begin();
     for( /**/; pIter != m_Lights.end(); pIter++ )
     {
         if( pLight == *pIter )

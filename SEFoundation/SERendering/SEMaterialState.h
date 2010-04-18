@@ -35,7 +35,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20080701
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API MaterialState : public GlobalState
+class SE_FOUNDATION_API SEMaterialState : public SEGlobalState
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -46,8 +46,8 @@ class SE_FOUNDATION_API MaterialState : public GlobalState
 public:
     virtual StateType GetStateType(void) const { return MATERIAL; }
 
-    MaterialState(void);
-    virtual ~MaterialState(void);
+    SEMaterialState(void);
+    virtual ~SEMaterialState(void);
 
     SEColorRGB Emissive;  // default: SEColorRGB(0,0,0)
     SEColorRGB Ambient;   // default: SEColorRGB(0.2,0.2,0.2)
@@ -57,7 +57,7 @@ public:
     float Shininess;    // default: 1
 };
 
-typedef SESmartPointer<MaterialState> MaterialStatePtr;
+typedef SESmartPointer<SEMaterialState> SEMaterialStatePtr;
 
 }
 

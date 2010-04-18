@@ -23,17 +23,17 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, StencilState, GlobalState);
-SE_IMPLEMENT_STREAM(StencilState);
-SE_IMPLEMENT_DEFAULT_NAME_ID(StencilState, GlobalState);
-SE_IMPLEMENT_INITIALIZE(StencilState);
-SE_IMPLEMENT_TERMINATE(StencilState);
+SE_IMPLEMENT_RTTI(Swing, SEStencilState, SEGlobalState);
+SE_IMPLEMENT_STREAM(SEStencilState);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEStencilState, SEGlobalState);
+SE_IMPLEMENT_INITIALIZE(SEStencilState);
+SE_IMPLEMENT_TERMINATE(SEStencilState);
 
-//SE_REGISTER_STREAM(StencilState);
-//SE_REGISTER_INITIALIZE(StencilState);
-//SE_REGISTER_TERMINATE(StencilState);
+//SE_REGISTER_STREAM(SEStencilState);
+//SE_REGISTER_INITIALIZE(SEStencilState);
+//SE_REGISTER_TERMINATE(SEStencilState);
 
-const char* StencilState::ms_pCompare[StencilState::CF_COUNT] =
+const char* SEStencilState::ms_pCompare[SEStencilState::CF_COUNT] =
 {
     "CF_NEVER",
     "CF_LESS",
@@ -45,7 +45,7 @@ const char* StencilState::ms_pCompare[StencilState::CF_COUNT] =
     "CF_ALWAYS"
 };
 
-const char* StencilState::ms_pOperation[StencilState::OT_COUNT] =
+const char* SEStencilState::ms_pOperation[SEStencilState::OT_COUNT] =
 {
     "OT_KEEP",
     "OT_ZERO",
@@ -56,17 +56,17 @@ const char* StencilState::ms_pOperation[StencilState::OT_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-void StencilState::Initialize()
+void SEStencilState::Initialize()
 {
-    Default[STENCIL] = SE_NEW StencilState;
+    Default[STENCIL] = SE_NEW SEStencilState;
 }
 //----------------------------------------------------------------------------
-void StencilState::Terminate()
+void SEStencilState::Terminate()
 {
     Default[STENCIL] = 0;
 }
 //----------------------------------------------------------------------------
-StencilState::StencilState()
+SEStencilState::SEStencilState()
 {
     Enabled = false;
     Compare = CF_NEVER;
@@ -78,7 +78,7 @@ StencilState::StencilState()
     OnZPass = OT_KEEP;
 }
 //----------------------------------------------------------------------------
-StencilState::~StencilState()
+SEStencilState::~SEStencilState()
 {
 }
 //----------------------------------------------------------------------------
@@ -86,11 +86,11 @@ StencilState::~StencilState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void StencilState::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEStencilState::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    GlobalState::Load(rStream, pLink);
+    SEGlobalState::Load(rStream, pLink);
 
     // native data
     int iTemp;
@@ -107,24 +107,24 @@ void StencilState::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(iTemp);
     OnZPass = (OperationType)iTemp;
 
-    SE_END_DEBUG_STREAM_LOAD(StencilState);
+    SE_END_DEBUG_STREAM_LOAD(SEStencilState);
 }
 //----------------------------------------------------------------------------
-void StencilState::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEStencilState::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    GlobalState::Link(rStream, pLink);
+    SEGlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool StencilState::Register(SEStream& rStream) const
+bool SEStencilState::Register(SEStream& rStream) const
 {
-    return GlobalState::Register(rStream);
+    return SEGlobalState::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void StencilState::Save(SEStream& rStream) const
+void SEStencilState::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    GlobalState::Save(rStream);
+    SEGlobalState::Save(rStream);
 
     // native data
     rStream.Write(Enabled);
@@ -136,12 +136,12 @@ void StencilState::Save(SEStream& rStream) const
     rStream.Write((int)OnZFail);
     rStream.Write((int)OnZPass);
 
-    SE_END_DEBUG_STREAM_SAVE(StencilState);
+    SE_END_DEBUG_STREAM_SAVE(SEStencilState);
 }
 //----------------------------------------------------------------------------
-int StencilState::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEStencilState::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return GlobalState::GetDiskUsed(rVersion) +
+    return SEGlobalState::GetDiskUsed(rVersion) +
         sizeof(char) + // Enabled
         sizeof(int) +  // Compare
         sizeof(Reference) +
@@ -152,7 +152,7 @@ int StencilState::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(int);   // OnZPass
 }
 //----------------------------------------------------------------------------
-SEStringTree* StencilState::SaveStrings(const char*)
+SEStringTree* SEStencilState::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -168,7 +168,7 @@ SEStringTree* StencilState::SaveStrings(const char*)
     pTree->Append(Format("on z-pass =", ms_pOperation[OnZPass]));
 
     // children
-    pTree->Append(GlobalState::SaveStrings());
+    pTree->Append(SEGlobalState::SaveStrings());
 
     return pTree;
 }

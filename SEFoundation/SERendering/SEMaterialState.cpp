@@ -23,28 +23,28 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, MaterialState, GlobalState);
-SE_IMPLEMENT_STREAM(MaterialState);
-SE_IMPLEMENT_DEFAULT_NAME_ID(MaterialState, GlobalState);
-SE_IMPLEMENT_INITIALIZE(MaterialState);
-SE_IMPLEMENT_TERMINATE(MaterialState);
+SE_IMPLEMENT_RTTI(Swing, SEMaterialState, SEGlobalState);
+SE_IMPLEMENT_STREAM(SEMaterialState);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEMaterialState, SEGlobalState);
+SE_IMPLEMENT_INITIALIZE(SEMaterialState);
+SE_IMPLEMENT_TERMINATE(SEMaterialState);
 
-//SE_REGISTER_STREAM(MaterialState);
-//SE_REGISTER_INITIALIZE(MaterialState);
-//SE_REGISTER_TERMINATE(MaterialState);
+//SE_REGISTER_STREAM(SEMaterialState);
+//SE_REGISTER_INITIALIZE(SEMaterialState);
+//SE_REGISTER_TERMINATE(SEMaterialState);
 
 //----------------------------------------------------------------------------
-void MaterialState::Initialize()
+void SEMaterialState::Initialize()
 {
-    Default[MATERIAL] = SE_NEW MaterialState;
+    Default[MATERIAL] = SE_NEW SEMaterialState;
 }
 //----------------------------------------------------------------------------
-void MaterialState::Terminate()
+void SEMaterialState::Terminate()
 {
     Default[MATERIAL] = 0;
 }
 //----------------------------------------------------------------------------
-MaterialState::MaterialState()
+SEMaterialState::SEMaterialState()
     :
     Emissive(0.0f,0.0f,0.0f),
     Ambient(0.2f,0.2f,0.2f),
@@ -55,7 +55,7 @@ MaterialState::MaterialState()
     Shininess = 1.0f;
 }
 //----------------------------------------------------------------------------
-MaterialState::~MaterialState()
+SEMaterialState::~SEMaterialState()
 {
 }
 //----------------------------------------------------------------------------
@@ -63,11 +63,11 @@ MaterialState::~MaterialState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void MaterialState::Load (SEStream& rStream, SEStream::Link* pLink)
+void SEMaterialState::Load (SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    GlobalState::Load(rStream, pLink);
+    SEGlobalState::Load(rStream, pLink);
 
     // native data
     rStream.Read(Emissive);
@@ -77,24 +77,24 @@ void MaterialState::Load (SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(Alpha);
     rStream.Read(Shininess);
 
-    SE_END_DEBUG_STREAM_LOAD(MaterialState);
+    SE_END_DEBUG_STREAM_LOAD(SEMaterialState);
 }
 //----------------------------------------------------------------------------
-void MaterialState::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEMaterialState::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    GlobalState::Link(rStream, pLink);
+    SEGlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool MaterialState::Register(SEStream& rStream) const
+bool SEMaterialState::Register(SEStream& rStream) const
 {
-    return GlobalState::Register(rStream);
+    return SEGlobalState::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void MaterialState::Save(SEStream& rStream) const
+void SEMaterialState::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    GlobalState::Save(rStream);
+    SEGlobalState::Save(rStream);
 
     // native data
     rStream.Write(Emissive);
@@ -104,17 +104,17 @@ void MaterialState::Save(SEStream& rStream) const
     rStream.Write(Alpha);
     rStream.Write(Shininess);
 
-    SE_END_DEBUG_STREAM_SAVE(MaterialState);
+    SE_END_DEBUG_STREAM_SAVE(SEMaterialState);
 }
 //----------------------------------------------------------------------------
-int MaterialState::GetDiskUsed(const SEStreamVersion& rVersion) const
+int SEMaterialState::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return GlobalState::GetDiskUsed(rVersion) + sizeof(Emissive) +
+    return SEGlobalState::GetDiskUsed(rVersion) + sizeof(Emissive) +
         sizeof(Ambient) + sizeof(Diffuse) + sizeof(Specular) + sizeof(Alpha) +
         sizeof(Shininess);
 }
 //----------------------------------------------------------------------------
-SEStringTree* MaterialState::SaveStrings(const char*)
+SEStringTree* SEMaterialState::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -127,7 +127,7 @@ SEStringTree* MaterialState::SaveStrings(const char*)
     pTree->Append(Format("shininess =", Shininess));
 
     // children
-    pTree->Append(GlobalState::SaveStrings());
+    pTree->Append(SEGlobalState::SaveStrings());
 
     return pTree;
 }

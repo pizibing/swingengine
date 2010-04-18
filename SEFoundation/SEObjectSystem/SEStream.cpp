@@ -147,13 +147,13 @@ bool SEStream::Load(char* pBuffer, int iSize)
     SEObject* pObject;
     while( m_iBufferNext < m_iBufferSize )
     {
-        // 期望遇到"Top Level"或SERTTI name
+        // 期望遇到"Top Level"或RTTI name
         std::string StrTemp;
         Read(StrTemp);
         bool bTopLevel = (StrTemp == StrTopLevel);
         if( bTopLevel )
         {
-            // 期望读取SERTTI name
+            // 期望读取RTTI name
             Read(StrTemp);
         }
 
@@ -826,7 +826,7 @@ void SEStream::Read(int iCount, SEVector4f* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(Transformation& rValue)
+void SEStream::Read(SETransformation& rValue)
 {
     Read(rValue.m_Matrix);
     Read(rValue.m_Translate);
@@ -836,7 +836,7 @@ void SEStream::Read(Transformation& rValue)
     Read(rValue.m_bIsUniformScale);
 }
 //----------------------------------------------------------------------------
-void SEStream::Read(int iCount, Transformation* pValue)
+void SEStream::Read(int iCount, SETransformation* pValue)
 {
     for( int i = 0; i < iCount; i++ )
     {
@@ -1246,7 +1246,7 @@ void SEStream::Write(int iCount, const SEVector4f* pValue)
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(const Transformation& rValue)
+void SEStream::Write(const SETransformation& rValue)
 {
     Write(rValue.m_Matrix);
     Write(rValue.m_Translate);
@@ -1256,7 +1256,7 @@ void SEStream::Write(const Transformation& rValue)
     Write(rValue.m_bIsUniformScale);
 }
 //----------------------------------------------------------------------------
-void SEStream::Write(int iCount, const Transformation* pValue)
+void SEStream::Write(int iCount, const SETransformation* pValue)
 {
     for( int i = 0; i < iCount; i++ )
     {

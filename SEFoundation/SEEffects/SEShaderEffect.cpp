@@ -64,7 +64,7 @@ void ShaderEffect::SetPassCount(int iPassCount)
     {
         if( !m_RStateBlocks[i] )
         {
-            m_RStateBlocks[i] = SE_NEW RenderStateBlock;
+            m_RStateBlocks[i] = SE_NEW SERenderStateBlock;
         }
     }
     SetDefaultAlphaState();
@@ -75,7 +75,7 @@ int ShaderEffect::GetPassCount() const
     return m_iPassCount;
 }
 //----------------------------------------------------------------------------
-AlphaState* ShaderEffect::GetBlending(int iPass)
+SEAlphaState* ShaderEffect::GetBlending(int iPass)
 {
     // 派生类也许希望通过使用alpha state来选择shader程序进行single-pass渲染.
     // 派生类可以改变render state block数组大小,
@@ -84,18 +84,18 @@ AlphaState* ShaderEffect::GetBlending(int iPass)
     // 这里不对iPass和m_iPassCount进行比较.
     SE_ASSERT( 0 <= iPass && iPass < (int)m_RStateBlocks.size() );
 
-    GlobalState* pState = m_RStateBlocks[iPass]->States[GlobalState::ALPHA];
-    return (AlphaState*)pState;
+    SEGlobalState* pState = m_RStateBlocks[iPass]->States[SEGlobalState::ALPHA];
+    return (SEAlphaState*)pState;
 }
 //----------------------------------------------------------------------------
-RenderStateBlock* ShaderEffect::GetRStateBlock(int iPass)
+SERenderStateBlock* ShaderEffect::GetRStateBlock(int iPass)
 {
     SE_ASSERT( 0 <= iPass && iPass < (int)m_RStateBlocks.size() );
 
     return m_RStateBlocks[iPass];
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetGlobalState(int iPass, Renderer* pRenderer,
+void ShaderEffect::SetGlobalState(int iPass, SERenderer* pRenderer,
     bool bPrimaryEffect)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount && pRenderer );
@@ -105,49 +105,49 @@ void ShaderEffect::SetGlobalState(int iPass, Renderer* pRenderer,
     // 从而允许当前pass输出像素值与之前pass的输出像素值进行alpha混合.
     if( !bPrimaryEffect || iPass > 0 )
     {
-        GlobalState* pState = 
-            m_RStateBlocks[iPass]->States[GlobalState::ALPHA];
-        AlphaState* pAState = (AlphaState*)pState;
+        SEGlobalState* pState = 
+            m_RStateBlocks[iPass]->States[SEGlobalState::ALPHA];
+        SEAlphaState* pAState = (SEAlphaState*)pState;
         pAState->BlendEnabled = true;
 
-        AlphaStatePtr spSave = pRenderer->GetAlphaState();
+        SEAlphaStatePtr spSave = pRenderer->GetAlphaState();
         pRenderer->SetAlphaState(pAState);
-        m_RStateBlocks[iPass]->States[GlobalState::ALPHA] = spSave;
+        m_RStateBlocks[iPass]->States[SEGlobalState::ALPHA] = spSave;
     }
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::RestoreGlobalState(int iPass, Renderer* pRenderer,
+void ShaderEffect::RestoreGlobalState(int iPass, SERenderer* pRenderer,
     bool bPrimaryEffect)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount && pRenderer );
 
     if( !bPrimaryEffect || iPass > 0 )
     {
-        GlobalState* pState = 
-            m_RStateBlocks[iPass]->States[GlobalState::ALPHA];
-        AlphaState* pAState = (AlphaState*)pState;
+        SEGlobalState* pState = 
+            m_RStateBlocks[iPass]->States[SEGlobalState::ALPHA];
+        SEAlphaState* pAState = (SEAlphaState*)pState;
 
-        AlphaStatePtr spSave = pRenderer->GetAlphaState();
+        SEAlphaStatePtr spSave = pRenderer->GetAlphaState();
         pRenderer->SetAlphaState(pAState);
-        m_RStateBlocks[iPass]->States[GlobalState::ALPHA] = spSave;
+        m_RStateBlocks[iPass]->States[SEGlobalState::ALPHA] = spSave;
     }
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetVShader(int iPass, VertexShader* pVShader)
+void ShaderEffect::SetVShader(int iPass, SEVertexShader* pVShader)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_VShader[iPass] = pVShader;
 }
 //----------------------------------------------------------------------------
-VertexShader* ShaderEffect::GetVShader(int iPass)
+SEVertexShader* ShaderEffect::GetVShader(int iPass)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_VShader[iPass];
 }
 //----------------------------------------------------------------------------
-VertexProgram* ShaderEffect::GetVProgram(int iPass)
+SEVertexProgram* ShaderEffect::GetVProgram(int iPass)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -165,16 +165,16 @@ int ShaderEffect::GetVConstantCount(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
-    Program* pVProgram = m_VShader[iPass]->GetProgram();
+    SEProgram* pVProgram = m_VShader[iPass]->GetProgram();
 
     return pVProgram ? pVProgram->GetUCCount() : 0;
 }
 //----------------------------------------------------------------------------
-UserConstant* ShaderEffect::GetVConstant(int iPass, int i)
+SEUserConstant* ShaderEffect::GetVConstant(int iPass, int i)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
-    Program* pVProgram = m_VShader[iPass]->GetProgram();
+    SEProgram* pVProgram = m_VShader[iPass]->GetProgram();
     if( pVProgram )
     {
         SE_ASSERT( 0 <= i && i < pVProgram->GetUCCount() );
@@ -185,11 +185,11 @@ UserConstant* ShaderEffect::GetVConstant(int iPass, int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-UserConstant* ShaderEffect::GetVConstant(int iPass, const std::string& rName)
+SEUserConstant* ShaderEffect::GetVConstant(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
-    Program* pVProgram = m_VShader[iPass]->GetProgram();
+    SEProgram* pVProgram = m_VShader[iPass]->GetProgram();
 
     return pVProgram ? pVProgram->GetUC(rName) : 0;
 }
@@ -201,21 +201,21 @@ int ShaderEffect::GetVTextureCount(int iPass) const
     return m_VShader[iPass]->GetTextureCount();
 }
 //----------------------------------------------------------------------------
-Texture* ShaderEffect::GetVTexture(int iPass, int i)
+SETexture* ShaderEffect::GetVTexture(int iPass, int i)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_VShader[iPass]->GetTexture(i);
 }
 //----------------------------------------------------------------------------
-Texture* ShaderEffect::GetVTexture(int iPass, const std::string& rName)
+SETexture* ShaderEffect::GetVTexture(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_VShader[iPass]->GetTexture(rName);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetVTexture(int iPass, int i, Texture* pTexture)
+void ShaderEffect::SetVTexture(int iPass, int i, SETexture* pTexture)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -236,21 +236,21 @@ const std::string& ShaderEffect::GetVImageName(int iPass, int i) const
     return m_VShader[iPass]->GetImageName(i);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetGShader(int iPass, GeometryShader* pGShader)
+void ShaderEffect::SetGShader(int iPass, SEGeometryShader* pGShader)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_GShader[iPass] = pGShader;
 }
 //----------------------------------------------------------------------------
-GeometryShader* ShaderEffect::GetGShader(int iPass)
+SEGeometryShader* ShaderEffect::GetGShader(int iPass)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_GShader[iPass];
 }
 //----------------------------------------------------------------------------
-GeometryProgram* ShaderEffect::GetGProgram(int iPass)
+SEGeometryProgram* ShaderEffect::GetGProgram(int iPass)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -268,16 +268,16 @@ int ShaderEffect::GetGConstantCount(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
-    Program* pGProgram = m_GShader[iPass]->GetProgram();
+    SEProgram* pGProgram = m_GShader[iPass]->GetProgram();
 
     return pGProgram ? pGProgram->GetUCCount() : 0;
 }
 //----------------------------------------------------------------------------
-UserConstant* ShaderEffect::GetGConstant(int iPass, int i)
+SEUserConstant* ShaderEffect::GetGConstant(int iPass, int i)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
-    Program* pGProgram = m_GShader[iPass]->GetProgram();
+    SEProgram* pGProgram = m_GShader[iPass]->GetProgram();
     if( pGProgram )
     {
         SE_ASSERT( 0 <= i && i < pGProgram->GetUCCount() );
@@ -288,11 +288,11 @@ UserConstant* ShaderEffect::GetGConstant(int iPass, int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-UserConstant* ShaderEffect::GetGConstant(int iPass, const std::string& rName)
+SEUserConstant* ShaderEffect::GetGConstant(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
-    Program* pGProgram = m_GShader[iPass]->GetProgram();
+    SEProgram* pGProgram = m_GShader[iPass]->GetProgram();
 
     return pGProgram ? pGProgram->GetUC(rName) : 0;
 }
@@ -304,21 +304,21 @@ int ShaderEffect::GetGTextureCount(int iPass) const
     return m_GShader[iPass]->GetTextureCount();
 }
 //----------------------------------------------------------------------------
-Texture* ShaderEffect::GetGTexture(int iPass, int i)
+SETexture* ShaderEffect::GetGTexture(int iPass, int i)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_GShader[iPass]->GetTexture(i);
 }
 //----------------------------------------------------------------------------
-Texture* ShaderEffect::GetGTexture(int iPass, const std::string& rName)
+SETexture* ShaderEffect::GetGTexture(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_GShader[iPass]->GetTexture(rName);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetGTexture(int iPass, int i, Texture* pTexture)
+void ShaderEffect::SetGTexture(int iPass, int i, SETexture* pTexture)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -339,21 +339,21 @@ const std::string& ShaderEffect::GetGImageName(int iPass, int i) const
     return m_GShader[iPass]->GetImageName(i);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetPShader(int iPass, PixelShader* pPShader)
+void ShaderEffect::SetPShader(int iPass, SEPixelShader* pPShader)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     m_PShader[iPass] = pPShader;
 }
 //----------------------------------------------------------------------------
-PixelShader* ShaderEffect::GetPShader(int iPass)
+SEPixelShader* ShaderEffect::GetPShader(int iPass)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_PShader[iPass];
 }
 //----------------------------------------------------------------------------
-PixelProgram* ShaderEffect::GetPProgram(int iPass)
+SEPixelProgram* ShaderEffect::GetPProgram(int iPass)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -371,16 +371,16 @@ int ShaderEffect::GetPConstantCount(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
-    Program* pPProgram = m_PShader[iPass]->GetProgram();
+    SEProgram* pPProgram = m_PShader[iPass]->GetProgram();
 
     return pPProgram ? pPProgram->GetUCCount() : 0;
 }
 //----------------------------------------------------------------------------
-UserConstant* ShaderEffect::GetPConstant(int iPass, int i)
+SEUserConstant* ShaderEffect::GetPConstant(int iPass, int i)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
-    Program* pPProgram = m_PShader[iPass]->GetProgram();
+    SEProgram* pPProgram = m_PShader[iPass]->GetProgram();
     if( pPProgram )
     {
         SE_ASSERT( 0 <= i && i < pPProgram->GetUCCount() );
@@ -391,11 +391,11 @@ UserConstant* ShaderEffect::GetPConstant(int iPass, int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-UserConstant* ShaderEffect::GetPConstant(int iPass, const std::string& rName)
+SEUserConstant* ShaderEffect::GetPConstant(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
-    Program* pPProgram = m_PShader[iPass]->GetProgram();
+    SEProgram* pPProgram = m_PShader[iPass]->GetProgram();
 
     return pPProgram ? pPProgram->GetUC(rName) : 0;
 }
@@ -404,26 +404,26 @@ int ShaderEffect::GetPTextureCount(int iPass) const
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
-    Program* pPProgram = m_PShader[iPass]->GetProgram();
+    SEProgram* pPProgram = m_PShader[iPass]->GetProgram();
 
     return pPProgram ? pPProgram->GetSICount() : 0;
 }
 //----------------------------------------------------------------------------
-Texture* ShaderEffect::GetPTexture(int iPass, int i)
+SETexture* ShaderEffect::GetPTexture(int iPass, int i)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_PShader[iPass]->GetTexture(i);
 }
 //----------------------------------------------------------------------------
-Texture* ShaderEffect::GetPTexture(int iPass, const std::string& rName)
+SETexture* ShaderEffect::GetPTexture(int iPass, const std::string& rName)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
     return m_PShader[iPass]->GetTexture(rName);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::SetPTexture(int iPass, int i, Texture* pTexture)
+void ShaderEffect::SetPTexture(int iPass, int i, SETexture* pTexture)
 {
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
 
@@ -452,31 +452,31 @@ void ShaderEffect::SetDefaultAlphaState()
     // 其他pass使用颜色调制运算(SBF_DST_COLOR, DBF_ZERO).
     // 应用程序通过调用effect->GetBlending(pass)访问pass的alpha state,
     // 从而可以任意修改这些alpha state的混合运算方式.
-    AlphaState* pAState = SE_NEW AlphaState;
+    SEAlphaState* pAState = SE_NEW SEAlphaState;
     pAState->BlendEnabled = true;
     if( !m_RStateBlocks[0] )
     {
-        m_RStateBlocks[0] = SE_NEW RenderStateBlock;
+        m_RStateBlocks[0] = SE_NEW SERenderStateBlock;
     }
-    m_RStateBlocks[0] = SE_NEW RenderStateBlock;
-    m_RStateBlocks[0]->States[GlobalState::ALPHA] = pAState;
+    m_RStateBlocks[0] = SE_NEW SERenderStateBlock;
+    m_RStateBlocks[0]->States[SEGlobalState::ALPHA] = pAState;
 
     for( int i = 1; i < (int)m_RStateBlocks.size(); i++ )
     {
-        pAState = SE_NEW AlphaState; 
+        pAState = SE_NEW SEAlphaState; 
         pAState->BlendEnabled = true;
-        pAState->SrcBlend = AlphaState::SBF_DST_COLOR;
-        pAState->DstBlend = AlphaState::DBF_ZERO;
+        pAState->SrcBlend = SEAlphaState::SBF_DST_COLOR;
+        pAState->DstBlend = SEAlphaState::DBF_ZERO;
 
         if( !m_RStateBlocks[i] )
         {
-            m_RStateBlocks[i] = SE_NEW RenderStateBlock;
+            m_RStateBlocks[i] = SE_NEW SERenderStateBlock;
         }
-        m_RStateBlocks[i]->States[GlobalState::ALPHA] = pAState;
+        m_RStateBlocks[i]->States[SEGlobalState::ALPHA] = pAState;
     }
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::LoadPrograms(int iPass, Renderer* pRenderer)
+void ShaderEffect::LoadPrograms(int iPass, SERenderer* pRenderer)
 {
     // 当前pass的vertex/pixel shader都必须装载到系统内存,
     // geometry shader为可选stage.
@@ -484,8 +484,8 @@ void ShaderEffect::LoadPrograms(int iPass, Renderer* pRenderer)
     SE_ASSERT( 0 <= iPass && iPass < m_iPassCount );
     SE_ASSERT( m_VShader[iPass] && m_PShader[iPass] );
 
-    Program* pVProgram = m_VShader[iPass]->GetProgram();
-    Program* pPProgram = m_PShader[iPass]->GetProgram();
+    SEProgram* pVProgram = m_VShader[iPass]->GetProgram();
+    SEProgram* pPProgram = m_PShader[iPass]->GetProgram();
 
     SE_ASSERT( (pVProgram != 0) == (pPProgram != 0) );
     (void)pPProgram;  // 避免release版本编译器警告
@@ -497,7 +497,7 @@ void ShaderEffect::LoadPrograms(int iPass, Renderer* pRenderer)
     }
 
     // 检查当前pass是否指定了geometry shader.
-    Program* pGProgram = 0;
+    SEProgram* pGProgram = 0;
     bool bIsGShaderEnabled = false;
     if( m_GShader[iPass] )
     {
@@ -506,7 +506,7 @@ void ShaderEffect::LoadPrograms(int iPass, Renderer* pRenderer)
     }
 
     // 装载vertex程序到系统内存.
-    VertexProgramPtr spVProgram = VertexProgramCatalog::GetActive()->Find(
+    SEVertexProgramPtr spVProgram = SEVertexProgramCatalog::GetActive()->Find(
         m_VShader[iPass]->GetShaderName(), 
         m_VShader[iPass]->GetInterfaceDescriptor());
     SE_ASSERT( spVProgram );
@@ -514,19 +514,19 @@ void ShaderEffect::LoadPrograms(int iPass, Renderer* pRenderer)
     // 装载geometry程序到系统内存.
     if( bIsGShaderEnabled && !pGProgram )
     {
-        // 确保应用层必须创建了一个可用的GeometryProgramCatalog.
-        GeometryProgramCatalog* pGProgramCatalog = 
-            GeometryProgramCatalog::GetActive();
+        // 确保应用层必须创建了一个可用的SEGeometryProgramCatalog.
+        SEGeometryProgramCatalog* pGProgramCatalog = 
+            SEGeometryProgramCatalog::GetActive();
         SE_ASSERT( pGProgramCatalog );
 
         pGProgram = pGProgramCatalog->Find(m_GShader[iPass]->GetShaderName(), 
             m_GShader[iPass]->GetInterfaceDescriptor());
         SE_ASSERT( pGProgram );
     }
-    GeometryProgramPtr spGProgram = StaticCast<GeometryProgram>(pGProgram);
+    SEGeometryProgramPtr spGProgram = StaticCast<SEGeometryProgram>(pGProgram);
 
     // 装载pixel程序到系统内存.
-    PixelProgramPtr spPProgram = PixelProgramCatalog::GetActive()->Find(
+    SEPixelProgramPtr spPProgram = SEPixelProgramCatalog::GetActive()->Find(
         m_PShader[iPass]->GetShaderName(), 
         m_PShader[iPass]->GetInterfaceDescriptor());
     SE_ASSERT( spPProgram );
@@ -550,24 +550,24 @@ void ShaderEffect::LoadPrograms(int iPass, Renderer* pRenderer)
         // 则需确保vertex程序输出属性和geometry程序输入属性兼容,
         // geometry程序输出属性与pixel程序输入属性兼容.
         std::string StrDefault("Default");
-        const Attributes& rVOAttributes = spVProgram->GetOutputAttributes();
-        const Attributes& rPIAttributes = spPProgram->GetInputAttributes();
+        const SEAttributes& rVOAttributes = spVProgram->GetOutputAttributes();
+        const SEAttributes& rPIAttributes = spPProgram->GetInputAttributes();
         if( !rVOAttributes.Matches(rPIAttributes, false, true, true, true) )
         {
             // vertex程序输出属性与pixel程序输入属性不兼容.
             // 则使用默认shader对象.
             if( spVProgram->GetName() != StrDefault )
             {
-                m_VShader[iPass] = SE_NEW VertexShader(StrDefault);
-                spVProgram = VertexProgramCatalog::GetActive()->Find(
+                m_VShader[iPass] = SE_NEW SEVertexShader(StrDefault);
+                spVProgram = SEVertexProgramCatalog::GetActive()->Find(
                     StrDefault);
                 SE_ASSERT( spVProgram );
             }
 
             if( spPProgram->GetName() != StrDefault )
             {
-                m_PShader[iPass] = SE_NEW PixelShader(StrDefault);
-                spPProgram = PixelProgramCatalog::GetActive()->Find(
+                m_PShader[iPass] = SE_NEW SEPixelShader(StrDefault);
+                spPProgram = SEPixelProgramCatalog::GetActive()->Find(
                     StrDefault);
                 SE_ASSERT( spPProgram );
             }
@@ -576,7 +576,7 @@ void ShaderEffect::LoadPrograms(int iPass, Renderer* pRenderer)
         // 验证shader程序所需资源是否超过渲染器支持范围.
         // 待实现.
         // 验证geometry程序所需资源是否超过渲染器支持范围.
-        const Attributes& rVIAttributes = spVProgram->GetInputAttributes();
+        const SEAttributes& rVIAttributes = spVProgram->GetInputAttributes();
         if( rVIAttributes.GetMaxColors()  > pRenderer->GetMaxColors()
             || rVIAttributes.GetMaxTCoords() > pRenderer->GetMaxTCoords()
             || rVOAttributes.GetMaxColors()  > pRenderer->GetMaxColors()
@@ -589,16 +589,16 @@ void ShaderEffect::LoadPrograms(int iPass, Renderer* pRenderer)
             // 所需资源超过渲染器支持范围.则使用默认shader对象.
             if( spVProgram->GetName() != StrDefault )
             {
-                m_VShader[iPass] = SE_NEW VertexShader(StrDefault);
-                spVProgram = VertexProgramCatalog::GetActive()->Find(
+                m_VShader[iPass] = SE_NEW SEVertexShader(StrDefault);
+                spVProgram = SEVertexProgramCatalog::GetActive()->Find(
                     StrDefault);
                 SE_ASSERT( spVProgram );
             }
 
             if( spPProgram->GetName() != StrDefault )
             {
-                m_PShader[iPass] = SE_NEW PixelShader(StrDefault);
-                spPProgram = PixelProgramCatalog::GetActive()->Find(
+                m_PShader[iPass] = SE_NEW SEPixelShader(StrDefault);
+                spPProgram = SEPixelProgramCatalog::GetActive()->Find(
                     StrDefault);
                 SE_ASSERT( spPProgram );
             }
@@ -620,7 +620,7 @@ void ShaderEffect::LoadPrograms(int iPass, Renderer* pRenderer)
 //----------------------------------------------------------------------------
 void ShaderEffect::ReleasePrograms(int iPass)
 {
-    Program* pGProgram = 0;
+    SEProgram* pGProgram = 0;
     if( m_GShader[iPass] )
     {
         pGProgram = m_GShader[iPass]->GetProgram();
@@ -638,29 +638,29 @@ void ShaderEffect::ReleasePrograms(int iPass)
     }
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::OnLoadPrograms(int, Program*, Program*, Program*)
+void ShaderEffect::OnLoadPrograms(int, SEProgram*, SEProgram*, SEProgram*)
 {
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::OnReleasePrograms(int, Program*, Program*, Program*)
+void ShaderEffect::OnReleasePrograms(int, SEProgram*, SEProgram*, SEProgram*)
 {
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::OnPreApplyEffect(Renderer*, bool)
+void ShaderEffect::OnPreApplyEffect(SERenderer*, bool)
 {
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::OnPostApplyEffect(Renderer*, bool)
+void ShaderEffect::OnPostApplyEffect(SERenderer*, bool)
 {
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::OnPreApplyPass(int iPass, Renderer* pRenderer,
+void ShaderEffect::OnPreApplyPass(int iPass, SERenderer* pRenderer,
     bool bPrimaryEffect)
 {
     pRenderer->OnPreDrawPass(this, iPass, bPrimaryEffect);
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::OnPostApplyPass(int iPass, Renderer* pRenderer,
+void ShaderEffect::OnPostApplyPass(int iPass, SERenderer* pRenderer,
     bool bPrimaryEffect)
 {
     pRenderer->OnPostDrawPass(this, iPass, bPrimaryEffect);
@@ -670,7 +670,7 @@ void ShaderEffect::OnUpdateData(void*)
 {
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::LoadResources(Renderer* pRenderer, Geometry* pGeometry)
+void ShaderEffect::LoadResources(SERenderer* pRenderer, SEGeometry* pGeometry)
 {
     for( int iPass = 0; iPass < m_iPassCount; iPass++ )
     {
@@ -684,13 +684,13 @@ void ShaderEffect::LoadResources(Renderer* pRenderer, Geometry* pGeometry)
         LoadPrograms(iPass, pRenderer);
 
         // 把shader程序资源装载入显存.
-        VertexProgram* pVProgram = m_VShader[iPass]->GetProgram();
+        SEVertexProgram* pVProgram = m_VShader[iPass]->GetProgram();
         pRenderer->LoadVProgram(pVProgram);
-        PixelProgram* pPProgram = m_PShader[iPass]->GetProgram(); 
+        SEPixelProgram* pPProgram = m_PShader[iPass]->GetProgram(); 
         pRenderer->LoadPProgram(pPProgram);
         if( m_GShader[iPass] )
         {
-            GeometryProgram* pGProgram = m_GShader[iPass]->GetProgram();
+            SEGeometryProgram* pGProgram = m_GShader[iPass]->GetProgram();
             pRenderer->LoadGProgram(pGProgram);
         }
 
@@ -718,15 +718,15 @@ void ShaderEffect::LoadResources(Renderer* pRenderer, Geometry* pGeometry)
         if( pGeometry )
         {
             // 把shader程序所需VB子集装载入显存.
-            const Attributes& rIAttr = pVProgram->GetInputAttributes();
-            const Attributes& rOAttr = pVProgram->GetOutputAttributes();
+            const SEAttributes& rIAttr = pVProgram->GetInputAttributes();
+            const SEAttributes& rOAttr = pVProgram->GetOutputAttributes();
             pRenderer->LoadVBuffer(rIAttr, rOAttr, pGeometry->VBuffer, 
             pVProgram);
         }
     }
 }
 //----------------------------------------------------------------------------
-void ShaderEffect::ReleaseResources(Renderer* pRenderer, Geometry*)
+void ShaderEffect::ReleaseResources(SERenderer* pRenderer, SEGeometry*)
 {
     for( int iPass = 0; iPass < m_iPassCount; iPass++ )
     {
@@ -925,20 +925,20 @@ void ShaderEffect::Link(SEStream& rStream, SEStream::Link* pLink)
     for( int iPass = 0; iPass < m_iPassCount; iPass++ )
     {
         pLinkID = pLink->GetLinkID();
-        m_VShader[iPass] = (VertexShader*)rStream.GetFromMap(pLinkID);
+        m_VShader[iPass] = (SEVertexShader*)rStream.GetFromMap(pLinkID);
 
         pLinkID = pLink->GetLinkID();
-        m_GShader[iPass] = (GeometryShader*)rStream.GetFromMap(pLinkID);
+        m_GShader[iPass] = (SEGeometryShader*)rStream.GetFromMap(pLinkID);
 
         pLinkID = pLink->GetLinkID();
-        m_PShader[iPass] = (PixelShader*)rStream.GetFromMap(pLinkID);
+        m_PShader[iPass] = (SEPixelShader*)rStream.GetFromMap(pLinkID);
     }
 
     int iCount = (int)m_RStateBlocks.size();
     for( int i = 0; i < iCount; i++ )
     {
         pLinkID = pLink->GetLinkID();
-        m_RStateBlocks[i] = (RenderStateBlock*)rStream.GetFromMap(pLinkID);
+        m_RStateBlocks[i] = (SERenderStateBlock*)rStream.GetFromMap(pLinkID);
     }
 }
 //----------------------------------------------------------------------------

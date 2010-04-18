@@ -23,17 +23,17 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ZBufferState, GlobalState);
-SE_IMPLEMENT_STREAM(ZBufferState);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ZBufferState, GlobalState);
-SE_IMPLEMENT_INITIALIZE(ZBufferState);
-SE_IMPLEMENT_TERMINATE(ZBufferState);
+SE_IMPLEMENT_RTTI(Swing, SEZBufferState, SEGlobalState);
+SE_IMPLEMENT_STREAM(SEZBufferState);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEZBufferState, SEGlobalState);
+SE_IMPLEMENT_INITIALIZE(SEZBufferState);
+SE_IMPLEMENT_TERMINATE(SEZBufferState);
 
-//SE_REGISTER_STREAM(ZBufferState);
-//SE_REGISTER_INITIALIZE(ZBufferState);
-//SE_REGISTER_TERMINATE(ZBufferState);
+//SE_REGISTER_STREAM(SEZBufferState);
+//SE_REGISTER_INITIALIZE(SEZBufferState);
+//SE_REGISTER_TERMINATE(SEZBufferState);
 
-const char* ZBufferState::ms_pCompareMode[CF_COUNT] =
+const char* SEZBufferState::ms_pCompareMode[CF_COUNT] =
 {
     "CF_NEVER",
     "CF_LESS",
@@ -46,24 +46,24 @@ const char* ZBufferState::ms_pCompareMode[CF_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-void ZBufferState::Initialize()
+void SEZBufferState::Initialize()
 {
-    Default[ZBUFFER] = SE_NEW ZBufferState;
+    Default[ZBUFFER] = SE_NEW SEZBufferState;
 }
 //----------------------------------------------------------------------------
-void ZBufferState::Terminate()
+void SEZBufferState::Terminate()
 {
     Default[ZBUFFER] = 0;
 }
 //----------------------------------------------------------------------------
-ZBufferState::ZBufferState()
+SEZBufferState::SEZBufferState()
 {
     Enabled = true;
     Writable = true;
     Compare = CF_LEQUAL;
 }
 //----------------------------------------------------------------------------
-ZBufferState::~ZBufferState()
+SEZBufferState::~SEZBufferState()
 {
 }
 //----------------------------------------------------------------------------
@@ -71,11 +71,11 @@ ZBufferState::~ZBufferState()
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void ZBufferState::Load(SEStream& rStream, SEStream::Link* pLink)
+void SEZBufferState::Load(SEStream& rStream, SEStream::Link* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    GlobalState::Load(rStream, pLink);
+    SEGlobalState::Load(rStream, pLink);
 
     // native data
     int iTemp;
@@ -84,42 +84,42 @@ void ZBufferState::Load(SEStream& rStream, SEStream::Link* pLink)
     rStream.Read(iTemp);
     Compare = (CompareMode)iTemp;
 
-    SE_END_DEBUG_STREAM_LOAD(ZBufferState);
+    SE_END_DEBUG_STREAM_LOAD(SEZBufferState);
 }
 //----------------------------------------------------------------------------
-void ZBufferState::Link(SEStream& rStream, SEStream::Link* pLink)
+void SEZBufferState::Link(SEStream& rStream, SEStream::Link* pLink)
 {
-    GlobalState::Link(rStream, pLink);
+    SEGlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool ZBufferState::Register(SEStream& rStream) const
+bool SEZBufferState::Register(SEStream& rStream) const
 {
-    return GlobalState::Register(rStream);
+    return SEGlobalState::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void ZBufferState::Save(SEStream& rStream) const
+void SEZBufferState::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    GlobalState::Save(rStream);
+    SEGlobalState::Save(rStream);
 
     // native data
     rStream.Write(Enabled);
     rStream.Write(Writable);
     rStream.Write((int)Compare);
 
-    SE_END_DEBUG_STREAM_SAVE(ZBufferState);
+    SE_END_DEBUG_STREAM_SAVE(SEZBufferState);
 }
 //----------------------------------------------------------------------------
-int ZBufferState::GetDiskUsed (const SEStreamVersion& rVersion) const
+int SEZBufferState::GetDiskUsed (const SEStreamVersion& rVersion) const
 {
-    return GlobalState::GetDiskUsed(rVersion) +
+    return SEGlobalState::GetDiskUsed(rVersion) +
         sizeof(char) + // Enabled
         sizeof(char) + // Writable
         sizeof(int);   // Compare
 }
 //----------------------------------------------------------------------------
-SEStringTree* ZBufferState::SaveStrings(const char*)
+SEStringTree* SEZBufferState::SaveStrings(const char*)
 {
     SEStringTree* pTree = SE_NEW SEStringTree;
 
@@ -130,7 +130,7 @@ SEStringTree* ZBufferState::SaveStrings(const char*)
     pTree->Append(Format("compare = ", ms_pCompareMode[Compare]));
 
     // children
-    pTree->Append(GlobalState::SaveStrings());
+    pTree->Append(SEGlobalState::SaveStrings());
 
     return pTree;
 }

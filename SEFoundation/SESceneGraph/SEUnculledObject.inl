@@ -19,7 +19,7 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline bool UnculledObject::IsRenderable() const
+inline bool SEUnculledObject::IsRenderable() const
 {
     return SEObject && !GlobalEffect;
 }

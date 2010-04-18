@@ -28,12 +28,12 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:TerrainPage类
+// 名称:Terrain page类
 // 说明:
 // 作者:Sun Che
 // 时间:20081014
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API TerrainPage : public TriMesh
+class SE_FOUNDATION_API SETerrainPage : public SETriMesh
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -41,12 +41,12 @@ class SE_FOUNDATION_API TerrainPage : public TriMesh
 
 public:
     // size = 2^p + 1, p <= 7 (size = 3, 5, 9, 17, 33, 65, 129)
-    TerrainPage(const Attributes& rAttr, int iSize,
+    SETerrainPage(const SEAttributes& rAttr, int iSize,
         unsigned short* ausHeight, const SEVector2f& rOrigin,
         float fMinElevation, float fMaxElevation, float fSpacing,
         float fUVBias);
 
-    virtual ~TerrainPage(void);
+    virtual ~SETerrainPage(void);
 
     // 高度图访问.
     inline int GetSize(void) const;
@@ -66,7 +66,7 @@ public:
 
 protected:
     // streaming support
-    TerrainPage(void);
+    SETerrainPage(void);
     void InitializeDerivedData(void);
 
     // tessellation.
@@ -86,7 +86,7 @@ protected:
     float m_fUVBias;
 };
 
-typedef SESmartPointer<TerrainPage> TerrainPagePtr;
+typedef SESmartPointer<SETerrainPage> SETerrainPagePtr;
 #include "SETerrainPage.inl"
 
 }

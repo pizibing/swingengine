@@ -34,18 +34,18 @@ namespace Swing
 // Ê±¼ä:20080315
 //----------------------------------------------------------------------------
 template <class Type>
-class SharedArray : public SEObject
+class SESharedArray : public SEObject
 {
     SE_DECLARE_TEMPLATE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_TEMPLATE_STREAM;
 
 public:
-    SharedArray(int iCount = 0, Type* pArray = 0);
-    SharedArray(const SharedArray& rShared);
-    virtual ~SharedArray(void);
+    SESharedArray(int iCount = 0, Type* pArray = 0);
+    SESharedArray(const SESharedArray& rShared);
+    virtual ~SESharedArray(void);
 
-    SharedArray& operator = (const SharedArray& rShared);
+    SESharedArray& operator = (const SESharedArray& rShared);
 
     int GetCount(void) const;
     Type* GetData(void) const;

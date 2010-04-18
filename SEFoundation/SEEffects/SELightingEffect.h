@@ -48,9 +48,9 @@ public:
 
     // 在添加或移除light后,需调用Configure函数来创建新的lighting shader程序.
     inline int GetLightCount(void) const;
-    inline Light* GetLight(int i) const;
-    void AttachLight(Light* pLight);
-    void DetachLight(Light* pLight);
+    inline SELight* GetLight(int i) const;
+    void AttachLight(SELight* pLight);
+    void DetachLight(SELight* pLight);
     inline void DetachAllLights(void);
 
     enum LightingMode
@@ -69,7 +69,7 @@ public:
 
 protected:
     LightingMode m_eMode;  // default: LM_PIXEL
-    std::vector<LightPtr> m_Lights;
+    std::vector<SELightPtr> m_Lights;
 };
 
 typedef SESmartPointer<LightingEffect> LightingEffectPtr;

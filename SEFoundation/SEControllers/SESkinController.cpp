@@ -33,7 +33,7 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(SESkinController, SEController);
 
 //----------------------------------------------------------------------------
 SESkinController::SESkinController(int iVertexCount, int iBoneCount,
-    Node** apBones, float** aafWeight, SEVector3f** aaOffset)
+    SENode** apBones, float** aafWeight, SEVector3f** aaOffset)
 {
     m_iVertexCount = iVertexCount;
     m_iBoneCount = iBoneCount;
@@ -66,9 +66,9 @@ bool SESkinController::Update(double dAppTime)
     }
 
     // 所有蒙皮顶点都在骨骼世界坐标体系下计算出世界位置,
-    // 因此TriMesh的世界变换必须设置成单位变换.
-    Geometry* pGeometry = StaticCast<Geometry>(m_pObject);
-    pGeometry->World = Transformation::IDENTITY;
+    // 因此SETriMesh的世界变换必须设置成单位变换.
+    SEGeometry* pGeometry = StaticCast<SEGeometry>(m_pObject);
+    pGeometry->World = SETransformation::IDENTITY;
     pGeometry->WorldIsCurrent = true;
 
     // 计算蒙皮顶点位置.
@@ -138,11 +138,11 @@ void SESkinController::Link(SEStream& rStream, SEStream::Link* pLink)
 {
     SEController::Link(rStream, pLink);
 
-    m_apBones = SE_NEW Node*[m_iBoneCount];
+    m_apBones = SE_NEW SENode*[m_iBoneCount];
     for( int i = 0; i < m_iBoneCount; i++ )
     {
         SEObject* pLinkID = pLink->GetLinkID();
-        m_apBones[i] = (Node*)rStream.GetFromMap(pLinkID);
+        m_apBones[i] = (SENode*)rStream.GetFromMap(pLinkID);
     }
 }
 //----------------------------------------------------------------------------

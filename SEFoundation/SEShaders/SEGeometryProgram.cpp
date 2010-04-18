@@ -24,21 +24,21 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, GeometryProgram, Program);
-SE_IMPLEMENT_STREAM(GeometryProgram);
-SE_IMPLEMENT_DEFAULT_STREAM(GeometryProgram, Program);
-SE_IMPLEMENT_DEFAULT_NAME_ID(GeometryProgram, Program);
+SE_IMPLEMENT_RTTI(Swing, SEGeometryProgram, SEProgram);
+SE_IMPLEMENT_STREAM(SEGeometryProgram);
+SE_IMPLEMENT_DEFAULT_STREAM(SEGeometryProgram, SEProgram);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEGeometryProgram, SEProgram);
 
-//SE_REGISTER_STREAM(GeometryProgram);
+//SE_REGISTER_STREAM(SEGeometryProgram);
 
 //----------------------------------------------------------------------------
-GeometryProgram* GeometryProgram::Load(Renderer* pRenderer, 
+SEGeometryProgram* SEGeometryProgram::Load(SERenderer* pRenderer, 
     const std::string& rProgramName, const std::string& rKey, 
-    InterfaceDescriptor* pInterfaceDesc)
+    SEInterfaceDescriptor* pInterfaceDesc)
 {
-    GeometryProgram* pProgram = SE_NEW GeometryProgram;
-    bool bLoaded = Program::Load(pRenderer, rProgramName, pProgram,
-        Program::PT_GEOMETRY, pInterfaceDesc);
+    SEGeometryProgram* pProgram = SE_NEW SEGeometryProgram;
+    bool bLoaded = SEProgram::Load(pRenderer, rProgramName, pProgram,
+        SEProgram::PT_GEOMETRY, pInterfaceDesc);
 
     if( !bLoaded )
     {
@@ -47,17 +47,17 @@ GeometryProgram* GeometryProgram::Load(Renderer* pRenderer,
     }
 
     pProgram->SetName(rKey);
-    GeometryProgramCatalog::GetActive()->Insert(pProgram);
+    SEGeometryProgramCatalog::GetActive()->Insert(pProgram);
 
     return pProgram;
 }
 //----------------------------------------------------------------------------
-GeometryProgram::GeometryProgram()
+SEGeometryProgram::SEGeometryProgram()
 {
 }
 //----------------------------------------------------------------------------
-GeometryProgram::~GeometryProgram()
+SEGeometryProgram::~SEGeometryProgram()
 {
-    GeometryProgramCatalog::GetActive()->Remove(this);
+    SEGeometryProgramCatalog::GetActive()->Remove(this);
 }
 //----------------------------------------------------------------------------

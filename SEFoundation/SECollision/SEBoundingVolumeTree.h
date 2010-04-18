@@ -48,8 +48,8 @@ public:
     inline bool IsLeafNode(void) const;
 
     // 成员访问.
-    inline const TriMesh* GetMesh(void) const;
-    inline const BoundingVolume* GetWorldBound(void) const;
+    inline const SETriMesh* GetMesh(void) const;
+    inline const SEBoundingVolume* GetWorldBound(void) const;
     inline int GetTriangleCount(void) const;
     inline int GetTriangle(int i) const;
     inline const int* GetTriangles(void) const;
@@ -57,8 +57,8 @@ public:
     void UpdateWorldBound(void);
 
 protected:
-    SEBoundingVolumeTree(const TriMesh* pMesh);
-    SEBoundingVolumeTree(int eBVType, const TriMesh* pMesh,
+    SEBoundingVolumeTree(const SETriMesh* pMesh);
+    SEBoundingVolumeTree(int eBVType, const SETriMesh* pMesh,
         int iMaxTrisPerLeaf = 1, bool bStoreInteriorTris = false);
 
     void BuildTree(int eBVType, int iMaxTrisPerLeaf, bool bStoreInteriorTris,
@@ -84,17 +84,17 @@ protected:
     static int Compare(const void* pvElement0, const void* pvElement1);
 
     // 模型空间BV的工厂函数表.
-    typedef BoundingVolume* (*CreatorM)(const TriMesh*, int, int, int*, SELine3f&);
-    static CreatorM ms_aoCreateModelBound[BoundingVolume::BV_COUNT];
+    typedef SEBoundingVolume* (*CreatorM)(const SETriMesh*, int, int, int*, SELine3f&);
+    static CreatorM ms_aoCreateModelBound[SEBoundingVolume::BV_COUNT];
 
     // 世界空间BV的工厂函数表.
-    typedef BoundingVolume* (*CreatorW)(void);
-    static CreatorW ms_aoCreateWorldBound[BoundingVolume::BV_COUNT];
+    typedef SEBoundingVolume* (*CreatorW)(void);
+    static CreatorW ms_aoCreateWorldBound[SEBoundingVolume::BV_COUNT];
 
     // 网格及其BV.
-    const TriMesh* m_pMesh;
-    BoundingVolumePtr m_spModelBound;
-    BoundingVolumePtr m_spWorldBound;
+    const SETriMesh* m_pMesh;
+    SEBoundingVolumePtr m_spModelBound;
+    SEBoundingVolumePtr m_spWorldBound;
 
     // 二叉树表示.
     SEBoundingVolumeTree* m_pLChild;
@@ -114,7 +114,7 @@ protected:
 #ifdef _DEBUG_TEST
     // 检查每个节点所表示的子网格的全部顶点是否都在该节点的模型空间BV中.
     // 只有定义了_DEBUG_TEST且bStoreInteriorTris为true时才有效.
-    bool ContainsLeafData(const VertexBuffer* pVBuffer, const int* aiIndex,
+    bool ContainsLeafData(const SEVertexBuffer* pVBuffer, const int* aiIndex,
         float fEpsilon) const;
 #endif
 };

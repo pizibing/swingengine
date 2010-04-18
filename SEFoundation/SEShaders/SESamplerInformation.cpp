@@ -23,11 +23,11 @@
 
 using namespace Swing;
 
-SamplerInformation::ReleaseID SamplerInformation::OnReleaseID = 0;
-SamplerInformation::CopyID SamplerInformation::OnCopyID = 0;
+SESamplerInformation::ReleaseID SESamplerInformation::OnReleaseID = 0;
+SESamplerInformation::CopyID SESamplerInformation::OnCopyID = 0;
 
 //----------------------------------------------------------------------------
-SamplerInformation::SamplerInformation(const std::string& rName, Type eType,
+SESamplerInformation::SESamplerInformation(const std::string& rName, Type eType,
     void* pID)
     :
     m_Name(rName)
@@ -61,7 +61,7 @@ SamplerInformation::SamplerInformation(const std::string& rName, Type eType,
     }
 }
 //----------------------------------------------------------------------------
-SamplerInformation::SamplerInformation(const SamplerInformation& rSI)
+SESamplerInformation::SESamplerInformation(const SESamplerInformation& rSI)
 {
     m_Name = rSI.m_Name;
     m_eType = rSI.m_eType;
@@ -77,7 +77,7 @@ SamplerInformation::SamplerInformation(const SamplerInformation& rSI)
     }
 }
 //----------------------------------------------------------------------------
-SamplerInformation::~SamplerInformation()
+SESamplerInformation::~SESamplerInformation()
 {
     if( OnReleaseID )
     {

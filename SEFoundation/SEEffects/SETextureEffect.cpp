@@ -35,8 +35,8 @@ TextureEffect::TextureEffect(const std::string& rBaseName)
     :
     ShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("Texture.v_Texture");
-    m_PShader[0] = SE_NEW PixelShader("Texture.p_Texture");
+    m_VShader[0] = SE_NEW SEVertexShader("SETexture.v_Texture");
+    m_PShader[0] = SE_NEW SEPixelShader("SETexture.p_Texture");
 
     m_PShader[0]->SetTextureCount(1);
     m_PShader[0]->SetImageName(0, rBaseName);

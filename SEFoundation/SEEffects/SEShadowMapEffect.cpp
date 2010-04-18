@@ -32,8 +32,8 @@ SE_IMPLEMENT_STREAM(ShadowMapEffect);
 //SE_REGISTER_STREAM(ShadowMapEffect);
 
 //----------------------------------------------------------------------------
-ShadowMapEffect::ShadowMapEffect(Camera* pProjector,
-    const std::string& rProjectionImage, Image::FormatMode eDepthFormat, 
+ShadowMapEffect::ShadowMapEffect(SECamera* pProjector,
+    const std::string& rProjectionImage, SEImage::FormatMode eDepthFormat, 
     int iDepthWidth, int iDepthHeight, float fDepthBias)
     :
     m_spProjector(pProjector)
@@ -43,10 +43,10 @@ ShadowMapEffect::ShadowMapEffect(Camera* pProjector,
     //    && IsPowerOfTwo((unsigned int)iDepthHeight));
 
     // 创建depth effect.
-    VertexShader* pVShader = 
-        SE_NEW VertexShader("ProjectedShadow.v_ProjectedDepth");
-    PixelShader* pPShader = 
-       SE_NEW PixelShader("ProjectedShadow.p_ProjectedDepth");
+    SEVertexShader* pVShader = 
+        SE_NEW SEVertexShader("ProjectedShadow.v_ProjectedDepth");
+    SEPixelShader* pPShader = 
+       SE_NEW SEPixelShader("ProjectedShadow.p_ProjectedDepth");
     m_spDepthEffect = SE_NEW ShaderEffect(1);
     m_spDepthEffect->SetVShader(0, pVShader);
     m_spDepthEffect->SetPShader(0, pPShader);
@@ -55,23 +55,23 @@ ShadowMapEffect::ShadowMapEffect(Camera* pProjector,
     // 为depth texture创建一个image.
     int iCount = 4*iDepthWidth*iDepthHeight;
     unsigned char* aucData = SE_NEW unsigned char[iCount];
-    m_spDepthImage = SE_NEW Image(eDepthFormat, iDepthWidth,
+    m_spDepthImage = SE_NEW SEImage(eDepthFormat, iDepthWidth,
         iDepthHeight, aucData, "DepthImage");
 
     // 创建shadow map effect.
-    pVShader = SE_NEW VertexShader("ProjectedShadow.v_ShadowMap");
-    pPShader = SE_NEW PixelShader("ProjectedShadow.p_ShadowMap");
+    pVShader = SE_NEW SEVertexShader("ProjectedShadow.v_ShadowMap");
+    pPShader = SE_NEW SEPixelShader("ProjectedShadow.p_ShadowMap");
     pPShader->SetTextureCount(2);
     pPShader->SetImageName(0, rProjectionImage);
     pPShader->SetImageName(1, "DepthImage");
-    Texture* pProjectedTexture = pPShader->GetTexture(0);
-    pProjectedTexture->SetFilterType(Texture::LINEAR);
+    SETexture* pProjectedTexture = pPShader->GetTexture(0);
+    pProjectedTexture->SetFilterType(SETexture::LINEAR);
     m_spShadowEffect = SE_NEW ShaderEffect(1);
     m_spShadowEffect->SetVShader(0, pVShader);
     m_spShadowEffect->SetPShader(0, pPShader);
-    AlphaState* pAState = m_spShadowEffect->GetBlending(0);
-    pAState->SrcBlend = AlphaState::SBF_DST_COLOR;
-    pAState->DstBlend = AlphaState::DBF_ZERO;
+    SEAlphaState* pAState = m_spShadowEffect->GetBlending(0);
+    pAState->SrcBlend = SEAlphaState::SBF_DST_COLOR;
+    pAState->DstBlend = SEAlphaState::DBF_ZERO;
 
     m_afDepthBias[0] = fDepthBias;
 }
@@ -87,24 +87,24 @@ ShadowMapEffect::~ShadowMapEffect()
     SE_DELETE m_pDepthBuffer;
 }
 //----------------------------------------------------------------------------
-void ShadowMapEffect::Draw(Renderer* pRenderer, Spatial*, int iMin, int iMax, 
-    UnculledObject* pVisibleSet)
+void ShadowMapEffect::Draw(SERenderer* pRenderer, SESpatial*, int iMin, int iMax, 
+    SEUnculledObject* pVisibleSet)
 {
     // 由于需要用到具体的渲染器实例,所以depth buffer在这里延迟创建.
     // 因为shadow map effect可能会从磁盘通过stream装载,因此有必要延迟创建.
     if( !m_pDepthBuffer )
     {
         m_pDepthTexture = m_spShadowEffect->GetPShader(0)->GetTexture(1);
-        m_pDepthTexture->SetFilterType(Texture::LINEAR);
+        m_pDepthTexture->SetFilterType(SETexture::LINEAR);
         m_pDepthTexture->SetOffscreenTexture(true);
         pRenderer->LoadResources(m_spShadowEffect);
 
-        PixelProgram* pProgram = m_spShadowEffect->GetPProgram(0);
+        SEPixelProgram* pProgram = m_spShadowEffect->GetPProgram(0);
         pProgram->GetUC("DepthBias")->SetDataSource(m_afDepthBias);
 
-        Texture** apTargets = SE_NEW Texture*[1];
+        SETexture** apTargets = SE_NEW SETexture*[1];
         apTargets[0] = m_pDepthTexture;
-        m_pDepthBuffer = FrameBuffer::Create(pRenderer->GetFormatType(),
+        m_pDepthBuffer = SEFrameBuffer::Create(pRenderer->GetFormatType(),
             pRenderer->GetDepthType(), pRenderer->GetStencilType(),
             pRenderer->GetBufferingType(), pRenderer->GetMultisamplingType(),
             pRenderer, 1, apTargets);
@@ -114,14 +114,14 @@ void ShadowMapEffect::Draw(Renderer* pRenderer, Spatial*, int iMin, int iMax,
     // 用projector作为camera渲染出深度图.
     // projector camera的设置必须先于framebuffer的Enable函数,
     // 因为在Enable函数中将会使用projector的相关变换矩阵.
-    Camera* pSaveCamera = pRenderer->GetCamera();
+    SECamera* pSaveCamera = pRenderer->GetCamera();
     pRenderer->SetCamera(m_spProjector);
     m_pDepthBuffer->Enable();
     pRenderer->ClearBuffers();
 
     // 另一个试图解决depth bias问题的方法.
-    // CullState* pCState = pRenderer->GetCullState();
-    // pCState->CullFace = CullState::CT_FRONT;
+    // SECullState* pCState = pRenderer->GetCullState();
+    // pCState->CullFace = SECullState::CT_FRONT;
     // pRenderer->SetCullState(pCState);
 
     int i;
@@ -129,7 +129,7 @@ void ShadowMapEffect::Draw(Renderer* pRenderer, Spatial*, int iMin, int iMax,
     {
         if( pVisibleSet[i].IsRenderable() )
         {
-            Geometry* pGeometry = (Geometry*)pVisibleSet[i].SEObject;
+            SEGeometry* pGeometry = (SEGeometry*)pVisibleSet[i].SEObject;
             pGeometry->AttachEffect(m_spDepthEffect);
             pGeometry->SetStartEffect(pGeometry->GetEffectCount() - 1);
             pRenderer->Draw(pGeometry);
@@ -139,13 +139,13 @@ void ShadowMapEffect::Draw(Renderer* pRenderer, Spatial*, int iMin, int iMax,
     }
 
     // 另一个试图解决depth bias问题的方法.
-    // pCState->CullFace = CullState::CT_BACK;
+    // pCState->CullFace = SECullState::CT_BACK;
     // pRenderer->SetCullState(pCState);
 
 //#if 0
 //    // BEGIN TEST
 //    m_pDepthBuffer->CopyToTexture(true);
-//    Image* pDTImage = m_pDepthTexture->GetImage();
+//    SEImage* pDTImage = m_pDepthTexture->GetImage();
 //    ImageRGB82D tempImage(pDTImage->GetBound(0), pDTImage->GetBound(1));
 //    unsigned char* pucData = pDTImage->GetData();
 //    for( int i = 0; i < pDTImage->GetCount(); i++ )
@@ -174,7 +174,7 @@ void ShadowMapEffect::Draw(Renderer* pRenderer, Spatial*, int iMin, int iMax,
     {
         if( pVisibleSet[i].IsRenderable() )
         {
-            Geometry* pGeometry = (Geometry*)pVisibleSet[i].SEObject;
+            SEGeometry* pGeometry = (SEGeometry*)pVisibleSet[i].SEObject;
             pGeometry->AttachEffect(m_spShadowEffect);
             pRenderer->Draw(pGeometry);
             pGeometry->DetachEffect(m_spShadowEffect);
@@ -339,11 +339,11 @@ void ShadowMapEffect::Link(SEStream& rStream, SEStream::Link* pLink)
     Effect::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
-    m_spProjector = (Camera*)rStream.GetFromMap(pLinkID);
+    m_spProjector = (SECamera*)rStream.GetFromMap(pLinkID);
     pLinkID = pLink->GetLinkID();
     m_spDepthEffect = (ShaderEffect*)rStream.GetFromMap(pLinkID);
     pLinkID = pLink->GetLinkID();
-    m_spDepthImage = (Image*)rStream.GetFromMap(pLinkID);
+    m_spDepthImage = (SEImage*)rStream.GetFromMap(pLinkID);
     pLinkID = pLink->GetLinkID();
     m_spShadowEffect = (ShaderEffect*)rStream.GetFromMap(pLinkID);
 }

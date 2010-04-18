@@ -34,14 +34,12 @@ namespace Swing
 
 //----------------------------------------------------------------------------
 // 名称:场景视图几何体节点虚基类
-// 说明:一些开发者希望Geometry节点对象可以有多个父节点,从而使场景视图成为DAG.
-//      实际上不是这样,场景视图结构是一个树型结构.
-//      Geometry类及其派生类型只能作为场景视图树的叶子节点.
-//      Geometry类也是可渲染节点的虚基类.
+// 说明:SEGeometry类及其派生类型只能作为场景视图树的叶子节点.SEGeometry类也是
+//     可渲染节点的虚基类.
 // 作者:Sun Che
 // 时间:20080723
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API Geometry : public Spatial
+class SE_FOUNDATION_API SEGeometry : public SESpatial
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -49,14 +47,14 @@ class SE_FOUNDATION_API Geometry : public Spatial
 
 public:
     // 虚基类.
-    virtual ~Geometry(void);
+    virtual ~SEGeometry(void);
 
-    // Geometry对象所使用的lighting类型.
+    // SEGeometry对象所使用的lighting类型.
     // GLM_PIPELINE_VERTEX和GLM_PIPELINE_PIXEL必须与LightingEffect中的
     // LM_VERTEX和LM_PIXEL枚举顺序保持一致.
     // GLM_USER表示用户使用自定义lighting,从而当用户调用UpdateRS函数时,
-    // Geometry对象将不会创建系统默认的LightingEffect对象.
-    // GLM_DISABLE表示该Geometry对象禁止任何光照效果.
+    // SEGeometry对象将不会创建系统默认的LightingEffect对象.
+    // GLM_DISABLE表示该SEGeometry对象禁止任何光照效果.
     enum GeometryLightingMode
     {
         GLM_PIPELINE_VERTEX,
@@ -67,9 +65,9 @@ public:
     };
 
     // 成员访问.
-    VertexBufferPtr VBuffer;
-    IndexBufferPtr IBuffer;
-    BoundingVolumePtr ModelBound;
+    SEVertexBufferPtr VBuffer;
+    SEIndexBufferPtr IBuffer;
+    SEBoundingVolumePtr ModelBound;
     GeometryLightingMode LightingMode; // default: GLM_PIPELINE_PIXEL
 
     // 几何体数据更新入口.
@@ -77,15 +75,15 @@ public:
 
     // Picking support.
     // 这个类仅仅用于维护类派生链的完整性.
-    class SE_FOUNDATION_API PickRecord : public Spatial::PickRecord
+    class SE_FOUNDATION_API SEPickRecord : public SESpatial::SEPickRecord
     {
     protected:
-        PickRecord(Geometry* pIObject, float fT);
+        SEPickRecord(SEGeometry* pIObject, float fT);
     };
 
 protected:
-    Geometry(void);
-    Geometry(VertexBuffer* pVBuffer, IndexBuffer* pIBuffer);
+    SEGeometry(void);
+    SEGeometry(SEVertexBuffer* pVBuffer, SEIndexBuffer* pIBuffer);
 
     // 几何体数据更新.
     virtual void UpdateModelBound(void);
@@ -93,17 +91,17 @@ protected:
     virtual void UpdateWorldBound(void);
 
     // 渲染状态更新,实现基类接口.
-    virtual void UpdateState(std::vector<GlobalState*>* aGStack,
-        std::vector<Light*>* pLStack);
+    virtual void UpdateState(std::vector<SEGlobalState*>* aGStack,
+        std::vector<SELight*>* pLStack);
 
     // 支持剔除系统,收集可渲染对象.
-    virtual void GetUnculledSet(Culler& rCuller, bool bNoCull);
+    virtual void GetUnculledSet(SECuller& rCuller, bool bNoCull);
 
     // 管线动态光照.
-    // 管线光照效果被放入Spatial的effect数组并作为首元素,
+    // 管线光照效果被放入SESpatial的effect数组并作为首元素,
     // 因此管线光照渲染发生在其他effect之前.
     // LightingEffect是由根节点到达当前几何体节点时,
-    // 所收集到的所有Light对象的最终合并形式.
+    // 所收集到的所有SELight对象的最终合并形式.
     LightingEffectPtr m_spLEffect;
 
 // 内部使用
@@ -131,13 +129,13 @@ public:
     GeometryType Type;
 
     // 通过UpdateRS函数收集到的影响当前几何体节点的render states.
-    RenderStateBlockPtr RStateBlock;
+    SERenderStateBlockPtr RStateBlock;
 
     // 通过UpdateRS函数收集到的影响当前几何体节点的lights.
-    std::vector<LightPtr> Lights;
+    std::vector<SELightPtr> Lights;
 };
 
-typedef SESmartPointer<Geometry> GeometryPtr;
+typedef SESmartPointer<SEGeometry> SEGeometryPtr;
 
 #include "SEGeometry.inl"
 
