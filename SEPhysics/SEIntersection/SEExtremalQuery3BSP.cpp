@@ -25,46 +25,47 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ExtremalQuery3BSPf::ExtremalQuery3BSPf(const ConvexPolyhedron3f& rPolytope)
+SEExtremalQuery3BSPf::SEExtremalQuery3BSPf(const SEConvexPolyhedron3f& 
+    rPolytope)
     :
-    ExtremalQuery3f(rPolytope)
+    SEExtremalQuery3f(rPolytope)
 {
     // 为多面体创建邻接信息.
     int iVCount = m_pPolytope->GetVCount();
-    const Vector3f* aVertex = m_pPolytope->GetVertices();
+    const SEVector3f* aVertex = m_pPolytope->GetVertices();
     int iTCount = m_pPolytope->GetTCount();
     const int* aiIndex = m_pPolytope->GetIndices();
-    BasicMesh tempMesh(iVCount, aVertex, iTCount, aiIndex);
+    SEBasicMesh tempMesh(iVCount, aVertex, iTCount, aiIndex);
 
     // 创建spherical arc集合,用于创建BSP树.
-    std::multiset<SphericalArc> tempArcs;
+    std::multiset<SESphericalArc> tempArcs;
     CreateSphericalArcs(tempMesh, tempArcs);
 
     // 创建BSP树,用于极值查询.
-    std::vector<SphericalArc> tempNodes;
+    std::vector<SESphericalArc> tempNodes;
     CreateBSPTree(tempArcs, tempNodes);
 
     // 把BSP树复制到固定大小的简单数组中.
     m_iNodeCount = (int)tempNodes.size();
-    m_aNode = SE_NEW SphericalArc[m_iNodeCount];
-    size_t uiSize = m_iNodeCount * sizeof(SphericalArc);
+    m_aNode = SE_NEW SESphericalArc[m_iNodeCount];
+    size_t uiSize = m_iNodeCount * sizeof(SESphericalArc);
     SESystem::SE_Memcpy(m_aNode, uiSize, &tempNodes.front(), uiSize);
 }
 //----------------------------------------------------------------------------
-ExtremalQuery3BSPf::~ExtremalQuery3BSPf()
+SEExtremalQuery3BSPf::~SEExtremalQuery3BSPf()
 {
     SE_DELETE[] m_aNode;
 }
 //----------------------------------------------------------------------------
-void ExtremalQuery3BSPf::GetExtremeVertices(const Vector3f& rDirection, 
+void SEExtremalQuery3BSPf::GetExtremeVertices(const SEVector3f& rDirection, 
     int& riPositiveDirection, int& riNegativeDirection)
 {
     // 非递归深度优先查找BSP树,判断包含指定方向向量D的球面多边形.
     int iCurrent = 0;  // BSP树根
     while( iCurrent >= 0 )
     {
-        SphericalArc& rCurrent = m_aNode[iCurrent];
-        int iSign = (int)Mathf::Sign(rDirection.Dot(rCurrent.Normal));
+        SESphericalArc& rCurrent = m_aNode[iCurrent];
+        int iSign = (int)SEMathf::Sign(rDirection.Dot(rCurrent.Normal));
         if( iSign >= 0 )
         {
             iCurrent = rCurrent.PosChild;
@@ -89,8 +90,8 @@ void ExtremalQuery3BSPf::GetExtremeVertices(const Vector3f& rDirection,
     iCurrent = 0;  // BSP树根
     while( iCurrent >= 0 )
     {
-        SphericalArc& rCurrent = m_aNode[iCurrent];
-        int iSign = (int)-Mathf::Sign(rDirection.Dot(rCurrent.Normal));
+        SESphericalArc& rCurrent = m_aNode[iCurrent];
+        int iSign = (int)-SEMathf::Sign(rDirection.Dot(rCurrent.Normal));
         if( iSign >= 0 )
         {
             iCurrent = rCurrent.PosChild;
@@ -112,29 +113,30 @@ void ExtremalQuery3BSPf::GetExtremeVertices(const Vector3f& rDirection,
     }
 }
 //----------------------------------------------------------------------------
-int ExtremalQuery3BSPf::GetNodeCount() const
+int SEExtremalQuery3BSPf::GetNodeCount() const
 {
     return m_iNodeCount;
 }
 //----------------------------------------------------------------------------
-int ExtremalQuery3BSPf::GetTreeDepth() const
+int SEExtremalQuery3BSPf::GetTreeDepth() const
 {
     return m_iTreeDepth;
 }
 //----------------------------------------------------------------------------
-void ExtremalQuery3BSPf::SortVertexAdjacents(BasicMesh& rMesh)
+void SEExtremalQuery3BSPf::SortVertexAdjacents(SEBasicMesh& rMesh)
 {
     // 指针的typecast将允许对顶点数组进行修改.
     // 只要排序算法正确,修改顶点数组就是安全的.
     int iVCount = rMesh.GetVCount();
-    BasicMesh::Vertex* aVertex = (BasicMesh::Vertex*)rMesh.GetVertices();
+    SEBasicMesh::SEBMVertex* aVertex = 
+        (SEBasicMesh::SEBMVertex*)rMesh.GetVertices();
 
-    const BasicMesh::Triangle* aTriangle = rMesh.GetTriangles();
+    const SEBasicMesh::SEBMTriangle* aTriangle = rMesh.GetTriangles();
     for( int i = 0; i < iVCount; i++ )
     {
         // This copy circumvents the constness of the mesh vertices, which
         // allows the sorting of the mesh triangles shared by a mesh vertex.
-        BasicMesh::Vertex& rVertex = aVertex[i];
+        SEBasicMesh::SEBMVertex& rVertex = aVertex[i];
 
         // 网格构成多面体时必满足条件:该顶点的邻接顶点数等于邻接三角面数.
         SE_ASSERT( rVertex.VCount == rVertex.TCount );
@@ -147,7 +149,7 @@ void ExtremalQuery3BSPf::SortVertexAdjacents(BasicMesh& rMesh)
         // 整个过程中,对顶点邻接信息的覆盖是安全的,
         // 因为我们的数据来源取自于其邻接三角面.
         int iTIndex = rVertex.T[0];
-        const BasicMesh::Triangle* pTri = &aTriangle[iTIndex];
+        const SEBasicMesh::SEBMTriangle* pTri = &aTriangle[iTIndex];
 
         for( int iAdj = 0; iAdj < rVertex.VCount; iAdj++ )
         {
@@ -173,21 +175,21 @@ void ExtremalQuery3BSPf::SortVertexAdjacents(BasicMesh& rMesh)
     }
 }
 //----------------------------------------------------------------------------
-void ExtremalQuery3BSPf::CreateSphericalArcs(BasicMesh& rMesh,
-    std::multiset<SphericalArc>& rArcs)
+void SEExtremalQuery3BSPf::CreateSphericalArcs(SEBasicMesh& rMesh,
+    std::multiset<SESphericalArc>& rArcs)
 {
     int iECount = rMesh.GetECount();
-    const BasicMesh::Edge* aEdge = rMesh.GetEdges();
-    const BasicMesh::Triangle* aTriangle = rMesh.GetTriangles();
+    const SEBasicMesh::SEBMEdge* aEdge = rMesh.GetEdges();
+    const SEBasicMesh::SEBMTriangle* aTriangle = rMesh.GetTriangles();
 
     const int aiPrev[3] = { 2, 0, 1 };
     const int aiNext[3] = { 1, 2, 0 };
 
     for( int i = 0; i < iECount; i++ )
     {
-        const BasicMesh::Edge& rEdge = aEdge[i];
+        const SEBasicMesh::SEBMEdge& rEdge = aEdge[i];
 
-        SphericalArc tempArc;
+        SESphericalArc tempArc;
         tempArc.N[0] = rEdge.T[0];
         tempArc.N[1] = rEdge.T[1];
         tempArc.Separation = 1;
@@ -195,7 +197,7 @@ void ExtremalQuery3BSPf::CreateSphericalArcs(BasicMesh& rMesh,
         tempArc.Normal = m_aFaceNormal[tempArc.N[0]].Cross(
             m_aFaceNormal[tempArc.N[1]]);
 
-        const BasicMesh::Triangle& rAdj = aTriangle[rEdge.T[0]];
+        const SEBasicMesh::SEBMTriangle& rAdj = aTriangle[rEdge.T[0]];
         int j;
         for( j = 0; j < 3; j++ )
         {
@@ -216,8 +218,8 @@ void ExtremalQuery3BSPf::CreateSphericalArcs(BasicMesh& rMesh,
     CreateSphericalBisectors(rMesh, rArcs);
 }
 //----------------------------------------------------------------------------
-void ExtremalQuery3BSPf::CreateSphericalBisectors(BasicMesh& rMesh,
-    std::multiset<SphericalArc>& rArcs)
+void SEExtremalQuery3BSPf::CreateSphericalBisectors(SEBasicMesh& rMesh,
+    std::multiset<SESphericalArc>& rArcs)
 {
     // 针对每个顶点,对其邻接信息(最后用于邻接三角面法线)进行排序,
     // 使排序后的邻接信息得到的邻接三角面法线,
@@ -225,11 +227,11 @@ void ExtremalQuery3BSPf::CreateSphericalBisectors(BasicMesh& rMesh,
     SortVertexAdjacents(rMesh);
 
     int iVCount = rMesh.GetVCount();
-    const BasicMesh::Vertex* aVertex = rMesh.GetVertices();
+    const SEBasicMesh::SEBMVertex* aVertex = rMesh.GetVertices();
     std::queue<std::pair<int, int> > tempQueue;
     for( int i = 0; i < iVCount; i++ )
     {
-        const BasicMesh::Vertex& rVertex = aVertex[i];
+        const SEBasicMesh::SEBMVertex& rVertex = aVertex[i];
 
         tempQueue.push(std::make_pair(0, rVertex.TCount));
         while( !tempQueue.empty() )
@@ -242,7 +244,7 @@ void ExtremalQuery3BSPf::CreateSphericalBisectors(BasicMesh& rMesh,
             {
                 if( i1 < rVertex.TCount )
                 {
-                    SphericalArc tempArc;
+                    SESphericalArc tempArc;
                     tempArc.N[0] = rVertex.T[i0]; // 待检查
                     tempArc.N[1] = rVertex.T[i1]; // 待检查
                     tempArc.Separation = iSeparation;
@@ -265,13 +267,13 @@ void ExtremalQuery3BSPf::CreateSphericalBisectors(BasicMesh& rMesh,
     }
 }
 //----------------------------------------------------------------------------
-void ExtremalQuery3BSPf::CreateBSPTree(std::multiset<SphericalArc>& rArcs, 
-    std::vector<SphericalArc>& rNodes)
+void SEExtremalQuery3BSPf::CreateBSPTree(std::multiset<SESphericalArc>& rArcs, 
+    std::vector<SESphericalArc>& rNodes)
 {
     // 至少有一个树根节点.
     m_iTreeDepth = 1;
 
-    std::multiset<SphericalArc>::reverse_iterator tempIter;
+    std::multiset<SESphericalArc>::reverse_iterator tempIter;
     for( tempIter = rArcs.rbegin(); tempIter != rArcs.rend(); tempIter++ )
     {
         InsertArc(*tempIter, rNodes);
@@ -282,8 +284,8 @@ void ExtremalQuery3BSPf::CreateBSPTree(std::multiset<SphericalArc>& rArcs,
     m_iTreeDepth++;
 }
 //----------------------------------------------------------------------------
-void ExtremalQuery3BSPf::InsertArc(const SphericalArc& rArc,
-    std::vector<SphericalArc>& rNodes)
+void SEExtremalQuery3BSPf::InsertArc(const SESphericalArc& rArc,
+    std::vector<SESphericalArc>& rNodes)
 {
     // 传入的arc被存储在节点数组最后.
     if( rNodes.size() > 0 )
@@ -295,7 +297,7 @@ void ExtremalQuery3BSPf::InsertArc(const SphericalArc& rArc,
         {
             int iCurrent = tempCandidates.top();
             tempCandidates.pop();
-            SphericalArc* pCurrent = &rNodes[iCurrent];
+            SESphericalArc* pCurrent = &rNodes[iCurrent];
 
             int iSign0;
             if( rArc.N[0] == pCurrent->N[0]
@@ -305,7 +307,7 @@ void ExtremalQuery3BSPf::InsertArc(const SphericalArc& rArc,
             }
             else
             {
-                iSign0 = (int)Mathf::Sign(
+                iSign0 = (int)SEMathf::Sign(
                     m_aFaceNormal[rArc.N[0]].Dot(pCurrent->Normal));
             }
 
@@ -317,7 +319,7 @@ void ExtremalQuery3BSPf::InsertArc(const SphericalArc& rArc,
             }
             else
             {
-                iSign1 = (int)Mathf::Sign(
+                iSign1 = (int)SEMathf::Sign(
                     m_aFaceNormal[rArc.N[1]].Dot(pCurrent->Normal));
             }
 

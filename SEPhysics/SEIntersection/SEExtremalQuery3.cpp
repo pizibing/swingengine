@@ -24,37 +24,37 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ExtremalQuery3f::ExtremalQuery3f(const ConvexPolyhedron3f& rPolytope)
+SEExtremalQuery3f::SEExtremalQuery3f(const SEConvexPolyhedron3f& rPolytope)
     :
     m_pPolytope(&rPolytope)
 {
     // 创建三角面法线.
-    const Vector3f* aVertex = m_pPolytope->GetVertices();
+    const SEVector3f* aVertex = m_pPolytope->GetVertices();
     int iTCount = m_pPolytope->GetTCount();
     const int* piIndex = m_pPolytope->GetIndices();
-    m_aFaceNormal = SE_NEW Vector3f[iTCount];
+    m_aFaceNormal = SE_NEW SEVector3f[iTCount];
     for( int i = 0; i < iTCount; i++ )
     {
-        const Vector3f& rV0 = aVertex[*piIndex++];
-        const Vector3f& rV1 = aVertex[*piIndex++];
-        const Vector3f& rV2 = aVertex[*piIndex++];
-        Vector3f vec3fEdge1 = rV1 - rV0;
-        Vector3f vec3fEdge2 = rV2 - rV0;
+        const SEVector3f& rV0 = aVertex[*piIndex++];
+        const SEVector3f& rV1 = aVertex[*piIndex++];
+        const SEVector3f& rV2 = aVertex[*piIndex++];
+        SEVector3f vec3fEdge1 = rV1 - rV0;
+        SEVector3f vec3fEdge2 = rV2 - rV0;
         m_aFaceNormal[i] = vec3fEdge1.UnitCross(vec3fEdge2);
     }
 }
 //----------------------------------------------------------------------------
-ExtremalQuery3f::~ExtremalQuery3f()
+SEExtremalQuery3f::~SEExtremalQuery3f()
 {
     SE_DELETE[] m_aFaceNormal;
 }
 //----------------------------------------------------------------------------
-const ConvexPolyhedron3f& ExtremalQuery3f::GetPolytope() const
+const SEConvexPolyhedron3f& SEExtremalQuery3f::GetPolytope() const
 {
     return *m_pPolytope;
 }
 //----------------------------------------------------------------------------
-const Vector3f* ExtremalQuery3f::GetFaceNormals() const
+const SEVector3f* SEExtremalQuery3f::GetFaceNormals() const
 {
     return m_aFaceNormal;
 }

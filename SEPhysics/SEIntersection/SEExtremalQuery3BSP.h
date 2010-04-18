@@ -27,17 +27,17 @@
 namespace Swing
 {
 
-class BasicMesh;
+class SEBasicMesh;
 
-class SE_PHYSICS_API ExtremalQuery3BSPf : public ExtremalQuery3f
+class SE_PHYSICS_API SEExtremalQuery3BSPf : public SEExtremalQuery3f
 {
 public:
-    ExtremalQuery3BSPf(const ConvexPolyhedron3f& rPolytope);
-    virtual ~ExtremalQuery3BSPf(void);
+    SEExtremalQuery3BSPf(const SEConvexPolyhedron3f& rPolytope);
+    virtual ~SEExtremalQuery3BSPf(void);
 
     // 根据指定方向,计算多面体在该方向上的极值顶点,
     // 并返回那些顶点在顶点数组中的索引.
-    virtual void GetExtremeVertices(const Vector3f& rDirection,
+    virtual void GetExtremeVertices(const SEVector3f& rDirection,
         int& riPositiveDirection, int& riNegativeDirection);
 
     // tree statistics.
@@ -45,10 +45,10 @@ public:
     int GetTreeDepth(void) const;
 
 private:
-    class SE_PHYSICS_API SphericalArc
+    class SE_PHYSICS_API SESphericalArc
     {
     public:
-        SphericalArc()
+        SESphericalArc()
         {
             PosChild = -1;
             NegChild = -1;
@@ -63,7 +63,7 @@ private:
         int Separation;
 
         // 该法线为:Cross(FaceNormal[N[0]], FaceNormal[N[1]]).
-        Vector3f Normal;
+        SEVector3f Normal;
 
         // 共享该arc的两个球面多边形代表针对该arc的两个潜在极值顶点.
         // 当从arc的N[0]端点向N[1]端点移动时,根据左手原则,
@@ -79,26 +79,26 @@ private:
         // 访问multiset进行BSP树创建时,逆序访问,separation值大的优先处理.
         // 这种启发式算法确保了BSP树的平衡性,
         // 从而在极值查询时,顶层节点尽可能多的剔除掉大量arc.
-        bool operator < (const SphericalArc& rArc) const
+        bool operator < (const SESphericalArc& rArc) const
         {
             return Separation < rArc.Separation;
         }
     };
 
-    void SortVertexAdjacents(BasicMesh& rMesh);
-    void CreateSphericalArcs(BasicMesh& rMesh,
-        std::multiset<SphericalArc>& rArcs);
-    void CreateSphericalBisectors(BasicMesh& rMesh,
-        std::multiset<SphericalArc>& rArcs);
+    void SortVertexAdjacents(SEBasicMesh& rMesh);
+    void CreateSphericalArcs(SEBasicMesh& rMesh,
+        std::multiset<SESphericalArc>& rArcs);
+    void CreateSphericalBisectors(SEBasicMesh& rMesh,
+        std::multiset<SESphericalArc>& rArcs);
 
-    void CreateBSPTree(std::multiset<SphericalArc>& rArcs,
-        std::vector<SphericalArc>& rNodes);
-    void InsertArc(const SphericalArc& rArc,
-        std::vector<SphericalArc>& rNodes);
+    void CreateBSPTree(std::multiset<SESphericalArc>& rArcs,
+        std::vector<SESphericalArc>& rNodes);
+    void InsertArc(const SESphericalArc& rArc,
+        std::vector<SESphericalArc>& rNodes);
 
     // BSP节点的固定大小存储空间.
     int m_iNodeCount;
-    SphericalArc* m_aNode;
+    SESphericalArc* m_aNode;
     int m_iTreeDepth;
 };
 

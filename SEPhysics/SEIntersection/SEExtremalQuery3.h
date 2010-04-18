@@ -27,25 +27,25 @@
 namespace Swing
 {
 
-class SE_PHYSICS_API ExtremalQuery3f
+class SE_PHYSICS_API SEExtremalQuery3f
 {
 public:
     // 虚基类.
-    virtual ~ExtremalQuery3f(void);
+    virtual ~SEExtremalQuery3f(void);
 
     // 根据指定方向,计算多面体在该方向上的极值顶点,
     // 并返回那些顶点在顶点数组中的索引.
-    virtual void GetExtremeVertices(const Vector3f& rDirection,
+    virtual void GetExtremeVertices(const SEVector3f& rDirection,
         int& riPositiveDirection, int& riNegativeDirection) = 0;
 
-    const ConvexPolyhedron3f& GetPolytope(void) const;
-    const Vector3f* GetFaceNormals(void) const;
+    const SEConvexPolyhedron3f& GetPolytope(void) const;
+    const SEVector3f* GetFaceNormals(void) const;
 
 protected:
-    ExtremalQuery3f(const ConvexPolyhedron3f& rPolytope);
+    SEExtremalQuery3f(const SEConvexPolyhedron3f& rPolytope);
 
-    const ConvexPolyhedron3f* m_pPolytope;
-    Vector3f* m_aFaceNormal;
+    const SEConvexPolyhedron3f* m_pPolytope;
+    SEVector3f* m_aFaceNormal;
 };
 
 }

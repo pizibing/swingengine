@@ -24,21 +24,22 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ExtremalQuery3PRJf::ExtremalQuery3PRJf(const ConvexPolyhedron3f& rPolytope)
+SEExtremalQuery3PRJf::SEExtremalQuery3PRJf(const SEConvexPolyhedron3f& 
+    rPolytope)
     :
-    ExtremalQuery3f(rPolytope)
+    SEExtremalQuery3f(rPolytope)
 {
     m_Centroid = m_pPolytope->ComputeVertexAverage();
 }
 //----------------------------------------------------------------------------
-ExtremalQuery3PRJf::~ExtremalQuery3PRJf()
+SEExtremalQuery3PRJf::~SEExtremalQuery3PRJf()
 {
 }
 //----------------------------------------------------------------------------
-void ExtremalQuery3PRJf::GetExtremeVertices(const Vector3f& rDirection, 
+void SEExtremalQuery3PRJf::GetExtremeVertices(const SEVector3f& rDirection, 
     int& riPositiveDirection, int& riNegativeDirection)
 {
-    Vector3f vec3fDiff = m_pPolytope->GetVertex(0) - m_Centroid;
+    SEVector3f vec3fDiff = m_pPolytope->GetVertex(0) - m_Centroid;
     float fMin = rDirection.Dot(vec3fDiff), fMax = fMin;
     riNegativeDirection = 0;
     riPositiveDirection = 0;
