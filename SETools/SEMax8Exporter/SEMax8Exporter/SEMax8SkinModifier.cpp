@@ -22,6 +22,8 @@
 #include "iparamb2.h"
 #include "iskin.h"
 
+using namespace Swing;
+
 //----------------------------------------------------------------------------
 void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
 {
@@ -49,11 +51,11 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
     // 循环遍历所有骨骼,存储初始骨骼旋转和缩放变换,
     // 并从场景视图找到与之相应的Swing Engine节点.
     int iB, iBoneCount = pSkin->GetNumBones();
-    Swing::Node** apSEBones = new Swing::Node*[iBoneCount];
+    SENode** apSEBones = new SENode*[iBoneCount];
     for( iB = 0; iB < iBoneCount; iB++ )
     {
         INode* pBoneNode = pSkin->GetBone(iB);
-        apSEBones[iB] = Swing::StaticCast<Swing::Node>(
+        apSEBones[iB] = StaticCast<SENode>(
             m_spSEScene->GetObjectByName(pBoneNode->GetName()));
     }
 
@@ -61,23 +63,23 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
     // 如果它自身是一个网格节点,
     // 则说明在之前的场景遍历过程中,与之对应的Max网格没有被拆分,
     // 否则它应该是一个"link"节点,连接着拆分生成的Swing Engine子网格节点.
-    vector<Swing::TriMesh*> aSEMeshes;
-    Swing::Object* pSEObject = m_spSEScene->GetObjectByName(pMaxNode->GetName());
-    if( pSEObject->IsExactly(Swing::TriMesh::TYPE) )
+    vector<SETriMesh*> aSEMeshes;
+    SEObject* pSEObject = m_spSEScene->GetObjectByName(pMaxNode->GetName());
+    if( pSEObject->IsExactly(SETriMesh::TYPE) )
     {
-        aSEMeshes.push_back(Swing::StaticCast<Swing::TriMesh>(pSEObject));
+        aSEMeshes.push_back(StaticCast<SETriMesh>(pSEObject));
     }
     else
     {
-        Swing::Node* pSENode = Swing::StaticCast<Swing::Node>(pSEObject);
+        SENode* pSENode = StaticCast<SENode>(pSEObject);
         const char* acName = pSENode->GetName().c_str();
         for( int iC = 0; iC < pSENode->GetCount(); iC++ )
         {
-            Swing::Spatial* pSEChild = pSENode->GetChild(iC);
+            SESpatial* pSEChild = pSENode->GetChild(iC);
             const char* acCName = pSEChild->GetName().c_str();
             if( strncmp(acCName, acName, strlen(acName)) == 0 )
             {
-                aSEMeshes.push_back(Swing::StaticCast<Swing::TriMesh>(pSEChild));
+                aSEMeshes.push_back(StaticCast<SETriMesh>(pSEChild));
             }
         }
     }
@@ -86,7 +88,7 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
     int* aiVerticesPerBone = new int[iBoneCount];
     for( int iM = 0; iM < (int)aSEMeshes.size(); iM++ )
     {
-        Swing::TriMesh* pSEMesh = aSEMeshes[iM];
+        SETriMesh* pSEMesh = aSEMeshes[iM];
 
         // 判断Max网格的哪些顶点被包含在当前Swing Engine子网格中,
         // 并保存那些Max顶点索引.
@@ -101,9 +103,9 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
         {
             for( i = 0; i < pMesh->getNumVerts(); i++ )
             {
-                if( pMesh->verts[i].x == (*(Swing::Vector3f*)pSEMesh->VBuffer->PositionTuple(iV)).X
-                &&  pMesh->verts[i].y == (*(Swing::Vector3f*)pSEMesh->VBuffer->PositionTuple(iV)).Z
-                &&  pMesh->verts[i].z == (*(Swing::Vector3f*)pSEMesh->VBuffer->PositionTuple(iV)).Y )
+                if( pMesh->verts[i].x == (*(SEVector3f*)pSEMesh->VBuffer->PositionTuple(iV)).X
+                &&  pMesh->verts[i].y == (*(SEVector3f*)pSEMesh->VBuffer->PositionTuple(iV)).Z
+                &&  pMesh->verts[i].z == (*(SEVector3f*)pSEMesh->VBuffer->PositionTuple(iV)).Y )
                 {
                     tempVIArray.push_back(i);
 
@@ -144,13 +146,13 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
         }
 
         // 为当前Swing Engine子网格的蒙皮控制器或蒙皮Effect创建相关数组.
-        Swing::Node** apSEActiveBones = new Swing::Node*[iActiveBoneCount];
+        SENode** apSEActiveBones = new SENode*[iActiveBoneCount];
         float** aafWeight;
-        Swing::Allocate(iActiveBoneCount, iVCount, aafWeight);
+        Allocate(iActiveBoneCount, iVCount, aafWeight);
         memset(aafWeight[0], 0, iActiveBoneCount*iVCount*sizeof(float));
-        Swing::Vector3f** aaOffset;
-        Swing::Allocate(iActiveBoneCount, iVCount, aaOffset);
-        memset(aaOffset[0], 0, iActiveBoneCount*iVCount*sizeof(Swing::Vector3f));
+        SEVector3f** aaOffset;
+        Allocate(iActiveBoneCount, iVCount, aaOffset);
+        memset(aaOffset[0], 0, iActiveBoneCount*iVCount*sizeof(SEVector3f));
 
         // 为当前Swing Engine子网格存储影响它的所有骨骼,这些骨骼都是Swing Engine节点.
         vector<int> tempBIArray(iBoneCount);
@@ -175,8 +177,8 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
                 k = tempBIArray[iB];
                 aafWeight[i][k] = pSkinData->GetBoneWeight(iV, j);
 
-                Swing::Vector3f tempWorldVertex;
-                pSEMesh->World.ApplyForward(*(Swing::Vector3f*)pSEMesh->VBuffer->PositionTuple(i), 
+                SEVector3f tempWorldVertex;
+                pSEMesh->World.ApplyForward(*(SEVector3f*)pSEMesh->VBuffer->PositionTuple(i), 
                     tempWorldVertex);
                 apSEActiveBones[k]->World.ApplyInverse(tempWorldVertex, aaOffset[i][k]);
             }
@@ -186,7 +188,7 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
         {
             // 为当前Swing Engine子网格创建蒙皮控制器.
 
-            Swing::SkinController* pSESkinController = new Swing::SkinController(
+            SESkinController* pSESkinController = new SESkinController(
                 iVCount, iActiveBoneCount, apSEActiveBones, aafWeight, aaOffset);
             pSESkinController->MinTime = 0.0f;
             pSESkinController->MaxTime = TicksToSec(m_iTimeEnd - m_iTimeStart);
@@ -205,29 +207,29 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
             };
 
             vector<BoneWeight>* aBWArray;
-            Swing::Transformation* aOffset;
+            SETransformation* aOffset;
 
             // 判断应该生成的蒙皮effect类型.
             SkinEffect eSkinEffect = ST_DEFAULT;
-            Swing::Effect* pSaveEffect = 0;
+            SEEffect* pSaveEffect = 0;
             for( i = 0; i < pSEMesh->GetEffectCount(); i++ )
             {
-                Swing::Effect* pTempEffect = pSEMesh->GetEffect(i);
-                if( Swing::DynamicCast<Swing::MaterialEffect>(pTempEffect) )
+                SEEffect* pTempEffect = pSEMesh->GetEffect(i);
+                if( DynamicCast<SEMaterialEffect>(pTempEffect) )
                 {
                     eSkinEffect = ST_MATERIAL;
                     pSaveEffect = pTempEffect;
 
                     break;
                 }
-                else if( Swing::DynamicCast<Swing::MaterialTextureEffect>(pTempEffect) )
+                else if( DynamicCast<SEMaterialTextureEffect>(pTempEffect) )
                 {
                     eSkinEffect = ST_MATERIALTEXTURE;
                     pSaveEffect = pTempEffect;
 
                     break;
                 }
-                else if( Swing::DynamicCast<Swing::DefaultShaderEffect>(pTempEffect ))
+                else if( DynamicCast<SEDefaultShaderEffect>(pTempEffect ))
                 {
                     eSkinEffect = ST_DEFAULT;
                     pSaveEffect = pTempEffect;
@@ -237,16 +239,16 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
             }
 
             // 创建当前Swing Engine子网格针对其每个骨骼的相对变换.
-            aOffset = new Swing::Transformation[iActiveBoneCount];
+            aOffset = new SETransformation[iActiveBoneCount];
             for( i = 0; i < iActiveBoneCount; i++ )
             {
-                Swing::Transformation tempInvT;
+                SETransformation tempInvT;
                 apSEActiveBones[i]->World.GetInverse(tempInvT);
                 aOffset[i].Product(pSEMesh->World, tempInvT);
             }
 
             // 创建当前Swing Engine子网格所需的新VB.
-            Swing::Attributes tempAttr;
+            SEAttributes tempAttr;
             switch( eSkinEffect )
             {
             case ST_DEFAULT:
@@ -274,7 +276,7 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
                 assert( false );
                 break;
             }
-            Swing::VertexBuffer* pVBNew = new Swing::VertexBuffer(tempAttr, 
+            SEVertexBuffer* pVBNew = new SEVertexBuffer(tempAttr, 
                 pSEMesh->VBuffer->GetVertexCount());
             int iChannels;
             float* afData = pVBNew->GetData();
@@ -329,25 +331,25 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
                 int iStopHere = 0;
             }
 
-            Swing::Effect* pNewEffect = 0;
+            SEEffect* pNewEffect = 0;
             std::string tempImageName;
             switch( eSkinEffect )
             {
             case ST_DEFAULT:
                 pNewEffect = 
-                    new Swing::SkinDefaultEffect(iActiveBoneCount, apSEActiveBones, aOffset);
+                    new SESkinDefaultEffect(iActiveBoneCount, apSEActiveBones, aOffset);
 
                 break;
             case ST_MATERIAL:
                 pNewEffect = 
-                    new Swing::SkinMaterialEffect(iActiveBoneCount, apSEActiveBones, aOffset);
+                    new SESkinMaterialEffect(iActiveBoneCount, apSEActiveBones, aOffset);
 
                 break;
             case ST_MATERIALTEXTURE:
                 tempImageName = 
-                    Swing::StaticCast<Swing::ShaderEffect>(pSaveEffect)->GetPImageName(0, 0);
+                    StaticCast<SEShaderEffect>(pSaveEffect)->GetPImageName(0, 0);
                 pNewEffect = 
-                    new Swing::SkinMaterialTextureEffect(tempImageName, iActiveBoneCount, apSEActiveBones, aOffset);
+                    new SESkinMaterialTextureEffect(tempImageName, iActiveBoneCount, apSEActiveBones, aOffset);
 
                 break;
             default :
@@ -364,8 +366,8 @@ void Max8SceneBuilder::ProcessSkin(INode* pMaxNode, Modifier* pSkinMod)
             pSEMesh->AttachEffect(pNewEffect);
 
             delete[] aBWArray;
-            Swing::Deallocate(aafWeight);
-            Swing::Deallocate(aaOffset);
+            Deallocate(aafWeight);
+            Deallocate(aaOffset);
         }
     }
     

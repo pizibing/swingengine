@@ -28,12 +28,12 @@ Max8TextureTree::Max8TextureTree()
 {
 }
 //----------------------------------------------------------------------------
-void Max8TextureTree::SetTexture(TexturePtr spSETexture)
+void Max8TextureTree::SetTexture(SETexturePtr spSETexture)
 {
     m_spSETexture = spSETexture;
 }
 //----------------------------------------------------------------------------
-TexturePtr Max8TextureTree::GetTexture()
+SETexturePtr Max8TextureTree::GetTexture()
 {
     return m_spSETexture;
 }

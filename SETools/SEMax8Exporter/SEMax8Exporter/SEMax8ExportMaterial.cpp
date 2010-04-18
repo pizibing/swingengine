@@ -22,6 +22,8 @@
 #include "SEMax8ExportSettings.h"
 #include "bmmlib.h"
 
+using namespace Swing;
+
 const TCHAR* Max8SceneBuilder::ms_aacMapName[NTEXMAPS] =
 {
     _T("map_ambient"),             // ID_AM
@@ -94,14 +96,14 @@ void Max8SceneBuilder::ConvertMaterialTree(Mtl& rMtl, int iMtlID, int iSubNo,
     Max8MaterialTree& rTree)
 {
     // 根据Max材质创建一个Swing Engine材质.
-    Swing::MaterialStatePtr spSEMaterialState = new Swing::MaterialState;
+    SEMaterialStatePtr spSEMaterialState = new SEMaterialState;
     Color tempColor = rMtl.GetAmbient();
     float fAlpha = 1.0f - rMtl.GetXParency();
-    spSEMaterialState->Ambient = Swing::ColorRGB(tempColor.r, tempColor.g, tempColor.b);
+    spSEMaterialState->Ambient = SEColorRGB(tempColor.r, tempColor.g, tempColor.b);
     tempColor = rMtl.GetDiffuse();
-    spSEMaterialState->Diffuse = Swing::ColorRGB(tempColor.r, tempColor.g, tempColor.b);
+    spSEMaterialState->Diffuse = SEColorRGB(tempColor.r, tempColor.g, tempColor.b);
     tempColor = rMtl.GetSpecular();
-    spSEMaterialState->Specular = Swing::ColorRGB(tempColor.r, tempColor.g, tempColor.b);
+    spSEMaterialState->Specular = SEColorRGB(tempColor.r, tempColor.g, tempColor.b);
     spSEMaterialState->Shininess = 128.0f * rMtl.GetShininess();
 	spSEMaterialState->Alpha = fAlpha; // 待检查
 
@@ -152,7 +154,7 @@ void Max8SceneBuilder::ConvertTextureTree(Texmap& rTex, Class_ID ClassID,
     if( rTex.ClassID() == Class_ID(BMTEX_CLASS_ID, 0) )
     {
         // 纹理是一个位图数据.
-        Swing::Texture* pSETexture = new Swing::Texture;
+        SETexture* pSETexture = new SETexture;
         rTree.SetTexture(pSETexture);
 
         const TCHAR* acTexName = rTex.GetName(); // 纹理名
@@ -189,20 +191,20 @@ void Max8SceneBuilder::ConvertTextureTree(Texmap& rTex, Class_ID ClassID,
         char acFName[_MAX_FNAME];
         char acExt[_MAX_EXT];
         _splitpath(tempFileName.data(), acDrive, acDir, acFName, acExt);
-        Swing::System::SE_Strcat(acFName, _MAX_FNAME, ".seif");
+        SESystem::SE_Strcat(acFName, _MAX_FNAME, ".seif");
         
-        Swing::Image* pSEImage;
+        SEImage* pSEImage;
         int eFormat;
         int iBytesPerPixel;
         BOOL bHasAlpha = pBmp->HasAlpha();
         if( bHasAlpha )
         {
-            eFormat =  Swing::Image::IT_RGBA8888;
+            eFormat =  SEImage::IT_RGBA8888;
             iBytesPerPixel = 4;
         }
         else
         {
-            eFormat = Swing::Image::IT_RGB888;
+            eFormat = SEImage::IT_RGB888;
             iBytesPerPixel = 3;
         }
 
@@ -235,13 +237,13 @@ void Max8SceneBuilder::ConvertTextureTree(Texmap& rTex, Class_ID ClassID,
                 }
             }
             delete[] pScanLine;
-			pSEImage = new Swing::Image((Swing::Image::FormatMode)eFormat, 
+			pSEImage = new SEImage((SEImage::FormatMode)eFormat, 
                 iWidth, iHeight, aucDst, acFName, false);
             pSEImage->Save(acFName);
         }
         else
         {
-            pSEImage = new Swing::Image((Swing::Image::FormatMode)eFormat, 
+            pSEImage = new SEImage((SEImage::FormatMode)eFormat, 
                 pBmp->Width(), pBmp->Height(), NULL, acFName, false);
         }
 
@@ -270,25 +272,25 @@ void Max8SceneBuilder::ConvertTextureTree(Texmap& rTex, Class_ID ClassID,
             // noise phase:   GetNoisePhs(time)
 
             // Apparently Max always uses wrapping?
-			pSETexture->SetWrapType(0, Swing::Texture::REPEAT);
-            pSETexture->SetWrapType(0, Swing::Texture::REPEAT);
+			pSETexture->SetWrapType(0, SETexture::REPEAT);
+            pSETexture->SetWrapType(0, SETexture::REPEAT);
         }
 
         switch( rBmpTex.GetFilterType() )
         {
         case FILTER_PYR:
             // bilinear filter, trilinear mipmap
-            pSETexture->SetFilterType(Swing::Texture::LINEAR_LINEAR);
+            pSETexture->SetFilterType(SETexture::LINEAR_LINEAR);
 
             break;
         case FILTER_SAT:
             // 待实现.
             // 这是什么?如何转换?
-            pSETexture->SetFilterType(Swing::Texture::NEAREST_NEAREST);
+            pSETexture->SetFilterType(SETexture::NEAREST_NEAREST);
 
             break;
         default:
-            pSETexture->SetFilterType(Swing::Texture::NEAREST_NEAREST);
+            pSETexture->SetFilterType(SETexture::NEAREST_NEAREST);
 
             break;
         }

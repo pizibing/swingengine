@@ -59,8 +59,8 @@ TriObject* Max8SceneBuilder::GetTriObject(INode* pNode, bool* pbNeedDel)
     return pTriObj;
 }
 //----------------------------------------------------------------------------
-Swing::Spatial* Max8SceneBuilder::BuildMesh(INode* pMaxNode,
-    Swing::Spatial* pSENode)
+Swing::SESpatial* Max8SceneBuilder::BuildMesh(INode* pMaxNode,
+    Swing::SESpatial* pSENode)
 {
     // 把一个Max三角网格转变成一个或多个Swing Engine三角网格.
     //
@@ -90,7 +90,7 @@ Swing::Spatial* Max8SceneBuilder::BuildMesh(INode* pMaxNode,
         assert( iMtlID >= 0 );
 	}
 
-    Swing::Spatial* pSELink;
+    Swing::SESpatial* pSELink;
     bool bHasLink = ((int)pSENode->GetName().length() > 0 &&
         strcmp(pMaxNode->GetName(), pSENode->GetName().c_str()) == 0);
     char* acMaxName = pMaxNode->GetName();
@@ -115,27 +115,27 @@ Swing::Spatial* Max8SceneBuilder::BuildMesh(INode* pMaxNode,
             pSELink = pSENode;
         }
 
-        assert( pSELink->IsDerived(Swing::Node::TYPE) );
+        assert( pSELink->IsDerived(Swing::SENode::TYPE) );
 
         // 把拆分后获得的Swing Engine子网格都作为"link"虚节点的子节点.
         for( i = 0; i < (int)tempUMeshes.size(); i++ )
         {
-            Swing::TriMesh* pSETriMesh = tempUMeshes[i]->ToTriMesh();
+            Swing::SETriMesh* pSETriMesh = tempUMeshes[i]->ToTriMesh();
             char acMeshNumber[6];
-            Swing::System::SE_Sprintf(acMeshNumber, 6, "_%d", i + 1);
+            Swing::SESystem::SE_Sprintf(acMeshNumber, 6, "_%d", i + 1);
             size_t uiSize = strlen(acMaxName) + strlen(acMeshNumber) + 1;
             char* acSEName = new char[uiSize];
-            Swing::System::SE_Strcpy(acSEName, uiSize, acMaxName);
-            Swing::System::SE_Strcat(acSEName, uiSize, acMeshNumber);         
+            Swing::SESystem::SE_Strcpy(acSEName, uiSize, acMaxName);
+            Swing::SESystem::SE_Strcat(acSEName, uiSize, acMeshNumber);         
             pSETriMesh->SetName(acSEName);
             delete[] acSEName;
-            ((Swing::Node*)pSELink)->AttachChild(pSETriMesh);
+            ((Swing::SENode*)pSELink)->AttachChild(pSETriMesh);
         }
     }
     else
     {
         // 如果没有拆分,则把获取的Swing Engine网格作为pSENode的子节点.
-        Swing::TriMesh* pSETriMesh = tempUMeshes[0]->ToTriMesh();
+        Swing::SETriMesh* pSETriMesh = tempUMeshes[0]->ToTriMesh();
         if( !bHasLink )
         {
             pSETriMesh->SetName(acMaxName);
@@ -145,13 +145,13 @@ Swing::Spatial* Max8SceneBuilder::BuildMesh(INode* pMaxNode,
         {
             size_t uiSize = strlen(acMaxName) + 3;
             char* acSEName = new char[uiSize];
-            Swing::System::SE_Strcpy(acSEName, uiSize, acMaxName);
-            Swing::System::SE_Strcat(acSEName, uiSize, "_1");
+            Swing::SESystem::SE_Strcpy(acSEName, uiSize, acMaxName);
+            Swing::SESystem::SE_Strcat(acSEName, uiSize, "_1");
             pSETriMesh->SetName(acSEName);
             delete[] acSEName;
         }
-        assert( pSENode->IsDerived(Swing::Node::TYPE) );
-        ((Swing::Node*)pSENode)->AttachChild(pSETriMesh);
+        assert( pSENode->IsDerived(Swing::SENode::TYPE) );
+        ((Swing::SENode*)pSENode)->AttachChild(pSETriMesh);
         pSELink = pSETriMesh;
     }
     for( i = 0; i < (int)tempUMeshes.size(); i++ )
@@ -183,11 +183,11 @@ void Max8SceneBuilder::SplitGeometry(Mesh* pMaxMesh, int iMtlID,
     int i, j;
 
     // 计算顶点法线.
-    Swing::Vector3f* aNormal = NULL;
+    Swing::SEVector3f* aNormal = NULL;
     if( m_pSettings->IncludeNormals )
     {
         pMaxMesh->buildNormals();
-        aNormal = new Swing::Vector3f[pMaxMesh->numVerts];
+        aNormal = new Swing::SEVector3f[pMaxMesh->numVerts];
         for( i = 0; i < pMaxMesh->numFaces; i++ )
         {
             Face& rFace = pMaxMesh->faces[i];
@@ -323,7 +323,7 @@ void Max8SceneBuilder::SplitGeometry(Mesh* pMaxMesh, int iMtlID,
 }
 //----------------------------------------------------------------------------
 void Max8SceneBuilder::PackVertices(Max8UnimaterialMesh* pUniMesh,
-    Mesh* pMaxMesh, vector<int>& rPartition, Swing::Vector3f* aNormal)
+    Mesh* pMaxMesh, vector<int>& rPartition, Swing::SEVector3f* aNormal)
 {
     // 接收Max网格的一部分(由一个平面索引数组表示),该部分使用同一材质.
     // 把相应的顶点和法线数据打包进Max8UnimaterialMesh.
@@ -363,8 +363,8 @@ void Max8SceneBuilder::PackVertices(Max8UnimaterialMesh* pUniMesh,
     memset(aiVMap, 0xFF, (iVMax + 1)*sizeof(int));
 
     pUniMesh->VCount() = tempVIndexSet.size();
-    pUniMesh->Vertex() = new Swing::Vector3f[pUniMesh->VCount()];
-    pUniMesh->Normal() = new Swing::Vector3f[pUniMesh->VCount()];
+    pUniMesh->Vertex() = new Swing::SEVector3f[pUniMesh->VCount()];
+    pUniMesh->Normal() = new Swing::SEVector3f[pUniMesh->VCount()];
 
     set<int>::iterator tempIter = tempVIndexSet.begin();
     for( i = 0; i < (int)tempVIndexSet.size(); i++, tempIter++ )
@@ -433,7 +433,7 @@ void Max8SceneBuilder::PackColors(Max8UnimaterialMesh* pUniMesh, Mesh* pMaxMesh,
     memset(aiCMap, 0xFF, (iCMax + 1)*sizeof(int));
 
     pUniMesh->CCount() = tempCIndexSet.size();
-    pUniMesh->Color() = new Swing::ColorRGB[pUniMesh->CCount()];
+    pUniMesh->Color() = new Swing::SEColorRGB[pUniMesh->CCount()];
 
     set<int>::iterator tempIter = tempCIndexSet.begin();
     for( i = 0; i < (int)tempCIndexSet.size(); i++, tempIter++ )
@@ -498,7 +498,7 @@ void Max8SceneBuilder::PackTextures(Max8UnimaterialMesh* pUniMesh,
     memset(aiTMap, 0xFF, (iTMax + 1)*sizeof(int));
 
     pUniMesh->TCount() = tempTIndexSet.size();
-    pUniMesh->Texture() = new Swing::Vector2f[pUniMesh->TCount()];
+    pUniMesh->Texture() = new Swing::SEVector2f[pUniMesh->TCount()];
 
     set<int>::iterator tempIter = tempTIndexSet.begin();
     for( i = 0; i < (int)tempTIndexSet.size(); i++, tempIter++ )
@@ -523,7 +523,7 @@ void Max8SceneBuilder::PackTextures(Max8UnimaterialMesh* pUniMesh,
     delete[] aiTMap;
 }
 //----------------------------------------------------------------------------
-Swing::Vector3f Max8SceneBuilder::GetVertexNormal(Mesh* pMaxMesh, int iFace,
+Swing::SEVector3f Max8SceneBuilder::GetVertexNormal(Mesh* pMaxMesh, int iFace,
     int iVertex)
 {
     // 获取顶点法线,针对一个Max网格顶点索引.
@@ -580,6 +580,6 @@ Swing::Vector3f Max8SceneBuilder::GetVertexNormal(Mesh* pMaxMesh, int iFace,
         }
     }
 
-    return Swing::Vector3f(tempNormal.x, tempNormal.y, tempNormal.z);
+    return Swing::SEVector3f(tempNormal.x, tempNormal.y, tempNormal.z);
 }
 //----------------------------------------------------------------------------

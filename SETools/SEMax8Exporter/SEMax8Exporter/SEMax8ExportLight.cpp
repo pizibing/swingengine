@@ -26,12 +26,12 @@ void Max8SceneBuilder::BuildAmbientLight()
 {
     // 获取Max全局环境光设置信息,并建立相应的Swing Engine灯光.
     Color tempColor = m_pMax->GetAmbient(0, FOREVER);
-    Swing::Light* pSELight = new Swing::Light(Swing::Light::LT_AMBIENT);
-    pSELight->Ambient = Swing::ColorRGB(tempColor.r, tempColor.g, tempColor.b);
+    Swing::SELight* pSELight = new Swing::SELight(Swing::SELight::LT_AMBIENT);
+    pSELight->Ambient = Swing::SEColorRGB(tempColor.r, tempColor.g, tempColor.b);
     m_spSEScene->AttachLight(pSELight);
 }
 //----------------------------------------------------------------------------
-void Max8SceneBuilder::BuildLight(INode* pMaxNode, Swing::Spatial* pSENode)
+void Max8SceneBuilder::BuildLight(INode* pMaxNode, Swing::SESpatial* pSENode)
 {
     // 根据一个Max层级中的light创建Swing Engine的light.
     // 支持Max的omnidirectional,directional,free spot这三种light.
@@ -52,7 +52,7 @@ void Max8SceneBuilder::BuildLight(INode* pMaxNode, Swing::Spatial* pSENode)
     Interval tempValid = FOREVER;
     pGenLight->EvalLightState(m_iTimeStart, tempValid, &tempMaxLightState);
 
-    Swing::Light* pSELight = NULL;
+    Swing::SELight* pSELight = NULL;
 
     switch( pGenLight->Type() ) 
     {
@@ -82,12 +82,12 @@ void Max8SceneBuilder::BuildLight(INode* pMaxNode, Swing::Spatial* pSENode)
     // 让Swing Engine lights的specular,diffuse都用这个颜色.
     if( tempMaxLightState.affectDiffuse )
     {
-        pSELight->Diffuse = Swing::ColorRGB(tempMaxLightState.color.r,
+        pSELight->Diffuse = Swing::SEColorRGB(tempMaxLightState.color.r,
             tempMaxLightState.color.g, tempMaxLightState.color.b);
     }
     if( tempMaxLightState.affectSpecular )
     {
-        pSELight->Specular = Swing::ColorRGB(tempMaxLightState.color.r,
+        pSELight->Specular = Swing::SEColorRGB(tempMaxLightState.color.r,
             tempMaxLightState.color.g, tempMaxLightState.color.b);
     }
     
@@ -133,7 +133,7 @@ void Max8SceneBuilder::BuildLight(INode* pMaxNode, Swing::Spatial* pSENode)
     pSENode->AttachLight(pSELight);
 }
 //----------------------------------------------------------------------------
-Swing::Vector3f Max8SceneBuilder::GetLightLocation(INode* pNode)
+Swing::SEVector3f Max8SceneBuilder::GetLightLocation(INode* pNode)
 {
     // 计算node的local变换.
     Matrix3 tempLocal = pNode->GetNodeTM(m_iTimeStart) *
@@ -144,12 +144,12 @@ Swing::Vector3f Max8SceneBuilder::GetLightLocation(INode* pNode)
     decomp_affine(tempLocal, &tempAffParts);
 
     // 获取平移变换分量.
-    return Swing::Vector3f(tempAffParts.t.x, tempAffParts.t.y, tempAffParts.t.z);
+    return Swing::SEVector3f(tempAffParts.t.x, tempAffParts.t.y, tempAffParts.t.z);
 }
 //----------------------------------------------------------------------------
-Swing::Light* Max8SceneBuilder::BuildPointLight(INode* pNode)
+Swing::SELight* Max8SceneBuilder::BuildPointLight(INode* pNode)
 {
-    Swing::Light* pSELight = new Swing::Light(Swing::Light::LT_POINT);
+    Swing::SELight* pSELight = new Swing::SELight(Swing::SELight::LT_POINT);
 
     // 设置light的位置.
     pSELight->Position = GetLightLocation(pNode);
@@ -157,13 +157,13 @@ Swing::Light* Max8SceneBuilder::BuildPointLight(INode* pNode)
     return pSELight;
 }
 //----------------------------------------------------------------------------
-Swing::Light* Max8SceneBuilder::BuildSpotLight(INode* pNode, LightState& rLightState)
+Swing::SELight* Max8SceneBuilder::BuildSpotLight(INode* pNode, LightState& rLightState)
 {
-    Swing::Light* pSELight = new Swing::Light(Swing::Light::LT_SPOT);
+    Swing::SELight* pSELight = new Swing::SELight(Swing::SELight::LT_SPOT);
 
     // 设置light的位置和方向向量.
     pSELight->Position = GetLightLocation(pNode);
-    pSELight->SetDirection(Swing::Vector3f::UNIT_Z);
+    pSELight->SetDirection(Swing::SEVector3f::UNIT_Z);
 
     // 设置light的angle.
     pSELight->Angle = HALFPI * rLightState.fallsize / 180.0f;
@@ -175,12 +175,12 @@ Swing::Light* Max8SceneBuilder::BuildSpotLight(INode* pNode, LightState& rLightS
     return pSELight;
 }
 //----------------------------------------------------------------------------
-Swing::Light* Max8SceneBuilder::BuildDirectionalLight(INode* pNode)
+Swing::SELight* Max8SceneBuilder::BuildDirectionalLight(INode* pNode)
 {
-    Swing::Light* pSELight = new Swing::Light(Swing::Light::LT_DIRECTIONAL);
+    Swing::SELight* pSELight = new Swing::SELight(Swing::SELight::LT_DIRECTIONAL);
 
     // 设置light的方向向量.
-    pSELight->SetDirection(Swing::Vector3f::UNIT_Z);
+    pSELight->SetDirection(Swing::SEVector3f::UNIT_Z);
 
     return pSELight;
 }

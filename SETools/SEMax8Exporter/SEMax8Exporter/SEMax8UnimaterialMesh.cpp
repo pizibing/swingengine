@@ -48,12 +48,12 @@ int& Max8UnimaterialMesh::VCount()
     return m_iVCount;
 }
 //----------------------------------------------------------------------------
-Swing::Vector3f*& Max8UnimaterialMesh::Vertex()
+Swing::SEVector3f*& Max8UnimaterialMesh::Vertex()
 {
     return m_aVertex;
 }
 //----------------------------------------------------------------------------
-Swing::Vector3f*& Max8UnimaterialMesh::Normal()
+Swing::SEVector3f*& Max8UnimaterialMesh::Normal()
 {
     return m_aNormal;
 }
@@ -63,7 +63,7 @@ int& Max8UnimaterialMesh::CCount()
     return m_iCCount;
 }
 //----------------------------------------------------------------------------
-Swing::ColorRGB*& Max8UnimaterialMesh::Color()
+Swing::SEColorRGB*& Max8UnimaterialMesh::Color()
 {
     return m_aColor;
 }
@@ -73,7 +73,7 @@ int& Max8UnimaterialMesh::TCount()
     return m_iTCount;
 }
 //----------------------------------------------------------------------------
-Swing::Vector2f*& Max8UnimaterialMesh::Texture()
+Swing::SEVector2f*& Max8UnimaterialMesh::Texture()
 {
     return m_aTexture;
 }
@@ -98,12 +98,12 @@ int*& Max8UnimaterialMesh::TFace()
     return m_aiTFace;
 }
 //----------------------------------------------------------------------------
-Swing::MaterialStatePtr& Max8UnimaterialMesh::MState()
+Swing::SEMaterialStatePtr& Max8UnimaterialMesh::MState()
 {
     return m_spSEMaterialState;
 }
 //----------------------------------------------------------------------------
-Swing::TexturePtr& Max8UnimaterialMesh::TState()
+Swing::SETexturePtr& Max8UnimaterialMesh::TState()
 {
     return m_spTState;
 }
@@ -150,19 +150,19 @@ void Max8UnimaterialMesh::DuplicateGeometry()
     }
 
     // 分配Swing Engine几何体所需数据.
-    Swing::Vector3f* aNewVertex = new Vector3f[iNewVCount];
-    Swing::Vector3f* aNewNormal = new Vector3f[iNewVCount];
+    Swing::SEVector3f* aNewVertex = new SEVector3f[iNewVCount];
+    Swing::SEVector3f* aNewNormal = new SEVector3f[iNewVCount];
 
-    Swing::ColorRGB* aNewColor = NULL;
+    Swing::SEColorRGB* aNewColor = NULL;
     if( m_iCCount > 0 )
     {
-        aNewColor = new Swing::ColorRGB[iNewVCount];
+        aNewColor = new Swing::SEColorRGB[iNewVCount];
     }
 
-    Vector2f* aNewTexture = NULL;
+    SEVector2f* aNewTexture = NULL;
     if( m_iTCount > 0 )
     {
-        aNewTexture = new Vector2f[iNewVCount];
+        aNewTexture = new SEVector2f[iNewVCount];
     }
 
     int j, k;
@@ -247,10 +247,10 @@ void Max8UnimaterialMesh::DuplicateGeometry()
     delete[] aVArray;
 }
 //----------------------------------------------------------------------------
-TriMesh* Max8UnimaterialMesh::ToTriMesh()
+SETriMesh* Max8UnimaterialMesh::ToTriMesh()
 {
     // 创建所需Swing Engine VB.
-    Swing::Attributes tempSEAttr;
+    Swing::SEAttributes tempSEAttr;
     tempSEAttr.SetPositionChannels(3);
     if( m_aNormal )
     {
@@ -265,38 +265,38 @@ TriMesh* Max8UnimaterialMesh::ToTriMesh()
         tempSEAttr.SetTCoordChannels(0, 2);
     }
 
-    Swing::VertexBuffer* pSEVBuffer = new Swing::VertexBuffer(tempSEAttr, 
+    Swing::SEVertexBuffer* pSEVBuffer = new Swing::SEVertexBuffer(tempSEAttr, 
         m_iVCount);
     for( int i = 0; i < m_iVCount; i++ )
     {
-        (*(Swing::Vector3f*)pSEVBuffer->PositionTuple(i)) = m_aVertex[i];
+        (*(Swing::SEVector3f*)pSEVBuffer->PositionTuple(i)) = m_aVertex[i];
 
         if( m_aNormal )
         {
-            *(Swing::Vector3f*)pSEVBuffer->NormalTuple(i) = m_aNormal[i];
+            *(Swing::SEVector3f*)pSEVBuffer->NormalTuple(i) = m_aNormal[i];
         }
         if( m_aColor )
         {
-            *(Swing::ColorRGB*)pSEVBuffer->ColorTuple(0, i) = m_aColor[i];
+            *(Swing::SEColorRGB*)pSEVBuffer->ColorTuple(0, i) = m_aColor[i];
         }
         if( m_aTexture )
         {
-            *(Swing::Vector2f*)pSEVBuffer->TCoordTuple(0, i) = m_aTexture[i];
+            *(Swing::SEVector2f*)pSEVBuffer->TCoordTuple(0, i) = m_aTexture[i];
         }
     }
 
     // 创建所需Swing Engine IB.
-    Swing::IndexBuffer* pSEIBuffer = new Swing::IndexBuffer(3 * m_iFCount);
+    Swing::SEIndexBuffer* pSEIBuffer = new Swing::SEIndexBuffer(3 * m_iFCount);
     int* pSEIBufferData = pSEIBuffer->GetData();
     memcpy(pSEIBufferData, m_aiFace, 3*m_iFCount*sizeof(int));
 
-    Swing::TriMesh* pSEMesh = new Swing::TriMesh(pSEVBuffer, pSEIBuffer);
+    Swing::SETriMesh* pSEMesh = new Swing::SETriMesh(pSEVBuffer, pSEIBuffer);
 
-    Swing::Effect* pSEEffect = NULL;
+    Swing::SEEffect* pSEEffect = NULL;
 
     // 根据Swing Engine网格所带材质和纹理,为其添加effect.
     // 目前导出器支持的材质和纹理effect是:
-    // MaterialEffect,MaterialTextureEffect,DefaultShaderEffect.
+    // SEMaterialEffect,SEMaterialTextureEffect,SEDefaultShaderEffect.
 
     if( m_spSEMaterialState )
     {
@@ -310,16 +310,16 @@ TriMesh* Max8UnimaterialMesh::ToTriMesh()
             // 减去".seif"长度
             size_t uiLength = strlen(tempFName.c_str()) - 5;
             char tempBuffer[64];
-            Swing::System::SE_Strncpy(tempBuffer, 64, tempFName.c_str(), 
+            Swing::SESystem::SE_Strncpy(tempBuffer, 64, tempFName.c_str(), 
                 uiLength);
             tempBuffer[uiLength] = 0;
-            pSEEffect = new Swing::MaterialTextureEffect(tempBuffer);
+            pSEEffect = new Swing::SEMaterialTextureEffect(tempBuffer);
         }
         else
         {
             // 待实现:
-            // 暂时无法使用MaterialEffect
-            //pSEEffect = new Swing::MaterialEffect();
+            // 暂时无法使用SEMaterialEffect
+            //pSEEffect = new Swing::SEMaterialEffect();
 
             assert( !m_aTexture );
             if( m_aTexture )
@@ -337,7 +337,7 @@ TriMesh* Max8UnimaterialMesh::ToTriMesh()
 
     if( !m_spSEMaterialState && !m_spTState )
 	{
-        pSEEffect = new Swing::DefaultShaderEffect;
+        pSEEffect = new Swing::SEDefaultShaderEffect;
 	}
 
     if( pSEEffect )

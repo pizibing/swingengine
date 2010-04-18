@@ -21,6 +21,8 @@
 #include "SEMax8SceneBuilder.h"
 #include "decomp.h"
 
+using namespace Swing;
+
 const float Max8SceneBuilder::ATTENUATION = 1e+03f;
 const float Max8SceneBuilder::MIN_DIFFERENCE = 1e-03f;
 
@@ -82,8 +84,8 @@ Max8SceneBuilder::Max8SceneBuilder(const TCHAR* acFilename, BOOL bExportSelected
     // 创建Swing Engine的场景视图世界根节点.
     // 总是使用一个depth buffer state.
     // 如果应用程序不想使用,则应用程序手动移除该depth buffer state.
-    m_spSEScene = new Swing::Node;
-	m_spSEScene->AttachGlobalState(new Swing::ZBufferState);
+    m_spSEScene = new SENode;
+	m_spSEScene->AttachGlobalState(new SEZBufferState);
 
     // 遍历Max场景,处理所有材质.
     ConvertMaterials(m_pRootNode);
@@ -117,7 +119,7 @@ Max8SceneBuilder::Max8SceneBuilder(const TCHAR* acFilename, BOOL bExportSelected
     }
 
     // 保存Swing Engine场景到磁盘文件.
-    Swing::Stream tempStream;
+    SEStream tempStream;
 
     if( m_bExportSelected )
     {
@@ -142,7 +144,7 @@ Max8SceneBuilder::~Max8SceneBuilder()
     }
 }
 //----------------------------------------------------------------------------
-bool Max8SceneBuilder::Traverse(INode* pMaxNode, Swing::Spatial* pSENode)
+bool Max8SceneBuilder::Traverse(INode* pMaxNode, SESpatial* pSENode)
 {
     // 递归遍历Max场景树,根据相关对象建立Swing Engine场景视图.
     // pMaxNode:
@@ -151,7 +153,7 @@ bool Max8SceneBuilder::Traverse(INode* pMaxNode, Swing::Spatial* pSENode)
     //     即将被加入Swing Engine场景视图的节点的父节点.
     // 返回true时表明递归将继续下去,否则终止递归.
 
-    Swing::Spatial* pSEChild = NULL;
+    SESpatial* pSEChild = NULL;
 
     // 获取起始时间时的Max节点的世界状态.
     ObjectState tempObjectState = pMaxNode->EvalWorldState(m_iTimeStart);
@@ -243,8 +245,8 @@ bool Max8SceneBuilder::Traverse(INode* pMaxNode, Swing::Spatial* pSENode)
     return true;
 }
 //----------------------------------------------------------------------------
-Swing::Spatial* Max8SceneBuilder::BuildGeometry(INode* pMaxNode,
-    Swing::Spatial* pSENode)
+SESpatial* Max8SceneBuilder::BuildGeometry(INode* pMaxNode, 
+    SESpatial* pSENode)
 {
     // 建立并连接一个几何体对象到场景视图.
     // pMaxNode:
@@ -252,8 +254,8 @@ Swing::Spatial* Max8SceneBuilder::BuildGeometry(INode* pMaxNode,
     // pSENode:
     //     当前待建立节点的父节点指针.
 
-    Swing::Spatial* pSEChild = NULL;
-    Swing::Spatial* pSELink = NULL;
+    SESpatial* pSEChild = NULL;
+    SESpatial* pSELink = NULL;
 
     // 在Max场景中,几何体节点允许具有几何体子节点,
     // 而在Swing Engine场景中,所有几何体节点必须是叶子节点.
@@ -292,22 +294,21 @@ Swing::Spatial* Max8SceneBuilder::BuildGeometry(INode* pMaxNode,
     return pSEChild;
 }
 //----------------------------------------------------------------------------
-Swing::Spatial* Max8SceneBuilder::BuildSpatial(INode* pMaxNode,
-    Swing::Spatial* pSENode)
+SESpatial* Max8SceneBuilder::BuildSpatial(INode* pMaxNode, SESpatial* pSENode)
 {
-    Swing::Node* pSEChild = new Swing::Node;
+    SENode* pSEChild = new SENode;
     pSEChild->SetName(pMaxNode->GetName());
 
     pSEChild->Local = GetLocalTransform(pMaxNode, m_iTimeStart);
 
-    assert( pSENode->IsDerived(Swing::Node::TYPE) );
-    ((Swing::Node*)pSENode)->AttachChild(pSEChild);
+    assert( pSENode->IsDerived(SENode::TYPE) );
+    ((SENode*)pSENode)->AttachChild(pSEChild);
 
     return pSEChild;
 }
 //----------------------------------------------------------------------------
-Swing::Transformation Max8SceneBuilder::GetLocalTransform(INode* pNode,
-    TimeValue iTime)
+SETransformation Max8SceneBuilder::GetLocalTransform(INode* pNode, TimeValue 
+    iTime)
 {
     // 计算节点的local变换.
     // Max的节点变换访问函数都提供针对节点的世界空间变换,
@@ -363,11 +364,11 @@ Swing::Transformation Max8SceneBuilder::GetLocalTransform(INode* pNode,
     // 计算出与以上结果对应的Swing Engine变换.
     // 由于进行了以上严谨的测试,
     // 从而可以正确的设置Swing Engine的Transformation类的相关标志.
-    Swing::Transformation tempSELocal;
+    SETransformation tempSELocal;
 
     if( !bTranslationIsZero )
     {
-        tempSELocal.SetTranslate(Swing::Vector3f(tempAffParts.t.x, tempAffParts.t.z,
+        tempSELocal.SetTranslate(SEVector3f(tempAffParts.t.x, tempAffParts.t.z,
             tempAffParts.t.y));
     }
 
@@ -381,8 +382,8 @@ Swing::Transformation Max8SceneBuilder::GetLocalTransform(INode* pNode,
         // (s*I)*R的矩阵形式,s是统一缩放系数.
         if( !bRotationIsIdentity )
         {
-            Swing::Matrix3f tempSERot;
-            Swing::Quaternionf(tempAffParts.q.w, +tempAffParts.q.x, +tempAffParts.q.z,
+            SEMatrix3f tempSERot;
+            SEQuaternionf(tempAffParts.q.w, +tempAffParts.q.x, +tempAffParts.q.z,
                 +tempAffParts.q.y).ToRotationMatrix(tempSERot);
             tempSELocal.SetRotate(tempSERot);
         }
@@ -396,20 +397,20 @@ Swing::Transformation Max8SceneBuilder::GetLocalTransform(INode* pNode,
         // S*R的矩阵形式, S是具备非统一缩放系数的对角矩阵.
         if( !bRotationIsIdentity )
         {
-            Swing::Matrix3f tempSERot;
-            Swing::Quaternionf(tempAffParts.q.w, +tempAffParts.q.x, +tempAffParts.q.z,
+            SEMatrix3f tempSERot;
+            SEQuaternionf(tempAffParts.q.w, +tempAffParts.q.x, +tempAffParts.q.z,
                 +tempAffParts.q.y).ToRotationMatrix(tempSERot);
             tempSELocal.SetRotate(tempSERot);
         }
 
-        tempSELocal.SetScale(Swing::Vector3f(tempAffParts.k.x, tempAffParts.k.z,
+        tempSELocal.SetScale(SEVector3f(tempAffParts.k.x, tempAffParts.k.z,
             tempAffParts.k.y));
     }
     else
     {
         // 待检查.
         // U*S*U^t*R的矩阵形式,其中U是定位矩阵,S是具备非统一缩放系数的对角矩阵.
-        Swing::Matrix3f tempSEMatrix(
+        SEMatrix3f tempSEMatrix(
             tempMaxLocal.GetAddr()[0][0],
             tempMaxLocal.GetAddr()[0][2],
             tempMaxLocal.GetAddr()[0][1],

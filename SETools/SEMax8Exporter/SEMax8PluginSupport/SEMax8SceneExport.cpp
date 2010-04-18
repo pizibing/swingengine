@@ -23,6 +23,8 @@
 #include "SEMax8Exporter.h"
 #include "resource.h"
 
+using namespace Swing;
+
 //----------------------------------------------------------------------------
 Max8SceneExport::Max8SceneExport()
 {
@@ -179,7 +181,7 @@ void Max8SceneExport::ReadConfiguration()
 
     // 如果配置文件不存在(比如第一次运行导出器),
     // 则使用默认配置.
-    FILE* pConfig = Swing::System::SE_Fopen(m_StrConfigFile, "rb");
+    FILE* pConfig = SESystem::SE_Fopen(m_StrConfigFile, "rb");
     if( pConfig  == NULL )
     {
         return;
@@ -225,7 +227,7 @@ void Max8SceneExport::ReadConfiguration()
 //----------------------------------------------------------------------------
 void Max8SceneExport::WriteConfiguration()
 {
-    FILE* pConfig = Swing::System::SE_Fopen(m_StrConfigFile, "wb");
+    FILE* pConfig = SESystem::SE_Fopen(m_StrConfigFile, "wb");
     if( pConfig == NULL )
     {
         // 创建配置文件失败

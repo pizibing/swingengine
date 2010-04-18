@@ -35,14 +35,14 @@ class Max8TextureTree
 public:
     Max8TextureTree(void);
 
-    void SetTexture(Swing::TexturePtr spSETexture);
-    Swing::TexturePtr GetTexture(void);
+    void SetTexture(Swing::SETexturePtr spSETexture);
+    Swing::SETexturePtr GetTexture(void);
     void SetChildCount(int iCount);
     int GetChildCount(void) const;
     Max8TextureTree& GetChild(int i);
 
 private:
-    Swing::TexturePtr m_spSETexture;
+    Swing::SETexturePtr m_spSETexture;
     std::vector<Max8TextureTree> m_Children;
 };
 

@@ -23,6 +23,7 @@
 #include <algorithm>
 
 using namespace std;
+using namespace Swing;
 
 //----------------------------------------------------------------------------
 bool Max8SceneBuilder::AreEqual(const Point3& rPoint1, const Point3& rPoint2)
@@ -50,7 +51,7 @@ bool Max8SceneBuilder::CompareKeyTimes(KeyInfo* pFirst, KeyInfo* pSecond)
 }
 //----------------------------------------------------------------------------
 void Max8SceneBuilder::BuildKeyFrameController(INode* pMaxNode,
-    Swing::Spatial* pSENode)
+    SESpatial* pSENode)
 {
     // 为一个具备关键桢动画的节点添加一个key frame controller.
     // 注意我们不支持非统一缩放的动画.
@@ -150,38 +151,38 @@ void Max8SceneBuilder::BuildKeyFrameController(INode* pMaxNode,
     }
 
     // 根据获得的Max关键桢信息,创建相应的Swing Engine关键桢控制器分量空间.
-    Swing::KeyframeController* pSEKFC = new Swing::KeyframeController;
+    SEKeyframeController* pSEKFC = new SEKeyframeController;
     if( iNumTrnKeys > 0 )
     {
-        pSEKFC->TranslationTimes = new Swing::FloatArray(iNumTrnKeys,
+        pSEKFC->TranslationTimes = new SEFloatArray(iNumTrnKeys,
             new float[iNumTrnKeys]);
-        pSEKFC->TranslationData = new Swing::Vector3fArray(iNumTrnKeys,
-            new Swing::Vector3f[iNumTrnKeys]);
+        pSEKFC->TranslationData = new SEVector3fArray(iNumTrnKeys,
+            new SEVector3f[iNumTrnKeys]);
     }
     if( iNumRotKeys > 0 )
     {
-        pSEKFC->RotationTimes = new Swing::FloatArray(iNumRotKeys,
+        pSEKFC->RotationTimes = new SEFloatArray(iNumRotKeys,
             new float[iNumRotKeys]);
-        pSEKFC->RotationData = new Swing::QuaternionfArray(iNumRotKeys,
-            new Swing::Quaternionf[iNumRotKeys]);
+        pSEKFC->RotationData = new SEQuaternionfArray(iNumRotKeys,
+            new SEQuaternionf[iNumRotKeys]);
     }
     if( iNumScaKeys > 0 )
     {
-        pSEKFC->ScaleTimes = new Swing::FloatArray(iNumScaKeys,
+        pSEKFC->ScaleTimes = new SEFloatArray(iNumScaKeys,
             new float[iNumScaKeys]);
-        pSEKFC->ScaleData = new Swing::FloatArray(iNumScaKeys,
+        pSEKFC->ScaleData = new SEFloatArray(iNumScaKeys,
             new float[iNumScaKeys]);
     }
 
     // 根据时间值进行升序排序.
     sort(tempKeyInfo.begin(), tempKeyInfo.end(), CompareKeyTimes);
 
-    Swing::Vector3f* pTKey = (pSEKFC->TranslationData ? 
+    SEVector3f* pTKey = (pSEKFC->TranslationData ? 
         pSEKFC->TranslationData->GetData() : NULL);
     float* pfTTime = (pSEKFC->TranslationTimes ?
         pSEKFC->TranslationTimes->GetData() : NULL);
 
-    Swing::Quaternionf* pRKey = (pSEKFC->RotationData ?
+    SEQuaternionf* pRKey = (pSEKFC->RotationData ?
         pSEKFC->RotationData->GetData() : NULL);
     float* pfRTime = (pSEKFC->RotationTimes ?
         pSEKFC->RotationTimes->GetData() : NULL);
@@ -192,7 +193,7 @@ void Max8SceneBuilder::BuildKeyFrameController(INode* pMaxNode,
         pSEKFC->ScaleTimes->GetData() : NULL);
 
     TimeValue iTimeNow = -1;
-    Swing::Transformation tempTransform;
+    SETransformation tempTransform;
     for( int i = 0; i < (int)tempKeyInfo.size(); i++ )
     {
         KeyInfo* pInfo = tempKeyInfo[i];
@@ -245,13 +246,13 @@ void Max8SceneBuilder::BuildKeyFrameController(INode* pMaxNode,
             }
             else
             {
-                fMax = Swing::Mathf::FAbs(tempTransform.GetScale().X);
-                float fAbs = Swing::Mathf::FAbs(tempTransform.GetScale().Y);
+                fMax = SEMathf::FAbs(tempTransform.GetScale().X);
+                float fAbs = SEMathf::FAbs(tempTransform.GetScale().Y);
                 if( fAbs > fMax )
                 {
                     fMax = fAbs;
                 }
-                fAbs = Swing::Mathf::FAbs(tempTransform.GetScale().Z);
+                fAbs = SEMathf::FAbs(tempTransform.GetScale().Z);
                 if( fAbs > fMax )
                 {
                     fMax = fAbs;
@@ -271,18 +272,18 @@ void Max8SceneBuilder::BuildKeyFrameController(INode* pMaxNode,
         delete pInfo;
     }
 
-    pSEKFC->Repeat = Swing::Controller::RT_WRAP;
+    pSEKFC->Repeat = SEController::RT_WRAP;
     pSEKFC->MinTime = TicksToSec(m_iTimeStart - m_iTimeOffset);
     pSEKFC->MaxTime = TicksToSec(m_iTimeEnd - m_iTimeOffset);
     pSENode->AttachController(pSEKFC);
 }
 //----------------------------------------------------------------------------
 void Max8SceneBuilder::BuildFrameController(INode* pNode,
-    Swing::Spatial* pSENode)
+    SESpatial* pSENode)
 {
     // 为一个具备动画信息的节点添加一个"桢控制器".
     // 这个函数导出该节点的所有桢,而不仅仅是关键桢.
-    // 为该节点所创建的Swing::KeyframeController带有该节点每桢的SRT变换信息.
+    // 为该节点所创建的SEKeyframeController带有该节点每桢的SRT变换信息.
     // 这显然不是最优的,在Swing Engine场景中,该节点相邻的两桢变换之间依然要被插值,
     // 然而,在动画师使用IK动画时,它将会有用,尽管导出器目前还不支持IK控制器.
     // 注意我们不支持非统一缩放变换的动画.
@@ -381,16 +382,16 @@ void Max8SceneBuilder::BuildFrameController(INode* pNode,
     // 待实现.
     // 判断是否有完全相同的数组,从而它们可以被共享.
 
-    Swing::KeyframeController* pSEKFCtrl = new Swing::KeyframeController;
+    SEKeyframeController* pSEKFCtrl = new SEKeyframeController;
     pSEKFCtrl->MinTime = TicksToSec(m_iTimeStart - m_iTimeOffset);
     pSEKFCtrl->MaxTime = TicksToSec(m_iTimeEnd - m_iTimeOffset);
-    pSEKFCtrl->Repeat = Swing::Controller::RT_WRAP;
+    pSEKFCtrl->Repeat = SEController::RT_WRAP;
 
     if( tempTData.size() > 1 )
     {
         int iNumTKeys = (int)tempTData.size();
         float* afTTime = new float[iNumTKeys];
-        Swing::Vector3f* aTData = new Swing::Vector3f[iNumTKeys];
+        SEVector3f* aTData = new SEVector3f[iNumTKeys];
         for( int i = 0; i < iNumTKeys; i++ )
         {
             afTTime[i] = TicksToSec(tempTTime[i] - m_iTimeOffset);
@@ -399,15 +400,15 @@ void Max8SceneBuilder::BuildFrameController(INode* pNode,
             aTData[i].Z = tempTData[i].y;
         }
 
-        pSEKFCtrl->TranslationTimes = new Swing::FloatArray(iNumTKeys, afTTime);
-        pSEKFCtrl->TranslationData = new Swing::Vector3fArray(iNumTKeys, aTData);
+        pSEKFCtrl->TranslationTimes = new SEFloatArray(iNumTKeys, afTTime);
+        pSEKFCtrl->TranslationData = new SEVector3fArray(iNumTKeys, aTData);
     }
 
     if( tempRData.size() > 1 )
     {
         int iNumRKeys = (int)tempRData.size();
         float* afRTime = new float[iNumRKeys];
-        Swing::Quaternionf* aRData = new Swing::Quaternionf[iNumRKeys];
+        SEQuaternionf* aRData = new SEQuaternionf[iNumRKeys];
         for( int i = 0; i < iNumRKeys; i++ )
         {
             afRTime[i] = TicksToSec(tempRTime[i] - m_iTimeOffset);
@@ -417,14 +418,14 @@ void Max8SceneBuilder::BuildFrameController(INode* pNode,
             aRData[i].Z = +tempRData[i].y;
 
             // DEBUGGING
-            Swing::Vector3f tempAxis;
+            SEVector3f tempAxis;
             float fAngle;
             aRData[i].ToAxisAngle(tempAxis, fAngle);
             int iStopHere = 0;
         }
 
-        pSEKFCtrl->RotationTimes = new Swing::FloatArray(iNumRKeys, afRTime);
-        pSEKFCtrl->RotationData = new Swing::QuaternionfArray(iNumRKeys, aRData);
+        pSEKFCtrl->RotationTimes = new SEFloatArray(iNumRKeys, afRTime);
+        pSEKFCtrl->RotationData = new SEQuaternionfArray(iNumRKeys, aRData);
     }
 
     if( tempSData.size() > 1 )
@@ -438,8 +439,8 @@ void Max8SceneBuilder::BuildFrameController(INode* pNode,
             afSData[i] = tempSData[i].x;
         }
 
-        pSEKFCtrl->ScaleTimes = new Swing::FloatArray(iNumSKeys, afSTime);
-        pSEKFCtrl->ScaleData = new Swing::FloatArray(iNumSKeys, afSData);
+        pSEKFCtrl->ScaleTimes = new SEFloatArray(iNumSKeys, afSTime);
+        pSEKFCtrl->ScaleData = new SEFloatArray(iNumSKeys, afSData);
     }
 
     pSENode->AttachController(pSEKFCtrl);

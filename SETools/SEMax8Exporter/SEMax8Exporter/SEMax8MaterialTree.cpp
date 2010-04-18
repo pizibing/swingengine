@@ -24,7 +24,7 @@ using namespace Swing;
 using namespace std;
 
 //----------------------------------------------------------------------------
-Max8MaterialTree::Max8MaterialTree(Swing::MaterialState* pSEMaterialState)
+Max8MaterialTree::Max8MaterialTree(Swing::SEMaterialState* pSEMaterialState)
 {
     m_spSEMaterialState = pSEMaterialState;
 }
@@ -39,12 +39,12 @@ int Max8MaterialTree::GetMChildCount() const
     return (int)m_MChild.size();
 }
 //----------------------------------------------------------------------------
-void Max8MaterialTree::SetMaterial(Swing::MaterialStatePtr spSEMaterialState)
+void Max8MaterialTree::SetMaterial(Swing::SEMaterialStatePtr spSEMaterialState)
 {
     m_spSEMaterialState = spSEMaterialState;
 }
 //----------------------------------------------------------------------------
-MaterialStatePtr Max8MaterialTree::GetMaterial() const
+SEMaterialStatePtr Max8MaterialTree::GetMaterial() const
 {
     return m_spSEMaterialState;
 }
@@ -64,7 +64,7 @@ int Max8MaterialTree::GetTChildCount() const
     return (int)m_TChild.size();
 }
 //----------------------------------------------------------------------------
-TexturePtr Max8MaterialTree::GetTexture(int i)
+SETexturePtr Max8MaterialTree::GetTexture(int i)
 {
     return m_TChild[i].GetTexture();
 }

@@ -108,25 +108,25 @@ private:
     };
 
     // 场景遍历
-    bool Traverse(INode* pMaxNode, Swing::Spatial* pSENode);
+    bool Traverse(INode* pMaxNode, Swing::SESpatial* pSENode);
 
     // node处理
-    Swing::Spatial* BuildGeometry(INode* pMaxNode, Swing::Spatial* pSENode);
-    Swing::Spatial* BuildSpatial(INode* pMaxNode, Swing::Spatial* pSENode);
-    Swing::Spatial* BuildMesh(INode* pMaxNode, Swing::Spatial* pSENode);
-    Swing::Transformation GetLocalTransform(INode* pNode, TimeValue iTime);
+    Swing::SESpatial* BuildGeometry(INode* pMaxNode, Swing::SESpatial* pSENode);
+    Swing::SESpatial* BuildSpatial(INode* pMaxNode, Swing::SESpatial* pSENode);
+    Swing::SESpatial* BuildMesh(INode* pMaxNode, Swing::SESpatial* pSENode);
+    Swing::SETransformation GetLocalTransform(INode* pNode, TimeValue iTime);
 
     // mesh处理
     TriObject* GetTriObject(INode* pNode, bool* pbNeedDel);
     void SplitGeometry(Mesh* pMaxMesh, int iMtlID,
         vector<Max8UnimaterialMesh*>& rUMeshes);
-    Swing::Vector3f GetVertexNormal(Mesh* pMaxMesh, int iFace, int iVertex);  
+    Swing::SEVector3f GetVertexNormal(Mesh* pMaxMesh, int iFace, int iVertex);  
     void PackColors(Max8UnimaterialMesh* pMesh, Mesh* pMaxMesh,
         vector<int>& rPartition);
     void PackTextures(Max8UnimaterialMesh* pUniMesh, Mesh* pMaxMesh,
         vector<int>& rPartition);
     void PackVertices(Max8UnimaterialMesh* pUniMesh, Mesh* pMaxMesh,
-        vector<int>& rPartition, Swing::Vector3f* aNormal);
+        vector<int>& rPartition, Swing::SEVector3f* aNormal);
 
     // material处理
     void ConvertMaterials(INode* pTopNode);
@@ -145,18 +145,18 @@ private:
 
     // light处理
     void BuildAmbientLight(void);
-    void BuildLight(INode* pMaxNode, Swing::Spatial* pSENode);
-    Swing::Vector3f GetLightLocation(INode* pNode);
-    Swing::Light* BuildPointLight(INode* pNode);
-    Swing::Light* BuildSpotLight(INode* pNode, LightState& rLightState);
-    Swing::Light* BuildDirectionalLight(INode* pNode);
+    void BuildLight(INode* pMaxNode, Swing::SESpatial* pSENode);
+    Swing::SEVector3f GetLightLocation(INode* pNode);
+    Swing::SELight* BuildPointLight(INode* pNode);
+    Swing::SELight* BuildSpotLight(INode* pNode, LightState& rLightState);
+    Swing::SELight* BuildDirectionalLight(INode* pNode);
 
     // animation处理
     static bool AreEqual(const Point3& rPoint1, const Point3& rPoint2);
     static bool AreEqual(const Quat& rQuat1, const Quat& rQuat2);
     static bool CompareKeyTimes(KeyInfo* pFirst, KeyInfo* pSecond);
-    void BuildKeyFrameController(INode* pMaxNode, Swing::Spatial* pSENode);
-    void BuildFrameController(INode* pNode, Swing::Spatial* pSENode);
+    void BuildKeyFrameController(INode* pMaxNode, Swing::SESpatial* pSENode);
+    void BuildFrameController(INode* pNode, Swing::SESpatial* pSENode);
     bool GetAnimationTiming(INode* pNode, AnimationTiming& rTTiming, 
         AnimationTiming& rRTiming, AnimationTiming& rSTiming);
     void GetTrnKeyInfo(int &riNumKeys, Class_ID& rClassID,
@@ -185,7 +185,7 @@ private:
     TimeValue m_iTimeStart;
     TimeValue m_iTimeEnd;
     TimeValue m_iTimeOffset;
-    Swing::NodePtr m_spSEScene;
+    Swing::SENodePtr m_spSEScene;
     vector<ModifierInfo*> m_ModList;
 
     static const float ATTENUATION;

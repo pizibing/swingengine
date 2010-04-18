@@ -34,23 +34,23 @@
 class Max8MaterialTree
 {
 public:
-    Max8MaterialTree(Swing::MaterialState* pSEMaterialState = NULL);
+    Max8MaterialTree(Swing::SEMaterialState* pSEMaterialState = NULL);
 
     // 材质子树
     void SetMChildCount(int iCount);
     int GetMChildCount(void) const;
-    void SetMaterial(Swing::MaterialStatePtr spSEMaterialState);
-    Swing::MaterialStatePtr GetMaterial(void) const;
+    void SetMaterial(Swing::SEMaterialStatePtr spSEMaterialState);
+    Swing::SEMaterialStatePtr GetMaterial(void) const;
     Max8MaterialTree& GetMChild(int i);
 
     // 纹理子树
     void SetTChildCount(int iCount);
     int GetTChildCount(void) const;
-    Swing::TexturePtr GetTexture(int i);
+    Swing::SETexturePtr GetTexture(int i);
     Max8TextureTree& GetTChild(int i);
 
 private:
-    Swing::MaterialStatePtr m_spSEMaterialState;
+    Swing::SEMaterialStatePtr m_spSEMaterialState;
     std::vector<Max8MaterialTree> m_MChild;
     std::vector<Max8TextureTree> m_TChild;
 };
