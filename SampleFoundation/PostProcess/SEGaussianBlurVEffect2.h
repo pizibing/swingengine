@@ -32,7 +32,7 @@ namespace Swing
 // 作者:Sun Che
 // 时间:20090715
 //----------------------------------------------------------------------------
-class GaussianBlurVEffect2 : public ShaderEffect
+class GaussianBlurVEffect2 : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -49,15 +49,15 @@ protected:
     // streaming
     GaussianBlurVEffect2(void);
 
-    virtual void OnLoadPrograms(int iPass, Program* pVProgram,
-        Program* pPProgram, Program* pGProgram);
+    virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
+        SEProgram* pPProgram, SEProgram* pGProgram);
 
     // x: 1/width y: 1/height z: direction
-    static Vector3f ms_TexelKernelStep;
+    static SEVector3f ms_TexelKernelStep;
     static bool ms_bUCInitialized;
 };
 
-typedef SmartPointer<GaussianBlurVEffect2> GaussianBlurVEffect2Ptr;
+typedef SESmartPointer<GaussianBlurVEffect2> GaussianBlurVEffect2Ptr;
 
 }
 

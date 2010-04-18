@@ -22,23 +22,23 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, GaussianBlurHEffect2, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, GaussianBlurHEffect2, SEShaderEffect);
 SE_IMPLEMENT_STREAM(GaussianBlurHEffect2);
-SE_IMPLEMENT_DEFAULT_STREAM(GaussianBlurHEffect2, ShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(GaussianBlurHEffect2, ShaderEffect);
+SE_IMPLEMENT_DEFAULT_STREAM(GaussianBlurHEffect2, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(GaussianBlurHEffect2, SEShaderEffect);
 
 SE_REGISTER_STREAM(GaussianBlurHEffect2);
 
-Vector3f GaussianBlurHEffect2::ms_TexelKernelStep = Vector3f::ZERO;
+SEVector3f GaussianBlurHEffect2::ms_TexelKernelStep = SEVector3f::ZERO;
 bool GaussianBlurHEffect2::ms_bUCInitialized = false;
 
 //----------------------------------------------------------------------------
 GaussianBlurHEffect2::GaussianBlurHEffect2(const std::string& rBaseName)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("GaussianBlur.main");
-    m_PShader[0] = SE_NEW PixelShader("GaussianBlur.main");
+    m_VShader[0] = SE_NEW SEVertexShader("GaussianBlur.main");
+    m_PShader[0] = SE_NEW SEPixelShader("GaussianBlur.main");
 
     m_PShader[0]->SetTextureCount(1);
     m_PShader[0]->SetImageName(0, rBaseName);
@@ -52,12 +52,12 @@ GaussianBlurHEffect2::~GaussianBlurHEffect2()
 {
 }
 //----------------------------------------------------------------------------
-void GaussianBlurHEffect2::OnLoadPrograms(int, Program* pVProgram, 
-    Program*, Program*)
+void GaussianBlurHEffect2::OnLoadPrograms(int, SEProgram* pVProgram, 
+    SEProgram*, SEProgram*)
 {
     if( !ms_bUCInitialized )
     {
-        UserConstant* pUC = pVProgram->GetUC("TexelKernelStep");
+        SEUserConstant* pUC = pVProgram->GetUC("TexelKernelStep");
         SE_ASSERT( pUC );
 
         if( pUC )

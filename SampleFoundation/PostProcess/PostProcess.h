@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-class PostProcess : public WindowApplication3
+class PostProcess : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -42,24 +42,24 @@ protected:
     void CreateTeapot(void);
     void CreateLights(void);
 
-    NodePtr m_spScene;
-    TriMeshPtr m_spTeapot;
-    WireframeStatePtr m_spWireframe;
-    Culler m_Culler;
+    SENodePtr m_spScene;
+    SETriMeshPtr m_spTeapot;
+    SEWireframeStatePtr m_spWireframe;
+    SECuller m_Culler;
 
-    CameraPtr m_spScreenCamera;
-    ImagePtr m_spSceneImage;
-    TriMeshPtr m_spScenePolygon1;
-    TriMeshPtr m_spScenePolygon2;
-    TriMeshPtr m_spScenePolygon3;
-    Texture* m_pSceneTarget1;
-    Texture* m_pSceneTarget2;
-    Texture* m_pSceneTarget3;
-    FrameBuffer* m_pFrameBuffer1;
-    FrameBuffer* m_pFrameBuffer2;
-    FrameBuffer* m_pFrameBuffer3;
+    SECameraPtr m_spScreenCamera;
+    SEImagePtr m_spSceneImage;
+    SETriMeshPtr m_spScenePolygon1;
+    SETriMeshPtr m_spScenePolygon2;
+    SETriMeshPtr m_spScenePolygon3;
+    SETexture* m_pSceneTarget1;
+    SETexture* m_pSceneTarget2;
+    SETexture* m_pSceneTarget3;
+    SEFrameBuffer* m_pFrameBuffer1;
+    SEFrameBuffer* m_pFrameBuffer2;
+    SEFrameBuffer* m_pFrameBuffer3;
 
-    LightPtr m_aspLight[2];
+    SELightPtr m_aspLight[2];
 
     bool m_bPostProcess;
 };

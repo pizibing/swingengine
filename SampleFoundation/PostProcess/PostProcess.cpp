@@ -28,8 +28,8 @@ SE_REGISTER_INITIALIZE(PostProcess);
 //----------------------------------------------------------------------------
 PostProcess::PostProcess()
     :
-    WindowApplication3("PostProcess", 0, 0, 640, 480, 
-        ColorRGBA(0.0f, 0.25f, 0.75f, 1.0f))
+    SEWindowApplication3("PostProcess", 0, 0, 640, 480, 
+        SEColorRGBA(0.0f, 0.25f, 0.75f, 1.0f))
 {
     m_pFrameBuffer1 = 0;
     m_pFrameBuffer2 = 0;
@@ -39,17 +39,17 @@ PostProcess::PostProcess()
 //----------------------------------------------------------------------------
 bool PostProcess::OnInitialize()
 {
-    if( !WindowApplication3::OnInitialize() )
+    if( !SEWindowApplication3::OnInitialize() )
     {
         return false;
     }
 
     // 创建camera.
     m_spCamera->SetFrustum(60.0f, 4.0f/3.0f, 1.0f, 100.0f);
-    Vector3f tempCLoc(0.0f, 0.0f, -10.0f);
-    Vector3f tempCDir(0.0f, 0.0f, 1.0f);
-    Vector3f tempCUp(0.0f, 1.0f, 0.0f);
-    Vector3f tempCRight = tempCUp.Cross(tempCDir);
+    SEVector3f tempCLoc(0.0f, 0.0f, -10.0f);
+    SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
+    SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
+    SEVector3f tempCRight = tempCUp.Cross(tempCDir);
     m_spCamera->SetFrame(tempCLoc, tempCRight, tempCUp, tempCDir);
 
     CreateScene();
@@ -68,9 +68,9 @@ bool PostProcess::OnInitialize()
 //----------------------------------------------------------------------------
 void PostProcess::OnTerminate()
 {
-    FrameBuffer::Destroy(m_pFrameBuffer1);
-    FrameBuffer::Destroy(m_pFrameBuffer2);
-    FrameBuffer::Destroy(m_pFrameBuffer3);
+    SEFrameBuffer::Destroy(m_pFrameBuffer1);
+    SEFrameBuffer::Destroy(m_pFrameBuffer2);
+    SEFrameBuffer::Destroy(m_pFrameBuffer3);
 
     m_spScene = 0;
     m_spTeapot = 0;
@@ -84,7 +84,7 @@ void PostProcess::OnTerminate()
     m_aspLight[0] = 0;
     m_aspLight[1] = 0;
 
-    WindowApplication3::OnTerminate();
+    SEWindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void PostProcess::OnIdle()
@@ -94,12 +94,12 @@ void PostProcess::OnIdle()
     static double dLastTime = 0.0f;
     static float fAngel = 0.0f;
     static float fR = 15.0f;
-    dCurTime = System::SE_GetTime();
+    dCurTime = SESystem::SE_GetTime();
     if( dCurTime - dLastTime > 0.01f )
     {
         dLastTime = dCurTime;
 
-        Matrix3f mat3fRot;
+        SEMatrix3f mat3fRot;
         mat3fRot.FromEulerAnglesXYZ(0.0f, 0.01f, 0.0f);
         m_spTeapot->Local.SetRotate(m_spTeapot->Local.GetRotate()*mat3fRot);
         m_spTeapot->UpdateGS();
@@ -125,7 +125,7 @@ void PostProcess::OnIdle()
         {
             // 把场景渲染到target 1(original scene).
             m_pFrameBuffer1->Enable();
-            m_pRenderer->SetClearColor(ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
+            m_pRenderer->SetClearColor(SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
             m_pRenderer->ClearBuffers();
             m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
             m_pFrameBuffer1->Disable();
@@ -148,13 +148,13 @@ void PostProcess::OnIdle()
         {
             // 把场景渲染到backbuffer.
             m_pRenderer->SetCamera(m_spCamera);
-            m_pRenderer->SetClearColor(ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
+            m_pRenderer->SetClearColor(SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
             m_pRenderer->ClearBuffers();
             m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
         }
 
         m_pRenderer->SetCamera(m_spCamera);
-        DrawFrameRate(8, 20, ColorRGBA::SE_RGBA_WHITE);
+        DrawFrameRate(8, 20, SEColorRGBA::SE_RGBA_WHITE);
 
         m_pRenderer->EndScene();
     }
@@ -165,12 +165,12 @@ void PostProcess::OnIdle()
 //----------------------------------------------------------------------------
 bool PostProcess::OnKeyDown(unsigned char ucKey, int iX, int iY)
 {
-    if( WindowApplication3::OnKeyDown(ucKey, iX, iY) )
+    if( SEWindowApplication3::OnKeyDown(ucKey, iX, iY) )
     {
         return true;
     }
 
-    Vector3f vec3fTrn;
+    SEVector3f vec3fTrn;
 
     switch( ucKey )
     {
@@ -197,34 +197,34 @@ void PostProcess::CreateScene()
 {
     // screen camera把[0, 1]^3区间上的(x, y, z)映射到[-1, 1]^2 x [0, 1]区间上
     // 的(x', y, 'z').
-    m_spScreenCamera = SE_NEW Camera;
+    m_spScreenCamera = SE_NEW SECamera;
     m_spScreenCamera->SetPerspective(false);
     m_spScreenCamera->SetFrustum(0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f);
-    m_spScreenCamera->SetFrame(Vector3f::ZERO, Vector3f::UNIT_X, 
-        Vector3f::UNIT_Y, Vector3f::UNIT_Z);
+    m_spScreenCamera->SetFrame(SEVector3f::ZERO, SEVector3f::UNIT_X, 
+        SEVector3f::UNIT_Y, SEVector3f::UNIT_Z);
 
-    m_spScene = SE_NEW Node;
-    m_spWireframe = SE_NEW WireframeState;
+    m_spScene = SE_NEW SENode;
+    m_spWireframe = SE_NEW SEWireframeState;
     m_spScene->AttachGlobalState(m_spWireframe);
 
     CreateLights();
     CreateTeapot();
 
-    Attributes tempAttrScenePoly;
+    SEAttributes tempAttrScenePoly;
     tempAttrScenePoly.SetPositionChannels(3);
     tempAttrScenePoly.SetTCoordChannels(0, 2);
 
     float fExtend = 1.0f;
-    VertexBuffer* pVBufferScenePoly = SE_NEW VertexBuffer(tempAttrScenePoly, 4);
-    pVBufferScenePoly->Position3(0) = Vector3f(0.0f, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(1) = Vector3f(fExtend, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(2) = Vector3f(fExtend, fExtend, 0.0f);
-    pVBufferScenePoly->Position3(3) = Vector3f(0.0f, fExtend, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 0) = Vector2f(0.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 1) = Vector2f(1.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 2) = Vector2f(1.0f, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 3) = Vector2f(0.0f, 0.0f);
-    IndexBuffer* pIBufferScenePoly = SE_NEW IndexBuffer(6);
+    SEVertexBuffer* pVBufferScenePoly = SE_NEW SEVertexBuffer(tempAttrScenePoly, 4);
+    pVBufferScenePoly->Position3(0) = SEVector3f(0.0f, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(1) = SEVector3f(fExtend, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(2) = SEVector3f(fExtend, fExtend, 0.0f);
+    pVBufferScenePoly->Position3(3) = SEVector3f(0.0f, fExtend, 0.0f);
+    pVBufferScenePoly->TCoord2(0, 0) = SEVector2f(0.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 1) = SEVector2f(1.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 2) = SEVector2f(1.0f, 0.0f);
+    pVBufferScenePoly->TCoord2(0, 3) = SEVector2f(0.0f, 0.0f);
+    SEIndexBuffer* pIBufferScenePoly = SE_NEW SEIndexBuffer(6);
     int* pIBufferDataScenePoly = pIBufferScenePoly->GetData();
     pIBufferDataScenePoly[0] = 0;  
     pIBufferDataScenePoly[1] = 3;  
@@ -232,43 +232,43 @@ void PostProcess::CreateScene()
     pIBufferDataScenePoly[3] = 1;  
     pIBufferDataScenePoly[4] = 3;  
     pIBufferDataScenePoly[5] = 2;
-    m_spScenePolygon1 = SE_NEW TriMesh(pVBufferScenePoly, pIBufferScenePoly);
+    m_spScenePolygon1 = SE_NEW SETriMesh(pVBufferScenePoly, pIBufferScenePoly);
 
     fExtend = 1.0f;
-    pVBufferScenePoly = SE_NEW VertexBuffer(tempAttrScenePoly, 4);
-    pVBufferScenePoly->Position3(0) = Vector3f(0.0f, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(1) = Vector3f(fExtend, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(2) = Vector3f(fExtend, fExtend, 0.0f);
-    pVBufferScenePoly->Position3(3) = Vector3f(0.0f, fExtend, 0.0f);
-    pVBufferScenePoly->TCoord2(0,0) = Vector2f(0.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 1) = Vector2f(1.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 2) = Vector2f(1.0f, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 3) = Vector2f(0.0f, 0.0f);
-    m_spScenePolygon2 = SE_NEW TriMesh(pVBufferScenePoly, pIBufferScenePoly);
+    pVBufferScenePoly = SE_NEW SEVertexBuffer(tempAttrScenePoly, 4);
+    pVBufferScenePoly->Position3(0) = SEVector3f(0.0f, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(1) = SEVector3f(fExtend, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(2) = SEVector3f(fExtend, fExtend, 0.0f);
+    pVBufferScenePoly->Position3(3) = SEVector3f(0.0f, fExtend, 0.0f);
+    pVBufferScenePoly->TCoord2(0,0) = SEVector2f(0.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 1) = SEVector2f(1.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 2) = SEVector2f(1.0f, 0.0f);
+    pVBufferScenePoly->TCoord2(0, 3) = SEVector2f(0.0f, 0.0f);
+    m_spScenePolygon2 = SE_NEW SETriMesh(pVBufferScenePoly, pIBufferScenePoly);
 
     fExtend = 1.0f;
     tempAttrScenePoly.SetTCoordChannels(1, 2);
-    pVBufferScenePoly = SE_NEW VertexBuffer(tempAttrScenePoly, 4);
-    pVBufferScenePoly->Position3(0) = Vector3f(0.0f, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(1) = Vector3f(fExtend, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(2) = Vector3f(fExtend, fExtend, 0.0f);
-    pVBufferScenePoly->Position3(3) = Vector3f(0.0f, fExtend, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 0) = Vector2f(0.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 1) = Vector2f(1.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 2) = Vector2f(1.0f, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 3) = Vector2f(0.0f, 0.0f);
-    pVBufferScenePoly->TCoord2(1, 0) = Vector2f(0.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(1, 1) = Vector2f(1.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(1, 2) = Vector2f(1.0f, 0.0f);
-    pVBufferScenePoly->TCoord2(1, 3) = Vector2f(0.0f, 0.0f);
-    m_spScenePolygon3 = SE_NEW TriMesh(pVBufferScenePoly, pIBufferScenePoly);
+    pVBufferScenePoly = SE_NEW SEVertexBuffer(tempAttrScenePoly, 4);
+    pVBufferScenePoly->Position3(0) = SEVector3f(0.0f, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(1) = SEVector3f(fExtend, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(2) = SEVector3f(fExtend, fExtend, 0.0f);
+    pVBufferScenePoly->Position3(3) = SEVector3f(0.0f, fExtend, 0.0f);
+    pVBufferScenePoly->TCoord2(0, 0) = SEVector2f(0.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 1) = SEVector2f(1.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 2) = SEVector2f(1.0f, 0.0f);
+    pVBufferScenePoly->TCoord2(0, 3) = SEVector2f(0.0f, 0.0f);
+    pVBufferScenePoly->TCoord2(1, 0) = SEVector2f(0.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(1, 1) = SEVector2f(1.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(1, 2) = SEVector2f(1.0f, 0.0f);
+    pVBufferScenePoly->TCoord2(1, 3) = SEVector2f(0.0f, 0.0f);
+    m_spScenePolygon3 = SE_NEW SETriMesh(pVBufferScenePoly, pIBufferScenePoly);
 
     int iWidth = 640, iHeight = 480;
     unsigned char* aucData = 0;
-    m_spSceneImage = SE_NEW Image(Image::IT_RGBA8888, iWidth, iHeight, 
+    m_spSceneImage = SE_NEW SEImage(SEImage::IT_RGBA8888, iWidth, iHeight, 
         aucData, "SceneImage");
 
-    ZBufferState* pState = SE_NEW ZBufferState();
+    SEZBufferState* pState = SE_NEW SEZBufferState();
     pState->Enabled = false;
 
 #if defined(SE_USING_OES2)
@@ -276,9 +276,9 @@ void PostProcess::CreateScene()
         SE_NEW GaussianBlurHEffect2("SceneImage");
     GaussianBlurHEffect2::GenerateTexelKernelStep(iWidth, iHeight);
 #else
-    GaussianBlurHEffect* pEffectScenePoly1 = 
-        SE_NEW GaussianBlurHEffect("SceneImage");
-    GaussianBlurHEffect::GenerateTexelKernel(iWidth, iHeight);
+    SEGaussianBlurHEffect* pEffectScenePoly1 = 
+        SE_NEW SEGaussianBlurHEffect("SceneImage");
+    SEGaussianBlurHEffect::GenerateTexelKernel(iWidth, iHeight);
 #endif
     m_pSceneTarget1 = pEffectScenePoly1->GetPTexture(0, 0);
     m_pSceneTarget1->SetOffscreenTexture(true);
@@ -289,9 +289,9 @@ void PostProcess::CreateScene()
     m_pRenderer->LoadResources(m_spScenePolygon1);
 
     // 创建绑定到纹理的RGBA frame buffer 1.
-    Texture** apTargets = SE_NEW Texture*[1];
+    SETexture** apTargets = SE_NEW SETexture*[1];
     apTargets[0] = m_pSceneTarget1;
-    m_pFrameBuffer1 = FrameBuffer::Create(m_eFormat, m_eDepth, m_eStencil,
+    m_pFrameBuffer1 = SEFrameBuffer::Create(m_eFormat, m_eDepth, m_eStencil,
         m_eBuffering, m_eMultisampling, m_pRenderer, 1, apTargets);
     SE_ASSERT( m_pFrameBuffer1 );
 
@@ -300,9 +300,9 @@ void PostProcess::CreateScene()
         SE_NEW GaussianBlurVEffect2("SceneImage");
     GaussianBlurVEffect2::GenerateTexelKernelStep(iWidth, iHeight);
 #else
-    GaussianBlurVEffect* pEffectScenePoly2 = 
-        SE_NEW GaussianBlurVEffect("SceneImage");
-    GaussianBlurVEffect::GenerateTexelKernel(iWidth, iHeight);
+    SEGaussianBlurVEffect* pEffectScenePoly2 = 
+        SE_NEW SEGaussianBlurVEffect("SceneImage");
+    SEGaussianBlurVEffect::GenerateTexelKernel(iWidth, iHeight);
 #endif
     m_pSceneTarget2 = pEffectScenePoly2->GetPTexture(0, 0);
     m_pSceneTarget2->SetOffscreenTexture(true);
@@ -313,14 +313,14 @@ void PostProcess::CreateScene()
     m_pRenderer->LoadResources(m_spScenePolygon2);
 
     // 创建绑定到纹理的RGBA frame buffer 2.
-    apTargets = SE_NEW Texture*[1];
+    apTargets = SE_NEW SETexture*[1];
     apTargets[0] = m_pSceneTarget2;
-    m_pFrameBuffer2 = FrameBuffer::Create(m_eFormat, m_eDepth, m_eStencil,
+    m_pFrameBuffer2 = SEFrameBuffer::Create(m_eFormat, m_eDepth, m_eStencil,
         m_eBuffering, m_eMultisampling, m_pRenderer, 1, apTargets);
     SE_ASSERT( m_pFrameBuffer2 );
 
-    CombineEffect* pEffectScenePoly3 = 
-        SE_NEW CombineEffect("SceneImage", "SceneImage");
+    SECombineEffect* pEffectScenePoly3 = 
+        SE_NEW SECombineEffect("SceneImage", "SceneImage");
     pEffectScenePoly3->SetPTexture(0, 0, m_pSceneTarget1);
     m_pSceneTarget3 = pEffectScenePoly3->GetPTexture(0, 1);
     m_pSceneTarget3->SetOffscreenTexture(true);
@@ -330,9 +330,9 @@ void PostProcess::CreateScene()
     m_pRenderer->LoadResources(m_spScenePolygon3);
 
     // 创建绑定到纹理的RGBA frame buffer 3.
-    apTargets = SE_NEW Texture*[1];
+    apTargets = SE_NEW SETexture*[1];
     apTargets[0] = m_pSceneTarget3;
-    m_pFrameBuffer3 = FrameBuffer::Create(m_eFormat, m_eDepth, m_eStencil,
+    m_pFrameBuffer3 = SEFrameBuffer::Create(m_eFormat, m_eDepth, m_eStencil,
         m_eBuffering, m_eMultisampling, m_pRenderer, 1, apTargets);
     SE_ASSERT( m_pFrameBuffer3 );
 }
@@ -340,33 +340,33 @@ void PostProcess::CreateScene()
 void PostProcess::CreateTeapot()
 {
     // polished egg.
-    MaterialState* pEggMaterial = SE_NEW MaterialState;
-    pEggMaterial->Ambient = ColorRGB(1.0f, 0.92f, 0.804f)*0.1f;
-    pEggMaterial->Diffuse = ColorRGB(1.0f, 0.92f, 0.804f)*0.9f;
-    pEggMaterial->Specular = ColorRGB(0.4f, 0.4f, 0.4f);
+    SEMaterialState* pEggMaterial = SE_NEW SEMaterialState;
+    pEggMaterial->Ambient = SEColorRGB(1.0f, 0.92f, 0.804f)*0.1f;
+    pEggMaterial->Diffuse = SEColorRGB(1.0f, 0.92f, 0.804f)*0.9f;
+    pEggMaterial->Specular = SEColorRGB(0.4f, 0.4f, 0.4f);
     pEggMaterial->Shininess = 50.0f;
 
-    Stream tempStream;
-    const char* acPath = System::SE_GetPath("teapot.seof", System::SM_READ);
+    SEStream tempStream;
+    const char* acPath = SESystem::SE_GetPath("teapot.seof", SESystem::SM_READ);
     SE_ASSERT( acPath );
     bool bLoaded = tempStream.Load(acPath);
     SE_ASSERT( bLoaded );
     (void)bLoaded;
 
-    Node* pSceneLoaded = DynamicCast<Node>(tempStream.GetObjectAt(0));
-    m_spTeapot = DynamicCast<TriMesh>(pSceneLoaded->GetChild(0));
+    SENode* pSceneLoaded = DynamicCast<SENode>(tempStream.GetObjectAt(0));
+    m_spTeapot = DynamicCast<SETriMesh>(pSceneLoaded->GetChild(0));
     SE_ASSERT( m_spTeapot );
 
 #if defined(SE_USING_OES2)
-    m_spTeapot->LightingMode = Geometry::GLM_PIPELINE_VERTEX;
+    m_spTeapot->LightingMode = SEGeometry::GLM_PIPELINE_VERTEX;
 #else
-    m_spTeapot->LightingMode = Geometry::GLM_PIPELINE_PIXEL;
+    m_spTeapot->LightingMode = SEGeometry::GLM_PIPELINE_PIXEL;
 #endif
 
     m_spTeapot->GenerateNormals();
     m_spTeapot->AttachGlobalState(pEggMaterial);
     m_spTeapot->Local.SetUniformScale(20.0f);
-    m_spTeapot->Local.SetTranslate(Vector3f(0.0f, -3.0f, 0.0f));
+    m_spTeapot->Local.SetTranslate(SEVector3f(0.0f, -3.0f, 0.0f));
     m_spTeapot->DetachAllEffects();
 
     m_spScene->AttachChild(pSceneLoaded);
@@ -374,17 +374,17 @@ void PostProcess::CreateTeapot()
 //----------------------------------------------------------------------------
 void PostProcess::CreateLights()
 {
-    m_aspLight[0] = SE_NEW Light(Light::LT_AMBIENT);
-    m_aspLight[1] = SE_NEW Light(Light::LT_DIRECTIONAL);
+    m_aspLight[0] = SE_NEW SELight(SELight::LT_AMBIENT);
+    m_aspLight[1] = SE_NEW SELight(SELight::LT_DIRECTIONAL);
 
     float fValue = 0.75f;
-    m_aspLight[0]->Ambient = ColorRGB(fValue, fValue, fValue);
+    m_aspLight[0]->Ambient = SEColorRGB(fValue, fValue, fValue);
 
-    fValue = Mathf::Sqrt(1.0f/3.0f);
-    m_aspLight[1]->DVector = Vector3f(-fValue, -fValue, +fValue);
-    m_aspLight[1]->Ambient = ColorRGB::SE_RGB_WHITE;
-    m_aspLight[1]->Diffuse = ColorRGB::SE_RGB_WHITE;
-    m_aspLight[1]->Specular = ColorRGB::SE_RGB_WHITE;
+    fValue = SEMathf::Sqrt(1.0f/3.0f);
+    m_aspLight[1]->DVector = SEVector3f(-fValue, -fValue, +fValue);
+    m_aspLight[1]->Ambient = SEColorRGB::SE_RGB_WHITE;
+    m_aspLight[1]->Diffuse = SEColorRGB::SE_RGB_WHITE;
+    m_aspLight[1]->Specular = SEColorRGB::SE_RGB_WHITE;
 
     m_spScene->AttachLight(m_aspLight[0]);
     m_spScene->AttachLight(m_aspLight[1]);
