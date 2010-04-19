@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-class Billboard : public WindowApplication3
+class Billboard : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -40,10 +40,10 @@ public:
 protected:
     void CreateScene(void);
 
-    NodePtr m_spScene;
-    BillboardNodePtr m_spBillboard0;
-    WireframeStatePtr m_spWireframe;
-    Culler m_Culler;
+    SENodePtr m_spScene;
+    SEBillboardNodePtr m_spBillboard0;
+    SEWireframeStatePtr m_spWireframe;
+    SECuller m_Culler;
 };
 
 #endif

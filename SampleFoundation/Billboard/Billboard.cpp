@@ -27,23 +27,23 @@ SE_REGISTER_INITIALIZE(Billboard);
 //----------------------------------------------------------------------------
 Billboard::Billboard()
     :
-    WindowApplication3("Billboard", 0, 0, 640, 480, 
-        ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
+    SEWindowApplication3("Billboard", 0, 0, 640, 480, 
+        SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
 }
 //----------------------------------------------------------------------------
 bool Billboard::OnInitialize()
 {
-    if( !WindowApplication3::OnInitialize() )
+    if( !SEWindowApplication3::OnInitialize() )
     {
         return false;
     }
 
     m_spCamera->SetFrustum(-0.55f, 0.55f, -0.4125f, 0.4125f, 1.0f, 100.0f);
-    Vector3f tempCLoc(0.0f, 0.0f, -5.0f);
-    Vector3f tempCDir(0.0f, 0.0f, 1.0f);
-    Vector3f tempCUp(0.0f, 1.0f, 0.0f);
-    Vector3f tempCRight = tempCUp.Cross(tempCDir);
+    SEVector3f tempCLoc(0.0f, 0.0f, -5.0f);
+    SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
+    SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
+    SEVector3f tempCRight = tempCUp.Cross(tempCDir);
     m_spCamera->SetFrame(tempCLoc, tempCRight, tempCUp, tempCDir);
 
     CreateScene();
@@ -64,7 +64,7 @@ void Billboard::OnTerminate()
     m_spScene = 0;
     m_spBillboard0 = 0;
     m_spWireframe = 0;
-    WindowApplication3::OnTerminate();
+    SEWindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void Billboard::OnIdle()
@@ -87,7 +87,7 @@ void Billboard::OnIdle()
     if( m_pRenderer->BeginScene() )
     {
         m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
-        DrawFrameRate(8, 20, ColorRGBA::SE_RGBA_WHITE);
+        DrawFrameRate(8, 20, SEColorRGBA::SE_RGBA_WHITE);
         m_pRenderer->EndScene();
     }
     m_pRenderer->DisplayBackBuffer();
@@ -97,7 +97,7 @@ void Billboard::OnIdle()
 //----------------------------------------------------------------------------
 bool Billboard::OnKeyDown(unsigned char ucKey, int iX, int iY)
 {
-    if( WindowApplication3::OnKeyDown(ucKey, iX, iY) )
+    if( SEWindowApplication3::OnKeyDown(ucKey, iX, iY) )
     {
         return true;
     }
@@ -125,30 +125,30 @@ bool Billboard::OnKeyDown(unsigned char ucKey, int iX, int iY)
 //----------------------------------------------------------------------------
 void Billboard::CreateScene()
 {
-    m_spScene = SE_NEW Node;
-    m_spWireframe = SE_NEW WireframeState;
+    m_spScene = SE_NEW SENode;
+    m_spWireframe = SE_NEW SEWireframeState;
     m_spScene->AttachGlobalState(m_spWireframe);
 
-    m_spBillboard0 = SE_NEW BillboardNode(m_spCamera);
+    m_spBillboard0 = SE_NEW SEBillboardNode(m_spCamera);
     m_spScene->AttachChild(m_spBillboard0);
 
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetTCoordChannels(0, 2);
-    StandardMesh tempSM(tempAttr);
+    SEStandardMesh tempSM(tempAttr);
 
-    TriMesh* pMesh = tempSM.Rectangle(2, 2, 1.0f, 1.0f);
+    SETriMesh* pMesh = tempSM.Rectangle(2, 2, 1.0f, 1.0f);
     m_spBillboard0->AttachChild(pMesh);
-    ShaderEffect* pEffect = SE_NEW TextureEffect("kate");
+    SEShaderEffect* pEffect = SE_NEW SETextureEffect("kate");
     pMesh->AttachEffect(pEffect);
 
     // floor.
     pMesh = tempSM.Rectangle(4, 4, 5.0f, 5.0f);
-    Matrix3f mat3fRot(Vector3f::UNIT_X, Mathf::PI/2.0f);
+    SEMatrix3f mat3fRot(SEVector3f::UNIT_X, SEMathf::PI/2.0f);
     pMesh->Local.SetRotate(mat3fRot);
-    pMesh->Local.SetTranslate(Vector3f(0.0f, -1.0f, 0.0f));
+    pMesh->Local.SetTranslate(SEVector3f(0.0f, -1.0f, 0.0f));
     m_spScene->AttachChild(pMesh);
-    pEffect = SE_NEW TextureEffect("wood512");
+    pEffect = SE_NEW SETextureEffect("wood512");
     pMesh->AttachEffect(pEffect);
 }
 //----------------------------------------------------------------------------
