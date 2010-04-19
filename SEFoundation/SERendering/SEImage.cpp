@@ -441,44 +441,15 @@ void SEImage::Load(SEStream& rStream, SEStream::SELink* pLink)
     int iTemp;
     rStream.Read(iTemp);
     m_eFormat = (FormatMode)iTemp;
-    if( rStream.GetVersion() >= SEStreamVersion(3, 2) )
-    {
-        rStream.Read(m_iDimension);
-    }
-    else
-    {
-        m_iDimension = 2;
-    }
+    rStream.Read(m_iDimension);
     rStream.Read(m_Bound[0]);
     rStream.Read(m_Bound[1]);
-    if( rStream.GetVersion() >= SEStreamVersion(3, 2) )
-    {
-        rStream.Read(m_Bound[2]);
-    }
-    else
-    {
-        m_Bound[2] = 1;
-    }
+    rStream.Read(m_Bound[2]);
     rStream.Read(m_iCount);
 
-    if( rStream.GetVersion() >= SEStreamVersion(3, 2) )
-    {
-        int iBytes = ms_BytesPerPixel[m_eFormat]*m_iCount;
-        m_pData = SE_NEW unsigned char[iBytes];
-        rStream.Read(iBytes, m_pData);
-    }
-    else
-    {
-        bool bHasData;
-        rStream.Read(bHasData);
-        if( bHasData )
-        {
-            int iBytes = ms_BytesPerPixel[m_eFormat] *
-                m_Bound[0]*m_Bound[1];
-            m_pData = SE_NEW unsigned char[iBytes];
-            rStream.Read(iBytes, m_pData);
-        }
-    }
+    int iBytes = ms_BytesPerPixel[m_eFormat]*m_iCount;
+    m_pData = SE_NEW unsigned char[iBytes];
+    rStream.Read(iBytes, m_pData);
 
     m_bIsInCatalog = true;
     SEImageCatalog::GetActive()->Insert(this);
@@ -504,24 +475,12 @@ void SEImage::Save(SEStream& rStream) const
 
     // native data
     rStream.Write((int)m_eFormat);
-    rStream.Write(m_iDimension);  // SEStreamVersion(3, 2)
+    rStream.Write(m_iDimension);
     rStream.Write(m_Bound[0]);
     rStream.Write(m_Bound[1]);
-    rStream.Write(m_Bound[2]);  // SEStreamVersion(3, 2)
+    rStream.Write(m_Bound[2]);
     rStream.Write(m_iCount);
 
-    // TO DO.  This was here to convert to new seif format for
-    // multidimensional images?
-    //
-    // SEStreamVersion(3, 2)
-    //bool bHasData = (m_pData ? true : false);
-    //rStream.Write(bHasData);
-    //if( bHasData)
-    //{
-    //    int iBytes = ms_BytesPerPixel[m_eFormat]*m_Bound[0]*
-    //        m_Bound[1];
-    //    rStream.Write(iBytes,m_pData);
-    //}
     int iBytes = ms_BytesPerPixel[m_eFormat]*m_iCount;
     rStream.Write(iBytes, m_pData);
 
@@ -533,33 +492,15 @@ int SEImage::GetDiskUsed(const SEStreamVersion& rVersion) const
     int iSize = SEObject::GetDiskUsed(rVersion) +
         sizeof(int); // m_eFormat
 
-    if( rVersion >= SEStreamVersion(3, 2) )
-    {
-        iSize +=
-            sizeof(m_iDimension) +
-            sizeof(m_Bound[0]) +
-            sizeof(m_Bound[1]) +
-            sizeof(m_Bound[2]) +
-            sizeof(m_iCount);
+    iSize +=
+        sizeof(m_iDimension) +
+        sizeof(m_Bound[0]) +
+        sizeof(m_Bound[1]) +
+        sizeof(m_Bound[2]) +
+        sizeof(m_iCount);
 
-        int iBytes = ms_BytesPerPixel[m_eFormat]*m_iCount;
-        iSize += iBytes*sizeof(m_pData[0]);
-    }
-    else
-    {
-        iSize +=
-            sizeof(m_Bound[0]) +
-            sizeof(m_Bound[1]) +
-            sizeof(m_iCount);
-
-        iSize++;  // existence of data stored as Boolean flag
-        if( m_pData )
-        {
-            int iBytes = ms_BytesPerPixel[m_eFormat] *
-                m_Bound[0]*m_Bound[1];
-            iSize += iBytes*sizeof(m_pData[0]);
-        }
-    }
+    int iBytes = ms_BytesPerPixel[m_eFormat]*m_iCount;
+    iSize += iBytes*sizeof(m_pData[0]);
 
     return iSize;
 }

@@ -563,18 +563,9 @@ void SESpatial::Load(SEStream& rStream, SEStream::SELink* pLink)
     // native data
     rStream.Read(Local);
     rStream.Read(World);
-    if( rStream.GetVersion() >= SEStreamVersion(3, 1) )
-    {
-        int iTemp;
-        rStream.Read(iTemp);
-        Culling = (CullingMode)iTemp;
-    }
-    else
-    {
-        bool bForceCull;
-        rStream.Read(bForceCull);
-        Culling = (bForceCull ? CULL_ALWAYS : CULL_DYNAMIC);
-    }
+    int iTemp;
+    rStream.Read(iTemp);
+    Culling = (CullingMode)iTemp;
 
     rStream.Read(WorldIsCurrent);
     rStream.Read(WorldBoundIsCurrent);
@@ -738,14 +729,7 @@ int SESpatial::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(char) + // WorldBoundIsCurrent
         sizeof(WorldBound);
 
-    if( rVersion >= SEStreamVersion(3,1) )
-    {
-        iSize += sizeof(int); // Culling
-    }
-    else
-    {
-        iSize += sizeof(char);  // ForceCull
-    }
+    iSize += sizeof(int); // Culling
 
     iSize +=
         sizeof(int) + ((int)m_GlobalStates.size())*sizeof(SEGlobalStatePtr) +
