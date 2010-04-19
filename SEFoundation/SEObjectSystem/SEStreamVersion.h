@@ -25,11 +25,11 @@
 #include "SEPlatforms.h"
 #include "SESystem.h"
 
-// Scene graphs are stored in files with extension wmof.  The header is of the
-// form "Wild Magic Object File 3.xx" where the major version is 4 and the
-// the minor version is xx in [00,99].  The length of the string is 27, but
+// Scene graphs are stored in files with extension seof. The header is of the
+// form "Swing Engine Object File 1.xx" where the major version is 1 and the
+// the minor version is xx in [00,99]. The length of the string is 29, but
 // the null terminator is written to disk, so total number of file bytes used
-// by the version is 28.  The current version is "3.02"
+// by the version is 30. The current version is "1.00"
 
 namespace Swing
 {
@@ -42,33 +42,33 @@ namespace Swing
 class SE_FOUNDATION_API SEStreamVersion
 {
 public:
-    static const int MAJOR;     // 3
-    static const int MINOR;     // 2
-    static const char LABEL[];  // "Wild Magic Object File 3.02"
-    static const int LENGTH;    // 28 = strlen(LABEL)+1
+    static const int MAJOR;     // 1
+    static const int MINOR;     // 0
+    static const char LABEL[];  // "Swing Engine Object File 1.00"
+    static const int LENGTH;    // 30 = strlen(LABEL)+1
     static const SEStreamVersion CURRENT;
 
-    SEStreamVersion (int iMajor = MAJOR, int iMinor = MINOR);
-    SEStreamVersion (const char* pString);
+    SEStreamVersion(int iMajor = MAJOR, int iMinor = MINOR);
+    SEStreamVersion(const char* pString);
 
-    int GetMajor () const;
-    int GetMinor () const;
+    int GetMajor(void) const;
+    int GetMinor(void) const;
 
-    // The version is valid if major is 3 and minor in [0,99].
-    bool IsValid () const;
+    // The version is valid if major is 1 and minor in [0,99].
+    bool IsValid(void) const;
 
-    // For comparisons of versions.  This is useful in the SEStream support in
+    // For comparisons of versions. This is useful in the SEStream support in
     // an SEObject-derived class whenever a change to that class causes a file
     // format change.
-    bool operator== (const SEStreamVersion& rVersion) const;
-    bool operator!= (const SEStreamVersion& rVersion) const;
-    bool operator<  (const SEStreamVersion& rVersion) const;
-    bool operator<= (const SEStreamVersion& rVersion) const;
-    bool operator>  (const SEStreamVersion& rVersion) const;
-    bool operator>= (const SEStreamVersion& rVersion) const;
+    bool operator == (const SEStreamVersion& rVersion) const;
+    bool operator != (const SEStreamVersion& rVersion) const;
+    bool operator <  (const SEStreamVersion& rVersion) const;
+    bool operator <= (const SEStreamVersion& rVersion) const;
+    bool operator >  (const SEStreamVersion& rVersion) const;
+    bool operator >= (const SEStreamVersion& rVersion) const;
 
 protected:
-    int GetCombined () const;  // 100*major + minor
+    int GetCombined(void) const;  // 100*major + minor
 
     int m_iMajor, m_iMinor;
 };

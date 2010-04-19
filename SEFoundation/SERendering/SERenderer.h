@@ -134,7 +134,7 @@ public:
     virtual void ClearBuffers(int iXPos, int iYPos, int iWidth,
         int iHeight) = 0;
 
-    // SEObject rendering entry point.
+    // Geometry object rendering entry point.
     virtual void DrawScene(SEUnculledSet& rVisibleSet);
     virtual void Draw(SEGeometry* pGeometry);
 
@@ -162,9 +162,9 @@ public:
         MAX_VP_TYPES
     };
 
-    // SEGeometry shader profiles.
-    // SEGeometry shader stage is an optional stage,
-    // DirectX10 and OpenGL3 could support it for now.
+    // Geometry shader profiles.
+    // Geometry shader stage is an optional stage,
+    // DirectX10 and OpenGL3 could support it.
     enum
     {
         GS_UNSUPPORTED, // Unsupported by current renderer

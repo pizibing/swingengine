@@ -23,10 +23,10 @@
 
 using namespace Swing;
 
-const int SEImageVersion::MAJOR = 4;
+const int SEImageVersion::MAJOR = 1;
 const int SEImageVersion::MINOR = 0;
-const char SEImageVersion::LABEL[] = "Wild Magic Image File 4.00";
-const int SEImageVersion::LENGTH = 27;
+const char SEImageVersion::LABEL[] = "Swing Engine Image File 1.00";
+const int SEImageVersion::LENGTH = 29;
 const SEImageVersion SEImageVersion::CURRENT(MAJOR, MINOR);
 
 //----------------------------------------------------------------------------
@@ -42,9 +42,9 @@ SEImageVersion::SEImageVersion(const char* pString)
     m_iMinor = -1;
 
     if( pString
-    &&  strlen(pString) >= LENGTH-1
-    &&  pString[LENGTH-1] == 0
-    &&  strncmp(pString, LABEL, LENGTH-5) == 0 )  // 5 = strlen(" x.yy")
+        &&  strlen(pString) >= LENGTH-1
+        &&  pString[LENGTH-1] == 0
+        &&  strncmp(pString, LABEL, LENGTH-5) == 0 )  // 5 = strlen(" x.yy")
     {
         // The version string is "x.yy".
         const char* pVersion = pString + LENGTH - 5;

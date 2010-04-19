@@ -23,28 +23,28 @@
 
 using namespace Swing;
 
-const int SEStreamVersion::MAJOR = 3;
-const int SEStreamVersion::MINOR = 2;
-const char SEStreamVersion::LABEL[] = "Wild Magic Object File 3.02";
-const int SEStreamVersion::LENGTH = 28;
+const int SEStreamVersion::MAJOR = 1;
+const int SEStreamVersion::MINOR = 0;
+const char SEStreamVersion::LABEL[] = "Swing Engine Object File 1.00";
+const int SEStreamVersion::LENGTH = 30;
 const SEStreamVersion SEStreamVersion::CURRENT(MAJOR,MINOR);
 
 //----------------------------------------------------------------------------
-SEStreamVersion::SEStreamVersion (int iMajor, int iMinor)
+SEStreamVersion::SEStreamVersion(int iMajor, int iMinor)
 {
     m_iMajor = iMajor;
     m_iMinor = iMinor;
 }
 //----------------------------------------------------------------------------
-SEStreamVersion::SEStreamVersion (const char* pString)
+SEStreamVersion::SEStreamVersion(const char* pString)
 {
     m_iMajor = -1;
     m_iMinor = -1;
 
-    if( pString
-    &&  strlen(pString) >= LENGTH-1
-    &&  pString[LENGTH-1] == 0
-    &&  strncmp(pString,LABEL,LENGTH-5) == 0)  // 5 = strlen(" 3.xx")
+    if( pString 
+        &&  strlen(pString) >= LENGTH-1 
+        &&  pString[LENGTH-1] == 0 
+        &&  strncmp(pString, LABEL, LENGTH-5) == 0 )  // 5 = strlen(" 1.xx")
     {
         // The version string is "x.yy".
         const char* acVersion = pString + LENGTH - 5;
@@ -53,60 +53,60 @@ SEStreamVersion::SEStreamVersion (const char* pString)
     }
 }
 //----------------------------------------------------------------------------
-bool SEStreamVersion::IsValid () const
+bool SEStreamVersion::IsValid() const
 {
     return m_iMajor == SEStreamVersion::MAJOR
         && 0 <= m_iMinor && m_iMinor < 100;
 }
 //----------------------------------------------------------------------------
-int SEStreamVersion::GetMajor () const
+int SEStreamVersion::GetMajor() const
 {
     return m_iMajor;
 }
 //----------------------------------------------------------------------------
-int SEStreamVersion::GetMinor () const
+int SEStreamVersion::GetMinor() const
 {
     return m_iMinor;
 }
 //----------------------------------------------------------------------------
-int SEStreamVersion::GetCombined () const
+int SEStreamVersion::GetCombined() const
 {
     return 100*m_iMajor + m_iMinor;
 }
 //----------------------------------------------------------------------------
-bool SEStreamVersion::operator== (const SEStreamVersion& rVersion) const
+bool SEStreamVersion::operator==(const SEStreamVersion& rVersion) const
 {
-    SE_ASSERT(IsValid() && rVersion.IsValid());
+    SE_ASSERT( IsValid() && rVersion.IsValid() );
     return GetCombined() == rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool SEStreamVersion::operator!= (const SEStreamVersion& rVersion) const
+bool SEStreamVersion::operator!=(const SEStreamVersion& rVersion) const
 {
-    SE_ASSERT(IsValid() && rVersion.IsValid());
+    SE_ASSERT( IsValid() && rVersion.IsValid() );
     return GetCombined() != rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool SEStreamVersion::operator< (const SEStreamVersion& rVersion) const
+bool SEStreamVersion::operator<(const SEStreamVersion& rVersion) const
 {
-    SE_ASSERT(IsValid() && rVersion.IsValid());
+    SE_ASSERT( IsValid() && rVersion.IsValid() );
     return GetCombined() < rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool SEStreamVersion::operator<= (const SEStreamVersion& rVersion) const
+bool SEStreamVersion::operator<=(const SEStreamVersion& rVersion) const
 {
-    SE_ASSERT(IsValid() && rVersion.IsValid());
+    SE_ASSERT( IsValid() && rVersion.IsValid() );
     return GetCombined() <= rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool SEStreamVersion::operator> (const SEStreamVersion& rVersion) const
+bool SEStreamVersion::operator>(const SEStreamVersion& rVersion) const
 {
-    SE_ASSERT(IsValid() && rVersion.IsValid());
+    SE_ASSERT( IsValid() && rVersion.IsValid() );
     return GetCombined() > rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------
-bool SEStreamVersion::operator>= (const SEStreamVersion& rVersion) const
+bool SEStreamVersion::operator>=(const SEStreamVersion& rVersion) const
 {
-    SE_ASSERT(IsValid() && rVersion.IsValid());
+    SE_ASSERT( IsValid() && rVersion.IsValid() );
     return GetCombined() >= rVersion.GetCombined();
 }
 //----------------------------------------------------------------------------

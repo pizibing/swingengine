@@ -25,22 +25,27 @@
 #include "SEPlatforms.h"
 #include "SESystem.h"
 
-// Images are stored in files with extension wmif.  The header is of the
-// form "Wild Magic Image File 4.xx" where the major version is 4 and the
-// the minor version is xx in [00,99].  The length of the string is 26, but
+// Images are stored in files with extension seif. The header is of the
+// form "Swing Engine Image File 1.xx" where the major version is 1 and the
+// the minor version is xx in [00,99]. The length of the string is 28, but
 // the null terminator is written to disk, so total number of file bytes used
-// by the version is 27.  The current version is "4.00"
+// by the version is 29. The current version is "1.00"
 
 namespace Swing
 {
 
+//----------------------------------------------------------------------------
+// Description:
+// Author:Sun Che
+// Date:20080629
+//----------------------------------------------------------------------------
 class SE_FOUNDATION_API SEImageVersion
 {
 public:
-    static const int MAJOR;     // 4
+    static const int MAJOR;     // 1
     static const int MINOR;     // 0
-    static const char LABEL[];  // "Wild Magic Image File 4.00"
-    static const int LENGTH;    // 27 = strlen(LABEL)+1
+    static const char LABEL[];  // "Swing Engine Image File 1.00"
+    static const int LENGTH;    // 29 = strlen(LABEL)+1
     static const SEImageVersion CURRENT;
 
     SEImageVersion(int iMajor = -1, int iMinor = -1);
@@ -49,10 +54,10 @@ public:
     int GetMajor(void) const;
     int GetMinor(void) const;
 
-    // The version is valid if major is 4 and minor in [0,99].
+    // The version is valid if major is 1 and minor in [0,99].
     bool IsValid(void) const;
 
-    // For comparisons of versions.  This is useful whenever a change to the
+    // For comparisons of versions. This is useful whenever a change to the
     // SEImage class causes a file format change.
     bool operator == (const SEImageVersion& rVersion) const;
     bool operator != (const SEImageVersion& rVersion) const;
