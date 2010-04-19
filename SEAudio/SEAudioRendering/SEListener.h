@@ -41,9 +41,9 @@ namespace Swing
 class SEAudioRenderer;
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20090618
+// Description:
+// Author:Sun Che
+// Date:20090618
 //----------------------------------------------------------------------------
 class SE_AUDIO_API SEListener : public SEObject
 {

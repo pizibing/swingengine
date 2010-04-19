@@ -24,20 +24,19 @@
 #include "SEAudioLIB.h"
 #include "SESystem.h"
 
-// Waves are stored in files with extension sewf.  The header is of the
+// Waves are stored in files with extension sewf. The header is of the
 // form "Swing Engine Wave File 1.xx" where the major version is 1 and the
-// the minor version is xx in [00,99].  The length of the string is 27, but
+// the minor version is xx in [00,99]. The length of the string is 27, but
 // the null terminator is written to disk, so total number of file bytes used
-// by the version is 28.  The current version is "1.00"
+// by the version is 28. The current version is "1.00"
 
 namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:wave version类
-// 说明:
-// 作者:Sun Che
-// 时间:20090617
+// Description:
+// Author:Sun Che
+// Date:20090617
 //----------------------------------------------------------------------------
 class SE_AUDIO_API SEWaveVersion
 {
@@ -57,7 +56,7 @@ public:
     // The version is valid if major is 1 and minor in [0,99].
     bool IsValid(void) const;
 
-    // For comparisons of versions.  This is useful whenever a change to the
+    // For comparisons of versions. This is useful whenever a change to the
     // SEWave class causes a file format change.
     bool operator == (const SEWaveVersion& rVersion) const;
     bool operator != (const SEWaveVersion& rVersion) const;

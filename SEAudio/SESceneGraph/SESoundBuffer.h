@@ -30,9 +30,9 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 说明:wave数据可以作为音频资源绑定给音频设备.
-// 作者:Sun Che
-// 时间:20090618
+// Description:wave数据可以作为音频资源绑定给音频设备.
+// Author:Sun Che
+// Date:20090618
 //----------------------------------------------------------------------------
 class SE_AUDIO_API SESoundBuffer : public SEObject, public SEAudioBindable
 {

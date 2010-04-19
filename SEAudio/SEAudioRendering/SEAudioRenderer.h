@@ -37,9 +37,9 @@ class SEUnculledObject;
 class SEUnculledSet;
 
 //----------------------------------------------------------------------------
-// 说明:
-// 作者:Sun Che
-// 时间:20090619
+// Description:
+// Author:Sun Che
+// Date:20090619
 //----------------------------------------------------------------------------
 class SE_AUDIO_API SEAudioRenderer
 {
