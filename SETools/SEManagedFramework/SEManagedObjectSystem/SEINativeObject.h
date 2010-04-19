@@ -25,7 +25,6 @@ using namespace System;
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Native object interface class
 // Description:
 // Author:Sun Che
 // Date:20100101

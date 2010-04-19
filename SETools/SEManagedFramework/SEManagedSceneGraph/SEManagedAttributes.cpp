@@ -27,7 +27,7 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedAttributes::ManagedAttributes()
 {
-    m_pAttributes = SE_NEW Attributes;
+    m_pAttributes = SE_NEW SEAttributes;
 }
 //---------------------------------------------------------------------------
 ManagedAttributes::~ManagedAttributes()
@@ -60,7 +60,7 @@ void ManagedAttributes::SetTCoordChannels(int iUnit, int iTChannels)
     m_pAttributes->SetTCoordChannels(iUnit, iTChannels);
 }
 //---------------------------------------------------------------------------
-Attributes* ManagedAttributes::GetNativeAttributes()
+SEAttributes* ManagedAttributes::GetNativeAttributes()
 {
     return m_pAttributes;
 }

@@ -27,7 +27,6 @@ using namespace System;
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed single precision floating-point ray3 class
 // Description:
 // Author:Sun Che
 // Date:20100107
@@ -52,15 +51,15 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedRay3f(const Ray3f& rRay);
+    ManagedRay3f(const SERay3f& rRay);
     [CLSCompliant(false)]
-    ManagedRay3f(const Vector3f& rOrigin, const Vector3f& rDirection);
+    ManagedRay3f(const SEVector3f& rOrigin, const SEVector3f& rDirection);
 
     [CLSCompliant(false)]
-    void ToRay3f(Ray3f& rRay);
+    void ToRay3f(SERay3f& rRay);
 
     [CLSCompliant(false)]
-    void FromRay3f(const Ray3f& rRay);
+    void FromRay3f(const SERay3f& rRay);
 
 private:
     ManagedVector3f^ m_thOrigin;

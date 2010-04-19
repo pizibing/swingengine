@@ -27,12 +27,12 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedRenderer::ManagedRenderer(IntPtr hWnd, int iWidth, int iHeight)
 {
-    m_pRenderer = SE_NEW DX9Renderer((HWND)(int)hWnd, 
-        FrameBuffer::FT_FORMAT_RGBA, 
-        FrameBuffer::DT_DEPTH_24, 
-        FrameBuffer::ST_STENCIL_8, 
-        FrameBuffer::BT_BUFFERED_DOUBLE, 
-        FrameBuffer::MT_SAMPLING_4, 
+    m_pRenderer = SE_NEW SEDX9Renderer((HWND)(int)hWnd, 
+        SEFrameBuffer::FT_FORMAT_RGBA, 
+        SEFrameBuffer::DT_DEPTH_24, 
+        SEFrameBuffer::ST_STENCIL_8, 
+        SEFrameBuffer::BT_BUFFERED_DOUBLE, 
+        SEFrameBuffer::MT_SAMPLING_4, 
         iWidth, iHeight);
 }
 //---------------------------------------------------------------------------
@@ -66,7 +66,7 @@ void ManagedRenderer::SetClearColor(ManagedColorRGBA^ thClearColor)
 {
     SE_NULL_ARGUMENT_CHECK(thClearColor, "thClearColor");
 
-    ColorRGBA tempColor;
+    SEColorRGBA tempColor;
     thClearColor->ToColorRGBA(tempColor);
 
     SE_NULL_REFERENCE_CHECK(m_pRenderer, "Native pointer is null");
@@ -138,7 +138,7 @@ void ManagedRenderer::LoadAllResources(INativeSpatial^ thScene)
     m_pRenderer->LoadAllResources(thScene->GetNativeSpatial());
 }
 //---------------------------------------------------------------------------
-Renderer* ManagedRenderer::GetNativeRenderer()
+SERenderer* ManagedRenderer::GetNativeRenderer()
 {
     return m_pRenderer;
 }

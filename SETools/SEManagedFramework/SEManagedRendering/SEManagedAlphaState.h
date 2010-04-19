@@ -27,7 +27,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed alpha state class
 // Description:
 // Author:Sun Che
 // Date:20100104
@@ -135,15 +134,15 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedAlphaState(AlphaState* pState);
+    ManagedAlphaState(SEAlphaState* pState);
 
     // Implement INativeGlobalState interface.
     [CLSCompliant(false)]
-    virtual GlobalState* GetNativeGlobalState(void) = 
+    virtual SEGlobalState* GetNativeGlobalState(void) = 
         INativeGlobalState::GetNativeGlobalState;
 
 private:
-    AlphaStatePtr* m_pspAlphaState;
+    SEAlphaStatePtr* m_pspAlphaState;
 };
 
 }}}

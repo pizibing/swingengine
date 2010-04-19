@@ -35,7 +35,7 @@ ManagedVector2f::ManagedVector2f(float fX, float fY)
     m_fY = fY;
 }
 //---------------------------------------------------------------------------
-ManagedVector2f::ManagedVector2f(const Vector2f& rVec)
+ManagedVector2f::ManagedVector2f(const SEVector2f& rVec)
 {
     FromVector2f(rVec);
 }
@@ -60,13 +60,13 @@ void ManagedVector2f::Y::set(float fY)
     m_fY = fY;
 }
 //---------------------------------------------------------------------------
-void ManagedVector2f::ToVector2f(Vector2f& rVec)
+void ManagedVector2f::ToVector2f(SEVector2f& rVec)
 {
     rVec.X = m_fX;
     rVec.Y = m_fY;
 }
 //---------------------------------------------------------------------------
-void ManagedVector2f::FromVector2f(const Vector2f& rVec)
+void ManagedVector2f::FromVector2f(const SEVector2f& rVec)
 {
     m_fX = rVec.X;
     m_fY = rVec.Y;
@@ -75,7 +75,7 @@ void ManagedVector2f::FromVector2f(const Vector2f& rVec)
 ManagedVector2f^ ManagedVector2f::Add(ManagedVector2f^ thLhsVec, 
     ManagedVector2f^ thRhsVec)
 {
-    Vector2f vec2fLhs, vec2fRhs;
+    SEVector2f vec2fLhs, vec2fRhs;
     thLhsVec->ToVector2f(vec2fLhs);
     thRhsVec->ToVector2f(vec2fRhs);
     ManagedVector2f^ thRes = gcnew ManagedVector2f;
@@ -87,7 +87,7 @@ ManagedVector2f^ ManagedVector2f::Add(ManagedVector2f^ thLhsVec,
 ManagedVector2f^ ManagedVector2f::Subtract(ManagedVector2f^ thLhsVec, 
     ManagedVector2f^ thRhsVec)
 {
-    Vector2f vec2fLhs, vec2fRhs;
+    SEVector2f vec2fLhs, vec2fRhs;
     thLhsVec->ToVector2f(vec2fLhs);
     thRhsVec->ToVector2f(vec2fRhs);
     ManagedVector2f^ thRes = gcnew ManagedVector2f;
@@ -99,7 +99,7 @@ ManagedVector2f^ ManagedVector2f::Subtract(ManagedVector2f^ thLhsVec,
 ManagedVector2f^ ManagedVector2f::Multiply(float fScalar, 
     ManagedVector2f^ thVec)
 {
-    Vector2f vec2fTemp;
+    SEVector2f vec2fTemp;
     thVec->ToVector2f(vec2fTemp);
     ManagedVector2f^ thRes = gcnew ManagedVector2f;
     thRes->FromVector2f(fScalar*vec2fTemp);
@@ -110,7 +110,7 @@ ManagedVector2f^ ManagedVector2f::Multiply(float fScalar,
 float ManagedVector2f::Dot(ManagedVector2f^ thLhsVec, 
     ManagedVector2f^ thRhsVec)
 {
-    Vector2f vec2fLhs, vec2fRhs;
+    SEVector2f vec2fLhs, vec2fRhs;
     thLhsVec->ToVector2f(vec2fLhs);
     thRhsVec->ToVector2f(vec2fRhs);
 
@@ -119,7 +119,7 @@ float ManagedVector2f::Dot(ManagedVector2f^ thLhsVec,
 //---------------------------------------------------------------------------
 ManagedVector2f^ ManagedVector2f::Normalize(ManagedVector2f^ thVec)
 {
-    Vector2f vec2fTemp;
+    SEVector2f vec2fTemp;
     thVec->ToVector2f(vec2fTemp);
     vec2fTemp.Normalize();
     ManagedVector2f^ thRes = gcnew ManagedVector2f;
@@ -130,7 +130,7 @@ ManagedVector2f^ ManagedVector2f::Normalize(ManagedVector2f^ thVec)
 //---------------------------------------------------------------------------
 float ManagedVector2f::GetLength(ManagedVector2f^ thVec)
 {
-    Vector2f vec2fTemp;
+    SEVector2f vec2fTemp;
     thVec->ToVector2f(vec2fTemp);
 
     return vec2fTemp.GetLength();
@@ -144,7 +144,7 @@ bool ManagedVector2f::Equals(Object^ thObj)
         return false;
     }
 
-    Vector2f vec2fLhs, vec2fRhs;
+    SEVector2f vec2fLhs, vec2fRhs;
     ToVector2f(vec2fLhs);
     thVec->ToVector2f(vec2fRhs);
 

@@ -30,7 +30,6 @@ using namespace System;
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Spatial interface class
 // Description:
 // Author:Sun Che
 // Date:20091230
@@ -49,21 +48,21 @@ public interface class INativeSpatial
     void SetLocalUniformScale(float fScale);
     float GetLocalUniformScale(void);
 
-    // Geometry state update entry point.
+    // SEGeometry state update entry point.
     void UpdateGS(double dAppTime);
     void UpdateGS(void);
 
     // Render state update entry point.
     void UpdateRS(void);
 
-    // Light state access.
+    // SELight state access.
     int GetLightCount(void);
     ManagedLight^ GetLight(int i);
     void AttachLight(ManagedLight^ thLight);
     void DetachLight(ManagedLight^ thLight);
     void DetachAllLights(void);
 
-    // Effect state access.
+    // SEEffect state access.
     int GetEffectCount(void);
     INativeEffect^ GetEffect(int i);
     void AttachEffect(INativeEffect^ thEffect);
@@ -82,7 +81,7 @@ public interface class INativeSpatial
     INativeSpatial^ GetParent(void);
 
     [CLSCompliant(false)]
-    Spatial* GetNativeSpatial(void);
+    SESpatial* GetNativeSpatial(void);
 };
 
 }}}

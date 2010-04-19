@@ -27,14 +27,14 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedDefaultShaderEffect::ManagedDefaultShaderEffect()
 {
-    m_pspDefaultShaderEffect = SE_NEW DefaultShaderEffectPtr;
-    (*m_pspDefaultShaderEffect) = SE_NEW DefaultShaderEffect;
+    m_pspDefaultShaderEffect = SE_NEW SEDefaultShaderEffectPtr;
+    (*m_pspDefaultShaderEffect) = SE_NEW SEDefaultShaderEffect;
 }
 //---------------------------------------------------------------------------
 ManagedDefaultShaderEffect::ManagedDefaultShaderEffect(
-    DefaultShaderEffect* pEffect)
+    SEDefaultShaderEffect* pEffect)
 {
-    m_pspDefaultShaderEffect = SE_NEW DefaultShaderEffectPtr;
+    m_pspDefaultShaderEffect = SE_NEW SEDefaultShaderEffectPtr;
     (*m_pspDefaultShaderEffect) = pEffect;
 }
 //---------------------------------------------------------------------------
@@ -110,17 +110,17 @@ int ManagedDefaultShaderEffect::GetNativeReferences()
     return (*m_pspDefaultShaderEffect)->GetReferences();
 }
 //---------------------------------------------------------------------------
-Effect* ManagedDefaultShaderEffect::GetNativeEffect()
+SEEffect* ManagedDefaultShaderEffect::GetNativeEffect()
 {
     SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 
         "Native pointer is null");
-    return (Effect*)(*m_pspDefaultShaderEffect);
+    return (SEEffect*)(*m_pspDefaultShaderEffect);
 }
 //---------------------------------------------------------------------------
-ShaderEffect* ManagedDefaultShaderEffect::GetNativeShaderEffect()
+SEShaderEffect* ManagedDefaultShaderEffect::GetNativeShaderEffect()
 {
     SE_NULL_REFERENCE_CHECK(m_pspDefaultShaderEffect, 
         "Native pointer is null");
-    return (ShaderEffect*)(*m_pspDefaultShaderEffect);
+    return (SEShaderEffect*)(*m_pspDefaultShaderEffect);
 }
 //---------------------------------------------------------------------------

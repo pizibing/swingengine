@@ -34,7 +34,6 @@ ref class ManagedLight;
 ref class ManagedLightNode;
 
 //----------------------------------------------------------------------------
-// Name:Managed node class
 // Description:
 // Author:Sun Che
 // Date:20091230
@@ -91,24 +90,24 @@ public:
     // Hierarchical copying.
     ManagedNode^ Copy(bool bUniqueNames);
 
-    // Hierarchical searching of a TriMesh object with the given name.
+    // Hierarchical searching of a SETriMesh object with the given name.
     ManagedTriMesh^ GetTriMeshByName(String^ thName);
 
-    // Hierarchical searching of a Node object with the given name.
+    // Hierarchical searching of a SENode object with the given name.
     ManagedNode^ GetNodeByName(String^ thName);
 
-    // Hierarchical searching of a TextureTileEffect object with the given 
+    // Hierarchical searching of a SETextureTileEffect object with the given 
     // name.
     ManagedTextureTileEffect^ GetTextureTileEffectByName(String^ thName);
 
-    // Hierarchical searching of a TextureTileL1Effect object with the given 
+    // Hierarchical searching of a SETextureTileL1Effect object with the given 
     // name.
     ManagedTextureTileL1Effect^ GetTextureTileL1EffectByName(String^ thName);
 
-    // Hierarchical searching of a Light object with the given name.
+    // Hierarchical searching of a SELight object with the given name.
     ManagedLight^ GetLightByName(String^ thName);
 
-    // Hierarchical searching of a LightNode object with the given name.
+    // Hierarchical searching of a SELightNode object with the given name.
     ManagedLightNode^ GetLightNodeByName(String^ thName);
 
     // Implement INativeNode interface.
@@ -164,18 +163,19 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedNode(Node* pNode);
+    ManagedNode(SENode* pNode);
 
     // Implement INativeSpatial interface.
     [CLSCompliant(false)]
-    virtual Spatial* GetNativeSpatial(void) = INativeSpatial::GetNativeSpatial;
+    virtual SESpatial* GetNativeSpatial(void) = 
+        INativeSpatial::GetNativeSpatial;
 
     // Implement INativeNode interface.
     [CLSCompliant(false)]
-    virtual Node* GetNativeNode(void) = INativeNode::GetNativeNode;
+    virtual SENode* GetNativeNode(void) = INativeNode::GetNativeNode;
 
 private:
-    NodePtr* m_pspNode;
+    SENodePtr* m_pspNode;
 };
 
 }}}

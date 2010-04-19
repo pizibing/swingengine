@@ -74,11 +74,11 @@
 #include "SEManagedTextureTileEffect.h"
 #include "SEManagedTextureTileL1Effect.h"
 
-// Managed Object SESystem
+// Managed Object System
 #include "SEINativeObject.h"
 #include "SEManagedStream.h"
 
-// Managed SESystem
+// Managed System
 #include "SEManagedSystem.h"
 
 #include "SEManagedMCR.h"

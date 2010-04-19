@@ -27,13 +27,13 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedAlphaState::ManagedAlphaState()
 {
-    m_pspAlphaState = SE_NEW AlphaStatePtr;
-    (*m_pspAlphaState) = SE_NEW AlphaState;
+    m_pspAlphaState = SE_NEW SEAlphaStatePtr;
+    (*m_pspAlphaState) = SE_NEW SEAlphaState;
 }
 //---------------------------------------------------------------------------
-ManagedAlphaState::ManagedAlphaState(AlphaState* pState)
+ManagedAlphaState::ManagedAlphaState(SEAlphaState* pState)
 {
-    m_pspAlphaState = SE_NEW AlphaStatePtr;
+    m_pspAlphaState = SE_NEW SEAlphaStatePtr;
     (*m_pspAlphaState) = pState;
 }
 //---------------------------------------------------------------------------
@@ -64,7 +64,7 @@ ManagedAlphaState::SrcBlendMode ManagedAlphaState::SrcBlend::get()
 void ManagedAlphaState::SrcBlend::set(ManagedAlphaState::SrcBlendMode eValue)
 {
     SE_NULL_REFERENCE_CHECK(m_pspAlphaState, "Native pointer is null");
-    (*m_pspAlphaState)->SrcBlend = (AlphaState::SrcBlendMode)eValue;
+    (*m_pspAlphaState)->SrcBlend = (SEAlphaState::SrcBlendMode)eValue;
 }
 //---------------------------------------------------------------------------
 ManagedAlphaState::DstBlendMode ManagedAlphaState::DstBlend::get()
@@ -76,7 +76,7 @@ ManagedAlphaState::DstBlendMode ManagedAlphaState::DstBlend::get()
 void ManagedAlphaState::DstBlend::set(ManagedAlphaState::DstBlendMode eValue)
 {
     SE_NULL_REFERENCE_CHECK(m_pspAlphaState, "Native pointer is null");
-    (*m_pspAlphaState)->DstBlend = (AlphaState::DstBlendMode)eValue;
+    (*m_pspAlphaState)->DstBlend = (SEAlphaState::DstBlendMode)eValue;
 }
 //---------------------------------------------------------------------------
 bool ManagedAlphaState::TestEnabled::get()
@@ -100,7 +100,7 @@ ManagedAlphaState::TestMode ManagedAlphaState::Test::get()
 void ManagedAlphaState::Test::set(ManagedAlphaState::TestMode eValue)
 {
     SE_NULL_REFERENCE_CHECK(m_pspAlphaState, "Native pointer is null");
-    (*m_pspAlphaState)->Test = (AlphaState::TestMode)eValue;
+    (*m_pspAlphaState)->Test = (SEAlphaState::TestMode)eValue;
 }
 //---------------------------------------------------------------------------
 float ManagedAlphaState::Reference::get()
@@ -162,9 +162,9 @@ int ManagedAlphaState::GetNativeReferences()
     return (*m_pspAlphaState)->GetReferences();
 }
 //---------------------------------------------------------------------------
-GlobalState* ManagedAlphaState::GetNativeGlobalState()
+SEGlobalState* ManagedAlphaState::GetNativeGlobalState()
 {
     SE_NULL_REFERENCE_CHECK(m_pspAlphaState, "Native pointer is null");
-    return (GlobalState*)(*m_pspAlphaState);
+    return (SEGlobalState*)(*m_pspAlphaState);
 }
 //---------------------------------------------------------------------------

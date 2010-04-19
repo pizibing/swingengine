@@ -27,7 +27,6 @@ using namespace System;
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed single precision floating-point 3x3 matrix class
 // Description:
 // Author:Sun Che
 // Date:20091227
@@ -43,7 +42,8 @@ public:
 
     // Euler operations.
     void FromEulerAnglesXYZ(float fYAngle, float fPAngle, float fRAngle);
-    bool ToEulerAnglesXYZ(float% trfYAngle, float% trfPAngle, float% trfRAngle);
+    bool ToEulerAnglesXYZ(float% trfYAngle, float% trfPAngle, float% 
+        trfRAngle);
 
 	// Algebra operations.
     static ManagedVector3f^ Vector3Multiply(ManagedVector3f^ thVec, 
@@ -59,18 +59,18 @@ public:
     // Get an identity matrix.
     static ManagedMatrix3f^ Identity(void);
 
-    // SESystem::Object overrides.
+    // System::Object overrides.
     virtual bool Equals(Object^ thObj) override;
 
 internal:
     [CLSCompliant(false)]
-    ManagedMatrix3f(const Matrix3f& rMat);
+    ManagedMatrix3f(const SEMatrix3f& rMat);
 
     [CLSCompliant(false)]
-    void ToMatrix3f(Matrix3f& rMat);
+    void ToMatrix3f(SEMatrix3f& rMat);
 
     [CLSCompliant(false)]
-    void FromMatrix3f(const Matrix3f& rMat);
+    void FromMatrix3f(const SEMatrix3f& rMat);
 
 private:
     array<float>^ m_afData;

@@ -25,7 +25,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed engine class
 // Description:This is a singleton class.
 // Author:Sun Che
 // Date:20091219

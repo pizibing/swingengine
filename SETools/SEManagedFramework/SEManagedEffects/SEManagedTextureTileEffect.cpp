@@ -34,14 +34,14 @@ ManagedTextureTileEffect::ManagedTextureTileEffect(String^ thTileName)
     std::string tempTileName(acBuffer);
     ManagedUtility::FreeNativeCharBuffer(acBuffer);
 
-    m_pspTextureTileEffect = SE_NEW TextureTileEffectPtr;
-    (*m_pspTextureTileEffect) = SE_NEW TextureTileEffect(tempTileName);
+    m_pspTextureTileEffect = SE_NEW SETextureTileEffectPtr;
+    (*m_pspTextureTileEffect) = SE_NEW SETextureTileEffect(tempTileName);
 }
 //---------------------------------------------------------------------------
 ManagedTextureTileEffect::ManagedTextureTileEffect(
-    TextureTileEffect* pEffect)
+    SETextureTileEffect* pEffect)
 {
-    m_pspTextureTileEffect = SE_NEW TextureTileEffectPtr;
+    m_pspTextureTileEffect = SE_NEW SETextureTileEffectPtr;
     (*m_pspTextureTileEffect) = pEffect;
 }
 //---------------------------------------------------------------------------
@@ -56,8 +56,8 @@ void ManagedTextureTileEffect::SetTileImage(ManagedImage^ thImage)
     SE_NULL_ARGUMENT_CHECK(thImage, "thImage");
     SE_NULL_REFERENCE_CHECK(m_pspTextureTileEffect, 
         "Native pointer is null");
-    Image* pImage = thImage->GetNativeImage();
-    Texture* pTexture = (*m_pspTextureTileEffect)->GetPTexture(0, 0);
+    SEImage* pImage = thImage->GetNativeImage();
+    SETexture* pTexture = (*m_pspTextureTileEffect)->GetPTexture(0, 0);
     (*m_pspTextureTileEffect)->SetPImageName(0, 0, pImage->GetName());
     pTexture->SetImage(pImage);
     pTexture->Release();
@@ -151,15 +151,15 @@ int ManagedTextureTileEffect::GetNativeReferences()
     return (*m_pspTextureTileEffect)->GetReferences();
 }
 //---------------------------------------------------------------------------
-Effect* ManagedTextureTileEffect::GetNativeEffect()
+SEEffect* ManagedTextureTileEffect::GetNativeEffect()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTextureTileEffect, "Native pointer is null");
-    return (Effect*)(*m_pspTextureTileEffect);
+    return (SEEffect*)(*m_pspTextureTileEffect);
 }
 //---------------------------------------------------------------------------
-ShaderEffect* ManagedTextureTileEffect::GetNativeShaderEffect()
+SEShaderEffect* ManagedTextureTileEffect::GetNativeShaderEffect()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTextureTileEffect, "Native pointer is null");
-    return (ShaderEffect*)(*m_pspTextureTileEffect);
+    return (SEShaderEffect*)(*m_pspTextureTileEffect);
 }
 //---------------------------------------------------------------------------

@@ -26,7 +26,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed culler class
 // Description:
 // Author:Sun Che
 // Date:20091229
@@ -37,7 +36,7 @@ public:
     ManagedCuller(void);
     ~ManagedCuller(void);
 
-    // Camera access.
+    // SECamera access.
     void SetCamera(ManagedCamera^ thCamera);
     ManagedCamera^ GetCamera(void);
 
@@ -46,10 +45,10 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    Culler* GetNativeCuller(void);
+    SECuller* GetNativeCuller(void);
 
 private:
-    Culler* m_pCuller;
+    SECuller* m_pCuller;
     ManagedCamera^ m_thCamera;
 };
 

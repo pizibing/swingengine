@@ -23,7 +23,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed single precision floating-point math class
 // Description:
 // Author:Sun Che
 // Date:20100115

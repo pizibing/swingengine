@@ -26,7 +26,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed standard mesh class
 // Description:
 // Author:Sun Che
 // Date:20091229
@@ -50,10 +49,10 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    StandardMesh* GetNativeStandardMesh(void);
+    SEStandardMesh* GetNativeStandardMesh(void);
 
 private:
-    StandardMesh* m_pStandardMesh;
+    SEStandardMesh* m_pStandardMesh;
 };
 
 }}}

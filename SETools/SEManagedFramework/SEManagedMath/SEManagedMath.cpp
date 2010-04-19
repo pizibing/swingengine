@@ -27,51 +27,51 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 float ManagedMathf::EPSILON::get()
 {
-    return Mathf::EPSILON;
+    return SEMathf::EPSILON;
 }
 //---------------------------------------------------------------------------
 float ManagedMathf::ZERO_TOLERANCE::get()
 {
-    return Mathf::ZERO_TOLERANCE;
+    return SEMathf::ZERO_TOLERANCE;
 }
 //---------------------------------------------------------------------------
 float ManagedMathf::MAX_REAL::get()
 {
-    return Mathf::MAX_REAL;
+    return SEMathf::MAX_REAL;
 }
 //---------------------------------------------------------------------------
 float ManagedMathf::PI::get()
 {
-    return Mathf::PI;
+    return SEMathf::PI;
 }
 //---------------------------------------------------------------------------
 float ManagedMathf::TWO_PI::get()
 {
-    return Mathf::TWO_PI;
+    return SEMathf::TWO_PI;
 }
 //---------------------------------------------------------------------------
 float ManagedMathf::HALF_PI::get()
 {
-    return Mathf::HALF_PI;
+    return SEMathf::HALF_PI;
 }
 //---------------------------------------------------------------------------
 float ManagedMathf::INV_PI::get()
 {
-    return Mathf::INV_PI;
+    return SEMathf::INV_PI;
 }
 //---------------------------------------------------------------------------
 float ManagedMathf::INV_TWO_PI::get()
 {
-    return Mathf::INV_TWO_PI;
+    return SEMathf::INV_TWO_PI;
 }
 //---------------------------------------------------------------------------
 float ManagedMathf::DEG_TO_RAD::get()
 {
-    return Mathf::DEG_TO_RAD;
+    return SEMathf::DEG_TO_RAD;
 }
 //---------------------------------------------------------------------------
 float ManagedMathf::RAD_TO_DEG::get()
 {
-    return Mathf::RAD_TO_DEG;
+    return SEMathf::RAD_TO_DEG;
 }
 //---------------------------------------------------------------------------

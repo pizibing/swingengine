@@ -26,7 +26,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed image class
 // Description:
 // Author:Sun Che
 // Date:20100228
@@ -50,13 +49,13 @@ private:
 
 internal:
     [CLSCompliant(false)]
-    ManagedImage(Image* pImage);
+    ManagedImage(SEImage* pImage);
 
     [CLSCompliant(false)]
-    Image* GetNativeImage(void);
+    SEImage* GetNativeImage(void);
 
 private:
-    ImagePtr* m_pspImage;
+    SEImagePtr* m_pspImage;
 };
 
 }}}

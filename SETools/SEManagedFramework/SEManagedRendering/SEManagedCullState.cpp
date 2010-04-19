@@ -27,13 +27,13 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedCullState::ManagedCullState()
 {
-    m_pspCullState = SE_NEW CullStatePtr;
-    (*m_pspCullState) = SE_NEW CullState;
+    m_pspCullState = SE_NEW SECullStatePtr;
+    (*m_pspCullState) = SE_NEW SECullState;
 }
 //---------------------------------------------------------------------------
-ManagedCullState::ManagedCullState(CullState* pState)
+ManagedCullState::ManagedCullState(SECullState* pState)
 {
-    m_pspCullState = SE_NEW CullStatePtr;
+    m_pspCullState = SE_NEW SECullStatePtr;
     (*m_pspCullState) = pState;
 }
 //---------------------------------------------------------------------------
@@ -64,7 +64,7 @@ ManagedCullState::FrontMode ManagedCullState::FrontFace::get()
 void ManagedCullState::FrontFace::set(ManagedCullState::FrontMode eValue)
 {
     SE_NULL_REFERENCE_CHECK(m_pspCullState, "Native pointer is null");
-    (*m_pspCullState)->FrontFace = (CullState::FrontMode)eValue;
+    (*m_pspCullState)->FrontFace = (SECullState::FrontMode)eValue;
 }
 //---------------------------------------------------------------------------
 ManagedCullState::CullMode ManagedCullState::CullFace::get()
@@ -76,7 +76,7 @@ ManagedCullState::CullMode ManagedCullState::CullFace::get()
 void ManagedCullState::CullFace::set(ManagedCullState::CullMode eValue)
 {
     SE_NULL_REFERENCE_CHECK(m_pspCullState, "Native pointer is null");
-    (*m_pspCullState)->CullFace = (CullState::CullMode)eValue;
+    (*m_pspCullState)->CullFace = (SECullState::CullMode)eValue;
 }
 //---------------------------------------------------------------------------
 INativeGlobalState::StateType ManagedCullState::GetStateType()
@@ -109,9 +109,9 @@ int ManagedCullState::GetNativeReferences()
     return (*m_pspCullState)->GetReferences();
 }
 //---------------------------------------------------------------------------
-GlobalState* ManagedCullState::GetNativeGlobalState()
+SEGlobalState* ManagedCullState::GetNativeGlobalState()
 {
     SE_NULL_REFERENCE_CHECK(m_pspCullState, "Native pointer is null");
-    return (GlobalState*)(*m_pspCullState);
+    return (SEGlobalState*)(*m_pspCullState);
 }
 //---------------------------------------------------------------------------

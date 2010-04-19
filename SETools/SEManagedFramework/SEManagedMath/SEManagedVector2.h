@@ -25,7 +25,6 @@ using namespace System;
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed single precision floating-point vector2 class
 // Description:
 // Author:Sun Che
 // Date:20091225
@@ -57,18 +56,18 @@ public:
     static ManagedVector2f^ Normalize(ManagedVector2f^ thVec);
     static float GetLength(ManagedVector2f^ thVec);
 
-    // SESystem::Object overrides.
+    // System::Object overrides.
     virtual bool Equals(Object^ thObj) override;
 
 internal:
     [CLSCompliant(false)]
-    ManagedVector2f(const Vector2f& rVec);
+    ManagedVector2f(const SEVector2f& rVec);
 
     [CLSCompliant(false)]
-    void ToVector2f(Vector2f& rVec);
+    void ToVector2f(SEVector2f& rVec);
 
     [CLSCompliant(false)]
-    void FromVector2f(const Vector2f& rVec);
+    void FromVector2f(const SEVector2f& rVec);
 
 private:
     float m_fX;

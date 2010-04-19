@@ -34,14 +34,14 @@ ManagedTextureTileL1Effect::ManagedTextureTileL1Effect(String^ thTileName)
     std::string tempTileName(acBuffer);
     ManagedUtility::FreeNativeCharBuffer(acBuffer);
 
-    m_pspTextureTileL1Effect = SE_NEW TextureTileL1EffectPtr;
-    (*m_pspTextureTileL1Effect) = SE_NEW TextureTileL1Effect(tempTileName);
+    m_pspTextureTileL1Effect = SE_NEW SETextureTileL1EffectPtr;
+    (*m_pspTextureTileL1Effect) = SE_NEW SETextureTileL1Effect(tempTileName);
 }
 //---------------------------------------------------------------------------
 ManagedTextureTileL1Effect::ManagedTextureTileL1Effect(
-    TextureTileL1Effect* pEffect)
+    SETextureTileL1Effect* pEffect)
 {
-    m_pspTextureTileL1Effect = SE_NEW TextureTileL1EffectPtr;
+    m_pspTextureTileL1Effect = SE_NEW SETextureTileL1EffectPtr;
     (*m_pspTextureTileL1Effect) = pEffect;
 }
 //---------------------------------------------------------------------------
@@ -56,8 +56,8 @@ void ManagedTextureTileL1Effect::SetTileImage(ManagedImage^ thImage)
     SE_NULL_ARGUMENT_CHECK(thImage, "thImage");
     SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
         "Native pointer is null");
-    Image* pImage = thImage->GetNativeImage();
-    Texture* pTexture = (*m_pspTextureTileL1Effect)->GetPTexture(0, 0);
+    SEImage* pImage = thImage->GetNativeImage();
+    SETexture* pTexture = (*m_pspTextureTileL1Effect)->GetPTexture(0, 0);
     (*m_pspTextureTileL1Effect)->SetPImageName(0, 0, pImage->GetName());
     pTexture->SetImage(pImage);
     pTexture->Release();
@@ -143,7 +143,8 @@ ManagedAlphaState^ ManagedTextureTileL1Effect::GetBlending(int iPass)
 //---------------------------------------------------------------------------
 ManagedTexture^ ManagedTextureTileL1Effect::GetPTexture(int iPass, int i)
 {
-    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, "Native pointer is null");
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
+        "Native pointer is null");
     return gcnew ManagedTexture((*m_pspTextureTileL1Effect)->GetPTexture(
         iPass, i));
 }
@@ -152,7 +153,8 @@ ManagedTexture^ ManagedTextureTileL1Effect::GetPTexture(int iPass,
     String^ thName)
 {
     SE_NULL_ARGUMENT_CHECK(thName, "thName");
-    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, "Native pointer is null");
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
+        "Native pointer is null");
     const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
     std::string tempName(acBuffer);
     ManagedUtility::FreeNativeCharBuffer(acBuffer);
@@ -165,7 +167,8 @@ void ManagedTextureTileL1Effect::SetPTexture(int iPass, int i,
     ManagedTexture^ thTexture)
 {
     SE_NULL_ARGUMENT_CHECK(thTexture, "thTexture");
-    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, "Native pointer is null");
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
+        "Native pointer is null");
     (*m_pspTextureTileL1Effect)->SetPTexture(iPass, i, 
         thTexture->GetNativeTexture());
 }
@@ -173,7 +176,8 @@ void ManagedTextureTileL1Effect::SetPTexture(int iPass, int i,
 void ManagedTextureTileL1Effect::SetName(String^ thName)
 {
     SE_NULL_ARGUMENT_CHECK(thName, "thName");
-    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, "Native pointer is null");
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
+        "Native pointer is null");
 
     const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
     std::string tempName(acName);
@@ -183,25 +187,29 @@ void ManagedTextureTileL1Effect::SetName(String^ thName)
 //---------------------------------------------------------------------------
 String^ ManagedTextureTileL1Effect::GetName()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, "Native pointer is null");
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
+        "Native pointer is null");
     return gcnew String((*m_pspTextureTileL1Effect)->GetName().c_str());
 }
 //---------------------------------------------------------------------------
 int ManagedTextureTileL1Effect::GetNativeReferences()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, "Native pointer is null");
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
+        "Native pointer is null");
     return (*m_pspTextureTileL1Effect)->GetReferences();
 }
 //---------------------------------------------------------------------------
-Effect* ManagedTextureTileL1Effect::GetNativeEffect()
+SEEffect* ManagedTextureTileL1Effect::GetNativeEffect()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, "Native pointer is null");
-    return (Effect*)(*m_pspTextureTileL1Effect);
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
+        "Native pointer is null");
+    return (SEEffect*)(*m_pspTextureTileL1Effect);
 }
 //---------------------------------------------------------------------------
-ShaderEffect* ManagedTextureTileL1Effect::GetNativeShaderEffect()
+SEShaderEffect* ManagedTextureTileL1Effect::GetNativeShaderEffect()
 {
-    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, "Native pointer is null");
-    return (ShaderEffect*)(*m_pspTextureTileL1Effect);
+    SE_NULL_REFERENCE_CHECK(m_pspTextureTileL1Effect, 
+        "Native pointer is null");
+    return (SEShaderEffect*)(*m_pspTextureTileL1Effect);
 }
 //---------------------------------------------------------------------------

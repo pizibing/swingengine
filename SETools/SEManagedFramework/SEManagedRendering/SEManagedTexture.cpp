@@ -27,13 +27,13 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedTexture::ManagedTexture()
 {
-    m_pspTexture = SE_NEW TexturePtr;
-    (*m_pspTexture) = SE_NEW Texture;
+    m_pspTexture = SE_NEW SETexturePtr;
+    (*m_pspTexture) = SE_NEW SETexture;
 }
 //---------------------------------------------------------------------------
-ManagedTexture::ManagedTexture(Texture* pTexture)
+ManagedTexture::ManagedTexture(SETexture* pTexture)
 {
-    m_pspTexture = SE_NEW TexturePtr;
+    m_pspTexture = SE_NEW SETexturePtr;
     (*m_pspTexture) = pTexture;
 }
 //---------------------------------------------------------------------------
@@ -46,7 +46,7 @@ ManagedTexture::~ManagedTexture()
 void ManagedTexture::SetFilterType(ManagedTexture::FilterType eFType)
 {
     SE_NULL_REFERENCE_CHECK(m_pspTexture, "Native pointer is null");
-    (*m_pspTexture)->SetFilterType((Texture::FilterType)eFType);
+    (*m_pspTexture)->SetFilterType((SETexture::FilterType)eFType);
 }
 //---------------------------------------------------------------------------
 ManagedTexture::FilterType ManagedTexture::GetFilterType()
@@ -58,7 +58,7 @@ ManagedTexture::FilterType ManagedTexture::GetFilterType()
 void ManagedTexture::SetWrapType(int i, ManagedTexture::WrapType eWType)
 {
     SE_NULL_REFERENCE_CHECK(m_pspTexture, "Native pointer is null");
-    (*m_pspTexture)->SetWrapType(i, (Texture::WrapType)eWType);
+    (*m_pspTexture)->SetWrapType(i, (SETexture::WrapType)eWType);
 }
 //---------------------------------------------------------------------------
 ManagedTexture::WrapType ManagedTexture::GetWrapType(int i)
@@ -71,7 +71,7 @@ void ManagedTexture::SetBorderColor(ManagedColorRGBA^ thBorderColor)
 {
     SE_NULL_ARGUMENT_CHECK(thBorderColor, "thBorderColor");
     SE_NULL_REFERENCE_CHECK(m_pspTexture, "Native pointer is null");
-    ColorRGBA tempBorderColor;
+    SEColorRGBA tempBorderColor;
     thBorderColor->ToColorRGBA(tempBorderColor);
     (*m_pspTexture)->SetBorderColor(tempBorderColor);
 }
@@ -117,9 +117,9 @@ int ManagedTexture::GetNativeReferences()
     return (*m_pspTexture)->GetReferences();
 }
 //---------------------------------------------------------------------------
-Texture* ManagedTexture::GetNativeTexture()
+SETexture* ManagedTexture::GetNativeTexture()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTexture, "Native pointer is null");
-    return (Texture*)(*m_pspTexture);
+    return (SETexture*)(*m_pspTexture);
 }
 //---------------------------------------------------------------------------

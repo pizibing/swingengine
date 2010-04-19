@@ -27,13 +27,13 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedZBufferState::ManagedZBufferState()
 {
-    m_pspZBufferState = SE_NEW ZBufferStatePtr;
-    (*m_pspZBufferState) = SE_NEW ZBufferState;
+    m_pspZBufferState = SE_NEW SEZBufferStatePtr;
+    (*m_pspZBufferState) = SE_NEW SEZBufferState;
 }
 //---------------------------------------------------------------------------
-ManagedZBufferState::ManagedZBufferState(ZBufferState* pState)
+ManagedZBufferState::ManagedZBufferState(SEZBufferState* pState)
 {
-    m_pspZBufferState = SE_NEW ZBufferStatePtr;
+    m_pspZBufferState = SE_NEW SEZBufferStatePtr;
     (*m_pspZBufferState) = pState;
 }
 //---------------------------------------------------------------------------
@@ -77,7 +77,7 @@ void ManagedZBufferState::Compare::set(
     ManagedZBufferState::CompareMode eValue)
 {
     SE_NULL_REFERENCE_CHECK(m_pspZBufferState, "Native pointer is null");
-    (*m_pspZBufferState)->Compare = (ZBufferState::CompareMode)eValue;
+    (*m_pspZBufferState)->Compare = (SEZBufferState::CompareMode)eValue;
 }
 //---------------------------------------------------------------------------
 INativeGlobalState::StateType ManagedZBufferState::GetStateType()
@@ -110,9 +110,9 @@ int ManagedZBufferState::GetNativeReferences()
     return (*m_pspZBufferState)->GetReferences();
 }
 //---------------------------------------------------------------------------
-GlobalState* ManagedZBufferState::GetNativeGlobalState()
+SEGlobalState* ManagedZBufferState::GetNativeGlobalState()
 {
     SE_NULL_REFERENCE_CHECK(m_pspZBufferState, "Native pointer is null");
-    return (GlobalState*)(*m_pspZBufferState);
+    return (SEGlobalState*)(*m_pspZBufferState);
 }
 //---------------------------------------------------------------------------

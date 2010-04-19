@@ -28,7 +28,6 @@ using namespace System;
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Shader effect interface class
 // Description:
 // Author:Sun Che
 // Date:20100115
@@ -44,7 +43,7 @@ public interface class INativeShaderEffect
     void SetPTexture(int iPass, int i, ManagedTexture^ thTexture);
 
     [CLSCompliant(false)]
-    ShaderEffect* GetNativeShaderEffect(void);
+    SEShaderEffect* GetNativeShaderEffect(void);
 };
 
 }}}

@@ -26,7 +26,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed polygon offset state class
 // Description:
 // Author:Sun Che
 // Date:20100105
@@ -76,15 +75,15 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedPolygonOffsetState(PolygonOffsetState* pState);
+    ManagedPolygonOffsetState(SEPolygonOffsetState* pState);
 
     // Implement INativeGlobalState interface.
     [CLSCompliant(false)]
-    virtual GlobalState* GetNativeGlobalState(void) = 
+    virtual SEGlobalState* GetNativeGlobalState(void) = 
         INativeGlobalState::GetNativeGlobalState;
 
 private:
-    PolygonOffsetStatePtr* m_pspPolygonOffsetState;
+    SEPolygonOffsetStatePtr* m_pspPolygonOffsetState;
 };
 
 }}}

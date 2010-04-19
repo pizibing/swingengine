@@ -27,13 +27,13 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedLight::ManagedLight(ManagedLight::LightType eType)
 {
-    m_pspLight = SE_NEW LightPtr;
-    (*m_pspLight) = SE_NEW Light((Light::LightType)eType);
+    m_pspLight = SE_NEW SELightPtr;
+    (*m_pspLight) = SE_NEW SELight((SELight::LightType)eType);
 }
 //---------------------------------------------------------------------------
-ManagedLight::ManagedLight(Light* pLight)
+ManagedLight::ManagedLight(SELight* pLight)
 {
-    m_pspLight = SE_NEW LightPtr;
+    m_pspLight = SE_NEW SELightPtr;
     (*m_pspLight) = pLight;
 }
 //---------------------------------------------------------------------------
@@ -52,7 +52,7 @@ ManagedLight::LightType ManagedLight::Type::get()
 void ManagedLight::Type::set(ManagedLight::LightType eType)
 {
     SE_NULL_REFERENCE_CHECK(m_pspLight, "Native pointer is null");
-    (*m_pspLight)->Type = (Light::LightType)eType;
+    (*m_pspLight)->Type = (SELight::LightType)eType;
 }
 //---------------------------------------------------------------------------
 ManagedColorRGB^ ManagedLight::Ambient::get()
@@ -248,10 +248,10 @@ void ManagedLight::SetAngle(float fAngle)
     (*m_pspLight)->SetAngle(fAngle);
 }
 //---------------------------------------------------------------------------
-Light* ManagedLight::GetNativeLight()
+SELight* ManagedLight::GetNativeLight()
 {
     SE_NULL_REFERENCE_CHECK(m_pspLight, "Native pointer is null");
-    return (Light*)(*m_pspLight);
+    return (SELight*)(*m_pspLight);
 }
 //---------------------------------------------------------------------------
 void ManagedLight::SetName(String^ thName)

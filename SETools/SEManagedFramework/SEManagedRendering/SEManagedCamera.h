@@ -28,7 +28,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed camera class
 // Description:
 // Author:Sun Che
 // Date:20091219
@@ -76,13 +75,13 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedCamera(Camera* pCamera);
+    ManagedCamera(SECamera* pCamera);
 
     [CLSCompliant(false)]
-    Camera* GetNativeCamera(void);
+    SECamera* GetNativeCamera(void);
 
 private:
-    CameraPtr* m_pspCamera;
+    SECameraPtr* m_pspCamera;
 };
 
 }}}

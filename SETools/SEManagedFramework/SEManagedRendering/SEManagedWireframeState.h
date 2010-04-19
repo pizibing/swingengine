@@ -26,7 +26,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed wireframe state class
 // Description:
 // Author:Sun Che
 // Date:20100102
@@ -56,15 +55,15 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedWireframeState(WireframeState* pState);
+    ManagedWireframeState(SEWireframeState* pState);
 
     // Implement INativeGlobalState interface.
     [CLSCompliant(false)]
-    virtual GlobalState* GetNativeGlobalState(void) = 
+    virtual SEGlobalState* GetNativeGlobalState(void) = 
         INativeGlobalState::GetNativeGlobalState;
 
 private:
-    WireframeStatePtr* m_pspWireframeState;
+    SEWireframeStatePtr* m_pspWireframeState;
 };
 
 }}}

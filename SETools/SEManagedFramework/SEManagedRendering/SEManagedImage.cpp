@@ -29,9 +29,9 @@ ManagedImage::ManagedImage()
 {
 }
 //---------------------------------------------------------------------------
-ManagedImage::ManagedImage(Image* pImage)
+ManagedImage::ManagedImage(SEImage* pImage)
 {
-    m_pspImage = SE_NEW ImagePtr;
+    m_pspImage = SE_NEW SEImagePtr;
     (*m_pspImage) = pImage;
 }
 //---------------------------------------------------------------------------
@@ -64,10 +64,10 @@ int ManagedImage::GetNativeReferences()
     return (*m_pspImage)->GetReferences();
 }
 //---------------------------------------------------------------------------
-Image* ManagedImage::GetNativeImage()
+SEImage* ManagedImage::GetNativeImage()
 {
     SE_NULL_REFERENCE_CHECK(m_pspImage, "Native pointer is null");
-    return (Image*)(*m_pspImage);
+    return (SEImage*)(*m_pspImage);
 }
 //---------------------------------------------------------------------------
 ManagedImage^ ManagedImage::Find(String^ thName)
@@ -77,7 +77,7 @@ ManagedImage^ ManagedImage::Find(String^ thName)
     const char* acName = ManagedUtility::StringToNativeCharBuffer(thName);
     std::string tempName(acName);
     ManagedUtility::FreeNativeCharBuffer(acName);
-    Image* pImage = ImageCatalog::GetActive()->Find(tempName);
+    SEImage* pImage = SEImageCatalog::GetActive()->Find(tempName);
     return gcnew ManagedImage(pImage);
 }
 //---------------------------------------------------------------------------

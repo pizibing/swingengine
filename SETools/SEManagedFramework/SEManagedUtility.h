@@ -23,7 +23,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed utility class
 // Description:
 // Author:Sun Che
 // Date:20091219
@@ -32,36 +31,36 @@ private ref class ManagedUtility sealed
 {
 internal:
     // Allocate a native heap buffer and fill it with the CLI string object's
-    // content. You should call FreeNativeCharBuffer() function to deallocate the 
-    // native heap buffer when you have finished with it. 
+    // content. You should call FreeNativeCharBuffer() function to deallocate 
+    // the native heap buffer when you have finished with it. 
 	// These two functions must be used in pairs.
     static const char* StringToNativeCharBuffer(String^ thString);
     static void FreeNativeCharBuffer(const char* acBuffer);
 
-    // Do a shallow copy with a given Node object, a node hierarchy is created 
-    // an it only contains sub-node and sub-trimesh objects for now, all 
-    // sub-trimesh objects share the VB and IB of the original objects.
-    static Node* CloneNode(Node* pSrcNode);
+    // Do a shallow copy with a given SENode object, a node hierarchy is 
+    // created an it only contains sub-node and sub-trimesh objects for now, 
+    // all sub-trimesh objects share the VB and IB of the original objects.
+    static SENode* CloneNode(SENode* pSrcNode);
 
-    // Do a shallow copy with a given TriMesh object, a new TriMesh object is
-    // created an it shares the VB and IB of the original object.
-    static TriMesh* CloneTriMesh(TriMesh* pSrcTriMesh);
+    // Do a shallow copy with a given SETriMesh object, a new SETriMesh object 
+    // is created an it shares the VB and IB of the original object.
+    static SETriMesh* CloneTriMesh(SETriMesh* pSrcTriMesh);
 
     // Generate normals for all sub-mesh objects in the hierarchy.
-    static void GenerateNormalsForAll(Node* pNode);
+    static void GenerateNormalsForAll(SENode* pNode);
 
     // Detach all effects for all sub-spatial objects in the hierarchy.
-    static void DetachAllEffectsForAll(Node* pNode);
+    static void DetachAllEffectsForAll(SENode* pNode);
 
-    static void ModulateWithLightingEffectForAll(Node* pNode);
+    static void ModulateWithLightingEffectForAll(SENode* pNode);
 
-    static void MaterialTextureConditioner(Node* pNode);
+    static void MaterialTextureConditioner(SENode* pNode);
 
-    static void DisableLightingConditioner(Node* pNode);
+    static void DisableLightingConditioner(SENode* pNode);
 
-    static void ImageConditioner(Node* pNode, Image* pImage);
+    static void ImageConditioner(SENode* pNode, SEImage* pImage);
 
-    static void WallConditioner(Node* pNode, TextureTileL1Effect* pEffect);
+    static void WallConditioner(SENode* pNode, SETextureTileL1Effect* pEffect);
 };
 
 }}}

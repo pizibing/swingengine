@@ -29,13 +29,13 @@ using namespace Swing::Tools::ManagedFramework;
 ManagedCameraNode::ManagedCameraNode(ManagedCamera^ thCamera)
 {
     SE_NULL_ARGUMENT_CHECK(thCamera, "thCamera");
-    m_pspCameraNode = SE_NEW CameraNodePtr;
-    (*m_pspCameraNode) = SE_NEW CameraNode(thCamera->GetNativeCamera());
+    m_pspCameraNode = SE_NEW SECameraNodePtr;
+    (*m_pspCameraNode) = SE_NEW SECameraNode(thCamera->GetNativeCamera());
 }
 //---------------------------------------------------------------------------
-ManagedCameraNode::ManagedCameraNode(CameraNode* pCameraNode)
+ManagedCameraNode::ManagedCameraNode(SECameraNode* pCameraNode)
 {
-    m_pspCameraNode = SE_NEW CameraNodePtr;
+    m_pspCameraNode = SE_NEW SECameraNodePtr;
     (*m_pspCameraNode) = pCameraNode;
 }
 //---------------------------------------------------------------------------
@@ -81,7 +81,7 @@ int ManagedCameraNode::DetachChild(INativeSpatial^ thSpatial)
 INativeSpatial^ ManagedCameraNode::GetChild(int i)
 {
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
-    Spatial* pChild = (*m_pspCameraNode)->GetChild(i);
+    SESpatial* pChild = (*m_pspCameraNode)->GetChild(i);
     return ManagedObjectFactory::CreateSpatialDerivedObject(pChild);
 }
 //---------------------------------------------------------------------------
@@ -89,7 +89,7 @@ void ManagedCameraNode::SetLocalRotate(ManagedMatrix3f^ thRotate)
 {
     SE_NULL_ARGUMENT_CHECK(thRotate, "thRotate");
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
-    Matrix3f mat3fRot;
+    SEMatrix3f mat3fRot;
     thRotate->ToMatrix3f(mat3fRot);
     (*m_pspCameraNode)->Local.SetRotate(mat3fRot);
 }
@@ -104,7 +104,7 @@ void ManagedCameraNode::SetLocalMatrix(ManagedMatrix3f^ thMatrix)
 {
     SE_NULL_ARGUMENT_CHECK(thMatrix, "thMatrix");
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
-    Matrix3f mat3fM;
+    SEMatrix3f mat3fM;
     thMatrix->ToMatrix3f(mat3fM);
     (*m_pspCameraNode)->Local.SetMatrix(mat3fM);
 }
@@ -119,7 +119,7 @@ void ManagedCameraNode::SetLocalTranslate(ManagedVector3f^ thTranslate)
 {
     SE_NULL_ARGUMENT_CHECK(thTranslate, "thTranslate");
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
-    Vector3f vec3fTrn;
+    SEVector3f vec3fTrn;
     thTranslate->ToVector3f(vec3fTrn);
     (*m_pspCameraNode)->Local.SetTranslate(vec3fTrn);
 }
@@ -134,7 +134,7 @@ void ManagedCameraNode::SetLocalScale(ManagedVector3f^ thScale)
 {
     SE_NULL_ARGUMENT_CHECK(thScale, "thScale");
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
-    Vector3f vec3fScl;
+    SEVector3f vec3fScl;
     thScale->ToVector3f(vec3fScl);
     (*m_pspCameraNode)->Local.SetScale(vec3fScl);
 }
@@ -249,7 +249,7 @@ int ManagedCameraNode::GetGlobalStateCount()
 INativeGlobalState^ ManagedCameraNode::GetGlobalState(int i)
 {
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
-    GlobalState* pState = (*m_pspCameraNode)->GetGlobalState(i);
+    SEGlobalState* pState = (*m_pspCameraNode)->GetGlobalState(i);
 
     return ManagedObjectFactory::CreateGlobalStateObject(pState);
 }
@@ -258,8 +258,8 @@ INativeGlobalState^ ManagedCameraNode::GetGlobalState(
     INativeGlobalState::StateType eType)
 {
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
-    GlobalState* pState = (*m_pspCameraNode)->GetGlobalState(
-        (GlobalState::StateType)eType);
+    SEGlobalState* pState = (*m_pspCameraNode)->GetGlobalState(
+        (SEGlobalState::StateType)eType);
 
     return ManagedObjectFactory::CreateGlobalStateObject(pState);
 }
@@ -271,10 +271,11 @@ void ManagedCameraNode::AttachGlobalState(INativeGlobalState^ thState)
     (*m_pspCameraNode)->AttachGlobalState(thState->GetNativeGlobalState());
 }
 //---------------------------------------------------------------------------
-void ManagedCameraNode::DetachGlobalState(INativeGlobalState::StateType eType)
+void ManagedCameraNode::DetachGlobalState(INativeGlobalState::StateType 
+    eType)
 {
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
-    (*m_pspCameraNode)->DetachGlobalState((GlobalState::StateType)eType);
+    (*m_pspCameraNode)->DetachGlobalState((SEGlobalState::StateType)eType);
 }
 //---------------------------------------------------------------------------
 void ManagedCameraNode::DetachAllGlobalStates()
@@ -286,7 +287,7 @@ void ManagedCameraNode::DetachAllGlobalStates()
 INativeSpatial^ ManagedCameraNode::GetParent()
 {
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
-    Spatial* pSpatial = (*m_pspCameraNode)->GetParent();
+    SESpatial* pSpatial = (*m_pspCameraNode)->GetParent();
 
     return ManagedObjectFactory::CreateSpatialDerivedObject(pSpatial);
 }
@@ -314,15 +315,15 @@ int ManagedCameraNode::GetNativeReferences()
     return (*m_pspCameraNode)->GetReferences();
 }
 //---------------------------------------------------------------------------
-Spatial* ManagedCameraNode::GetNativeSpatial()
+SESpatial* ManagedCameraNode::GetNativeSpatial()
 {
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
-    return (Spatial*)(*m_pspCameraNode);
+    return (SESpatial*)(*m_pspCameraNode);
 }
 //---------------------------------------------------------------------------
-Node* ManagedCameraNode::GetNativeNode()
+SENode* ManagedCameraNode::GetNativeNode()
 {
     SE_NULL_REFERENCE_CHECK(m_pspCameraNode, "Native pointer is null");
-    return (Node*)(*m_pspCameraNode);
+    return (SENode*)(*m_pspCameraNode);
 }
 //---------------------------------------------------------------------------

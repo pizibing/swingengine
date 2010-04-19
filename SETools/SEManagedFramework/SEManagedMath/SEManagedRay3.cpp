@@ -38,15 +38,15 @@ ManagedRay3f::ManagedRay3f(ManagedVector3f^ thOrigin,
     m_thDirection = thDirection;
 }
 //---------------------------------------------------------------------------
-ManagedRay3f::ManagedRay3f(const Ray3f& rRay)
+ManagedRay3f::ManagedRay3f(const SERay3f& rRay)
 {
     FromRay3f(rRay);
 }
 //---------------------------------------------------------------------------
-ManagedRay3f::ManagedRay3f(const Vector3f& rOrigin, 
-    const Vector3f& rDirection)
+ManagedRay3f::ManagedRay3f(const SEVector3f& rOrigin, 
+    const SEVector3f& rDirection)
 {
-    Ray3f tempRay(rOrigin, rDirection);
+    SERay3f tempRay(rOrigin, rDirection);
     FromRay3f(tempRay);
 }
 //---------------------------------------------------------------------------
@@ -70,9 +70,9 @@ void ManagedRay3f::Direction::set(ManagedVector3f^ thDirection)
     m_thDirection = thDirection;
 }
 //---------------------------------------------------------------------------
-void ManagedRay3f::ToRay3f(Ray3f& rRay)
+void ManagedRay3f::ToRay3f(SERay3f& rRay)
 {
-    Vector3f vec3fOrigin, vec3fDirection;
+    SEVector3f vec3fOrigin, vec3fDirection;
     if( m_thOrigin )
     {
         m_thOrigin->ToVector3f(vec3fOrigin);
@@ -85,7 +85,7 @@ void ManagedRay3f::ToRay3f(Ray3f& rRay)
     rRay.Direction = vec3fDirection;
 }
 //---------------------------------------------------------------------------
-void ManagedRay3f::FromRay3f(const Ray3f& rRay)
+void ManagedRay3f::FromRay3f(const SERay3f& rRay)
 {
     if( !m_thOrigin )
     {

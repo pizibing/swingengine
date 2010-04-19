@@ -26,7 +26,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed z-buffer state class
 // Description:
 // Author:Sun Che
 // Date:20100105
@@ -79,15 +78,15 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedZBufferState(ZBufferState* pState);
+    ManagedZBufferState(SEZBufferState* pState);
 
     // Implement INativeGlobalState interface.
     [CLSCompliant(false)]
-    virtual GlobalState* GetNativeGlobalState(void) = 
+    virtual SEGlobalState* GetNativeGlobalState(void) = 
         INativeGlobalState::GetNativeGlobalState;
 
 private:
-    ZBufferStatePtr* m_pspZBufferState;
+    SEZBufferStatePtr* m_pspZBufferState;
 };
 
 }}}

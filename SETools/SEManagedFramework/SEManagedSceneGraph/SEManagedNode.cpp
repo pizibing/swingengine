@@ -35,13 +35,13 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedNode::ManagedNode()
 {
-    m_pspNode = SE_NEW NodePtr;
-    (*m_pspNode) = SE_NEW Node;
+    m_pspNode = SE_NEW SENodePtr;
+    (*m_pspNode) = SE_NEW SENode;
 }
 //---------------------------------------------------------------------------
-ManagedNode::ManagedNode(Node* pNode)
+ManagedNode::ManagedNode(SENode* pNode)
 {
-    m_pspNode = SE_NEW NodePtr;
+    m_pspNode = SE_NEW SENodePtr;
     (*m_pspNode) = pNode;
 }
 //---------------------------------------------------------------------------
@@ -60,13 +60,13 @@ ManagedNode::CullingMode ManagedNode::Culling::get()
 void ManagedNode::Culling::set(ManagedNode::CullingMode eMode)
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    (*m_pspNode)->Culling = (Spatial::CullingMode)eMode;
+    (*m_pspNode)->Culling = (SESpatial::CullingMode)eMode;
 }
 //---------------------------------------------------------------------------
 bool ManagedNode::IsInHierarchy(INativeSpatial^ thSpatial)
 {
     SE_NULL_ARGUMENT_CHECK(thSpatial, "thSpatial");
-    Swing::Object* pFound = (*m_pspNode)->GetObjectByID(
+    Swing::SEObject* pFound = (*m_pspNode)->GetObjectByID(
         thSpatial->GetNativeSpatial()->GetID());
 
     return pFound ? true : false;
@@ -114,13 +114,13 @@ void ManagedNode::WallConditioner(ManagedTextureTileL1Effect^ thEffect)
     SE_NULL_ARGUMENT_CHECK(thEffect, "thEffect");
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
     ManagedUtility::WallConditioner(*m_pspNode, 
-        (TextureTileL1Effect*)thEffect->GetNativeEffect());
+        (SETextureTileL1Effect*)thEffect->GetNativeEffect());
 }
 //---------------------------------------------------------------------------
 ManagedNode^ ManagedNode::Clone()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    Node* pClonedObject = ManagedUtility::CloneNode(*m_pspNode);
+    SENode* pClonedObject = ManagedUtility::CloneNode(*m_pspNode);
 
     return gcnew ManagedNode(pClonedObject);
 }
@@ -128,9 +128,9 @@ ManagedNode^ ManagedNode::Clone()
 ManagedNode^ ManagedNode::Copy(bool bUniqueNames)
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    ObjectPtr spCopiedObject = (*m_pspNode)->Copy(bUniqueNames);
+    SEObjectPtr spCopiedObject = (*m_pspNode)->Copy(bUniqueNames);
 
-    return gcnew ManagedNode((Node*)(Swing::Object*)spCopiedObject);
+    return gcnew ManagedNode((SENode*)(Swing::SEObject*)spCopiedObject);
 }
 //---------------------------------------------------------------------------
 ManagedTriMesh^ ManagedNode::GetTriMeshByName(String^ thName)
@@ -141,7 +141,7 @@ ManagedTriMesh^ ManagedNode::GetTriMeshByName(String^ thName)
     const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
     std::string tempName(acBuffer);
     ManagedUtility::FreeNativeCharBuffer(acBuffer);
-    TriMesh* pMesh = DynamicCast<TriMesh>(
+    SETriMesh* pMesh = DynamicCast<SETriMesh>(
         (*m_pspNode)->GetObjectByName(tempName));
     if( pMesh )
     {
@@ -159,7 +159,7 @@ ManagedNode^ ManagedNode::GetNodeByName(String^ thName)
     const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
     std::string tempName(acBuffer);
     ManagedUtility::FreeNativeCharBuffer(acBuffer);
-    Node* pNode = DynamicCast<Node>(
+    SENode* pNode = DynamicCast<SENode>(
         (*m_pspNode)->GetObjectByName(tempName));
     if( pNode )
     {
@@ -178,7 +178,7 @@ ManagedTextureTileEffect^ ManagedNode::GetTextureTileEffectByName(
     const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
     std::string tempName(acBuffer);
     ManagedUtility::FreeNativeCharBuffer(acBuffer);
-    TextureTileEffect* pEffect = DynamicCast<TextureTileEffect>(
+    SETextureTileEffect* pEffect = DynamicCast<SETextureTileEffect>(
         (*m_pspNode)->GetObjectByName(tempName));
     if( pEffect )
     {
@@ -197,7 +197,7 @@ ManagedTextureTileL1Effect^ ManagedNode::GetTextureTileL1EffectByName(
     const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
     std::string tempName(acBuffer);
     ManagedUtility::FreeNativeCharBuffer(acBuffer);
-    TextureTileL1Effect* pEffect = DynamicCast<TextureTileL1Effect>(
+    SETextureTileL1Effect* pEffect = DynamicCast<SETextureTileL1Effect>(
         (*m_pspNode)->GetObjectByName(tempName));
     if( pEffect )
     {
@@ -215,7 +215,7 @@ ManagedLight^ ManagedNode::GetLightByName(String^ thName)
     const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
     std::string tempName(acBuffer);
     ManagedUtility::FreeNativeCharBuffer(acBuffer);
-    Light* pLight = DynamicCast<Light>(
+    SELight* pLight = DynamicCast<SELight>(
         (*m_pspNode)->GetObjectByName(tempName));
     if( pLight )
     {
@@ -233,7 +233,7 @@ ManagedLightNode^ ManagedNode::GetLightNodeByName(String^ thName)
     const char* acBuffer = ManagedUtility::StringToNativeCharBuffer(thName);
     std::string tempName(acBuffer);
     ManagedUtility::FreeNativeCharBuffer(acBuffer);
-    LightNode* pLightNode = DynamicCast<LightNode>(
+    SELightNode* pLightNode = DynamicCast<SELightNode>(
         (*m_pspNode)->GetObjectByName(tempName));
     if( pLightNode )
     {
@@ -266,7 +266,7 @@ int ManagedNode::DetachChild(INativeSpatial^ thSpatial)
 INativeSpatial^ ManagedNode::GetChild(int i)
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    Spatial* pChild = (*m_pspNode)->GetChild(i);
+    SESpatial* pChild = (*m_pspNode)->GetChild(i);
     return ManagedObjectFactory::CreateSpatialDerivedObject(pChild);
 }
 //---------------------------------------------------------------------------
@@ -274,7 +274,7 @@ void ManagedNode::SetLocalRotate(ManagedMatrix3f^ thRotate)
 {
     SE_NULL_ARGUMENT_CHECK(thRotate, "thRotate");
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    Matrix3f mat3fRot;
+    SEMatrix3f mat3fRot;
     thRotate->ToMatrix3f(mat3fRot);
     (*m_pspNode)->Local.SetRotate(mat3fRot);
 }
@@ -289,7 +289,7 @@ void ManagedNode::SetLocalMatrix(ManagedMatrix3f^ thMatrix)
 {
     SE_NULL_ARGUMENT_CHECK(thMatrix, "thMatrix");
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    Matrix3f mat3fM;
+    SEMatrix3f mat3fM;
     thMatrix->ToMatrix3f(mat3fM);
     (*m_pspNode)->Local.SetMatrix(mat3fM);
 }
@@ -304,7 +304,7 @@ void ManagedNode::SetLocalTranslate(ManagedVector3f^ thTranslate)
 {
     SE_NULL_ARGUMENT_CHECK(thTranslate, "thTranslate");
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    Vector3f vec3fTrn;
+    SEVector3f vec3fTrn;
     thTranslate->ToVector3f(vec3fTrn);
     (*m_pspNode)->Local.SetTranslate(vec3fTrn);
 }
@@ -319,7 +319,7 @@ void ManagedNode::SetLocalScale(ManagedVector3f^ thScale)
 {
     SE_NULL_ARGUMENT_CHECK(thScale, "thScale");
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    Vector3f vec3fScl;
+    SEVector3f vec3fScl;
     thScale->ToVector3f(vec3fScl);
     (*m_pspNode)->Local.SetScale(vec3fScl);
 }
@@ -434,7 +434,7 @@ int ManagedNode::GetGlobalStateCount()
 INativeGlobalState^ ManagedNode::GetGlobalState(int i)
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    GlobalState* pState = (*m_pspNode)->GetGlobalState(i);
+    SEGlobalState* pState = (*m_pspNode)->GetGlobalState(i);
 
     return ManagedObjectFactory::CreateGlobalStateObject(pState);
 }
@@ -443,8 +443,8 @@ INativeGlobalState^ ManagedNode::GetGlobalState(
     INativeGlobalState::StateType eType)
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    GlobalState* pState = (*m_pspNode)->GetGlobalState(
-        (GlobalState::StateType)eType);
+    SEGlobalState* pState = (*m_pspNode)->GetGlobalState(
+        (SEGlobalState::StateType)eType);
 
     return ManagedObjectFactory::CreateGlobalStateObject(pState);
 }
@@ -459,7 +459,7 @@ void ManagedNode::AttachGlobalState(INativeGlobalState^ thState)
 void ManagedNode::DetachGlobalState(INativeGlobalState::StateType eType)
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    (*m_pspNode)->DetachGlobalState((GlobalState::StateType)eType);
+    (*m_pspNode)->DetachGlobalState((SEGlobalState::StateType)eType);
 }
 //---------------------------------------------------------------------------
 void ManagedNode::DetachAllGlobalStates()
@@ -471,7 +471,7 @@ void ManagedNode::DetachAllGlobalStates()
 INativeSpatial^ ManagedNode::GetParent()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    Spatial* pSpatial = (*m_pspNode)->GetParent();
+    SESpatial* pSpatial = (*m_pspNode)->GetParent();
 
     return ManagedObjectFactory::CreateSpatialDerivedObject(pSpatial);
 }
@@ -499,15 +499,15 @@ int ManagedNode::GetNativeReferences()
     return (*m_pspNode)->GetReferences();
 }
 //---------------------------------------------------------------------------
-Spatial* ManagedNode::GetNativeSpatial()
+SESpatial* ManagedNode::GetNativeSpatial()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    return (Spatial*)(*m_pspNode);
+    return (SESpatial*)(*m_pspNode);
 }
 //---------------------------------------------------------------------------
-Node* ManagedNode::GetNativeNode()
+SENode* ManagedNode::GetNativeNode()
 {
     SE_NULL_REFERENCE_CHECK(m_pspNode, "Native pointer is null");
-    return (Node*)(*m_pspNode);
+    return (SENode*)(*m_pspNode);
 }
 //---------------------------------------------------------------------------

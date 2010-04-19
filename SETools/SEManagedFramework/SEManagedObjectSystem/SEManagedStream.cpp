@@ -27,7 +27,7 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedStream::ManagedStream()
 {
-    m_pStream = SE_NEW Stream;
+    m_pStream = SE_NEW SEStream;
 }
 //---------------------------------------------------------------------------
 ManagedStream::~ManagedStream()
@@ -39,7 +39,7 @@ ManagedStream::~ManagedStream()
 bool ManagedStream::InsertNode(ManagedNode^ thNode)
 {
     SE_NULL_ARGUMENT_CHECK(thNode, "thNode");
-    Swing::Object* pObject = thNode->GetNativeNode();
+    Swing::SEObject* pObject = thNode->GetNativeNode();
 
     SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
     return m_pStream->Insert(pObject);
@@ -48,7 +48,7 @@ bool ManagedStream::InsertNode(ManagedNode^ thNode)
 bool ManagedStream::RemoveNode(ManagedNode^ thNode)
 {
     SE_NULL_ARGUMENT_CHECK(thNode, "thNode");
-    Swing::Object* pObject = thNode->GetNativeNode();
+    Swing::SEObject* pObject = thNode->GetNativeNode();
 
     SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
     return m_pStream->Remove(pObject);
@@ -69,7 +69,7 @@ int ManagedStream::GetObjectCount()
 ManagedNode^ ManagedStream::GetNodeAt(int i)
 {
     SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
-    Node* pNode = DynamicCast<Node>(m_pStream->GetObjectAt(i));
+    SENode* pNode = DynamicCast<SENode>(m_pStream->GetObjectAt(i));
     if( !pNode )
     {
         return nullptr;
@@ -81,7 +81,7 @@ ManagedNode^ ManagedStream::GetNodeAt(int i)
 bool ManagedStream::IsTopLevelNode(ManagedNode^ thNode)
 {
     SE_NULL_ARGUMENT_CHECK(thNode, "thNode");
-    Swing::Object* pObject = thNode->GetNativeNode();
+    Swing::SEObject* pObject = thNode->GetNativeNode();
 
     SE_NULL_REFERENCE_CHECK(m_pStream, "Native pointer is null");
     return m_pStream->IsTopLevel(pObject);
@@ -113,7 +113,7 @@ bool ManagedStream::Save(String^ thFileName)
     return bRes;
 }
 //---------------------------------------------------------------------------
-Swing::Stream* ManagedStream::GetNativeStream()
+Swing::SEStream* ManagedStream::GetNativeStream()
 {
     return m_pStream;
 }

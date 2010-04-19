@@ -25,7 +25,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed single precision floating-point quaternion class
 // Description:
 // Author:Sun Che
 // Date:20091229
@@ -63,18 +62,18 @@ public:
     void FromRotationMatrix(ManagedMatrix3f^ thRotMat);
     ManagedMatrix3f^ GetRotationMatrix(void);
 
-    // SESystem::Object overrides.
+    // System::Object overrides.
     virtual bool Equals(Object^ thObj) override;
 
 internal:
     [CLSCompliant(false)]
-    ManagedQuaternionf(const Quaternionf& rQ);
+    ManagedQuaternionf(const SEQuaternionf& rQ);
 
     [CLSCompliant(false)]
-    void ToQuaternionf(Quaternionf& rQ);
+    void ToQuaternionf(SEQuaternionf& rQ);
 
     [CLSCompliant(false)]
-    void FromQuaternionf(const Quaternionf& rQ);
+    void FromQuaternionf(const SEQuaternionf& rQ);
 
 private:
     float m_fW;

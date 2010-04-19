@@ -28,7 +28,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed texture tile with 1 light effect class
 // Description:
 // Author:Sun Che
 // Date:20100318
@@ -84,19 +83,19 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedTextureTileL1Effect(TextureTileL1Effect* pEffect);
+    ManagedTextureTileL1Effect(SETextureTileL1Effect* pEffect);
 
     // Implement INativeEffect interface.
     [CLSCompliant(false)]
-    virtual Effect* GetNativeEffect(void) = INativeEffect::GetNativeEffect;
+    virtual SEEffect* GetNativeEffect(void) = INativeEffect::GetNativeEffect;
 
     // Implement INativeShaderEffect interface.
     [CLSCompliant(false)]
-    virtual ShaderEffect* GetNativeShaderEffect(void) = 
+    virtual SEShaderEffect* GetNativeShaderEffect(void) = 
         INativeShaderEffect::GetNativeShaderEffect;
 
 private:
-    TextureTileL1EffectPtr* m_pspTextureTileL1Effect;
+    SETextureTileL1EffectPtr* m_pspTextureTileL1Effect;
 };
 
 }}}

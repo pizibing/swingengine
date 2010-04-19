@@ -21,6 +21,7 @@
 #include "SEManagedFrameworkPCH.h"
 #include "SEManagedUtility.h"
 
+using namespace Swing;
 using namespace Swing::Tools::ManagedFramework;
 using namespace System::Runtime::InteropServices;
 
@@ -48,14 +49,14 @@ void ManagedUtility::FreeNativeCharBuffer(const char* acBuffer)
     Marshal::FreeHGlobal((IntPtr)(void*)acBuffer);
 }
 //---------------------------------------------------------------------------
-Swing::Node* ManagedUtility::CloneNode(Swing::Node* pSrcNode)
+SENode* ManagedUtility::CloneNode(SENode* pSrcNode)
 {
     if( !pSrcNode )
     {
         return 0;
     }
 
-    Swing::Node* pClonedObject = SE_NEW Swing::Node;
+    SENode* pClonedObject = SE_NEW SENode;
     pClonedObject->SetName(pSrcNode->GetName());
     pClonedObject->Local = pSrcNode->Local;
 
@@ -66,20 +67,20 @@ Swing::Node* ManagedUtility::CloneNode(Swing::Node* pSrcNode)
 
     for( int i = 0; i < pSrcNode->GetCount(); i++ )
     {
-        Swing::Spatial* pChild = pSrcNode->GetChild(i);
+        SESpatial* pChild = pSrcNode->GetChild(i);
 
         if( pChild )
         {
-            Swing::Spatial* pClonedChild = 0;
+            SESpatial* pClonedChild = 0;
 
-            const Swing::RTTI& rType = pChild->GetType();
-            if( rType.IsExactly(Node::TYPE) )
+            const SERTTI& rType = pChild->GetType();
+            if( rType.IsExactly(SENode::TYPE) )
             {
-                pClonedChild = CloneNode((Node*)pChild);
+                pClonedChild = CloneNode((SENode*)pChild);
             }
-            else if( rType.IsExactly(TriMesh::TYPE) )
+            else if( rType.IsExactly(SETriMesh::TYPE) )
             {
-                pClonedChild = CloneTriMesh((TriMesh*)pChild);
+                pClonedChild = CloneTriMesh((SETriMesh*)pChild);
             }
 
             if( pClonedChild )
@@ -92,15 +93,15 @@ Swing::Node* ManagedUtility::CloneNode(Swing::Node* pSrcNode)
     return pClonedObject;
 }
 //---------------------------------------------------------------------------
-Swing::TriMesh* ManagedUtility::CloneTriMesh(Swing::TriMesh* pSrcTriMesh)
+SETriMesh* ManagedUtility::CloneTriMesh(SETriMesh* pSrcTriMesh)
 {
     if( !pSrcTriMesh )
     {
         return 0;
     }
 
-    Swing::TriMesh* pClonedObject = SE_NEW Swing::TriMesh(
-        pSrcTriMesh->VBuffer, pSrcTriMesh->IBuffer);
+    SETriMesh* pClonedObject = SE_NEW SETriMesh(pSrcTriMesh->VBuffer, 
+        pSrcTriMesh->IBuffer);
     pClonedObject->SetName(pSrcTriMesh->GetName());
     pClonedObject->Local = pSrcTriMesh->Local;
     pClonedObject->LightingMode = pSrcTriMesh->LightingMode;
@@ -113,14 +114,14 @@ Swing::TriMesh* ManagedUtility::CloneTriMesh(Swing::TriMesh* pSrcTriMesh)
 
     for( int i = 0; i < pSrcTriMesh->GetEffectCount(); i++ )
     {
-        ObjectPtr spCopiedEffect = pSrcTriMesh->GetEffect(i)->Copy();
-        pClonedObject->AttachEffect((Effect*)(Swing::Object*)spCopiedEffect);
+        SEObjectPtr spCopiedEffect = pSrcTriMesh->GetEffect(i)->Copy();
+        pClonedObject->AttachEffect((SEEffect*)(SEObject*)spCopiedEffect);
     }
 
     return pClonedObject;
 }
 //---------------------------------------------------------------------------
-void ManagedUtility::GenerateNormalsForAll(Swing::Node* pNode)
+void ManagedUtility::GenerateNormalsForAll(SENode* pNode)
 {
     if( !pNode )
     {
@@ -129,23 +130,23 @@ void ManagedUtility::GenerateNormalsForAll(Swing::Node* pNode)
 
     for( int i = 0; i < pNode->GetCount(); i++ )
     {
-        Swing::Spatial* pChild = pNode->GetChild(i);
+        SESpatial* pChild = pNode->GetChild(i);
 
         if( pChild )
         {
-            if( DynamicCast<Swing::Node>(pChild) )
+            if( DynamicCast<SENode>(pChild) )
             {
-                GenerateNormalsForAll((Swing::Node*)pChild);
+                GenerateNormalsForAll((SENode*)pChild);
             }
-            else if( DynamicCast<Swing::TriMesh>(pChild) )
+            else if( DynamicCast<SETriMesh>(pChild) )
             {
-                ((Swing::TriMesh*)pChild)->GenerateNormals();
+                ((SETriMesh*)pChild)->GenerateNormals();
             }
         }
     }
 }
 //---------------------------------------------------------------------------
-void ManagedUtility::DetachAllEffectsForAll(Swing::Node* pNode)
+void ManagedUtility::DetachAllEffectsForAll(SENode* pNode)
 {
     if( !pNode )
     {
@@ -156,13 +157,13 @@ void ManagedUtility::DetachAllEffectsForAll(Swing::Node* pNode)
 
     for( int i = 0; i < pNode->GetCount(); i++ )
     {
-        Swing::Spatial* pChild = pNode->GetChild(i);
+        SESpatial* pChild = pNode->GetChild(i);
 
         if( pChild )
         {
-            if( DynamicCast<Swing::Node>(pChild) )
+            if( DynamicCast<SENode>(pChild) )
             {
-                DetachAllEffectsForAll((Node*)pChild);
+                DetachAllEffectsForAll((SENode*)pChild);
             }
             else
             {
@@ -172,7 +173,7 @@ void ManagedUtility::DetachAllEffectsForAll(Swing::Node* pNode)
     }
 }
 //---------------------------------------------------------------------------
-void ManagedUtility::ModulateWithLightingEffectForAll(Swing::Node* pNode)
+void ManagedUtility::ModulateWithLightingEffectForAll(SENode* pNode)
 {
     if( !pNode )
     {
@@ -181,21 +182,20 @@ void ManagedUtility::ModulateWithLightingEffectForAll(Swing::Node* pNode)
 
     for( int i = 0; i < pNode->GetCount(); i++ )
     {
-        Swing::Spatial* pChild = pNode->GetChild(i);
+        SESpatial* pChild = pNode->GetChild(i);
 
         if( pChild )
         {
-            if( DynamicCast<Swing::Node>(pChild) )
+            if( DynamicCast<SENode>(pChild) )
             {
-                ModulateWithLightingEffectForAll((Node*)pChild);
+                ModulateWithLightingEffectForAll((SENode*)pChild);
             }
-            else if( DynamicCast<Swing::TriMesh>(pChild) )
+            else if( DynamicCast<SETriMesh>(pChild) )
             {
                 if( pChild->GetEffectCount() > 0 )
                 {
-                    Swing::ShaderEffect* pShaderEffect = 
-                        DynamicCast<Swing::ShaderEffect>(
-                        pChild->GetEffect(0));
+                    SEShaderEffect* pShaderEffect = DynamicCast<
+                        SEShaderEffect>(pChild->GetEffect(0));
 
                     if( pShaderEffect )
                     {
@@ -204,10 +204,10 @@ void ManagedUtility::ModulateWithLightingEffectForAll(Swing::Node* pNode)
                             throw gcnew Exception("Pass count is zero");
                         }
 
-                        Swing::AlphaState* pAState = 
+                        SEAlphaState* pAState = 
                             pShaderEffect->GetBlending(0);
-                        pAState->SrcBlend = AlphaState::SBF_DST_COLOR;
-                        pAState->DstBlend = AlphaState::DBF_ZERO;
+                        pAState->SrcBlend = SEAlphaState::SBF_DST_COLOR;
+                        pAState->DstBlend = SEAlphaState::DBF_ZERO;
                     }
                 }
             }
@@ -215,7 +215,7 @@ void ManagedUtility::ModulateWithLightingEffectForAll(Swing::Node* pNode)
     }
 }
 //---------------------------------------------------------------------------
-void ManagedUtility::MaterialTextureConditioner(Swing::Node* pNode)
+void ManagedUtility::MaterialTextureConditioner(SENode* pNode)
 {
     if( !pNode )
     {
@@ -224,50 +224,51 @@ void ManagedUtility::MaterialTextureConditioner(Swing::Node* pNode)
 
     for( int i = 0; i < pNode->GetCount(); i++ )
     {
-        Swing::Spatial* pChild = pNode->GetChild(i);
+        SESpatial* pChild = pNode->GetChild(i);
 
         if( pChild )
         {
-            if( DynamicCast<Swing::Node>(pChild) )
+            if( DynamicCast<SENode>(pChild) )
             {
-                MaterialTextureConditioner((Node*)pChild);
+                MaterialTextureConditioner((SENode*)pChild);
             }
-            else if( DynamicCast<Swing::TriMesh>(pChild) )
+            else if( DynamicCast<SETriMesh>(pChild) )
             {
-                Swing::TriMesh* pMesh = (TriMesh*)pChild;
+                SETriMesh* pMesh = (SETriMesh*)pChild;
                 pMesh->GenerateNormals();
-                pMesh->LightingMode = Swing::Geometry::GLM_USER;
+                pMesh->LightingMode = SEGeometry::GLM_USER;
 
                 std::string tempSubName = pMesh->GetName().substr(0, 4);
 
                 if( pMesh->GetEffectCount() > 0 )
                 {
-                    Swing::SkinMaterialTextureEffect* pEffect = 
-                        DynamicCast<Swing::SkinMaterialTextureEffect>(
+                    SESkinMaterialTextureEffect* pEffect = 
+                        DynamicCast<SESkinMaterialTextureEffect>(
                         pMesh->GetEffect(0));
                     if( pEffect )
                     {
-                        std::string tempBaseName = pEffect->GetPImageName(0, 0);
+                        std::string tempBaseName = pEffect->GetPImageName(
+                            0, 0);
                         int iBoneCount = pEffect->GetBoneCount();
-                        Swing::Node** apBones = SE_NEW Swing::Node*[iBoneCount];
-                        Swing::Transformation* aOffset = 
-                            SE_NEW Swing::Transformation[iBoneCount];
+                        SENode** apBones = SE_NEW SENode*[iBoneCount];
+                        SETransformation* aOffset = 
+                            SE_NEW SETransformation[iBoneCount];
                         for( int i = 0; i < iBoneCount; i++ )
                         {
                             apBones[i] = pEffect->GetBones()[i];
                             aOffset[i] = pEffect->GetOffsets()[i];
                         }
 
-                        Effect* pNewEffect = 0;
+                        SEEffect* pNewEffect = 0;
                         if( tempSubName == "Part" )
                         {
-                            pNewEffect = SE_NEW SkinMaterialTexture2L1Effect(
+                            pNewEffect = SE_NEW SESkinMaterialTexture2L1Effect(
                                 tempBaseName, "wood_01", iBoneCount, apBones, 
                                 aOffset);
                         }
                         else
                         {
-                            pNewEffect = SE_NEW SkinMaterialTextureL1Effect(
+                            pNewEffect = SE_NEW SESkinMaterialTextureL1Effect(
                                 tempBaseName, iBoneCount, apBones, aOffset);
                         }
 
@@ -276,32 +277,35 @@ void ManagedUtility::MaterialTextureConditioner(Swing::Node* pNode)
                         pMesh->AttachEffect(pNewEffect);
                     }
 
-                    MaterialTextureEffect* pEffect2 = 
-                        DynamicCast<MaterialTextureEffect>(
-                        ((TriMesh*)pChild)->GetEffect(0));
+                    SEMaterialTextureEffect* pEffect2 = 
+                        DynamicCast<SEMaterialTextureEffect>(
+                        ((SETriMesh*)pChild)->GetEffect(0));
                     if( pEffect2 )
                     {
                         std::string tempBaseName = pEffect2->GetPImageName(0, 0);
 
-                        Effect* pNewEffect = 0;
+                        SEEffect* pNewEffect = 0;
                         if( tempSubName == "Part" || tempSubName == "Trun" )
                         {
-                            pNewEffect = SE_NEW MaterialTexture2L1Effect(
+                            pNewEffect = SE_NEW SEMaterialTexture2L1Effect(
                                 tempBaseName, "wood_01");
                         }
                         else if( tempSubName == "Wall" )
                         {
-                            pNewEffect = SE_NEW TextureTileL1Effect("wall_01");
-                            ((TextureTileL1Effect*)pNewEffect)->TileX = 8.0f;
-                            ((TextureTileL1Effect*)pNewEffect)->TileY = 8.0f;
-                            ((TextureTileL1Effect*)pNewEffect)->AmbientWeight = 0.65f;
-                            ((TextureTileL1Effect*)pNewEffect)->DiffuseWeight = 0.2f;
-                            ((TextureTileL1Effect*)pNewEffect)->SpecularWeight = 0.01f;
+                            pNewEffect = SE_NEW SETextureTileL1Effect("wall_01");
+                            ((SETextureTileL1Effect*)pNewEffect)->TileX = 8.0f;
+                            ((SETextureTileL1Effect*)pNewEffect)->TileY = 8.0f;
+                            ((SETextureTileL1Effect*)pNewEffect)->AmbientWeight 
+                                = 0.65f;
+                            ((SETextureTileL1Effect*)pNewEffect)->DiffuseWeight 
+                                = 0.2f;
+                            ((SETextureTileL1Effect*)pNewEffect)->SpecularWeight 
+                                = 0.01f;
 
                         }
                         else
                         {
-                            pNewEffect = SE_NEW MaterialTextureL1Effect(
+                            pNewEffect = SE_NEW SEMaterialTextureL1Effect(
                                 tempBaseName);
                         }
 
@@ -313,26 +317,26 @@ void ManagedUtility::MaterialTextureConditioner(Swing::Node* pNode)
                 if( tempSubName == "Bone" || tempSubName == "join" )
                 {
                     pMesh->DetachAllEffects();
-                    pMesh->Culling = Swing::Spatial::CULL_ALWAYS;
+                    pMesh->Culling = SESpatial::CULL_ALWAYS;
                 }
                 else if( tempSubName == "Glas" )
                 {
-                    AlphaState* pAS = SE_NEW Swing::AlphaState;
+                    SEAlphaState* pAS = SE_NEW SEAlphaState;
                     pAS->BlendEnabled = true;
                     pMesh->AttachGlobalState(pAS);
 
-                    ZBufferState* pZS = SE_NEW Swing::ZBufferState;
+                    SEZBufferState* pZS = SE_NEW SEZBufferState;
                     pZS->Writable = false;
                     pMesh->AttachGlobalState(pZS);
 
-                    Swing::MaterialState* pMS = 
-                        (MaterialState*)pMesh->GetGlobalState(
-                        Swing::GlobalState::MATERIAL);
+                    SEMaterialState* pMS = 
+                        (SEMaterialState*)pMesh->GetGlobalState(
+                        SEGlobalState::MATERIAL);
                     if( pMS )
                     {
-                        pMS->Ambient = Swing::ColorRGB(0.1f, 0.1f, 0.1f);
-                        pMS->Diffuse = Swing::ColorRGB(0.1f, 0.1f, 0.1f);
-                        pMS->Specular = Swing::ColorRGB(1.0f, 1.0f, 1.0f);
+                        pMS->Ambient = SEColorRGB(0.1f, 0.1f, 0.1f);
+                        pMS->Diffuse = SEColorRGB(0.1f, 0.1f, 0.1f);
+                        pMS->Specular = SEColorRGB(1.0f, 1.0f, 1.0f);
                         pMS->Shininess = 100.0f;
                     }
                 }
@@ -341,7 +345,7 @@ void ManagedUtility::MaterialTextureConditioner(Swing::Node* pNode)
     }
 }
 //---------------------------------------------------------------------------
-void ManagedUtility::DisableLightingConditioner(Swing::Node* pNode)
+void ManagedUtility::DisableLightingConditioner(SENode* pNode)
 {
     if( !pNode )
     {
@@ -350,25 +354,24 @@ void ManagedUtility::DisableLightingConditioner(Swing::Node* pNode)
 
     for( int i = 0; i < pNode->GetCount(); i++ )
     {
-        Swing::Spatial* pChild = pNode->GetChild(i);
+        SESpatial* pChild = pNode->GetChild(i);
 
         if( pChild )
         {
-            if( DynamicCast<Swing::Node>(pChild) )
+            if( DynamicCast<SENode>(pChild) )
             {
-                DisableLightingConditioner((Node*)pChild);
+                DisableLightingConditioner((SENode*)pChild);
             }
-            else if( DynamicCast<Swing::TriMesh>(pChild) )
+            else if( DynamicCast<SETriMesh>(pChild) )
             {
-                Swing::TriMesh* pMesh = (TriMesh*)pChild;
-                pMesh->LightingMode = Swing::Geometry::GLM_USER;
+                SETriMesh* pMesh = (SETriMesh*)pChild;
+                pMesh->LightingMode = SEGeometry::GLM_USER;
             }
         }
     }
 }
 //---------------------------------------------------------------------------
-void ManagedUtility::ImageConditioner(Swing::Node* pNode, 
-    Swing::Image* pImage)
+void ManagedUtility::ImageConditioner(SENode* pNode, SEImage* pImage)
 {
     if( !pNode || !pImage )
     {
@@ -377,30 +380,30 @@ void ManagedUtility::ImageConditioner(Swing::Node* pNode,
 
     for( int i = 0; i < pNode->GetCount(); i++ )
     {
-        Swing::Spatial* pChild = pNode->GetChild(i);
+        SESpatial* pChild = pNode->GetChild(i);
 
         if( pChild )
         {
-            if( DynamicCast<Swing::Node>(pChild) )
+            if( DynamicCast<SENode>(pChild) )
             {
-                ImageConditioner((Node*)pChild, pImage);
+                ImageConditioner((SENode*)pChild, pImage);
             }
-            else if( DynamicCast<Swing::TriMesh>(pChild) )
+            else if( DynamicCast<SETriMesh>(pChild) )
             {
-                Swing::TriMesh* pMesh = (TriMesh*)pChild;
+                SETriMesh* pMesh = (SETriMesh*)pChild;
                 if( pMesh->GetEffectCount() > 0 )
                 {
                     std::string tempSubName = pMesh->GetName().substr(0, 4);
 
                     if( tempSubName == "Part" || tempSubName == "Trun" )
                     {
-                        MaterialTexture2L1Effect* pEffect = 
-                            DynamicCast<MaterialTexture2L1Effect>(
-                            ((TriMesh*)pMesh)->GetEffect(0));
+                        SEMaterialTexture2L1Effect* pEffect = 
+                            DynamicCast<SEMaterialTexture2L1Effect>(
+                            ((SETriMesh*)pMesh)->GetEffect(0));
                         if( pEffect )
                         {
-                            PixelShader* pPS = pEffect->GetPShader(0);
-                            Texture* pTexture = pPS->GetTexture(1);
+                            SEPixelShader* pPS = pEffect->GetPShader(0);
+                            SETexture* pTexture = pPS->GetTexture(1);
                             if( pTexture )
                             {
                                 pPS->SetImageName(1, pImage->GetName());
@@ -409,13 +412,13 @@ void ManagedUtility::ImageConditioner(Swing::Node* pNode,
                             }
                         }
 
-                        SkinMaterialTexture2L1Effect* pEffect2 = 
-                            DynamicCast<SkinMaterialTexture2L1Effect>(
-                            ((TriMesh*)pMesh)->GetEffect(0));
+                        SESkinMaterialTexture2L1Effect* pEffect2 = 
+                            DynamicCast<SESkinMaterialTexture2L1Effect>(
+                            ((SETriMesh*)pMesh)->GetEffect(0));
                         if( pEffect2 )
                         {
-                            PixelShader* pPS = pEffect2->GetPShader(0);
-                            Texture* pTexture = pPS->GetTexture(1);
+                            SEPixelShader* pPS = pEffect2->GetPShader(0);
+                            SETexture* pTexture = pPS->GetTexture(1);
                             if( pTexture )
                             {
                                 pPS->SetImageName(1, pImage->GetName());
@@ -430,8 +433,8 @@ void ManagedUtility::ImageConditioner(Swing::Node* pNode,
     }
 }
 //---------------------------------------------------------------------------
-void ManagedUtility::WallConditioner(Swing::Node* pNode, 
-    Swing::TextureTileL1Effect* pEffect)
+void ManagedUtility::WallConditioner(SENode* pNode, SETextureTileL1Effect* 
+    pEffect)
 {
     if( !pNode || !pEffect )
     {
@@ -440,17 +443,17 @@ void ManagedUtility::WallConditioner(Swing::Node* pNode,
 
     for( int i = 0; i < pNode->GetCount(); i++ )
     {
-        Swing::Spatial* pChild = pNode->GetChild(i);
+        SESpatial* pChild = pNode->GetChild(i);
 
         if( pChild )
         {
-            if( DynamicCast<Swing::Node>(pChild) )
+            if( DynamicCast<SENode>(pChild) )
             {
-                WallConditioner((Node*)pChild, pEffect);
+                WallConditioner((SENode*)pChild, pEffect);
             }
-            else if( DynamicCast<Swing::TriMesh>(pChild) )
+            else if( DynamicCast<SETriMesh>(pChild) )
             {
-                Swing::TriMesh* pMesh = (TriMesh*)pChild;
+                SETriMesh* pMesh = (SETriMesh*)pChild;
                 if( pMesh->GetEffectCount() > 0 )
                 {
                     std::string tempSubName = pMesh->GetName().substr(0, 4);

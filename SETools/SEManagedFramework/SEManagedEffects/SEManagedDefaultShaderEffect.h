@@ -27,7 +27,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed default shader effect class
 // Description:
 // Author:Sun Che
 // Date:20091231
@@ -54,19 +53,19 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedDefaultShaderEffect(DefaultShaderEffect* pEffect);
+    ManagedDefaultShaderEffect(SEDefaultShaderEffect* pEffect);
 
     // Implement INativeEffect interface.
     [CLSCompliant(false)]
-    virtual Effect* GetNativeEffect(void) = INativeEffect::GetNativeEffect;
+    virtual SEEffect* GetNativeEffect(void) = INativeEffect::GetNativeEffect;
 
     // Implement INativeShaderEffect interface.
     [CLSCompliant(false)]
-    virtual ShaderEffect* GetNativeShaderEffect(void) = 
+    virtual SEShaderEffect* GetNativeShaderEffect(void) = 
         INativeShaderEffect::GetNativeShaderEffect;
 
 private:
-    DefaultShaderEffectPtr* m_pspDefaultShaderEffect;
+    SEDefaultShaderEffectPtr* m_pspDefaultShaderEffect;
 };
 
 }}}

@@ -23,7 +23,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed system class
 // Description:This is a singleton class.
 // Author:Sun Che
 // Date:20100102

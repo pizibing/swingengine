@@ -27,7 +27,6 @@ using namespace System;
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Node interface class
 // Description:
 // Author:Sun Che
 // Date:20091230
@@ -41,7 +40,7 @@ public interface class INativeNode
     INativeSpatial^ GetChild(int i);
 
     [CLSCompliant(false)]
-    Node* GetNativeNode(void);
+    SENode* GetNativeNode(void);
 };
 
 }}}

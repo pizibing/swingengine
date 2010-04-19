@@ -27,25 +27,25 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedNode^ ManagedWidget::CoordinateFrame(float fLengthOfAxis)
 {
-    Node* pNode = Widget::CoordinateFrame(fLengthOfAxis);
+    SENode* pNode = SEWidget::CoordinateFrame(fLengthOfAxis);
     return gcnew ManagedNode(pNode);
 }
 //---------------------------------------------------------------------------
 ManagedNode^ ManagedWidget::ScaleFrame()
 {
-    Node* pNode = Widget::ScaleFrame();
+    SENode* pNode = SEWidget::ScaleFrame();
     return gcnew ManagedNode(pNode);
 }
 //---------------------------------------------------------------------------
 ManagedNode^ ManagedWidget::RotationFrame()
 {
-    Node* pNode = Widget::RotationFrame();
+    SENode* pNode = SEWidget::RotationFrame();
     return gcnew ManagedNode(pNode);
 }
 //---------------------------------------------------------------------------
 ManagedNode^ ManagedWidget::TranslationFrame()
 {
-    Node* pNode = Widget::TranslationFrame();
+    SENode* pNode = SEWidget::TranslationFrame();
     return gcnew ManagedNode(pNode);
 }
 //---------------------------------------------------------------------------
@@ -56,12 +56,12 @@ ManagedNode^ ManagedWidget::AABBFrame(ManagedVector3f^ thVecMin,
     SE_NULL_ARGUMENT_CHECK(thVecMax, "thVecMax");
     SE_NULL_ARGUMENT_CHECK(thColor, "thColor");
 
-    Vector3f vec3fMin, vec3fMax;
-    ColorRGB tempColor;
+    SEVector3f vec3fMin, vec3fMax;
+    SEColorRGB tempColor;
     thVecMin->ToVector3f(vec3fMin);
     thVecMax->ToVector3f(vec3fMax);
     thColor->ToColorRGB(tempColor);
-    Node* pNode = Widget::AABBFrame(vec3fMin, vec3fMax, tempColor);
+    SENode* pNode = SEWidget::AABBFrame(vec3fMin, vec3fMax, tempColor);
 
     return gcnew ManagedNode(pNode);
 }

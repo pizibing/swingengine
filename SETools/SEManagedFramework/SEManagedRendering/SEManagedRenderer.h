@@ -31,7 +31,6 @@ using namespace System;
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed renderer class
 // Description:
 // Author:Sun Che
 // Date:20091219
@@ -42,7 +41,7 @@ public:
 	ManagedRenderer(IntPtr hWnd, int iWidth, int iHeight);
     ~ManagedRenderer(void);
 
-    // Camera access.
+    // SECamera access.
     void SetCamera(ManagedCamera^ thCamera);
     ManagedCamera^ GetCamera(void);
 
@@ -69,10 +68,10 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    Renderer* GetNativeRenderer(void);
+    SERenderer* GetNativeRenderer(void);
 
 private:
-    Renderer* m_pRenderer;
+    SERenderer* m_pRenderer;
     ManagedCamera^ m_thCamera;
 };
 

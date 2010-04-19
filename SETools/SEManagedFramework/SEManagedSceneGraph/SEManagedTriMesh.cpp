@@ -28,15 +28,15 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedTriMesh::ManagedTriMesh()
 {
-    m_pspTriMesh = SE_NEW TriMeshPtr;
+    m_pspTriMesh = SE_NEW SETriMeshPtr;
 
     // TODO:
     // Create a trimesh object from native VB/IB objects.
 }
 //---------------------------------------------------------------------------
-ManagedTriMesh::ManagedTriMesh(TriMesh* pTriMesh)
+ManagedTriMesh::ManagedTriMesh(SETriMesh* pTriMesh)
 {
-    m_pspTriMesh = SE_NEW TriMeshPtr;
+    m_pspTriMesh = SE_NEW SETriMeshPtr;
     (*m_pspTriMesh) = pTriMesh;
 }
 //---------------------------------------------------------------------------
@@ -55,7 +55,7 @@ ManagedTriMesh::CullingMode ManagedTriMesh::Culling::get()
 void ManagedTriMesh::Culling::set(ManagedTriMesh::CullingMode eMode)
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    (*m_pspTriMesh)->Culling = (Spatial::CullingMode)eMode;
+    (*m_pspTriMesh)->Culling = (SESpatial::CullingMode)eMode;
 }
 //---------------------------------------------------------------------------
 ManagedTriMesh::GeometryLightingMode ManagedTriMesh::LightingMode::get()
@@ -69,7 +69,7 @@ void ManagedTriMesh::LightingMode::set(
     ManagedTriMesh::GeometryLightingMode eMode)
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    (*m_pspTriMesh)->LightingMode = (Geometry::GeometryLightingMode)eMode;
+    (*m_pspTriMesh)->LightingMode = (SEGeometry::GeometryLightingMode)eMode;
 }
 //---------------------------------------------------------------------------
 void ManagedTriMesh::GenerateNormals()
@@ -81,7 +81,7 @@ void ManagedTriMesh::GenerateNormals()
 ManagedTriMesh^ ManagedTriMesh::Clone()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    TriMesh* pClonedObject = ManagedUtility::CloneTriMesh(*m_pspTriMesh);
+    SETriMesh* pClonedObject = ManagedUtility::CloneTriMesh(*m_pspTriMesh);
 
     return gcnew ManagedTriMesh(pClonedObject);
 }
@@ -90,17 +90,17 @@ ManagedNode^ ManagedTriMesh::GetLocalAABBFrame(ManagedColorRGB^ thColor)
 {
     SE_NULL_ARGUMENT_CHECK(thColor, "thColor");
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    VertexBuffer* pVB = (*m_pspTriMesh)->VBuffer;
+    SEVertexBuffer* pVB = (*m_pspTriMesh)->VBuffer;
 
     SE_NULL_REFERENCE_CHECK(pVB, "Native pointer is null");
     int iVCount = pVB->GetVertexCount();
 
     // Compute the local AABB from the vertex buffer.
-    Vector3f vec3fMin = pVB->Position3(0);
-    Vector3f vec3fMax(vec3fMin);
+    SEVector3f vec3fMin = pVB->Position3(0);
+    SEVector3f vec3fMax(vec3fMin);
     for( int i = 1; i < iVCount; i++ )
     {
-        const Vector3f& rPoint = pVB->Position3(i);
+        const SEVector3f& rPoint = pVB->Position3(i);
         for( int j = 0; j < 3; j++ )
         {
             if( rPoint[j] < vec3fMin[j] )
@@ -115,9 +115,9 @@ ManagedNode^ ManagedTriMesh::GetLocalAABBFrame(ManagedColorRGB^ thColor)
     }
 
     // Create the AABBFrame.
-    ColorRGB tempColor;
+    SEColorRGB tempColor;
     thColor->ToColorRGB(tempColor);
-    Node* pAABBFrame = Widget::AABBFrame(vec3fMin, vec3fMax, tempColor);
+    SENode* pAABBFrame = SEWidget::AABBFrame(vec3fMin, vec3fMax, tempColor);
 
     return gcnew ManagedNode(pAABBFrame);
 }
@@ -126,7 +126,7 @@ void ManagedTriMesh::SetLocalRotate(ManagedMatrix3f^ thRotate)
 {
     SE_NULL_ARGUMENT_CHECK(thRotate, "thRotate");
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    Matrix3f mat3fRot;
+    SEMatrix3f mat3fRot;
     thRotate->ToMatrix3f(mat3fRot);
     (*m_pspTriMesh)->Local.SetRotate(mat3fRot);
 }
@@ -141,7 +141,7 @@ void ManagedTriMesh::SetLocalMatrix(ManagedMatrix3f^ thMatrix)
 {
     SE_NULL_ARGUMENT_CHECK(thMatrix, "thMatrix");
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    Matrix3f mat3fM;
+    SEMatrix3f mat3fM;
     thMatrix->ToMatrix3f(mat3fM);
     (*m_pspTriMesh)->Local.SetMatrix(mat3fM);
 }
@@ -156,7 +156,7 @@ void ManagedTriMesh::SetLocalTranslate(ManagedVector3f^ thTranslate)
 {
     SE_NULL_ARGUMENT_CHECK(thTranslate, "thTranslate");
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    Vector3f vec3fTrn;
+    SEVector3f vec3fTrn;
     thTranslate->ToVector3f(vec3fTrn);
     (*m_pspTriMesh)->Local.SetTranslate(vec3fTrn);
 }
@@ -171,7 +171,7 @@ void ManagedTriMesh::SetLocalScale(ManagedVector3f^ thScale)
 {
     SE_NULL_ARGUMENT_CHECK(thScale, "thScale");
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    Vector3f vec3fScl;
+    SEVector3f vec3fScl;
     thScale->ToVector3f(vec3fScl);
     (*m_pspTriMesh)->Local.SetScale(vec3fScl);
 }
@@ -286,7 +286,7 @@ int ManagedTriMesh::GetGlobalStateCount()
 INativeGlobalState^ ManagedTriMesh::GetGlobalState(int i)
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    GlobalState* pState = (*m_pspTriMesh)->GetGlobalState(i);
+    SEGlobalState* pState = (*m_pspTriMesh)->GetGlobalState(i);
 
     return ManagedObjectFactory::CreateGlobalStateObject(pState);
 }
@@ -295,8 +295,8 @@ INativeGlobalState^ ManagedTriMesh::GetGlobalState(
     INativeGlobalState::StateType eType)
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    GlobalState* pState = (*m_pspTriMesh)->GetGlobalState(
-        (GlobalState::StateType)eType);
+    SEGlobalState* pState = (*m_pspTriMesh)->GetGlobalState(
+        (SEGlobalState::StateType)eType);
 
     return ManagedObjectFactory::CreateGlobalStateObject(pState);
 }
@@ -311,7 +311,7 @@ void ManagedTriMesh::AttachGlobalState(INativeGlobalState^ thState)
 void ManagedTriMesh::DetachGlobalState(INativeGlobalState::StateType eType)
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    (*m_pspTriMesh)->DetachGlobalState((GlobalState::StateType)eType);
+    (*m_pspTriMesh)->DetachGlobalState((SEGlobalState::StateType)eType);
 }
 //---------------------------------------------------------------------------
 void ManagedTriMesh::DetachAllGlobalStates()
@@ -323,7 +323,7 @@ void ManagedTriMesh::DetachAllGlobalStates()
 INativeSpatial^ ManagedTriMesh::GetParent()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    Spatial* pSpatial = (*m_pspTriMesh)->GetParent();
+    SESpatial* pSpatial = (*m_pspTriMesh)->GetParent();
 
     return ManagedObjectFactory::CreateSpatialDerivedObject(pSpatial);
 }
@@ -353,23 +353,23 @@ int ManagedTriMesh::GetNativeReferences()
 //---------------------------------------------------------------------------
 void ManagedTriMesh::InitializePickRecordPool(int iMaxCount, int iGrowBy)
 {
-    TriMesh::InitializePickRecordPool(iMaxCount, iGrowBy);
+    SETriMesh::InitializePickRecordPool(iMaxCount, iGrowBy);
 }
 //---------------------------------------------------------------------------
 void ManagedTriMesh::TerminatePickRecordPool()
 {
-    TriMesh::TerminatePickRecordPool();
+    SETriMesh::TerminatePickRecordPool();
 }
 //---------------------------------------------------------------------------
-Spatial* ManagedTriMesh::GetNativeSpatial()
+SESpatial* ManagedTriMesh::GetNativeSpatial()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    return (Spatial*)(*m_pspTriMesh);
+    return (SESpatial*)(*m_pspTriMesh);
 }
 //---------------------------------------------------------------------------
-Geometry* ManagedTriMesh::GetNativeGeometry()
+SEGeometry* ManagedTriMesh::GetNativeGeometry()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTriMesh, "Native pointer is null");
-    return (Geometry*)(*m_pspTriMesh);
+    return (SEGeometry*)(*m_pspTriMesh);
 }
 //---------------------------------------------------------------------------

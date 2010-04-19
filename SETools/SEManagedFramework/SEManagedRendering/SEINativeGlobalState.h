@@ -25,7 +25,6 @@ using namespace System;
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Global state interface class
 // Description:
 // Author:Sun Che
 // Date:20100102
@@ -45,7 +44,7 @@ public interface class INativeGlobalState
     };
 
     [CLSCompliant(false)]
-    GlobalState* GetNativeGlobalState(void);
+    SEGlobalState* GetNativeGlobalState(void);
 
     StateType GetStateType(void);
 };

@@ -25,7 +25,6 @@ using namespace System;
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed color rgb class
 // Description:
 // Author:Sun Che
 // Date:20091224
@@ -55,13 +54,13 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedColorRGB(const ColorRGB& rColor);
+    ManagedColorRGB(const SEColorRGB& rColor);
 
     [CLSCompliant(false)]
-    void ToColorRGB(ColorRGB& rColor);
+    void ToColorRGB(SEColorRGB& rColor);
 
     [CLSCompliant(false)]
-    void FromColorRGB(const ColorRGB& rColor);
+    void FromColorRGB(const SEColorRGB& rColor);
 
 private:
     float m_fR;

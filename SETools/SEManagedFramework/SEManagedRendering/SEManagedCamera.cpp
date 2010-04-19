@@ -27,13 +27,13 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedCamera::ManagedCamera()
 {
-    m_pspCamera = SE_NEW CameraPtr;
-    (*m_pspCamera) = SE_NEW Camera;
+    m_pspCamera = SE_NEW SECameraPtr;
+    (*m_pspCamera) = SE_NEW SECamera;
 }
 //---------------------------------------------------------------------------
-ManagedCamera::ManagedCamera(Camera* pCamera)
+ManagedCamera::ManagedCamera(SECamera* pCamera)
 {
-    m_pspCamera = SE_NEW CameraPtr;
+    m_pspCamera = SE_NEW SECameraPtr;
     (*m_pspCamera) = pCamera;
 }
 //---------------------------------------------------------------------------
@@ -52,7 +52,7 @@ void ManagedCamera::SetFrame(ManagedVector3f^ thLocation,
     SE_NULL_ARGUMENT_CHECK(thUVector, "thUVector");
     SE_NULL_ARGUMENT_CHECK(thDVector, "thDVector");
 
-    Vector3f vec3fLoc, vec3fR, vec3fU, vec3fD;
+    SEVector3f vec3fLoc, vec3fR, vec3fU, vec3fD;
     thLocation->ToVector3f(vec3fLoc);
     thRVector->ToVector3f(vec3fR);
     thUVector->ToVector3f(vec3fU);
@@ -66,7 +66,7 @@ void ManagedCamera::SetLocation(ManagedVector3f^ thLocation)
 {
     SE_NULL_ARGUMENT_CHECK(thLocation, "thLocation");
 
-    Vector3f vec3fLoc;
+    SEVector3f vec3fLoc;
     thLocation->ToVector3f(vec3fLoc);
 
     SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
@@ -80,7 +80,7 @@ void ManagedCamera::SetAxes(ManagedVector3f^ thRVector,
     SE_NULL_ARGUMENT_CHECK(thUVector, "thUVector");
     SE_NULL_ARGUMENT_CHECK(thDVector, "thDVector");
 
-    Vector3f vec3fR, vec3fU, vec3fD;
+    SEVector3f vec3fR, vec3fU, vec3fD;
     thRVector->ToVector3f(vec3fR);
     thUVector->ToVector3f(vec3fU);
     thDVector->ToVector3f(vec3fD);
@@ -129,10 +129,10 @@ ManagedVector3f^ ManagedCamera::GetDVector()
     return thRes;
 }
 //---------------------------------------------------------------------------
-Camera* ManagedCamera::GetNativeCamera()
+SECamera* ManagedCamera::GetNativeCamera()
 {
     SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
-    return (Camera*)(*m_pspCamera);
+    return (SECamera*)(*m_pspCamera);
 }
 //---------------------------------------------------------------------------
 void ManagedCamera::SetFrustum(float fRMin, float fRMax, float fUMin, 
@@ -181,7 +181,7 @@ bool ManagedCamera::GetPickRay(int iX, int iY, int iWidth, int iHeight,
     SE_NULL_ARGUMENT_CHECK(thRay, "thRay");
     SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
 
-    Ray3f tempRay;
+    SERay3f tempRay;
     bool bRes = (*m_pspCamera)->GetPickRay(iX, iY, iWidth, iHeight, tempRay);
     thRay->FromRay3f(tempRay);
 
@@ -194,7 +194,7 @@ bool ManagedCamera::GetTrackBallRotate(float fX0, float fY0, float fX1,
     SE_NULL_ARGUMENT_CHECK(thMat, "thMat");
     SE_NULL_REFERENCE_CHECK(m_pspCamera, "Native pointer is null");
 
-    Matrix3f mat3fRot;
+    SEMatrix3f mat3fRot;
     bool bRes = (*m_pspCamera)->GetTrackBallRotate(fX0, fY0, fX1, fY1, 
         mat3fRot);
     thMat->FromMatrix3f(mat3fRot);

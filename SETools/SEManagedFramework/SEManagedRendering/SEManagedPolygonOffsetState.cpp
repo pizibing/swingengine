@@ -27,14 +27,14 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedPolygonOffsetState::ManagedPolygonOffsetState()
 {
-    m_pspPolygonOffsetState = SE_NEW PolygonOffsetStatePtr;
-    (*m_pspPolygonOffsetState) = SE_NEW PolygonOffsetState;
+    m_pspPolygonOffsetState = SE_NEW SEPolygonOffsetStatePtr;
+    (*m_pspPolygonOffsetState) = SE_NEW SEPolygonOffsetState;
 }
 //---------------------------------------------------------------------------
 ManagedPolygonOffsetState::ManagedPolygonOffsetState(
-    PolygonOffsetState* pState)
+    SEPolygonOffsetState* pState)
 {
-    m_pspPolygonOffsetState = SE_NEW PolygonOffsetStatePtr;
+    m_pspPolygonOffsetState = SE_NEW SEPolygonOffsetStatePtr;
     (*m_pspPolygonOffsetState) = pState;
 }
 //---------------------------------------------------------------------------
@@ -148,10 +148,10 @@ int ManagedPolygonOffsetState::GetNativeReferences()
     return (*m_pspPolygonOffsetState)->GetReferences();
 }
 //---------------------------------------------------------------------------
-GlobalState* ManagedPolygonOffsetState::GetNativeGlobalState()
+SEGlobalState* ManagedPolygonOffsetState::GetNativeGlobalState()
 {
     SE_NULL_REFERENCE_CHECK(m_pspPolygonOffsetState, 
         "Native pointer is null");
-    return (GlobalState*)(*m_pspPolygonOffsetState);
+    return (SEGlobalState*)(*m_pspPolygonOffsetState);
 }
 //---------------------------------------------------------------------------

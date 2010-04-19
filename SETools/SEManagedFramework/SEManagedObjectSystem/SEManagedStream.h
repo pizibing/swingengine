@@ -25,7 +25,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed stream class
 // Description:
 // Author:Sun Che
 // Date:20100103
@@ -50,10 +49,10 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    Stream* GetNativeStream(void);
+    SEStream* GetNativeStream(void);
 
 private:
-    Stream* m_pStream;
+    SEStream* m_pStream;
 };
 
 }}}

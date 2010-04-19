@@ -27,7 +27,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed factory class
 // Description:This is a singleton class.
 // Author:Sun Che
 // Date:20100102
@@ -36,9 +35,9 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 private ref class ManagedObjectFactory sealed
 {
 public:
-    static INativeSpatial^ CreateSpatialDerivedObject(Spatial* pSpatial);
-    static INativeEffect^ CreateEffectDerivedObject(Effect* pEffect);
-	static INativeGlobalState^ CreateGlobalStateObject(GlobalState* pState);
+    static INativeSpatial^ CreateSpatialDerivedObject(SESpatial* pSpatial);
+    static INativeEffect^ CreateEffectDerivedObject(SEEffect* pEffect);
+	static INativeGlobalState^ CreateGlobalStateObject(SEGlobalState* pState);
 };
 
 }}}

@@ -27,7 +27,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed widget class
 // Description:
 // Author:Sun Che
 // Date:20100112

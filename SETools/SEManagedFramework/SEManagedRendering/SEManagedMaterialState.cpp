@@ -27,13 +27,13 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedMaterialState::ManagedMaterialState()
 {
-    m_pspMaterialState = SE_NEW MaterialStatePtr;
-    (*m_pspMaterialState) = SE_NEW MaterialState;
+    m_pspMaterialState = SE_NEW SEMaterialStatePtr;
+    (*m_pspMaterialState) = SE_NEW SEMaterialState;
 }
 //---------------------------------------------------------------------------
-ManagedMaterialState::ManagedMaterialState(MaterialState* pState)
+ManagedMaterialState::ManagedMaterialState(SEMaterialState* pState)
 {
-    m_pspMaterialState = SE_NEW MaterialStatePtr;
+    m_pspMaterialState = SE_NEW SEMaterialStatePtr;
     (*m_pspMaterialState) = pState;
 }
 //---------------------------------------------------------------------------
@@ -165,9 +165,9 @@ int ManagedMaterialState::GetNativeReferences()
     return (*m_pspMaterialState)->GetReferences();
 }
 //---------------------------------------------------------------------------
-GlobalState* ManagedMaterialState::GetNativeGlobalState()
+SEGlobalState* ManagedMaterialState::GetNativeGlobalState()
 {
     SE_NULL_REFERENCE_CHECK(m_pspMaterialState, "Native pointer is null");
-    return (GlobalState*)(*m_pspMaterialState);
+    return (SEGlobalState*)(*m_pspMaterialState);
 }
 //---------------------------------------------------------------------------

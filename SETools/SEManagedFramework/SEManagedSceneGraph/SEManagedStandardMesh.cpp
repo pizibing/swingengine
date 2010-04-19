@@ -28,7 +28,7 @@ using namespace Swing::Tools::ManagedFramework;
 ManagedStandardMesh::ManagedStandardMesh(ManagedAttributes^ thAttr)
 {
     SE_NULL_ARGUMENT_CHECK(thAttr, "thAttr");
-    m_pStandardMesh = SE_NEW StandardMesh(*thAttr->GetNativeAttributes());
+    m_pStandardMesh = SE_NEW SEStandardMesh(*thAttr->GetNativeAttributes());
 }
 //---------------------------------------------------------------------------
 ManagedStandardMesh::~ManagedStandardMesh()
@@ -41,7 +41,7 @@ ManagedTriMesh^ ManagedStandardMesh::Rectangle(int iXSamples, int iYSamples,
     float fXExtent, float fYExtent)
 {
     SE_NULL_REFERENCE_CHECK(m_pStandardMesh, "Native pointer is null");
-    TriMesh* pTriMesh = m_pStandardMesh->Rectangle(iXSamples, iYSamples, 
+    SETriMesh* pTriMesh = m_pStandardMesh->Rectangle(iXSamples, iYSamples, 
         fXExtent, fYExtent);
 
     return gcnew ManagedTriMesh(pTriMesh);
@@ -51,7 +51,7 @@ ManagedTriMesh^ ManagedStandardMesh::Disk(int iShellSamples,
     int iRadialSamples, float fRadius)
 {
     SE_NULL_REFERENCE_CHECK(m_pStandardMesh, "Native pointer is null");
-    TriMesh* pTriMesh = m_pStandardMesh->Disk(iShellSamples, iRadialSamples, 
+    SETriMesh* pTriMesh = m_pStandardMesh->Disk(iShellSamples, iRadialSamples, 
         fRadius);
 
     return gcnew ManagedTriMesh(pTriMesh);
@@ -61,7 +61,7 @@ ManagedTriMesh^ ManagedStandardMesh::Box(float fXExtent, float fYExtent,
     float fZExtent)
 {
     SE_NULL_REFERENCE_CHECK(m_pStandardMesh, "Native pointer is null");
-    TriMesh* pTriMesh = m_pStandardMesh->Box(fXExtent, fYExtent, fZExtent);
+    SETriMesh* pTriMesh = m_pStandardMesh->Box(fXExtent, fYExtent, fZExtent);
 
     return gcnew ManagedTriMesh(pTriMesh);
 }
@@ -70,7 +70,7 @@ ManagedTriMesh^ ManagedStandardMesh::Cylinder(int iAxisSamples,
     int iRadialSamples, float fRadius, float fHeight, bool bOpen)
 {
     SE_NULL_REFERENCE_CHECK(m_pStandardMesh, "Native pointer is null");
-    TriMesh* pTriMesh = m_pStandardMesh->Cylinder(iAxisSamples, 
+    SETriMesh* pTriMesh = m_pStandardMesh->Cylinder(iAxisSamples, 
         iRadialSamples, fRadius, fHeight, bOpen);
 
     return gcnew ManagedTriMesh(pTriMesh);
@@ -80,7 +80,7 @@ ManagedTriMesh^ ManagedStandardMesh::Sphere(int iZSamples, int iRadialSamples,
     float fRadius)
 {
     SE_NULL_REFERENCE_CHECK(m_pStandardMesh, "Native pointer is null");
-    TriMesh* pTriMesh = m_pStandardMesh->Sphere(iZSamples, iRadialSamples, 
+    SETriMesh* pTriMesh = m_pStandardMesh->Sphere(iZSamples, iRadialSamples, 
         fRadius);
 
     return gcnew ManagedTriMesh(pTriMesh);
@@ -90,7 +90,7 @@ ManagedTriMesh^ ManagedStandardMesh::Torus(int iCircleSamples,
     int iRadialSamples, float fOuterRadius, float fInnerRadius)
 {
     SE_NULL_REFERENCE_CHECK(m_pStandardMesh, "Native pointer is null");
-    TriMesh* pTriMesh = m_pStandardMesh->Torus(iCircleSamples, 
+    SETriMesh* pTriMesh = m_pStandardMesh->Torus(iCircleSamples, 
         iRadialSamples, fOuterRadius, fInnerRadius);
 
     return gcnew ManagedTriMesh(pTriMesh);
@@ -100,13 +100,13 @@ ManagedTriMesh^ ManagedStandardMesh::Cone(int iRadialSamples, float fRadius,
     float fHeight)
 {
     SE_NULL_REFERENCE_CHECK(m_pStandardMesh, "Native pointer is null");
-    TriMesh* pTriMesh = m_pStandardMesh->Cone(iRadialSamples, fRadius, 
+    SETriMesh* pTriMesh = m_pStandardMesh->Cone(iRadialSamples, fRadius, 
         fHeight);
 
     return gcnew ManagedTriMesh(pTriMesh);
 }
 //---------------------------------------------------------------------------
-StandardMesh* ManagedStandardMesh::GetNativeStandardMesh()
+SEStandardMesh* ManagedStandardMesh::GetNativeStandardMesh()
 {
     return m_pStandardMesh;
 }

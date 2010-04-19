@@ -28,7 +28,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed triangle mesh class
 // Description:
 // Author:Sun Che
 // Date:20091231
@@ -127,19 +126,20 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedTriMesh(TriMesh* pTriMesh);
+    ManagedTriMesh(SETriMesh* pTriMesh);
 
     // Implement INativeSpatial interface.
     [CLSCompliant(false)]
-    virtual Spatial* GetNativeSpatial(void) = INativeSpatial::GetNativeSpatial;
+    virtual SESpatial* GetNativeSpatial(void) = 
+        INativeSpatial::GetNativeSpatial;
 
     // Implement INativeGeometry interface.
     [CLSCompliant(false)]
-    virtual Geometry* GetNativeGeometry(void) = 
+    virtual SEGeometry* GetNativeGeometry(void) = 
         INativeGeometry::GetNativeGeometry;
 
 private:
-    TriMeshPtr* m_pspTriMesh;
+    SETriMeshPtr* m_pspTriMesh;
 };
 
 }}}

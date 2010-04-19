@@ -27,7 +27,7 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedCuller::ManagedCuller()
 {
-    m_pCuller = SE_NEW Culler;
+    m_pCuller = SE_NEW SECuller;
 }
 //---------------------------------------------------------------------------
 ManagedCuller::~ManagedCuller()
@@ -63,7 +63,7 @@ void ManagedCuller::ComputeUnculledSet(INativeSpatial^ thSpatial)
     m_pCuller->ComputeUnculledSet(thSpatial->GetNativeSpatial());
 }
 //---------------------------------------------------------------------------
-Culler* ManagedCuller::GetNativeCuller()
+SECuller* ManagedCuller::GetNativeCuller()
 {
     return m_pCuller;
 }

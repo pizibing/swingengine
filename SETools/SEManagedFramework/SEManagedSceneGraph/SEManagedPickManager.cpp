@@ -27,7 +27,7 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedPickManager::ManagedPickManager()
 {
-    m_pPickResults = SE_NEW Spatial::PickArray;
+    m_pPickResults = SE_NEW SESpatial::PickArray;
 }
 //---------------------------------------------------------------------------
 ManagedPickManager::~ManagedPickManager()
@@ -42,13 +42,13 @@ void ManagedPickManager::DoPick(ManagedRay3f^ thRay,
     SE_NULL_ARGUMENT_CHECK(thRay, "thRay");
     SE_NULL_ARGUMENT_CHECK(thSpatial, "thSpatial");
     
-    Ray3f tempRay;
+    SERay3f tempRay;
     thRay->ToRay3f(tempRay);
-    Spatial* pSpatial = thSpatial->GetNativeSpatial();
+    SESpatial* pSpatial = thSpatial->GetNativeSpatial();
 
     SE_NULL_REFERENCE_CHECK(m_pPickResults, "Native pointer is null");
     m_pPickResults->clear();
-    TriMesh::ResetPickRecordPool();
+    SETriMesh::ResetPickRecordPool();
 
     SE_NULL_REFERENCE_CHECK(pSpatial, "Native pointer is null");
     pSpatial->DoPick(tempRay, *m_pPickResults);
@@ -59,10 +59,11 @@ ManagedTriMesh^ ManagedPickManager::GetClosestTriMesh()
     SE_NULL_REFERENCE_CHECK(m_pPickResults, "Native pointer is null");
     if( m_pPickResults->size() > 0 )
     {
-        Spatial::PickRecord* pClosest = Spatial::GetClosest(*m_pPickResults);
-        Spatial* pIObject = pClosest->IObject;
+        SESpatial::SEPickRecord* pClosest = SESpatial::GetClosest(
+            *m_pPickResults);
+        SESpatial* pIObject = pClosest->IObject;
 
-        TriMesh* pPickedMesh = DynamicCast<TriMesh>(pIObject);
+        SETriMesh* pPickedMesh = DynamicCast<SETriMesh>(pIObject);
         if( pPickedMesh )
         {
             return gcnew ManagedTriMesh(pPickedMesh);

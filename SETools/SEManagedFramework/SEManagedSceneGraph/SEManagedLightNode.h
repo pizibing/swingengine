@@ -28,7 +28,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed light node class
 // Description:
 // Author:Sun Che
 // Date:20100116
@@ -40,7 +39,7 @@ public:
     ManagedLightNode(ManagedLight^ thLight);
     ~ManagedLightNode(void);
 
-    // Light access.
+    // SELight access.
     void SetLight(ManagedLight^ thLight);
     ManagedLight^ GetLight(void);
 
@@ -97,18 +96,19 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedLightNode(LightNode* pLightNode);
+    ManagedLightNode(SELightNode* pLightNode);
 
     // Implement INativeSpatial interface.
     [CLSCompliant(false)]
-    virtual Spatial* GetNativeSpatial(void) = INativeSpatial::GetNativeSpatial;
+    virtual SESpatial* GetNativeSpatial(void) = 
+        INativeSpatial::GetNativeSpatial;
 
     // Implement INativeNode interface.
     [CLSCompliant(false)]
-    virtual Node* GetNativeNode(void) = INativeNode::GetNativeNode;
+    virtual SENode* GetNativeNode(void) = INativeNode::GetNativeNode;
 
 private:
-    LightNodePtr* m_pspLightNode;
+    SELightNodePtr* m_pspLightNode;
 };
 
 }}}

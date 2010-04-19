@@ -43,94 +43,94 @@ using namespace Swing::Tools::ManagedFramework;
 
 //---------------------------------------------------------------------------
 INativeSpatial^ ManagedObjectFactory::CreateSpatialDerivedObject(
-    Spatial* pSpatial)
+    SESpatial* pSpatial)
 {
     if( !pSpatial )
     {
         return nullptr;
     }
 
-    const Swing::RTTI& rType = pSpatial->GetType();
-    if( rType.IsExactly(Node::TYPE) )
+    const Swing::SERTTI& rType = pSpatial->GetType();
+    if( rType.IsExactly(SENode::TYPE) )
     {
-        return gcnew ManagedNode((Node*)pSpatial);
+        return gcnew ManagedNode((SENode*)pSpatial);
     }
-    else if( rType.IsExactly(TriMesh::TYPE) )
+    else if( rType.IsExactly(SETriMesh::TYPE) )
     {
-        return gcnew ManagedTriMesh((TriMesh*)pSpatial);
+        return gcnew ManagedTriMesh((SETriMesh*)pSpatial);
     }
 
     return nullptr;
 }
 //---------------------------------------------------------------------------
 INativeEffect^ ManagedObjectFactory::CreateEffectDerivedObject(
-    Effect* pEffect)
+    SEEffect* pEffect)
 {
     if( !pEffect )
     {
         return nullptr;
     }
 
-    const Swing::RTTI& rType = pEffect->GetType();
-    if( rType.IsExactly(DefaultShaderEffect::TYPE) )
+    const Swing::SERTTI& rType = pEffect->GetType();
+    if( rType.IsExactly(SEDefaultShaderEffect::TYPE) )
     {
         return gcnew ManagedDefaultShaderEffect(
-            (DefaultShaderEffect*)pEffect); 
+            (SEDefaultShaderEffect*)pEffect); 
     }
-    else if( rType.IsExactly(TextureEffect::TYPE) )
+    else if( rType.IsExactly(SETextureEffect::TYPE) )
     {
-        return gcnew ManagedTextureEffect((TextureEffect*)pEffect);
+        return gcnew ManagedTextureEffect((SETextureEffect*)pEffect);
     }
-    else if( rType.IsExactly(TextureTileEffect::TYPE) )
+    else if( rType.IsExactly(SETextureTileEffect::TYPE) )
     {
-        return gcnew ManagedTextureTileEffect((TextureTileEffect*)pEffect);
+        return gcnew ManagedTextureTileEffect((SETextureTileEffect*)pEffect);
     }
-    else if( rType.IsExactly(TextureTileL1Effect::TYPE) )
+    else if( rType.IsExactly(SETextureTileL1Effect::TYPE) )
     {
         return gcnew ManagedTextureTileL1Effect(
-            (TextureTileL1Effect*)pEffect);
+            (SETextureTileL1Effect*)pEffect);
     }
 
     return nullptr;
 }
 //---------------------------------------------------------------------------
 INativeGlobalState^ ManagedObjectFactory::CreateGlobalStateObject(
-    GlobalState* pState)
+    SEGlobalState* pState)
 {
     if( !pState )
     {
         return nullptr;
     }
 
-    GlobalState::StateType eType = pState->GetStateType();
+    SEGlobalState::StateType eType = pState->GetStateType();
     switch( eType )
     {
-    case GlobalState::ALPHA:
-        return gcnew ManagedAlphaState((AlphaState*)pState);
+    case SEGlobalState::ALPHA:
+        return gcnew ManagedAlphaState((SEAlphaState*)pState);
         break;
 
-    case GlobalState::CULL:
-        return gcnew ManagedCullState((CullState*)pState);
+    case SEGlobalState::CULL:
+        return gcnew ManagedCullState((SECullState*)pState);
         break;
 
-    case GlobalState::MATERIAL:
-        return gcnew ManagedMaterialState((MaterialState*)pState);
+    case SEGlobalState::MATERIAL:
+        return gcnew ManagedMaterialState((SEMaterialState*)pState);
         break;
 
-    case GlobalState::POLYGONOFFSET:
-        return gcnew ManagedPolygonOffsetState((PolygonOffsetState*)pState);
+    case SEGlobalState::POLYGONOFFSET:
+        return gcnew ManagedPolygonOffsetState((SEPolygonOffsetState*)pState);
         break;
 
-    case GlobalState::STENCIL:
-        return gcnew ManagedStencilState((StencilState*)pState);
+    case SEGlobalState::STENCIL:
+        return gcnew ManagedStencilState((SEStencilState*)pState);
         break;
 
-    case GlobalState::WIREFRAME:
-        return gcnew ManagedWireframeState((WireframeState*)pState);
+    case SEGlobalState::WIREFRAME:
+        return gcnew ManagedWireframeState((SEWireframeState*)pState);
         break;
 
-    case GlobalState::ZBUFFER:
-        return gcnew ManagedZBufferState((ZBufferState*)pState);
+    case SEGlobalState::ZBUFFER:
+        return gcnew ManagedZBufferState((SEZBufferState*)pState);
         break;
 
     default:

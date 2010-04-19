@@ -25,7 +25,6 @@ using namespace System;
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed attributes class
 // Description:
 // Author:Sun Che
 // Date:20091229
@@ -44,10 +43,10 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    Attributes* GetNativeAttributes(void);
+    SEAttributes* GetNativeAttributes(void);
 
 private:
-    Attributes* m_pAttributes;
+    SEAttributes* m_pAttributes;
 };
 
 }}}

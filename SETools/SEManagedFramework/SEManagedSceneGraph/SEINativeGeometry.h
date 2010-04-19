@@ -28,7 +28,6 @@ using namespace System;
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Geometry interface class
 // Description:
 // Author:Sun Che
 // Date:20091230
@@ -41,7 +40,7 @@ public interface class INativeGeometry
     ManagedNode^ GetLocalAABBFrame(ManagedColorRGB^ thColor);
 
     [CLSCompliant(false)]
-    Geometry* GetNativeGeometry(void);
+    SEGeometry* GetNativeGeometry(void);
 };
 
 }}}

@@ -57,13 +57,13 @@ ManagedMatrix3f::ManagedMatrix3f(ManagedVector3f^ thAxisVec, float fAngle)
     m_afData = gcnew array<float>(9);
 
     SE_NULL_ARGUMENT_CHECK(thAxisVec, "thAxisVec");
-    Vector3f vec3fAxis;
+    SEVector3f vec3fAxis;
     thAxisVec->ToVector3f(vec3fAxis);
-    Matrix3f mat3fTemp(vec3fAxis, fAngle);
+    SEMatrix3f mat3fTemp(vec3fAxis, fAngle);
     FromMatrix3f(mat3fTemp);
 }
 //---------------------------------------------------------------------------
-ManagedMatrix3f::ManagedMatrix3f(const Matrix3f& rMat)
+ManagedMatrix3f::ManagedMatrix3f(const SEMatrix3f& rMat)
 {
     m_afData = gcnew array<float>(9);
     FromMatrix3f(rMat);
@@ -72,7 +72,7 @@ ManagedMatrix3f::ManagedMatrix3f(const Matrix3f& rMat)
 void ManagedMatrix3f::FromEulerAnglesXYZ(float fYAngle, float fPAngle, 
     float fRAngle)
 {
-    Matrix3f mat3fTemp;
+    SEMatrix3f mat3fTemp;
     mat3fTemp.FromEulerAnglesXYZ(fYAngle, fPAngle, fRAngle);
     FromMatrix3f(mat3fTemp);
 }
@@ -84,7 +84,7 @@ bool ManagedMatrix3f::ToEulerAnglesXYZ(float% trfYAngle, float% trfPAngle,
     float fPAngle = trfPAngle;
     float fRAngle = trfRAngle;
 
-    Matrix3f mat3fTemp;
+    SEMatrix3f mat3fTemp;
     ToMatrix3f(mat3fTemp);
     bool bRes = mat3fTemp.ToEulerAnglesXYZ(fYAngle, fPAngle, fRAngle);
 
@@ -101,9 +101,9 @@ ManagedVector3f^ ManagedMatrix3f::Vector3Multiply(ManagedVector3f^ thVec,
     SE_NULL_ARGUMENT_CHECK(thVec, "thVec");
     SE_NULL_ARGUMENT_CHECK(thMat, "thMat");
 
-    Vector3f vec3fV, vec3fRes;
+    SEVector3f vec3fV, vec3fRes;
     thVec->ToVector3f(vec3fV);
-    Matrix3f mat3fM;
+    SEMatrix3f mat3fM;
     thMat->ToMatrix3f(mat3fM);
     vec3fRes = vec3fV * mat3fM;
     ManagedVector3f^ thRes = gcnew ManagedVector3f;
@@ -118,9 +118,9 @@ ManagedVector3f^ ManagedMatrix3f::MultiplyVector3(ManagedMatrix3f^ thMat,
     SE_NULL_ARGUMENT_CHECK(thMat, "thMat");
     SE_NULL_ARGUMENT_CHECK(thVec, "thVec");
 
-    Matrix3f mat3fM;
+    SEMatrix3f mat3fM;
     thMat->ToMatrix3f(mat3fM);
-    Vector3f vec3fV, vec3fRes;
+    SEVector3f vec3fV, vec3fRes;
     thVec->ToVector3f(vec3fV);
     vec3fRes = mat3fM * vec3fV;
 
@@ -136,7 +136,7 @@ ManagedMatrix3f^ ManagedMatrix3f::Multiply(ManagedMatrix3f^ thLhsMat,
     SE_NULL_ARGUMENT_CHECK(thLhsMat, "thLhsMat");
     SE_NULL_ARGUMENT_CHECK(thRhsMat, "thRhsMat");
 
-    Matrix3f mat3fLhs, mat3fRhs, mat3fRes;
+    SEMatrix3f mat3fLhs, mat3fRhs, mat3fRes;
     thLhsMat->ToMatrix3f(mat3fLhs);
     thRhsMat->ToMatrix3f(mat3fRhs);
     mat3fRes = mat3fLhs * mat3fRhs;
@@ -146,7 +146,7 @@ ManagedMatrix3f^ ManagedMatrix3f::Multiply(ManagedMatrix3f^ thLhsMat,
 //---------------------------------------------------------------------------
 void ManagedMatrix3f::Orthonormalize()
 {
-    Matrix3f mat3fTemp;
+    SEMatrix3f mat3fTemp;
     ToMatrix3f(mat3fTemp);
     mat3fTemp.Orthonormalize();
     FromMatrix3f(mat3fTemp);
@@ -154,10 +154,10 @@ void ManagedMatrix3f::Orthonormalize()
 //---------------------------------------------------------------------------
 ManagedMatrix3f^ ManagedMatrix3f::Identity()
 {
-    return gcnew ManagedMatrix3f(Matrix3f::IDENTITY);
+    return gcnew ManagedMatrix3f(SEMatrix3f::IDENTITY);
 }
 //---------------------------------------------------------------------------
-void ManagedMatrix3f::ToMatrix3f(Matrix3f& rMat)
+void ManagedMatrix3f::ToMatrix3f(SEMatrix3f& rMat)
 {
     rMat[0][0] = m_afData[0];
     rMat[0][1] = m_afData[1];
@@ -170,7 +170,7 @@ void ManagedMatrix3f::ToMatrix3f(Matrix3f& rMat)
     rMat[2][2] = m_afData[8];
 }
 //---------------------------------------------------------------------------
-void ManagedMatrix3f::FromMatrix3f(const Matrix3f& rMat)
+void ManagedMatrix3f::FromMatrix3f(const SEMatrix3f& rMat)
 {
     m_afData[0] = rMat[0][0];
     m_afData[1] = rMat[0][1];
@@ -191,7 +191,7 @@ bool ManagedMatrix3f::Equals(Object^ thObj)
         return false;
     }
 
-    Matrix3f mat3fLhs, mat3fRhs;
+    SEMatrix3f mat3fLhs, mat3fRhs;
     ToMatrix3f(mat3fLhs);
     thMat->ToMatrix3f(mat3fRhs);
 

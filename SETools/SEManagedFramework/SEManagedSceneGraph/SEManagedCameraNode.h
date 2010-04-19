@@ -28,7 +28,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed camera node class
 // Description:
 // Author:Sun Che
 // Date:20100116
@@ -40,7 +39,7 @@ public:
     ManagedCameraNode(ManagedCamera^ thCamera);
     ~ManagedCameraNode(void);
 
-    // Camera access.
+    // SECamera access.
     void SetCamera(ManagedCamera^ thCamera);
     ManagedCamera^ GetCamera(void);
 
@@ -97,18 +96,19 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedCameraNode(CameraNode* pCameraNode);
+    ManagedCameraNode(SECameraNode* pCameraNode);
 
     // Implement INativeSpatial interface.
     [CLSCompliant(false)]
-    virtual Spatial* GetNativeSpatial(void) = INativeSpatial::GetNativeSpatial;
+    virtual SESpatial* GetNativeSpatial(void) = 
+        INativeSpatial::GetNativeSpatial;
 
     // Implement INativeNode interface.
     [CLSCompliant(false)]
-    virtual Node* GetNativeNode(void) = INativeNode::GetNativeNode;
+    virtual SENode* GetNativeNode(void) = INativeNode::GetNativeNode;
 
 private:
-    CameraNodePtr* m_pspCameraNode;
+    SECameraNodePtr* m_pspCameraNode;
 };
 
 }}}

@@ -25,7 +25,6 @@ using namespace System;
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Effect interface class
 // Description:
 // Author:Sun Che
 // Date:20091231
@@ -33,7 +32,7 @@ namespace Swing{ namespace Tools{ namespace ManagedFramework{
 public interface class INativeEffect
 {
     [CLSCompliant(false)]
-    Effect* GetNativeEffect(void);
+    SEEffect* GetNativeEffect(void);
 };
 
 }}}

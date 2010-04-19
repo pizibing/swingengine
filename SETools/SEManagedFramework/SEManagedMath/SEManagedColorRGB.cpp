@@ -36,7 +36,7 @@ ManagedColorRGB::ManagedColorRGB(float fR, float fG, float fB)
     m_fB = fB;
 }
 //---------------------------------------------------------------------------
-ManagedColorRGB::ManagedColorRGB(const ColorRGB& rColor)
+ManagedColorRGB::ManagedColorRGB(const SEColorRGB& rColor)
 {
     FromColorRGB(rColor);
 }
@@ -71,14 +71,14 @@ void ManagedColorRGB::B::set(float fB)
     m_fB = fB;
 }
 //---------------------------------------------------------------------------
-void ManagedColorRGB::ToColorRGB(ColorRGB& rColor)
+void ManagedColorRGB::ToColorRGB(SEColorRGB& rColor)
 {
     rColor.R = m_fR;
     rColor.G = m_fG;
     rColor.B = m_fB;
 }
 //---------------------------------------------------------------------------
-void ManagedColorRGB::FromColorRGB(const ColorRGB& rColor)
+void ManagedColorRGB::FromColorRGB(const SEColorRGB& rColor)
 {
     m_fR = rColor.R;
     m_fG = rColor.G;

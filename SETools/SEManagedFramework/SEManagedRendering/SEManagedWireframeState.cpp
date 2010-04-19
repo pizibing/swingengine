@@ -27,13 +27,13 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedWireframeState::ManagedWireframeState()
 {
-    m_pspWireframeState = SE_NEW WireframeStatePtr;
-    (*m_pspWireframeState) = SE_NEW WireframeState;
+    m_pspWireframeState = SE_NEW SEWireframeStatePtr;
+    (*m_pspWireframeState) = SE_NEW SEWireframeState;
 }
 //---------------------------------------------------------------------------
-ManagedWireframeState::ManagedWireframeState(WireframeState* pState)
+ManagedWireframeState::ManagedWireframeState(SEWireframeState* pState)
 {
-    m_pspWireframeState = SE_NEW WireframeStatePtr;
+    m_pspWireframeState = SE_NEW SEWireframeStatePtr;
     (*m_pspWireframeState) = pState;
 }
 //---------------------------------------------------------------------------
@@ -85,9 +85,9 @@ int ManagedWireframeState::GetNativeReferences()
     return (*m_pspWireframeState)->GetReferences();
 }
 //---------------------------------------------------------------------------
-GlobalState* ManagedWireframeState::GetNativeGlobalState()
+SEGlobalState* ManagedWireframeState::GetNativeGlobalState()
 {
     SE_NULL_REFERENCE_CHECK(m_pspWireframeState, "Native pointer is null");
-    return (GlobalState*)(*m_pspWireframeState);
+    return (SEGlobalState*)(*m_pspWireframeState);
 }
 //---------------------------------------------------------------------------

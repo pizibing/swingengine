@@ -34,7 +34,7 @@ ManagedEngine::ManagedEngine()
     // Swing Engine initialize.
     SESystem::SE_Initialize();
     std::string tempSEPath(SESystem::SE_PATH);
-    Main::Initialize();
+    SEMain::Initialize();
 
     // 总是检查当前工作目录.
     SESystem::SE_InsertDirectory(".");
@@ -56,7 +56,7 @@ ManagedEngine::ManagedEngine()
 ManagedEngine::~ManagedEngine()
 {
     // Swing Engine terminate.
-    Main::Terminate();
+    SEMain::Terminate();
     SESystem::SE_Terminate();
 }
 //---------------------------------------------------------------------------
@@ -90,19 +90,19 @@ void ManagedEngine::InitializeShaderProgramCatalog(
         throw gcnew ArgumentNullException("thRenderer");
     }
 
-    if( !VertexProgramCatalog::GetActive() || 
-        !PixelProgramCatalog::GetActive() || 
-        !DX9ProgramInterfaceCatalog::GetActive() )
+    if( !SEVertexProgramCatalog::GetActive() || 
+        !SEPixelProgramCatalog::GetActive() || 
+        !SEDX9ProgramInterfaceCatalog::GetActive() )
     {
         throw gcnew NullReferenceException(
             "Initializing shader program catalog");
     }
 
-    Renderer* pRenderer = thRenderer->GetNativeRenderer();
-    VertexProgramCatalog::GetActive()->SetRenderer(pRenderer);
-    PixelProgramCatalog::GetActive()->SetRenderer(pRenderer);
-    DX9ProgramInterfaceCatalog::GetActive()->SetRenderer(
-        (DX9Renderer*)pRenderer);
+    SERenderer* pRenderer = thRenderer->GetNativeRenderer();
+    SEVertexProgramCatalog::GetActive()->SetRenderer(pRenderer);
+    SEPixelProgramCatalog::GetActive()->SetRenderer(pRenderer);
+    SEDX9ProgramInterfaceCatalog::GetActive()->SetRenderer(
+        (SEDX9Renderer*)pRenderer);
 }
 //---------------------------------------------------------------------------
 void ManagedEngine::TerminateShaderProgramCatalog()
@@ -112,16 +112,16 @@ void ManagedEngine::TerminateShaderProgramCatalog()
         return;
     }
 
-    if( !VertexProgramCatalog::GetActive() || 
-        !PixelProgramCatalog::GetActive() || 
-        !DX9ProgramInterfaceCatalog::GetActive() )
+    if( !SEVertexProgramCatalog::GetActive() || 
+        !SEPixelProgramCatalog::GetActive() || 
+        !SEDX9ProgramInterfaceCatalog::GetActive() )
     {
         throw gcnew NullReferenceException(
             "Terminating shader program catalog");
     }
 
-    VertexProgramCatalog::GetActive()->SetRenderer(0);
-    PixelProgramCatalog::GetActive()->SetRenderer(0);
-    DX9ProgramInterfaceCatalog::GetActive()->SetRenderer(0);
+    SEVertexProgramCatalog::GetActive()->SetRenderer(0);
+    SEPixelProgramCatalog::GetActive()->SetRenderer(0);
+    SEDX9ProgramInterfaceCatalog::GetActive()->SetRenderer(0);
 }
 //---------------------------------------------------------------------------

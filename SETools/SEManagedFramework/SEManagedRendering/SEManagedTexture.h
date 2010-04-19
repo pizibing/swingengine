@@ -26,7 +26,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed texture class
 // Description:
 // Author:Sun Che
 // Date:20100117
@@ -95,13 +94,13 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedTexture(Texture* pTexture);
+    ManagedTexture(SETexture* pTexture);
 
     [CLSCompliant(false)]
-    Texture* GetNativeTexture(void);
+    SETexture* GetNativeTexture(void);
 
 private:
-    TexturePtr* m_pspTexture;
+    SETexturePtr* m_pspTexture;
 };
 
 }}}

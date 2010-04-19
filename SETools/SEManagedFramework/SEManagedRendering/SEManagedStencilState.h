@@ -26,7 +26,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed stencil state class
 // Description:
 // Author:Sun Che
 // Date:20100105
@@ -115,15 +114,15 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedStencilState(StencilState* pState);
+    ManagedStencilState(SEStencilState* pState);
 
     // Implement INativeGlobalState interface.
     [CLSCompliant(false)]
-    virtual GlobalState* GetNativeGlobalState(void) = 
+    virtual SEGlobalState* GetNativeGlobalState(void) = 
         INativeGlobalState::GetNativeGlobalState;
 
 private:
-    StencilStatePtr* m_pspStencilState;
+    SEStencilStatePtr* m_pspStencilState;
 };
 
 }}}

@@ -27,7 +27,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed pick manager class
 // Description: This is a wrapper class which wrapps the native picking system.
 // Author:Sun Che
 // Date:20100120
@@ -50,7 +49,7 @@ public:
     ManagedTriMesh^ GetClosestTriMesh(void);
 
 private:
-    Spatial::PickArray* m_pPickResults;
+    SESpatial::PickArray* m_pPickResults;
 };
 
 }}}

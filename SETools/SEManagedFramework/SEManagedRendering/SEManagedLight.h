@@ -27,7 +27,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed light class
 // Description:
 // Author:Sun Che
 // Date:20100115
@@ -139,13 +138,13 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedLight(Light* pLight);
+    ManagedLight(SELight* pLight);
 
     [CLSCompliant(false)]
-    Light* GetNativeLight(void);
+    SELight* GetNativeLight(void);
 
 private:
-    LightPtr* m_pspLight;
+    SELightPtr* m_pspLight;
 };
 
 }}}

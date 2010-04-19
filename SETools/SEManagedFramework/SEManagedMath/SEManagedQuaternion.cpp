@@ -43,7 +43,7 @@ ManagedQuaternionf::ManagedQuaternionf(ManagedMatrix3f^ thRotMat)
     FromRotationMatrix(thRotMat);
 }
 //---------------------------------------------------------------------------
-ManagedQuaternionf::ManagedQuaternionf(const Quaternionf& rQ)
+ManagedQuaternionf::ManagedQuaternionf(const SEQuaternionf& rQ)
 {
     FromQuaternionf(rQ);
 }
@@ -92,9 +92,9 @@ void ManagedQuaternionf::FromRotationMatrix(ManagedMatrix3f^ thRotMat)
 {
     if( thRotMat )
     {
-        Matrix3f mat3fTemp;
+        SEMatrix3f mat3fTemp;
         thRotMat->ToMatrix3f(mat3fTemp);
-        Quaternionf tempQ;
+        SEQuaternionf tempQ;
         tempQ.FromRotationMatrix(mat3fTemp);
         FromQuaternionf(tempQ);
     }
@@ -102,9 +102,9 @@ void ManagedQuaternionf::FromRotationMatrix(ManagedMatrix3f^ thRotMat)
 //---------------------------------------------------------------------------
 ManagedMatrix3f^ ManagedQuaternionf::GetRotationMatrix()
 {
-    Quaternionf tempQ;
+    SEQuaternionf tempQ;
     ToQuaternionf(tempQ);
-    Matrix3f mat3fTemp;
+    SEMatrix3f mat3fTemp;
     tempQ.ToRotationMatrix(mat3fTemp);
     ManagedMatrix3f^ thRes = gcnew ManagedMatrix3f;
     thRes->FromMatrix3f(mat3fTemp);
@@ -112,7 +112,7 @@ ManagedMatrix3f^ ManagedQuaternionf::GetRotationMatrix()
     return thRes;
 }
 //---------------------------------------------------------------------------
-void ManagedQuaternionf::ToQuaternionf(Quaternionf& rQ)
+void ManagedQuaternionf::ToQuaternionf(SEQuaternionf& rQ)
 {
     rQ.W = m_fW;
     rQ.X = m_fX;
@@ -120,7 +120,7 @@ void ManagedQuaternionf::ToQuaternionf(Quaternionf& rQ)
     rQ.Z = m_fZ;
 }
 //---------------------------------------------------------------------------
-void ManagedQuaternionf::FromQuaternionf(const Quaternionf& rQ)
+void ManagedQuaternionf::FromQuaternionf(const SEQuaternionf& rQ)
 {
     m_fW = rQ.W;
     m_fX = rQ.X;
@@ -136,7 +136,7 @@ bool ManagedQuaternionf::Equals(Object^ thObj)
         return false;
     }
 
-    Quaternionf tempLhs, tempfRhs;
+    SEQuaternionf tempLhs, tempfRhs;
     ToQuaternionf(tempLhs);
     thQ->ToQuaternionf(tempfRhs);
 

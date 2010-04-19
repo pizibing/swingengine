@@ -37,7 +37,7 @@ ManagedColorRGBA::ManagedColorRGBA(float fR, float fG, float fB, float fA)
     m_fA = fA;
 }
 //---------------------------------------------------------------------------
-ManagedColorRGBA::ManagedColorRGBA(const ColorRGBA& rColor)
+ManagedColorRGBA::ManagedColorRGBA(const SEColorRGBA& rColor)
 {
     FromColorRGBA(rColor);
 }
@@ -82,7 +82,7 @@ void ManagedColorRGBA::A::set(float fA)
     m_fA = fA;
 }
 //---------------------------------------------------------------------------
-void ManagedColorRGBA::ToColorRGBA(ColorRGBA& rColor)
+void ManagedColorRGBA::ToColorRGBA(SEColorRGBA& rColor)
 {
     rColor.R = m_fR;
     rColor.G = m_fG;
@@ -90,7 +90,7 @@ void ManagedColorRGBA::ToColorRGBA(ColorRGBA& rColor)
     rColor.A = m_fA;
 }
 //---------------------------------------------------------------------------
-void ManagedColorRGBA::FromColorRGBA(const ColorRGBA& rColor)
+void ManagedColorRGBA::FromColorRGBA(const SEColorRGBA& rColor)
 {
     m_fR = rColor.R;
     m_fG = rColor.G;

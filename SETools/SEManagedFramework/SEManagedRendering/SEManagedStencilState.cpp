@@ -27,13 +27,13 @@ using namespace Swing::Tools::ManagedFramework;
 //---------------------------------------------------------------------------
 ManagedStencilState::ManagedStencilState()
 {
-    m_pspStencilState = SE_NEW StencilStatePtr;
-    (*m_pspStencilState) = SE_NEW StencilState;
+    m_pspStencilState = SE_NEW SEStencilStatePtr;
+    (*m_pspStencilState) = SE_NEW SEStencilState;
 }
 //---------------------------------------------------------------------------
-ManagedStencilState::ManagedStencilState(StencilState* pState)
+ManagedStencilState::ManagedStencilState(SEStencilState* pState)
 {
-    m_pspStencilState = SE_NEW StencilStatePtr;
+    m_pspStencilState = SE_NEW SEStencilStatePtr;
     (*m_pspStencilState) = pState;
 }
 //---------------------------------------------------------------------------
@@ -66,7 +66,7 @@ void ManagedStencilState::Compare::set(
     ManagedStencilState::CompareFunction eValue)
 {
     SE_NULL_REFERENCE_CHECK(m_pspStencilState, "Native pointer is null");
-    (*m_pspStencilState)->Compare = (StencilState::CompareFunction)eValue;
+    (*m_pspStencilState)->Compare = (SEStencilState::CompareFunction)eValue;
 }
 //---------------------------------------------------------------------------
 int ManagedStencilState::Reference::get()
@@ -115,7 +115,7 @@ void ManagedStencilState::OnFail::set(
     ManagedStencilState::OperationType eValue)
 {
     SE_NULL_REFERENCE_CHECK(m_pspStencilState, "Native pointer is null");
-    (*m_pspStencilState)->OnFail = (StencilState::OperationType)eValue;
+    (*m_pspStencilState)->OnFail = (SEStencilState::OperationType)eValue;
 }
 //---------------------------------------------------------------------------
 ManagedStencilState::OperationType ManagedStencilState::OnZFail::get()
@@ -128,7 +128,7 @@ void ManagedStencilState::OnZFail::set(
     ManagedStencilState::OperationType eValue)
 {
     SE_NULL_REFERENCE_CHECK(m_pspStencilState, "Native pointer is null");
-    (*m_pspStencilState)->OnZFail = (StencilState::OperationType)eValue;
+    (*m_pspStencilState)->OnZFail = (SEStencilState::OperationType)eValue;
 }
 //---------------------------------------------------------------------------
 ManagedStencilState::OperationType ManagedStencilState::OnZPass::get()
@@ -141,7 +141,7 @@ void ManagedStencilState::OnZPass::set(
     ManagedStencilState::OperationType eValue)
 {
     SE_NULL_REFERENCE_CHECK(m_pspStencilState, "Native pointer is null");
-    (*m_pspStencilState)->OnZPass = (StencilState::OperationType)eValue;
+    (*m_pspStencilState)->OnZPass = (SEStencilState::OperationType)eValue;
 }
 //---------------------------------------------------------------------------
 INativeGlobalState::StateType ManagedStencilState::GetStateType()
@@ -174,9 +174,9 @@ int ManagedStencilState::GetNativeReferences()
     return (*m_pspStencilState)->GetReferences();
 }
 //---------------------------------------------------------------------------
-GlobalState* ManagedStencilState::GetNativeGlobalState()
+SEGlobalState* ManagedStencilState::GetNativeGlobalState()
 {
     SE_NULL_REFERENCE_CHECK(m_pspStencilState, "Native pointer is null");
-    return (GlobalState*)(*m_pspStencilState);
+    return (SEGlobalState*)(*m_pspStencilState);
 }
 //---------------------------------------------------------------------------

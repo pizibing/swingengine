@@ -27,7 +27,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed material state class
 // Description:
 // Author:Sun Che
 // Date:20100104
@@ -82,15 +81,15 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedMaterialState(MaterialState* pState);
+    ManagedMaterialState(SEMaterialState* pState);
 
     // Implement INativeGlobalState interface.
     [CLSCompliant(false)]
-    virtual GlobalState* GetNativeGlobalState(void) = 
+    virtual SEGlobalState* GetNativeGlobalState(void) = 
         INativeGlobalState::GetNativeGlobalState;
 
 private:
-    MaterialStatePtr* m_pspMaterialState;
+    SEMaterialStatePtr* m_pspMaterialState;
 };
 
 }}}

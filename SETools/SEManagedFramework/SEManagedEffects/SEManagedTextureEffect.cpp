@@ -34,13 +34,13 @@ ManagedTextureEffect::ManagedTextureEffect(String^ thBaseName)
     std::string tempBaseName(acBuffer);
     ManagedUtility::FreeNativeCharBuffer(acBuffer);
 
-    m_pspTextureEffect = SE_NEW TextureEffectPtr;
-    (*m_pspTextureEffect) = SE_NEW TextureEffect(tempBaseName);
+    m_pspTextureEffect = SE_NEW SETextureEffectPtr;
+    (*m_pspTextureEffect) = SE_NEW SETextureEffect(tempBaseName);
 }
 //---------------------------------------------------------------------------
-ManagedTextureEffect::ManagedTextureEffect(TextureEffect* pEffect)
+ManagedTextureEffect::ManagedTextureEffect(SETextureEffect* pEffect)
 {
-    m_pspTextureEffect = SE_NEW TextureEffectPtr;
+    m_pspTextureEffect = SE_NEW SETextureEffectPtr;
     (*m_pspTextureEffect) = pEffect;
 }
 //---------------------------------------------------------------------------
@@ -60,7 +60,8 @@ ManagedAlphaState^ ManagedTextureEffect::GetBlending(int iPass)
 ManagedTexture^ ManagedTextureEffect::GetPTexture(int iPass, int i)
 {
     SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
-    return gcnew ManagedTexture((*m_pspTextureEffect)->GetPTexture(iPass, i));
+    return gcnew ManagedTexture((*m_pspTextureEffect)->GetPTexture(iPass, 
+        i));
 }
 //---------------------------------------------------------------------------
 ManagedTexture^ ManagedTextureEffect::GetPTexture(int iPass, String^ thName)
@@ -107,15 +108,15 @@ int ManagedTextureEffect::GetNativeReferences()
     return (*m_pspTextureEffect)->GetReferences();
 }
 //---------------------------------------------------------------------------
-Effect* ManagedTextureEffect::GetNativeEffect()
+SEEffect* ManagedTextureEffect::GetNativeEffect()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
-    return (Effect*)(*m_pspTextureEffect);
+    return (SEEffect*)(*m_pspTextureEffect);
 }
 //---------------------------------------------------------------------------
-ShaderEffect* ManagedTextureEffect::GetNativeShaderEffect()
+SEShaderEffect* ManagedTextureEffect::GetNativeShaderEffect()
 {
     SE_NULL_REFERENCE_CHECK(m_pspTextureEffect, "Native pointer is null");
-    return (ShaderEffect*)(*m_pspTextureEffect);
+    return (SEShaderEffect*)(*m_pspTextureEffect);
 }
 //---------------------------------------------------------------------------

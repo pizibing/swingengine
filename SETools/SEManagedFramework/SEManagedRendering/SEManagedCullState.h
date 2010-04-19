@@ -26,7 +26,6 @@
 namespace Swing{ namespace Tools{ namespace ManagedFramework{
 
 //----------------------------------------------------------------------------
-// Name:Managed cull state class
 // Description:
 // Author:Sun Che
 // Date:20100105
@@ -80,15 +79,15 @@ public:
 
 internal:
     [CLSCompliant(false)]
-    ManagedCullState(CullState* pState);
+    ManagedCullState(SECullState* pState);
 
     // Implement INativeGlobalState interface.
     [CLSCompliant(false)]
-    virtual GlobalState* GetNativeGlobalState(void) = 
+    virtual SEGlobalState* GetNativeGlobalState(void) = 
         INativeGlobalState::GetNativeGlobalState;
 
 private:
-    CullStatePtr* m_pspCullState;
+    SECullStatePtr* m_pspCullState;
 };
 
 }}}
