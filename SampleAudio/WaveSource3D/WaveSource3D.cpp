@@ -27,8 +27,8 @@ SE_REGISTER_INITIALIZE(WaveSource3D);
 //----------------------------------------------------------------------------
 WaveSource3D::WaveSource3D()
     :
-    WindowApplication3("WaveSource3D", 0, 0, 640, 480, 
-        ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
+    SEWindowApplication3("WaveSource3D", 0, 0, 640, 480, 
+        SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
     m_fVerticalDistance = 1.7f;
 
@@ -39,7 +39,7 @@ WaveSource3D::WaveSource3D()
 
     // 创建一组从摄像机观察点的12点方向发散开的射线.
     m_iNumRays = 5;
-    m_fHalfAngle = 0.25f*Mathf::PI;
+    m_fHalfAngle = 0.25f*SEMathf::PI;
     m_afCos = SE_NEW float[m_iNumRays];
     m_afSin = SE_NEW float[m_iNumRays];
     m_afTolerance = SE_NEW float[m_iNumRays];
@@ -47,27 +47,27 @@ WaveSource3D::WaveSource3D()
     for( int i = 0; i < m_iNumRays; i++ )
     {
         float fUnit = i*fMult - 1.0f;  // in [-1,1]
-        float fAngle = Mathf::HALF_PI + m_fHalfAngle*fUnit;
-        m_afCos[i] = Mathf::Cos(fAngle);
-        m_afSin[i] = Mathf::Sin(fAngle);
-        m_afTolerance[i] = 2.0f - 1.5f*Mathf::FAbs(fUnit);  // in [1/2,1]
+        float fAngle = SEMathf::HALF_PI + m_fHalfAngle*fUnit;
+        m_afCos[i] = SEMathf::Cos(fAngle);
+        m_afSin[i] = SEMathf::Sin(fAngle);
+        m_afTolerance[i] = 2.0f - 1.5f*SEMathf::FAbs(fUnit);  // in [1/2,1]
     }
 
-    TriMesh::InitializePickRecordPool();
+    SETriMesh::InitializePickRecordPool();
 }
 //----------------------------------------------------------------------------
 bool WaveSource3D::OnInitialize()
 {
-    if( !WindowApplication3::OnInitialize() )
+    if( !SEWindowApplication3::OnInitialize() )
     {
         return false;
     }
 
     m_spCamera->SetFrustum(-0.55f, 0.55f, -0.4125f, 0.4125f, 1.0f, 200.0f);
-    Vector3f tempCLoc(0.0f, 5.0f, 0.0f);
-    Vector3f tempCDir(0.0f, 0.0f, 1.0f);
-    Vector3f tempCUp(0.0f, 1.0f, 0.0f);
-    Vector3f tempCRight = tempCUp.Cross(tempCDir);
+    SEVector3f tempCLoc(0.0f, 5.0f, 0.0f);
+    SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
+    SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
+    SEVector3f tempCRight = tempCUp.Cross(tempCDir);
     m_spCamera->SetFrame(tempCLoc, tempCRight, tempCUp, tempCDir);
 
     CreateScene();
@@ -112,9 +112,9 @@ void WaveSource3D::OnTerminate()
     SE_DELETE[] m_afCos;
     SE_DELETE[] m_afSin;
     SE_DELETE[] m_afTolerance;
-    TriMesh::TerminatePickRecordPool();
+    SETriMesh::TerminatePickRecordPool();
 
-    WindowApplication3::OnTerminate();
+    SEWindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void WaveSource3D::OnIdle()
@@ -124,18 +124,18 @@ void WaveSource3D::OnIdle()
     static double dLastTime = 0.0f;
     static float fAngel = 0.0f;
     static float fR = 15.0f;
-    dCurTime = System::SE_GetTime();
+    dCurTime = SESystem::SE_GetTime();
     if( dCurTime - dLastTime > 0.0001f )
     {
         dLastTime = dCurTime;
         fAngel += 0.002f;
-        Matrix3f mat3fRot;
+        SEMatrix3f mat3fRot;
         mat3fRot.FromEulerAnglesXYZ(0.0f, -0.002f, 0.0f);
         m_aspSoundNode[2]->Local.SetRotate(
             m_aspSoundNode[2]->Local.GetRotate()*mat3fRot);
-        float fX = fR*Mathf::Cos(fAngel);
-        float fZ = fR*Mathf::Sin(fAngel);
-        m_aspSoundNode[2]->Local.SetTranslate(Vector3f(fX, 2.0f, fZ));
+        float fX = fR*SEMathf::Cos(fAngel);
+        float fZ = fR*SEMathf::Sin(fAngel);
+        m_aspSoundNode[2]->Local.SetTranslate(SEVector3f(fX, 2.0f, fZ));
         m_aspSoundNode[2]->UpdateGS();
     }
 
@@ -147,7 +147,7 @@ void WaveSource3D::OnIdle()
     if( m_pRenderer->BeginScene() )
     {
         m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
-        DrawFrameRate(8, 20, ColorRGBA::SE_RGBA_WHITE);
+        DrawFrameRate(8, 20, SEColorRGBA::SE_RGBA_WHITE);
         m_pRenderer->EndScene();
     }
     m_pRenderer->DisplayBackBuffer();
@@ -157,7 +157,7 @@ void WaveSource3D::OnIdle()
 //----------------------------------------------------------------------------
 bool WaveSource3D::OnKeyDown(unsigned char ucKey, int iX, int iY)
 {
-    if( WindowApplication3::OnKeyDown(ucKey, iX, iY) )
+    if( SEWindowApplication3::OnKeyDown(ucKey, iX, iY) )
     {
         return true;
     }
@@ -214,183 +214,183 @@ bool WaveSource3D::OnMouseClick(int, int iState, int, int, unsigned int)
 void WaveSource3D::CreateScene()
 {
     // create root.
-    m_spScene = SE_NEW Node;
-    m_spWireframe = SE_NEW WireframeState;
+    m_spScene = SE_NEW SENode;
+    m_spWireframe = SE_NEW SEWireframeState;
     m_spScene->AttachGlobalState(m_spWireframe);
 
     // create sound buffer "gunfire".
-    Wave* pWave = WaveCatalog::GetActive()->Find("gunfire");
+    SEWave* pWave = SEWaveCatalog::GetActive()->Find("gunfire");
     SE_ASSERT( pWave );
-    m_spSBufferGunfire = SE_NEW SoundBuffer(1, &pWave);
+    m_spSBufferGunfire = SE_NEW SESoundBuffer(1, &pWave);
     m_spSBufferGunfire->SetName("gunfire");
 
     // create sound buffer "affliction alert".
-    pWave = WaveCatalog::GetActive()->Find("AfflictionAlert");
+    pWave = SEWaveCatalog::GetActive()->Find("AfflictionAlert");
     SE_ASSERT( pWave );
-    m_spSBufferAfflictionAlert = SE_NEW SoundBuffer(1, &pWave);
+    m_spSBufferAfflictionAlert = SE_NEW SESoundBuffer(1, &pWave);
     m_spSBufferAfflictionAlert->SetName("AfflictionAlert");
 
     // create sound buffer "footsteps".
-    pWave = WaveCatalog::GetActive()->Find("KillZone2");
+    pWave = SEWaveCatalog::GetActive()->Find("KillZone2");
     SE_ASSERT( pWave );
-    m_spSBufferFootsteps = SE_NEW SoundBuffer(1, &pWave);
+    m_spSBufferFootsteps = SE_NEW SESoundBuffer(1, &pWave);
     m_spSBufferFootsteps->SetName("Footsteps");
 
     // create sound buffer "gunhit".
-    pWave = WaveCatalog::GetActive()->Find("gunhit");
+    pWave = SEWaveCatalog::GetActive()->Find("gunhit");
     SE_ASSERT( pWave );
-    m_spSBufferGunhit = SE_NEW SoundBuffer(1, &pWave);
+    m_spSBufferGunhit = SE_NEW SESoundBuffer(1, &pWave);
     m_spSBufferGunhit->SetName("gunhit");
 
     // create sound buffer "blip".
-    pWave = WaveCatalog::GetActive()->Find("Blip");
+    pWave = SEWaveCatalog::GetActive()->Find("Blip");
     SE_ASSERT( pWave );
-    m_spSBufferBlip = SE_NEW SoundBuffer(1, &pWave);
+    m_spSBufferBlip = SE_NEW SESoundBuffer(1, &pWave);
     m_spSBufferBlip->SetName("Blip");
 
     // create sound buffer "killzone2".
-    pWave = WaveCatalog::GetActive()->Find("killzone2");
+    pWave = SEWaveCatalog::GetActive()->Find("killzone2");
     SE_ASSERT( pWave );
-    m_spSBufferKillZone2 = SE_NEW SoundBuffer(1, &pWave);
+    m_spSBufferKillZone2 = SE_NEW SESoundBuffer(1, &pWave);
     m_spSBufferKillZone2->SetName("KillZone2");
 
     // create a point light.
-    m_spLight = SE_NEW Light(Light::LT_POINT);
-    m_spLight->Position = Vector3f(0.0f, 20.0f, 0.0f);
-    m_spLight->Diffuse = ColorRGB::SE_RGB_WHITE;
-    m_spLight->Specular = ColorRGB::SE_RGB_WHITE;
+    m_spLight = SE_NEW SELight(SELight::LT_POINT);
+    m_spLight->Position = SEVector3f(0.0f, 20.0f, 0.0f);
+    m_spLight->Diffuse = SEColorRGB::SE_RGB_WHITE;
+    m_spLight->Specular = SEColorRGB::SE_RGB_WHITE;
     m_spScene->AttachLight(m_spLight);
 
     // create polished red material.
-    MaterialState* pRedMaterial = SE_NEW MaterialState;
-    pRedMaterial->Ambient = ColorRGB(0.2f, 0.0f, 0.0f);
-    pRedMaterial->Diffuse = ColorRGB(0.8f, 0.0f, 0.0f);
-    pRedMaterial->Specular = ColorRGB(1.0f, 1.0f, 1.0f);
+    SEMaterialState* pRedMaterial = SE_NEW SEMaterialState;
+    pRedMaterial->Ambient = SEColorRGB(0.2f, 0.0f, 0.0f);
+    pRedMaterial->Diffuse = SEColorRGB(0.8f, 0.0f, 0.0f);
+    pRedMaterial->Specular = SEColorRGB(1.0f, 1.0f, 1.0f);
     pRedMaterial->Shininess = 50.0f;
 
     // create polished blue material.
-    MaterialState* pBlueMaterial = SE_NEW MaterialState;
-    pBlueMaterial->Ambient = ColorRGB(0.0f, 0.0f, 0.2f);
-    pBlueMaterial->Diffuse = ColorRGB(0.0f, 0.0f, 0.8f);
-    pBlueMaterial->Specular = ColorRGB(1.0f, 1.0f, 1.0f);
+    SEMaterialState* pBlueMaterial = SE_NEW SEMaterialState;
+    pBlueMaterial->Ambient = SEColorRGB(0.0f, 0.0f, 0.2f);
+    pBlueMaterial->Diffuse = SEColorRGB(0.0f, 0.0f, 0.8f);
+    pBlueMaterial->Specular = SEColorRGB(1.0f, 1.0f, 1.0f);
     pBlueMaterial->Shininess = 50.0f;
 
     // create flat gray material.
-    MaterialState* pGrayMaterial = SE_NEW MaterialState;
-    pGrayMaterial->Ambient = ColorRGB(0.1f, 0.1f, 0.1f);
-    pGrayMaterial->Diffuse = ColorRGB(0.7f, 0.7f, 0.7f);
-    pGrayMaterial->Specular = ColorRGB(0.2f, 0.2f, 0.2f);
+    SEMaterialState* pGrayMaterial = SE_NEW SEMaterialState;
+    pGrayMaterial->Ambient = SEColorRGB(0.1f, 0.1f, 0.1f);
+    pGrayMaterial->Diffuse = SEColorRGB(0.7f, 0.7f, 0.7f);
+    pGrayMaterial->Specular = SEColorRGB(0.2f, 0.2f, 0.2f);
     pGrayMaterial->Shininess = 50.0f;
 
     // create flat egg material.
-    MaterialState* pEggMaterial = SE_NEW MaterialState;
-    pEggMaterial->Ambient = ColorRGB(1.0f, 0.92f, 0.804f)*0.2f;
-    pEggMaterial->Diffuse = ColorRGB(1.0f, 0.92f, 0.804f)*0.8f;
-    pEggMaterial->Specular = ColorRGB(0.1f, 0.1f, 0.1f);
+    SEMaterialState* pEggMaterial = SE_NEW SEMaterialState;
+    pEggMaterial->Ambient = SEColorRGB(1.0f, 0.92f, 0.804f)*0.2f;
+    pEggMaterial->Diffuse = SEColorRGB(1.0f, 0.92f, 0.804f)*0.8f;
+    pEggMaterial->Specular = SEColorRGB(0.1f, 0.1f, 0.1f);
     pEggMaterial->Shininess = 50.0f;
 
     // create polished green material.
-    MaterialState* pGreenMaterial = SE_NEW MaterialState;
-    pGreenMaterial->Ambient = ColorRGB(0.0f, 0.2f, 0.0f);
-    pGreenMaterial->Diffuse = ColorRGB(0.0f, 0.8f, 0.0f);
-    pGreenMaterial->Specular = ColorRGB(1.0f, 1.0f, 1.0f);
+    SEMaterialState* pGreenMaterial = SE_NEW SEMaterialState;
+    pGreenMaterial->Ambient = SEColorRGB(0.0f, 0.2f, 0.0f);
+    pGreenMaterial->Diffuse = SEColorRGB(0.0f, 0.8f, 0.0f);
+    pGreenMaterial->Specular = SEColorRGB(1.0f, 1.0f, 1.0f);
     pGreenMaterial->Shininess = 50.0f;
 
     // create polished yellow material.
-    MaterialState* pYellowMaterial = SE_NEW MaterialState;
-    pYellowMaterial->Ambient = ColorRGB(0.2f, 0.2f, 0.0f);
-    pYellowMaterial->Diffuse = ColorRGB(0.8f, 0.8f, 0.0f);
-    pYellowMaterial->Specular = ColorRGB(1.0f, 1.0f, 1.0f);
+    SEMaterialState* pYellowMaterial = SE_NEW SEMaterialState;
+    pYellowMaterial->Ambient = SEColorRGB(0.2f, 0.2f, 0.0f);
+    pYellowMaterial->Diffuse = SEColorRGB(0.8f, 0.8f, 0.0f);
+    pYellowMaterial->Specular = SEColorRGB(1.0f, 1.0f, 1.0f);
     pYellowMaterial->Shininess = 50.0f;
 
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetNormalChannels(3);
-    StandardMesh tempSM(tempAttr);
+    SEStandardMesh tempSM(tempAttr);
 
 #if defined(SE_USING_OES2)
-    Geometry::GeometryLightingMode eLMode = Geometry::GLM_PIPELINE_VERTEX;
+    SEGeometry::GeometryLightingMode eLMode = SEGeometry::GLM_PIPELINE_VERTEX;
 #else
-    Geometry::GeometryLightingMode eLMode = Geometry::GLM_PIPELINE_PIXEL;
+    SEGeometry::GeometryLightingMode eLMode = SEGeometry::GLM_PIPELINE_PIXEL;
 #endif
 
     // create ground.
     m_spGround = tempSM.Rectangle(2, 2, 100.0f, 100.0f);
     m_spGround->LightingMode = eLMode;
-    Matrix3f mat3fRot;
-    mat3fRot.FromAxisAngle(Vector3f::UNIT_X, Mathf::HALF_PI);
+    SEMatrix3f mat3fRot;
+    mat3fRot.FromAxisAngle(SEVector3f::UNIT_X, SEMathf::HALF_PI);
     m_spGround->Local.SetRotate(mat3fRot);
     m_spGround->AttachGlobalState(pGrayMaterial);
     m_spScene->AttachChild(m_spGround);
 
     // create sound object 0.
-    m_aspSoundNode[0] = SE_NEW Node;
+    m_aspSoundNode[0] = SE_NEW SENode;
     m_aspSoundNode[0]->SetName("SoundSource0");
-    m_aspSoundNode[0]->Local.SetTranslate(Vector3f(-20.0f, 2.0f, 40.0f));
-    TriMesh* pSoundMesh = tempSM.Sphere(16, 16, 2.0f);
+    m_aspSoundNode[0]->Local.SetTranslate(SEVector3f(-20.0f, 2.0f, 40.0f));
+    SETriMesh* pSoundMesh = tempSM.Sphere(16, 16, 2.0f);
     pSoundMesh->LightingMode = eLMode;
     pSoundMesh->AttachGlobalState(pRedMaterial);
     m_aspSoundNode[0]->AttachChild(pSoundMesh);
     m_spScene->AttachChild(m_aspSoundNode[0]);
-    m_aspSound[0] = SE_NEW Sound(m_spSBufferGunfire);
+    m_aspSound[0] = SE_NEW SESound(m_spSBufferGunfire);
     m_aspSound[0]->Gain = 2.0f;
     m_aspSound[0]->Looping = true;
     m_aspSoundNode[0]->AttachChild(m_aspSound[0]);
 
     // create sound object 1.
-    m_aspSoundNode[1] = SE_NEW Node;
+    m_aspSoundNode[1] = SE_NEW SENode;
     m_aspSoundNode[1]->SetName("SoundSource1");
-    m_aspSoundNode[1]->Local.SetTranslate(Vector3f(20.0f, 2.0f, 40.0f));
+    m_aspSoundNode[1]->Local.SetTranslate(SEVector3f(20.0f, 2.0f, 40.0f));
     pSoundMesh = tempSM.Sphere(16, 16, 2.0f);
     pSoundMesh->LightingMode = eLMode;
     pSoundMesh->AttachGlobalState(pBlueMaterial);
     m_aspSoundNode[1]->AttachChild(pSoundMesh);
     m_spScene->AttachChild(m_aspSoundNode[1]);
-    m_aspSound[1] = SE_NEW Sound(m_spSBufferAfflictionAlert);
+    m_aspSound[1] = SE_NEW SESound(m_spSBufferAfflictionAlert);
     m_aspSound[1]->Gain = 2.0f;
     m_aspSound[1]->Looping = true;
     m_aspSoundNode[1]->AttachChild(m_aspSound[1]);
 
     // create sound object 2.
-    m_aspSoundNode[2] = SE_NEW Node;
+    m_aspSoundNode[2] = SE_NEW SENode;
     m_aspSoundNode[2]->SetName("SoundSource2");
-    mat3fRot.FromEulerAnglesXYZ(0.0f, Mathf::HALF_PI, 0.0f);
+    mat3fRot.FromEulerAnglesXYZ(0.0f, SEMathf::HALF_PI, 0.0f);
     m_aspSoundNode[2]->Local.SetRotate(mat3fRot);
-    m_aspSoundNode[2]->Local.SetTranslate(Vector3f(20.0f, 2.0f, 0.0f));
+    m_aspSoundNode[2]->Local.SetTranslate(SEVector3f(20.0f, 2.0f, 0.0f));
     pSoundMesh = tempSM.Sphere(16, 16, 2.0f);
     pSoundMesh->LightingMode = eLMode;
     pSoundMesh->AttachGlobalState(pEggMaterial);
     m_aspSoundNode[2]->AttachChild(pSoundMesh);
     m_spScene->AttachChild(m_aspSoundNode[2]);
-    m_aspSound[2] = SE_NEW Sound(m_spSBufferKillZone2);
+    m_aspSound[2] = SE_NEW SESound(m_spSBufferKillZone2);
     m_aspSound[2]->Gain = 2.0f;
     m_aspSound[2]->Looping = true;
     m_aspSoundNode[2]->AttachChild(m_aspSound[2]);
 
     // create sound object 3.
-    m_aspSoundNode[3] = SE_NEW Node;
+    m_aspSoundNode[3] = SE_NEW SENode;
     m_aspSoundNode[3]->SetName("SoundSource3");
-    m_aspSoundNode[3]->Local.SetTranslate(Vector3f(20.0f, 2.0f, -40.0f));
+    m_aspSoundNode[3]->Local.SetTranslate(SEVector3f(20.0f, 2.0f, -40.0f));
     pSoundMesh = tempSM.Sphere(16, 16, 2.0f);
     pSoundMesh->LightingMode = eLMode;
     pSoundMesh->AttachGlobalState(pGreenMaterial);
     m_aspSoundNode[3]->AttachChild(pSoundMesh);
     m_spScene->AttachChild(m_aspSoundNode[3]);
-    m_aspSound[3] = SE_NEW Sound(m_spSBufferGunhit);
+    m_aspSound[3] = SE_NEW SESound(m_spSBufferGunhit);
     m_aspSound[3]->Gain = 2.0f;
     m_aspSound[3]->Looping = true;
     m_aspSoundNode[3]->AttachChild(m_aspSound[3]);
 
     // create sound object 4.
-    m_aspSoundNode[4] = SE_NEW Node;
+    m_aspSoundNode[4] = SE_NEW SENode;
     m_aspSoundNode[4]->SetName("SoundSource4");
-    m_aspSoundNode[4]->Local.SetTranslate(Vector3f(-20.0f, 2.0f, -40.0f));
+    m_aspSoundNode[4]->Local.SetTranslate(SEVector3f(-20.0f, 2.0f, -40.0f));
     pSoundMesh = tempSM.Sphere(16, 16, 2.0f);
     pSoundMesh->LightingMode = eLMode;
     pSoundMesh->AttachGlobalState(pYellowMaterial);
     m_aspSoundNode[4]->AttachChild(pSoundMesh);
     m_spScene->AttachChild(m_aspSoundNode[4]);
-    m_aspSound[4] = SE_NEW Sound(m_spSBufferBlip);
+    m_aspSound[4] = SE_NEW SESound(m_spSBufferBlip);
     m_aspSound[4]->Gain = 2.0f;
     m_aspSound[4]->Looping = true;
     m_aspSoundNode[4]->AttachChild(m_aspSound[4]);
@@ -402,23 +402,25 @@ void WaveSource3D::CreateScene()
 void WaveSource3D::AdjustVerticalDistance()
 {
     // 保持在ground上的垂直高度.
-    Spatial::PickArray tempPickResults;
-    Ray3f tempRay(m_spCamera->GetLocation(), -Vector3f::UNIT_Y);
-    TriMesh::ResetPickRecordPool();
+    SESpatial::PickArray tempPickResults;
+    SERay3f tempRay(m_spCamera->GetLocation(), -SEVector3f::UNIT_Y);
+    SETriMesh::ResetPickRecordPool();
     m_spScene->DoPick(tempRay, tempPickResults);
 
     if( tempPickResults.size() > 0 )
     {
-        Spatial::PickRecord* pClosest = Spatial::GetClosest(tempPickResults);
+        SESpatial::SEPickRecord* pClosest = SESpatial::GetClosest(
+            tempPickResults);
         SE_ASSERT( pClosest );
 
-        TriMesh* pMesh = DynamicCast<TriMesh>(pClosest->IObject);
+        SETriMesh* pMesh = DynamicCast<SETriMesh>(pClosest->IObject);
         SE_ASSERT( pMesh );
-        TriMesh::PickRecord* pTMRecord = (TriMesh::PickRecord*)pClosest;
+        SETriMesh::SEPickRecord* pTMRecord = 
+            (SETriMesh::SEPickRecord*)pClosest;
 
-        Triangle3f tempTri;
+        SETriangle3f tempTri;
         pMesh->GetWorldTriangle(pTMRecord->Triangle, tempTri);
-        Vector3f vec3fClosest =
+        SEVector3f vec3fClosest =
             pTMRecord->Bary0*tempTri.V[0] +
             pTMRecord->Bary1*tempTri.V[1] +
             pTMRecord->Bary2*tempTri.V[2];
@@ -432,7 +434,7 @@ bool WaveSource3D::AllowMotion(float fSign)
 {
     // 根据fSign,向前或向后走一步.
     // 检查场景中对象是否足够远.如果是,则允许走,否则停在原地.
-    Vector3f vec3fNextPos = m_spCamera->GetLocation()
+    SEVector3f vec3fNextPos = m_spCamera->GetLocation()
         + fSign*m_fTrnSpeed*m_aWorldAxis[2]
         - 0.5f*m_fVerticalDistance*m_aWorldAxis[1];
 
@@ -440,15 +442,16 @@ bool WaveSource3D::AllowMotion(float fSign)
     int i;
     for( i = 0; i < m_iNumRays; i++ )
     {
-        Vector3f vec3fDir = m_afCos[i]*m_aWorldAxis[0] +
+        SEVector3f vec3fDir = m_afCos[i]*m_aWorldAxis[0] +
             fSign*m_afSin[i]*m_aWorldAxis[2];
 
-        Spatial::PickArray tempPickResults;
-        TriMesh::ResetPickRecordPool();
-        m_spScene->DoPick(Ray3f(vec3fNextPos, vec3fDir), tempPickResults);
+        SESpatial::PickArray tempPickResults;
+        SETriMesh::ResetPickRecordPool();
+        m_spScene->DoPick(SERay3f(vec3fNextPos, vec3fDir), tempPickResults);
         if( tempPickResults.size() > 0 )
         {
-            Spatial::PickRecord* pClosest = Spatial::GetClosest(tempPickResults);
+            SESpatial::SEPickRecord* pClosest = SESpatial::GetClosest(
+                tempPickResults);
             SE_ASSERT( pClosest );
 
             if( pClosest->T <= m_afTolerance[i] )
@@ -470,7 +473,7 @@ void WaveSource3D::MoveForward()
 {
     if( AllowMotion(1.0f) )
     {
-        WindowApplication3::MoveForward();
+        SEWindowApplication3::MoveForward();
         AdjustVerticalDistance();
     }
 }
@@ -479,7 +482,7 @@ void WaveSource3D::MoveBackward()
 {
     if( AllowMotion(-1.0f) )
     {
-        WindowApplication3::MoveBackward();
+        SEWindowApplication3::MoveBackward();
         AdjustVerticalDistance();
     }
 }

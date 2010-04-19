@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-class WaveSource3D : public WindowApplication3
+class WaveSource3D : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -50,21 +50,21 @@ protected:
 
     enum{ SOUND_COUNT = 5 };
 
-    NodePtr m_spScene;
-    NodePtr m_aspSoundNode[SOUND_COUNT];
-    SoundPtr m_aspSound[SOUND_COUNT];
+    SENodePtr m_spScene;
+    SENodePtr m_aspSoundNode[SOUND_COUNT];
+    SESoundPtr m_aspSound[SOUND_COUNT];
     bool m_bSoundSwitch[SOUND_COUNT];
-    LightPtr m_spLight;
-    TriMeshPtr m_spGround;
-    WireframeStatePtr m_spWireframe;
-    Culler m_Culler;
+    SELightPtr m_spLight;
+    SETriMeshPtr m_spGround;
+    SEWireframeStatePtr m_spWireframe;
+    SECuller m_Culler;
 
-    SoundBufferPtr m_spSBufferGunfire;
-    SoundBufferPtr m_spSBufferAfflictionAlert;
-    SoundBufferPtr m_spSBufferFootsteps;
-    SoundBufferPtr m_spSBufferGunhit;
-    SoundBufferPtr m_spSBufferBlip;
-    SoundBufferPtr m_spSBufferKillZone2;
+    SESoundBufferPtr m_spSBufferGunfire;
+    SESoundBufferPtr m_spSBufferAfflictionAlert;
+    SESoundBufferPtr m_spSBufferFootsteps;
+    SESoundBufferPtr m_spSBufferGunhit;
+    SESoundBufferPtr m_spSBufferBlip;
+    SESoundBufferPtr m_spSBufferKillZone2;
 
     // 用于拾取的射线相关参数.
     bool AllowMotion(float fSign);
