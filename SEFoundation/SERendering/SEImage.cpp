@@ -272,25 +272,10 @@ SEImage* SEImage::Load(const char* pImageName)
     // »ñÈ¡image formatºÍdimensions
     int iFormat, iDimension, aiBound[3];
     pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &iFormat);
-    if( TempVersion >= SEImageVersion(3, 1) )
-    {
-        pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &iDimension);
-    }
-    else
-    {
-        iDimension = 2;
-    }
+    pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &iDimension);
     pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &aiBound[0]);
     pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &aiBound[1]);
-    if( TempVersion >= SEImageVersion(3, 1) )
-    {
-        pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &aiBound[2]);
-    }
-    else
-    {
-        aiBound[2] = 1;
-    }
-
+    pcCurrent += SESystem::SE_Read4le(pcCurrent, 1, &aiBound[2]);
     FormatMode eFormat = (FormatMode)iFormat;
     int iCount = aiBound[0] * aiBound[1] * aiBound[2];
 
