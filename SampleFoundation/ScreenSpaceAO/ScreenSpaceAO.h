@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-class ScreenSpaceAO : public WindowApplication3
+class ScreenSpaceAO : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -39,45 +39,45 @@ public:
 
 protected:
     void CreateScene(void);
-    Node* CreateModel(void);
+    SENode* CreateModel(void);
     void CreateLights(void);
 
-    NodePtr m_spScene;
-    WireframeStatePtr m_spWireframe;
-    Culler m_Culler;
+    SENodePtr m_spScene;
+    SEWireframeStatePtr m_spWireframe;
+    SECuller m_Culler;
 
-    CameraPtr m_spScreenCamera;
+    SECameraPtr m_spScreenCamera;
 
-    TriMeshPtr m_spScenePolygon1;
-    TriMeshPtr m_spScenePolygon2;
-    TriMeshPtr m_spScenePolygon3;
-    TriMeshPtr m_spScenePolygon4;
-    TriMeshPtr m_spScenePolygon5;
-    TriMeshPtr m_spScenePolygon6;
+    SETriMeshPtr m_spScenePolygon1;
+    SETriMeshPtr m_spScenePolygon2;
+    SETriMeshPtr m_spScenePolygon3;
+    SETriMeshPtr m_spScenePolygon4;
+    SETriMeshPtr m_spScenePolygon5;
+    SETriMeshPtr m_spScenePolygon6;
 
-    ImagePtr m_spSceneImageColor;
-    ImagePtr m_spSceneImageNormal;
-    ImagePtr m_spSceneImageDepth;
-    ImagePtr m_spSSAORandomImage;
+    SEImagePtr m_spSceneImageColor;
+    SEImagePtr m_spSceneImageNormal;
+    SEImagePtr m_spSceneImageDepth;
+    SEImagePtr m_spSSAORandomImage;
 
-    TexturePtr m_spSceneTargetColor;
-    TexturePtr m_spSceneTargetNormal;
-    TexturePtr m_spSceneTargetDepth;
-    TexturePtr m_spSSAORandom;
+    SETexturePtr m_spSceneTargetColor;
+    SETexturePtr m_spSceneTargetNormal;
+    SETexturePtr m_spSceneTargetDepth;
+    SETexturePtr m_spSSAORandom;
 
-    FrameBuffer* m_pFrameBufferSceneMRT;
-    ImagePtr m_spSceneImageSSAO;
-    TexturePtr m_spSceneTargetSSAO;
-    FrameBuffer* m_pFrameBufferSSAO;
+    SEFrameBuffer* m_pFrameBufferSceneMRT;
+    SEImagePtr m_spSceneImageSSAO;
+    SETexturePtr m_spSceneTargetSSAO;
+    SEFrameBuffer* m_pFrameBufferSSAO;
 
-    LightPtr m_aspLight[4];
+    SELightPtr m_aspLight[4];
 
     bool m_bShowSSAO;
     bool m_bShowSSAOBlurred;
     bool m_bShowCombined;
     bool m_bShowUnCombined;
 
-    ScreenSpaceAOEffect* m_pSSAOEffect;
+    SEScreenSpaceAOEffect* m_pSSAOEffect;
 };
 
 #endif

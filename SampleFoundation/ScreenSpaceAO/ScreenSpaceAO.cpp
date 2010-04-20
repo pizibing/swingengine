@@ -27,8 +27,8 @@ SE_REGISTER_INITIALIZE(ScreenSpaceAO);
 //----------------------------------------------------------------------------
 ScreenSpaceAO::ScreenSpaceAO()
     :
-    WindowApplication3("ScreenSpaceAO", 0, 0, 800, 600, 
-        ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
+    SEWindowApplication3("ScreenSpaceAO", 0, 0, 800, 600, 
+        SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
     m_pFrameBufferSceneMRT = 0;
 
@@ -40,17 +40,17 @@ ScreenSpaceAO::ScreenSpaceAO()
 //----------------------------------------------------------------------------
 bool ScreenSpaceAO::OnInitialize()
 {
-    if( !WindowApplication3::OnInitialize() )
+    if( !SEWindowApplication3::OnInitialize() )
     {
         return false;
     }
 
     m_spCamera->SetFrustum(-0.55f, 0.55f, -0.4125f, 0.4125f, 1.0f, 1000.0f);
-    Vector3f tempCLoc(0.0f, 9.0f, -20.0f);
-    Vector3f tempCDir(0.0f, -0.5f, 1.0f);
+    SEVector3f tempCLoc(0.0f, 9.0f, -20.0f);
+    SEVector3f tempCDir(0.0f, -0.5f, 1.0f);
     tempCDir.Normalize();
-    Vector3f tempCUp(0.0f, 1.0f, 0.0f);
-    Vector3f tempCRight = tempCUp.Cross(tempCDir);
+    SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
+    SEVector3f tempCRight = tempCUp.Cross(tempCDir);
     tempCRight.Normalize();
     tempCUp = tempCDir.Cross(tempCRight);
     tempCUp.Normalize();
@@ -72,8 +72,8 @@ bool ScreenSpaceAO::OnInitialize()
 //----------------------------------------------------------------------------
 void ScreenSpaceAO::OnTerminate()
 {
-    FrameBuffer::Destroy(m_pFrameBufferSceneMRT);
-    FrameBuffer::Destroy(m_pFrameBufferSSAO);
+    SEFrameBuffer::Destroy(m_pFrameBufferSceneMRT);
+    SEFrameBuffer::Destroy(m_pFrameBufferSSAO);
 
     m_spScene = 0;
     m_spWireframe = 0;
@@ -103,7 +103,7 @@ void ScreenSpaceAO::OnTerminate()
     m_aspLight[2] = 0;
     m_aspLight[3] = 0;
 
-    WindowApplication3::OnTerminate();
+    SEWindowApplication3::OnTerminate();
     // For safty reason.
     m_spScreenCamera = 0;
 }
@@ -128,7 +128,7 @@ void ScreenSpaceAO::OnIdle()
         if( m_bShowUnCombined )
         {
             // Render the scene to back buffer directly.
-            m_pRenderer->SetClearColor(ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
+            m_pRenderer->SetClearColor(SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
             m_pRenderer->ClearBuffers();
             m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
         }
@@ -139,7 +139,7 @@ void ScreenSpaceAO::OnIdle()
 
             // Render the scene to multiple render targets.
             m_pFrameBufferSceneMRT->Enable();
-            m_pRenderer->SetClearColor(ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
+            m_pRenderer->SetClearColor(SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
             m_pRenderer->ClearBuffers();  // Clear MRT.
             m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
             m_pFrameBufferSceneMRT->Disable();
@@ -186,7 +186,7 @@ void ScreenSpaceAO::OnIdle()
         }
 
         m_pRenderer->SetCamera(m_spCamera);
-        DrawFrameRate(8, 20, ColorRGBA::SE_RGBA_WHITE);
+        DrawFrameRate(8, 20, SEColorRGBA::SE_RGBA_WHITE);
 
         m_pRenderer->EndScene();
     }
@@ -197,7 +197,7 @@ void ScreenSpaceAO::OnIdle()
 //----------------------------------------------------------------------------
 bool ScreenSpaceAO::OnKeyDown(unsigned char ucKey, int iX, int iY)
 {
-    if( WindowApplication3::OnKeyDown(ucKey, iX, iY) )
+    if( SEWindowApplication3::OnKeyDown(ucKey, iX, iY) )
     {
         return true;
     }
@@ -258,35 +258,36 @@ void ScreenSpaceAO::CreateScene()
 
     // screen camera把[0, 1]^3区间上的(x, y, z)映射到[-1, 1]^2 x [0, 1]区间上
     // 的(x', y, 'z').
-    m_spScreenCamera = SE_NEW Camera;
+    m_spScreenCamera = SE_NEW SECamera;
     m_spScreenCamera->SetPerspective(false);
     m_spScreenCamera->SetFrustum(0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f);
-    m_spScreenCamera->SetFrame(Vector3f::ZERO, Vector3f::UNIT_X, 
-        Vector3f::UNIT_Y, Vector3f::UNIT_Z);
+    m_spScreenCamera->SetFrame(SEVector3f::ZERO, SEVector3f::UNIT_X, 
+        SEVector3f::UNIT_Y, SEVector3f::UNIT_Z);
 
     // 创建场景根节点.
-    m_spScene = SE_NEW Node;
-    m_spWireframe = SE_NEW WireframeState;
+    m_spScene = SE_NEW SENode;
+    m_spWireframe = SE_NEW SEWireframeState;
     m_spScene->AttachGlobalState(m_spWireframe);
 
     // 创建三个使用RGBA渲染目标纹理的屏幕矩形..
-    Attributes tempAttrScenePoly;
+    SEAttributes tempAttrScenePoly;
     tempAttrScenePoly.SetPositionChannels(3);
     tempAttrScenePoly.SetTCoordChannels(0, 2);
 
     float fExtend = 0.2f, fOffset = 0.002f;
-    VertexBuffer* pVBufferScenePoly = SE_NEW VertexBuffer(tempAttrScenePoly, 4);
-    pVBufferScenePoly->Position3(0) = Vector3f(0.0f, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(1) = Vector3f(fExtend, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(2) = Vector3f(fExtend, fExtend, 0.0f);
-    pVBufferScenePoly->Position3(3) = Vector3f(0.0f, fExtend, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 0) = Vector2f(0.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 1) = Vector2f(1.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 2) = Vector2f(1.0f, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 3) = Vector2f(0.0f, 0.0f);
+    SEVertexBuffer* pVBufferScenePoly = SE_NEW SEVertexBuffer(
+        tempAttrScenePoly, 4);
+    pVBufferScenePoly->Position3(0) = SEVector3f(0.0f, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(1) = SEVector3f(fExtend, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(2) = SEVector3f(fExtend, fExtend, 0.0f);
+    pVBufferScenePoly->Position3(3) = SEVector3f(0.0f, fExtend, 0.0f);
+    pVBufferScenePoly->TCoord2(0, 0) = SEVector2f(0.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 1) = SEVector2f(1.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 2) = SEVector2f(1.0f, 0.0f);
+    pVBufferScenePoly->TCoord2(0, 3) = SEVector2f(0.0f, 0.0f);
 
     // 创建三个矩形共享的index buffer.
-    IndexBuffer* pIBufferScenePoly = SE_NEW IndexBuffer(6);
+    SEIndexBuffer* pIBufferScenePoly = SE_NEW SEIndexBuffer(6);
     int* pIBufferDataScenePoly = pIBufferScenePoly->GetData();
     pIBufferDataScenePoly[0] = 0;  
     pIBufferDataScenePoly[1] = 3;  
@@ -294,81 +295,88 @@ void ScreenSpaceAO::CreateScene()
     pIBufferDataScenePoly[3] = 1;  
     pIBufferDataScenePoly[4] = 3;  
     pIBufferDataScenePoly[5] = 2;
-    m_spScenePolygon1 = SE_NEW TriMesh(pVBufferScenePoly, pIBufferScenePoly);
+    m_spScenePolygon1 = SE_NEW SETriMesh(pVBufferScenePoly, 
+        pIBufferScenePoly);
 
-    pVBufferScenePoly = SE_NEW VertexBuffer(tempAttrScenePoly, 4);
-    pVBufferScenePoly->Position3(0) = Vector3f(fExtend + 
+    pVBufferScenePoly = SE_NEW SEVertexBuffer(tempAttrScenePoly, 4);
+    pVBufferScenePoly->Position3(0) = SEVector3f(fExtend + 
         fOffset, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(1) = Vector3f(fExtend + fExtend + 
+    pVBufferScenePoly->Position3(1) = SEVector3f(fExtend + fExtend + 
         fOffset, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(2) = Vector3f(fExtend + fExtend + 
+    pVBufferScenePoly->Position3(2) = SEVector3f(fExtend + fExtend + 
         fOffset, fExtend, 0.0f);
-    pVBufferScenePoly->Position3(3) = Vector3f(fExtend + fOffset, 
+    pVBufferScenePoly->Position3(3) = SEVector3f(fExtend + fOffset, 
         fExtend, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 0) = Vector2f(0.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 1) = Vector2f(1.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 2) = Vector2f(1.0f, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 3) = Vector2f(0.0f, 0.0f);
-    m_spScenePolygon2 = SE_NEW TriMesh(pVBufferScenePoly, pIBufferScenePoly);
+    pVBufferScenePoly->TCoord2(0, 0) = SEVector2f(0.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 1) = SEVector2f(1.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 2) = SEVector2f(1.0f, 0.0f);
+    pVBufferScenePoly->TCoord2(0, 3) = SEVector2f(0.0f, 0.0f);
+    m_spScenePolygon2 = SE_NEW SETriMesh(pVBufferScenePoly, 
+        pIBufferScenePoly);
 
-    pVBufferScenePoly = SE_NEW VertexBuffer(tempAttrScenePoly, 4);
-    pVBufferScenePoly->Position3(0) = Vector3f(fExtend + fExtend + 
+    pVBufferScenePoly = SE_NEW SEVertexBuffer(tempAttrScenePoly, 4);
+    pVBufferScenePoly->Position3(0) = SEVector3f(fExtend + fExtend + 
         2.0f*fOffset, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(1) = Vector3f(fExtend + fExtend + 
+    pVBufferScenePoly->Position3(1) = SEVector3f(fExtend + fExtend + 
         fExtend + 2.0f*fOffset, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(2) = Vector3f(fExtend + fExtend + 
+    pVBufferScenePoly->Position3(2) = SEVector3f(fExtend + fExtend + 
         fExtend + 2.0f*fOffset, fExtend, 0.0f);
-    pVBufferScenePoly->Position3(3) = Vector3f(fExtend + fExtend + 
+    pVBufferScenePoly->Position3(3) = SEVector3f(fExtend + fExtend + 
         2.0f*fOffset, fExtend, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 0) = Vector2f(0.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 1) = Vector2f(1.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 2) = Vector2f(1.0f, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 3) = Vector2f(0.0f, 0.0f);
-    m_spScenePolygon3 = SE_NEW TriMesh(pVBufferScenePoly, pIBufferScenePoly);
+    pVBufferScenePoly->TCoord2(0, 0) = SEVector2f(0.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 1) = SEVector2f(1.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 2) = SEVector2f(1.0f, 0.0f);
+    pVBufferScenePoly->TCoord2(0, 3) = SEVector2f(0.0f, 0.0f);
+    m_spScenePolygon3 = SE_NEW SETriMesh(pVBufferScenePoly, 
+        pIBufferScenePoly);
 
     float fExtend2 = 1.0f;
-    pVBufferScenePoly = SE_NEW VertexBuffer(tempAttrScenePoly, 4);
-    pVBufferScenePoly->Position3(0) = Vector3f(0.0f, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(1) = Vector3f(fExtend2, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(2) = Vector3f(fExtend2, fExtend2, 0.0f);
-    pVBufferScenePoly->Position3(3) = Vector3f(0.0f, fExtend2, 0.0f);
-    pVBufferScenePoly->TCoord2(0,0) = Vector2f(0.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0,1) = Vector2f(1.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0,2) = Vector2f(1.0f, 0.0f);
-    pVBufferScenePoly->TCoord2(0,3) = Vector2f(0.0f, 0.0f);
-    m_spScenePolygon4 = SE_NEW TriMesh(pVBufferScenePoly, pIBufferScenePoly);
+    pVBufferScenePoly = SE_NEW SEVertexBuffer(tempAttrScenePoly, 4);
+    pVBufferScenePoly->Position3(0) = SEVector3f(0.0f, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(1) = SEVector3f(fExtend2, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(2) = SEVector3f(fExtend2, fExtend2, 0.0f);
+    pVBufferScenePoly->Position3(3) = SEVector3f(0.0f, fExtend2, 0.0f);
+    pVBufferScenePoly->TCoord2(0,0) = SEVector2f(0.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0,1) = SEVector2f(1.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0,2) = SEVector2f(1.0f, 0.0f);
+    pVBufferScenePoly->TCoord2(0,3) = SEVector2f(0.0f, 0.0f);
+    m_spScenePolygon4 = SE_NEW SETriMesh(pVBufferScenePoly, 
+        pIBufferScenePoly);
 
-    pVBufferScenePoly = SE_NEW VertexBuffer(tempAttrScenePoly, 4);
-    pVBufferScenePoly->Position3(0) = Vector3f(0.0f, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(1) = Vector3f(fExtend2, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(2) = Vector3f(fExtend2, fExtend2, 0.0f);
-    pVBufferScenePoly->Position3(3) = Vector3f(0.0f, fExtend2, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 0) = Vector2f(0.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 1) = Vector2f(1.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 2) = Vector2f(1.0f, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 3) = Vector2f(0.0f, 0.0f);
-    m_spScenePolygon5 = SE_NEW TriMesh(pVBufferScenePoly, pIBufferScenePoly);
+    pVBufferScenePoly = SE_NEW SEVertexBuffer(tempAttrScenePoly, 4);
+    pVBufferScenePoly->Position3(0) = SEVector3f(0.0f, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(1) = SEVector3f(fExtend2, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(2) = SEVector3f(fExtend2, fExtend2, 0.0f);
+    pVBufferScenePoly->Position3(3) = SEVector3f(0.0f, fExtend2, 0.0f);
+    pVBufferScenePoly->TCoord2(0, 0) = SEVector2f(0.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 1) = SEVector2f(1.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 2) = SEVector2f(1.0f, 0.0f);
+    pVBufferScenePoly->TCoord2(0, 3) = SEVector2f(0.0f, 0.0f);
+    m_spScenePolygon5 = SE_NEW SETriMesh(pVBufferScenePoly, 
+        pIBufferScenePoly);
 
     tempAttrScenePoly.SetTCoordChannels(1, 2);
-    pVBufferScenePoly = SE_NEW VertexBuffer(tempAttrScenePoly, 4);
-    pVBufferScenePoly->Position3(0) = Vector3f(0.0f, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(1) = Vector3f(fExtend2, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(2) = Vector3f(fExtend2, fExtend2, 0.0f);
-    pVBufferScenePoly->Position3(3) = Vector3f(0.0f, fExtend2, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 0) = Vector2f(0.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 1) = Vector2f(1.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0, 2) = Vector2f(1.0f, 0.0f);
-    pVBufferScenePoly->TCoord2(0, 3) = Vector2f(0.0f, 0.0f);
-    pVBufferScenePoly->TCoord2(1, 0) = Vector2f(0.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(1, 1) = Vector2f(1.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(1, 2) = Vector2f(1.0f, 0.0f);
-    pVBufferScenePoly->TCoord2(1, 3) = Vector2f(0.0f, 0.0f);
-    m_spScenePolygon6 = SE_NEW TriMesh(pVBufferScenePoly, pIBufferScenePoly);
+    pVBufferScenePoly = SE_NEW SEVertexBuffer(tempAttrScenePoly, 4);
+    pVBufferScenePoly->Position3(0) = SEVector3f(0.0f, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(1) = SEVector3f(fExtend2, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(2) = SEVector3f(fExtend2, fExtend2, 0.0f);
+    pVBufferScenePoly->Position3(3) = SEVector3f(0.0f, fExtend2, 0.0f);
+    pVBufferScenePoly->TCoord2(0, 0) = SEVector2f(0.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 1) = SEVector2f(1.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0, 2) = SEVector2f(1.0f, 0.0f);
+    pVBufferScenePoly->TCoord2(0, 3) = SEVector2f(0.0f, 0.0f);
+    pVBufferScenePoly->TCoord2(1, 0) = SEVector2f(0.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(1, 1) = SEVector2f(1.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(1, 2) = SEVector2f(1.0f, 0.0f);
+    pVBufferScenePoly->TCoord2(1, 3) = SEVector2f(0.0f, 0.0f);
+    m_spScenePolygon6 = SE_NEW SETriMesh(pVBufferScenePoly, 
+        pIBufferScenePoly);
 
     // Color target.
-    m_spSceneImageColor = Image::GenerateColorImage(Image::IT_RGBA8888, 
-        iWidth, iHeight, ColorRGBA::SE_RGBA_RED, "SceneImageColor");
-    TextureEffect* pEffectScenePoly = SE_NEW TextureEffect("SceneImageColor");
+    m_spSceneImageColor = SEImage::GenerateColorImage(SEImage::IT_RGBA8888, 
+        iWidth, iHeight, SEColorRGBA::SE_RGBA_RED, "SceneImageColor");
+    SETextureEffect* pEffectScenePoly = SE_NEW SETextureEffect(
+        "SceneImageColor");
     m_spSceneTargetColor = pEffectScenePoly->GetPTexture(0, 0);
     m_spSceneTargetColor->SetImage(m_spSceneImageColor);
     m_spSceneTargetColor->SetOffscreenTexture(true);
@@ -377,9 +385,9 @@ void ScreenSpaceAO::CreateScene()
     m_spScenePolygon1->UpdateRS();
 
     // Normal target.
-    m_spSceneImageNormal = Image::GenerateColorImage(Image::IT_RGBA8888, 
-        iWidth, iHeight, ColorRGBA::SE_RGBA_RED, "SceneImageNormal");
-    pEffectScenePoly = SE_NEW TextureEffect("SceneImageNormal");
+    m_spSceneImageNormal = SEImage::GenerateColorImage(SEImage::IT_RGBA8888, 
+        iWidth, iHeight, SEColorRGBA::SE_RGBA_RED, "SceneImageNormal");
+    pEffectScenePoly = SE_NEW SETextureEffect("SceneImageNormal");
     m_spSceneTargetNormal = pEffectScenePoly->GetPTexture(0, 0);
     m_spSceneTargetNormal->SetImage(m_spSceneImageNormal);
     m_spSceneTargetNormal->SetOffscreenTexture(true);
@@ -388,9 +396,9 @@ void ScreenSpaceAO::CreateScene()
     m_spScenePolygon2->UpdateRS();
 
     // Depth target.
-    m_spSceneImageDepth = Image::GenerateColorImage(Image::IT_R32, 
-        iWidth, iHeight, ColorRGBA::SE_RGBA_RED, "SceneImageDepth");
-    pEffectScenePoly = SE_NEW TextureEffect("SceneImageDepth");
+    m_spSceneImageDepth = SEImage::GenerateColorImage(SEImage::IT_R32, 
+        iWidth, iHeight, SEColorRGBA::SE_RGBA_RED, "SceneImageDepth");
+    pEffectScenePoly = SE_NEW SETextureEffect("SceneImageDepth");
     m_spSceneTargetDepth = pEffectScenePoly->GetPTexture(0, 0);
     m_spSceneTargetDepth->SetImage(m_spSceneImageDepth);
     m_spSceneTargetDepth->SetOffscreenTexture(true);
@@ -399,25 +407,26 @@ void ScreenSpaceAO::CreateScene()
     m_spScenePolygon3->UpdateRS();
 
     // Create the MRT(color/normal/depth).
-    Texture** apTargets = SE_NEW Texture*[3];
+    SETexture** apTargets = SE_NEW SETexture*[3];
     apTargets[0] = m_spSceneTargetColor;
     apTargets[1] = m_spSceneTargetNormal;
     apTargets[2] = m_spSceneTargetDepth;
     m_pRenderer->LoadTexture(m_spSceneTargetColor);
     m_pRenderer->LoadTexture(m_spSceneTargetNormal);
     m_pRenderer->LoadTexture(m_spSceneTargetDepth);
-    m_pFrameBufferSceneMRT = FrameBuffer::Create(m_eFormat, m_eDepth, m_eStencil,
-        m_eBuffering, m_eMultisampling, m_pRenderer, 3, apTargets);
+    m_pFrameBufferSceneMRT = SEFrameBuffer::Create(m_eFormat, m_eDepth, 
+        m_eStencil, m_eBuffering, m_eMultisampling, m_pRenderer, 3, 
+        apTargets);
     SE_ASSERT( m_pFrameBufferSceneMRT );
 
     // Create SSAO's random texture.
-    m_spSSAORandomImage = Image::GenerateRandomImage(Image::IT_RGBA8888, 
+    m_spSSAORandomImage = SEImage::GenerateRandomImage(SEImage::IT_RGBA8888, 
         4, 4, 100, "SSAORandom");
-    m_spSSAORandom = SE_NEW Texture(m_spSSAORandomImage);
-    m_spSSAORandom->SetFilterType(Texture::NEAREST);
-    m_spSSAORandom->SetWrapType(0, Texture::REPEAT);
-    m_spSSAORandom->SetWrapType(1, Texture::REPEAT);
-    ScreenSpaceAOEffect* pSSAOEffect = SE_NEW ScreenSpaceAOEffect(
+    m_spSSAORandom = SE_NEW SETexture(m_spSSAORandomImage);
+    m_spSSAORandom->SetFilterType(SETexture::NEAREST);
+    m_spSSAORandom->SetWrapType(0, SETexture::REPEAT);
+    m_spSSAORandom->SetWrapType(1, SETexture::REPEAT);
+    SEScreenSpaceAOEffect* pSSAOEffect = SE_NEW SEScreenSpaceAOEffect(
         "SSAORandom", "SceneImageDepth");
     pSSAOEffect->SetPTexture(0, 0, m_spSSAORandom);
     pSSAOEffect->SetPTexture(0, 1, m_spSceneTargetDepth);
@@ -431,32 +440,33 @@ void ScreenSpaceAO::CreateScene()
     m_pSSAOEffect->FarClipDist = m_spCamera->GetDMax();
 
     // SSAO's image.
-    m_spSceneImageSSAO = Image::GenerateColorImage(Image::IT_RGBA8888, 
-        iWidth, iHeight, ColorRGBA::SE_RGBA_RED, "SceneImageSSAO");
+    m_spSceneImageSSAO = SEImage::GenerateColorImage(SEImage::IT_RGBA8888, 
+        iWidth, iHeight, SEColorRGBA::SE_RGBA_RED, "SceneImageSSAO");
     // SSAO's render target texture.
-    m_spSceneTargetSSAO = SE_NEW Texture(m_spSceneImageSSAO);
-    m_spSceneTargetSSAO->SetFilterType(Texture::LINEAR);
+    m_spSceneTargetSSAO = SE_NEW SETexture(m_spSceneImageSSAO);
+    m_spSceneTargetSSAO->SetFilterType(SETexture::LINEAR);
     m_spSceneTargetSSAO->SetOffscreenTexture(true);
 
     // This screen polygon will be used to blur the original SSAO target.
-    ScreenSpaceAOBlurEffect* pEffectSSAOBlur = 
-        SE_NEW ScreenSpaceAOBlurEffect("SceneImageSSAO");
-    ScreenSpaceAOBlurEffect::GenerateTexelKernel(iWidth, iHeight);
+    SEScreenSpaceAOBlurEffect* pEffectSSAOBlur = 
+        SE_NEW SEScreenSpaceAOBlurEffect("SceneImageSSAO");
+    SEScreenSpaceAOBlurEffect::GenerateTexelKernel(iWidth, iHeight);
     pEffectSSAOBlur->SetPTexture(0, 0, m_spSceneTargetSSAO);
     m_spScenePolygon5->AttachEffect(pEffectSSAOBlur);
     m_spScenePolygon5->UpdateGS();
     m_spScenePolygon5->UpdateRS();
 
     // Create SSAO's frame buffer.
-    apTargets = SE_NEW Texture*[1];
+    apTargets = SE_NEW SETexture*[1];
     apTargets[0] = m_spSceneTargetSSAO;
     m_pRenderer->LoadTexture(m_spSceneTargetSSAO);
-    m_pFrameBufferSSAO = FrameBuffer::Create(m_eFormat, m_eDepth, m_eStencil,
-        m_eBuffering, m_eMultisampling, m_pRenderer, 1, apTargets);
+    m_pFrameBufferSSAO = SEFrameBuffer::Create(m_eFormat, m_eDepth, 
+        m_eStencil, m_eBuffering, m_eMultisampling, m_pRenderer, 1, 
+        apTargets);
     SE_ASSERT( m_pFrameBufferSSAO );
 
-    CombineEffect* pEffectCombine = SE_NEW CombineEffect("SceneImageColor", 
-        "SceneImageSSAO");
+    SECombineEffect* pEffectCombine = SE_NEW SECombineEffect(
+        "SceneImageColor", "SceneImageSSAO");
     pEffectCombine->SetPTexture(0, 0, m_spSceneTargetColor);
     pEffectCombine->SetPTexture(0, 1, m_spSceneTargetSSAO);
     m_spScenePolygon6->AttachEffect(pEffectCombine);
@@ -472,236 +482,242 @@ void ScreenSpaceAO::CreateScene()
         -m_spScene->WorldBound->GetCenter());
 }
 //----------------------------------------------------------------------------
-Node* ScreenSpaceAO::CreateModel()
+SENode* ScreenSpaceAO::CreateModel()
 {
     // polished gold.
-    MaterialState* pGoldMaterial = SE_NEW MaterialState;
-    pGoldMaterial->Ambient = ColorRGB(0.24725f, 0.2245f, 0.0645f);
-    pGoldMaterial->Diffuse = ColorRGB(0.34615f, 0.3143f, 0.0903f);
-    pGoldMaterial->Specular = ColorRGB(0.797357f, 0.723991f, 0.208006f);
+    SEMaterialState* pGoldMaterial = SE_NEW SEMaterialState;
+    pGoldMaterial->Ambient = SEColorRGB(0.24725f, 0.2245f, 0.0645f);
+    pGoldMaterial->Diffuse = SEColorRGB(0.34615f, 0.3143f, 0.0903f);
+    pGoldMaterial->Specular = SEColorRGB(0.797357f, 0.723991f, 0.208006f);
     pGoldMaterial->Shininess = 83.2f;
 
     // polished red.
-    MaterialState* pRedMaterial = SE_NEW MaterialState;
-    pRedMaterial->Ambient = ColorRGB(0.2f, 0.0f, 0.0f);
-    pRedMaterial->Diffuse = ColorRGB(0.2f, 0.0f, 0.0f);
-    pRedMaterial->Specular = ColorRGB(1.0f, 1.0f, 1.0f);
+    SEMaterialState* pRedMaterial = SE_NEW SEMaterialState;
+    pRedMaterial->Ambient = SEColorRGB(0.2f, 0.0f, 0.0f);
+    pRedMaterial->Diffuse = SEColorRGB(0.2f, 0.0f, 0.0f);
+    pRedMaterial->Specular = SEColorRGB(1.0f, 1.0f, 1.0f);
     pRedMaterial->Shininess = 50.0f;
 
     // polished blue.
-    MaterialState* pBlueMaterial = SE_NEW MaterialState;
-    pBlueMaterial->Ambient = ColorRGB(0.0f, 0.0f, 0.2f);
-    pBlueMaterial->Diffuse = ColorRGB(0.0f, 0.0f, 0.8f);
-    pBlueMaterial->Specular = ColorRGB(1.0f, 1.0f, 1.0f);
+    SEMaterialState* pBlueMaterial = SE_NEW SEMaterialState;
+    pBlueMaterial->Ambient = SEColorRGB(0.0f, 0.0f, 0.2f);
+    pBlueMaterial->Diffuse = SEColorRGB(0.0f, 0.0f, 0.8f);
+    pBlueMaterial->Specular = SEColorRGB(1.0f, 1.0f, 1.0f);
     pBlueMaterial->Shininess = 83.2f;
 
     // polished white.
-    MaterialState* pWhiteMaterial = SE_NEW MaterialState;
-    pWhiteMaterial->Ambient = ColorRGB(0.2f, 0.2f, 0.2f);
-    pWhiteMaterial->Diffuse = ColorRGB(0.8f, 0.8f, 0.8f);
-    pWhiteMaterial->Specular = ColorRGB(1.0f, 1.0f, 1.0f);
+    SEMaterialState* pWhiteMaterial = SE_NEW SEMaterialState;
+    pWhiteMaterial->Ambient = SEColorRGB(0.2f, 0.2f, 0.2f);
+    pWhiteMaterial->Diffuse = SEColorRGB(0.8f, 0.8f, 0.8f);
+    pWhiteMaterial->Specular = SEColorRGB(1.0f, 1.0f, 1.0f);
     pWhiteMaterial->Shininess = 100.0f;
 
-    // polished green.
-    MaterialState* pGreenMaterial = SE_NEW MaterialState;
-    pGreenMaterial->Ambient = ColorRGB(0.0f, 0.2f, 0.0f);
-    pGreenMaterial->Diffuse = ColorRGB(0.0f, 0.1f, 0.0f);
-    pGreenMaterial->Specular = ColorRGB(1.0f, 1.0f, 1.0f);
-    pGreenMaterial->Shininess = 50.0f;
+    //// polished green.
+    //SEMaterialState* pGreenMaterial = SE_NEW SEMaterialState;
+    //pGreenMaterial->Ambient = SEColorRGB(0.0f, 0.2f, 0.0f);
+    //pGreenMaterial->Diffuse = SEColorRGB(0.0f, 0.1f, 0.0f);
+    //pGreenMaterial->Specular = SEColorRGB(1.0f, 1.0f, 1.0f);
+    //pGreenMaterial->Shininess = 50.0f;
 
     // polished copper.
-    MaterialState* pCopperMaterial = SE_NEW MaterialState;
-    pCopperMaterial->Ambient = ColorRGB(0.2295f, 0.08825f, 0.0275f);
-    pCopperMaterial->Diffuse = ColorRGB(0.5508f, 0.2118f, 0.066f);
-    pCopperMaterial->Specular = ColorRGB(0.580594f, 0.223257f, 0.0695701f);
+    SEMaterialState* pCopperMaterial = SE_NEW SEMaterialState;
+    pCopperMaterial->Ambient = SEColorRGB(0.2295f, 0.08825f, 0.0275f);
+    pCopperMaterial->Diffuse = SEColorRGB(0.5508f, 0.2118f, 0.066f);
+    pCopperMaterial->Specular = SEColorRGB(0.580594f, 0.223257f, 0.0695701f);
     pCopperMaterial->Shininess = 51.2f;
 
     // flat egg.
-    MaterialState* pEggMaterial = SE_NEW MaterialState;
-    pEggMaterial->Ambient = ColorRGB(0.0f, 0.0f, 0.0f);
-    pEggMaterial->Diffuse = ColorRGB(1.0f, 0.92f, 0.804f);
-    pEggMaterial->Specular = ColorRGB(0.0f, 0.0f, 0.0f);
+    SEMaterialState* pEggMaterial = SE_NEW SEMaterialState;
+    pEggMaterial->Ambient = SEColorRGB(0.0f, 0.0f, 0.0f);
+    pEggMaterial->Diffuse = SEColorRGB(1.0f, 0.92f, 0.804f);
+    pEggMaterial->Specular = SEColorRGB(0.0f, 0.0f, 0.0f);
     pEggMaterial->Shininess = 0.0f;
 
     // We apply this texture effect as a post-lighting effect,
     // so the src output fragments should be modulated with dst buffer pixels.
-    TextureEffect* pTextureWoodEffect = SE_NEW TextureEffect("wood512");
-    AlphaState* pAState = pTextureWoodEffect->GetBlending(0);
-    pAState->SrcBlend = AlphaState::SBF_DST_COLOR;
-    pAState->DstBlend = AlphaState::DBF_ZERO;
+    SETextureEffect* pTextureWoodEffect = SE_NEW SETextureEffect("wood512");
+    SEAlphaState* pAState = pTextureWoodEffect->GetBlending(0);
+    pAState->SrcBlend = SEAlphaState::SBF_DST_COLOR;
+    pAState->DstBlend = SEAlphaState::DBF_ZERO;
 
     // We apply this bump map effect as a lighting effect,
     // When UpdateRS is called, geometry object's default lighting effect will
     // be replaced by the bump map effect.
-    BumpMapL1Effect* pBumpMapRockEffect = SE_NEW BumpMapL1Effect("rock",
+    SEBumpMapL1Effect* pBumpMapRockEffect = SE_NEW SEBumpMapL1Effect("rock",
         "rocknormal");
 
-    Node* pRoot = SE_NEW Node;
+    SENode* pRoot = SE_NEW SENode;
 
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetNormalChannels(3);
     tempAttr.SetTCoordChannels(0, 2);
 
     float fExtend = 8.0f;
-    StandardMesh tempSM(tempAttr);
+    SEStandardMesh tempSM(tempAttr);
 
     // floor.
-    TriMesh* pMesh = tempSM.Rectangle(2, 2, fExtend, fExtend);
+    SETriMesh* pMesh = tempSM.Rectangle(2, 2, fExtend, fExtend);
     pMesh->AttachGlobalState(pWhiteMaterial);
     pMesh->AttachEffect(pTextureWoodEffect);
     pMesh->GenerateNormals();
     pMesh->GenerateTangents(0, 1, 2);
-    Matrix3f mat3fRot;
-    mat3fRot.FromEulerAnglesXYZ(Mathf::PI/2.0f, 0.0f, 0.0f);
+    SEMatrix3f mat3fRot;
+    mat3fRot.FromEulerAnglesXYZ(SEMathf::PI/2.0f, 0.0f, 0.0f);
     pMesh->Local.SetRotate(mat3fRot);
     pRoot->AttachChild(pMesh);
 
     // far wall.
-    pMesh = SE_NEW TriMesh(pMesh->VBuffer, pMesh->IBuffer);
-    pMesh->LightingMode = Geometry::GLM_USER;
+    pMesh = SE_NEW SETriMesh(pMesh->VBuffer, pMesh->IBuffer);
+    pMesh->LightingMode = SEGeometry::GLM_USER;
     pMesh->AttachGlobalState(pWhiteMaterial);
     pMesh->AttachEffect(pBumpMapRockEffect);
-    pMesh->Local.SetTranslate(Vector3f(0.0f, fExtend, fExtend));
+    pMesh->Local.SetTranslate(SEVector3f(0.0f, fExtend, fExtend));
     pRoot->AttachChild(pMesh);
 
     // left wall.
-    pMesh = SE_NEW TriMesh(pMesh->VBuffer, pMesh->IBuffer);
-    pMesh->LightingMode = Geometry::GLM_USER;
+    pMesh = SE_NEW SETriMesh(pMesh->VBuffer, pMesh->IBuffer);
+    pMesh->LightingMode = SEGeometry::GLM_USER;
     pMesh->AttachGlobalState(pWhiteMaterial);
     pMesh->AttachEffect(pBumpMapRockEffect);
-    mat3fRot.FromEulerAnglesXYZ(0.0f, -Mathf::PI/2.0f, 0.0f);
+    mat3fRot.FromEulerAnglesXYZ(0.0f, -SEMathf::PI/2.0f, 0.0f);
     pMesh->Local.SetRotate(mat3fRot);
-    pMesh->Local.SetTranslate(Vector3f(-fExtend, fExtend, 0.0f));
+    pMesh->Local.SetTranslate(SEVector3f(-fExtend, fExtend, 0.0f));
     pRoot->AttachChild(pMesh);
 
     // right wall.
-    pMesh = SE_NEW TriMesh(pMesh->VBuffer, pMesh->IBuffer);
-    pMesh->LightingMode = Geometry::GLM_USER;
+    pMesh = SE_NEW SETriMesh(pMesh->VBuffer, pMesh->IBuffer);
+    pMesh->LightingMode = SEGeometry::GLM_USER;
     pMesh->AttachGlobalState(pWhiteMaterial);
     pMesh->AttachEffect(pBumpMapRockEffect);
-    mat3fRot.FromEulerAnglesXYZ(0.0f, Mathf::PI/2.0f, 0.0f);
+    mat3fRot.FromEulerAnglesXYZ(0.0f, SEMathf::PI/2.0f, 0.0f);
     pMesh->Local.SetRotate(mat3fRot);
-    pMesh->Local.SetTranslate(Vector3f(fExtend, fExtend, 0.0f));
+    pMesh->Local.SetTranslate(SEVector3f(fExtend, fExtend, 0.0f));
     pRoot->AttachChild(pMesh);
 
     // sphere.
     pMesh = tempSM.Sphere(32, 32, 1.0f);
     pMesh->AttachGlobalState(pGoldMaterial);
     pMesh->GenerateNormals();
-    pMesh->Local.SetTranslate(Vector3f(0.0f, 1.0f, 0.0f));
+    pMesh->Local.SetTranslate(SEVector3f(0.0f, 1.0f, 0.0f));
     pRoot->AttachChild(pMesh);
 
     // cylinder.
     pMesh = tempSM.Cylinder(8, 32, 1.0f, 2.0f, false);
     pMesh->AttachGlobalState(pRedMaterial);
     pMesh->GenerateNormals();
-    mat3fRot.FromEulerAnglesXYZ(Mathf::PI/2.0f, 0.0f, 0.0f);
+    mat3fRot.FromEulerAnglesXYZ(SEMathf::PI/2.0f, 0.0f, 0.0f);
     pMesh->Local.SetRotate(mat3fRot);
-    pMesh->Local.SetTranslate(Vector3f(2.0f, 1.0f, 1.0f));
+    pMesh->Local.SetTranslate(SEVector3f(2.0f, 1.0f, 1.0f));
     pRoot->AttachChild(pMesh);
 
     // box.
     pMesh = tempSM.Box(0.6f, 0.6f, 0.6f);
     pMesh->AttachGlobalState(pBlueMaterial);
     pMesh->GenerateNormals();
-    mat3fRot.FromEulerAnglesXYZ(0.0f, Mathf::PI/3.0f, 0.0f);
+    mat3fRot.FromEulerAnglesXYZ(0.0f, SEMathf::PI/3.0f, 0.0f);
     pMesh->Local.SetRotate(mat3fRot);
-    pMesh->Local.SetTranslate(Vector3f(-1.6f, 0.6f, -1.0f));
+    pMesh->Local.SetTranslate(SEVector3f(-1.6f, 0.6f, -1.0f));
     pRoot->AttachChild(pMesh);
 
     // torus.
     pMesh = tempSM.Torus(32, 32, 1.0f, 0.2f);
     pMesh->AttachGlobalState(pCopperMaterial);
     pMesh->GenerateNormals();
-    mat3fRot.FromEulerAnglesXYZ(Mathf::PI/2.0f, 0.0f, 0.0f);
+    mat3fRot.FromEulerAnglesXYZ(SEMathf::PI/2.0f, 0.0f, 0.0f);
     pMesh->Local.SetRotate(mat3fRot);
-    pMesh->Local.SetTranslate(Vector3f(0.0f, 0.2f, 0.0f));
+    pMesh->Local.SetTranslate(SEVector3f(0.0f, 0.2f, 0.0f));
     pRoot->AttachChild(pMesh);
 
     // tetrahedron.
     pMesh = tempSM.Tetrahedron();
     pMesh->AttachGlobalState(pWhiteMaterial);
     pMesh->GenerateNormals();
-    mat3fRot.FromEulerAnglesXYZ(-Mathf::PI/2.0f, 0.0f, 0.0f);
+    mat3fRot.FromEulerAnglesXYZ(-SEMathf::PI/2.0f, 0.0f, 0.0f);
     pMesh->Local.SetRotate(mat3fRot);
-    pMesh->Local.SetTranslate(Vector3f(1.8f, 1.0f/3.0f, -0.8f));
+    pMesh->Local.SetTranslate(SEVector3f(1.8f, 1.0f/3.0f, -0.8f));
     pRoot->AttachChild(pMesh);
 
-    // dragon.
-    Stream tempStream;
-    const char* acPath = System::SE_GetPath("dragon.seof", System::SM_READ);
-    SE_ASSERT( acPath );
-    bool bLoaded = tempStream.Load(acPath);
-    SE_ASSERT( bLoaded );
-    (void)bLoaded;
-    Node* pSceneLoaded = DynamicCast<Node>(tempStream.GetObjectAt(0));
-    TriMeshPtr spMeshDragon = DynamicCast<TriMesh>(pSceneLoaded->GetChild(0));
-    SE_ASSERT( spMeshDragon );
-    spMeshDragon->GenerateNormals();
-    mat3fRot.FromEulerAnglesXYZ(0.0f, Mathf::PI/3.0f, 0.0f);
-    spMeshDragon->Local.SetRotate(mat3fRot);
-    spMeshDragon->Local.SetTranslate(Vector3f(10.0f, -14.5f, 9.5f));
-    spMeshDragon->AttachGlobalState(pGreenMaterial);
-    spMeshDragon->DetachAllEffects();
-    pSceneLoaded->DetachChild(spMeshDragon);
-    pRoot->AttachChild(spMeshDragon);
+    SEStream tempStream;
+    const char* acPath = 0;
+    bool bLoaded = false;
+    SENode* pSceneLoaded = 0;
+
+    //// dragon.
+    //acPath = SESystem::SE_GetPath("dragon.seof", SESystem::SM_READ);
+    //SE_ASSERT( acPath );
+    //bLoaded = tempStream.Load(acPath);
+    //SE_ASSERT( bLoaded );
+    //(void)bLoaded;
+    //SENode* pSceneLoaded = DynamicCast<SENode>(tempStream.GetObjectAt(0));
+    //SETriMeshPtr spMeshDragon = DynamicCast<SETriMesh>(
+    //    pSceneLoaded->GetChild(0));
+    //SE_ASSERT( spMeshDragon );
+    //spMeshDragon->GenerateNormals();
+    //mat3fRot.FromEulerAnglesXYZ(0.0f, SEMathf::PI/3.0f, 0.0f);
+    //spMeshDragon->Local.SetRotate(mat3fRot);
+    //spMeshDragon->Local.SetTranslate(SEVector3f(10.0f, -14.5f, 9.5f));
+    //spMeshDragon->AttachGlobalState(pGreenMaterial);
+    //spMeshDragon->DetachAllEffects();
+    //pSceneLoaded->DetachChild(spMeshDragon);
+    //pRoot->AttachChild(spMeshDragon);
 
     // teapot.
-    acPath = System::SE_GetPath("teapot.seof", System::SM_READ);
+    acPath = SESystem::SE_GetPath("teapot.seof", SESystem::SM_READ);
     SE_ASSERT( acPath );
     bLoaded = tempStream.Load(acPath);
     SE_ASSERT( bLoaded );
-    pSceneLoaded = DynamicCast<Node>(tempStream.GetObjectAt(0));
-    TriMeshPtr spMeshTeapot = DynamicCast<TriMesh>(pSceneLoaded->GetChild(0));
+    pSceneLoaded = DynamicCast<SENode>(tempStream.GetObjectAt(0));
+    SETriMeshPtr spMeshTeapot = DynamicCast<SETriMesh>(
+        pSceneLoaded->GetChild(0));
     SE_ASSERT( spMeshTeapot );
     spMeshTeapot->GenerateNormals();
     spMeshTeapot->AttachGlobalState(pEggMaterial);
     spMeshTeapot->Local.SetUniformScale(12.0f);
-    mat3fRot.FromEulerAnglesXYZ(0.0f, Mathf::PI/3.0f, 0.0f);
+    mat3fRot.FromEulerAnglesXYZ(0.0f, SEMathf::PI/3.0f, 0.0f);
     spMeshTeapot->Local.SetRotate(mat3fRot);
-    spMeshTeapot->Local.SetTranslate(Vector3f(4.0f, 0.0f, -1.5f));
+    spMeshTeapot->Local.SetTranslate(SEVector3f(4.0f, 0.0f, -1.5f));
     spMeshTeapot->DetachAllEffects();
     pRoot->AttachChild(pSceneLoaded);
 
-    ColorNormalDepthEffect* pEffect = SE_NEW ColorNormalDepthEffect;
+    SEColorNormalDepthEffect* pEffect = SE_NEW SEColorNormalDepthEffect;
     pEffect->FarCilpDist = m_spCamera->GetDMax();
     pRoot->AttachEffect(pEffect);
 
-    return (Node*)pRoot;
+    return (SENode*)pRoot;
 }
 //----------------------------------------------------------------------------
 void ScreenSpaceAO::CreateLights()
 {
-    m_aspLight[0] = SE_NEW Light(Light::LT_AMBIENT);
-    m_aspLight[1] = SE_NEW Light(Light::LT_DIRECTIONAL);
-    m_aspLight[2] = SE_NEW Light(Light::LT_POINT);
-    m_aspLight[3] = SE_NEW Light(Light::LT_SPOT);
+    m_aspLight[0] = SE_NEW SELight(SELight::LT_AMBIENT);
+    m_aspLight[1] = SE_NEW SELight(SELight::LT_DIRECTIONAL);
+    m_aspLight[2] = SE_NEW SELight(SELight::LT_POINT);
+    m_aspLight[3] = SE_NEW SELight(SELight::LT_SPOT);
 
     float fValue = 0.75f;
-    m_aspLight[0]->Ambient = ColorRGB(fValue, fValue, fValue);
+    m_aspLight[0]->Ambient = SEColorRGB(fValue, fValue, fValue);
 
-    fValue = Mathf::Sqrt(1.0f/3.0f);
-    m_aspLight[1]->DVector = Vector3f(-fValue, -fValue, +fValue);
-    m_aspLight[1]->Diffuse = ColorRGB::SE_RGB_WHITE;
-    m_aspLight[1]->Specular = ColorRGB::SE_RGB_WHITE;
+    fValue = SEMathf::Sqrt(1.0f/3.0f);
+    m_aspLight[1]->DVector = SEVector3f(-fValue, -fValue, +fValue);
+    m_aspLight[1]->Diffuse = SEColorRGB::SE_RGB_WHITE;
+    m_aspLight[1]->Specular = SEColorRGB::SE_RGB_WHITE;
 
     fValue = 4.0f;
-    m_aspLight[2]->Position = Vector3f(0.0f, +fValue, 0.0f);
-    m_aspLight[2]->Ambient = ColorRGB::SE_RGB_WHITE*0.5f;
-    m_aspLight[2]->Diffuse = ColorRGB::SE_RGB_WHITE;
-    m_aspLight[2]->Specular = ColorRGB::SE_RGB_WHITE*0.6f;
+    m_aspLight[2]->Position = SEVector3f(0.0f, +fValue, 0.0f);
+    m_aspLight[2]->Ambient = SEColorRGB::SE_RGB_WHITE*0.5f;
+    m_aspLight[2]->Diffuse = SEColorRGB::SE_RGB_WHITE;
+    m_aspLight[2]->Specular = SEColorRGB::SE_RGB_WHITE*0.6f;
     m_aspLight[2]->Linear = 0.02f;
     m_aspLight[2]->Quadratic = 0.005f;
 
     fValue = 4.0f;
-    m_aspLight[3]->Position = Vector3f(+fValue, +fValue, +fValue);
-    fValue = -Mathf::Sqrt(1.0f/3.0f);
-    m_aspLight[3]->DVector = Vector3f(+fValue, +fValue, +fValue);
-    m_aspLight[3]->Diffuse = ColorRGB::SE_RGB_WHITE;
-    m_aspLight[3]->Specular = ColorRGB::SE_RGB_WHITE;
+    m_aspLight[3]->Position = SEVector3f(+fValue, +fValue, +fValue);
+    fValue = -SEMathf::Sqrt(1.0f/3.0f);
+    m_aspLight[3]->DVector = SEVector3f(+fValue, +fValue, +fValue);
+    m_aspLight[3]->Diffuse = SEColorRGB::SE_RGB_WHITE;
+    m_aspLight[3]->Specular = SEColorRGB::SE_RGB_WHITE;
     m_aspLight[3]->Exponent = 1.0f;
-    m_aspLight[3]->SetAngle(0.125f*Mathf::PI);
+    m_aspLight[3]->SetAngle(0.125f*SEMathf::PI);
 
     m_spScene->AttachLight(m_aspLight[2]);
     m_spScene->AttachLight(m_aspLight[0]);
