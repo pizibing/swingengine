@@ -27,7 +27,7 @@
 namespace Swing
 {
 
-class SE_FOUNDATION_API DynamicMultiTextureEffect : public ShaderEffect
+class SE_FOUNDATION_API DynamicMultiTextureEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -45,21 +45,21 @@ public:
     const std::string& GetTextureTypeName(int i) const;
     void Configure(void);
 
-    static Vector3f ConstantColor;
+    static SEVector3f ConstantColor;
 
 protected:
     // streaming support
     DynamicMultiTextureEffect(void);
 
-    virtual void OnLoadPrograms(int iPass, Program* pVProgram,
-        Program* pPProgram, Program* pGProgram);
+    virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
+        SEProgram* pPProgram, SEProgram* pGProgram);
 
     int m_iTextureCount;
     std::string* m_aImageName;
     std::string* m_aTextureTypeName;
 };
 
-typedef SmartPointer<DynamicMultiTextureEffect> DynamicMultiTextureEffectPtr;
+typedef SESmartPointer<DynamicMultiTextureEffect> DynamicMultiTextureEffectPtr;
 
 }
 

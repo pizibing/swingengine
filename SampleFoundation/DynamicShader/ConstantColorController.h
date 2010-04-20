@@ -27,7 +27,7 @@
 namespace Swing
 {
 
-class SE_FOUNDATION_API ConstantColorController : public Controller
+class SE_FOUNDATION_API ConstantColorController : public SEController
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -40,10 +40,10 @@ public:
     virtual bool Update(double dAppTime);
 
 protected:
-    virtual void SetObject(Object* pObject);
+    virtual void SetObject(SEObject* pObject);
 };
 
-typedef SmartPointer<ConstantColorController> ConstantColorControllerPtr;
+typedef SESmartPointer<ConstantColorController> ConstantColorControllerPtr;
 
 }
 

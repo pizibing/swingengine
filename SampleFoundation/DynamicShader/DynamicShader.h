@@ -27,7 +27,7 @@
 
 using namespace Swing;
 
-class DynamicShader : public WindowApplication3
+class DynamicShader : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -42,10 +42,10 @@ public:
 protected:
     void CreateScene(void);
 
-    NodePtr m_spScene;
-    TriMeshPtr m_spMesh;
-    WireframeStatePtr m_spWireframe;
-    Culler m_Culler;
+    SENodePtr m_spScene;
+    SETriMeshPtr m_spMesh;
+    SEWireframeStatePtr m_spWireframe;
+    SECuller m_Culler;
 
     DynamicMultiTextureEffectPtr m_spEffect;
     std::string m_ImageNames[3];

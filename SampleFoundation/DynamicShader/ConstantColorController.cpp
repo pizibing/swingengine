@@ -24,10 +24,10 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ConstantColorController, Controller);
+SE_IMPLEMENT_RTTI(Swing, ConstantColorController, SEController);
 SE_IMPLEMENT_STREAM(ConstantColorController);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ConstantColorController, Controller);
-SE_IMPLEMENT_DEFAULT_STREAM(ConstantColorController, Controller);
+SE_IMPLEMENT_DEFAULT_NAME_ID(ConstantColorController, SEController);
+SE_IMPLEMENT_DEFAULT_STREAM(ConstantColorController, SEController);
 
 SE_REGISTER_STREAM(ConstantColorController);
 
@@ -42,7 +42,7 @@ ConstantColorController::~ConstantColorController()
 //----------------------------------------------------------------------------
 bool ConstantColorController::Update(double dAppTime)
 {
-    if( !Controller::Update(dAppTime) )
+    if( !SEController::Update(dAppTime) )
     {
         return false;
     }
@@ -59,7 +59,7 @@ bool ConstantColorController::Update(double dAppTime)
     return true;
 }
 //----------------------------------------------------------------------------
-void ConstantColorController::SetObject(Object* pObject)
+void ConstantColorController::SetObject(SEObject* pObject)
 {
     if( pObject )
     {
@@ -69,6 +69,6 @@ void ConstantColorController::SetObject(Object* pObject)
         (void)pEffect;
     }
 
-    Controller::SetObject(pObject);
+    SEController::SetObject(pObject);
 }
 //----------------------------------------------------------------------------

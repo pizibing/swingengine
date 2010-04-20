@@ -27,8 +27,8 @@ SE_REGISTER_INITIALIZE(DynamicShader);
 //----------------------------------------------------------------------------
 DynamicShader::DynamicShader()
     :
-    WindowApplication3("DynamicShader", 0, 0, 640, 480, 
-        ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
+    SEWindowApplication3("DynamicShader", 0, 0, 640, 480, 
+        SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
     m_ImageNames[0] = "random1";
     m_ImageNames[1] = "kate";
@@ -37,16 +37,16 @@ DynamicShader::DynamicShader()
 //----------------------------------------------------------------------------
 bool DynamicShader::OnInitialize()
 {
-    if( !WindowApplication3::OnInitialize() )
+    if( !SEWindowApplication3::OnInitialize() )
     {
         return false;
     }
 
     m_spCamera->SetFrustum(-0.55f, 0.55f, -0.4125f, 0.4125f, 1.0f, 100.0f);
-    Vector3f tempCLoc(0.0f, 0.0f, -3.0f);
-    Vector3f tempCDir(0.0f, 0.0f, 1.0f);
-    Vector3f tempCUp(0.0f, 1.0f, 0.0f);
-    Vector3f tempCRight = tempCUp.Cross(tempCDir);
+    SEVector3f tempCLoc(0.0f, 0.0f, -3.0f);
+    SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
+    SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
+    SEVector3f tempCRight = tempCUp.Cross(tempCDir);
     m_spCamera->SetFrame(tempCLoc, tempCRight, tempCUp, tempCDir);
 
     CreateScene();
@@ -72,7 +72,7 @@ void DynamicShader::OnTerminate()
     m_spEffect = 0;
     m_spController = 0;
 
-    WindowApplication3::OnTerminate();
+    SEWindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void DynamicShader::OnIdle()
@@ -84,8 +84,8 @@ void DynamicShader::OnIdle()
         m_Culler.ComputeUnculledSet(m_spScene);
     }
 
-    //m_spScene->UpdateGS(System::SE_GetTime());  // inefficient
-    m_spController->Update(System::SE_GetTime());
+    //m_spScene->UpdateGS(SESystem::SE_GetTime());  // inefficient
+    m_spController->Update(SESystem::SE_GetTime());
 
     if( MoveObject() )
     {
@@ -97,7 +97,7 @@ void DynamicShader::OnIdle()
     if( m_pRenderer->BeginScene() )
     {
         m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
-        DrawFrameRate(8, GetHeight()-8, ColorRGBA::SE_RGBA_WHITE);
+        DrawFrameRate(8, GetHeight()-8, SEColorRGBA::SE_RGBA_WHITE);
         m_pRenderer->EndScene();
     }
     m_pRenderer->DisplayBackBuffer();
@@ -107,7 +107,7 @@ void DynamicShader::OnIdle()
 //----------------------------------------------------------------------------
 bool DynamicShader::OnKeyDown(unsigned char ucKey, int iX, int iY)
 {
-    if( WindowApplication3::OnKeyDown(ucKey, iX, iY) )
+    if( SEWindowApplication3::OnKeyDown(ucKey, iX, iY) )
     {
         return true;
     }
@@ -188,37 +188,37 @@ bool DynamicShader::OnKeyDown(unsigned char ucKey, int iX, int iY)
 //----------------------------------------------------------------------------
 void DynamicShader::CreateScene()
 {
-    m_spScene = SE_NEW Node;
-    m_spWireframe = SE_NEW WireframeState;
+    m_spScene = SE_NEW SENode;
+    m_spWireframe = SE_NEW SEWireframeState;
     m_spScene->AttachGlobalState(m_spWireframe);
 
     // 创建一个场景中的矩形.
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetTCoordChannels(0, 2);
 
-    VertexBuffer* pVBuffer = SE_NEW VertexBuffer(tempAttr, 4);
-    (*(Vector3f*)pVBuffer->PositionTuple(0)).X = -1.0f;
-    (*(Vector3f*)pVBuffer->PositionTuple(0)).Y = -1.0f;
-    (*(Vector3f*)pVBuffer->PositionTuple(0)).Z = 0.0f;
-    (*(Vector2f*)pVBuffer->TCoordTuple(0, 0)).X = 0.0f;
-    (*(Vector2f*)pVBuffer->TCoordTuple(0, 0)).Y = 1.0f;
-    (*(Vector3f*)pVBuffer->PositionTuple(1)).X = 1.0f;
-    (*(Vector3f*)pVBuffer->PositionTuple(1)).Y = -1.0f;
-    (*(Vector3f*)pVBuffer->PositionTuple(1)).Z = 0.0f;
-    (*(Vector2f*)pVBuffer->TCoordTuple(0, 1)).X = 1.0f;
-    (*(Vector2f*)pVBuffer->TCoordTuple(0, 1)).Y = 1.0f;
-    (*(Vector3f*)pVBuffer->PositionTuple(2)).X = 1.0f;
-    (*(Vector3f*)pVBuffer->PositionTuple(2)).Y = 1.0f;
-    (*(Vector3f*)pVBuffer->PositionTuple(2)).Z = 0.0f;
-    (*(Vector2f*)pVBuffer->TCoordTuple(0, 2)).X = 1.0f;
-    (*(Vector2f*)pVBuffer->TCoordTuple(0, 2)).Y = 0.0f;
-    (*(Vector3f*)pVBuffer->PositionTuple(3)).X = -1.0f;
-    (*(Vector3f*)pVBuffer->PositionTuple(3)).Y = 1.0f;
-    (*(Vector3f*)pVBuffer->PositionTuple(3)).Z = 0.0f;
-    (*(Vector2f*)pVBuffer->TCoordTuple(0, 3)).X = 0.0f;
-    (*(Vector2f*)pVBuffer->TCoordTuple(0, 3)).Y = 0.0f;
-    IndexBuffer* pIBuffer = SE_NEW Swing::IndexBuffer(6);
+    SEVertexBuffer* pVBuffer = SE_NEW SEVertexBuffer(tempAttr, 4);
+    (*(SEVector3f*)pVBuffer->PositionTuple(0)).X = -1.0f;
+    (*(SEVector3f*)pVBuffer->PositionTuple(0)).Y = -1.0f;
+    (*(SEVector3f*)pVBuffer->PositionTuple(0)).Z = 0.0f;
+    (*(SEVector2f*)pVBuffer->TCoordTuple(0, 0)).X = 0.0f;
+    (*(SEVector2f*)pVBuffer->TCoordTuple(0, 0)).Y = 1.0f;
+    (*(SEVector3f*)pVBuffer->PositionTuple(1)).X = 1.0f;
+    (*(SEVector3f*)pVBuffer->PositionTuple(1)).Y = -1.0f;
+    (*(SEVector3f*)pVBuffer->PositionTuple(1)).Z = 0.0f;
+    (*(SEVector2f*)pVBuffer->TCoordTuple(0, 1)).X = 1.0f;
+    (*(SEVector2f*)pVBuffer->TCoordTuple(0, 1)).Y = 1.0f;
+    (*(SEVector3f*)pVBuffer->PositionTuple(2)).X = 1.0f;
+    (*(SEVector3f*)pVBuffer->PositionTuple(2)).Y = 1.0f;
+    (*(SEVector3f*)pVBuffer->PositionTuple(2)).Z = 0.0f;
+    (*(SEVector2f*)pVBuffer->TCoordTuple(0, 2)).X = 1.0f;
+    (*(SEVector2f*)pVBuffer->TCoordTuple(0, 2)).Y = 0.0f;
+    (*(SEVector3f*)pVBuffer->PositionTuple(3)).X = -1.0f;
+    (*(SEVector3f*)pVBuffer->PositionTuple(3)).Y = 1.0f;
+    (*(SEVector3f*)pVBuffer->PositionTuple(3)).Z = 0.0f;
+    (*(SEVector2f*)pVBuffer->TCoordTuple(0, 3)).X = 0.0f;
+    (*(SEVector2f*)pVBuffer->TCoordTuple(0, 3)).Y = 0.0f;
+    SEIndexBuffer* pIBuffer = SE_NEW SEIndexBuffer(6);
     int* pIBufferData = pIBuffer->GetData();
     pIBufferData[0] = 0;
     pIBufferData[1] = 3;
@@ -227,7 +227,7 @@ void DynamicShader::CreateScene()
     pIBufferData[4] = 3;
     pIBufferData[5] = 2;
 
-    m_spMesh = SE_NEW TriMesh(pVBuffer, pIBuffer);
+    m_spMesh = SE_NEW SETriMesh(pVBuffer, pIBuffer);
     m_spScene->AttachChild(m_spMesh);
 
     m_spEffect = SE_NEW DynamicMultiTextureEffect(1);
@@ -242,6 +242,6 @@ void DynamicShader::CreateScene()
     pController->Frequency = 5.0;
     pController->MinTime = 0.0;
     pController->MaxTime = 4.0;
-    pController->Repeat = Controller::RT_CYCLE;
+    pController->Repeat = SEController::RT_CYCLE;
 }
 //----------------------------------------------------------------------------

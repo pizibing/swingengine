@@ -23,18 +23,18 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, DynamicMultiTextureEffect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, DynamicMultiTextureEffect, SEShaderEffect);
 SE_IMPLEMENT_STREAM(DynamicMultiTextureEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(DynamicMultiTextureEffect, ShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(DynamicMultiTextureEffect, SEShaderEffect);
 
 SE_REGISTER_STREAM(DynamicMultiTextureEffect);
 
-Vector3f DynamicMultiTextureEffect::ConstantColor = Vector3f::ZERO;
+SEVector3f DynamicMultiTextureEffect::ConstantColor = SEVector3f::ZERO;
 
 //----------------------------------------------------------------------------
 DynamicMultiTextureEffect::DynamicMultiTextureEffect(int iTextureCount)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
     m_aImageName = 0;
     m_aTextureTypeName = 0;
@@ -99,21 +99,21 @@ const std::string& DynamicMultiTextureEffect::GetTextureTypeName(int i) const
 //----------------------------------------------------------------------------
 void DynamicMultiTextureEffect::Configure()
 {
-    m_VShader[0] = SE_NEW VertexShader("ITexture.v_ITexture");
-    m_PShader[0] = SE_NEW PixelShader("ITexture.p_ITexture");
+    m_VShader[0] = SE_NEW SEVertexShader("ITexture.v_ITexture");
+    m_PShader[0] = SE_NEW SEPixelShader("ITexture.p_ITexture");
 
     m_PShader[0]->SetTextureCount(m_iTextureCount);
     for( int i = 0; i < m_iTextureCount; i++ )
     {
         m_PShader[0]->SetImageName(i, m_aImageName[i]);
-        Texture* pTexture = m_PShader[0]->GetTexture(i);
-        pTexture->SetFilterType(Texture::NEAREST);
+        SETexture* pTexture = m_PShader[0]->GetTexture(i);
+        pTexture->SetFilterType(SETexture::NEAREST);
     }
 
-    InterfaceDescriptor* pInterfaceDesc = SE_NEW InterfaceDescriptor;
+    SEInterfaceDescriptor* pInterfaceDesc = SE_NEW SEInterfaceDescriptor;
     m_PShader[0]->SetInterfaceDescriptor(pInterfaceDesc);
 
-    DescriptorItem* pDescItem = SE_NEW DescriptorItem;
+    SEDescriptorItem* pDescItem = SE_NEW SEDescriptorItem;
     pInterfaceDesc->AttachItem(pDescItem);
     pDescItem->IsArray = true;
     pDescItem->SetInstanceName("aTextures");
@@ -121,10 +121,10 @@ void DynamicMultiTextureEffect::Configure()
         pDescItem->AttachTypeName(m_aTextureTypeName[i]);
 }
 //----------------------------------------------------------------------------
-void DynamicMultiTextureEffect::OnLoadPrograms(int, Program*,
-    Program* pPProgram, Program*)
+void DynamicMultiTextureEffect::OnLoadPrograms(int, SEProgram*,
+    SEProgram* pPProgram, SEProgram*)
 {
-    UserConstant* pUC = pPProgram->GetUC("aTextures[3].kColor");
+    SEUserConstant* pUC = pPProgram->GetUC("aTextures[3].kColor");
 
     if( pUC )
         pUC->SetDataSource((float*)ConstantColor);
@@ -134,11 +134,11 @@ void DynamicMultiTextureEffect::OnLoadPrograms(int, Program*,
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void DynamicMultiTextureEffect::Load(Stream& rStream, Stream::Link* pLink)
+void DynamicMultiTextureEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    ShaderEffect::Load(rStream, pLink);
+    SEShaderEffect::Load(rStream, pLink);
 
     // native data
     rStream.Read(m_iTextureCount);
@@ -152,21 +152,21 @@ void DynamicMultiTextureEffect::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(DynamicMultiTextureEffect);
 }
 //----------------------------------------------------------------------------
-void DynamicMultiTextureEffect::Link(Stream& rStream, Stream::Link* pLink)
+void DynamicMultiTextureEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    ShaderEffect::Link(rStream, pLink);
+    SEShaderEffect::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool DynamicMultiTextureEffect::Register(Stream& rStream) const
+bool DynamicMultiTextureEffect::Register(SEStream& rStream) const
 {
-    return ShaderEffect::Register(rStream);
+    return SEShaderEffect::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void DynamicMultiTextureEffect::Save(Stream& rStream) const
+void DynamicMultiTextureEffect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    ShaderEffect::Save(rStream);
+    SEShaderEffect::Save(rStream);
 
     // native data
     rStream.Write(m_iTextureCount);
@@ -179,9 +179,9 @@ void DynamicMultiTextureEffect::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(DynamicMultiTextureEffect);
 }
 //----------------------------------------------------------------------------
-int DynamicMultiTextureEffect::GetDiskUsed(const StreamVersion& rVersion) const
+int DynamicMultiTextureEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    int iSize = ShaderEffect::GetDiskUsed(rVersion) +
+    int iSize = SEShaderEffect::GetDiskUsed(rVersion) +
         sizeof(m_iTextureCount);
  
     for( int i = 0; i < m_iTextureCount; i++ )
@@ -193,9 +193,9 @@ int DynamicMultiTextureEffect::GetDiskUsed(const StreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-StringTree* DynamicMultiTextureEffect::SaveStrings(const char*)
+SEStringTree* DynamicMultiTextureEffect::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -205,14 +205,14 @@ StringTree* DynamicMultiTextureEffect::SaveStrings(const char*)
     char acTitle[uiTitleSize];
     for( int i = 0; i < m_iTextureCount; i++ )
     {
-        System::SE_Sprintf(acTitle, uiTitleSize, "image[%d] =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "image[%d] =", i);
         pTree->Append(Format(acTitle, m_aImageName[i].c_str()));
-        System::SE_Sprintf(acTitle, uiTitleSize, "type[%d] =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "type[%d] =", i);
         pTree->Append(Format(acTitle, m_aTextureTypeName[i].c_str()));
     }
 
     // children
-    pTree->Append(ShaderEffect::SaveStrings());
+    pTree->Append(SEShaderEffect::SaveStrings());
 
     return pTree;
 }
