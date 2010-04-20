@@ -27,32 +27,32 @@ SE_REGISTER_INITIALIZE(TerrainLod);
 //----------------------------------------------------------------------------
 TerrainLod::TerrainLod()
     :
-    WindowApplication3("TerrainLod", 0, 0, 640, 480, 
-        ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f)),
-        m_FogColor(ColorRGB(0.5686f, 0.7255f, 0.8353f)),
+    SEWindowApplication3("TerrainLod", 0, 0, 640, 480, 
+        SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f)),
+        m_FogColor(SEColorRGB(0.5686f, 0.7255f, 0.8353f)),
         m_fUVBias(0.0f),
         m_fFogDensity(0.0005f),
         m_fVerticalDistance(10.0f)
 {
-    System::SE_InsertDirectory("../../Data/Terrain/Height32");
-    System::SE_InsertDirectory("../../Data/Terrain/Image32/");
-    System::SE_InsertDirectory("../../Data/Terrain");
+    SESystem::SE_InsertDirectory("../../Data/Terrain/Height32");
+    SESystem::SE_InsertDirectory("../../Data/Terrain/Image32/");
+    SESystem::SE_InsertDirectory("../../Data/Terrain");
 
     m_bLod = true;
 }
 //----------------------------------------------------------------------------
 bool TerrainLod::OnInitialize()
 {
-    if( !WindowApplication3::OnInitialize() )
+    if( !SEWindowApplication3::OnInitialize() )
     {
         return false;
     }
 
     m_spCamera->SetFrustum(-0.55f, 0.55f, -0.4125f, 0.4125f, 1.0f, 5000.0f);
-    Vector3f tempCLoc(2048.0f, m_fVerticalDistance+50, 2048.0f);
-    Vector3f tempCDir(1.0f, 0.0f, 1.0f);
-    Vector3f tempCUp(0.0f, 1.0f, .0f);
-    Vector3f tempCRight = tempCUp.Cross(tempCDir);
+    SEVector3f tempCLoc(2048.0f, m_fVerticalDistance+50, 2048.0f);
+    SEVector3f tempCDir(1.0f, 0.0f, 1.0f);
+    SEVector3f tempCUp(0.0f, 1.0f, .0f);
+    SEVector3f tempCRight = tempCUp.Cross(tempCDir);
     m_spCamera->SetFrame(tempCLoc, tempCRight, tempCUp, tempCDir);
 
     CreateScene();
@@ -80,7 +80,7 @@ void TerrainLod::OnTerminate()
     m_spScene = 0;
     m_spRoamTerrain = 0;
     m_spWireframe = 0;
-    WindowApplication3::OnTerminate();
+    SEWindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void TerrainLod::OnIdle()
@@ -104,7 +104,7 @@ void TerrainLod::OnIdle()
     if( m_pRenderer->BeginScene() )
     {
         m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
-        DrawFrameRate(8, 20, ColorRGBA::SE_RGBA_WHITE);
+        DrawFrameRate(8, 20, SEColorRGBA::SE_RGBA_WHITE);
         m_pRenderer->EndScene();
     }
     m_pRenderer->DisplayBackBuffer();
@@ -114,7 +114,7 @@ void TerrainLod::OnIdle()
 //----------------------------------------------------------------------------
 bool TerrainLod::OnKeyDown(unsigned char ucKey, int iX, int iY)
 {
-    if( WindowApplication3::OnKeyDown(ucKey, iX, iY) )
+    if( SEWindowApplication3::OnKeyDown(ucKey, iX, iY) )
     {
         return true;
     }
@@ -148,19 +148,19 @@ bool TerrainLod::OnKeyDown(unsigned char ucKey, int iX, int iY)
 //----------------------------------------------------------------------------
 void TerrainLod::CreateScene()
 {
-    m_spScene = SE_NEW Node;
-    m_spWireframe = SE_NEW WireframeState;
+    m_spScene = SE_NEW SENode;
+    m_spWireframe = SE_NEW SEWireframeState;
     m_spScene->AttachGlobalState(m_spWireframe);
 
     // Create ROAM terrain.
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetNormalChannels(3);
     tempAttr.SetTCoordChannels(0, 2);  // terrain base texture
     tempAttr.SetTCoordChannels(1, 2);  // detail texture
-    ColorRGBA tempBorderColor(m_FogColor[0], m_FogColor[1], m_FogColor[2],
+    SEColorRGBA tempBorderColor(m_FogColor[0], m_FogColor[1], m_FogColor[2],
         1.0f);
-    m_spRoamTerrain = SE_NEW RoamTerrain("height", "image", tempAttr, 
+    m_spRoamTerrain = SE_NEW SERoamTerrain("height", "image", tempAttr, 
         m_spCamera, m_fUVBias, &tempBorderColor);
     m_spScene->AttachChild(m_spRoamTerrain);
 
@@ -170,17 +170,17 @@ void TerrainLod::CreateScene()
     {
         for( int iCol = 0; iCol < iCols; iCol++ )
         {
-            RoamTerrainPage* pPage = m_spRoamTerrain->GetPage(iRow, iCol);
+            SERoamTerrainPage* pPage = m_spRoamTerrain->GetPage(iRow, iCol);
 
-            // The default texturing uses a single base texture.  Change this
+            // The default texturing uses a single base texture. Change this
             // to use a base texture modulated by a detail texture and the
             // result blended with fog.
-            MultitextureEffect* pEffect = DynamicCast<MultitextureEffect>(
+            SEMultitextureEffect* pEffect = DynamicCast<SEMultitextureEffect>(
                 pPage->GetEffect(0));
             std::string tempBaseName = pEffect->GetImageName(0);
             pPage->DetachEffect(pEffect);
 
-            TerrainEffect* pTEffect = SE_NEW TerrainEffect(
+            SETerrainEffect* pTEffect = SE_NEW SETerrainEffect(
                 tempBaseName.c_str(), "Detail", m_FogColor, m_fFogDensity);
             pPage->AttachEffect(pTEffect);
         }

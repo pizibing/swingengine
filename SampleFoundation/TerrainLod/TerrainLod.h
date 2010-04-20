@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-class TerrainLod : public WindowApplication3
+class TerrainLod : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -41,15 +41,15 @@ protected:
     void CreateScene(void);
 
     bool m_bLod;
-    ColorRGB m_FogColor;
+    SEColorRGB m_FogColor;
     float m_fUVBias;
     float m_fFogDensity;
     float m_fVerticalDistance;
 
-    NodePtr m_spScene;
-    RoamTerrainPtr m_spRoamTerrain;
-    WireframeStatePtr m_spWireframe;
-    Culler m_Culler;
+    SENodePtr m_spScene;
+    SERoamTerrainPtr m_spRoamTerrain;
+    SEWireframeStatePtr m_spWireframe;
+    SECuller m_Culler;
 };
 
 #endif
