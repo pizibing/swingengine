@@ -30,9 +30,9 @@ DynamicShader::DynamicShader()
     SEWindowApplication3("DynamicShader", 0, 0, 640, 480, 
         SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
-    m_ImageNames[0] = "random1";
+    m_ImageNames[0] = "rock";
     m_ImageNames[1] = "kate";
-    m_ImageNames[2] = "whitecircle";
+    m_ImageNames[2] = "wood512";
 }
 //----------------------------------------------------------------------------
 bool DynamicShader::OnInitialize()
