@@ -25,35 +25,35 @@
 
 using namespace Swing;
 
-DXGI_FORMAT DX10Renderer::ms_aeImageFormat[Image::IT_COUNT] =
+DXGI_FORMAT DX10Renderer::ms_aeImageFormat[SEImage::IT_COUNT] =
 {
-    DXGI_FORMAT_R8G8B8A8_UNORM,      // Image::IT_RGB888
-    DXGI_FORMAT_R8G8B8A8_UNORM,      // Image::IT_RGBA8888
-    DXGI_FORMAT_D16_UNORM,           // Image::IT_DEPTH16
-    DXGI_FORMAT_D24_UNORM_S8_UINT,   // Image::IT_DEPTH24
-    DXGI_FORMAT_D32_FLOAT,           // Image::IT_DEPTH32
-    DXGI_FORMAT_R8G8B8A8_UNORM,      // Image::IT_CUBE_RGB888
-    DXGI_FORMAT_R8G8B8A8_UNORM,      // Image::IT_CUBE_RGBA8888
-    DXGI_FORMAT_R32G32B32A32_FLOAT,  // Image::IT_RGB32
-    DXGI_FORMAT_R32G32B32A32_FLOAT,  // Image::IT_RGBA32
-    DXGI_FORMAT_R8_UNORM,            // Image::IT_L8
-    DXGI_FORMAT_R16_UNORM,           // Image::IT_L16
-    DXGI_FORMAT_R32_FLOAT,           // Image::IT_R32
-    DXGI_FORMAT_R16G16B16A16_FLOAT,  // Image::IT_RGB16F
-    DXGI_FORMAT_R16G16B16A16_FLOAT,  // Image::IT_RGBA16F
-    DXGI_FORMAT_R8G8B8A8_UNORM,      // Image::IT_RGB565
-    DXGI_FORMAT_R8G8B8A8_UNORM,      // Image::IT_RGBA5551
-    DXGI_FORMAT_R8G8B8A8_UNORM       // Image::IT_RGBA4444
+    DXGI_FORMAT_R8G8B8A8_UNORM,      // SEImage::IT_RGB888
+    DXGI_FORMAT_R8G8B8A8_UNORM,      // SEImage::IT_RGBA8888
+    DXGI_FORMAT_D16_UNORM,           // SEImage::IT_DEPTH16
+    DXGI_FORMAT_D24_UNORM_S8_UINT,   // SEImage::IT_DEPTH24
+    DXGI_FORMAT_D32_FLOAT,           // SEImage::IT_DEPTH32
+    DXGI_FORMAT_R8G8B8A8_UNORM,      // SEImage::IT_CUBE_RGB888
+    DXGI_FORMAT_R8G8B8A8_UNORM,      // SEImage::IT_CUBE_RGBA8888
+    DXGI_FORMAT_R32G32B32A32_FLOAT,  // SEImage::IT_RGB32
+    DXGI_FORMAT_R32G32B32A32_FLOAT,  // SEImage::IT_RGBA32
+    DXGI_FORMAT_R8_UNORM,            // SEImage::IT_L8
+    DXGI_FORMAT_R16_UNORM,           // SEImage::IT_L16
+    DXGI_FORMAT_R32_FLOAT,           // SEImage::IT_R32
+    DXGI_FORMAT_R16G16B16A16_FLOAT,  // SEImage::IT_RGB16F
+    DXGI_FORMAT_R16G16B16A16_FLOAT,  // SEImage::IT_RGBA16F
+    DXGI_FORMAT_R8G8B8A8_UNORM,      // SEImage::IT_RGB565
+    DXGI_FORMAT_R8G8B8A8_UNORM,      // SEImage::IT_RGBA5551
+    DXGI_FORMAT_R8G8B8A8_UNORM       // SEImage::IT_RGBA4444
 };
 
 //----------------------------------------------------------------------------
 // 资源装载与移除(主要针对显存).
 //----------------------------------------------------------------------------
-void DX10Renderer::OnLoadVProgram(ResourceIdentifier*& rpID, 
-    VertexProgram* pVProgram)
+void DX10Renderer::OnLoadVProgram(SEResourceIdentifier*& rpID, 
+    SEVertexProgram* pVProgram)
 {
-    VProgramID* pResource = SE_NEW VProgramID;
-    ProgramData* pData = (ProgramData*)pVProgram->UserData;
+    SEVProgramID* pResource = SE_NEW SEVProgramID;
+    SEProgramData* pData = (SEProgramData*)pVProgram->UserData;
     pResource->ID = pData->ID;
     rpID = pResource;
 
@@ -61,18 +61,18 @@ void DX10Renderer::OnLoadVProgram(ResourceIdentifier*& rpID,
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnReleaseVProgram(ResourceIdentifier* pID)
+void DX10Renderer::OnReleaseVProgram(SEResourceIdentifier* pID)
 {
-    VProgramID* pResource = (VProgramID*)pID;
+    SEVProgramID* pResource = (SEVProgramID*)pID;
     cgD3D10UnloadProgram(pResource->ID);
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnLoadGProgram(ResourceIdentifier*& rpID,
-    GeometryProgram* pGProgram)
+void DX10Renderer::OnLoadGProgram(SEResourceIdentifier*& rpID,
+    SEGeometryProgram* pGProgram)
 {
-    GProgramID* pResource = SE_NEW GProgramID;
-    ProgramData* pData = (ProgramData*)pGProgram->UserData;
+    SEGProgramID* pResource = SE_NEW SEGProgramID;
+    SEProgramData* pData = (SEProgramData*)pGProgram->UserData;
     pResource->ID = pData->ID;
     rpID = pResource;
 
@@ -80,18 +80,18 @@ void DX10Renderer::OnLoadGProgram(ResourceIdentifier*& rpID,
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnReleaseGProgram(ResourceIdentifier* pID)
+void DX10Renderer::OnReleaseGProgram(SEResourceIdentifier* pID)
 {
-    GProgramID* pResource = (GProgramID*)pID;
+    SEGProgramID* pResource = (SEGProgramID*)pID;
     cgD3D10UnloadProgram(pResource->ID);
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnLoadPProgram(ResourceIdentifier*& rpID, 
-    PixelProgram* pPProgram)
+void DX10Renderer::OnLoadPProgram(SEResourceIdentifier*& rpID, 
+    SEPixelProgram* pPProgram)
 {
-    PProgramID* pResource = SE_NEW PProgramID;
-    ProgramData* pData = (ProgramData*)pPProgram->UserData;
+    SEPProgramID* pResource = SE_NEW SEPProgramID;
+    SEProgramData* pData = (SEProgramData*)pPProgram->UserData;
     pResource->ID = pData->ID;
     rpID = pResource;
 
@@ -99,25 +99,25 @@ void DX10Renderer::OnLoadPProgram(ResourceIdentifier*& rpID,
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnReleasePProgram(ResourceIdentifier* pID)
+void DX10Renderer::OnReleasePProgram(SEResourceIdentifier* pID)
 {
-    PProgramID* pResource = (PProgramID*)pID;
+    SEPProgramID* pResource = (SEPProgramID*)pID;
     cgD3D10UnloadProgram(pResource->ID);
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
+void DX10Renderer::OnLoadTexture(SEResourceIdentifier*& rpID, SETexture* pTexture)
 {
     // 第一次遇到该纹理资源.
     // 为使用该纹理的设备设置纹理单元.
-    TextureID* pResource = SE_NEW TextureID;
+    SETextureID* pResource = SE_NEW SETextureID;
     pResource->TextureObject = pTexture;
     rpID = pResource;
 
     bool bOffscreen = pTexture->IsOffscreenTexture();
 
     // 把image数据从系统内存装载入显存..
-    const Image* pImage = pTexture->GetImage();
+    const SEImage* pImage = pTexture->GetImage();
     SE_ASSERT( pImage );
     int iDimension = pImage->GetDimension();
     bool bIsRegularImage = !pImage->IsCubeImage();
@@ -129,14 +129,14 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
     unsigned char* aucRSrc = 0;
     bool bOwnRSrc = true;
     int i, iSrcBase = 0, iRSrcBase = 0;
-    Image::FormatMode eFormat = pImage->GetFormat();
+    SEImage::FormatMode eFormat = pImage->GetFormat();
     DXGI_FORMAT eDXGIFMT = ms_aeImageFormat[eFormat];
 
     if( aucSrc )
     {
         switch( eFormat )
         {
-        case Image::IT_RGB888:
+        case SEImage::IT_RGB888:
             // Swap R and B and pad to an RGBA image.
             iCount = pImage->GetCount();
             iByteCount = 4*iCount;
@@ -150,7 +150,7 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
             }
             break;
 
-        case Image::IT_RGBA8888:
+        case SEImage::IT_RGBA8888:
             iCount = pImage->GetCount();
             iByteCount = 4*iCount;
             aucRSrc = SE_NEW unsigned char[iByteCount];
@@ -163,7 +163,7 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
             }
             break;
 
-        case Image::IT_CUBE_RGB888:
+        case SEImage::IT_CUBE_RGB888:
             // Swap R and B and pad to an RGBA image.
             iCount = 6*pImage->GetCount();
             iByteCount = 4*iCount;
@@ -178,7 +178,7 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
             iByteCount = 4*pImage->GetCount();
             break;
 
-        case Image::IT_CUBE_RGBA8888:
+        case SEImage::IT_CUBE_RGBA8888:
             iCount = 6*pImage->GetCount();
             iByteCount = 4*iCount;
             aucRSrc = SE_NEW unsigned char[iByteCount];
@@ -192,7 +192,7 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
             iByteCount = 4*pImage->GetCount();
             break;
 
-        case Image::IT_RGB565:
+        case SEImage::IT_RGB565:
         {
             // Swap R and B.
             iCount = pImage->GetCount();
@@ -212,7 +212,7 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
             break;
         }
 
-        case Image::IT_RGBA5551:
+        case SEImage::IT_RGBA5551:
         {
             // Swap R and B.
             iCount = pImage->GetCount();
@@ -233,7 +233,7 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
             break;
         }
 
-        case Image::IT_RGBA4444:
+        case SEImage::IT_RGBA4444:
         {
             // Swap R and B.
             iCount = pImage->GetCount();
@@ -390,18 +390,18 @@ void DX10Renderer::OnLoadTexture(ResourceIdentifier*& rpID, Texture* pTexture)
     }
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnReleaseTexture(ResourceIdentifier* pID)
+void DX10Renderer::OnReleaseTexture(SEResourceIdentifier* pID)
 {
-    TextureID* pResource = (TextureID*)pID;
+    SETextureID* pResource = (SETextureID*)pID;
     pResource->ID->Release();
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
-    const Attributes& rIAttr, const Attributes& rOAttr,
-    VertexBuffer* pVBuffer, VertexProgram* pVProgram)
+void DX10Renderer::OnLoadVBuffer(SEResourceIdentifier*& rpID,
+    const SEAttributes& rIAttr, const SEAttributes& rOAttr,
+    SEVertexBuffer* pVBuffer, SEVertexProgram* pVProgram)
 {
-    VBufferID* pResource = SE_NEW VBufferID;
+    SEVBufferID* pResource = SE_NEW SEVBufferID;
     rpID = pResource;
     pResource->IAttr = rIAttr;
     pResource->OAttr = rOAttr;
@@ -547,7 +547,7 @@ void DX10Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
         pIEDescs[i] = *tempDescs[i];
     }
 
-    CGprogram hProgram = ((ProgramData*)pVProgram->UserData)->ID;
+    CGprogram hProgram = ((SEProgramData*)pVProgram->UserData)->ID;
     ID3D10Blob* pVShaderBuffer = cgD3D10GetCompiledProgram(hProgram);
     SE_ASSERT( pVShaderBuffer );
 
@@ -592,17 +592,17 @@ void DX10Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
     pResource->Layout = pDX10Layout;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnReleaseVBuffer(ResourceIdentifier* pID)
+void DX10Renderer::OnReleaseVBuffer(SEResourceIdentifier* pID)
 {
-    VBufferID* pResource = (VBufferID*)pID;
+    SEVBufferID* pResource = (SEVBufferID*)pID;
     pResource->ID->Release();
     pResource->Layout->Release();
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnLoadIBuffer(ResourceIdentifier*& rpID, IndexBuffer* pIBuffer)
+void DX10Renderer::OnLoadIBuffer(SEResourceIdentifier*& rpID, SEIndexBuffer* pIBuffer)
 {
-    IBufferID* pResource = SE_NEW IBufferID;
+    SEIBufferID* pResource = SE_NEW SEIBufferID;
     rpID = pResource;
 
     int iICount = pIBuffer->GetIndexCount();
@@ -628,17 +628,17 @@ void DX10Renderer::OnLoadIBuffer(ResourceIdentifier*& rpID, IndexBuffer* pIBuffe
     pResource->ID = pDX10IBuffer;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnReleaseIBuffer(ResourceIdentifier* pID)
+void DX10Renderer::OnReleaseIBuffer(SEResourceIdentifier* pID)
 {
-    IBufferID* pResource = (IBufferID*)pID;
+    SEIBufferID* pResource = (SEIBufferID*)pID;
     pResource->ID->Release();
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnLoadRenderStateBlock(ResourceIdentifier*& rpID,
-    RenderStateBlock* pRStateBlock)
+void DX10Renderer::OnLoadRenderStateBlock(SEResourceIdentifier*& rpID,
+    SERenderStateBlock* pRStateBlock)
 {
-    RStateBlockID* pResource = SE_NEW RStateBlockID;
+    SERStateBlockID* pResource = SE_NEW SERStateBlockID;
     pResource->RStateBlock = pRStateBlock;
     rpID = pResource;
 
@@ -660,9 +660,9 @@ void DX10Renderer::OnLoadRenderStateBlock(ResourceIdentifier*& rpID,
     pResource->RasterizerState = pDX10RState;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnReleaseRenderStateBlock(ResourceIdentifier* pID)
+void DX10Renderer::OnReleaseRenderStateBlock(SEResourceIdentifier* pID)
 {
-    RStateBlockID* pResource = (RStateBlockID*)pID;
+    SERStateBlockID* pResource = (SERStateBlockID*)pID;
     SE_DX10_SAFE_RELEASE(pResource->BlendState);
     SE_DX10_SAFE_RELEASE(pResource->DepthStencilState);
     SE_DX10_SAFE_RELEASE(pResource->RasterizerState);

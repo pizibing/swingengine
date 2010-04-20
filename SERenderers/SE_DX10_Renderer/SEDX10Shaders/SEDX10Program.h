@@ -29,37 +29,36 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:DirectX10 shader program class
-// Description:This is a delegation of Program class, the delegation class 
+// Description:This is a delegation of SEProgram class, the delegation class 
 //     impliments delegate functions for it's base class, then the functions 
 //     will be used to create/link/compile Cg programs.The delegation class 
 //     can not be instantiated. 
 // Author:Sun Che
 // Date:20091202
 //----------------------------------------------------------------------------
-class SE_RENDERER_API DX10Program : public Program
+class SE_RENDERER_API SEDX10Program : public SEProgram
 {
     SE_DECLARE_INITIALIZE;
 
 public:
     // This function creates a shader program and initialize it.
-    static bool OnLoadProgram(Renderer* pRenderer, const std::string& rProgramName, 
-        Program* pProgram, Program::ProgramType eType, 
-        InterfaceDescriptor* pInterfaceDesc);
+    static bool OnLoadProgram(SERenderer* pRenderer, const std::string& 
+        rProgramName, SEProgram* pProgram, SEProgram::ProgramType eType, 
+        SEInterfaceDescriptor* pInterfaceDesc);
 
     // Helper functions used by OnLoadProgram().
-    static bool RecursParams(CGparameter hCgParam, Program* pProgram);
-    static bool ParseParam(CGparameter hCgParam, Program* pProgram);
+    static bool RecursParams(CGparameter hCgParam, SEProgram* pProgram);
+    static bool ParseParam(CGparameter hCgParam, SEProgram* pProgram);
 
     // This function releases a shader program's user data.
     static void OnReleaseUserData(void* pUserData);
 
-    // This function creates a specific shader program used by LightingEffect.
-    static void OnConfigureLighting(LightingEffect* pLEffect);
+    // This function creates a specific shader program used by SELightingEffect.
+    static void OnConfigureLighting(SELightingEffect* pLEffect);
 
 private:
     // Can not be instantiated. 
-    DX10Program(void);
+    SEDX10Program(void);
 };
 
 }

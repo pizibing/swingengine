@@ -23,7 +23,7 @@
 
 using namespace Swing;
 
-D3D10_CULL_MODE DX10Renderer::ms_aeCullModel[CullState::CT_COUNT] = 
+D3D10_CULL_MODE DX10Renderer::ms_aeCullModel[SECullState::CT_COUNT] = 
 {
     D3D10_CULL_FRONT,
     D3D10_CULL_BACK
@@ -31,15 +31,15 @@ D3D10_CULL_MODE DX10Renderer::ms_aeCullModel[CullState::CT_COUNT] =
 
 //----------------------------------------------------------------------------
 void DX10Renderer::GenerateRasterizerState(
-    const RenderStateBlock* pRStateBlock, 
+    const SERenderStateBlock* pRStateBlock, 
     ID3D10RasterizerState*& rpDX10RState)
 {
-    GlobalState* pState = pRStateBlock->States[GlobalState::WIREFRAME];
-    WireframeState* pWireframeState = (WireframeState*)pState;
-    pState = pRStateBlock->States[GlobalState::CULL];
-    CullState* pCullState = (CullState*)pState;
-    pState = pRStateBlock->States[GlobalState::POLYGONOFFSET];
-    PolygonOffsetState* pPolygonOffsetState = (PolygonOffsetState*)pState;
+    SEGlobalState* pState = pRStateBlock->States[SEGlobalState::WIREFRAME];
+    SEWireframeState* pWireframeState = (SEWireframeState*)pState;
+    pState = pRStateBlock->States[SEGlobalState::CULL];
+    SECullState* pCullState = (SECullState*)pState;
+    pState = pRStateBlock->States[SEGlobalState::POLYGONOFFSET];
+    SEPolygonOffsetState* pPolygonOffsetState = (SEPolygonOffsetState*)pState;
 
     // 检查是否需要创建一个rasterizer state对象.
     if( !pWireframeState && !pCullState && !pPolygonOffsetState )
@@ -54,8 +54,8 @@ void DX10Renderer::GenerateRasterizerState(
     // 填充wireframe state相关参数.
     if( !pWireframeState )
     {
-        pState = GlobalState::Default[GlobalState::WIREFRAME];
-        pWireframeState = (WireframeState*)pState;
+        pState = SEGlobalState::Default[SEGlobalState::WIREFRAME];
+        pWireframeState = (SEWireframeState*)pState;
     }
     SE_ASSERT( pWireframeState );
 
@@ -71,14 +71,14 @@ void DX10Renderer::GenerateRasterizerState(
     // 填充cull state相关参数.
     if( !pCullState )
     {
-        pState = GlobalState::Default[GlobalState::CULL];
-        pCullState = (CullState*)pState;
+        pState = SEGlobalState::Default[SEGlobalState::CULL];
+        pCullState = (SECullState*)pState;
     }
     SE_ASSERT( pCullState );
 
     if( pCullState->Enabled )
     {
-        if( pCullState->FrontFace == CullState::FT_CW )
+        if( pCullState->FrontFace == SECullState::FT_CW )
         {
             tempRSDesc.FrontCounterClockwise = false;
         }
@@ -111,8 +111,8 @@ void DX10Renderer::GenerateRasterizerState(
     // 填充polygon offset state相关参数.
     if( !pPolygonOffsetState )
     {
-        pState = GlobalState::Default[GlobalState::POLYGONOFFSET];
-        pPolygonOffsetState = (PolygonOffsetState*)pState;
+        pState = SEGlobalState::Default[SEGlobalState::POLYGONOFFSET];
+        pPolygonOffsetState = (SEPolygonOffsetState*)pState;
     }
     SE_ASSERT( pPolygonOffsetState );
 

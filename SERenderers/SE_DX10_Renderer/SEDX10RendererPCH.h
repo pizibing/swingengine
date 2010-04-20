@@ -23,17 +23,17 @@
 
 #ifdef SE_USE_PRECOMPILED_HEADERS
 
-// DX10Renderer Register
+// DX10 Renderer Register
 #include "SEDX10RendererRegister.h"
 
-// DX10Rendering
+// DX10 Rendering
 #include "SEDX10RendererLIB.h"
 #include "SEDX10Utility.h"
 #include "SEDX10Resources.h"
 #include "SEDX10Renderer.h"
 #include "SEDX10FrameBuffer.h"
 
-// DX10Shaders
+// DX10 Shaders
 #include "SEDX10Program.h"
 #include "SEDX10ProgramInterface.h"
 #include "SEDX10ProgramInterfaceCatalog.h"

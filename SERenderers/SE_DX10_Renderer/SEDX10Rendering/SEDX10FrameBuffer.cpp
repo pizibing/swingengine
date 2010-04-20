@@ -24,25 +24,25 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_INITIALIZE(DX10FrameBuffer);
+SE_IMPLEMENT_INITIALIZE(SEDX10FrameBuffer);
 
-//SE_REGISTER_INITIALIZE(DX10FrameBuffer);
+//SE_REGISTER_INITIALIZE(SEDX10FrameBuffer);
 
 //----------------------------------------------------------------------------
-void DX10FrameBuffer::Initialize()
+void SEDX10FrameBuffer::Initialize()
 {
-    ms_aoCreator[Renderer::DIRECTX10] = &DX10FrameBuffer::Create;
-    ms_aoDestroyer[Renderer::DIRECTX10] = &DX10FrameBuffer::Destroy;
+    ms_aoCreator[SERenderer::DIRECTX10] = &SEDX10FrameBuffer::Create;
+    ms_aoDestroyer[SERenderer::DIRECTX10] = &SEDX10FrameBuffer::Destroy;
 }
 //----------------------------------------------------------------------------
-FrameBuffer* DX10FrameBuffer::Create(FormatType eFormat, DepthType eDepth,
+SEFrameBuffer* SEDX10FrameBuffer::Create(FormatType eFormat, DepthType eDepth,
     StencilType eStencil, BufferingType eBuffering,
-    MultisamplingType eMultisampling, Renderer* pRenderer, int iTCount,
-    Texture** apTargets)
+    MultisamplingType eMultisampling, SERenderer* pRenderer, int iTCount,
+    SETexture** apTargets)
 {
     if( pRenderer && apTargets )
     {
-        DX10FrameBuffer* pBuffer = SE_NEW DX10FrameBuffer(eFormat,
+        SEDX10FrameBuffer* pBuffer = SE_NEW SEDX10FrameBuffer(eFormat,
             eDepth, eStencil, eBuffering, eMultisampling, pRenderer, iTCount,
             apTargets);
 
@@ -57,28 +57,28 @@ FrameBuffer* DX10FrameBuffer::Create(FormatType eFormat, DepthType eDepth,
     return 0;
 }
 //----------------------------------------------------------------------------
-void DX10FrameBuffer::Destroy(FrameBuffer* pBuffer)
+void SEDX10FrameBuffer::Destroy(SEFrameBuffer* pBuffer)
 {
-    ((DX10FrameBuffer*)pBuffer)->TerminateBuffer();
+    ((SEDX10FrameBuffer*)pBuffer)->TerminateBuffer();
     SE_DELETE pBuffer;
 }
 //----------------------------------------------------------------------------
-DX10FrameBuffer::DX10FrameBuffer(FormatType eFormat, DepthType eDepth,
+SEDX10FrameBuffer::SEDX10FrameBuffer(FormatType eFormat, DepthType eDepth,
     StencilType eStencil, BufferingType eBuffering,
-    MultisamplingType eMultisampling, Renderer* pRenderer, int iTCount, 
-    Texture** apTargets)
+    MultisamplingType eMultisampling, SERenderer* pRenderer, int iTCount, 
+    SETexture** apTargets)
     :
-    FrameBuffer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, 
+    SEFrameBuffer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, 
         pRenderer, iTCount, apTargets)
 {
     m_TargetItems.resize(iTCount);
     ((DX10Renderer*)pRenderer)->m_FrameBuffers.push_back(this);
 }
 //----------------------------------------------------------------------------
-DX10FrameBuffer::~DX10FrameBuffer()
+SEDX10FrameBuffer::~SEDX10FrameBuffer()
 {
     DX10Renderer* pRenderer = (DX10Renderer*)m_pRenderer;
-    std::vector<DX10FrameBuffer*>& rFrameBuffers = pRenderer->m_FrameBuffers;
+    std::vector<SEDX10FrameBuffer*>& rFrameBuffers = pRenderer->m_FrameBuffers;
 
     int iCount = (int)pRenderer->m_FrameBuffers.size();
     for( int i = 0; i < iCount; i++ )
@@ -99,14 +99,14 @@ DX10FrameBuffer::~DX10FrameBuffer()
     }
 }
 //----------------------------------------------------------------------------
-bool DX10FrameBuffer::InitializeBuffer()
+bool SEDX10FrameBuffer::InitializeBuffer()
 {
     //DX10Renderer* pRenderer = (DX10Renderer*)m_pRenderer;
     //HRESULT hResult;
 
     //for( int i = 0; i < m_iCount; i++ )
     //{
-    //    Image* pImage = m_apTargets[i]->GetImage();
+    //    SEImage* pImage = m_apTargets[i]->GetImage();
     //    if( pImage->IsCubeImage() )
     //    {
     //        // 待实现.
@@ -116,9 +116,9 @@ bool DX10FrameBuffer::InitializeBuffer()
     //    }
 
     //    // 确保用作frame buffer的纹理已经装载入显存.
-    //    ResourceIdentifier* pID = m_apTargets[i]->GetIdentifier(m_pRenderer);
+    //    SEResourceIdentifier* pID = m_apTargets[i]->GetIdentifier(m_pRenderer);
     //    SE_ASSERT( pID );
-    //    TextureID* pResource = (TextureID*)pID;
+    //    SETextureID* pResource = (SETextureID*)pID;
     //    m_TargetItems[i].TargetID = (IDirect3DTexture9*)pResource->ID;
 
     //    if( m_apTargets[i]->IsDepthTexture() )
@@ -173,7 +173,7 @@ bool DX10FrameBuffer::InitializeBuffer()
     return true;
 }
 //----------------------------------------------------------------------------
-void DX10FrameBuffer::TerminateBuffer()
+void SEDX10FrameBuffer::TerminateBuffer()
 {
     //SE_DX10_SAFE_RELEASE(m_pRenderToTexture);
 
@@ -193,7 +193,7 @@ void DX10FrameBuffer::TerminateBuffer()
     //}
 }
 //----------------------------------------------------------------------------
-void DX10FrameBuffer::Enable()
+void SEDX10FrameBuffer::Enable()
 {
     //DX10Renderer* pRenderer = (DX10Renderer*)m_pRenderer;
     //HRESULT hResult;
@@ -238,7 +238,7 @@ void DX10FrameBuffer::Enable()
     //pRenderer->OnFrustumChange();
     //pRenderer->OnFrameChange();
 
-    //Image* pImage = m_apTargets[0]->GetImage();
+    //SEImage* pImage = m_apTargets[0]->GetImage();
     //D3DVIEWPORT9 tempViewport;
     //tempViewport.X = 0;
     //tempViewport.Y = 0;
@@ -250,7 +250,7 @@ void DX10FrameBuffer::Enable()
     //SE_ASSERT( SUCCEEDED(hResult) );
 }
 //----------------------------------------------------------------------------
-void DX10FrameBuffer::Disable()
+void SEDX10FrameBuffer::Disable()
 {
     //DX10Renderer* pRenderer = (DX10Renderer*)m_pRenderer;
     //HRESULT hResult;
@@ -292,7 +292,7 @@ void DX10FrameBuffer::Disable()
     //pRenderer->OnFrameChange();
 }
 //----------------------------------------------------------------------------
-void DX10FrameBuffer::CopyToTexture(int)
+void SEDX10FrameBuffer::CopyToTexture(int)
 {
     //SE_ASSERT( i >= 0 && i < m_iCount );
     //i = i < 0 ? 0 : (i >= m_iCount ? m_iCount - 1 : i );
@@ -301,7 +301,7 @@ void DX10FrameBuffer::CopyToTexture(int)
     //// DX9中,目前没有已知方法可以把深度图数据从VRAM复制到系统内存.
     //if( !m_apTargets[i]->IsDepthTexture() )
     //{
-    //    Image* pImage = m_apTargets[i]->GetImage();
+    //    SEImage* pImage = m_apTargets[i]->GetImage();
     //    unsigned char* aucDst = pImage->GetData();
     //    int iCount = pImage->GetCount();
     //    int iByteCount = pImage->GetBytesPerPixel() * iCount;

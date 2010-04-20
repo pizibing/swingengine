@@ -23,49 +23,49 @@
 
 using namespace Swing;
 
-D3D10_COMPARISON_FUNC DX10Renderer::ms_aeZBufferCompare[ZBufferState::CF_COUNT] = 
+D3D10_COMPARISON_FUNC DX10Renderer::ms_aeZBufferCompare[SEZBufferState::CF_COUNT] = 
 {
-    D3D10_COMPARISON_NEVER,           // ZBufferState::CF_NEVER
-    D3D10_COMPARISON_LESS,            // ZBufferState::CF_LESS
-    D3D10_COMPARISON_EQUAL,           // ZBufferState::CF_EQUAL
-    D3D10_COMPARISON_LESS_EQUAL,      // ZBufferState::CF_LEQUAL
-    D3D10_COMPARISON_GREATER,         // ZBufferState::CF_GREATER
-    D3D10_COMPARISON_NOT_EQUAL,       // ZBufferState::CF_NOTEQUAL
-    D3D10_COMPARISON_GREATER_EQUAL,   // ZBufferState::CF_GEQUAL
-    D3D10_COMPARISON_ALWAYS           // ZBufferState::CF_ALWAYS
+    D3D10_COMPARISON_NEVER,           // SEZBufferState::CF_NEVER
+    D3D10_COMPARISON_LESS,            // SEZBufferState::CF_LESS
+    D3D10_COMPARISON_EQUAL,           // SEZBufferState::CF_EQUAL
+    D3D10_COMPARISON_LESS_EQUAL,      // SEZBufferState::CF_LEQUAL
+    D3D10_COMPARISON_GREATER,         // SEZBufferState::CF_GREATER
+    D3D10_COMPARISON_NOT_EQUAL,       // SEZBufferState::CF_NOTEQUAL
+    D3D10_COMPARISON_GREATER_EQUAL,   // SEZBufferState::CF_GEQUAL
+    D3D10_COMPARISON_ALWAYS           // SEZBufferState::CF_ALWAYS
 };
 
-D3D10_COMPARISON_FUNC DX10Renderer::ms_aeStencilCompare[StencilState::CF_COUNT] = 
+D3D10_COMPARISON_FUNC DX10Renderer::ms_aeStencilCompare[SEStencilState::CF_COUNT] = 
 {
-    D3D10_COMPARISON_NEVER,           // StencilState::CF_NEVER
-    D3D10_COMPARISON_LESS,            // StencilState::CF_LESS
-    D3D10_COMPARISON_EQUAL,           // StencilState::CF_EQUAL
-    D3D10_COMPARISON_LESS_EQUAL,      // StencilState::CF_LEQUAL
-    D3D10_COMPARISON_GREATER,         // StencilState::CF_GREATER
-    D3D10_COMPARISON_NOT_EQUAL,       // StencilState::CF_NOTEQUAL
-    D3D10_COMPARISON_GREATER_EQUAL,   // StencilState::CF_GEQUAL
-    D3D10_COMPARISON_ALWAYS           // StencilState::CF_ALWAYS
+    D3D10_COMPARISON_NEVER,           // SEStencilState::CF_NEVER
+    D3D10_COMPARISON_LESS,            // SEStencilState::CF_LESS
+    D3D10_COMPARISON_EQUAL,           // SEStencilState::CF_EQUAL
+    D3D10_COMPARISON_LESS_EQUAL,      // SEStencilState::CF_LEQUAL
+    D3D10_COMPARISON_GREATER,         // SEStencilState::CF_GREATER
+    D3D10_COMPARISON_NOT_EQUAL,       // SEStencilState::CF_NOTEQUAL
+    D3D10_COMPARISON_GREATER_EQUAL,   // SEStencilState::CF_GEQUAL
+    D3D10_COMPARISON_ALWAYS           // SEStencilState::CF_ALWAYS
 };
 
-D3D10_STENCIL_OP DX10Renderer::ms_aeStencilOperation[StencilState::OT_COUNT] =
+D3D10_STENCIL_OP DX10Renderer::ms_aeStencilOperation[SEStencilState::OT_COUNT] =
 {
-    D3D10_STENCIL_OP_KEEP,      // StencilState::OT_KEEP
-    D3D10_STENCIL_OP_ZERO,      // StencilState::OT_ZERO
-    D3D10_STENCIL_OP_REPLACE,   // StencilState::OT_REPLACE
-    D3D10_STENCIL_OP_INCR,      // StencilState::OT_INCREMENT
-    D3D10_STENCIL_OP_DECR,      // StencilState::OT_DECREMENT
-    D3D10_STENCIL_OP_INVERT     // StencilState::OT_INVERT
+    D3D10_STENCIL_OP_KEEP,      // SEStencilState::OT_KEEP
+    D3D10_STENCIL_OP_ZERO,      // SEStencilState::OT_ZERO
+    D3D10_STENCIL_OP_REPLACE,   // SEStencilState::OT_REPLACE
+    D3D10_STENCIL_OP_INCR,      // SEStencilState::OT_INCREMENT
+    D3D10_STENCIL_OP_DECR,      // SEStencilState::OT_DECREMENT
+    D3D10_STENCIL_OP_INVERT     // SEStencilState::OT_INVERT
 };
 
 //----------------------------------------------------------------------------
 void DX10Renderer::GenerateDepthStencilState(
-    const RenderStateBlock* pRStateBlock, 
+    const SERenderStateBlock* pRStateBlock, 
     ID3D10DepthStencilState*& rpDX10DSState)
 {
-    GlobalState* pState = pRStateBlock->States[GlobalState::ZBUFFER];
-    ZBufferState* pZBufferState = (ZBufferState*)pState;
-    pState = pRStateBlock->States[GlobalState::STENCIL];
-    StencilState* pStencilState = (StencilState*)pState;
+    SEGlobalState* pState = pRStateBlock->States[SEGlobalState::ZBUFFER];
+    SEZBufferState* pZBufferState = (SEZBufferState*)pState;
+    pState = pRStateBlock->States[SEGlobalState::STENCIL];
+    SEStencilState* pStencilState = (SEStencilState*)pState;
 
     // 检查是否需要创建一个depth stencil state对象.
     if( !pZBufferState && !pStencilState )
@@ -80,8 +80,8 @@ void DX10Renderer::GenerateDepthStencilState(
     // 填充zbuffer state相关参数.
     if( !pZBufferState )
     {
-        pState = GlobalState::Default[GlobalState::ZBUFFER];
-        pZBufferState = (ZBufferState*)pState;
+        pState = SEGlobalState::Default[SEGlobalState::ZBUFFER];
+        pZBufferState = (SEZBufferState*)pState;
     }
     SE_ASSERT( pZBufferState );
 
@@ -107,8 +107,8 @@ void DX10Renderer::GenerateDepthStencilState(
     // 填充stencil state相关参数.
     if( !pStencilState )
     {
-        pState = GlobalState::Default[GlobalState::STENCIL];
-        pStencilState = (StencilState*)pState;
+        pState = SEGlobalState::Default[SEGlobalState::STENCIL];
+        pStencilState = (SEStencilState*)pState;
     }
     SE_ASSERT( pStencilState );
 

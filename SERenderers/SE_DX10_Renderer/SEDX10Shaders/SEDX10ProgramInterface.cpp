@@ -24,22 +24,22 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, DX10ProgramInterface, Object);
-SE_IMPLEMENT_STREAM(DX10ProgramInterface);
-SE_IMPLEMENT_DEFAULT_STREAM(DX10ProgramInterface, Object);
-SE_IMPLEMENT_DEFAULT_NAME_ID(DX10ProgramInterface, Object);
+SE_IMPLEMENT_RTTI(Swing, SEDX10ProgramInterface, SEObject);
+SE_IMPLEMENT_STREAM(SEDX10ProgramInterface);
+SE_IMPLEMENT_DEFAULT_STREAM(SEDX10ProgramInterface, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEDX10ProgramInterface, SEObject);
 
-//SE_REGISTER_STREAM(DX10ProgramInterface);
+//SE_REGISTER_STREAM(SEDX10ProgramInterface);
 
 //----------------------------------------------------------------------------
-DX10ProgramInterface::DX10ProgramInterface()
+SEDX10ProgramInterface::SEDX10ProgramInterface()
 {
     m_eCgType = CG_UNKNOWN_TYPE;
     m_hCgParam = 0;
     m_hCgProgram = 0;
 }
 //----------------------------------------------------------------------------
-DX10ProgramInterface::~DX10ProgramInterface()
+SEDX10ProgramInterface::~SEDX10ProgramInterface()
 {
     if( m_hCgParam )
     {
@@ -47,10 +47,10 @@ DX10ProgramInterface::~DX10ProgramInterface()
         SE_DX10_DEBUG_CG_PROGRAM;
     }
 
-    DX10ProgramInterfaceCatalog::GetActive()->Remove(this);
+    SEDX10ProgramInterfaceCatalog::GetActive()->Remove(this);
 }
 //----------------------------------------------------------------------------
-DX10ProgramInterface* DX10ProgramInterface::Load(CGprogram hCgProgram, 
+SEDX10ProgramInterface* SEDX10ProgramInterface::Load(CGprogram hCgProgram, 
     CGcontext hCgContext, const std::string& rPInterfaceName)
 {
     CGtype eCgType = cgGetNamedUserType(hCgProgram, rPInterfaceName.c_str());
@@ -58,7 +58,8 @@ DX10ProgramInterface* DX10ProgramInterface::Load(CGprogram hCgProgram,
 
     if( eCgType != CG_UNKNOWN_TYPE )
     {
-        DX10ProgramInterface* pProgramInterface = SE_NEW DX10ProgramInterface;
+        SEDX10ProgramInterface* pProgramInterface = 
+            SE_NEW SEDX10ProgramInterface;
 
         pProgramInterface->SetName(rPInterfaceName);
         pProgramInterface->m_eCgType = eCgType;
@@ -67,7 +68,7 @@ DX10ProgramInterface* DX10ProgramInterface::Load(CGprogram hCgProgram,
         SE_DX10_DEBUG_CG_PROGRAM;
         pProgramInterface->m_hCgProgram = hCgProgram;
 
-        DX10ProgramInterfaceCatalog::GetActive()->Insert(pProgramInterface);
+        SEDX10ProgramInterfaceCatalog::GetActive()->Insert(pProgramInterface);
 
         return pProgramInterface;
     }

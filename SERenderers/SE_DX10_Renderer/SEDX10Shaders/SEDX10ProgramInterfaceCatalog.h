@@ -28,19 +28,18 @@
 namespace Swing
 {
 
-class DX10ProgramInterface;
+class SEDX10ProgramInterface;
 
 //----------------------------------------------------------------------------
-// Name:DirectX10 shader program interface catalog class
 // Description:
 // Author:Sun Che
 // Date:20091202
 //----------------------------------------------------------------------------
-class SE_RENDERER_API DX10ProgramInterfaceCatalog
+class SE_RENDERER_API SEDX10ProgramInterfaceCatalog
 {
 public:
-    DX10ProgramInterfaceCatalog(const std::string& rName);
-    ~DX10ProgramInterfaceCatalog(void);
+    SEDX10ProgramInterfaceCatalog(const std::string& rName);
+    ~SEDX10ProgramInterfaceCatalog(void);
 
     // 开始时我们不知道渲染器类型,
     // 在应用程序层创建了一个渲染器后,才能调用此函数来设置catalog所属渲染器,
@@ -48,23 +47,23 @@ public:
     void SetRenderer(DX10Renderer* pRenderer);
 
     const std::string& GetName(void) const;
-    bool Insert(DX10ProgramInterface* pProgramInterface);
-    bool Remove(DX10ProgramInterface* pProgramInterface);
-    DX10ProgramInterface* Find(CGprogram hCgProgram, 
+    bool Insert(SEDX10ProgramInterface* pProgramInterface);
+    bool Remove(SEDX10ProgramInterface* pProgramInterface);
+    SEDX10ProgramInterface* Find(CGprogram hCgProgram, 
         const std::string& rPInterfaceName);
     bool PrintContents(const std::string& rFileName) const;
 
-    static void SetActive(DX10ProgramInterfaceCatalog* pActive);
-    static DX10ProgramInterfaceCatalog* GetActive(void);
+    static void SetActive(SEDX10ProgramInterfaceCatalog* pActive);
+    static SEDX10ProgramInterfaceCatalog* GetActive(void);
 
 private:
     enum { PROGRAM_MAP_SIZE = 256 };
     std::string m_Name;
-    StringHashTable<DX10ProgramInterface*> m_Entry;
+    SEStringHashTable<SEDX10ProgramInterface*> m_Entry;
 
     DX10Renderer* m_pRenderer;
 
-    static DX10ProgramInterfaceCatalog* ms_pActive;
+    static SEDX10ProgramInterfaceCatalog* ms_pActive;
 };
 
 }

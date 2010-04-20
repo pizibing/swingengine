@@ -50,7 +50,7 @@ int DX10Renderer::LoadFont(const char* acFace, int iSize, bool bBold,
     tempFontDesc.OutputPrecision = OUT_DEFAULT_PRECIS;
     tempFontDesc.Quality = DEFAULT_QUALITY;
     tempFontDesc.PitchAndFamily = DEFAULT_PITCH | FF_DONTCARE;
-    System::SE_Strcpy(tempFontDesc.FaceName, sizeof(tempFontDesc.FaceName), 
+    SESystem::SE_Strcpy(tempFontDesc.FaceName, sizeof(tempFontDesc.FaceName), 
         acFace);
 
     ms_hResult = D3DX10CreateFontIndirect(m_pDX10Device, &tempFontDesc, 
@@ -94,7 +94,7 @@ bool DX10Renderer::SelectFont(int iFontID)
     return true;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::Draw(int iX, int iY, const ColorRGBA& rColor, 
+void DX10Renderer::Draw(int iX, int iY, const SEColorRGBA& rColor, 
     const char* acText)
 {
     SE_ASSERT( acText );

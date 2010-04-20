@@ -23,44 +23,44 @@
 
 using namespace Swing;
 
-D3D10_BLEND DX10Renderer::ms_aeAlphaSrcBlend[AlphaState::SBF_COUNT] =
+D3D10_BLEND DX10Renderer::ms_aeAlphaSrcBlend[SEAlphaState::SBF_COUNT] =
 {
-    D3D10_BLEND_ZERO,            // AlphaState::SBF_ZERO
-    D3D10_BLEND_ONE,             // AlphaState::SBF_ONE
-    D3D10_BLEND_DEST_COLOR,      // AlphaState::SBF_DST_COLOR
-    D3D10_BLEND_INV_DEST_COLOR,  // AlphaState::SBF_ONE_MINUS_DST_COLOR
-    D3D10_BLEND_SRC_ALPHA,       // AlphaState::SBF_SRC_ALPHA
-    D3D10_BLEND_INV_SRC_ALPHA,   // AlphaState::SBF_ONE_MINUS_SRC_ALPHA
-    D3D10_BLEND_DEST_ALPHA,      // AlphaState::SBF_DST_ALPHA
-    D3D10_BLEND_INV_DEST_ALPHA,  // AlphaState::SBF_ONE_MINUS_DST_ALPHA
-    D3D10_BLEND_SRC_ALPHA_SAT,   // AlphaState::SBF_SRC_ALPHA_SATURATE
-    (D3D10_BLEND)0,              // AlphaState::SBF_CONSTANT_COLOR
-    (D3D10_BLEND)0,              // AlphaState::SBF_ONE_MINUS_CONSTANT_COLOR
-    (D3D10_BLEND)0,              // AlphaState::SBF_CONSTANT_ALPHA
-    (D3D10_BLEND)0               // AlphaState::SBF_ONE_MINUS_CONSTANT_ALPHA
+    D3D10_BLEND_ZERO,            // SEAlphaState::SBF_ZERO
+    D3D10_BLEND_ONE,             // SEAlphaState::SBF_ONE
+    D3D10_BLEND_DEST_COLOR,      // SEAlphaState::SBF_DST_COLOR
+    D3D10_BLEND_INV_DEST_COLOR,  // SEAlphaState::SBF_ONE_MINUS_DST_COLOR
+    D3D10_BLEND_SRC_ALPHA,       // SEAlphaState::SBF_SRC_ALPHA
+    D3D10_BLEND_INV_SRC_ALPHA,   // SEAlphaState::SBF_ONE_MINUS_SRC_ALPHA
+    D3D10_BLEND_DEST_ALPHA,      // SEAlphaState::SBF_DST_ALPHA
+    D3D10_BLEND_INV_DEST_ALPHA,  // SEAlphaState::SBF_ONE_MINUS_DST_ALPHA
+    D3D10_BLEND_SRC_ALPHA_SAT,   // SEAlphaState::SBF_SRC_ALPHA_SATURATE
+    (D3D10_BLEND)0,              // SEAlphaState::SBF_CONSTANT_COLOR
+    (D3D10_BLEND)0,              // SEAlphaState::SBF_ONE_MINUS_CONSTANT_COLOR
+    (D3D10_BLEND)0,              // SEAlphaState::SBF_CONSTANT_ALPHA
+    (D3D10_BLEND)0               // SEAlphaState::SBF_ONE_MINUS_CONSTANT_ALPHA
 };
 
-D3D10_BLEND DX10Renderer::ms_aeAlphaDstBlend[AlphaState::DBF_COUNT] =
+D3D10_BLEND DX10Renderer::ms_aeAlphaDstBlend[SEAlphaState::DBF_COUNT] =
 {
-    D3D10_BLEND_ZERO,            // AlphaState::DBF_ZERO
-    D3D10_BLEND_ONE,             // AlphaState::DBF_ONE
-    D3D10_BLEND_SRC_COLOR,       // AlphaState::DBF_SRC_COLOR
-    D3D10_BLEND_INV_SRC_COLOR,   // AlphaState::DBF_ONE_MINUS_SRC_COLOR
-    D3D10_BLEND_SRC_ALPHA,       // AlphaState::DBF_SRC_ALPHA
-    D3D10_BLEND_INV_SRC_ALPHA,   // AlphaState::DBF_ONE_MINUS_SRC_ALPHA
-    D3D10_BLEND_DEST_ALPHA,      // AlphaState::DBF_DST_ALPHA
-    D3D10_BLEND_INV_DEST_ALPHA,  // AlphaState::DBF_ONE_MINUS_DST_ALPHA
-    (D3D10_BLEND)0,              // AlphaState::DBF_CONSTANT_COLOR
-    (D3D10_BLEND)0,              // AlphaState::DBF_ONE_MINUS_CONSTANT_COLOR
-    (D3D10_BLEND)0,              // AlphaState::DBF_CONSTANT_ALPHA
-    (D3D10_BLEND)0               // AlphaState::DBF_ONE_MINUS_CONSTANT_ALPHA
+    D3D10_BLEND_ZERO,            // SEAlphaState::DBF_ZERO
+    D3D10_BLEND_ONE,             // SEAlphaState::DBF_ONE
+    D3D10_BLEND_SRC_COLOR,       // SEAlphaState::DBF_SRC_COLOR
+    D3D10_BLEND_INV_SRC_COLOR,   // SEAlphaState::DBF_ONE_MINUS_SRC_COLOR
+    D3D10_BLEND_SRC_ALPHA,       // SEAlphaState::DBF_SRC_ALPHA
+    D3D10_BLEND_INV_SRC_ALPHA,   // SEAlphaState::DBF_ONE_MINUS_SRC_ALPHA
+    D3D10_BLEND_DEST_ALPHA,      // SEAlphaState::DBF_DST_ALPHA
+    D3D10_BLEND_INV_DEST_ALPHA,  // SEAlphaState::DBF_ONE_MINUS_DST_ALPHA
+    (D3D10_BLEND)0,              // SEAlphaState::DBF_CONSTANT_COLOR
+    (D3D10_BLEND)0,              // SEAlphaState::DBF_ONE_MINUS_CONSTANT_COLOR
+    (D3D10_BLEND)0,              // SEAlphaState::DBF_CONSTANT_ALPHA
+    (D3D10_BLEND)0               // SEAlphaState::DBF_ONE_MINUS_CONSTANT_ALPHA
 };
 
 //----------------------------------------------------------------------------
-void DX10Renderer::GenerateBlendState(const RenderStateBlock* pRStateBlock,
+void DX10Renderer::GenerateBlendState(const SERenderStateBlock* pRStateBlock,
     ID3D10BlendState*& rpDX10BState)
 {
-    GlobalState* pState = pRStateBlock->States[GlobalState::ALPHA];
+    SEGlobalState* pState = pRStateBlock->States[SEGlobalState::ALPHA];
 
     // 检查是否需要创建一个blend state对象.
     if( !pState )
@@ -69,7 +69,7 @@ void DX10Renderer::GenerateBlendState(const RenderStateBlock* pRStateBlock,
         return;
     }
     
-    AlphaState* pAlphaState = (AlphaState*)pState;
+    SEAlphaState* pAlphaState = (SEAlphaState*)pState;
 
     D3D10_BLEND_DESC tempBSDesc;
     memset(&tempBSDesc, 0, sizeof(D3D10_BLEND_DESC));

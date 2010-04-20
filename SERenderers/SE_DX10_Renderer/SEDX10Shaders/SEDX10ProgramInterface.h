@@ -29,12 +29,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:DirectX10 shader program interface class
 // Description:
 // Author:Sun Che
 // Date:20091202
 //----------------------------------------------------------------------------
-class SE_RENDERER_API DX10ProgramInterface : public Object
+class SE_RENDERER_API SEDX10ProgramInterface : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -42,23 +41,23 @@ class SE_RENDERER_API DX10ProgramInterface : public Object
 
 public:
     // Instance must be created by this function.
-    static DX10ProgramInterface* Load(CGprogram hCgProgram, 
+    static SEDX10ProgramInterface* Load(CGprogram hCgProgram, 
         CGcontext hCgContext, const std::string& rPInterfaceName);
-    ~DX10ProgramInterface(void);
+    ~SEDX10ProgramInterface(void);
 
     inline CGtype GetProgramInterfaceType(void) const;
     inline CGparameter GetParam(void) const;
     inline CGprogram GetProgram(void) const;
 
 protected:
-    DX10ProgramInterface(void);
+    SEDX10ProgramInterface(void);
 
     CGtype m_eCgType;
     CGparameter m_hCgParam;
     CGprogram m_hCgProgram;
 };
 
-typedef SmartPointer<DX10ProgramInterface> DX10ProgramInterfacePtr;
+typedef SESmartPointer<SEDX10ProgramInterface> SEDX10ProgramInterfacePtr;
 
 #include "SEDX10ProgramInterface.inl"
 

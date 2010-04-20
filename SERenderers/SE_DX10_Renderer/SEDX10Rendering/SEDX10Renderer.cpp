@@ -27,7 +27,7 @@
 using namespace Swing;
 
 HRESULT DX10Renderer::ms_hResult = 0;
-DX10ProgramInterfaceCatalog* DX10Renderer::ms_pProgramInterfaceCatalog = 0;
+SEDX10ProgramInterfaceCatalog* DX10Renderer::ms_pProgramInterfaceCatalog = 0;
 
 SE_IMPLEMENT_INITIALIZE(DX10Renderer);
 SE_IMPLEMENT_TERMINATE(DX10Renderer);
@@ -38,26 +38,26 @@ SE_IMPLEMENT_TERMINATE(DX10Renderer);
 //----------------------------------------------------------------------------
 void DX10Renderer::Initialize()
 {
-    ms_pProgramInterfaceCatalog = SE_NEW DX10ProgramInterfaceCatalog("Main");
-    DX10ProgramInterfaceCatalog::SetActive(ms_pProgramInterfaceCatalog);
+    ms_pProgramInterfaceCatalog = SE_NEW SEDX10ProgramInterfaceCatalog("Main");
+    SEDX10ProgramInterfaceCatalog::SetActive(ms_pProgramInterfaceCatalog);
 }
 //----------------------------------------------------------------------------
 void DX10Renderer::Terminate()
 {
-    if( DX10ProgramInterfaceCatalog::GetActive() == 
+    if( SEDX10ProgramInterfaceCatalog::GetActive() == 
         ms_pProgramInterfaceCatalog )
     {
-        DX10ProgramInterfaceCatalog::SetActive(0);
+        SEDX10ProgramInterfaceCatalog::SetActive(0);
     }
     SE_DELETE ms_pProgramInterfaceCatalog;
 }
 //----------------------------------------------------------------------------
-DX10Renderer::DX10Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
-    FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,
-    FrameBuffer::BufferingType eBuffering,
-    FrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight)
+DX10Renderer::DX10Renderer(HWND hWnd, SEFrameBuffer::FormatType eFormat,
+    SEFrameBuffer::DepthType eDepth, SEFrameBuffer::StencilType eStencil,
+    SEFrameBuffer::BufferingType eBuffering,
+    SEFrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight)
     :
-    Renderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth, 
+    SERenderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth, 
         iHeight)
 {
     m_SwapChainDesc.BufferDesc.Width = iWidth;
@@ -78,13 +78,13 @@ DX10Renderer::DX10Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     m_SwapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD; //multisampling所需
     m_SwapChainDesc.SampleDesc.Count = 1;
     m_SwapChainDesc.SampleDesc.Quality = 0;
-    if( m_eMultisampling == FrameBuffer::MT_SAMPLING_4 )
+    if( m_eMultisampling == SEFrameBuffer::MT_SAMPLING_4 )
     {
         // 待实现.
         // 检查设备是否支持multisampling 4 samples.
         m_SwapChainDesc.SampleDesc.Count = 4;
     }
-    else if( m_eMultisampling == FrameBuffer::MT_SAMPLING_2 )
+    else if( m_eMultisampling == SEFrameBuffer::MT_SAMPLING_2 )
     {
         // 待实现.
         // 检查设备是否支持multisampling 2 samples.
@@ -171,25 +171,25 @@ DX10Renderer::DX10Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     m_iMaxPShaderImages = m_iMaxTCoords;
     m_iMaxUserClipPlanes = 8;
     m_iMaxStencilIndices = 8;
-    m_iMaxVShaderProfile = Renderer::VS_4_0;
-    m_iMaxGShaderProfile = Renderer::GS_4_0;
-    m_iMaxPShaderProfile = Renderer::PS_4_0;
+    m_iMaxVShaderProfile = SERenderer::VS_4_0;
+    m_iMaxGShaderProfile = SERenderer::GS_4_0;
+    m_iMaxPShaderProfile = SERenderer::PS_4_0;
     m_iMaxRenderTargets = 8;
 
     // 相对于固定管线T&L部分,shader-based engine理论上无上限,
     // Swing Engine目前只支持8.
     m_iMaxLights = 8;
-    m_aspLight = SE_NEW ObjectPtr[m_iMaxLights];
+    m_aspLight = SE_NEW SEObjectPtr[m_iMaxLights];
 
     m_iMaxActiveSamplerCount = m_iMaxVShaderImages + m_iMaxGShaderImages +
         m_iMaxPShaderImages;
     if( m_iMaxActiveSamplerCount > 0 )
     {
         m_apActiveSamplers =
-            SE_NEW SamplerInformation*[m_iMaxActiveSamplerCount];
+            SE_NEW SESamplerInformation*[m_iMaxActiveSamplerCount];
 
         memset(m_apActiveSamplers, 0, m_iMaxActiveSamplerCount*
-            sizeof(SamplerInformation*));
+            sizeof(SESamplerInformation*));
     }
 
     // Cg runtime stuff begin.
@@ -230,7 +230,7 @@ DX10Renderer::DX10Renderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     m_pDX10Device->RSSetState(m_pDX10RasterizerState);
 
     //// 初始化全局渲染状态为引擎默认设置.
-    //SetGlobalState(GlobalState::Default);
+    //SetGlobalState(SEGlobalState::Default);
 
     m_bCursorVisible = true;
     m_bDeviceLost = false;
@@ -296,7 +296,7 @@ DX10Renderer::~DX10Renderer()
 //----------------------------------------------------------------------------
 void DX10Renderer::ToggleFullscreen()
 {
-    //Renderer::ToggleFullscreen();
+    //SERenderer::ToggleFullscreen();
     //m_Present.Windowed = !m_Present.Windowed;
 
     //if( m_Present.Windowed )
@@ -378,10 +378,10 @@ void DX10Renderer::DisplayBackBuffer()
 void DX10Renderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
     bool bAllowBlue, bool bAllowAlpha)
 {
-    Renderer::SetColorMask(bAllowRed, bAllowGreen, bAllowBlue, bAllowAlpha);
+    SERenderer::SetColorMask(bAllowRed, bAllowGreen, bAllowBlue, bAllowAlpha);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::EnableUserClipPlane(int, const Plane3f&)
+void DX10Renderer::EnableUserClipPlane(int, const SEPlane3f&)
 {
     // 待实现.
 }
@@ -408,15 +408,15 @@ void DX10Renderer::OnPostDrawGeometry()
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnPreDrawPass(ShaderEffect* pEffect, int iPass, bool)
+void DX10Renderer::OnPreDrawPass(SEShaderEffect* pEffect, int iPass, bool)
 {
-    RenderStateBlock* pRStateBlock = pEffect->GetRStateBlock(iPass);
+    SERenderStateBlock* pRStateBlock = pEffect->GetRStateBlock(iPass);
     SE_ASSERT( pRStateBlock );
 
     EnableRenderStateBlock(pRStateBlock);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnPostDrawPass(ShaderEffect*, int, bool)
+void DX10Renderer::OnPostDrawPass(SEShaderEffect*, int, bool)
 {
     // 无需任何操作.
 }

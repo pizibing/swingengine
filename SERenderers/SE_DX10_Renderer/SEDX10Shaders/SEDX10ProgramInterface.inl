@@ -19,17 +19,17 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------   
-inline CGtype DX10ProgramInterface::GetProgramInterfaceType() const
+inline CGtype SEDX10ProgramInterface::GetProgramInterfaceType() const
 {
     return m_eCgType;
 }
 //----------------------------------------------------------------------------
-inline CGparameter DX10ProgramInterface::GetParam() const
+inline CGparameter SEDX10ProgramInterface::GetParam() const
 {
     return m_hCgParam;
 }
 //----------------------------------------------------------------------------
-inline CGprogram DX10ProgramInterface::GetProgram() const
+inline CGprogram SEDX10ProgramInterface::GetProgram() const
 {
     return m_hCgProgram;
 }

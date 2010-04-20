@@ -25,25 +25,26 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_INITIALIZE(DX10Program);
+SE_IMPLEMENT_INITIALIZE(SEDX10Program);
 
-//SE_REGISTER_INITIALIZE(DX10Program);
+//SE_REGISTER_INITIALIZE(SEDX10Program);
 
 //----------------------------------------------------------------------------
-void DX10Program::Initialize()
+void SEDX10Program::Initialize()
 {
-    Program::OnLoadProgram = &DX10Program::OnLoadProgram;
-    Program::OnReleaseUserData = &DX10Program::OnReleaseUserData;
-    LightingEffect::OnConfigureLighting = &DX10Program::OnConfigureLighting;
+    SEProgram::OnLoadProgram = &SEDX10Program::OnLoadProgram;
+    SEProgram::OnReleaseUserData = &SEDX10Program::OnReleaseUserData;
+    SELightingEffect::OnConfigureLighting = 
+        &SEDX10Program::OnConfigureLighting;
 }
 //----------------------------------------------------------------------------
-DX10Program::DX10Program()
+SEDX10Program::SEDX10Program()
 {
 }
 //----------------------------------------------------------------------------
-bool DX10Program::OnLoadProgram(Renderer* pRenderer, 
-    const std::string& rProgramName, Program* pProgram, Program::ProgramType eType, 
-    InterfaceDescriptor*)
+bool SEDX10Program::OnLoadProgram(SERenderer* pRenderer, const std::string& 
+    rProgramName, SEProgram* pProgram, SEProgram::ProgramType eType, 
+    SEInterfaceDescriptor*)
 {
     if( !pRenderer || !pProgram )
     {
@@ -54,10 +55,10 @@ bool DX10Program::OnLoadProgram(Renderer* pRenderer,
     // Get file name and entry name.
     size_t uiLen = strlen(rProgramName.c_str()) + 1;
     char* acProgramName = SE_NEW char[uiLen];
-    System::SE_Strcpy(acProgramName, uiLen, rProgramName.c_str());
+    SESystem::SE_Strcpy(acProgramName, uiLen, rProgramName.c_str());
     char* pNextToken;
-    char* acFileName = System::SE_Strtok(acProgramName, ".", pNextToken);
-    char* acEntryName = System::SE_Strtok(0, ".", pNextToken);
+    char* acFileName = SESystem::SE_Strtok(acProgramName, ".", pNextToken);
+    char* acEntryName = SESystem::SE_Strtok(0, ".", pNextToken);
     if( !acFileName || !acEntryName )
     {
         // Failed to get the names.
@@ -66,8 +67,8 @@ bool DX10Program::OnLoadProgram(Renderer* pRenderer,
     }
 
     std::string tempFileName = std::string(acFileName) + std::string(".cg");
-    const char* pDecorated = System::SE_GetPath(tempFileName.c_str(), 
-        System::SM_READ);
+    const char* pDecorated = SESystem::SE_GetPath(tempFileName.c_str(), 
+        SESystem::SM_READ);
     if( !pDecorated )
     {
         // The Cg source file can not be found.
@@ -75,14 +76,14 @@ bool DX10Program::OnLoadProgram(Renderer* pRenderer,
         return false;
     }
 
-    // To access the protected member of Program class in this static function,
-    // we should convert the pointer of Program class object to the pointer of 
+    // To access the protected member of SEProgram class in this static function,
+    // we should convert the pointer of SEProgram class object to the pointer of 
     // it's derived class object. Because we only access the base class's data 
     // member, so the convertion is safe.
-    DX10Program* pDX10Program = (DX10Program*)pProgram;
-    Program::ProgramType& rProgramType = pDX10Program->m_eProgramType;
-    pProgram->UserData = SE_NEW ProgramData;
-    CGprogram& rCgProgram = ((ProgramData*)pProgram->UserData)->ID;
+    SEDX10Program* pDX10Program = (SEDX10Program*)pProgram;
+    SEProgram::ProgramType& rProgramType = pDX10Program->m_eProgramType;
+    pProgram->UserData = SE_NEW SEProgramData;
+    CGprogram& rCgProgram = ((SEProgramData*)pProgram->UserData)->ID;
     CGcontext hCgContext;
     CGprofile hCgProfile;
     CGparameter hCgParam;
@@ -92,13 +93,13 @@ bool DX10Program::OnLoadProgram(Renderer* pRenderer,
     rProgramType = eType;
     switch( eType )
     {
-    case Program::PT_VERTEX:
+    case SEProgram::PT_VERTEX:
         hCgProfile = pDX10Renderer->GetCgLatestVertexProfile();
         break;
-    case Program::PT_PIXEL:
+    case SEProgram::PT_PIXEL:
         hCgProfile = pDX10Renderer->GetCgLatestPixelProfile();
         break;
-    case Program::PT_GEOMETRY:
+    case SEProgram::PT_GEOMETRY:
         hCgProfile = pDX10Renderer->GetCgLatestGeometryProfile();
         break;
     default:
@@ -124,10 +125,10 @@ bool DX10Program::OnLoadProgram(Renderer* pRenderer,
     // Shader interface linking operation.
     //if( pInterfaceDesc )
     //{
-    //    ProgramData* pData = (ProgramData*)pProgram->UserData;
-    //    std::vector<DX10ProgramInterfacePtr>& rProgramInterfaces = 
+    //    SEProgramData* pData = (SEProgramData*)pProgram->UserData;
+    //    std::vector<SEDX10ProgramInterfacePtr>& rProgramInterfaces = 
     //        pData->Interfaces;
-    //    DescriptorItem* pDescriptorItem = 0;
+    //    SEDescriptorItem* pDescriptorItem = 0;
 
     //    int iItemCount = pInterfaceDesc->GetCount();
     //    for( int i = 0; i < iItemCount; i++ )
@@ -150,8 +151,8 @@ bool DX10Program::OnLoadProgram(Renderer* pRenderer,
     //        
     //            for( int j = 0; j < iTypeCount; j++ )
     //            {
-    //                DX10ProgramInterface* pInterface = 
-    //                    DX10ProgramInterfaceCatalog::GetActive()->Find(rCgProgram,
+    //                SEDX10ProgramInterface* pInterface = 
+    //                    SEDX10ProgramInterfaceCatalog::GetActive()->Find(rCgProgram,
     //                    pDescriptorItem->GetTypeName(j));
     //                SE_ASSERT( pInterface );
     //                hCgUserTypeParam = pInterface->GetParam();
@@ -166,8 +167,8 @@ bool DX10Program::OnLoadProgram(Renderer* pRenderer,
     //        }
     //        else
     //        {
-    //            DX10ProgramInterface* pInterface = 
-    //                DX10ProgramInterfaceCatalog::GetActive()->Find(rCgProgram,
+    //            SEDX10ProgramInterface* pInterface = 
+    //                SEDX10ProgramInterfaceCatalog::GetActive()->Find(rCgProgram,
     //                pDescriptorItem->GetTypeName(0));
     //                SE_ASSERT( pInterface );
     //                hCgUserTypeParam = pInterface->GetParam();
@@ -203,7 +204,7 @@ bool DX10Program::OnLoadProgram(Renderer* pRenderer,
     return true;
 }
 //----------------------------------------------------------------------------
-bool DX10Program::RecursParams(CGparameter hCgParam, Program* pProgram)
+bool SEDX10Program::RecursParams(CGparameter hCgParam, SEProgram* pProgram)
 {
     if( !hCgParam )
     {
@@ -226,7 +227,8 @@ bool DX10Program::RecursParams(CGparameter hCgParam, Program* pProgram)
                 int iArraySize = cgGetArraySize(hCgParam, 0);
                 for( int i = 0; i < iArraySize; i++ )
                 {
-                    if( !RecursParams(cgGetArrayParameter(hCgParam, i), pProgram) )
+                    if( !RecursParams(cgGetArrayParameter(hCgParam, i), 
+                        pProgram) )
                     {
                         return false;
                     }
@@ -245,28 +247,29 @@ bool DX10Program::RecursParams(CGparameter hCgParam, Program* pProgram)
     return true;
 }
 //----------------------------------------------------------------------------
-bool DX10Program::ParseParam(CGparameter hCgParam, Program* pProgram)
+bool SEDX10Program::ParseParam(CGparameter hCgParam, SEProgram* pProgram)
 {
     if( !hCgParam || !pProgram )
     {
         return false;
     }
 
-    // To access the protected member of Program class in this static function,
-    // we should convert the pointer of Program class object to the pointer of 
+    // To access the protected member of SEProgram class in this static function,
+    // we should convert the pointer of SEProgram class object to the pointer of 
     // it's derived class object. Because we only access the base class's data 
     // member, so the convertion is safe.
-    DX10Program* pDX10Program = (DX10Program*)pProgram;
-    Attributes& rIAttributes = pDX10Program->m_InputAttributes;
-    Attributes& rOAttributes = pDX10Program->m_OutputAttributes;
-    std::vector<RendererConstant>& rRCs = pDX10Program->m_RendererConstants;
-    std::vector<UserConstant>& rUCs = pDX10Program->m_UserConstants;
-    std::vector<SamplerInformation>& rSIs = pDX10Program->m_SamplerInformation;
+    SEDX10Program* pDX10Program = (SEDX10Program*)pProgram;
+    SEAttributes& rIAttributes = pDX10Program->m_InputAttributes;
+    SEAttributes& rOAttributes = pDX10Program->m_OutputAttributes;
+    std::vector<SERendererConstant>& rRCs = pDX10Program->m_RendererConstants;
+    std::vector<SEUserConstant>& rUCs = pDX10Program->m_UserConstants;
+    std::vector<SESamplerInformation>& rSIs = 
+        pDX10Program->m_SamplerInformation;
 
     std::string StrParamName, StrParamSemantic;
     int iNumFloats, iUnit;
-    SamplerInformation::Type eSType;
-    RendererConstant::Type eRCType;
+    SESamplerInformation::Type eSType;
+    SERendererConstant::Type eRCType;
 
     CGtype eCgParamType;
     CGenum eCgParamDir;
@@ -287,7 +290,7 @@ bool DX10Program::ParseParam(CGparameter hCgParam, Program* pProgram)
 
     // 获取parameter数据类型.
     iNumFloats = 0;
-    eSType = SamplerInformation::MAX_SAMPLER_TYPES;
+    eSType = SESamplerInformation::MAX_SAMPLER_TYPES;
     if( eCgParamType == CG_FLOAT )
     {
         iNumFloats = 1;
@@ -310,19 +313,19 @@ bool DX10Program::ParseParam(CGparameter hCgParam, Program* pProgram)
     }
     else if( eCgParamType == CG_SAMPLER1D )
     {
-        eSType = SamplerInformation::SAMPLER_1D;
+        eSType = SESamplerInformation::SAMPLER_1D;
     }
     else if( eCgParamType == CG_SAMPLER2D )
     {
-        eSType = SamplerInformation::SAMPLER_2D;
+        eSType = SESamplerInformation::SAMPLER_2D;
     }
     else if( eCgParamType == CG_SAMPLER3D )
     {
-        eSType = SamplerInformation::SAMPLER_3D;
+        eSType = SESamplerInformation::SAMPLER_3D;
     }
     else if( eCgParamType == CG_SAMPLERCUBE )
     {
-        eSType = SamplerInformation::SAMPLER_CUBE;
+        eSType = SESamplerInformation::SAMPLER_CUBE;
     }
     else
     {
@@ -332,9 +335,9 @@ bool DX10Program::ParseParam(CGparameter hCgParam, Program* pProgram)
     }
 
     // 获取采样器信息(如果当前parameter是采样器声明).
-    if( eSType != SamplerInformation::MAX_SAMPLER_TYPES )
+    if( eSType != SESamplerInformation::MAX_SAMPLER_TYPES )
     {
-        SamplerInformation TempSU(StrParamName.c_str(), eSType, 
+        SESamplerInformation TempSU(StrParamName.c_str(), eSType, 
             (void*)hCgParam);
         rSIs.push_back(TempSU);
         return true;
@@ -343,28 +346,28 @@ bool DX10Program::ParseParam(CGparameter hCgParam, Program* pProgram)
     StrParamSemantic = acParamSemantic;
     if( eCgParamDir == CG_IN )
     {
-        if( StrParamSemantic == Program::ms_PositionStr 
-         || StrParamSemantic == Program::ms_Position0Str )
+        if( StrParamSemantic == SEProgram::ms_PositionStr 
+         || StrParamSemantic == SEProgram::ms_Position0Str )
         {
             // 只支持(x,y,z) position.
             rIAttributes.SetPositionChannels(3);
         }
-        else if( StrParamSemantic == Program::ms_NormalStr 
-              || StrParamSemantic == Program::ms_Normal0Str )
+        else if( StrParamSemantic == SEProgram::ms_NormalStr 
+              || StrParamSemantic == SEProgram::ms_Normal0Str )
         {
             // 只支持(x,y,z) normals.
             rIAttributes.SetNormalChannels(3);
         }
-        else if( StrParamSemantic == Program::ms_ColorStr
-              || StrParamSemantic == Program::ms_Color0Str )
+        else if( StrParamSemantic == SEProgram::ms_ColorStr
+              || StrParamSemantic == SEProgram::ms_Color0Str )
         {
             rIAttributes.SetColorChannels(0, iNumFloats);
         }
-        else if( StrParamSemantic == Program::ms_Color1Str )
+        else if( StrParamSemantic == SEProgram::ms_Color1Str )
         {
             rIAttributes.SetColorChannels(1, iNumFloats);
         }
-        else if( StrParamSemantic.substr(0, 8) == Program::ms_TexCoordStr )
+        else if( StrParamSemantic.substr(0, 8) == SEProgram::ms_TexCoordStr )
         {
             iUnit = (int)StrParamSemantic[8] - '0';
             rIAttributes.SetTCoordChannels(iUnit, iNumFloats);
@@ -372,18 +375,18 @@ bool DX10Program::ParseParam(CGparameter hCgParam, Program* pProgram)
         else
         {
             // 变量必定是一个renderer constant或者user-defined constant.
-            eRCType = RendererConstant::GetType(StrParamName.c_str());
-            if( eRCType != RendererConstant::MAX_TYPES )
+            eRCType = SERendererConstant::GetType(StrParamName.c_str());
+            if( eRCType != SERendererConstant::MAX_TYPES )
             {
                 // renderer constant.
-                RendererConstant TempRC(eRCType, (void*)hCgParam, 
+                SERendererConstant TempRC(eRCType, (void*)hCgParam, 
                     iNumFloats);
                 rRCs.push_back(TempRC);
             }
             else
             {
                 // user-defined constant.
-                UserConstant TempUC(StrParamName.c_str(), (void*)hCgParam, 
+                SEUserConstant TempUC(StrParamName.c_str(), (void*)hCgParam, 
                     iNumFloats);
                 rUCs.push_back(TempUC);
             }
@@ -391,36 +394,36 @@ bool DX10Program::ParseParam(CGparameter hCgParam, Program* pProgram)
     }
     else if( eCgParamDir == CG_OUT )
     {
-        if( StrParamSemantic == Program::ms_PositionStr 
-         || StrParamSemantic == Program::ms_Position0Str )
+        if( StrParamSemantic == SEProgram::ms_PositionStr 
+         || StrParamSemantic == SEProgram::ms_Position0Str )
         {
             rOAttributes.SetPositionChannels(iNumFloats);
         }
-        else if( StrParamSemantic == Program::ms_NormalStr 
-              || StrParamSemantic == Program::ms_Normal0Str )
+        else if( StrParamSemantic == SEProgram::ms_NormalStr 
+              || StrParamSemantic == SEProgram::ms_Normal0Str )
         {
             rOAttributes.SetNormalChannels(iNumFloats);
         }
-        else if( StrParamSemantic == Program::ms_ColorStr
-              || StrParamSemantic == Program::ms_Color0Str )
+        else if( StrParamSemantic == SEProgram::ms_ColorStr
+              || StrParamSemantic == SEProgram::ms_Color0Str )
         {
             rOAttributes.SetColorChannels(0, iNumFloats);
         }
-        else if( StrParamSemantic == Program::ms_Color1Str )
+        else if( StrParamSemantic == SEProgram::ms_Color1Str )
         {
             rOAttributes.SetColorChannels(1, iNumFloats);
         }
-        else if( StrParamSemantic == Program::ms_Color2Str )
+        else if( StrParamSemantic == SEProgram::ms_Color2Str )
         {
             rOAttributes.SetColorChannels(2, iNumFloats);
         }
-        else if( StrParamSemantic == Program::ms_Color3Str )
+        else if( StrParamSemantic == SEProgram::ms_Color3Str )
         {
             rOAttributes.SetColorChannels(3, iNumFloats);
         }
         else
         {
-            if( StrParamSemantic.substr(0, 8) != Program::ms_TexCoordStr )
+            if( StrParamSemantic.substr(0, 8) != SEProgram::ms_TexCoordStr )
             {
                 // 引擎尚未支持的变量semantic类型.
                 SE_ASSERT( false );
@@ -441,9 +444,9 @@ bool DX10Program::ParseParam(CGparameter hCgParam, Program* pProgram)
     return true;
 }
 //----------------------------------------------------------------------------
-void DX10Program::OnReleaseUserData(void* pUserData)
+void SEDX10Program::OnReleaseUserData(void* pUserData)
 {
-    ProgramData* pData = (ProgramData*)pUserData;
+    SEProgramData* pData = (SEProgramData*)pUserData;
 
     if( pData )
     {
@@ -457,18 +460,18 @@ void DX10Program::OnReleaseUserData(void* pUserData)
     }
 }
 //----------------------------------------------------------------------------
-void DX10Program::OnConfigureLighting(LightingEffect* pLEffect)
+void SEDX10Program::OnConfigureLighting(SELightingEffect* pLEffect)
 {
-    VertexShader* pVShader;
-    PixelShader* pPShader;
+    SEVertexShader* pVShader;
+    SEPixelShader* pPShader;
 
     int iLCount = pLEffect->GetLightCount();
-    LightingEffect::LightingMode eMode = pLEffect->GetLightingMode();
+    SELightingEffect::LightingMode eMode = pLEffect->GetLightingMode();
 
     if( iLCount == 0 )
     {
-        pVShader = SE_NEW VertexShader("Material.v_Material");
-        pPShader = SE_NEW PixelShader("PassThrough.p_PassThrough4");
+        pVShader = SE_NEW SEVertexShader("Material.v_Material");
+        pPShader = SE_NEW SEPixelShader("PassThrough.p_PassThrough4");
         pLEffect->SetVShader(0, pVShader);
         pLEffect->SetPShader(0, pPShader);
 
@@ -476,19 +479,19 @@ void DX10Program::OnConfigureLighting(LightingEffect* pLEffect)
     }
     else
     {
-        if( eMode == LightingEffect::LM_VERTEX )
+        if( eMode == SELightingEffect::LM_VERTEX )
         {
-            pVShader = SE_NEW VertexShader("ILighting.v_ILighting");
-            pPShader = SE_NEW PixelShader(
+            pVShader = SE_NEW SEVertexShader("ILighting.v_ILighting");
+            pPShader = SE_NEW SEPixelShader(
                 "ILighting.p_LightingPassThrough4");
             pLEffect->SetVShader(0, pVShader);
             pLEffect->SetPShader(0, pPShader);
         }
-        else if( eMode == LightingEffect::LM_PIXEL )
+        else if( eMode == SELightingEffect::LM_PIXEL )
         {
-            pVShader = SE_NEW VertexShader(
+            pVShader = SE_NEW SEVertexShader(
                 "ILighting.v_LightingPassThrough");
-            pPShader = SE_NEW PixelShader("ILighting.p_ILighting");
+            pPShader = SE_NEW SEPixelShader("ILighting.p_ILighting");
             pLEffect->SetVShader(0, pVShader);
             pLEffect->SetPShader(0, pPShader);
         }
@@ -499,12 +502,12 @@ void DX10Program::OnConfigureLighting(LightingEffect* pLEffect)
         }
     }
 
-    std::string aLightTypes[4] = {"AmbientLight", "DirectionalLight", "PointLight", 
-        "SpotLight"};
+    std::string aLightTypes[4] = {"AmbientLight", "DirectionalLight", 
+        "PointLight", "SpotLight"};
     int iLightType;
 
-    InterfaceDescriptor* pInterfaceDesc = SE_NEW InterfaceDescriptor;
-    if( eMode == LightingEffect::LM_VERTEX )
+    SEInterfaceDescriptor* pInterfaceDesc = SE_NEW SEInterfaceDescriptor;
+    if( eMode == SELightingEffect::LM_VERTEX )
     {
         pVShader->SetInterfaceDescriptor(pInterfaceDesc);
     }
@@ -513,7 +516,7 @@ void DX10Program::OnConfigureLighting(LightingEffect* pLEffect)
         pPShader->SetInterfaceDescriptor(pInterfaceDesc);
     }
 
-    DescriptorItem* pDescItem = SE_NEW DescriptorItem;
+    SEDescriptorItem* pDescItem = SE_NEW SEDescriptorItem;
     pInterfaceDesc->AttachItem(pDescItem);
     pDescItem->IsArray = true;
     pDescItem->SetInstanceName("LightArray");

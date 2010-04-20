@@ -24,7 +24,7 @@
 
 using namespace Swing;
 
-D3D10_PRIMITIVE_TOPOLOGY DX10Renderer::ms_aeObjectType[Geometry::GT_MAX_COUNT] =
+D3D10_PRIMITIVE_TOPOLOGY DX10Renderer::ms_aeObjectType[SEGeometry::GT_MAX_COUNT] =
 {
     D3D10_PRIMITIVE_TOPOLOGY_POINTLIST,      // GT_POLYPOINT
     D3D10_PRIMITIVE_TOPOLOGY_LINELIST,       // GT_POLYLINE_SEGMENTS
@@ -36,7 +36,7 @@ D3D10_PRIMITIVE_TOPOLOGY DX10Renderer::ms_aeObjectType[Geometry::GT_MAX_COUNT] =
 //----------------------------------------------------------------------------
 void DX10Renderer::DrawElements()
 {
-    IndexBuffer* pIBuffer = m_pGeometry->IBuffer;
+    SEIndexBuffer* pIBuffer = m_pGeometry->IBuffer;
     SE_ASSERT( pIBuffer );
 
     D3D10_PRIMITIVE_TOPOLOGY eType = ms_aeObjectType[m_pGeometry->Type];

@@ -30,22 +30,21 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:DirectX10 Framebuffer类
 // Description:
 // Author:Sun Che
 // Date:20090519
 //----------------------------------------------------------------------------
-class SE_RENDERER_API DX10FrameBuffer : public FrameBuffer
+class SE_RENDERER_API SEDX10FrameBuffer : public SEFrameBuffer
 {
     SE_DECLARE_INITIALIZE;
 
 public:
-    DX10FrameBuffer(FormatType eFormat, DepthType eDepth,
+    SEDX10FrameBuffer(FormatType eFormat, DepthType eDepth,
         StencilType eStencil, BufferingType eBuffering,
-        MultisamplingType eMultisampling, Renderer* pRenderer,
-        int iTCount, Texture** apTargets);
+        MultisamplingType eMultisampling, SERenderer* pRenderer,
+        int iTCount, SETexture** apTargets);
 
-    virtual ~DX10FrameBuffer(void);
+    virtual ~SEDX10FrameBuffer(void);
 
     bool InitializeBuffer(void);
     void TerminateBuffer(void);
@@ -76,12 +75,12 @@ protected:
     //ID3DXRenderToSurface* m_pRenderToTexture;
 
     // 工厂函数
-    static FrameBuffer* Create(FormatType eFormat, DepthType eDepth,
+    static SEFrameBuffer* Create(FormatType eFormat, DepthType eDepth,
         StencilType eStencil, BufferingType eBuffering,
-        MultisamplingType eMultisampling, Renderer* pRenderer,
-        int iTCount, Texture** apTargets);
+        MultisamplingType eMultisampling, SERenderer* pRenderer,
+        int iTCount, SETexture** apTargets);
 
-    static void Destroy(FrameBuffer* pBuffer);
+    static void Destroy(SEFrameBuffer* pBuffer);
 };
 
 }
