@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-class ParticleSystem : public WindowApplication3
+class ParticleSystem : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -39,13 +39,13 @@ public:
 
 protected:
     void CreateBloodCellImage(void);
-    Particles* CreateParticles(void);
+    SEParticles* CreateParticles(void);
 
-    NodePtr m_spScene;
-    ImagePtr m_spBloodCell;
-    WireframeStatePtr m_spWireframe;
-    ParticleControllerPtr m_spController;
-    Culler m_Culler;
+    SENodePtr m_spScene;
+    SEImagePtr m_spBloodCell;
+    SEWireframeStatePtr m_spWireframe;
+    SEParticleControllerPtr m_spController;
+    SECuller m_Culler;
 };
 
 #endif

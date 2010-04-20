@@ -26,7 +26,7 @@
 namespace Swing
 {
 
-class BloodCellController : public ParticleController
+class BloodCellController : public SEParticleController
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;

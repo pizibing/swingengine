@@ -28,27 +28,27 @@ SE_REGISTER_INITIALIZE(ParticleSystem);
 //----------------------------------------------------------------------------
 ParticleSystem::ParticleSystem()
     :
-    WindowApplication3("ParticleSystem", 0, 0, 800, 600, 
-        ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
+    SEWindowApplication3("ParticleSystem", 0, 0, 800, 600, 
+        SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
 }
 //----------------------------------------------------------------------------
 bool ParticleSystem::OnInitialize()
 {
-    if( !WindowApplication3::OnInitialize() )
+    if( !SEWindowApplication3::OnInitialize() )
     {
         return false;
     }
 
     m_spCamera->SetFrustum(-0.55f, 0.55f, -0.4125f, 0.4125f, 1.0f, 100.0f);
-    Vector3f tempCLoc(0.0f, 0.0f, -5.0f);
-    Vector3f tempCDir(0.0f, 0.0f, 1.0f);
-    Vector3f tempCUp(0.0f, 1.0f, 0.0f);
-    Vector3f tempCRight = tempCUp.Cross(tempCDir);
+    SEVector3f tempCLoc(0.0f, 0.0f, -5.0f);
+    SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
+    SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
+    SEVector3f tempCRight = tempCUp.Cross(tempCDir);
     m_spCamera->SetFrame(tempCLoc, tempCRight, tempCUp, tempCDir);
 
-    m_spScene = SE_NEW Node;
-    m_spWireframe = SE_NEW WireframeState;
+    m_spScene = SE_NEW SENode;
+    m_spWireframe = SE_NEW SEWireframeState;
     m_spScene->AttachGlobalState(m_spWireframe);
     m_spScene->AttachChild(CreateParticles());
 
@@ -69,7 +69,7 @@ void ParticleSystem::OnTerminate()
     m_spBloodCell = 0;
     m_spWireframe = 0;
     m_spController = 0;
-    WindowApplication3::OnTerminate();
+    SEWindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void ParticleSystem::OnIdle()
@@ -78,14 +78,14 @@ void ParticleSystem::OnIdle()
 
     MoveCamera();
     MoveObject();
-    m_spScene->UpdateGS(System::SE_GetTime());
+    m_spScene->UpdateGS(SESystem::SE_GetTime());
     m_Culler.ComputeUnculledSet(m_spScene);
 
     m_pRenderer->ClearBuffers();
     if( m_pRenderer->BeginScene() )
     {
         m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
-        DrawFrameRate(8, 20, ColorRGBA::SE_RGBA_WHITE);
+        DrawFrameRate(8, 20, SEColorRGBA::SE_RGBA_WHITE);
         m_pRenderer->EndScene();
     }
     m_pRenderer->DisplayBackBuffer();
@@ -95,7 +95,7 @@ void ParticleSystem::OnIdle()
 //----------------------------------------------------------------------------
 bool ParticleSystem::OnKeyDown(unsigned char ucKey, int iX, int iY)
 {
-    if( WindowApplication3::OnKeyDown(ucKey, iX, iY) )
+    if( SEWindowApplication3::OnKeyDown(ucKey, iX, iY) )
     {
         return true;
     }
@@ -137,7 +137,7 @@ void ParticleSystem::CreateBloodCellImage()
 
             if( fValue < 0.125f )
             {
-                fValue = Mathf::Cos(4.0f*Mathf::PI*fValue);
+                fValue = SEMathf::Cos(4.0f*SEMathf::PI*fValue);
             }
             else
             {
@@ -147,39 +147,39 @@ void ParticleSystem::CreateBloodCellImage()
         }
     }
 
-    m_spBloodCell = SE_NEW Image(Image::IT_RGBA8888, iWidth, iHeight, aucData,
-        "BloodCell");
+    m_spBloodCell = SE_NEW SEImage(SEImage::IT_RGBA8888, iWidth, iHeight, 
+        aucData, "BloodCell");
 }
 //----------------------------------------------------------------------------
-Particles* ParticleSystem::CreateParticles()
+SEParticles* ParticleSystem::CreateParticles()
 {
     const int iVCount = 256;
-    Vector3f* aVertex = SE_NEW Vector3f[iVCount];
+    SEVector3f* aVertex = SE_NEW SEVector3f[iVCount];
     float* afSize = SE_NEW float[iVCount];
     for( int i = 0; i < iVCount; i++ )
     {
-        aVertex[i].X = Mathf::SymmetricRandom();
-        aVertex[i].Y = Mathf::SymmetricRandom();
-        aVertex[i].Z = Mathf::SymmetricRandom();
-        afSize[i] = 0.25f*Mathf::UnitRandom();
+        aVertex[i].X = SEMathf::SymmetricRandom();
+        aVertex[i].Y = SEMathf::SymmetricRandom();
+        aVertex[i].Z = SEMathf::SymmetricRandom();
+        afSize[i] = 0.25f*SEMathf::UnitRandom();
     }
-    Vector3fArray* pVertices = SE_NEW Vector3fArray(iVCount, aVertex);
-    FloatArray* pSizes = SE_NEW FloatArray(iVCount, afSize);
+    SEVector3fArray* pVertices = SE_NEW SEVector3fArray(iVCount, aVertex);
+    SEFloatArray* pSizes = SE_NEW SEFloatArray(iVCount, afSize);
 
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetTCoordChannels(0, 2);
-    Particles* pParticles = SE_NEW Particles(tempAttr, pVertices, pSizes);
+    SEParticles* pParticles = SE_NEW SEParticles(tempAttr, pVertices, pSizes);
 
     CreateBloodCellImage();
-    Effect* pEffect = SE_NEW TextureEffect("BloodCell");
+    SEEffect* pEffect = SE_NEW SETextureEffect("BloodCell");
     pParticles->AttachEffect(pEffect);
 
-    AlphaState* pAS = SE_NEW AlphaState;
+    SEAlphaState* pAS = SE_NEW SEAlphaState;
     pAS->BlendEnabled = true;
     pParticles->AttachGlobalState(pAS);
 
-    ZBufferState* pZS = SE_NEW ZBufferState;
+    SEZBufferState* pZS = SE_NEW SEZBufferState;
     pZS->Enabled = false;
     pParticles->AttachGlobalState(pZS);
 
@@ -188,8 +188,8 @@ Particles* ParticleSystem::CreateParticles()
     m_spController->Frequency = 0.1;
     m_spController->MinTime = 0.0;
     m_spController->MaxTime = 1000.0;
-    m_spController->Repeat = Controller::RT_CYCLE;
-    m_spController->SystemAngularAxis = Vector3f::UNIT_Y;
+    m_spController->Repeat = SEController::RT_CYCLE;
+    m_spController->SystemAngularAxis = SEVector3f::UNIT_Y;
     m_spController->SystemAngularSpeed = 10.0f;
 
     return pParticles;

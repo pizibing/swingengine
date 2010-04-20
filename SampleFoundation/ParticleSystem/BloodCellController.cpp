@@ -22,9 +22,9 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, BloodCellController, ParticleController);
+SE_IMPLEMENT_RTTI(Swing, BloodCellController, SEParticleController);
 SE_IMPLEMENT_STREAM(BloodCellController);
-SE_IMPLEMENT_DEFAULT_NAME_ID(BloodCellController, ParticleController);
+SE_IMPLEMENT_DEFAULT_NAME_ID(BloodCellController, SEParticleController);
 
 SE_REGISTER_STREAM(BloodCellController);
 
@@ -35,16 +35,16 @@ BloodCellController::BloodCellController()
 //----------------------------------------------------------------------------
 void BloodCellController::UpdatePointMotion(float)
 {
-    Particles* pParticle = StaticCast<Particles>(m_pObject);
+    SEParticles* pParticle = StaticCast<SEParticles>(m_pObject);
 
     int iLCount = pParticle->Locations->GetCount();
-    Vector3f* aLocation = pParticle->Locations->GetData();
+    SEVector3f* aLocation = pParticle->Locations->GetData();
     float* afSize = pParticle->Sizes->GetData();
     for( int i = 0; i < iLCount; i++ )
     {
         for( int j = 0; j < 3; j++ )
         {
-            aLocation[i][j] += 0.01f*Mathf::SymmetricRandom();
+            aLocation[i][j] += 0.01f*SEMathf::SymmetricRandom();
             if( aLocation[i][j] > 1.0f )
             {
                 aLocation[i][j] = 1.0f;
@@ -55,7 +55,7 @@ void BloodCellController::UpdatePointMotion(float)
             }
         }
 
-        afSize[i] *= (1.0f + 0.05f*Mathf::SymmetricRandom());
+        afSize[i] *= (1.0f + 0.05f*SEMathf::SymmetricRandom());
         if( afSize[i] > 0.25f )
         {
             afSize[i] = 0.25f;
@@ -69,44 +69,44 @@ void BloodCellController::UpdatePointMotion(float)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void BloodCellController::Load(Stream& rStream, Stream::Link* pLink)
+void BloodCellController::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    ParticleController::Load(rStream, pLink);
+    SEParticleController::Load(rStream, pLink);
 
     SE_END_DEBUG_STREAM_LOAD(BloodCellController);
 }
 //----------------------------------------------------------------------------
-void BloodCellController::Link(Stream& rStream, Stream::Link* pLink)
+void BloodCellController::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    ParticleController::Link(rStream, pLink);
+    SEParticleController::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool BloodCellController::Register(Stream& rStream) const
+bool BloodCellController::Register(SEStream& rStream) const
 {
-    return ParticleController::Register(rStream);
+    return SEParticleController::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void BloodCellController::Save(Stream& rStream) const
+void BloodCellController::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    ParticleController::Save(rStream);
+    SEParticleController::Save(rStream);
 
     SE_END_DEBUG_STREAM_SAVE(BloodCellController);
 }
 //----------------------------------------------------------------------------
-int BloodCellController::GetDiskUsed(const StreamVersion& rVersion) const
+int BloodCellController::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return ParticleController::GetDiskUsed(rVersion);
+    return SEParticleController::GetDiskUsed(rVersion);
 }
 //----------------------------------------------------------------------------
-StringTree* BloodCellController::SaveStrings(const char*)
+SEStringTree* BloodCellController::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
     pTree->Append(Format(&TYPE, GetName().c_str()));
-    pTree->Append(ParticleController::SaveStrings());
+    pTree->Append(SEParticleController::SaveStrings());
     return pTree;
 }
 //----------------------------------------------------------------------------
