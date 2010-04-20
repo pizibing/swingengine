@@ -312,7 +312,7 @@ WAVERESULT WaveParser::ParseFile(const char* acFileName,
     fopen_s(&pWaveInfo->pFile, acFileName, "rb");
     if( pWaveInfo->pFile )
     {
-        // Read Wave file header.
+        // Read wave file header.
         fread(&waveFileHeader, 1, sizeof(WAVEFILEHEADER), pWaveInfo->pFile);
         if( !_strnicmp(waveFileHeader.acRIFF, "RIFF", 4) && 
             !_strnicmp(waveFileHeader.acWAVE, "WAVE", 4) )
@@ -679,7 +679,7 @@ WAVERESULT WaveParser::GetWaveALBufferFormat(WAVEID WaveID,
 }
 //----------------------------------------------------------------------------
 WAVERESULT WaveParser::GetWaveSEWaveFormat(WAVEID WaveID, 
-    Swing::Wave::FormatMode* peFormat)
+    Swing::SEWave::FormatMode* peFormat)
 {
     WAVERESULT wr = WR_OK;
 
@@ -687,7 +687,7 @@ WAVERESULT WaveParser::GetWaveSEWaveFormat(WAVEID WaveID,
     {
         if( peFormat )
         {
-            *peFormat = (Swing::Wave::FormatMode)-1;
+            *peFormat = (Swing::SEWave::FormatMode)-1;
 
             if( m_WaveIDs[WaveID]->wfType == WF_EX )
             {
@@ -696,13 +696,13 @@ WAVERESULT WaveParser::GetWaveSEWaveFormat(WAVEID WaveID,
                     switch( m_WaveIDs[WaveID]->wfEXT.Format.wBitsPerSample )
                     {
                     case 4:
-                        *peFormat = Swing::Wave::WT_MONO4;
+                        *peFormat = Swing::SEWave::WT_MONO4;
                         break;
                     case 8:
-                        *peFormat = Swing::Wave::WT_MONO8;
+                        *peFormat = Swing::SEWave::WT_MONO8;
                         break;
                     case 16:
-                        *peFormat = Swing::Wave::WT_MONO16;
+                        *peFormat = Swing::SEWave::WT_MONO16;
                         break;
                     }
                 }
@@ -711,20 +711,20 @@ WAVERESULT WaveParser::GetWaveSEWaveFormat(WAVEID WaveID,
                     switch( m_WaveIDs[WaveID]->wfEXT.Format.wBitsPerSample )
                     {
                     case 4:
-                        *peFormat = Swing::Wave::WT_STEREO4;
+                        *peFormat = Swing::SEWave::WT_STEREO4;
                         break;
                     case 8:
-                        *peFormat = Swing::Wave::WT_STEREO8;
+                        *peFormat = Swing::SEWave::WT_STEREO8;
                         break;
                     case 16:
-                        *peFormat = Swing::Wave::WT_STEREO16;
+                        *peFormat = Swing::SEWave::WT_STEREO16;
                         break;
                     }
                 }
                 else if( (m_WaveIDs[WaveID]->wfEXT.Format.nChannels == 4) && 
                     (m_WaveIDs[WaveID]->wfEXT.Format.wBitsPerSample == 16) )
                 {
-                    *peFormat = Swing::Wave::WT_QUAD16;
+                    *peFormat = Swing::SEWave::WT_QUAD16;
                 }
             }
             else if( m_WaveIDs[WaveID]->wfType == WF_EXT )
@@ -739,13 +739,13 @@ WAVERESULT WaveParser::GetWaveSEWaveFormat(WAVEID WaveID,
                     switch( m_WaveIDs[WaveID]->wfEXT.Format.wBitsPerSample )
                     {
                     case 4:
-                        *peFormat = Swing::Wave::WT_MONO4;
+                        *peFormat = Swing::SEWave::WT_MONO4;
                         break;
                     case 8:
-                        *peFormat = Swing::Wave::WT_MONO8;
+                        *peFormat = Swing::SEWave::WT_MONO8;
                         break;
                     case 16:
-                        *peFormat = Swing::Wave::WT_MONO16;
+                        *peFormat = Swing::SEWave::WT_MONO16;
                         break;
                     }
                 }
@@ -756,13 +756,13 @@ WAVERESULT WaveParser::GetWaveSEWaveFormat(WAVEID WaveID,
                     switch (m_WaveIDs[WaveID]->wfEXT.Format.wBitsPerSample)
                     {
                     case 4:
-                        *peFormat = Swing::Wave::WT_STEREO4;
+                        *peFormat = Swing::SEWave::WT_STEREO4;
                         break;
                     case 8:
-                        *peFormat = Swing::Wave::WT_STEREO8;
+                        *peFormat = Swing::SEWave::WT_STEREO8;
                         break;
                     case 16:
-                        *peFormat = Swing::Wave::WT_STEREO16;
+                        *peFormat = Swing::SEWave::WT_STEREO16;
                         break;
                     }
                 }
@@ -771,7 +771,7 @@ WAVERESULT WaveParser::GetWaveSEWaveFormat(WAVEID WaveID,
                     (m_WaveIDs[WaveID]->wfEXT.dwChannelMask == 
                     (SPEAKER_BACK_LEFT|SPEAKER_BACK_RIGHT)) )
                 {
-                    *peFormat = Swing::Wave::WT_REAR16;
+                    *peFormat = Swing::SEWave::WT_REAR16;
                 }
                 else if( (m_WaveIDs[WaveID]->wfEXT.Format.nChannels == 4) && 
                     (m_WaveIDs[WaveID]->wfEXT.Format.wBitsPerSample == 16) &&
@@ -779,7 +779,7 @@ WAVERESULT WaveParser::GetWaveSEWaveFormat(WAVEID WaveID,
                     (SPEAKER_FRONT_LEFT|SPEAKER_FRONT_RIGHT|SPEAKER_BACK_LEFT|
                     SPEAKER_BACK_RIGHT)) )
                 {
-                    *peFormat = Swing::Wave::WT_QUAD16;
+                    *peFormat = Swing::SEWave::WT_QUAD16;
                 }
                 else if( (m_WaveIDs[WaveID]->wfEXT.Format.nChannels == 6) &&
                     (m_WaveIDs[WaveID]->wfEXT.Format.wBitsPerSample == 16) &&
@@ -788,7 +788,7 @@ WAVERESULT WaveParser::GetWaveSEWaveFormat(WAVEID WaveID,
                     SPEAKER_FRONT_CENTER|SPEAKER_LOW_FREQUENCY|
                     SPEAKER_BACK_LEFT|SPEAKER_BACK_RIGHT)) )
                 {
-                    *peFormat = Swing::Wave::WT_51CHN16;
+                    *peFormat = Swing::SEWave::WT_51CHN16;
                 }
                 else if( (m_WaveIDs[WaveID]->wfEXT.Format.nChannels == 7) &&
                     (m_WaveIDs[WaveID]->wfEXT.Format.wBitsPerSample == 16) &&
@@ -798,7 +798,7 @@ WAVERESULT WaveParser::GetWaveSEWaveFormat(WAVEID WaveID,
                     SPEAKER_BACK_LEFT|SPEAKER_BACK_RIGHT|
                     SPEAKER_BACK_CENTER)) )
                 {
-			        *peFormat = Swing::Wave::WT_61CHN16;
+			        *peFormat = Swing::SEWave::WT_61CHN16;
                 }
                 else if( (m_WaveIDs[WaveID]->wfEXT.Format.nChannels == 8) &&
                     (m_WaveIDs[WaveID]->wfEXT.Format.wBitsPerSample == 16) &&
@@ -808,7 +808,7 @@ WAVERESULT WaveParser::GetWaveSEWaveFormat(WAVEID WaveID,
                     SPEAKER_BACK_LEFT|SPEAKER_BACK_RIGHT|SPEAKER_SIDE_LEFT|
                     SPEAKER_SIDE_RIGHT)) )
                 {
-                    *peFormat = Swing::Wave::WT_71CHN16;
+                    *peFormat = Swing::SEWave::WT_71CHN16;
                 }
             }
 
@@ -862,7 +862,7 @@ char* WaveParser::GetErrorString(WAVERESULT wr, char* acErrorString,
         break;
 
     case WR_BADWAVEFILE:
-        strncpy_s(acErrorString, uiSizeOfErrorString, "Invalid Wave file\n", 
+        strncpy_s(acErrorString, uiSizeOfErrorString, "Invalid wave file\n", 
             uiSizeOfErrorString-1);
         break;
 

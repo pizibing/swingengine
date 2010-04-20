@@ -36,7 +36,7 @@ void WavToSewf::Usage()
     cout << "Warning: Only support PCM wave format." << endl;
 }
 //----------------------------------------------------------------------------
-int WavToSewf::GetWave(const char* acWAVName, Wave::FormatMode& reFormat,
+int WavToSewf::GetWave(const char* acWAVName, SEWave::FormatMode& reFormat,
     unsigned int& ruiFrequency, unsigned int& ruiDataSize,
     unsigned char*& raucData)
 {
@@ -125,7 +125,7 @@ int WavToSewf::Main(int iArgCount, char** aacArgument)
         tempWaveName += acWAVFileName[i];
     }
 
-    Wave::FormatMode eFormat;
+    SEWave::FormatMode eFormat;
     unsigned int uiFrequency;
     unsigned int uiDataSize;
     unsigned char* aucWAVData;  // 由GetWave函数创建数据区内存,稍后释放
@@ -141,7 +141,7 @@ int WavToSewf::Main(int iArgCount, char** aacArgument)
     // this to SomeFile.sewf.
     const size_t uiDstSize = strlen(acWAVFileName) + 2;
     char* acSewfName = SE_NEW char[uiDstSize];
-    System::SE_Strcpy(acSewfName, uiDstSize, acWAVFileName);
+    SESystem::SE_Strcpy(acSewfName, uiDstSize, acWAVFileName);
     char* acSewfFileExt = acSewfName + uiDstSize - 5;
     acSewfFileExt[0] = 's';
     acSewfFileExt[1] = 'e';
@@ -149,8 +149,8 @@ int WavToSewf::Main(int iArgCount, char** aacArgument)
     acSewfFileExt[3] = 'f';
     acSewfFileExt[4] = 0;
 
-    Wave* pWave = SE_NEW Wave(eFormat, uiFrequency, uiDataSize, aucWAVData,
-        (const char*)tempWaveName.c_str(), false);
+    SEWave* pWave = SE_NEW SEWave(eFormat, uiFrequency, uiDataSize, 
+        aucWAVData, (const char*)tempWaveName.c_str(), false);
     if( !pWave )
     {
             SE_DELETE[] aucWAVData;

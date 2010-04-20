@@ -122,7 +122,6 @@ typedef int (__cdecl *PFNALGETENUMVALUE)( const char *szEnumName );
 typedef int	WAVEID;
 
 //----------------------------------------------------------------------------
-// 名称:wave parser类
 // 说明:
 // 作者:Sun Che
 // 时间:20090622
@@ -153,7 +152,7 @@ public:
         PFNALGETENUMVALUE pfnGetEnumValue, unsigned int* puiFormat);
     // support for Swing Engine wave format.
     WAVERESULT GetWaveSEWaveFormat(WAVEID WaveID,
-        Swing::Wave::FormatMode* peFormat);
+        Swing::SEWave::FormatMode* peFormat);
 
     WAVERESULT DeleteWaveFile(WAVEID WaveID);
 

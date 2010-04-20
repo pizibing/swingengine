@@ -27,12 +27,11 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-// 名称:WavToSewf类
 // 说明:
 // 作者:Sun Che
 // 时间:20090621
 //----------------------------------------------------------------------------
-class WavToSewf : public ConsoleApplication
+class WavToSewf : public SEConsoleApplication
 {
     SE_DECLARE_INITIALIZE;
 
@@ -42,7 +41,7 @@ public:
 protected:
     void Usage(void);
 
-    int GetWave(const char* acWAVName, Wave::FormatMode& reFormat,
+    int GetWave(const char* acWAVName, SEWave::FormatMode& reFormat,
         unsigned int& ruiFrequency, unsigned int& ruiDataSize,
         unsigned char*& raucData);
 };
