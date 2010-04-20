@@ -33,8 +33,8 @@ char* ShadowMaps::ms_aacCaptions[3] =
 //----------------------------------------------------------------------------
 ShadowMaps::ShadowMaps()
     :
-    WindowApplication3("ShadowMaps", 0, 0, 800, 600, 
-        ColorRGBA(0.0f, 0.25f, 0.75f, 1.0f))
+    SEWindowApplication3("ShadowMaps", 0, 0, 800, 600, 
+        SEColorRGBA(0.0f, 0.25f, 0.75f, 1.0f))
 {
     m_acCaption = 0;
     m_pFrameBuffer = 0;
@@ -42,17 +42,17 @@ ShadowMaps::ShadowMaps()
 //----------------------------------------------------------------------------
 bool ShadowMaps::OnInitialize()
 {
-    if( !WindowApplication3::OnInitialize() )
+    if( !SEWindowApplication3::OnInitialize() )
     {
         return false;
     }
 
     // set up camera
     m_spCamera->SetFrustum(60.0f, 4.0f/3.0f, 1.0f, 100.0f);
-    Vector3f tempCLoc(0.0f, 0.0f, -10.0f);
-    Vector3f tempCDir(0.0f, 0.0f, 1.0f);
-    Vector3f tempCUp(0.0f, 1.0f, 0.0f);
-    Vector3f tempCRight = tempCUp.Cross(tempCDir);
+    SEVector3f tempCLoc(0.0f, 0.0f, -10.0f);
+    SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
+    SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
+    SEVector3f tempCRight = tempCUp.Cross(tempCDir);
     m_spCamera->SetFrame(tempCLoc, tempCRight, tempCUp, tempCDir);
 
     CreateScene();
@@ -76,7 +76,7 @@ bool ShadowMaps::OnInitialize()
 //----------------------------------------------------------------------------
 void ShadowMaps::OnTerminate()
 {
-    FrameBuffer::Destroy(m_pFrameBuffer);
+    SEFrameBuffer::Destroy(m_pFrameBuffer);
 
     m_spScene = 0;
     m_spShadowMapNode = 0;
@@ -93,7 +93,7 @@ void ShadowMaps::OnTerminate()
     m_spScenePolygon1 = 0;
     m_spSceneImage = 0;
 
-    WindowApplication3::OnTerminate();
+    SEWindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void ShadowMaps::OnIdle()
@@ -118,13 +118,13 @@ void ShadowMaps::OnIdle()
     {
         // 把场景渲染到一个render target.
         m_pFrameBuffer->Enable();
-        m_pRenderer->SetClearColor(ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
+        m_pRenderer->SetClearColor(SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
         m_pRenderer->ClearBuffers();
         m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
         m_pFrameBuffer->Disable();
 
         // 把场景渲染到backbuffer.
-        //m_pRenderer->SetBackgroundColor(ColorRGBA(0.0f, 0.0f, 1.0f, 1.0f));
+        //m_pRenderer->SetBackgroundColor(SEColorRGBA(0.0f, 0.0f, 1.0f, 1.0f));
         //m_pRenderer->ClearBuffers();
         //m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
 
@@ -132,8 +132,8 @@ void ShadowMaps::OnIdle()
         m_pRenderer->Draw(m_spScenePolygon1);
 
         m_pRenderer->SetCamera(m_spCamera);
-        //m_pRenderer->Draw(8, 16, ColorRGBA::SE_RGBA_WHITE, m_acCaption);
-        DrawFrameRate(8, 20, ColorRGBA::SE_RGBA_WHITE);
+        //m_pRenderer->Draw(8, 16, SEColorRGBA::SE_RGBA_WHITE, m_acCaption);
+        DrawFrameRate(8, 20, SEColorRGBA::SE_RGBA_WHITE);
 
         m_pRenderer->EndScene();
     }
@@ -144,13 +144,13 @@ void ShadowMaps::OnIdle()
 //----------------------------------------------------------------------------
 bool ShadowMaps::OnKeyDown(unsigned char ucKey, int iX, int iY)
 {
-    if( WindowApplication3::OnKeyDown(ucKey, iX, iY) )
+    if( SEWindowApplication3::OnKeyDown(ucKey, iX, iY) )
     {
         return true;
     }
 
     const float fTrnDelta = 0.1f;
-    Vector3f vec3fTrn;
+    SEVector3f vec3fTrn;
 
     switch( ucKey )
     {
@@ -242,11 +242,11 @@ void ShadowMaps::CreateScene()
 {
     // screen camera把[0, 1]^3区间上的(x, y, z)映射到[-1, 1]^2 x [0, 1]区间上
     // 的(x', y, 'z').
-    m_spScreenCamera = SE_NEW Camera;
+    m_spScreenCamera = SE_NEW SECamera;
     m_spScreenCamera->SetPerspective(false);
     m_spScreenCamera->SetFrustum(0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f);
-    m_spScreenCamera->SetFrame(Vector3f::ZERO, Vector3f::UNIT_X, 
-        Vector3f::UNIT_Y, Vector3f::UNIT_Z);
+    m_spScreenCamera->SetFrame(SEVector3f::ZERO, SEVector3f::UNIT_X, 
+        SEVector3f::UNIT_Y, SEVector3f::UNIT_Z);
 
     // The scene graph is
     //
@@ -263,10 +263,10 @@ void ShadowMaps::CreateScene()
     //                          +---> projector camera
     //
 
-    m_spScene = SE_NEW Node;
-    m_spWireframe = SE_NEW WireframeState;
+    m_spScene = SE_NEW SENode;
+    m_spWireframe = SE_NEW SEWireframeState;
     m_spScene->AttachGlobalState(m_spWireframe);
-    m_spShadowMapNode = SE_NEW Node;
+    m_spShadowMapNode = SE_NEW SENode;
     m_spScene->AttachChild(m_spShadowMapNode);
 
     CreateFlashlight();
@@ -275,21 +275,21 @@ void ShadowMaps::CreateScene()
     CreateGlobe();
 
     // 创建一个使用RGBA渲染目标纹理的屏幕矩形..
-    Attributes tempAttrScenePoly;
+    SEAttributes tempAttrScenePoly;
     tempAttrScenePoly.SetPositionChannels(3);
     tempAttrScenePoly.SetTCoordChannels(0, 2);
 
     float fExtend = 1.0f;
-    VertexBuffer* pVBufferScenePoly = SE_NEW VertexBuffer(tempAttrScenePoly, 4);
-    pVBufferScenePoly->Position3(0) = Vector3f(0.0f, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(1) = Vector3f(fExtend, 0.0f, 0.0f);
-    pVBufferScenePoly->Position3(2) = Vector3f(fExtend, fExtend, 0.0f);
-    pVBufferScenePoly->Position3(3) = Vector3f(0.0f, fExtend, 0.0f);
-    pVBufferScenePoly->TCoord2(0,0) = Vector2f(0.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0,1) = Vector2f(1.0f, 1.0f);
-    pVBufferScenePoly->TCoord2(0,2) = Vector2f(1.0f, 0.0f);
-    pVBufferScenePoly->TCoord2(0,3) = Vector2f(0.0f, 0.0f);
-    IndexBuffer* pIBufferScenePoly = SE_NEW IndexBuffer(6);
+    SEVertexBuffer* pVBufferScenePoly = SE_NEW SEVertexBuffer(tempAttrScenePoly, 4);
+    pVBufferScenePoly->Position3(0) = SEVector3f(0.0f, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(1) = SEVector3f(fExtend, 0.0f, 0.0f);
+    pVBufferScenePoly->Position3(2) = SEVector3f(fExtend, fExtend, 0.0f);
+    pVBufferScenePoly->Position3(3) = SEVector3f(0.0f, fExtend, 0.0f);
+    pVBufferScenePoly->TCoord2(0,0) = SEVector2f(0.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0,1) = SEVector2f(1.0f, 1.0f);
+    pVBufferScenePoly->TCoord2(0,2) = SEVector2f(1.0f, 0.0f);
+    pVBufferScenePoly->TCoord2(0,3) = SEVector2f(0.0f, 0.0f);
+    SEIndexBuffer* pIBufferScenePoly = SE_NEW SEIndexBuffer(6);
     int* pIBufferDataScenePoly = pIBufferScenePoly->GetData();
     pIBufferDataScenePoly[0] = 0;  
     pIBufferDataScenePoly[1] = 3;  
@@ -297,7 +297,7 @@ void ShadowMaps::CreateScene()
     pIBufferDataScenePoly[3] = 1;  
     pIBufferDataScenePoly[4] = 3;  
     pIBufferDataScenePoly[5] = 2;
-    m_spScenePolygon1 = SE_NEW TriMesh(pVBufferScenePoly, pIBufferScenePoly);
+    m_spScenePolygon1 = SE_NEW SETriMesh(pVBufferScenePoly, pIBufferScenePoly);
 
     int iWidth = m_iWidth, iHeight = m_iHeight;
     unsigned char* aucData = SE_NEW unsigned char[4*iWidth*iHeight];
@@ -310,10 +310,10 @@ void ShadowMaps::CreateScene()
         *pucData++ = 0x00;
         *pucData++ = 0xFF;
     }
-    m_spSceneImage = SE_NEW Image(Image::IT_RGBA8888, iWidth, iHeight, 
+    m_spSceneImage = SE_NEW SEImage(SEImage::IT_RGBA8888, iWidth, iHeight, 
         aucData, "SceneImage");
 
-    TextureEffect* pEffectScenePoly = SE_NEW TextureEffect("SceneImage");
+    SETextureEffect* pEffectScenePoly = SE_NEW SETextureEffect("SceneImage");
     m_pSceneTarget1 = pEffectScenePoly->GetPTexture(0, 0);
     m_pSceneTarget1->SetOffscreenTexture(true);
     m_spScenePolygon1->AttachEffect(pEffectScenePoly);
@@ -322,35 +322,35 @@ void ShadowMaps::CreateScene()
     m_pRenderer->LoadResources(m_spScenePolygon1);
 
     // 创建绑定到纹理的RGBA frame buffer.
-    Texture** apTargets = SE_NEW Texture*[1];
+    SETexture** apTargets = SE_NEW SETexture*[1];
     apTargets[0] = m_pSceneTarget1;
-    m_pFrameBuffer = FrameBuffer::Create(m_eFormat, m_eDepth, m_eStencil,
+    m_pFrameBuffer = SEFrameBuffer::Create(m_eFormat, m_eDepth, m_eStencil,
         m_eBuffering, m_eMultisampling, m_pRenderer, 1, apTargets);
     SE_ASSERT( m_pFrameBuffer );
 }
 //----------------------------------------------------------------------------
 void ShadowMaps::CreateGround()
 {
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetTCoordChannels(0, 2);
-    m_spGround = StandardMesh(tempAttr).Rectangle(2, 2, 8.0f, 8.0f);
+    m_spGround = SEStandardMesh(tempAttr).Rectangle(2, 2, 8.0f, 8.0f);
     m_spShadowMapNode->AttachChild(m_spGround);
 
     m_spGround->GenerateNormals();
     m_spGround->GenerateTangents(0, 1, 2);
-    ParallaxMapL1Effect* pEffect = 
-        SE_NEW ParallaxMapL1Effect("rock", "rocknormal", "rockheight");
+    SEParallaxMapL1Effect* pEffect = 
+        SE_NEW SEParallaxMapL1Effect("rock", "rocknormal", "rockheight");
     pEffect->LightDirection = m_spLight->DVector;
     pEffect->LightDirection.Normalize();
     m_spPMEffect = pEffect;
     m_spGround->AttachEffect(pEffect);
 
-    MaterialState* pMState = SE_NEW MaterialState;
-    pMState->Emissive = ColorRGB::SE_RGB_BLACK;
-    pMState->Ambient = ColorRGB(0.2295f, 0.08825f, 0.0275f);
-    pMState->Diffuse = ColorRGB(0.5508f, 0.2118f, 0.066f);
-    pMState->Specular = ColorRGB(0.580594f, 0.223257f, 0.0695701f);
+    SEMaterialState* pMState = SE_NEW SEMaterialState;
+    pMState->Emissive = SEColorRGB::SE_RGB_BLACK;
+    pMState->Ambient = SEColorRGB(0.2295f, 0.08825f, 0.0275f);
+    pMState->Diffuse = SEColorRGB(0.5508f, 0.2118f, 0.066f);
+    pMState->Specular = SEColorRGB(0.580594f, 0.223257f, 0.0695701f);
     pMState->Alpha = 1.0f;
     pMState->Shininess = 51.2f;
     m_spGround->AttachGlobalState(pMState);
@@ -359,18 +359,18 @@ void ShadowMaps::CreateGround()
 //----------------------------------------------------------------------------
 void ShadowMaps::CreateTorus()
 {
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetNormalChannels(3);
-    m_spTorus = StandardMesh(tempAttr).Torus(64, 64, 1.0f, 0.2f);
+    m_spTorus = SEStandardMesh(tempAttr).Torus(64, 64, 1.0f, 0.2f);
     m_spShadowMapNode->AttachChild(m_spTorus);
-    m_spTorus->Local.SetTranslate(Vector3f(0.0f, 0.0f, -1.0f));
+    m_spTorus->Local.SetTranslate(SEVector3f(0.0f, 0.0f, -1.0f));
 
-    MaterialState* pMState = SE_NEW MaterialState;
-    pMState->Emissive = ColorRGB::SE_RGB_BLACK;
-    pMState->Ambient = ColorRGB(0.2295f, 0.08825f, 0.0275f);
-    pMState->Diffuse = ColorRGB(0.5508f, 0.2118f, 0.066f);
-    pMState->Specular = ColorRGB(0.580594f, 0.223257f, 0.0695701f);
+    SEMaterialState* pMState = SE_NEW SEMaterialState;
+    pMState->Emissive = SEColorRGB::SE_RGB_BLACK;
+    pMState->Ambient = SEColorRGB(0.2295f, 0.08825f, 0.0275f);
+    pMState->Diffuse = SEColorRGB(0.5508f, 0.2118f, 0.066f);
+    pMState->Specular = SEColorRGB(0.580594f, 0.223257f, 0.0695701f);
     pMState->Alpha = 1.0f;
     pMState->Shininess = 51.2f;
     m_spTorus->AttachGlobalState(pMState);
@@ -379,19 +379,19 @@ void ShadowMaps::CreateTorus()
 //----------------------------------------------------------------------------
 void ShadowMaps::CreateGlobe()
 {
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetNormalChannels(3);
-    m_spGlobe = StandardMesh(tempAttr).Sphere(64, 64, 0.5f);
+    m_spGlobe = SEStandardMesh(tempAttr).Sphere(64, 64, 0.5f);
     m_spShadowMapNode->AttachChild(m_spGlobe);
-    m_spGlobe->Local.SetTranslate(Vector3f(0.0f, 0.0f, -2.0f));
+    m_spGlobe->Local.SetTranslate(SEVector3f(0.0f, 0.0f, -2.0f));
     m_spGlobe->Local.SetUniformScale(0.5f);
 
-    MaterialState* pMState = SE_NEW MaterialState;
-    pMState->Emissive = ColorRGB::SE_RGB_BLACK;
-    pMState->Ambient = ColorRGB(0.24725f, 0.4245f, 0.0645f);
-    pMState->Diffuse = ColorRGB(0.34615f, 0.4143f, 0.0903f);
-    pMState->Specular = ColorRGB(0.797357f, 0.523991f, 0.208006f);
+    SEMaterialState* pMState = SE_NEW SEMaterialState;
+    pMState->Emissive = SEColorRGB::SE_RGB_BLACK;
+    pMState->Ambient = SEColorRGB(0.24725f, 0.4245f, 0.0645f);
+    pMState->Diffuse = SEColorRGB(0.34615f, 0.4143f, 0.0903f);
+    pMState->Specular = SEColorRGB(0.797357f, 0.523991f, 0.208006f);
     pMState->Alpha = 1.0f;
     pMState->Shininess = 83.2f;
     m_spGlobe->AttachGlobalState(pMState);
@@ -400,52 +400,52 @@ void ShadowMaps::CreateGlobe()
 //----------------------------------------------------------------------------
 void ShadowMaps::CreateFlashlight()
 {
-    m_spFlashlight = SE_NEW Node;
-    m_spFlashlight->Local.SetTranslate(Vector3f(0.0f, 0.0f, -4.0f));
+    m_spFlashlight = SE_NEW SENode;
+    m_spFlashlight->Local.SetTranslate(SEVector3f(0.0f, 0.0f, -4.0f));
     m_spScene->AttachChild(m_spFlashlight);
 
     // Create a sphere to represent the light source.  The sphere has a
     // gradient of yellow color, bright at the bottom (facing the objects to
     // be lit) and dark at the top.
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetColorChannels(0, 3);
     float fRadius = 0.1f;
-    m_spLightSphere = StandardMesh(tempAttr).Sphere(32, 32, fRadius);
+    m_spLightSphere = SEStandardMesh(tempAttr).Sphere(32, 32, fRadius);
     m_spFlashlight->AttachChild(m_spLightSphere);
-    VertexBuffer* pVBuffer = m_spLightSphere->VBuffer;
+    SEVertexBuffer* pVBuffer = m_spLightSphere->VBuffer;
     int iVCount = pVBuffer->GetVertexCount();
-    ColorRGB tempYellow(1.0f, 1.0f, 0.0f);
+    SEColorRGB tempYellow(1.0f, 1.0f, 0.0f);
     for( int i = 0; i < iVCount; i++ )
     {
         float fAmpl = 0.5f*(fRadius + pVBuffer->Position3(i).Z)/fRadius;
         pVBuffer->Color3(0, i) = fAmpl*tempYellow;
     }
-    m_spLightSphere->AttachEffect(SE_NEW VertexColor3Effect);
+    m_spLightSphere->AttachEffect(SE_NEW SEVertexColor3Effect);
 
     // Create the spotlight.
-    m_spLight = SE_NEW Light(Light::LT_SPOT);
-    m_spLight->Ambient = ColorRGB::SE_RGB_WHITE;
-    m_spLight->Diffuse = ColorRGB::SE_RGB_WHITE;
-    m_spLight->Specular = ColorRGB::SE_RGB_WHITE;
+    m_spLight = SE_NEW SELight(SELight::LT_SPOT);
+    m_spLight->Ambient = SEColorRGB::SE_RGB_WHITE;
+    m_spLight->Diffuse = SEColorRGB::SE_RGB_WHITE;
+    m_spLight->Specular = SEColorRGB::SE_RGB_WHITE;
     m_spLight->Exponent = 1.0f;
-    m_spLight->SetAngle(Mathf::HALF_PI);
-    m_spFlashlight->AttachChild(SE_NEW LightNode(m_spLight));
+    m_spLight->SetAngle(SEMathf::HALF_PI);
+    m_spFlashlight->AttachChild(SE_NEW SELightNode(m_spLight));
 
     // Create a camera to project the texture and shadows.  The default
     // coordinate frame is the same as the light's, so no need to set these.
     // The frustum values were chosen by empirical means.  That is, I modified
     // them until the projection looked right.
-    Camera* pProjector = SE_NEW Camera;
+    SECamera* pProjector = SE_NEW SECamera;
     pProjector->SetFrustum(120.0f, 1.0f, 1.0f, 5.0f);
-    m_spFlashlight->AttachChild(SE_NEW CameraNode(pProjector));
+    m_spFlashlight->AttachChild(SE_NEW SECameraNode(pProjector));
 
     // The depth bias parameter was chosen by empirical means; that is, I
     // modified it until the scene looked right.
     float fDepthBias = 0.02f;
 
-    m_spSMEffect = SE_NEW ShadowMapEffect(pProjector, "kate", 
-        Image::IT_RGBA8888, 512, 512, fDepthBias);
+    m_spSMEffect = SE_NEW SEShadowMapEffect(pProjector, "kate", 
+        SEImage::IT_RGBA8888, 512, 512, fDepthBias);
 
     m_spShadowMapNode->AttachEffect(m_spSMEffect);
 }

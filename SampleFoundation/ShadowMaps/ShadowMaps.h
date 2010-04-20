@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-class ShadowMaps : public WindowApplication3
+class ShadowMaps : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -44,19 +44,19 @@ protected:
     void CreateGlobe(void);
     void CreateFlashlight(void);
 
-    NodePtr m_spScene, m_spShadowMapNode, m_spFlashlight;
-    TriMeshPtr m_spGround, m_spTorus, m_spGlobe, m_spLightSphere;
-    LightPtr m_spLight;
-    WireframeStatePtr m_spWireframe;
-    ShadowMapEffectPtr m_spSMEffect;
-    ParallaxMapL1dEffectPtr m_spPMEffect;
-    Culler m_Culler;
+    SENodePtr m_spScene, m_spShadowMapNode, m_spFlashlight;
+    SETriMeshPtr m_spGround, m_spTorus, m_spGlobe, m_spLightSphere;
+    SELightPtr m_spLight;
+    SEWireframeStatePtr m_spWireframe;
+    SEShadowMapEffectPtr m_spSMEffect;
+    SEParallaxMapL1dEffectPtr m_spPMEffect;
+    SECuller m_Culler;
 
-    CameraPtr m_spScreenCamera;
-    ImagePtr m_spSceneImage;
-    TriMeshPtr m_spScenePolygon1;
-    Texture* m_pSceneTarget1;
-    FrameBuffer* m_pFrameBuffer;
+    SECameraPtr m_spScreenCamera;
+    SEImagePtr m_spSceneImage;
+    SETriMeshPtr m_spScenePolygon1;
+    SETexture* m_pSceneTarget1;
+    SEFrameBuffer* m_pFrameBuffer;
 
     char* m_acCaption;
     static char* ms_aacCaptions[3];
