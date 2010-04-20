@@ -30,7 +30,7 @@ ImageConverter::~ImageConverter()
 {
 }
 //----------------------------------------------------------------------------
-Image* ImageConverter::CreateImageFromFile(const char* acFilename)
+SEImage* ImageConverter::CreateImageFromFile(const char* acFilename)
 {
     if( !acFilename )
     {
@@ -39,7 +39,7 @@ Image* ImageConverter::CreateImageFromFile(const char* acFilename)
 
     HRESULT hResult;
     LPDIRECT3DTEXTURE9 pDXTex;
-    Image* pImage;
+    SEImage* pImage;
 
     hResult = D3DXCreateTextureFromFile(m_pDXDevice, acFilename, &pDXTex);
     if( !SUCCEEDED(hResult) )
@@ -58,7 +58,7 @@ Image* ImageConverter::CreateImageFromFile(const char* acFilename)
     {
         case D3DFMT_R8G8B8:
         {
-            eFormat = Image::IT_RGB888;
+            eFormat = SEImage::IT_RGB888;
             iBytesPerPixel = 3;
 
             break;
@@ -66,21 +66,21 @@ Image* ImageConverter::CreateImageFromFile(const char* acFilename)
         case D3DFMT_A8R8G8B8:
         case D3DFMT_X8R8G8B8:
         {
-            eFormat = Image::IT_RGBA8888;
+            eFormat = SEImage::IT_RGBA8888;
             iBytesPerPixel = 4;
 
             break;
         }
         case D3DFMT_L8:
         {
-            eFormat = Image::IT_L8;
+            eFormat = SEImage::IT_L8;
             iBytesPerPixel = 1;
 
             break;
         }
         case D3DFMT_L16:
         {
-            eFormat = Image::IT_L16;
+            eFormat = SEImage::IT_L16;
             iBytesPerPixel = 2;
 
             break;
@@ -105,7 +105,7 @@ Image* ImageConverter::CreateImageFromFile(const char* acFilename)
     int i, iBase = 0;
     switch( eFormat )
     {
-        case Image::IT_RGB888:
+        case SEImage::IT_RGB888:
         {
             for( i = 0; i < iCount; i++, iBase += 3 )
             {
@@ -116,7 +116,7 @@ Image* ImageConverter::CreateImageFromFile(const char* acFilename)
 
             break;
         }
-        case Image::IT_RGBA8888:
+        case SEImage::IT_RGBA8888:
         {
             for( i = 0; i < iCount; i++, iBase += 4 )
             {
@@ -128,7 +128,7 @@ Image* ImageConverter::CreateImageFromFile(const char* acFilename)
 
             break;
         }
-        case Image::IT_L8:
+        case SEImage::IT_L8:
         {
             for( i = 0; i < iCount; i++, iBase += 1 )
             {
@@ -137,7 +137,7 @@ Image* ImageConverter::CreateImageFromFile(const char* acFilename)
 
             break;
         }
-        case Image::IT_L16:
+        case SEImage::IT_L16:
         {
             for( i = 0; i < iCount; i++, iBase += 2 )
             {
@@ -158,7 +158,7 @@ Image* ImageConverter::CreateImageFromFile(const char* acFilename)
     SE_ASSERT( SUCCEEDED(hResult) );
     pDXTex->Release();
 
-    pImage = SE_NEW Image((Image::FormatMode)eFormat, iWidth, iHeight, 
+    pImage = SE_NEW SEImage((SEImage::FormatMode)eFormat, iWidth, iHeight, 
         aucDst, acFilename, false);
     SE_ASSERT( pImage );
 

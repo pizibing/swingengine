@@ -38,7 +38,6 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:COLLADA Unimaterial Mesh class
 // Description:
 // Author:Sun Che
 // Date:20090927
@@ -49,29 +48,29 @@ public:
     ColladaUnimaterialMesh(void);
 
     int& VCount(void);
-    Vector3f*& Vertex(void);
-    Vector3f*& Normal(void);
+    SEVector3f*& Vertex(void);
+    SEVector3f*& Normal(void);
 
     int& CCount(void);
-    ColorRGB*& Color(void);
+    SEColorRGB*& Color(void);
 
     int& TCount(void);
-    Vector2f*& Texture(void);
+    SEVector2f*& SETexture(void);
 
     int& FCount(void);
     int*& Face(void);
     int*& CFace(void);
     int*& TFace(void);
 
-    MaterialStatePtr& MState(void);
-    TexturePtr& TState(void);
+    SEMaterialStatePtr& MState(void);
+    SETexturePtr& TState(void);
 
     // 每个COLLADA顶点可以有多组UV坐标.
     // Swing Engine导出器只支持每个顶点一组UV坐标.
     // 因此任何具备N组UV坐标的COLLADA顶点都会被拆分复制为N个Swing Engine顶点,
     // 每个带有其中一组UV坐标.
     void DuplicateGeometry(void);
-    TriMesh* ToTriMesh(void);
+    SETriMesh* ToTriMesh(void);
 
     class VertexAttr
     {
@@ -84,22 +83,22 @@ public:
 
 private:
     int m_iVCount;
-    Vector3f* m_aVertex;
-    Vector3f* m_aNormal;
+    SEVector3f* m_aVertex;
+    SEVector3f* m_aNormal;
 
     int m_iCCount;
-    ColorRGB* m_aColor;
+    SEColorRGB* m_aColor;
 
     int m_iTCount;
-    Vector2f* m_aTexture;
+    SEVector2f* m_aTexture;
 
     int m_iFCount;
     int* m_aiFace;
     int* m_aiCFace;
     int* m_aiTFace;
 
-    MaterialStatePtr m_spSEMaterialState;
-    TexturePtr m_spTState;
+    SEMaterialStatePtr m_spSEMaterialState;
+    SETexturePtr m_spTState;
 };
 
 }

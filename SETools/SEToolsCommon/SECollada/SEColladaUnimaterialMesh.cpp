@@ -47,12 +47,12 @@ int& ColladaUnimaterialMesh::VCount()
     return m_iVCount;
 }
 //----------------------------------------------------------------------------
-Vector3f*& ColladaUnimaterialMesh::Vertex()
+SEVector3f*& ColladaUnimaterialMesh::Vertex()
 {
     return m_aVertex;
 }
 //----------------------------------------------------------------------------
-Vector3f*& ColladaUnimaterialMesh::Normal()
+SEVector3f*& ColladaUnimaterialMesh::Normal()
 {
     return m_aNormal;
 }
@@ -62,7 +62,7 @@ int& ColladaUnimaterialMesh::CCount()
     return m_iCCount;
 }
 //----------------------------------------------------------------------------
-ColorRGB*& ColladaUnimaterialMesh::Color()
+SEColorRGB*& ColladaUnimaterialMesh::Color()
 {
     return m_aColor;
 }
@@ -72,7 +72,7 @@ int& ColladaUnimaterialMesh::TCount()
     return m_iTCount;
 }
 //----------------------------------------------------------------------------
-Vector2f*& ColladaUnimaterialMesh::Texture()
+SEVector2f*& ColladaUnimaterialMesh::SETexture()
 {
     return m_aTexture;
 }
@@ -97,12 +97,12 @@ int*& ColladaUnimaterialMesh::TFace()
     return m_aiTFace;
 }
 //----------------------------------------------------------------------------
-MaterialStatePtr& ColladaUnimaterialMesh::MState()
+SEMaterialStatePtr& ColladaUnimaterialMesh::MState()
 {
     return m_spSEMaterialState;
 }
 //----------------------------------------------------------------------------
-TexturePtr& ColladaUnimaterialMesh::TState()
+SETexturePtr& ColladaUnimaterialMesh::TState()
 {
     return m_spTState;
 }
@@ -149,19 +149,19 @@ void ColladaUnimaterialMesh::DuplicateGeometry()
     }
 
     // 分配Swing Engine几何体所需数据.
-    Vector3f* aNewVertex = SE_NEW Vector3f[iNewVCount];
-    Vector3f* aNewNormal = SE_NEW Vector3f[iNewVCount];
+    SEVector3f* aNewVertex = SE_NEW SEVector3f[iNewVCount];
+    SEVector3f* aNewNormal = SE_NEW SEVector3f[iNewVCount];
 
-    ColorRGB* aNewColor = 0;
+    SEColorRGB* aNewColor = 0;
     if( m_iCCount > 0 )
     {
-        aNewColor = SE_NEW ColorRGB[iNewVCount];
+        aNewColor = SE_NEW SEColorRGB[iNewVCount];
     }
 
-    Vector2f* aNewTexture = 0;
+    SEVector2f* aNewTexture = 0;
     if( m_iTCount > 0 )
     {
-        aNewTexture = SE_NEW Vector2f[iNewVCount];
+        aNewTexture = SE_NEW SEVector2f[iNewVCount];
     }
 
     int j, k;
@@ -246,10 +246,10 @@ void ColladaUnimaterialMesh::DuplicateGeometry()
     SE_DELETE[] aVArray;
 }
 //----------------------------------------------------------------------------
-TriMesh* ColladaUnimaterialMesh::ToTriMesh()
+SETriMesh* ColladaUnimaterialMesh::ToTriMesh()
 {
     // 创建所需Swing Engine VB.
-    Attributes tempSEAttr;
+    SEAttributes tempSEAttr;
     tempSEAttr.SetPositionChannels(3);
     if( m_aNormal )
     {
@@ -264,37 +264,37 @@ TriMesh* ColladaUnimaterialMesh::ToTriMesh()
         tempSEAttr.SetTCoordChannels(0, 2);
     }
 
-    VertexBuffer* pSEVBuffer = SE_NEW VertexBuffer(tempSEAttr, m_iVCount);
+    SEVertexBuffer* pSEVBuffer = SE_NEW SEVertexBuffer(tempSEAttr, m_iVCount);
     for( int i = 0; i < m_iVCount; i++ )
     {
-        (*(Vector3f*)pSEVBuffer->PositionTuple(i)) = m_aVertex[i];
+        (*(SEVector3f*)pSEVBuffer->PositionTuple(i)) = m_aVertex[i];
 
         if( m_aNormal )
         {
-            *(Vector3f*)pSEVBuffer->NormalTuple(i) = m_aNormal[i];
+            *(SEVector3f*)pSEVBuffer->NormalTuple(i) = m_aNormal[i];
         }
         if( m_aColor )
         {
-            *(ColorRGB*)pSEVBuffer->ColorTuple(0, i) = m_aColor[i];
+            *(SEColorRGB*)pSEVBuffer->ColorTuple(0, i) = m_aColor[i];
         }
         if( m_aTexture )
         {
-            *(Vector2f*)pSEVBuffer->TCoordTuple(0, i) = m_aTexture[i];
+            *(SEVector2f*)pSEVBuffer->TCoordTuple(0, i) = m_aTexture[i];
         }
     }
 
     // 创建所需Swing Engine IB.
-    IndexBuffer* pSEIBuffer = SE_NEW IndexBuffer(3 * m_iFCount);
+    SEIndexBuffer* pSEIBuffer = SE_NEW SEIndexBuffer(3 * m_iFCount);
     int* pSEIBufferData = pSEIBuffer->GetData();
     memcpy(pSEIBufferData, m_aiFace, 3*m_iFCount*sizeof(int));
 
-    TriMesh* pSEMesh = SE_NEW TriMesh(pSEVBuffer, pSEIBuffer);
+    SETriMesh* pSEMesh = SE_NEW SETriMesh(pSEVBuffer, pSEIBuffer);
 
-    Effect* pSEEffect = 0;
+    SEEffect* pSEEffect = 0;
 
     // 根据Swing Engine网格所带材质和纹理,为其添加effect.
     // 目前导出器支持的材质和纹理effect是:
-    // MaterialEffect,MaterialTextureEffect,DefaultShaderEffect.
+    // SEMaterialEffect,SEMaterialTextureEffect,SEDefaultShaderEffect.
 
     if( m_spSEMaterialState )
     {
@@ -304,7 +304,7 @@ TriMesh* ColladaUnimaterialMesh::ToTriMesh()
         {
             // 待实现.
             // 当拆分网格后如何处理多重纹理?
-            Image* pImage = m_spTState->GetImage();
+            SEImage* pImage = m_spTState->GetImage();
             SE_ASSERT( pImage );
             if( pImage )
             {
@@ -312,15 +312,15 @@ TriMesh* ColladaUnimaterialMesh::ToTriMesh()
                 // 减去".seif"长度.
                 size_t uiLength = strlen(tempFName.c_str()) - 5;
                 char tempBuffer[64];
-                System::SE_Strncpy(tempBuffer, 64, tempFName.c_str(), 
+                SESystem::SE_Strncpy(tempBuffer, 64, tempFName.c_str(), 
                     uiLength);
                 tempBuffer[uiLength] = 0;
-                pSEEffect = SE_NEW MaterialTextureEffect(tempBuffer);
+                pSEEffect = SE_NEW SEMaterialTextureEffect(tempBuffer);
             }
         }
         else
         {
-            pSEEffect = SE_NEW MaterialEffect();
+            pSEEffect = SE_NEW SEMaterialEffect();
 
             SE_ASSERT( !m_aTexture );
             if( m_aTexture )
@@ -338,7 +338,7 @@ TriMesh* ColladaUnimaterialMesh::ToTriMesh()
 
     if( !m_spSEMaterialState && !m_spTState )
     {
-        pSEEffect = SE_NEW DefaultShaderEffect;
+        pSEEffect = SE_NEW SEDefaultShaderEffect;
     }
 
     if( pSEEffect )

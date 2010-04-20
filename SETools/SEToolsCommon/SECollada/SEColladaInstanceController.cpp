@@ -23,12 +23,12 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColladaInstanceController, Object);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaInstanceController, Object);
+SE_IMPLEMENT_RTTI(Swing, ColladaInstanceController, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaInstanceController, SEObject);
 
 //----------------------------------------------------------------------------
 ColladaInstanceController::ColladaInstanceController(ControllerType eType,
-    domController* pController, domNode* pSkeletonRoot, Node* pMeshRoot)
+    domController* pController, domNode* pSkeletonRoot, SENode* pMeshRoot)
 {
     m_eControllerType = eType;
     m_pController = pController;
@@ -60,7 +60,7 @@ domNode* ColladaInstanceController::GetSkeletonRoot()
     return m_pSkeletonRoot;
 }
 //----------------------------------------------------------------------------
-Node* ColladaInstanceController::GetMeshRoot()
+SENode* ColladaInstanceController::GetMeshRoot()
 {
     return m_pMeshRoot;
 }

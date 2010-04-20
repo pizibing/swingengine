@@ -24,8 +24,8 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColladaAnimation, Object);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaAnimation, Object);
+SE_IMPLEMENT_RTTI(Swing, ColladaAnimation, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaAnimation, SEObject);
 
 //----------------------------------------------------------------------------
 ColladaAnimation::ColladaAnimation()
@@ -157,7 +157,7 @@ void ColladaAnimation::Interp(float& rfValue, ColladaKeySet* pKeySet,
 void ColladaAnimation::AnimateChannel(ColladaTransformation* pTransform, 
     ColladaAnimationChannel::AnimationTarget eTarget, int i, float fTime)
 {
-    Vector4f& rSRTData = pTransform->SRTData;
+    SEVector4f& rSRTData = pTransform->SRTData;
 
     switch( eTarget )
     {

@@ -26,7 +26,7 @@ using namespace Swing;
 using namespace std;
 
 //----------------------------------------------------------------------------
-Node* ColladaScene::GetGeometry(const char* acName)
+SENode* ColladaScene::GetGeometry(const char* acName)
 {
     if( !acName )
     {
@@ -46,7 +46,7 @@ Node* ColladaScene::GetGeometry(const char* acName)
 //----------------------------------------------------------------------------
 void ColladaScene::PackVertices(ColladaUnimaterialMesh* pUniMesh,
     domListOfFloats* pDomPositionData, domListOfUInts& rDomIndexData, 
-    int iIndexCount, int iStride, int iPositionOffset, Vector3f* aNormal)
+    int iIndexCount, int iStride, int iPositionOffset, SEVector3f* aNormal)
 {
     // 当前部分所使用的顶点索引,set确保顶点唯一性.
     set<int> tempVIndexSet;
@@ -73,8 +73,8 @@ void ColladaScene::PackVertices(ColladaUnimaterialMesh* pUniMesh,
 
     int iVCount = (int)tempVIndexSet.size();
     pUniMesh->VCount() = iVCount;
-    pUniMesh->Vertex() = SE_NEW Vector3f[iVCount];
-    pUniMesh->Normal() = SE_NEW Vector3f[iVCount];
+    pUniMesh->Vertex() = SE_NEW SEVector3f[iVCount];
+    pUniMesh->Normal() = SE_NEW SEVector3f[iVCount];
 
     set<int>::iterator tempIter = tempVIndexSet.begin();
     for( int i = 0; i < (int)tempVIndexSet.size(); i++, tempIter++ )
@@ -85,7 +85,7 @@ void ColladaScene::PackVertices(ColladaUnimaterialMesh* pUniMesh,
         float fX = (float)(*pDomPositionData)[3*j    ];
         float fY = (float)(*pDomPositionData)[3*j + 1];
         float fZ = (float)(*pDomPositionData)[3*j + 2];
-        Vector3f vec3fPosition = GetTransformedVector(fX, fY, fZ);
+        SEVector3f vec3fPosition = GetTransformedVector(fX, fY, fZ);
         pUniMesh->Vertex()[i].X = vec3fPosition.X;
         pUniMesh->Vertex()[i].Y = vec3fPosition.Y;
         pUniMesh->Vertex()[i].Z = vec3fPosition.Z;
@@ -149,7 +149,7 @@ void ColladaScene::PackTextures(ColladaUnimaterialMesh* pUniMesh,
 
     int iTCount = (int)tempTIndexSet.size();
     pUniMesh->TCount() = iTCount;
-    pUniMesh->Texture() = SE_NEW Vector2f[iTCount];
+    pUniMesh->SETexture() = SE_NEW SEVector2f[iTCount];
 
     set<int>::iterator tempIter = tempTIndexSet.begin();
     for( int i = 0; i < (int)tempTIndexSet.size(); i++, tempIter++ )
@@ -159,8 +159,8 @@ void ColladaScene::PackTextures(ColladaUnimaterialMesh* pUniMesh,
 
         float fX = (float)(*pDomTCoordData)[2*j    ];
         float fY = (float)(*pDomTCoordData)[2*j + 1];
-        pUniMesh->Texture()[i].X = fX;
-        pUniMesh->Texture()[i].Y = 1.0f - fY;
+        pUniMesh->SETexture()[i].X = fX;
+        pUniMesh->SETexture()[i].Y = 1.0f - fY;
     }
 
     // Build sub-mesh index buffer for faces of TCoords.
@@ -187,7 +187,7 @@ void ColladaScene::PackTextures(ColladaUnimaterialMesh* pUniMesh,
     SE_DELETE[] aiTMap;
 }
 //----------------------------------------------------------------------------
-TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
+SETriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
 {
     // Try to find an instance material object used by this sub-mesh.
     xsNCName strIMaterialName = pDomTriangles->getMaterial();
@@ -230,7 +230,7 @@ TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
     // the same vertex.
     // TODO:
     // Impliment importer option.
-    Vector3f* aNormal = SE_NEW Vector3f[iVCount];
+    SEVector3f* aNormal = SE_NEW SEVector3f[iVCount];
     if( iNormalOffset > -1 )
     {
         int iBase, iVIndex, iNIndex;
@@ -247,7 +247,7 @@ TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
             fZ = (float)(*pDomNormalData)[3*iNIndex + 2];
 
             // Get a Swing Engine normal vector and do averaging by using it.
-            Vector3f vec3fNormal = GetTransformedVector(fX, fY, fZ);
+            SEVector3f vec3fNormal = GetTransformedVector(fX, fY, fZ);
             aNormal[iVIndex] += vec3fNormal;
         }
     }
@@ -272,8 +272,8 @@ TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
     // Generate the final uni-material sub-mesh before calling ToTriMesh().
     pSubMesh->DuplicateGeometry();
 
-    // Generate a Swing Engine TriMesh object based on the COLLADA sub-mesh.
-    TriMesh* pResMesh = pSubMesh->ToTriMesh();
+    // Generate a Swing Engine SETriMesh object based on the COLLADA sub-mesh.
+    SETriMesh* pResMesh = pSubMesh->ToTriMesh();
 
     SE_DELETE[] aNormal;
     SE_DELETE pSubMesh;
@@ -281,11 +281,11 @@ TriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
     return pResMesh;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::ParseGeometry(Node*& rpMeshRoot, domGeometry* pDomGeometry)
+void ColladaScene::ParseGeometry(SENode*& rpMeshRoot, domGeometry* pDomGeometry)
 {
     domMesh* pDomMesh = pDomGeometry->getMesh();
     xsID strGeometryID = pDomGeometry->getId();
-    rpMeshRoot = SE_NEW Node;
+    rpMeshRoot = SE_NEW SENode;
     rpMeshRoot->SetName((const char*)strGeometryID);
     const size_t uiBufferSize = 64;
     char acMeshName[uiBufferSize];
@@ -316,10 +316,10 @@ void ColladaScene::ParseGeometry(Node*& rpMeshRoot, domGeometry* pDomGeometry)
     {
         // Each <triangles> element is a sub-mesh of the current geometry,
         // the sub-mesh could has its own material(effect) for rendering.
-        TriMesh* pSubMesh = BuildTriangles(rDomTrianglesArray[i]);
+        SETriMesh* pSubMesh = BuildTriangles(rDomTrianglesArray[i]);
         if( pSubMesh )
         {
-            System::SE_Sprintf(acMeshName, uiBufferSize, "%s_Triangles%d", 
+            SESystem::SE_Sprintf(acMeshName, uiBufferSize, "%s_Triangles%d", 
                 (const char*)strGeometryID, i);
             pSubMesh->SetName(acMeshName);
             rpMeshRoot->AttachChild(pSubMesh);
@@ -359,7 +359,7 @@ void ColladaScene::ParseGeometry(Node*& rpMeshRoot, domGeometry* pDomGeometry)
 
 }
 //----------------------------------------------------------------------------
-Node* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
+SENode* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
 {
     xsID strGeometryID = spDomGeometry->getId();
     if( !strGeometryID )
@@ -367,7 +367,7 @@ Node* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
         return 0;
     }
 
-    Node* pMeshRoot = GetGeometry(strGeometryID);
+    SENode* pMeshRoot = GetGeometry(strGeometryID);
     if( pMeshRoot )
     {
         // This geometry is already in our geometry catalog.
@@ -420,7 +420,7 @@ Node* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
     return pMeshRoot;
 }
 //----------------------------------------------------------------------------
-Node* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef spLib)
+SENode* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef spLib)
 {
     // Get all instance materials used by this instance geometry object.
     // Each instance material points to a material object in our material 
@@ -463,7 +463,7 @@ Node* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef spLib)
         return 0;
     }
 
-    Node* pMeshRoot = LoadGeometry((domGeometry*)pDomElement);
+    SENode* pMeshRoot = LoadGeometry((domGeometry*)pDomElement);
     return pMeshRoot;
 }
 //----------------------------------------------------------------------------

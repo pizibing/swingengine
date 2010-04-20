@@ -146,7 +146,7 @@ void ColladaScene::Load(const char* acFilename)
     ProcessControllers();
 }
 //----------------------------------------------------------------------------
-Node* ColladaScene::GetScene()
+SENode* ColladaScene::GetScene()
 {
     return m_spSceneRoot;
 }
@@ -350,9 +350,9 @@ void ColladaScene::Triangulate(DAE* pDAE)
     }
 }
 //----------------------------------------------------------------------------
-Vector3f ColladaScene::GetTransformedVector(float fX, float fY, float fZ)
+SEVector3f ColladaScene::GetTransformedVector(float fX, float fY, float fZ)
 {
-    Vector3f vec3fRes;
+    SEVector3f vec3fRes;
 
     // COLLADA uses right-handed based system, now we only have these three 
     // situations to deal with. The result vector is a left-handed based 
@@ -388,7 +388,7 @@ bool ColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
 {
     // Create Swing Engine scene graph's root.
     // Save the scene name instead of scene id.
-    m_spSceneRoot = SE_NEW Node;
+    m_spSceneRoot = SE_NEW SENode;
     xsNCName strSceneName = spDomVisualScene->getName();
     m_spSceneRoot->SetName(strSceneName);
 
@@ -400,7 +400,7 @@ bool ColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
     int iTopLevelNodeCount = (int)rDomNodeArray.getCount();
     for( int i = 0; i < iTopLevelNodeCount; i++ )
     {
-        Node* pNode = LoadNode(rDomNodeArray[i], m_spSceneRoot);
+        SENode* pNode = LoadNode(rDomNodeArray[i], m_spSceneRoot);
         if( pNode )
         {
             const char* acNodeName = pNode->GetName().c_str();

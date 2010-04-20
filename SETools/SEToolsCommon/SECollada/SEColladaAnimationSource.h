@@ -30,12 +30,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:COLLADA Animation Source class
 // Description:
 // Author:Sun Che
 // Date:20090917
 //----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaAnimationSource : public Object
+class SE_TOOLS_COMMON_API ColladaAnimationSource : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -44,10 +43,10 @@ public:
     ColladaAnimationSource(void);
     ~ColladaAnimationSource(void);
 
-    FloatArrayPtr Source;
+    SEFloatArrayPtr Source;
 };
 
-typedef SmartPointer<ColladaAnimationSource> ColladaAnimationSourcePtr;
+typedef SESmartPointer<ColladaAnimationSource> ColladaAnimationSourcePtr;
 
 }
 

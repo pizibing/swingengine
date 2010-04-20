@@ -44,7 +44,7 @@ ColladaEffect* ColladaScene::GetEffect(const char* acName)
 //----------------------------------------------------------------------------
 bool ColladaScene::LoadEffectLibrary(domLibrary_effectsRef spLib)
 {
-    ToolSystem::SE_DebugOutput("ColladaScene::Loading Effect Library" );
+    ToolSystem::SE_DebugOutput("ColladaScene::Loading SEEffect Library" );
 
     int iEffectCount = (int)spLib->getEffect_array().getCount();
     for( int i = 0; i < iEffectCount; i++ )
@@ -180,7 +180,7 @@ ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
                 
                 // TODO: 
                 // Take only the texture from diffuse for now.
-                Texture* pTexture = GetTextureFromShaderElement(tempNewParams, 
+                SETexture* pTexture = GetTextureFromShaderElement(tempNewParams, 
                     tempShaderElements.Diffuse);
                 if( pTexture )
                 {
@@ -213,21 +213,21 @@ float ColladaScene::GetFloat(domCommon_float_or_param_type* pParam)
     return 0.0f;
 }
 //----------------------------------------------------------------------------
-ColorRGB ColladaScene::GetColor(
+SEColorRGB ColladaScene::GetColor(
     domCommon_color_or_texture_type_complexType* pParam)
 {
     if( pParam->getColor() )
     {
         domFx_color_common& rDomColor = pParam->getColor()->getValue();
 
-        return ColorRGB((float)rDomColor[0], (float)rDomColor[1], 
+        return SEColorRGB((float)rDomColor[0], (float)rDomColor[1], 
             (float)rDomColor[2]);
     }
 
-    return ColorRGB::SE_RGB_BLACK;
+    return SEColorRGB::SE_RGB_BLACK;
 }
 //----------------------------------------------------------------------------
-Texture* ColladaScene::GetTextureFromShaderElement(
+SETexture* ColladaScene::GetTextureFromShaderElement(
     std::map<std::string, domCommon_newparam_type*>& rNewParams, 
     domCommon_color_or_texture_type* pShaderElement)
 {
@@ -254,9 +254,9 @@ Texture* ColladaScene::GetTextureFromShaderElement(
         tempIDRef.resolveElement();
         domImage* pDomImage = (domImage*)tempIDRef.getElement();
 
-        Image* pImage = LoadImage(pDomImage);
+        SEImage* pImage = LoadImage(pDomImage);
         SE_ASSERT( pImage );
-        Texture* pTexture = SE_NEW Texture(pImage);
+        SETexture* pTexture = SE_NEW SETexture(pImage);
 
         return pTexture;
     }
@@ -276,9 +276,9 @@ Texture* ColladaScene::GetTextureFromShaderElement(
     rIDRef.resolveElement();
     domImage* pDomImage = (domImage*)rIDRef.getElement();
 
-    Image* pImage = LoadImage(pDomImage);
+    SEImage* pImage = LoadImage(pDomImage);
     SE_ASSERT( pImage );
-    Texture* pTexture = SE_NEW Texture(pImage);
+    SETexture* pTexture = SE_NEW SETexture(pImage);
 
     return pTexture;
 }

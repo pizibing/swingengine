@@ -30,12 +30,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:COLLADA Animation Sampler class
 // Description:
 // Author:Sun Che
 // Date:20090917
 //----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaAnimationSampler : public Object
+class SE_TOOLS_COMMON_API ColladaAnimationSampler : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -47,7 +46,7 @@ public:
     std::map<std::string, ColladaAnimationSourcePtr> Inputs;
 };
 
-typedef SmartPointer<ColladaAnimationSampler> ColladaAnimationSamplerPtr;
+typedef SESmartPointer<ColladaAnimationSampler> ColladaAnimationSamplerPtr;
 
 }
 

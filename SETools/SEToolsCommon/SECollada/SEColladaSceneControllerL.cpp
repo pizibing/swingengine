@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Node* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
+SENode* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
 {
     // Get all instance materials used by this instance controller object.
     // Each instance material points to a material object in our material 
@@ -66,7 +66,7 @@ Node* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
     xsAnyURI& rUrlType = spLib->getUrl();
     domElement* pDomElement = rUrlType.getElement();
     domController* pDomController = (domController*)pDomElement;
-    Node* pMeshRoot = 0;
+    SENode* pMeshRoot = 0;
     if( pDomController )
     {
         // There are two kinds of controller in COLLADA(<skin> and <morph>).
@@ -179,7 +179,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
 {
     SE_ASSERT( pIController );
 
-    Node* pMeshRoot = pIController->GetMeshRoot();
+    SENode* pMeshRoot = pIController->GetMeshRoot();
     domController* pDomController = pIController->GetController();
     domNode* pDomSkeletonRoot = pIController->GetSkeletonRoot();
     SE_ASSERT( pMeshRoot && pDomController && pDomSkeletonRoot );
@@ -277,11 +277,11 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
     domName_array* pDomNameArray = pDomJointSource->getName_array();
     domIDREF_array* pDomIDREFArray = pDomJointSource->getIDREF_array();
     int iBoneCount = 0;
-    Node** apBones = 0;
+    SENode** apBones = 0;
     if( pDomNameArray )
     {
         iBoneCount = (int)pDomNameArray->getCount();
-        apBones = SE_NEW Node*[iBoneCount];
+        apBones = SE_NEW SENode*[iBoneCount];
 
         for( int iB = 0; iB < iBoneCount; iB++ )
         {
@@ -290,7 +290,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
             SE_ASSERT( pDomJoint );
 
             // Try to find this bone node in Swing Engine scene graph.
-            Node* pBone = GetBoneNodeByDomNode(pDomJoint);
+            SENode* pBone = GetBoneNodeByDomNode(pDomJoint);
             SE_ASSERT( pBone );
             apBones[iB] = pBone;
         }
@@ -298,7 +298,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
     else if( pDomIDREFArray )
     {
         iBoneCount = (int)pDomIDREFArray->getCount();
-        apBones = SE_NEW Node*[iBoneCount];
+        apBones = SE_NEW SENode*[iBoneCount];
 
         for( int iB = 0; iB < iBoneCount; iB++ )
         {
@@ -306,9 +306,9 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
                 (const char*)pDomIDREFArray->getValue()[iB].getID();
 
             // Try to find this bone node in Swing Engine scene graph.
-            Object* pBone = m_spSceneRoot->GetObjectByName(acBoneName);
+            SEObject* pBone = m_spSceneRoot->GetObjectByName(acBoneName);
             SE_ASSERT( pBone );
-            apBones[iB] = StaticCast<Node>(pBone);
+            apBones[iB] = StaticCast<SENode>(pBone);
         }
     }
     else
@@ -318,7 +318,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
     }
 
     // Get all inverse binding matrices applied to the mesh.
-    Transformation* aOffsets = SE_NEW Transformation[iBoneCount];
+    SETransformation* aOffsets = SE_NEW SETransformation[iBoneCount];
     domListOfFloats* pDomIBMatrixData = &pDomIBMatrixSource->getFloat_array(
         )->getValue();
     for( int iB = 0; iB < iBoneCount; iB++ )
@@ -380,16 +380,16 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
         fM21 = (float)(*pDomIBMatrixData)[iBase +  9];
         fM22 = (float)(*pDomIBMatrixData)[iBase + 10];
 
-        Vector3f vec3fRow0(fM00, fM01, -fM02);
-        Vector3f vec3fRow1(fM10, fM11, -fM12);
-        Vector3f vec3fRow2(-fM20, -fM21, fM22);
-        Matrix3f mat3fM(vec3fRow0, vec3fRow1, vec3fRow2, false);
+        SEVector3f vec3fRow0(fM00, fM01, -fM02);
+        SEVector3f vec3fRow1(fM10, fM11, -fM12);
+        SEVector3f vec3fRow2(-fM20, -fM21, fM22);
+        SEMatrix3f mat3fM(vec3fRow0, vec3fRow1, vec3fRow2, false);
 
         float fT0, fT1, fT2;
         fT0 = (float)(*pDomIBMatrixData)[iBase +  3];
         fT1 = (float)(*pDomIBMatrixData)[iBase +  7];
         fT2 = (float)(*pDomIBMatrixData)[iBase + 11];
-        Vector3f vec3fT(fT0, fT1, -fT2);
+        SEVector3f vec3fT(fT0, fT1, -fT2);
 
         // Maybe MT form is enough for our usage.
         aOffsets[iB].SetMatrix(mat3fM);
@@ -452,7 +452,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
     int* aiVerticesPerBone = SE_NEW int[iBoneCount];
     for( int iM = 0; iM < pMeshRoot->GetCount(); iM++ )
     {
-        TriMesh* pSubMesh = StaticCast<TriMesh>(pMeshRoot->GetChild(iM));
+        SETriMesh* pSubMesh = StaticCast<SETriMesh>(pMeshRoot->GetChild(iM));
 
         // Get all vertex indices used by this sub-mesh.
         int iActiveVertexCount = pSubMesh->VBuffer->GetVertexCount();
@@ -467,10 +467,10 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
                 fX = (float)(*pDomPositionData)[iBase    ];
                 fY = (float)(*pDomPositionData)[iBase + 1];
                 fZ = (float)(*pDomPositionData)[iBase + 2];
-                Vector3f vec3fCurPos = GetTransformedVector(fX, fY, fZ);
+                SEVector3f vec3fCurPos = GetTransformedVector(fX, fY, fZ);
 
                 if( vec3fCurPos == 
-                    (*(Vector3f*)pSubMesh->VBuffer->PositionTuple(iAV)) )
+                    (*(SEVector3f*)pSubMesh->VBuffer->PositionTuple(iAV)) )
                 {
                     tempVIArray.push_back(iV);
                     break;
@@ -512,8 +512,8 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
 
         // Create active bone nodes array and offsets array for skin effect.
         // These data will be released by skin effect.
-        Node** apActiveBones = SE_NEW Node*[iActiveBoneCount];
-        Transformation* aActiveOffsets = SE_NEW Transformation[iActiveBoneCount];
+        SENode** apActiveBones = SE_NEW SENode*[iActiveBoneCount];
+        SETransformation* aActiveOffsets = SE_NEW SETransformation[iActiveBoneCount];
 
         // Get active bone nodes and their offsets.
         std::vector<int> tempBIArray(iBoneCount);
@@ -533,23 +533,23 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
         // TODO:
         // Impliment a flexible skin effect system.
         SkinEffect eSkinEffect = SE_DEFAULT;
-        Effect* pSaveEffect = 0;
+        SEEffect* pSaveEffect = 0;
         for( int i = 0; i < pSubMesh->GetEffectCount(); i++ )
         {
-            Effect* pTempEffect = pSubMesh->GetEffect(i);
-            if( DynamicCast<MaterialEffect>(pTempEffect) )
+            SEEffect* pTempEffect = pSubMesh->GetEffect(i);
+            if( DynamicCast<SEMaterialEffect>(pTempEffect) )
             {
                 eSkinEffect = SE_MATERIAL;
                 pSaveEffect = pTempEffect;
                 break;
             }
-            else if( DynamicCast<MaterialTextureEffect>(pTempEffect) )
+            else if( DynamicCast<SEMaterialTextureEffect>(pTempEffect) )
             {
                 eSkinEffect = SE_MATERIALTEXTURE;
                 pSaveEffect = pTempEffect;
                 break;
             }
-            else if( DynamicCast<DefaultShaderEffect>(pTempEffect ))
+            else if( DynamicCast<SEDefaultShaderEffect>(pTempEffect ))
             {
                 eSkinEffect = SE_DEFAULT;
                 pSaveEffect = pTempEffect;
@@ -559,7 +559,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
 
         // Create a new vertex buffer for the sub-mesh and replace the old
         // one with it.
-        Attributes tempAttr;
+        SEAttributes tempAttr;
         switch( eSkinEffect )
         {
         case SE_DEFAULT:
@@ -587,7 +587,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
             SE_ASSERT( false );
             break;
         }
-        VertexBuffer* pVBNew = SE_NEW VertexBuffer(tempAttr, 
+        SEVertexBuffer* pVBNew = SE_NEW SEVertexBuffer(tempAttr, 
             iActiveVertexCount);
         int iChannels;
         float* afData = pVBNew->GetData();
@@ -642,27 +642,27 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
         }
 
         // Create the skin effect we want and attach it to the sub-mesh.
-        Effect* pNewEffect = 0;
+        SEEffect* pNewEffect = 0;
         std::string tempImageName;
         switch( eSkinEffect )
         {
         case SE_DEFAULT:
-            pNewEffect = SE_NEW SkinDefaultEffect(iActiveBoneCount, 
+            pNewEffect = SE_NEW SESkinDefaultEffect(iActiveBoneCount, 
                 apActiveBones, aActiveOffsets);
             break;
 
         case SE_MATERIAL:
-            pNewEffect = SE_NEW SkinMaterialEffect(iActiveBoneCount, 
+            pNewEffect = SE_NEW SESkinMaterialEffect(iActiveBoneCount, 
                 apActiveBones, aActiveOffsets);
             break;
 
         case SE_MATERIALTEXTURE:
             {
-                MaterialTextureEffect* pMTEffect = 
-                    DynamicCast<MaterialTextureEffect>(pSaveEffect);
+                SEMaterialTextureEffect* pMTEffect = 
+                    DynamicCast<SEMaterialTextureEffect>(pSaveEffect);
                 tempImageName = pMTEffect->GetPImageName(0, 0);
 
-                pNewEffect = SE_NEW SkinMaterialTextureEffect(
+                pNewEffect = SE_NEW SESkinMaterialTextureEffect(
                     tempImageName, iActiveBoneCount, apActiveBones, 
                     aActiveOffsets);
             }

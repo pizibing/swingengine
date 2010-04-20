@@ -32,7 +32,6 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:COLLADA Animation Key struct
 // Description:
 // Author:Sun Che
 // Date:20090917
@@ -52,7 +51,6 @@ struct SE_TOOLS_COMMON_API ColladaAnimationKey
 };
 
 //----------------------------------------------------------------------------
-// Name:COLLADA Key Set struct
 // Description:
 // Author:Sun Che
 // Date:20090917
@@ -92,12 +90,11 @@ struct SE_TOOLS_COMMON_API ColladaKeySet
 
 class ColladaTransformation;
 //----------------------------------------------------------------------------
-// Name:COLLADA Animation class
 // Description:
 // Author:Sun Che
 // Date:20090916
 //----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaAnimation : public Object
+class SE_TOOLS_COMMON_API ColladaAnimation : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -144,7 +141,7 @@ private:
     void Interp(float& rfValue, ColladaKeySet* pKeySet, float fTime);
 };
 
-typedef SmartPointer<ColladaAnimation> ColladaAnimationPtr;
+typedef SESmartPointer<ColladaAnimation> ColladaAnimationPtr;
 
 }
 

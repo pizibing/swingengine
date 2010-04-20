@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Light* ColladaScene::GetLight(const char* acName)
+SELight* ColladaScene::GetLight(const char* acName)
 {
     if( !acName )
     {
@@ -42,7 +42,7 @@ Light* ColladaScene::GetLight(const char* acName)
     return 0;
 }
 //----------------------------------------------------------------------------
-Light* ColladaScene::LoadLight(domLightRef spDomLight)
+SELight* ColladaScene::LoadLight(domLightRef spDomLight)
 {
     xsID strLightID = spDomLight->getId();
     if( !strLightID )
@@ -50,7 +50,7 @@ Light* ColladaScene::LoadLight(domLightRef spDomLight)
         return 0;
     }
 
-    Light* pLight = GetLight(strLightID);
+    SELight* pLight = GetLight(strLightID);
     if( pLight )
     {
         // This light is already in our light catalog.
@@ -74,7 +74,7 @@ Light* ColladaScene::LoadLight(domLightRef spDomLight)
         }
 
         // Create a Swing Engine light.
-        pLight = SE_NEW Light;
+        pLight = SE_NEW SELight;
         pLight->SetName((const char*)strLightID);
 
         // Only one of these light types can be present.
@@ -89,25 +89,25 @@ Light* ColladaScene::LoadLight(domLightRef spDomLight)
 
         if( pDomAmbient )
         {
-            pLight->Type = Light::LT_AMBIENT;
+            pLight->Type = SELight::LT_AMBIENT;
             domFloat3& rDomFloat3 = pDomAmbient->getColor()->getValue();
-            pLight->Ambient	= ColorRGB((float)(rDomFloat3[0]), 
+            pLight->Ambient	= SEColorRGB((float)(rDomFloat3[0]), 
                 (float)(rDomFloat3[1]), (float)(rDomFloat3[2]));
         }
         else if( pDomDirectional )
         {
-            pLight->Type = Light::LT_DIRECTIONAL;
+            pLight->Type = SELight::LT_DIRECTIONAL;
             domFloat3& rDomFloat3 = pDomDirectional->getColor()->getValue();
-            pLight->Ambient = ColorRGB((float)(rDomFloat3[0]), 
+            pLight->Ambient = SEColorRGB((float)(rDomFloat3[0]), 
                 (float)(rDomFloat3[1]), (float)(rDomFloat3[2]));
             pLight->Diffuse = pLight->Ambient;
             pLight->Specular = pLight->Ambient;
         }
         else if( pDomPoint )
         {
-            pLight->Type = Light::LT_POINT;
+            pLight->Type = SELight::LT_POINT;
             domFloat3& rDomFloat3 = pDomPoint->getColor()->getValue();
-            pLight->Ambient = ColorRGB((float)(rDomFloat3[0]), 
+            pLight->Ambient = SEColorRGB((float)(rDomFloat3[0]), 
                 (float)(rDomFloat3[1]), (float)(rDomFloat3[2]));
             pLight->Diffuse = pLight->Ambient;
             pLight->Specular = pLight->Ambient;
@@ -130,9 +130,9 @@ Light* ColladaScene::LoadLight(domLightRef spDomLight)
         }
         else if( pDomSpot )
         {
-            pLight->Type = Light::LT_SPOT;
+            pLight->Type = SELight::LT_SPOT;
             domFloat3& rDomFloat3 = pDomSpot->getColor()->getValue();
-            pLight->Ambient = ColorRGB((float)(rDomFloat3[0]), 
+            pLight->Ambient = SEColorRGB((float)(rDomFloat3[0]), 
                 (float)(rDomFloat3[1]), (float)(rDomFloat3[2]));
             pLight->Diffuse = pLight->Ambient;
             pLight->Specular = pLight->Ambient;
@@ -155,7 +155,7 @@ Light* ColladaScene::LoadLight(domLightRef spDomLight)
             if( pDomSpot->getFalloff_angle() )
             {
                 // COLLADA uses degree, Swing Engine uses radians.
-                float fAngle = Math<float>::DEG_TO_RAD * 
+                float fAngle = SEMath<float>::DEG_TO_RAD * 
                     (float)(pDomSpot->getFalloff_angle()->getValue());
                 pLight->SetAngle(fAngle);
             }
@@ -174,7 +174,7 @@ Light* ColladaScene::LoadLight(domLightRef spDomLight)
     return 0;
 }
 //----------------------------------------------------------------------------
-ColladaInstanceLight* ColladaScene::LoadInstanceLight(Node* pParentNode, 
+ColladaInstanceLight* ColladaScene::LoadInstanceLight(SENode* pParentNode, 
     domInstance_lightRef spDomInstanceLight)
 {
     xsAnyURI& rUrlType  = spDomInstanceLight->getUrl();
@@ -188,14 +188,14 @@ ColladaInstanceLight* ColladaScene::LoadInstanceLight(Node* pParentNode,
         return 0;
     }
 
-    Light* pLight = LoadLight((domLight*)pDomElement);
+    SELight* pLight = LoadLight((domLight*)pDomElement);
     if( pLight )
     {
         // We should make a copy of the original light because each
         // instance of that light has its own transformation based on its
         // parent node's transformation.
-        ObjectPtr spObject = pLight->Copy();
-        Light* pNewLight = DynamicCast<Light>(spObject);
+        SEObjectPtr spObject = pLight->Copy();
+        SELight* pNewLight = DynamicCast<SELight>(spObject);
         SE_ASSERT( pNewLight );
 
         ColladaInstanceLight* pInstanceLight = 
@@ -211,12 +211,12 @@ void ColladaScene::ProcessLights()
 {
     for( int i = 0; i < (int)m_InstanceLights.size(); i++ )
     {
-        Light* pLight = m_InstanceLights[i]->GetLight();
-        Node* pParentNode = m_InstanceLights[i]->GetParentNode();
+        SELight* pLight = m_InstanceLights[i]->GetLight();
+        SENode* pParentNode = m_InstanceLights[i]->GetParentNode();
 
         pLight->Position = pParentNode->World.GetTranslate();
-        if( pLight->Type == Light::LT_DIRECTIONAL || 
-            pLight->Type == Light::LT_SPOT )
+        if( pLight->Type == SELight::LT_DIRECTIONAL || 
+            pLight->Type == SELight::LT_SPOT )
         {
             bool bIsSRMatrix = pParentNode->World.IsSRMatrix();
             SE_ASSERT( bIsSRMatrix );

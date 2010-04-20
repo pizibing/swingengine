@@ -28,7 +28,6 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:COLLADA Input Array class
 // Description: A helper class to deal with COLLADA <input> elements which
 //     represent mesh's vertex buffer source data.
 // Author:Sun Che

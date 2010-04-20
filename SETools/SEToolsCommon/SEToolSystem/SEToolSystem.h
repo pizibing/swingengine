@@ -28,7 +28,6 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:Tool System class
 // Description:
 // Author:Sun Che
 // Date:20090913

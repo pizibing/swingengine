@@ -24,8 +24,8 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColladaTransformation, Object);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaTransformation, Object);
+SE_IMPLEMENT_RTTI(Swing, ColladaTransformation, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaTransformation, SEObject);
 
 //----------------------------------------------------------------------------
 ColladaTransformation::ColladaTransformation()
@@ -93,16 +93,16 @@ ColladaTransformation::TransformType ColladaTransformation::GetTransformType(
     }
 }
 //----------------------------------------------------------------------------
-Transformation ColladaTransformation::ToTransformation()
+SETransformation ColladaTransformation::ToTransformation()
 {
-    Transformation tempRes;
+    SETransformation tempRes;
 
     switch( TransType )
     {
     case TT_SCALE:
         {
             // Get the scale data.
-            Vector3f vec3fScale = ColladaScene::GetTransformedVector(
+            SEVector3f vec3fScale = ColladaScene::GetTransformedVector(
                 SRTData[0], SRTData[1], SRTData[2]);
 
             // Is this an uniform scale?
@@ -121,11 +121,11 @@ Transformation ColladaTransformation::ToTransformation()
     case TT_ROTATE:
         {
             // Get the rotation data.
-            Vector3f vec3fRotAxis = ColladaScene::GetTransformedVector(
+            SEVector3f vec3fRotAxis = ColladaScene::GetTransformedVector(
                 SRTData[0], SRTData[1], SRTData[2]);
-            float fRotAngle = -SRTData[3]*Math<float>::DEG_TO_RAD;
+            float fRotAngle = -SRTData[3]*SEMath<float>::DEG_TO_RAD;
 
-            Matrix3f mat3fR(vec3fRotAxis, fRotAngle);
+            SEMatrix3f mat3fR(vec3fRotAxis, fRotAngle);
             tempRes.SetRotate(mat3fR);
         }
         break;
@@ -133,7 +133,7 @@ Transformation ColladaTransformation::ToTransformation()
     case TT_TRANSLATE:
         {
             // Get the transation data.
-            Vector3f vec3fTrans = ColladaScene::GetTransformedVector(
+            SEVector3f vec3fTrans = ColladaScene::GetTransformedVector(
                 SRTData[0], SRTData[1], SRTData[2]);
 
             tempRes.SetTranslate(vec3fTrans);

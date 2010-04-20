@@ -30,12 +30,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:COLLADA Instance Controller class
 // Description: A helper class.
 // Author:Sun Che
 // Date:20091013
 //----------------------------------------------------------------------------
-class ColladaInstanceController : public Object
+class ColladaInstanceController : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -49,14 +48,14 @@ public:
 	};
 
     ColladaInstanceController(ControllerType eType, domController* pController, 
-        domNode* pSkeletonRoot, Node* pMeshRoot);
+        domNode* pSkeletonRoot, SENode* pMeshRoot);
     ~ColladaInstanceController(void);
 
     // Member access.
     ControllerType GetControllerType(void) const;
     domController* GetController(void);
     domNode* GetSkeletonRoot(void);
-    Node* GetMeshRoot(void);
+    SENode* GetMeshRoot(void);
 
 private:
     ColladaInstanceController(void);
@@ -64,10 +63,10 @@ private:
     ControllerType m_eControllerType;
     domController* m_pController;
     domNode* m_pSkeletonRoot;
-    Node* m_pMeshRoot;
+    SENode* m_pMeshRoot;
 };
 
-typedef SmartPointer<ColladaInstanceController> ColladaInstanceControllerPtr;
+typedef SESmartPointer<ColladaInstanceController> ColladaInstanceControllerPtr;
 
 }
 

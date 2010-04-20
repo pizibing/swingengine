@@ -32,12 +32,11 @@ namespace Swing
 
 class ColladaKeySet;
 //----------------------------------------------------------------------------
-// Name:COLLADA Animation Channel class
 // Description:
 // Author:Sun Che
 // Date:20090917
 //----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaAnimationChannel : public Object
+class SE_TOOLS_COMMON_API ColladaAnimationChannel : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -91,7 +90,7 @@ public:
     int NumElementTargets;
 };
 
-typedef SmartPointer<ColladaAnimationChannel> ColladaAnimationChannelPtr;
+typedef SESmartPointer<ColladaAnimationChannel> ColladaAnimationChannelPtr;
 
 }
 

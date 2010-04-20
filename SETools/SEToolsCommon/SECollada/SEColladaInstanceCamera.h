@@ -31,34 +31,33 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:COLLADA Instance Camera class
 // Description: A helper class that holds a Swing Engine camera and a Swing 
 //     Engine node which the camera is instantiated from, the camera uses
 //     transformation of the node.
 // Author:Sun Che
 // Date:20091006
 //----------------------------------------------------------------------------
-class ColladaInstanceCamera : public Object
+class ColladaInstanceCamera : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
 
 public:
-    ColladaInstanceCamera(Node* pParentNode, Camera* pCamera);
+    ColladaInstanceCamera(SENode* pParentNode, SECamera* pCamera);
     ~ColladaInstanceCamera(void);
 
     // member access.
-    Node* GetParentNode(void);
-    Camera* GetCamera(void);
+    SENode* GetParentNode(void);
+    SECamera* GetCamera(void);
 
 private:
     ColladaInstanceCamera(void);
 
-    NodePtr m_spParentNode;
-    CameraPtr m_spCamera;
+    SENodePtr m_spParentNode;
+    SECameraPtr m_spCamera;
 };
 
-typedef SmartPointer<ColladaInstanceCamera> ColladaInstanceCameraPtr;
+typedef SESmartPointer<ColladaInstanceCamera> ColladaInstanceCameraPtr;
 
 }
 

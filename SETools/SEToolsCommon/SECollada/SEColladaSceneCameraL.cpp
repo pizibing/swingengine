@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Camera* ColladaScene::GetCamera(const char* acName)
+SECamera* ColladaScene::GetCamera(const char* acName)
 {
     if( !acName )
     {
@@ -42,7 +42,7 @@ Camera* ColladaScene::GetCamera(const char* acName)
     return 0;
 }
 //----------------------------------------------------------------------------
-Camera* ColladaScene::LoadCamera(domCameraRef spDomCamera)
+SECamera* ColladaScene::LoadCamera(domCameraRef spDomCamera)
 {
     xsID strCameraID = spDomCamera->getId();
     if( !strCameraID )
@@ -50,7 +50,7 @@ Camera* ColladaScene::LoadCamera(domCameraRef spDomCamera)
         return 0;
     }
 
-    Camera* pCamera = GetCamera((const char*)strCameraID);
+    SECamera* pCamera = GetCamera((const char*)strCameraID);
     if( pCamera )
     {
         // This camera is already in our camera catalog.
@@ -63,7 +63,7 @@ Camera* ColladaScene::LoadCamera(domCameraRef spDomCamera)
     if( pDomCamera )
     {	
         // Create a Swing Engine camera.
-        pCamera = SE_NEW Camera;
+        pCamera = SE_NEW SECamera;
         pCamera->SetName((const char*)strCameraID);
 
         // Get the optics.
@@ -84,7 +84,7 @@ Camera* ColladaScene::LoadCamera(domCameraRef spDomCamera)
         // Setup camera parameters, note we have to check if a parameter is 
         // there before doing getValue. Parameters not in the COLLADA data 
         // will be left at the Swing Engine camera defaults.
-        float fFovx = Math<float>::ATan(0.5f) * Mathf::RAD_TO_DEG * 2.0f;
+        float fFovx = SEMath<float>::ATan(0.5f) * SEMathf::RAD_TO_DEG * 2.0f;
         float fFovy = fFovx;
         float fRMin = -0.5f;
         float fRMax = 0.5f;
@@ -105,9 +105,9 @@ Camera* ColladaScene::LoadCamera(domCameraRef spDomCamera)
                 fFovx = (float)(pDomPerspective->getXfov()->getValue());
 
                 // Here we should adjust fovy base on fovx.
-                float fTanHalfFovx = Math<float>::Tan(0.5f*fFovx);
+                float fTanHalfFovx = SEMath<float>::Tan(0.5f*fFovx);
                 float fTanHalfFovy = fTanHalfFovx / fAspectRatio;
-                fFovy = 2.0f * Math<float>::ATan(fTanHalfFovy);
+                fFovy = 2.0f * SEMath<float>::ATan(fTanHalfFovy);
             }
             if( pDomPerspective->getYfov() )
             {
@@ -189,7 +189,7 @@ Camera* ColladaScene::LoadCamera(domCameraRef spDomCamera)
     return 0;
 }
 //----------------------------------------------------------------------------
-ColladaInstanceCamera* ColladaScene::LoadInstanceCamera(Node* pParentNode, 
+ColladaInstanceCamera* ColladaScene::LoadInstanceCamera(SENode* pParentNode, 
     domInstance_cameraRef spDomInstanceCamera)
 {
     xsAnyURI& rUrlType  = spDomInstanceCamera->getUrl();
@@ -203,14 +203,14 @@ ColladaInstanceCamera* ColladaScene::LoadInstanceCamera(Node* pParentNode,
         return 0;
     }
 
-    Camera* pCamera = LoadCamera((domCamera*)pDomElement);
+    SECamera* pCamera = LoadCamera((domCamera*)pDomElement);
     if( pCamera )
     {
         // We should make a copy of the original camera because each
         // instance of that camera has its own transformation based on its
         // parent node's transformation.
-        ObjectPtr spObject = pCamera->Copy();
-        Camera* pNewCamera = DynamicCast<Camera>(spObject);
+        SEObjectPtr spObject = pCamera->Copy();
+        SECamera* pNewCamera = DynamicCast<SECamera>(spObject);
         SE_ASSERT( pNewCamera );
 
         ColladaInstanceCamera* pInstanceCamera = 
@@ -226,15 +226,15 @@ void ColladaScene::ProcessCameras()
 {
     for( int i = 0; i < (int)m_InstanceCameras.size(); i++ )
     {
-        Camera* pCamera = m_InstanceCameras[i]->GetCamera();
-        Node* pParentNode = m_InstanceCameras[i]->GetParentNode();
+        SECamera* pCamera = m_InstanceCameras[i]->GetCamera();
+        SENode* pParentNode = m_InstanceCameras[i]->GetParentNode();
 
         pCamera->SetLocation(pParentNode->World.GetTranslate());
         bool bIsSRMatrix = pParentNode->World.IsSRMatrix();
         SE_ASSERT( bIsSRMatrix );
         if( bIsSRMatrix )
         {
-            Vector3f vec3fR, vec3fU, vec3fD;
+            SEVector3f vec3fR, vec3fU, vec3fD;
             pParentNode->World.GetRotate().GetRow(0, vec3fR);
             pParentNode->World.GetRotate().GetRow(1, vec3fU);
             pParentNode->World.GetRotate().GetRow(2, vec3fD);

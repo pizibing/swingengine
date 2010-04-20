@@ -23,8 +23,8 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColladaInstanceMaterial, Object);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaInstanceMaterial, Object);
+SE_IMPLEMENT_RTTI(Swing, ColladaInstanceMaterial, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaInstanceMaterial, SEObject);
 
 //----------------------------------------------------------------------------
 ColladaInstanceMaterial::ColladaInstanceMaterial()

@@ -30,14 +30,13 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:COLLADA Instance Material class
 // Description: A helper class that holds a symbolic name used by a sub-mesh
 //     as a material name, the class also holds a target which is pointing to
 //     a COLLADA material object.
 // Author:Sun Che
 // Date:20090928
 //----------------------------------------------------------------------------
-class ColladaInstanceMaterial : public Object
+class ColladaInstanceMaterial : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -54,7 +53,7 @@ public:
     ColladaMaterial* TargetMaterial;
 };
 
-typedef SmartPointer<ColladaInstanceMaterial> ColladaInstanceMaterialPtr;
+typedef SESmartPointer<ColladaInstanceMaterial> ColladaInstanceMaterialPtr;
 
 }
 

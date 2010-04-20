@@ -23,8 +23,8 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColladaAnimationSampler, Object);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaAnimationSampler, Object);
+SE_IMPLEMENT_RTTI(Swing, ColladaAnimationSampler, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaAnimationSampler, SEObject);
 
 //----------------------------------------------------------------------------
 ColladaAnimationSampler::ColladaAnimationSampler()

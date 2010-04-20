@@ -70,7 +70,7 @@ ColladaAnimationSource* ColladaScene::LoadAnimationSource(
             afData[i] = (float)rDomFloatArray[i];
         }
 
-        pSource->Source = SE_NEW FloatArray(iCount, afData);
+        pSource->Source = SE_NEW SEFloatArray(iCount, afData);
     }
     else 
     {
@@ -170,19 +170,19 @@ ColladaAnimationChannel* ColladaScene::LoadAnimationChannel(
     char tempTargetMember[iBufferSize];
     if( acIDSep )
     {
-        System::SE_Strncpy(tempTargetID, iBufferSize, acTargetName, 
+        SESystem::SE_Strncpy(tempTargetID, iBufferSize, acTargetName, 
             (int)(acIDSep - acTargetName));
         pChannel->TargetID = tempTargetID;
     }
     if( acIDSep && acSIDSep && acSIDSep > acIDSep )
     {
-        System::SE_Strncpy(tempTargetSID, iBufferSize, acIDSep + 1, 
+        SESystem::SE_Strncpy(tempTargetSID, iBufferSize, acIDSep + 1, 
             (int)(acSIDSep - acIDSep - 1));
         pChannel->TargetSID = tempTargetSID;
     }
     if( acSIDSep && (*acSIDSep) != '\0' )
     {
-        System::SE_Strcpy(tempTargetMember, iBufferSize, acSIDSep + 1);
+        SESystem::SE_Strcpy(tempTargetMember, iBufferSize, acSIDSep + 1);
         pChannel->TargetMember = tempTargetMember;
     }
 
@@ -382,7 +382,7 @@ ColladaAnimation* ColladaScene::LoadAnimation(domAnimationRef spDomAnimation)
     return 0;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::BuildKeyFrameController(Node* pNode,
+void ColladaScene::BuildKeyFrameController(SENode* pNode,
     std::vector<ColladaTransformation*>& rColladaTransSequence)
 {
     // Get a keyframe information set.
@@ -458,27 +458,27 @@ void ColladaScene::BuildKeyFrameController(Node* pNode,
 
     // Create a keyframe controller that will be attached to the node,
     // and allocate memory for it's member.
-    KeyframeController* pKFController = SE_NEW KeyframeController;
+    SEKeyframeController* pKFController = SE_NEW SEKeyframeController;
     if( iScaKeyCount > 0 )
     {
-        pKFController->ScaleTimes = SE_NEW FloatArray(iScaKeyCount,
+        pKFController->ScaleTimes = SE_NEW SEFloatArray(iScaKeyCount,
             SE_NEW float[iScaKeyCount]);
-        pKFController->ScaleData = SE_NEW FloatArray(iScaKeyCount,
+        pKFController->ScaleData = SE_NEW SEFloatArray(iScaKeyCount,
             SE_NEW float[iScaKeyCount]);
     }
     if( iRotKeyCount > 0 )
     {
-        pKFController->RotationTimes = SE_NEW FloatArray(iRotKeyCount,
+        pKFController->RotationTimes = SE_NEW SEFloatArray(iRotKeyCount,
             SE_NEW float[iRotKeyCount]);
-        pKFController->RotationData = SE_NEW QuaternionfArray(iRotKeyCount,
-            SE_NEW Quaternionf[iRotKeyCount]);
+        pKFController->RotationData = SE_NEW SEQuaternionfArray(iRotKeyCount,
+            SE_NEW SEQuaternionf[iRotKeyCount]);
     }
     if( iTrnKeyCount > 0 )
     {
-        pKFController->TranslationTimes = SE_NEW FloatArray(iTrnKeyCount,
+        pKFController->TranslationTimes = SE_NEW SEFloatArray(iTrnKeyCount,
             SE_NEW float[iTrnKeyCount]);
-        pKFController->TranslationData = SE_NEW Vector3fArray(iTrnKeyCount,
-            SE_NEW Vector3f[iTrnKeyCount]);
+        pKFController->TranslationData = SE_NEW SEVector3fArray(iTrnKeyCount,
+            SE_NEW SEVector3f[iTrnKeyCount]);
     }
 
     float* pfSKey = (pKFController->ScaleData ?
@@ -486,18 +486,18 @@ void ColladaScene::BuildKeyFrameController(Node* pNode,
     float* pfSTime = (pKFController->ScaleTimes ?
         pKFController->ScaleTimes->GetData() : 0);
 
-    Quaternionf* pRKey = (pKFController->RotationData ?
+    SEQuaternionf* pRKey = (pKFController->RotationData ?
         pKFController->RotationData->GetData() : 0);
     float* pfRTime = (pKFController->RotationTimes ?
         pKFController->RotationTimes->GetData() : 0);
 
-    Vector3f* pTKey = (pKFController->TranslationData ? 
+    SEVector3f* pTKey = (pKFController->TranslationData ? 
         pKFController->TranslationData->GetData() : 0);
     float* pfTTime = (pKFController->TranslationTimes ?
         pKFController->TranslationTimes->GetData() : 0);
 
     float fTimeNow = -1.0f;
-    Transformation tempTransform;
+    SETransformation tempTransform;
     tempIter = tempKeyInfoSet.begin();
     for( int i = 0; i < (int)tempKeyInfoSet.size(); i++, tempIter++ )
     {
@@ -523,13 +523,13 @@ void ColladaScene::BuildKeyFrameController(Node* pNode,
                 }
                 else
                 {
-                    fMax = Math<float>::FAbs(tempTransform.GetScale().X);
-                    float fAbs = Math<float>::FAbs(tempTransform.GetScale().Y);
+                    fMax = SEMath<float>::FAbs(tempTransform.GetScale().X);
+                    float fAbs = SEMath<float>::FAbs(tempTransform.GetScale().Y);
                     if( fAbs > fMax )
                     {
                         fMax = fAbs;
                     }
-                    fAbs = Math<float>::FAbs(tempTransform.GetScale().Z);
+                    fAbs = SEMath<float>::FAbs(tempTransform.GetScale().Z);
                     if( fAbs > fMax )
                     {
                         fMax = fAbs;
@@ -577,7 +577,7 @@ void ColladaScene::BuildKeyFrameController(Node* pNode,
         }
     }
 
-    pKFController->Repeat = Controller::RT_WRAP;
+    pKFController->Repeat = SEController::RT_WRAP;
     pKFController->MinTime = 0.0f;
     pKFController->MaxTime = fEndTime;
     pNode->AttachController(pKFController);

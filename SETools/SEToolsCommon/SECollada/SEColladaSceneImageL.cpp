@@ -29,7 +29,7 @@ int ColladaScene::GetImageCount() const
     return (int)m_Images.size();
 }
 //----------------------------------------------------------------------------
-Image* ColladaScene::GetImage(const char* acName)
+SEImage* ColladaScene::GetImage(const char* acName)
 {
     if( !acName )
     {
@@ -47,7 +47,7 @@ Image* ColladaScene::GetImage(const char* acName)
     return 0;
 }
 //----------------------------------------------------------------------------
-Image* ColladaScene::GetImage(int i)
+SEImage* ColladaScene::GetImage(int i)
 {
     if( 0 <= i && i <= (int)m_Images.size() - 1 )
     {
@@ -59,7 +59,7 @@ Image* ColladaScene::GetImage(int i)
 //----------------------------------------------------------------------------
 bool ColladaScene::LoadImageLibrary(domLibrary_imagesRef spLib)
 {
-    ToolSystem::SE_DebugOutput("ColladaScene::Loading Image Library" );
+    ToolSystem::SE_DebugOutput("ColladaScene::Loading SEImage Library" );
 
     int iImageCount = (int)spLib->getImage_array().getCount();
     for( int i = 0; i < iImageCount; i++ )
@@ -70,7 +70,7 @@ bool ColladaScene::LoadImageLibrary(domLibrary_imagesRef spLib)
     return true;
 }
 //----------------------------------------------------------------------------
-Image* ColladaScene::LoadImage(domImageRef spDomImage)
+SEImage* ColladaScene::LoadImage(domImageRef spDomImage)
 {
     if( !spDomImage )
     {
@@ -83,7 +83,7 @@ Image* ColladaScene::LoadImage(domImageRef spDomImage)
         return 0;
     }
 
-    Image* pImage = GetImage((const char*)strImageID);
+    SEImage* pImage = GetImage((const char*)strImageID);
     if( pImage )
     {
         // This image is already in our image catalog.

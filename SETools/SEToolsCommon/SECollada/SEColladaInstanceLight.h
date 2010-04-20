@@ -31,34 +31,33 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:COLLADA Instance Light class
 // Description: A helper class that holds a Swing Engine light and a Swing 
 //     Engine node which the light is instantiated from, the light uses
 //     transformation of the node.
 // Author:Sun Che
 // Date:20091006
 //----------------------------------------------------------------------------
-class ColladaInstanceLight : public Object
+class ColladaInstanceLight : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
 
 public:
-    ColladaInstanceLight(Node* pParentNode, Light* pLight);
+    ColladaInstanceLight(SENode* pParentNode, SELight* pLight);
     ~ColladaInstanceLight(void);
 
     // member access.
-    Node* GetParentNode(void);
-    Light* GetLight(void);
+    SENode* GetParentNode(void);
+    SELight* GetLight(void);
 
 private:
     ColladaInstanceLight(void);
 
-    NodePtr m_spParentNode;
-    LightPtr m_spLight;
+    SENodePtr m_spParentNode;
+    SELightPtr m_spLight;
 };
 
-typedef SmartPointer<ColladaInstanceLight> ColladaInstanceLightPtr;
+typedef SESmartPointer<ColladaInstanceLight> ColladaInstanceLightPtr;
 
 }
 

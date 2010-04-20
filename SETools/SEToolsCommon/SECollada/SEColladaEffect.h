@@ -31,12 +31,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:COLLADA Effect class
 // Description:
 // Author:Sun Che
 // Date:20090915
 //----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaEffect : public ShaderEffect
+class SE_TOOLS_COMMON_API ColladaEffect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -45,11 +44,11 @@ public:
     ColladaEffect(void);
     ~ColladaEffect(void);
 
-    MaterialStatePtr Material;
-    std::vector<TexturePtr> Textures;
+    SEMaterialStatePtr Material;
+    std::vector<SETexturePtr> Textures;
 };
 
-typedef SmartPointer<ColladaEffect> ColladaEffectPtr;
+typedef SESmartPointer<ColladaEffect> ColladaEffectPtr;
 
 }
 

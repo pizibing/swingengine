@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-Node* ColladaScene::GetNode(const char* acName)
+SENode* ColladaScene::GetNode(const char* acName)
 {
     if( !acName )
     {
@@ -39,7 +39,7 @@ Node* ColladaScene::GetNode(const char* acName)
     return m_Nodes[acName];
 }
 //----------------------------------------------------------------------------
-void ColladaScene::GetLocalTransSequence(Node* pNode, domNodeRef spDomNode,
+void ColladaScene::GetLocalTransSequence(SENode* pNode, domNodeRef spDomNode,
     std::vector<ColladaTransformation*>& rColladaTransSequence)
 {
     // Get the node transformations as they are to be able to handle any 
@@ -75,7 +75,7 @@ void ColladaScene::GetLocalTransSequence(Node* pNode, domNodeRef spDomNode,
                     pColladaTransform->SetName(acSID);
                 }
                 pColladaTransform->TransType = eTType;
-                pColladaTransform->SRTData = Vector4f((float)rDomFloat3[0], 
+                pColladaTransform->SRTData = SEVector4f((float)rDomFloat3[0], 
                     (float)rDomFloat3[1], (float)rDomFloat3[2], 0.0f);
                 rColladaTransSequence.push_back(pColladaTransform);
             }
@@ -98,7 +98,7 @@ void ColladaScene::GetLocalTransSequence(Node* pNode, domNodeRef spDomNode,
                     pColladaTransform->SetName(acSID);
                 }
                 pColladaTransform->TransType = eTType;
-                pColladaTransform->SRTData = Vector4f((float)rDomFloat4[0], 
+                pColladaTransform->SRTData = SEVector4f((float)rDomFloat4[0], 
                     (float)rDomFloat4[1], (float)rDomFloat4[2], 
                     (float)rDomFloat4[3]);
                 rColladaTransSequence.push_back(pColladaTransform);
@@ -121,7 +121,7 @@ void ColladaScene::GetLocalTransSequence(Node* pNode, domNodeRef spDomNode,
                     pColladaTransform->SetName(acSID);
                 }
                 pColladaTransform->TransType = eTType;
-                pColladaTransform->SRTData = Vector4f((float)rDomFloat3[0], 
+                pColladaTransform->SRTData = SEVector4f((float)rDomFloat3[0], 
                     (float)rDomFloat3[1], (float)rDomFloat3[2], 0.0f);
                 rColladaTransSequence.push_back(pColladaTransform);
             }
@@ -197,11 +197,11 @@ void ColladaScene::GetLocalTransSequence(Node* pNode, domNodeRef spDomNode,
     }
 }
 //----------------------------------------------------------------------------
-Transformation ColladaScene::GetLocalTransformation(
+SETransformation ColladaScene::GetLocalTransformation(
     std::vector<ColladaTransformation*>& rColladaTransSequence,
     float fTime)
 {
-    Transformation tempRes;
+    SETransformation tempRes;
 
     // Update each animated COLLADA transformation.
     int iTransCount = (int)rColladaTransSequence.size();
@@ -227,7 +227,7 @@ Transformation ColladaScene::GetLocalTransformation(
 
     for( int i = iTransCount - 1; i >= 0 ; i-- )
     {
-        Transformation tempTransform = 
+        SETransformation tempTransform = 
             rColladaTransSequence[i]->ToTransformation();
 
         tempRes.Product(tempRes, tempTransform);
@@ -236,7 +236,7 @@ Transformation ColladaScene::GetLocalTransformation(
     return tempRes;
 }
 //----------------------------------------------------------------------------
-Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
+SENode* ColladaScene::LoadNode(domNodeRef spDomNode, SENode* pParentNode)
 {
     if( !spDomNode )
     {
@@ -245,18 +245,18 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
 
     xsID strNodeID = spDomNode->getId();
     const char* acNodeID = (const char*)strNodeID;
-    Node* pNode = GetNode(acNodeID);
+    SENode* pNode = GetNode(acNodeID);
     if( pNode )
     {
         // This node is already in our node catalog.
         return pNode;
     }
 
-    ToolSystem::SE_DebugOutput("ColladaScene::Loading Scene Node %s", 
+    ToolSystem::SE_DebugOutput("ColladaScene::Loading Scene SENode %s", 
         acNodeID);
 
     // Create a Swing Engine node to handle the COLLADA node's information.
-    pNode = SE_NEW Node;
+    pNode = SE_NEW SENode;
     pNode->SetName(acNodeID);
 
     // Process local transformation sequence.
@@ -282,7 +282,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     domNodeType eNodeType = spDomNode->getType();
     if( eNodeType == NODETYPE_JOINT )
     {
-        //TriMesh* pJointMesh = CreateJointMesh(acNodeID);
+        //SETriMesh* pJointMesh = CreateJointMesh(acNodeID);
         //pNode->AttachChild(pJointMesh);
 
         Bone tempBone;
@@ -297,7 +297,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     int iInstanceGeometryCount = (int)rInstanceGeometryArray.getCount();
     for( int i = 0; i < iInstanceGeometryCount; i++ )
     {
-        Node* pMeshRoot = LoadInstanceGeometry(rInstanceGeometryArray[i]);
+        SENode* pMeshRoot = LoadInstanceGeometry(rInstanceGeometryArray[i]);
         if( !pMeshRoot )
         {
             continue;
@@ -320,7 +320,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     int iInstanceControllerCount = (int)rInstanceControllerArray.getCount();
     for( int i = 0; i < iInstanceControllerCount; i++ )
     {
-        Node* pMeshRoot = LoadInstanceController(rInstanceControllerArray[i]);
+        SENode* pMeshRoot = LoadInstanceController(rInstanceControllerArray[i]);
         if( !pMeshRoot )
         {
             continue;
@@ -345,7 +345,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
             LoadInstanceLight(pNode, rDomInstanceLightArray[i]);
         if( pInstanceLight ) 
         {
-            Light* pLight = pInstanceLight->GetLight();
+            SELight* pLight = pInstanceLight->GetLight();
             pNode->AttachLight(pLight);
             m_InstanceLights.push_back(pInstanceLight);
         }
@@ -376,7 +376,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     for( int i = 0; i < iChildNodeCount; i++ )
     {
         // Load each child an recursively it's children.
-        Node* pChildNode = LoadNode(spDomNode->getNode_array()[i], pNode);
+        SENode* pChildNode = LoadNode(spDomNode->getNode_array()[i], pNode);
         if( pChildNode )
         {
             std::string strChildName = pChildNode->GetName();
@@ -396,7 +396,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
             (domNode*)(domElement*)pDomInstanceNode->getUrl().getElement();
         if( spDomChildNode ) 
         {
-            Node* pChildNode = LoadNode(spDomChildNode, pNode);
+            SENode* pChildNode = LoadNode(spDomChildNode, pNode);
             if( pChildNode )
             {
                 std::string strChildName = pChildNode->GetName();
@@ -408,7 +408,7 @@ Node* ColladaScene::LoadNode(domNodeRef spDomNode, Node* pParentNode)
     return pNode;
 }
 //----------------------------------------------------------------------------
-TriMesh* ColladaScene::CreateJointMesh(const char* acJointName, float fSize)
+SETriMesh* ColladaScene::CreateJointMesh(const char* acJointName, float fSize)
 {
     SE_ASSERT( fSize >= 0.0f );
 
@@ -422,12 +422,12 @@ TriMesh* ColladaScene::CreateJointMesh(const char* acJointName, float fSize)
         strJointName += "unnamed";
     }
 
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
-    StandardMesh tempSM(tempAttr);
-    TriMesh* pJointMesh = tempSM.Box(fSize, fSize, fSize);
+    SEStandardMesh tempSM(tempAttr);
+    SETriMesh* pJointMesh = tempSM.Box(fSize, fSize, fSize);
     pJointMesh->SetName(strJointName);
-    pJointMesh->AttachEffect(SE_NEW DefaultShaderEffect);
+    pJointMesh->AttachEffect(SE_NEW SEDefaultShaderEffect);
 
     return pJointMesh;
 }
@@ -462,7 +462,7 @@ domNode* ColladaScene::GetDomNodeBySID(domNodeRef spDomNode, xsNCName strSID)
     return 0;
 }
 //----------------------------------------------------------------------------
-Node* ColladaScene::GetBoneNodeByDomNode(domNode* pDomNode)
+SENode* ColladaScene::GetBoneNodeByDomNode(domNode* pDomNode)
 {
     if( !pDomNode )
     {

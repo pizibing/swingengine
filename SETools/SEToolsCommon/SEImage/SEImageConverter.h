@@ -29,7 +29,6 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// Name:Image Converter class
 // Description:
 // Author:Sun Che
 // Date:20090914
@@ -40,7 +39,7 @@ public:
     ImageConverter(IDirect3DDevice9* pDevice);
     ~ImageConverter(void);
 
-    Image* CreateImageFromFile(const char* acFilename);
+    SEImage* CreateImageFromFile(const char* acFilename);
 
 private:
     ImageConverter(void);
