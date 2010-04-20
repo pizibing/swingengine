@@ -68,7 +68,8 @@ int DynamicMultiTextureEffect::GetTextureCount() const
     return m_iTextureCount;
 }
 //----------------------------------------------------------------------------
-void DynamicMultiTextureEffect::SetImageName(int i, const std::string& rImageName)
+void DynamicMultiTextureEffect::SetImageName(int i, const std::string& 
+    rImageName)
 {
     SE_ASSERT( 0 <= i && i < m_iTextureCount );
 
@@ -134,7 +135,8 @@ void DynamicMultiTextureEffect::OnLoadPrograms(int, SEProgram*,
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void DynamicMultiTextureEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
+void DynamicMultiTextureEffect::Load(SEStream& rStream, SEStream::SELink* 
+    pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
@@ -152,7 +154,8 @@ void DynamicMultiTextureEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(DynamicMultiTextureEffect);
 }
 //----------------------------------------------------------------------------
-void DynamicMultiTextureEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void DynamicMultiTextureEffect::SELink(SEStream& rStream, SEStream::SELink* 
+    pLink)
 {
     SEShaderEffect::SELink(rStream, pLink);
 }
@@ -179,7 +182,8 @@ void DynamicMultiTextureEffect::Save(SEStream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(DynamicMultiTextureEffect);
 }
 //----------------------------------------------------------------------------
-int DynamicMultiTextureEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
+int DynamicMultiTextureEffect::GetDiskUsed(const SEStreamVersion& rVersion) 
+    const
 {
     int iSize = SEShaderEffect::GetDiskUsed(rVersion) +
         sizeof(m_iTextureCount);

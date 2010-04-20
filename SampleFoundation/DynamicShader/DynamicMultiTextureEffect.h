@@ -59,7 +59,8 @@ protected:
     std::string* m_aTextureTypeName;
 };
 
-typedef SESmartPointer<DynamicMultiTextureEffect> DynamicMultiTextureEffectPtr;
+typedef SESmartPointer<DynamicMultiTextureEffect> 
+    DynamicMultiTextureEffectPtr;
 
 }
 
