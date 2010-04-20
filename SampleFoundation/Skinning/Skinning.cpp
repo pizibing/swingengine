@@ -27,23 +27,23 @@ SE_REGISTER_INITIALIZE(Skinning);
 //----------------------------------------------------------------------------
 Skinning::Skinning()
     :
-    WindowApplication3("Skinning", 0, 0, 640, 480, 
-        ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
+    SEWindowApplication3("Skinning", 0, 0, 640, 480, 
+        SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
 }
 //----------------------------------------------------------------------------
 bool Skinning::OnInitialize()
 {
-    if( !WindowApplication3::OnInitialize() )
+    if( !SEWindowApplication3::OnInitialize() )
     {
         return false;
     }
 
     m_spCamera->SetFrustum(-0.55f, 0.55f, -0.4125f, 0.4125f, 1.0f, 1000.0f);
-    Vector3f tempCLoc(0.0f, 5.0f, -20.0f);
-    Vector3f tempCDir(0.0f, 0.0f, 1.0f);
-    Vector3f tempCUp(0.0f, 1.0f, 0.0f);
-    Vector3f tempCRight = tempCUp.Cross(tempCDir);
+    SEVector3f tempCLoc(0.0f, 5.0f, -20.0f);
+    SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
+    SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
+    SEVector3f tempCRight = tempCUp.Cross(tempCDir);
     m_spCamera->SetFrame(tempCLoc, tempCRight, tempCUp, tempCDir);
 
     CreateScene();
@@ -66,14 +66,14 @@ void Skinning::OnTerminate()
     m_spScene = 0;
     m_spMesh = 0;
     m_spWireframe = 0;
-    WindowApplication3::OnTerminate();
+    SEWindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void Skinning::OnIdle()
 {
     MeasureTime();
 
-    m_spScene->UpdateGS(System::SE_GetTime());
+    m_spScene->UpdateGS(SESystem::SE_GetTime());
     m_Culler.ComputeUnculledSet(m_spScene);
 
     if( MoveCamera() )
@@ -91,7 +91,7 @@ void Skinning::OnIdle()
     if( m_pRenderer->BeginScene() )
     {
         m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
-        DrawFrameRate(8, 20, ColorRGBA::SE_RGBA_WHITE);
+        DrawFrameRate(8, 20, SEColorRGBA::SE_RGBA_WHITE);
         m_pRenderer->EndScene();
     }
     m_pRenderer->DisplayBackBuffer();
@@ -101,7 +101,7 @@ void Skinning::OnIdle()
 //----------------------------------------------------------------------------
 bool Skinning::OnKeyDown(unsigned char ucKey, int iX, int iY)
 {
-    if( WindowApplication3::OnKeyDown(ucKey, iX, iY) )
+    if( SEWindowApplication3::OnKeyDown(ucKey, iX, iY) )
     {
         return true;
     }
@@ -127,17 +127,17 @@ bool Skinning::OnKeyDown(unsigned char ucKey, int iX, int iY)
 //----------------------------------------------------------------------------
 void Skinning::CreateScene()
 {
-    m_spScene = SE_NEW Node;
-    m_spWireframe = SE_NEW WireframeState;
+    m_spScene = SE_NEW SENode;
+    m_spWireframe = SE_NEW SEWireframeState;
     m_spScene->AttachGlobalState(m_spWireframe);
 
-    Stream tempStream;
-    const char* acPath = System::SE_GetPath("boy.seof", System::SM_READ);
+    SEStream tempStream;
+    const char* acPath = SESystem::SE_GetPath("boy.seof", SESystem::SM_READ);
     SE_ASSERT( acPath );
     bool bLoaded = tempStream.Load(acPath);
     SE_ASSERT( bLoaded );
     (void)bLoaded;
-    Node* pRoot = DynamicCast<Node>(tempStream.GetObjectAt(0));
+    SENode* pRoot = DynamicCast<SENode>(tempStream.GetObjectAt(0));
     m_spScene->AttachChild(pRoot);
 }
 //----------------------------------------------------------------------------
