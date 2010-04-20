@@ -28,39 +28,41 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_INITIALIZE(OGLES2Renderer);
+SE_IMPLEMENT_INITIALIZE(SEOGLES2Renderer);
 
-//SE_REGISTER_INITIALIZE(OGLES2Renderer);
+//SE_REGISTER_INITIALIZE(SEOGLES2Renderer);
 
 //----------------------------------------------------------------------------
-void OGLES2Renderer::Initialize()
+void SEOGLES2Renderer::Initialize()
 {
-    RendererConstant::OnReleaseID =
-        &OGLES2Renderer::OnReleaseRendererConstantID;
-    UserConstant::OnReleaseID = &OGLES2Renderer::OnReleaseUserConstantID;
-    SamplerInformation::OnReleaseID = 
-        &OGLES2Renderer::OnReleaseSamplerInformationID;
+    SERendererConstant::OnReleaseID =
+        &SEOGLES2Renderer::OnReleaseRendererConstantID;
+    SEUserConstant::OnReleaseID = &SEOGLES2Renderer::OnReleaseUserConstantID;
+    SESamplerInformation::OnReleaseID = 
+        &SEOGLES2Renderer::OnReleaseSamplerInformationID;
 
-    RendererConstant::OnCopyID = &OGLES2Renderer::OnCopyRendererConstantID;
-    UserConstant::OnCopyID = &OGLES2Renderer::OnCopyUserConstantID;
-    SamplerInformation::OnCopyID = &OGLES2Renderer::OnCopySamplerInformationID;
+    SERendererConstant::OnCopyID = 
+        &SEOGLES2Renderer::OnCopyRendererConstantID;
+    SEUserConstant::OnCopyID = &SEOGLES2Renderer::OnCopyUserConstantID;
+    SESamplerInformation::OnCopyID = 
+        &SEOGLES2Renderer::OnCopySamplerInformationID;
 }
 //----------------------------------------------------------------------------
-OGLES2Renderer::OGLES2Renderer(FrameBuffer::FormatType eFormat,
-    FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,
-    FrameBuffer::BufferingType eBuffering,
-    FrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight)
+SEOGLES2Renderer::SEOGLES2Renderer(SEFrameBuffer::FormatType eFormat,
+    SEFrameBuffer::DepthType eDepth, SEFrameBuffer::StencilType eStencil,
+    SEFrameBuffer::BufferingType eBuffering,
+    SEFrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight)
     :
-    Renderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth, 
+    SERenderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth, 
         iHeight)
 {
 }
 //----------------------------------------------------------------------------
-OGLES2Renderer::~OGLES2Renderer()
+SEOGLES2Renderer::~SEOGLES2Renderer()
 {
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::InitializeState()
+void SEOGLES2Renderer::InitializeState()
 {
     // 设置默认clear color.
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
@@ -88,7 +90,7 @@ void OGLES2Renderer::InitializeState()
 
     // Swing Engine shader管线light数为8.
     m_iMaxLights = 8;
-    m_aspLight = SE_NEW ObjectPtr[m_iMaxLights];
+    m_aspLight = SE_NEW SEObjectPtr[m_iMaxLights];
 
     // 获取stencil buffer位宽.
     GLint iBits = 0;
@@ -99,13 +101,13 @@ void OGLES2Renderer::InitializeState()
     m_iMaxUserClipPlanes = 26;
 
     // 获取vertex program profile.
-    m_iMaxVShaderProfile = Renderer::OES2VP1;
+    m_iMaxVShaderProfile = SERenderer::OES2VP1;
 
     // 获取geometry program profile.
-    m_iMaxGShaderProfile = Renderer::GS_UNSUPPORTED;
+    m_iMaxGShaderProfile = SERenderer::GS_UNSUPPORTED;
 
     // 获取fragment program profile.
-    m_iMaxPShaderProfile = Renderer::OES2FP1;
+    m_iMaxPShaderProfile = SERenderer::OES2FP1;
 
     // OpenGL ES2不支持MRT.	
     m_iMaxRenderTargets = 1;
@@ -114,20 +116,20 @@ void OGLES2Renderer::InitializeState()
     if( m_iMaxActiveSamplerCount > 0 )
     {
         m_apActiveSamplers =
-            SE_NEW SamplerInformation*[m_iMaxActiveSamplerCount];
+            SE_NEW SESamplerInformation*[m_iMaxActiveSamplerCount];
 
         memset(m_apActiveSamplers, 0, m_iMaxActiveSamplerCount*
-            sizeof(SamplerInformation*));
+            sizeof(SESamplerInformation*));
     }
 
     // 检查是否具备shader compiler.
     glGetBooleanv(GL_SHADER_COMPILER, (GLboolean*)&m_bHasShaderCompiler);
 
     // 初始化全局渲染状态为引擎默认设置.
-    SetGlobalState(GlobalState::Default);
+    SetGlobalState(SEGlobalState::Default);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::ClearBackBuffer()
+void SEOGLES2Renderer::ClearBackBuffer()
 {
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
         m_ClearColor[3]);
@@ -135,21 +137,21 @@ void OGLES2Renderer::ClearBackBuffer()
     glClear(GL_COLOR_BUFFER_BIT);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::ClearZBuffer()
+void SEOGLES2Renderer::ClearZBuffer()
 {
     glClearDepthf((GLclampf)m_fClearDepth);
 
     glClear(GL_DEPTH_BUFFER_BIT);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::ClearStencilBuffer()
+void SEOGLES2Renderer::ClearStencilBuffer()
 {
     glClearStencil((GLint)m_uiClearStencil);
 
     glClear(GL_STENCIL_BUFFER_BIT);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::ClearBuffers()
+void SEOGLES2Renderer::ClearBuffers()
 {
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
         m_ClearColor[3]);
@@ -159,7 +161,7 @@ void OGLES2Renderer::ClearBuffers()
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::ClearBackBuffer(int iXPos, int iYPos, int iWidth,
+void SEOGLES2Renderer::ClearBackBuffer(int iXPos, int iYPos, int iWidth,
     int iHeight)
 {
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
@@ -171,7 +173,7 @@ void OGLES2Renderer::ClearBackBuffer(int iXPos, int iYPos, int iWidth,
     glDisable(GL_SCISSOR_TEST);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::ClearZBuffer(int iXPos, int iYPos, int iWidth,
+void SEOGLES2Renderer::ClearZBuffer(int iXPos, int iYPos, int iWidth,
     int iHeight)
 {
     glClearDepthf((GLclampf)m_fClearDepth);
@@ -182,7 +184,7 @@ void OGLES2Renderer::ClearZBuffer(int iXPos, int iYPos, int iWidth,
     glDisable(GL_SCISSOR_TEST);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::ClearStencilBuffer(int iXPos, int iYPos, int iWidth,
+void SEOGLES2Renderer::ClearStencilBuffer(int iXPos, int iYPos, int iWidth,
     int iHeight)
 {
     glClearStencil((GLint)m_uiClearStencil);
@@ -193,7 +195,7 @@ void OGLES2Renderer::ClearStencilBuffer(int iXPos, int iYPos, int iWidth,
     glDisable(GL_SCISSOR_TEST);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::ClearBuffers(int iXPos, int iYPos, int iWidth,
+void SEOGLES2Renderer::ClearBuffers(int iXPos, int iYPos, int iWidth,
     int iHeight)
 {
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
@@ -210,48 +212,48 @@ void OGLES2Renderer::ClearBuffers(int iXPos, int iYPos, int iWidth,
     glDisable(GL_SCISSOR_TEST);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
+void SEOGLES2Renderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
     bool bAllowBlue, bool bAllowAlpha)
 {
-    Renderer::SetColorMask(bAllowRed, bAllowGreen, bAllowBlue, bAllowAlpha);
+    SERenderer::SetColorMask(bAllowRed, bAllowGreen, bAllowBlue, bAllowAlpha);
 
     glColorMask((GLboolean)bAllowRed, (GLboolean)bAllowGreen,
         (GLboolean)bAllowBlue, (GLboolean)bAllowAlpha);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::EnableUserClipPlane(int, const Plane3f&)
+void SEOGLES2Renderer::EnableUserClipPlane(int, const SEPlane3f&)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::DisableUserClipPlane(int)
+void SEOGLES2Renderer::DisableUserClipPlane(int)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnPreDrawGeometry()
+void SEOGLES2Renderer::OnPreDrawGeometry()
 {
-    RenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
+    SERenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
     SE_ASSERT( pRStateBlock );
 
     SetGlobalState(pRStateBlock->States);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnPostDrawGeometry()
+void SEOGLES2Renderer::OnPostDrawGeometry()
 {
-    RenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
+    SERenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
     SE_ASSERT( pRStateBlock );
 
     RestoreGlobalState(pRStateBlock->States);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnPreDrawPass(ShaderEffect* pEffect, int iPass,
+void SEOGLES2Renderer::OnPreDrawPass(SEShaderEffect* pEffect, int iPass,
     bool bPrimaryEffect)
 {
     pEffect->SetGlobalState(iPass, this, bPrimaryEffect);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnPostDrawPass(ShaderEffect* pEffect, int iPass,
+void SEOGLES2Renderer::OnPostDrawPass(SEShaderEffect* pEffect, int iPass,
     bool bPrimaryEffect)
 {
     pEffect->RestoreGlobalState(iPass, this, bPrimaryEffect);

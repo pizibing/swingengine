@@ -34,21 +34,20 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Microsoft Windows OpenGL ES2 Renderer类
 // 说明:
 // 作者:Sun Che
 // 时间:20090701
 //----------------------------------------------------------------------------
-class SE_RENDERER_API WglES2Renderer : public OGLES2Renderer
+class SE_RENDERER_API SEWglES2Renderer : public SEOGLES2Renderer
 {
 public:
-    WglES2Renderer(EGLNativeWindowType hWnd, FrameBuffer::FormatType eFormat,
-        FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,
-        FrameBuffer::BufferingType eBuffering,
-        FrameBuffer::MultisamplingType eMultisampling, int iWidth,
+    SEWglES2Renderer(EGLNativeWindowType hWnd, SEFrameBuffer::FormatType 
+        eFormat, SEFrameBuffer::DepthType eDepth, SEFrameBuffer::StencilType 
+        eStencil, SEFrameBuffer::BufferingType eBuffering,
+        SEFrameBuffer::MultisamplingType eMultisampling, int iWidth,
         int iHeight);
 
-    virtual ~WglES2Renderer(void);
+    virtual ~SEWglES2Renderer(void);
 
     virtual void ToggleFullscreen(void);
     virtual void DisplayBackBuffer(void);

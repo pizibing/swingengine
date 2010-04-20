@@ -24,23 +24,23 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-bool OGLES2Renderer::SelectFont(int)
+bool SEOGLES2Renderer::SelectFont(int)
 {
     // 待实现.	
     return false;
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::UnloadFont(int)
+void SEOGLES2Renderer::UnloadFont(int)
 {
     // 待实现.
 }
 //----------------------------------------------------------------------------
-//void OGLES2Renderer::DrawCharacter(const BitmapFont&, char)
+//void SEOGLES2Renderer::DrawCharacter(const BitmapFont&, char)
 //{
     // 待实现.
 //}
 //----------------------------------------------------------------------------
-void OGLES2Renderer::Draw(int, int, const ColorRGBA&, const char*)
+void SEOGLES2Renderer::Draw(int, int, const SEColorRGBA&, const char*)
 {
     // 待实现.
 }

@@ -27,7 +27,7 @@ using namespace Swing;
 // OpenGL ES2不支持constant color相关的alpha枚举值.
 // 因此相关的引擎层参数常量映射均为0，用户有责任避免使用这些引擎层参数常量.
 
-GLenum OGLES2Renderer::ms_aeAlphaSrcBlend[AlphaState::SBF_COUNT] =
+GLenum SEOGLES2Renderer::ms_aeAlphaSrcBlend[SEAlphaState::SBF_COUNT] =
 {
     GL_ZERO,
     GL_ONE,
@@ -44,7 +44,7 @@ GLenum OGLES2Renderer::ms_aeAlphaSrcBlend[AlphaState::SBF_COUNT] =
     0     // 不支持
 };
 
-GLenum OGLES2Renderer::ms_aeAlphaDstBlend[AlphaState::DBF_COUNT] =
+GLenum SEOGLES2Renderer::ms_aeAlphaDstBlend[SEAlphaState::DBF_COUNT] =
 {
     GL_ZERO,
     GL_ONE,
@@ -61,9 +61,9 @@ GLenum OGLES2Renderer::ms_aeAlphaDstBlend[AlphaState::DBF_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-void OGLES2Renderer::SetAlphaState(AlphaState* pState)
+void SEOGLES2Renderer::SetAlphaState(SEAlphaState* pState)
 {
-    Renderer::SetAlphaState(pState);
+    SERenderer::SetAlphaState(pState);
 
     if( pState->BlendEnabled )
     {

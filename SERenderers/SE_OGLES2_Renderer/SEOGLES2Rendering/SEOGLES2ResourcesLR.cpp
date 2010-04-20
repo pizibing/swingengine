@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-GLenum OGLES2Renderer::ms_aeTextureMipmap[Texture::MAX_FILTER_TYPES] =
+GLenum SEOGLES2Renderer::ms_aeTextureMipmap[SETexture::MAX_FILTER_TYPES] =
 {
     GL_NEAREST,
     GL_LINEAR,
@@ -40,7 +40,7 @@ GLenum OGLES2Renderer::ms_aeTextureMipmap[Texture::MAX_FILTER_TYPES] =
 // 相关的引擎层参数常量映射均为GL_CLAMP_TO_EDGE,
 // 用户有责任避免使用这些引擎层参数常量.
 
-GLenum OGLES2Renderer::ms_aeWrapMode[Texture::MAX_WRAP_TYPES] =
+GLenum SEOGLES2Renderer::ms_aeWrapMode[SETexture::MAX_WRAP_TYPES] =
 {
     GL_CLAMP_TO_EDGE,
     GL_REPEAT,
@@ -55,80 +55,80 @@ GLenum OGLES2Renderer::ms_aeWrapMode[Texture::MAX_WRAP_TYPES] =
 // OpenGL ES2要求texture image的internalFormat和format参数必须相同,
 // 因此ms_aeImageComponents和ms_aeImageFormats对应的数组元素均相同.
 
-GLenum OGLES2Renderer::ms_aeImageComponents[Image::IT_COUNT] =
+GLenum SEOGLES2Renderer::ms_aeImageComponents[SEImage::IT_COUNT] =
 {
-    GL_RGB,                    // Image::IT_RGB888
-    GL_RGBA,                   // Image::IT_RGBA8888
-    GL_DEPTH_COMPONENT,        // Image::IT_DEPTH16
-    GL_DEPTH_COMPONENT,        // Image::IT_DEPTH24
-    0,                         // Image::IT_DEPTH32
-    GL_RGB,                    // Image::IT_CUBE_RGB888
-    GL_RGBA,                   // Image::IT_CUBE_RGBA8888
-    0,                         // Image::IT_RGB32
-    0,                         // Image::IT_RGBA32
-    GL_LUMINANCE,              // Image::IT_L8
-    GL_LUMINANCE,              // Image::IT_L16
-    0,                         // Image::IT_R32
-    0,                         // Image::IT_RGB16
-    0,                         // Image::IT_RGBA16
-    GL_RGB,                    // Image::IT_RGB565
-    GL_RGBA,                   // Image::IT_RGBA5551
-    GL_RGBA                    // Image::IT_RGBA4444
+    GL_RGB,                    // SEImage::IT_RGB888
+    GL_RGBA,                   // SEImage::IT_RGBA8888
+    GL_DEPTH_COMPONENT,        // SEImage::IT_DEPTH16
+    GL_DEPTH_COMPONENT,        // SEImage::IT_DEPTH24
+    0,                         // SEImage::IT_DEPTH32
+    GL_RGB,                    // SEImage::IT_CUBE_RGB888
+    GL_RGBA,                   // SEImage::IT_CUBE_RGBA8888
+    0,                         // SEImage::IT_RGB32
+    0,                         // SEImage::IT_RGBA32
+    GL_LUMINANCE,              // SEImage::IT_L8
+    GL_LUMINANCE,              // SEImage::IT_L16
+    0,                         // SEImage::IT_R32
+    0,                         // SEImage::IT_RGB16
+    0,                         // SEImage::IT_RGBA16
+    GL_RGB,                    // SEImage::IT_RGB565
+    GL_RGBA,                   // SEImage::IT_RGBA5551
+    GL_RGBA                    // SEImage::IT_RGBA4444
 };
 
-GLenum OGLES2Renderer::ms_aeImageFormats[Image::IT_COUNT] =
+GLenum SEOGLES2Renderer::ms_aeImageFormats[SEImage::IT_COUNT] =
 {
-    GL_RGB,                    // Image::IT_RGB888
-    GL_RGBA,                   // Image::IT_RGBA8888
-    GL_DEPTH_COMPONENT,        // Image::IT_DEPTH16
-    GL_DEPTH_COMPONENT,        // Image::IT_DEPTH24
-    0,                         // Image::IT_DEPTH32
-    GL_RGB,                    // Image::IT_CUBE_RGB888
-    GL_RGBA,                   // Image::IT_CUBE_RGBA8888
-    0,                         // Image::IT_RGB32
-    0,                         // Image::IT_RGBA32
-    GL_LUMINANCE,              // Image::IT_L8
-    GL_LUMINANCE,              // Image::IT_L16
-    0,                         // Image::IT_R32
-    0,                         // Image::IT_RGB16
-    0,                         // Image::IT_RGBA16
-    GL_RGB,                    // Image::IT_RGB565
-    GL_RGBA,                   // Image::IT_RGBA5551
-    GL_RGBA                    // Image::IT_RGBA4444
+    GL_RGB,                    // SEImage::IT_RGB888
+    GL_RGBA,                   // SEImage::IT_RGBA8888
+    GL_DEPTH_COMPONENT,        // SEImage::IT_DEPTH16
+    GL_DEPTH_COMPONENT,        // SEImage::IT_DEPTH24
+    0,                         // SEImage::IT_DEPTH32
+    GL_RGB,                    // SEImage::IT_CUBE_RGB888
+    GL_RGBA,                   // SEImage::IT_CUBE_RGBA8888
+    0,                         // SEImage::IT_RGB32
+    0,                         // SEImage::IT_RGBA32
+    GL_LUMINANCE,              // SEImage::IT_L8
+    GL_LUMINANCE,              // SEImage::IT_L16
+    0,                         // SEImage::IT_R32
+    0,                         // SEImage::IT_RGB16
+    0,                         // SEImage::IT_RGBA16
+    GL_RGB,                    // SEImage::IT_RGB565
+    GL_RGBA,                   // SEImage::IT_RGBA5551
+    GL_RGBA                    // SEImage::IT_RGBA4444
 };
 
-GLenum OGLES2Renderer::ms_aeImageTypes[Image::IT_COUNT] =
+GLenum SEOGLES2Renderer::ms_aeImageTypes[SEImage::IT_COUNT] =
 {
-    GL_UNSIGNED_BYTE,           // Image::IT_RGB888
-    GL_UNSIGNED_BYTE,           // Image::IT_RGBA8888
-    GL_FLOAT,                   // Image::IT_DEPTH16
-    GL_FLOAT,                   // Image::IT_DEPTH24
-    0,                          // Image::IT_DEPTH32
-    GL_UNSIGNED_BYTE,           // Image::IT_CUBE_RGB888
-    GL_UNSIGNED_BYTE,           // Image::IT_CUBE_RGBA8888
-    0,                          // Image::IT_RGB32
-    0,                          // Image::IT_RGBA32
-    GL_UNSIGNED_BYTE,           // Image::IT_L8
-    GL_UNSIGNED_SHORT,          // Image::IT_L16
-    0,                          // Image::IT_R32
-    0,                          // Image::IT_RGB16
-    0,                          // Image::IT_RGBA16
-    GL_UNSIGNED_SHORT_5_6_5,    // Image::IT_RGB565
-    GL_UNSIGNED_SHORT_5_5_5_1,  // Image::IT_RGBA5551
-    GL_UNSIGNED_SHORT_4_4_4_4   // Image::IT_RGBA4444
+    GL_UNSIGNED_BYTE,           // SEImage::IT_RGB888
+    GL_UNSIGNED_BYTE,           // SEImage::IT_RGBA8888
+    GL_FLOAT,                   // SEImage::IT_DEPTH16
+    GL_FLOAT,                   // SEImage::IT_DEPTH24
+    0,                          // SEImage::IT_DEPTH32
+    GL_UNSIGNED_BYTE,           // SEImage::IT_CUBE_RGB888
+    GL_UNSIGNED_BYTE,           // SEImage::IT_CUBE_RGBA8888
+    0,                          // SEImage::IT_RGB32
+    0,                          // SEImage::IT_RGBA32
+    GL_UNSIGNED_BYTE,           // SEImage::IT_L8
+    GL_UNSIGNED_SHORT,          // SEImage::IT_L16
+    0,                          // SEImage::IT_R32
+    0,                          // SEImage::IT_RGB16
+    0,                          // SEImage::IT_RGBA16
+    GL_UNSIGNED_SHORT_5_6_5,    // SEImage::IT_RGB565
+    GL_UNSIGNED_SHORT_5_5_5_1,  // SEImage::IT_RGBA5551
+    GL_UNSIGNED_SHORT_4_4_4_4   // SEImage::IT_RGBA4444
 };
 
-GLenum OGLES2Renderer::ms_aeSamplerTypes[
-    SamplerInformation::MAX_SAMPLER_TYPES] =
+GLenum SEOGLES2Renderer::ms_aeSamplerTypes[
+    SESamplerInformation::MAX_SAMPLER_TYPES] =
 {
-    0,                    // SamplerInformation::SAMPLER_1D
-    GL_TEXTURE_2D,        // SamplerInformation::SAMPLER_2D
-    0,                    // SamplerInformation::SAMPLER_3D
-    GL_TEXTURE_CUBE_MAP,  // SamplerInformation::SAMPLER_CUBE
-    GL_TEXTURE_2D,        // SamplerInformation::SAMPLER_PROJ
+    0,                    // SESamplerInformation::SAMPLER_1D
+    GL_TEXTURE_2D,        // SESamplerInformation::SAMPLER_2D
+    0,                    // SESamplerInformation::SAMPLER_3D
+    GL_TEXTURE_CUBE_MAP,  // SESamplerInformation::SAMPLER_CUBE
+    GL_TEXTURE_2D,        // SESamplerInformation::SAMPLER_PROJ
 };
 
-GLenum OGLES2Renderer::ms_aeDepthCompare[Texture::DC_COUNT] =
+GLenum SEOGLES2Renderer::ms_aeDepthCompare[SETexture::DC_COUNT] =
 {
     GL_NEVER,
     GL_LESS,
@@ -141,50 +141,50 @@ GLenum OGLES2Renderer::ms_aeDepthCompare[Texture::DC_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnLoadVProgram(ResourceIdentifier*& rpID,
-    VertexProgram* pVProgram)
+void SEOGLES2Renderer::OnLoadVProgram(SEResourceIdentifier*& rpID,
+    SEVertexProgram* pVProgram)
 {
-    VProgramID* pResource = SE_NEW VProgramID;
-    ProgramData* pData = (ProgramData*)pVProgram->UserData;
+    SEVProgramID* pResource = SE_NEW SEVProgramID;
+    SEProgramData* pData = (SEProgramData*)pVProgram->UserData;
     pResource->ID = pData->ID;
     pResource->Owner = pData->Owner;
     rpID = pResource;
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnReleaseVProgram(ResourceIdentifier* pID)
+void SEOGLES2Renderer::OnReleaseVProgram(SEResourceIdentifier* pID)
 {
-    VProgramID* pResource = (VProgramID*)pID;
+    SEVProgramID* pResource = (SEVProgramID*)pID;
     glDeleteProgram(pResource->Owner);
     glDeleteShader(pResource->ID);
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnLoadPProgram(ResourceIdentifier*& rpID,
-    PixelProgram* pPProgram)
+void SEOGLES2Renderer::OnLoadPProgram(SEResourceIdentifier*& rpID,
+    SEPixelProgram* pPProgram)
 {
-    PProgramID* pResource = SE_NEW PProgramID;
-    ProgramData* pData = (ProgramData*)pPProgram->UserData;
+    SEPProgramID* pResource = SE_NEW SEPProgramID;
+    SEProgramData* pData = (SEProgramData*)pPProgram->UserData;
     pResource->ID = pData->ID;
     pResource->Owner = pData->Owner;
     rpID = pResource;
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnReleasePProgram(ResourceIdentifier* pID)
+void SEOGLES2Renderer::OnReleasePProgram(SEResourceIdentifier* pID)
 {
-    PProgramID* pResource = (PProgramID*)pID;
+    SEPProgramID* pResource = (SEPProgramID*)pID;
     glDeleteShader(pResource->ID);
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnLoadTexture(ResourceIdentifier*& rpID,
-    Texture* pTexture)
+void SEOGLES2Renderer::OnLoadTexture(SEResourceIdentifier*& rpID,
+    SETexture* pTexture)
 {
-    TextureID* pResource = SE_NEW TextureID;
+    SETextureID* pResource = SE_NEW SETextureID;
     pResource->TextureObject = pTexture;
     rpID = pResource;
 
     // Get the texture image and its information.
-    const Image* pImage = pTexture->GetImage();
+    const SEImage* pImage = pTexture->GetImage();
     SE_ASSERT( pImage );
     int iDimension = pImage->GetDimension();
     SE_ASSERT( iDimension == 2 );
@@ -209,8 +209,8 @@ void OGLES2Renderer::OnLoadTexture(ResourceIdentifier*& rpID,
     glBindTexture(eTarget, pResource->ID);
 
     // Set the filter mode.
-    Texture::FilterType eFType = pTexture->GetFilterType();
-    if( eFType == Texture::NEAREST )
+    SETexture::FilterType eFType = pTexture->GetFilterType();
+    if( eFType == SETexture::NEAREST )
     {
         glTexParameteri(eTarget, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     }
@@ -225,7 +225,7 @@ void OGLES2Renderer::OnLoadTexture(ResourceIdentifier*& rpID,
 
     // Copy the image data from system memory to video memory.
     bool bNoMip =
-        (eFType == Texture::NEAREST || eFType == Texture::LINEAR);
+        (eFType == SETexture::NEAREST || eFType == SETexture::LINEAR);
 
     // OpenGL ES2 only support 2D texture and cube texture,
     // (unless there is an 3D EXT type).
@@ -273,18 +273,18 @@ void OGLES2Renderer::OnLoadTexture(ResourceIdentifier*& rpID,
     }
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnReleaseTexture(ResourceIdentifier* pID)
+void SEOGLES2Renderer::OnReleaseTexture(SEResourceIdentifier* pID)
 {
-    TextureID* pResource = (TextureID*)pID;
+    SETextureID* pResource = (SETextureID*)pID;
     glDeleteTextures((GLsizei)1, (GLuint*)&pResource->ID);
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
-    const Attributes& rIAttr, const Attributes& rOAttr,
-    VertexBuffer* pVBuffer, VertexProgram*)
+void SEOGLES2Renderer::OnLoadVBuffer(SEResourceIdentifier*& rpID,
+    const SEAttributes& rIAttr, const SEAttributes& rOAttr,
+    SEVertexBuffer* pVBuffer, SEVertexProgram*)
 {
-    VBufferID* pResource = SE_NEW VBufferID;
+    SEVBufferID* pResource = SE_NEW SEVBufferID;
     rpID = pResource;
     pResource->IAttr = rIAttr;
     pResource->OAttr = rOAttr;
@@ -304,17 +304,17 @@ void OGLES2Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
     SE_DELETE[] afCompatible;
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnReleaseVBuffer(ResourceIdentifier* pID)
+void SEOGLES2Renderer::OnReleaseVBuffer(SEResourceIdentifier* pID)
 {
-    VBufferID* pResource = (VBufferID*)pID;
+    SEVBufferID* pResource = (SEVBufferID*)pID;
     glDeleteBuffers(1, &pResource->ID);
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnLoadIBuffer(ResourceIdentifier*& rpID,
-    IndexBuffer* pIBuffer)
+void SEOGLES2Renderer::OnLoadIBuffer(SEResourceIdentifier*& rpID,
+    SEIndexBuffer* pIBuffer)
 {
-    IBufferID* pResource = SE_NEW IBufferID;
+    SEIBufferID* pResource = SE_NEW SEIBufferID;
     rpID = pResource;
 
     // 创建buffer id并绑定index buffer.
@@ -322,8 +322,8 @@ void OGLES2Renderer::OnLoadIBuffer(ResourceIdentifier*& rpID,
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pResource->ID);
 
     // 注意:	
-    // OpenGL ES2只支持16位索引缓冲区,用户有责任确保所使用的引擎层32位索引缓冲区,
-    // 与16位索引缓冲区兼容,也就是索引顶点的范围只能在区间[0,65535]上.
+    // OpenGL ES2只支持16位索引缓冲区,用户有责任确保所使用的引擎层32位索引缓冲
+    // 区,与16位索引缓冲区兼容,也就是索引顶点的范围只能在区间[0,65535]上.
     // 在这个使用前提下,我们才能确保下面的数据创建过程是安全的.	
     int iICount = pIBuffer->GetIndexCount();
     size_t uiSize = iICount*sizeof(unsigned short);
@@ -342,9 +342,9 @@ void OGLES2Renderer::OnLoadIBuffer(ResourceIdentifier*& rpID,
     SE_DELETE[] ausDstData;
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnReleaseIBuffer(ResourceIdentifier* pID)
+void SEOGLES2Renderer::OnReleaseIBuffer(SEResourceIdentifier* pID)
 {
-    IBufferID* pResource = (IBufferID*)pID;
+    SEIBufferID* pResource = (SEIBufferID*)pID;
     glDeleteBuffers(1, &pResource->ID);
     SE_DELETE pResource;
 }
@@ -353,13 +353,13 @@ void OGLES2Renderer::OnReleaseIBuffer(ResourceIdentifier* pID)
 //----------------------------------------------------------------------------
 // shader程序连接.
 //----------------------------------------------------------------------------
-bool OGLES2Renderer::OnLinkPrograms(VertexProgram* pVProgram,
-    GeometryProgram*, PixelProgram* pPProgram)
+bool SEOGLES2Renderer::OnLinkPrograms(SEVertexProgram* pVProgram,
+    SEGeometryProgram*, SEPixelProgram* pPProgram)
 {
-    GLuint uiVID = ((ProgramData*)pVProgram->UserData)->ID;
-    GLuint uiPID = ((ProgramData*)pPProgram->UserData)->ID;
-    GLuint& ruiVOwner = ((ProgramData*)pVProgram->UserData)->Owner;
-    GLuint& ruiPOwner = ((ProgramData*)pPProgram->UserData)->Owner;
+    GLuint uiVID = ((SEProgramData*)pVProgram->UserData)->ID;
+    GLuint uiPID = ((SEProgramData*)pPProgram->UserData)->ID;
+    GLuint& ruiVOwner = ((SEProgramData*)pVProgram->UserData)->Owner;
+    GLuint& ruiPOwner = ((SEProgramData*)pPProgram->UserData)->Owner;
 
     SE_ASSERT( ruiVOwner == ruiPOwner );
     if( ruiVOwner )
@@ -401,7 +401,7 @@ bool OGLES2Renderer::OnLinkPrograms(VertexProgram* pVProgram,
     }
 
     // Parse attributes,uniforms,and store them in the vertex program.
-    OGLES2Program::ParseLinkedProgram(uiProgram, pVProgram, pPProgram);
+    SEOGLES2Program::ParseLinkedProgram(uiProgram, pVProgram, pPProgram);
     return true;
 }
 //----------------------------------------------------------------------------

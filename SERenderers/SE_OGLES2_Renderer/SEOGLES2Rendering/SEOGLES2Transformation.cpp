@@ -25,7 +25,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnViewportChange()
+void SEOGLES2Renderer::OnViewportChange()
 {
     float fPortL, fPortR, fPortT, fPortB;
     if( m_pCamera )
@@ -53,7 +53,7 @@ void OGLES2Renderer::OnViewportChange()
     glViewport(iX, iY, iW, iH);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnDepthRangeChange()
+void SEOGLES2Renderer::OnDepthRangeChange()
 {
     if( m_pCamera )
     {

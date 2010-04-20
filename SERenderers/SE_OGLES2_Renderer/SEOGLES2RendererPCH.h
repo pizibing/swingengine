@@ -23,15 +23,15 @@
 
 #ifdef SE_USE_PRECOMPILED_HEADERS
 
-// OGLES2Renderer Register
+// OGLES2 Renderer Register
 #include "SEOGLES2RendererRegister.h"
 
-// OGLES2Rendering
+// OGLES2 Rendering
 #include "SEOGLES2FrameBuffer.h"
 #include "SEOGLES2Renderer.h"
 #include "SEOGLES2Resources.h"
 
-// OGLES2Shaders
+// OGLES2 Shaders
 #include "SEOGLES2Program.h"
 
 #endif

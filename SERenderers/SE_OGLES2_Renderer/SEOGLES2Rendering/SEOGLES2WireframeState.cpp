@@ -24,9 +24,9 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void OGLES2Renderer::SetWireframeState(WireframeState* pState)
+void SEOGLES2Renderer::SetWireframeState(SEWireframeState* pState)
 {
-    Renderer::SetWireframeState(pState);
+    SERenderer::SetWireframeState(pState);
 
     // OpenGL ES2不支持wireframe模式.
 }

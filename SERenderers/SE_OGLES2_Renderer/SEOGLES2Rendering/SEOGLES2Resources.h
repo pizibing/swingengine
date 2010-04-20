@@ -29,42 +29,42 @@
 namespace Swing
 {
 
-class SE_RENDERER_API VProgramID : public ResourceIdentifier
+class SE_RENDERER_API SEVProgramID : public SEResourceIdentifier
 {
 public:
     unsigned int ID;
     unsigned int Owner;
 };
 
-class SE_RENDERER_API PProgramID : public ResourceIdentifier
+class SE_RENDERER_API SEPProgramID : public SEResourceIdentifier
 {
 public:
     unsigned int ID;
     unsigned int Owner;
 };
 
-class SE_RENDERER_API TextureID : public ResourceIdentifier
+class SE_RENDERER_API SETextureID : public SEResourceIdentifier
 {
 public:
     unsigned int ID;
-    Texture* TextureObject;
+    SETexture* TextureObject;
 };
 
-class SE_RENDERER_API VBufferID : public ResourceIdentifier
+class SE_RENDERER_API SEVBufferID : public SEResourceIdentifier
 {
 public:
-    Attributes IAttr;  // multipass时,用于shader输入属性匹配性检测.
-    Attributes OAttr;
+    SEAttributes IAttr;  // multipass时,用于shader输入属性匹配性检测.
+    SEAttributes OAttr;
     unsigned int ID;
 };
 
-class SE_RENDERER_API IBufferID : public ResourceIdentifier
+class SE_RENDERER_API SEIBufferID : public SEResourceIdentifier
 {
 public:
     unsigned int ID;
 };
 
-class SE_RENDERER_API ProgramData
+class SE_RENDERER_API SEProgramData
 {
 public:
     unsigned int ID;
@@ -126,19 +126,19 @@ private:
     std::vector<unsigned int> m_TCoordAttribIDs;
 };
 
-class SE_RENDERER_API RendererConstantID
+class SE_RENDERER_API SERendererConstantID
 {
 public:
     unsigned int ID;
 };
 
-class SE_RENDERER_API UserConstantID
+class SE_RENDERER_API SEUserConstantID
 {
 public:
     unsigned int ID;
 };
 
-class SE_RENDERER_API SamplerInformationID
+class SE_RENDERER_API SESamplerInformationID
 {
 public:
     unsigned int ID;

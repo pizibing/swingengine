@@ -29,33 +29,32 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:OpenGL ES2 shader程序类
-// 说明:这是一个代理类,用于实现program类的代理函数,不允许实例化.
+// 说明:这是一个代理类,用于实现SEProgram类的代理函数,不允许实例化.
 //    这些代理函数主要用于帮助基类创建,编译ESSL程序.
 // 作者:Sun Che
 // 时间:20090705
 //----------------------------------------------------------------------------
-class SE_RENDERER_API OGLES2Program : public Program
+class SE_RENDERER_API SEOGLES2Program : public SEProgram
 {
     SE_DECLARE_INITIALIZE;
 
 public:
     // 用于创建一个shader program对象并填充其数据.
-    static bool OnLoadProgram(Renderer* pRenderer, 
-        const std::string& rProgramName, Program* pProgram, 
-        Program::ProgramType eType, InterfaceDescriptor* pInterfaceDesc);
+    static bool OnLoadProgram(SERenderer* pRenderer, 
+        const std::string& rProgramName, SEProgram* pProgram, 
+        SEProgram::ProgramType eType, SEInterfaceDescriptor* pInterfaceDesc);
 
-    static void ParseLinkedProgram(unsigned int uiProgram, Program* pVProgram,
-        Program* pPProgram);
+    static void ParseLinkedProgram(unsigned int uiProgram, SEProgram* 
+        pVProgram, SEProgram* pPProgram);
 
     // 用于释放shader program自定义数据.
     static void OnReleaseUserData(void* pUserData);
 
     // 用于创建lighting effect所需shader程序.
-    static void OnConfigureLighting(LightingEffect* pLEffect);
+    static void OnConfigureLighting(SELightingEffect* pLEffect);
 
 private:
-    OGLES2Program(void);
+    SEOGLES2Program(void);
 
     // Parsing shader程序时使用.
     static const std::string ms_PositionStr;

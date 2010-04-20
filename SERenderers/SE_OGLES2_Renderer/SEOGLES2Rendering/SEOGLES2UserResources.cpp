@@ -25,42 +25,43 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnReleaseRendererConstantID(void* pID)
+void SEOGLES2Renderer::OnReleaseRendererConstantID(void* pID)
 {
-    RendererConstantID* pRCID = (RendererConstantID*)pID;
+    SERendererConstantID* pRCID = (SERendererConstantID*)pID;
     SE_DELETE pRCID;
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnReleaseUserConstantID(void* pID)
+void SEOGLES2Renderer::OnReleaseUserConstantID(void* pID)
 {
-    UserConstantID* pUCID = (UserConstantID*)pID;
+    SEUserConstantID* pUCID = (SEUserConstantID*)pID;
     SE_DELETE pUCID;
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnReleaseSamplerInformationID(void* pID)
+void SEOGLES2Renderer::OnReleaseSamplerInformationID(void* pID)
 {
-    SamplerInformationID* pSIID = (SamplerInformationID*)pID;
+    SESamplerInformationID* pSIID = (SESamplerInformationID*)pID;
     SE_DELETE pSIID;
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnCopyRendererConstantID(void* pSrcID, void** ppDstID)
+void SEOGLES2Renderer::OnCopyRendererConstantID(void* pSrcID, void** ppDstID)
 {
-    RendererConstantID* pID = SE_NEW RendererConstantID;
-    pID->ID = ((RendererConstantID*)pSrcID)->ID;
+    SERendererConstantID* pID = SE_NEW SERendererConstantID;
+    pID->ID = ((SERendererConstantID*)pSrcID)->ID;
     *ppDstID = (void*)pID;
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnCopyUserConstantID(void* pSrcID, void** ppDstID)
+void SEOGLES2Renderer::OnCopyUserConstantID(void* pSrcID, void** ppDstID)
 {
-    UserConstantID* pID = SE_NEW UserConstantID;
-    pID->ID = ((UserConstantID*)pSrcID)->ID;
+    SEUserConstantID* pID = SE_NEW SEUserConstantID;
+    pID->ID = ((SEUserConstantID*)pSrcID)->ID;
     *ppDstID = (void*)pID;
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnCopySamplerInformationID(void* pSrcID, void** ppDstID)
+void SEOGLES2Renderer::OnCopySamplerInformationID(void* pSrcID, void** 
+    ppDstID)
 {
-    SamplerInformationID* pID = SE_NEW SamplerInformationID;
-    pID->ID = ((SamplerInformationID*)pSrcID)->ID;
+    SESamplerInformationID* pID = SE_NEW SESamplerInformationID;
+    pID->ID = ((SESamplerInformationID*)pSrcID)->ID;
     *ppDstID = (void*)pID;
 }
 //----------------------------------------------------------------------------

@@ -24,12 +24,13 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-WglES2Renderer::WglES2Renderer(EGLNativeWindowType hWnd,
-    FrameBuffer::FormatType eFormat, FrameBuffer::DepthType eDepth,
-    FrameBuffer::StencilType eStencil, FrameBuffer::BufferingType eBuffering,
-    FrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight)
+SEWglES2Renderer::SEWglES2Renderer(EGLNativeWindowType hWnd,
+    SEFrameBuffer::FormatType eFormat, SEFrameBuffer::DepthType eDepth,
+    SEFrameBuffer::StencilType eStencil, SEFrameBuffer::BufferingType 
+    eBuffering, SEFrameBuffer::MultisamplingType eMultisampling, int iWidth, 
+    int iHeight)
     :
-    OGLES2Renderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling,
+    SEOGLES2Renderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling,
         iWidth, iHeight)
 {
     SE_ASSERT( m_iWidth > 0 && m_iHeight > 0 );
@@ -48,16 +49,16 @@ WglES2Renderer::WglES2Renderer(EGLNativeWindowType hWnd,
     EGLint iDepth;
     switch( m_eDepth )
     {
-    case FrameBuffer::DT_DEPTH_NONE:  iDepth =  0;  break;
-    case FrameBuffer::DT_DEPTH_8:     iDepth =  8;  break;
-    case FrameBuffer::DT_DEPTH_16:    iDepth = 16;  break;
-    case FrameBuffer::DT_DEPTH_24:    iDepth = 24;  break;
+    case SEFrameBuffer::DT_DEPTH_NONE:  iDepth =  0;  break;
+    case SEFrameBuffer::DT_DEPTH_8:     iDepth =  8;  break;
+    case SEFrameBuffer::DT_DEPTH_16:    iDepth = 16;  break;
+    case SEFrameBuffer::DT_DEPTH_24:    iDepth = 24;  break;
     default:                          iDepth =  0;  break;
     }
 
     // stencil buffer bits.
     EGLint iStencil;
-    if( m_eStencil == FrameBuffer::ST_STENCIL_8 )
+    if( m_eStencil == SEFrameBuffer::ST_STENCIL_8 )
     {
         iStencil = 8;
     }
@@ -73,10 +74,10 @@ WglES2Renderer::WglES2Renderer(EGLNativeWindowType hWnd,
     EGLint iMultisampling;
     switch( eMultisampling )
     {
-    case FrameBuffer::MT_SAMPLING_NONE: iMultisampling = 0; break;
-    case FrameBuffer::MT_SAMPLING_2:    iMultisampling = 2; break;
-    case FrameBuffer::MT_SAMPLING_4:    iMultisampling = 4; break;
-    case FrameBuffer::MT_SAMPLING_8:    iMultisampling = 8; break;
+    case SEFrameBuffer::MT_SAMPLING_NONE: iMultisampling = 0; break;
+    case SEFrameBuffer::MT_SAMPLING_2:    iMultisampling = 2; break;
+    case SEFrameBuffer::MT_SAMPLING_4:    iMultisampling = 4; break;
+    case SEFrameBuffer::MT_SAMPLING_8:    iMultisampling = 8; break;
     default:                            iMultisampling = 0; break;
     }
 
@@ -89,7 +90,7 @@ WglES2Renderer::WglES2Renderer(EGLNativeWindowType hWnd,
         EGL_ALPHA_SIZE,     iA,
         EGL_DEPTH_SIZE,     iDepth,
         EGL_STENCIL_SIZE,   iStencil,
-        EGL_SAMPLE_BUFFERS, (eMultisampling != FrameBuffer::MT_SAMPLING_NONE)
+        EGL_SAMPLE_BUFFERS, (eMultisampling != SEFrameBuffer::MT_SAMPLING_NONE)
             ? 1 : 0,
         EGL_SAMPLES,        iMultisampling,
         EGL_NONE
@@ -161,7 +162,7 @@ WglES2Renderer::WglES2Renderer(EGLNativeWindowType hWnd,
     InitializeState();
 }
 //----------------------------------------------------------------------------
-WglES2Renderer::~WglES2Renderer()
+SEWglES2Renderer::~SEWglES2Renderer()
 {
     eglMakeCurrent(m_eglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE,
         EGL_NO_CONTEXT);
@@ -182,9 +183,9 @@ WglES2Renderer::~WglES2Renderer()
     }
 }
 //----------------------------------------------------------------------------
-void WglES2Renderer::ToggleFullscreen()
+void SEWglES2Renderer::ToggleFullscreen()
 {
-    OGLES2Renderer::ToggleFullscreen();
+    SEOGLES2Renderer::ToggleFullscreen();
     glFinish();
 
     DWORD dwStyle = WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
@@ -222,12 +223,12 @@ void WglES2Renderer::ToggleFullscreen()
         tempRect.right-tempRect.left, tempRect.bottom-tempRect.top, uiFlags);
 }
 //----------------------------------------------------------------------------
-void WglES2Renderer::DisplayBackBuffer()
+void SEWglES2Renderer::DisplayBackBuffer()
 {
     eglSwapBuffers(m_eglDisplay, m_eglSurface);
 }
 //----------------------------------------------------------------------------
-int WglES2Renderer::LoadFont(const char*, int, bool, bool)
+int SEWglES2Renderer::LoadFont(const char*, int, bool, bool)
 {
     // ´ýÊµÏÖ.
     return -1;

@@ -23,32 +23,32 @@
 
 using namespace Swing;
 
-GLenum OGLES2Renderer::ms_aeStencilCompare[StencilState::CF_COUNT] =
+GLenum SEOGLES2Renderer::ms_aeStencilCompare[SEStencilState::CF_COUNT] =
 {
-    GL_NEVER,     // StencilState::CF_NEVER
-    GL_LESS,      // StencilState::CF_LESS
-    GL_EQUAL,     // StencilState::CF_EQUAL
-    GL_LEQUAL,    // StencilState::CF_LEQUAL
-    GL_GREATER,   // StencilState::CF_GREATER
-    GL_NOTEQUAL,  // StencilState::CF_NOTEQUAL
-    GL_GEQUAL,    // StencilState::CF_GEQUAL
-    GL_ALWAYS     // StencilState::CF_ALWAYS
+    GL_NEVER,     // SEStencilState::CF_NEVER
+    GL_LESS,      // SEStencilState::CF_LESS
+    GL_EQUAL,     // SEStencilState::CF_EQUAL
+    GL_LEQUAL,    // SEStencilState::CF_LEQUAL
+    GL_GREATER,   // SEStencilState::CF_GREATER
+    GL_NOTEQUAL,  // SEStencilState::CF_NOTEQUAL
+    GL_GEQUAL,    // SEStencilState::CF_GEQUAL
+    GL_ALWAYS     // SEStencilState::CF_ALWAYS
 };
 
-GLenum OGLES2Renderer::ms_aeStencilOperation[StencilState::OT_COUNT] =
+GLenum SEOGLES2Renderer::ms_aeStencilOperation[SEStencilState::OT_COUNT] =
 {
-    GL_KEEP,      // StencilState::OT_KEEP
-    GL_ZERO,      // StencilState::OT_ZERO
-    GL_REPLACE,   // StencilState::OT_REPLACE
-    GL_INCR,      // StencilState::OT_INCREMENT
-    GL_DECR,      // StencilState::OT_DECREMENT
-    GL_INVERT     // StencilState::OT_INVERT
+    GL_KEEP,      // SEStencilState::OT_KEEP
+    GL_ZERO,      // SEStencilState::OT_ZERO
+    GL_REPLACE,   // SEStencilState::OT_REPLACE
+    GL_INCR,      // SEStencilState::OT_INCREMENT
+    GL_DECR,      // SEStencilState::OT_DECREMENT
+    GL_INVERT     // SEStencilState::OT_INVERT
 };
 
 //----------------------------------------------------------------------------
-void OGLES2Renderer::SetStencilState(StencilState* pState)
+void SEOGLES2Renderer::SetStencilState(SEStencilState* pState)
 {
-    Renderer::SetStencilState(pState);
+    SERenderer::SetStencilState(pState);
 
     if( pState->Enabled )
     {

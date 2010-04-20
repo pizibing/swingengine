@@ -30,22 +30,21 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:OpenGL ES2 Framebuffer基类
 // 说明:
 // 作者:Sun Che
 // 时间:20090607
 //----------------------------------------------------------------------------
-class SE_RENDERER_API OGLES2FrameBuffer : public FrameBuffer
+class SE_RENDERER_API SEOGLES2FrameBuffer : public SEFrameBuffer
 {
     SE_DECLARE_INITIALIZE;
 
 public:
-    OGLES2FrameBuffer(FormatType eFormat, DepthType eDepth,
+    SEOGLES2FrameBuffer(FormatType eFormat, DepthType eDepth,
         StencilType eStencil, BufferingType eBuffering,
-        MultisamplingType eMultisampling, Renderer* pRenderer,
-        int iTCount, Texture** apTargets);
+        MultisamplingType eMultisampling, SERenderer* pRenderer,
+        int iTCount, SETexture** apTargets);
 
-    virtual ~OGLES2FrameBuffer(void);
+    virtual ~SEOGLES2FrameBuffer(void);
 
     bool InitializeBuffer(void);
     void TerminateBuffer(void);
@@ -72,12 +71,12 @@ protected:
     GLuint m_uiStencilBufferID;
 
     // 工厂函数
-    static FrameBuffer* Create(FormatType eFormat, DepthType eDepth,
+    static SEFrameBuffer* Create(FormatType eFormat, DepthType eDepth,
         StencilType eStencil, BufferingType eBuffering,
-        MultisamplingType eMultisampling, Renderer* pRenderer,
-        int iTCount, Texture** apTargets);
+        MultisamplingType eMultisampling, SERenderer* pRenderer,
+        int iTCount, SETexture** apTargets);
 
-    static void Destroy(FrameBuffer* pBuffer);
+    static void Destroy(SEFrameBuffer* pBuffer);
 };
 
 }

@@ -21,10 +21,10 @@
 #include "SEOGLES2RendererPCH.h"
 #include "SEOGLES2RendererRegister.h"
 
-// OGLES2Rendering
+// OGLES2 Rendering
 #include "SEOGLES2FrameBuffer.h"
 #include "SEOGLES2Renderer.h"
-// OGLES2Shaders
+// OGLES2 Shaders
 #include "SEOGLES2Program.h"
 
 using namespace Swing;
@@ -32,14 +32,14 @@ using namespace Swing;
 //----------------------------------------------------------------------------
 void Swing::SE_OGLES2Renderer_Register()
 {
-    // OGLES2Rendering
-    SE_REGISTER_INITIALIZE(OGLES2FrameBuffer);
-    SE_REGISTER_INITIALIZE(OGLES2Renderer);
-    SE_INVOKE_INITIALIZE(OGLES2FrameBuffer);
-    SE_INVOKE_INITIALIZE(OGLES2Renderer);
+    // OGLES2 Rendering
+    SE_REGISTER_INITIALIZE(SEOGLES2FrameBuffer);
+    SE_REGISTER_INITIALIZE(SEOGLES2Renderer);
+    SE_INVOKE_INITIALIZE(SEOGLES2FrameBuffer);
+    SE_INVOKE_INITIALIZE(SEOGLES2Renderer);
 
-    // OGLES2Shaders
-    SE_REGISTER_INITIALIZE(OGLES2Program);
-    SE_INVOKE_INITIALIZE(OGLES2Program);
+    // OGLES2 Shaders
+    SE_REGISTER_INITIALIZE(SEOGLES2Program);
+    SE_INVOKE_INITIALIZE(SEOGLES2Program);
 }
 //----------------------------------------------------------------------------

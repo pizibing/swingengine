@@ -25,25 +25,24 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_INITIALIZE(OGLES2FrameBuffer);
+SE_IMPLEMENT_INITIALIZE(SEOGLES2FrameBuffer);
 
-//SE_REGISTER_INITIALIZE(OGLES2FrameBuffer);
+//SE_REGISTER_INITIALIZE(SEOGLES2FrameBuffer);
 
 //----------------------------------------------------------------------------
-void OGLES2FrameBuffer::Initialize()
+void SEOGLES2FrameBuffer::Initialize()
 {
-    ms_aoCreator[Renderer::OPENGLES2] = &OGLES2FrameBuffer::Create;
-    ms_aoDestroyer[Renderer::OPENGLES2] = &OGLES2FrameBuffer::Destroy;
+    ms_aoCreator[SERenderer::OPENGLES2] = &SEOGLES2FrameBuffer::Create;
+    ms_aoDestroyer[SERenderer::OPENGLES2] = &SEOGLES2FrameBuffer::Destroy;
 }
 //----------------------------------------------------------------------------
-FrameBuffer* OGLES2FrameBuffer::Create(FormatType eFormat, DepthType eDepth,
-    StencilType eStencil, BufferingType eBuffering,
-    MultisamplingType eMultisampling, Renderer* pRenderer, int iTCount,
-    Texture** apTargets)
+SEFrameBuffer* SEOGLES2FrameBuffer::Create(FormatType eFormat, DepthType 
+    eDepth, StencilType eStencil, BufferingType eBuffering, MultisamplingType 
+    eMultisampling, SERenderer* pRenderer, int iTCount, SETexture** apTargets)
 {
     if( pRenderer && apTargets )
     {
-        OGLES2FrameBuffer* pBuffer = SE_NEW OGLES2FrameBuffer(eFormat,
+        SEOGLES2FrameBuffer* pBuffer = SE_NEW SEOGLES2FrameBuffer(eFormat,
             eDepth, eStencil, eBuffering, eMultisampling, pRenderer, iTCount,
             apTargets);
 
@@ -58,18 +57,18 @@ FrameBuffer* OGLES2FrameBuffer::Create(FormatType eFormat, DepthType eDepth,
     return 0;
 }
 //----------------------------------------------------------------------------
-void OGLES2FrameBuffer::Destroy(FrameBuffer* pBuffer)
+void SEOGLES2FrameBuffer::Destroy(SEFrameBuffer* pBuffer)
 {
-    ((OGLES2FrameBuffer*)pBuffer)->TerminateBuffer();
+    ((SEOGLES2FrameBuffer*)pBuffer)->TerminateBuffer();
     SE_DELETE pBuffer;
 }
 //----------------------------------------------------------------------------
-OGLES2FrameBuffer::OGLES2FrameBuffer(FormatType eFormat, DepthType eDepth,
+SEOGLES2FrameBuffer::SEOGLES2FrameBuffer(FormatType eFormat, DepthType eDepth,
     StencilType eStencil, BufferingType eBuffering,
-    MultisamplingType eMultisampling, Renderer* pRenderer, int iTCount, 
-    Texture** apTargets)
+    MultisamplingType eMultisampling, SERenderer* pRenderer, int iTCount, 
+    SETexture** apTargets)
     :
-    FrameBuffer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, 
+    SEFrameBuffer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, 
         pRenderer, iTCount, apTargets)
 {
     // OpenGL ES2只支持一个color render target.
@@ -79,15 +78,15 @@ OGLES2FrameBuffer::OGLES2FrameBuffer(FormatType eFormat, DepthType eDepth,
     m_pAttachments = SE_NEW GLenum[iTCount];
 }
 //----------------------------------------------------------------------------
-OGLES2FrameBuffer::~OGLES2FrameBuffer()
+SEOGLES2FrameBuffer::~SEOGLES2FrameBuffer()
 {
     SE_DELETE[] m_pAttachments;
 }
 //----------------------------------------------------------------------------
-bool OGLES2FrameBuffer::InitializeBuffer()
+bool SEOGLES2FrameBuffer::InitializeBuffer()
 {
     // 检查最大render buffer尺寸.
-    Image* pImage = m_apTargets[0]->GetImage();
+    SEImage* pImage = m_apTargets[0]->GetImage();
     SE_ASSERT( pImage );
     int iWidth = pImage->GetBound(0);
     int iHeight = pImage->GetBound(1);
@@ -125,9 +124,9 @@ bool OGLES2FrameBuffer::InitializeBuffer()
     }
 
     // 确保用作buffer的纹理已经装载入显存.
-    ResourceIdentifier* pID = m_apTargets[0]->GetIdentifier(m_pRenderer);
+    SEResourceIdentifier* pID = m_apTargets[0]->GetIdentifier(m_pRenderer);
     SE_ASSERT( pID );
-    TextureID* pResource = (TextureID*)pID;
+    SETextureID* pResource = (SETextureID*)pID;
     m_TargetItems[0].TargetID = pResource->ID;
     glBindTexture(GL_TEXTURE_2D, m_TargetItems[0].TargetID);
 
@@ -168,15 +167,15 @@ bool OGLES2FrameBuffer::InitializeBuffer()
     return true;
 }
 //----------------------------------------------------------------------------
-void OGLES2FrameBuffer::TerminateBuffer()
+void SEOGLES2FrameBuffer::TerminateBuffer()
 {
     glDeleteFramebuffers(1, &m_uiFrameBufferID);
     glDeleteRenderbuffers(1, &m_uiDepthBufferID);
 }
 //----------------------------------------------------------------------------
-void OGLES2FrameBuffer::Enable()
+void SEOGLES2FrameBuffer::Enable()
 {
-    OGLES2Renderer* pRenderer = (OGLES2Renderer*)m_pRenderer;
+    SEOGLES2Renderer* pRenderer = (SEOGLES2Renderer*)m_pRenderer;
 
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, (GLint*)&m_uiSaveFrameBufferID);
 
@@ -204,17 +203,17 @@ void OGLES2FrameBuffer::Enable()
     if( m_uiSaveFrameBufferID == 0 )
     {
         pRenderer->m_bReverseCullFace = !pRenderer->m_bReverseCullFace;
-        CullState* pCState = pRenderer->GetCullState();
+        SECullState* pCState = pRenderer->GetCullState();
         pRenderer->SetCullState(pCState);
     }
 
-    Image* pImage = m_apTargets[0]->GetImage();
+    SEImage* pImage = m_apTargets[0]->GetImage();
     glViewport(0, 0, pImage->GetBound(0), pImage->GetBound(1));
 }
 //----------------------------------------------------------------------------
-void OGLES2FrameBuffer::Disable()
+void SEOGLES2FrameBuffer::Disable()
 {
-    OGLES2Renderer* pRenderer = (OGLES2Renderer*)m_pRenderer;
+    SEOGLES2Renderer* pRenderer = (SEOGLES2Renderer*)m_pRenderer;
 
     glBindFramebuffer(GL_FRAMEBUFFER, m_uiSaveFrameBufferID);
 
@@ -227,7 +226,7 @@ void OGLES2FrameBuffer::Disable()
         pRenderer->OnFrameChange();
 
         pRenderer->m_bReverseCullFace = !pRenderer->m_bReverseCullFace;
-        CullState* pCState = pRenderer->GetCullState();
+        SECullState* pCState = pRenderer->GetCullState();
         pRenderer->SetCullState(pCState);
     }
     else
@@ -250,7 +249,7 @@ void OGLES2FrameBuffer::Disable()
     }
 }
 //----------------------------------------------------------------------------
-void OGLES2FrameBuffer::CopyToTexture(int)
+void SEOGLES2FrameBuffer::CopyToTexture(int)
 {
     // 待实现.
 }

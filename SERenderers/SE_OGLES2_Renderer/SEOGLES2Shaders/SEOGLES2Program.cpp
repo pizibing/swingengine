@@ -24,32 +24,33 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_INITIALIZE(OGLES2Program);
+SE_IMPLEMENT_INITIALIZE(SEOGLES2Program);
 
-//SE_REGISTER_INITIALIZE(OGLES2Program);
+//SE_REGISTER_INITIALIZE(SEOGLES2Program);
 
-const std::string OGLES2Program::ms_PositionStr("SE_ModelPosition");
-const std::string OGLES2Program::ms_NormalStr("SE_ModelNormal");
-const std::string OGLES2Program::ms_ColorStr("SE_Color");
-const std::string OGLES2Program::ms_Color0Str("SE_Color0");
-const std::string OGLES2Program::ms_Color1Str("SE_Color1");
-const std::string OGLES2Program::ms_TexCoordStr("SE_TexCoord");
+const std::string SEOGLES2Program::ms_PositionStr("SE_ModelPosition");
+const std::string SEOGLES2Program::ms_NormalStr("SE_ModelNormal");
+const std::string SEOGLES2Program::ms_ColorStr("SE_Color");
+const std::string SEOGLES2Program::ms_Color0Str("SE_Color0");
+const std::string SEOGLES2Program::ms_Color1Str("SE_Color1");
+const std::string SEOGLES2Program::ms_TexCoordStr("SE_TexCoord");
 
 //----------------------------------------------------------------------------
-void OGLES2Program::Initialize()
+void SEOGLES2Program::Initialize()
 {
-    Program::OnLoadProgram = &OGLES2Program::OnLoadProgram;
-    Program::OnReleaseUserData = &OGLES2Program::OnReleaseUserData;
-    LightingEffect::OnConfigureLighting = &OGLES2Program::OnConfigureLighting;
+    SEProgram::OnLoadProgram = &SEOGLES2Program::OnLoadProgram;
+    SEProgram::OnReleaseUserData = &SEOGLES2Program::OnReleaseUserData;
+    SELightingEffect::OnConfigureLighting = 
+        &SEOGLES2Program::OnConfigureLighting;
 }
 //----------------------------------------------------------------------------
-OGLES2Program::OGLES2Program()
+SEOGLES2Program::SEOGLES2Program()
 {
 }
 //----------------------------------------------------------------------------
-bool OGLES2Program::OnLoadProgram(Renderer* pRenderer, 
-    const std::string& rProgramName, Program* pProgram, 
-    Program::ProgramType eType, InterfaceDescriptor*)
+bool SEOGLES2Program::OnLoadProgram(SERenderer* pRenderer, 
+    const std::string& rProgramName, SEProgram* pProgram, 
+    SEProgram::ProgramType eType, SEInterfaceDescriptor*)
 {
     if( !pRenderer || !pProgram )
     {
@@ -60,10 +61,10 @@ bool OGLES2Program::OnLoadProgram(Renderer* pRenderer,
     // 获取file name和entry name.
 	size_t uiLen = strlen(rProgramName.c_str()) + 1;
     char* acProgramName = SE_NEW char[uiLen];
-	System::SE_Strcpy(acProgramName, uiLen, rProgramName.c_str());
+	SESystem::SE_Strcpy(acProgramName, uiLen, rProgramName.c_str());
     char* pNextToken;
-    char* acFileName = System::SE_Strtok(acProgramName, ".", pNextToken);
-    char* acEntryName = System::SE_Strtok(0, ".", pNextToken);
+    char* acFileName = SESystem::SE_Strtok(acProgramName, ".", pNextToken);
+    char* acEntryName = SESystem::SE_Strtok(0, ".", pNextToken);
     if( !acFileName || !acEntryName )
     {
         // 获取file name和entry name失败.
@@ -73,12 +74,12 @@ bool OGLES2Program::OnLoadProgram(Renderer* pRenderer,
 
     std::string tempType;
     GLenum eShaderType;
-    if( eType == Program::PT_VERTEX )
+    if( eType == SEProgram::PT_VERTEX )
     {
         tempType = ".vs";
         eShaderType = GL_VERTEX_SHADER;
     }
-    else if( eType == Program::PT_PIXEL )
+    else if( eType == SEProgram::PT_PIXEL )
     {
         tempType = ".ps";
         eShaderType = GL_FRAGMENT_SHADER;
@@ -92,8 +93,8 @@ bool OGLES2Program::OnLoadProgram(Renderer* pRenderer,
 
     std::string tempFileName = std::string(acFileName) + tempType + 
         std::string(".essl");
-    const char* acDecorated = System::SE_GetPath(tempFileName.c_str(), 
-        System::SM_READ);
+    const char* acDecorated = SESystem::SE_GetPath(tempFileName.c_str(), 
+        SESystem::SM_READ);
     SE_DELETE[] acProgramName;
     acProgramName = 0;
 
@@ -105,16 +106,16 @@ bool OGLES2Program::OnLoadProgram(Renderer* pRenderer,
 
     // 为了在代理类的静态函数中访问基类的保护成员,我们必须转换指针类型,
     // 由于我们能确保只访问基类成员,因此这样做是安全的.
-    OGLES2Program* pOGLES2Program = (OGLES2Program*)pProgram;
-    Program::ProgramType& rProgramType = pOGLES2Program->m_eProgramType;
-    pProgram->UserData = SE_NEW ProgramData;
-    unsigned int& ruiID = ((ProgramData*)pProgram->UserData)->ID;
+    SEOGLES2Program* pOGLES2Program = (SEOGLES2Program*)pProgram;
+    SEProgram::ProgramType& rProgramType = pOGLES2Program->m_eProgramType;
+    pProgram->UserData = SE_NEW SEProgramData;
+    unsigned int& ruiID = ((SEProgramData*)pProgram->UserData)->ID;
 
     rProgramType = eType;
     ruiID = 0;
-    ((ProgramData*)pProgram->UserData)->Owner = 0;
+    ((SEProgramData*)pProgram->UserData)->Owner = 0;
 
-    OGLES2Renderer* pOGLES2Renderer = (OGLES2Renderer*)pRenderer;
+    SEOGLES2Renderer* pOGLES2Renderer = (SEOGLES2Renderer*)pRenderer;
     if( pOGLES2Renderer->HasShaderCompiler() )
     {
         std::ifstream tempIStr(acDecorated);
@@ -196,21 +197,22 @@ bool OGLES2Program::OnLoadProgram(Renderer* pRenderer,
     return true;
 }
 //----------------------------------------------------------------------------
-void OGLES2Program::ParseLinkedProgram(unsigned int uiProgram, 
-    Program* pVProgram, Program* pPProgram)
+void SEOGLES2Program::ParseLinkedProgram(unsigned int uiProgram, 
+    SEProgram* pVProgram, SEProgram* pPProgram)
 {
     // 为了在代理类的静态函数中访问基类的保护成员,我们必须转换指针类型,
     // 由于我们能确保只访问基类成员,因此这样做是安全的.
-    OGLES2Program* pOGLES2VProgram = (OGLES2Program*)pVProgram;
-    OGLES2Program* pOGLES2PProgram = (OGLES2Program*)pPProgram;
-    Attributes& rIAttributes = pOGLES2VProgram->m_InputAttributes;
-    ProgramData* pVProgramData = (ProgramData*)pOGLES2VProgram->UserData;
-    std::vector<RendererConstant>& rRCs = pOGLES2VProgram->m_RendererConstants;
-    std::vector<UserConstant>& rVUCs = pOGLES2VProgram->m_UserConstants;
-    std::vector<UserConstant>& rPUCs = pOGLES2PProgram->m_UserConstants;
-    std::vector<SamplerInformation>& rVSIs = 
+    SEOGLES2Program* pOGLES2VProgram = (SEOGLES2Program*)pVProgram;
+    SEOGLES2Program* pOGLES2PProgram = (SEOGLES2Program*)pPProgram;
+    SEAttributes& rIAttributes = pOGLES2VProgram->m_InputAttributes;
+    SEProgramData* pVProgramData = (SEProgramData*)pOGLES2VProgram->UserData;
+    std::vector<SERendererConstant>& rRCs = 
+        pOGLES2VProgram->m_RendererConstants;
+    std::vector<SEUserConstant>& rVUCs = pOGLES2VProgram->m_UserConstants;
+    std::vector<SEUserConstant>& rPUCs = pOGLES2PProgram->m_UserConstants;
+    std::vector<SESamplerInformation>& rVSIs = 
         pOGLES2VProgram->m_SamplerInformation;
-    std::vector<SamplerInformation>& rPSIs = 
+    std::vector<SESamplerInformation>& rPSIs = 
         pOGLES2PProgram->m_SamplerInformation;
 
     GLint iCount, iMaxLen;
@@ -258,30 +260,30 @@ void OGLES2Program::ParseLinkedProgram(unsigned int uiProgram,
             }
 
             std::string tempName = acName;
-            if( tempName == OGLES2Program::ms_PositionStr )
+            if( tempName == SEOGLES2Program::ms_PositionStr )
             {
                 // 只支持(x,y,z) position.
                 rIAttributes.SetPositionChannels(3);
                 pVProgramData->SetPositionAttribID((unsigned int)iAttribID);
             }
-            else if( tempName == OGLES2Program::ms_NormalStr )
+            else if( tempName == SEOGLES2Program::ms_NormalStr )
             {
                 // 只支持(x,y,z) normals.
                 rIAttributes.SetNormalChannels(3);
                 pVProgramData->SetNormalAttribID((unsigned int)iAttribID);
             }
-            else if( tempName == OGLES2Program::ms_ColorStr
-                || tempName == OGLES2Program::ms_Color0Str )
+            else if( tempName == SEOGLES2Program::ms_ColorStr
+                || tempName == SEOGLES2Program::ms_Color0Str )
             {
                 rIAttributes.SetColorChannels(0, iNumFloats);
                 pVProgramData->SetColorAttribID(0, (unsigned int)iAttribID);
             }
-            else if( tempName == OGLES2Program::ms_Color1Str )
+            else if( tempName == SEOGLES2Program::ms_Color1Str )
             {
                 rIAttributes.SetColorChannels(1, iNumFloats);
                 pVProgramData->SetColorAttribID(1, (unsigned int)iAttribID);
             }
-            else if( tempName.substr(0, 11) == OGLES2Program::ms_TexCoordStr )
+            else if( tempName.substr(0, 11) == SEOGLES2Program::ms_TexCoordStr )
             {
                 iUnit = (int)tempName[11] - '0';
                 rIAttributes.SetTCoordChannels(iUnit, iNumFloats);
@@ -311,8 +313,8 @@ void OGLES2Program::ParseLinkedProgram(unsigned int uiProgram,
             GLenum eType;
             GLint iLoc;
             int iNumFloats;
-            SamplerInformation::Type eSType;
-            RendererConstant::Type eRCType;
+            SESamplerInformation::Type eSType;
+            SERendererConstant::Type eRCType;
             std::string tempName;
 
             // Get the uniform info.
@@ -320,7 +322,7 @@ void OGLES2Program::ParseLinkedProgram(unsigned int uiProgram,
                 acName);
 
             iNumFloats = 0;
-            eSType = SamplerInformation::MAX_SAMPLER_TYPES;
+            eSType = SESamplerInformation::MAX_SAMPLER_TYPES;
             switch( eType )
             {
             case GL_FLOAT:
@@ -339,10 +341,10 @@ void OGLES2Program::ParseLinkedProgram(unsigned int uiProgram,
                 iNumFloats = 16;
                 break;
             case GL_SAMPLER_2D:
-                eSType = SamplerInformation::SAMPLER_2D;
+                eSType = SESamplerInformation::SAMPLER_2D;
                 break;
             case GL_SAMPLER_CUBE:
-                eSType = SamplerInformation::SAMPLER_CUBE;
+                eSType = SESamplerInformation::SAMPLER_CUBE;
                 break;
             default:
                 // 引擎尚未支持的变量数据类型.
@@ -354,11 +356,11 @@ void OGLES2Program::ParseLinkedProgram(unsigned int uiProgram,
             iLoc = glGetUniformLocation(uiProgram, acName);
 
             // 获取采样器信息(如果当前uniform是采样器声明).
-            if( eSType != SamplerInformation::MAX_SAMPLER_TYPES )
+            if( eSType != SESamplerInformation::MAX_SAMPLER_TYPES )
             {
-                SamplerInformationID* pSIID = SE_NEW SamplerInformationID;
+                SESamplerInformationID* pSIID = SE_NEW SESamplerInformationID;
                 pSIID->ID = iLoc;
-                SamplerInformation tempSU(tempName.c_str(), eSType, 
+                SESamplerInformation tempSU(tempName.c_str(), eSType, 
                 (void*)pSIID);
 
                 if( tempName.substr(0, 2) == "v_" )
@@ -374,22 +376,22 @@ void OGLES2Program::ParseLinkedProgram(unsigned int uiProgram,
             }
 
             // 变量必定是一个renderer constant或者user-defined constant.
-            eRCType = RendererConstant::GetType(tempName.c_str());
-            if( eRCType != RendererConstant::MAX_TYPES )
+            eRCType = SERendererConstant::GetType(tempName.c_str());
+            if( eRCType != SERendererConstant::MAX_TYPES )
             {
                 // renderer constant.
-                RendererConstantID* pRCID = SE_NEW RendererConstantID;
+                SERendererConstantID* pRCID = SE_NEW SERendererConstantID;
                 pRCID->ID = iLoc;
-                RendererConstant tempRC(eRCType, (void*)pRCID, 
+                SERendererConstant tempRC(eRCType, (void*)pRCID, 
                     iNumFloats);
                 rRCs.push_back(tempRC);
             }
             else
             {
                 // user-defined constant.
-                UserConstantID* pUCID = SE_NEW UserConstantID;
+                SEUserConstantID* pUCID = SE_NEW SEUserConstantID;
                 pUCID->ID = iLoc;
-                UserConstant tempUC(tempName.c_str(), (void*)pUCID, 
+                SEUserConstant tempUC(tempName.c_str(), (void*)pUCID, 
                     iNumFloats);
 
                 if( tempName.substr(0, 2) == "p_" )
@@ -408,45 +410,45 @@ void OGLES2Program::ParseLinkedProgram(unsigned int uiProgram,
     }
 }
 //----------------------------------------------------------------------------
-void OGLES2Program::OnReleaseUserData(void* pUserData)
+void SEOGLES2Program::OnReleaseUserData(void* pUserData)
 {
-    ProgramData* pData = (ProgramData*)pUserData;
+    SEProgramData* pData = (SEProgramData*)pUserData;
 
     SE_DELETE pData;
 }
 //----------------------------------------------------------------------------
-void OGLES2Program::OnConfigureLighting(LightingEffect* pLEffect)
+void SEOGLES2Program::OnConfigureLighting(SELightingEffect* pLEffect)
 {
-    VertexShader* pVShader;
-    PixelShader* pPShader;
+    SEVertexShader* pVShader;
+    SEPixelShader* pPShader;
 
     int iLCount = pLEffect->GetLightCount();
-    LightingEffect::LightingMode eMode = pLEffect->GetLightingMode();
+    SELightingEffect::LightingMode eMode = pLEffect->GetLightingMode();
 
     if( iLCount == 0 )
     {
         // 待实现.
         // 实现这两个ESSL shader.
-        pVShader = SE_NEW VertexShader("Material.main");
-        pPShader = SE_NEW PixelShader("Material.main");
+        pVShader = SE_NEW SEVertexShader("Material.main");
+        pPShader = SE_NEW SEPixelShader("Material.main");
         pLEffect->SetVShader(0, pVShader);
         pLEffect->SetPShader(0, pPShader);
     }
     else
     {
-        if( eMode == LightingEffect::LM_VERTEX )
+        if( eMode == SELightingEffect::LM_VERTEX )
         {
-            pVShader = SE_NEW VertexShader("VertexLighting.main");
-            pPShader = SE_NEW PixelShader(
+            pVShader = SE_NEW SEVertexShader("VertexLighting.main");
+            pPShader = SE_NEW SEPixelShader(
                 "VertexLighting.main");
             pLEffect->SetVShader(0, pVShader);
             pLEffect->SetPShader(0, pPShader);
         }
-        else if( eMode == LightingEffect::LM_PIXEL )
+        else if( eMode == SELightingEffect::LM_PIXEL )
         {
-            pVShader = SE_NEW VertexShader(
+            pVShader = SE_NEW SEVertexShader(
                 "PixelLighting.main");
-            pPShader = SE_NEW PixelShader("PixelLighting.main");
+            pPShader = SE_NEW SEPixelShader("PixelLighting.main");
             pLEffect->SetVShader(0, pVShader);
             pLEffect->SetPShader(0, pPShader);
         }

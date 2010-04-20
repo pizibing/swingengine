@@ -23,22 +23,22 @@
 
 using namespace Swing;
 
-GLenum OGLES2Renderer::ms_aeFrontFace[CullState::FT_COUNT] =
+GLenum SEOGLES2Renderer::ms_aeFrontFace[SECullState::FT_COUNT] =
 {
     GL_CCW,
     GL_CW
 };
 
-GLenum OGLES2Renderer::ms_aeCullFace[CullState::CT_COUNT] =
+GLenum SEOGLES2Renderer::ms_aeCullFace[SECullState::CT_COUNT] =
 {
     GL_FRONT,
     GL_BACK
 };
 
 //----------------------------------------------------------------------------
-void OGLES2Renderer::SetCullState(CullState* pState)
+void SEOGLES2Renderer::SetCullState(SECullState* pState)
 {
-    Renderer::SetCullState(pState);
+    SERenderer::SetCullState(pState);
 
     if( pState->Enabled )
     {

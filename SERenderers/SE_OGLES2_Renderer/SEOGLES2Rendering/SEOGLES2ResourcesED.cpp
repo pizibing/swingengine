@@ -27,9 +27,9 @@ using namespace Swing;
 //----------------------------------------------------------------------------
 // 资源开启与关闭.
 //----------------------------------------------------------------------------
-void OGLES2Renderer::SetVProgramRC(RendererConstant* pRC)
+void SEOGLES2Renderer::SetVProgramRC(SERendererConstant* pRC)
 {
-    RendererConstantID* pRCID = (RendererConstantID*)pRC->GetID();
+    SERendererConstantID* pRCID = (SERendererConstantID*)pRC->GetID();
     int iDataCount = pRC->GetDataCount();
 
     switch( iDataCount )
@@ -53,9 +53,9 @@ void OGLES2Renderer::SetVProgramRC(RendererConstant* pRC)
     }
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::SetVProgramUC(UserConstant* pUC)
+void SEOGLES2Renderer::SetVProgramUC(SEUserConstant* pUC)
 {
-    UserConstantID* pUCID = (UserConstantID*)pUC->GetID();
+    SEUserConstantID* pUCID = (SEUserConstantID*)pUC->GetID();
     int iDataCount = pUC->GetDataCount();
 
     switch( iDataCount )
@@ -79,24 +79,24 @@ void OGLES2Renderer::SetVProgramUC(UserConstant* pUC)
     }
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::SetGProgramRC(RendererConstant*)
+void SEOGLES2Renderer::SetGProgramRC(SERendererConstant*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::SetGProgramUC(UserConstant*)
+void SEOGLES2Renderer::SetGProgramUC(SEUserConstant*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::SetPProgramRC(RendererConstant*)
+void SEOGLES2Renderer::SetPProgramRC(SERendererConstant*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::SetPProgramUC(UserConstant* pUC)
+void SEOGLES2Renderer::SetPProgramUC(SEUserConstant* pUC)
 {
-    UserConstantID* pUCID = (UserConstantID*)pUC->GetID();
+    SEUserConstantID* pUCID = (SEUserConstantID*)pUC->GetID();
     int iDataCount = pUC->GetDataCount();
 
     switch( iDataCount )
@@ -120,74 +120,74 @@ void OGLES2Renderer::SetPProgramUC(UserConstant* pUC)
     }
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::UpdateVProgramConstants(VertexProgram*)
+void SEOGLES2Renderer::UpdateVProgramConstants(SEVertexProgram*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::UpdateGProgramConstants(GeometryProgram*)
+void SEOGLES2Renderer::UpdateGProgramConstants(SEGeometryProgram*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::UpdatePProgramConstants(PixelProgram*)
+void SEOGLES2Renderer::UpdatePProgramConstants(SEPixelProgram*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnEnableVProgram(ResourceIdentifier* pID)
+void SEOGLES2Renderer::OnEnableVProgram(SEResourceIdentifier* pID)
 {
-    VProgramID* pResource = (VProgramID*)pID;
+    SEVProgramID* pResource = (SEVProgramID*)pID;
     glUseProgram(pResource->Owner);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnDisableVProgram(ResourceIdentifier*)
+void SEOGLES2Renderer::OnDisableVProgram(SEResourceIdentifier*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnEnablePProgram(ResourceIdentifier*)
+void SEOGLES2Renderer::OnEnablePProgram(SEResourceIdentifier*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnDisablePProgram(ResourceIdentifier*)
+void SEOGLES2Renderer::OnDisablePProgram(SEResourceIdentifier*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnEnableTexture(ResourceIdentifier* pID)
+void SEOGLES2Renderer::OnEnableTexture(SEResourceIdentifier* pID)
 {
-    TextureID* pResource = (TextureID*)pID;
+    SETextureID* pResource = (SETextureID*)pID;
 
-    SamplerInformation* pSI = m_apActiveSamplers[m_iCurrentSampler];
-    SamplerInformation::Type eSType = pSI->GetType();
+    SESamplerInformation* pSI = m_apActiveSamplers[m_iCurrentSampler];
+    SESamplerInformation::Type eSType = pSI->GetType();
     int eTarget = ms_aeSamplerTypes[eSType];
 
     glActiveTexture(GL_TEXTURE0 + m_iCurrentSampler);
     glBindTexture(eTarget, pResource->ID);
 
-    SamplerInformationID* pSIID = (SamplerInformationID*)pSI->GetID();
+    SESamplerInformationID* pSIID = (SESamplerInformationID*)pSI->GetID();
     glUniform1i(pSIID->ID, m_iCurrentSampler);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnDisableTexture(ResourceIdentifier*)
+void SEOGLES2Renderer::OnDisableTexture(SEResourceIdentifier*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnEnableVBuffer(ResourceIdentifier* pID, 
-    VertexProgram* pVProgram)
+void SEOGLES2Renderer::OnEnableVBuffer(SEResourceIdentifier* pID, 
+    SEVertexProgram* pVProgram)
 {
     // Bind当前vertex buffer.
-    VBufferID* pResource = (VBufferID*)pID;
+    SEVBufferID* pResource = (SEVBufferID*)pID;
     glBindBuffer(GL_ARRAY_BUFFER, pResource->ID);
 
-    const Attributes& rRAttr = pResource->IAttr;
+    const SEAttributes& rRAttr = pResource->IAttr;
     GLsizei iSize = (GLsizei)(sizeof(float)*rRAttr.GetChannelCount());
     const float* afData = 0;
     GLuint uiIndex = 0;
-    ProgramData* pVProgramData = (ProgramData*)pVProgram->UserData;
+    SEProgramData* pVProgramData = (SEProgramData*)pVProgram->UserData;
 
     if( rRAttr.HasPosition() )
     {
@@ -235,13 +235,13 @@ void OGLES2Renderer::OnEnableVBuffer(ResourceIdentifier* pID,
     }
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnDisableVBuffer(ResourceIdentifier* pID, 
-    VertexProgram* pVProgram)
+void SEOGLES2Renderer::OnDisableVBuffer(SEResourceIdentifier* pID, 
+    SEVertexProgram* pVProgram)
 {
-    VBufferID* pResource = (VBufferID*)pID;
-    const Attributes& rRAttr = pResource->IAttr;
+    SEVBufferID* pResource = (SEVBufferID*)pID;
+    const SEAttributes& rRAttr = pResource->IAttr;
     GLuint uiIndex = 0;
-    ProgramData* pVProgramData = (ProgramData*)pVProgram->UserData;
+    SEProgramData* pVProgramData = (SEProgramData*)pVProgram->UserData;
 
     // Unbind当前vertex buffer.
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -281,14 +281,14 @@ void OGLES2Renderer::OnDisableVBuffer(ResourceIdentifier* pID,
     }
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnEnableIBuffer(ResourceIdentifier* pID)
+void SEOGLES2Renderer::OnEnableIBuffer(SEResourceIdentifier* pID)
 {
     // Bind当前index buffer.
-    IBufferID* pResource = (IBufferID*)pID;
+    SEIBufferID* pResource = (SEIBufferID*)pID;
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pResource->ID);
 }
 //----------------------------------------------------------------------------
-void OGLES2Renderer::OnDisableIBuffer(ResourceIdentifier*)
+void SEOGLES2Renderer::OnDisableIBuffer(SEResourceIdentifier*)
 {
     // Unbind当前index buffer.
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

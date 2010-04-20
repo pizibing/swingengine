@@ -25,12 +25,12 @@ using namespace Swing;
 
 // 注意:
 // OpenGL ES2 只支持GL_POLYGON_OFFSET_FILL模式.
-// 因此用户有责任避免使用PolygonOffsetState的其他模式.
+// 因此用户有责任避免使用SEPolygonOffsetState的其他模式.
 
 //----------------------------------------------------------------------------
-void OGLES2Renderer::SetPolygonOffsetState(PolygonOffsetState* pState)
+void SEOGLES2Renderer::SetPolygonOffsetState(SEPolygonOffsetState* pState)
 {
-    Renderer::SetPolygonOffsetState(pState);
+    SERenderer::SetPolygonOffsetState(pState);
 
     if( pState->FillEnabled )
     {
