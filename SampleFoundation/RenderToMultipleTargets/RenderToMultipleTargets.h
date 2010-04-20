@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-class RenderToMultipleTargets : public WindowApplication3
+class RenderToMultipleTargets : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -39,22 +39,22 @@ public:
 
 protected:
     void CreateScene(void);
-    Node* CreateModel(void);
+    SENode* CreateModel(void);
 
-    NodePtr m_spScene;
-    WireframeStatePtr m_spWireframe;
-    Culler m_Culler;
+    SENodePtr m_spScene;
+    SEWireframeStatePtr m_spWireframe;
+    SECuller m_Culler;
 
-    CameraPtr m_spScreenCamera;
+    SECameraPtr m_spScreenCamera;
 
-    TriMeshPtr m_spScenePolygon1;
-    TriMeshPtr m_spScenePolygon2;
-    TriMeshPtr m_spScenePolygon3;
-    ImagePtr m_spSceneImage;
-    Texture* m_pSceneTarget1;
-    Texture* m_pSceneTarget2;
-    Texture* m_pSceneTarget3;
-    FrameBuffer* m_pFrameBuffer;
+    SETriMeshPtr m_spScenePolygon1;
+    SETriMeshPtr m_spScenePolygon2;
+    SETriMeshPtr m_spScenePolygon3;
+    SEImagePtr m_spSceneImage;
+    SETexture* m_pSceneTarget1;
+    SETexture* m_pSceneTarget2;
+    SETexture* m_pSceneTarget3;
+    SEFrameBuffer* m_pFrameBuffer;
 };
 
 #endif
