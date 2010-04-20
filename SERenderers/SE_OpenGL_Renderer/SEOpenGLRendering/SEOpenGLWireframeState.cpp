@@ -24,9 +24,9 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void OpenGLRenderer::SetWireframeState(WireframeState* pState)
+void SEOpenGLRenderer::SetWireframeState(SEWireframeState* pState)
 {
-    Renderer::SetWireframeState(pState);
+    SERenderer::SetWireframeState(pState);
 
     if( pState->Enabled )
     {

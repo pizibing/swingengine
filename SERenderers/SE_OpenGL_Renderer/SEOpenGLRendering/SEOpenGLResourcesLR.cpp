@@ -24,7 +24,7 @@
 
 using namespace Swing;
 
-GLenum OpenGLRenderer::ms_aeTextureMipmap[Texture::MAX_FILTER_TYPES] =
+GLenum SEOpenGLRenderer::ms_aeTextureMipmap[SETexture::MAX_FILTER_TYPES] =
 {
     GL_NEAREST,
     GL_LINEAR,
@@ -34,7 +34,7 @@ GLenum OpenGLRenderer::ms_aeTextureMipmap[Texture::MAX_FILTER_TYPES] =
     GL_LINEAR_MIPMAP_LINEAR
 };
 
-GLenum OpenGLRenderer::ms_aeWrapMode[Texture::MAX_WRAP_TYPES] =
+GLenum SEOpenGLRenderer::ms_aeWrapMode[SETexture::MAX_WRAP_TYPES] =
 {
     GL_CLAMP,
     GL_REPEAT,
@@ -43,80 +43,80 @@ GLenum OpenGLRenderer::ms_aeWrapMode[Texture::MAX_WRAP_TYPES] =
     GL_CLAMP_TO_EDGE
 };
 
-GLenum OpenGLRenderer::ms_aeImageComponents[Image::IT_COUNT] =
+GLenum SEOpenGLRenderer::ms_aeImageComponents[SEImage::IT_COUNT] =
 {
-    GL_RGB8,               // Image::IT_RGB888
-    GL_RGBA8,              // Image::IT_RGBA8888
-    GL_DEPTH_COMPONENT16,  // Image::IT_DEPTH16
-    GL_DEPTH_COMPONENT24,  // Image::IT_DEPTH24
-    GL_DEPTH_COMPONENT32,  // Image::IT_DEPTH32
-    GL_RGB8,               // Image::IT_CUBE_RGB888
-    GL_RGBA8,              // Image::IT_CUBE_RGBA8888
-    GL_RGB32F_ARB,         // Image::IT_RGB32
-    GL_RGBA32F_ARB,        // Image::IT_RGBA32
-    GL_LUMINANCE8,         // Image::IT_L8
-    GL_LUMINANCE16,        // Image::IT_L16
-    GL_LUMINANCE32F_ARB,   // Image::IT_R32
-    GL_RGB16F_ARB,         // Image::IT_RGB16
-    GL_RGBA16F_ARB,        // Image::IT_RGBA16
-    GL_RGB5,               // Image::IT_RGB565
-    GL_RGB5_A1,            // Image::IT_RGBA5551
-    GL_RGBA4               // Image::IT_RGBA4444
+    GL_RGB8,               // SEImage::IT_RGB888
+    GL_RGBA8,              // SEImage::IT_RGBA8888
+    GL_DEPTH_COMPONENT16,  // SEImage::IT_DEPTH16
+    GL_DEPTH_COMPONENT24,  // SEImage::IT_DEPTH24
+    GL_DEPTH_COMPONENT32,  // SEImage::IT_DEPTH32
+    GL_RGB8,               // SEImage::IT_CUBE_RGB888
+    GL_RGBA8,              // SEImage::IT_CUBE_RGBA8888
+    GL_RGB32F_ARB,         // SEImage::IT_RGB32
+    GL_RGBA32F_ARB,        // SEImage::IT_RGBA32
+    GL_LUMINANCE8,         // SEImage::IT_L8
+    GL_LUMINANCE16,        // SEImage::IT_L16
+    GL_LUMINANCE32F_ARB,   // SEImage::IT_R32
+    GL_RGB16F_ARB,         // SEImage::IT_RGB16
+    GL_RGBA16F_ARB,        // SEImage::IT_RGBA16
+    GL_RGB5,               // SEImage::IT_RGB565
+    GL_RGB5_A1,            // SEImage::IT_RGBA5551
+    GL_RGBA4               // SEImage::IT_RGBA4444
 };
 
-GLenum OpenGLRenderer::ms_aeImageFormats[Image::IT_COUNT] =
+GLenum SEOpenGLRenderer::ms_aeImageFormats[SEImage::IT_COUNT] =
 {
-    GL_RGB,              // Image::IT_RGB888
-    GL_RGBA,             // Image::IT_RGBA8888
-    GL_DEPTH_COMPONENT,  // Image::IT_DEPTH16
-    GL_DEPTH_COMPONENT,  // Image::IT_DEPTH24
-    GL_DEPTH_COMPONENT,  // Image::IT_DEPTH32
-    GL_RGB,              // Image::IT_CUBE_RGB888
-    GL_RGBA,             // Image::IT_CUBE_RGBA8888
-    GL_RGB,              // Image::IT_RGB32
-    GL_RGBA,             // Image::IT_RGBA32
-    GL_LUMINANCE,        // Image::IT_L8
-    GL_LUMINANCE,        // Image::IT_L16
-    GL_LUMINANCE,        // Image::IT_R32
-    GL_RGB,              // Image::IT_RGB16
-    GL_RGBA,             // Image::IT_RGBA16
-    GL_RGB,              // Image::IT_RGB565
-    GL_RGBA,             // Image::IT_RGBA5551
-    GL_RGBA              // Image::IT_RGBA4444
+    GL_RGB,              // SEImage::IT_RGB888
+    GL_RGBA,             // SEImage::IT_RGBA8888
+    GL_DEPTH_COMPONENT,  // SEImage::IT_DEPTH16
+    GL_DEPTH_COMPONENT,  // SEImage::IT_DEPTH24
+    GL_DEPTH_COMPONENT,  // SEImage::IT_DEPTH32
+    GL_RGB,              // SEImage::IT_CUBE_RGB888
+    GL_RGBA,             // SEImage::IT_CUBE_RGBA8888
+    GL_RGB,              // SEImage::IT_RGB32
+    GL_RGBA,             // SEImage::IT_RGBA32
+    GL_LUMINANCE,        // SEImage::IT_L8
+    GL_LUMINANCE,        // SEImage::IT_L16
+    GL_LUMINANCE,        // SEImage::IT_R32
+    GL_RGB,              // SEImage::IT_RGB16
+    GL_RGBA,             // SEImage::IT_RGBA16
+    GL_RGB,              // SEImage::IT_RGB565
+    GL_RGBA,             // SEImage::IT_RGBA5551
+    GL_RGBA              // SEImage::IT_RGBA4444
 };
 
-GLenum OpenGLRenderer::ms_aeImageTypes[Image::IT_COUNT] =
+GLenum SEOpenGLRenderer::ms_aeImageTypes[SEImage::IT_COUNT] =
 {
-    GL_UNSIGNED_BYTE,               // Image::IT_RGB888
-    GL_UNSIGNED_BYTE,               // Image::IT_RGBA8888
-    GL_FLOAT,                       // Image::IT_DEPTH16
-    GL_FLOAT,                       // Image::IT_DEPTH24
-    GL_DEPTH_COMPONENT,             // Image::IT_DEPTH32
-    GL_UNSIGNED_BYTE,               // Image::IT_CUBE_RGB888
-    GL_UNSIGNED_BYTE,               // Image::IT_CUBE_RGBA8888
-    GL_FLOAT,                       // Image::IT_RGB32
-    GL_FLOAT,                       // Image::IT_RGBA32
-    GL_UNSIGNED_BYTE,               // Image::IT_L8
-    GL_UNSIGNED_SHORT,              // Image::IT_L16
-    GL_FLOAT,                       // Image::IT_R32
-    GL_HALF_FLOAT_ARB,              // Image::IT_RGB16
-    GL_HALF_FLOAT_ARB,              // Image::IT_RGBA16
-    GL_UNSIGNED_SHORT_5_6_5_REV,    // Image::IT_RGB565
-    GL_UNSIGNED_SHORT_1_5_5_5_REV,  // Image::IT_RGBA5551
-    GL_UNSIGNED_SHORT_4_4_4_4_REV   // Image::IT_RGBA4444
+    GL_UNSIGNED_BYTE,               // SEImage::IT_RGB888
+    GL_UNSIGNED_BYTE,               // SEImage::IT_RGBA8888
+    GL_FLOAT,                       // SEImage::IT_DEPTH16
+    GL_FLOAT,                       // SEImage::IT_DEPTH24
+    GL_DEPTH_COMPONENT,             // SEImage::IT_DEPTH32
+    GL_UNSIGNED_BYTE,               // SEImage::IT_CUBE_RGB888
+    GL_UNSIGNED_BYTE,               // SEImage::IT_CUBE_RGBA8888
+    GL_FLOAT,                       // SEImage::IT_RGB32
+    GL_FLOAT,                       // SEImage::IT_RGBA32
+    GL_UNSIGNED_BYTE,               // SEImage::IT_L8
+    GL_UNSIGNED_SHORT,              // SEImage::IT_L16
+    GL_FLOAT,                       // SEImage::IT_R32
+    GL_HALF_FLOAT_ARB,              // SEImage::IT_RGB16
+    GL_HALF_FLOAT_ARB,              // SEImage::IT_RGBA16
+    GL_UNSIGNED_SHORT_5_6_5_REV,    // SEImage::IT_RGB565
+    GL_UNSIGNED_SHORT_1_5_5_5_REV,  // SEImage::IT_RGBA5551
+    GL_UNSIGNED_SHORT_4_4_4_4_REV   // SEImage::IT_RGBA4444
 };
 
-GLenum OpenGLRenderer::ms_aeSamplerTypes[
-    SamplerInformation::MAX_SAMPLER_TYPES] =
+GLenum SEOpenGLRenderer::ms_aeSamplerTypes[
+    SESamplerInformation::MAX_SAMPLER_TYPES] =
 {
-    GL_TEXTURE_1D,        // SamplerInformation::SAMPLER_1D
-    GL_TEXTURE_2D,        // SamplerInformation::SAMPLER_2D
-    GL_TEXTURE_3D,        // SamplerInformation::SAMPLER_3D
-    GL_TEXTURE_CUBE_MAP,  // SamplerInformation::SAMPLER_CUBE
-    GL_TEXTURE_2D,        // SamplerInformation::SAMPLER_PROJ
+    GL_TEXTURE_1D,        // SESamplerInformation::SAMPLER_1D
+    GL_TEXTURE_2D,        // SESamplerInformation::SAMPLER_2D
+    GL_TEXTURE_3D,        // SESamplerInformation::SAMPLER_3D
+    GL_TEXTURE_CUBE_MAP,  // SESamplerInformation::SAMPLER_CUBE
+    GL_TEXTURE_2D,        // SESamplerInformation::SAMPLER_PROJ
 };
 
-GLenum OpenGLRenderer::ms_aeDepthCompare[Texture::DC_COUNT] =
+GLenum SEOpenGLRenderer::ms_aeDepthCompare[SETexture::DC_COUNT] =
 {
     GL_NEVER,
     GL_LESS,
@@ -129,11 +129,11 @@ GLenum OpenGLRenderer::ms_aeDepthCompare[Texture::DC_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnLoadVProgram(ResourceIdentifier*& rpID,
-    VertexProgram* pVProgram)
+void SEOpenGLRenderer::OnLoadVProgram(SEResourceIdentifier*& rpID,
+    SEVertexProgram* pVProgram)
 {
-    VProgramID* pResource = SE_NEW VProgramID;
-    ProgramData* pData = (ProgramData*)pVProgram->UserData;
+    SEVProgramID* pResource = SE_NEW SEVProgramID;
+    SEProgramData* pData = (SEProgramData*)pVProgram->UserData;
     pResource->ID = pData->ID;
     rpID = pResource;
 
@@ -141,19 +141,19 @@ void OpenGLRenderer::OnLoadVProgram(ResourceIdentifier*& rpID,
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnReleaseVProgram(ResourceIdentifier* pID)
+void SEOpenGLRenderer::OnReleaseVProgram(SEResourceIdentifier* pID)
 {
-    VProgramID* pResource = (VProgramID*)pID;
+    SEVProgramID* pResource = (SEVProgramID*)pID;
     cgGLUnloadProgram(pResource->ID);
     SE_GL_DEBUG_CG_PROGRAM;
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnLoadPProgram(ResourceIdentifier*& rpID,
-    PixelProgram* pPProgram)
+void SEOpenGLRenderer::OnLoadPProgram(SEResourceIdentifier*& rpID,
+    SEPixelProgram* pPProgram)
 {
-    PProgramID* pResource = SE_NEW PProgramID;
-    ProgramData* pData = (ProgramData*)pPProgram->UserData;
+    SEPProgramID* pResource = SE_NEW SEPProgramID;
+    SEProgramData* pData = (SEProgramData*)pPProgram->UserData;
     pResource->ID = pData->ID;
     rpID = pResource;
 
@@ -161,24 +161,24 @@ void OpenGLRenderer::OnLoadPProgram(ResourceIdentifier*& rpID,
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnReleasePProgram(ResourceIdentifier* pID)
+void SEOpenGLRenderer::OnReleasePProgram(SEResourceIdentifier* pID)
 {
-    PProgramID* pResource = (PProgramID*)pID;
+    SEPProgramID* pResource = (SEPProgramID*)pID;
     cgGLUnloadProgram(pResource->ID);
     SE_GL_DEBUG_CG_PROGRAM;
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnLoadTexture(ResourceIdentifier*& rpID,
-    Texture* pTexture)
+void SEOpenGLRenderer::OnLoadTexture(SEResourceIdentifier*& rpID,
+    SETexture* pTexture)
 {
     // Activate the texture unit in hardware that will manage this texture.
-    TextureID* pResource = SE_NEW TextureID;
+    SETextureID* pResource = SE_NEW SETextureID;
     pResource->TextureObject = pTexture;
     rpID = pResource;
 
     // Get the texture image and its information.
-    const Image* pImage = pTexture->GetImage();
+    const SEImage* pImage = pTexture->GetImage();
     SE_ASSERT( pImage );
     int iDimension = pImage->GetDimension();
     unsigned char* aucData = pImage->GetData();
@@ -202,8 +202,8 @@ void OpenGLRenderer::OnLoadTexture(ResourceIdentifier*& rpID,
     glBindTexture(eTarget, pResource->ID);
 
     // Set the filter mode.
-    Texture::FilterType eFType = pTexture->GetFilterType();
-    if( eFType == Texture::NEAREST
+    SETexture::FilterType eFType = pTexture->GetFilterType();
+    if( eFType == SETexture::NEAREST
     ||  iComponent == GL_RGB32F_ARB
     ||  iComponent == GL_RGBA32F_ARB )
     {
@@ -239,7 +239,7 @@ void OpenGLRenderer::OnLoadTexture(ResourceIdentifier*& rpID,
 
     // Copy the image data from system memory to video memory.
     bool bNoMip =
-        (eFType == Texture::NEAREST || eFType == Texture::LINEAR);
+        (eFType == SETexture::NEAREST || eFType == SETexture::LINEAR);
 
     switch( iDimension )
     {
@@ -328,18 +328,18 @@ void OpenGLRenderer::OnLoadTexture(ResourceIdentifier*& rpID,
     }
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnReleaseTexture(ResourceIdentifier* pID)
+void SEOpenGLRenderer::OnReleaseTexture(SEResourceIdentifier* pID)
 {
-    TextureID* pResource = (TextureID*)pID;
+    SETextureID* pResource = (SETextureID*)pID;
     glDeleteTextures((GLsizei)1, (GLuint*)&pResource->ID);
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
-    const Attributes& rIAttr, const Attributes& rOAttr,
-    VertexBuffer* pVBuffer, VertexProgram*)
+void SEOpenGLRenderer::OnLoadVBuffer(SEResourceIdentifier*& rpID,
+    const SEAttributes& rIAttr, const SEAttributes& rOAttr,
+    SEVertexBuffer* pVBuffer, SEVertexProgram*)
 {
-    VBufferID* pResource = SE_NEW VBufferID;
+    SEVBufferID* pResource = SE_NEW SEVBufferID;
     rpID = pResource;
     pResource->IAttr = rIAttr;
     pResource->OAttr = rOAttr;
@@ -359,17 +359,17 @@ void OpenGLRenderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
     SE_DELETE[] afCompatible;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnReleaseVBuffer(ResourceIdentifier* pID)
+void SEOpenGLRenderer::OnReleaseVBuffer(SEResourceIdentifier* pID)
 {
-    VBufferID* pResource = (VBufferID*)pID;
+    SEVBufferID* pResource = (SEVBufferID*)pID;
     glDeleteBuffers(1, &pResource->ID);
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnLoadIBuffer(ResourceIdentifier*& rpID,
-    IndexBuffer* pIBuffer)
+void SEOpenGLRenderer::OnLoadIBuffer(SEResourceIdentifier*& rpID,
+    SEIndexBuffer* pIBuffer)
 {
-    IBufferID* pResource = SE_NEW IBufferID;
+    SEIBufferID* pResource = SE_NEW SEIBufferID;
     rpID = pResource;
 
     // 创建buffer id并绑定index buffer.
@@ -382,9 +382,9 @@ void OpenGLRenderer::OnLoadIBuffer(ResourceIdentifier*& rpID,
         GL_STATIC_DRAW);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnReleaseIBuffer(ResourceIdentifier* pID)
+void SEOpenGLRenderer::OnReleaseIBuffer(SEResourceIdentifier* pID)
 {
-    IBufferID* pResource = (IBufferID*)pID;
+    SEIBufferID* pResource = (SEIBufferID*)pID;
     glDeleteBuffers(1, &pResource->ID);
     SE_DELETE pResource;
 }

@@ -24,9 +24,9 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void OpenGLRenderer::SetPolygonOffsetState(PolygonOffsetState* pState)
+void SEOpenGLRenderer::SetPolygonOffsetState(SEPolygonOffsetState* pState)
 {
-    Renderer::SetPolygonOffsetState(pState);
+    SERenderer::SetPolygonOffsetState(pState);
 
     if( pState->FillEnabled )
     {

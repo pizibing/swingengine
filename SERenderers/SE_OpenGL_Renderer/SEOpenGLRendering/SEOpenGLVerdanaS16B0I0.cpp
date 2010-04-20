@@ -31,7 +31,7 @@ static const unsigned char gs_aucChar0[] =
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char0(0, 0, 13, 16, gs_aucChar0);
+static const SEBitmapFontChar gs_Char0(0, 0, 13, 16, gs_aucChar0);
 
 static const unsigned char gs_aucChar1[] =
 {
@@ -40,7 +40,7 @@ static const unsigned char gs_aucChar1[] =
     0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char1(0, 0, 13, 16, gs_aucChar1);
+static const SEBitmapFontChar gs_Char1(0, 0, 13, 16, gs_aucChar1);
 
 static const unsigned char gs_aucChar2[] =
 {
@@ -49,7 +49,7 @@ static const unsigned char gs_aucChar2[] =
     0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char2(0, 0, 13, 16, gs_aucChar2);
+static const SEBitmapFontChar gs_Char2(0, 0, 13, 16, gs_aucChar2);
 
 static const unsigned char gs_aucChar3[] =
 {
@@ -58,7 +58,7 @@ static const unsigned char gs_aucChar3[] =
     0x1E, 0x00, 0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 
     0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char3(0, 0, 13, 16, gs_aucChar3);
+static const SEBitmapFontChar gs_Char3(0, 0, 13, 16, gs_aucChar3);
 
 static const unsigned char gs_aucChar4[] =
 {
@@ -67,7 +67,7 @@ static const unsigned char gs_aucChar4[] =
     0xF0, 0x00, 0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 
     0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char4(0, 0, 13, 16, gs_aucChar4);
+static const SEBitmapFontChar gs_Char4(0, 0, 13, 16, gs_aucChar4);
 
 static const unsigned char gs_aucChar5[] =
 {
@@ -76,7 +76,7 @@ static const unsigned char gs_aucChar5[] =
     0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 
     0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char5(0, 0, 13, 16, gs_aucChar5);
+static const SEBitmapFontChar gs_Char5(0, 0, 13, 16, gs_aucChar5);
 
 static const unsigned char gs_aucChar6[] =
 {
@@ -85,7 +85,7 @@ static const unsigned char gs_aucChar6[] =
     0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char6(0, 0, 13, 16, gs_aucChar6);
+static const SEBitmapFontChar gs_Char6(0, 0, 13, 16, gs_aucChar6);
 
 static const unsigned char gs_aucChar7[] =
 {
@@ -94,7 +94,7 @@ static const unsigned char gs_aucChar7[] =
     0x7C, 0x00, 0x7C, 0x00, 0x38, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char7(0, 0, 13, 16, gs_aucChar7);
+static const SEBitmapFontChar gs_Char7(0, 0, 13, 16, gs_aucChar7);
 
 static const unsigned char gs_aucChar8[] =
 {
@@ -103,7 +103,7 @@ static const unsigned char gs_aucChar8[] =
     0x82, 0x00, 0x82, 0x00, 0xC6, 0x00, 0xFE, 0x00, 
     0xFE, 0x00, 0xFE, 0x00, 0xFE, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char8(0, 0, 13, 16, gs_aucChar8);
+static const SEBitmapFontChar gs_Char8(0, 0, 13, 16, gs_aucChar8);
 
 static const unsigned char gs_aucChar9[] =
 {
@@ -112,7 +112,7 @@ static const unsigned char gs_aucChar9[] =
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char9(0, 0, 13, 16, gs_aucChar9);
+static const SEBitmapFontChar gs_Char9(0, 0, 13, 16, gs_aucChar9);
 
 static const unsigned char gs_aucChar10[] =
 {
@@ -121,7 +121,7 @@ static const unsigned char gs_aucChar10[] =
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char10(0, 0, 13, 16, gs_aucChar10);
+static const SEBitmapFontChar gs_Char10(0, 0, 13, 16, gs_aucChar10);
 
 static const unsigned char gs_aucChar11[] =
 {
@@ -130,7 +130,7 @@ static const unsigned char gs_aucChar11[] =
     0x10, 0x00, 0x0A, 0x00, 0x0A, 0x00, 0x06, 0x00, 
     0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char11(0, 0, 13, 16, gs_aucChar11);
+static const SEBitmapFontChar gs_Char11(0, 0, 13, 16, gs_aucChar11);
 
 static const unsigned char gs_aucChar12[] =
 {
@@ -139,7 +139,7 @@ static const unsigned char gs_aucChar12[] =
     0x20, 0x10, 0x20, 0x10, 0x20, 0x10, 0x20, 0x10, 
     0x3F, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char12(0, 0, 13, 16, gs_aucChar12);
+static const SEBitmapFontChar gs_Char12(0, 0, 13, 16, gs_aucChar12);
 
 static const unsigned char gs_aucChar13[] =
 {
@@ -148,7 +148,7 @@ static const unsigned char gs_aucChar13[] =
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char13(0, 0, 13, 16, gs_aucChar13);
+static const SEBitmapFontChar gs_Char13(0, 0, 13, 16, gs_aucChar13);
 
 static const unsigned char gs_aucChar14[] =
 {
@@ -157,7 +157,7 @@ static const unsigned char gs_aucChar14[] =
     0x22, 0x00, 0x3A, 0x00, 0x26, 0x00, 0x3A, 0x00, 
     0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char14(0, 0, 13, 16, gs_aucChar14);
+static const SEBitmapFontChar gs_Char14(0, 0, 13, 16, gs_aucChar14);
 
 static const unsigned char gs_aucChar15[] =
 {
@@ -166,7 +166,7 @@ static const unsigned char gs_aucChar15[] =
     0x6C, 0x00, 0x28, 0x00, 0x28, 0x00, 0x54, 0x00, 
     0x54, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char15(0, 0, 13, 16, gs_aucChar15);
+static const SEBitmapFontChar gs_Char15(0, 0, 13, 16, gs_aucChar15);
 
 static const unsigned char gs_aucChar16[] =
 {
@@ -175,7 +175,7 @@ static const unsigned char gs_aucChar16[] =
     0xFE, 0x00, 0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 
     0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char16(0, 0, 13, 16, gs_aucChar16);
+static const SEBitmapFontChar gs_Char16(0, 0, 13, 16, gs_aucChar16);
 
 static const unsigned char gs_aucChar17[] =
 {
@@ -184,7 +184,7 @@ static const unsigned char gs_aucChar17[] =
     0x7E, 0x00, 0x3E, 0x00, 0x1E, 0x00, 0x0E, 0x00, 
     0x06, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char17(0, 0, 13, 16, gs_aucChar17);
+static const SEBitmapFontChar gs_Char17(0, 0, 13, 16, gs_aucChar17);
 
 static const unsigned char gs_aucChar18[] =
 {
@@ -193,7 +193,7 @@ static const unsigned char gs_aucChar18[] =
     0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 
     0x54, 0x00, 0x38, 0x00, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char18(0, 0, 13, 16, gs_aucChar18);
+static const SEBitmapFontChar gs_Char18(0, 0, 13, 16, gs_aucChar18);
 
 static const unsigned char gs_aucChar19[] =
 {
@@ -202,7 +202,7 @@ static const unsigned char gs_aucChar19[] =
     0x24, 0x00, 0x24, 0x00, 0x24, 0x00, 0x24, 0x00, 
     0x24, 0x00, 0x24, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char19(0, 0, 13, 16, gs_aucChar19);
+static const SEBitmapFontChar gs_Char19(0, 0, 13, 16, gs_aucChar19);
 
 static const unsigned char gs_aucChar20[] =
 {
@@ -211,7 +211,7 @@ static const unsigned char gs_aucChar20[] =
     0x54, 0x00, 0x54, 0x00, 0x54, 0x00, 0x54, 0x00, 
     0x54, 0x00, 0x34, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char20(0, 0, 13, 16, gs_aucChar20);
+static const SEBitmapFontChar gs_Char20(0, 0, 13, 16, gs_aucChar20);
 
 static const unsigned char gs_aucChar21[] =
 {
@@ -220,7 +220,7 @@ static const unsigned char gs_aucChar21[] =
     0xFE, 0x00, 0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 
     0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char21(0, 0, 13, 16, gs_aucChar21);
+static const SEBitmapFontChar gs_Char21(0, 0, 13, 16, gs_aucChar21);
 
 static const unsigned char gs_aucChar22[] =
 {
@@ -229,7 +229,7 @@ static const unsigned char gs_aucChar22[] =
     0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char22(0, 0, 13, 16, gs_aucChar22);
+static const SEBitmapFontChar gs_Char22(0, 0, 13, 16, gs_aucChar22);
 
 static const unsigned char gs_aucChar23[] =
 {
@@ -238,7 +238,7 @@ static const unsigned char gs_aucChar23[] =
     0xF0, 0x00, 0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 
     0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char23(0, 0, 13, 16, gs_aucChar23);
+static const SEBitmapFontChar gs_Char23(0, 0, 13, 16, gs_aucChar23);
 
 static const unsigned char gs_aucChar24[] =
 {
@@ -247,7 +247,7 @@ static const unsigned char gs_aucChar24[] =
     0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x54, 0x00, 
     0x38, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char24(0, 0, 13, 16, gs_aucChar24);
+static const SEBitmapFontChar gs_Char24(0, 0, 13, 16, gs_aucChar24);
 
 static const unsigned char gs_aucChar25[] =
 {
@@ -256,7 +256,7 @@ static const unsigned char gs_aucChar25[] =
     0x1E, 0x00, 0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 
     0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char25(0, 0, 13, 16, gs_aucChar25);
+static const SEBitmapFontChar gs_Char25(0, 0, 13, 16, gs_aucChar25);
 
 static const unsigned char gs_aucChar26[] =
 {
@@ -265,7 +265,7 @@ static const unsigned char gs_aucChar26[] =
     0x04, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char26(0, 0, 13, 16, gs_aucChar26);
+static const SEBitmapFontChar gs_Char26(0, 0, 13, 16, gs_aucChar26);
 
 static const unsigned char gs_aucChar27[] =
 {
@@ -274,7 +274,7 @@ static const unsigned char gs_aucChar27[] =
     0x20, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char27(0, 0, 13, 16, gs_aucChar27);
+static const SEBitmapFontChar gs_Char27(0, 0, 13, 16, gs_aucChar27);
 
 static const unsigned char gs_aucChar28[] =
 {
@@ -283,7 +283,7 @@ static const unsigned char gs_aucChar28[] =
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char28(0, 0, 13, 16, gs_aucChar28);
+static const SEBitmapFontChar gs_Char28(0, 0, 13, 16, gs_aucChar28);
 
 static const unsigned char gs_aucChar29[] =
 {
@@ -292,7 +292,7 @@ static const unsigned char gs_aucChar29[] =
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char29(0, 0, 13, 16, gs_aucChar29);
+static const SEBitmapFontChar gs_Char29(0, 0, 13, 16, gs_aucChar29);
 
 static const unsigned char gs_aucChar30[] =
 {
@@ -301,7 +301,7 @@ static const unsigned char gs_aucChar30[] =
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char30(0, 0, 13, 16, gs_aucChar30);
+static const SEBitmapFontChar gs_Char30(0, 0, 13, 16, gs_aucChar30);
 
 static const unsigned char gs_aucChar31[] =
 {
@@ -310,28 +310,28 @@ static const unsigned char gs_aucChar31[] =
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char31(0, 0, 13, 16, gs_aucChar31);
+static const SEBitmapFontChar gs_Char31(0, 0, 13, 16, gs_aucChar31);
 
 static const unsigned char gs_aucChar32[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char32(0, 0, 5, 16, gs_aucChar32);
+static const SEBitmapFontChar gs_Char32(0, 0, 5, 16, gs_aucChar32);
 
 static const unsigned char gs_aucChar33[] =
 {
     0x00, 0x00, 0x00, 0x20, 0x20, 0x00, 0x20, 0x20, 
     0x20, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char33(0, 0, 5, 16, gs_aucChar33);
+static const SEBitmapFontChar gs_Char33(0, 0, 5, 16, gs_aucChar33);
 
 static const unsigned char gs_aucChar34[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x50, 0x50, 0x50, 0x50, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char34(0, 0, 5, 16, gs_aucChar34);
+static const SEBitmapFontChar gs_Char34(0, 0, 5, 16, gs_aucChar34);
 
 static const unsigned char gs_aucChar35[] =
 {
@@ -340,14 +340,14 @@ static const unsigned char gs_aucChar35[] =
     0x12, 0x00, 0x3F, 0x80, 0x09, 0x00, 0x09, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char35(0, 0, 10, 16, gs_aucChar35);
+static const SEBitmapFontChar gs_Char35(0, 0, 10, 16, gs_aucChar35);
 
 static const unsigned char gs_aucChar36[] =
 {
     0x00, 0x10, 0x10, 0x7C, 0x12, 0x12, 0x1C, 0x30, 
     0x50, 0x50, 0x3E, 0x10, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char36(0, 0, 8, 16, gs_aucChar36);
+static const SEBitmapFontChar gs_Char36(0, 0, 8, 16, gs_aucChar36);
 
 static const unsigned char gs_aucChar37[] =
 {
@@ -356,7 +356,7 @@ static const unsigned char gs_aucChar37[] =
     0x45, 0x00, 0x45, 0x00, 0x44, 0x80, 0x38, 0x40, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char37(0, 0, 13, 16, gs_aucChar37);
+static const SEBitmapFontChar gs_Char37(0, 0, 13, 16, gs_aucChar37);
 
 static const unsigned char gs_aucChar38[] =
 {
@@ -365,28 +365,28 @@ static const unsigned char gs_aucChar38[] =
     0x44, 0x00, 0x44, 0x00, 0x44, 0x00, 0x38, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char38(0, 0, 9, 16, gs_aucChar38);
+static const SEBitmapFontChar gs_Char38(0, 0, 9, 16, gs_aucChar38);
 
 static const unsigned char gs_aucChar39[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x40, 0x40, 0x40, 0x40, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char39(0, 0, 3, 16, gs_aucChar39);
+static const SEBitmapFontChar gs_Char39(0, 0, 3, 16, gs_aucChar39);
 
 static const unsigned char gs_aucChar40[] =
 {
     0x08, 0x10, 0x20, 0x20, 0x40, 0x40, 0x40, 0x40, 
     0x40, 0x20, 0x20, 0x10, 0x08, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char40(0, 0, 6, 16, gs_aucChar40);
+static const SEBitmapFontChar gs_Char40(0, 0, 6, 16, gs_aucChar40);
 
 static const unsigned char gs_aucChar41[] =
 {
     0x40, 0x20, 0x10, 0x10, 0x08, 0x08, 0x08, 0x08, 
     0x08, 0x10, 0x10, 0x20, 0x40, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char41(0, 0, 6, 16, gs_aucChar41);
+static const SEBitmapFontChar gs_Char41(0, 0, 6, 16, gs_aucChar41);
 
 static const unsigned char gs_aucChar42[] =
 {
@@ -395,7 +395,7 @@ static const unsigned char gs_aucChar42[] =
     0x08, 0x00, 0x2A, 0x00, 0x1C, 0x00, 0x2A, 0x00, 
     0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char42(0, 0, 9, 16, gs_aucChar42);
+static const SEBitmapFontChar gs_Char42(0, 0, 9, 16, gs_aucChar42);
 
 static const unsigned char gs_aucChar43[] =
 {
@@ -404,119 +404,119 @@ static const unsigned char gs_aucChar43[] =
     0x08, 0x00, 0x08, 0x00, 0x08, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char43(0, 0, 9, 16, gs_aucChar43);
+static const SEBitmapFontChar gs_Char43(0, 0, 9, 16, gs_aucChar43);
 
 static const unsigned char gs_aucChar44[] =
 {
     0x00, 0x40, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char44(0, 0, 5, 16, gs_aucChar44);
+static const SEBitmapFontChar gs_Char44(0, 0, 5, 16, gs_aucChar44);
 
 static const unsigned char gs_aucChar45[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7C, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char45(0, 0, 7, 16, gs_aucChar45);
+static const SEBitmapFontChar gs_Char45(0, 0, 7, 16, gs_aucChar45);
 
 static const unsigned char gs_aucChar46[] =
 {
     0x00, 0x00, 0x00, 0x20, 0x20, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char46(0, 0, 5, 16, gs_aucChar46);
+static const SEBitmapFontChar gs_Char46(0, 0, 5, 16, gs_aucChar46);
 
 static const unsigned char gs_aucChar47[] =
 {
     0x00, 0x80, 0x80, 0x40, 0x40, 0x20, 0x20, 0x10, 
     0x10, 0x08, 0x08, 0x04, 0x04, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char47(0, 0, 6, 16, gs_aucChar47);
+static const SEBitmapFontChar gs_Char47(0, 0, 6, 16, gs_aucChar47);
 
 static const unsigned char gs_aucChar48[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x42, 0x42, 0x42, 
     0x42, 0x42, 0x42, 0x3C, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char48(0, 0, 8, 16, gs_aucChar48);
+static const SEBitmapFontChar gs_Char48(0, 0, 8, 16, gs_aucChar48);
 
 static const unsigned char gs_aucChar49[] =
 {
     0x00, 0x00, 0x00, 0x3E, 0x08, 0x08, 0x08, 0x08, 
     0x08, 0x08, 0x38, 0x08, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char49(0, 0, 8, 16, gs_aucChar49);
+static const SEBitmapFontChar gs_Char49(0, 0, 8, 16, gs_aucChar49);
 
 static const unsigned char gs_aucChar50[] =
 {
     0x00, 0x00, 0x00, 0x7E, 0x40, 0x20, 0x18, 0x04, 
     0x02, 0x42, 0x42, 0x3C, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char50(0, 0, 8, 16, gs_aucChar50);
+static const SEBitmapFontChar gs_Char50(0, 0, 8, 16, gs_aucChar50);
 
 static const unsigned char gs_aucChar51[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x02, 0x02, 0x1C, 
     0x02, 0x02, 0x42, 0x3C, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char51(0, 0, 8, 16, gs_aucChar51);
+static const SEBitmapFontChar gs_Char51(0, 0, 8, 16, gs_aucChar51);
 
 static const unsigned char gs_aucChar52[] =
 {
     0x00, 0x00, 0x00, 0x04, 0x04, 0x04, 0x7F, 0x44, 
     0x24, 0x14, 0x0C, 0x04, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char52(0, 0, 8, 16, gs_aucChar52);
+static const SEBitmapFontChar gs_Char52(0, 0, 8, 16, gs_aucChar52);
 
 static const unsigned char gs_aucChar53[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x02, 0x02, 0x3C, 
     0x20, 0x20, 0x20, 0x3E, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char53(0, 0, 8, 16, gs_aucChar53);
+static const SEBitmapFontChar gs_Char53(0, 0, 8, 16, gs_aucChar53);
 
 static const unsigned char gs_aucChar54[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x42, 0x42, 0x42, 
     0x7C, 0x40, 0x20, 0x1C, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char54(0, 0, 8, 16, gs_aucChar54);
+static const SEBitmapFontChar gs_Char54(0, 0, 8, 16, gs_aucChar54);
 
 static const unsigned char gs_aucChar55[] =
 {
     0x00, 0x00, 0x00, 0x10, 0x10, 0x10, 0x08, 0x08, 
     0x04, 0x04, 0x02, 0x7E, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char55(0, 0, 8, 16, gs_aucChar55);
+static const SEBitmapFontChar gs_Char55(0, 0, 8, 16, gs_aucChar55);
 
 static const unsigned char gs_aucChar56[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x42, 0x42, 0x3C, 
     0x42, 0x42, 0x42, 0x3C, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char56(0, 0, 8, 16, gs_aucChar56);
+static const SEBitmapFontChar gs_Char56(0, 0, 8, 16, gs_aucChar56);
 
 static const unsigned char gs_aucChar57[] =
 {
     0x00, 0x00, 0x00, 0x38, 0x04, 0x02, 0x3E, 0x42, 
     0x42, 0x42, 0x42, 0x3C, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char57(0, 0, 8, 16, gs_aucChar57);
+static const SEBitmapFontChar gs_Char57(0, 0, 8, 16, gs_aucChar57);
 
 static const unsigned char gs_aucChar58[] =
 {
     0x00, 0x00, 0x00, 0x20, 0x20, 0x00, 0x00, 0x00, 
     0x20, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char58(0, 0, 6, 16, gs_aucChar58);
+static const SEBitmapFontChar gs_Char58(0, 0, 6, 16, gs_aucChar58);
 
 static const unsigned char gs_aucChar59[] =
 {
     0x00, 0x40, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 
     0x20, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char59(0, 0, 6, 16, gs_aucChar59);
+static const SEBitmapFontChar gs_Char59(0, 0, 6, 16, gs_aucChar59);
 
 static const unsigned char gs_aucChar60[] =
 {
@@ -525,7 +525,7 @@ static const unsigned char gs_aucChar60[] =
     0x0C, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char60(0, 0, 9, 16, gs_aucChar60);
+static const SEBitmapFontChar gs_Char60(0, 0, 9, 16, gs_aucChar60);
 
 static const unsigned char gs_aucChar61[] =
 {
@@ -534,7 +534,7 @@ static const unsigned char gs_aucChar61[] =
     0x7F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char61(0, 0, 9, 16, gs_aucChar61);
+static const SEBitmapFontChar gs_Char61(0, 0, 9, 16, gs_aucChar61);
 
 static const unsigned char gs_aucChar62[] =
 {
@@ -543,14 +543,14 @@ static const unsigned char gs_aucChar62[] =
     0x18, 0x00, 0x60, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char62(0, 0, 9, 16, gs_aucChar62);
+static const SEBitmapFontChar gs_Char62(0, 0, 9, 16, gs_aucChar62);
 
 static const unsigned char gs_aucChar63[] =
 {
     0x00, 0x00, 0x00, 0x10, 0x10, 0x00, 0x10, 0x10, 
     0x08, 0x04, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char63(0, 0, 7, 16, gs_aucChar63);
+static const SEBitmapFontChar gs_Char63(0, 0, 7, 16, gs_aucChar63);
 
 static const unsigned char gs_aucChar64[] =
 {
@@ -559,7 +559,7 @@ static const unsigned char gs_aucChar64[] =
     0x48, 0x90, 0x27, 0xA0, 0x10, 0x40, 0x0F, 0x80, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char64(0, 0, 13, 16, gs_aucChar64);
+static const SEBitmapFontChar gs_Char64(0, 0, 13, 16, gs_aucChar64);
 
 static const unsigned char gs_aucChar65[] =
 {
@@ -568,14 +568,14 @@ static const unsigned char gs_aucChar65[] =
     0x14, 0x00, 0x14, 0x00, 0x08, 0x00, 0x08, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char65(0, 0, 9, 16, gs_aucChar65);
+static const SEBitmapFontChar gs_Char65(0, 0, 9, 16, gs_aucChar65);
 
 static const unsigned char gs_aucChar66[] =
 {
     0x00, 0x00, 0x00, 0x7C, 0x42, 0x42, 0x42, 0x7C, 
     0x44, 0x44, 0x44, 0x78, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char66(0, 0, 8, 16, gs_aucChar66);
+static const SEBitmapFontChar gs_Char66(0, 0, 8, 16, gs_aucChar66);
 
 static const unsigned char gs_aucChar67[] =
 {
@@ -584,7 +584,7 @@ static const unsigned char gs_aucChar67[] =
     0x40, 0x00, 0x40, 0x00, 0x21, 0x00, 0x1E, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char67(0, 0, 9, 16, gs_aucChar67);
+static const SEBitmapFontChar gs_Char67(0, 0, 9, 16, gs_aucChar67);
 
 static const unsigned char gs_aucChar68[] =
 {
@@ -593,21 +593,21 @@ static const unsigned char gs_aucChar68[] =
     0x41, 0x00, 0x41, 0x00, 0x42, 0x00, 0x7C, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char68(0, 0, 9, 16, gs_aucChar68);
+static const SEBitmapFontChar gs_Char68(0, 0, 9, 16, gs_aucChar68);
 
 static const unsigned char gs_aucChar69[] =
 {
     0x00, 0x00, 0x00, 0x7E, 0x40, 0x40, 0x40, 0x7E, 
     0x40, 0x40, 0x40, 0x7E, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char69(0, 0, 8, 16, gs_aucChar69);
+static const SEBitmapFontChar gs_Char69(0, 0, 8, 16, gs_aucChar69);
 
 static const unsigned char gs_aucChar70[] =
 {
     0x00, 0x00, 0x00, 0x40, 0x40, 0x40, 0x40, 0x7C, 
     0x40, 0x40, 0x40, 0x7E, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char70(0, 0, 8, 16, gs_aucChar70);
+static const SEBitmapFontChar gs_Char70(0, 0, 8, 16, gs_aucChar70);
 
 static const unsigned char gs_aucChar71[] =
 {
@@ -616,7 +616,7 @@ static const unsigned char gs_aucChar71[] =
     0x40, 0x00, 0x40, 0x00, 0x21, 0x00, 0x1E, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char71(0, 0, 9, 16, gs_aucChar71);
+static const SEBitmapFontChar gs_Char71(0, 0, 9, 16, gs_aucChar71);
 
 static const unsigned char gs_aucChar72[] =
 {
@@ -625,35 +625,35 @@ static const unsigned char gs_aucChar72[] =
     0x41, 0x00, 0x41, 0x00, 0x41, 0x00, 0x41, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char72(0, 0, 9, 16, gs_aucChar72);
+static const SEBitmapFontChar gs_Char72(0, 0, 9, 16, gs_aucChar72);
 
 static const unsigned char gs_aucChar73[] =
 {
     0x00, 0x00, 0x00, 0x70, 0x20, 0x20, 0x20, 0x20, 
     0x20, 0x20, 0x20, 0x70, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char73(0, 0, 5, 16, gs_aucChar73);
+static const SEBitmapFontChar gs_Char73(0, 0, 5, 16, gs_aucChar73);
 
 static const unsigned char gs_aucChar74[] =
 {
     0x00, 0x00, 0x00, 0xF0, 0x08, 0x08, 0x08, 0x08, 
     0x08, 0x08, 0x08, 0x38, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char74(0, 0, 6, 16, gs_aucChar74);
+static const SEBitmapFontChar gs_Char74(0, 0, 6, 16, gs_aucChar74);
 
 static const unsigned char gs_aucChar75[] =
 {
     0x00, 0x00, 0x00, 0x42, 0x44, 0x48, 0x50, 0x60, 
     0x50, 0x48, 0x44, 0x42, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char75(0, 0, 8, 16, gs_aucChar75);
+static const SEBitmapFontChar gs_Char75(0, 0, 8, 16, gs_aucChar75);
 
 static const unsigned char gs_aucChar76[] =
 {
     0x00, 0x00, 0x00, 0x7E, 0x40, 0x40, 0x40, 0x40, 
     0x40, 0x40, 0x40, 0x40, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char76(0, 0, 7, 16, gs_aucChar76);
+static const SEBitmapFontChar gs_Char76(0, 0, 7, 16, gs_aucChar76);
 
 static const unsigned char gs_aucChar77[] =
 {
@@ -662,7 +662,7 @@ static const unsigned char gs_aucChar77[] =
     0x51, 0x40, 0x51, 0x40, 0x60, 0xC0, 0x60, 0xC0, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char77(0, 0, 11, 16, gs_aucChar77);
+static const SEBitmapFontChar gs_Char77(0, 0, 11, 16, gs_aucChar77);
 
 static const unsigned char gs_aucChar78[] =
 {
@@ -671,7 +671,7 @@ static const unsigned char gs_aucChar78[] =
     0x51, 0x00, 0x51, 0x00, 0x61, 0x00, 0x61, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char78(0, 0, 9, 16, gs_aucChar78);
+static const SEBitmapFontChar gs_Char78(0, 0, 9, 16, gs_aucChar78);
 
 static const unsigned char gs_aucChar79[] =
 {
@@ -680,14 +680,14 @@ static const unsigned char gs_aucChar79[] =
     0x40, 0x80, 0x40, 0x80, 0x21, 0x00, 0x1E, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char79(0, 0, 10, 16, gs_aucChar79);
+static const SEBitmapFontChar gs_Char79(0, 0, 10, 16, gs_aucChar79);
 
 static const unsigned char gs_aucChar80[] =
 {
     0x00, 0x00, 0x00, 0x40, 0x40, 0x40, 0x7C, 0x42, 
     0x42, 0x42, 0x42, 0x7C, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char80(0, 0, 8, 16, gs_aucChar80);
+static const SEBitmapFontChar gs_Char80(0, 0, 8, 16, gs_aucChar80);
 
 static const unsigned char gs_aucChar81[] =
 {
@@ -696,14 +696,14 @@ static const unsigned char gs_aucChar81[] =
     0x40, 0x80, 0x40, 0x80, 0x21, 0x00, 0x1E, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char81(0, 0, 10, 16, gs_aucChar81);
+static const SEBitmapFontChar gs_Char81(0, 0, 10, 16, gs_aucChar81);
 
 static const unsigned char gs_aucChar82[] =
 {
     0x00, 0x00, 0x00, 0x41, 0x42, 0x44, 0x78, 0x44, 
     0x42, 0x42, 0x42, 0x7C, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char82(0, 0, 8, 16, gs_aucChar82);
+static const SEBitmapFontChar gs_Char82(0, 0, 8, 16, gs_aucChar82);
 
 static const unsigned char gs_aucChar83[] =
 {
@@ -712,7 +712,7 @@ static const unsigned char gs_aucChar83[] =
     0x40, 0x00, 0x40, 0x00, 0x41, 0x00, 0x3E, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char83(0, 0, 9, 16, gs_aucChar83);
+static const SEBitmapFontChar gs_Char83(0, 0, 9, 16, gs_aucChar83);
 
 static const unsigned char gs_aucChar84[] =
 {
@@ -721,7 +721,7 @@ static const unsigned char gs_aucChar84[] =
     0x08, 0x00, 0x08, 0x00, 0x08, 0x00, 0x7F, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char84(0, 0, 9, 16, gs_aucChar84);
+static const SEBitmapFontChar gs_Char84(0, 0, 9, 16, gs_aucChar84);
 
 static const unsigned char gs_aucChar85[] =
 {
@@ -730,7 +730,7 @@ static const unsigned char gs_aucChar85[] =
     0x41, 0x00, 0x41, 0x00, 0x41, 0x00, 0x41, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char85(0, 0, 9, 16, gs_aucChar85);
+static const SEBitmapFontChar gs_Char85(0, 0, 9, 16, gs_aucChar85);
 
 static const unsigned char gs_aucChar86[] =
 {
@@ -739,7 +739,7 @@ static const unsigned char gs_aucChar86[] =
     0x22, 0x00, 0x41, 0x00, 0x41, 0x00, 0x41, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char86(0, 0, 9, 16, gs_aucChar86);
+static const SEBitmapFontChar gs_Char86(0, 0, 9, 16, gs_aucChar86);
 
 static const unsigned char gs_aucChar87[] =
 {
@@ -748,7 +748,7 @@ static const unsigned char gs_aucChar87[] =
     0x45, 0x10, 0x45, 0x10, 0x42, 0x10, 0x42, 0x10, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char87(0, 0, 13, 16, gs_aucChar87);
+static const SEBitmapFontChar gs_Char87(0, 0, 13, 16, gs_aucChar87);
 
 static const unsigned char gs_aucChar88[] =
 {
@@ -757,7 +757,7 @@ static const unsigned char gs_aucChar88[] =
     0x14, 0x00, 0x22, 0x00, 0x41, 0x00, 0x41, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char88(0, 0, 9, 16, gs_aucChar88);
+static const SEBitmapFontChar gs_Char88(0, 0, 9, 16, gs_aucChar88);
 
 static const unsigned char gs_aucChar89[] =
 {
@@ -766,7 +766,7 @@ static const unsigned char gs_aucChar89[] =
     0x14, 0x00, 0x22, 0x00, 0x22, 0x00, 0x41, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char89(0, 0, 9, 16, gs_aucChar89);
+static const SEBitmapFontChar gs_Char89(0, 0, 9, 16, gs_aucChar89);
 
 static const unsigned char gs_aucChar90[] =
 {
@@ -775,28 +775,28 @@ static const unsigned char gs_aucChar90[] =
     0x04, 0x00, 0x02, 0x00, 0x01, 0x00, 0x7F, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char90(0, 0, 9, 16, gs_aucChar90);
+static const SEBitmapFontChar gs_Char90(0, 0, 9, 16, gs_aucChar90);
 
 static const unsigned char gs_aucChar91[] =
 {
     0x00, 0x38, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 
     0x20, 0x20, 0x20, 0x20, 0x38, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char91(0, 0, 6, 16, gs_aucChar91);
+static const SEBitmapFontChar gs_Char91(0, 0, 6, 16, gs_aucChar91);
 
 static const unsigned char gs_aucChar92[] =
 {
     0x00, 0x04, 0x04, 0x08, 0x08, 0x10, 0x10, 0x20, 
     0x20, 0x40, 0x40, 0x80, 0x80, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char92(0, 0, 6, 16, gs_aucChar92);
+static const SEBitmapFontChar gs_Char92(0, 0, 6, 16, gs_aucChar92);
 
 static const unsigned char gs_aucChar93[] =
 {
     0x00, 0x70, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 
     0x10, 0x10, 0x10, 0x10, 0x70, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char93(0, 0, 6, 16, gs_aucChar93);
+static const SEBitmapFontChar gs_Char93(0, 0, 6, 16, gs_aucChar93);
 
 static const unsigned char gs_aucChar94[] =
 {
@@ -805,105 +805,105 @@ static const unsigned char gs_aucChar94[] =
     0x20, 0x80, 0x11, 0x00, 0x0A, 0x00, 0x04, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char94(0, 0, 11, 16, gs_aucChar94);
+static const SEBitmapFontChar gs_Char94(0, 0, 11, 16, gs_aucChar94);
 
 static const unsigned char gs_aucChar95[] =
 {
     0x00, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char95(0, 0, 8, 16, gs_aucChar95);
+static const SEBitmapFontChar gs_Char95(0, 0, 8, 16, gs_aucChar95);
 
 static const unsigned char gs_aucChar96[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x08, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char96(0, 0, 8, 16, gs_aucChar96);
+static const SEBitmapFontChar gs_Char96(0, 0, 8, 16, gs_aucChar96);
 
 static const unsigned char gs_aucChar97[] =
 {
     0x00, 0x00, 0x00, 0x3E, 0x42, 0x42, 0x3E, 0x02, 
     0x02, 0x3C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char97(0, 0, 8, 16, gs_aucChar97);
+static const SEBitmapFontChar gs_Char97(0, 0, 8, 16, gs_aucChar97);
 
 static const unsigned char gs_aucChar98[] =
 {
     0x00, 0x00, 0x00, 0x7C, 0x42, 0x42, 0x42, 0x42, 
     0x62, 0x5C, 0x40, 0x40, 0x40, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char98(0, 0, 8, 16, gs_aucChar98);
+static const SEBitmapFontChar gs_Char98(0, 0, 8, 16, gs_aucChar98);
 
 static const unsigned char gs_aucChar99[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x40, 0x40, 0x40, 
     0x42, 0x3C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char99(0, 0, 8, 16, gs_aucChar99);
+static const SEBitmapFontChar gs_Char99(0, 0, 8, 16, gs_aucChar99);
 
 static const unsigned char gs_aucChar100[] =
 {
     0x00, 0x00, 0x00, 0x3A, 0x46, 0x42, 0x42, 0x42, 
     0x42, 0x3E, 0x02, 0x02, 0x02, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char100(0, 0, 8, 16, gs_aucChar100);
+static const SEBitmapFontChar gs_Char100(0, 0, 8, 16, gs_aucChar100);
 
 static const unsigned char gs_aucChar101[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x40, 0x7E, 0x42, 
     0x42, 0x3C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char101(0, 0, 8, 16, gs_aucChar101);
+static const SEBitmapFontChar gs_Char101(0, 0, 8, 16, gs_aucChar101);
 
 static const unsigned char gs_aucChar102[] =
 {
     0x00, 0x00, 0x00, 0x20, 0x20, 0x20, 0x20, 0x20, 
     0x20, 0x78, 0x20, 0x20, 0x18, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char102(0, 0, 5, 16, gs_aucChar102);
+static const SEBitmapFontChar gs_Char102(0, 0, 5, 16, gs_aucChar102);
 
 static const unsigned char gs_aucChar103[] =
 {
     0x3C, 0x02, 0x02, 0x3A, 0x46, 0x42, 0x42, 0x42, 
     0x42, 0x3E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char103(0, 0, 8, 16, gs_aucChar103);
+static const SEBitmapFontChar gs_Char103(0, 0, 8, 16, gs_aucChar103);
 
 static const unsigned char gs_aucChar104[] =
 {
     0x00, 0x00, 0x00, 0x42, 0x42, 0x42, 0x42, 0x42, 
     0x62, 0x5C, 0x40, 0x40, 0x40, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char104(0, 0, 8, 16, gs_aucChar104);
+static const SEBitmapFontChar gs_Char104(0, 0, 8, 16, gs_aucChar104);
 
 static const unsigned char gs_aucChar105[] =
 {
     0x00, 0x00, 0x00, 0x40, 0x40, 0x40, 0x40, 0x40, 
     0x40, 0x40, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char105(0, 0, 3, 16, gs_aucChar105);
+static const SEBitmapFontChar gs_Char105(0, 0, 3, 16, gs_aucChar105);
 
 static const unsigned char gs_aucChar106[] =
 {
     0xC0, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 
     0x20, 0x60, 0x00, 0x00, 0x20, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char106(0, 0, 4, 16, gs_aucChar106);
+static const SEBitmapFontChar gs_Char106(0, 0, 4, 16, gs_aucChar106);
 
 static const unsigned char gs_aucChar107[] =
 {
     0x00, 0x00, 0x00, 0x44, 0x48, 0x50, 0x60, 0x50, 
     0x48, 0x44, 0x40, 0x40, 0x40, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char107(0, 0, 7, 16, gs_aucChar107);
+static const SEBitmapFontChar gs_Char107(0, 0, 7, 16, gs_aucChar107);
 
 static const unsigned char gs_aucChar108[] =
 {
     0x00, 0x00, 0x00, 0x40, 0x40, 0x40, 0x40, 0x40, 
     0x40, 0x40, 0x40, 0x40, 0x40, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char108(0, 0, 3, 16, gs_aucChar108);
+static const SEBitmapFontChar gs_Char108(0, 0, 3, 16, gs_aucChar108);
 
 static const unsigned char gs_aucChar109[] =
 {
@@ -912,70 +912,70 @@ static const unsigned char gs_aucChar109[] =
     0x66, 0x40, 0x59, 0x80, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char109(0, 0, 11, 16, gs_aucChar109);
+static const SEBitmapFontChar gs_Char109(0, 0, 11, 16, gs_aucChar109);
 
 static const unsigned char gs_aucChar110[] =
 {
     0x00, 0x00, 0x00, 0x42, 0x42, 0x42, 0x42, 0x42, 
     0x62, 0x5C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char110(0, 0, 8, 16, gs_aucChar110);
+static const SEBitmapFontChar gs_Char110(0, 0, 8, 16, gs_aucChar110);
 
 static const unsigned char gs_aucChar111[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x42, 0x42, 0x42, 
     0x42, 0x3C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char111(0, 0, 8, 16, gs_aucChar111);
+static const SEBitmapFontChar gs_Char111(0, 0, 8, 16, gs_aucChar111);
 
 static const unsigned char gs_aucChar112[] =
 {
     0x40, 0x40, 0x40, 0x7C, 0x42, 0x42, 0x42, 0x42, 
     0x62, 0x5C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char112(0, 0, 8, 16, gs_aucChar112);
+static const SEBitmapFontChar gs_Char112(0, 0, 8, 16, gs_aucChar112);
 
 static const unsigned char gs_aucChar113[] =
 {
     0x02, 0x02, 0x02, 0x3A, 0x46, 0x42, 0x42, 0x42, 
     0x42, 0x3E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char113(0, 0, 8, 16, gs_aucChar113);
+static const SEBitmapFontChar gs_Char113(0, 0, 8, 16, gs_aucChar113);
 
 static const unsigned char gs_aucChar114[] =
 {
     0x00, 0x00, 0x00, 0x40, 0x40, 0x40, 0x40, 0x40, 
     0x60, 0x58, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char114(0, 0, 5, 16, gs_aucChar114);
+static const SEBitmapFontChar gs_Char114(0, 0, 5, 16, gs_aucChar114);
 
 static const unsigned char gs_aucChar115[] =
 {
     0x00, 0x00, 0x00, 0x78, 0x04, 0x04, 0x38, 0x40, 
     0x40, 0x3C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char115(0, 0, 7, 16, gs_aucChar115);
+static const SEBitmapFontChar gs_Char115(0, 0, 7, 16, gs_aucChar115);
 
 static const unsigned char gs_aucChar116[] =
 {
     0x00, 0x00, 0x00, 0x18, 0x20, 0x20, 0x20, 0x20, 
     0x20, 0x78, 0x20, 0x20, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char116(0, 0, 6, 16, gs_aucChar116);
+static const SEBitmapFontChar gs_Char116(0, 0, 6, 16, gs_aucChar116);
 
 static const unsigned char gs_aucChar117[] =
 {
     0x00, 0x00, 0x00, 0x3A, 0x46, 0x42, 0x42, 0x42, 
     0x42, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char117(0, 0, 8, 16, gs_aucChar117);
+static const SEBitmapFontChar gs_Char117(0, 0, 8, 16, gs_aucChar117);
 
 static const unsigned char gs_aucChar118[] =
 {
     0x00, 0x00, 0x00, 0x18, 0x18, 0x24, 0x24, 0x24, 
     0x42, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char118(0, 0, 8, 16, gs_aucChar118);
+static const SEBitmapFontChar gs_Char118(0, 0, 8, 16, gs_aucChar118);
 
 static const unsigned char gs_aucChar119[] =
 {
@@ -984,49 +984,49 @@ static const unsigned char gs_aucChar119[] =
     0x44, 0x40, 0x44, 0x40, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char119(0, 0, 11, 16, gs_aucChar119);
+static const SEBitmapFontChar gs_Char119(0, 0, 11, 16, gs_aucChar119);
 
 static const unsigned char gs_aucChar120[] =
 {
     0x00, 0x00, 0x00, 0x44, 0x44, 0x28, 0x10, 0x28, 
     0x44, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char120(0, 0, 7, 16, gs_aucChar120);
+static const SEBitmapFontChar gs_Char120(0, 0, 7, 16, gs_aucChar120);
 
 static const unsigned char gs_aucChar121[] =
 {
     0x20, 0x10, 0x10, 0x18, 0x18, 0x24, 0x24, 0x24, 
     0x42, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char121(0, 0, 8, 16, gs_aucChar121);
+static const SEBitmapFontChar gs_Char121(0, 0, 8, 16, gs_aucChar121);
 
 static const unsigned char gs_aucChar122[] =
 {
     0x00, 0x00, 0x00, 0x7C, 0x40, 0x20, 0x10, 0x08, 
     0x04, 0x7C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char122(0, 0, 7, 16, gs_aucChar122);
+static const SEBitmapFontChar gs_Char122(0, 0, 7, 16, gs_aucChar122);
 
 static const unsigned char gs_aucChar123[] =
 {
     0x00, 0x0C, 0x10, 0x10, 0x10, 0x10, 0x10, 0x60, 
     0x10, 0x10, 0x10, 0x10, 0x0C, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char123(0, 0, 8, 16, gs_aucChar123);
+static const SEBitmapFontChar gs_Char123(0, 0, 8, 16, gs_aucChar123);
 
 static const unsigned char gs_aucChar124[] =
 {
     0x00, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 
     0x10, 0x10, 0x10, 0x10, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char124(0, 0, 7, 16, gs_aucChar124);
+static const SEBitmapFontChar gs_Char124(0, 0, 7, 16, gs_aucChar124);
 
 static const unsigned char gs_aucChar125[] =
 {
     0x00, 0x30, 0x08, 0x08, 0x08, 0x08, 0x08, 0x06, 
     0x08, 0x08, 0x08, 0x08, 0x30, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char125(0, 0, 8, 16, gs_aucChar125);
+static const SEBitmapFontChar gs_Char125(0, 0, 8, 16, gs_aucChar125);
 
 static const unsigned char gs_aucChar126[] =
 {
@@ -1035,7 +1035,7 @@ static const unsigned char gs_aucChar126[] =
     0x30, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char126(0, 0, 11, 16, gs_aucChar126);
+static const SEBitmapFontChar gs_Char126(0, 0, 11, 16, gs_aucChar126);
 
 static const unsigned char gs_aucChar127[] =
 {
@@ -1044,14 +1044,14 @@ static const unsigned char gs_aucChar127[] =
     0x42, 0x00, 0x42, 0x00, 0x42, 0x00, 0x42, 0x00, 
     0x42, 0x00, 0x7E, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char127(0, 0, 13, 16, gs_aucChar127);
+static const SEBitmapFontChar gs_Char127(0, 0, 13, 16, gs_aucChar127);
 
 static const unsigned char gs_aucChar128[] =
 {
     0x00, 0x00, 0x00, 0x1C, 0x22, 0x40, 0xF0, 0x40, 
     0xF8, 0x40, 0x22, 0x1C, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char128(0, 0, 8, 16, gs_aucChar128);
+static const SEBitmapFontChar gs_Char128(0, 0, 8, 16, gs_aucChar128);
 
 static const unsigned char gs_aucChar129[] =
 {
@@ -1060,28 +1060,28 @@ static const unsigned char gs_aucChar129[] =
     0xA0, 0x00, 0xA0, 0x00, 0xA0, 0x00, 0xA0, 0x00, 
     0xE0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char129(0, 0, 13, 16, gs_aucChar129);
+static const SEBitmapFontChar gs_Char129(0, 0, 13, 16, gs_aucChar129);
 
 static const unsigned char gs_aucChar130[] =
 {
     0x00, 0x80, 0x40, 0x40, 0x40, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char130(0, 0, 3, 16, gs_aucChar130);
+static const SEBitmapFontChar gs_Char130(0, 0, 3, 16, gs_aucChar130);
 
 static const unsigned char gs_aucChar131[] =
 {
     0x00, 0x00, 0xC0, 0x20, 0x10, 0x10, 0x10, 0x3E, 
     0x08, 0x08, 0x08, 0x07, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char131(0, 0, 8, 16, gs_aucChar131);
+static const SEBitmapFontChar gs_Char131(0, 0, 8, 16, gs_aucChar131);
 
 static const unsigned char gs_aucChar132[] =
 {
     0x00, 0x90, 0x48, 0x48, 0x48, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char132(0, 0, 6, 16, gs_aucChar132);
+static const SEBitmapFontChar gs_Char132(0, 0, 6, 16, gs_aucChar132);
 
 static const unsigned char gs_aucChar133[] =
 {
@@ -1090,28 +1090,28 @@ static const unsigned char gs_aucChar133[] =
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char133(0, 0, 11, 16, gs_aucChar133);
+static const SEBitmapFontChar gs_Char133(0, 0, 11, 16, gs_aucChar133);
 
 static const unsigned char gs_aucChar134[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x08, 0x08, 0x08, 0x08, 
     0x08, 0x08, 0x7F, 0x08, 0x08, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char134(0, 0, 8, 16, gs_aucChar134);
+static const SEBitmapFontChar gs_Char134(0, 0, 8, 16, gs_aucChar134);
 
 static const unsigned char gs_aucChar135[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x08, 0x08, 0x7F, 0x08, 
     0x08, 0x08, 0x7F, 0x08, 0x08, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char135(0, 0, 8, 16, gs_aucChar135);
+static const SEBitmapFontChar gs_Char135(0, 0, 8, 16, gs_aucChar135);
 
 static const unsigned char gs_aucChar136[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x24, 0x18, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char136(0, 0, 8, 16, gs_aucChar136);
+static const SEBitmapFontChar gs_Char136(0, 0, 8, 16, gs_aucChar136);
 
 static const unsigned char gs_aucChar137[] =
 {
@@ -1122,7 +1122,7 @@ static const unsigned char gs_aucChar137[] =
     0x00, 0x38, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char137(0, 0, 20, 16, gs_aucChar137);
+static const SEBitmapFontChar gs_Char137(0, 0, 20, 16, gs_aucChar137);
 
 static const unsigned char gs_aucChar138[] =
 {
@@ -1131,14 +1131,14 @@ static const unsigned char gs_aucChar138[] =
     0x40, 0x00, 0x40, 0x00, 0x41, 0x00, 0x3E, 0x00, 
     0x00, 0x00, 0x0C, 0x00, 0x12, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char138(0, 0, 9, 16, gs_aucChar138);
+static const SEBitmapFontChar gs_Char138(0, 0, 9, 16, gs_aucChar138);
 
 static const unsigned char gs_aucChar139[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x10, 0x20, 0x40, 0x40, 
     0x20, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char139(0, 0, 6, 16, gs_aucChar139);
+static const SEBitmapFontChar gs_Char139(0, 0, 6, 16, gs_aucChar139);
 
 static const unsigned char gs_aucChar140[] =
 {
@@ -1147,7 +1147,7 @@ static const unsigned char gs_aucChar140[] =
     0x41, 0x00, 0x41, 0x00, 0x21, 0x00, 0x1F, 0xF8, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char140(0, 0, 14, 16, gs_aucChar140);
+static const SEBitmapFontChar gs_Char140(0, 0, 14, 16, gs_aucChar140);
 
 static const unsigned char gs_aucChar141[] =
 {
@@ -1156,7 +1156,7 @@ static const unsigned char gs_aucChar141[] =
     0xA0, 0x00, 0xA0, 0x00, 0xA0, 0x00, 0xA0, 0x00, 
     0xE0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char141(0, 0, 13, 16, gs_aucChar141);
+static const SEBitmapFontChar gs_Char141(0, 0, 13, 16, gs_aucChar141);
 
 static const unsigned char gs_aucChar142[] =
 {
@@ -1165,7 +1165,7 @@ static const unsigned char gs_aucChar142[] =
     0x04, 0x00, 0x02, 0x00, 0x01, 0x00, 0x7F, 0x00, 
     0x00, 0x00, 0x0C, 0x00, 0x12, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char142(0, 0, 9, 16, gs_aucChar142);
+static const SEBitmapFontChar gs_Char142(0, 0, 9, 16, gs_aucChar142);
 
 static const unsigned char gs_aucChar143[] =
 {
@@ -1174,7 +1174,7 @@ static const unsigned char gs_aucChar143[] =
     0xA0, 0x00, 0xA0, 0x00, 0xA0, 0x00, 0xA0, 0x00, 
     0xE0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char143(0, 0, 13, 16, gs_aucChar143);
+static const SEBitmapFontChar gs_Char143(0, 0, 13, 16, gs_aucChar143);
 
 static const unsigned char gs_aucChar144[] =
 {
@@ -1183,49 +1183,49 @@ static const unsigned char gs_aucChar144[] =
     0xA0, 0x00, 0xA0, 0x00, 0xA0, 0x00, 0xA0, 0x00, 
     0xE0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char144(0, 0, 13, 16, gs_aucChar144);
+static const SEBitmapFontChar gs_Char144(0, 0, 13, 16, gs_aucChar144);
 
 static const unsigned char gs_aucChar145[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x20, 0x40, 0x40, 0x40, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char145(0, 0, 3, 16, gs_aucChar145);
+static const SEBitmapFontChar gs_Char145(0, 0, 3, 16, gs_aucChar145);
 
 static const unsigned char gs_aucChar146[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x40, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char146(0, 0, 3, 16, gs_aucChar146);
+static const SEBitmapFontChar gs_Char146(0, 0, 3, 16, gs_aucChar146);
 
 static const unsigned char gs_aucChar147[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x24, 0x48, 0x48, 0x48, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char147(0, 0, 6, 16, gs_aucChar147);
+static const SEBitmapFontChar gs_Char147(0, 0, 6, 16, gs_aucChar147);
 
 static const unsigned char gs_aucChar148[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x48, 0x24, 0x24, 0x24, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char148(0, 0, 6, 16, gs_aucChar148);
+static const SEBitmapFontChar gs_Char148(0, 0, 6, 16, gs_aucChar148);
 
 static const unsigned char gs_aucChar149[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x7C, 0x7C, 
     0x7C, 0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char149(0, 0, 7, 16, gs_aucChar149);
+static const SEBitmapFontChar gs_Char149(0, 0, 7, 16, gs_aucChar149);
 
 static const unsigned char gs_aucChar150[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char150(0, 0, 8, 16, gs_aucChar150);
+static const SEBitmapFontChar gs_Char150(0, 0, 8, 16, gs_aucChar150);
 
 static const unsigned char gs_aucChar151[] =
 {
@@ -1234,14 +1234,14 @@ static const unsigned char gs_aucChar151[] =
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char151(0, 0, 13, 16, gs_aucChar151);
+static const SEBitmapFontChar gs_Char151(0, 0, 13, 16, gs_aucChar151);
 
 static const unsigned char gs_aucChar152[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x2C, 0x1A, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char152(0, 0, 8, 16, gs_aucChar152);
+static const SEBitmapFontChar gs_Char152(0, 0, 8, 16, gs_aucChar152);
 
 static const unsigned char gs_aucChar153[] =
 {
@@ -1250,21 +1250,21 @@ static const unsigned char gs_aucChar153[] =
     0x12, 0x20, 0x12, 0xA0, 0x13, 0x60, 0x3A, 0x20, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char153(0, 0, 13, 16, gs_aucChar153);
+static const SEBitmapFontChar gs_Char153(0, 0, 13, 16, gs_aucChar153);
 
 static const unsigned char gs_aucChar154[] =
 {
     0x00, 0x00, 0x00, 0x78, 0x04, 0x04, 0x38, 0x40, 
     0x40, 0x3C, 0x00, 0x18, 0x24, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char154(0, 0, 7, 16, gs_aucChar154);
+static const SEBitmapFontChar gs_Char154(0, 0, 7, 16, gs_aucChar154);
 
 static const unsigned char gs_aucChar155[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x40, 0x20, 0x10, 0x10, 
     0x20, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char155(0, 0, 6, 16, gs_aucChar155);
+static const SEBitmapFontChar gs_Char155(0, 0, 6, 16, gs_aucChar155);
 
 static const unsigned char gs_aucChar156[] =
 {
@@ -1273,7 +1273,7 @@ static const unsigned char gs_aucChar156[] =
     0x42, 0x10, 0x3D, 0xE0, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char156(0, 0, 13, 16, gs_aucChar156);
+static const SEBitmapFontChar gs_Char156(0, 0, 13, 16, gs_aucChar156);
 
 static const unsigned char gs_aucChar157[] =
 {
@@ -1282,14 +1282,14 @@ static const unsigned char gs_aucChar157[] =
     0xA0, 0x00, 0xA0, 0x00, 0xA0, 0x00, 0xA0, 0x00, 
     0xE0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char157(0, 0, 13, 16, gs_aucChar157);
+static const SEBitmapFontChar gs_Char157(0, 0, 13, 16, gs_aucChar157);
 
 static const unsigned char gs_aucChar158[] =
 {
     0x00, 0x00, 0x00, 0x7C, 0x40, 0x20, 0x10, 0x08, 
     0x04, 0x7C, 0x00, 0x18, 0x24, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char158(0, 0, 7, 16, gs_aucChar158);
+static const SEBitmapFontChar gs_Char158(0, 0, 7, 16, gs_aucChar158);
 
 static const unsigned char gs_aucChar159[] =
 {
@@ -1298,70 +1298,70 @@ static const unsigned char gs_aucChar159[] =
     0x14, 0x00, 0x22, 0x00, 0x22, 0x00, 0x41, 0x00, 
     0x00, 0x00, 0x22, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char159(0, 0, 9, 16, gs_aucChar159);
+static const SEBitmapFontChar gs_Char159(0, 0, 9, 16, gs_aucChar159);
 
 static const unsigned char gs_aucChar160[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char160(0, 0, 5, 16, gs_aucChar160);
+static const SEBitmapFontChar gs_Char160(0, 0, 5, 16, gs_aucChar160);
 
 static const unsigned char gs_aucChar161[] =
 {
     0x00, 0x00, 0x00, 0x20, 0x20, 0x20, 0x20, 0x20, 
     0x20, 0x00, 0x20, 0x20, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char161(0, 0, 5, 16, gs_aucChar161);
+static const SEBitmapFontChar gs_Char161(0, 0, 5, 16, gs_aucChar161);
 
 static const unsigned char gs_aucChar162[] =
 {
     0x00, 0x08, 0x08, 0x3E, 0x48, 0x48, 0x48, 0x48, 
     0x48, 0x3E, 0x08, 0x08, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char162(0, 0, 8, 16, gs_aucChar162);
+static const SEBitmapFontChar gs_Char162(0, 0, 8, 16, gs_aucChar162);
 
 static const unsigned char gs_aucChar163[] =
 {
     0x00, 0x00, 0x00, 0x7E, 0x40, 0x20, 0x20, 0x7C, 
     0x20, 0x20, 0x22, 0x1C, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char163(0, 0, 8, 16, gs_aucChar163);
+static const SEBitmapFontChar gs_Char163(0, 0, 8, 16, gs_aucChar163);
 
 static const unsigned char gs_aucChar164[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x42, 0x3C, 0x24, 0x24, 
     0x3C, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char164(0, 0, 8, 16, gs_aucChar164);
+static const SEBitmapFontChar gs_Char164(0, 0, 8, 16, gs_aucChar164);
 
 static const unsigned char gs_aucChar165[] =
 {
     0x00, 0x00, 0x00, 0x08, 0x08, 0x3E, 0x08, 0x08, 
     0x14, 0x22, 0x22, 0x41, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char165(0, 0, 8, 16, gs_aucChar165);
+static const SEBitmapFontChar gs_Char165(0, 0, 8, 16, gs_aucChar165);
 
 static const unsigned char gs_aucChar166[] =
 {
     0x00, 0x10, 0x10, 0x10, 0x10, 0x10, 0x00, 0x00, 
     0x10, 0x10, 0x10, 0x10, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char166(0, 0, 7, 16, gs_aucChar166);
+static const SEBitmapFontChar gs_Char166(0, 0, 7, 16, gs_aucChar166);
 
 static const unsigned char gs_aucChar167[] =
 {
     0x00, 0x3C, 0x42, 0x02, 0x1C, 0x22, 0x42, 0x44, 
     0x38, 0x40, 0x42, 0x3C, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char167(0, 0, 8, 16, gs_aucChar167);
+static const SEBitmapFontChar gs_Char167(0, 0, 8, 16, gs_aucChar167);
 
 static const unsigned char gs_aucChar168[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x24, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char168(0, 0, 8, 16, gs_aucChar168);
+static const SEBitmapFontChar gs_Char168(0, 0, 8, 16, gs_aucChar168);
 
 static const unsigned char gs_aucChar169[] =
 {
@@ -1370,21 +1370,21 @@ static const unsigned char gs_aucChar169[] =
     0x48, 0x90, 0x27, 0x20, 0x10, 0x40, 0x0F, 0x80, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char169(0, 0, 13, 16, gs_aucChar169);
+static const SEBitmapFontChar gs_Char169(0, 0, 13, 16, gs_aucChar169);
 
 static const unsigned char gs_aucChar170[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3C, 0x44, 
     0x44, 0x3C, 0x04, 0x38, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char170(0, 0, 7, 16, gs_aucChar170);
+static const SEBitmapFontChar gs_Char170(0, 0, 7, 16, gs_aucChar170);
 
 static const unsigned char gs_aucChar171[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x12, 0x24, 0x48, 0x48, 
     0x24, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char171(0, 0, 8, 16, gs_aucChar171);
+static const SEBitmapFontChar gs_Char171(0, 0, 8, 16, gs_aucChar171);
 
 static const unsigned char gs_aucChar172[] =
 {
@@ -1393,14 +1393,14 @@ static const unsigned char gs_aucChar172[] =
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char172(0, 0, 9, 16, gs_aucChar172);
+static const SEBitmapFontChar gs_Char172(0, 0, 9, 16, gs_aucChar172);
 
 static const unsigned char gs_aucChar173[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7C, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char173(0, 0, 7, 16, gs_aucChar173);
+static const SEBitmapFontChar gs_Char173(0, 0, 7, 16, gs_aucChar173);
 
 static const unsigned char gs_aucChar174[] =
 {
@@ -1409,21 +1409,21 @@ static const unsigned char gs_aucChar174[] =
     0x44, 0x90, 0x27, 0x20, 0x10, 0x40, 0x0F, 0x80, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char174(0, 0, 13, 16, gs_aucChar174);
+static const SEBitmapFontChar gs_Char174(0, 0, 13, 16, gs_aucChar174);
 
 static const unsigned char gs_aucChar175[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char175(0, 0, 8, 16, gs_aucChar175);
+static const SEBitmapFontChar gs_Char175(0, 0, 8, 16, gs_aucChar175);
 
 static const unsigned char gs_aucChar176[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 
     0x44, 0x44, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char176(0, 0, 7, 16, gs_aucChar176);
+static const SEBitmapFontChar gs_Char176(0, 0, 7, 16, gs_aucChar176);
 
 static const unsigned char gs_aucChar177[] =
 {
@@ -1432,77 +1432,77 @@ static const unsigned char gs_aucChar177[] =
     0x7F, 0x00, 0x08, 0x00, 0x08, 0x00, 0x08, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char177(0, 0, 9, 16, gs_aucChar177);
+static const SEBitmapFontChar gs_Char177(0, 0, 9, 16, gs_aucChar177);
 
 static const unsigned char gs_aucChar178[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x78, 0x20, 
     0x10, 0x08, 0x48, 0x30, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char178(0, 0, 7, 16, gs_aucChar178);
+static const SEBitmapFontChar gs_Char178(0, 0, 7, 16, gs_aucChar178);
 
 static const unsigned char gs_aucChar179[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x78, 0x04, 
     0x04, 0x38, 0x04, 0x78, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char179(0, 0, 7, 16, gs_aucChar179);
+static const SEBitmapFontChar gs_Char179(0, 0, 7, 16, gs_aucChar179);
 
 static const unsigned char gs_aucChar180[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x10, 0x08, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char180(0, 0, 8, 16, gs_aucChar180);
+static const SEBitmapFontChar gs_Char180(0, 0, 8, 16, gs_aucChar180);
 
 static const unsigned char gs_aucChar181[] =
 {
     0x40, 0x40, 0x40, 0x7E, 0x42, 0x42, 0x42, 0x42, 
     0x42, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char181(0, 0, 8, 16, gs_aucChar181);
+static const SEBitmapFontChar gs_Char181(0, 0, 8, 16, gs_aucChar181);
 
 static const unsigned char gs_aucChar182[] =
 {
     0x00, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x3A, 
     0x7A, 0x7A, 0x7A, 0x3E, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char182(0, 0, 8, 16, gs_aucChar182);
+static const SEBitmapFontChar gs_Char182(0, 0, 8, 16, gs_aucChar182);
 
 static const unsigned char gs_aucChar183[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x20, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char183(0, 0, 5, 16, gs_aucChar183);
+static const SEBitmapFontChar gs_Char183(0, 0, 5, 16, gs_aucChar183);
 
 static const unsigned char gs_aucChar184[] =
 {
     0x30, 0x08, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char184(0, 0, 8, 16, gs_aucChar184);
+static const SEBitmapFontChar gs_Char184(0, 0, 8, 16, gs_aucChar184);
 
 static const unsigned char gs_aucChar185[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x10, 
     0x10, 0x10, 0x30, 0x10, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char185(0, 0, 7, 16, gs_aucChar185);
+static const SEBitmapFontChar gs_Char185(0, 0, 7, 16, gs_aucChar185);
 
 static const unsigned char gs_aucChar186[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x44, 
     0x44, 0x44, 0x44, 0x38, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char186(0, 0, 7, 16, gs_aucChar186);
+static const SEBitmapFontChar gs_Char186(0, 0, 7, 16, gs_aucChar186);
 
 static const unsigned char gs_aucChar187[] =
 {
     0x00, 0x00, 0x00, 0x00, 0x48, 0x24, 0x12, 0x12, 
     0x24, 0x48, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char187(0, 0, 8, 16, gs_aucChar187);
+static const SEBitmapFontChar gs_Char187(0, 0, 8, 16, gs_aucChar187);
 
 static const unsigned char gs_aucChar188[] =
 {
@@ -1511,7 +1511,7 @@ static const unsigned char gs_aucChar188[] =
     0x22, 0x20, 0x21, 0x00, 0x61, 0x00, 0x20, 0x80, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char188(0, 0, 13, 16, gs_aucChar188);
+static const SEBitmapFontChar gs_Char188(0, 0, 13, 16, gs_aucChar188);
 
 static const unsigned char gs_aucChar189[] =
 {
@@ -1520,7 +1520,7 @@ static const unsigned char gs_aucChar189[] =
     0x22, 0x60, 0x21, 0x00, 0x61, 0x00, 0x20, 0x80, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char189(0, 0, 13, 16, gs_aucChar189);
+static const SEBitmapFontChar gs_Char189(0, 0, 13, 16, gs_aucChar189);
 
 static const unsigned char gs_aucChar190[] =
 {
@@ -1529,14 +1529,14 @@ static const unsigned char gs_aucChar190[] =
     0x09, 0x20, 0x31, 0x00, 0x08, 0x80, 0x70, 0x80, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char190(0, 0, 13, 16, gs_aucChar190);
+static const SEBitmapFontChar gs_Char190(0, 0, 13, 16, gs_aucChar190);
 
 static const unsigned char gs_aucChar191[] =
 {
     0x00, 0x00, 0x00, 0x38, 0x44, 0x40, 0x20, 0x10, 
     0x10, 0x00, 0x10, 0x10, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char191(0, 0, 7, 16, gs_aucChar191);
+static const SEBitmapFontChar gs_Char191(0, 0, 7, 16, gs_aucChar191);
 
 static const unsigned char gs_aucChar192[] =
 {
@@ -1545,7 +1545,7 @@ static const unsigned char gs_aucChar192[] =
     0x14, 0x00, 0x14, 0x00, 0x08, 0x00, 0x08, 0x00, 
     0x00, 0x00, 0x04, 0x00, 0x08, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char192(0, 0, 9, 16, gs_aucChar192);
+static const SEBitmapFontChar gs_Char192(0, 0, 9, 16, gs_aucChar192);
 
 static const unsigned char gs_aucChar193[] =
 {
@@ -1554,7 +1554,7 @@ static const unsigned char gs_aucChar193[] =
     0x14, 0x00, 0x14, 0x00, 0x08, 0x00, 0x08, 0x00, 
     0x00, 0x00, 0x08, 0x00, 0x04, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char193(0, 0, 9, 16, gs_aucChar193);
+static const SEBitmapFontChar gs_Char193(0, 0, 9, 16, gs_aucChar193);
 
 static const unsigned char gs_aucChar194[] =
 {
@@ -1563,7 +1563,7 @@ static const unsigned char gs_aucChar194[] =
     0x14, 0x00, 0x14, 0x00, 0x08, 0x00, 0x08, 0x00, 
     0x00, 0x00, 0x12, 0x00, 0x0C, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char194(0, 0, 9, 16, gs_aucChar194);
+static const SEBitmapFontChar gs_Char194(0, 0, 9, 16, gs_aucChar194);
 
 static const unsigned char gs_aucChar195[] =
 {
@@ -1572,7 +1572,7 @@ static const unsigned char gs_aucChar195[] =
     0x14, 0x00, 0x14, 0x00, 0x08, 0x00, 0x08, 0x00, 
     0x00, 0x00, 0x2C, 0x00, 0x1A, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char195(0, 0, 9, 16, gs_aucChar195);
+static const SEBitmapFontChar gs_Char195(0, 0, 9, 16, gs_aucChar195);
 
 static const unsigned char gs_aucChar196[] =
 {
@@ -1581,7 +1581,7 @@ static const unsigned char gs_aucChar196[] =
     0x14, 0x00, 0x14, 0x00, 0x08, 0x00, 0x08, 0x00, 
     0x00, 0x00, 0x22, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char196(0, 0, 9, 16, gs_aucChar196);
+static const SEBitmapFontChar gs_Char196(0, 0, 9, 16, gs_aucChar196);
 
 static const unsigned char gs_aucChar197[] =
 {
@@ -1590,7 +1590,7 @@ static const unsigned char gs_aucChar197[] =
     0x14, 0x00, 0x14, 0x00, 0x08, 0x00, 0x1C, 0x00, 
     0x22, 0x00, 0x22, 0x00, 0x1C, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char197(0, 0, 9, 16, gs_aucChar197);
+static const SEBitmapFontChar gs_Char197(0, 0, 9, 16, gs_aucChar197);
 
 static const unsigned char gs_aucChar198[] =
 {
@@ -1599,7 +1599,7 @@ static const unsigned char gs_aucChar198[] =
     0x12, 0x00, 0x12, 0x00, 0x0A, 0x00, 0x0F, 0xE0, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char198(0, 0, 12, 16, gs_aucChar198);
+static const SEBitmapFontChar gs_Char198(0, 0, 12, 16, gs_aucChar198);
 
 static const unsigned char gs_aucChar199[] =
 {
@@ -1608,63 +1608,63 @@ static const unsigned char gs_aucChar199[] =
     0x40, 0x00, 0x40, 0x00, 0x21, 0x00, 0x1E, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char199(0, 0, 9, 16, gs_aucChar199);
+static const SEBitmapFontChar gs_Char199(0, 0, 9, 16, gs_aucChar199);
 
 static const unsigned char gs_aucChar200[] =
 {
     0x00, 0x00, 0x00, 0x7E, 0x40, 0x40, 0x40, 0x7E, 
     0x40, 0x40, 0x40, 0x7E, 0x00, 0x08, 0x10, 0x00
 };
-static const BitmapFontChar gs_Char200(0, 0, 8, 16, gs_aucChar200);
+static const SEBitmapFontChar gs_Char200(0, 0, 8, 16, gs_aucChar200);
 
 static const unsigned char gs_aucChar201[] =
 {
     0x00, 0x00, 0x00, 0x7E, 0x40, 0x40, 0x40, 0x7E, 
     0x40, 0x40, 0x40, 0x7E, 0x00, 0x10, 0x08, 0x00
 };
-static const BitmapFontChar gs_Char201(0, 0, 8, 16, gs_aucChar201);
+static const SEBitmapFontChar gs_Char201(0, 0, 8, 16, gs_aucChar201);
 
 static const unsigned char gs_aucChar202[] =
 {
     0x00, 0x00, 0x00, 0x7E, 0x40, 0x40, 0x40, 0x7E, 
     0x40, 0x40, 0x40, 0x7E, 0x00, 0x24, 0x18, 0x00
 };
-static const BitmapFontChar gs_Char202(0, 0, 8, 16, gs_aucChar202);
+static const SEBitmapFontChar gs_Char202(0, 0, 8, 16, gs_aucChar202);
 
 static const unsigned char gs_aucChar203[] =
 {
     0x00, 0x00, 0x00, 0x7E, 0x40, 0x40, 0x40, 0x7E, 
     0x40, 0x40, 0x40, 0x7E, 0x00, 0x24, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char203(0, 0, 8, 16, gs_aucChar203);
+static const SEBitmapFontChar gs_Char203(0, 0, 8, 16, gs_aucChar203);
 
 static const unsigned char gs_aucChar204[] =
 {
     0x00, 0x00, 0x00, 0x70, 0x20, 0x20, 0x20, 0x20, 
     0x20, 0x20, 0x20, 0x70, 0x00, 0x10, 0x20, 0x00
 };
-static const BitmapFontChar gs_Char204(0, 0, 5, 16, gs_aucChar204);
+static const SEBitmapFontChar gs_Char204(0, 0, 5, 16, gs_aucChar204);
 
 static const unsigned char gs_aucChar205[] =
 {
     0x00, 0x00, 0x00, 0x70, 0x20, 0x20, 0x20, 0x20, 
     0x20, 0x20, 0x20, 0x70, 0x00, 0x20, 0x10, 0x00
 };
-static const BitmapFontChar gs_Char205(0, 0, 5, 16, gs_aucChar205);
+static const SEBitmapFontChar gs_Char205(0, 0, 5, 16, gs_aucChar205);
 
 static const unsigned char gs_aucChar206[] =
 {
     0x00, 0x00, 0x00, 0x70, 0x20, 0x20, 0x20, 0x20, 
     0x20, 0x20, 0x20, 0x70, 0x00, 0x48, 0x30, 0x00
 };
-static const BitmapFontChar gs_Char206(0, 0, 5, 16, gs_aucChar206);
+static const SEBitmapFontChar gs_Char206(0, 0, 5, 16, gs_aucChar206);
 
 static const unsigned char gs_aucChar207[] =
 {
     0x00, 0x00, 0x00, 0x70, 0x20, 0x20, 0x20, 0x20, 
     0x20, 0x20, 0x20, 0x70, 0x00, 0x88, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char207(0, 0, 5, 16, gs_aucChar207);
+static const SEBitmapFontChar gs_Char207(0, 0, 5, 16, gs_aucChar207);
 
 static const unsigned char gs_aucChar208[] =
 {
@@ -1673,7 +1673,7 @@ static const unsigned char gs_aucChar208[] =
     0x41, 0x00, 0x41, 0x00, 0x42, 0x00, 0x7C, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char208(0, 0, 9, 16, gs_aucChar208);
+static const SEBitmapFontChar gs_Char208(0, 0, 9, 16, gs_aucChar208);
 
 static const unsigned char gs_aucChar209[] =
 {
@@ -1682,7 +1682,7 @@ static const unsigned char gs_aucChar209[] =
     0x51, 0x00, 0x51, 0x00, 0x61, 0x00, 0x61, 0x00, 
     0x00, 0x00, 0x2C, 0x00, 0x1A, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char209(0, 0, 9, 16, gs_aucChar209);
+static const SEBitmapFontChar gs_Char209(0, 0, 9, 16, gs_aucChar209);
 
 static const unsigned char gs_aucChar210[] =
 {
@@ -1691,7 +1691,7 @@ static const unsigned char gs_aucChar210[] =
     0x40, 0x80, 0x40, 0x80, 0x21, 0x00, 0x1E, 0x00, 
     0x00, 0x00, 0x04, 0x00, 0x08, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char210(0, 0, 10, 16, gs_aucChar210);
+static const SEBitmapFontChar gs_Char210(0, 0, 10, 16, gs_aucChar210);
 
 static const unsigned char gs_aucChar211[] =
 {
@@ -1700,7 +1700,7 @@ static const unsigned char gs_aucChar211[] =
     0x40, 0x80, 0x40, 0x80, 0x21, 0x00, 0x1E, 0x00, 
     0x00, 0x00, 0x08, 0x00, 0x04, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char211(0, 0, 10, 16, gs_aucChar211);
+static const SEBitmapFontChar gs_Char211(0, 0, 10, 16, gs_aucChar211);
 
 static const unsigned char gs_aucChar212[] =
 {
@@ -1709,7 +1709,7 @@ static const unsigned char gs_aucChar212[] =
     0x40, 0x80, 0x40, 0x80, 0x21, 0x00, 0x1E, 0x00, 
     0x00, 0x00, 0x12, 0x00, 0x0C, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char212(0, 0, 10, 16, gs_aucChar212);
+static const SEBitmapFontChar gs_Char212(0, 0, 10, 16, gs_aucChar212);
 
 static const unsigned char gs_aucChar213[] =
 {
@@ -1718,7 +1718,7 @@ static const unsigned char gs_aucChar213[] =
     0x40, 0x80, 0x40, 0x80, 0x21, 0x00, 0x1E, 0x00, 
     0x00, 0x00, 0x16, 0x00, 0x0D, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char213(0, 0, 10, 16, gs_aucChar213);
+static const SEBitmapFontChar gs_Char213(0, 0, 10, 16, gs_aucChar213);
 
 static const unsigned char gs_aucChar214[] =
 {
@@ -1727,7 +1727,7 @@ static const unsigned char gs_aucChar214[] =
     0x40, 0x80, 0x40, 0x80, 0x21, 0x00, 0x1E, 0x00, 
     0x00, 0x00, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char214(0, 0, 10, 16, gs_aucChar214);
+static const SEBitmapFontChar gs_Char214(0, 0, 10, 16, gs_aucChar214);
 
 static const unsigned char gs_aucChar215[] =
 {
@@ -1736,7 +1736,7 @@ static const unsigned char gs_aucChar215[] =
     0x0A, 0x00, 0x11, 0x00, 0x20, 0x80, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char215(0, 0, 11, 16, gs_aucChar215);
+static const SEBitmapFontChar gs_Char215(0, 0, 11, 16, gs_aucChar215);
 
 static const unsigned char gs_aucChar216[] =
 {
@@ -1745,7 +1745,7 @@ static const unsigned char gs_aucChar216[] =
     0x44, 0x80, 0x42, 0x80, 0x21, 0x00, 0x1F, 0x00, 
     0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char216(0, 0, 10, 16, gs_aucChar216);
+static const SEBitmapFontChar gs_Char216(0, 0, 10, 16, gs_aucChar216);
 
 static const unsigned char gs_aucChar217[] =
 {
@@ -1754,7 +1754,7 @@ static const unsigned char gs_aucChar217[] =
     0x41, 0x00, 0x41, 0x00, 0x41, 0x00, 0x41, 0x00, 
     0x00, 0x00, 0x04, 0x00, 0x08, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char217(0, 0, 9, 16, gs_aucChar217);
+static const SEBitmapFontChar gs_Char217(0, 0, 9, 16, gs_aucChar217);
 
 static const unsigned char gs_aucChar218[] =
 {
@@ -1763,7 +1763,7 @@ static const unsigned char gs_aucChar218[] =
     0x41, 0x00, 0x41, 0x00, 0x41, 0x00, 0x41, 0x00, 
     0x00, 0x00, 0x08, 0x00, 0x04, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char218(0, 0, 9, 16, gs_aucChar218);
+static const SEBitmapFontChar gs_Char218(0, 0, 9, 16, gs_aucChar218);
 
 static const unsigned char gs_aucChar219[] =
 {
@@ -1772,7 +1772,7 @@ static const unsigned char gs_aucChar219[] =
     0x41, 0x00, 0x41, 0x00, 0x41, 0x00, 0x41, 0x00, 
     0x00, 0x00, 0x12, 0x00, 0x0C, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char219(0, 0, 9, 16, gs_aucChar219);
+static const SEBitmapFontChar gs_Char219(0, 0, 9, 16, gs_aucChar219);
 
 static const unsigned char gs_aucChar220[] =
 {
@@ -1781,7 +1781,7 @@ static const unsigned char gs_aucChar220[] =
     0x41, 0x00, 0x41, 0x00, 0x41, 0x00, 0x41, 0x00, 
     0x00, 0x00, 0x22, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char220(0, 0, 9, 16, gs_aucChar220);
+static const SEBitmapFontChar gs_Char220(0, 0, 9, 16, gs_aucChar220);
 
 static const unsigned char gs_aucChar221[] =
 {
@@ -1790,63 +1790,63 @@ static const unsigned char gs_aucChar221[] =
     0x14, 0x00, 0x22, 0x00, 0x22, 0x00, 0x41, 0x00, 
     0x00, 0x00, 0x08, 0x00, 0x04, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char221(0, 0, 9, 16, gs_aucChar221);
+static const SEBitmapFontChar gs_Char221(0, 0, 9, 16, gs_aucChar221);
 
 static const unsigned char gs_aucChar222[] =
 {
     0x00, 0x00, 0x00, 0x40, 0x40, 0x7C, 0x42, 0x42, 
     0x42, 0x7C, 0x40, 0x40, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char222(0, 0, 8, 16, gs_aucChar222);
+static const SEBitmapFontChar gs_Char222(0, 0, 8, 16, gs_aucChar222);
 
 static const unsigned char gs_aucChar223[] =
 {
     0x00, 0x00, 0x00, 0x5C, 0x42, 0x42, 0x42, 0x44, 
     0x58, 0x44, 0x44, 0x44, 0x38, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char223(0, 0, 8, 16, gs_aucChar223);
+static const SEBitmapFontChar gs_Char223(0, 0, 8, 16, gs_aucChar223);
 
 static const unsigned char gs_aucChar224[] =
 {
     0x00, 0x00, 0x00, 0x3E, 0x42, 0x42, 0x3E, 0x02, 
     0x02, 0x3C, 0x00, 0x08, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char224(0, 0, 8, 16, gs_aucChar224);
+static const SEBitmapFontChar gs_Char224(0, 0, 8, 16, gs_aucChar224);
 
 static const unsigned char gs_aucChar225[] =
 {
     0x00, 0x00, 0x00, 0x3E, 0x42, 0x42, 0x3E, 0x02, 
     0x02, 0x3C, 0x00, 0x08, 0x04, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char225(0, 0, 8, 16, gs_aucChar225);
+static const SEBitmapFontChar gs_Char225(0, 0, 8, 16, gs_aucChar225);
 
 static const unsigned char gs_aucChar226[] =
 {
     0x00, 0x00, 0x00, 0x3E, 0x42, 0x42, 0x3E, 0x02, 
     0x02, 0x3C, 0x00, 0x12, 0x0C, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char226(0, 0, 8, 16, gs_aucChar226);
+static const SEBitmapFontChar gs_Char226(0, 0, 8, 16, gs_aucChar226);
 
 static const unsigned char gs_aucChar227[] =
 {
     0x00, 0x00, 0x00, 0x3E, 0x42, 0x42, 0x3E, 0x02, 
     0x02, 0x3C, 0x00, 0x2C, 0x1A, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char227(0, 0, 8, 16, gs_aucChar227);
+static const SEBitmapFontChar gs_Char227(0, 0, 8, 16, gs_aucChar227);
 
 static const unsigned char gs_aucChar228[] =
 {
     0x00, 0x00, 0x00, 0x3E, 0x42, 0x42, 0x3E, 0x02, 
     0x02, 0x3C, 0x00, 0x24, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char228(0, 0, 8, 16, gs_aucChar228);
+static const SEBitmapFontChar gs_Char228(0, 0, 8, 16, gs_aucChar228);
 
 static const unsigned char gs_aucChar229[] =
 {
     0x00, 0x00, 0x00, 0x3E, 0x42, 0x42, 0x3E, 0x02, 
     0x02, 0x3C, 0x00, 0x0C, 0x12, 0x12, 0x0C, 0x00
 };
-static const BitmapFontChar gs_Char229(0, 0, 8, 16, gs_aucChar229);
+static const SEBitmapFontChar gs_Char229(0, 0, 8, 16, gs_aucChar229);
 
 static const unsigned char gs_aucChar230[] =
 {
@@ -1855,119 +1855,119 @@ static const unsigned char gs_aucChar230[] =
     0x04, 0x40, 0x3B, 0x80, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char230(0, 0, 11, 16, gs_aucChar230);
+static const SEBitmapFontChar gs_Char230(0, 0, 11, 16, gs_aucChar230);
 
 static const unsigned char gs_aucChar231[] =
 {
     0x18, 0x04, 0x04, 0x3C, 0x42, 0x40, 0x40, 0x40, 
     0x42, 0x3C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char231(0, 0, 8, 16, gs_aucChar231);
+static const SEBitmapFontChar gs_Char231(0, 0, 8, 16, gs_aucChar231);
 
 static const unsigned char gs_aucChar232[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x40, 0x7E, 0x42, 
     0x42, 0x3C, 0x00, 0x08, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char232(0, 0, 8, 16, gs_aucChar232);
+static const SEBitmapFontChar gs_Char232(0, 0, 8, 16, gs_aucChar232);
 
 static const unsigned char gs_aucChar233[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x40, 0x7E, 0x42, 
     0x42, 0x3C, 0x00, 0x08, 0x04, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char233(0, 0, 8, 16, gs_aucChar233);
+static const SEBitmapFontChar gs_Char233(0, 0, 8, 16, gs_aucChar233);
 
 static const unsigned char gs_aucChar234[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x40, 0x7E, 0x42, 
     0x42, 0x3C, 0x00, 0x24, 0x18, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char234(0, 0, 8, 16, gs_aucChar234);
+static const SEBitmapFontChar gs_Char234(0, 0, 8, 16, gs_aucChar234);
 
 static const unsigned char gs_aucChar235[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x40, 0x7E, 0x42, 
     0x42, 0x3C, 0x00, 0x24, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char235(0, 0, 8, 16, gs_aucChar235);
+static const SEBitmapFontChar gs_Char235(0, 0, 8, 16, gs_aucChar235);
 
 static const unsigned char gs_aucChar236[] =
 {
     0x00, 0x00, 0x00, 0x40, 0x40, 0x40, 0x40, 0x40, 
     0x40, 0x40, 0x00, 0x20, 0x40, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char236(0, 0, 3, 16, gs_aucChar236);
+static const SEBitmapFontChar gs_Char236(0, 0, 3, 16, gs_aucChar236);
 
 static const unsigned char gs_aucChar237[] =
 {
     0x00, 0x00, 0x00, 0x40, 0x40, 0x40, 0x40, 0x40, 
     0x40, 0x40, 0x00, 0x40, 0x20, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char237(0, 0, 3, 16, gs_aucChar237);
+static const SEBitmapFontChar gs_Char237(0, 0, 3, 16, gs_aucChar237);
 
 static const unsigned char gs_aucChar238[] =
 {
     0x00, 0x00, 0x00, 0x40, 0x40, 0x40, 0x40, 0x40, 
     0x40, 0x40, 0x00, 0xA0, 0x40, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char238(0, 0, 3, 16, gs_aucChar238);
+static const SEBitmapFontChar gs_Char238(0, 0, 3, 16, gs_aucChar238);
 
 static const unsigned char gs_aucChar239[] =
 {
     0x00, 0x00, 0x00, 0x40, 0x40, 0x40, 0x40, 0x40, 
     0x40, 0x40, 0x00, 0xA0, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char239(0, 0, 3, 16, gs_aucChar239);
+static const SEBitmapFontChar gs_Char239(0, 0, 3, 16, gs_aucChar239);
 
 static const unsigned char gs_aucChar240[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x42, 0x42, 0x42, 
     0x3E, 0x02, 0x34, 0x08, 0x14, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char240(0, 0, 8, 16, gs_aucChar240);
+static const SEBitmapFontChar gs_Char240(0, 0, 8, 16, gs_aucChar240);
 
 static const unsigned char gs_aucChar241[] =
 {
     0x00, 0x00, 0x00, 0x42, 0x42, 0x42, 0x42, 0x42, 
     0x62, 0x5C, 0x00, 0x2C, 0x1A, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char241(0, 0, 8, 16, gs_aucChar241);
+static const SEBitmapFontChar gs_Char241(0, 0, 8, 16, gs_aucChar241);
 
 static const unsigned char gs_aucChar242[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x42, 0x42, 0x42, 
     0x42, 0x3C, 0x00, 0x08, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char242(0, 0, 8, 16, gs_aucChar242);
+static const SEBitmapFontChar gs_Char242(0, 0, 8, 16, gs_aucChar242);
 
 static const unsigned char gs_aucChar243[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x42, 0x42, 0x42, 
     0x42, 0x3C, 0x00, 0x10, 0x08, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char243(0, 0, 8, 16, gs_aucChar243);
+static const SEBitmapFontChar gs_Char243(0, 0, 8, 16, gs_aucChar243);
 
 static const unsigned char gs_aucChar244[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x42, 0x42, 0x42, 
     0x42, 0x3C, 0x00, 0x24, 0x18, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char244(0, 0, 8, 16, gs_aucChar244);
+static const SEBitmapFontChar gs_Char244(0, 0, 8, 16, gs_aucChar244);
 
 static const unsigned char gs_aucChar245[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x42, 0x42, 0x42, 
     0x42, 0x3C, 0x00, 0x2C, 0x1A, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char245(0, 0, 8, 16, gs_aucChar245);
+static const SEBitmapFontChar gs_Char245(0, 0, 8, 16, gs_aucChar245);
 
 static const unsigned char gs_aucChar246[] =
 {
     0x00, 0x00, 0x00, 0x3C, 0x42, 0x42, 0x42, 0x42, 
     0x42, 0x3C, 0x00, 0x24, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char246(0, 0, 8, 16, gs_aucChar246);
+static const SEBitmapFontChar gs_Char246(0, 0, 8, 16, gs_aucChar246);
 
 static const unsigned char gs_aucChar247[] =
 {
@@ -1976,65 +1976,65 @@ static const unsigned char gs_aucChar247[] =
     0x00, 0x00, 0x08, 0x00, 0x08, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char247(0, 0, 9, 16, gs_aucChar247);
+static const SEBitmapFontChar gs_Char247(0, 0, 9, 16, gs_aucChar247);
 
 static const unsigned char gs_aucChar248[] =
 {
     0x00, 0x00, 0x40, 0x3C, 0x62, 0x52, 0x52, 0x4A, 
     0x46, 0x3C, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char248(0, 0, 8, 16, gs_aucChar248);
+static const SEBitmapFontChar gs_Char248(0, 0, 8, 16, gs_aucChar248);
 
 static const unsigned char gs_aucChar249[] =
 {
     0x00, 0x00, 0x00, 0x3A, 0x46, 0x42, 0x42, 0x42, 
     0x42, 0x42, 0x00, 0x08, 0x10, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char249(0, 0, 8, 16, gs_aucChar249);
+static const SEBitmapFontChar gs_Char249(0, 0, 8, 16, gs_aucChar249);
 
 static const unsigned char gs_aucChar250[] =
 {
     0x00, 0x00, 0x00, 0x3A, 0x46, 0x42, 0x42, 0x42, 
     0x42, 0x42, 0x00, 0x10, 0x08, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char250(0, 0, 8, 16, gs_aucChar250);
+static const SEBitmapFontChar gs_Char250(0, 0, 8, 16, gs_aucChar250);
 
 static const unsigned char gs_aucChar251[] =
 {
     0x00, 0x00, 0x00, 0x3A, 0x46, 0x42, 0x42, 0x42, 
     0x42, 0x42, 0x00, 0x24, 0x18, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char251(0, 0, 8, 16, gs_aucChar251);
+static const SEBitmapFontChar gs_Char251(0, 0, 8, 16, gs_aucChar251);
 
 static const unsigned char gs_aucChar252[] =
 {
     0x00, 0x00, 0x00, 0x3A, 0x46, 0x42, 0x42, 0x42, 
     0x42, 0x42, 0x00, 0x24, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char252(0, 0, 8, 16, gs_aucChar252);
+static const SEBitmapFontChar gs_Char252(0, 0, 8, 16, gs_aucChar252);
 
 static const unsigned char gs_aucChar253[] =
 {
     0x20, 0x10, 0x10, 0x18, 0x18, 0x24, 0x24, 0x24, 
     0x42, 0x42, 0x00, 0x08, 0x04, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char253(0, 0, 8, 16, gs_aucChar253);
+static const SEBitmapFontChar gs_Char253(0, 0, 8, 16, gs_aucChar253);
 
 static const unsigned char gs_aucChar254[] =
 {
     0x40, 0x40, 0x40, 0x7C, 0x42, 0x42, 0x42, 0x42, 
     0x62, 0x5C, 0x40, 0x40, 0x40, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char254(0, 0, 8, 16, gs_aucChar254);
+static const SEBitmapFontChar gs_Char254(0, 0, 8, 16, gs_aucChar254);
 
 static const unsigned char gs_aucChar255[] =
 {
     0x20, 0x10, 0x10, 0x18, 0x18, 0x24, 0x24, 0x24, 
     0x42, 0x42, 0x00, 0x24, 0x00, 0x00, 0x00, 0x00
 };
-static const BitmapFontChar gs_Char255(0, 0, 8, 16, gs_aucChar255);
+static const SEBitmapFontChar gs_Char255(0, 0, 8, 16, gs_aucChar255);
 
-static const BitmapFontChar* const gs_Chars[] =
+static const SEBitmapFontChar* const gs_Chars[] =
 {
     &gs_Char0,
     &gs_Char1,
@@ -2294,6 +2294,6 @@ static const BitmapFontChar* const gs_Chars[] =
     &gs_Char255
 };
 
-const BitmapFont g_Verdana_S16B0I0("Verdana_S16B0I0", 256, gs_Chars);
+const SEBitmapFont g_Verdana_S16B0I0("Verdana_S16B0I0", 256, gs_Chars);
 
 }

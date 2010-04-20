@@ -26,43 +26,44 @@
 
 using namespace Swing;
 
-OpenGLProgramInterfaceCatalog* OpenGLRenderer::ms_pProgramInterfaceCatalog = 0;
+SEOpenGLProgramInterfaceCatalog* SEOpenGLRenderer::ms_pProgramInterfaceCatalog 
+    = 0;
 
-SE_IMPLEMENT_INITIALIZE(OpenGLRenderer);
-SE_IMPLEMENT_TERMINATE(OpenGLRenderer);
+SE_IMPLEMENT_INITIALIZE(SEOpenGLRenderer);
+SE_IMPLEMENT_TERMINATE(SEOpenGLRenderer);
 
-//SE_REGISTER_INITIALIZE(OpenGLRenderer);
-//SE_REGISTER_TERMINATE(OpenGLRenderer);
+//SE_REGISTER_INITIALIZE(SEOpenGLRenderer);
+//SE_REGISTER_TERMINATE(SEOpenGLRenderer);
 
 //----------------------------------------------------------------------------
-void OpenGLRenderer::Initialize()
+void SEOpenGLRenderer::Initialize()
 {
     ms_pProgramInterfaceCatalog = 
-        SE_NEW OpenGLProgramInterfaceCatalog("Main");
-    OpenGLProgramInterfaceCatalog::SetActive(ms_pProgramInterfaceCatalog);
+        SE_NEW SEOpenGLProgramInterfaceCatalog("Main");
+    SEOpenGLProgramInterfaceCatalog::SetActive(ms_pProgramInterfaceCatalog);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::Terminate()
+void SEOpenGLRenderer::Terminate()
 {
-    if( OpenGLProgramInterfaceCatalog::GetActive() == 
+    if( SEOpenGLProgramInterfaceCatalog::GetActive() == 
         ms_pProgramInterfaceCatalog )
     {
-        OpenGLProgramInterfaceCatalog::SetActive(0);
+        SEOpenGLProgramInterfaceCatalog::SetActive(0);
     }
     SE_DELETE ms_pProgramInterfaceCatalog;
 }
 //----------------------------------------------------------------------------
-OpenGLRenderer::OpenGLRenderer(FrameBuffer::FormatType eFormat,
-    FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,
-    FrameBuffer::BufferingType eBuffering,
-    FrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight)
+SEOpenGLRenderer::SEOpenGLRenderer(SEFrameBuffer::FormatType eFormat,
+    SEFrameBuffer::DepthType eDepth, SEFrameBuffer::StencilType eStencil,
+    SEFrameBuffer::BufferingType eBuffering,
+    SEFrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight)
     :
-    Renderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth, 
+    SERenderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth, 
         iHeight)
 {
 }
 //----------------------------------------------------------------------------
-OpenGLRenderer::~OpenGLRenderer()
+SEOpenGLRenderer::~SEOpenGLRenderer()
 {
     // 释放Cg context.
     cgDestroyContext(m_CgContext);
@@ -74,14 +75,14 @@ OpenGLRenderer::~OpenGLRenderer()
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::InitializeState()
+void SEOpenGLRenderer::InitializeState()
 {
     // 顶点数组总是存在.
     glEnableClientState(GL_VERTEX_ARRAY);
 
     // 关闭颜色数组,当前颜色默认为白色.
     glDisableClientState(GL_COLOR_ARRAY);
-    glColor4fv((const float*)ColorRGBA::SE_RGBA_WHITE);
+    glColor4fv((const float*)SEColorRGBA::SE_RGBA_WHITE);
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
         m_ClearColor[3]);
 
@@ -115,12 +116,12 @@ void OpenGLRenderer::InitializeState()
     glGetIntegerv(GL_MAX_LIGHTS, &iMaxLights);
     SE_ASSERT( iMaxLights > 0 );
     m_iMaxLights = (int)iMaxLights;
-    m_aspLight = SE_NEW ObjectPtr[m_iMaxLights];
+    m_aspLight = SE_NEW SEObjectPtr[m_iMaxLights];
 
     // 设置lighting model.关闭lighting.
     // 待实现:  对于一个shader-based引擎,还有必要做这些吗?
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, 
-        (const float*)ColorRGBA::SE_RGBA_BLACK);
+        (const float*)SEColorRGBA::SE_RGBA_BLACK);
     glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_FALSE);
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
     glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SEPARATE_SPECULAR_COLOR);
@@ -136,16 +137,16 @@ void OpenGLRenderer::InitializeState()
     m_iMaxUserClipPlanes = (int)iMaxUseClipPlanes;
 
     // 获取vertex program profile.
-    m_iMaxVShaderProfile = SE_ExistsGlNvVertexProgram3 ? Renderer::VP40 :
-        Renderer::ARBVP1;
+    m_iMaxVShaderProfile = SE_ExistsGlNvVertexProgram3 ? SERenderer::VP40 :
+        SERenderer::ARBVP1;
 
     // 待实现.
     // 获取geometry program profile.
-    m_iMaxGShaderProfile = Renderer::GS_UNSUPPORTED;
+    m_iMaxGShaderProfile = SERenderer::GS_UNSUPPORTED;
 
     // 获取fragment program profile.
-    m_iMaxPShaderProfile = SE_ExistsGlNvFragmentProgram2 ? Renderer::FP40 :
-        Renderer::ARBFP1;
+    m_iMaxPShaderProfile = SE_ExistsGlNvFragmentProgram2 ? SERenderer::FP40 :
+        SERenderer::ARBFP1;
 
     if( !SE_ExistsGlExtFrameBufferObject )
     {
@@ -160,10 +161,10 @@ void OpenGLRenderer::InitializeState()
     if( m_iMaxActiveSamplerCount > 0 )
     {
         m_apActiveSamplers =
-            SE_NEW SamplerInformation*[m_iMaxActiveSamplerCount];
+            SE_NEW SESamplerInformation*[m_iMaxActiveSamplerCount];
 
         memset(m_apActiveSamplers, 0, m_iMaxActiveSamplerCount*
-            sizeof(SamplerInformation*));
+            sizeof(SESamplerInformation*));
     }
 
     // Cg runtime相关.
@@ -184,10 +185,10 @@ void OpenGLRenderer::InitializeState()
     glDisable(GL_LINE_STIPPLE);
 
     // 初始化全局渲染状态为引擎默认设置.
-    SetGlobalState(GlobalState::Default);
+    SetGlobalState(SEGlobalState::Default);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::ClearBackBuffer()
+void SEOpenGLRenderer::ClearBackBuffer()
 {
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
         m_ClearColor[3]);
@@ -195,21 +196,21 @@ void OpenGLRenderer::ClearBackBuffer()
     glClear(GL_COLOR_BUFFER_BIT);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::ClearZBuffer()
+void SEOpenGLRenderer::ClearZBuffer()
 {
     glClearDepth((double)m_fClearDepth);
 
     glClear(GL_DEPTH_BUFFER_BIT);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::ClearStencilBuffer()
+void SEOpenGLRenderer::ClearStencilBuffer()
 {
     glClearStencil((GLint)m_uiClearStencil);
 
     glClear(GL_STENCIL_BUFFER_BIT);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::ClearBuffers()
+void SEOpenGLRenderer::ClearBuffers()
 {
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
         m_ClearColor[3]);
@@ -219,7 +220,7 @@ void OpenGLRenderer::ClearBuffers()
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::ClearBackBuffer(int iXPos, int iYPos, int iWidth,
+void SEOpenGLRenderer::ClearBackBuffer(int iXPos, int iYPos, int iWidth,
     int iHeight)
 {
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
@@ -231,7 +232,7 @@ void OpenGLRenderer::ClearBackBuffer(int iXPos, int iYPos, int iWidth,
     glDisable(GL_SCISSOR_TEST);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::ClearZBuffer(int iXPos, int iYPos, int iWidth,
+void SEOpenGLRenderer::ClearZBuffer(int iXPos, int iYPos, int iWidth,
     int iHeight)
 {
     glClearDepth((double)m_fClearDepth);
@@ -242,7 +243,7 @@ void OpenGLRenderer::ClearZBuffer(int iXPos, int iYPos, int iWidth,
     glDisable(GL_SCISSOR_TEST);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::ClearStencilBuffer(int iXPos, int iYPos, int iWidth,
+void SEOpenGLRenderer::ClearStencilBuffer(int iXPos, int iYPos, int iWidth,
     int iHeight)
 {
     glClearStencil((GLint)m_uiClearStencil);
@@ -253,7 +254,7 @@ void OpenGLRenderer::ClearStencilBuffer(int iXPos, int iYPos, int iWidth,
     glDisable(GL_SCISSOR_TEST);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::ClearBuffers(int iXPos, int iYPos, int iWidth,
+void SEOpenGLRenderer::ClearBuffers(int iXPos, int iYPos, int iWidth,
     int iHeight)
 {
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
@@ -270,16 +271,16 @@ void OpenGLRenderer::ClearBuffers(int iXPos, int iYPos, int iWidth,
     glDisable(GL_SCISSOR_TEST);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
+void SEOpenGLRenderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
     bool bAllowBlue, bool bAllowAlpha)
 {
-    Renderer::SetColorMask(bAllowRed, bAllowGreen, bAllowBlue, bAllowAlpha);
+    SERenderer::SetColorMask(bAllowRed, bAllowGreen, bAllowBlue, bAllowAlpha);
 
     glColorMask((GLboolean)bAllowRed, (GLboolean)bAllowGreen,
         (GLboolean)bAllowBlue, (GLboolean)bAllowAlpha);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::EnableUserClipPlane(int i, const Plane3f& rPlane)
+void SEOpenGLRenderer::EnableUserClipPlane(int i, const SEPlane3f& rPlane)
 {
     GLdouble adPlane[4] =
     {
@@ -292,34 +293,34 @@ void OpenGLRenderer::EnableUserClipPlane(int i, const Plane3f& rPlane)
     glEnable(GL_CLIP_PLANE0 + i);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::DisableUserClipPlane(int i)
+void SEOpenGLRenderer::DisableUserClipPlane(int i)
 {
     glDisable(GL_CLIP_PLANE0 + i);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnPreDrawGeometry()
+void SEOpenGLRenderer::OnPreDrawGeometry()
 {
-    RenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
+    SERenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
     SE_ASSERT( pRStateBlock );
 
     SetGlobalState(pRStateBlock->States);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnPostDrawGeometry()
+void SEOpenGLRenderer::OnPostDrawGeometry()
 {
-    RenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
+    SERenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
     SE_ASSERT( pRStateBlock );
 
     RestoreGlobalState(pRStateBlock->States);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnPreDrawPass(ShaderEffect* pEffect, int iPass,
+void SEOpenGLRenderer::OnPreDrawPass(SEShaderEffect* pEffect, int iPass,
     bool bPrimaryEffect)
 {
     pEffect->SetGlobalState(iPass, this, bPrimaryEffect);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnPostDrawPass(ShaderEffect* pEffect, int iPass,
+void SEOpenGLRenderer::OnPostDrawPass(SEShaderEffect* pEffect, int iPass,
     bool bPrimaryEffect)
 {
     pEffect->RestoreGlobalState(iPass, this, bPrimaryEffect);
@@ -329,22 +330,22 @@ void OpenGLRenderer::OnPostDrawPass(ShaderEffect* pEffect, int iPass,
 //----------------------------------------------------------------------------
 // Cg runtime相关
 //----------------------------------------------------------------------------
-CGcontext OpenGLRenderer::GetCgContext() const
+CGcontext SEOpenGLRenderer::GetCgContext() const
 {
     return m_CgContext;
 }
 //----------------------------------------------------------------------------
-CGprofile OpenGLRenderer::GetCgLatestVertexProfile() const
+CGprofile SEOpenGLRenderer::GetCgLatestVertexProfile() const
 {
     return m_CgLatestVProfile;
 }
 //----------------------------------------------------------------------------
-CGprofile OpenGLRenderer::GetCgLatestPixelProfile() const
+CGprofile SEOpenGLRenderer::GetCgLatestPixelProfile() const
 {
     return m_CgLatestPProfile;
 }
 //----------------------------------------------------------------------------
-CGprofile OpenGLRenderer::GetCgLatestGeometryProfile() const
+CGprofile SEOpenGLRenderer::GetCgLatestGeometryProfile() const
 {
     return m_CgLatestGProfile;
 }

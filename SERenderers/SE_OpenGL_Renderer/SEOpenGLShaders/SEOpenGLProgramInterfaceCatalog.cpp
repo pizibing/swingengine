@@ -24,10 +24,11 @@
 
 using namespace Swing;
 
-OpenGLProgramInterfaceCatalog* OpenGLProgramInterfaceCatalog::ms_pActive = 0;
+SEOpenGLProgramInterfaceCatalog* SEOpenGLProgramInterfaceCatalog::ms_pActive 
+    = 0;
 
 //----------------------------------------------------------------------------
-OpenGLProgramInterfaceCatalog::OpenGLProgramInterfaceCatalog(
+SEOpenGLProgramInterfaceCatalog::SEOpenGLProgramInterfaceCatalog(
     const std::string& rName)
     :
     m_Name(rName),
@@ -36,22 +37,22 @@ OpenGLProgramInterfaceCatalog::OpenGLProgramInterfaceCatalog(
     m_pRenderer = 0;
 }
 //----------------------------------------------------------------------------
-OpenGLProgramInterfaceCatalog::~OpenGLProgramInterfaceCatalog()
+SEOpenGLProgramInterfaceCatalog::~SEOpenGLProgramInterfaceCatalog()
 {
 }
 //----------------------------------------------------------------------------
-void OpenGLProgramInterfaceCatalog::SetRenderer(OpenGLRenderer* pRenderer)
+void SEOpenGLProgramInterfaceCatalog::SetRenderer(SEOpenGLRenderer* pRenderer)
 {
     m_pRenderer = pRenderer;
 }
 //----------------------------------------------------------------------------
-const std::string& OpenGLProgramInterfaceCatalog::GetName() const
+const std::string& SEOpenGLProgramInterfaceCatalog::GetName() const
 {
     return m_Name;
 }
 //----------------------------------------------------------------------------
-bool OpenGLProgramInterfaceCatalog::Insert(
-    OpenGLProgramInterface* pProgramInterface)
+bool SEOpenGLProgramInterfaceCatalog::Insert(
+    SEOpenGLProgramInterface* pProgramInterface)
 {
     if( !pProgramInterface )
     {
@@ -63,7 +64,7 @@ bool OpenGLProgramInterfaceCatalog::Insert(
     std::string tempKey(pProgramInterface->GetName());
 
     // 首先在资源目录中查找
-    OpenGLProgramInterface** ppTempProgramInterface = 
+    SEOpenGLProgramInterface** ppTempProgramInterface = 
         m_Entry.Find(tempKey);
     if( ppTempProgramInterface )
     {
@@ -77,8 +78,8 @@ bool OpenGLProgramInterfaceCatalog::Insert(
     return true;
 }
 //----------------------------------------------------------------------------
-bool OpenGLProgramInterfaceCatalog::Remove(
-    OpenGLProgramInterface* pProgramInterface)
+bool SEOpenGLProgramInterfaceCatalog::Remove(
+    SEOpenGLProgramInterface* pProgramInterface)
 {
     if( !pProgramInterface )
     {
@@ -90,7 +91,7 @@ bool OpenGLProgramInterfaceCatalog::Remove(
     std::string tempKey(pProgramInterface->GetName());
 
     // 首先在资源目录中查找
-    OpenGLProgramInterface** ppTempProgramInterface = 
+    SEOpenGLProgramInterface** ppTempProgramInterface = 
         m_Entry.Find(tempKey);
     if( !ppTempProgramInterface )
     {
@@ -104,11 +105,11 @@ bool OpenGLProgramInterfaceCatalog::Remove(
     return true;
 }
 //----------------------------------------------------------------------------
-OpenGLProgramInterface* OpenGLProgramInterfaceCatalog::Find(
+SEOpenGLProgramInterface* SEOpenGLProgramInterfaceCatalog::Find(
     CGprogram hCgProgram, const std::string& rPInterfaceName)
 {
     // 首先在资源目录中查找
-    OpenGLProgramInterface** ppTempProgramInterface = 
+    SEOpenGLProgramInterface** ppTempProgramInterface = 
         m_Entry.Find(rPInterfaceName);
     if( ppTempProgramInterface )
     {
@@ -118,8 +119,8 @@ OpenGLProgramInterface* OpenGLProgramInterfaceCatalog::Find(
 
     // 在磁盘中查找
     SE_ASSERT( m_pRenderer );
-    OpenGLProgramInterface* pProgramInterface = 
-        OpenGLProgramInterface::Load(hCgProgram, m_pRenderer->GetCgContext(), 
+    SEOpenGLProgramInterface* pProgramInterface = 
+        SEOpenGLProgramInterface::Load(hCgProgram, m_pRenderer->GetCgContext(), 
         rPInterfaceName);
     if( pProgramInterface )
     {
@@ -130,11 +131,11 @@ OpenGLProgramInterface* OpenGLProgramInterfaceCatalog::Find(
     return 0;
 }
 //----------------------------------------------------------------------------
-bool OpenGLProgramInterfaceCatalog::PrintContents(const std::string& rFileName) 
-    const
+bool SEOpenGLProgramInterfaceCatalog::PrintContents(const std::string& 
+    rFileName) const
 {
-    const char* pDecorated = System::SE_GetPath(rFileName.c_str(), 
-        System::SM_WRITE);
+    const char* pDecorated = SESystem::SE_GetPath(rFileName.c_str(), 
+        SESystem::SM_WRITE);
 
     if( pDecorated )
     {
@@ -143,7 +144,7 @@ bool OpenGLProgramInterfaceCatalog::PrintContents(const std::string& rFileName)
         SE_ASSERT( OStream );
 
         std::string tempKey;
-		OpenGLProgramInterface** ppTempProgramInterface = m_Entry.GetFirst(
+		SEOpenGLProgramInterface** ppTempProgramInterface = m_Entry.GetFirst(
             &tempKey);
         while( ppTempProgramInterface )
         {
@@ -159,13 +160,13 @@ bool OpenGLProgramInterfaceCatalog::PrintContents(const std::string& rFileName)
     return false;
 }
 //----------------------------------------------------------------------------
-void OpenGLProgramInterfaceCatalog::SetActive(
-    OpenGLProgramInterfaceCatalog* pActive)
+void SEOpenGLProgramInterfaceCatalog::SetActive(
+    SEOpenGLProgramInterfaceCatalog* pActive)
 {
     ms_pActive = pActive;
 }
 //----------------------------------------------------------------------------
-OpenGLProgramInterfaceCatalog* OpenGLProgramInterfaceCatalog::GetActive()
+SEOpenGLProgramInterfaceCatalog* SEOpenGLProgramInterfaceCatalog::GetActive()
 {
     return ms_pActive;
 }

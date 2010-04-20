@@ -23,16 +23,16 @@
 
 #ifdef SE_USE_PRECOMPILED_HEADERS
 
-// OpenGLRenderer Register
+// OpenGL Renderer Register
 #include "SEOpenGLRendererRegister.h"
 
-// OpenGLRendering
+// OpenGL Rendering
 #include "SEOpenGLBitmapFont.h"
 #include "SEOpenGLFrameBuffer.h"
 #include "SEOpenGLRenderer.h"
 #include "SEOpenGLResources.h"
 
-// OpenGLShaders
+// OpenGL Shaders
 #include "SEOpenGLProgram.h"
 #include "SEOpenGLProgramInterface.h"
 #include "SEOpenGLProgramInterfaceCatalog.h"

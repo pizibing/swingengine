@@ -25,25 +25,26 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_INITIALIZE(OpenGLProgram);
+SE_IMPLEMENT_INITIALIZE(SEOpenGLProgram);
 
-//SE_REGISTER_INITIALIZE(OpenGLProgram);
+//SE_REGISTER_INITIALIZE(SEOpenGLProgram);
 
 //----------------------------------------------------------------------------
-void OpenGLProgram::Initialize()
+void SEOpenGLProgram::Initialize()
 {
-    Program::OnLoadProgram = &OpenGLProgram::OnLoadProgram;
-    Program::OnReleaseUserData = &OpenGLProgram::OnReleaseUserData;
-    LightingEffect::OnConfigureLighting = &OpenGLProgram::OnConfigureLighting;
+    SEProgram::OnLoadProgram = &SEOpenGLProgram::OnLoadProgram;
+    SEProgram::OnReleaseUserData = &SEOpenGLProgram::OnReleaseUserData;
+    SELightingEffect::OnConfigureLighting = 
+        &SEOpenGLProgram::OnConfigureLighting;
 }
 //----------------------------------------------------------------------------
-OpenGLProgram::OpenGLProgram()
+SEOpenGLProgram::SEOpenGLProgram()
 {
 }
 //----------------------------------------------------------------------------
-bool OpenGLProgram::OnLoadProgram(Renderer* pRenderer, 
-    const std::string& rProgramName, Program* pProgram, Program::ProgramType eType, 
-    InterfaceDescriptor* pInterfaceDesc)
+bool SEOpenGLProgram::OnLoadProgram(SERenderer* pRenderer, 
+    const std::string& rProgramName, SEProgram* pProgram, 
+    SEProgram::ProgramType eType, SEInterfaceDescriptor* pInterfaceDesc)
 {
     if( !pRenderer || !pProgram )
     {
@@ -54,10 +55,10 @@ bool OpenGLProgram::OnLoadProgram(Renderer* pRenderer,
     // 获取file name和entry name.
     size_t uiLen = strlen(rProgramName.c_str()) + 1;
     char* acProgramName = SE_NEW char[uiLen];
-    System::SE_Strcpy(acProgramName, uiLen, rProgramName.c_str());
+    SESystem::SE_Strcpy(acProgramName, uiLen, rProgramName.c_str());
     char* pNextToken;
-    char* acFileName = System::SE_Strtok(acProgramName, ".", pNextToken);
-    char* acEntryName = System::SE_Strtok(0, ".", pNextToken);
+    char* acFileName = SESystem::SE_Strtok(acProgramName, ".", pNextToken);
+    char* acEntryName = SESystem::SE_Strtok(0, ".", pNextToken);
     if( !acFileName || !acEntryName )
     {
         // 获取file name和entry name失败.
@@ -66,8 +67,8 @@ bool OpenGLProgram::OnLoadProgram(Renderer* pRenderer,
     }
 
     std::string tempFileName = std::string(acFileName) + std::string(".cg");
-    const char* pDecorated = System::SE_GetPath(tempFileName.c_str(), 
-        System::SM_READ);
+    const char* pDecorated = SESystem::SE_GetPath(tempFileName.c_str(), 
+        SESystem::SM_READ);
     if( !pDecorated )
     {
         // 没有找到指定Cg文件.
@@ -77,26 +78,26 @@ bool OpenGLProgram::OnLoadProgram(Renderer* pRenderer,
 
     // 为了在代理类的静态函数中访问基类的保护成员,我们必须转换指针类型,
     // 由于我们能确保只访问基类成员,因此这样做是安全的.
-    OpenGLProgram* pOpenGLProgram = (OpenGLProgram*)pProgram;
-    Program::ProgramType& rProgramType = pOpenGLProgram->m_eProgramType;
-    pProgram->UserData = SE_NEW ProgramData;
-    CGprogram& rCgProgram = ((ProgramData*)pProgram->UserData)->ID;
+    SEOpenGLProgram* pOpenGLProgram = (SEOpenGLProgram*)pProgram;
+    SEProgram::ProgramType& rProgramType = pOpenGLProgram->m_eProgramType;
+    pProgram->UserData = SE_NEW SEProgramData;
+    CGprogram& rCgProgram = ((SEProgramData*)pProgram->UserData)->ID;
     CGcontext hCgContext;
     CGprofile hCgProfile;
     CGparameter hCgParam;
 
-    OpenGLRenderer* pOpenGLRenderer = (OpenGLRenderer*)pRenderer;
+    SEOpenGLRenderer* pOpenGLRenderer = (SEOpenGLRenderer*)pRenderer;
     hCgContext = pOpenGLRenderer->GetCgContext();
     rProgramType = eType;
     switch( eType )
     {
-    case Program::PT_VERTEX:
+    case SEProgram::PT_VERTEX:
         hCgProfile = pOpenGLRenderer->GetCgLatestVertexProfile();
         break;
-    case Program::PT_PIXEL:
+    case SEProgram::PT_PIXEL:
         hCgProfile = pOpenGLRenderer->GetCgLatestPixelProfile();
         break;
-    case Program::PT_GEOMETRY:
+    case SEProgram::PT_GEOMETRY:
         hCgProfile = pOpenGLRenderer->GetCgLatestGeometryProfile();
         break;
     default:
@@ -117,10 +118,10 @@ bool OpenGLProgram::OnLoadProgram(Renderer* pRenderer,
     // 如果有用户定义的shader interface描述信息,则需对接这些interface.
     if( pInterfaceDesc )
     {
-        ProgramData* pData = (ProgramData*)pProgram->UserData;
-        std::vector<OpenGLProgramInterfacePtr>& rProgramInterfaces = 
+        SEProgramData* pData = (SEProgramData*)pProgram->UserData;
+        std::vector<SEOpenGLProgramInterfacePtr>& rProgramInterfaces = 
             pData->Interfaces;
-        DescriptorItem* pDescriptorItem = 0;
+        SEDescriptorItem* pDescriptorItem = 0;
 
         int iItemCount = pInterfaceDesc->GetCount();
         for( int i = 0; i < iItemCount; i++ )
@@ -143,9 +144,9 @@ bool OpenGLProgram::OnLoadProgram(Renderer* pRenderer,
 			
                 for( int j = 0; j < iTypeCount; j++ )
                 {
-                    OpenGLProgramInterface* pInterface = 
-                        OpenGLProgramInterfaceCatalog::GetActive()->Find(rCgProgram,
-                        pDescriptorItem->GetTypeName(j));
+                    SEOpenGLProgramInterface* pInterface = 
+                        SEOpenGLProgramInterfaceCatalog::GetActive()->Find(
+                        rCgProgram, pDescriptorItem->GetTypeName(j));
                     SE_ASSERT( pInterface );
                     hCgUserTypeParam = pInterface->GetParam();
 
@@ -159,9 +160,9 @@ bool OpenGLProgram::OnLoadProgram(Renderer* pRenderer,
             }
             else
             {
-                OpenGLProgramInterface* pInterface = 
-                    OpenGLProgramInterfaceCatalog::GetActive()->Find(rCgProgram,
-                    pDescriptorItem->GetTypeName(0));
+                SEOpenGLProgramInterface* pInterface = 
+                    SEOpenGLProgramInterfaceCatalog::GetActive()->Find(
+                    rCgProgram, pDescriptorItem->GetTypeName(0));
                     SE_ASSERT( pInterface );
                     hCgUserTypeParam = pInterface->GetParam();
 
@@ -196,7 +197,7 @@ bool OpenGLProgram::OnLoadProgram(Renderer* pRenderer,
     return true;
 }
 //----------------------------------------------------------------------------
-bool OpenGLProgram::RecursParams(CGparameter hCgParam, Program* pProgram)
+bool SEOpenGLProgram::RecursParams(CGparameter hCgParam, SEProgram* pProgram)
 {
     if( !hCgParam )
         return true;
@@ -207,7 +208,9 @@ bool OpenGLProgram::RecursParams(CGparameter hCgParam, Program* pProgram)
         {
         case CG_STRUCT :
             if( !RecursParams(cgGetFirstStructParameter(hCgParam), pProgram) )
+            {
                 return false;
+            }
             break;
 
         case CG_ARRAY :
@@ -215,41 +218,49 @@ bool OpenGLProgram::RecursParams(CGparameter hCgParam, Program* pProgram)
                 int iArraySize = cgGetArraySize(hCgParam, 0);
                 for( int i = 0; i < iArraySize; i++ )
                 {
-                    if( !RecursParams(cgGetArrayParameter(hCgParam, i), pProgram) )
+                    if( !RecursParams(cgGetArrayParameter(hCgParam, i), 
+                        pProgram) )
+                    {
                         return false;
+                    }
                 }
             }
             break;
 
         default :
             if( !ParseParam(hCgParam, pProgram) )
+            {
                 return false;
+            }
         }
     }while( (hCgParam = cgGetNextParameter(hCgParam)) != 0 );
 
     return true;
 }
 //----------------------------------------------------------------------------
-bool OpenGLProgram::ParseParam(CGparameter hCgParam, Program* pProgram)
+bool SEOpenGLProgram::ParseParam(CGparameter hCgParam, SEProgram* pProgram)
 {
     if( !hCgParam || !pProgram )
+    {
         return false;
+    }
 
     // 待填充数据.
     // 为了在代理类的静态函数中访问基类的保护成员,我们必须转换指针类型,
     // 由于我们能确保只访问基类成员,因此这样做是安全的.
-    OpenGLProgram* pOpenGLProgram = (OpenGLProgram*)pProgram;
-    Attributes& rIAttributes = pOpenGLProgram->m_InputAttributes;
-    Attributes& rOAttributes = pOpenGLProgram->m_OutputAttributes;
-    std::vector<RendererConstant>& rRCs = pOpenGLProgram->m_RendererConstants;
-    std::vector<UserConstant>& rUCs = pOpenGLProgram->m_UserConstants;
-    std::vector<SamplerInformation>& rSIs = 
+    SEOpenGLProgram* pOpenGLProgram = (SEOpenGLProgram*)pProgram;
+    SEAttributes& rIAttributes = pOpenGLProgram->m_InputAttributes;
+    SEAttributes& rOAttributes = pOpenGLProgram->m_OutputAttributes;
+    std::vector<SERendererConstant>& rRCs = 
+        pOpenGLProgram->m_RendererConstants;
+    std::vector<SEUserConstant>& rUCs = pOpenGLProgram->m_UserConstants;
+    std::vector<SESamplerInformation>& rSIs = 
         pOpenGLProgram->m_SamplerInformation;
 
     std::string StrParamName, StrParamSemantic;
     int iNumFloats, iUnit;
-    SamplerInformation::Type eSType;
-    RendererConstant::Type eRCType;
+    SESamplerInformation::Type eSType;
+    SERendererConstant::Type eRCType;
 
     CGtype eCgParamType;
     CGenum eCgParamDir;
@@ -270,7 +281,7 @@ bool OpenGLProgram::ParseParam(CGparameter hCgParam, Program* pProgram)
 
     // 获取parameter数据类型.
     iNumFloats = 0;
-    eSType = SamplerInformation::MAX_SAMPLER_TYPES;
+    eSType = SESamplerInformation::MAX_SAMPLER_TYPES;
     if( eCgParamType == CG_FLOAT )
     {
         iNumFloats = 1;
@@ -293,19 +304,19 @@ bool OpenGLProgram::ParseParam(CGparameter hCgParam, Program* pProgram)
     }
     else if( eCgParamType == CG_SAMPLER1D )
     {
-        eSType = SamplerInformation::SAMPLER_1D;
+        eSType = SESamplerInformation::SAMPLER_1D;
     }
     else if( eCgParamType == CG_SAMPLER2D )
     {
-        eSType = SamplerInformation::SAMPLER_2D;
+        eSType = SESamplerInformation::SAMPLER_2D;
     }
     else if( eCgParamType == CG_SAMPLER3D )
     {
-        eSType = SamplerInformation::SAMPLER_3D;
+        eSType = SESamplerInformation::SAMPLER_3D;
     }
     else if( eCgParamType == CG_SAMPLERCUBE )
     {
-        eSType = SamplerInformation::SAMPLER_CUBE;
+        eSType = SESamplerInformation::SAMPLER_CUBE;
     }
     else
     {
@@ -315,9 +326,9 @@ bool OpenGLProgram::ParseParam(CGparameter hCgParam, Program* pProgram)
     }
 
     // 获取采样器信息(如果当前parameter是采样器声明).
-    if( eSType != SamplerInformation::MAX_SAMPLER_TYPES )
+    if( eSType != SESamplerInformation::MAX_SAMPLER_TYPES )
     {
-        SamplerInformation TempSU(StrParamName.c_str(), eSType, 
+        SESamplerInformation TempSU(StrParamName.c_str(), eSType, 
             (void*)hCgParam);
         rSIs.push_back(TempSU);
         return true;
@@ -326,28 +337,28 @@ bool OpenGLProgram::ParseParam(CGparameter hCgParam, Program* pProgram)
     StrParamSemantic = acParamSemantic;
     if( eCgParamDir == CG_IN )
     {
-        if( StrParamSemantic == Program::ms_PositionStr 
-         || StrParamSemantic == Program::ms_Position0Str )
+        if( StrParamSemantic == SEProgram::ms_PositionStr 
+         || StrParamSemantic == SEProgram::ms_Position0Str )
         {
             // 只支持(x,y,z) position.
             rIAttributes.SetPositionChannels(3);
         }
-        else if( StrParamSemantic == Program::ms_NormalStr 
-              || StrParamSemantic == Program::ms_Normal0Str )
+        else if( StrParamSemantic == SEProgram::ms_NormalStr 
+              || StrParamSemantic == SEProgram::ms_Normal0Str )
         {
             // 只支持(x,y,z) normals.
             rIAttributes.SetNormalChannels(3);
         }
-        else if( StrParamSemantic == Program::ms_ColorStr
-              || StrParamSemantic == Program::ms_Color0Str )
+        else if( StrParamSemantic == SEProgram::ms_ColorStr
+              || StrParamSemantic == SEProgram::ms_Color0Str )
         {
             rIAttributes.SetColorChannels(0, iNumFloats);
         }
-        else if( StrParamSemantic == Program::ms_Color1Str )
+        else if( StrParamSemantic == SEProgram::ms_Color1Str )
         {
             rIAttributes.SetColorChannels(1, iNumFloats);
         }
-        else if( StrParamSemantic.substr(0, 8) == Program::ms_TexCoordStr )
+        else if( StrParamSemantic.substr(0, 8) == SEProgram::ms_TexCoordStr )
         {
             iUnit = (int)StrParamSemantic[8] - '0';
             rIAttributes.SetTCoordChannels(iUnit, iNumFloats);
@@ -355,18 +366,18 @@ bool OpenGLProgram::ParseParam(CGparameter hCgParam, Program* pProgram)
         else
         {
             // 变量必定是一个renderer constant或者user-defined constant.
-            eRCType = RendererConstant::GetType(StrParamName.c_str());
-            if( eRCType != RendererConstant::MAX_TYPES )
+            eRCType = SERendererConstant::GetType(StrParamName.c_str());
+            if( eRCType != SERendererConstant::MAX_TYPES )
             {
                 // renderer constant.
-                RendererConstant TempRC(eRCType, (void*)hCgParam, 
+                SERendererConstant TempRC(eRCType, (void*)hCgParam, 
                     iNumFloats);
                 rRCs.push_back(TempRC);
             }
             else
             {
                 // user-defined constant.
-                UserConstant TempUC(StrParamName.c_str(), (void*)hCgParam, 
+                SEUserConstant TempUC(StrParamName.c_str(), (void*)hCgParam, 
                     iNumFloats);
                 rUCs.push_back(TempUC);
             }
@@ -374,36 +385,36 @@ bool OpenGLProgram::ParseParam(CGparameter hCgParam, Program* pProgram)
     }
     else if( eCgParamDir == CG_OUT )
     {
-        if( StrParamSemantic == Program::ms_PositionStr 
-         || StrParamSemantic == Program::ms_Position0Str )
+        if( StrParamSemantic == SEProgram::ms_PositionStr 
+         || StrParamSemantic == SEProgram::ms_Position0Str )
         {
             rOAttributes.SetPositionChannels(iNumFloats);
         }
-        else if( StrParamSemantic == Program::ms_NormalStr 
-              || StrParamSemantic == Program::ms_Normal0Str )
+        else if( StrParamSemantic == SEProgram::ms_NormalStr 
+              || StrParamSemantic == SEProgram::ms_Normal0Str )
         {
             rOAttributes.SetNormalChannels(iNumFloats);
         }
-        else if( StrParamSemantic == Program::ms_ColorStr
-              || StrParamSemantic == Program::ms_Color0Str )
+        else if( StrParamSemantic == SEProgram::ms_ColorStr
+              || StrParamSemantic == SEProgram::ms_Color0Str )
         {
             rOAttributes.SetColorChannels(0, iNumFloats);
         }
-        else if( StrParamSemantic == Program::ms_Color1Str )
+        else if( StrParamSemantic == SEProgram::ms_Color1Str )
         {
             rOAttributes.SetColorChannels(1, iNumFloats);
         }
-        else if( StrParamSemantic == Program::ms_Color2Str )
+        else if( StrParamSemantic == SEProgram::ms_Color2Str )
         {
             rOAttributes.SetColorChannels(2, iNumFloats);
         }
-        else if( StrParamSemantic == Program::ms_Color3Str )
+        else if( StrParamSemantic == SEProgram::ms_Color3Str )
         {
             rOAttributes.SetColorChannels(3, iNumFloats);
         }
         else
         {
-            if( StrParamSemantic.substr(0, 8) != Program::ms_TexCoordStr )
+            if( StrParamSemantic.substr(0, 8) != SEProgram::ms_TexCoordStr )
             {
                 // 引擎尚未支持的变量semantic类型.
                 SE_ASSERT( false );
@@ -424,9 +435,9 @@ bool OpenGLProgram::ParseParam(CGparameter hCgParam, Program* pProgram)
     return true;
 }
 //----------------------------------------------------------------------------
-void OpenGLProgram::OnReleaseUserData(void* pUserData)
+void SEOpenGLProgram::OnReleaseUserData(void* pUserData)
 {
-    ProgramData* pData = (ProgramData*)pUserData;
+    SEProgramData* pData = (SEProgramData*)pUserData;
 
     if( pData )
     {
@@ -440,18 +451,18 @@ void OpenGLProgram::OnReleaseUserData(void* pUserData)
     }
 }
 //----------------------------------------------------------------------------
-void OpenGLProgram::OnConfigureLighting(LightingEffect* pLEffect)
+void SEOpenGLProgram::OnConfigureLighting(SELightingEffect* pLEffect)
 {
-    VertexShader* pVShader;
-    PixelShader* pPShader;
+    SEVertexShader* pVShader;
+    SEPixelShader* pPShader;
 
     int iLCount = pLEffect->GetLightCount();
-    LightingEffect::LightingMode eMode = pLEffect->GetLightingMode();
+    SELightingEffect::LightingMode eMode = pLEffect->GetLightingMode();
 
     if( iLCount == 0 )
     {
-        pVShader = SE_NEW VertexShader("Material.v_Material");
-        pPShader = SE_NEW PixelShader("PassThrough.p_PassThrough4");
+        pVShader = SE_NEW SEVertexShader("Material.v_Material");
+        pPShader = SE_NEW SEPixelShader("PassThrough.p_PassThrough4");
         pLEffect->SetVShader(0, pVShader);
         pLEffect->SetPShader(0, pPShader);
 
@@ -459,19 +470,19 @@ void OpenGLProgram::OnConfigureLighting(LightingEffect* pLEffect)
     }
     else
     {
-        if( eMode == LightingEffect::LM_VERTEX )
+        if( eMode == SELightingEffect::LM_VERTEX )
         {
-            pVShader = SE_NEW VertexShader("ILighting.v_ILighting");
-            pPShader = SE_NEW PixelShader(
+            pVShader = SE_NEW SEVertexShader("ILighting.v_ILighting");
+            pPShader = SE_NEW SEPixelShader(
                 "ILighting.p_LightingPassThrough4");
             pLEffect->SetVShader(0, pVShader);
             pLEffect->SetPShader(0, pPShader);
         }
-        else if( eMode == LightingEffect::LM_PIXEL )
+        else if( eMode == SELightingEffect::LM_PIXEL )
         {
-            pVShader = SE_NEW VertexShader(
+            pVShader = SE_NEW SEVertexShader(
                 "ILighting.v_LightingPassThrough");
-            pPShader = SE_NEW PixelShader("ILighting.p_ILighting");
+            pPShader = SE_NEW SEPixelShader("ILighting.p_ILighting");
             pLEffect->SetVShader(0, pVShader);
             pLEffect->SetPShader(0, pPShader);
         }
@@ -482,12 +493,12 @@ void OpenGLProgram::OnConfigureLighting(LightingEffect* pLEffect)
         }
     }
 
-    std::string aLightTypes[4] = {"AmbientLight", "DirectionalLight", "PointLight", 
-        "SpotLight"};
+    std::string aLightTypes[4] = {"AmbientLight", "DirectionalLight", 
+        "PointLight", "SpotLight"};
     int iLightType;
 
-    InterfaceDescriptor* pInterfaceDesc = SE_NEW InterfaceDescriptor;
-    if( eMode == LightingEffect::LM_VERTEX )
+    SEInterfaceDescriptor* pInterfaceDesc = SE_NEW SEInterfaceDescriptor;
+    if( eMode == SELightingEffect::LM_VERTEX )
     {
         pVShader->SetInterfaceDescriptor(pInterfaceDesc);
     }
@@ -496,7 +507,7 @@ void OpenGLProgram::OnConfigureLighting(LightingEffect* pLEffect)
         pPShader->SetInterfaceDescriptor(pInterfaceDesc);
     }
 
-    DescriptorItem* pDescItem = SE_NEW DescriptorItem;
+    SEDescriptorItem* pDescItem = SE_NEW SEDescriptorItem;
     pInterfaceDesc->AttachItem(pDescItem);
     pDescItem->IsArray = true;
     pDescItem->SetInstanceName("LightArray");

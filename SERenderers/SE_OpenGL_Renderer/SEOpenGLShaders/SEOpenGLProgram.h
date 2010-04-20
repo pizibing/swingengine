@@ -29,32 +29,31 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:OpenGL shader程序类
 // 说明:这是一个代理类,用于实现program类的代理函数,不允许实例化.
 //    这些代理函数主要用于帮助基类创建,拼接,编译Cg程序.
 // 作者:Sun Che
 // 时间:20090601
 //----------------------------------------------------------------------------
-class SE_RENDERER_API OpenGLProgram : public Program
+class SE_RENDERER_API SEOpenGLProgram : public SEProgram
 {
     SE_DECLARE_INITIALIZE;
 
 public:
     // 用于创建一个shader program对象并填充其数据.
-    static bool OnLoadProgram(Renderer* pRenderer, const std::string& rProgramName, 
-        Program* pProgram, Program::ProgramType eType, 
-        InterfaceDescriptor* pInterfaceDesc);
-    static bool RecursParams(CGparameter hCgParam, Program* pProgram);
-    static bool ParseParam(CGparameter hCgParam, Program* pProgram);
+    static bool OnLoadProgram(SERenderer* pRenderer, const std::string& 
+        rProgramName, SEProgram* pProgram, SEProgram::ProgramType eType, 
+        SEInterfaceDescriptor* pInterfaceDesc);
+    static bool RecursParams(CGparameter hCgParam, SEProgram* pProgram);
+    static bool ParseParam(CGparameter hCgParam, SEProgram* pProgram);
 
     // 用于释放shader program自定义数据.
     static void OnReleaseUserData(void* pUserData);
 
     // 用于创建lighting effect所需shader程序.
-    static void OnConfigureLighting(LightingEffect* pLEffect);
+    static void OnConfigureLighting(SELightingEffect* pLEffect);
 
 private:
-    OpenGLProgram(void);
+    SEOpenGLProgram(void);
 };
 
 }

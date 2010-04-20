@@ -29,25 +29,24 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Microsoft Windows OpenGL2.0 Renderer类
 // 说明:
 // 作者:Sun Che
 // 时间:20080920
 //----------------------------------------------------------------------------
-class SE_RENDERER_API WglRenderer : public OpenGLRenderer
+class SE_RENDERER_API SEWglRenderer : public SEOpenGLRenderer
 {
 public:
     // 构造函数被应用程序层第一次调用时,传入的pixel format将被忽略掉.
     // 如果multisampling被开启,渲染器和窗体必须被释放掉,
     // 然后利用支持multisampling的pixel format来重新创建渲染器和窗体.
     // 从SEWglApplication.cpp可以查看这个程序流程.
-    WglRenderer(HWND hWnd, FrameBuffer::FormatType eFormat,
-        FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,
-        FrameBuffer::BufferingType eBuffering,
-        FrameBuffer::MultisamplingType eMultisampling, int iWidth,
+    SEWglRenderer(HWND hWnd, SEFrameBuffer::FormatType eFormat,
+        SEFrameBuffer::DepthType eDepth, SEFrameBuffer::StencilType eStencil,
+        SEFrameBuffer::BufferingType eBuffering,
+        SEFrameBuffer::MultisamplingType eMultisampling, int iWidth,
         int iHeight, int iPixelFormat = 0);
 
-    virtual ~WglRenderer(void);
+    virtual ~SEWglRenderer(void);
 
     virtual void ToggleFullscreen(void);
     virtual void DisplayBackBuffer(void);

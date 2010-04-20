@@ -27,7 +27,7 @@ using namespace Swing;
 //#define USE_TEXT_DISPLAY_LIST
 
 //----------------------------------------------------------------------------
-bool OpenGLRenderer::SelectFont(int iFontID)
+bool SEOpenGLRenderer::SelectFont(int iFontID)
 {
     if( 0 <= iFontID && iFontID < (int)m_DLInfo.size() )
     {
@@ -42,7 +42,7 @@ bool OpenGLRenderer::SelectFont(int iFontID)
     return false;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::UnloadFont(int iFontID)
+void SEOpenGLRenderer::UnloadFont(int iFontID)
 {
     // You may not unload the default font (id = 0).
     if( iFontID <= 0 )
@@ -63,10 +63,10 @@ void OpenGLRenderer::UnloadFont(int iFontID)
     }
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::DrawCharacter(const BitmapFont& rFont, char cChar)
+void SEOpenGLRenderer::DrawCharacter(const SEBitmapFont& rFont, char cChar)
 {
     unsigned int uiIndex = (unsigned int)cChar;
-    const BitmapFontChar* pBFC = rFont.Chars[uiIndex];
+    const SEBitmapFontChar* pBFC = rFont.Chars[uiIndex];
 
     // save unpack state
     GLint iSwapBytes, iLSBFirst, iRowLength, iSkipRows, iSkipPixels;
@@ -97,7 +97,7 @@ void OpenGLRenderer::DrawCharacter(const BitmapFont& rFont, char cChar)
     glPixelStorei(GL_UNPACK_ALIGNMENT, iAlignment);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::Draw(int iX, int iY, const ColorRGBA& rColor,
+void SEOpenGLRenderer::Draw(int iX, int iY, const SEColorRGBA& rColor,
     const char* acText)
 {
     SE_ASSERT( acText );

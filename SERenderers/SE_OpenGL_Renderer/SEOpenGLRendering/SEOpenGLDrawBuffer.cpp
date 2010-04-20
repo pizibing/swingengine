@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void OpenGLRenderer::Draw(const unsigned char* aucBuffer)
+void SEOpenGLRenderer::Draw(const unsigned char* aucBuffer)
 {
     if( !aucBuffer )
     {

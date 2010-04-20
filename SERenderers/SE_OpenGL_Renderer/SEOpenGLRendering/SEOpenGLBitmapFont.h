@@ -26,10 +26,10 @@
 namespace Swing
 {
 
-class SE_RENDERER_API BitmapFontChar
+class SE_RENDERER_API SEBitmapFontChar
 {
 public:
-    BitmapFontChar(int iXOrigin, int iYOrigin, int iXSize, int iYSize,
+    SEBitmapFontChar(int iXOrigin, int iYOrigin, int iXSize, int iYSize,
         const unsigned char* aucBitmap)
     {
         XOrigin = iXOrigin;
@@ -43,11 +43,11 @@ public:
     const unsigned char* Bitmap;
 };
 
-class SE_RENDERER_API BitmapFont
+class SE_RENDERER_API SEBitmapFont
 {
 public:
-    BitmapFont(const char* acName, int iCount,
-        const BitmapFontChar* const* pChars)
+    SEBitmapFont(const char* acName, int iCount,
+        const SEBitmapFontChar* const* pChars)
     {
         Name = acName;
         Count = iCount;
@@ -56,10 +56,10 @@ public:
 
     const char* Name;
     int Count;
-    const BitmapFontChar* const* Chars;
+    const SEBitmapFontChar* const* Chars;
 };
 
-extern const BitmapFont g_Verdana_S16B0I0;
+extern const SEBitmapFont g_Verdana_S16B0I0;
 
 }
 

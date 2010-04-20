@@ -28,43 +28,42 @@
 namespace Swing
 {
 
-class OpenGLProgramInterface;
+class SEOpenGLProgramInterface;
 
 //----------------------------------------------------------------------------
-// 名称:OpenGL shader program interface资源管理类
 // 说明:
 // 作者:Sun Che
 // 时间:20090417
 //----------------------------------------------------------------------------
-class SE_RENDERER_API OpenGLProgramInterfaceCatalog
+class SE_RENDERER_API SEOpenGLProgramInterfaceCatalog
 {
 public:
-    OpenGLProgramInterfaceCatalog(const std::string& rName);
-    ~OpenGLProgramInterfaceCatalog(void);
+    SEOpenGLProgramInterfaceCatalog(const std::string& rName);
+    ~SEOpenGLProgramInterfaceCatalog(void);
 
     // 开始时我们不知道渲染器类型,
     // 在应用程序层创建了一个渲染器后,才能调用此函数来设置catalog所属渲染器,
     // 应用程序层的相关函数为WindowApplication::SetRenderer
-    void SetRenderer(OpenGLRenderer* pRenderer);
+    void SetRenderer(SEOpenGLRenderer* pRenderer);
 
     const std::string& GetName(void) const;
-    bool Insert(OpenGLProgramInterface* pProgramInterface);
-    bool Remove(OpenGLProgramInterface* pProgramInterface);
-    OpenGLProgramInterface* Find(CGprogram hCgProgram, 
+    bool Insert(SEOpenGLProgramInterface* pProgramInterface);
+    bool Remove(SEOpenGLProgramInterface* pProgramInterface);
+    SEOpenGLProgramInterface* Find(CGprogram hCgProgram, 
         const std::string& rPInterfaceName);
     bool PrintContents(const std::string& rFileName) const;
 
-    static void SetActive(OpenGLProgramInterfaceCatalog* pActive);
-    static OpenGLProgramInterfaceCatalog* GetActive(void);
+    static void SetActive(SEOpenGLProgramInterfaceCatalog* pActive);
+    static SEOpenGLProgramInterfaceCatalog* GetActive(void);
 
 private:
     enum { PROGRAM_MAP_SIZE = 256 };
     std::string m_Name;
-    StringHashTable<OpenGLProgramInterface*> m_Entry;
+    SEStringHashTable<SEOpenGLProgramInterface*> m_Entry;
 
-    OpenGLRenderer* m_pRenderer;
+    SEOpenGLRenderer* m_pRenderer;
 
-    static OpenGLProgramInterfaceCatalog* ms_pActive;
+    static SEOpenGLProgramInterfaceCatalog* ms_pActive;
 };
 
 }

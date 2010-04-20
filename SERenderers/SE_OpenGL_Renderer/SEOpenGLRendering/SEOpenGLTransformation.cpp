@@ -25,7 +25,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnViewportChange()
+void SEOpenGLRenderer::OnViewportChange()
 {
     float fPortL, fPortR, fPortT, fPortB;
     if( m_pCamera )
@@ -53,7 +53,7 @@ void OpenGLRenderer::OnViewportChange()
     glViewport(iX, iY, iW, iH);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnDepthRangeChange()
+void SEOpenGLRenderer::OnDepthRangeChange()
 {
     if( m_pCamera )
     {

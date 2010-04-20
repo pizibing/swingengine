@@ -25,21 +25,20 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_INITIALIZE(OpenGLFrameBuffer);
+SE_IMPLEMENT_INITIALIZE(SEOpenGLFrameBuffer);
 
-//SE_REGISTER_INITIALIZE(OpenGLFrameBuffer);
+//SE_REGISTER_INITIALIZE(SEOpenGLFrameBuffer);
 
 //----------------------------------------------------------------------------
-void OpenGLFrameBuffer::Initialize()
+void SEOpenGLFrameBuffer::Initialize()
 {
-    ms_aoCreator[Renderer::OPENGL] = &OpenGLFrameBuffer::Create;
-    ms_aoDestroyer[Renderer::OPENGL] = &OpenGLFrameBuffer::Destroy;
+    ms_aoCreator[SERenderer::OPENGL] = &SEOpenGLFrameBuffer::Create;
+    ms_aoDestroyer[SERenderer::OPENGL] = &SEOpenGLFrameBuffer::Destroy;
 }
 //----------------------------------------------------------------------------
-FrameBuffer* OpenGLFrameBuffer::Create(FormatType eFormat, DepthType eDepth,
-    StencilType eStencil, BufferingType eBuffering,
-    MultisamplingType eMultisampling, Renderer* pRenderer, int iTCount,
-    Texture** apTargets)
+SEFrameBuffer* SEOpenGLFrameBuffer::Create(FormatType eFormat, DepthType 
+    eDepth, StencilType eStencil, BufferingType eBuffering, MultisamplingType 
+    eMultisampling, SERenderer* pRenderer, int iTCount, SETexture** apTargets)
 {
     // 检查所需extensions.
     if( !SE_ExistsGlExtFrameBufferObject )
@@ -49,7 +48,7 @@ FrameBuffer* OpenGLFrameBuffer::Create(FormatType eFormat, DepthType eDepth,
 
     if( pRenderer && apTargets )
     {
-        OpenGLFrameBuffer* pBuffer = SE_NEW OpenGLFrameBuffer(eFormat,
+        SEOpenGLFrameBuffer* pBuffer = SE_NEW SEOpenGLFrameBuffer(eFormat,
             eDepth, eStencil, eBuffering, eMultisampling, pRenderer, iTCount,
             apTargets);
 
@@ -64,30 +63,30 @@ FrameBuffer* OpenGLFrameBuffer::Create(FormatType eFormat, DepthType eDepth,
     return 0;
 }
 //----------------------------------------------------------------------------
-void OpenGLFrameBuffer::Destroy(FrameBuffer* pBuffer)
+void SEOpenGLFrameBuffer::Destroy(SEFrameBuffer* pBuffer)
 {
-    ((OpenGLFrameBuffer*)pBuffer)->TerminateBuffer();
+    ((SEOpenGLFrameBuffer*)pBuffer)->TerminateBuffer();
     SE_DELETE pBuffer;
 }
 //----------------------------------------------------------------------------
-OpenGLFrameBuffer::OpenGLFrameBuffer(FormatType eFormat, DepthType eDepth,
+SEOpenGLFrameBuffer::SEOpenGLFrameBuffer(FormatType eFormat, DepthType eDepth,
     StencilType eStencil, BufferingType eBuffering,
-    MultisamplingType eMultisampling, Renderer* pRenderer, int iTCount, 
-    Texture** apTargets)
+    MultisamplingType eMultisampling, SERenderer* pRenderer, int iTCount, 
+    SETexture** apTargets)
     :
-    FrameBuffer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, 
+    SEFrameBuffer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, 
         pRenderer, iTCount, apTargets)
 {
     m_TargetItems.resize(iTCount);
     m_pAttachments = SE_NEW GLenum[iTCount];
 }
 //----------------------------------------------------------------------------
-OpenGLFrameBuffer::~OpenGLFrameBuffer()
+SEOpenGLFrameBuffer::~SEOpenGLFrameBuffer()
 {
     SE_DELETE[] m_pAttachments;
 }
 //----------------------------------------------------------------------------
-bool OpenGLFrameBuffer::InitializeBuffer()
+bool SEOpenGLFrameBuffer::InitializeBuffer()
 {
     // 支持嵌套调用FBO,暂存当前正在使用的FBO,稍后用于恢复.
     glGetIntegerv(GL_FRAMEBUFFER_BINDING_EXT, (GLint*)&m_uiSaveFrameBufferID);
@@ -99,7 +98,7 @@ bool OpenGLFrameBuffer::InitializeBuffer()
     // 为FBO对象创建depth buffer.
     glGenRenderbuffersEXT(1, &m_uiDepthBufferID);
     glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, m_uiDepthBufferID);
-    Image* pImage = m_apTargets[0]->GetImage();
+    SEImage* pImage = m_apTargets[0]->GetImage();
     SE_ASSERT( pImage );
     glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, 
         pImage->GetBound(0), pImage->GetBound(1));
@@ -109,7 +108,7 @@ bool OpenGLFrameBuffer::InitializeBuffer()
     // 为FBO对象关联纹理.
 	for( int i = 0; i < m_iCount; i++ )
     {
-        Image* pImage = m_apTargets[i]->GetImage();
+        SEImage* pImage = m_apTargets[i]->GetImage();
         if( pImage->IsCubeImage() )
         {
             // 待实现.
@@ -120,9 +119,9 @@ bool OpenGLFrameBuffer::InitializeBuffer()
         }
 
         // 确保用作buffer的纹理已经装载入显存.
-        ResourceIdentifier* pID = m_apTargets[i]->GetIdentifier(m_pRenderer);
+        SEResourceIdentifier* pID = m_apTargets[i]->GetIdentifier(m_pRenderer);
         SE_ASSERT( pID );
-        TextureID* pResource = (TextureID*)pID;
+        SETextureID* pResource = (SETextureID*)pID;
         m_TargetItems[i].TargetID = pResource->ID;
         glBindTexture(GL_TEXTURE_2D, m_TargetItems[i].TargetID);
 
@@ -169,15 +168,15 @@ bool OpenGLFrameBuffer::InitializeBuffer()
     return true;
 }
 //----------------------------------------------------------------------------
-void OpenGLFrameBuffer::TerminateBuffer()
+void SEOpenGLFrameBuffer::TerminateBuffer()
 {
     glDeleteFramebuffersEXT(1, &m_uiFrameBufferID);
     glDeleteRenderbuffersEXT(1, &m_uiDepthBufferID);
 }
 //----------------------------------------------------------------------------
-void OpenGLFrameBuffer::Enable()
+void SEOpenGLFrameBuffer::Enable()
 {
-    OpenGLRenderer* pRenderer = (OpenGLRenderer*)m_pRenderer;
+    SEOpenGLRenderer* pRenderer = (SEOpenGLRenderer*)m_pRenderer;
 
     glGetIntegerv(GL_FRAMEBUFFER_BINDING_EXT, (GLint*)&m_uiSaveFrameBufferID);
 
@@ -206,17 +205,17 @@ void OpenGLFrameBuffer::Enable()
     if( m_uiSaveFrameBufferID == 0 )
     {
         pRenderer->m_bReverseCullFace = !pRenderer->m_bReverseCullFace;
-        CullState* pCState = pRenderer->GetCullState();
+        SECullState* pCState = pRenderer->GetCullState();
         pRenderer->SetCullState(pCState);
     }
 
-    Image* pImage = m_apTargets[0]->GetImage();
+    SEImage* pImage = m_apTargets[0]->GetImage();
     glViewport(0, 0, pImage->GetBound(0), pImage->GetBound(1));
 }
 //----------------------------------------------------------------------------
-void OpenGLFrameBuffer::Disable()
+void SEOpenGLFrameBuffer::Disable()
 {
-    OpenGLRenderer* pRenderer = (OpenGLRenderer*)m_pRenderer;
+    SEOpenGLRenderer* pRenderer = (SEOpenGLRenderer*)m_pRenderer;
 
     glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, m_uiSaveFrameBufferID);
 
@@ -229,7 +228,7 @@ void OpenGLFrameBuffer::Disable()
         pRenderer->OnFrameChange();
 
         pRenderer->m_bReverseCullFace = !pRenderer->m_bReverseCullFace;
-        CullState* pCState = pRenderer->GetCullState();
+        SECullState* pCState = pRenderer->GetCullState();
         pRenderer->SetCullState(pCState);
     }
     else
@@ -252,12 +251,12 @@ void OpenGLFrameBuffer::Disable()
     }
 }
 //----------------------------------------------------------------------------
-void OpenGLFrameBuffer::CopyToTexture(int i)
+void SEOpenGLFrameBuffer::CopyToTexture(int i)
 {
     SE_ASSERT( i >= 0 && i < m_iCount );
     i = i < 0 ? 0 : (i >= m_iCount ? m_iCount - 1 : i );
 
-    Image* pImage = m_apTargets[i]->GetImage();
+    SEImage* pImage = m_apTargets[i]->GetImage();
     unsigned char* aucData = pImage->GetData();
     int iBound0 = pImage->GetBound(0);
     int iBound1 = pImage->GetBound(1);
@@ -266,7 +265,8 @@ void OpenGLFrameBuffer::CopyToTexture(int i)
     {
     case FT_FORMAT_RGB:
         glReadBuffer(GL_COLOR_ATTACHMENT0_EXT + i);
-        glReadPixels(0, 0, iBound0, iBound1, GL_RGB, GL_UNSIGNED_BYTE, aucData);
+        glReadPixels(0, 0, iBound0, iBound1, GL_RGB, GL_UNSIGNED_BYTE, 
+            aucData);
         break;
 
     case FT_FORMAT_RGBA:

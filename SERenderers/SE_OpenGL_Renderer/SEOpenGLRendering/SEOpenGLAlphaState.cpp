@@ -23,7 +23,7 @@
 
 using namespace Swing;
 
-GLenum OpenGLRenderer::ms_aeAlphaSrcBlend[AlphaState::SBF_COUNT] =
+GLenum SEOpenGLRenderer::ms_aeAlphaSrcBlend[SEAlphaState::SBF_COUNT] =
 {
     GL_ZERO,
     GL_ONE,
@@ -40,7 +40,7 @@ GLenum OpenGLRenderer::ms_aeAlphaSrcBlend[AlphaState::SBF_COUNT] =
     GL_ONE_MINUS_CONSTANT_ALPHA
 };
 
-GLenum OpenGLRenderer::ms_aeAlphaDstBlend[AlphaState::DBF_COUNT] =
+GLenum SEOpenGLRenderer::ms_aeAlphaDstBlend[SEAlphaState::DBF_COUNT] =
 {
     GL_ZERO,
     GL_ONE,
@@ -56,7 +56,7 @@ GLenum OpenGLRenderer::ms_aeAlphaDstBlend[AlphaState::DBF_COUNT] =
     GL_ONE_MINUS_CONSTANT_ALPHA
 };
 
-GLenum OpenGLRenderer::ms_aeAlphaTest[AlphaState::TF_COUNT] =
+GLenum SEOpenGLRenderer::ms_aeAlphaTest[SEAlphaState::TF_COUNT] =
 {
     GL_NEVER,
     GL_LESS,
@@ -69,9 +69,9 @@ GLenum OpenGLRenderer::ms_aeAlphaTest[AlphaState::TF_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-void OpenGLRenderer::SetAlphaState(AlphaState* pState)
+void SEOpenGLRenderer::SetAlphaState(SEAlphaState* pState)
 {
-    Renderer::SetAlphaState(pState);
+    SERenderer::SetAlphaState(pState);
 
     if( pState->BlendEnabled )
     {

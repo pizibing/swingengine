@@ -26,22 +26,22 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, OpenGLProgramInterface, Object);
-SE_IMPLEMENT_STREAM(OpenGLProgramInterface);
-SE_IMPLEMENT_DEFAULT_STREAM(OpenGLProgramInterface, Object);
-SE_IMPLEMENT_DEFAULT_NAME_ID(OpenGLProgramInterface, Object);
+SE_IMPLEMENT_RTTI(Swing, SEOpenGLProgramInterface, SEObject);
+SE_IMPLEMENT_STREAM(SEOpenGLProgramInterface);
+SE_IMPLEMENT_DEFAULT_STREAM(SEOpenGLProgramInterface, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEOpenGLProgramInterface, SEObject);
 
-//SE_REGISTER_STREAM(OpenGLProgramInterface);
+//SE_REGISTER_STREAM(SEOpenGLProgramInterface);
 
 //----------------------------------------------------------------------------
-OpenGLProgramInterface::OpenGLProgramInterface()
+SEOpenGLProgramInterface::SEOpenGLProgramInterface()
 {
     m_eCgType = CG_UNKNOWN_TYPE;
     m_hCgParam = 0;
     m_hCgProgram = 0;
 }
 //----------------------------------------------------------------------------
-OpenGLProgramInterface::~OpenGLProgramInterface()
+SEOpenGLProgramInterface::~SEOpenGLProgramInterface()
 {
     if( m_hCgParam )
     {
@@ -49,10 +49,10 @@ OpenGLProgramInterface::~OpenGLProgramInterface()
         SE_GL_DEBUG_CG_PROGRAM;
     }
 
-    OpenGLProgramInterfaceCatalog::GetActive()->Remove(this);
+    SEOpenGLProgramInterfaceCatalog::GetActive()->Remove(this);
 }
 //----------------------------------------------------------------------------
-OpenGLProgramInterface* OpenGLProgramInterface::Load(CGprogram hCgProgram, 
+SEOpenGLProgramInterface* SEOpenGLProgramInterface::Load(CGprogram hCgProgram, 
     CGcontext hCgContext, const std::string& rPInterfaceName)
 {
     CGtype eCgType = cgGetNamedUserType(hCgProgram, rPInterfaceName.c_str());
@@ -60,8 +60,8 @@ OpenGLProgramInterface* OpenGLProgramInterface::Load(CGprogram hCgProgram,
 
     if( eCgType != CG_UNKNOWN_TYPE )
     {
-        OpenGLProgramInterface* pProgramInterface = 
-            SE_NEW OpenGLProgramInterface;
+        SEOpenGLProgramInterface* pProgramInterface = 
+            SE_NEW SEOpenGLProgramInterface;
 
         pProgramInterface->SetName(rPInterfaceName);
         pProgramInterface->m_eCgType = eCgType;
@@ -70,7 +70,8 @@ OpenGLProgramInterface* OpenGLProgramInterface::Load(CGprogram hCgProgram,
         SE_GL_DEBUG_CG_PROGRAM;
         pProgramInterface->m_hCgProgram = hCgProgram;
 
-        OpenGLProgramInterfaceCatalog::GetActive()->Insert(pProgramInterface);
+        SEOpenGLProgramInterfaceCatalog::GetActive()->Insert(
+            pProgramInterface);
 
         return pProgramInterface;
     }

@@ -19,17 +19,17 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------   
-inline CGtype OpenGLProgramInterface::GetProgramInterfaceType() const
+inline CGtype SEOpenGLProgramInterface::GetProgramInterfaceType() const
 {
     return m_eCgType;
 }
 //----------------------------------------------------------------------------
-inline CGparameter OpenGLProgramInterface::GetParam() const
+inline CGparameter SEOpenGLProgramInterface::GetParam() const
 {
     return m_hCgParam;
 }
 //----------------------------------------------------------------------------
-inline CGprogram OpenGLProgramInterface::GetProgram() const
+inline CGprogram SEOpenGLProgramInterface::GetProgram() const
 {
     return m_hCgProgram;
 }

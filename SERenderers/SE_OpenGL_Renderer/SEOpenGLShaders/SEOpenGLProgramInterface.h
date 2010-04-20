@@ -29,12 +29,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:OpenGL shader program interface类
 // 说明:
 // 作者:Sun Che
 // 时间:20090417
 //----------------------------------------------------------------------------
-class SE_RENDERER_API OpenGLProgramInterface : public Object
+class SE_RENDERER_API SEOpenGLProgramInterface : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -42,23 +41,23 @@ class SE_RENDERER_API OpenGLProgramInterface : public Object
 
 public:
     // 必须通过Load来创建一个实例.
-    static OpenGLProgramInterface* Load(CGprogram hCgProgram, 
+    static SEOpenGLProgramInterface* Load(CGprogram hCgProgram, 
         CGcontext hCgContext, const std::string& rPInterfaceName);
-    ~OpenGLProgramInterface(void);
+    ~SEOpenGLProgramInterface(void);
 
     inline CGtype GetProgramInterfaceType(void) const;
     inline CGparameter GetParam(void) const;
     inline CGprogram GetProgram(void) const;
 
 protected:
-    OpenGLProgramInterface(void);
+    SEOpenGLProgramInterface(void);
 
     CGtype m_eCgType;
     CGparameter m_hCgParam;
     CGprogram m_hCgProgram;
 };
 
-typedef SmartPointer<OpenGLProgramInterface> OpenGLProgramInterfacePtr;
+typedef SESmartPointer<SEOpenGLProgramInterface> SEOpenGLProgramInterfacePtr;
 
 #include "SEOpenGLProgramInterface.inl"
 

@@ -23,7 +23,7 @@
 
 using namespace Swing;
 
-GLenum OpenGLRenderer::ms_aeObjectType[Geometry::GT_MAX_COUNT] =
+GLenum SEOpenGLRenderer::ms_aeObjectType[SEGeometry::GT_MAX_COUNT] =
 {
     GL_POINTS,      // GT_POLYPOINT
     GL_LINES,       // GT_POLYLINE_SEGMENTS
@@ -33,9 +33,9 @@ GLenum OpenGLRenderer::ms_aeObjectType[Geometry::GT_MAX_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-void OpenGLRenderer::DrawElements()
+void SEOpenGLRenderer::DrawElements()
 {
-    IndexBuffer* pIBuffer = m_pGeometry->IBuffer;
+    SEIndexBuffer* pIBuffer = m_pGeometry->IBuffer;
     SE_ASSERT( pIBuffer );
 
     GLenum eType = ms_aeObjectType[m_pGeometry->Type];

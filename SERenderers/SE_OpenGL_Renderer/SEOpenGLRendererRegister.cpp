@@ -21,9 +21,9 @@
 #include "SEOpenGLRendererPCH.h"
 #include "SEOpenGLRendererRegister.h"
 
-// OpenGLRendering
+// OpenGL Rendering
 #include "SEOpenGLFrameBuffer.h"
-// OpenGLShaders
+// OpenGL Shaders
 #include "SEOpenGLProgram.h"
 #include "SEOpenGLProgramInterface.h"
 
@@ -32,19 +32,19 @@ using namespace Swing;
 //----------------------------------------------------------------------------
 void Swing::SE_OpenGLRenderer_Register()
 {
-    // OpenGLRendering
-    SE_REGISTER_INITIALIZE(OpenGLFrameBuffer);
-    SE_REGISTER_INITIALIZE(OpenGLRenderer);
-    SE_REGISTER_INITIALIZE(OpenGLProgram);
-    SE_INVOKE_INITIALIZE(OpenGLFrameBuffer);
-    SE_INVOKE_INITIALIZE(OpenGLRenderer);
-    SE_INVOKE_INITIALIZE(OpenGLProgram);
+    // OpenGL Rendering
+    SE_REGISTER_INITIALIZE(SEOpenGLFrameBuffer);
+    SE_REGISTER_INITIALIZE(SEOpenGLRenderer);
+    SE_REGISTER_INITIALIZE(SEOpenGLProgram);
+    SE_INVOKE_INITIALIZE(SEOpenGLFrameBuffer);
+    SE_INVOKE_INITIALIZE(SEOpenGLRenderer);
+    SE_INVOKE_INITIALIZE(SEOpenGLProgram);
 
-    SE_REGISTER_TERMINATE(OpenGLRenderer);
-    SE_INVOKE_TERMINATE(OpenGLRenderer);
+    SE_REGISTER_TERMINATE(SEOpenGLRenderer);
+    SE_INVOKE_TERMINATE(SEOpenGLRenderer);
 
-    // OpenGLShaders
-    SE_REGISTER_STREAM(OpenGLProgramInterface);
-    SE_INVOKE_STREAM(OpenGLProgramInterface);
+    // OpenGL Shaders
+    SE_REGISTER_STREAM(SEOpenGLProgramInterface);
+    SE_INVOKE_STREAM(SEOpenGLProgramInterface);
 }
 //----------------------------------------------------------------------------

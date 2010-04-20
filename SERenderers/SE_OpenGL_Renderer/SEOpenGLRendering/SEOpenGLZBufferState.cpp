@@ -23,7 +23,7 @@
 
 using namespace Swing;
 
-GLenum OpenGLRenderer::ms_aeZBufferCompare[ZBufferState::CF_COUNT] =
+GLenum SEOpenGLRenderer::ms_aeZBufferCompare[SEZBufferState::CF_COUNT] =
 {
     GL_NEVER,
     GL_LESS,
@@ -36,9 +36,9 @@ GLenum OpenGLRenderer::ms_aeZBufferCompare[ZBufferState::CF_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-void OpenGLRenderer::SetZBufferState(ZBufferState* pState)
+void SEOpenGLRenderer::SetZBufferState(SEZBufferState* pState)
 {
-    Renderer::SetZBufferState(pState);
+    SERenderer::SetZBufferState(pState);
 
     if( pState->Enabled )
     {

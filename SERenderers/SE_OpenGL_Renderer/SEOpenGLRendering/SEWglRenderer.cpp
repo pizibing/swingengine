@@ -24,14 +24,14 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-WglRenderer::WglRenderer(HWND hWnd, FrameBuffer::FormatType eFormat,
-    FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,
-    FrameBuffer::BufferingType eBuffering,
-    FrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight,
+SEWglRenderer::SEWglRenderer(HWND hWnd, SEFrameBuffer::FormatType eFormat,
+    SEFrameBuffer::DepthType eDepth, SEFrameBuffer::StencilType eStencil,
+    SEFrameBuffer::BufferingType eBuffering,
+    SEFrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight,
     int iPixelFormat)
     :
-    OpenGLRenderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth,
-        iHeight)
+    SEOpenGLRenderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, 
+        iWidth, iHeight)
 {
     SE_ASSERT( m_iWidth > 0 && m_iHeight > 0 );
     m_iSaveWidth = m_iWidth;
@@ -49,7 +49,7 @@ WglRenderer::WglRenderer(HWND hWnd, FrameBuffer::FormatType eFormat,
         PFD_DRAW_TO_WINDOW |
         PFD_SUPPORT_OPENGL |
         PFD_GENERIC_ACCELERATED;
-    if( m_eBuffering == FrameBuffer::BT_BUFFERED_DOUBLE )
+    if( m_eBuffering == SEFrameBuffer::BT_BUFFERED_DOUBLE )
     {
         tempPFD.dwFlags |= PFD_DOUBLEBUFFER;
     }
@@ -60,14 +60,14 @@ WglRenderer::WglRenderer(HWND hWnd, FrameBuffer::FormatType eFormat,
 
     switch( m_eDepth )
     {
-    case FrameBuffer::DT_DEPTH_NONE:  tempPFD.cDepthBits =  0;  break;
-    case FrameBuffer::DT_DEPTH_16:    tempPFD.cDepthBits = 16;  break;
-    case FrameBuffer::DT_DEPTH_24:    tempPFD.cDepthBits = 24;  break;
-    case FrameBuffer::DT_DEPTH_32:    tempPFD.cDepthBits = 32;  break;
+    case SEFrameBuffer::DT_DEPTH_NONE:  tempPFD.cDepthBits =  0;  break;
+    case SEFrameBuffer::DT_DEPTH_16:    tempPFD.cDepthBits = 16;  break;
+    case SEFrameBuffer::DT_DEPTH_24:    tempPFD.cDepthBits = 24;  break;
+    case SEFrameBuffer::DT_DEPTH_32:    tempPFD.cDepthBits = 32;  break;
     default:                          tempPFD.cDepthBits = 16;  break;
     }
 
-    if( m_eStencil == FrameBuffer::ST_STENCIL_8 )
+    if( m_eStencil == SEFrameBuffer::ST_STENCIL_8 )
     {
         tempPFD.cStencilBits = 8;
     }
@@ -140,7 +140,7 @@ WglRenderer::WglRenderer(HWND hWnd, FrameBuffer::FormatType eFormat,
     InitializeState();
 }
 //----------------------------------------------------------------------------
-WglRenderer::~WglRenderer()
+SEWglRenderer::~SEWglRenderer()
 {
     for( int i = 0; i < (int)m_DLInfo.size(); i++ )
     {
@@ -160,9 +160,9 @@ WglRenderer::~WglRenderer()
     }
 }
 //----------------------------------------------------------------------------
-void WglRenderer::ToggleFullscreen()
+void SEWglRenderer::ToggleFullscreen()
 {
-    OpenGLRenderer::ToggleFullscreen();
+    SEOpenGLRenderer::ToggleFullscreen();
     glFinish();
 
     DWORD dwStyle = WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
@@ -200,12 +200,12 @@ void WglRenderer::ToggleFullscreen()
         tempRect.right-tempRect.left, tempRect.bottom-tempRect.top, uiFlags);
 }
 //----------------------------------------------------------------------------
-void WglRenderer::DisplayBackBuffer()
+void SEWglRenderer::DisplayBackBuffer()
 {
     SwapBuffers(m_hWindowDC);
 }
 //----------------------------------------------------------------------------
-int WglRenderer::LoadFont(const char* acFace, int iSize, bool bBold,
+int SEWglRenderer::LoadFont(const char* acFace, int iSize, bool bBold,
     bool bItalic)
 {
     int iWeight = (bBold ? FW_BOLD : FW_REGULAR);

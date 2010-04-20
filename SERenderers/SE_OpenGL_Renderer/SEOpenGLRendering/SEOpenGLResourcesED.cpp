@@ -27,72 +27,72 @@ using namespace Swing;
 //----------------------------------------------------------------------------
 // 资源开启与关闭.
 //----------------------------------------------------------------------------
-void OpenGLRenderer::SetVProgramRC(RendererConstant* pRC)
+void SEOpenGLRenderer::SetVProgramRC(SERendererConstant* pRC)
 {
     cgSetParameterValuefr((CGparameter)pRC->GetID(), pRC->GetDataCount(), 
         pRC->GetData());
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::SetVProgramUC(UserConstant* pUC)
+void SEOpenGLRenderer::SetVProgramUC(SEUserConstant* pUC)
 {
     cgSetParameterValuefr((CGparameter)pUC->GetID(), pUC->GetDataCount(), 
         pUC->GetData());
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::SetGProgramRC(RendererConstant* pRC)
+void SEOpenGLRenderer::SetGProgramRC(SERendererConstant* pRC)
 {
     cgSetParameterValuefr((CGparameter)pRC->GetID(), pRC->GetDataCount(), 
         pRC->GetData());
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::SetGProgramUC(UserConstant* pUC)
+void SEOpenGLRenderer::SetGProgramUC(SEUserConstant* pUC)
 {
     cgSetParameterValuefr((CGparameter)pUC->GetID(), pUC->GetDataCount(), 
         pUC->GetData());
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::SetPProgramRC(RendererConstant* pRC)
+void SEOpenGLRenderer::SetPProgramRC(SERendererConstant* pRC)
 {
     cgSetParameterValuefr((CGparameter)pRC->GetID(), pRC->GetDataCount(), 
         pRC->GetData());
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::SetPProgramUC(UserConstant* pUC)
+void SEOpenGLRenderer::SetPProgramUC(SEUserConstant* pUC)
 {
     cgSetParameterValuefr((CGparameter)pUC->GetID(), pUC->GetDataCount(), 
         pUC->GetData());
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::UpdateVProgramConstants(VertexProgram* pVProgram)
+void SEOpenGLRenderer::UpdateVProgramConstants(SEVertexProgram* pVProgram)
 {
-    ProgramData* pData = (ProgramData*)pVProgram->UserData;
+    SEProgramData* pData = (SEProgramData*)pVProgram->UserData;
     cgUpdateProgramParameters(pData->ID);
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::UpdateGProgramConstants(GeometryProgram* pGProgram)
+void SEOpenGLRenderer::UpdateGProgramConstants(SEGeometryProgram* pGProgram)
 {
-    ProgramData* pData = (ProgramData*)pGProgram->UserData;
+    SEProgramData* pData = (SEProgramData*)pGProgram->UserData;
     cgUpdateProgramParameters(pData->ID);
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::UpdatePProgramConstants(PixelProgram* pPProgram)
+void SEOpenGLRenderer::UpdatePProgramConstants(SEPixelProgram* pPProgram)
 {
-    ProgramData* pData = (ProgramData*)pPProgram->UserData;
+    SEProgramData* pData = (SEProgramData*)pPProgram->UserData;
     cgUpdateProgramParameters(pData->ID);
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnEnableVProgram(ResourceIdentifier* pID)
+void SEOpenGLRenderer::OnEnableVProgram(SEResourceIdentifier* pID)
 {
-    VProgramID* pResource = (VProgramID*)pID;
+    SEVProgramID* pResource = (SEVProgramID*)pID;
 
     cgGLEnableProfile(m_CgLatestVProfile);
     SE_GL_DEBUG_CG_PROGRAM;
@@ -101,15 +101,15 @@ void OpenGLRenderer::OnEnableVProgram(ResourceIdentifier* pID)
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnDisableVProgram(ResourceIdentifier*)
+void SEOpenGLRenderer::OnDisableVProgram(SEResourceIdentifier*)
 {
     cgGLDisableProfile(m_CgLatestVProfile);
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnEnablePProgram(ResourceIdentifier* pID)
+void SEOpenGLRenderer::OnEnablePProgram(SEResourceIdentifier* pID)
 {
-    PProgramID* pResource = (PProgramID*)pID;
+    SEPProgramID* pResource = (SEPProgramID*)pID;
 
     cgGLEnableProfile(m_CgLatestPProfile);
     SE_GL_DEBUG_CG_PROGRAM;
@@ -118,17 +118,17 @@ void OpenGLRenderer::OnEnablePProgram(ResourceIdentifier* pID)
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnDisablePProgram(ResourceIdentifier*)
+void SEOpenGLRenderer::OnDisablePProgram(SEResourceIdentifier*)
 {
     cgGLDisableProfile(m_CgLatestPProfile);
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnEnableTexture(ResourceIdentifier* pID)
+void SEOpenGLRenderer::OnEnableTexture(SEResourceIdentifier* pID)
 {
-    TextureID* pResource = (TextureID*)pID;
+    SETextureID* pResource = (SETextureID*)pID;
 
-    SamplerInformation* pSI = m_apActiveSamplers[m_iCurrentSampler];
+    SESamplerInformation* pSI = m_apActiveSamplers[m_iCurrentSampler];
     CGparameter hParam = (CGparameter)pSI->GetID();
 
     cgGLSetTextureParameter(hParam, pResource->ID);
@@ -138,22 +138,23 @@ void OpenGLRenderer::OnEnableTexture(ResourceIdentifier* pID)
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnDisableTexture(ResourceIdentifier*)
+void SEOpenGLRenderer::OnDisableTexture(SEResourceIdentifier*)
 {
-    SamplerInformation* pSI = m_apActiveSamplers[m_iCurrentSampler];
+    SESamplerInformation* pSI = m_apActiveSamplers[m_iCurrentSampler];
     CGparameter hParam = (CGparameter)pSI->GetID();
 
     cgGLDisableTextureParameter(hParam);
     SE_GL_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnEnableVBuffer(ResourceIdentifier* pID, VertexProgram*)
+void SEOpenGLRenderer::OnEnableVBuffer(SEResourceIdentifier* pID, 
+    SEVertexProgram*)
 {
     // Bind当前vertex buffer.
-    VBufferID* pResource = (VBufferID*)pID;
+    SEVBufferID* pResource = (SEVBufferID*)pID;
     glBindBuffer(GL_ARRAY_BUFFER, pResource->ID);
 
-    const Attributes& rRAttr = pResource->IAttr;
+    const SEAttributes& rRAttr = pResource->IAttr;
     GLsizei iSize = (GLsizei)(sizeof(float)*rRAttr.GetChannelCount());
     const float* afData = 0;
 
@@ -199,10 +200,11 @@ void OpenGLRenderer::OnEnableVBuffer(ResourceIdentifier* pID, VertexProgram*)
     }
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnDisableVBuffer(ResourceIdentifier* pID, VertexProgram*)
+void SEOpenGLRenderer::OnDisableVBuffer(SEResourceIdentifier* pID, 
+    SEVertexProgram*)
 {
-    VBufferID* pResource = (VBufferID*)pID;
-    const Attributes& rRAttr = pResource->IAttr;
+    SEVBufferID* pResource = (SEVBufferID*)pID;
+    const SEAttributes& rRAttr = pResource->IAttr;
 
     // Unbind当前vertex buffer.
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -238,14 +240,14 @@ void OpenGLRenderer::OnDisableVBuffer(ResourceIdentifier* pID, VertexProgram*)
     }
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnEnableIBuffer(ResourceIdentifier* pID)
+void SEOpenGLRenderer::OnEnableIBuffer(SEResourceIdentifier* pID)
 {
     // Bind当前index buffer.
-    IBufferID* pResource = (IBufferID*)pID;
+    SEIBufferID* pResource = (SEIBufferID*)pID;
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pResource->ID);
 }
 //----------------------------------------------------------------------------
-void OpenGLRenderer::OnDisableIBuffer(ResourceIdentifier*)
+void SEOpenGLRenderer::OnDisableIBuffer(SEResourceIdentifier*)
 {
     // Unbind当前index buffer.
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

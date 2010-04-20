@@ -21,16 +21,16 @@
 #ifndef Swing_OpenGLRendererHead_H
 #define Swing_OpenGLRendererHead_H
 
-// OpenGLRenderer Register
+// OpenGL Renderer Register
 #include "SEOpenGLRendererRegister.h"
 
-// OpenGLRendering
+// OpenGL Rendering
 #include "SEOpenGLBitmapFont.h"
 #include "SEOpenGLFrameBuffer.h"
 #include "SEOpenGLRenderer.h"
 #include "SEOpenGLResources.h"
 
-// OpenGLShaders
+// OpenGL Shaders
 #include "SEOpenGLProgram.h"
 #include "SEOpenGLProgramInterface.h"
 #include "SEOpenGLProgramInterfaceCatalog.h"
