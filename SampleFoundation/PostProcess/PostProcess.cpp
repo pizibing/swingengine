@@ -215,7 +215,8 @@ void PostProcess::CreateScene()
     tempAttrScenePoly.SetTCoordChannels(0, 2);
 
     float fExtend = 1.0f;
-    SEVertexBuffer* pVBufferScenePoly = SE_NEW SEVertexBuffer(tempAttrScenePoly, 4);
+    SEVertexBuffer* pVBufferScenePoly = SE_NEW SEVertexBuffer(
+        tempAttrScenePoly, 4);
     pVBufferScenePoly->Position3(0) = SEVector3f(0.0f, 0.0f, 0.0f);
     pVBufferScenePoly->Position3(1) = SEVector3f(fExtend, 0.0f, 0.0f);
     pVBufferScenePoly->Position3(2) = SEVector3f(fExtend, fExtend, 0.0f);
@@ -232,7 +233,8 @@ void PostProcess::CreateScene()
     pIBufferDataScenePoly[3] = 1;  
     pIBufferDataScenePoly[4] = 3;  
     pIBufferDataScenePoly[5] = 2;
-    m_spScenePolygon1 = SE_NEW SETriMesh(pVBufferScenePoly, pIBufferScenePoly);
+    m_spScenePolygon1 = SE_NEW SETriMesh(pVBufferScenePoly, 
+        pIBufferScenePoly);
 
     fExtend = 1.0f;
     pVBufferScenePoly = SE_NEW SEVertexBuffer(tempAttrScenePoly, 4);
@@ -244,7 +246,8 @@ void PostProcess::CreateScene()
     pVBufferScenePoly->TCoord2(0, 1) = SEVector2f(1.0f, 1.0f);
     pVBufferScenePoly->TCoord2(0, 2) = SEVector2f(1.0f, 0.0f);
     pVBufferScenePoly->TCoord2(0, 3) = SEVector2f(0.0f, 0.0f);
-    m_spScenePolygon2 = SE_NEW SETriMesh(pVBufferScenePoly, pIBufferScenePoly);
+    m_spScenePolygon2 = SE_NEW SETriMesh(pVBufferScenePoly, 
+        pIBufferScenePoly);
 
     fExtend = 1.0f;
     tempAttrScenePoly.SetTCoordChannels(1, 2);
@@ -261,7 +264,8 @@ void PostProcess::CreateScene()
     pVBufferScenePoly->TCoord2(1, 1) = SEVector2f(1.0f, 1.0f);
     pVBufferScenePoly->TCoord2(1, 2) = SEVector2f(1.0f, 0.0f);
     pVBufferScenePoly->TCoord2(1, 3) = SEVector2f(0.0f, 0.0f);
-    m_spScenePolygon3 = SE_NEW SETriMesh(pVBufferScenePoly, pIBufferScenePoly);
+    m_spScenePolygon3 = SE_NEW SETriMesh(pVBufferScenePoly, 
+        pIBufferScenePoly);
 
     int iWidth = 640, iHeight = 480;
     unsigned char* aucData = 0;
@@ -272,9 +276,9 @@ void PostProcess::CreateScene()
     pState->Enabled = false;
 
 #if defined(SE_USING_OES2)
-    GaussianBlurHEffect2* pEffectScenePoly1 = 
-        SE_NEW GaussianBlurHEffect2("SceneImage");
-    GaussianBlurHEffect2::GenerateTexelKernelStep(iWidth, iHeight);
+    SEGaussianBlurHEffect2* pEffectScenePoly1 = 
+        SE_NEW SEGaussianBlurHEffect2("SceneImage");
+    SEGaussianBlurHEffect2::GenerateTexelKernelStep(iWidth, iHeight);
 #else
     SEGaussianBlurHEffect* pEffectScenePoly1 = 
         SE_NEW SEGaussianBlurHEffect("SceneImage");
@@ -296,9 +300,9 @@ void PostProcess::CreateScene()
     SE_ASSERT( m_pFrameBuffer1 );
 
 #if defined(SE_USING_OES2)
-    GaussianBlurVEffect2* pEffectScenePoly2 = 
-        SE_NEW GaussianBlurVEffect2("SceneImage");
-    GaussianBlurVEffect2::GenerateTexelKernelStep(iWidth, iHeight);
+    SEGaussianBlurVEffect2* pEffectScenePoly2 = 
+        SE_NEW SEGaussianBlurVEffect2("SceneImage");
+    SEGaussianBlurVEffect2::GenerateTexelKernelStep(iWidth, iHeight);
 #else
     SEGaussianBlurVEffect* pEffectScenePoly2 = 
         SE_NEW SEGaussianBlurVEffect("SceneImage");
@@ -347,7 +351,8 @@ void PostProcess::CreateTeapot()
     pEggMaterial->Shininess = 50.0f;
 
     SEStream tempStream;
-    const char* acPath = SESystem::SE_GetPath("teapot.seof", SESystem::SM_READ);
+    const char* acPath = SESystem::SE_GetPath("teapot.seof", 
+        SESystem::SM_READ);
     SE_ASSERT( acPath );
     bool bLoaded = tempStream.Load(acPath);
     SE_ASSERT( bLoaded );

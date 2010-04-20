@@ -22,18 +22,18 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, GaussianBlurHEffect2, SEShaderEffect);
-SE_IMPLEMENT_STREAM(GaussianBlurHEffect2);
-SE_IMPLEMENT_DEFAULT_STREAM(GaussianBlurHEffect2, SEShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(GaussianBlurHEffect2, SEShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEGaussianBlurHEffect2, SEShaderEffect);
+SE_IMPLEMENT_STREAM(SEGaussianBlurHEffect2);
+SE_IMPLEMENT_DEFAULT_STREAM(SEGaussianBlurHEffect2, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEGaussianBlurHEffect2, SEShaderEffect);
 
-SE_REGISTER_STREAM(GaussianBlurHEffect2);
+SE_REGISTER_STREAM(SEGaussianBlurHEffect2);
 
-SEVector3f GaussianBlurHEffect2::ms_TexelKernelStep = SEVector3f::ZERO;
-bool GaussianBlurHEffect2::ms_bUCInitialized = false;
+SEVector3f SEGaussianBlurHEffect2::ms_TexelKernelStep = SEVector3f::ZERO;
+bool SEGaussianBlurHEffect2::ms_bUCInitialized = false;
 
 //----------------------------------------------------------------------------
-GaussianBlurHEffect2::GaussianBlurHEffect2(const std::string& rBaseName)
+SEGaussianBlurHEffect2::SEGaussianBlurHEffect2(const std::string& rBaseName)
     :
     SEShaderEffect(1)
 {
@@ -44,15 +44,15 @@ GaussianBlurHEffect2::GaussianBlurHEffect2(const std::string& rBaseName)
     m_PShader[0]->SetImageName(0, rBaseName);
 }
 //----------------------------------------------------------------------------
-GaussianBlurHEffect2::GaussianBlurHEffect2()
+SEGaussianBlurHEffect2::SEGaussianBlurHEffect2()
 {
 }
 //----------------------------------------------------------------------------
-GaussianBlurHEffect2::~GaussianBlurHEffect2()
+SEGaussianBlurHEffect2::~SEGaussianBlurHEffect2()
 {
 }
 //----------------------------------------------------------------------------
-void GaussianBlurHEffect2::OnLoadPrograms(int, SEProgram* pVProgram, 
+void SEGaussianBlurHEffect2::OnLoadPrograms(int, SEProgram* pVProgram, 
     SEProgram*, SEProgram*)
 {
     if( !ms_bUCInitialized )
@@ -69,7 +69,7 @@ void GaussianBlurHEffect2::OnLoadPrograms(int, SEProgram* pVProgram,
     }
 }
 //----------------------------------------------------------------------------
-void GaussianBlurHEffect2::GenerateTexelKernelStep(int iWidth, int iHeight)
+void SEGaussianBlurHEffect2::GenerateTexelKernelStep(int iWidth, int iHeight)
 {
     SE_ASSERT( iWidth > 0 && iHeight > 0 );
 

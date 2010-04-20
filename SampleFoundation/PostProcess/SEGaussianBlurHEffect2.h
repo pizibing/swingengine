@@ -27,27 +27,26 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Gaussian blur horizontally effect2类
 // 说明:专门用于OpenGL ES2 shading language
 // 作者:Sun Che
 // 时间:20090715
 //----------------------------------------------------------------------------
-class GaussianBlurHEffect2 : public SEShaderEffect
+class SEGaussianBlurHEffect2 : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    GaussianBlurHEffect2(const std::string& rBaseName);
-    virtual ~GaussianBlurHEffect2(void);
+    SEGaussianBlurHEffect2(const std::string& rBaseName);
+    virtual ~SEGaussianBlurHEffect2(void);
 
     // 根据color buffer尺寸调整texel kernel step.
     static void GenerateTexelKernelStep(int iWidth, int iHeight);
 
 protected:
     // streaming
-    GaussianBlurHEffect2(void);
+    SEGaussianBlurHEffect2(void);
 
     virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
         SEProgram* pPProgram, SEProgram* pGProgram);
@@ -57,7 +56,7 @@ protected:
     static bool ms_bUCInitialized;
 };
 
-typedef SESmartPointer<GaussianBlurHEffect2> GaussianBlurHEffect2Ptr;
+typedef SESmartPointer<SEGaussianBlurHEffect2> SEGaussianBlurHEffect2Ptr;
 
 }
 
