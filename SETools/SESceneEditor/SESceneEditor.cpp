@@ -37,7 +37,7 @@ int main(array<System::String^>^)
     // Swing Engine initialize.
     SESystem::SE_Initialize();
     std::string tempSEPath(SESystem::SE_PATH);
-    Main::Initialize();
+    SEMain::Initialize();
 
     // 总是检查当前工作目录.
     SESystem::SE_InsertDirectory(".");
@@ -58,7 +58,7 @@ int main(array<System::String^>^)
     Application::Run(gcnew MainForm());
 
     // Swing Engine terminate.
-    Main::Terminate();
+    SEMain::Terminate();
     SESystem::SE_Terminate();
 
     return 0;
