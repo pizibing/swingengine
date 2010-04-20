@@ -200,7 +200,8 @@ void Lighting::CreateLights()
 
     // Create light0's node.
     m_spLight0Node = SE_NEW SELightNode(m_spLight0);
-    m_spLight0Node->Local.SetTranslate(SEVector3f(0.0f, m_fLight0Height, 0.0f));
+    m_spLight0Node->Local.SetTranslate(SEVector3f(0.0f, m_fLight0Height, 
+        0.0f));
 
     // Create a sphere to represent the light0's source.
     SEAttributes tempAttr;
@@ -228,7 +229,8 @@ void Lighting::CreateLights()
 
     // Create light1's node.
     m_spLight1Node = SE_NEW SELightNode(m_spLight1);
-    m_spLight1Node->Local.SetTranslate(SEVector3f(0.0f, m_fLight1Height, 0.0f));
+    m_spLight1Node->Local.SetTranslate(SEVector3f(0.0f, m_fLight1Height, 
+        0.0f));
 
     // Create a sphere to represent the light1's source.
     pPLightSphere = SEStandardMesh(tempAttr).Sphere(8, 8, fRadius);
