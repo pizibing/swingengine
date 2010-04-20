@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-class ParallaxMaps : public WindowApplication3
+class ParallaxMaps : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -42,15 +42,15 @@ protected:
     void CreateLights(void);
     void CreateModels(void);
 
-    NodePtr m_spScene;
-    NodePtr m_spModelRoot;
-    WireframeStatePtr m_spWireframe;
-    Culler m_Culler;
+    SENodePtr m_spScene;
+    SENodePtr m_spModelRoot;
+    SEWireframeStatePtr m_spWireframe;
+    SECuller m_Culler;
 
     float m_fLight0Height;
-    ColorRGB m_Light0Color;
-    LightPtr m_spLight0;
-    LightNodePtr m_spLight0Node;
+    SEColorRGB m_Light0Color;
+    SELightPtr m_spLight0;
+    SELightNodePtr m_spLight0Node;
 };
 
 #endif
