@@ -24,9 +24,9 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-WindowApplication::WindowApplication(const char* acWindowTitle,
+SEWindowApplication::SEWindowApplication(const char* acWindowTitle,
     int iXPosition, int iYPosition, int iWidth, int iHeight,
-    const ColorRGBA& rBackgroundColor)
+    const SEColorRGBA& rBackgroundColor)
     :
     m_acWindowTitle(acWindowTitle),
     m_iXPosition(iXPosition),
@@ -42,56 +42,56 @@ WindowApplication::WindowApplication(const char* acWindowTitle,
     // 这些参数可以被派生类构造函数覆盖.
     // 当前硬件经常使用24bit depth buffer,8bit stencil buffer,建议不要修改.
     // 最常修改的是multisampling值.
-    m_eFormat = FrameBuffer::FT_FORMAT_RGBA;
-    m_eDepth = FrameBuffer::DT_DEPTH_24;
-    m_eStencil = FrameBuffer::ST_STENCIL_8;
-    m_eBuffering = FrameBuffer::BT_BUFFERED_DOUBLE;
-    m_eMultisampling = FrameBuffer::MT_SAMPLING_NONE;
+    m_eFormat = SEFrameBuffer::FT_FORMAT_RGBA;
+    m_eDepth = SEFrameBuffer::DT_DEPTH_24;
+    m_eStencil = SEFrameBuffer::ST_STENCIL_8;
+    m_eBuffering = SEFrameBuffer::BT_BUFFERED_DOUBLE;
+    m_eMultisampling = SEFrameBuffer::MT_SAMPLING_NONE;
 
     m_pAudioRenderer= 0;
 }
 //----------------------------------------------------------------------------
-WindowApplication::~WindowApplication()
+SEWindowApplication::~SEWindowApplication()
 {
 }
 //----------------------------------------------------------------------------
-int WindowApplication::Run(int iArgCount, char** apcArgument)
+int SEWindowApplication::Run(int iArgCount, char** apcArgument)
 {
-    WindowApplication* pTheApp = (WindowApplication*)TheApplication;
+    SEWindowApplication* pTheApp = (SEWindowApplication*)TheApplication;
 
     return pTheApp->Main(iArgCount, apcArgument);
 }
 //----------------------------------------------------------------------------
-bool WindowApplication::OnInitialize()
+bool SEWindowApplication::OnInitialize()
 {
     m_pRenderer->SetClearColor(m_BackgroundColor);
 
     // 通知catalogs,渲染器已经创建.
-    SE_ASSERT( VertexProgramCatalog::GetActive() );
-    VertexProgramCatalog::GetActive()->SetRenderer(m_pRenderer);
+    SE_ASSERT( SEVertexProgramCatalog::GetActive() );
+    SEVertexProgramCatalog::GetActive()->SetRenderer(m_pRenderer);
 
-    SE_ASSERT( PixelProgramCatalog::GetActive() );
-    PixelProgramCatalog::GetActive()->SetRenderer(m_pRenderer);
+    SE_ASSERT( SEPixelProgramCatalog::GetActive() );
+    SEPixelProgramCatalog::GetActive()->SetRenderer(m_pRenderer);
 
-    SE_ASSERT( OpenGLProgramInterfaceCatalog::GetActive() );
-    OpenGLProgramInterfaceCatalog::GetActive()->SetRenderer(
-        (OpenGLRenderer*)m_pRenderer);
+    SE_ASSERT( SEOpenGLProgramInterfaceCatalog::GetActive() );
+    SEOpenGLProgramInterfaceCatalog::GetActive()->SetRenderer(
+        (SEOpenGLRenderer*)m_pRenderer);
 
     return true;
 }
 //----------------------------------------------------------------------------
-void WindowApplication::OnTerminate()
+void SEWindowApplication::OnTerminate()
 {
     // 通知catalogs,渲染器即将被释放,
     // 因此可以删除默认shader程序了.
-    SE_ASSERT( VertexProgramCatalog::GetActive() );
-    VertexProgramCatalog::GetActive()->SetRenderer(0);
+    SE_ASSERT( SEVertexProgramCatalog::GetActive() );
+    SEVertexProgramCatalog::GetActive()->SetRenderer(0);
 
-    SE_ASSERT( PixelProgramCatalog::GetActive() );
-    PixelProgramCatalog::GetActive()->SetRenderer(0);
+    SE_ASSERT( SEPixelProgramCatalog::GetActive() );
+    SEPixelProgramCatalog::GetActive()->SetRenderer(0);
 
-    SE_ASSERT( OpenGLProgramInterfaceCatalog::GetActive() );
-    OpenGLProgramInterfaceCatalog::GetActive()->SetRenderer(0);
+    SE_ASSERT( SEOpenGLProgramInterfaceCatalog::GetActive() );
+    SEOpenGLProgramInterfaceCatalog::GetActive()->SetRenderer(0);
 
     SE_DELETE m_pRenderer;
     m_pRenderer = 0;
@@ -100,13 +100,13 @@ void WindowApplication::OnTerminate()
     m_pAudioRenderer = 0;
 }
 //----------------------------------------------------------------------------
-void WindowApplication::OnMove(int iX, int iY)
+void SEWindowApplication::OnMove(int iX, int iY)
 {
     m_iXPosition = iX;
     m_iYPosition = iY;
 }
 //----------------------------------------------------------------------------
-void WindowApplication::OnResize(int iWidth, int iHeight)
+void SEWindowApplication::OnResize(int iWidth, int iHeight)
 {
     if( iWidth > 0 && iHeight > 0 )
     {

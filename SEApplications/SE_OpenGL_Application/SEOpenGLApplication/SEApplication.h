@@ -27,22 +27,21 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:应用程序基类
 // 说明:
 // 作者:jazzboysc
 // 时间:20080809
 //----------------------------------------------------------------------------
-class Application
+class SEApplication
 {
 public:
     // 虚基类
-    virtual ~Application(void);
+    virtual ~SEApplication(void);
 
     // 唯一应用程序对象
-    static Application* TheApplication;
+    static SEApplication* TheApplication;
 
     // 唯一命令行参数对象
-	static Command* TheCommand;
+	static SECommand* TheCommand;
 
     // 派生类必须设置这个函数指针.
     // int参数是命令行参数个数.char**参数是参数字符串数组.
@@ -58,7 +57,7 @@ public:
     // 待实现:
     // 这个功能目前只支持Microsoft Windows.
     // 其它平台尚不支持.
-    void LaunchTreeControl(Spatial* pScene, int iXPos, int iYPos,
+    void LaunchTreeControl(SESpatial* pScene, int iXPos, int iYPos,
         int iXSize, int iYSize);
     void ShutdownTreeControl(void);
 
@@ -67,11 +66,11 @@ public:
     // 发生存储和装载数据不匹配时,将产生断言.
     // 在装载之后,LaunchTreeControl函数被调用,用于测试string-tree系统.
     // 这个功能目前只支持Microsoft Windows.
-    void TestStreaming(Spatial* pScene, int iXPos, int iYPos, int iXSize,
+    void TestStreaming(SESpatial* pScene, int iXPos, int iYPos, int iXSize,
         int iYSize, const char* acFilename);
 
 protected:
-    Application(void);
+    SEApplication(void);
 
     // 额外数据
     enum { APP_EXTRA_DATA_COUNT = 128 };

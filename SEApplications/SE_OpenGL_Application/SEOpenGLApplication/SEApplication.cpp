@@ -26,52 +26,54 @@
 
 using namespace Swing;
 
-Application::EntryPoint Application::Run = 0;
-Command* Application::TheCommand = 0;
-Application* Application::TheApplication = 0;
+SEApplication::EntryPoint SEApplication::Run = 0;
+SECommand* SEApplication::TheCommand = 0;
+SEApplication* SEApplication::TheApplication = 0;
 
 //----------------------------------------------------------------------------
-Application::Application()
+SEApplication::SEApplication()
 {
     memset(m_acExtraData, 0, APP_EXTRA_DATA_COUNT*sizeof(char));
     m_bLaunchFileDialog = false;
 }
 //----------------------------------------------------------------------------
-Application::~Application()
+SEApplication::~SEApplication()
 {
 }
 //----------------------------------------------------------------------------
-void Application::SetExtraData(int iIndex, int iSize, const void* pvData)
-{
-    if( 0 <= iIndex && iIndex < APP_EXTRA_DATA_COUNT - iSize )
-    {
-        System::SE_Memcpy(m_acExtraData, APP_EXTRA_DATA_COUNT, pvData, iSize);
-    }
-}
-//----------------------------------------------------------------------------
-void Application::GetExtraData(int iIndex, int iSize, void* pvData) const
+void SEApplication::SetExtraData(int iIndex, int iSize, const void* pvData)
 {
     if( 0 <= iIndex && iIndex < APP_EXTRA_DATA_COUNT - iSize )
     {
-        System::SE_Memcpy(pvData, APP_EXTRA_DATA_COUNT, m_acExtraData, iSize);
+        SESystem::SE_Memcpy(m_acExtraData, APP_EXTRA_DATA_COUNT, pvData, 
+            iSize);
     }
 }
 //----------------------------------------------------------------------------
-bool Application::LaunchFileDialog() const
+void SEApplication::GetExtraData(int iIndex, int iSize, void* pvData) const
+{
+    if( 0 <= iIndex && iIndex < APP_EXTRA_DATA_COUNT - iSize )
+    {
+        SESystem::SE_Memcpy(pvData, APP_EXTRA_DATA_COUNT, m_acExtraData, 
+            iSize);
+    }
+}
+//----------------------------------------------------------------------------
+bool SEApplication::LaunchFileDialog() const
 {
     return m_bLaunchFileDialog;
 }
 //----------------------------------------------------------------------------
-void Application::TestStreaming(Spatial* pScene, int iXPos, int iYPos,
+void SEApplication::TestStreaming(SESpatial* pScene, int iXPos, int iYPos,
     int iXSize, int iYSize, const char* acFilename)
 {
-    Stream tempOStream;
+    SEStream tempOStream;
     tempOStream.Insert(pScene);
     tempOStream.Save(acFilename);
 
-    Stream tempIStream;
+    SEStream tempIStream;
     tempIStream.Load(acFilename);
-    SpatialPtr spScene = StaticCast<Spatial>(tempIStream.GetObjectAt(0));
+    SESpatialPtr spScene = StaticCast<SESpatial>(tempIStream.GetObjectAt(0));
     spScene->SetName(acFilename);
 
     LaunchTreeControl(spScene, iXPos, iYPos, iXSize, iYSize);
@@ -86,57 +88,57 @@ int main(int iArgCount, char* apcArgument[])
     SE_OpenALRenderer_Register();
 
     // 先要手动创建SE_PATH这个环境变量,指定所需资源文件的所在位置.
-    System::SE_Initialize();
-    SE_ASSERT( System::SE_PATH[0] );
-    std::string tempSEPath(System::SE_PATH);
+    SESystem::SE_Initialize();
+    SE_ASSERT( SESystem::SE_PATH[0] );
+    std::string tempSEPath(SESystem::SE_PATH);
 
-    Main::Initialize();
+    SEMain::Initialize();
 
     int iExitCode = 0;
-    if( Application::Run )
+    if( SEApplication::Run )
     {
         // 总是检查当前工作目录.
-        System::SE_InsertDirectory(".");
+        SESystem::SE_InsertDirectory(".");
 
         // scene graph文件的路径.
         std::string tempDir;
         tempDir = tempSEPath + std::string("/Data/seof");
-        System::SE_InsertDirectory(tempDir.c_str());
+        SESystem::SE_InsertDirectory(tempDir.c_str());
 
         // texture image文件的路径.
         tempDir = tempSEPath + std::string("/Data/seif");
-        System::SE_InsertDirectory(tempDir.c_str());
+        SESystem::SE_InsertDirectory(tempDir.c_str());
 
         // shader program文件的路径.
         tempDir = tempSEPath + std::string("/Data/sesp/Cg");
-        System::SE_InsertDirectory(tempDir.c_str());
+        SESystem::SE_InsertDirectory(tempDir.c_str());
 
         // wave文件的路径.
         tempDir = tempSEPath + std::string("/Data/sewf");
-        System::SE_InsertDirectory(tempDir.c_str());
+        SESystem::SE_InsertDirectory(tempDir.c_str());
 
         // 其他image文件路径.
         tempDir = tempSEPath + std::string("/Data/Im");
-        System::SE_InsertDirectory(tempDir.c_str());
+        SESystem::SE_InsertDirectory(tempDir.c_str());
 
-        Application::TheCommand = SE_NEW Command(iArgCount, apcArgument);
-        iExitCode = Application::Run(iArgCount, apcArgument);
-        SE_DELETE Application::TheCommand;
-        Application::TheCommand = 0;
+        SEApplication::TheCommand = SE_NEW SECommand(iArgCount, apcArgument);
+        iExitCode = SEApplication::Run(iArgCount, apcArgument);
+        SE_DELETE SEApplication::TheCommand;
+        SEApplication::TheCommand = 0;
 
-        System::SE_RemoveAllDirectories();
+        SESystem::SE_RemoveAllDirectories();
     }
     else
     {
         iExitCode = INT_MAX;
     }
 
-    Main::Terminate();
+    SEMain::Terminate();
 
-    SE_DELETE Application::TheApplication;
-    Application::TheApplication = 0;
+    SE_DELETE SEApplication::TheApplication;
+    SEApplication::TheApplication = 0;
 
-    System::SE_Terminate();
+    SESystem::SE_Terminate();
 
 #ifdef SE_MEMORY_MANAGER
 #ifdef _DEBUG
