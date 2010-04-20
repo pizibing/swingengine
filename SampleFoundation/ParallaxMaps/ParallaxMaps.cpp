@@ -102,7 +102,8 @@ void ParallaxMaps::OnIdle()
             *mat3fRot);
         float fX = fRadius0*SEMathf::Cos(fAngel0);
         float fZ = fRadius0*SEMathf::Sin(fAngel0);
-        m_spLight0Node->Local.SetTranslate(SEVector3f(fX, m_fLight0Height, fZ));
+        m_spLight0Node->Local.SetTranslate(SEVector3f(fX, m_fLight0Height, 
+            fZ));
         m_spLight0Node->UpdateGS();
     }
 
@@ -184,7 +185,8 @@ void ParallaxMaps::CreateLights()
 
     // Create light0's node.
     m_spLight0Node = SE_NEW SELightNode(m_spLight0);
-    m_spLight0Node->Local.SetTranslate(SEVector3f(0.0f, m_fLight0Height, 0.0f));
+    m_spLight0Node->Local.SetTranslate(SEVector3f(0.0f, m_fLight0Height, 
+        0.0f));
 
     // Create a sphere to represent the light0's source.
     SEAttributes tempAttr;
@@ -250,8 +252,8 @@ void ParallaxMaps::CreateModels()
     // We apply this parallax map effect as a lighting effect,
     // When UpdateRS is called, geometry object's default lighting effect will
     // be replaced by the parallax map effect.
-    SEParallaxMapL1Effect* pParallaxMapRockEffect = SE_NEW SEParallaxMapL1Effect("rock",
-        "rocknormal", "rockheight");
+    SEParallaxMapL1Effect* pParallaxMapRockEffect = 
+        SE_NEW SEParallaxMapL1Effect("rock", "rocknormal", "rockheight");
 
     SENode* pRoot = SE_NEW SENode;
 
