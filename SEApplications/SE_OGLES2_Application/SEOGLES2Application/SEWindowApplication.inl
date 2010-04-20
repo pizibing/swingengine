@@ -19,114 +19,116 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline const char* WindowApplication::GetWindowTitle() const
+inline const char* SEWindowApplication::GetWindowTitle() const
 {
     return m_acWindowTitle;
 }
 //----------------------------------------------------------------------------
-inline int WindowApplication::GetXPosition() const
+inline int SEWindowApplication::GetXPosition() const
 {
     return m_iXPosition;
 }
 //----------------------------------------------------------------------------
-inline int WindowApplication::GetYPosition() const
+inline int SEWindowApplication::GetYPosition() const
 {
     return m_iYPosition;
 }
 //----------------------------------------------------------------------------
-inline int WindowApplication::GetWidth() const
+inline int SEWindowApplication::GetWidth() const
 {
     return m_iWidth;
 }
 //----------------------------------------------------------------------------
-inline int WindowApplication::GetHeight() const
+inline int SEWindowApplication::GetHeight() const
 {
     return m_iHeight;
 }
 //----------------------------------------------------------------------------
-inline Renderer* WindowApplication::GetRenderer()
+inline SERenderer* SEWindowApplication::GetRenderer()
 {
     return m_pRenderer;
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::SetRenderer(Renderer* pRenderer)
+inline void SEWindowApplication::SetRenderer(SERenderer* pRenderer)
 {
     m_pRenderer = pRenderer;
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::SetAudioRenderer(AudioRenderer* pAudioRenderer)
+inline void SEWindowApplication::SetAudioRenderer(SEAudioRenderer* 
+    pAudioRenderer)
 {
     m_pAudioRenderer = pAudioRenderer;
 }
 //----------------------------------------------------------------------------
-inline AudioRenderer* WindowApplication::GetAudioRenderer()
+inline SEAudioRenderer* SEWindowApplication::GetAudioRenderer()
 {
     return m_pAudioRenderer;
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::SetWindowID(int iWindowID)
+inline void SEWindowApplication::SetWindowID(int iWindowID)
 {
     m_iWindowID = iWindowID;
 }
 //----------------------------------------------------------------------------
-inline int WindowApplication::GetWindowID() const
+inline int SEWindowApplication::GetWindowID() const
 {
     return m_iWindowID;
 }
 //----------------------------------------------------------------------------
-inline bool WindowApplication::OnPrecreate()
+inline bool SEWindowApplication::OnPrecreate()
 {
     // 由派生类负责实现
     return true;
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::OnDisplay()
+inline void SEWindowApplication::OnDisplay()
 {
     // 由派生类负责实现
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::OnIdle()
+inline void SEWindowApplication::OnIdle()
 {
     // 由派生类负责实现
 }
 //----------------------------------------------------------------------------
-inline bool WindowApplication::OnKeyDown(unsigned char, int, int)
-{
-    // 由派生类负责实现
-    return false;
-}
-//----------------------------------------------------------------------------
-inline bool WindowApplication::OnKeyUp(unsigned char, int, int)
+inline bool SEWindowApplication::OnKeyDown(unsigned char, int, int)
 {
     // 由派生类负责实现
     return false;
 }
 //----------------------------------------------------------------------------
-inline bool WindowApplication::OnSpecialKeyDown(int, int, int)
+inline bool SEWindowApplication::OnKeyUp(unsigned char, int, int)
 {
     // 由派生类负责实现
     return false;
 }
 //----------------------------------------------------------------------------
-inline bool WindowApplication::OnSpecialKeyUp(int, int, int)
+inline bool SEWindowApplication::OnSpecialKeyDown(int, int, int)
 {
     // 由派生类负责实现
     return false;
 }
 //----------------------------------------------------------------------------
-inline bool WindowApplication::OnMouseClick(int, int, int, int, unsigned int)
+inline bool SEWindowApplication::OnSpecialKeyUp(int, int, int)
 {
     // 由派生类负责实现
     return false;
 }
 //----------------------------------------------------------------------------
-inline bool WindowApplication::OnMotion(int, int, int, unsigned int)
+inline bool SEWindowApplication::OnMouseClick(int, int, int, int, 
+    unsigned int)
 {
     // 由派生类负责实现
     return false;
 }
 //----------------------------------------------------------------------------
-inline bool WindowApplication::OnPassiveMotion(int, int)
+inline bool SEWindowApplication::OnMotion(int, int, int, unsigned int)
+{
+    // 由派生类负责实现
+    return false;
+}
+//----------------------------------------------------------------------------
+inline bool SEWindowApplication::OnPassiveMotion(int, int)
 {
     // 由派生类负责实现
     return false;

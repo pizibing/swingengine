@@ -37,50 +37,50 @@
 
 using namespace Swing;
 
-const int WindowApplication::KEY_ESCAPE = VK_ESCAPE;
-const int WindowApplication::KEY_LEFT_ARROW = VK_LEFT;
-const int WindowApplication::KEY_RIGHT_ARROW = VK_RIGHT;
-const int WindowApplication::KEY_UP_ARROW = VK_UP;
-const int WindowApplication::KEY_DOWN_ARROW = VK_DOWN;
-const int WindowApplication::KEY_HOME = VK_HOME;
-const int WindowApplication::KEY_END = VK_END;
-const int WindowApplication::KEY_PAGE_UP = VK_PRIOR;
-const int WindowApplication::KEY_PAGE_DOWN = VK_NEXT;
-const int WindowApplication::KEY_INSERT = VK_INSERT;
-const int WindowApplication::KEY_DELETE = VK_DELETE;
-const int WindowApplication::KEY_F1 = VK_F1;
-const int WindowApplication::KEY_F2 = VK_F2;
-const int WindowApplication::KEY_F3 = VK_F3;
-const int WindowApplication::KEY_F4 = VK_F4;
-const int WindowApplication::KEY_F5 = VK_F5;
-const int WindowApplication::KEY_F6 = VK_F6;
-const int WindowApplication::KEY_F7 = VK_F7;
-const int WindowApplication::KEY_F8 = VK_F8;
-const int WindowApplication::KEY_F9 = VK_F9;
-const int WindowApplication::KEY_F10 = VK_F10;
-const int WindowApplication::KEY_F11 = VK_F11;
-const int WindowApplication::KEY_F12 = VK_F12;
-const int WindowApplication::KEY_BACKSPACE = VK_BACK;
-const int WindowApplication::KEY_TAB = VK_TAB;
-const int WindowApplication::KEY_ENTER = VK_RETURN;
-const int WindowApplication::KEY_RETURN = VK_RETURN;
+const int SEWindowApplication::KEY_ESCAPE = VK_ESCAPE;
+const int SEWindowApplication::KEY_LEFT_ARROW = VK_LEFT;
+const int SEWindowApplication::KEY_RIGHT_ARROW = VK_RIGHT;
+const int SEWindowApplication::KEY_UP_ARROW = VK_UP;
+const int SEWindowApplication::KEY_DOWN_ARROW = VK_DOWN;
+const int SEWindowApplication::KEY_HOME = VK_HOME;
+const int SEWindowApplication::KEY_END = VK_END;
+const int SEWindowApplication::KEY_PAGE_UP = VK_PRIOR;
+const int SEWindowApplication::KEY_PAGE_DOWN = VK_NEXT;
+const int SEWindowApplication::KEY_INSERT = VK_INSERT;
+const int SEWindowApplication::KEY_DELETE = VK_DELETE;
+const int SEWindowApplication::KEY_F1 = VK_F1;
+const int SEWindowApplication::KEY_F2 = VK_F2;
+const int SEWindowApplication::KEY_F3 = VK_F3;
+const int SEWindowApplication::KEY_F4 = VK_F4;
+const int SEWindowApplication::KEY_F5 = VK_F5;
+const int SEWindowApplication::KEY_F6 = VK_F6;
+const int SEWindowApplication::KEY_F7 = VK_F7;
+const int SEWindowApplication::KEY_F8 = VK_F8;
+const int SEWindowApplication::KEY_F9 = VK_F9;
+const int SEWindowApplication::KEY_F10 = VK_F10;
+const int SEWindowApplication::KEY_F11 = VK_F11;
+const int SEWindowApplication::KEY_F12 = VK_F12;
+const int SEWindowApplication::KEY_BACKSPACE = VK_BACK;
+const int SEWindowApplication::KEY_TAB = VK_TAB;
+const int SEWindowApplication::KEY_ENTER = VK_RETURN;
+const int SEWindowApplication::KEY_RETURN = VK_RETURN;
 
-const int WindowApplication::KEY_SHIFT = MK_SHIFT;
-const int WindowApplication::KEY_CONTROL = MK_CONTROL;
-const int WindowApplication::KEY_ALT = 0;      // 当前尚未处理
-const int WindowApplication::KEY_COMMAND = 0;  // 当前尚未处理
+const int SEWindowApplication::KEY_SHIFT = MK_SHIFT;
+const int SEWindowApplication::KEY_CONTROL = MK_CONTROL;
+const int SEWindowApplication::KEY_ALT = 0;      // 当前尚未处理
+const int SEWindowApplication::KEY_COMMAND = 0;  // 当前尚未处理
 
-const int WindowApplication::MOUSE_LEFT_BUTTON = 0;
-const int WindowApplication::MOUSE_MIDDLE_BUTTON = 1;
-const int WindowApplication::MOUSE_RIGHT_BUTTON = 2;
-const int WindowApplication::MOUSE_UP = 0;
-const int WindowApplication::MOUSE_DOWN = 1;
+const int SEWindowApplication::MOUSE_LEFT_BUTTON = 0;
+const int SEWindowApplication::MOUSE_MIDDLE_BUTTON = 1;
+const int SEWindowApplication::MOUSE_RIGHT_BUTTON = 2;
+const int SEWindowApplication::MOUSE_UP = 0;
+const int SEWindowApplication::MOUSE_DOWN = 1;
 
-const int WindowApplication::MODIFIER_CONTROL = MK_CONTROL;
-const int WindowApplication::MODIFIER_LBUTTON = MK_LBUTTON;
-const int WindowApplication::MODIFIER_MBUTTON = MK_MBUTTON;
-const int WindowApplication::MODIFIER_RBUTTON = MK_RBUTTON;
-const int WindowApplication::MODIFIER_SHIFT = MK_SHIFT;
+const int SEWindowApplication::MODIFIER_CONTROL = MK_CONTROL;
+const int SEWindowApplication::MODIFIER_LBUTTON = MK_LBUTTON;
+const int SEWindowApplication::MODIFIER_MBUTTON = MK_MBUTTON;
+const int SEWindowApplication::MODIFIER_RBUTTON = MK_RBUTTON;
+const int SEWindowApplication::MODIFIER_SHIFT = MK_SHIFT;
 
 // VC7.1 basetsd.h中定义了,但VC6 basetsd.h中没有.
 #ifndef IntToPtr
@@ -96,7 +96,7 @@ const int WindowApplication::MODIFIER_SHIFT = MK_SHIFT;
 #endif
 
 //----------------------------------------------------------------------------
-void WindowApplication::SetMousePosition(int iX, int iY)
+void SEWindowApplication::SetMousePosition(int iX, int iY)
 {
     HWND hWnd = (HWND)IntToPtr(m_iWindowID);
     POINT tempPoint;
@@ -106,7 +106,7 @@ void WindowApplication::SetMousePosition(int iX, int iY)
     SetCursorPos(tempPoint.x, tempPoint.y);
 }
 //----------------------------------------------------------------------------
-void WindowApplication::GetMousePosition(int& riX, int& riY) const
+void SEWindowApplication::GetMousePosition(int& riX, int& riY) const
 {
     HWND hWnd = (HWND)IntToPtr(m_iWindowID);
     POINT tempPoint;
@@ -116,7 +116,7 @@ void WindowApplication::GetMousePosition(int& riX, int& riY) const
     riY = (int)tempPoint.y;
 }
 //----------------------------------------------------------------------------
-int WindowApplication::GetStringWidth(const char* acText) const
+int SEWindowApplication::GetStringWidth(const char* acText) const
 {
     if( !acText || strlen(acText) == 0 )
     {
@@ -132,7 +132,7 @@ int WindowApplication::GetStringWidth(const char* acText) const
     return (int)tempSize.cx;
 }
 //----------------------------------------------------------------------------
-int WindowApplication::GetCharacterWidth(const char cCharacter) const
+int SEWindowApplication::GetCharacterWidth(const char cCharacter) const
 {
     HWND hWnd = (HWND)IntToPtr(m_iWindowID);
     HDC hDC = GetDC(hWnd);
@@ -143,7 +143,7 @@ int WindowApplication::GetCharacterWidth(const char cCharacter) const
     return (int)tempSize.cx;
 }
 //----------------------------------------------------------------------------
-int WindowApplication::GetFontHeight() const
+int SEWindowApplication::GetFontHeight() const
 {
     HWND hWnd = (HWND)IntToPtr(m_iWindowID);
     HDC hDC = GetDC(hWnd);
@@ -157,8 +157,8 @@ int WindowApplication::GetFontHeight() const
 LRESULT CALLBACK MsWindowEventHandler(HWND hWnd, UINT uiMsg, WPARAM wParam,
     LPARAM lParam)
 {
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
 
     if( !pTheApp || !pTheApp->GetWindowID() )
     {
@@ -268,8 +268,9 @@ LRESULT CALLBACK MsWindowEventHandler(HWND hWnd, UINT uiMsg, WPARAM wParam,
         {
             int iXPos = int(LOWORD(lParam));
             int iYPos = int(HIWORD(lParam));
-            pTheApp->OnMouseClick(WindowApplication::MOUSE_LEFT_BUTTON,
-                WindowApplication::MOUSE_DOWN, iXPos, iYPos, PtrToUint(wParam));
+            pTheApp->OnMouseClick(SEWindowApplication::MOUSE_LEFT_BUTTON,
+                SEWindowApplication::MOUSE_DOWN, iXPos, iYPos, 
+                PtrToUint(wParam));
 
             return 0;
         }
@@ -277,8 +278,9 @@ LRESULT CALLBACK MsWindowEventHandler(HWND hWnd, UINT uiMsg, WPARAM wParam,
         {
             int iXPos = int(LOWORD(lParam));
             int iYPos = int(HIWORD(lParam));
-            pTheApp->OnMouseClick(WindowApplication::MOUSE_LEFT_BUTTON,
-                WindowApplication::MOUSE_UP, iXPos, iYPos, PtrToUint(wParam));
+            pTheApp->OnMouseClick(SEWindowApplication::MOUSE_LEFT_BUTTON,
+                SEWindowApplication::MOUSE_UP, iXPos, iYPos, 
+                PtrToUint(wParam));
 
             return 0;
         }
@@ -286,8 +288,9 @@ LRESULT CALLBACK MsWindowEventHandler(HWND hWnd, UINT uiMsg, WPARAM wParam,
         {
             int iXPos = int(LOWORD(lParam));
             int iYPos = int(HIWORD(lParam));
-            pTheApp->OnMouseClick(WindowApplication::MOUSE_MIDDLE_BUTTON,
-                WindowApplication::MOUSE_DOWN, iXPos, iYPos, PtrToUint(wParam));
+            pTheApp->OnMouseClick(SEWindowApplication::MOUSE_MIDDLE_BUTTON,
+                SEWindowApplication::MOUSE_DOWN, iXPos, iYPos, 
+                PtrToUint(wParam));
 
             return 0;
         }
@@ -295,8 +298,9 @@ LRESULT CALLBACK MsWindowEventHandler(HWND hWnd, UINT uiMsg, WPARAM wParam,
         {
             int iXPos = int(LOWORD(lParam));
             int iYPos = int(HIWORD(lParam));
-            pTheApp->OnMouseClick(WindowApplication::MOUSE_MIDDLE_BUTTON,
-                WindowApplication::MOUSE_UP, iXPos, iYPos, PtrToUint(wParam));
+            pTheApp->OnMouseClick(SEWindowApplication::MOUSE_MIDDLE_BUTTON,
+                SEWindowApplication::MOUSE_UP, iXPos, iYPos, 
+                PtrToUint(wParam));
 
             return 0;
         }
@@ -304,8 +308,9 @@ LRESULT CALLBACK MsWindowEventHandler(HWND hWnd, UINT uiMsg, WPARAM wParam,
         {
             int iXPos = int(LOWORD(lParam));
             int iYPos = int(HIWORD(lParam));
-            pTheApp->OnMouseClick(WindowApplication::MOUSE_RIGHT_BUTTON,
-                WindowApplication::MOUSE_DOWN, iXPos, iYPos, PtrToUint(wParam));
+            pTheApp->OnMouseClick(SEWindowApplication::MOUSE_RIGHT_BUTTON,
+                SEWindowApplication::MOUSE_DOWN, iXPos, iYPos, 
+                PtrToUint(wParam));
 
             return 0;
         }
@@ -313,8 +318,9 @@ LRESULT CALLBACK MsWindowEventHandler(HWND hWnd, UINT uiMsg, WPARAM wParam,
         {
             int iXPos = int(LOWORD(lParam));
             int iYPos = int(HIWORD(lParam));
-            pTheApp->OnMouseClick(WindowApplication::MOUSE_RIGHT_BUTTON,
-                WindowApplication::MOUSE_UP, iXPos, iYPos, PtrToUint(wParam));
+            pTheApp->OnMouseClick(SEWindowApplication::MOUSE_RIGHT_BUTTON,
+                SEWindowApplication::MOUSE_UP, iXPos, iYPos, 
+                PtrToUint(wParam));
 
             return 0;
         }
@@ -326,15 +332,15 @@ LRESULT CALLBACK MsWindowEventHandler(HWND hWnd, UINT uiMsg, WPARAM wParam,
             int iButton = -1;
             if( wParam & MK_LBUTTON )
             {
-                iButton = WindowApplication::MOUSE_LEFT_BUTTON;
+                iButton = SEWindowApplication::MOUSE_LEFT_BUTTON;
             }
             else if( wParam & MK_MBUTTON )
             {
-                iButton = WindowApplication::MOUSE_MIDDLE_BUTTON;
+                iButton = SEWindowApplication::MOUSE_MIDDLE_BUTTON;
             }
             else if( wParam & MK_RBUTTON )
             {
-                iButton = WindowApplication::MOUSE_RIGHT_BUTTON;
+                iButton = SEWindowApplication::MOUSE_RIGHT_BUTTON;
             }
 
             if( iButton >= 0 )
@@ -359,10 +365,10 @@ LRESULT CALLBACK MsWindowEventHandler(HWND hWnd, UINT uiMsg, WPARAM wParam,
     return DefWindowProc(hWnd, uiMsg, wParam, lParam);
 }
 //----------------------------------------------------------------------------
-int WindowApplication::Main(int, char**)
+int SEWindowApplication::Main(int, char**)
 {
-    WindowApplication* pTheApp = (WindowApplication*)TheApplication;
-    pTheApp->KEY_TERMINATE = WindowApplication::KEY_ESCAPE;
+    SEWindowApplication* pTheApp = (SEWindowApplication*)TheApplication;
+    pTheApp->KEY_TERMINATE = SEWindowApplication::KEY_ESCAPE;
 
     // 允许在窗体创建之前做一些工作.
     if( !pTheApp->OnPrecreate() )
@@ -371,7 +377,7 @@ int WindowApplication::Main(int, char**)
     }
 
     // 注册窗体类.
-    static char s_acWindowClass[] = "Swing Application";
+    static char s_acWindowClass[] = "Swing SEApplication";
     WNDCLASS wc;
     wc.style         = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
     wc.lpfnWndProc   = MsWindowEventHandler;
@@ -396,7 +402,7 @@ int WindowApplication::Main(int, char**)
         0, 0);
 
     // 创建渲染器.
-    WglES2Renderer* pRenderer = SE_NEW WglES2Renderer(hWnd, m_eFormat,
+    SEWglES2Renderer* pRenderer = SE_NEW SEWglES2Renderer(hWnd, m_eFormat,
         m_eDepth, m_eStencil, m_eBuffering, m_eMultisampling, m_iWidth,
         m_iHeight);
 
@@ -404,7 +410,7 @@ int WindowApplication::Main(int, char**)
     pTheApp->SetRenderer(pRenderer);
 
     // 创建声音渲染器.
-    pTheApp->SetAudioRenderer(SE_NEW WalRenderer);
+    pTheApp->SetAudioRenderer(SE_NEW SEWalRenderer);
 
     if( pTheApp->OnInitialize() )
     {
@@ -442,28 +448,28 @@ int WindowApplication::Main(int, char**)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Application::LaunchTreeControl(Spatial* pScene, int iXPos, int iYPos,
+void SEApplication::LaunchTreeControl(SESpatial* pScene, int iXPos, int iYPos,
     int iXSize, int iYSize)
 {
-    TreeControl* pControl;
-    GetExtraData(0, sizeof(TreeControl*), &pControl);
+    SETreeControl* pControl;
+    GetExtraData(0, sizeof(SETreeControl*), &pControl);
     if( !pControl )
     {
-        pControl = SE_NEW TreeControl(this, 0, GetModuleHandle(0), 0, pScene, 
+        pControl = SE_NEW SETreeControl(this, 0, GetModuleHandle(0), 0, pScene, 
             iXPos, iYPos, iXSize, iYSize);
-        SetExtraData(0, sizeof(TreeControl*), &pControl);
+        SetExtraData(0, sizeof(SETreeControl*), &pControl);
     }
 }
 //----------------------------------------------------------------------------
-void Application::ShutdownTreeControl()
+void SEApplication::ShutdownTreeControl()
 {
-    TreeControl* pControl;
-    GetExtraData(0, sizeof(TreeControl*), &pControl);
+    SETreeControl* pControl;
+    GetExtraData(0, sizeof(SETreeControl*), &pControl);
     if( pControl )
     {
         SE_DELETE pControl;
         pControl = 0;
-        SetExtraData(0, sizeof(TreeControl*), &pControl);
+        SetExtraData(0, sizeof(SETreeControl*), &pControl);
     }
 }
 //----------------------------------------------------------------------------

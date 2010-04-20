@@ -24,17 +24,17 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-WindowApplication3::WindowApplication3(const char* acWindowTitle,
+SEWindowApplication3::SEWindowApplication3(const char* acWindowTitle,
     int iXPosition, int iYPosition, int iWidth, int iHeight,
-    const ColorRGBA& rBackgroundColor)
+    const SEColorRGBA& rBackgroundColor)
     :
-    WindowApplication(acWindowTitle, iXPosition, iYPosition, iWidth, iHeight,
+    SEWindowApplication(acWindowTitle, iXPosition, iYPosition, iWidth, iHeight,
         rBackgroundColor)
 {
     // 摄像机运动
-    m_aWorldAxis[0] = Vector3f::ZERO;
-    m_aWorldAxis[1] = Vector3f::ZERO;
-    m_aWorldAxis[2] = Vector3f::ZERO;
+    m_aWorldAxis[0] = SEVector3f::ZERO;
+    m_aWorldAxis[1] = SEVector3f::ZERO;
+    m_aWorldAxis[2] = SEVector3f::ZERO;
     m_fTrnSpeed = 0.0f;
     m_fRotSpeed = 0.0f;
     m_bUArrowPressed = false;
@@ -69,56 +69,56 @@ WindowApplication3::WindowApplication3(const char* acWindowTitle,
     m_iMaxTimer = 30;
 
     // 辅助显示世界体系坐标轴
-    m_Origin = Vector3f::ZERO;
-    m_XEnd = Vector3f::UNIT_X;
-    m_YEnd = Vector3f::UNIT_Y;
-    m_ZEnd = Vector3f::UNIT_Z;
+    m_Origin = SEVector3f::ZERO;
+    m_XEnd = SEVector3f::UNIT_X;
+    m_YEnd = SEVector3f::UNIT_Y;
+    m_ZEnd = SEVector3f::UNIT_Z;
     m_fT = 1.0f;
 }
 //----------------------------------------------------------------------------
-WindowApplication3::~WindowApplication3()
+SEWindowApplication3::~SEWindowApplication3()
 {
 }
 //----------------------------------------------------------------------------
-bool WindowApplication3::OnInitialize()
+bool SEWindowApplication3::OnInitialize()
 {
-    if( !WindowApplication::OnInitialize() )
+    if( !SEWindowApplication::OnInitialize() )
     {
         return false;
     }
 
-    m_spCamera = SE_NEW Camera;
+    m_spCamera = SE_NEW SECamera;
     m_pRenderer->SetCamera(m_spCamera);
     m_spMotionObject = 0;
 
-    m_spListener = SE_NEW Listener;
+    m_spListener = SE_NEW SEListener;
     m_pAudioRenderer->SetListener(m_spListener);
 
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetColorChannels(0, 3);
-    VertexBuffer* pVBuffer = SE_NEW VertexBuffer(tempAttr, 6);
-    (*(Vector3f*)pVBuffer->PositionTuple(0)) = m_Origin;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 0)) = ColorRGB::SE_RGB_RED;
-    (*(Vector3f*)pVBuffer->PositionTuple(1)) = m_XEnd;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 1)) = ColorRGB::SE_RGB_RED;
-    (*(Vector3f*)pVBuffer->PositionTuple(2)) = m_Origin;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 2)) = ColorRGB::SE_RGB_GREEN;  
-    (*(Vector3f*)pVBuffer->PositionTuple(3)) = m_YEnd;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 3)) = ColorRGB::SE_RGB_GREEN;
-    (*(Vector3f*)pVBuffer->PositionTuple(4)) = m_Origin;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 4)) = ColorRGB::SE_RGB_BLUE;
-    (*(Vector3f*)pVBuffer->PositionTuple(5)) = m_ZEnd;
-    (*(ColorRGB*)pVBuffer->ColorTuple(0, 5)) = ColorRGB::SE_RGB_BLUE;
-    m_spWorldAxis = SE_NEW Polyline(pVBuffer, false, false);
+    SEVertexBuffer* pVBuffer = SE_NEW SEVertexBuffer(tempAttr, 6);
+    (*(SEVector3f*)pVBuffer->PositionTuple(0)) = m_Origin;
+    (*(SEColorRGB*)pVBuffer->ColorTuple(0, 0)) = SEColorRGB::SE_RGB_RED;
+    (*(SEVector3f*)pVBuffer->PositionTuple(1)) = m_XEnd;
+    (*(SEColorRGB*)pVBuffer->ColorTuple(0, 1)) = SEColorRGB::SE_RGB_RED;
+    (*(SEVector3f*)pVBuffer->PositionTuple(2)) = m_Origin;
+    (*(SEColorRGB*)pVBuffer->ColorTuple(0, 2)) = SEColorRGB::SE_RGB_GREEN;  
+    (*(SEVector3f*)pVBuffer->PositionTuple(3)) = m_YEnd;
+    (*(SEColorRGB*)pVBuffer->ColorTuple(0, 3)) = SEColorRGB::SE_RGB_GREEN;
+    (*(SEVector3f*)pVBuffer->PositionTuple(4)) = m_Origin;
+    (*(SEColorRGB*)pVBuffer->ColorTuple(0, 4)) = SEColorRGB::SE_RGB_BLUE;
+    (*(SEVector3f*)pVBuffer->PositionTuple(5)) = m_ZEnd;
+    (*(SEColorRGB*)pVBuffer->ColorTuple(0, 5)) = SEColorRGB::SE_RGB_BLUE;
+    m_spWorldAxis = SE_NEW SEPolyline(pVBuffer, false, false);
 
-    VertexColor3Effect* pEffect = SE_NEW VertexColor3Effect;
+    SEVertexColor3Effect* pEffect = SE_NEW SEVertexColor3Effect;
     m_spWorldAxis->AttachEffect(pEffect);
 
     return true;
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::OnTerminate()
+void SEWindowApplication3::OnTerminate()
 {
     m_pRenderer->SetCamera(0);
     m_spCamera = 0;
@@ -128,10 +128,10 @@ void WindowApplication3::OnTerminate()
     m_pAudioRenderer->SetListener(0);
     m_spListener = 0;
 
-    WindowApplication::OnTerminate();
+    SEWindowApplication::OnTerminate();
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::OnDisplay()
+void SEWindowApplication3::OnDisplay()
 {
     if( m_pRenderer )
     {
@@ -139,9 +139,9 @@ void WindowApplication3::OnDisplay()
     }
 }
 //----------------------------------------------------------------------------
-bool WindowApplication3::OnKeyDown(unsigned char ucKey, int iX, int iY)
+bool SEWindowApplication3::OnKeyDown(unsigned char ucKey, int iX, int iY)
 {
-    if( WindowApplication::OnKeyDown(ucKey, iX, iY) )
+    if( SEWindowApplication::OnKeyDown(ucKey, iX, iY) )
     {
         return true;
     }
@@ -185,7 +185,7 @@ bool WindowApplication3::OnKeyDown(unsigned char ucKey, int iX, int iY)
     return false;
 }
 //----------------------------------------------------------------------------
-bool WindowApplication3::OnSpecialKeyDown(int iKey, int, int)
+bool SEWindowApplication3::OnSpecialKeyDown(int iKey, int, int)
 {
     if( m_bCameraMoveable )
     {
@@ -282,7 +282,7 @@ bool WindowApplication3::OnSpecialKeyDown(int iKey, int, int)
     return false;
 }
 //----------------------------------------------------------------------------
-bool WindowApplication3::OnSpecialKeyUp(int iKey, int, int)
+bool SEWindowApplication3::OnSpecialKeyUp(int iKey, int, int)
 {
     if( m_bCameraMoveable )
     {
@@ -379,7 +379,7 @@ bool WindowApplication3::OnSpecialKeyUp(int iKey, int, int)
     return false;
 }
 //----------------------------------------------------------------------------
-bool WindowApplication3::OnMouseClick(int iButton, int iState, int iX,
+bool SEWindowApplication3::OnMouseClick(int iButton, int iState, int iX,
     int iY, unsigned int)
 {
     if( !m_bUseTrackBall
@@ -407,7 +407,7 @@ bool WindowApplication3::OnMouseClick(int iButton, int iState, int iX,
     return true;
 }
 //----------------------------------------------------------------------------
-bool WindowApplication3::OnMotion(int iButton, int iX, int iY, unsigned int)
+bool SEWindowApplication3::OnMotion(int iButton, int iX, int iY, unsigned int)
 {
     if( !m_bUseTrackBall
     ||  iButton != MOUSE_LEFT_BUTTON
@@ -432,7 +432,7 @@ bool WindowApplication3::OnMotion(int iButton, int iX, int iY, unsigned int)
 //----------------------------------------------------------------------------
 // 摄像机运动
 //----------------------------------------------------------------------------
-void WindowApplication3::InitializeCameraMotion(float fTrnSpeed,
+void SEWindowApplication3::InitializeCameraMotion(float fTrnSpeed,
     float fRotSpeed, float fTrnSpeedFactor, float fRotSpeedFactor)
 {
     m_bCameraMoveable = true;
@@ -447,7 +447,7 @@ void WindowApplication3::InitializeCameraMotion(float fTrnSpeed,
     m_aWorldAxis[2] = m_spCamera->GetDVector();
 }
 //----------------------------------------------------------------------------
-bool WindowApplication3::MoveCamera()
+bool SEWindowApplication3::MoveCamera()
 {
     if( !m_bCameraMoveable )
     {
@@ -507,92 +507,92 @@ bool WindowApplication3::MoveCamera()
     return bMoved;
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::MoveForward()
+void SEWindowApplication3::MoveForward()
 {
-    Vector3f vec3fLoc = m_spCamera->GetLocation();
+    SEVector3f vec3fLoc = m_spCamera->GetLocation();
     vec3fLoc += m_fTrnSpeed * m_aWorldAxis[2]; // 沿D轴方向前进
     m_spCamera->SetLocation(vec3fLoc);
     m_spListener->SetLocation(vec3fLoc);
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::MoveBackward()
+void SEWindowApplication3::MoveBackward()
 {
-    Vector3f vec3fLoc = m_spCamera->GetLocation();
+    SEVector3f vec3fLoc = m_spCamera->GetLocation();
     vec3fLoc -= m_fTrnSpeed * m_aWorldAxis[2]; // 沿D轴方向后退
     m_spCamera->SetLocation(vec3fLoc);
     m_spListener->SetLocation(vec3fLoc);
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::MoveUp()
+void SEWindowApplication3::MoveUp()
 {
-    Vector3f vec3fLoc = m_spCamera->GetLocation();
+    SEVector3f vec3fLoc = m_spCamera->GetLocation();
     vec3fLoc += m_fTrnSpeed * m_aWorldAxis[1]; // 沿U轴方向上升
     m_spCamera->SetLocation(vec3fLoc);
     m_spListener->SetLocation(vec3fLoc);
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::MoveDown()
+void SEWindowApplication3::MoveDown()
 {
-    Vector3f vec3fLoc = m_spCamera->GetLocation();
+    SEVector3f vec3fLoc = m_spCamera->GetLocation();
     vec3fLoc -= m_fTrnSpeed * m_aWorldAxis[1]; // 沿U轴方向下降
     m_spCamera->SetLocation(vec3fLoc);
     m_spListener->SetLocation(vec3fLoc);
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::TurnLeft()
+void SEWindowApplication3::TurnLeft()
 {
-    Matrix3f mat3fIncr(m_aWorldAxis[1], -m_fRotSpeed);
+    SEMatrix3f mat3fIncr(m_aWorldAxis[1], -m_fRotSpeed);
     m_aWorldAxis[0] = m_aWorldAxis[0] * mat3fIncr; // R轴绕U轴向左旋转
     m_aWorldAxis[2] = m_aWorldAxis[2] * mat3fIncr; // D轴绕U轴向左旋转
 
     // 更新摄像机RUD轴.
-    Vector3f tempRVector = m_spCamera->GetRVector() * mat3fIncr;
-    Vector3f tempUVector = m_spCamera->GetUVector() * mat3fIncr;
-    Vector3f tempDVector = m_spCamera->GetDVector() * mat3fIncr;
+    SEVector3f tempRVector = m_spCamera->GetRVector() * mat3fIncr;
+    SEVector3f tempUVector = m_spCamera->GetUVector() * mat3fIncr;
+    SEVector3f tempDVector = m_spCamera->GetDVector() * mat3fIncr;
     m_spCamera->SetAxes(tempRVector, tempUVector, tempDVector);
 
     // 更新listener RUD轴.
     m_spListener->SetAxes(tempRVector, tempUVector, tempDVector);
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::TurnRight()
+void SEWindowApplication3::TurnRight()
 {
-    Matrix3f mat3fIncr(m_aWorldAxis[1], +m_fRotSpeed);
+    SEMatrix3f mat3fIncr(m_aWorldAxis[1], +m_fRotSpeed);
     m_aWorldAxis[0] = m_aWorldAxis[0] * mat3fIncr; // R轴绕U轴向右旋转
     m_aWorldAxis[2] = m_aWorldAxis[2] * mat3fIncr; // D轴绕U轴向右旋转
 
     // 更新摄像机RUD轴.
-    Vector3f tempRVector = m_spCamera->GetRVector() * mat3fIncr;
-    Vector3f tempUVector = m_spCamera->GetUVector() * mat3fIncr;
-    Vector3f tempDVector = m_spCamera->GetDVector() * mat3fIncr;
+    SEVector3f tempRVector = m_spCamera->GetRVector() * mat3fIncr;
+    SEVector3f tempUVector = m_spCamera->GetUVector() * mat3fIncr;
+    SEVector3f tempDVector = m_spCamera->GetDVector() * mat3fIncr;
     m_spCamera->SetAxes(tempRVector, tempUVector, tempDVector);
 
     // 更新listener RUD轴.
     m_spListener->SetAxes(tempRVector, tempUVector, tempDVector);
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::LookUp()
+void SEWindowApplication3::LookUp()
 {
-    Matrix3f mat3fIncr(m_aWorldAxis[0], -m_fRotSpeed);
+    SEMatrix3f mat3fIncr(m_aWorldAxis[0], -m_fRotSpeed);
 
     // 更新摄像机RUD轴.
-    Vector3f tempRVector = m_spCamera->GetRVector() * mat3fIncr;
-    Vector3f tempUVector = m_spCamera->GetUVector() * mat3fIncr;
-    Vector3f tempDVector = m_spCamera->GetDVector() * mat3fIncr;
+    SEVector3f tempRVector = m_spCamera->GetRVector() * mat3fIncr;
+    SEVector3f tempUVector = m_spCamera->GetUVector() * mat3fIncr;
+    SEVector3f tempDVector = m_spCamera->GetDVector() * mat3fIncr;
     m_spCamera->SetAxes(tempRVector, tempUVector, tempDVector);
 
     // 更新listener RUD轴.
     m_spListener->SetAxes(tempRVector, tempUVector, tempDVector);
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::LookDown()
+void SEWindowApplication3::LookDown()
 {
-    Matrix3f mat3fIncr(m_aWorldAxis[0], +m_fRotSpeed);
+    SEMatrix3f mat3fIncr(m_aWorldAxis[0], +m_fRotSpeed);
 
     // 更新摄像机RUD轴.
-    Vector3f tempRVector = m_spCamera->GetRVector() * mat3fIncr;
-    Vector3f tempUVector = m_spCamera->GetUVector() * mat3fIncr;
-    Vector3f tempDVector = m_spCamera->GetDVector() * mat3fIncr;
+    SEVector3f tempRVector = m_spCamera->GetRVector() * mat3fIncr;
+    SEVector3f tempUVector = m_spCamera->GetUVector() * mat3fIncr;
+    SEVector3f tempDVector = m_spCamera->GetDVector() * mat3fIncr;
     m_spCamera->SetAxes(tempRVector, tempUVector, tempDVector);
 
     // 更新listener RUD轴.
@@ -603,12 +603,12 @@ void WindowApplication3::LookDown()
 //----------------------------------------------------------------------------
 // 对象运动
 //----------------------------------------------------------------------------
-void WindowApplication3::InitializeObjectMotion(Spatial* pMotionObject)
+void SEWindowApplication3::InitializeObjectMotion(SESpatial* pMotionObject)
 {
     m_spMotionObject = pMotionObject;
 }
 //----------------------------------------------------------------------------
-bool WindowApplication3::MoveObject()
+bool SEWindowApplication3::MoveObject()
 {
     // 旋转变换针对的是对象的父节点的坐标系,如果对象父节点非空的话.
     // 其世界旋转变换矩阵是R,R的3列构成了一组坐标轴.
@@ -616,7 +616,7 @@ bool WindowApplication3::MoveObject()
     // 如果对象没有父节点,则使用世界体系坐标轴,
     // 此时旋转矩阵是一个单位矩阵I,
     // 0列(1,0,0)为"right",1列(0,1,0)为"up",2列(0,0,1)为"direction".
-    // 这个选择与Camera和Light类中的旋转变换的选择是一致的.
+    // 这个选择与SECamera和Light类中的旋转变换的选择是一致的.
     //
     // Yaw针对"up"轴,Pitch针对"right"轴,Roll针对"direction"轴.
 
@@ -632,10 +632,10 @@ bool WindowApplication3::MoveObject()
     }
 
     // 检查对象是否已经被功能键移动过.
-    Spatial* pParent = m_spMotionObject->GetParent();
-    Vector3f vec3fAxis;
+    SESpatial* pParent = m_spMotionObject->GetParent();
+    SEVector3f vec3fAxis;
     float fAngle;
-    Matrix3f mat3fRot, mat3fIncr;
+    SEMatrix3f mat3fRot, mat3fIncr;
 
     if( m_iDoPitch ) // 针对R轴
     {
@@ -648,7 +648,7 @@ bool WindowApplication3::MoveObject()
         }
         else
         {
-            vec3fAxis = Vector3f::UNIT_X;
+            vec3fAxis = SEVector3f::UNIT_X;
         }
 
         mat3fIncr.FromAxisAngle(vec3fAxis, fAngle);
@@ -670,7 +670,7 @@ bool WindowApplication3::MoveObject()
         }
         else
         {
-            vec3fAxis = Vector3f::UNIT_Y;
+            vec3fAxis = SEVector3f::UNIT_Y;
         }
 
         mat3fIncr.FromAxisAngle(vec3fAxis, fAngle);
@@ -692,7 +692,7 @@ bool WindowApplication3::MoveObject()
         }
         else
         {
-            vec3fAxis = Vector3f::UNIT_Z;
+            vec3fAxis = SEVector3f::UNIT_Z;
         }
 
         mat3fIncr.FromAxisAngle(vec3fAxis, fAngle);
@@ -706,7 +706,7 @@ bool WindowApplication3::MoveObject()
     return false;
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::RotateTrackBall(float fX0, float fY0, float fX1,
+void SEWindowApplication3::RotateTrackBall(float fX0, float fY0, float fX1,
     float fY1)
 {
     if( !m_spCamera )
@@ -714,7 +714,7 @@ void WindowApplication3::RotateTrackBall(float fX0, float fY0, float fX1,
         return;
     }
 
-    Matrix3f mat3fTrackRotate;
+    SEMatrix3f mat3fTrackRotate;
     if( !m_spCamera->GetTrackBallRotate(fX0, fY0, fX1, fY1, mat3fTrackRotate) )
     {
         return;
@@ -725,14 +725,15 @@ void WindowApplication3::RotateTrackBall(float fX0, float fY0, float fX1,
     // 进一步施加刚刚算出的增量旋转变换,成为Rlocal' = Rlocal*Rincremental.
     // 如果对象不是scene的根节点,则必须通过一系列针对对象父节点的基变换,
     // 使新local旋转变换成为:Rlocal' = Rlocal*Rparent*Rincremental*(Rparent^T).
-    const Spatial* pParent = m_spMotionObject->GetParent();
-    Matrix3f mat3fLocalRot;
+    const SESpatial* pParent = m_spMotionObject->GetParent();
+    SEMatrix3f mat3fLocalRot;
     if( pParent )
     {
-        const Matrix3f& rPRotate = pParent->World.GetRotate();
-        Matrix3f mat3fPRotateT;
+        const SEMatrix3f& rPRotate = pParent->World.GetRotate();
+        SEMatrix3f mat3fPRotateT;
         rPRotate.GetTranspose(mat3fPRotateT);
-        mat3fLocalRot = m_SaveRotate * rPRotate * mat3fTrackRotate * mat3fPRotateT;
+        mat3fLocalRot = m_SaveRotate * rPRotate * mat3fTrackRotate * 
+            mat3fPRotateT;
     }
     else
     {
@@ -746,17 +747,17 @@ void WindowApplication3::RotateTrackBall(float fX0, float fY0, float fX1,
 //----------------------------------------------------------------------------
 // 性能测试
 //----------------------------------------------------------------------------
-void WindowApplication3::ResetTime()
+void SEWindowApplication3::ResetTime()
 {
     m_dLastTime = -1.0f;
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::MeasureTime()
+void SEWindowApplication3::MeasureTime()
 {
     // 开始性能测试.
     if( m_dLastTime == -1.0 )
     {
-        m_dLastTime = System::SE_GetTime();
+        m_dLastTime = SESystem::SE_GetTime();
         m_dAccumulatedTime = 0.0;
         m_dFrameRate = 0.0;
         m_iFrameCount = 0;
@@ -767,7 +768,7 @@ void WindowApplication3::MeasureTime()
     // 定时积累m_dAccumulatedTime,m_iAccumulatedFrameCount.
     if( --m_iTimer == 0 )
     {
-        double dCurrentTime = System::SE_GetTime();
+        double dCurrentTime = SESystem::SE_GetTime();
         double dDelta = dCurrentTime - m_dLastTime;
         m_dLastTime = dCurrentTime;
         m_dAccumulatedTime += dDelta;
@@ -777,12 +778,13 @@ void WindowApplication3::MeasureTime()
     }
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::UpdateFrameCount()
+void SEWindowApplication3::UpdateFrameCount()
 {
     m_iFrameCount++;
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::DrawFrameRate(int iX, int iY, const ColorRGBA& rColor)
+void SEWindowApplication3::DrawFrameRate(int iX, int iY, const SEColorRGBA& 
+    rColor)
 {
     if( m_dAccumulatedTime > 0.0 )
     {
@@ -795,7 +797,7 @@ void WindowApplication3::DrawFrameRate(int iX, int iY, const ColorRGBA& rColor)
 
     const size_t uiSize = 256;
     char acMessage[uiSize];
-    System::SE_Sprintf(acMessage, uiSize, "fps: %.1lf", m_dFrameRate);
+    SESystem::SE_Sprintf(acMessage, uiSize, "fps: %.1lf", m_dFrameRate);
     m_pRenderer->Draw(iX, iY, rColor, acMessage);
 }
 //----------------------------------------------------------------------------
@@ -803,18 +805,18 @@ void WindowApplication3::DrawFrameRate(int iX, int iY, const ColorRGBA& rColor)
 //----------------------------------------------------------------------------
 // 辅助显示世界体系坐标轴
 //----------------------------------------------------------------------------
-void WindowApplication3::DrawWorldAxis(void)
+void SEWindowApplication3::DrawWorldAxis(void)
 {
     m_pRenderer->Draw(m_spWorldAxis);
     m_pRenderer->Draw(m_iXEndScreenX + 2, m_iXEndScreenY - 2, 
-        ColorRGBA::SE_RGBA_RED, "x");
+        SEColorRGBA::SE_RGBA_RED, "x");
     m_pRenderer->Draw(m_iYEndScreenX + 2, m_iYEndScreenY - 2, 
-        ColorRGBA::SE_RGBA_GREEN, "y");
+        SEColorRGBA::SE_RGBA_GREEN, "y");
     m_pRenderer->Draw(m_iZEndScreenX + 2, m_iZEndScreenY - 2, 
-        ColorRGBA::SE_RGBA_BLUE, "z");
+        SEColorRGBA::SE_RGBA_BLUE, "z");
 }
 //----------------------------------------------------------------------------
-void WindowApplication3::SetOriginScreenPos(int iX, int iY, float fT)
+void SEWindowApplication3::SetOriginScreenPos(int iX, int iY, float fT)
 {
     SE_ASSERT( iX >= 0 && iX < m_iWidth );
     SE_ASSERT( iY >= 0 && iY < m_iHeight );
@@ -822,24 +824,24 @@ void WindowApplication3::SetOriginScreenPos(int iX, int iY, float fT)
     float fX = ((float)iX / (float)m_iWidth)*2.0f - 1.0f;
     float fY = (1.0f - (float)iY / (float)m_iHeight)*2.0f - 1.0f;
     // 注意如果z分量不是0时,最终变换结果需要除以w分量.
-    Vector4f vec4fOriginProj(fX, fY, 0.5f, 1.0f);
+    SEVector4f vec4fOriginProj(fX, fY, 0.5f, 1.0f);
 
-    Matrix4f mat4fProjInv, mat4fViewInv;
+    SEMatrix4f mat4fProjInv, mat4fViewInv;
     m_pRenderer->GetProjectionMatrix().GetInverse(mat4fProjInv);
     m_pRenderer->GetViewMatrix().GetInverse(mat4fViewInv);
-    Vector4f vec4fOriginView = vec4fOriginProj * mat4fProjInv;
-    Vector4f vec4fOriginWorld = vec4fOriginView * mat4fViewInv;
+    SEVector4f vec4fOriginView = vec4fOriginProj * mat4fProjInv;
+    SEVector4f vec4fOriginWorld = vec4fOriginView * mat4fViewInv;
     vec4fOriginWorld /= vec4fOriginWorld.W;
 
     m_fT = fT;
     m_Origin.X = vec4fOriginWorld.X;
     m_Origin.Y = vec4fOriginWorld.Y;
     m_Origin.Z = vec4fOriginWorld.Z;
-    m_XEnd = m_Origin + fT*Vector3f::UNIT_X;
-    m_YEnd = m_Origin + fT*Vector3f::UNIT_Y;
-    m_ZEnd = m_Origin + fT*Vector3f::UNIT_Z;
+    m_XEnd = m_Origin + fT*SEVector3f::UNIT_X;
+    m_YEnd = m_Origin + fT*SEVector3f::UNIT_Y;
+    m_ZEnd = m_Origin + fT*SEVector3f::UNIT_Z;
 
-    Vector4f vec4fXEnd, vec4fYEnd, vec4fZEnd,
+    SEVector4f vec4fXEnd, vec4fYEnd, vec4fZEnd,
         vec4fXEndProj, vec4fYEndProj, vec4fZEndProj;
     vec4fXEnd.X = m_XEnd.X;
     vec4fXEnd.Y = m_XEnd.Y;
@@ -853,8 +855,8 @@ void WindowApplication3::SetOriginScreenPos(int iX, int iY, float fT)
     vec4fZEnd.Y = m_ZEnd.Y;
     vec4fZEnd.Z = m_ZEnd.Z;
     vec4fZEnd.W = 1.0f;
-    const Matrix4f& rView = m_pRenderer->GetViewMatrix();
-    const Matrix4f& rProj = m_pRenderer->GetProjectionMatrix();
+    const SEMatrix4f& rView = m_pRenderer->GetViewMatrix();
+    const SEMatrix4f& rProj = m_pRenderer->GetProjectionMatrix();
     vec4fXEndProj = vec4fXEnd * rView * rProj;
     vec4fYEndProj = vec4fYEnd * rView * rProj;
     vec4fZEndProj = vec4fZEnd * rView * rProj;
@@ -869,12 +871,12 @@ void WindowApplication3::SetOriginScreenPos(int iX, int iY, float fT)
     m_iZEndScreenX = (int)((vec4fZEndProj.X*0.5f + 0.5f) * m_iWidth);
     m_iZEndScreenY = (int)((0.5f - vec4fZEndProj.Y*0.5f) * m_iHeight);
 
-    (*(Vector3f*)m_spWorldAxis->VBuffer->PositionTuple(0)) = m_Origin;
-    (*(Vector3f*)m_spWorldAxis->VBuffer->PositionTuple(1)) = m_XEnd;
-    (*(Vector3f*)m_spWorldAxis->VBuffer->PositionTuple(2)) = m_Origin;
-    (*(Vector3f*)m_spWorldAxis->VBuffer->PositionTuple(3)) = m_YEnd;
-    (*(Vector3f*)m_spWorldAxis->VBuffer->PositionTuple(4)) = m_Origin;
-    (*(Vector3f*)m_spWorldAxis->VBuffer->PositionTuple(5)) = m_ZEnd;
+    (*(SEVector3f*)m_spWorldAxis->VBuffer->PositionTuple(0)) = m_Origin;
+    (*(SEVector3f*)m_spWorldAxis->VBuffer->PositionTuple(1)) = m_XEnd;
+    (*(SEVector3f*)m_spWorldAxis->VBuffer->PositionTuple(2)) = m_Origin;
+    (*(SEVector3f*)m_spWorldAxis->VBuffer->PositionTuple(3)) = m_YEnd;
+    (*(SEVector3f*)m_spWorldAxis->VBuffer->PositionTuple(4)) = m_Origin;
+    (*(SEVector3f*)m_spWorldAxis->VBuffer->PositionTuple(5)) = m_ZEnd;
     m_spWorldAxis->VBuffer->Release();
 }
 //----------------------------------------------------------------------------

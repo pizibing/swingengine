@@ -27,19 +27,18 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:3D窗口应用程序基类
 // 说明:
 // 作者:jazzboysc
 // 时间:20080809
 //----------------------------------------------------------------------------
-class WindowApplication3 : public WindowApplication
+class SEWindowApplication3 : public SEWindowApplication
 {
 public:
-    WindowApplication3(const char* acWindowTitle, int iXPosition,
+    SEWindowApplication3(const char* acWindowTitle, int iXPosition,
         int iYPosition, int iWidth, int iHeight,
-        const ColorRGBA& rBackgroundColor);
+        const SEColorRGBA& rBackgroundColor);
 
-    virtual ~WindowApplication3(void);
+    virtual ~SEWindowApplication3(void);
 
     // 事件回调函数
     virtual bool OnInitialize(void);
@@ -66,8 +65,8 @@ protected:
     virtual void TurnRight(void);
     virtual void LookUp(void);
     virtual void LookDown(void);
-    CameraPtr m_spCamera;
-    Vector3f m_aWorldAxis[3];
+    SECameraPtr m_spCamera;
+    SEVector3f m_aWorldAxis[3];
     float m_fTrnSpeed, m_fTrnSpeedFactor;
     float m_fRotSpeed, m_fRotSpeedFactor;
     bool m_bUArrowPressed;
@@ -81,23 +80,23 @@ protected:
     bool m_bCameraMoveable;
 
     // listener运动
-    ListenerPtr m_spListener;
+    SEListenerPtr m_spListener;
 
     // 对象运动
-    void InitializeObjectMotion(Spatial* pMotionObject);
+    void InitializeObjectMotion(SESpatial* pMotionObject);
     bool MoveObject(void);
     void RotateTrackBall(float fX0, float fY0, float fX1, float fY1);
-    SpatialPtr m_spMotionObject;
+    SESpatialPtr m_spMotionObject;
     int m_iDoRoll, m_iDoYaw, m_iDoPitch;
     float m_fXTrack0, m_fYTrack0, m_fXTrack1, m_fYTrack1;
-    Matrix3f m_SaveRotate;
+    SEMatrix3f m_SaveRotate;
     bool m_bUseTrackBall, m_bTrackBallDown;
 
     // 性能测试
     void ResetTime(void);
     void MeasureTime(void);
     void UpdateFrameCount(void);
-    void DrawFrameRate(int iX, int iY, const ColorRGBA& rColor);
+    void DrawFrameRate(int iX, int iY, const SEColorRGBA& rColor);
     double m_dLastTime, m_dAccumulatedTime, m_dFrameRate;
     int m_iFrameCount, m_iAccumulatedFrameCount, m_iTimer, m_iMaxTimer;
 
@@ -109,8 +108,8 @@ protected:
     int m_iYEndScreenX, m_iYEndScreenY;
     int m_iZEndScreenX, m_iZEndScreenY;
     float m_fT;
-    Vector3f m_Origin, m_XEnd, m_YEnd, m_ZEnd;
-    PolylinePtr m_spWorldAxis;
+    SEVector3f m_Origin, m_XEnd, m_YEnd, m_ZEnd;
+    SEPolylinePtr m_spWorldAxis;
 };
 
 }

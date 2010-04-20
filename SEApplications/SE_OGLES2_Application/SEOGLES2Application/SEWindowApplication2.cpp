@@ -24,12 +24,12 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-WindowApplication2::WindowApplication2(const char* acWindowTitle,
+SEWindowApplication2::SEWindowApplication2(const char* acWindowTitle,
     int iXPosition, int iYPosition, int iWidth, int iHeight,
-    const ColorRGBA& rBackgroundColor)
+    const SEColorRGBA& rBackgroundColor)
     :
     // rows必须是4字节的倍数,因此iWidth需要被调整.
-    WindowApplication(acWindowTitle, iXPosition, iYPosition,
+    SEWindowApplication(acWindowTitle, iXPosition, iYPosition,
         iWidth-(iWidth % 4), iHeight, rBackgroundColor)
 {
     m_iScrWidth = 0;
@@ -39,13 +39,13 @@ WindowApplication2::WindowApplication2(const char* acWindowTitle,
     m_aFlipScreen = 0;
 }
 //----------------------------------------------------------------------------
-WindowApplication2::~WindowApplication2()
+SEWindowApplication2::~SEWindowApplication2()
 {
 }
 //----------------------------------------------------------------------------
-bool WindowApplication2::OnInitialize()
+bool SEWindowApplication2::OnInitialize()
 {
-    if( !WindowApplication::OnInitialize() )
+    if( !SEWindowApplication::OnInitialize() )
     {
         return false;
     }
@@ -59,14 +59,14 @@ bool WindowApplication2::OnInitialize()
     return true;
 }
 //----------------------------------------------------------------------------
-void WindowApplication2::OnTerminate ()
+void SEWindowApplication2::OnTerminate ()
 {
     SE_DELETE[] m_aScreen;
     SE_DELETE[] m_aFlipScreen;
-    WindowApplication::OnTerminate();
+    SEWindowApplication::OnTerminate();
 }
 //----------------------------------------------------------------------------
-void WindowApplication2::OnDisplay()
+void SEWindowApplication2::OnDisplay()
 {
     m_pRenderer->ClearBuffers();
     if( m_pRenderer->BeginScene() )
@@ -83,7 +83,7 @@ void WindowApplication2::OnDisplay()
             size_t uiCount = m_iScrWidth * sizeof(Color);
             for( int i = 0; i < m_iScrHeight; i++ )
             {
-                System::SE_Memcpy(aFPtr, uiCount, aSPtr, uiCount);
+                SESystem::SE_Memcpy(aFPtr, uiCount, aSPtr, uiCount);
                 aSPtr += m_iScrWidth;
                 aFPtr -= m_iScrWidth;
             }
@@ -100,10 +100,10 @@ void WindowApplication2::OnDisplay()
     m_pRenderer->DisplayBackBuffer();
 }
 //----------------------------------------------------------------------------
-void WindowApplication2::OnResize(int iWidth, int iHeight)
+void SEWindowApplication2::OnResize(int iWidth, int iHeight)
 {
     iWidth = iWidth - (iWidth % 4);
-    WindowApplication::OnResize(iWidth, iHeight);
+    SEWindowApplication::OnResize(iWidth, iHeight);
     if( iWidth*iHeight <= 0 )
     {
         return;
@@ -125,12 +125,12 @@ void WindowApplication2::OnResize(int iWidth, int iHeight)
     }
 }
 //----------------------------------------------------------------------------
-void WindowApplication2::ScreenOverlay()
+void SEWindowApplication2::ScreenOverlay()
 {
     // 由派生类负责实现
 }
 //----------------------------------------------------------------------------
-void WindowApplication2::ClearScreen()
+void SEWindowApplication2::ClearScreen()
 {
     for( int i = 0; i < m_iWidth*m_iHeight; i++ )
     {
@@ -150,12 +150,12 @@ void WindowApplication2::ClearScreen()
     }
 }
 //----------------------------------------------------------------------------
-bool& WindowApplication2::ClampToWindow()
+bool& SEWindowApplication2::ClampToWindow()
 {
     return m_bClampToWindow;
 }
 //----------------------------------------------------------------------------
-void WindowApplication2::SetPixel(int iX, int iY, Color srcColor)
+void SEWindowApplication2::SetPixel(int iX, int iY, Color srcColor)
 {
     if( m_bClampToWindow )
     {
@@ -170,7 +170,8 @@ void WindowApplication2::SetPixel(int iX, int iY, Color srcColor)
     }
 }
 //----------------------------------------------------------------------------
-void WindowApplication2::SetThickPixel(int iX, int iY, int iThick, Color srcColor)
+void SEWindowApplication2::SetThickPixel(int iX, int iY, int iThick, Color 
+    srcColor)
 {
     for( int iDY = -iThick; iDY <= iThick; iDY++ )
     {
@@ -181,7 +182,7 @@ void WindowApplication2::SetThickPixel(int iX, int iY, int iThick, Color srcColo
     }
 }
 //----------------------------------------------------------------------------
-WindowApplication2::Color WindowApplication2::GetPixel(int iX, int iY)
+SEWindowApplication2::Color SEWindowApplication2::GetPixel(int iX, int iY)
 {
     if( m_bClampToWindow )
     {
@@ -200,7 +201,8 @@ WindowApplication2::Color WindowApplication2::GetPixel(int iX, int iY)
     }
 }
 //----------------------------------------------------------------------------
-void WindowApplication2::DrawLine(int iX0, int iY0, int iX1, int iY1, Color srcColor)
+void SEWindowApplication2::DrawLine(int iX0, int iY0, int iX1, int iY1, Color 
+    srcColor)
 {
     int iX = iX0, iY = iY0;
 
@@ -276,7 +278,7 @@ void WindowApplication2::DrawLine(int iX0, int iY0, int iX1, int iY1, Color srcC
     }
 }
 //----------------------------------------------------------------------------
-void WindowApplication2::DrawRectangle(int iXMin, int iYMin, int iXMax,
+void SEWindowApplication2::DrawRectangle(int iXMin, int iYMin, int iXMax,
     int iYMax, Color srcColor, bool bSolid)
 {
     if( iXMin >= m_iWidth || iXMax < 0 || iYMin >= m_iHeight || iYMax < 0 )
@@ -312,7 +314,7 @@ void WindowApplication2::DrawRectangle(int iXMin, int iYMin, int iXMax,
     }
 }
 //----------------------------------------------------------------------------
-void WindowApplication2::DrawCircle(int iXCenter, int iYCenter, int iRadius,
+void SEWindowApplication2::DrawCircle(int iXCenter, int iYCenter, int iRadius,
     Color srcColor, bool bSolid)
 {
     int iX, iY, iDec;
@@ -379,7 +381,8 @@ void WindowApplication2::DrawCircle(int iXCenter, int iYCenter, int iRadius,
     }
 }
 //----------------------------------------------------------------------------
-void WindowApplication2::Fill(int iX, int iY, Color srcFColor, Color srcBColor)
+void SEWindowApplication2::Fill(int iX, int iY, Color srcFColor, Color 
+    srcBColor)
 {
     // Allocate the maximum amount of space needed.  If you prefer less, you
     // need to modify this data structure to allow for dynamic reallocation
@@ -457,7 +460,7 @@ void WindowApplication2::Fill(int iX, int iY, Color srcFColor, Color srcBColor)
     SE_DELETE[] aiYStack;
 }
 //----------------------------------------------------------------------------
-void WindowApplication2::DoFlip(bool bDoFlip)
+void SEWindowApplication2::DoFlip(bool bDoFlip)
 {
     if( m_aFlipScreen )
     {
