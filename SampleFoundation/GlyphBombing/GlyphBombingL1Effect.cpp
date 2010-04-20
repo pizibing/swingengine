@@ -22,15 +22,15 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, GlyphBombingL1Effect, ShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, GlyphBombingL1Effect, SEShaderEffect);
 SE_IMPLEMENT_STREAM(GlyphBombingL1Effect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(GlyphBombingL1Effect, ShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(GlyphBombingL1Effect, SEShaderEffect);
 
 SE_REGISTER_STREAM(GlyphBombingL1Effect);
 
 float GlyphBombingL1Effect::ms_fSpecularContribution = 0.0f;
 float GlyphBombingL1Effect::ms_fScaleFactor = 0.0f;
-ColorRGBA GlyphBombingL1Effect::ms_ModelColor = ColorRGBA::SE_RGBA_BLACK;
+SEColorRGBA GlyphBombingL1Effect::ms_ModelColor = SEColorRGBA::SE_RGBA_BLACK;
 float GlyphBombingL1Effect::ms_fColAdjust = 0.0f;
 float GlyphBombingL1Effect::ms_fPercentage = 0.0f;
 float GlyphBombingL1Effect::ms_fSamplesPerCell = 0.0f;
@@ -43,10 +43,10 @@ bool GlyphBombingL1Effect::ms_bUCInitialized = false;
 GlyphBombingL1Effect::GlyphBombingL1Effect(const char* acBaseName,
     const char* acRandomName)
     :
-    ShaderEffect(1)
+    SEShaderEffect(1)
 {
-    m_VShader[0] = SE_NEW VertexShader("GlyphBombL1.v_GlyphBombL1");
-    m_PShader[0] = SE_NEW PixelShader("GlyphBombL1.p_GlyphBombL1");
+    m_VShader[0] = SE_NEW SEVertexShader("GlyphBombL1.v_GlyphBombL1");
+    m_PShader[0] = SE_NEW SEPixelShader("GlyphBombL1.p_GlyphBombL1");
 
     m_PShader[0]->SetTextureCount(2);
     m_PShader[0]->SetImageName(0, acBaseName);
@@ -54,7 +54,7 @@ GlyphBombingL1Effect::GlyphBombingL1Effect(const char* acBaseName,
 
     SpecularContribution = 0.2f;
     ScaleFactor = 4.0f;
-    ModelColor = ColorRGBA::SE_RGBA_WHITE;
+    ModelColor = SEColorRGBA::SE_RGBA_WHITE;
     ColAdjust = 0.5f;
     Percentage = 1.0f;
     SamplesPerCell = 1.0f;
@@ -67,7 +67,7 @@ GlyphBombingL1Effect::GlyphBombingL1Effect()
 {
     SpecularContribution = 0.2f;
     ScaleFactor = 4.0f;
-    ModelColor = ColorRGBA::SE_RGBA_WHITE;
+    ModelColor = SEColorRGBA::SE_RGBA_WHITE;
     ColAdjust = 0.5f;
     Percentage = 1.0f;
     SamplesPerCell = 1.0f;
@@ -80,12 +80,12 @@ GlyphBombingL1Effect::~GlyphBombingL1Effect()
 {
 }
 //----------------------------------------------------------------------------
-void GlyphBombingL1Effect::OnLoadPrograms(int, Program* pVProgram,
-    Program* pPProgram, Program*)
+void GlyphBombingL1Effect::OnLoadPrograms(int, SEProgram* pVProgram,
+    SEProgram* pPProgram, SEProgram*)
 {
     if( !ms_bUCInitialized )
     {
-        UserConstant* pUC = pVProgram->GetUC("v_fSpecularContribution");
+        SEUserConstant* pUC = pVProgram->GetUC("v_fSpecularContribution");
         if( pUC )
         {
             pUC->SetDataSource(&ms_fSpecularContribution);
@@ -143,7 +143,7 @@ void GlyphBombingL1Effect::OnLoadPrograms(int, Program* pVProgram,
     }
 }
 //----------------------------------------------------------------------------
-void GlyphBombingL1Effect::OnPreApplyEffect(Renderer*, bool)
+void GlyphBombingL1Effect::OnPreApplyEffect(SERenderer*, bool)
 {
     ms_fSpecularContribution = SpecularContribution;
     ms_fScaleFactor = ScaleFactor;
@@ -160,11 +160,11 @@ void GlyphBombingL1Effect::OnPreApplyEffect(Renderer*, bool)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void GlyphBombingL1Effect::Load(Stream& rStream, Stream::Link* pLink)
+void GlyphBombingL1Effect::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    ShaderEffect::Load(rStream, pLink);
+    SEShaderEffect::Load(rStream, pLink);
 
     // native data
     rStream.Read(SpecularContribution);
@@ -180,21 +180,21 @@ void GlyphBombingL1Effect::Load(Stream& rStream, Stream::Link* pLink)
     SE_END_DEBUG_STREAM_LOAD(GlyphBombingL1Effect);
 }
 //----------------------------------------------------------------------------
-void GlyphBombingL1Effect::Link(Stream& rStream, Stream::Link* pLink)
+void GlyphBombingL1Effect::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    ShaderEffect::Link(rStream, pLink);
+    SEShaderEffect::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
-bool GlyphBombingL1Effect::Register(Stream& rStream) const
+bool GlyphBombingL1Effect::Register(SEStream& rStream) const
 {
-    return ShaderEffect::Register(rStream);
+    return SEShaderEffect::Register(rStream);
 }
 //----------------------------------------------------------------------------
-void GlyphBombingL1Effect::Save(Stream& rStream) const
+void GlyphBombingL1Effect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    ShaderEffect::Save(rStream);
+    SEShaderEffect::Save(rStream);
 
     // native data
     rStream.Write(SpecularContribution);
@@ -210,12 +210,12 @@ void GlyphBombingL1Effect::Save(Stream& rStream) const
     SE_END_DEBUG_STREAM_SAVE(GlyphBombingL1Effect);
 }
 //----------------------------------------------------------------------------
-int GlyphBombingL1Effect::GetDiskUsed(const StreamVersion& rVersion) const
+int GlyphBombingL1Effect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    int iSize = ShaderEffect::GetDiskUsed(rVersion) +
+    int iSize = SEShaderEffect::GetDiskUsed(rVersion) +
         sizeof(float) +      // SpecularContribution
         sizeof(float) +      // ScaleFactor
-        sizeof(ColorRGBA) +  // ModelColor
+        sizeof(SEColorRGBA) +  // ModelColor
         sizeof(float) +      // ColAdjust
         sizeof(float) +      // Percentage
         sizeof(float) +      // SamplesPerCell
@@ -226,9 +226,9 @@ int GlyphBombingL1Effect::GetDiskUsed(const StreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-StringTree* GlyphBombingL1Effect::SaveStrings(const char*)
+SEStringTree* GlyphBombingL1Effect::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -243,7 +243,7 @@ StringTree* GlyphBombingL1Effect::SaveStrings(const char*)
     pTree->Append(Format("random rotate =", RandomRotate));
 
     // children
-    pTree->Append(ShaderEffect::SaveStrings());
+    pTree->Append(SEShaderEffect::SaveStrings());
 
     return pTree;
 }

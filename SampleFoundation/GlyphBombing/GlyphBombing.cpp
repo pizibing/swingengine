@@ -28,23 +28,23 @@ SE_REGISTER_INITIALIZE(GlyphBombing);
 //----------------------------------------------------------------------------
 GlyphBombing::GlyphBombing()
     :
-    WindowApplication3("GlyphBombing", 0, 0, 640, 480, 
-        ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
+    SEWindowApplication3("GlyphBombing", 0, 0, 640, 480, 
+        SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
 }
 //----------------------------------------------------------------------------
 bool GlyphBombing::OnInitialize()
 {
-    if( !WindowApplication3::OnInitialize() )
+    if( !SEWindowApplication3::OnInitialize() )
     {
         return false;
     }
 
     m_spCamera->SetFrustum(-0.55f, 0.55f, -0.4125f, 0.4125f, 1.0f, 100.0f);
-    Vector3f tempCLoc(0.0f, 0.0f, -10.0f);
-    Vector3f tempCDir(0.0f, 0.0f, 1.0f);
-    Vector3f tempCUp(0.0f, 1.0f, 0.0f);
-    Vector3f tempCRight = tempCUp.Cross(tempCDir);
+    SEVector3f tempCLoc(0.0f, 0.0f, -10.0f);
+    SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
+    SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
+    SEVector3f tempCRight = tempCUp.Cross(tempCDir);
     m_spCamera->SetFrame(tempCLoc, tempCRight, tempCUp, tempCDir);
 
     CreateScene();
@@ -74,26 +74,11 @@ void GlyphBombing::OnTerminate()
     m_aspLight[2] = 0;
     m_aspLight[3] = 0;
 
-    WindowApplication3::OnTerminate();
+    SEWindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void GlyphBombing::OnIdle()
 {
-    //// 旋转我们的box.
-    //static double dCurTime = 0.0f;
-    //static double dLastTime = 0.0f;
-    //static float fAngel = 0.0f;
-    //static float fR = 15.0f;
-    //dCurTime = System::SE_GetTime();
-    //if( dCurTime - dLastTime > 0.01f )
-    //{
-    //    dLastTime = dCurTime;
-
-    //    Matrix3f mat3fRot(Vector3f::UNIT_Z, -0.01f);
-    //    m_spMesh->Local.SetRotate(m_spMesh->Local.GetRotate()*mat3fRot);
-    //    m_spMesh->UpdateGS();
-    //}
-
     MeasureTime();
 
     if( MoveCamera() )
@@ -111,7 +96,7 @@ void GlyphBombing::OnIdle()
     if( m_pRenderer->BeginScene() )
     {
         m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
-        DrawFrameRate(8, 20, ColorRGBA::SE_RGBA_WHITE);
+        DrawFrameRate(8, 20, SEColorRGBA::SE_RGBA_WHITE);
         m_pRenderer->EndScene();
     }
     m_pRenderer->DisplayBackBuffer();
@@ -121,7 +106,7 @@ void GlyphBombing::OnIdle()
 //----------------------------------------------------------------------------
 bool GlyphBombing::OnKeyDown(unsigned char ucKey, int iX, int iY)
 {
-    if( WindowApplication3::OnKeyDown(ucKey, iX, iY) )
+    if( SEWindowApplication3::OnKeyDown(ucKey, iX, iY) )
     {
         return true;
     }
@@ -147,30 +132,30 @@ bool GlyphBombing::OnKeyDown(unsigned char ucKey, int iX, int iY)
 //----------------------------------------------------------------------------
 void GlyphBombing::CreateScene()
 {
-    m_spScene = SE_NEW Node;
-    m_spWireframe = SE_NEW WireframeState;
+    m_spScene = SE_NEW SENode;
+    m_spWireframe = SE_NEW SEWireframeState;
     m_spScene->AttachGlobalState(m_spWireframe);
 
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetNormalChannels(3);
     tempAttr.SetTCoordChannels(0, 2);
 
-    StandardMesh tempSM(tempAttr);
+    SEStandardMesh tempSM(tempAttr);
     m_spMesh = tempSM.Rectangle(2, 2, 2.0f, 2.0f);
     m_spScene->AttachChild(m_spMesh);
 
     // 创建random纹理.
-    m_spRandomImage = Image::GenerateRandomImage(Image::IT_RGBA8888, 
+    m_spRandomImage = SEImage::GenerateRandomImage(SEImage::IT_RGBA8888, 
         32, 32, 100, "Random");
 
     GlyphBombingL1Effect* pEffect = SE_NEW GlyphBombingL1Effect("glyphs",
         "Random");
-    Texture* pRandomTexture = pEffect->GetPTexture(0, 1);
-    pRandomTexture->SetFilterType(Texture::NEAREST);
-    pRandomTexture->SetWrapType(0, Texture::REPEAT);
-    pRandomTexture->SetWrapType(1, Texture::REPEAT);
-    m_spMesh->LightingMode = Geometry::GLM_USER;
+    SETexture* pRandomTexture = pEffect->GetPTexture(0, 1);
+    pRandomTexture->SetFilterType(SETexture::NEAREST);
+    pRandomTexture->SetWrapType(0, SETexture::REPEAT);
+    pRandomTexture->SetWrapType(1, SETexture::REPEAT);
+    m_spMesh->LightingMode = SEGeometry::GLM_USER;
     m_spMesh->AttachEffect(pEffect);
 
     CreateLights();
@@ -178,35 +163,35 @@ void GlyphBombing::CreateScene()
 //----------------------------------------------------------------------------
 void GlyphBombing::CreateLights()
 {
-    m_aspLight[0] = SE_NEW Light(Light::LT_AMBIENT);
-    m_aspLight[1] = SE_NEW Light(Light::LT_DIRECTIONAL);
-    m_aspLight[2] = SE_NEW Light(Light::LT_POINT);
-    m_aspLight[3] = SE_NEW Light(Light::LT_SPOT);
+    m_aspLight[0] = SE_NEW SELight(SELight::LT_AMBIENT);
+    m_aspLight[1] = SE_NEW SELight(SELight::LT_DIRECTIONAL);
+    m_aspLight[2] = SE_NEW SELight(SELight::LT_POINT);
+    m_aspLight[3] = SE_NEW SELight(SELight::LT_SPOT);
 
     float fValue = 0.75f;
-    m_aspLight[0]->Ambient = ColorRGB(fValue, fValue, fValue);
+    m_aspLight[0]->Ambient = SEColorRGB(fValue, fValue, fValue);
 
-    fValue = Mathf::Sqrt(1.0f/3.0f);
-    m_aspLight[1]->DVector = Vector3f(-fValue, -fValue, +fValue);
-    m_aspLight[1]->Diffuse = ColorRGB::SE_RGB_WHITE;
-    m_aspLight[1]->Specular = ColorRGB::SE_RGB_WHITE;
+    fValue = SEMathf::Sqrt(1.0f/3.0f);
+    m_aspLight[1]->DVector = SEVector3f(-fValue, -fValue, +fValue);
+    m_aspLight[1]->Diffuse = SEColorRGB::SE_RGB_WHITE;
+    m_aspLight[1]->Specular = SEColorRGB::SE_RGB_WHITE;
 
     fValue = 4.0f;
-    m_aspLight[2]->Position = Vector3f(0.0f, 0.0f, -2.0f);
-    m_aspLight[2]->Ambient = ColorRGB::SE_RGB_WHITE*0.5f;
-    m_aspLight[2]->Diffuse = ColorRGB::SE_RGB_WHITE;
-    m_aspLight[2]->Specular = ColorRGB::SE_RGB_WHITE*0.6f;
+    m_aspLight[2]->Position = SEVector3f(0.0f, 0.0f, -2.0f);
+    m_aspLight[2]->Ambient = SEColorRGB::SE_RGB_WHITE*0.5f;
+    m_aspLight[2]->Diffuse = SEColorRGB::SE_RGB_WHITE;
+    m_aspLight[2]->Specular = SEColorRGB::SE_RGB_WHITE*0.6f;
     m_aspLight[2]->Linear = 0.02f;
     m_aspLight[2]->Quadratic = 0.005f;
 
     fValue = 4.0f;
-    m_aspLight[3]->Position = Vector3f(+fValue, +fValue, +fValue);
-    fValue = -Mathf::Sqrt(1.0f/3.0f);
-    m_aspLight[3]->DVector = Vector3f(+fValue, +fValue, +fValue);
-    m_aspLight[3]->Diffuse = ColorRGB::SE_RGB_WHITE;
-    m_aspLight[3]->Specular = ColorRGB::SE_RGB_WHITE;
+    m_aspLight[3]->Position = SEVector3f(+fValue, +fValue, +fValue);
+    fValue = -SEMathf::Sqrt(1.0f/3.0f);
+    m_aspLight[3]->DVector = SEVector3f(+fValue, +fValue, +fValue);
+    m_aspLight[3]->Diffuse = SEColorRGB::SE_RGB_WHITE;
+    m_aspLight[3]->Specular = SEColorRGB::SE_RGB_WHITE;
     m_aspLight[3]->Exponent = 1.0f;
-    m_aspLight[3]->SetAngle(0.125f*Mathf::PI);
+    m_aspLight[3]->SetAngle(0.125f*SEMathf::PI);
 
     m_spScene->AttachLight(m_aspLight[2]);
     //m_spScene->AttachLight(m_aspLight[0]);

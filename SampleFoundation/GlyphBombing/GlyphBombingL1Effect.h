@@ -27,12 +27,11 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:glyph bombing with 1 light类
 // 说明:
 // 作者:Sun Che
 // 时间:20090804
 //----------------------------------------------------------------------------
-class GlyphBombingL1Effect : public ShaderEffect
+class GlyphBombingL1Effect : public SEShaderEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -47,7 +46,7 @@ public:
     float ScaleFactor;          // default: 4.0f
 
     // Pixel program UCs.
-    ColorRGBA ModelColor;       // default: white
+    SEColorRGBA ModelColor;       // default: white
     float ColAdjust;            // default: 0.5f
     float Percentage;           // default: 1.0f
     float SamplesPerCell;       // default: 1.0f
@@ -59,13 +58,13 @@ protected:
     // streaming support
     GlyphBombingL1Effect(void);
 
-    virtual void OnLoadPrograms(int iPass, Program* pVProgram,
-        Program* pPProgram, Program* pGProgram);
-    virtual void OnPreApplyEffect(Renderer* pRenderer, bool bPrimaryEffect);
+    virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
+        SEProgram* pPProgram, SEProgram* pGProgram);
+    virtual void OnPreApplyEffect(SERenderer* pRenderer, bool bPrimaryEffect);
 
     static float ms_fSpecularContribution;
     static float ms_fScaleFactor;
-    static ColorRGBA ms_ModelColor;
+    static SEColorRGBA ms_ModelColor;
     static float ms_fColAdjust;
     static float ms_fPercentage;
     static float ms_fSamplesPerCell;
@@ -75,7 +74,7 @@ protected:
     static bool ms_bUCInitialized;
 };
 
-typedef SmartPointer<GlyphBombingL1Effect> GlyphBombingL1EffectPtr;
+typedef SESmartPointer<GlyphBombingL1Effect> GlyphBombingL1EffectPtr;
 
 }
 

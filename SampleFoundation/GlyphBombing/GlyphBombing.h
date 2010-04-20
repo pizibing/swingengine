@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-class GlyphBombing : public WindowApplication3
+class GlyphBombing : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -41,13 +41,13 @@ protected:
     void CreateScene(void);
     void CreateLights(void);
 
-    NodePtr m_spScene;
-    TriMeshPtr m_spMesh;
-    ImagePtr m_spRandomImage;
-    WireframeStatePtr m_spWireframe;
-    Culler m_Culler;
+    SENodePtr m_spScene;
+    SETriMeshPtr m_spMesh;
+    SEImagePtr m_spRandomImage;
+    SEWireframeStatePtr m_spWireframe;
+    SECuller m_Culler;
 
-    LightPtr m_aspLight[4];
+    SELightPtr m_aspLight[4];
 };
 
 #endif
