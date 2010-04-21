@@ -63,6 +63,7 @@
 				AdditionalDependencies="SEFoundation80d.lib SEDX9Renderer80d.lib SEToolsCommon80d.lib cg.lib cgD3D9.lib libcollada14dom20-sd80.lib libboost_filesystem-d.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib winmm.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug;..\..\ThirdPartyLibs\ColladaDOM\Lib\Debug;..\..\ThirdPartyLibs\Boost\Lib\Debug;..\..\ThirdPartyLibs\LibXML2\Lib\Debug;..\..\ThirdPartyLibs\PCRE\Lib\Debug;..\..\ThirdPartyLibs\ZLib\Lib\Debug"
+				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				SubSystem="0"
