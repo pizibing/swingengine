@@ -48,8 +48,8 @@ void ColladaImporterApp::OnIdle()
 //----------------------------------------------------------------------------
 void ColladaImporterApp::CreateScene()
 {
-    AppScene = SE_NEW Node;
-    AppWireframe = SE_NEW WireframeState;
+    AppScene = SE_NEW SENode;
+    AppWireframe = SE_NEW SEWireframeState;
     AppWireframe->Enabled = false;
     AppScene->AttachGlobalState(AppWireframe);
 
@@ -59,8 +59,8 @@ void ColladaImporterApp::CreateScene()
     AppCuller.SetCamera(AppCamera);
     AppCuller.ComputeUnculledSet(AppScene);
 
-    m_pColladaScene = SE_NEW ColladaScene(
-        ((DX9Renderer*)AppRenderer)->GetDevice());
+    m_pColladaScene = SE_NEW SEColladaScene(
+        ((SEDX9Renderer*)AppRenderer)->GetDevice());
 }
 //----------------------------------------------------------------------------
 void ColladaImporterApp::DestroyScene()
@@ -74,14 +74,14 @@ void ColladaImporterApp::DestroyScene()
 //----------------------------------------------------------------------------
 void ColladaImporterApp::OnSave(const char* acFilename)
 {
-    Stream tempOStream;
+    SEStream tempOStream;
     tempOStream.Insert(SceneLoaded);
     tempOStream.Save(acFilename);
 
     int iImageCount = m_pColladaScene->GetImageCount();
     for( int i = 0; i < iImageCount; i++ )
     {
-        Image* pImage = m_pColladaScene->GetImage(i);
+        SEImage* pImage = m_pColladaScene->GetImage(i);
         const char* acFilename = pImage->GetName().c_str();
         pImage->Save(acFilename);
     }
@@ -89,7 +89,7 @@ void ColladaImporterApp::OnSave(const char* acFilename)
 //----------------------------------------------------------------------------
 void ColladaImporterApp::OnOpenFile(const char* acFilename)
 {
-    Swing::System::SE_Strcpy(m_acFilename, 256, acFilename);
+    Swing::SESystem::SE_Strcpy(m_acFilename, 256, acFilename);
 
     m_pColladaScene->Load(acFilename);
     SceneLoaded = m_pColladaScene->GetScene();

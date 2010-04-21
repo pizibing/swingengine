@@ -25,7 +25,6 @@
 #include "SwingToolsCommon.h"
 
 //----------------------------------------------------------------------------
-// Name:ColladaImporter class
 // Description:
 // Author:Sun Che
 // Date:20090913
@@ -42,26 +41,26 @@ public:
     void OnOpenFile(const char* acFilename);
     void OnSave(const char* acFilename);
 
-    Swing::FrameBuffer::FormatType m_eFormat;
-    Swing::FrameBuffer::DepthType m_eDepth;
-    Swing::FrameBuffer::StencilType m_eStencil;
-    Swing::FrameBuffer::BufferingType m_eBuffering;
-    Swing::FrameBuffer::MultisamplingType m_eMultisampling;
+    Swing::SEFrameBuffer::FormatType m_eFormat;
+    Swing::SEFrameBuffer::DepthType m_eDepth;
+    Swing::SEFrameBuffer::StencilType m_eStencil;
+    Swing::SEFrameBuffer::BufferingType m_eBuffering;
+    Swing::SEFrameBuffer::MultisamplingType m_eMultisampling;
 
     int Handle;
 
-    Swing::Renderer* AppRenderer;
-    Swing::CameraPtr AppCamera;
-    Swing::Culler AppCuller;
+    Swing::SERenderer* AppRenderer;
+    Swing::SECameraPtr AppCamera;
+    Swing::SECuller AppCuller;
 
-    Swing::NodePtr AppScene;
-    Swing::NodePtr SceneLoaded;
-    Swing::WireframeStatePtr AppWireframe;
+    Swing::SENodePtr AppScene;
+    Swing::SENodePtr SceneLoaded;
+    Swing::SEWireframeStatePtr AppWireframe;
 
 private:
     char m_acFilename[256];
 
-    Swing::ColladaScene* m_pColladaScene;
+    Swing::SEColladaScene* m_pColladaScene;
 };
 
 #endif
