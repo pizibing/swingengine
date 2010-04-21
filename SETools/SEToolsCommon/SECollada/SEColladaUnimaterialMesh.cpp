@@ -27,7 +27,7 @@ using namespace Swing;
 using namespace std;
 
 //----------------------------------------------------------------------------
-ColladaUnimaterialMesh::ColladaUnimaterialMesh()
+SEColladaUnimaterialMesh::SEColladaUnimaterialMesh()
 {
     m_iVCount = 0;
     m_aVertex = 0;
@@ -42,72 +42,72 @@ ColladaUnimaterialMesh::ColladaUnimaterialMesh()
     m_aiTFace = 0;
 }
 //----------------------------------------------------------------------------
-int& ColladaUnimaterialMesh::VCount()
+int& SEColladaUnimaterialMesh::VCount()
 {
     return m_iVCount;
 }
 //----------------------------------------------------------------------------
-SEVector3f*& ColladaUnimaterialMesh::Vertex()
+SEVector3f*& SEColladaUnimaterialMesh::Vertex()
 {
     return m_aVertex;
 }
 //----------------------------------------------------------------------------
-SEVector3f*& ColladaUnimaterialMesh::Normal()
+SEVector3f*& SEColladaUnimaterialMesh::Normal()
 {
     return m_aNormal;
 }
 //----------------------------------------------------------------------------
-int& ColladaUnimaterialMesh::CCount()
+int& SEColladaUnimaterialMesh::CCount()
 {
     return m_iCCount;
 }
 //----------------------------------------------------------------------------
-SEColorRGB*& ColladaUnimaterialMesh::Color()
+SEColorRGB*& SEColladaUnimaterialMesh::Color()
 {
     return m_aColor;
 }
 //----------------------------------------------------------------------------
-int& ColladaUnimaterialMesh::TCount()
+int& SEColladaUnimaterialMesh::TCount()
 {
     return m_iTCount;
 }
 //----------------------------------------------------------------------------
-SEVector2f*& ColladaUnimaterialMesh::SETexture()
+SEVector2f*& SEColladaUnimaterialMesh::SETexture()
 {
     return m_aTexture;
 }
 //----------------------------------------------------------------------------
-int& ColladaUnimaterialMesh::FCount()
+int& SEColladaUnimaterialMesh::FCount()
 {
     return m_iFCount;
 }
 //----------------------------------------------------------------------------
-int*& ColladaUnimaterialMesh::Face()
+int*& SEColladaUnimaterialMesh::Face()
 {
     return m_aiFace;
 }
 //----------------------------------------------------------------------------
-int*& ColladaUnimaterialMesh::CFace()
+int*& SEColladaUnimaterialMesh::CFace()
 {
     return m_aiCFace;
 }
 //----------------------------------------------------------------------------
-int*& ColladaUnimaterialMesh::TFace()
+int*& SEColladaUnimaterialMesh::TFace()
 {
     return m_aiTFace;
 }
 //----------------------------------------------------------------------------
-SEMaterialStatePtr& ColladaUnimaterialMesh::MState()
+SEMaterialStatePtr& SEColladaUnimaterialMesh::MState()
 {
     return m_spSEMaterialState;
 }
 //----------------------------------------------------------------------------
-SETexturePtr& ColladaUnimaterialMesh::TState()
+SETexturePtr& SEColladaUnimaterialMesh::TState()
 {
     return m_spTState;
 }
 //----------------------------------------------------------------------------
-void ColladaUnimaterialMesh::DuplicateGeometry()
+void SEColladaUnimaterialMesh::DuplicateGeometry()
 {
     // 建立一个当前网格的顶点属性数组,
     // 该数组表明了当前网格的每个顶点被平面索引的次数,
@@ -246,7 +246,7 @@ void ColladaUnimaterialMesh::DuplicateGeometry()
     SE_DELETE[] aVArray;
 }
 //----------------------------------------------------------------------------
-SETriMesh* ColladaUnimaterialMesh::ToTriMesh()
+SETriMesh* SEColladaUnimaterialMesh::ToTriMesh()
 {
     // 创建所需Swing Engine VB.
     SEAttributes tempSEAttr;
@@ -349,20 +349,21 @@ SETriMesh* ColladaUnimaterialMesh::ToTriMesh()
     return pSEMesh;
 }
 //----------------------------------------------------------------------------
-ColladaUnimaterialMesh::VertexAttr::VertexAttr()
+SEColladaUnimaterialMesh::VertexAttr::VertexAttr()
 {
     V = -1;
     C = -1;
     T = -1;
 }
 //----------------------------------------------------------------------------
-bool ColladaUnimaterialMesh::VertexAttr::operator==(const VertexAttr& rAttr) 
+bool SEColladaUnimaterialMesh::VertexAttr::operator==(const VertexAttr& rAttr) 
     const
 {
     return V == rAttr.V && C == rAttr.C && T == rAttr.T;
 }
 //----------------------------------------------------------------------------
-bool ColladaUnimaterialMesh::VertexAttr::operator<(const VertexAttr& rAttr) const
+bool SEColladaUnimaterialMesh::VertexAttr::operator<(const VertexAttr& rAttr) 
+    const
 {
     if( V < rAttr.V )
     {

@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-SELight* ColladaScene::GetLight(const char* acName)
+SELight* SEColladaScene::GetLight(const char* acName)
 {
     if( !acName )
     {
@@ -42,7 +42,7 @@ SELight* ColladaScene::GetLight(const char* acName)
     return 0;
 }
 //----------------------------------------------------------------------------
-SELight* ColladaScene::LoadLight(domLightRef spDomLight)
+SELight* SEColladaScene::LoadLight(domLightRef spDomLight)
 {
     xsID strLightID = spDomLight->getId();
     if( !strLightID )
@@ -174,7 +174,7 @@ SELight* ColladaScene::LoadLight(domLightRef spDomLight)
     return 0;
 }
 //----------------------------------------------------------------------------
-ColladaInstanceLight* ColladaScene::LoadInstanceLight(SENode* pParentNode, 
+SEColladaInstanceLight* SEColladaScene::LoadInstanceLight(SENode* pParentNode, 
     domInstance_lightRef spDomInstanceLight)
 {
     xsAnyURI& rUrlType  = spDomInstanceLight->getUrl();
@@ -198,8 +198,8 @@ ColladaInstanceLight* ColladaScene::LoadInstanceLight(SENode* pParentNode,
         SELight* pNewLight = DynamicCast<SELight>(spObject);
         SE_ASSERT( pNewLight );
 
-        ColladaInstanceLight* pInstanceLight = 
-            SE_NEW ColladaInstanceLight(pParentNode, pNewLight);
+        SEColladaInstanceLight* pInstanceLight = 
+            SE_NEW SEColladaInstanceLight(pParentNode, pNewLight);
 
         return pInstanceLight;
     }
@@ -207,7 +207,7 @@ ColladaInstanceLight* ColladaScene::LoadInstanceLight(SENode* pParentNode,
     return 0;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::ProcessLights()
+void SEColladaScene::ProcessLights()
 {
     for( int i = 0; i < (int)m_InstanceLights.size(); i++ )
     {

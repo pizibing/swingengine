@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ColladaEffect* ColladaScene::GetEffect(const char* acName)
+SEColladaEffect* SEColladaScene::GetEffect(const char* acName)
 {
     if( !acName )
     {
@@ -42,9 +42,9 @@ ColladaEffect* ColladaScene::GetEffect(const char* acName)
     return 0;
 }
 //----------------------------------------------------------------------------
-bool ColladaScene::LoadEffectLibrary(domLibrary_effectsRef spLib)
+bool SEColladaScene::LoadEffectLibrary(domLibrary_effectsRef spLib)
 {
-    ToolSystem::SE_DebugOutput("ColladaScene::Loading SEEffect Library" );
+    ToolSystem::SE_DebugOutput("SEColladaScene::Loading SEEffect Library" );
 
     int iEffectCount = (int)spLib->getEffect_array().getCount();
     for( int i = 0; i < iEffectCount; i++ )
@@ -55,7 +55,7 @@ bool ColladaScene::LoadEffectLibrary(domLibrary_effectsRef spLib)
     return true;
 }
 //----------------------------------------------------------------------------
-ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
+SEColladaEffect* SEColladaScene::LoadEffect(domEffectRef spDomEffect)
 {
     if( !spDomEffect )
     {
@@ -68,7 +68,7 @@ ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
         return 0;
     }
 
-    ColladaEffect* pEffect = GetEffect((const char*)strEffectID);
+    SEColladaEffect* pEffect = GetEffect((const char*)strEffectID);
     if( pEffect )
     {
         // This effect is already in our effect catalog.
@@ -89,7 +89,7 @@ ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
         }
 
         // Create our effect base on COLLADA effect.
-        pEffect = SE_NEW ColladaEffect;
+        pEffect = SE_NEW SEColladaEffect;
         pEffect->SetName(strEffectID);
 
         // How many profiles are there?
@@ -141,7 +141,7 @@ ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
                 // All of them assume the texture is in the diffuse component 
                 // for now.
 
-                ColladaShaderElements tempShaderElements;
+                SEColladaShaderElements tempShaderElements;
                 domProfile_COMMON::domTechnique::domConstant* pDomConstant = 
                     pDomTechnique->getConstant();
                 if( pDomConstant )
@@ -180,8 +180,8 @@ ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
                 
                 // TODO: 
                 // Take only the texture from diffuse for now.
-                SETexture* pTexture = GetTextureFromShaderElement(tempNewParams, 
-                    tempShaderElements.Diffuse);
+                SETexture* pTexture = GetTextureFromShaderElement(
+                    tempNewParams, tempShaderElements.Diffuse);
                 if( pTexture )
                 {
                     pEffect->Textures.push_back(pTexture);
@@ -203,7 +203,7 @@ ColladaEffect* ColladaScene::LoadEffect(domEffectRef spDomEffect)
     return 0;
 }
 //----------------------------------------------------------------------------
-float ColladaScene::GetFloat(domCommon_float_or_param_type* pParam)
+float SEColladaScene::GetFloat(domCommon_float_or_param_type* pParam)
 {
     if( pParam->getFloat() )
     {
@@ -213,7 +213,7 @@ float ColladaScene::GetFloat(domCommon_float_or_param_type* pParam)
     return 0.0f;
 }
 //----------------------------------------------------------------------------
-SEColorRGB ColladaScene::GetColor(
+SEColorRGB SEColladaScene::GetColor(
     domCommon_color_or_texture_type_complexType* pParam)
 {
     if( pParam->getColor() )
@@ -227,7 +227,7 @@ SEColorRGB ColladaScene::GetColor(
     return SEColorRGB::SE_RGB_BLACK;
 }
 //----------------------------------------------------------------------------
-SETexture* ColladaScene::GetTextureFromShaderElement(
+SETexture* SEColladaScene::GetTextureFromShaderElement(
     std::map<std::string, domCommon_newparam_type*>& rNewParams, 
     domCommon_color_or_texture_type* pShaderElement)
 {
@@ -283,8 +283,8 @@ SETexture* ColladaScene::GetTextureFromShaderElement(
     return pTexture;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::ParseConstant(ColladaEffect* pEffect, 
-    ColladaShaderElements* pShaderElements,
+void SEColladaScene::ParseConstant(SEColladaEffect* pEffect, 
+    SEColladaShaderElements* pShaderElements,
     domProfile_COMMON::domTechnique::domConstant* pDomConstant)
 {
     pShaderElements->Emission = pDomConstant->getEmission();
@@ -335,8 +335,8 @@ void ColladaScene::ParseConstant(ColladaEffect* pEffect,
     }
 }
 //----------------------------------------------------------------------------
-void ColladaScene::ParseLambert(ColladaEffect* pEffect, 
-    ColladaShaderElements* pShaderElements,
+void SEColladaScene::ParseLambert(SEColladaEffect* pEffect, 
+    SEColladaShaderElements* pShaderElements,
     domProfile_COMMON::domTechnique::domLambert* pDomLambert)
 {
     pShaderElements->Emission = pDomLambert->getEmission();
@@ -399,8 +399,8 @@ void ColladaScene::ParseLambert(ColladaEffect* pEffect,
     }
 }
 //----------------------------------------------------------------------------
-void ColladaScene::ParsePhong(ColladaEffect* pEffect, 
-    ColladaShaderElements* pShaderElements,
+void SEColladaScene::ParsePhong(SEColladaEffect* pEffect, 
+    SEColladaShaderElements* pShaderElements,
     domProfile_COMMON::domTechnique::domPhong* pDomPhong)
 {
     pShaderElements->Emission = pDomPhong->getEmission();
@@ -475,8 +475,8 @@ void ColladaScene::ParsePhong(ColladaEffect* pEffect,
     }
 }
 //----------------------------------------------------------------------------
-void ColladaScene::ParseBlinn(ColladaEffect* pEffect, 
-    ColladaShaderElements* pShaderElements,
+void SEColladaScene::ParseBlinn(SEColladaEffect* pEffect, 
+    SEColladaShaderElements* pShaderElements,
     domProfile_COMMON::domTechnique::domBlinn* pDomblinn)
 {
     pShaderElements->Emission = pDomblinn->getEmission();

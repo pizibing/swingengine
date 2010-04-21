@@ -30,20 +30,20 @@
 namespace Swing
 {
 
-class ColladaKeySet;
+class SEColladaKeySet;
 //----------------------------------------------------------------------------
 // Description:
 // Author:Sun Che
 // Date:20090917
 //----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaAnimationChannel : public SEObject
+class SE_TOOLS_COMMON_API SEColladaAnimationChannel : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
 
 public:
-    ColladaAnimationChannel(void);
-    ~ColladaAnimationChannel(void);
+    SEColladaAnimationChannel(void);
+    ~SEColladaAnimationChannel(void);
 
     enum AnimationTarget
     {
@@ -74,7 +74,7 @@ public:
         AT_MATRIX
     };
 
-    ColladaAnimationSamplerPtr Sampler;
+    SEColladaAnimationSamplerPtr Sampler;
     
     std::string TargetID;
     std::string TargetSID;
@@ -82,15 +82,15 @@ public:
 
     AnimationTarget TargetType;
     
-    ColladaAnimationSourcePtr InputSource;
-    ColladaAnimationSourcePtr OutputSource;
+    SEColladaAnimationSourcePtr InputSource;
+    SEColladaAnimationSourcePtr OutputSource;
 
     enum { MAX_KEY_SETS = 10 };
-    ColladaKeySet* Keys[MAX_KEY_SETS];
+    SEColladaKeySet* Keys[MAX_KEY_SETS];
     int NumElementTargets;
 };
 
-typedef SESmartPointer<ColladaAnimationChannel> ColladaAnimationChannelPtr;
+typedef SESmartPointer<SEColladaAnimationChannel> SEColladaAnimationChannelPtr;
 
 }
 

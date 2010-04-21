@@ -26,9 +26,9 @@ using namespace Swing;
 using namespace std;
 
 //----------------------------------------------------------------------------
-bool ColladaScene::LoadAnimationLibrary(domLibrary_animationsRef spLib)
+bool SEColladaScene::LoadAnimationLibrary(domLibrary_animationsRef spLib)
 {
-    ToolSystem::SE_DebugOutput("ColladaScene::Loading Animation Library");
+    ToolSystem::SE_DebugOutput("SEColladaScene::Loading Animation Library");
 
     int iAnimationCount = (int)spLib->getAnimation_array().getCount();
     for( int i = 0; i < iAnimationCount; i++ )
@@ -39,7 +39,7 @@ bool ColladaScene::LoadAnimationLibrary(domLibrary_animationsRef spLib)
     return true;
 }
 //----------------------------------------------------------------------------
-ColladaAnimationSource* ColladaScene::LoadAnimationSource(
+SEColladaAnimationSource* SEColladaScene::LoadAnimationSource(
     domSourceRef spDomSource)
 {
     if( !spDomSource )
@@ -53,7 +53,7 @@ ColladaAnimationSource* ColladaScene::LoadAnimationSource(
         return 0;
     }
 
-    ColladaAnimationSource* pSource = SE_NEW ColladaAnimationSource;
+    SEColladaAnimationSource* pSource = SE_NEW SEColladaAnimationSource;
     pSource->SetName((const char*)strSourceID);
 
     // Copy the float array data if any.
@@ -81,15 +81,15 @@ ColladaAnimationSource* ColladaScene::LoadAnimationSource(
     return pSource;
 }
 //----------------------------------------------------------------------------
-ColladaAnimationSampler* ColladaScene::LoadAnimationSampler(
-    ColladaAnimation* pAnimation, domSamplerRef spDomSampler)
+SEColladaAnimationSampler* SEColladaScene::LoadAnimationSampler(
+    SEColladaAnimation* pAnimation, domSamplerRef spDomSampler)
 {
     if( !spDomSampler )
     {
         return 0;
     }
 
-    ColladaAnimationSampler* pSampler = SE_NEW ColladaAnimationSampler;
+    SEColladaAnimationSampler* pSampler = SE_NEW SEColladaAnimationSampler;
     pSampler->SetName((const char*)spDomSampler->getId());
 
     domInputLocal_Array& rDomInputArray = spDomSampler->getInput_array();
@@ -102,22 +102,22 @@ ColladaAnimationSampler* ColladaScene::LoadAnimationSampler(
 
         xsNMTOKEN strInputSemantic = pInput->getSemantic();
         xsID strSourceID = pDomSource->getId();
-        ColladaAnimationSource* pSource = pAnimation->Sources[strSourceID];
+        SEColladaAnimationSource* pSource = pAnimation->Sources[strSourceID];
         pSampler->Inputs[(const char*)strInputSemantic] = pSource;
     }
 
     return pSampler;
 }
 //----------------------------------------------------------------------------
-ColladaAnimationChannel* ColladaScene::LoadAnimationChannel(
-    ColladaAnimation* pAnimation, domChannelRef spDomChannel)
+SEColladaAnimationChannel* SEColladaScene::LoadAnimationChannel(
+    SEColladaAnimation* pAnimation, domChannelRef spDomChannel)
 {
     if( !spDomChannel )
     {
         return 0;
     }
 
-    ColladaAnimationChannel* pChannel = SE_NEW ColladaAnimationChannel;
+    SEColladaAnimationChannel* pChannel = SE_NEW SEColladaAnimationChannel;
     domSampler* pDomSampler = 
         (domSampler*)(domElement*)spDomChannel->getSource().getElement();
     const char* acTargetName = spDomChannel->getTarget();
@@ -126,13 +126,13 @@ ColladaAnimationChannel* ColladaScene::LoadAnimationChannel(
     // Get a pointer to the input source.
     const std::string& rInputSourceID = 
         pChannel->Sampler->Inputs["INPUT"]->GetName();
-    ColladaAnimationSource* pInputSource = 
+    SEColladaAnimationSource* pInputSource = 
         pAnimation->Sources[rInputSourceID.c_str()];
 
     // Get a pointer to the output source.
     const std::string& rOutputSourceID = 
         pChannel->Sampler->Inputs["OUTPUT"]->GetName();
-    ColladaAnimationSource* pOutputSource = 
+    SEColladaAnimationSource* pOutputSource = 
         pAnimation->Sources[rOutputSourceID.c_str()];
     
     pChannel->InputSource = pInputSource;
@@ -206,31 +206,31 @@ ColladaAnimationChannel* ColladaScene::LoadAnimationChannel(
     {
     case COLLADA_TYPE::TRANSLATE:
         pAnimation->HasTranslation = true;
-        pChannel->TargetType = ColladaAnimationChannel::AT_T;
+        pChannel->TargetType = SEColladaAnimationChannel::AT_T;
         pChannel->NumElementTargets = 3; 
         break;
 
     case COLLADA_TYPE::ROTATE:
         pAnimation->HasRotation = true;
-        pChannel->TargetType = ColladaAnimationChannel::AT_R;
+        pChannel->TargetType = SEColladaAnimationChannel::AT_R;
         pChannel->NumElementTargets = 4; 
         break;
 
     case COLLADA_TYPE::SCALE:
         pAnimation->HasScale = true;
-        pChannel->TargetType = ColladaAnimationChannel::AT_S;
+        pChannel->TargetType = SEColladaAnimationChannel::AT_S;
         pChannel->NumElementTargets = 3; 
         break;
 
     case COLLADA_TYPE::SOURCE:
         pAnimation->HasSource = true;
-        pChannel->TargetType = ColladaAnimationChannel::AT_SOURCE;
+        pChannel->TargetType = SEColladaAnimationChannel::AT_SOURCE;
         pChannel->NumElementTargets = 1; 
         break;
 
     case COLLADA_TYPE::MATRIX:
         pAnimation->HasMatrix = true;
-        pChannel->TargetType = ColladaAnimationChannel::AT_MATRIX;
+        pChannel->TargetType = SEColladaAnimationChannel::AT_MATRIX;
         pChannel->NumElementTargets = 16; 
         break;
 
@@ -253,47 +253,47 @@ ColladaAnimationChannel* ColladaScene::LoadAnimationChannel(
             {
                 // Rotate x axis.
                 pAnimation->HasRotation = true;
-                pChannel->TargetType = ColladaAnimationChannel::AT_R_X_AXIS;
+                pChannel->TargetType = SEColladaAnimationChannel::AT_R_X_AXIS;
                 pChannel->NumElementTargets = 1;
             }
             else if( pDomRotate->getValue()[1] == 1 ) 
             {
                 // Rotate y axis.
                 pAnimation->HasRotation = true;
-                pChannel->TargetType = ColladaAnimationChannel::AT_R_Y_AXIS;
+                pChannel->TargetType = SEColladaAnimationChannel::AT_R_Y_AXIS;
                 pChannel->NumElementTargets = 1; 
             }
             else if( pDomRotate->getValue()[2] == 1 ) 
             {
                 // Rotate z axis.
                 pAnimation->HasRotation = true;
-                pChannel->TargetType = ColladaAnimationChannel::AT_R_Z_AXIS;
+                pChannel->TargetType = SEColladaAnimationChannel::AT_R_Z_AXIS;
                 pChannel->NumElementTargets = 1; 
             }
         }
         else if( strcmp(acTargetMember, "X") == 0 )
         {
-            pChannel->TargetType = ColladaAnimationChannel::AT_TARGET_X;
+            pChannel->TargetType = SEColladaAnimationChannel::AT_TARGET_X;
             pChannel->NumElementTargets = 1;
         }
         else if( strcmp(acTargetMember, "Y") == 0 ) 
         {
-            pChannel->TargetType = ColladaAnimationChannel::AT_TARGET_Y;
+            pChannel->TargetType = SEColladaAnimationChannel::AT_TARGET_Y;
             pChannel->NumElementTargets = 1;
         }
         else if( strcmp(acTargetMember, "Z") == 0 )
         {
-            pChannel->TargetType = ColladaAnimationChannel::AT_TARGET_Z;
+            pChannel->TargetType = SEColladaAnimationChannel::AT_TARGET_Z;
             pChannel->NumElementTargets = 1;
         }
         else if( (*acTargetMember) >= '0' && (*acTargetMember) <= '9' )
         {
-            pChannel->TargetType = ColladaAnimationChannel::AT_SOURCE;
+            pChannel->TargetType = SEColladaAnimationChannel::AT_SOURCE;
             pChannel->NumElementTargets = 1;
         }
         else
         {
-            pChannel->TargetType = ColladaAnimationChannel::AT_TARGET_XYZ;
+            pChannel->TargetType = SEColladaAnimationChannel::AT_TARGET_XYZ;
             pChannel->NumElementTargets = 3;
         }
     }
@@ -302,7 +302,8 @@ ColladaAnimationChannel* ColladaScene::LoadAnimationChannel(
     return pChannel;
 }
 //----------------------------------------------------------------------------
-ColladaAnimation* ColladaScene::LoadAnimation(domAnimationRef spDomAnimation)
+SEColladaAnimation* SEColladaScene::LoadAnimation(domAnimationRef 
+    spDomAnimation)
 {
     if( !spDomAnimation )
     {
@@ -316,7 +317,7 @@ ColladaAnimation* ColladaScene::LoadAnimation(domAnimationRef spDomAnimation)
     domAnimation* pDomAnimation = (domAnimation*)spDomAnimation;
     if( pDomAnimation )
     {
-        ColladaAnimation* pAnimation = SE_NEW ColladaAnimation;
+        SEColladaAnimation* pAnimation = SE_NEW SEColladaAnimation;
         pAnimation->SetName(strAnimationID);
 
         // Get the number of sources and store them in animation's hash map.
@@ -324,7 +325,7 @@ ColladaAnimation* ColladaScene::LoadAnimation(domAnimationRef spDomAnimation)
         int iSourceCount = (int)rDomSourceArray.getCount();
         for( int i = 0; i < iSourceCount; i++ )
         {
-            ColladaAnimationSource* pSource = 
+            SEColladaAnimationSource* pSource = 
                 LoadAnimationSource(rDomSourceArray[i]);
             if( pSource )
             {
@@ -339,7 +340,7 @@ ColladaAnimation* ColladaScene::LoadAnimation(domAnimationRef spDomAnimation)
         int iSamplerCount = (int)rDomSamplerArray.getCount();
         for( int i = 0; i < iSamplerCount; i++ )
         {
-            ColladaAnimationSampler* pSampler = 
+            SEColladaAnimationSampler* pSampler = 
                 LoadAnimationSampler(pAnimation, rDomSamplerArray[i]);
             if( pSampler )
             {
@@ -355,7 +356,7 @@ ColladaAnimation* ColladaScene::LoadAnimation(domAnimationRef spDomAnimation)
         int iChannelCount = (int)rDomChannelArray.getCount();
         for( int i = 0; i < iChannelCount; i++ )
         {
-            ColladaAnimationChannel* pChannel = 
+            SEColladaAnimationChannel* pChannel = 
                 LoadAnimationChannel(pAnimation, rDomChannelArray[i]);
             if( pChannel )
             {
@@ -382,8 +383,8 @@ ColladaAnimation* ColladaScene::LoadAnimation(domAnimationRef spDomAnimation)
     return 0;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::BuildKeyFrameController(SENode* pNode,
-    std::vector<ColladaTransformation*>& rColladaTransSequence)
+void SEColladaScene::BuildKeyFrameController(SENode* pNode,
+    std::vector<SEColladaTransformation*>& rColladaTransSequence)
 {
     // Get a keyframe information set.
     set<KeyInfo> tempKeyInfoSet;
@@ -391,22 +392,22 @@ void ColladaScene::BuildKeyFrameController(SENode* pNode,
     int iTransCount = (int)rColladaTransSequence.size();
     for( int i = 0; i < iTransCount; i++ )
     {
-        ColladaAnimation* pAnimation = rColladaTransSequence[i]->Animation;
+        SEColladaAnimation* pAnimation = rColladaTransSequence[i]->Animation;
         if( pAnimation )
         {
             // Swing Engine only support SRT keyframe animation.
-            ColladaTransformation::TransformType eTType = 
+            SEColladaTransformation::TransformType eTType = 
                 rColladaTransSequence[i]->TransType;
-            SE_ASSERT( eTType == ColladaTransformation::TT_SCALE || 
-                eTType == ColladaTransformation::TT_ROTATE || 
-                eTType == ColladaTransformation::TT_TRANSLATE );
+            SE_ASSERT( eTType == SEColladaTransformation::TT_SCALE || 
+                eTType == SEColladaTransformation::TT_ROTATE || 
+                eTType == SEColladaTransformation::TT_TRANSLATE );
 
             // A single transform may have serveral animated channels attached.
             int iChannelCount = rColladaTransSequence[i]->GetChannelCount();
             for( int j = 0; j < iChannelCount; j++ )
             {
                 int iChannelID = rColladaTransSequence[i]->GetChannel(j);
-                ColladaKeySet& rKeySet = pAnimation->AnimKeySets[iChannelID];
+                SEColladaKeySet& rKeySet = pAnimation->AnimKeySets[iChannelID];
                 for( int k = 0; k < rKeySet.NumKeys; k++ )
                 {
                     KeyInfo tempKeyInfo;
@@ -438,15 +439,15 @@ void ColladaScene::BuildKeyFrameController(SENode* pNode,
     {
         switch( (*tempIter).Type )
         {
-        case ColladaTransformation::TT_SCALE:
+        case SEColladaTransformation::TT_SCALE:
             iScaKeyCount++;
             break;
 
-        case ColladaTransformation::TT_ROTATE:
+        case SEColladaTransformation::TT_ROTATE:
             iRotKeyCount++;
             break;
 
-        case ColladaTransformation::TT_TRANSLATE:
+        case SEColladaTransformation::TT_TRANSLATE:
             iTrnKeyCount++;
             break;
 
@@ -512,7 +513,7 @@ void ColladaScene::BuildKeyFrameController(SENode* pNode,
 
         switch( rInfo.Type )
         {
-        case ColladaTransformation::TT_SCALE:
+        case SEColladaTransformation::TT_SCALE:
             {
                 // TODO:
                 // We only support uniform scale and postive scale factor.
@@ -524,7 +525,8 @@ void ColladaScene::BuildKeyFrameController(SENode* pNode,
                 else
                 {
                     fMax = SEMath<float>::FAbs(tempTransform.GetScale().X);
-                    float fAbs = SEMath<float>::FAbs(tempTransform.GetScale().Y);
+                    float fAbs = SEMath<float>::FAbs(tempTransform.GetScale(
+                        ).Y);
                     if( fAbs > fMax )
                     {
                         fMax = fAbs;
@@ -544,7 +546,7 @@ void ColladaScene::BuildKeyFrameController(SENode* pNode,
             }
             break;
 
-        case ColladaTransformation::TT_ROTATE:
+        case SEColladaTransformation::TT_ROTATE:
             // TODO:
             // We only support SR form.
             if( tempTransform.IsSRMatrix() )
@@ -565,7 +567,7 @@ void ColladaScene::BuildKeyFrameController(SENode* pNode,
             }
             break;
 
-        case ColladaTransformation::TT_TRANSLATE:
+        case SEColladaTransformation::TT_TRANSLATE:
             SE_ASSERT( pTKey );
             SE_ASSERT( pfTTime );
             *pTKey++ = tempTransform.GetTranslate();

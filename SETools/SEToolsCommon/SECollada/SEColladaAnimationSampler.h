@@ -34,19 +34,19 @@ namespace Swing
 // Author:Sun Che
 // Date:20090917
 //----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaAnimationSampler : public SEObject
+class SE_TOOLS_COMMON_API SEColladaAnimationSampler : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
 
 public:
-    ColladaAnimationSampler(void);
-    ~ColladaAnimationSampler(void);
+    SEColladaAnimationSampler(void);
+    ~SEColladaAnimationSampler(void);
 
-    std::map<std::string, ColladaAnimationSourcePtr> Inputs;
+    std::map<std::string, SEColladaAnimationSourcePtr> Inputs;
 };
 
-typedef SESmartPointer<ColladaAnimationSampler> ColladaAnimationSamplerPtr;
+typedef SESmartPointer<SEColladaAnimationSampler> SEColladaAnimationSamplerPtr;
 
 }
 

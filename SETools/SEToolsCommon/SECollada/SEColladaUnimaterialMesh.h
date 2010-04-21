@@ -42,10 +42,10 @@ namespace Swing
 // Author:Sun Che
 // Date:20090927
 //----------------------------------------------------------------------------
-class ColladaUnimaterialMesh
+class SEColladaUnimaterialMesh
 {
 public:
-    ColladaUnimaterialMesh(void);
+    SEColladaUnimaterialMesh(void);
 
     int& VCount(void);
     SEVector3f*& Vertex(void);

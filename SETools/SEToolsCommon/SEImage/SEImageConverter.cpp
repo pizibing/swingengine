@@ -16,21 +16,21 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ImageConverter::ImageConverter(IDirect3DDevice9* pDevice)
+SEImageConverter::SEImageConverter(IDirect3DDevice9* pDevice)
 {
     SE_ASSERT( pDevice );
     m_pDXDevice = pDevice;
 }
 //----------------------------------------------------------------------------
-ImageConverter::ImageConverter()
+SEImageConverter::SEImageConverter()
 {
 }
 //----------------------------------------------------------------------------
-ImageConverter::~ImageConverter()
+SEImageConverter::~SEImageConverter()
 {
 }
 //----------------------------------------------------------------------------
-SEImage* ImageConverter::CreateImageFromFile(const char* acFilename)
+SEImage* SEImageConverter::CreateImageFromFile(const char* acFilename)
 {
     if( !acFilename )
     {

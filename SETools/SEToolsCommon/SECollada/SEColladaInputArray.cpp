@@ -24,7 +24,8 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ColladaInputArray::ColladaInputArray(domInputLocalOffset_Array& rDomInputs)
+SEColladaInputArray::SEColladaInputArray(domInputLocalOffset_Array& 
+    rDomInputs)
 {
     m_iMaxOffset = 0;
     m_iPosition = -1;
@@ -37,11 +38,11 @@ ColladaInputArray::ColladaInputArray(domInputLocalOffset_Array& rDomInputs)
     SetInputs(rDomInputs);
 }
 //----------------------------------------------------------------------------
-ColladaInputArray::~ColladaInputArray()
+SEColladaInputArray::~SEColladaInputArray()
 {
 }
 //----------------------------------------------------------------------------
-void ColladaInputArray::SetInputs(domInputLocalOffset_Array& rDomInputs)
+void SEColladaInputArray::SetInputs(domInputLocalOffset_Array& rDomInputs)
 {
     // Inputs with offsets.
     for( int i = 0; i < (int)rDomInputs.getCount(); i++ )

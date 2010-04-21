@@ -23,24 +23,24 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColladaMaterial, SEObject);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaMaterial, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEColladaMaterial, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEColladaMaterial, SEObject);
 
 //----------------------------------------------------------------------------
-ColladaMaterial::ColladaMaterial(ColladaEffect* pEffect)
+SEColladaMaterial::SEColladaMaterial(SEColladaEffect* pEffect)
 {
     m_spEffect = pEffect;
 }
 //----------------------------------------------------------------------------
-ColladaMaterial::ColladaMaterial()
+SEColladaMaterial::SEColladaMaterial()
 {
 }
 //----------------------------------------------------------------------------
-ColladaMaterial::~ColladaMaterial()
+SEColladaMaterial::~SEColladaMaterial()
 {
 }
 //----------------------------------------------------------------------------
-SEMaterialState* ColladaMaterial::GetMState()
+SEMaterialState* SEColladaMaterial::GetMState()
 {
     if( m_spEffect )
     {
@@ -50,7 +50,7 @@ SEMaterialState* ColladaMaterial::GetMState()
     return 0;
 }
 //----------------------------------------------------------------------------
-SETexture* ColladaMaterial::GetTexture(int i)
+SETexture* SEColladaMaterial::GetTexture(int i)
 {
     if( 0 <= i && i <= (int)m_spEffect->Textures.size() - 1 )
     {

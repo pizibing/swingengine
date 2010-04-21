@@ -23,23 +23,23 @@
 
 using namespace Swing;
 
-ColladaScene::OrientationMode ColladaScene::ms_eOrientationMode = 
-    ColladaScene::OM_UNKNOWN;
+SEColladaScene::OrientationMode SEColladaScene::ms_eOrientationMode = 
+    SEColladaScene::OM_UNKNOWN;
 
 //----------------------------------------------------------------------------
-ColladaScene::ColladaScene(IDirect3DDevice9* pDevice)
+SEColladaScene::SEColladaScene(IDirect3DDevice9* pDevice)
 {
     m_pDAE = SE_NEW DAE;
-    m_pImageConverter = SE_NEW ImageConverter(pDevice);
+    m_pImageConverter = SE_NEW SEImageConverter(pDevice);
 }
 //----------------------------------------------------------------------------
-ColladaScene::~ColladaScene()
+SEColladaScene::~SEColladaScene()
 {
     SE_DELETE m_pDAE;
     SE_DELETE m_pImageConverter;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::Load(const char* acFilename)
+void SEColladaScene::Load(const char* acFilename)
 {
     ToolSystem::SE_DebugOutput("COLLADA DOM loading process started" );
 
@@ -146,12 +146,12 @@ void ColladaScene::Load(const char* acFilename)
     ProcessControllers();
 }
 //----------------------------------------------------------------------------
-SENode* ColladaScene::GetScene()
+SENode* SEColladaScene::GetScene()
 {
     return m_spSceneRoot;
 }
 //----------------------------------------------------------------------------
-unsigned int ColladaScene::GetMaxOffset(
+unsigned int SEColladaScene::GetMaxOffset(
     domInputLocalOffset_Array& rInputArray)
 {
     unsigned int uiMaxOffset = 0;
@@ -166,7 +166,7 @@ unsigned int ColladaScene::GetMaxOffset(
     return uiMaxOffset;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::CreateTrianglesFromPolylist(domMesh* pDomMesh, 
+void SEColladaScene::CreateTrianglesFromPolylist(domMesh* pDomMesh, 
     domPolylist* pDomPolylist)
 {
     // Create a new <triangles> inside the mesh that has the same material 
@@ -186,7 +186,8 @@ void ColladaScene::CreateTrianglesFromPolylist(domMesh* pDomMesh,
 
     // Get the number of inputs and primitives for the polygons array.
     int iInputCount = (int)GetMaxOffset(pDomPolylist->getInput_array()) + 1;
-    int iPrimitiveCount = (int)(pDomPolylist->getVcount()->getValue().getCount());
+    int iPrimitiveCount = (int)(pDomPolylist->getVcount()->getValue(
+        ).getCount());
 
     unsigned int uiOffset = 0;
     unsigned int uiTrianglesProcessed = 0;
@@ -197,8 +198,8 @@ void ColladaScene::CreateTrianglesFromPolylist(domMesh* pDomMesh,
     {
         int iTriangleCount = (int)pDomPolylist->getVcount()->getValue()[j] - 2;
 
-        // Write out the primitives as triangles, just fan using the first element
-        // as the base.
+        // Write out the primitives as triangles, just fan using the first 
+        // element as the base.
         int iIndex = iInputCount;
         for( int k = 0; k < iTriangleCount; k++ )
         {
@@ -231,7 +232,7 @@ void ColladaScene::CreateTrianglesFromPolylist(domMesh* pDomMesh,
     pDomTriangles->setCount(uiTrianglesProcessed);
 }
 //----------------------------------------------------------------------------
-void ColladaScene::CreateTrianglesFromPolygons(domMesh* pDomMesh, 
+void SEColladaScene::CreateTrianglesFromPolygons(domMesh* pDomMesh, 
     domPolygons* pDomPolygons)
 {
     // Create a new <triangles> inside the mesh that has the same material as
@@ -299,7 +300,7 @@ void ColladaScene::CreateTrianglesFromPolygons(domMesh* pDomMesh,
     }
 }
 //----------------------------------------------------------------------------
-void ColladaScene::Triangulate(DAE* pDAE)
+void SEColladaScene::Triangulate(DAE* pDAE)
 {
     SE_ASSERT( pDAE );
 
@@ -350,7 +351,7 @@ void ColladaScene::Triangulate(DAE* pDAE)
     }
 }
 //----------------------------------------------------------------------------
-SEVector3f ColladaScene::GetTransformedVector(float fX, float fY, float fZ)
+SEVector3f SEColladaScene::GetTransformedVector(float fX, float fY, float fZ)
 {
     SEVector3f vec3fRes;
 
@@ -384,7 +385,7 @@ SEVector3f ColladaScene::GetTransformedVector(float fX, float fY, float fZ)
     return vec3fRes;
 }
 //----------------------------------------------------------------------------
-bool ColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
+bool SEColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
 {
     // Create Swing Engine scene graph's root.
     // Save the scene name instead of scene id.
@@ -392,7 +393,7 @@ bool ColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
     xsNCName strSceneName = spDomVisualScene->getName();
     m_spSceneRoot->SetName(strSceneName);
 
-    ToolSystem::SE_DebugOutput("ColladaScene::Loading Collada Scene %s", 
+    ToolSystem::SE_DebugOutput("SEColladaScene::Loading Collada Scene %s", 
         (const char*)strSceneName);
 
     // Recurse through the scene, load and add nodes.

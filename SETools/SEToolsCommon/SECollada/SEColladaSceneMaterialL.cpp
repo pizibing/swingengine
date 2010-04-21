@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ColladaMaterial* ColladaScene::GetMaterial(const char* acName)
+SEColladaMaterial* SEColladaScene::GetMaterial(const char* acName)
 {
     if( !acName )
     {
@@ -42,7 +42,8 @@ ColladaMaterial* ColladaScene::GetMaterial(const char* acName)
     return 0;
 }
 //----------------------------------------------------------------------------
-ColladaInstanceMaterial* ColladaScene::GetInstanceMaterial(const char* acName)
+SEColladaInstanceMaterial* SEColladaScene::GetInstanceMaterial(const char* 
+    acName)
 {
     if( !acName )
     {
@@ -60,9 +61,9 @@ ColladaInstanceMaterial* ColladaScene::GetInstanceMaterial(const char* acName)
     return 0;
 }
 //----------------------------------------------------------------------------
-bool ColladaScene::LoadMaterialLibrary(domLibrary_materialsRef spLib)
+bool SEColladaScene::LoadMaterialLibrary(domLibrary_materialsRef spLib)
 {
-    ToolSystem::SE_DebugOutput("ColladaScene::Loading Material Library");
+    ToolSystem::SE_DebugOutput("SEColladaScene::Loading Material Library");
 
     int iMaterialCount = (int)spLib->getMaterial_array().getCount();
     for( int i = 0; i < iMaterialCount; i++ )
@@ -73,7 +74,7 @@ bool ColladaScene::LoadMaterialLibrary(domLibrary_materialsRef spLib)
     return true; 
 }
 //----------------------------------------------------------------------------
-ColladaMaterial* ColladaScene::LoadMaterial(domMaterialRef spDomMaterial)
+SEColladaMaterial* SEColladaScene::LoadMaterial(domMaterialRef spDomMaterial)
 {
     if( !spDomMaterial )
     {
@@ -86,7 +87,7 @@ ColladaMaterial* ColladaScene::LoadMaterial(domMaterialRef spDomMaterial)
         return 0;
     }
 
-    ColladaMaterial* pMaterial = GetMaterial(strMaterialID);
+    SEColladaMaterial* pMaterial = GetMaterial(strMaterialID);
     if( pMaterial )
     {
         // This material is already in our material catalog.
@@ -112,10 +113,10 @@ ColladaMaterial* ColladaScene::LoadMaterial(domMaterialRef spDomMaterial)
         }
 
         // Find the effect that the material is refering to.
-        ColladaEffect* pEffect = LoadEffect((domEffect*)pDomElement);
+        SEColladaEffect* pEffect = LoadEffect((domEffect*)pDomElement);
         if( pEffect )
         {
-            ColladaMaterial* pMaterial = SE_NEW ColladaMaterial(pEffect);
+            SEColladaMaterial* pMaterial = SE_NEW SEColladaMaterial(pEffect);
             pMaterial->SetName(strMaterialID);
             ToolSystem::SE_DebugOutput(
                 "Attaching effect %s to material %s \n", pEffect->GetName(), 
@@ -140,11 +141,11 @@ ColladaMaterial* ColladaScene::LoadMaterial(domMaterialRef spDomMaterial)
     return 0;
 }
 //----------------------------------------------------------------------------
-ColladaInstanceMaterial* ColladaScene::LoadInstanceMaterial(
+SEColladaInstanceMaterial* SEColladaScene::LoadInstanceMaterial(
     domInstance_materialRef spLib)
 {
-    ColladaInstanceMaterial* pInstanceMaterial = 
-        SE_NEW ColladaInstanceMaterial;
+    SEColladaInstanceMaterial* pInstanceMaterial = 
+        SE_NEW SEColladaInstanceMaterial;
 
     xsNCName strSymbol = spLib->getSymbol();
     daeString strTarget = spLib->getTarget().getID();
@@ -155,7 +156,7 @@ ColladaInstanceMaterial* ColladaScene::LoadInstanceMaterial(
     if( pDomElement )
     {
         // Add or find this material object.
-        ColladaMaterial* pMaterial = LoadMaterial((domMaterial*)pDomElement);
+        SEColladaMaterial* pMaterial = LoadMaterial((domMaterial*)pDomElement);
         if( pMaterial )
         {
             pInstanceMaterial->TargetMaterial = pMaterial;

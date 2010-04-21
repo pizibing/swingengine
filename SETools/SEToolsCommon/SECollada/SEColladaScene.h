@@ -43,14 +43,14 @@ namespace Swing
 // Author:Sun Che
 // Date:20090914
 //----------------------------------------------------------------------------
-class ColladaShaderElements
+class SE_TOOLS_COMMON_API SEColladaShaderElements
 {
 public:
-    ColladaShaderElements(void)
+    SEColladaShaderElements(void)
     { 
-        memset(this, 0, sizeof(ColladaShaderElements));
+        memset(this, 0, sizeof(SEColladaShaderElements));
     }
-    ~ColladaShaderElements(void){}
+    ~SEColladaShaderElements(void){}
 
     domCommon_color_or_texture_type* Emission;
     domCommon_color_or_texture_type* Ambient;
@@ -70,11 +70,11 @@ public:
 // Author:Sun Che
 // Date:20090914
 //----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaScene
+class SE_TOOLS_COMMON_API SEColladaScene
 {
 public:
-    ColladaScene(IDirect3DDevice9* pDevice);
-    ~ColladaScene(void);
+    SEColladaScene(IDirect3DDevice9* pDevice);
+    ~SEColladaScene(void);
 
     // Current coordinate frame orientation mode, depending on the DCC tools.
     enum OrientationMode
@@ -104,9 +104,9 @@ public:
     int GetImageCount(void) const;
     SEImage* GetImage(const char* acName);
     SEImage* GetImage(int i);
-    ColladaEffect* GetEffect(const char* acName);
-    ColladaMaterial* GetMaterial(const char* acName);
-    ColladaInstanceMaterial* GetInstanceMaterial(const char* acName);
+    SEColladaEffect* GetEffect(const char* acName);
+    SEColladaMaterial* GetMaterial(const char* acName);
+    SEColladaInstanceMaterial* GetInstanceMaterial(const char* acName);
     SENode* GetNode(const char* acName);
     SENode* GetGeometry(const char* acName);
     SELight* GetLight(const char* acName);
@@ -121,7 +121,7 @@ private:
         KeyInfo(void)
         {
             Time = 0.0f;
-            Type = ColladaTransformation::TT_UNKNOWN;
+            Type = SEColladaTransformation::TT_UNKNOWN;
         }
 
         bool operator == (const KeyInfo& rKeyInfo) const
@@ -134,11 +134,11 @@ private:
         }
 
         float Time;
-        ColladaTransformation::TransformType Type;
+        SEColladaTransformation::TransformType Type;
     };
 
-    // This helper class holds the relationship between a Swing Engine bone node
-    // and a COLLADA joint node.
+    // This helper class holds the relationship between a Swing Engine bone 
+    // node and a COLLADA joint node.
     class Bone
     {
     public:
@@ -152,8 +152,8 @@ private:
         domNode* BoneDomNode;
     };
 
-    // This helper class represents the weight of a bone that is applied to a 
-    // specific vertex.
+    // This helper class represents the weight of a bone that is applied to 
+    // a specific vertex.
     class BoneWeight
     {
     public:
@@ -190,9 +190,9 @@ private:
     // SENode stuff.
     SENode* LoadNode(domNodeRef spDomNode, SENode* pParentNode);
     void GetLocalTransSequence(SENode* pNode, domNodeRef spDomNode, 
-        std::vector<ColladaTransformation*>& rColladaTransSequence);
+        std::vector<SEColladaTransformation*>& rColladaTransSequence);
     SETransformation GetLocalTransformation(
-        std::vector<ColladaTransformation*>& rColladaTransSequence,
+        std::vector<SEColladaTransformation*>& rColladaTransSequence,
         float fTime = 0.0f);
     SETriMesh* CreateJointMesh(const char* acJointName, float fSize = 0.25f);
     domNode* GetDomNodeBySID(domNodeRef spDomNode, xsNCName strSID);
@@ -201,10 +201,11 @@ private:
     // Geometry stuff.
     SENode* LoadGeometry(domGeometryRef spDomGeometry);
     SENode* LoadInstanceGeometry(domInstance_geometryRef spLib);
-    void PackVertices(ColladaUnimaterialMesh* pUniMesh,
+    void PackVertices(SEColladaUnimaterialMesh* pUniMesh,
         domListOfFloats* pDomPositionData, domListOfUInts& rDomIndexData, 
-        int iIndexCount, int iStride, int iPositionOffset, SEVector3f* aNormal);
-    void PackTextures(ColladaUnimaterialMesh* pUniMesh,
+        int iIndexCount, int iStride, int iPositionOffset, 
+        SEVector3f* aNormal);
+    void PackTextures(SEColladaUnimaterialMesh* pUniMesh,
         domListOfFloats* pDomTCoordData, domListOfUInts& rDomIndexData, 
         int iIndexCount, int iStride, int iTCoordOffset);
     SETriMesh* BuildTriangles(domTriangles* pDomTriangles);
@@ -216,13 +217,13 @@ private:
 
     // Material stuff.
     bool LoadMaterialLibrary(domLibrary_materialsRef spLib);
-    ColladaMaterial* LoadMaterial(domMaterialRef spDomMaterial);
-    ColladaInstanceMaterial* LoadInstanceMaterial(
+    SEColladaMaterial* LoadMaterial(domMaterialRef spDomMaterial);
+    SEColladaInstanceMaterial* LoadInstanceMaterial(
         domInstance_materialRef spLib);
 
     // SEEffect stuff.
     bool LoadEffectLibrary(domLibrary_effectsRef spLib);
-    ColladaEffect* LoadEffect(domEffectRef spDomEffect);
+    SEColladaEffect* LoadEffect(domEffectRef spDomEffect);
     SEColorRGB GetColor(domCommon_color_or_texture_type_complexType* pParam);
     float GetFloat(domCommon_float_or_param_type* pParam);
     SETexture* GetTextureFromShaderElement(
@@ -231,62 +232,62 @@ private:
 
     // Animation stuff.
     bool LoadAnimationLibrary(domLibrary_animationsRef spLib);
-    ColladaAnimation* LoadAnimation(domAnimationRef spDomAnimation);
-    ColladaAnimationSource* LoadAnimationSource(domSourceRef spDomSource);
-    ColladaAnimationSampler* LoadAnimationSampler(
-        ColladaAnimation* pAnimation, domSamplerRef spDomSampler);
-    ColladaAnimationChannel* LoadAnimationChannel(
-        ColladaAnimation* pAnimation, domChannelRef spDomChannel);
+    SEColladaAnimation* LoadAnimation(domAnimationRef spDomAnimation);
+    SEColladaAnimationSource* LoadAnimationSource(domSourceRef spDomSource);
+    SEColladaAnimationSampler* LoadAnimationSampler(
+        SEColladaAnimation* pAnimation, domSamplerRef spDomSampler);
+    SEColladaAnimationChannel* LoadAnimationChannel(
+        SEColladaAnimation* pAnimation, domChannelRef spDomChannel);
     void BuildKeyFrameController(SENode* pNode,
-        std::vector<ColladaTransformation*>& rColladaTransSequence);
+        std::vector<SEColladaTransformation*>& rColladaTransSequence);
 
     // SELight stuff.
     SELight* LoadLight(domLightRef spDomLight);
-    ColladaInstanceLight* LoadInstanceLight(SENode* pParentNode, 
+    SEColladaInstanceLight* LoadInstanceLight(SENode* pParentNode, 
         domInstance_lightRef spDomInstanceLight);
-    void ParseConstant(ColladaEffect* pEffect, 
-        ColladaShaderElements* pShaderElements,
+    void ParseConstant(SEColladaEffect* pEffect, 
+        SEColladaShaderElements* pShaderElements,
         domProfile_COMMON::domTechnique::domConstant* pDomConstant);
-    void ParseLambert(ColladaEffect* pEffect, 
-        ColladaShaderElements* pShaderElements,
+    void ParseLambert(SEColladaEffect* pEffect, 
+        SEColladaShaderElements* pShaderElements,
         domProfile_COMMON::domTechnique::domLambert* pDomLambert);
-    void ParsePhong(ColladaEffect* pEffect, 
-        ColladaShaderElements* pShaderElements,
+    void ParsePhong(SEColladaEffect* pEffect, 
+        SEColladaShaderElements* pShaderElements,
         domProfile_COMMON::domTechnique::domPhong* pDomPhong);
-    void ParseBlinn(ColladaEffect* pEffect, 
-        ColladaShaderElements* pShaderElements,
+    void ParseBlinn(SEColladaEffect* pEffect, 
+        SEColladaShaderElements* pShaderElements,
         domProfile_COMMON::domTechnique::domBlinn* pDomblinn);
     void ProcessLights(void);
 
     // SECamera stuff.
     SECamera* LoadCamera(domCameraRef spDomCamera);
-    ColladaInstanceCamera* LoadInstanceCamera(SENode* pParentNode, 
+    SEColladaInstanceCamera* LoadInstanceCamera(SENode* pParentNode, 
         domInstance_cameraRef spDomInstanceCamera);
     void ProcessCameras(void);
 
     // Controller stuff.
     SENode* LoadInstanceController(domInstance_controllerRef spLib);
     void ProcessControllers(void);
-    void ProcessSkin(ColladaInstanceController* pIController);
-    void ProcessMorph(ColladaInstanceController* pIController);
+    void ProcessSkin(SEColladaInstanceController* pIController);
+    void ProcessMorph(SEColladaInstanceController* pIController);
 
     DAE* m_pDAE;
-    ImageConverter* m_pImageConverter;
+    SEImageConverter* m_pImageConverter;
     SENodePtr m_spSceneRoot;
     static OrientationMode ms_eOrientationMode;
 
     std::vector<SEImagePtr> m_Images;
-    std::vector<ColladaEffectPtr> m_Effects;
-    std::vector<ColladaMaterialPtr> m_Materials;
-    std::vector<ColladaInstanceMaterialPtr> m_InstanceMaterials;
-    std::vector<ColladaInstanceLightPtr> m_InstanceLights;
-    std::vector<ColladaInstanceCameraPtr> m_InstanceCameras;
-    std::vector<ColladaAnimationPtr> m_Animations;
+    std::vector<SEColladaEffectPtr> m_Effects;
+    std::vector<SEColladaMaterialPtr> m_Materials;
+    std::vector<SEColladaInstanceMaterialPtr> m_InstanceMaterials;
+    std::vector<SEColladaInstanceLightPtr> m_InstanceLights;
+    std::vector<SEColladaInstanceCameraPtr> m_InstanceCameras;
+    std::vector<SEColladaAnimationPtr> m_Animations;
     std::map<std::string, SENodePtr> m_Nodes;
     std::vector<SENodePtr> m_Geometries;
     std::vector<SELightPtr> m_Lights;
     std::vector<SECameraPtr> m_Cameras;
-    std::vector<ColladaInstanceControllerPtr> m_InstanceControllers;
+    std::vector<SEColladaInstanceControllerPtr> m_InstanceControllers;
     std::vector<Bone> m_Bones;
 
 // Internal use.

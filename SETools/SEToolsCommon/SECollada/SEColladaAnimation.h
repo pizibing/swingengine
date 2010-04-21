@@ -36,9 +36,9 @@ namespace Swing
 // Author:Sun Che
 // Date:20090917
 //----------------------------------------------------------------------------
-struct SE_TOOLS_COMMON_API ColladaAnimationKey
+struct SE_TOOLS_COMMON_API SEColladaAnimationKey
 {
-    ColladaAnimationKey()
+    SEColladaAnimationKey()
     {
         Time = 0; 
         HasRotation = false;  
@@ -55,9 +55,9 @@ struct SE_TOOLS_COMMON_API ColladaAnimationKey
 // Author:Sun Che
 // Date:20090917
 //----------------------------------------------------------------------------
-struct SE_TOOLS_COMMON_API ColladaKeySet
+struct SE_TOOLS_COMMON_API SEColladaKeySet
 {
-    ColladaKeySet()
+    SEColladaKeySet()
     {
         NumKeys = 0; 
         Keys = 0;
@@ -88,38 +88,38 @@ struct SE_TOOLS_COMMON_API ColladaKeySet
     }
 };
 
-class ColladaTransformation;
+class SEColladaTransformation;
 //----------------------------------------------------------------------------
 // Description:
 // Author:Sun Che
 // Date:20090916
 //----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaAnimation : public SEObject
+class SE_TOOLS_COMMON_API SEColladaAnimation : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
 
 public:
-    ColladaAnimation(void);
-    ~ColladaAnimation(void);
+    SEColladaAnimation(void);
+    ~SEColladaAnimation(void);
 
     // Multiple elements can be targeted by one channel.
     int	NumAnimChannels;
 
-    ColladaKeySet* AnimKeySets;
+    SEColladaKeySet* AnimKeySets;
     float EndTime;
 
     float SampleRate;
 
-    std::map<std::string, ColladaAnimationSamplerPtr> Samplers;
-    std::map<std::string, ColladaAnimationSourcePtr> Sources;
+    std::map<std::string, SEColladaAnimationSamplerPtr> Samplers;
+    std::map<std::string, SEColladaAnimationSourcePtr> Sources;
 
     std::string TargetName;
     std::string TargetTransformName;
     std::string TargetTransformElementName;
 
     // Export data.
-    ColladaAnimationKey* Keys;
+    SEColladaAnimationKey* Keys;
     int	NumKeys;
     
     bool HasRotation;
@@ -129,19 +129,20 @@ public:
     bool HasMatrix;
     bool FoundTarget;
 
-    std::vector<ColladaAnimationChannelPtr> Channels;
+    std::vector<SEColladaAnimationChannelPtr> Channels;
 
 private:
-    friend class ColladaScene;
+    friend class SEColladaScene;
     void GenerateKeys(void);
 
-    void AnimateChannel(ColladaTransformation* pTransform, 
-        ColladaAnimationChannel::AnimationTarget eTarget, int i, float fTime);
+    void AnimateChannel(SEColladaTransformation* pTransform, 
+        SEColladaAnimationChannel::AnimationTarget eTarget, int i, 
+        float fTime);
 
-    void Interp(float& rfValue, ColladaKeySet* pKeySet, float fTime);
+    void Interp(float& rfValue, SEColladaKeySet* pKeySet, float fTime);
 };
 
-typedef SESmartPointer<ColladaAnimation> ColladaAnimationPtr;
+typedef SESmartPointer<SEColladaAnimation> SEColladaAnimationPtr;
 
 }
 

@@ -23,17 +23,17 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColladaInstanceMaterial, SEObject);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaInstanceMaterial, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEColladaInstanceMaterial, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEColladaInstanceMaterial, SEObject);
 
 //----------------------------------------------------------------------------
-ColladaInstanceMaterial::ColladaInstanceMaterial()
+SEColladaInstanceMaterial::SEColladaInstanceMaterial()
 {
     TargetName = "";
     TargetMaterial = 0;
 }
 //----------------------------------------------------------------------------
-ColladaInstanceMaterial::~ColladaInstanceMaterial()
+SEColladaInstanceMaterial::~SEColladaInstanceMaterial()
 {
 }
 //----------------------------------------------------------------------------

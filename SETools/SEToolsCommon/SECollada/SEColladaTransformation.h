@@ -35,14 +35,14 @@ namespace Swing
 // Author:Sun Che
 // Date:20091026
 //----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaTransformation : public SEObject
+class SE_TOOLS_COMMON_API SEColladaTransformation : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
 
 public:
-    ColladaTransformation(void);
-    ~ColladaTransformation(void);
+    SEColladaTransformation(void);
+    ~SEColladaTransformation(void);
 
     enum TransformType
     {
@@ -61,7 +61,7 @@ public:
     SEVector4f SRTData;
 
     // SETransformation can be affected by a COLLADA animation object.
-    ColladaAnimation* Animation;
+    SEColladaAnimation* Animation;
 
     // Channel access.
     void AttachChannel(int iID);
@@ -79,7 +79,7 @@ private:
     int m_iChannelCount;
 };
 
-typedef SESmartPointer<ColladaTransformation> ColladaTransformationPtr;
+typedef SESmartPointer<SEColladaTransformation> SEColladaTransformationPtr;
 
 }
 

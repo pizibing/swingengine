@@ -23,15 +23,15 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColladaAnimationChannel, SEObject);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaAnimationChannel, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEColladaAnimationChannel, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEColladaAnimationChannel, SEObject);
 
 //----------------------------------------------------------------------------
-ColladaAnimationChannel::ColladaAnimationChannel()
+SEColladaAnimationChannel::SEColladaAnimationChannel()
 {
 }
 //----------------------------------------------------------------------------
-ColladaAnimationChannel::~ColladaAnimationChannel()
+SEColladaAnimationChannel::~SEColladaAnimationChannel()
 {
 }
 //----------------------------------------------------------------------------

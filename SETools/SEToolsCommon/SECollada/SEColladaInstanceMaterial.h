@@ -36,24 +36,24 @@ namespace Swing
 // Author:Sun Che
 // Date:20090928
 //----------------------------------------------------------------------------
-class ColladaInstanceMaterial : public SEObject
+class SE_TOOLS_COMMON_API SEColladaInstanceMaterial : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
 
 public:
-    ColladaInstanceMaterial(void);
-    ~ColladaInstanceMaterial(void);
+    SEColladaInstanceMaterial(void);
+    ~SEColladaInstanceMaterial(void);
 
     // We store symbol attribute of <instance_material> as 
-    // the name of ColladaInstanceMaterial object.  
+    // the name of SEColladaInstanceMaterial object.  
 
     // These represent the material we are referencing from.
     std::string	TargetName;
-    ColladaMaterial* TargetMaterial;
+    SEColladaMaterial* TargetMaterial;
 };
 
-typedef SESmartPointer<ColladaInstanceMaterial> ColladaInstanceMaterialPtr;
+typedef SESmartPointer<SEColladaInstanceMaterial> SEColladaInstanceMaterialPtr;
 
 }
 

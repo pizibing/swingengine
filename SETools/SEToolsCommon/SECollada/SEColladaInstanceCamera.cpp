@@ -23,31 +23,31 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColladaInstanceCamera, SEObject);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaInstanceCamera, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEColladaInstanceCamera, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEColladaInstanceCamera, SEObject);
 
 //----------------------------------------------------------------------------
-ColladaInstanceCamera::ColladaInstanceCamera(SENode* pParentNode, 
+SEColladaInstanceCamera::SEColladaInstanceCamera(SENode* pParentNode, 
     SECamera* pCamera)
 {
     m_spParentNode = pParentNode;
     m_spCamera = pCamera;
 }
 //----------------------------------------------------------------------------
-ColladaInstanceCamera::ColladaInstanceCamera()
+SEColladaInstanceCamera::SEColladaInstanceCamera()
 {
 }
 //----------------------------------------------------------------------------
-ColladaInstanceCamera::~ColladaInstanceCamera()
+SEColladaInstanceCamera::~SEColladaInstanceCamera()
 {
 }
 //----------------------------------------------------------------------------
-SENode* ColladaInstanceCamera::GetParentNode()
+SENode* SEColladaInstanceCamera::GetParentNode()
 {
     return m_spParentNode;
 }
 //----------------------------------------------------------------------------
-SECamera* ColladaInstanceCamera::GetCamera()
+SECamera* SEColladaInstanceCamera::GetCamera()
 {
     return m_spCamera;
 }

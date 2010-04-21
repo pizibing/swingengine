@@ -24,11 +24,11 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColladaTransformation, SEObject);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaTransformation, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEColladaTransformation, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEColladaTransformation, SEObject);
 
 //----------------------------------------------------------------------------
-ColladaTransformation::ColladaTransformation()
+SEColladaTransformation::SEColladaTransformation()
 {
     TransType = TT_UNKNOWN;
     Animation = 0;
@@ -36,11 +36,11 @@ ColladaTransformation::ColladaTransformation()
     m_iChannelCount = 0;
 }
 //----------------------------------------------------------------------------
-ColladaTransformation::~ColladaTransformation()
+SEColladaTransformation::~SEColladaTransformation()
 {
 }
 //----------------------------------------------------------------------------
-void ColladaTransformation::AttachChannel(int iID)
+void SEColladaTransformation::AttachChannel(int iID)
 {
     if( m_iChannelCount < MAX_CHANNEL_COUNT )
     {
@@ -48,20 +48,20 @@ void ColladaTransformation::AttachChannel(int iID)
     }
 }
 //----------------------------------------------------------------------------
-int ColladaTransformation::GetChannelCount() const
+int SEColladaTransformation::GetChannelCount() const
 {
     return m_iChannelCount;
 }
 //----------------------------------------------------------------------------
-int ColladaTransformation::GetChannel(int i) const
+int SEColladaTransformation::GetChannel(int i) const
 {
     SE_ASSERT( 0 <= i && i < MAX_CHANNEL_COUNT );
 
     return m_aiChannelID[i];
 }
 //----------------------------------------------------------------------------
-ColladaTransformation::TransformType ColladaTransformation::GetTransformType(
-    char* acType)
+SEColladaTransformation::TransformType 
+    SEColladaTransformation::GetTransformType(char* acType)
 {
     if( strcmp(acType, "scale") == 0 )
     {
@@ -93,7 +93,7 @@ ColladaTransformation::TransformType ColladaTransformation::GetTransformType(
     }
 }
 //----------------------------------------------------------------------------
-SETransformation ColladaTransformation::ToTransformation()
+SETransformation SEColladaTransformation::ToTransformation()
 {
     SETransformation tempRes;
 
@@ -102,7 +102,7 @@ SETransformation ColladaTransformation::ToTransformation()
     case TT_SCALE:
         {
             // Get the scale data.
-            SEVector3f vec3fScale = ColladaScene::GetTransformedVector(
+            SEVector3f vec3fScale = SEColladaScene::GetTransformedVector(
                 SRTData[0], SRTData[1], SRTData[2]);
 
             // Is this an uniform scale?
@@ -121,7 +121,7 @@ SETransformation ColladaTransformation::ToTransformation()
     case TT_ROTATE:
         {
             // Get the rotation data.
-            SEVector3f vec3fRotAxis = ColladaScene::GetTransformedVector(
+            SEVector3f vec3fRotAxis = SEColladaScene::GetTransformedVector(
                 SRTData[0], SRTData[1], SRTData[2]);
             float fRotAngle = -SRTData[3]*SEMath<float>::DEG_TO_RAD;
 
@@ -133,7 +133,7 @@ SETransformation ColladaTransformation::ToTransformation()
     case TT_TRANSLATE:
         {
             // Get the transation data.
-            SEVector3f vec3fTrans = ColladaScene::GetTransformedVector(
+            SEVector3f vec3fTrans = SEColladaScene::GetTransformedVector(
                 SRTData[0], SRTData[1], SRTData[2]);
 
             tempRes.SetTranslate(vec3fTrans);

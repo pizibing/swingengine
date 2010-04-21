@@ -37,27 +37,27 @@ namespace Swing
 // Author:Sun Che
 // Date:20091006
 //----------------------------------------------------------------------------
-class ColladaInstanceCamera : public SEObject
+class SE_TOOLS_COMMON_API SEColladaInstanceCamera : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
 
 public:
-    ColladaInstanceCamera(SENode* pParentNode, SECamera* pCamera);
-    ~ColladaInstanceCamera(void);
+    SEColladaInstanceCamera(SENode* pParentNode, SECamera* pCamera);
+    ~SEColladaInstanceCamera(void);
 
     // member access.
     SENode* GetParentNode(void);
     SECamera* GetCamera(void);
 
 private:
-    ColladaInstanceCamera(void);
+    SEColladaInstanceCamera(void);
 
     SENodePtr m_spParentNode;
     SECameraPtr m_spCamera;
 };
 
-typedef SESmartPointer<ColladaInstanceCamera> ColladaInstanceCameraPtr;
+typedef SESmartPointer<SEColladaInstanceCamera> SEColladaInstanceCameraPtr;
 
 }
 

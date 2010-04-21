@@ -23,30 +23,31 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColladaInstanceLight, SEObject);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaInstanceLight, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEColladaInstanceLight, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEColladaInstanceLight, SEObject);
 
 //----------------------------------------------------------------------------
-ColladaInstanceLight::ColladaInstanceLight(SENode* pParentNode, SELight* pLight)
+SEColladaInstanceLight::SEColladaInstanceLight(SENode* pParentNode, SELight* 
+    pLight)
 {
     m_spParentNode = pParentNode;
     m_spLight = pLight;
 }
 //----------------------------------------------------------------------------
-ColladaInstanceLight::ColladaInstanceLight()
+SEColladaInstanceLight::SEColladaInstanceLight()
 {
 }
 //----------------------------------------------------------------------------
-ColladaInstanceLight::~ColladaInstanceLight()
+SEColladaInstanceLight::~SEColladaInstanceLight()
 {
 }
 //----------------------------------------------------------------------------
-SENode* ColladaInstanceLight::GetParentNode()
+SENode* SEColladaInstanceLight::GetParentNode()
 {
     return m_spParentNode;
 }
 //----------------------------------------------------------------------------
-SELight* ColladaInstanceLight::GetLight()
+SELight* SEColladaInstanceLight::GetLight()
 {
     return m_spLight;
 }

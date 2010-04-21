@@ -24,11 +24,11 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColladaAnimation, SEObject);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaAnimation, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEColladaAnimation, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEColladaAnimation, SEObject);
 
 //----------------------------------------------------------------------------
-ColladaAnimation::ColladaAnimation()
+SEColladaAnimation::SEColladaAnimation()
 {
     NumAnimChannels = 0;
     AnimKeySets = 0;
@@ -46,26 +46,26 @@ ColladaAnimation::ColladaAnimation()
     FoundTarget = false;
 }
 //----------------------------------------------------------------------------
-ColladaAnimation::~ColladaAnimation()
+SEColladaAnimation::~SEColladaAnimation()
 {
 }
 //----------------------------------------------------------------------------
-void ColladaAnimation::GenerateKeys()
+void SEColladaAnimation::GenerateKeys()
 {
     ToolSystem::SE_DebugOutput("Generating Keys for Animation Channel %s", 
         GetName().c_str());
 
     // Allocating for generic key channels.
-    AnimKeySets = SE_NEW ColladaKeySet[NumAnimChannels];
+    AnimKeySets = SE_NEW SEColladaKeySet[NumAnimChannels];
 
     // Generate key frames for all the channels in this animation.
     int iAnimSetBase = 0;
-    ColladaAnimationChannel* pChannel = 0;
+    SEColladaAnimationChannel* pChannel = 0;
     for( int i = 0; i < (int)Channels.size(); i++ )
     {
         pChannel = Channels[i];
-        ColladaAnimationSource* pInputSource = pChannel->InputSource;
-        ColladaAnimationSource* pOutputSource = pChannel->OutputSource;
+        SEColladaAnimationSource* pInputSource = pChannel->InputSource;
+        SEColladaAnimationSource* pOutputSource = pChannel->OutputSource;
         int iKeyCount = pInputSource->Source->GetCount();
         
         for( int j = 0; j < pChannel->NumElementTargets; j++ )
@@ -101,7 +101,7 @@ void ColladaAnimation::GenerateKeys()
     }
 }
 //----------------------------------------------------------------------------
-void ColladaAnimation::Interp(float& rfValue, ColladaKeySet* pKeySet, 
+void SEColladaAnimation::Interp(float& rfValue, SEColladaKeySet* pKeySet, 
     float fTime)
 {
     if( !pKeySet->Keys )
@@ -154,47 +154,47 @@ void ColladaAnimation::Interp(float& rfValue, ColladaKeySet* pKeySet,
     }
 }
 //----------------------------------------------------------------------------
-void ColladaAnimation::AnimateChannel(ColladaTransformation* pTransform, 
-    ColladaAnimationChannel::AnimationTarget eTarget, int i, float fTime)
+void SEColladaAnimation::AnimateChannel(SEColladaTransformation* pTransform, 
+    SEColladaAnimationChannel::AnimationTarget eTarget, int i, float fTime)
 {
     SEVector4f& rSRTData = pTransform->SRTData;
 
     switch( eTarget )
     {
-    case ColladaAnimationChannel::AT_TARGET_X:
-    case ColladaAnimationChannel::AT_S_X_AXIS:
-    case ColladaAnimationChannel::AT_T_X_AXIS:
+    case SEColladaAnimationChannel::AT_TARGET_X:
+    case SEColladaAnimationChannel::AT_S_X_AXIS:
+    case SEColladaAnimationChannel::AT_T_X_AXIS:
         Interp(rSRTData.X, &AnimKeySets[i], fTime);
     break;
 
-    case ColladaAnimationChannel::AT_TARGET_Y:
-    case ColladaAnimationChannel::AT_S_Y_AXIS:
-    case ColladaAnimationChannel::AT_T_Y_AXIS:
+    case SEColladaAnimationChannel::AT_TARGET_Y:
+    case SEColladaAnimationChannel::AT_S_Y_AXIS:
+    case SEColladaAnimationChannel::AT_T_Y_AXIS:
         Interp(rSRTData.Y, &AnimKeySets[i], fTime);
     break;
 
-    case ColladaAnimationChannel::AT_TARGET_Z:
-    case ColladaAnimationChannel::AT_S_Z_AXIS:
-    case ColladaAnimationChannel::AT_T_Z_AXIS:
+    case SEColladaAnimationChannel::AT_TARGET_Z:
+    case SEColladaAnimationChannel::AT_S_Z_AXIS:
+    case SEColladaAnimationChannel::AT_T_Z_AXIS:
         Interp(rSRTData.Z, &AnimKeySets[i], fTime);
     break;
 
-    case ColladaAnimationChannel::AT_R_X_AXIS:
-    case ColladaAnimationChannel::AT_R_Y_AXIS:
-    case ColladaAnimationChannel::AT_R_Z_AXIS:
-    case ColladaAnimationChannel::AT_TARGET_ANGLE:
+    case SEColladaAnimationChannel::AT_R_X_AXIS:
+    case SEColladaAnimationChannel::AT_R_Y_AXIS:
+    case SEColladaAnimationChannel::AT_R_Z_AXIS:
+    case SEColladaAnimationChannel::AT_TARGET_ANGLE:
         Interp(rSRTData.W, &AnimKeySets[i], fTime);
     break;
 
-    case ColladaAnimationChannel::AT_T:
-    case ColladaAnimationChannel::AT_S:
-    case ColladaAnimationChannel::AT_TARGET_XYZ:
+    case SEColladaAnimationChannel::AT_T:
+    case SEColladaAnimationChannel::AT_S:
+    case SEColladaAnimationChannel::AT_TARGET_XYZ:
         Interp(rSRTData.X, &AnimKeySets[i    ], fTime);
         Interp(rSRTData.Y, &AnimKeySets[i + 1], fTime);
         Interp(rSRTData.Z, &AnimKeySets[i + 2], fTime);
         break;
 
-    case ColladaAnimationChannel::AT_MATRIX:
+    case SEColladaAnimationChannel::AT_MATRIX:
         // TODO:
         // Support this transformation.
         SE_ASSERT( false );

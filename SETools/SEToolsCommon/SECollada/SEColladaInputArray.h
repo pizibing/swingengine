@@ -33,11 +33,11 @@ namespace Swing
 // Author:Sun Che
 // Date:20090922
 //----------------------------------------------------------------------------
-class ColladaInputArray
+class SE_TOOLS_COMMON_API SEColladaInputArray
 {
 public:
-    ColladaInputArray(domInputLocalOffset_Array& rDomInputs);
-    ~ColladaInputArray(void);
+    SEColladaInputArray(domInputLocalOffset_Array& rDomInputs);
+    ~SEColladaInputArray(void);
 
     inline int GetMaxOffset(void) const;
     inline int GetPositionOffset(void) const;
@@ -49,7 +49,7 @@ public:
     inline domListOfFloats* GetTCoordData(void);
 
 private:
-    ColladaInputArray(void);
+    SEColladaInputArray(void);
 
     // Initialization of member data.
     void SetInputs(domInputLocalOffset_Array& rDomInputs);

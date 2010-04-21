@@ -19,37 +19,37 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline int ColladaInputArray::GetMaxOffset() const
+inline int SEColladaInputArray::GetMaxOffset() const
 {
     return m_iMaxOffset;
 }
 //----------------------------------------------------------------------------
-inline int ColladaInputArray::GetPositionOffset() const
+inline int SEColladaInputArray::GetPositionOffset() const
 {
     return m_iPosition;
 }
 //----------------------------------------------------------------------------
-inline int ColladaInputArray::GetNormalOffset() const
+inline int SEColladaInputArray::GetNormalOffset() const
 {
     return m_iNormal;
 }
 //----------------------------------------------------------------------------
-inline int ColladaInputArray::GetTCoordOffset() const
+inline int SEColladaInputArray::GetTCoordOffset() const
 {
     return m_iTCoord;
 }
 //----------------------------------------------------------------------------
-inline domListOfFloats* ColladaInputArray::GetPositionData()
+inline domListOfFloats* SEColladaInputArray::GetPositionData()
 {
     return m_pDomPositionData;
 }
 //----------------------------------------------------------------------------
-inline domListOfFloats* ColladaInputArray::GetNormalData()
+inline domListOfFloats* SEColladaInputArray::GetNormalData()
 {
     return m_pDomNormalData;
 }
 //----------------------------------------------------------------------------
-inline domListOfFloats* ColladaInputArray::GetTCoordData()
+inline domListOfFloats* SEColladaInputArray::GetTCoordData()
 {
     return m_pDomTCoordData;
 }

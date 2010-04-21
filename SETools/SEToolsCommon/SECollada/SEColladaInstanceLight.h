@@ -37,27 +37,27 @@ namespace Swing
 // Author:Sun Che
 // Date:20091006
 //----------------------------------------------------------------------------
-class ColladaInstanceLight : public SEObject
+class SE_TOOLS_COMMON_API SEColladaInstanceLight : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
 
 public:
-    ColladaInstanceLight(SENode* pParentNode, SELight* pLight);
-    ~ColladaInstanceLight(void);
+    SEColladaInstanceLight(SENode* pParentNode, SELight* pLight);
+    ~SEColladaInstanceLight(void);
 
     // member access.
     SENode* GetParentNode(void);
     SELight* GetLight(void);
 
 private:
-    ColladaInstanceLight(void);
+    SEColladaInstanceLight(void);
 
     SENodePtr m_spParentNode;
     SELightPtr m_spLight;
 };
 
-typedef SESmartPointer<ColladaInstanceLight> ColladaInstanceLightPtr;
+typedef SESmartPointer<SEColladaInstanceLight> SEColladaInstanceLightPtr;
 
 }
 

@@ -23,11 +23,11 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColladaInstanceController, SEObject);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaInstanceController, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEColladaInstanceController, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEColladaInstanceController, SEObject);
 
 //----------------------------------------------------------------------------
-ColladaInstanceController::ColladaInstanceController(ControllerType eType,
+SEColladaInstanceController::SEColladaInstanceController(ControllerType eType,
     domController* pController, domNode* pSkeletonRoot, SENode* pMeshRoot)
 {
     m_eControllerType = eType;
@@ -36,31 +36,31 @@ ColladaInstanceController::ColladaInstanceController(ControllerType eType,
     m_pMeshRoot = pMeshRoot;
 }
 //----------------------------------------------------------------------------
-ColladaInstanceController::ColladaInstanceController()
+SEColladaInstanceController::SEColladaInstanceController()
 {
 }
 //----------------------------------------------------------------------------
-ColladaInstanceController::~ColladaInstanceController()
+SEColladaInstanceController::~SEColladaInstanceController()
 {
 }
 //----------------------------------------------------------------------------
-ColladaInstanceController::ControllerType 
-ColladaInstanceController::GetControllerType() const
+SEColladaInstanceController::ControllerType 
+SEColladaInstanceController::GetControllerType() const
 {
     return m_eControllerType;
 }
 //----------------------------------------------------------------------------
-domController* ColladaInstanceController::GetController()
+domController* SEColladaInstanceController::GetController()
 {
     return m_pController;
 }
 //----------------------------------------------------------------------------
-domNode* ColladaInstanceController::GetSkeletonRoot()
+domNode* SEColladaInstanceController::GetSkeletonRoot()
 {
     return m_pSkeletonRoot;
 }
 //----------------------------------------------------------------------------
-SENode* ColladaInstanceController::GetMeshRoot()
+SENode* SEColladaInstanceController::GetMeshRoot()
 {
     return m_pMeshRoot;
 }

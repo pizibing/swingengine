@@ -36,26 +36,26 @@ namespace Swing
 // Author:Sun Che
 // Date:20090916
 //----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaMaterial : public SEObject
+class SE_TOOLS_COMMON_API SEColladaMaterial : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
 
 public:
-    ColladaMaterial(ColladaEffect* pEffect);
-    ~ColladaMaterial(void);
+    SEColladaMaterial(SEColladaEffect* pEffect);
+    ~SEColladaMaterial(void);
 
     // Wrapper functions to access effect's member data.
     SEMaterialState* GetMState(void);
     SETexture* GetTexture(int i);
 
 private:
-    ColladaMaterial(void);
+    SEColladaMaterial(void);
 
-    ColladaEffectPtr m_spEffect;
+    SEColladaEffectPtr m_spEffect;
 };
 
-typedef SESmartPointer<ColladaMaterial> ColladaMaterialPtr;
+typedef SESmartPointer<SEColladaMaterial> SEColladaMaterialPtr;
 
 }
 

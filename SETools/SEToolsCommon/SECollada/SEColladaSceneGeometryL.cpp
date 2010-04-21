@@ -26,7 +26,7 @@ using namespace Swing;
 using namespace std;
 
 //----------------------------------------------------------------------------
-SENode* ColladaScene::GetGeometry(const char* acName)
+SENode* SEColladaScene::GetGeometry(const char* acName)
 {
     if( !acName )
     {
@@ -44,7 +44,7 @@ SENode* ColladaScene::GetGeometry(const char* acName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::PackVertices(ColladaUnimaterialMesh* pUniMesh,
+void SEColladaScene::PackVertices(SEColladaUnimaterialMesh* pUniMesh,
     domListOfFloats* pDomPositionData, domListOfUInts& rDomIndexData, 
     int iIndexCount, int iStride, int iPositionOffset, SEVector3f* aNormal)
 {
@@ -119,7 +119,7 @@ void ColladaScene::PackVertices(ColladaUnimaterialMesh* pUniMesh,
     SE_DELETE[] aiVMap;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::PackTextures(ColladaUnimaterialMesh* pUniMesh,
+void SEColladaScene::PackTextures(SEColladaUnimaterialMesh* pUniMesh,
     domListOfFloats* pDomTCoordData, domListOfUInts& rDomIndexData, 
     int iIndexCount, int iStride, int iTCoordOffset)
 {
@@ -187,18 +187,18 @@ void ColladaScene::PackTextures(ColladaUnimaterialMesh* pUniMesh,
     SE_DELETE[] aiTMap;
 }
 //----------------------------------------------------------------------------
-SETriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
+SETriMesh* SEColladaScene::BuildTriangles(domTriangles* pDomTriangles)
 {
     // Try to find an instance material object used by this sub-mesh.
     xsNCName strIMaterialName = pDomTriangles->getMaterial();
-    ColladaInstanceMaterial* pSubMeshIMaterial = 0;
+    SEColladaInstanceMaterial* pSubMeshIMaterial = 0;
     if( strIMaterialName )
     {
         pSubMeshIMaterial = GetInstanceMaterial((const char*)strIMaterialName);
     }
 
     // Create a uni-material sub-mesh.
-    ColladaUnimaterialMesh* pSubMesh = SE_NEW ColladaUnimaterialMesh;
+    SEColladaUnimaterialMesh* pSubMesh = SE_NEW SEColladaUnimaterialMesh;
     if( pSubMeshIMaterial && pSubMeshIMaterial->TargetMaterial )
     {
         pSubMesh->MState() = pSubMeshIMaterial->TargetMaterial->GetMState();
@@ -213,7 +213,7 @@ SETriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
 
     // Get vertex buffer source data.
     domInputLocalOffset_Array& rDomInputs = pDomTriangles->getInput_array();
-    ColladaInputArray tempOffsets(rDomInputs);
+    SEColladaInputArray tempOffsets(rDomInputs);
     domListOfFloats* pDomPositionData = tempOffsets.GetPositionData();
     domListOfFloats* pDomNormalData = tempOffsets.GetNormalData();
     domListOfFloats* pDomTCoordData = tempOffsets.GetTCoordData();
@@ -281,7 +281,8 @@ SETriMesh* ColladaScene::BuildTriangles(domTriangles* pDomTriangles)
     return pResMesh;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::ParseGeometry(SENode*& rpMeshRoot, domGeometry* pDomGeometry)
+void SEColladaScene::ParseGeometry(SENode*& rpMeshRoot, domGeometry* 
+    pDomGeometry)
 {
     domMesh* pDomMesh = pDomGeometry->getMesh();
     xsID strGeometryID = pDomGeometry->getId();
@@ -359,7 +360,7 @@ void ColladaScene::ParseGeometry(SENode*& rpMeshRoot, domGeometry* pDomGeometry)
 
 }
 //----------------------------------------------------------------------------
-SENode* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
+SENode* SEColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
 {
     xsID strGeometryID = spDomGeometry->getId();
     if( !strGeometryID )
@@ -385,22 +386,22 @@ SENode* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
 
     if( pDomAsset )
     {
-        ToolSystem::SE_DebugOutput( "<asset>:%s, not support, skipped it", 
+        ToolSystem::SE_DebugOutput("<asset>:%s, not support, skipped it", 
             strGeometryID);
     }
     else if( pDomConvexMesh )
     {
-        ToolSystem::SE_DebugOutput( "<convex_mesh>:%s, not support, skipped it", 
+        ToolSystem::SE_DebugOutput("<convex_mesh>:%s, not support, skipped it", 
             strGeometryID);
     }
     else if( rDomExtraArray.getCount() )
     {
-        ToolSystem::SE_DebugOutput( "<extra>:%s, not support, skipped it", 
+        ToolSystem::SE_DebugOutput("<extra>:%s, not support, skipped it", 
             strGeometryID);
     }
     else if( pDomSpline )
     {
-        ToolSystem::SE_DebugOutput( "<spline>:%s, not support, skipped it", 
+        ToolSystem::SE_DebugOutput("<spline>:%s, not support, skipped it", 
             strGeometryID);
     }
 
@@ -420,7 +421,7 @@ SENode* ColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
     return pMeshRoot;
 }
 //----------------------------------------------------------------------------
-SENode* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef spLib)
+SENode* SEColladaScene::LoadInstanceGeometry(domInstance_geometryRef spLib)
 {
     // Get all instance materials used by this instance geometry object.
     // Each instance material points to a material object in our material 
@@ -440,7 +441,7 @@ SENode* ColladaScene::LoadInstanceGeometry(domInstance_geometryRef spLib)
             int iIMaterialCount = (int)rDomInstanceMaterialArray.getCount();
             for( int i = 0; i < iIMaterialCount; i++ )
             {
-                ColladaInstanceMaterial* pInstanceMaterial = 
+                SEColladaInstanceMaterial* pInstanceMaterial = 
                     LoadInstanceMaterial(rDomInstanceMaterialArray[i]);
 
                 if( pInstanceMaterial )

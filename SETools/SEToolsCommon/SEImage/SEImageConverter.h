@@ -33,16 +33,16 @@ namespace Swing
 // Author:Sun Che
 // Date:20090914
 //----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ImageConverter
+class SE_TOOLS_COMMON_API SEImageConverter
 {
 public:
-    ImageConverter(IDirect3DDevice9* pDevice);
-    ~ImageConverter(void);
+    SEImageConverter(IDirect3DDevice9* pDevice);
+    ~SEImageConverter(void);
 
     SEImage* CreateImageFromFile(const char* acFilename);
 
 private:
-    ImageConverter(void);
+    SEImageConverter(void);
 
     IDirect3DDevice9* m_pDXDevice;
 };

@@ -24,7 +24,8 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-SENode* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
+SENode* SEColladaScene::LoadInstanceController(domInstance_controllerRef 
+    spLib)
 {
     // Get all instance materials used by this instance controller object.
     // Each instance material points to a material object in our material 
@@ -44,7 +45,7 @@ SENode* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
             int iIMaterialCount = (int)rDomInstanceMaterialArray.getCount();
             for( int i = 0; i < iIMaterialCount; i++ )
             {
-                ColladaInstanceMaterial* pInstanceMaterial = 
+                SEColladaInstanceMaterial* pInstanceMaterial = 
                     LoadInstanceMaterial(rDomInstanceMaterialArray[i]);
 
                 if( pInstanceMaterial )
@@ -57,9 +58,9 @@ SENode* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
 
     // Create a instance controller to hold the relationship between the 
     // geometry and the controller.
-    ColladaInstanceController* pIController = 0;
-    ColladaInstanceController::ControllerType eControllerType = 
-        ColladaInstanceController::CT_UNKNOWN;
+    SEColladaInstanceController* pIController = 0;
+    SEColladaInstanceController::ControllerType eControllerType = 
+        SEColladaInstanceController::CT_UNKNOWN;
 
     // Find the controller that encapsulates the geometry object.
     // Then load the geometry object.
@@ -102,7 +103,7 @@ SENode* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
                 return 0;
             }
 
-            eControllerType = ColladaInstanceController::CT_SKIN;
+            eControllerType = SEColladaInstanceController::CT_SKIN;
         }
         else if( pDomMorph )
         {
@@ -123,7 +124,7 @@ SENode* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
                 return 0;
             }
 
-            eControllerType = ColladaInstanceController::CT_MORPH;
+            eControllerType = SEColladaInstanceController::CT_MORPH;
         }
     }
     else
@@ -149,33 +150,33 @@ SENode* ColladaScene::LoadInstanceController(domInstance_controllerRef spLib)
             ).getElement();
     }
 
-    pIController = SE_NEW ColladaInstanceController(eControllerType,
+    pIController = SE_NEW SEColladaInstanceController(eControllerType,
         pDomController, pDomSkeletonRoot, pMeshRoot);
     m_InstanceControllers.push_back(pIController);
 
     return pMeshRoot;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::ProcessControllers()
+void SEColladaScene::ProcessControllers()
 {
     int iInstanceControllerCount = (int)m_InstanceControllers.size();
     for( int i = 0; i < iInstanceControllerCount; i++ )
     {
-        ColladaInstanceController* pIController = m_InstanceControllers[i];
-        ColladaInstanceController::ControllerType eControllerType = 
+        SEColladaInstanceController* pIController = m_InstanceControllers[i];
+        SEColladaInstanceController::ControllerType eControllerType = 
             pIController->GetControllerType();
-        if( eControllerType == ColladaInstanceController::CT_SKIN )
+        if( eControllerType == SEColladaInstanceController::CT_SKIN )
         {
             ProcessSkin(pIController);
         }
-        else if( eControllerType == ColladaInstanceController::CT_MORPH )
+        else if( eControllerType == SEColladaInstanceController::CT_MORPH )
         {
             ProcessMorph(pIController);
         }
     }
 }
 //----------------------------------------------------------------------------
-void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
+void SEColladaScene::ProcessSkin(SEColladaInstanceController* pIController)
 {
     SE_ASSERT( pIController );
 
@@ -513,7 +514,8 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
         // Create active bone nodes array and offsets array for skin effect.
         // These data will be released by skin effect.
         SENode** apActiveBones = SE_NEW SENode*[iActiveBoneCount];
-        SETransformation* aActiveOffsets = SE_NEW SETransformation[iActiveBoneCount];
+        SETransformation* aActiveOffsets = SE_NEW SETransformation[
+            iActiveBoneCount];
 
         // Get active bone nodes and their offsets.
         std::vector<int> tempBIArray(iBoneCount);
@@ -685,7 +687,7 @@ void ColladaScene::ProcessSkin(ColladaInstanceController* pIController)
     SE_DELETE[] aiVerticesPerBone;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::ProcessMorph(ColladaInstanceController*)
+void SEColladaScene::ProcessMorph(SEColladaInstanceController*)
 {
 }
 //----------------------------------------------------------------------------

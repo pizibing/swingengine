@@ -34,19 +34,19 @@ namespace Swing
 // Author:Sun Che
 // Date:20090917
 //----------------------------------------------------------------------------
-class SE_TOOLS_COMMON_API ColladaAnimationSource : public SEObject
+class SE_TOOLS_COMMON_API SEColladaAnimationSource : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
 
 public:
-    ColladaAnimationSource(void);
-    ~ColladaAnimationSource(void);
+    SEColladaAnimationSource(void);
+    ~SEColladaAnimationSource(void);
 
     SEFloatArrayPtr Source;
 };
 
-typedef SESmartPointer<ColladaAnimationSource> ColladaAnimationSourcePtr;
+typedef SESmartPointer<SEColladaAnimationSource> SEColladaAnimationSourcePtr;
 
 }
 

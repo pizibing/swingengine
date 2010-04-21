@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-SECamera* ColladaScene::GetCamera(const char* acName)
+SECamera* SEColladaScene::GetCamera(const char* acName)
 {
     if( !acName )
     {
@@ -42,7 +42,7 @@ SECamera* ColladaScene::GetCamera(const char* acName)
     return 0;
 }
 //----------------------------------------------------------------------------
-SECamera* ColladaScene::LoadCamera(domCameraRef spDomCamera)
+SECamera* SEColladaScene::LoadCamera(domCameraRef spDomCamera)
 {
     xsID strCameraID = spDomCamera->getId();
     if( !strCameraID )
@@ -189,8 +189,8 @@ SECamera* ColladaScene::LoadCamera(domCameraRef spDomCamera)
     return 0;
 }
 //----------------------------------------------------------------------------
-ColladaInstanceCamera* ColladaScene::LoadInstanceCamera(SENode* pParentNode, 
-    domInstance_cameraRef spDomInstanceCamera)
+SEColladaInstanceCamera* SEColladaScene::LoadInstanceCamera(SENode* 
+    pParentNode, domInstance_cameraRef spDomInstanceCamera)
 {
     xsAnyURI& rUrlType  = spDomInstanceCamera->getUrl();
     domElement* pDomElement = (domElement*) rUrlType.getElement();
@@ -213,8 +213,8 @@ ColladaInstanceCamera* ColladaScene::LoadInstanceCamera(SENode* pParentNode,
         SECamera* pNewCamera = DynamicCast<SECamera>(spObject);
         SE_ASSERT( pNewCamera );
 
-        ColladaInstanceCamera* pInstanceCamera = 
-            SE_NEW ColladaInstanceCamera(pParentNode, pNewCamera);
+        SEColladaInstanceCamera* pInstanceCamera = 
+            SE_NEW SEColladaInstanceCamera(pParentNode, pNewCamera);
 
         return pInstanceCamera;
     }
@@ -222,7 +222,7 @@ ColladaInstanceCamera* ColladaScene::LoadInstanceCamera(SENode* pParentNode,
     return 0;
 }
 //----------------------------------------------------------------------------
-void ColladaScene::ProcessCameras()
+void SEColladaScene::ProcessCameras()
 {
     for( int i = 0; i < (int)m_InstanceCameras.size(); i++ )
     {

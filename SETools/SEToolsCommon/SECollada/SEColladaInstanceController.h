@@ -34,7 +34,7 @@ namespace Swing
 // Author:Sun Che
 // Date:20091013
 //----------------------------------------------------------------------------
-class ColladaInstanceController : public SEObject
+class SE_TOOLS_COMMON_API SEColladaInstanceController : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
@@ -47,9 +47,9 @@ public:
         CT_UNKNOWN
 	};
 
-    ColladaInstanceController(ControllerType eType, domController* pController, 
-        domNode* pSkeletonRoot, SENode* pMeshRoot);
-    ~ColladaInstanceController(void);
+    SEColladaInstanceController(ControllerType eType, domController* 
+        pController, domNode* pSkeletonRoot, SENode* pMeshRoot);
+    ~SEColladaInstanceController(void);
 
     // Member access.
     ControllerType GetControllerType(void) const;
@@ -58,7 +58,7 @@ public:
     SENode* GetMeshRoot(void);
 
 private:
-    ColladaInstanceController(void);
+    SEColladaInstanceController(void);
 
     ControllerType m_eControllerType;
     domController* m_pController;
@@ -66,7 +66,8 @@ private:
     SENode* m_pMeshRoot;
 };
 
-typedef SESmartPointer<ColladaInstanceController> ColladaInstanceControllerPtr;
+typedef SESmartPointer<SEColladaInstanceController> 
+    SEColladaInstanceControllerPtr;
 
 }
 

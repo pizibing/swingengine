@@ -23,16 +23,16 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, ColladaEffect, SEShaderEffect);
-SE_IMPLEMENT_DEFAULT_NAME_ID(ColladaEffect, SEShaderEffect);
+SE_IMPLEMENT_RTTI(Swing, SEColladaEffect, SEShaderEffect);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEColladaEffect, SEShaderEffect);
 
 //----------------------------------------------------------------------------
-ColladaEffect::ColladaEffect()
+SEColladaEffect::SEColladaEffect()
 {
     Material = SE_NEW SEMaterialState;
 }
 //----------------------------------------------------------------------------
-ColladaEffect::~ColladaEffect()
+SEColladaEffect::~SEColladaEffect()
 {
 }
 //----------------------------------------------------------------------------
