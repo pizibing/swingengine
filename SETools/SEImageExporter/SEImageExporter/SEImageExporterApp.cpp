@@ -58,25 +58,25 @@ void ImageExporterApp::OnIdle()
 //----------------------------------------------------------------------------
 void ImageExporterApp::CreateScene()
 {
-    m_spScene = SE_NEW Node;
-    m_spWireframe = SE_NEW WireframeState;
+    m_spScene = SE_NEW SENode;
+    m_spWireframe = SE_NEW SEWireframeState;
     m_spWireframe->Enabled = false;
     m_spScene->AttachGlobalState(m_spWireframe);
 
 	// 创建用于显示纹理图的矩形.
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetTCoordChannels(0, 2);
-	VertexBuffer* pVB = SE_NEW VertexBuffer(tempAttr, 4);
-	pVB->Position3(0) = Vector3f(-1, 1, 0);
-	pVB->Position3(1) = Vector3f(1, 1, 0);
-	pVB->Position3(2) = Vector3f(1, -1, 0);
-	pVB->Position3(3) = Vector3f(-1, -1, 0);
-	pVB->TCoord2(0, 0) = Vector2f(0, 0);
-	pVB->TCoord2(0, 1) = Vector2f(1, 0);
-	pVB->TCoord2(0, 2) = Vector2f(1, 1);
-	pVB->TCoord2(0, 3) = Vector2f(0, 1);
-	IndexBuffer* pIB = SE_NEW IndexBuffer(6);
+	SEVertexBuffer* pVB = SE_NEW SEVertexBuffer(tempAttr, 4);
+	pVB->Position3(0) = SEVector3f(-1, 1, 0);
+	pVB->Position3(1) = SEVector3f(1, 1, 0);
+	pVB->Position3(2) = SEVector3f(1, -1, 0);
+	pVB->Position3(3) = SEVector3f(-1, -1, 0);
+	pVB->TCoord2(0, 0) = SEVector2f(0, 0);
+	pVB->TCoord2(0, 1) = SEVector2f(1, 0);
+	pVB->TCoord2(0, 2) = SEVector2f(1, 1);
+	pVB->TCoord2(0, 3) = SEVector2f(0, 1);
+	SEIndexBuffer* pIB = SE_NEW SEIndexBuffer(6);
 	int* pIBData = pIB->GetData();
 	*(pIBData    ) = 0;
 	*(pIBData + 1) = 2;
@@ -85,7 +85,7 @@ void ImageExporterApp::CreateScene()
 	*(pIBData + 4) = 1;
 	*(pIBData + 5) = 2;
 
-	m_spMesh = SE_NEW TriMesh(pVB, pIB);
+	m_spMesh = SE_NEW SETriMesh(pVB, pIB);
 	m_spScene->AttachChild(m_spMesh);
 
     m_spScene->UpdateGS();
@@ -106,7 +106,7 @@ void ImageExporterApp::DestroyScene()
 void ImageExporterApp::OnOpenFile(const char* acFilename)
 {
     m_bOpenFile = true;
-    Swing::System::SE_Strcpy(m_acFilename, 256, acFilename);
+    Swing::SESystem::SE_Strcpy(m_acFilename, 256, acFilename);
 }
 //----------------------------------------------------------------------------
 void ImageExporterApp::OnSave(const char* acFilename)
@@ -119,24 +119,24 @@ void ImageExporterApp::OnSave(const char* acFilename)
 //----------------------------------------------------------------------------
 void ImageExporterApp::OpenFile(const char* acFilename)
 {
-    IDirect3DDevice9* pDXDevice = ((DX9Renderer*)AppRenderer)->GetDevice();
-    ImageConverter* pConverter = SE_NEW ImageConverter(pDXDevice);
+    IDirect3DDevice9* pDXDevice = ((SEDX9Renderer*)AppRenderer)->GetDevice();
+    SEImageConverter* pConverter = SE_NEW SEImageConverter(pDXDevice);
 
     if( m_spImage )
     {
-        ImageCatalog::GetActive()->Remove(m_spImage);
+        SEImageCatalog::GetActive()->Remove(m_spImage);
     }
     m_spImage = 0;
 
     m_spImage = pConverter->CreateImageFromFile(acFilename);
     if( m_spImage )
     {
-        ImageCatalog::GetActive()->Insert(m_spImage);
+        SEImageCatalog::GetActive()->Insert(m_spImage);
     }
 
     SE_DELETE pConverter;
 
     m_spMesh->DetachAllEffects();
-    m_spMesh->AttachEffect(SE_NEW TextureEffect(acFilename));
+    m_spMesh->AttachEffect(SE_NEW SETextureEffect(acFilename));
 }
 //----------------------------------------------------------------------------

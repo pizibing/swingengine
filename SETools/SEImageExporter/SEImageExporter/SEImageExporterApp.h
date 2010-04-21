@@ -39,23 +39,23 @@ public:
     void OnOpenFile(const char* acFilename);
     void OnSave(const char* acFilename);
 
-    Swing::FrameBuffer::FormatType m_eFormat;
-    Swing::FrameBuffer::DepthType m_eDepth;
-    Swing::FrameBuffer::StencilType m_eStencil;
-    Swing::FrameBuffer::BufferingType m_eBuffering;
-    Swing::FrameBuffer::MultisamplingType m_eMultisampling;
+    Swing::SEFrameBuffer::FormatType m_eFormat;
+    Swing::SEFrameBuffer::DepthType m_eDepth;
+    Swing::SEFrameBuffer::StencilType m_eStencil;
+    Swing::SEFrameBuffer::BufferingType m_eBuffering;
+    Swing::SEFrameBuffer::MultisamplingType m_eMultisampling;
 
     int Handle;
 
-    Swing::Renderer* AppRenderer;
-    Swing::CameraPtr m_spCamera;
-    Swing::Culler m_Culler;
+    Swing::SERenderer* AppRenderer;
+    Swing::SECameraPtr m_spCamera;
+    Swing::SECuller m_Culler;
 
-    Swing::NodePtr m_spScene;
-    Swing::TriMeshPtr m_spMesh;
-    Swing::WireframeStatePtr m_spWireframe;
+    Swing::SENodePtr m_spScene;
+    Swing::SETriMeshPtr m_spMesh;
+    Swing::SEWireframeStatePtr m_spWireframe;
 
-    Swing::ImagePtr m_spImage;
+    Swing::SEImagePtr m_spImage;
 
     bool m_bOpenFile;
     char m_acFilename[256];

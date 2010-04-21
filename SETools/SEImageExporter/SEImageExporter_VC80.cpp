@@ -51,41 +51,41 @@ int main(array<System::String ^> ^)
     Swing::SE_DX9Renderer_Register();
 
     // Swing Engine initialize.
-    Swing::System::SE_Initialize();
-    assert( Swing::System::SE_PATH[0] );
-    std::string tempSEPath(Swing::System::SE_PATH);
-    Swing::Main::Initialize();
+    Swing::SESystem::SE_Initialize();
+    assert( Swing::SESystem::SE_PATH[0] );
+    std::string tempSEPath(Swing::SESystem::SE_PATH);
+    Swing::SEMain::Initialize();
 
     // 添加application所需资源目录.
-    Swing::System::SE_InsertDirectory(".");
+    Swing::SESystem::SE_InsertDirectory(".");
     std::string tempDir;
     tempDir = tempSEPath + std::string("/Data/sesp/Cg");
-    Swing::System::SE_InsertDirectory(tempDir.c_str());
+    Swing::SESystem::SE_InsertDirectory(tempDir.c_str());
 
     // 创建application主窗体.
     Form1^ pForm1 = gcnew Form1;
     g_ImageExporterApp.Handle = (int)pForm1->SceneWindow->Handle;
 
     // 创建renderer.
-    Swing::DX9Renderer* pRenderer = SE_NEW Swing::DX9Renderer(
+    Swing::SEDX9Renderer* pRenderer = SE_NEW Swing::SEDX9Renderer(
         (HWND)(g_ImageExporterApp.Handle), 
-        Swing::FrameBuffer::FT_FORMAT_RGBA, 
-        Swing::FrameBuffer::DT_DEPTH_24,
-        Swing::FrameBuffer::ST_STENCIL_8, 
-        Swing::FrameBuffer::BT_BUFFERED_DOUBLE, 
-        Swing::FrameBuffer::MT_SAMPLING_NONE, 
+        Swing::SEFrameBuffer::FT_FORMAT_RGBA, 
+        Swing::SEFrameBuffer::DT_DEPTH_24,
+        Swing::SEFrameBuffer::ST_STENCIL_8, 
+        Swing::SEFrameBuffer::BT_BUFFERED_DOUBLE, 
+        Swing::SEFrameBuffer::MT_SAMPLING_NONE, 
         640, 480);
     g_ImageExporterApp.AppRenderer = pRenderer;
-    pRenderer->SetClearColor(Swing::ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
+    pRenderer->SetClearColor(Swing::SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f));
 
     // 创建shader program catalog.
-    assert( Swing::VertexProgramCatalog::GetActive() );
-    Swing::VertexProgramCatalog::GetActive()->SetRenderer(pRenderer);
-    assert( Swing::PixelProgramCatalog::GetActive() );
-    Swing::PixelProgramCatalog::GetActive()->SetRenderer(pRenderer);
+    assert( Swing::SEVertexProgramCatalog::GetActive() );
+    Swing::SEVertexProgramCatalog::GetActive()->SetRenderer(pRenderer);
+    assert( Swing::SEPixelProgramCatalog::GetActive() );
+    Swing::SEPixelProgramCatalog::GetActive()->SetRenderer(pRenderer);
 
     // 创建camera.
-    Swing::Camera* pCamera = SE_NEW Swing::Camera;
+    Swing::SECamera* pCamera = SE_NEW Swing::SECamera;
     pRenderer->SetCamera(pCamera);
     float fDMin = 1.0f;
     float fDMax = 100.0f;
@@ -94,10 +94,10 @@ int main(array<System::String ^> ^)
     float fUMax = 0.4125f/*0.309375f*/ * fDMin;
     float fUMin = -fUMax;
     pCamera->SetFrustum(fRMin, fRMax, fUMin, fUMax, fDMin, fDMax);
-    Swing::Vector3f tempCLoc(0.0f, 0.0f, -3.0f);
-    Swing::Vector3f tempCDir(0.0f, 0.0f, 1.0f);
-    Swing::Vector3f tempCUp(0.0f, 1.0f, 0.0f);
-    Swing::Vector3f tempCRight = tempCUp.Cross(tempCDir);
+    Swing::SEVector3f tempCLoc(0.0f, 0.0f, -3.0f);
+    Swing::SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
+    Swing::SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
+    Swing::SEVector3f tempCRight = tempCUp.Cross(tempCDir);
     pCamera->SetFrame(tempCLoc, tempCRight, tempCUp, tempCDir);
     g_ImageExporterApp.m_spCamera = pCamera;
 
@@ -114,18 +114,18 @@ int main(array<System::String ^> ^)
     // 释放camera和shader program catalog.
     g_ImageExporterApp.AppRenderer->SetCamera(0);
     g_ImageExporterApp.m_spCamera = 0;
-    assert( Swing::VertexProgramCatalog::GetActive() );
-    Swing::VertexProgramCatalog::GetActive()->SetRenderer(0);
-    assert( Swing::PixelProgramCatalog::GetActive() );
-    Swing::PixelProgramCatalog::GetActive()->SetRenderer(0);
+    assert( Swing::SEVertexProgramCatalog::GetActive() );
+    Swing::SEVertexProgramCatalog::GetActive()->SetRenderer(0);
+    assert( Swing::SEPixelProgramCatalog::GetActive() );
+    Swing::SEPixelProgramCatalog::GetActive()->SetRenderer(0);
 
     // 释放renderer.
     SE_DELETE g_ImageExporterApp.AppRenderer;
     g_ImageExporterApp.AppRenderer = 0;
 
     // Swing Engine terminate.
-    Swing::Main::Terminate();
-    Swing::System::SE_Terminate();
+    Swing::SEMain::Terminate();
+    Swing::SESystem::SE_Terminate();
 
     return 0;
 }
