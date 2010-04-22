@@ -150,7 +150,8 @@ Header: Declared in D3dx9core.h.
 
 Library: Use D3dx9.lib. 
 
-
+20100422
+类命名加入"SE"作为前缀,这样将减少与其他类库命名冲突的可能性(比如之前和.net的System::命名空间的冲突问题),以后Swing Engine将会一直遵循这个命名方式.
 
 
 
