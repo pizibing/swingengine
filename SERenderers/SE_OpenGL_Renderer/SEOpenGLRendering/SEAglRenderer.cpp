@@ -6,16 +6,16 @@
 
 using namespace Swing;
 
-Boolean AglRenderer::ms_bDSpStarted = false;
+Boolean SEAglRenderer::ms_bDSpStarted = false;
 
 //----------------------------------------------------------------------------
-AglRenderer::AglRenderer(AGLDevice hDevice, WindowRef pWindow,
-    FrameBuffer::FormatType eFormat, FrameBuffer::DepthType eDepth,
-    FrameBuffer::StencilType eStencil, FrameBuffer::BufferingType eBuffering,
-    FrameBuffer::MultisamplingType eMultisampling, int iX, int iY, int iWidth,
+SEAglRenderer::SEAglRenderer(AGLDevice hDevice, WindowRef pWindow,
+    SEFrameBuffer::FormatType eFormat, SEFrameBuffer::DepthType eDepth,
+    SEFrameBuffer::StencilType eStencil, SEFrameBuffer::BufferingType eBuffering,
+    SEFrameBuffer::MultisamplingType eMultisampling, int iX, int iY, int iWidth,
     int iHeight)
     :
-    OpenGLRenderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth,
+    SEOpenGLRenderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth,
         iHeight)
 {
     assert( m_iWidth > 0 && m_iHeight > 0 );
@@ -61,14 +61,14 @@ AglRenderer::AglRenderer(AGLDevice hDevice, WindowRef pWindow,
     aiAttributes[iPos++] = 8;
 
     // Request a depth buffer.
-    if( m_eDepth != FrameBuffer::DT_DEPTH_NONE )
+    if( m_eDepth != SEFrameBuffer::DT_DEPTH_NONE )
     {
         aiAttributes[iPos++] = AGL_DEPTH_SIZE;
-        if( m_eDepth == FrameBuffer::DT_DEPTH_16 )
+        if( m_eDepth == SEFrameBuffer::DT_DEPTH_16 )
         {
             aiAttributes[iPos++] = 16;
         }
-        else if( m_eDepth == FrameBuffer::DT_DEPTH_24 )
+        else if( m_eDepth == SEFrameBuffer::DT_DEPTH_24 )
         {
             aiAttributes[iPos++] = 24;
         }
@@ -79,25 +79,25 @@ AglRenderer::AglRenderer(AGLDevice hDevice, WindowRef pWindow,
     }
 
     // Request a stencil buffer.
-    if( m_eStencil == FrameBuffer::ST_STENCIL_8 )
+    if( m_eStencil == SEFrameBuffer::ST_STENCIL_8 )
     {
         aiAttributes[iPos++] = AGL_STENCIL_SIZE;
         aiAttributes[iPos++] = 8;
     }
 
     // Request buffering.
-    if( m_eBuffering == FrameBuffer::BT_BUFFERED_DOUBLE )
+    if( m_eBuffering == SEFrameBuffer::BT_BUFFERED_DOUBLE )
     {
         aiAttributes[iPos++] = AGL_DOUBLEBUFFER;
     }
 
     // Request sampling.
-    if( m_eMultisampling != FrameBuffer::MT_SAMPLING_NONE )
+    if( m_eMultisampling != SEFrameBuffer::MT_SAMPLING_NONE )
     {
         aiAttributes[iPos++] = AGL_SAMPLE_BUFFERS_ARB;
         aiAttributes[iPos++] = 1;
         aiAttributes[iPos++] = AGL_SAMPLES_ARB;
-        if( m_eMultisampling == FrameBuffer::MT_SAMPLING_2 )
+        if( m_eMultisampling == SEFrameBuffer::MT_SAMPLING_2 )
         {
             aiAttributes[iPos++] = 2;
         }
@@ -190,7 +190,7 @@ AglRenderer::AglRenderer(AGLDevice hDevice, WindowRef pWindow,
     SetGWorld(pCurrentWorld, tempCurrentDevice);
 }
 //----------------------------------------------------------------------------
-AglRenderer::~AglRenderer()
+SEAglRenderer::~SEAglRenderer()
 {
     if( m_bFullScreen )
     {
@@ -208,7 +208,7 @@ AglRenderer::~AglRenderer()
     aglDestroyContext(m_pAglContext);
 }
 //----------------------------------------------------------------------------
-void AglRenderer::Resize(int iWidth, int iHeight)
+void SEAglRenderer::Resize(int iWidth, int iHeight)
 {
     AGLContext tempAglContext = aglGetCurrentContext();
     if( tempAglContext != m_pAglContext )
@@ -216,7 +216,7 @@ void AglRenderer::Resize(int iWidth, int iHeight)
         aglSetCurrentContext(m_pAglContext);
     }
 
-    OpenGLRenderer::Resize(iWidth, iHeight);
+    SEOpenGLRenderer::Resize(iWidth, iHeight);
     SetUpBufferRect();
 
     if( tempAglContext != m_pAglContext )
@@ -225,9 +225,9 @@ void AglRenderer::Resize(int iWidth, int iHeight)
     }
 }
 //----------------------------------------------------------------------------
-void AglRenderer::ToggleFullscreen()
+void SEAglRenderer::ToggleFullscreen()
 {
-    OpenGLRenderer::ToggleFullscreen();
+    SEOpenGLRenderer::ToggleFullscreen();
     glFinish();
 
     if( m_bFullScreen )
@@ -330,7 +330,7 @@ void AglRenderer::ToggleFullscreen()
     }
 }
 //----------------------------------------------------------------------------
-bool AglRenderer::BeginScene()
+bool SEAglRenderer::BeginScene()
 {
     if( aglGetCurrentContext() != m_pAglContext )
     {
@@ -340,7 +340,7 @@ bool AglRenderer::BeginScene()
     return true;
 }
 //----------------------------------------------------------------------------
-void AglRenderer::DisplayBackBuffer()
+void SEAglRenderer::DisplayBackBuffer()
 {
     if( aglGetDrawable(m_pAglContext) )
     {
@@ -348,7 +348,7 @@ void AglRenderer::DisplayBackBuffer()
     }
 }
 //----------------------------------------------------------------------------
-int AglRenderer::LoadFont(const char* acFace, int iSize, bool bBold,
+int SEAglRenderer::LoadFont(const char* acFace, int iSize, bool bBold,
     bool bItalic)
 {
     DisplayListInfo tempInfo;
@@ -385,27 +385,27 @@ int AglRenderer::LoadFont(const char* acFace, int iSize, bool bBold,
     return (int)m_DLInfo.size() - 1;
 }
 //----------------------------------------------------------------------------
-AGLDevice AglRenderer::GetDevice()
+AGLDevice SEAglRenderer::GetDevice()
 {
     return m_hAglDevice;
 }
 //----------------------------------------------------------------------------
-WindowRef AglRenderer::GetWindow()
+WindowRef SEAglRenderer::GetWindow()
 {
     return m_pAglWindow;
 }
 //----------------------------------------------------------------------------
-AGLDrawable AglRenderer::GetDrawable()
+AGLDrawable SEAglRenderer::GetDrawable()
 {
     return m_pAglDrawable;
 }
 //----------------------------------------------------------------------------
-AGLContext AglRenderer::GetContext()
+AGLContext SEAglRenderer::GetContext()
 {
     return m_pAglContext;
 }
 //----------------------------------------------------------------------------
-void AglRenderer::SetUpBufferRect()
+void SEAglRenderer::SetUpBufferRect()
 {
     // If the context is smaller than the underlying surface, we clip it.
     CGrafPtr tempPtrPort = aglGetDrawable(m_pAglContext);
@@ -442,7 +442,7 @@ void AglRenderer::SetUpBufferRect()
     }
 }
 //----------------------------------------------------------------------------
-void AglRenderer::FatalErrorMessage(const char* acMessage)
+void SEAglRenderer::FatalErrorMessage(const char* acMessage)
 {
     if( m_pDSpContext )
     {

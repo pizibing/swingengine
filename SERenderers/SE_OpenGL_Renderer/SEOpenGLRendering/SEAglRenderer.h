@@ -11,22 +11,21 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Mac OS X OpenGL2.0 Renderer类
 // 说明:
 // 作者:Sun Che
 // 时间:20081009
 //----------------------------------------------------------------------------
-class SE_RENDERER_API AglRenderer : public OpenGLRenderer
+class SE_RENDERER_API SEAglRenderer : public SEOpenGLRenderer
 {
 public:
-    AglRenderer(AGLDevice hDevice, WindowRef pWindow,
-        FrameBuffer::FormatType eFormat, FrameBuffer::DepthType eDepth,
-        FrameBuffer::StencilType eStencil,
-        FrameBuffer::BufferingType eBuffering,
-        FrameBuffer::MultisamplingType eMultisampling, int iX, int iY,
+    SEAglRenderer(AGLDevice hDevice, WindowRef pWindow,
+        SEFrameBuffer::FormatType eFormat, SEFrameBuffer::DepthType eDepth,
+        SEFrameBuffer::StencilType eStencil,
+        SEFrameBuffer::BufferingType eBuffering,
+        SEFrameBuffer::MultisamplingType eMultisampling, int iX, int iY,
         int iWidth, int iHeight);
 
-    virtual ~AglRenderer(void);
+    virtual ~SEAglRenderer(void);
 
     virtual void Resize(int iWidth, int iHeight);
     virtual void ToggleFullscreen(void);
