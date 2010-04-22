@@ -32,21 +32,20 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:iPhone OpenGL ES2 Renderer类
 // 说明:
 // 作者:Sun Che
 // 时间:20091104
 //----------------------------------------------------------------------------
-class SE_RENDERER_API iPhoneOES2Renderer : public OGLES2Renderer
+class SE_RENDERER_API SEiPhoneOES2Renderer : public SEOGLES2Renderer
 {
 public:
-    iPhoneOES2Renderer(UIWindow* pWindow, FrameBuffer::FormatType eFormat,
-        FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,
-        FrameBuffer::BufferingType eBuffering,
-        FrameBuffer::MultisamplingType eMultisampling, int iX, int iY,
+    SEiPhoneOES2Renderer(UIWindow* pWindow, SEFrameBuffer::FormatType eFormat,
+        SEFrameBuffer::DepthType eDepth, SEFrameBuffer::StencilType eStencil,
+        SEFrameBuffer::BufferingType eBuffering,
+        SEFrameBuffer::MultisamplingType eMultisampling, int iX, int iY,
         int iWidth, int iHeight);
 
-    virtual ~iPhoneOES2Renderer(void);
+    virtual ~SEiPhoneOES2Renderer(void);
 
     virtual void Resize(int iWidth, int iHeight);
     virtual void ToggleFullscreen(void);
@@ -57,12 +56,12 @@ public:
         bool bItalic);
 
     // 窗体和view访问.
-    EAGL2View* GetView(void);
+    SEEAGL2View* GetView(void);
     UIWindow* GetWindow(void);
 
 private:
     // 窗体和view参数.
-    EAGL2View* m_pEAGL2View;
+    SEEAGL2View* m_pEAGL2View;
     UIWindow* m_pWindow;
     Boolean m_bFullScreen;
 

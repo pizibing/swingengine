@@ -22,7 +22,7 @@
 #import <OpenGLES/EAGLDrawable.h>
 #import "SEEAGL2View.h"
 
-@implementation EAGL2View
+@implementation SEEAGL2View
 //----------------------------------------------------------------------------
 @synthesize onTouchesBegan;
 @synthesize onTouchesMoved;
@@ -155,14 +155,16 @@
 
         eaglLayer.drawableProperties = 
             [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSNumber numberWithBool:YES], kEAGLDrawablePropertyRetainedBacking,
+            [NSNumber numberWithBool:YES], 
+            kEAGLDrawablePropertyRetainedBacking,
             kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
 
         _format = format;
         _depthFormat = depth;
 
         // Create an ES2 context.
-        _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+        _context = [[EAGLContext alloc] initWithAPI:
+            kEAGLRenderingAPIOpenGLES2];
         if( _context == nil )
         {
             [self release];

@@ -26,10 +26,10 @@
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 
-@class EAGL2View;
+@class SEEAGL2View;
 @protocol EAGL2ViewDelegate <NSObject>
 // Called whenever the EAGL surface has been resized.
-- (void) didResizeEAGLSurfaceForView:(EAGL2View*)view;
+- (void) didResizeEAGLSurfaceForView:(SEEAGL2View*)view;
 @end
 
 // Prototypes of touches event handlers's callback functions.
@@ -43,7 +43,6 @@ typedef void (*TouchesCancelled)(UIView* owner, NSSet* touches,
     UIEvent* event, void* userData);
 
 //----------------------------------------------------------------------------
-// 名称:EAGL2View类
 // 说明:This class wraps the CAEAGLLayer from CoreAnimation into a convenient 
 //     UIView subclass.the view content is basically an EAGL surface you 
 //     render your OpenGL scene into. Note that setting the view non-opaque 
@@ -51,7 +50,7 @@ typedef void (*TouchesCancelled)(UIView* owner, NSSet* touches,
 // 作者:Sun Che
 // 时间:20091104
 //----------------------------------------------------------------------------
-@interface EAGL2View : UIView
+@interface SEEAGL2View : UIView
 {
 @public
     TouchesBegan onTouchesBegan;
