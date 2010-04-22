@@ -23,17 +23,17 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, OGLES1FixedEffect, Effect);
-SE_IMPLEMENT_STREAM(OGLES1FixedEffect);
+SE_IMPLEMENT_RTTI(Swing, SEOGLES1FixedEffect, SEEffect);
+SE_IMPLEMENT_STREAM(SEOGLES1FixedEffect);
 
-//SE_REGISTER_STREAM(OGLES1FixedEffect);
+//SE_REGISTER_STREAM(SEOGLES1FixedEffect);
 
 //----------------------------------------------------------------------------
-OGLES1FixedEffect::OGLES1FixedEffect()
+SEOGLES1FixedEffect::SEOGLES1FixedEffect()
 {
 }
 //----------------------------------------------------------------------------
-OGLES1FixedEffect::OGLES1FixedEffect(int iTextureCount, int iLightCount)
+SEOGLES1FixedEffect::SEOGLES1FixedEffect(int iTextureCount, int iLightCount)
 {
     SE_ASSERT( iTextureCount >= 0 && iLightCount >= 0 );
 
@@ -42,16 +42,16 @@ OGLES1FixedEffect::OGLES1FixedEffect(int iTextureCount, int iLightCount)
     m_Lights.resize(iLightCount);
 }
 //----------------------------------------------------------------------------
-OGLES1FixedEffect::~OGLES1FixedEffect()
+SEOGLES1FixedEffect::~SEOGLES1FixedEffect()
 {
 }
 //----------------------------------------------------------------------------
-int OGLES1FixedEffect::GetTextureCount() const
+int SEOGLES1FixedEffect::GetTextureCount() const
 {
     return (int)m_Textures.size();
 }
 //----------------------------------------------------------------------------
-Texture* OGLES1FixedEffect::GetTexture(int i)
+SETexture* SEOGLES1FixedEffect::GetTexture(int i)
 {
     if( 0 <= i && i < (int)m_Textures.size() )
     {
@@ -61,7 +61,7 @@ Texture* OGLES1FixedEffect::GetTexture(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-const Texture* OGLES1FixedEffect::GetTexture(int i) const
+const SETexture* SEOGLES1FixedEffect::GetTexture(int i) const
 {
     if( 0 <= i && i < (int)m_Textures.size() )
     {
@@ -71,33 +71,33 @@ const Texture* OGLES1FixedEffect::GetTexture(int i) const
     return 0;
 }
 //----------------------------------------------------------------------------
-void OGLES1FixedEffect::SetTexture(int i, Texture* pTexture)
+void SEOGLES1FixedEffect::SetTexture(int i, SETexture* pTexture)
 {
     SE_ASSERT( 0 <= i && i < (int)m_Textures.size() );
 
     m_Textures[i] = pTexture;
 }
 //----------------------------------------------------------------------------
-const std::string& OGLES1FixedEffect::GetImageName(int i) const
+const std::string& SEOGLES1FixedEffect::GetImageName(int i) const
 {
     SE_ASSERT( 0 <= i && i < (int)m_ImageNames.size() );
 
     return m_ImageNames[i];
 }
 //----------------------------------------------------------------------------
-void OGLES1FixedEffect::SetImageName(int i, const std::string& rName)
+void SEOGLES1FixedEffect::SetImageName(int i, const std::string& rName)
 {
     SE_ASSERT( 0 <= i && i < (int)m_ImageNames.size() );
 
     m_ImageNames[i] = rName;
 }
 //----------------------------------------------------------------------------
-int OGLES1FixedEffect::GetLightCount() const
+int SEOGLES1FixedEffect::GetLightCount() const
 {
     return (int)m_Lights.size();
 }
 //----------------------------------------------------------------------------
-Light* OGLES1FixedEffect::GetLight(int i)
+SELight* SEOGLES1FixedEffect::GetLight(int i)
 {
     if( 0 <= i && i < (int)m_Lights.size() )
     {
@@ -107,7 +107,7 @@ Light* OGLES1FixedEffect::GetLight(int i)
     return 0;
 }
 //----------------------------------------------------------------------------
-const Light* OGLES1FixedEffect::GetLight(int i) const
+const SELight* SEOGLES1FixedEffect::GetLight(int i) const
 {
     if( 0 <= i && i < (int)m_Lights.size() )
     {
@@ -117,18 +117,18 @@ const Light* OGLES1FixedEffect::GetLight(int i) const
     return 0;
 }
 //----------------------------------------------------------------------------
-void OGLES1FixedEffect::SetLight(int i, Light* pLight)
+void SEOGLES1FixedEffect::SetLight(int i, SELight* pLight)
 {
     SE_ASSERT( 0 <= i && i < (int)m_Lights.size() );
 
     m_Lights[i] = pLight;
 }
 //----------------------------------------------------------------------------
-void OGLES1FixedEffect::LoadResources(Renderer*, Geometry*)
+void SEOGLES1FixedEffect::LoadResources(SERenderer*, SEGeometry*)
 {
 }
 //----------------------------------------------------------------------------
-void OGLES1FixedEffect::ReleaseResources(Renderer*, Geometry*)
+void SEOGLES1FixedEffect::ReleaseResources(SERenderer*, SEGeometry*)
 {
 }
 //----------------------------------------------------------------------------
@@ -136,9 +136,9 @@ void OGLES1FixedEffect::ReleaseResources(Renderer*, Geometry*)
 //----------------------------------------------------------------------------
 // name and unique id
 //----------------------------------------------------------------------------
-Object* OGLES1FixedEffect::GetObjectByName(const std::string& rName)
+SEObject* SEOGLES1FixedEffect::GetObjectByName(const std::string& rName)
 {
-    Object* pFound = Effect::GetObjectByName(rName);
+    SEObject* pFound = SEEffect::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -172,15 +172,15 @@ Object* OGLES1FixedEffect::GetObjectByName(const std::string& rName)
     return 0;
 }
 //----------------------------------------------------------------------------
-void OGLES1FixedEffect::GetAllObjectsByName(const std::string& rName,
-    std::vector<Object*>& rObjects)
+void SEOGLES1FixedEffect::GetAllObjectsByName(const std::string& rName,
+    std::vector<SEObject*>& rObjects)
 {
-    Effect::GetAllObjectsByName(rName, rObjects);
+    SEEffect::GetAllObjectsByName(rName, rObjects);
 }
 //----------------------------------------------------------------------------
-Object* OGLES1FixedEffect::GetObjectByID(unsigned int uiID)
+SEObject* SEOGLES1FixedEffect::GetObjectByID(unsigned int uiID)
 {
-    Object* pFound = Effect::GetObjectByID(uiID);
+    SEObject* pFound = SEEffect::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -218,11 +218,11 @@ Object* OGLES1FixedEffect::GetObjectByID(unsigned int uiID)
 //----------------------------------------------------------------------------
 // streaming
 //----------------------------------------------------------------------------
-void OGLES1FixedEffect::Load(Stream& rStream, Stream::Link* pLink)
+void SEOGLES1FixedEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    Effect::Load(rStream, pLink);
+    SEEffect::Load(rStream, pLink);
 
     // native data
     int iCount;
@@ -239,7 +239,7 @@ void OGLES1FixedEffect::Load(Stream& rStream, Stream::Link* pLink)
     m_Textures.resize(iCount);
     for( i = 0; i < iCount; i++ )
     {
-        Object* pObject;
+        SEObject* pObject;
         rStream.Read(pObject);  // m_Textures[i]
         pLink->Add(pObject);
     }
@@ -248,35 +248,35 @@ void OGLES1FixedEffect::Load(Stream& rStream, Stream::Link* pLink)
     m_Lights.resize(iCount);
     for( i = 0; i < iCount; i++ )
     {
-        Object* pObject;
+        SEObject* pObject;
         rStream.Read(pObject);  // m_Lights[i]
         pLink->Add(pObject);
     }
 
-    SE_END_DEBUG_STREAM_LOAD(OGLES1FixedEffect);
+    SE_END_DEBUG_STREAM_LOAD(SEOGLES1FixedEffect);
 }
 //----------------------------------------------------------------------------
-void OGLES1FixedEffect::Link(Stream& rStream, Stream::Link* pLink)
+void SEOGLES1FixedEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    Effect::Link(rStream, pLink);
+    SEEffect::SELink(rStream, pLink);
 
     int i;
     for( i = 0; i < (int)m_Textures.size(); i++ )
     {
-        Object* pLinkID = pLink->GetLinkID();
-        m_Textures[i] = (Texture*)rStream.GetFromMap(pLinkID);
+        SEObject* pLinkID = pLink->GetLinkID();
+        m_Textures[i] = (SETexture*)rStream.GetFromMap(pLinkID);
     }
 
     for( i = 0; i < (int)m_Lights.size(); i++ )
     {
-        Object* pLinkID = pLink->GetLinkID();
-        m_Lights[i] = (Light*)rStream.GetFromMap(pLinkID);
+        SEObject* pLinkID = pLink->GetLinkID();
+        m_Lights[i] = (SELight*)rStream.GetFromMap(pLinkID);
     }
 }
 //----------------------------------------------------------------------------
-bool OGLES1FixedEffect::Register(Stream& rStream) const
+bool SEOGLES1FixedEffect::Register(SEStream& rStream) const
 {
-    if( !Effect::Register(rStream) )
+    if( !SEEffect::Register(rStream) )
     {
         return false;
     }
@@ -301,11 +301,11 @@ bool OGLES1FixedEffect::Register(Stream& rStream) const
     return true;
 }
 //----------------------------------------------------------------------------
-void OGLES1FixedEffect::Save(Stream& rStream) const
+void SEOGLES1FixedEffect::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    Effect::Save(rStream);
+    SEEffect::Save(rStream);
 
     // native data
     int iCount = (int)m_ImageNames.size();
@@ -331,12 +331,12 @@ void OGLES1FixedEffect::Save(Stream& rStream) const
         rStream.Write(m_Lights[i]);
     }
 
-    SE_END_DEBUG_STREAM_SAVE(OGLES1FixedEffect);
+    SE_END_DEBUG_STREAM_SAVE(SEOGLES1FixedEffect);
 }
 //----------------------------------------------------------------------------
-int OGLES1FixedEffect::GetDiskUsed(const StreamVersion& rVersion) const
+int SEOGLES1FixedEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    int iSize = Effect::GetDiskUsed(rVersion);
+    int iSize = SEEffect::GetDiskUsed(rVersion);
 
     int iCount = (int)m_ImageNames.size();
     iSize += sizeof(int);
@@ -355,9 +355,9 @@ int OGLES1FixedEffect::GetDiskUsed(const StreamVersion& rVersion) const
     return iSize;
 }
 //----------------------------------------------------------------------------
-StringTree* OGLES1FixedEffect::SaveStrings(const char*)
+SEStringTree* SEOGLES1FixedEffect::SaveStrings(const char*)
 {
-    StringTree* pTree = SE_NEW StringTree;
+    SEStringTree* pTree = SE_NEW SEStringTree;
 
     // strings
     pTree->Append(Format(&TYPE, GetName().c_str()));
@@ -367,12 +367,12 @@ StringTree* OGLES1FixedEffect::SaveStrings(const char*)
     int i;
     for( i = 0; i < (int)m_ImageNames.size(); i++ )
     {
-        System::SE_Sprintf(acTitle, uiTitleSize, "image[%d] =", i);
+        SESystem::SE_Sprintf(acTitle, uiTitleSize, "image[%d] =", i);
         pTree->Append(Format(acTitle, m_ImageNames[i].c_str()));
     }
 
     // children
-    pTree->Append(Effect::SaveStrings());
+    pTree->Append(SEEffect::SaveStrings());
 
     for( i = 0; i < (int)m_Textures.size(); i++ )
     {

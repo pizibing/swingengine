@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void OGLES1Renderer::Draw(const unsigned char* aucBuffer)
+void SEOGLES1Renderer::Draw(const unsigned char* aucBuffer)
 {
     if( !aucBuffer )
     {

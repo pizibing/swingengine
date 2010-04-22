@@ -27,78 +27,78 @@ using namespace Swing;
 //----------------------------------------------------------------------------
 // 资源开启与关闭.
 //----------------------------------------------------------------------------
-void OGLES1Renderer::SetVProgramRC(RendererConstant*)
+void SEOGLES1Renderer::SetVProgramRC(SERendererConstant*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::SetVProgramUC(UserConstant*)
+void SEOGLES1Renderer::SetVProgramUC(SEUserConstant*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::SetGProgramRC(RendererConstant*)
+void SEOGLES1Renderer::SetGProgramRC(SERendererConstant*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::SetGProgramUC(UserConstant*)
+void SEOGLES1Renderer::SetGProgramUC(SEUserConstant*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::SetPProgramRC(RendererConstant*)
+void SEOGLES1Renderer::SetPProgramRC(SERendererConstant*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::SetPProgramUC(UserConstant*)
+void SEOGLES1Renderer::SetPProgramUC(SEUserConstant*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::UpdateVProgramConstants(VertexProgram*)
+void SEOGLES1Renderer::UpdateVProgramConstants(SEVertexProgram*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::UpdateGProgramConstants(GeometryProgram*)
+void SEOGLES1Renderer::UpdateGProgramConstants(SEGeometryProgram*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::UpdatePProgramConstants(PixelProgram*)
+void SEOGLES1Renderer::UpdatePProgramConstants(SEPixelProgram*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnEnableVProgram(ResourceIdentifier*)
+void SEOGLES1Renderer::OnEnableVProgram(SEResourceIdentifier*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnDisableVProgram(ResourceIdentifier*)
+void SEOGLES1Renderer::OnDisableVProgram(SEResourceIdentifier*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnEnablePProgram(ResourceIdentifier*)
+void SEOGLES1Renderer::OnEnablePProgram(SEResourceIdentifier*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnDisablePProgram(ResourceIdentifier*)
+void SEOGLES1Renderer::OnDisablePProgram(SEResourceIdentifier*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnEnableTexture(ResourceIdentifier* pID)
+void SEOGLES1Renderer::OnEnableTexture(SEResourceIdentifier* pID)
 {
-    TextureID* pResource = (TextureID*)pID;
+    SETextureID* pResource = (SETextureID*)pID;
 
     // 待实现.
     // 目前只支持2D texture.
-    SamplerInformation::Type eSType = SamplerInformation::SAMPLER_2D;
+    SESamplerInformation::Type eSType = SESamplerInformation::SAMPLER_2D;
     int iTextureUnit = m_iCurrentSampler;
     int eTarget = ms_aeSamplerTypes[eSType];
 
@@ -108,23 +108,24 @@ void OGLES1Renderer::OnEnableTexture(ResourceIdentifier* pID)
     glEnable(eTarget);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnDisableTexture(ResourceIdentifier* pID)
+void SEOGLES1Renderer::OnDisableTexture(SEResourceIdentifier* pID)
 {
     // 待实现.
     // 目前只支持2D texture.
-    SamplerInformation::Type eSType = SamplerInformation::SAMPLER_2D;
+    SESamplerInformation::Type eSType = SESamplerInformation::SAMPLER_2D;
     int eTarget = ms_aeSamplerTypes[eSType];
     glBindTexture(eTarget, 0);
     glDisable(eTarget);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnEnableVBuffer(ResourceIdentifier* pID, VertexProgram*)
+void SEOGLES1Renderer::OnEnableVBuffer(SEResourceIdentifier* pID, 
+    SEVertexProgram*)
 {
     // Bind当前vertex buffer.
-    VBufferID* pResource = (VBufferID*)pID;
+    SEVBufferID* pResource = (SEVBufferID*)pID;
     glBindBuffer(GL_ARRAY_BUFFER, pResource->ID);
 
-    const Attributes& rRAttr = pResource->IAttr;
+    const SEAttributes& rRAttr = pResource->IAttr;
     GLsizei iSize = (GLsizei)(sizeof(float)*rRAttr.GetChannelCount());
     const float* afData = 0;
 
@@ -164,10 +165,11 @@ void OGLES1Renderer::OnEnableVBuffer(ResourceIdentifier* pID, VertexProgram*)
     }
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnDisableVBuffer(ResourceIdentifier* pID, VertexProgram*)
+void SEOGLES1Renderer::OnDisableVBuffer(SEResourceIdentifier* pID, 
+    SEVertexProgram*)
 {
-    VBufferID* pResource = (VBufferID*)pID;
-    const Attributes& rRAttr = pResource->IAttr;
+    SEVBufferID* pResource = (SEVBufferID*)pID;
+    const SEAttributes& rRAttr = pResource->IAttr;
 
     // Unbind当前vertex buffer.
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -198,20 +200,20 @@ void OGLES1Renderer::OnDisableVBuffer(ResourceIdentifier* pID, VertexProgram*)
     }
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnEnableIBuffer(ResourceIdentifier* pID)
+void SEOGLES1Renderer::OnEnableIBuffer(SEResourceIdentifier* pID)
 {
     // Bind当前index buffer.
-    IBufferID* pResource = (IBufferID*)pID;
+    SEIBufferID* pResource = (SEIBufferID*)pID;
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pResource->ID);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnDisableIBuffer(ResourceIdentifier*)
+void SEOGLES1Renderer::OnDisableIBuffer(SEResourceIdentifier*)
 {
     // Unbind当前index buffer.
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::EnableLightingFixed()
+void SEOGLES1Renderer::EnableLightingFixed()
 {
     glEnable(GL_LIGHTING);
 
@@ -228,7 +230,7 @@ void OGLES1Renderer::EnableLightingFixed()
     glMultMatrixf(m_ViewMatrix);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::DisableLightingFixed()
+void SEOGLES1Renderer::DisableLightingFixed()
 {
     glDisable(GL_LIGHTING);
 }

@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void OGLES1Renderer::SetLightingStateFixed(int i, Light* pLight)
+void SEOGLES1Renderer::SetLightingStateFixed(int i, SELight* pLight)
 {
     if( !pLight )
     {
@@ -58,13 +58,13 @@ void OGLES1Renderer::SetLightingStateFixed(int i, Light* pLight)
 
     switch( pLight->Type )
     {
-    case Light::LT_AMBIENT:
+    case SELight::LT_AMBIENT:
         // 固定管线只有一个全局ambient light.
         // 因此总是用当前的ambient light覆盖之前的ambient light.
         glLightModelfv(GL_LIGHT_MODEL_AMBIENT, afAmbient);
         break;
 
-    case Light::LT_DIRECTIONAL:
+    case SELight::LT_DIRECTIONAL:
         {
             GLfloat afDirection[4] =
             {
@@ -83,7 +83,7 @@ void OGLES1Renderer::SetLightingStateFixed(int i, Light* pLight)
         }
         break;
 
-    case Light::LT_POINT:
+    case SELight::LT_POINT:
         {
             GLfloat afPosition[4] =
             {
@@ -102,7 +102,7 @@ void OGLES1Renderer::SetLightingStateFixed(int i, Light* pLight)
         }
         break;
 
-    case Light::LT_SPOT:
+    case SELight::LT_SPOT:
         {
             GLfloat afDirection[3] =
             {
@@ -126,7 +126,7 @@ void OGLES1Renderer::SetLightingStateFixed(int i, Light* pLight)
 
             glLightfv(iLight, GL_SPOT_DIRECTION, afDirection);
             glLightf(iLight, GL_SPOT_CUTOFF, 
-                pLight->Angle*Mathf::RAD_TO_DEG);
+                pLight->Angle*SEMathf::RAD_TO_DEG);
             glLightf(iLight, GL_SPOT_EXPONENT, pLight->Exponent);
         }
         break;
@@ -136,7 +136,7 @@ void OGLES1Renderer::SetLightingStateFixed(int i, Light* pLight)
     }
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::RestoreLightingStateFixed(int i, Light* pLight)
+void SEOGLES1Renderer::RestoreLightingStateFixed(int i, SELight* pLight)
 {
     if( !pLight )
     {

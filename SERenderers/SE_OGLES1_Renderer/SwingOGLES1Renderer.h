@@ -21,15 +21,15 @@
 #ifndef Swing_OGLES1RendererHead_H
 #define Swing_OGLES1RendererHead_H
 
-// OGLES1Renderer Register
+// OGLES1 Renderer Register
 #include "SEOGLES1RendererRegister.h"
 
-// OGLES1Rendering
+// OGLES1 Rendering
 #include "SEOGLES1FrameBuffer.h"
 #include "SEOGLES1Renderer.h"
 #include "SEOGLES1Resources.h"
 
-// OGLES1FixedEffects
+// OGLES1 Fixed Effects
 #include "SEOGLES1FixedEffect.h"
 
 #endif

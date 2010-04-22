@@ -29,29 +29,29 @@
 namespace Swing
 {
 
-class SE_RENDERER_API TextureID : public ResourceIdentifier
+class SE_RENDERER_API SETextureID : public SEResourceIdentifier
 {
 public:
     unsigned int ID;
-    Texture* TextureObject;
+    SETexture* TextureObject;
 };
 
-class SE_RENDERER_API VBufferID : public ResourceIdentifier
+class SE_RENDERER_API SEVBufferID : public SEResourceIdentifier
 {
 public:
     // 没有shader管线,不需要验证IAttr与OAttr的匹配问题.
-    Attributes IAttr;
-    Attributes OAttr;
+    SEAttributes IAttr;
+    SEAttributes OAttr;
     unsigned int ID;
 };
 
-class SE_RENDERER_API IBufferID : public ResourceIdentifier
+class SE_RENDERER_API SEIBufferID : public SEResourceIdentifier
 {
 public:
     unsigned int ID;
 };
 
-class SE_RENDERER_API SamplerInformationID
+class SE_RENDERER_API SESamplerInformationID
 {
 public:
     unsigned int TextureUnit;

@@ -25,38 +25,38 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_INITIALIZE(OGLES1FrameBuffer);
+SE_IMPLEMENT_INITIALIZE(SEOGLES1FrameBuffer);
 
-//SE_REGISTER_INITIALIZE(OGLES1FrameBuffer);
+//SE_REGISTER_INITIALIZE(SEOGLES1FrameBuffer);
 
 //----------------------------------------------------------------------------
-void OGLES1FrameBuffer::Initialize()
+void SEOGLES1FrameBuffer::Initialize()
 {
-    ms_aoCreator[Renderer::OPENGLES1] = &OGLES1FrameBuffer::Create;
-    ms_aoDestroyer[Renderer::OPENGLES1] = &OGLES1FrameBuffer::Destroy;
+    ms_aoCreator[SERenderer::OPENGLES1] = &SEOGLES1FrameBuffer::Create;
+    ms_aoDestroyer[SERenderer::OPENGLES1] = &SEOGLES1FrameBuffer::Destroy;
 }
 //----------------------------------------------------------------------------
-FrameBuffer* OGLES1FrameBuffer::Create(FormatType eFormat, DepthType eDepth,
-    StencilType eStencil, BufferingType eBuffering,
-    MultisamplingType eMultisampling, Renderer* pRenderer, int iTCount,
-    Texture** apTargets)
+SEFrameBuffer* SEOGLES1FrameBuffer::Create(FormatType eFormat, DepthType 
+    eDepth, StencilType eStencil, BufferingType eBuffering, MultisamplingType 
+    eMultisampling, SERenderer* pRenderer, int iTCount,
+    SETexture** apTargets)
 {
     // 待实现.
     return 0;
 }
 //----------------------------------------------------------------------------
-void OGLES1FrameBuffer::Destroy(FrameBuffer* pBuffer)
+void SEOGLES1FrameBuffer::Destroy(SEFrameBuffer* pBuffer)
 {
-    ((OGLES1FrameBuffer*)pBuffer)->TerminateBuffer();
+    ((SEOGLES1FrameBuffer*)pBuffer)->TerminateBuffer();
     SE_DELETE pBuffer;
 }
 //----------------------------------------------------------------------------
-OGLES1FrameBuffer::OGLES1FrameBuffer(FormatType eFormat, DepthType eDepth,
+SEOGLES1FrameBuffer::SEOGLES1FrameBuffer(FormatType eFormat, DepthType eDepth,
     StencilType eStencil, BufferingType eBuffering,
-    MultisamplingType eMultisampling, Renderer* pRenderer, int iTCount, 
-    Texture** apTargets)
+    MultisamplingType eMultisampling, SERenderer* pRenderer, int iTCount, 
+    SETexture** apTargets)
     :
-    FrameBuffer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, 
+    SEFrameBuffer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, 
         pRenderer, iTCount, apTargets)
 {
     // OpenGL ES1只支持一个render target.	
@@ -66,33 +66,33 @@ OGLES1FrameBuffer::OGLES1FrameBuffer(FormatType eFormat, DepthType eDepth,
     m_pAttachments = SE_NEW GLenum[iTCount];
 }
 //----------------------------------------------------------------------------
-OGLES1FrameBuffer::~OGLES1FrameBuffer()
+SEOGLES1FrameBuffer::~SEOGLES1FrameBuffer()
 {
     SE_DELETE[] m_pAttachments;
 }
 //----------------------------------------------------------------------------
-bool OGLES1FrameBuffer::InitializeBuffer()
+bool SEOGLES1FrameBuffer::InitializeBuffer()
 {
     // 待实现.
     return true;
 }
 //----------------------------------------------------------------------------
-void OGLES1FrameBuffer::TerminateBuffer()
+void SEOGLES1FrameBuffer::TerminateBuffer()
 {
     // 待实现.
 }
 //----------------------------------------------------------------------------
-void OGLES1FrameBuffer::Enable()
+void SEOGLES1FrameBuffer::Enable()
 {
     // 待实现.
 }
 //----------------------------------------------------------------------------
-void OGLES1FrameBuffer::Disable()
+void SEOGLES1FrameBuffer::Disable()
 {
     // 待实现.
 }
 //----------------------------------------------------------------------------
-void OGLES1FrameBuffer::CopyToTexture(int)
+void SEOGLES1FrameBuffer::CopyToTexture(int)
 {
     // 待实现.
 }

@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void OGLES1Renderer::SetMaterialState(MaterialState* pState)
+void SEOGLES1Renderer::SetMaterialState(SEMaterialState* pState)
 {
     GLfloat afEmissive[4] = 
     {

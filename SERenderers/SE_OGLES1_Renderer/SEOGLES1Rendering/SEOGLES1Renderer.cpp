@@ -27,39 +27,39 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_INITIALIZE(OGLES1Renderer);
+SE_IMPLEMENT_INITIALIZE(SEOGLES1Renderer);
 
-//SE_REGISTER_INITIALIZE(OGLES1Renderer);
+//SE_REGISTER_INITIALIZE(SEOGLES1Renderer);
 
 //----------------------------------------------------------------------------
-void OGLES1Renderer::Initialize()
+void SEOGLES1Renderer::Initialize()
 {
-    SamplerInformation::OnReleaseID = 
-        &OGLES1Renderer::OnReleaseSamplerInformationID;
+    SESamplerInformation::OnReleaseID = 
+        &SEOGLES1Renderer::OnReleaseSamplerInformationID;
 }
 //----------------------------------------------------------------------------
-OGLES1Renderer::OGLES1Renderer(FrameBuffer::FormatType eFormat,
-    FrameBuffer::DepthType eDepth, FrameBuffer::StencilType eStencil,
-    FrameBuffer::BufferingType eBuffering,
-    FrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight)
+SEOGLES1Renderer::SEOGLES1Renderer(SEFrameBuffer::FormatType eFormat,
+    SEFrameBuffer::DepthType eDepth, SEFrameBuffer::StencilType eStencil,
+    SEFrameBuffer::BufferingType eBuffering,
+    SEFrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight)
     :
-    Renderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth, 
+    SERenderer(eFormat, eDepth, eStencil, eBuffering, eMultisampling, iWidth, 
         iHeight)
 {
 }
 //----------------------------------------------------------------------------
-OGLES1Renderer::~OGLES1Renderer()
+SEOGLES1Renderer::~SEOGLES1Renderer()
 {
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::InitializeState()
+void SEOGLES1Renderer::InitializeState()
 {
     // 顶点数组总是存在.
     glEnableClientState(GL_VERTEX_ARRAY);
 
     // 关闭颜色数组,当前颜色默认为白色.
     glDisableClientState(GL_COLOR_ARRAY);
-    const ColorRGBA& rDefaultColor = ColorRGBA::SE_RGBA_WHITE;
+    const SEColorRGBA& rDefaultColor = SEColorRGBA::SE_RGBA_WHITE;
     glColor4f(rDefaultColor.R, rDefaultColor.G, rDefaultColor.B,
         rDefaultColor.A);
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
@@ -88,10 +88,11 @@ void OGLES1Renderer::InitializeState()
     glGetIntegerv(GL_MAX_LIGHTS, &iMaxLights);
     SE_ASSERT( iMaxLights > 0 );
     m_iMaxLights = (int)iMaxLights;
-    m_aspLight = SE_NEW ObjectPtr[m_iMaxLights];
+    m_aspLight = SE_NEW SEObjectPtr[m_iMaxLights];
 
     // 设置lighting model.关闭lighting.
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, (const float*)ColorRGBA::SE_RGBA_BLACK);
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, 
+        (const float*)SEColorRGBA::SE_RGBA_BLACK);
     glDisable(GL_LIGHTING);
 
     // 获取stencil buffer位宽.
@@ -116,10 +117,10 @@ void OGLES1Renderer::InitializeState()
     m_iMaxRenderTargets = 1;
 
     // 初始化全局渲染状态为引擎默认设置.
-    SetGlobalState(GlobalState::Default);
+    SetGlobalState(SEGlobalState::Default);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::ClearBackBuffer()
+void SEOGLES1Renderer::ClearBackBuffer()
 {
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
         m_ClearColor[3]);
@@ -127,21 +128,21 @@ void OGLES1Renderer::ClearBackBuffer()
     glClear(GL_COLOR_BUFFER_BIT);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::ClearZBuffer()
+void SEOGLES1Renderer::ClearZBuffer()
 {
     glClearDepthf((GLclampf)m_fClearDepth);
 
     glClear(GL_DEPTH_BUFFER_BIT);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::ClearStencilBuffer()
+void SEOGLES1Renderer::ClearStencilBuffer()
 {
     glClearStencil((GLint)m_uiClearStencil);
 
     glClear(GL_STENCIL_BUFFER_BIT);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::ClearBuffers()
+void SEOGLES1Renderer::ClearBuffers()
 {
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
         m_ClearColor[3]);
@@ -151,7 +152,7 @@ void OGLES1Renderer::ClearBuffers()
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::ClearBackBuffer(int iXPos, int iYPos, int iWidth,
+void SEOGLES1Renderer::ClearBackBuffer(int iXPos, int iYPos, int iWidth,
     int iHeight)
 {
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
@@ -163,7 +164,7 @@ void OGLES1Renderer::ClearBackBuffer(int iXPos, int iYPos, int iWidth,
     glDisable(GL_SCISSOR_TEST);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::ClearZBuffer(int iXPos, int iYPos, int iWidth,
+void SEOGLES1Renderer::ClearZBuffer(int iXPos, int iYPos, int iWidth,
     int iHeight)
 {
     glClearDepthf((GLclampf)m_fClearDepth);
@@ -174,7 +175,7 @@ void OGLES1Renderer::ClearZBuffer(int iXPos, int iYPos, int iWidth,
     glDisable(GL_SCISSOR_TEST);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::ClearStencilBuffer(int iXPos, int iYPos, int iWidth,
+void SEOGLES1Renderer::ClearStencilBuffer(int iXPos, int iYPos, int iWidth,
     int iHeight)
 {
     glClearStencil((GLint)m_uiClearStencil);
@@ -185,7 +186,7 @@ void OGLES1Renderer::ClearStencilBuffer(int iXPos, int iYPos, int iWidth,
     glDisable(GL_SCISSOR_TEST);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::ClearBuffers(int iXPos, int iYPos, int iWidth,
+void SEOGLES1Renderer::ClearBuffers(int iXPos, int iYPos, int iWidth,
     int iHeight)
 {
     glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2],
@@ -202,16 +203,16 @@ void OGLES1Renderer::ClearBuffers(int iXPos, int iYPos, int iWidth,
     glDisable(GL_SCISSOR_TEST);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
+void SEOGLES1Renderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
     bool bAllowBlue, bool bAllowAlpha)
 {
-    Renderer::SetColorMask(bAllowRed, bAllowGreen, bAllowBlue, bAllowAlpha);
+    SERenderer::SetColorMask(bAllowRed, bAllowGreen, bAllowBlue, bAllowAlpha);
 
     glColorMask((GLboolean)bAllowRed, (GLboolean)bAllowGreen,
         (GLboolean)bAllowBlue, (GLboolean)bAllowAlpha);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::EnableUserClipPlane(int i, const Plane3f& rPlane)
+void SEOGLES1Renderer::EnableUserClipPlane(int i, const SEPlane3f& rPlane)
 {
     GLfloat afPlane[4] =
     {
@@ -224,40 +225,40 @@ void OGLES1Renderer::EnableUserClipPlane(int i, const Plane3f& rPlane)
     glEnable(GL_CLIP_PLANE0 + i);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::DisableUserClipPlane(int i)
+void SEOGLES1Renderer::DisableUserClipPlane(int i)
 {
     glDisable(GL_CLIP_PLANE0 + i);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnReleaseSamplerInformationID(void* pID)
+void SEOGLES1Renderer::OnReleaseSamplerInformationID(void* pID)
 {
-    SamplerInformationID* pSIID = (SamplerInformationID*)pID;
+    SESamplerInformationID* pSIID = (SESamplerInformationID*)pID;
     SE_DELETE pSIID;
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnPreDrawGeometry()
+void SEOGLES1Renderer::OnPreDrawGeometry()
 {
-    RenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
+    SERenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
     SE_ASSERT( pRStateBlock );
 
     SetGlobalState(pRStateBlock->States);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnPostDrawGeometry()
+void SEOGLES1Renderer::OnPostDrawGeometry()
 {
-    RenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
+    SERenderStateBlock* pRStateBlock = m_pGeometry->RStateBlock;
     SE_ASSERT( pRStateBlock );
 
     RestoreGlobalState(pRStateBlock->States);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnPreDrawPass(ShaderEffect* pEffect, int iPass,
+void SEOGLES1Renderer::OnPreDrawPass(SEShaderEffect* pEffect, int iPass,
     bool bPrimaryEffect)
 {
     pEffect->SetGlobalState(iPass, this, bPrimaryEffect);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnPostDrawPass(ShaderEffect* pEffect, int iPass,
+void SEOGLES1Renderer::OnPostDrawPass(SEShaderEffect* pEffect, int iPass,
     bool bPrimaryEffect)
 {
     pEffect->RestoreGlobalState(iPass, this, bPrimaryEffect);
@@ -267,20 +268,20 @@ void OGLES1Renderer::OnPostDrawPass(ShaderEffect* pEffect, int iPass,
 //----------------------------------------------------------------------------
 // 对象渲染入口
 //----------------------------------------------------------------------------
-void OGLES1Renderer::DrawScene(UnculledSet& rVisibleSet)
+void SEOGLES1Renderer::DrawScene(SEUnculledSet& rVisibleSet)
 {
     const int iVisibleCount = rVisibleSet.GetCount();
-    UnculledObject* pVisibleSet = rVisibleSet.GetUnculled();
+    SEUnculledObject* pVisibleSet = rVisibleSet.GetUnculled();
     for( int i = 0; i < iVisibleCount; i++ )
     {
         if( pVisibleSet[i].IsRenderable() )
         {
-            Draw((Geometry*)pVisibleSet[i].Object);
+            Draw((SEGeometry*)pVisibleSet[i].Object);
         }
     }
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::ApplyFixedEffect(OGLES1FixedEffect* pEffect, bool&)
+void SEOGLES1Renderer::ApplyFixedEffect(SEOGLES1FixedEffect* pEffect, bool&)
 {
     // 开启light.
     int iLCount = pEffect->GetLightCount();
@@ -301,7 +302,7 @@ void OGLES1Renderer::ApplyFixedEffect(OGLES1FixedEffect* pEffect, bool&)
     int iTCount = pEffect->GetTextureCount();
     for( int i = 0; i < iTCount; i++ )
     {
-        Texture* pTexture = pEffect->GetTexture(i);
+        SETexture* pTexture = pEffect->GetTexture(i);
         if( pTexture )
         {
             EnableTexture(pTexture);
@@ -321,7 +322,7 @@ void OGLES1Renderer::ApplyFixedEffect(OGLES1FixedEffect* pEffect, bool&)
     // 关闭texture.
     for( int i = 0; i < iTCount; i++ )
     {
-        Texture* pTexture = pEffect->GetTexture(i);
+        SETexture* pTexture = pEffect->GetTexture(i);
         if( pTexture )
         {
             DisableTexture(pTexture);
@@ -341,7 +342,7 @@ void OGLES1Renderer::ApplyFixedEffect(OGLES1FixedEffect* pEffect, bool&)
     }
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::Draw(Geometry* pGeometry)
+void SEOGLES1Renderer::Draw(SEGeometry* pGeometry)
 {
     // 引用当前可渲染对象,供其它函数使用.
     m_pGeometry = pGeometry;
@@ -357,8 +358,8 @@ void OGLES1Renderer::Draw(Geometry* pGeometry)
     EnableIBuffer();
 
     // 开启当前可渲染对象的VB.
-    const Attributes& rAttr = m_pGeometry->VBuffer->GetAttributes();
-    ResourceIdentifier* pID = EnableVBuffer(rAttr, rAttr, 0);
+    const SEAttributes& rAttr = m_pGeometry->VBuffer->GetAttributes();
+    SEResourceIdentifier* pID = EnableVBuffer(rAttr, rAttr, 0);
 
     bool bPrimaryEffect = true;
     const int iMin = m_pGeometry->GetStartEffect();
@@ -366,8 +367,8 @@ void OGLES1Renderer::Draw(Geometry* pGeometry)
     for( int i = iMin; i < iMax; i++ )
     {
         // effect必须是OpenGL ES1 fixed effect.
-        OGLES1FixedEffect* pEffect = 
-            DynamicCast<OGLES1FixedEffect>(m_pGeometry->GetEffect(i));
+        SEOGLES1FixedEffect* pEffect = 
+            DynamicCast<SEOGLES1FixedEffect>(m_pGeometry->GetEffect(i));
         ApplyFixedEffect(pEffect, bPrimaryEffect);
     }
 

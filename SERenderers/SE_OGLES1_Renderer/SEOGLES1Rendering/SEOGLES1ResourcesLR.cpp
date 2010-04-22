@@ -24,7 +24,7 @@
 
 using namespace Swing;
 
-GLenum OGLES1Renderer::ms_aeTextureMipmap[Texture::MAX_FILTER_TYPES] =
+GLenum SEOGLES1Renderer::ms_aeTextureMipmap[SETexture::MAX_FILTER_TYPES] =
 {
     GL_NEAREST,
     GL_LINEAR,
@@ -38,7 +38,7 @@ GLenum OGLES1Renderer::ms_aeTextureMipmap[Texture::MAX_FILTER_TYPES] =
 // OpenGL ES1只支持有限能力的texture wrap mode,对于其他不支持的模式,
 // 相关的引擎层参数常量映射均为0，用户有责任避免使用这些引擎层参数常量.
 
-GLenum OGLES1Renderer::ms_aeWrapMode[Texture::MAX_WRAP_TYPES] =
+GLenum SEOGLES1Renderer::ms_aeWrapMode[SETexture::MAX_WRAP_TYPES] =
 {
     0,
     GL_REPEAT,
@@ -51,89 +51,89 @@ GLenum OGLES1Renderer::ms_aeWrapMode[Texture::MAX_WRAP_TYPES] =
 // OpenGL ES1只支持有限能力的texture pixel format,对于其他不支持的模式,
 // 相关的引擎层参数常量映射均为0，用户有责任避免使用这些引擎层参数常量.
 
-GLenum OGLES1Renderer::ms_aeImageComponents[Image::IT_COUNT] =
+GLenum SEOGLES1Renderer::ms_aeImageComponents[SEImage::IT_COUNT] =
 {
-    GL_RGB,                    // Image::IT_RGB888
-    GL_RGBA,                   // Image::IT_RGBA8888
+    GL_RGB,                    // SEImage::IT_RGB888
+    GL_RGBA,                   // SEImage::IT_RGBA8888
 
     // 待实现.尚未测试.
-    GL_DEPTH_COMPONENT16_OES,  // Image::IT_DEPTH16
-    GL_DEPTH_COMPONENT24_OES,  // Image::IT_DEPTH24
-    0,                         // Image::IT_DEPTH32
-    GL_RGB,                    // Image::IT_CUBE_RGB888
-    GL_RGBA,                   // Image::IT_CUBE_RGBA8888
+    GL_DEPTH_COMPONENT16_OES,  // SEImage::IT_DEPTH16
+    GL_DEPTH_COMPONENT24_OES,  // SEImage::IT_DEPTH24
+    0,                         // SEImage::IT_DEPTH32
+    GL_RGB,                    // SEImage::IT_CUBE_RGB888
+    GL_RGBA,                   // SEImage::IT_CUBE_RGBA8888
 
-    0,                         // Image::IT_RGB32
-    0,                         // Image::IT_RGBA32
+    0,                         // SEImage::IT_RGB32
+    0,                         // SEImage::IT_RGBA32
 
     // 待实现.尚未测试.
-    GL_LUMINANCE,              // Image::IT_L8
-    GL_LUMINANCE,              // Image::IT_L16
+    GL_LUMINANCE,              // SEImage::IT_L8
+    GL_LUMINANCE,              // SEImage::IT_L16
 
-    0,                         // Image::IT_R32
-    0,                         // Image::IT_RGB16
-    0                          // Image::IT_RGBA16
+    0,                         // SEImage::IT_R32
+    0,                         // SEImage::IT_RGB16
+    0                          // SEImage::IT_RGBA16
 };
 
-GLenum OGLES1Renderer::ms_aeImageFormats[Image::IT_COUNT] =
+GLenum SEOGLES1Renderer::ms_aeImageFormats[SEImage::IT_COUNT] =
 {
-    GL_RGB,                    // Image::IT_RGB888
-    GL_RGBA,                   // Image::IT_RGBA8888
+    GL_RGB,                    // SEImage::IT_RGB888
+    GL_RGBA,                   // SEImage::IT_RGBA8888
 
     // 待实现.尚未测试.
-    GL_DEPTH_COMPONENT16_OES,  // Image::IT_DEPTH16
-    GL_DEPTH_COMPONENT24_OES,  // Image::IT_DEPTH24
-    0,                         // Image::IT_DEPTH32
-    GL_RGB,                    // Image::IT_CUBE_RGB888
-    GL_RGBA,                   // Image::IT_CUBE_RGBA8888
+    GL_DEPTH_COMPONENT16_OES,  // SEImage::IT_DEPTH16
+    GL_DEPTH_COMPONENT24_OES,  // SEImage::IT_DEPTH24
+    0,                         // SEImage::IT_DEPTH32
+    GL_RGB,                    // SEImage::IT_CUBE_RGB888
+    GL_RGBA,                   // SEImage::IT_CUBE_RGBA8888
 
-    0,                         // Image::IT_RGB32
-    0,                         // Image::IT_RGBA32
+    0,                         // SEImage::IT_RGB32
+    0,                         // SEImage::IT_RGBA32
 
     // 待实现.尚未测试.
-    GL_LUMINANCE,              // Image::IT_L8
-    GL_LUMINANCE,              // Image::IT_L16
+    GL_LUMINANCE,              // SEImage::IT_L8
+    GL_LUMINANCE,              // SEImage::IT_L16
 
-    0,                         // Image::IT_R32
-    0,                         // Image::IT_RGB16
-    0                          // Image::IT_RGBA16
+    0,                         // SEImage::IT_R32
+    0,                         // SEImage::IT_RGB16
+    0                          // SEImage::IT_RGBA16
 };
 
-GLenum OGLES1Renderer::ms_aeImageTypes[Image::IT_COUNT] =
+GLenum SEOGLES1Renderer::ms_aeImageTypes[SEImage::IT_COUNT] =
 {
-    GL_UNSIGNED_BYTE,    // Image::IT_RGB888
-    GL_UNSIGNED_BYTE,    // Image::IT_RGBA8888
+    GL_UNSIGNED_BYTE,    // SEImage::IT_RGB888
+    GL_UNSIGNED_BYTE,    // SEImage::IT_RGBA8888
 
     // 待实现.尚未测试.
-    GL_FLOAT,            // Image::IT_DEPTH16
-    GL_FLOAT,            // Image::IT_DEPTH24
-    0,                   // Image::IT_DEPTH32
-    GL_UNSIGNED_BYTE,    // Image::IT_CUBE_RGB888
-    GL_UNSIGNED_BYTE,    // Image::IT_CUBE_RGBA8888
+    GL_FLOAT,            // SEImage::IT_DEPTH16
+    GL_FLOAT,            // SEImage::IT_DEPTH24
+    0,                   // SEImage::IT_DEPTH32
+    GL_UNSIGNED_BYTE,    // SEImage::IT_CUBE_RGB888
+    GL_UNSIGNED_BYTE,    // SEImage::IT_CUBE_RGBA8888
 
-    0,                   // Image::IT_RGB32
-    0,                   // Image::IT_RGBA32
+    0,                   // SEImage::IT_RGB32
+    0,                   // SEImage::IT_RGBA32
 
     // 待实现.尚未测试.
-    GL_UNSIGNED_BYTE,    // Image::IT_L8
-    GL_UNSIGNED_BYTE,    // Image::IT_L16
+    GL_UNSIGNED_BYTE,    // SEImage::IT_L8
+    GL_UNSIGNED_BYTE,    // SEImage::IT_L16
 
-    0,                   // Image::IT_R32
-    0,                   // Image::IT_RGB16
-    0                    // Image::IT_RGBA16
+    0,                   // SEImage::IT_R32
+    0,                   // SEImage::IT_RGB16
+    0                    // SEImage::IT_RGBA16
 };
 
-GLenum OGLES1Renderer::ms_aeSamplerTypes[
-    SamplerInformation::MAX_SAMPLER_TYPES] =
+GLenum SEOGLES1Renderer::ms_aeSamplerTypes[
+    SESamplerInformation::MAX_SAMPLER_TYPES] =
 {
-    0,                    // SamplerInformation::SAMPLER_1D
-    GL_TEXTURE_2D,        // SamplerInformation::SAMPLER_2D
-    0,                    // SamplerInformation::SAMPLER_3D
-    0,                    // SamplerInformation::SAMPLER_CUBE
-    GL_TEXTURE_2D,        // SamplerInformation::SAMPLER_PROJ
+    0,                    // SESamplerInformation::SAMPLER_1D
+    GL_TEXTURE_2D,        // SESamplerInformation::SAMPLER_2D
+    0,                    // SESamplerInformation::SAMPLER_3D
+    0,                    // SESamplerInformation::SAMPLER_CUBE
+    GL_TEXTURE_2D,        // SESamplerInformation::SAMPLER_PROJ
 };
 
-GLenum OGLES1Renderer::ms_aeDepthCompare[Texture::DC_COUNT] =
+GLenum SEOGLES1Renderer::ms_aeDepthCompare[SETexture::DC_COUNT] =
 {
     GL_NEVER,
     GL_LESS,
@@ -146,35 +146,36 @@ GLenum OGLES1Renderer::ms_aeDepthCompare[Texture::DC_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnLoadVProgram(ResourceIdentifier*&, VertexProgram*)
+void SEOGLES1Renderer::OnLoadVProgram(SEResourceIdentifier*&, 
+    SEVertexProgram*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnReleaseVProgram(ResourceIdentifier*)
+void SEOGLES1Renderer::OnReleaseVProgram(SEResourceIdentifier*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnLoadPProgram(ResourceIdentifier*&, PixelProgram*)
+void SEOGLES1Renderer::OnLoadPProgram(SEResourceIdentifier*&, SEPixelProgram*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnReleasePProgram(ResourceIdentifier*)
+void SEOGLES1Renderer::OnReleasePProgram(SEResourceIdentifier*)
 {
     // 不支持的基类功能.
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnLoadTexture(ResourceIdentifier*& rpID,
-    Texture* pTexture)
+void SEOGLES1Renderer::OnLoadTexture(SEResourceIdentifier*& rpID,
+    SETexture* pTexture)
 {
-    TextureID* pResource = SE_NEW TextureID;
+    SETextureID* pResource = SE_NEW SETextureID;
     pResource->TextureObject = pTexture;
     rpID = pResource;
 
     // Get the texture image and its information.
-    const Image* pImage = pTexture->GetImage();
+    const SEImage* pImage = pTexture->GetImage();
     SE_ASSERT( pImage );
     int iDimension = pImage->GetDimension();
     SE_ASSERT( iDimension == 2 );
@@ -200,8 +201,8 @@ void OGLES1Renderer::OnLoadTexture(ResourceIdentifier*& rpID,
     glBindTexture(eTarget, pResource->ID);
 
     // Set the filter mode.
-    Texture::FilterType eFType = pTexture->GetFilterType();
-    if( eFType == Texture::NEAREST )
+    SETexture::FilterType eFType = pTexture->GetFilterType();
+    if( eFType == SETexture::NEAREST )
     {
         glTexParameteri(eTarget, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     }
@@ -216,7 +217,7 @@ void OGLES1Renderer::OnLoadTexture(ResourceIdentifier*& rpID,
 
     // Copy the image data from system memory to video memory.
     bool bNoMip =
-        (eFType == Texture::NEAREST || eFType == Texture::LINEAR);
+        (eFType == SETexture::NEAREST || eFType == SETexture::LINEAR);
 
     // OpenGL ES2 only support 2D texture and cube texture,
     // (unless there is an 3D EXT type).
@@ -252,18 +253,18 @@ void OGLES1Renderer::OnLoadTexture(ResourceIdentifier*& rpID,
     }	
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnReleaseTexture(ResourceIdentifier* pID)
+void SEOGLES1Renderer::OnReleaseTexture(SEResourceIdentifier* pID)
 {
-    TextureID* pResource = (TextureID*)pID;
+    SETextureID* pResource = (SETextureID*)pID;
     glDeleteTextures((GLsizei)1, (GLuint*)&pResource->ID);
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
-    const Attributes& rIAttr, const Attributes& rOAttr,
-    VertexBuffer* pVBuffer, VertexProgram*)
+void SEOGLES1Renderer::OnLoadVBuffer(SEResourceIdentifier*& rpID,
+    const SEAttributes& rIAttr, const SEAttributes& rOAttr,
+    SEVertexBuffer* pVBuffer, SEVertexProgram*)
 {
-    VBufferID* pResource = SE_NEW VBufferID;
+    SEVBufferID* pResource = SE_NEW SEVBufferID;
     rpID = pResource;
     pResource->IAttr = rIAttr;
     pResource->OAttr = rOAttr;
@@ -283,17 +284,17 @@ void OGLES1Renderer::OnLoadVBuffer(ResourceIdentifier*& rpID,
     SE_DELETE[] afCompatible;
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnReleaseVBuffer(ResourceIdentifier* pID)
+void SEOGLES1Renderer::OnReleaseVBuffer(SEResourceIdentifier* pID)
 {
-    VBufferID* pResource = (VBufferID*)pID;
+    SEVBufferID* pResource = (SEVBufferID*)pID;
     glDeleteBuffers(1, &pResource->ID);
     SE_DELETE pResource;
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnLoadIBuffer(ResourceIdentifier*& rpID,
-    IndexBuffer* pIBuffer)
+void SEOGLES1Renderer::OnLoadIBuffer(SEResourceIdentifier*& rpID,
+    SEIndexBuffer* pIBuffer)
 {
-    IBufferID* pResource = SE_NEW IBufferID;
+    SEIBufferID* pResource = SE_NEW SEIBufferID;
     rpID = pResource;
 
     // 创建buffer id并绑定index buffer.
@@ -320,9 +321,9 @@ void OGLES1Renderer::OnLoadIBuffer(ResourceIdentifier*& rpID,
     SE_DELETE[] ausDstData;
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnReleaseIBuffer(ResourceIdentifier* pID)
+void SEOGLES1Renderer::OnReleaseIBuffer(SEResourceIdentifier* pID)
 {
-    IBufferID* pResource = (IBufferID*)pID;
+    SEIBufferID* pResource = (SEIBufferID*)pID;
     glDeleteBuffers(1, &pResource->ID);
     SE_DELETE pResource;
 }

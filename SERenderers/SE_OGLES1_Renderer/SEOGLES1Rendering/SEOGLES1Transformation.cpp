@@ -25,7 +25,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnViewportChange()
+void SEOGLES1Renderer::OnViewportChange()
 {
     float fPortL, fPortR, fPortT, fPortB;
     if( m_pCamera )
@@ -53,7 +53,7 @@ void OGLES1Renderer::OnViewportChange()
     glViewport(iX, iY, iW, iH);
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::OnDepthRangeChange()
+void SEOGLES1Renderer::OnDepthRangeChange()
 {
     if( m_pCamera )
     {
@@ -67,7 +67,7 @@ void OGLES1Renderer::OnDepthRangeChange()
     }
 }
 //----------------------------------------------------------------------------
-void OGLES1Renderer::SetWVPMatrixFixed()
+void SEOGLES1Renderer::SetWVPMatrixFixed()
 {
     glMatrixMode(GL_PROJECTION);
     glLoadMatrixf(m_ProjectionMatrix);

@@ -21,10 +21,10 @@
 #include "SEOGLES1RendererPCH.h"
 #include "SEOGLES1RendererRegister.h"
 
-// OGLES1Rendering
+// OGLES1 Rendering
 #include "SEOGLES1FrameBuffer.h"
 #include "SEOGLES1Renderer.h"
-// OGLES1FixedEffects
+// OGLES1 Fixed Effects
 #include "SEOGLES1FixedEffect.h"
 
 using namespace Swing;
@@ -32,14 +32,14 @@ using namespace Swing;
 //----------------------------------------------------------------------------
 void Swing::SE_OGLES1Renderer_Register()
 {
-    // OGLES1Rendering
-    SE_REGISTER_INITIALIZE(OGLES1FrameBuffer);
-    SE_REGISTER_INITIALIZE(OGLES1Renderer);
-    SE_INVOKE_INITIALIZE(OGLES1FrameBuffer);
-    SE_INVOKE_INITIALIZE(OGLES1Renderer);
+    // OGLES1 Rendering
+    SE_REGISTER_INITIALIZE(SEOGLES1FrameBuffer);
+    SE_REGISTER_INITIALIZE(SEOGLES1Renderer);
+    SE_INVOKE_INITIALIZE(SEOGLES1FrameBuffer);
+    SE_INVOKE_INITIALIZE(SEOGLES1Renderer);
 
-    // OGLES1FixedEffects
-    SE_REGISTER_STREAM(OGLES1FixedEffect);
-    SE_INVOKE_STREAM(OGLES1FixedEffect);
+    // OGLES1 Fixed Effects
+    SE_REGISTER_STREAM(SEOGLES1FixedEffect);
+    SE_INVOKE_STREAM(SEOGLES1FixedEffect);
 }
 //----------------------------------------------------------------------------

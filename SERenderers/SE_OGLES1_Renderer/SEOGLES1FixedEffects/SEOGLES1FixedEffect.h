@@ -29,56 +29,56 @@
 namespace Swing
 {
 
-class Renderer;
+class SERenderer;
 
 //----------------------------------------------------------------------------
-// 名称:OpenGL ES1 fixed effect基类
 // 说明:
 // 作者:Sun Che
 // 时间:20090610
 //----------------------------------------------------------------------------
-class SE_RENDERER_API OGLES1FixedEffect : public Effect
+class SE_RENDERER_API SEOGLES1FixedEffect : public SEEffect
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    OGLES1FixedEffect(int iTextureCount, int iLightCount);
-    virtual ~OGLES1FixedEffect(void);
+    SEOGLES1FixedEffect(int iTextureCount, int iLightCount);
+    virtual ~SEOGLES1FixedEffect(void);
 
     // texture访问.
     int GetTextureCount(void) const;
-    Texture* GetTexture(int i);
-    const Texture* GetTexture(int i) const;
-    void SetTexture(int i, Texture* pTexture);
+    SETexture* GetTexture(int i);
+    const SETexture* GetTexture(int i) const;
+    void SetTexture(int i, SETexture* pTexture);
     const std::string& GetImageName(int i) const;
     void SetImageName(int i, const std::string& rName);
 
     // light访问.
     int GetLightCount(void) const;
-    Light* GetLight(int i);
-    const Light* GetLight(int i) const;
-    void SetLight(int i, Light* pLight);
+    SELight* GetLight(int i);
+    const SELight* GetLight(int i) const;
+    void SetLight(int i, SELight* pLight);
 
-    // 这些函数由Renderer::LoadResources和Renderer::ReleaseResources调用.
+    // 这些函数由SERenderer::LoadResources和SERenderer::ReleaseResources调用.
     // 也可以在应用程序中由用户手动调用初始化所需资源.
-    virtual void LoadResources(Renderer* pRenderer, Geometry* pGeometry);
-    virtual void ReleaseResources(Renderer* pRenderer, Geometry* pGeometry);
+    virtual void LoadResources(SERenderer* pRenderer, SEGeometry* pGeometry);
+    virtual void ReleaseResources(SERenderer* pRenderer, SEGeometry* 
+        pGeometry);
 
 protected:
     // streaming support.
-    OGLES1FixedEffect(void);
+    SEOGLES1FixedEffect(void);
 
     // textures.
     std::vector<std::string> m_ImageNames;
-    std::vector<TexturePtr> m_Textures;
+    std::vector<SETexturePtr> m_Textures;
 
     // lights.
-    std::vector<LightPtr> m_Lights;
+    std::vector<SELightPtr> m_Lights;
 };
 
-typedef SmartPointer<OGLES1FixedEffect> OGLES1FixedEffectPtr;
+typedef SESmartPointer<SEOGLES1FixedEffect> SEOGLES1FixedEffectPtr;
 
 }
 
