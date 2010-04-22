@@ -256,7 +256,7 @@ void SEAudioRenderer::PlayScene(SEUnculledSet& rAudibleSet)
     {
         if( pAudibleSet[i].IsRenderable() )
         {
-            Play((SESound*)pAudibleSet[i].SEObject);
+            Play((SESound*)pAudibleSet[i].Object);
         }
     }
 }
@@ -302,7 +302,7 @@ void SEAudioRenderer::StopScene(SEUnculledSet& rAudibleSet)
     {
         if( pAudibleSet[i].IsRenderable() )
         {
-            Stop((SESound*)pAudibleSet[i].SEObject);
+            Stop((SESound*)pAudibleSet[i].Object);
         }
     }
 }
