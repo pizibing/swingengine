@@ -24,17 +24,17 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-ConsoleApplication::ConsoleApplication()
+SEConsoleApplication::SEConsoleApplication()
 {
 }
 //----------------------------------------------------------------------------
-ConsoleApplication::~ConsoleApplication()
+SEConsoleApplication::~SEConsoleApplication()
 {
 }
 //----------------------------------------------------------------------------
-int ConsoleApplication::Run(int iArgCount, char** apcArgument)
+int SEConsoleApplication::Run(int iArgCount, char** apcArgument)
 {
-    ConsoleApplication* pTheApp = (ConsoleApplication*)TheApplication;
+    SEConsoleApplication* pTheApp = (SEConsoleApplication*)TheApplication;
 
     return pTheApp->Main(iArgCount, apcArgument);
 }

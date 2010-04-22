@@ -30,19 +30,18 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:窗口应用程序基类
 // 说明:
 // 作者:Sun Che
 // 时间:20080809
 //----------------------------------------------------------------------------
-class WindowApplication : public Application
+class SEWindowApplication : public SEApplication
 {
 public:
     // 虚基类
-    WindowApplication(const char* acWindowTitle, int iXPosition,
+    SEWindowApplication(const char* acWindowTitle, int iXPosition,
         int iYPosition, int iWidth, int iHeight,
-        const ColorRGBA& rBackgroundColor);
-    virtual ~WindowApplication(void);
+        const SEColorRGBA& rBackgroundColor);
+    virtual ~SEWindowApplication(void);
 
     // 应用程序负责实现入口函数,返回值为exit code.
     virtual int Main(int iCount, char** apcArgument);
@@ -53,8 +52,8 @@ public:
     inline int GetYPosition(void) const;
     inline int GetWidth(void) const;
     inline int GetHeight(void) const;
-    inline void SetRenderer(Renderer* pRenderer);
-    inline Renderer* GetRenderer(void);
+    inline void SetRenderer(SERenderer* pRenderer);
+    inline SERenderer* GetRenderer(void);
     inline void SetWindowID(int iWindowID);
     inline int GetWindowID(void) const;
 
@@ -82,14 +81,14 @@ public:
 
     // 字体信息.
     // 这些是平台相关的,因此派生类负责实现这些接口函数.
-    // 他们在WindowApplication中未被定义.
+    // 他们在SEWindowApplication中未被定义.
     int GetStringWidth(const char* acText) const;
     int GetCharacterWidth(const char cCharacter) const;
     int GetFontHeight(void) const;
 
     // Key ID.
     // 这些是平台相关的,因此派生类负责定义这些变量.
-    // 他们在WindowApplication中未被定义.
+    // 他们在SEWindowApplication中未被定义.
     int KEY_TERMINATE;  // default KEY_ESCAPE, redefine as desired
     static const int KEY_ESCAPE;
     static const int KEY_LEFT_ARROW;
@@ -148,21 +147,21 @@ protected:
     // 构造函数输入变量
     const char* m_acWindowTitle;
     int m_iXPosition, m_iYPosition, m_iWidth, m_iHeight;
-    ColorRGBA m_BackgroundColor;
+    SEColorRGBA m_BackgroundColor;
 
     // 窗口ID(表示形式是平台相关的).
     int m_iWindowID;
 
     // 创建渲染器所需的frame buffer参数.
     // 你可以在你的应用程序构造函数中设置为所需的值.
-    FrameBuffer::FormatType m_eFormat;
-    FrameBuffer::DepthType m_eDepth;
-    FrameBuffer::StencilType m_eStencil;
-    FrameBuffer::BufferingType m_eBuffering;
-    FrameBuffer::MultisamplingType m_eMultisampling;
+    SEFrameBuffer::FormatType m_eFormat;
+    SEFrameBuffer::DepthType m_eDepth;
+    SEFrameBuffer::StencilType m_eStencil;
+    SEFrameBuffer::BufferingType m_eBuffering;
+    SEFrameBuffer::MultisamplingType m_eMultisampling;
 
     // 渲染器(2D和3D应用程序).
-    Renderer* m_pRenderer;
+    SERenderer* m_pRenderer;
 };
 
 #include "SEWindowApplication.inl"

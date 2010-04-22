@@ -29,28 +29,27 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Tree Control类
 // 说明:
 // 作者:Sun Che
 // 时间:20080809
 //----------------------------------------------------------------------------
-class TreeControl
+class SETreeControl
 {
 public:
-    TreeControl(Application* pTheApp, int iExtraData, HINSTANCE hInstance,
-        HWND hParentWnd, Stream& rStream, const char* acName, int iX,
+    SETreeControl(SEApplication* pTheApp, int iExtraData, HINSTANCE hInstance,
+        HWND hParentWnd, SEStream& rStream, const char* acName, int iX,
         int iY, int iW, int iH);
 
-    TreeControl(Application* pTheApp, int iExtraData, HINSTANCE hInstance,
-        HWND hParentWnd, Spatial* pScene, int iX, int iY, int iW, int iH);
+    SETreeControl(SEApplication* pTheApp, int iExtraData, HINSTANCE hInstance,
+        HWND hParentWnd, SESpatial* pScene, int iX, int iY, int iW, int iH);
 
-    ~TreeControl(void);
+    ~SETreeControl(void);
 
 protected:
     void CreateWindows(int iX, int iY, int iW, int iH);
     void CreateImageList(void);
-    void CreateTree(Stream& rStream);
-    void CreateTree(Spatial* pScene);
+    void CreateTree(SEStream& rStream);
+    void CreateTree(SESpatial* pScene);
 
     enum NodeType
     {
@@ -59,7 +58,7 @@ protected:
         NT_DATA
     };
 
-    void CreateTreeRecursive(HTREEITEM hParent, StringTree* pTree,
+    void CreateTreeRecursive(HTREEITEM hParent, SEStringTree* pTree,
         NodeType eType);
 
     void DestroyWindows(void);
@@ -69,7 +68,7 @@ protected:
     static LRESULT CALLBACK HandleMessage(HWND hWnd, UINT uiMsg,
         WPARAM wParam, LPARAM lParam);
 
-    Application* m_pTheApp;
+    SEApplication* m_pTheApp;
     int m_iExtraData;
     HINSTANCE m_hInstance;
     HWND m_hParentWnd;
@@ -85,7 +84,7 @@ protected:
     static unsigned int ms_auiBmpClosedY[240];
     static unsigned int ms_auiBmpAttribute[240];
 
-    static std::map<HWND, std::pair<Application*, int> > ms_WndAppMap;
+    static std::map<HWND, std::pair<SEApplication*, int> > ms_WndAppMap;
 };
 
 }

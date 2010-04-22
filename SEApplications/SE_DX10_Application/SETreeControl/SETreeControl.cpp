@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-unsigned int TreeControl::ms_auiBmpClosedB[240] =
+unsigned int SETreeControl::ms_auiBmpClosedB[240] =
 {
 0xfffff8ff,
 0xfffff8ff,
@@ -268,7 +268,7 @@ unsigned int TreeControl::ms_auiBmpClosedB[240] =
 0xfffff8ff
 };
 //----------------------------------------------------------------------------
-unsigned int TreeControl::ms_auiBmpClosedP[240] =
+unsigned int SETreeControl::ms_auiBmpClosedP[240] =
 {
 0xfffff8ff,
 0xfffff8ff,
@@ -512,7 +512,7 @@ unsigned int TreeControl::ms_auiBmpClosedP[240] =
 0xfffff8ff
 };
 //----------------------------------------------------------------------------
-unsigned int TreeControl::ms_auiBmpClosedY[240] =
+unsigned int SETreeControl::ms_auiBmpClosedY[240] =
 {
 0xfffff8ff,
 0xfffff8ff,
@@ -756,7 +756,7 @@ unsigned int TreeControl::ms_auiBmpClosedY[240] =
 0xfffff8ff
 };
 //----------------------------------------------------------------------------
-unsigned int TreeControl::ms_auiBmpAttribute[240] =
+unsigned int SETreeControl::ms_auiBmpAttribute[240] =
 {
 0xffffffff,
 0xffffffff,
@@ -1000,10 +1000,10 @@ unsigned int TreeControl::ms_auiBmpAttribute[240] =
 0xffffffff
 };
 //----------------------------------------------------------------------------
-std::map<HWND, std::pair<Application*, int> > TreeControl::ms_WndAppMap;
+std::map<HWND, std::pair<SEApplication*, int> > SETreeControl::ms_WndAppMap;
 //----------------------------------------------------------------------------
-TreeControl::TreeControl(Application* pTheApp, int iExtraData,
-    HINSTANCE hInstance, HWND hParentWnd, Stream& rStream,
+SETreeControl::SETreeControl(SEApplication* pTheApp, int iExtraData,
+    HINSTANCE hInstance, HWND hParentWnd, SEStream& rStream,
     const char* acName, int iX, int iY, int iW, int iH)
 {
     m_pTheApp = pTheApp;
@@ -1013,7 +1013,7 @@ TreeControl::TreeControl(Application* pTheApp, int iExtraData,
 
     size_t uiSize = strlen(acName) + 1;
     m_acName = SE_NEW char[uiSize];
-    System::SE_Strcpy(m_acName, uiSize, acName);
+    SESystem::SE_Strcpy(m_acName, uiSize, acName);
 
     CreateWindows(iX, iY, iW, iH);
     CreateImageList();
@@ -1023,8 +1023,8 @@ TreeControl::TreeControl(Application* pTheApp, int iExtraData,
     UpdateWindow(m_hTreeWnd);
 }
 //----------------------------------------------------------------------------
-TreeControl::TreeControl(Application* pTheApp, int iExtraData,
-    HINSTANCE hInstance, HWND hParentWnd, Spatial* pScene, int iX, int iY,
+SETreeControl::SETreeControl(SEApplication* pTheApp, int iExtraData,
+    HINSTANCE hInstance, HWND hParentWnd, SESpatial* pScene, int iX, int iY,
     int iW, int iH)
 {
     m_pTheApp = pTheApp;
@@ -1037,12 +1037,12 @@ TreeControl::TreeControl(Application* pTheApp, int iExtraData,
     {
         size_t uiSize = strlen(acName) + 1;
         m_acName = SE_NEW char[uiSize];
-        System::SE_Strcpy(m_acName, uiSize, acName);
+        SESystem::SE_Strcpy(m_acName, uiSize, acName);
     }
     else
     {
         m_acName = SE_NEW char[8];
-        System::SE_Strcpy(m_acName, 8, "unnamed");
+        SESystem::SE_Strcpy(m_acName, 8, "unnamed");
     }
 
     CreateWindows(iX, iY, iW, iH);
@@ -1053,7 +1053,7 @@ TreeControl::TreeControl(Application* pTheApp, int iExtraData,
     UpdateWindow(m_hTreeWnd);
 }
 //----------------------------------------------------------------------------
-TreeControl::~TreeControl()
+SETreeControl::~SETreeControl()
 {
     SE_DELETE[] m_acName;
 
@@ -1062,7 +1062,7 @@ TreeControl::~TreeControl()
     DestroyWindows();
 }
 //----------------------------------------------------------------------------
-void TreeControl::CreateWindows(int iX, int iY, int iW, int iH)
+void SETreeControl::CreateWindows(int iX, int iY, int iW, int iH)
 {
     static char s_acWindowClassName[] = "SETreeControl";
 
@@ -1104,13 +1104,13 @@ void TreeControl::CreateWindows(int iX, int iY, int iW, int iH)
     GetClientRect(m_hTreeWnd, &tempRect);
 
     m_hTreeView = CreateWindow(WC_TREEVIEW, "", dwStyle, 0, 0,
-        tempRect.right-tempRect.left+1, tempRect.bottom-tempRect.top+1, m_hTreeWnd, 0,
-        m_hInstance, NULL);
+        tempRect.right-tempRect.left+1, tempRect.bottom-tempRect.top+1, 
+        m_hTreeWnd, 0, m_hInstance, NULL);
 
     ms_WndAppMap[m_hTreeWnd] = std::make_pair(m_pTheApp, m_iExtraData);
 }
 //----------------------------------------------------------------------------
-void TreeControl::CreateImageList()
+void SETreeControl::CreateImageList()
 {
     HDC hWindowDC = GetDC(m_hTreeView);
     HDC hMemoryDC = CreateCompatibleDC(hWindowDC);
@@ -1139,25 +1139,25 @@ void TreeControl::CreateImageList()
 
     hBitmap = CreateDIBSection(hMemoryDC, (CONST BITMAPINFO*)acBitMapInfo,
         DIB_RGB_COLORS, (void**)&auiColorBuffer, 0, 0);
-    System::SE_Memcpy(auiColorBuffer, uiSize, ms_auiBmpClosedB, uiSize);
+    SESystem::SE_Memcpy(auiColorBuffer, uiSize, ms_auiBmpClosedB, uiSize);
     m_iClosedB = ImageList_Add(m_hImageList, hBitmap, 0);
     DeleteObject(hBitmap);
 
     hBitmap = CreateDIBSection(hMemoryDC, (CONST BITMAPINFO*)acBitMapInfo,
         DIB_RGB_COLORS, (void**)&auiColorBuffer, 0, 0);
-    System::SE_Memcpy(auiColorBuffer, uiSize, ms_auiBmpClosedY, uiSize);
+    SESystem::SE_Memcpy(auiColorBuffer, uiSize, ms_auiBmpClosedY, uiSize);
     m_iClosedY = ImageList_Add(m_hImageList, hBitmap, 0);
     DeleteObject(hBitmap);
 
     hBitmap = CreateDIBSection(hMemoryDC, (CONST BITMAPINFO*)acBitMapInfo,
         DIB_RGB_COLORS, (void**)&auiColorBuffer, 0, 0);
-    System::SE_Memcpy(auiColorBuffer, uiSize, ms_auiBmpClosedP, uiSize);
+    SESystem::SE_Memcpy(auiColorBuffer, uiSize, ms_auiBmpClosedP, uiSize);
     m_iClosedP = ImageList_Add(m_hImageList, hBitmap, 0);
     DeleteObject(hBitmap);
 
     hBitmap = CreateDIBSection(hMemoryDC, (CONST BITMAPINFO*)acBitMapInfo,
         DIB_RGB_COLORS, (void**)&auiColorBuffer, 0, 0);
-    System::SE_Memcpy(auiColorBuffer, uiSize, ms_auiBmpAttribute, uiSize);
+    SESystem::SE_Memcpy(auiColorBuffer, uiSize, ms_auiBmpAttribute, uiSize);
     m_iAttribute = ImageList_Add(m_hImageList, hBitmap, 0);
     DeleteObject(hBitmap);
 
@@ -1166,7 +1166,7 @@ void TreeControl::CreateImageList()
     ReleaseDC(m_hTreeView, hWindowDC);
 }
 //----------------------------------------------------------------------------
-void TreeControl::CreateTree(Stream& rStream)
+void SETreeControl::CreateTree(SEStream& rStream)
 {
     TreeView_SetImageList(m_hTreeView, m_hImageList, TVSIL_NORMAL);
 
@@ -1184,19 +1184,19 @@ void TreeControl::CreateTree(Stream& rStream)
 
     for( int i = 0; i < rStream.GetObjectCount(); i++ )
     {
-        SpatialPtr spObject = DynamicCast<Spatial>(rStream.GetObjectAt(i));
+        SESpatialPtr spObject = DynamicCast<SESpatial>(rStream.GetObjectAt(i));
         if( spObject )
         {
             spObject->UpdateGS();
             spObject->UpdateRS();
-            StringTree* pRoot = spObject->SaveStrings();
+            SEStringTree* pRoot = spObject->SaveStrings();
             CreateTreeRecursive(m_hTreeRoot, pRoot, NT_CLASS);
             SE_DELETE pRoot;
         }
     }
 }
 //----------------------------------------------------------------------------
-void TreeControl::CreateTree(Spatial* pScene)
+void SETreeControl::CreateTree(SESpatial* pScene)
 {
     TreeView_SetImageList(m_hTreeView, m_hImageList, TVSIL_NORMAL);
 
@@ -1216,14 +1216,14 @@ void TreeControl::CreateTree(Spatial* pScene)
     {
         pScene->UpdateGS();
         pScene->UpdateRS();
-        StringTree* pRoot = pScene->SaveStrings();
+        SEStringTree* pRoot = pScene->SaveStrings();
         CreateTreeRecursive(m_hTreeRoot, pRoot, NT_CLASS);
         SE_DELETE pRoot;
     }
 }
 //----------------------------------------------------------------------------
-void TreeControl::CreateTreeRecursive(HTREEITEM hParent,
-    StringTree* pTree, NodeType eType)
+void SETreeControl::CreateTreeRecursive(HTREEITEM hParent,
+    SEStringTree* pTree, NodeType eType)
 {
     // ´ý¼ì²é
     // items are to be inserted in-order
@@ -1258,7 +1258,7 @@ void TreeControl::CreateTreeRecursive(HTREEITEM hParent,
 
         // add subclass of object
         int iStart;
-        if( strncmp(pTree->GetString(0), "Swing.Object", 12) != 0)
+        if( strncmp(pTree->GetString(0), "Swing.SEObject", 14) != 0)
         {
             CreateTreeRecursive(tvs.hParent, pTree->GetChild(0), NT_SUBCLASS);
             iStart = 1;
@@ -1281,7 +1281,7 @@ void TreeControl::CreateTreeRecursive(HTREEITEM hParent,
         // add children
         for( i = iStart; i < pTree->GetChildCount(); i++ )
         {
-            StringTree* pCTree = pTree->GetChild(i);
+            SEStringTree* pCTree = pTree->GetChild(i);
             SE_ASSERT( pCTree->GetStringCount() > 0 );
 
             if( strncmp(pCTree->GetString(0), "Swing", 5) == 0 )
@@ -1320,7 +1320,7 @@ void TreeControl::CreateTreeRecursive(HTREEITEM hParent,
         // add children
         for( i = 0; i < pTree->GetChildCount(); i++ )
         {
-            StringTree* pCTree = pTree->GetChild(i);
+            SEStringTree* pCTree = pTree->GetChild(i);
             SE_ASSERT( pCTree->GetStringCount() > 0 );
 
             if( strncmp(pCTree->GetString(0), "Swing", 5) == 0 )
@@ -1337,34 +1337,34 @@ void TreeControl::CreateTreeRecursive(HTREEITEM hParent,
     }
 }
 //----------------------------------------------------------------------------
-void TreeControl::DestroyWindows()
+void SETreeControl::DestroyWindows()
 {
     DestroyWindow(m_hTreeView);
     DestroyWindow(m_hTreeWnd);
 }
 //----------------------------------------------------------------------------
-void TreeControl::DestroyImageList()
+void SETreeControl::DestroyImageList()
 {
     ImageList_Destroy(m_hImageList);
 }
 //----------------------------------------------------------------------------
-void TreeControl::DestroyTree()
+void SETreeControl::DestroyTree()
 {
     TreeView_DeleteAllItems(m_hTreeView);
 }
 //----------------------------------------------------------------------------
-LRESULT CALLBACK TreeControl::HandleMessage(HWND hWnd, UINT uiMsg,
+LRESULT CALLBACK SETreeControl::HandleMessage(HWND hWnd, UINT uiMsg,
     WPARAM wParam, LPARAM lParam)
 {
     if( uiMsg == WM_DESTROY )
     {
-        std::pair<Application*, int> tempPair = ms_WndAppMap[hWnd];
-        Application* pTheApp = tempPair.first;
+        std::pair<SEApplication*, int> tempPair = ms_WndAppMap[hWnd];
+        SEApplication* pTheApp = tempPair.first;
         if( pTheApp )
         {
             int iExtraData = tempPair.second;
-            TreeControl* pControl = 0;
-            pTheApp->SetExtraData(iExtraData, sizeof(TreeControl*),
+            SETreeControl* pControl = 0;
+            pTheApp->SetExtraData(iExtraData, sizeof(SETreeControl*),
                 &pControl);
         }
 
