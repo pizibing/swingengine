@@ -7,14 +7,14 @@ SE_REGISTER_INITIALIZE(DefaultShader);
 //----------------------------------------------------------------------------
 DefaultShader::DefaultShader()
     :
-    WindowApplication3("DefaultShader", 0, 0, 320, 480, 
-        ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
+    SEWindowApplication3("DefaultShader", 0, 0, 320, 480, 
+        SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
 }
 //----------------------------------------------------------------------------
 bool DefaultShader::OnInitialize()
 {
-    if( !WindowApplication3::OnInitialize() )
+    if( !SEWindowApplication3::OnInitialize() )
     {
         return false;
     }
@@ -23,10 +23,10 @@ bool DefaultShader::OnInitialize()
     float fR = 0.55f;
     float fU = fR*1.5f;
     m_spCamera->SetFrustum(-fR, fR, -fU, fU, 1.0f, 100.0f);
-    Vector3f tempCLoc(0.0f, 0.0f, -5.0f);
-    Vector3f tempCDir(0.0f, 0.0f, 1.0f);
-    Vector3f tempCUp(0.0f, 1.0f, 0.0f);
-    Vector3f tempCRight = tempCUp.Cross(tempCDir);
+    SEVector3f tempCLoc(0.0f, 0.0f, -5.0f);
+    SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
+    SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
+    SEVector3f tempCRight = tempCUp.Cross(tempCDir);
     m_spCamera->SetFrame(tempCLoc, tempCRight, tempCUp, tempCDir);
     
     CreateScene();
@@ -49,13 +49,13 @@ void DefaultShader::OnTerminate()
     m_spScene = 0;
     m_spMesh = 0;
 
-    WindowApplication3::OnTerminate();
+    SEWindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void DefaultShader::OnIdle()
 {
     // Rotate the box.
-    Matrix3f mat3fRot;
+    SEMatrix3f mat3fRot;
     mat3fRot.FromEulerAnglesXYZ(-0.02f, 0.02f, -0.02f);
     m_spMesh->Local.SetRotate(m_spMesh->Local.GetRotate()*mat3fRot);
     m_spMesh->UpdateGS();
@@ -87,15 +87,15 @@ void DefaultShader::OnIdle()
 //----------------------------------------------------------------------------
 void DefaultShader::CreateScene()
 {
-    m_spScene = SE_NEW Node;
+    m_spScene = SE_NEW SENode;
 	
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
-    StandardMesh tempSM(tempAttr);
+    SEStandardMesh tempSM(tempAttr);
     m_spMesh = tempSM.Box(1.0f, 1.0f, 1.0f);
     m_spScene->AttachChild(m_spMesh);
 	
-    DefaultShaderEffect* pEffect = SE_NEW DefaultShaderEffect;
+    SEDefaultShaderEffect* pEffect = SE_NEW SEDefaultShaderEffect;
     m_spMesh->AttachEffect(pEffect);
 }
 //----------------------------------------------------------------------------
