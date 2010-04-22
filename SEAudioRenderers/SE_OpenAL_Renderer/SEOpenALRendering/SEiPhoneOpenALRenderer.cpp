@@ -4,7 +4,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-iPhoneOpenALRenderer::iPhoneOpenALRenderer()
+SEiPhoneOpenALRenderer::SEiPhoneOpenALRenderer()
 {
     m_pALDevice = 0;
     m_pALContext = 0;
@@ -23,7 +23,7 @@ iPhoneOpenALRenderer::iPhoneOpenALRenderer()
     InitializeState();
 }
 //----------------------------------------------------------------------------
-iPhoneOpenALRenderer::~iPhoneOpenALRenderer()
+SEiPhoneOpenALRenderer::~SEiPhoneOpenALRenderer()
 {
     //  Õ∑≈context∫Õdevice.
     alcMakeContextCurrent(NULL);
