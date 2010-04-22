@@ -42,7 +42,7 @@ int SEWindowApplication::Main(int iCount, char** apcArgument)
 
     // 创建窗体及其renderer,进入主循环.	
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
-    UIApplicationMain(iCount, apcArgument, nil, @"ApplicationDelegate");
+    UIApplicationMain(iCount, apcArgument, nil, @"SEApplicationDelegate");
     [pool release];
 
     return 0;
