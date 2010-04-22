@@ -26,23 +26,23 @@
 
 using namespace Swing;
 
-HRESULT DX10Renderer::ms_hResult = 0;
-SEDX10ProgramInterfaceCatalog* DX10Renderer::ms_pProgramInterfaceCatalog = 0;
+HRESULT SEDX10Renderer::ms_hResult = 0;
+SEDX10ProgramInterfaceCatalog* SEDX10Renderer::ms_pProgramInterfaceCatalog = 0;
 
-SE_IMPLEMENT_INITIALIZE(DX10Renderer);
-SE_IMPLEMENT_TERMINATE(DX10Renderer);
+SE_IMPLEMENT_INITIALIZE(SEDX10Renderer);
+SE_IMPLEMENT_TERMINATE(SEDX10Renderer);
 
-//SE_REGISTER_INITIALIZE(DX10Renderer);
-//SE_REGISTER_TERMINATE(DX10Renderer);
+//SE_REGISTER_INITIALIZE(SEDX10Renderer);
+//SE_REGISTER_TERMINATE(SEDX10Renderer);
 
 //----------------------------------------------------------------------------
-void DX10Renderer::Initialize()
+void SEDX10Renderer::Initialize()
 {
     ms_pProgramInterfaceCatalog = SE_NEW SEDX10ProgramInterfaceCatalog("Main");
     SEDX10ProgramInterfaceCatalog::SetActive(ms_pProgramInterfaceCatalog);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::Terminate()
+void SEDX10Renderer::Terminate()
 {
     if( SEDX10ProgramInterfaceCatalog::GetActive() == 
         ms_pProgramInterfaceCatalog )
@@ -52,7 +52,7 @@ void DX10Renderer::Terminate()
     SE_DELETE ms_pProgramInterfaceCatalog;
 }
 //----------------------------------------------------------------------------
-DX10Renderer::DX10Renderer(HWND hWnd, SEFrameBuffer::FormatType eFormat,
+SEDX10Renderer::SEDX10Renderer(HWND hWnd, SEFrameBuffer::FormatType eFormat,
     SEFrameBuffer::DepthType eDepth, SEFrameBuffer::StencilType eStencil,
     SEFrameBuffer::BufferingType eBuffering,
     SEFrameBuffer::MultisamplingType eMultisampling, int iWidth, int iHeight)
@@ -257,7 +257,7 @@ DX10Renderer::DX10Renderer(HWND hWnd, SEFrameBuffer::FormatType eFormat,
 	SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-DX10Renderer::~DX10Renderer()
+SEDX10Renderer::~SEDX10Renderer()
 {
 	// test
 	pTestTexture->Release();
@@ -294,7 +294,7 @@ DX10Renderer::~DX10Renderer()
     // Cg runtime stuff end.
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::ToggleFullscreen()
+void SEDX10Renderer::ToggleFullscreen()
 {
     //SERenderer::ToggleFullscreen();
     //m_Present.Windowed = !m_Present.Windowed;
@@ -321,7 +321,7 @@ void DX10Renderer::ToggleFullscreen()
     //}
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::ClearBackBuffer()
+void SEDX10Renderer::ClearBackBuffer()
 {
     //D3DXCOLOR tempClearColor(m_ClearColor.R, m_ClearColor.G, m_ClearColor.B, 
     //    m_ClearColor.A);
@@ -329,86 +329,86 @@ void DX10Renderer::ClearBackBuffer()
     m_pDX10Device->ClearRenderTargetView(m_pDX10RTView, m_ClearColor);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::ClearZBuffer()
+void SEDX10Renderer::ClearZBuffer()
 {
     m_pDX10Device->ClearDepthStencilView(m_pDX10DSView, D3D10_CLEAR_DEPTH,
         m_fClearDepth, 0);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::ClearStencilBuffer()
+void SEDX10Renderer::ClearStencilBuffer()
 {
     m_pDX10Device->ClearDepthStencilView(m_pDX10DSView, D3D10_CLEAR_STENCIL, 
         1.0f, (UINT8)m_uiClearStencil);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::ClearBuffers()
+void SEDX10Renderer::ClearBuffers()
 {
     m_pDX10Device->ClearRenderTargetView(m_pDX10RTView, m_ClearColor);
     m_pDX10Device->ClearDepthStencilView(m_pDX10DSView, D3D10_CLEAR_DEPTH | 
         D3D10_CLEAR_STENCIL, m_fClearDepth, (UINT8)m_uiClearStencil);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::ClearBackBuffer(int, int, int, int)
+void SEDX10Renderer::ClearBackBuffer(int, int, int, int)
 {
     // 待实现.
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::ClearZBuffer(int, int, int, int)
+void SEDX10Renderer::ClearZBuffer(int, int, int, int)
 {
     // 待实现.
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::ClearStencilBuffer(int, int, int, int)
+void SEDX10Renderer::ClearStencilBuffer(int, int, int, int)
 {
     // 待实现.
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::ClearBuffers(int, int, int, int)
+void SEDX10Renderer::ClearBuffers(int, int, int, int)
 {
     // 待实现.
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::DisplayBackBuffer()
+void SEDX10Renderer::DisplayBackBuffer()
 {
     // 待实现.
     // 检查当前设备状态,比如是否已丢失.
     m_pDXGISwapChain->Present(0, 0);
 } 
 //----------------------------------------------------------------------------
-void DX10Renderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
+void SEDX10Renderer::SetColorMask(bool bAllowRed, bool bAllowGreen,
     bool bAllowBlue, bool bAllowAlpha)
 {
     SERenderer::SetColorMask(bAllowRed, bAllowGreen, bAllowBlue, bAllowAlpha);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::EnableUserClipPlane(int, const SEPlane3f&)
+void SEDX10Renderer::EnableUserClipPlane(int, const SEPlane3f&)
 {
     // 待实现.
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::DisableUserClipPlane(int)
+void SEDX10Renderer::DisableUserClipPlane(int)
 {
     // 待实现.
 }
 //----------------------------------------------------------------------------
-const ID3D10Device* DX10Renderer::GetDevice()
+const ID3D10Device* SEDX10Renderer::GetDevice()
 {
     return m_pDX10Device;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnPreDrawGeometry()
+void SEDX10Renderer::OnPreDrawGeometry()
 {
     SE_ASSERT( m_pGeometry->RStateBlock );
 
     EnableRenderStateBlock(m_pGeometry->RStateBlock);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnPostDrawGeometry()
+void SEDX10Renderer::OnPostDrawGeometry()
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnPreDrawPass(SEShaderEffect* pEffect, int iPass, bool)
+void SEDX10Renderer::OnPreDrawPass(SEShaderEffect* pEffect, int iPass, bool)
 {
     SERenderStateBlock* pRStateBlock = pEffect->GetRStateBlock(iPass);
     SE_ASSERT( pRStateBlock );
@@ -416,7 +416,7 @@ void DX10Renderer::OnPreDrawPass(SEShaderEffect* pEffect, int iPass, bool)
     EnableRenderStateBlock(pRStateBlock);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnPostDrawPass(SEShaderEffect*, int, bool)
+void SEDX10Renderer::OnPostDrawPass(SEShaderEffect*, int, bool)
 {
     // 无需任何操作.
 }
@@ -425,22 +425,22 @@ void DX10Renderer::OnPostDrawPass(SEShaderEffect*, int, bool)
 //----------------------------------------------------------------------------
 // Cg runtime stuff.
 //----------------------------------------------------------------------------
-CGcontext DX10Renderer::GetCgContext() const
+CGcontext SEDX10Renderer::GetCgContext() const
 {
     return m_CgContext;
 }
 //----------------------------------------------------------------------------
-CGprofile DX10Renderer::GetCgLatestVertexProfile() const
+CGprofile SEDX10Renderer::GetCgLatestVertexProfile() const
 {
     return m_CgLatestVProfile;
 }
 //----------------------------------------------------------------------------
-CGprofile DX10Renderer::GetCgLatestPixelProfile() const
+CGprofile SEDX10Renderer::GetCgLatestPixelProfile() const
 {
     return m_CgLatestPProfile;
 }
 //----------------------------------------------------------------------------
-CGprofile DX10Renderer::GetCgLatestGeometryProfile() const
+CGprofile SEDX10Renderer::GetCgLatestGeometryProfile() const
 {
     return m_CgLatestGProfile;
 }

@@ -37,7 +37,7 @@ class SEDX10ProgramInterfaceCatalog;
 // Author:Sun Che
 // Date:20090519
 //----------------------------------------------------------------------------
-class SE_RENDERER_API DX10Renderer : public SERenderer
+class SE_RENDERER_API SEDX10Renderer : public SERenderer
 {
     SE_DECLARE_INITIALIZE;
     SE_DECLARE_TERMINATE;
@@ -46,13 +46,13 @@ public:
     // RTTI.
     virtual int GetType(void) const { return SERenderer::DIRECTX10; }
 
-    DX10Renderer(HWND hWnd, SEFrameBuffer::FormatType eFormat,
+    SEDX10Renderer(HWND hWnd, SEFrameBuffer::FormatType eFormat,
         SEFrameBuffer::DepthType eDepth, SEFrameBuffer::StencilType eStencil,
         SEFrameBuffer::BufferingType eBuffering,
         SEFrameBuffer::MultisamplingType eMultisampling, int iWidth,
         int iHeight);
 
-    virtual ~DX10Renderer(void);
+    virtual ~SEDX10Renderer(void);
 
     virtual void ToggleFullscreen(void);
 

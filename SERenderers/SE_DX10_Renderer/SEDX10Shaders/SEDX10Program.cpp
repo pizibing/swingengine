@@ -88,7 +88,7 @@ bool SEDX10Program::OnLoadProgram(SERenderer* pRenderer, const std::string&
     CGprofile hCgProfile;
     CGparameter hCgParam;
 
-    DX10Renderer* pDX10Renderer = (DX10Renderer*)pRenderer;
+    SEDX10Renderer* pDX10Renderer = (SEDX10Renderer*)pRenderer;
     hCgContext = pDX10Renderer->GetCgContext();
     rProgramType = eType;
     switch( eType )

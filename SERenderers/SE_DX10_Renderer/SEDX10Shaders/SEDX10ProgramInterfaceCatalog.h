@@ -44,7 +44,7 @@ public:
     // 开始时我们不知道渲染器类型,
     // 在应用程序层创建了一个渲染器后,才能调用此函数来设置catalog所属渲染器,
     // 应用程序层的相关函数为WindowApplication::SetRenderer
-    void SetRenderer(DX10Renderer* pRenderer);
+    void SetRenderer(SEDX10Renderer* pRenderer);
 
     const std::string& GetName(void) const;
     bool Insert(SEDX10ProgramInterface* pProgramInterface);
@@ -61,7 +61,7 @@ private:
     std::string m_Name;
     SEStringHashTable<SEDX10ProgramInterface*> m_Entry;
 
-    DX10Renderer* m_pRenderer;
+    SEDX10Renderer* m_pRenderer;
 
     static SEDX10ProgramInterfaceCatalog* ms_pActive;
 };

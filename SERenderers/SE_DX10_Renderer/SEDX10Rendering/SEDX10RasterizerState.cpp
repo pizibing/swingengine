@@ -23,14 +23,14 @@
 
 using namespace Swing;
 
-D3D10_CULL_MODE DX10Renderer::ms_aeCullModel[SECullState::CT_COUNT] = 
+D3D10_CULL_MODE SEDX10Renderer::ms_aeCullModel[SECullState::CT_COUNT] = 
 {
     D3D10_CULL_FRONT,
     D3D10_CULL_BACK
 };
 
 //----------------------------------------------------------------------------
-void DX10Renderer::GenerateRasterizerState(
+void SEDX10Renderer::GenerateRasterizerState(
     const SERenderStateBlock* pRStateBlock, 
     ID3D10RasterizerState*& rpDX10RState)
 {

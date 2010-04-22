@@ -40,7 +40,7 @@ SEDX10ProgramInterfaceCatalog::~SEDX10ProgramInterfaceCatalog()
 {
 }
 //----------------------------------------------------------------------------
-void SEDX10ProgramInterfaceCatalog::SetRenderer(DX10Renderer* pRenderer)
+void SEDX10ProgramInterfaceCatalog::SetRenderer(SEDX10Renderer* pRenderer)
 {
     m_pRenderer = pRenderer;
 }

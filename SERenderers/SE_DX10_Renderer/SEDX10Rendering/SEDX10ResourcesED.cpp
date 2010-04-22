@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-DWORD DX10Renderer::ms_adwTexMinFilter[SETexture::MAX_FILTER_TYPES] =
+DWORD SEDX10Renderer::ms_adwTexMinFilter[SETexture::MAX_FILTER_TYPES] =
 {
     0,  // SETexture::MM_NEAREST
     0, // SETexture::MM_LINEAR
@@ -35,7 +35,7 @@ DWORD DX10Renderer::ms_adwTexMinFilter[SETexture::MAX_FILTER_TYPES] =
     0, // SETexture::MM_LINEAR_LINEAR
 };
 
-DWORD DX10Renderer::ms_adwTexMipFilter[SETexture::MAX_FILTER_TYPES] =
+DWORD SEDX10Renderer::ms_adwTexMipFilter[SETexture::MAX_FILTER_TYPES] =
 {
     0,   // SETexture::MM_NEAREST
     0,   // SETexture::MM_LINEAR
@@ -45,7 +45,7 @@ DWORD DX10Renderer::ms_adwTexMipFilter[SETexture::MAX_FILTER_TYPES] =
     0, // SETexture::MM_LINEAR_LINEAR
 };
 
-DWORD DX10Renderer::ms_adwTexWrapMode[SETexture::MAX_WRAP_TYPES] =
+DWORD SEDX10Renderer::ms_adwTexWrapMode[SETexture::MAX_WRAP_TYPES] =
 {
     0,      // SETexture::CLAMP
     0,       // SETexture::REPEAT
@@ -57,106 +57,106 @@ DWORD DX10Renderer::ms_adwTexWrapMode[SETexture::MAX_WRAP_TYPES] =
 //----------------------------------------------------------------------------
 // 资源开启与关闭.
 //----------------------------------------------------------------------------
-void DX10Renderer::SetVProgramRC(SERendererConstant* pRC)
+void SEDX10Renderer::SetVProgramRC(SERendererConstant* pRC)
 {
     cgSetParameterValuefr((CGparameter)pRC->GetID(), pRC->GetDataCount(), 
         pRC->GetData());
     SE_DX10_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::SetVProgramUC(SEUserConstant* pUC)
+void SEDX10Renderer::SetVProgramUC(SEUserConstant* pUC)
 {
     cgSetParameterValuefr((CGparameter)pUC->GetID(), pUC->GetDataCount(), 
         pUC->GetData());
     SE_DX10_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::SetGProgramRC(SERendererConstant* pRC)
+void SEDX10Renderer::SetGProgramRC(SERendererConstant* pRC)
 {
     cgSetParameterValuefr((CGparameter)pRC->GetID(), pRC->GetDataCount(), 
         pRC->GetData());
     SE_DX10_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::SetGProgramUC(SEUserConstant* pUC)
+void SEDX10Renderer::SetGProgramUC(SEUserConstant* pUC)
 {
     cgSetParameterValuefr((CGparameter)pUC->GetID(), pUC->GetDataCount(), 
         pUC->GetData());
     SE_DX10_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::SetPProgramRC(SERendererConstant* pRC)
+void SEDX10Renderer::SetPProgramRC(SERendererConstant* pRC)
 {
     cgSetParameterValuefr((CGparameter)pRC->GetID(), pRC->GetDataCount(), 
         pRC->GetData());
     SE_DX10_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::SetPProgramUC(SEUserConstant* pUC)
+void SEDX10Renderer::SetPProgramUC(SEUserConstant* pUC)
 {
     cgSetParameterValuefr((CGparameter)pUC->GetID(), pUC->GetDataCount(), 
         pUC->GetData());
     SE_DX10_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::UpdateVProgramConstants(SEVertexProgram* pVProgram)
+void SEDX10Renderer::UpdateVProgramConstants(SEVertexProgram* pVProgram)
 {
     SEProgramData* pData = (SEProgramData*)pVProgram->UserData;
     cgUpdateProgramParameters(pData->ID);
     SE_DX10_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::UpdateGProgramConstants(SEGeometryProgram* pGProgram)
+void SEDX10Renderer::UpdateGProgramConstants(SEGeometryProgram* pGProgram)
 {
     SEProgramData* pData = (SEProgramData*)pGProgram->UserData;
     cgUpdateProgramParameters(pData->ID);
     SE_DX10_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::UpdatePProgramConstants(SEPixelProgram* pPProgram)
+void SEDX10Renderer::UpdatePProgramConstants(SEPixelProgram* pPProgram)
 {
     SEProgramData* pData = (SEProgramData*)pPProgram->UserData;
     cgUpdateProgramParameters(pData->ID);
     SE_DX10_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnEnableVProgram(SEResourceIdentifier* pID)
+void SEDX10Renderer::OnEnableVProgram(SEResourceIdentifier* pID)
 {
     SEVProgramID* pResource = (SEVProgramID*)pID;
     ms_hResult = cgD3D10BindProgram(pResource->ID);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnDisableVProgram(SEResourceIdentifier*)
+void SEDX10Renderer::OnDisableVProgram(SEResourceIdentifier*)
 {
     m_pDX10Device->VSSetShader(0);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnEnableGProgram(SEResourceIdentifier* pID)
+void SEDX10Renderer::OnEnableGProgram(SEResourceIdentifier* pID)
 {
     SEGProgramID* pResource = (SEGProgramID*)pID;
     ms_hResult = cgD3D10BindProgram(pResource->ID);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnDisableGProgram(SEResourceIdentifier*)
+void SEDX10Renderer::OnDisableGProgram(SEResourceIdentifier*)
 {
     m_pDX10Device->GSSetShader(0);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnEnablePProgram(SEResourceIdentifier* pID)
+void SEDX10Renderer::OnEnablePProgram(SEResourceIdentifier* pID)
 {
     SEPProgramID* pResource = (SEPProgramID*)pID;
     ms_hResult = cgD3D10BindProgram(pResource->ID);
     SE_ASSERT( SUCCEEDED(ms_hResult) );
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnDisablePProgram(SEResourceIdentifier*)
+void SEDX10Renderer::OnDisablePProgram(SEResourceIdentifier*)
 {
     m_pDX10Device->PSSetShader(0);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnEnableTexture(SEResourceIdentifier* pID)
+void SEDX10Renderer::OnEnableTexture(SEResourceIdentifier* pID)
 {
     SETextureID* pResource = (SETextureID*)pID;
     SETexture* pTexture = pResource->TextureObject;
@@ -172,7 +172,7 @@ void DX10Renderer::OnEnableTexture(SEResourceIdentifier* pID)
     SE_DX10_DEBUG_CG_PROGRAM;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnDisableTexture(SEResourceIdentifier* pID)
+void SEDX10Renderer::OnDisableTexture(SEResourceIdentifier* pID)
 {
     SETextureID* pResource = (SETextureID*)pID;
     SETexture* pTexture = pResource->TextureObject;
@@ -183,7 +183,7 @@ void DX10Renderer::OnDisableTexture(SEResourceIdentifier* pID)
     cgD3D10SetTextureParameter(hParam, 0);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnEnableVBuffer(SEResourceIdentifier* pID, SEVertexProgram*)
+void SEDX10Renderer::OnEnableVBuffer(SEResourceIdentifier* pID, SEVertexProgram*)
 {
     SEVBufferID* pResource = (SEVBufferID*)pID;
     m_pDX10Device->IASetVertexBuffers(0, 1, &pResource->ID, 
@@ -192,23 +192,23 @@ void DX10Renderer::OnEnableVBuffer(SEResourceIdentifier* pID, SEVertexProgram*)
     m_pDX10Device->IASetInputLayout(pResource->Layout);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnDisableVBuffer(SEResourceIdentifier*, SEVertexProgram*)
+void SEDX10Renderer::OnDisableVBuffer(SEResourceIdentifier*, SEVertexProgram*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnEnableIBuffer(SEResourceIdentifier* pID)
+void SEDX10Renderer::OnEnableIBuffer(SEResourceIdentifier* pID)
 {
     SEIBufferID* pResource = (SEIBufferID*)pID;
     m_pDX10Device->IASetIndexBuffer(pResource->ID, DXGI_FORMAT_R32_UINT, 0);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnDisableIBuffer(SEResourceIdentifier*)
+void SEDX10Renderer::OnDisableIBuffer(SEResourceIdentifier*)
 {
     // 无需任何操作.
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnEnableRenderStateBlock(SEResourceIdentifier* pID)
+void SEDX10Renderer::OnEnableRenderStateBlock(SEResourceIdentifier* pID)
 {
     SERStateBlockID* pResource = (SERStateBlockID*)pID;
 
@@ -237,7 +237,7 @@ void DX10Renderer::OnEnableRenderStateBlock(SEResourceIdentifier* pID)
 
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnDisableRenderStateBlock(SEResourceIdentifier*)
+void SEDX10Renderer::OnDisableRenderStateBlock(SEResourceIdentifier*)
 {
     // 无需任何操作.
 }

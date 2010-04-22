@@ -25,7 +25,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void DX10Renderer::OnViewportChange()
+void SEDX10Renderer::OnViewportChange()
 {
     float fPortL, fPortR, fPortT, fPortB;
     if( m_pCamera )
@@ -58,7 +58,7 @@ void DX10Renderer::OnViewportChange()
     m_pDX10Device->RSSetViewports(1, &tempViewport);
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::OnDepthRangeChange()
+void SEDX10Renderer::OnDepthRangeChange()
 {
     UINT uiVPCount = 1;
     D3D10_VIEWPORT tempViewport;

@@ -23,7 +23,7 @@
 
 using namespace Swing;
 
-D3D10_COMPARISON_FUNC DX10Renderer::ms_aeZBufferCompare[SEZBufferState::CF_COUNT] = 
+D3D10_COMPARISON_FUNC SEDX10Renderer::ms_aeZBufferCompare[SEZBufferState::CF_COUNT] = 
 {
     D3D10_COMPARISON_NEVER,           // SEZBufferState::CF_NEVER
     D3D10_COMPARISON_LESS,            // SEZBufferState::CF_LESS
@@ -35,7 +35,7 @@ D3D10_COMPARISON_FUNC DX10Renderer::ms_aeZBufferCompare[SEZBufferState::CF_COUNT
     D3D10_COMPARISON_ALWAYS           // SEZBufferState::CF_ALWAYS
 };
 
-D3D10_COMPARISON_FUNC DX10Renderer::ms_aeStencilCompare[SEStencilState::CF_COUNT] = 
+D3D10_COMPARISON_FUNC SEDX10Renderer::ms_aeStencilCompare[SEStencilState::CF_COUNT] = 
 {
     D3D10_COMPARISON_NEVER,           // SEStencilState::CF_NEVER
     D3D10_COMPARISON_LESS,            // SEStencilState::CF_LESS
@@ -47,7 +47,7 @@ D3D10_COMPARISON_FUNC DX10Renderer::ms_aeStencilCompare[SEStencilState::CF_COUNT
     D3D10_COMPARISON_ALWAYS           // SEStencilState::CF_ALWAYS
 };
 
-D3D10_STENCIL_OP DX10Renderer::ms_aeStencilOperation[SEStencilState::OT_COUNT] =
+D3D10_STENCIL_OP SEDX10Renderer::ms_aeStencilOperation[SEStencilState::OT_COUNT] =
 {
     D3D10_STENCIL_OP_KEEP,      // SEStencilState::OT_KEEP
     D3D10_STENCIL_OP_ZERO,      // SEStencilState::OT_ZERO
@@ -58,7 +58,7 @@ D3D10_STENCIL_OP DX10Renderer::ms_aeStencilOperation[SEStencilState::OT_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-void DX10Renderer::GenerateDepthStencilState(
+void SEDX10Renderer::GenerateDepthStencilState(
     const SERenderStateBlock* pRStateBlock, 
     ID3D10DepthStencilState*& rpDX10DSState)
 {

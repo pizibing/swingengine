@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-int DX10Renderer::LoadFont(const char* acFace, int iSize, bool bBold, 
+int SEDX10Renderer::LoadFont(const char* acFace, int iSize, bool bBold, 
     bool bItalic)
 {
     // 找一个未使用的位置.
@@ -70,7 +70,7 @@ int DX10Renderer::LoadFont(const char* acFace, int iSize, bool bBold,
     return iLoc;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::UnloadFont(int iFontID)
+void SEDX10Renderer::UnloadFont(int iFontID)
 {
     // 不能unload默认字体(id = 0).
     if( 1 <= iFontID && iFontID < (int)m_FontArray.size() )
@@ -79,7 +79,7 @@ void DX10Renderer::UnloadFont(int iFontID)
     }
 }
 //----------------------------------------------------------------------------
-bool DX10Renderer::SelectFont(int iFontID)
+bool SEDX10Renderer::SelectFont(int iFontID)
 {
     if( 0 <= iFontID && iFontID < (int)m_FontArray.size() )
     {
@@ -94,7 +94,7 @@ bool DX10Renderer::SelectFont(int iFontID)
     return true;
 }
 //----------------------------------------------------------------------------
-void DX10Renderer::Draw(int iX, int iY, const SEColorRGBA& rColor, 
+void SEDX10Renderer::Draw(int iX, int iY, const SEColorRGBA& rColor, 
     const char* acText)
 {
     SE_ASSERT( acText );

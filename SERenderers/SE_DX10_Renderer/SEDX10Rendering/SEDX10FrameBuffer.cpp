@@ -72,12 +72,12 @@ SEDX10FrameBuffer::SEDX10FrameBuffer(FormatType eFormat, DepthType eDepth,
         pRenderer, iTCount, apTargets)
 {
     m_TargetItems.resize(iTCount);
-    ((DX10Renderer*)pRenderer)->m_FrameBuffers.push_back(this);
+    ((SEDX10Renderer*)pRenderer)->m_FrameBuffers.push_back(this);
 }
 //----------------------------------------------------------------------------
 SEDX10FrameBuffer::~SEDX10FrameBuffer()
 {
-    DX10Renderer* pRenderer = (DX10Renderer*)m_pRenderer;
+    SEDX10Renderer* pRenderer = (SEDX10Renderer*)m_pRenderer;
     std::vector<SEDX10FrameBuffer*>& rFrameBuffers = pRenderer->m_FrameBuffers;
 
     int iCount = (int)pRenderer->m_FrameBuffers.size();
@@ -101,7 +101,7 @@ SEDX10FrameBuffer::~SEDX10FrameBuffer()
 //----------------------------------------------------------------------------
 bool SEDX10FrameBuffer::InitializeBuffer()
 {
-    //DX10Renderer* pRenderer = (DX10Renderer*)m_pRenderer;
+    //SEDX10Renderer* pRenderer = (SEDX10Renderer*)m_pRenderer;
     //HRESULT hResult;
 
     //for( int i = 0; i < m_iCount; i++ )
@@ -195,7 +195,7 @@ void SEDX10FrameBuffer::TerminateBuffer()
 //----------------------------------------------------------------------------
 void SEDX10FrameBuffer::Enable()
 {
-    //DX10Renderer* pRenderer = (DX10Renderer*)m_pRenderer;
+    //SEDX10Renderer* pRenderer = (SEDX10Renderer*)m_pRenderer;
     //HRESULT hResult;
 
     //if( pRenderer->m_bBeginSceneActive )
@@ -252,7 +252,7 @@ void SEDX10FrameBuffer::Enable()
 //----------------------------------------------------------------------------
 void SEDX10FrameBuffer::Disable()
 {
-    //DX10Renderer* pRenderer = (DX10Renderer*)m_pRenderer;
+    //SEDX10Renderer* pRenderer = (SEDX10Renderer*)m_pRenderer;
     //HRESULT hResult;
 
     //if( pRenderer->m_bBeginSceneActive )
@@ -308,7 +308,7 @@ void SEDX10FrameBuffer::CopyToTexture(int)
     //    unsigned char* aucRDst = SE_NEW unsigned char[iByteCount];
     //    int j, iDstBase = 0, iRDstBase = 0;
 
-    //    DX10Renderer* pRenderer = (DX10Renderer*)m_pRenderer;
+    //    SEDX10Renderer* pRenderer = (SEDX10Renderer*)m_pRenderer;
     //    HRESULT hResult;
 
     //    // D3D API要求必须创建一个在系统内存中的D3D纹理,

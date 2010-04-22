@@ -23,7 +23,7 @@
 
 using namespace Swing;
 
-D3D10_BLEND DX10Renderer::ms_aeAlphaSrcBlend[SEAlphaState::SBF_COUNT] =
+D3D10_BLEND SEDX10Renderer::ms_aeAlphaSrcBlend[SEAlphaState::SBF_COUNT] =
 {
     D3D10_BLEND_ZERO,            // SEAlphaState::SBF_ZERO
     D3D10_BLEND_ONE,             // SEAlphaState::SBF_ONE
@@ -40,7 +40,7 @@ D3D10_BLEND DX10Renderer::ms_aeAlphaSrcBlend[SEAlphaState::SBF_COUNT] =
     (D3D10_BLEND)0               // SEAlphaState::SBF_ONE_MINUS_CONSTANT_ALPHA
 };
 
-D3D10_BLEND DX10Renderer::ms_aeAlphaDstBlend[SEAlphaState::DBF_COUNT] =
+D3D10_BLEND SEDX10Renderer::ms_aeAlphaDstBlend[SEAlphaState::DBF_COUNT] =
 {
     D3D10_BLEND_ZERO,            // SEAlphaState::DBF_ZERO
     D3D10_BLEND_ONE,             // SEAlphaState::DBF_ONE
@@ -57,7 +57,7 @@ D3D10_BLEND DX10Renderer::ms_aeAlphaDstBlend[SEAlphaState::DBF_COUNT] =
 };
 
 //----------------------------------------------------------------------------
-void DX10Renderer::GenerateBlendState(const SERenderStateBlock* pRStateBlock,
+void SEDX10Renderer::GenerateBlendState(const SERenderStateBlock* pRStateBlock,
     ID3D10BlendState*& rpDX10BState)
 {
     SEGlobalState* pState = pRStateBlock->States[SEGlobalState::ALPHA];

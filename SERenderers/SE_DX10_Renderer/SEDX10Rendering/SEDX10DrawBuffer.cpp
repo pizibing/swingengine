@@ -24,7 +24,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void DX10Renderer::Draw(const unsigned char* aucBuffer)
+void SEDX10Renderer::Draw(const unsigned char* aucBuffer)
 {
     if( !aucBuffer )
     {
