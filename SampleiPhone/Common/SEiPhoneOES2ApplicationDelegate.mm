@@ -36,7 +36,7 @@ static void OnTouchesBegan(UIView* owner, NSSet* pTouches, UIEvent* pEvent,
     UITouch* pAnyTouch = [pTouches anyObject];
     CGPoint curTouchLoc = [pAnyTouch locationInView:owner];
     
-    WindowApplication* pTheApp = (WindowApplication*)pUserData;
+    SEWindowApplication* pTheApp = (SEWindowApplication*)pUserData;
     pTheApp->OnTouchBegan((int)curTouchLoc.x, (int)curTouchLoc.y);
 }
 //----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ static void OnTouchesMoved(UIView* owner, NSSet* pTouches, UIEvent* pEvent,
     UITouch* pAnyTouch = [pTouches anyObject];
     CGPoint curTouchLoc = [pAnyTouch locationInView:owner];
     
-    WindowApplication* pTheApp = (WindowApplication*)pUserData;
+    SEWindowApplication* pTheApp = (SEWindowApplication*)pUserData;
     pTheApp->OnTouchMoved((int)curTouchLoc.x, (int)curTouchLoc.y);
 }
 //----------------------------------------------------------------------------
@@ -56,7 +56,7 @@ static void OnTouchesEnded(UIView* owner, NSSet* pTouches, UIEvent* pEvent,
     UITouch* pAnyTouch = [pTouches anyObject];
     CGPoint curTouchLoc = [pAnyTouch locationInView:owner];
     
-    WindowApplication* pTheApp = (WindowApplication*)pUserData;
+    SEWindowApplication* pTheApp = (SEWindowApplication*)pUserData;
     pTheApp->OnTouchEnded((int)curTouchLoc.x, (int)curTouchLoc.y);
 }
 //----------------------------------------------------------------------------
@@ -66,17 +66,17 @@ static void OnTouchesCancelled(UIView* owner, NSSet* pTouches,
     UITouch* pAnyTouch = [pTouches anyObject];
     CGPoint curTouchLoc = [pAnyTouch locationInView:owner];
     
-    WindowApplication* pTheApp = (WindowApplication*)pUserData;
+    SEWindowApplication* pTheApp = (SEWindowApplication*)pUserData;
     pTheApp->OnTouchCancelled((int)curTouchLoc.x, (int)curTouchLoc.y);
 }
 //----------------------------------------------------------------------------
 
-@implementation ApplicationDelegate
+@implementation SEApplicationDelegate
 //----------------------------------------------------------------------------
 - (void) update
 {
-    WindowApplication* pTheApp = 
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp = 
+        (SEWindowApplication*)SEApplication::TheApplication;
     SE_ASSERT( pTheApp );
 
     // Application's real-time logic/rendering entry point.
@@ -86,8 +86,8 @@ static void OnTouchesCancelled(UIView* owner, NSSet* pTouches,
 - (void) applicationDidFinishLaunching:(UIApplication*)application
 {
     // The application instance should already been created.
-    WindowApplication* pTheApp = 
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp = 
+        (SEWindowApplication*)SEApplication::TheApplication;
     SE_ASSERT( pTheApp );   
 
     // Create application window.
@@ -97,18 +97,18 @@ static void OnTouchesCancelled(UIView* owner, NSSet* pTouches,
     pTheApp->SetWindowID((int)AppWindow);
 
     // Create OpenGL ES2 renderer.
-    iPhoneOES2Renderer* pRenderer = SE_NEW iPhoneOES2Renderer(AppWindow, 
+    SEiPhoneOES2Renderer* pRenderer = SE_NEW SEiPhoneOES2Renderer(AppWindow, 
         pTheApp->GetFormat(), pTheApp->GetDepth(), pTheApp->GetStencil(), 
         pTheApp->GetBuffering(), pTheApp->GetMultisampling(), 0, 0, 
         rect.size.width, rect.size.height);
     pTheApp->SetRenderer(pRenderer);
 
     // Create OpenAL audio renderer.
-    iPhoneOpenALRenderer* pAudioRenderer = SE_NEW iPhoneOpenALRenderer;
+    SEiPhoneOpenALRenderer* pAudioRenderer = SE_NEW SEiPhoneOpenALRenderer;
     pTheApp->SetAudioRenderer(pAudioRenderer);
 
     // Set up touches event handlers.
-    EAGL2View* pView = pRenderer->GetView();
+    SEEAGL2View* pView = pRenderer->GetView();
     [pView setUserData:(void*)pTheApp];
     [pView setOnTouchesBegan:&OnTouchesBegan];
     [pView setOnTouchesMoved:&OnTouchesMoved];
@@ -116,8 +116,8 @@ static void OnTouchesCancelled(UIView* owner, NSSet* pTouches,
     [pView setOnTouchesCancelled:&OnTouchesCancelled];
 
     // Application's initialization entry point, all classes's instances 
-    // derived from Swing::Object class should be created here(or after that).
-    // This is the beginning of their life cycles.
+    // derived from Swing::SEObject class should be created here(or after 
+	// that). This is the beginning of their life cycles.
     pTheApp->OnInitialize();
 
     // Show the window.
@@ -130,13 +130,13 @@ static void OnTouchesCancelled(UIView* owner, NSSet* pTouches,
 //----------------------------------------------------------------------------
 - (void) dealloc
 {
-    WindowApplication* pTheApp = 
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp = 
+        (SEWindowApplication*)SEApplication::TheApplication;
     SE_ASSERT( pTheApp );
 
     // Application's termination entry point, all classes's instances 
-    // derived from Swing::Object class should be released here(or before that).
-    // This is the ending of their life cycles.
+    // derived from Swing::SEObject class should be released here(or before 
+	// that). This is the ending of their life cycles.
     pTheApp->OnTerminate(); 
 
     // Release the window.
