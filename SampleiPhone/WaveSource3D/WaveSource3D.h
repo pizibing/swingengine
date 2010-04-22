@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-class WaveSource3D : public WindowApplication3
+class WaveSource3D : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -41,17 +41,17 @@ protected:
 
     enum{ SOUND_COUNT = 4 };
 
-    NodePtr m_spScene;
-    NodePtr m_aspSoundNode[SOUND_COUNT];
-    SoundPtr m_aspSound[SOUND_COUNT];
+    SENodePtr m_spScene;
+    SENodePtr m_aspSoundNode[SOUND_COUNT];
+    SESoundPtr m_aspSound[SOUND_COUNT];
     bool m_bSoundSwitch[SOUND_COUNT];
-    LightPtr m_spLight;
-    Culler m_Culler;
+    SELightPtr m_spLight;
+    SECuller m_Culler;
 
-    SoundBufferPtr m_spSBufferGunfire;
-    SoundBufferPtr m_spSBufferAfflictionAlert;
-    SoundBufferPtr m_spSBufferGunhit;
-    SoundBufferPtr m_spSBufferBlip;
+    SESoundBufferPtr m_spSBufferGunfire;
+    SESoundBufferPtr m_spSBufferAfflictionAlert;
+    SESoundBufferPtr m_spSBufferGunhit;
+    SESoundBufferPtr m_spSBufferBlip;
 };
 
 #endif
