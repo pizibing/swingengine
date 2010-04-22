@@ -27,19 +27,18 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:2D窗口应用程序基类
 // 说明:for iPhone
 // 作者:jazzboysc
 // 时间:20090604
 //----------------------------------------------------------------------------
-class WindowApplication2 : public WindowApplication
+class SEWindowApplication2 : public SEWindowApplication
 {
 public:
-    WindowApplication2(const char* acWindowTitle, int iXPosition,
+    SEWindowApplication2(const char* acWindowTitle, int iXPosition,
         int iYPosition, int iWidth, int iHeight,
-        const ColorRGBA& rBackgroundColor);
+        const SEColorRGBA& rBackgroundColor);
 
-    virtual ~WindowApplication2(void);
+    virtual ~SEWindowApplication2(void);
 
     // 事件回调函数
     virtual bool OnInitialize(void);

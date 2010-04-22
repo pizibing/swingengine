@@ -27,7 +27,7 @@ SE_IMPLEMENT_INITIALIZE(classname); \
 \
 void classname::Initialize () \
 { \
-    Application::Run = &ConsoleApplication::Run; \
+    SEApplication::Run = &SEConsoleApplication::Run; \
     TheApplication = SE_NEW classname; \
 }
 //----------------------------------------------------------------------------
@@ -36,7 +36,7 @@ SE_IMPLEMENT_INITIALIZE(classname); \
 \
 void classname::Initialize () \
 { \
-    Application::Run = &WindowApplication::Run; \
+    SEApplication::Run = &SEWindowApplication::Run; \
     TheApplication = SE_NEW classname; \
 }
 //----------------------------------------------------------------------------

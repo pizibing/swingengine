@@ -19,118 +19,119 @@
 // http://www.gnu.org/copyleft/lgpl.html
 
 //----------------------------------------------------------------------------
-inline const char* WindowApplication::GetWindowTitle() const
+inline const char* SEWindowApplication::GetWindowTitle() const
 {
     return m_acWindowTitle;
 }
 //----------------------------------------------------------------------------
-inline int WindowApplication::GetXPosition() const
+inline int SEWindowApplication::GetXPosition() const
 {
     return m_iXPosition;
 }
 //----------------------------------------------------------------------------
-inline int WindowApplication::GetYPosition() const
+inline int SEWindowApplication::GetYPosition() const
 {
     return m_iYPosition;
 }
 //----------------------------------------------------------------------------
-inline int WindowApplication::GetWidth() const
+inline int SEWindowApplication::GetWidth() const
 {
     return m_iWidth;
 }
 //----------------------------------------------------------------------------
-inline int WindowApplication::GetHeight() const
+inline int SEWindowApplication::GetHeight() const
 {
     return m_iHeight;
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::SetRenderer(Renderer* pRenderer)
+inline void SEWindowApplication::SetRenderer(SERenderer* pRenderer)
 {
     m_pRenderer = pRenderer;
 }
 //----------------------------------------------------------------------------
-inline Renderer* WindowApplication::GetRenderer()
+inline SERenderer* SEWindowApplication::GetRenderer()
 {
     return m_pRenderer;
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::SetAudioRenderer(AudioRenderer* pAudioRenderer)
+inline void SEWindowApplication::SetAudioRenderer(SEAudioRenderer* 
+    pAudioRenderer)
 {
     m_pAudioRenderer = pAudioRenderer;
 }
 //----------------------------------------------------------------------------
-inline AudioRenderer* WindowApplication::GetAudioRenderer()
+inline SEAudioRenderer* SEWindowApplication::GetAudioRenderer()
 {
     return m_pAudioRenderer;
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::SetWindowID(int iWindowID)
+inline void SEWindowApplication::SetWindowID(int iWindowID)
 {
     m_iWindowID = iWindowID;
 }
 //----------------------------------------------------------------------------
-inline int WindowApplication::GetWindowID() const
+inline int SEWindowApplication::GetWindowID() const
 {
     return m_iWindowID;
 }
 //----------------------------------------------------------------------------
-inline bool WindowApplication::OnPrecreate()
+inline bool SEWindowApplication::OnPrecreate()
 {
     // 由派生类负责实现.
     return true;
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::OnDisplay()
+inline void SEWindowApplication::OnDisplay()
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::OnIdle()
+inline void SEWindowApplication::OnIdle()
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::OnTouchBegan(int iX, int iY)
+inline void SEWindowApplication::OnTouchBegan(int iX, int iY)
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::OnTouchMoved(int iX, int iY)
+inline void SEWindowApplication::OnTouchMoved(int iX, int iY)
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::OnTouchEnded(int iX, int iY)
+inline void SEWindowApplication::OnTouchEnded(int iX, int iY)
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-inline void WindowApplication::OnTouchCancelled(int iX, int iY)
+inline void SEWindowApplication::OnTouchCancelled(int iX, int iY)
 {
     // 由派生类负责实现.
 }
 //----------------------------------------------------------------------------
-inline FrameBuffer::FormatType WindowApplication::GetFormat()
+inline SEFrameBuffer::FormatType SEWindowApplication::GetFormat()
 {
     return m_eFormat;
 }
 //----------------------------------------------------------------------------
-inline FrameBuffer::DepthType WindowApplication::GetDepth()
+inline SEFrameBuffer::DepthType SEWindowApplication::GetDepth()
 {
     return m_eDepth;
 }
 //----------------------------------------------------------------------------
-inline FrameBuffer::StencilType WindowApplication::GetStencil()
+inline SEFrameBuffer::StencilType SEWindowApplication::GetStencil()
 {
     return m_eStencil;
 }
 //----------------------------------------------------------------------------
-inline FrameBuffer::BufferingType WindowApplication::GetBuffering()
+inline SEFrameBuffer::BufferingType SEWindowApplication::GetBuffering()
 {
     return m_eBuffering;
 }
 //----------------------------------------------------------------------------
-inline FrameBuffer::MultisamplingType WindowApplication::GetMultisampling()
+inline SEFrameBuffer::MultisamplingType SEWindowApplication::GetMultisampling()
 {
     return m_eMultisampling;
 }

@@ -28,19 +28,18 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:窗口应用程序基类
 // 说明:for iPhone application
 // 作者:jazzboysc
 // 时间:20090604
 //----------------------------------------------------------------------------
-class WindowApplication : public Application
+class SEWindowApplication : public SEApplication
 {
 public:
     // Virtual base class.
-    WindowApplication(const char* acWindowTitle, int iXPosition,
+    SEWindowApplication(const char* acWindowTitle, int iXPosition,
         int iYPosition, int iWidth, int iHeight,
-        const ColorRGBA& rBackgroundColor);
-    virtual ~WindowApplication(void);
+        const SEColorRGBA& rBackgroundColor);
+    virtual ~SEWindowApplication(void);
 
     // Application entry point.
     virtual int Main(int iCount, char** apcArgument);
@@ -51,10 +50,10 @@ public:
     inline int GetYPosition(void) const;
     inline int GetWidth(void) const;
     inline int GetHeight(void) const;
-    inline void SetRenderer(Renderer* pRenderer);
-    inline Renderer* GetRenderer(void);
-    inline void SetAudioRenderer(AudioRenderer* pAudioRenderer);
-    inline AudioRenderer* GetAudioRenderer(void);
+    inline void SetRenderer(SERenderer* pRenderer);
+    inline SERenderer* GetRenderer(void);
+    inline void SetAudioRenderer(SEAudioRenderer* pAudioRenderer);
+    inline SEAudioRenderer* GetAudioRenderer(void);
     inline void SetWindowID(int iWindowID);
     inline int GetWindowID(void) const;
 
@@ -73,11 +72,11 @@ public:
 
     // These functions are used by Cocoa delegate class when the renderer is
     // created.
-    inline FrameBuffer::FormatType GetFormat(void);
-    inline FrameBuffer::DepthType GetDepth(void);
-    inline FrameBuffer::StencilType GetStencil(void);
-    inline FrameBuffer::BufferingType GetBuffering(void);
-    inline FrameBuffer::MultisamplingType GetMultisampling(void);
+    inline SEFrameBuffer::FormatType GetFormat(void);
+    inline SEFrameBuffer::DepthType GetDepth(void);
+    inline SEFrameBuffer::StencilType GetStencil(void);
+    inline SEFrameBuffer::BufferingType GetBuffering(void);
+    inline SEFrameBuffer::MultisamplingType GetMultisampling(void);
 
 protected:
     // Hook our application entry point function.
@@ -86,24 +85,24 @@ protected:
     // 构造函数输入变量
     const char* m_acWindowTitle;
     int m_iXPosition, m_iYPosition, m_iWidth, m_iHeight;
-    ColorRGBA m_BackgroundColor;
+    SEColorRGBA m_BackgroundColor;
 
     // Window ID(platform specific).
     int m_iWindowID;
 
     // 创建渲染器所需的frame buffer参数.
     // 你可以在你的应用程序构造函数中设置为所需的值.
-    FrameBuffer::FormatType m_eFormat;
-    FrameBuffer::DepthType m_eDepth;
-    FrameBuffer::StencilType m_eStencil;
-    FrameBuffer::BufferingType m_eBuffering;
-    FrameBuffer::MultisamplingType m_eMultisampling;
+    SEFrameBuffer::FormatType m_eFormat;
+    SEFrameBuffer::DepthType m_eDepth;
+    SEFrameBuffer::StencilType m_eStencil;
+    SEFrameBuffer::BufferingType m_eBuffering;
+    SEFrameBuffer::MultisamplingType m_eMultisampling;
 
-    // Renderer(for 2D and 3D applications).
-    Renderer* m_pRenderer;
+    // SERenderer(for 2D and 3D applications).
+    SERenderer* m_pRenderer;
 
     // Audio renderer(for 2D and 3D applications).
-    AudioRenderer* m_pAudioRenderer;
+    SEAudioRenderer* m_pAudioRenderer;
 };
 
 #include "SEWindowApplication.inl"

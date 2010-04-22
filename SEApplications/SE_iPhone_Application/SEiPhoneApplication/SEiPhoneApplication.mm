@@ -30,9 +30,9 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-int WindowApplication::Main(int iCount, char** apcArgument)
+int SEWindowApplication::Main(int iCount, char** apcArgument)
 {
-    WindowApplication* pTheApp = (WindowApplication*)TheApplication;
+    SEWindowApplication* pTheApp = (SEWindowApplication*)TheApplication;
 
     // 允许在窗体创建之前做一些工作.
     if( !pTheApp->OnPrecreate() )
@@ -48,11 +48,11 @@ int WindowApplication::Main(int iCount, char** apcArgument)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Application::LaunchTreeControl(Spatial*, int, int, int, int)
+void SEApplication::LaunchTreeControl(SESpatial*, int, int, int, int)
 {
 }
 //----------------------------------------------------------------------------
-void Application::ShutdownTreeControl()
+void SEApplication::ShutdownTreeControl()
 {
 }
 //----------------------------------------------------------------------------

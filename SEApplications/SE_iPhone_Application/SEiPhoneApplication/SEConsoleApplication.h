@@ -27,16 +27,15 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:控制台应用程序基类
 // 说明:for iPhone application
 // 作者:jazzboysc
 // 时间:20090604
 //----------------------------------------------------------------------------
-class ConsoleApplication : public Application
+class SEConsoleApplication : public SEApplication
 {
 public:
-    ConsoleApplication(void);
-    virtual ~ConsoleApplication(void);
+    SEConsoleApplication(void);
+    virtual ~SEConsoleApplication(void);
 
     // 应用程序负责实现入口函数,返回值为exit code.
     virtual int Main(int iArgCount, char** apcArgument) = 0;
