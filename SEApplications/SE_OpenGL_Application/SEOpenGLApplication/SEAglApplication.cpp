@@ -29,53 +29,53 @@ using namespace std;
 
 using namespace Swing;
 
-const int WindowApplication::KEY_ESCAPE = kEscapeCharCode;
-const int WindowApplication::KEY_LEFT_ARROW = kLeftArrowCharCode;
-const int WindowApplication::KEY_RIGHT_ARROW = kRightArrowCharCode;
-const int WindowApplication::KEY_UP_ARROW = kUpArrowCharCode;
-const int WindowApplication::KEY_DOWN_ARROW = kDownArrowCharCode;
-const int WindowApplication::KEY_HOME = kHomeCharCode;
-const int WindowApplication::KEY_END = kEndCharCode;
-const int WindowApplication::KEY_PAGE_UP = kPageUpCharCode;
-const int WindowApplication::KEY_PAGE_DOWN = kPageDownCharCode;
-const int WindowApplication::KEY_INSERT = kHelpCharCode;
-const int WindowApplication::KEY_DELETE = kDeleteCharCode;
-const int WindowApplication::KEY_BACKSPACE = kBackspaceCharCode;
-const int WindowApplication::KEY_TAB = kTabCharCode;
-const int WindowApplication::KEY_ENTER = kEnterCharCode;
-const int WindowApplication::KEY_RETURN = kReturnCharCode;
+const int SEWindowApplication::KEY_ESCAPE = kEscapeCharCode;
+const int SEWindowApplication::KEY_LEFT_ARROW = kLeftArrowCharCode;
+const int SEWindowApplication::KEY_RIGHT_ARROW = kRightArrowCharCode;
+const int SEWindowApplication::KEY_UP_ARROW = kUpArrowCharCode;
+const int SEWindowApplication::KEY_DOWN_ARROW = kDownArrowCharCode;
+const int SEWindowApplication::KEY_HOME = kHomeCharCode;
+const int SEWindowApplication::KEY_END = kEndCharCode;
+const int SEWindowApplication::KEY_PAGE_UP = kPageUpCharCode;
+const int SEWindowApplication::KEY_PAGE_DOWN = kPageDownCharCode;
+const int SEWindowApplication::KEY_INSERT = kHelpCharCode;
+const int SEWindowApplication::KEY_DELETE = kDeleteCharCode;
+const int SEWindowApplication::KEY_BACKSPACE = kBackspaceCharCode;
+const int SEWindowApplication::KEY_TAB = kTabCharCode;
+const int SEWindowApplication::KEY_ENTER = kEnterCharCode;
+const int SEWindowApplication::KEY_RETURN = kReturnCharCode;
 
 // Function key values are actually key codes rather than char codes because
 // MacOS passes all function key values as kFunctionKeyCharCode.
-const int WindowApplication::KEY_F1 = 122;
-const int WindowApplication::KEY_F2 = 120;
-const int WindowApplication::KEY_F3 = 99;
-const int WindowApplication::KEY_F4 = 118;
-const int WindowApplication::KEY_F5 = 96;
-const int WindowApplication::KEY_F6 = 97;
-const int WindowApplication::KEY_F7 = 98;
-const int WindowApplication::KEY_F8 = 100;
-const int WindowApplication::KEY_F9 = 101;
-const int WindowApplication::KEY_F10 = 109;
-const int WindowApplication::KEY_F11 = 103;
-const int WindowApplication::KEY_F12 = 111;
+const int SEWindowApplication::KEY_F1 = 122;
+const int SEWindowApplication::KEY_F2 = 120;
+const int SEWindowApplication::KEY_F3 = 99;
+const int SEWindowApplication::KEY_F4 = 118;
+const int SEWindowApplication::KEY_F5 = 96;
+const int SEWindowApplication::KEY_F6 = 97;
+const int SEWindowApplication::KEY_F7 = 98;
+const int SEWindowApplication::KEY_F8 = 100;
+const int SEWindowApplication::KEY_F9 = 101;
+const int SEWindowApplication::KEY_F10 = 109;
+const int SEWindowApplication::KEY_F11 = 103;
+const int SEWindowApplication::KEY_F12 = 111;
 
-const int WindowApplication::KEY_SHIFT = shiftKey | rightShiftKey;
-const int WindowApplication::KEY_CONTROL = controlKey | rightControlKey;
-const int WindowApplication::KEY_ALT = optionKey | rightOptionKey;
-const int WindowApplication::KEY_COMMAND = cmdKey;
+const int SEWindowApplication::KEY_SHIFT = shiftKey | rightShiftKey;
+const int SEWindowApplication::KEY_CONTROL = controlKey | rightControlKey;
+const int SEWindowApplication::KEY_ALT = optionKey | rightOptionKey;
+const int SEWindowApplication::KEY_COMMAND = cmdKey;
 
-const int WindowApplication::MOUSE_LEFT_BUTTON = kEventMouseButtonPrimary;
-const int WindowApplication::MOUSE_MIDDLE_BUTTON = kEventMouseButtonTertiary;
-const int WindowApplication::MOUSE_RIGHT_BUTTON = kEventMouseButtonSecondary;
-const int WindowApplication::MOUSE_UP = 0;
-const int WindowApplication::MOUSE_DOWN = 1;
+const int SEWindowApplication::MOUSE_LEFT_BUTTON = kEventMouseButtonPrimary;
+const int SEWindowApplication::MOUSE_MIDDLE_BUTTON = kEventMouseButtonTertiary;
+const int SEWindowApplication::MOUSE_RIGHT_BUTTON = kEventMouseButtonSecondary;
+const int SEWindowApplication::MOUSE_UP = 0;
+const int SEWindowApplication::MOUSE_DOWN = 1;
 
-const int WindowApplication::MODIFIER_CONTROL = controlKey | rightControlKey;
-const int WindowApplication::MODIFIER_LBUTTON = kEventMouseButtonPrimary;
-const int WindowApplication::MODIFIER_MBUTTON = kEventMouseButtonTertiary;
-const int WindowApplication::MODIFIER_RBUTTON = kEventMouseButtonSecondary;
-const int WindowApplication::MODIFIER_SHIFT   = shiftKey | rightShiftKey;
+const int SEWindowApplication::MODIFIER_CONTROL = controlKey | rightControlKey;
+const int SEWindowApplication::MODIFIER_LBUTTON = kEventMouseButtonPrimary;
+const int SEWindowApplication::MODIFIER_MBUTTON = kEventMouseButtonTertiary;
+const int SEWindowApplication::MODIFIER_RBUTTON = kEventMouseButtonSecondary;
+const int SEWindowApplication::MODIFIER_SHIFT   = shiftKey | rightShiftKey;
 
 // Indices into the extra data storage for some system data.
 #define AGLAPP_BACK   0
@@ -83,10 +83,10 @@ const int WindowApplication::MODIFIER_SHIFT   = shiftKey | rightShiftKey;
 #define AGLAPP_SYSTEM AGLAPP_FONT + sizeof(SInt32)
 
 //----------------------------------------------------------------------------
-void WindowApplication::SetMousePosition(int iX, int iY)
+void SEWindowApplication::SetMousePosition(int iX, int iY)
 {
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
 
     CGrafPtr tempPtrPort;
     GetPort(&tempPtrPort);
@@ -97,14 +97,15 @@ void WindowApplication::SetMousePosition(int iX, int iY)
     LocalToGlobal(&tempMouseLoc);
     SetPort(tempPtrPort);
 
-    CGPoint tempPoint = CGPointMake((float)tempMouseLoc.h, (float)tempMouseLoc.v);
+    CGPoint tempPoint = CGPointMake((float)tempMouseLoc.h, 
+        (float)tempMouseLoc.v);
     CGPostMouseEvent(tempPoint, true, 1, false, 0);
 }
 //----------------------------------------------------------------------------
-void WindowApplication::GetMousePosition(int& riX, int& riY) const
+void SEWindowApplication::GetMousePosition(int& riX, int& riY) const
 {
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
 
     CGrafPtr tempPtrPort;
     GetPort(&tempPtrPort);
@@ -117,7 +118,7 @@ void WindowApplication::GetMousePosition(int& riX, int& riY) const
     riY = (int)tempMouseLoc.v;
 }
 //----------------------------------------------------------------------------
-int WindowApplication::GetStringWidth(const char* acText) const
+int SEWindowApplication::GetStringWidth(const char* acText) const
 {
     GWorldPtr tempPtrWorld;
     GDHandle tempDevice;
@@ -133,7 +134,7 @@ int WindowApplication::GetStringWidth(const char* acText) const
     return iWidth;
 }
 //----------------------------------------------------------------------------
-int WindowApplication::GetCharacterWidth(const char cCharacter) const
+int SEWindowApplication::GetCharacterWidth(const char cCharacter) const
 {
     GWorldPtr tempPtrWorld;
     GDHandle tempDevice;
@@ -149,7 +150,7 @@ int WindowApplication::GetCharacterWidth(const char cCharacter) const
     return iWidth;
 }
 //----------------------------------------------------------------------------
-int WindowApplication::GetFontHeight() const
+int SEWindowApplication::GetFontHeight() const
 {
     GWorldPtr tempPtrWorld;
     GDHandle tempDevice;
@@ -259,7 +260,8 @@ static string GetStringPathname(FSSpec& rSrcFile)
     FSpMakeFSRef(&rSrcFile, &tempFileRef);
 
     CFURLRef tempPtrURL = CFURLCreateFromFSRef(0, &tempFileRef);
-    CFStringRef tempString = CFURLCopyFileSystemPath(tempPtrURL, kCFURLPOSIXPathStyle);
+    CFStringRef tempString = CFURLCopyFileSystemPath(tempPtrURL, 
+        kCFURLPOSIXPathStyle);
     char acPath[256];
     CFStringGetCString(tempString, acPath, 256, CFStringGetSystemEncoding());
     CFRelease(tempString);
@@ -271,8 +273,8 @@ static string GetStringPathname(FSSpec& rSrcFile)
 //----------------------------------------------------------------------------
 static char* GetCommandLine()
 {
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
 
     OSErr iErr = noErr;
     SInt32 iSystemVersion;
@@ -352,8 +354,8 @@ static pascal OSStatus ProcessWindowBoundsChange(EventHandlerCallRef,
     GetEventParameter(pEvent, kEventParamCurrentBounds, typeQDRectangle, 0, 
         sizeof(tempRect), 0, &tempRect);
 
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
 
     if( uiAttributes & kWindowBoundsChangeUserDrag
     ||  uiAttributes & kWindowBoundsChangeOriginChanged )
@@ -365,7 +367,8 @@ static pascal OSStatus ProcessWindowBoundsChange(EventHandlerCallRef,
     ||  uiAttributes & kWindowBoundsChangeSizeChanged )
     {
         // bounds are changing due to window resizing
-        pTheApp->OnResize(tempRect.right-tempRect.left, tempRect.bottom-tempRect.top);
+        pTheApp->OnResize(tempRect.right-tempRect.left, 
+            tempRect.bottom-tempRect.top);
     }
 
     // allow standard handler to run
@@ -382,10 +385,11 @@ static pascal OSStatus ProcessWindowZoomed(EventHandlerCallRef,
     Rect tempRect;
     GetWindowBounds(tempWindow, kWindowContentRgn, &tempRect);
 
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
 
-    pTheApp->OnResize(tempRect.right-tempRect.left, tempRect.bottom-tempRect.top);
+    pTheApp->OnResize(tempRect.right-tempRect.left, 
+        tempRect.bottom-tempRect.top);
 
     // allow standard handler to run
     return eventNotHandledErr;
@@ -394,8 +398,8 @@ static pascal OSStatus ProcessWindowZoomed(EventHandlerCallRef,
 static pascal OSStatus ProcessWindowRedraw(EventHandlerCallRef, EventRef, 
     void*)
 {
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
 
     pTheApp->OnDisplay();
 
@@ -410,8 +414,8 @@ static pascal OSStatus ProcessKeyDown(EventHandlerCallRef, EventRef pEvent,
     GetEventParameter(pEvent, kEventParamKeyMacCharCodes, typeChar, 0, 
         sizeof(cCharCode), 0, &cCharCode);
 
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
     
     CGrafPtr tempPtrPort;
     GetPort(&tempPtrPort);
@@ -459,8 +463,8 @@ static pascal OSStatus ProcessKeyUp(EventHandlerCallRef, EventRef pEvent,
     GetEventParameter(pEvent, kEventParamKeyMacCharCodes, typeChar, 0, 
         sizeof(cCharCode), 0, &cCharCode);
 
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
     
     CGrafPtr tempPtrPort;
     GetPort(&tempPtrPort);
@@ -509,8 +513,8 @@ static pascal OSStatus ProcessMouseDown(EventHandlerCallRef,
     GetEventParameter(pEvent, kEventParamKeyModifiers, typeUInt32, 0, 
         sizeof(uiModifiers), 0, &uiModifiers);
 
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
 
     CGrafPtr tempPtrPort;
     GetPort(&tempPtrPort);
@@ -518,7 +522,7 @@ static pascal OSStatus ProcessMouseDown(EventHandlerCallRef,
     GlobalToLocal(&tempMouseLoc);
     SetPort(tempPtrPort);
 
-    pTheApp->OnMouseClick(eMouseButton, WindowApplication::MOUSE_DOWN, 
+    pTheApp->OnMouseClick(eMouseButton, SEWindowApplication::MOUSE_DOWN, 
         tempMouseLoc.h, tempMouseLoc.v, uiModifiers);
 
     // allow standard handler to run
@@ -540,8 +544,8 @@ static pascal OSStatus ProcessMouseUp(EventHandlerCallRef, EventRef pEvent,
     GetEventParameter(pEvent, kEventParamKeyModifiers, typeUInt32, 0, 
         sizeof(uiModifiers), 0, &uiModifiers);
 
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
 
     CGrafPtr tempPtrPort;
     GetPort(&tempPtrPort);
@@ -549,7 +553,7 @@ static pascal OSStatus ProcessMouseUp(EventHandlerCallRef, EventRef pEvent,
     GlobalToLocal(&tempMouseLoc);
     SetPort(tempPtrPort);
 
-    pTheApp->OnMouseClick(eMouseButton, WindowApplication::MOUSE_UP, 
+    pTheApp->OnMouseClick(eMouseButton, SEWindowApplication::MOUSE_UP, 
         tempMouseLoc.h, tempMouseLoc.v, uiModifiers);
 
     // allow standard handler to run
@@ -571,8 +575,8 @@ static pascal OSStatus ProcessMouseDragged(EventHandlerCallRef,
     GetEventParameter(pEvent, kEventParamKeyModifiers, typeUInt32, 0, 
         sizeof(uiModifiers), 0, &uiModifiers);
 
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
 
     CGrafPtr tempPtrPort;
     GetPort(&tempPtrPort);
@@ -580,7 +584,8 @@ static pascal OSStatus ProcessMouseDragged(EventHandlerCallRef,
     GlobalToLocal(&tempMouseLoc);
     SetPort(tempPtrPort);
 
-    pTheApp->OnMotion(eMouseButton, tempMouseLoc.h, tempMouseLoc.v, uiModifiers);
+    pTheApp->OnMotion(eMouseButton, tempMouseLoc.h, tempMouseLoc.v, 
+        uiModifiers);
 
     // allow standard handler to run
     return eventNotHandledErr;
@@ -593,8 +598,8 @@ static pascal OSStatus ProcessMouseMoved(EventHandlerCallRef,
     GetEventParameter(pEvent, kEventParamMouseLocation, typeQDPoint, 0, 
         sizeof(tempMouseLoc), 0, &tempMouseLoc);
 
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
 
     CGrafPtr tempPtrPort;
     GetPort(&tempPtrPort);
@@ -610,8 +615,8 @@ static pascal OSStatus ProcessMouseMoved(EventHandlerCallRef,
 //----------------------------------------------------------------------------
 static pascal void ProcessTimer(EventLoopTimerRef, void*)
 {
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
 
     pTheApp->OnIdle();
 }
@@ -620,8 +625,8 @@ static OSErr QuitAppleEventHandler(const AppleEvent*, AppleEvent*, UInt32)
 {
     QuitApplicationEventLoop();
 
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
 
     GWorldPtr tempPtrBack;
     pTheApp->GetExtraData(AGLAPP_BACK, sizeof(GWorldPtr), &tempPtrBack);
@@ -630,12 +635,12 @@ static OSErr QuitAppleEventHandler(const AppleEvent*, AppleEvent*, UInt32)
     return noErr;
 }
 //----------------------------------------------------------------------------
-int WindowApplication::Main(int, char**)
+int SEWindowApplication::Main(int, char**)
 {
     InitCursor();
     
-    WindowApplication* pTheApp =
-        (WindowApplication*)Application::TheApplication;
+    SEWindowApplication* pTheApp =
+        (SEWindowApplication*)SEApplication::TheApplication;
     assert( pTheApp );
     if( !pTheApp )
     {
@@ -649,7 +654,8 @@ int WindowApplication::Main(int, char**)
     GetPixBounds(tempPixmap, &tempArea);
     int iDepth = GetPixDepth(tempPixmap);
     GWorldPtr tempPtrBack;
-    OSErr iError = NewGWorld(&tempPtrBack, iDepth, &tempArea, 0, 0, useTempMem | pixPurge);
+    OSErr iError = NewGWorld(&tempPtrBack, iDepth, &tempArea, 0, 0, 
+        useTempMem | pixPurge);
     if( iError != noErr || !tempPtrBack )
     {
         assert( false );
@@ -720,7 +726,7 @@ int WindowApplication::Main(int, char**)
         if( acArgument )
         {
             SE_DELETE pTheApp->TheCommand;
-            pTheApp->TheCommand = SE_NEW Command(acArgument);
+            pTheApp->TheCommand = SE_NEW SECommand(acArgument);
             SE_DELETE[] acArgument;
         }
     }
@@ -788,7 +794,7 @@ int WindowApplication::Main(int, char**)
     pTheApp->SetWindowID((int)tempPtrWindow);
 
     SetPortWindowPort(tempPtrWindow);
-    pTheApp->SetRenderer(SE_NEW AglRenderer((AGLDevice)hGD, tempPtrWindow, 
+    pTheApp->SetRenderer(SE_NEW SEAglRenderer((AGLDevice)hGD, tempPtrWindow, 
         m_eFormat, m_eDepth, m_eStencil, m_eBuffering, m_eMultisampling, 0, 0, 
         pTheApp->GetWidth(), pTheApp->GetHeight()));
 
@@ -806,22 +812,26 @@ int WindowApplication::Main(int, char**)
     tempEventType.eventClass = kEventClassWindow;
     tempEventType.eventKind = kEventWindowClose;
     EventHandlerUPP pfnHandlerUPP = NewEventHandlerUPP(ProcessWindowClose); 
-    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 0, 0);
+    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 
+        0, 0);
 
     // install window bounds change handler
     tempEventType.eventKind = kEventWindowBoundsChanged;
     pfnHandlerUPP = NewEventHandlerUPP(ProcessWindowBoundsChange);
-    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 0, 0);
+    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 
+        0, 0);
 
     // install window zoomed handler
     tempEventType.eventKind = kEventWindowZoomed;
     pfnHandlerUPP = NewEventHandlerUPP(ProcessWindowZoomed);
-    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 0, 0);
+    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 
+        0, 0);
 
     // install window redraw handler
     tempEventType.eventKind = kEventWindowDrawContent;
     pfnHandlerUPP = NewEventHandlerUPP(ProcessWindowRedraw);
-    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 0, 0);
+    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 
+        0, 0);
 
     // install key down handler
     EventTypeSpec aEventType[2];
@@ -836,28 +846,33 @@ int WindowApplication::Main(int, char**)
     tempEventType.eventClass = kEventClassKeyboard;
     tempEventType.eventKind = kEventRawKeyUp;
     pfnHandlerUPP = NewEventHandlerUPP(ProcessKeyUp);
-    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 0, 0);
+    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 
+        0, 0);
 
     // install mouse down handler
     tempEventType.eventClass = kEventClassMouse;
     tempEventType.eventKind = kEventMouseDown;
     pfnHandlerUPP = NewEventHandlerUPP(ProcessMouseDown);
-    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 0, 0);
+    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 
+        0, 0);
 
     // install mouse up handler
     tempEventType.eventKind = kEventMouseUp;
     pfnHandlerUPP = NewEventHandlerUPP(ProcessMouseUp);
-    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 0, 0);
+    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 
+        0, 0);
 
     // install mouse drag handler
     tempEventType.eventKind = kEventMouseDragged;
     pfnHandlerUPP = NewEventHandlerUPP(ProcessMouseDragged);
-    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 0, 0);
+    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 
+        0, 0);
 
     // install mouse move handler
     tempEventType.eventKind = kEventMouseMoved;
     pfnHandlerUPP = NewEventHandlerUPP(ProcessMouseMoved);
-    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 0, 0);
+    InstallWindowEventHandler(tempPtrWindow, pfnHandlerUPP, 1, &tempEventType, 
+        0, 0);
 
     // create timer
     EventLoopTimerRef tempPtrTimer;
@@ -865,7 +880,7 @@ int WindowApplication::Main(int, char**)
         NewEventLoopTimerUPP(ProcessTimer), 0, &tempPtrTimer);
 
     // create audio renderer
-    pTheApp->SetAudioRenderer(SE_NEW AalRenderer);
+    pTheApp->SetAudioRenderer(SE_NEW SEAalRenderer);
 
     if( !pTheApp->OnInitialize() )
     {
@@ -896,12 +911,12 @@ int WindowApplication::Main(int, char**)
     return 0;
 }
 //----------------------------------------------------------------------------
-void Application::LaunchTreeControl(Spatial*, int, int, int, int)
+void SEApplication::LaunchTreeControl(SESpatial*, int, int, int, int)
 {
     // TO DO
 }
 //----------------------------------------------------------------------------
-void Application::ShutdownTreeControl()
+void SEApplication::ShutdownTreeControl()
 {
     // TO DO
 }
