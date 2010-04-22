@@ -5,7 +5,7 @@
 
 using namespace Swing;
 
-class Lighting : public WindowApplication3
+class Lighting : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -20,14 +20,14 @@ protected:
     void CreateScene(void);
     void CreateLights(void);
 
-    NodePtr m_spScene;
-    TriMeshPtr m_spTeapot;
-    TriMeshPtr m_spQuad;
-    TexturePtr m_spTexture1;
-    TexturePtr m_spTexture2;
-    Culler m_Culler;
+    SENodePtr m_spScene;
+    SETriMeshPtr m_spTeapot;
+    SETriMeshPtr m_spQuad;
+    SETexturePtr m_spTexture1;
+    SETexturePtr m_spTexture2;
+    SECuller m_Culler;
 
-    LightPtr m_aspLight[4];
+    SELightPtr m_aspLight[4];
 };
 
 #endif
