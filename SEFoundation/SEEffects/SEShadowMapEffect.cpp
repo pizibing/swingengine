@@ -129,7 +129,7 @@ void SEShadowMapEffect::Draw(SERenderer* pRenderer, SESpatial*, int iMin, int
     {
         if( pVisibleSet[i].IsRenderable() )
         {
-            SEGeometry* pGeometry = (SEGeometry*)pVisibleSet[i].SEObject;
+            SEGeometry* pGeometry = (SEGeometry*)pVisibleSet[i].Object;
             pGeometry->AttachEffect(m_spDepthEffect);
             pGeometry->SetStartEffect(pGeometry->GetEffectCount() - 1);
             pRenderer->Draw(pGeometry);
@@ -174,7 +174,7 @@ void SEShadowMapEffect::Draw(SERenderer* pRenderer, SESpatial*, int iMin, int
     {
         if( pVisibleSet[i].IsRenderable() )
         {
-            SEGeometry* pGeometry = (SEGeometry*)pVisibleSet[i].SEObject;
+            SEGeometry* pGeometry = (SEGeometry*)pVisibleSet[i].Object;
             pGeometry->AttachEffect(m_spShadowEffect);
             pRenderer->Draw(pGeometry);
             pGeometry->DetachEffect(m_spShadowEffect);

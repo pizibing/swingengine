@@ -21,6 +21,6 @@
 //----------------------------------------------------------------------------
 inline bool SEUnculledObject::IsRenderable() const
 {
-    return SEObject && !GlobalEffect;
+    return Object && !GlobalEffect;
 }
 //----------------------------------------------------------------------------

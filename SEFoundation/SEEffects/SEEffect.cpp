@@ -51,7 +51,7 @@ void SEEffect::Draw(SERenderer* pRenderer, SESpatial*, int iMin, int iMax,
     {
         if( pVisibleSet[i].IsRenderable() )
         {
-            SEGeometry* pGeometry = (SEGeometry*)pVisibleSet[i].SEObject;
+            SEGeometry* pGeometry = (SEGeometry*)pVisibleSet[i].Object;
             pGeometry->AttachEffect(this);
             pRenderer->Draw(pGeometry);
             pGeometry->DetachEffect(this);

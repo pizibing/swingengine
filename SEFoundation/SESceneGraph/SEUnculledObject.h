@@ -39,7 +39,7 @@ class SESpatial;
 class SE_FOUNDATION_API SEUnculledObject
 {
 public:
-    SESpatial* SEObject;
+    SESpatial* Object;
     SEEffect* GlobalEffect;
 
     inline bool IsRenderable(void) const;

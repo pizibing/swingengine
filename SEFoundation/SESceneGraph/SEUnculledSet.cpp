@@ -49,7 +49,7 @@ void SEUnculledSet::Insert(SESpatial* pObject, SEEffect* pGlobalEffect)
     }
 
     int iIndex = m_iCount-1;
-    m_pUnculled[iIndex].SEObject = pObject;
+    m_pUnculled[iIndex].Object = pObject;
     m_pUnculled[iIndex].GlobalEffect = pGlobalEffect;
 }
 //----------------------------------------------------------------------------
