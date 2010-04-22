@@ -27,18 +27,18 @@ SE_REGISTER_INITIALIZE(Lighting2);
 //----------------------------------------------------------------------------
 Lighting2::Lighting2()
     :
-    WindowApplication3("Lighting2", 0, 0, 320, 480, 
-        ColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
+    SEWindowApplication3("Lighting2", 0, 0, 320, 480, 
+        SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
     m_fLight0Height = 4.0f;
     m_fLight1Height = 4.0f;
-    m_Light0Color = ColorRGB::SE_RGB_GREEN;
-    m_Light1Color = ColorRGB::SE_RGB_RED;
+    m_Light0Color = SEColorRGB::SE_RGB_GREEN;
+    m_Light1Color = SEColorRGB::SE_RGB_RED;
 }
 //----------------------------------------------------------------------------
 bool Lighting2::OnInitialize()
 {
-    if( !WindowApplication3::OnInitialize() )
+    if( !SEWindowApplication3::OnInitialize() )
     {
         return false;
     }
@@ -46,10 +46,10 @@ bool Lighting2::OnInitialize()
     float fR = 0.55f;
     float fU = fR*1.5f;
     m_spCamera->SetFrustum(-fR, fR, -fU, fU, 1.0f, 100.0f);
-    Vector3f tempCLoc(0.0f, 0.0f, -15.0f);
-    Vector3f tempCDir(0.0f, 0.0f, 1.0f);
-    Vector3f tempCUp(0.0f, 1.0f, 0.0f);
-    Vector3f tempCRight = tempCUp.Cross(tempCDir);
+    SEVector3f tempCLoc(0.0f, 0.0f, -15.0f);
+    SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
+    SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
+    SEVector3f tempCRight = tempCUp.Cross(tempCDir);
     m_spCamera->SetFrame(tempCLoc, tempCRight, tempCUp, tempCDir);
 
     CreateScene();
@@ -82,7 +82,7 @@ void Lighting2::OnTerminate()
     m_spLight1 = 0;
     m_spLight1Node = 0;
 
-    WindowApplication3::OnTerminate();
+    SEWindowApplication3::OnTerminate();
 }
 //----------------------------------------------------------------------------
 void Lighting2::OnIdle()
@@ -91,31 +91,33 @@ void Lighting2::OnIdle()
     static double dCurTime = 0.0f;
     static double dLastTime = 0.0f;
     static float fAngel0 = 0.0f;
-    static float fAngel1 = Mathf::PI;
+    static float fAngel1 = SEMathf::PI;
     static float fRadius0 = 4.0f;
     static float fRadius1 = 4.0f;
-    dCurTime = System::SE_GetTime();
+    dCurTime = SESystem::SE_GetTime();
     if( dCurTime - dLastTime > 0.0001f )
     {
         dLastTime = dCurTime;
         fAngel0 += 0.04f;
         fAngel1 -= 0.04f;
-        Matrix3f mat3fRot;
+        SEMatrix3f mat3fRot;
 
         mat3fRot.FromEulerAnglesXYZ(0.0f, -0.04f, 0.0f);
         m_spLight0Node->Local.SetRotate(m_spLight0Node->Local.GetRotate()
 										*mat3fRot);
-        float fX = fRadius0*Mathf::Cos(fAngel0);
-        float fZ = fRadius0*Mathf::Sin(fAngel0);
-        m_spLight0Node->Local.SetTranslate(Vector3f(fX, m_fLight0Height, fZ));
+        float fX = fRadius0*SEMathf::Cos(fAngel0);
+        float fZ = fRadius0*SEMathf::Sin(fAngel0);
+        m_spLight0Node->Local.SetTranslate(SEVector3f(fX, m_fLight0Height, 
+            fZ));
         m_spLight0Node->UpdateGS();
 
         mat3fRot.FromEulerAnglesXYZ(0.0f, 0.04f, 0.0f);
         m_spLight1Node->Local.SetRotate(m_spLight1Node->Local.GetRotate()
 										*mat3fRot);
-        fX = fRadius1*Mathf::Cos(fAngel1);
-        fZ = fRadius1*Mathf::Sin(fAngel1);
-        m_spLight1Node->Local.SetTranslate(Vector3f(fX, m_fLight1Height, fZ));
+        fX = fRadius1*SEMathf::Cos(fAngel1);
+        fZ = fRadius1*SEMathf::Sin(fAngel1);
+        m_spLight1Node->Local.SetTranslate(SEVector3f(fX, m_fLight1Height, 
+            fZ));
         m_spLight1Node->UpdateGS();
     }
 
@@ -136,7 +138,7 @@ void Lighting2::OnIdle()
     if( m_pRenderer->BeginScene() )
     {
         m_pRenderer->DrawScene(m_Culler.GetVisibleSet());
-        DrawFrameRate(8, GetHeight()-8, ColorRGBA::SE_RGBA_WHITE);
+        DrawFrameRate(8, GetHeight()-8, SEColorRGBA::SE_RGBA_WHITE);
         m_pRenderer->EndScene();
     }
     m_pRenderer->DisplayBackBuffer();
@@ -146,14 +148,14 @@ void Lighting2::OnIdle()
 //----------------------------------------------------------------------------
 void Lighting2::CreateScene()
 {
-    m_spScene = SE_NEW Node;
-    m_spWireframe = SE_NEW WireframeState;
+    m_spScene = SE_NEW SENode;
+    m_spWireframe = SE_NEW SEWireframeState;
     m_spScene->AttachGlobalState(m_spWireframe);
 
-    Matrix3f mat3fR;
-    mat3fR.FromAxisAngle(Vector3f::UNIT_Z, -Mathf::HALF_PI);
+    SEMatrix3f mat3fR;
+    mat3fR.FromAxisAngle(SEVector3f::UNIT_Z, -SEMathf::HALF_PI);
     m_spScene->Local.SetRotate(mat3fR);
-    m_spScene->Local.SetTranslate(Vector3f(-5.0f, 0.0f, 0.0f));
+    m_spScene->Local.SetTranslate(SEVector3f(-5.0f, 0.0f, 0.0f));
 
     CreateLights();
     CreateModels();
@@ -171,7 +173,7 @@ void Lighting2::CreateScene()
 void Lighting2::CreateLights()
 {
     // Create light0(point light).
-    m_spLight0 = SE_NEW Light(Light::LT_POINT);
+    m_spLight0 = SE_NEW SELight(SELight::LT_POINT);
     m_spLight0->Ambient = m_Light0Color*0.5f;
     m_spLight0->Diffuse = m_Light0Color;
     m_spLight0->Specular = m_Light0Color*0.5f;
@@ -179,27 +181,28 @@ void Lighting2::CreateLights()
     m_spLight0->Quadratic = 0.02f;
 
     // Create light0's node.
-    m_spLight0Node = SE_NEW LightNode(m_spLight0);
-    m_spLight0Node->Local.SetTranslate(Vector3f(0.0f, m_fLight0Height, 0.0f));
+    m_spLight0Node = SE_NEW SELightNode(m_spLight0);
+    m_spLight0Node->Local.SetTranslate(SEVector3f(0.0f, m_fLight0Height, 
+        0.0f));
 
     // Create a sphere to represent the light0's source.
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetColorChannels(0, 3);
     float fRadius = 0.2f;
-    TriMesh* pPLightSphere = StandardMesh(tempAttr).Sphere(8, 8, fRadius);
+    SETriMesh* pPLightSphere = SEStandardMesh(tempAttr).Sphere(8, 8, fRadius);
     m_spLight0Node->AttachChild(pPLightSphere);
-    VertexBuffer* pVBuffer = pPLightSphere->VBuffer;
+    SEVertexBuffer* pVBuffer = pPLightSphere->VBuffer;
     int iVCount = pVBuffer->GetVertexCount();
     for( int i = 0; i < iVCount; i++ )
     {
         pVBuffer->Color3(0, i) = m_Light0Color;
     }
-    VertexColor3Effect* pLightSphereEffect = SE_NEW VertexColor3Effect;
+    SEVertexColor3Effect* pLightSphereEffect = SE_NEW SEVertexColor3Effect;
     pPLightSphere->AttachEffect(pLightSphereEffect);
 
     // Create light1(point light).
-    m_spLight1 = SE_NEW Light(Light::LT_POINT);
+    m_spLight1 = SE_NEW SELight(SELight::LT_POINT);
     m_spLight1->Ambient = m_Light1Color*0.5f;
     m_spLight1->Diffuse = m_Light1Color;
     m_spLight1->Specular = m_Light1Color*0.5f;
@@ -207,11 +210,12 @@ void Lighting2::CreateLights()
     m_spLight1->Quadratic = 0.02f;
 
     // Create light1's node.
-    m_spLight1Node = SE_NEW LightNode(m_spLight1);
-    m_spLight1Node->Local.SetTranslate(Vector3f(0.0f, m_fLight1Height, 0.0f));
+    m_spLight1Node = SE_NEW SELightNode(m_spLight1);
+    m_spLight1Node->Local.SetTranslate(SEVector3f(0.0f, m_fLight1Height, 
+        0.0f));
 
     // Create a sphere to represent the light1's source.
-    pPLightSphere = StandardMesh(tempAttr).Sphere(8, 8, fRadius);
+    pPLightSphere = SEStandardMesh(tempAttr).Sphere(8, 8, fRadius);
     m_spLight1Node->AttachChild(pPLightSphere);
     pVBuffer = pPLightSphere->VBuffer;
     iVCount = pVBuffer->GetVertexCount();
@@ -225,107 +229,107 @@ void Lighting2::CreateLights()
 void Lighting2::CreateModels()
 {
     // polished gold.
-    MaterialState* pGoldMaterial = SE_NEW MaterialState;
-    pGoldMaterial->Ambient = ColorRGB(0.24725f, 0.2245f, 0.0645f);
-    pGoldMaterial->Diffuse = ColorRGB(0.34615f, 0.3143f, 0.0903f);
-    pGoldMaterial->Specular = ColorRGB(0.797357f, 0.723991f, 0.208006f);
+    SEMaterialState* pGoldMaterial = SE_NEW SEMaterialState;
+    pGoldMaterial->Ambient = SEColorRGB(0.24725f, 0.2245f, 0.0645f);
+    pGoldMaterial->Diffuse = SEColorRGB(0.34615f, 0.3143f, 0.0903f);
+    pGoldMaterial->Specular = SEColorRGB(0.797357f, 0.723991f, 0.208006f);
     pGoldMaterial->Shininess = 83.2f;
 
     // polished red.
-    MaterialState* pRedMaterial = SE_NEW MaterialState;
-    pRedMaterial->Ambient = ColorRGB(0.8f, 0.0f, 0.0f);
-    pRedMaterial->Diffuse = ColorRGB(0.8f, 0.0f, 0.0f);
-    pRedMaterial->Specular = ColorRGB(1.0f, 1.0f, 1.0f);
+    SEMaterialState* pRedMaterial = SE_NEW SEMaterialState;
+    pRedMaterial->Ambient = SEColorRGB(0.8f, 0.0f, 0.0f);
+    pRedMaterial->Diffuse = SEColorRGB(0.8f, 0.0f, 0.0f);
+    pRedMaterial->Specular = SEColorRGB(1.0f, 1.0f, 1.0f);
     pRedMaterial->Shininess = 83.2f;
 
     // polished blue.
-    MaterialState* pBlueMaterial = SE_NEW MaterialState;
-    pBlueMaterial->Ambient = ColorRGB(0.0f, 0.0f, 0.2f);
-    pBlueMaterial->Diffuse = ColorRGB(0.0f, 0.0f, 0.8f);
-    pBlueMaterial->Specular = ColorRGB(1.0f, 1.0f, 1.0f);
+    SEMaterialState* pBlueMaterial = SE_NEW SEMaterialState;
+    pBlueMaterial->Ambient = SEColorRGB(0.0f, 0.0f, 0.2f);
+    pBlueMaterial->Diffuse = SEColorRGB(0.0f, 0.0f, 0.8f);
+    pBlueMaterial->Specular = SEColorRGB(1.0f, 1.0f, 1.0f);
     pBlueMaterial->Shininess = 83.2f;
 
     // polished white.
-    MaterialState* pWhiteMaterial = SE_NEW MaterialState;
-    pWhiteMaterial->Ambient = ColorRGB(0.2f, 0.2f, 0.2f);
-    pWhiteMaterial->Diffuse = ColorRGB(0.8f, 0.8f, 0.8f);
-    pWhiteMaterial->Specular = ColorRGB(1.0f, 1.0f, 1.0f);
+    SEMaterialState* pWhiteMaterial = SE_NEW SEMaterialState;
+    pWhiteMaterial->Ambient = SEColorRGB(0.2f, 0.2f, 0.2f);
+    pWhiteMaterial->Diffuse = SEColorRGB(0.8f, 0.8f, 0.8f);
+    pWhiteMaterial->Specular = SEColorRGB(1.0f, 1.0f, 1.0f);
     pWhiteMaterial->Shininess = 50.0f;
 
     // polished copper.
-    MaterialState* pCopperMaterial = SE_NEW MaterialState;
-    pCopperMaterial->Ambient = ColorRGB(0.2295f, 0.08825f, 0.0275f);
-    pCopperMaterial->Diffuse = ColorRGB(0.5508f, 0.2118f, 0.066f);
-    pCopperMaterial->Specular = ColorRGB(0.580594f, 0.223257f, 0.0695701f);
+    SEMaterialState* pCopperMaterial = SE_NEW SEMaterialState;
+    pCopperMaterial->Ambient = SEColorRGB(0.2295f, 0.08825f, 0.0275f);
+    pCopperMaterial->Diffuse = SEColorRGB(0.5508f, 0.2118f, 0.066f);
+    pCopperMaterial->Specular = SEColorRGB(0.580594f, 0.223257f, 0.0695701f);
     pCopperMaterial->Shininess = 51.2f;
 
     // We apply these texture effects as post-lighting effects,
     // so the src output fragments should be modulated with dst buffer pixels.
-    TextureEffect* pTextureRockEffect = SE_NEW TextureEffect("rock");
-    AlphaState* pAState = pTextureRockEffect->GetBlending(0);
-    pAState->SrcBlend = AlphaState::SBF_DST_COLOR;
-    pAState->DstBlend = AlphaState::DBF_ZERO;
+    SETextureEffect* pTextureRockEffect = SE_NEW SETextureEffect("rock");
+    SEAlphaState* pAState = pTextureRockEffect->GetBlending(0);
+    pAState->SrcBlend = SEAlphaState::SBF_DST_COLOR;
+    pAState->DstBlend = SEAlphaState::DBF_ZERO;
 
-    TextureEffect* pTextureWoodEffect = SE_NEW TextureEffect("wood512");
+    SETextureEffect* pTextureWoodEffect = SE_NEW SETextureEffect("wood512");
     pAState = pTextureWoodEffect->GetBlending(0);
-    pAState->SrcBlend = AlphaState::SBF_DST_COLOR;
-    pAState->DstBlend = AlphaState::DBF_ZERO;
+    pAState->SrcBlend = SEAlphaState::SBF_DST_COLOR;
+    pAState->DstBlend = SEAlphaState::DBF_ZERO;
 
-    Node* pRoot = SE_NEW Node;
+    SENode* pRoot = SE_NEW SENode;
 
-    Attributes tempAttr;
+    SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     tempAttr.SetNormalChannels(3);
     tempAttr.SetTCoordChannels(0, 2);
 
 #if defined(SE_USING_OES2)
-    Geometry::GeometryLightingMode eLMode = Geometry::GLM_PIPELINE_VERTEX;
+    SEGeometry::GeometryLightingMode eLMode = SEGeometry::GLM_PIPELINE_VERTEX;
 #else
-    Geometry::GeometryLightingMode eLMode = Geometry::GLM_PIPELINE_PIXEL;
+    SEGeometry::GeometryLightingMode eLMode = SEGeometry::GLM_PIPELINE_PIXEL;
 #endif
 
     float fExtend = 8.0f;
-    StandardMesh tempSM(tempAttr);
+    SEStandardMesh tempSM(tempAttr);
     // floor.
-    TriMesh* pMesh = tempSM.Rectangle(4, 4, fExtend, fExtend);
+    SETriMesh* pMesh = tempSM.Rectangle(4, 4, fExtend, fExtend);
     pMesh->LightingMode = eLMode;
     pMesh->AttachGlobalState(pWhiteMaterial);
     pMesh->AttachEffect(pTextureWoodEffect);
     pMesh->GenerateNormals();
-    Matrix3f mat3fRot;
-	mat3fRot.FromEulerAnglesXYZ(Mathf::PI/2.0f, 0.0f, 0.0f);
+    SEMatrix3f mat3fRot;
+	mat3fRot.FromEulerAnglesXYZ(SEMathf::PI/2.0f, 0.0f, 0.0f);
 	pMesh->Local.SetRotate(mat3fRot);
 	pRoot->AttachChild(pMesh);
 
     // far wall.
-    pMesh = SE_NEW TriMesh(pMesh->VBuffer, pMesh->IBuffer);
+    pMesh = SE_NEW SETriMesh(pMesh->VBuffer, pMesh->IBuffer);
     pMesh->LightingMode = eLMode;
     pMesh->AttachGlobalState(pWhiteMaterial);
     pMesh->AttachEffect(pTextureRockEffect);
     pMesh->GenerateNormals();
-    pMesh->Local.SetTranslate(Vector3f(0.0f, fExtend, fExtend));
+    pMesh->Local.SetTranslate(SEVector3f(0.0f, fExtend, fExtend));
     pRoot->AttachChild(pMesh);
 
     // left wall.
-    pMesh = SE_NEW TriMesh(pMesh->VBuffer, pMesh->IBuffer);
+    pMesh = SE_NEW SETriMesh(pMesh->VBuffer, pMesh->IBuffer);
     pMesh->LightingMode = eLMode;
     pMesh->AttachGlobalState(pWhiteMaterial);
     pMesh->AttachEffect(pTextureRockEffect);
     pMesh->GenerateNormals();
-    mat3fRot.FromEulerAnglesXYZ(0.0f, -Mathf::PI/2.0f, 0.0f);
+    mat3fRot.FromEulerAnglesXYZ(0.0f, -SEMathf::PI/2.0f, 0.0f);
     pMesh->Local.SetRotate(mat3fRot);
-    pMesh->Local.SetTranslate(Vector3f(-fExtend, fExtend, 0.0f));
+    pMesh->Local.SetTranslate(SEVector3f(-fExtend, fExtend, 0.0f));
     pRoot->AttachChild(pMesh);
 
     // right wall.
-    pMesh = SE_NEW TriMesh(pMesh->VBuffer, pMesh->IBuffer);
+    pMesh = SE_NEW SETriMesh(pMesh->VBuffer, pMesh->IBuffer);
     pMesh->LightingMode = eLMode;
     pMesh->AttachGlobalState(pWhiteMaterial);
     pMesh->AttachEffect(pTextureRockEffect);
     pMesh->GenerateNormals();
-    mat3fRot.FromEulerAnglesXYZ(0.0f, Mathf::PI/2.0f, 0.0f);
+    mat3fRot.FromEulerAnglesXYZ(0.0f, SEMathf::PI/2.0f, 0.0f);
     pMesh->Local.SetRotate(mat3fRot);
-    pMesh->Local.SetTranslate(Vector3f(fExtend, fExtend, 0.0f));
+    pMesh->Local.SetTranslate(SEVector3f(fExtend, fExtend, 0.0f));
     pRoot->AttachChild(pMesh);
 
     // sphere.
@@ -333,7 +337,7 @@ void Lighting2::CreateModels()
     pMesh->LightingMode = eLMode;
     pMesh->AttachGlobalState(pGoldMaterial);
     pMesh->GenerateNormals();
-    pMesh->Local.SetTranslate(Vector3f(0.0f, 1.0f, 0.0f));
+    pMesh->Local.SetTranslate(SEVector3f(0.0f, 1.0f, 0.0f));
     pRoot->AttachChild(pMesh);
 
     // cylinder.
@@ -341,9 +345,9 @@ void Lighting2::CreateModels()
     pMesh->LightingMode = eLMode;
     pMesh->AttachGlobalState(pRedMaterial);
     pMesh->GenerateNormals();
-    mat3fRot.FromEulerAnglesXYZ(Mathf::PI/2.0f, 0.0f, 0.0f);
+    mat3fRot.FromEulerAnglesXYZ(SEMathf::PI/2.0f, 0.0f, 0.0f);
     pMesh->Local.SetRotate(mat3fRot);
-    pMesh->Local.SetTranslate(Vector3f(2.0f, 1.0f, 1.0f));
+    pMesh->Local.SetTranslate(SEVector3f(2.0f, 1.0f, 1.0f));
     pRoot->AttachChild(pMesh);
 
     // box.
@@ -351,9 +355,9 @@ void Lighting2::CreateModels()
     pMesh->LightingMode = eLMode;
     pMesh->AttachGlobalState(pBlueMaterial);
     pMesh->GenerateNormals();
-    mat3fRot.FromEulerAnglesXYZ(0.0f, Mathf::PI/3.0f, 0.0f);
+    mat3fRot.FromEulerAnglesXYZ(0.0f, SEMathf::PI/3.0f, 0.0f);
     pMesh->Local.SetRotate(mat3fRot);
-    pMesh->Local.SetTranslate(Vector3f(-1.6f, 0.6f, -1.0f));
+    pMesh->Local.SetTranslate(SEVector3f(-1.6f, 0.6f, -1.0f));
     pRoot->AttachChild(pMesh);
 
     // torus.
@@ -361,9 +365,9 @@ void Lighting2::CreateModels()
     pMesh->LightingMode = eLMode;
     pMesh->AttachGlobalState(pCopperMaterial);
     pMesh->GenerateNormals();
-    mat3fRot.FromEulerAnglesXYZ(Mathf::PI/2.0f, 0.0f, 0.0f);
+    mat3fRot.FromEulerAnglesXYZ(SEMathf::PI/2.0f, 0.0f, 0.0f);
     pMesh->Local.SetRotate(mat3fRot);
-    pMesh->Local.SetTranslate(Vector3f(0.0f, 0.2f, 0.0f));
+    pMesh->Local.SetTranslate(SEVector3f(0.0f, 0.2f, 0.0f));
     pRoot->AttachChild(pMesh);
 
     // tetrahedron.
@@ -371,9 +375,9 @@ void Lighting2::CreateModels()
     pMesh->LightingMode = eLMode;
     pMesh->AttachGlobalState(pWhiteMaterial);
     pMesh->GenerateNormals();
-    mat3fRot.FromEulerAnglesXYZ(-Mathf::PI/2.0f, 0.0f, 0.0f);
+    mat3fRot.FromEulerAnglesXYZ(-SEMathf::PI/2.0f, 0.0f, 0.0f);
     pMesh->Local.SetRotate(mat3fRot);
-    pMesh->Local.SetTranslate(Vector3f(1.8f, 1.0f/3.0f, -0.8f));
+    pMesh->Local.SetTranslate(SEVector3f(1.8f, 1.0f/3.0f, -0.8f));
     pRoot->AttachChild(pMesh);
 
     m_spModelRoot = pRoot;

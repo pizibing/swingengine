@@ -25,7 +25,7 @@
 
 using namespace Swing;
 
-class Lighting2 : public WindowApplication3
+class Lighting2 : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -41,20 +41,20 @@ protected:
     void CreateLights(void);
     void CreateModels(void);
 
-    NodePtr m_spScene;
-    NodePtr m_spModelRoot;
-    WireframeStatePtr m_spWireframe;
-    Culler m_Culler;
+    SENodePtr m_spScene;
+    SENodePtr m_spModelRoot;
+    SEWireframeStatePtr m_spWireframe;
+    SECuller m_Culler;
 
     float m_fLight0Height;
-    ColorRGB m_Light0Color;
-    LightPtr m_spLight0;
-    LightNodePtr m_spLight0Node;
+    SEColorRGB m_Light0Color;
+    SELightPtr m_spLight0;
+    SELightNodePtr m_spLight0Node;
 
     float m_fLight1Height;
-    ColorRGB m_Light1Color;
-    LightPtr m_spLight1;
-    LightNodePtr m_spLight1Node;
+    SEColorRGB m_Light1Color;
+    SELightPtr m_spLight1;
+    SELightNodePtr m_spLight1Node;
 };
 
 #endif
