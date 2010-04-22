@@ -4,7 +4,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-AalRenderer::AalRenderer()
+SEAalRenderer::SEAalRenderer()
 {
     m_pALDevice = 0;
     m_pALContext = 0;
@@ -23,7 +23,7 @@ AalRenderer::AalRenderer()
     InitializeState();
 }
 //----------------------------------------------------------------------------
-AalRenderer::~AalRenderer()
+SEAalRenderer::~SEAalRenderer()
 {
     //  Õ∑≈context∫Õdevice.
     alcMakeContextCurrent(NULL);

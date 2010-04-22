@@ -29,7 +29,7 @@ using namespace Swing;
 //----------------------------------------------------------------------------
 void Swing::SE_OpenALRenderer_Register()
 {
-    // OpenALRendering
+    // OpenAL Rendering
     SE_REGISTER_INITIALIZE(SEOpenALRenderer);
     SE_INVOKE_INITIALIZE(SEOpenALRenderer);
 

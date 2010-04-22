@@ -8,16 +8,15 @@ namespace Swing
 {
 
 //----------------------------------------------------------------------------
-// 名称:Mac OS X OpenAL1.0 Renderer类
 // 说明:
 // 作者:Sun Che
 // 时间:20090629
 //----------------------------------------------------------------------------
-class SE_AUDIO_RENDERER_API AalRenderer : public OpenALRenderer
+class SE_AUDIO_RENDERER_API SEAalRenderer : public SEOpenALRenderer
 {
 public:
-    AalRenderer(void);
-    virtual ~AalRenderer(void);
+    SEAalRenderer(void);
+    virtual ~SEAalRenderer(void);
 
     // 参数访问.
     ALCdevice* GetALDevice(void){ return m_pALDevice; }
