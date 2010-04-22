@@ -6,7 +6,7 @@
 
 using namespace Swing;
 
-class HelloiPhone : public WindowApplication3
+class HelloiPhone : public SEWindowApplication3
 {
     SE_DECLARE_INITIALIZE;
 
@@ -20,9 +20,9 @@ public:
 protected:
     void CreateScene(void);
 
-    NodePtr m_spScene;
-    TriMeshPtr m_spMesh;
-    Culler m_Culler;
+    SENodePtr m_spScene;
+    SETriMeshPtr m_spMesh;
+    SECuller m_Culler;
 };
 
 #endif
