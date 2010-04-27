@@ -24,6 +24,7 @@
 using namespace Swing;
 using namespace Swing::Tools::SceneEditor;
 
+//----------------------------------------------------------------------------
 [STAThreadAttribute]
 int main(array<System::String^>^)
 {
@@ -38,6 +39,9 @@ int main(array<System::String^>^)
     SESystem::SE_Initialize();
     std::string tempSEPath(SESystem::SE_PATH);
     SEMain::Initialize();
+
+    // Initialize picking system.
+    SETriMesh::InitializePickRecordPool(32, 32);
 
     // 总是检查当前工作目录.
     SESystem::SE_InsertDirectory(".");
@@ -55,7 +59,29 @@ int main(array<System::String^>^)
     tempDir = tempSEPath + std::string("/Data/sesp/Cg");
     SESystem::SE_InsertDirectory(tempDir.c_str());
 
-    Application::Run(gcnew MainForm());
+    // If you want to deploy your application, then add your resource
+    // directories to system searching list as you choose.
+    SESystem::SE_InsertDirectory("./Data/seif");
+    SESystem::SE_InsertDirectory("./Data/seof");
+    SESystem::SE_InsertDirectory("./Data/sesp/Cg");
+
+    // Create scene editor application.
+    MainForm^ thAppMainForm = gcnew MainForm();
+    SESceneEditorApplication^ thApp = gcnew SESceneEditorApplication(
+        thAppMainForm);
+
+    // Register idle handler.
+    Application::Idle += gcnew System::EventHandler(thApp, 
+        &SESceneEditorApplication::OnIdle);
+
+    // Start main loop.
+    Application::Run(thAppMainForm);
+
+    // Terminate picking system.
+    SETriMesh::TerminatePickRecordPool();
+
+    // Dispose scene editor application.
+    delete thApp;
 
     // Swing Engine terminate.
     SEMain::Terminate();
@@ -63,3 +89,4 @@ int main(array<System::String^>^)
 
     return 0;
 }
+//----------------------------------------------------------------------------

@@ -28,11 +28,11 @@ using namespace System::Runtime::CompilerServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly:AssemblyTitleAttribute("SwingEngine Scene Editor")];
-[assembly:AssemblyDescriptionAttribute("SwingEngine Scene Editor")];
+[assembly:AssemblyTitleAttribute("Swing Engine Scene Editor")];
+[assembly:AssemblyDescriptionAttribute("Swing Engine Scene Editor")];
 [assembly:AssemblyConfigurationAttribute("")];
 [assembly:AssemblyCompanyAttribute("")];
-[assembly:AssemblyProductAttribute("SwingEngine Scene Editor")];
+[assembly:AssemblyProductAttribute("Swing Engine Scene Editor")];
 [assembly:AssemblyCopyrightAttribute("")];
 [assembly:AssemblyTrademarkAttribute("")];
 [assembly:AssemblyCultureAttribute("")];

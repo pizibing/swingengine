@@ -229,6 +229,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\SESceneEditorApplication.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\SESceneEditorApplication.h"
+			>
+		</File>
+		<File
 			RelativePath=".\SESceneEditorPCH.cpp"
 			>
 			<FileConfiguration

@@ -27,4 +27,6 @@
 
 #pragma managed
 
+#include "SESceneEditorApplication.h"
+
 using namespace System;

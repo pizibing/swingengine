@@ -31,7 +31,6 @@ using namespace System::Drawing;
 namespace Swing{ namespace Tools{ namespace SceneEditor{
 
 //----------------------------------------------------------------------------
-// Name:Main form class
 // Description:
 // Author:Sun Che
 // Date:20100407
@@ -44,6 +43,15 @@ public:
         InitializeComponent();
     }
 
+    // Properties.
+    property PictureBox^ MainRenderingWindow
+    {
+        PictureBox^ get(void)
+        {
+            return pictureBoxRendering;
+        }
+    }
+
 protected:
     ~MainForm()
     {
@@ -52,6 +60,8 @@ protected:
             delete components;
         }
     }
+private: System::Windows::Forms::PictureBox^  pictureBoxRendering;
+protected: 
 
 private:
     /// <summary>
@@ -64,17 +74,29 @@ private:
     /// 设计器支持所需的方法 - 不要
     /// 使用代码编辑器修改此方法的内容。
     /// </summary>
-	void InitializeComponent(void)
-	{
+    void InitializeComponent(void)
+    {
+        this->pictureBoxRendering = (gcnew System::Windows::Forms::PictureBox());
+        (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBoxRendering))->BeginInit();
         this->SuspendLayout();
+        // 
+        // pictureBoxRendering
+        // 
+        this->pictureBoxRendering->Location = System::Drawing::Point(12, 26);
+        this->pictureBoxRendering->Name = L"pictureBoxRendering";
+        this->pictureBoxRendering->Size = System::Drawing::Size(640, 480);
+        this->pictureBoxRendering->TabIndex = 0;
+        this->pictureBoxRendering->TabStop = false;
         // 
         // MainForm
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-        this->ClientSize = System::Drawing::Size(710, 476);
+        this->ClientSize = System::Drawing::Size(710, 522);
+        this->Controls->Add(this->pictureBoxRendering);
         this->Name = L"MainForm";
         this->Text = L"MainForm";
+        (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBoxRendering))->EndInit();
         this->ResumeLayout(false);
 
     }
