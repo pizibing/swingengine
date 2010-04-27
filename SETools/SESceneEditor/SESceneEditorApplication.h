@@ -31,7 +31,8 @@ ref class MainForm;
 // Author:Sun Che
 // Date:20100427
 //----------------------------------------------------------------------------
-public ref class SESceneEditorApplication
+[CLSCompliant(false)]
+public ref class SESceneEditorApplication sealed
 {
 public:
     SESceneEditorApplication(MainForm^ thForm);

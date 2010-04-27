@@ -47,6 +47,8 @@ SESceneEditorApplication::SESceneEditorApplication(MainForm^ thForm)
         !SEPixelProgramCatalog::GetActive() || 
         !SEDX9ProgramInterfaceCatalog::GetActive() )
     {
+        // TODO:
+        // Handle this exception.
         throw gcnew NullReferenceException(
             "Initializing shader program catalog");
     }
@@ -99,6 +101,8 @@ SESceneEditorApplication::~SESceneEditorApplication()
         !SEPixelProgramCatalog::GetActive() || 
         !SEDX9ProgramInterfaceCatalog::GetActive() )
     {
+        // TODO:
+        // Handle this exception.
         throw gcnew NullReferenceException(
             "Terminating shader program catalog");
     }
