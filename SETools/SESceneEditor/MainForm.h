@@ -43,6 +43,8 @@ public:
         InitializeComponent();
 
         m_thApplication = nullptr;
+        pictureBoxRendering->MouseWheel += gcnew MouseEventHandler(this,
+            &MainForm::pictureBoxRendering_MouseWheel);
     }
 
     #pragma region Properties
@@ -54,7 +56,7 @@ public:
             return pictureBoxRendering;
         }
     }
-    property SESceneEditorApplication^ Application
+    property SESceneEditorApplication^ App
     {
         SESceneEditorApplication^ get(void)
         {
@@ -63,6 +65,13 @@ public:
         void set(SESceneEditorApplication^ thApplication)
         {
             m_thApplication = thApplication;
+        }
+    }
+    property bool UsingPlanform
+    {
+        bool get(void)
+        {
+            return false;
         }
     }
 
@@ -111,16 +120,22 @@ private:
         // 
         this->pictureBoxRendering->Location = System::Drawing::Point(12, 40);
         this->pictureBoxRendering->Name = L"pictureBoxRendering";
-        this->pictureBoxRendering->Size = System::Drawing::Size(640, 480);
+        this->pictureBoxRendering->Size = System::Drawing::Size(1024, 768);
         this->pictureBoxRendering->TabIndex = 0;
         this->pictureBoxRendering->TabStop = false;
+        this->pictureBoxRendering->MouseLeave += gcnew System::EventHandler(this, &MainForm::pictureBoxRendering_MouseLeave);
+        this->pictureBoxRendering->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pictureBoxRendering_MouseMove);
+        this->pictureBoxRendering->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pictureBoxRendering_MouseClick);
+        this->pictureBoxRendering->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pictureBoxRendering_MouseDown);
+        this->pictureBoxRendering->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pictureBoxRendering_MouseUp);
+        this->pictureBoxRendering->MouseEnter += gcnew System::EventHandler(this, &MainForm::pictureBoxRendering_MouseEnter);
         // 
         // menuStripMain
         // 
         this->menuStripMain->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->fileToolStripMenuItem});
         this->menuStripMain->Location = System::Drawing::Point(0, 0);
         this->menuStripMain->Name = L"menuStripMain";
-        this->menuStripMain->Size = System::Drawing::Size(785, 25);
+        this->menuStripMain->Size = System::Drawing::Size(1160, 25);
         this->menuStripMain->TabIndex = 1;
         this->menuStripMain->Text = L"menuStrip1";
         // 
@@ -150,17 +165,18 @@ private:
         this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
         this->exitToolStripMenuItem->Size = System::Drawing::Size(152, 22);
         this->exitToolStripMenuItem->Text = L"Exit";
+        this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::exitToolStripMenuItem_Click);
         // 
         // MainForm
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-        this->ClientSize = System::Drawing::Size(785, 545);
+        this->ClientSize = System::Drawing::Size(1160, 824);
         this->Controls->Add(this->pictureBoxRendering);
         this->Controls->Add(this->menuStripMain);
         this->MainMenuStrip = this->menuStripMain;
         this->Name = L"MainForm";
-        this->Text = L"MainForm";
+        this->Text = L"Swing Engine Scene Editor";
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBoxRendering))->EndInit();
         this->menuStripMain->ResumeLayout(false);
         this->menuStripMain->PerformLayout();
@@ -170,17 +186,82 @@ private:
     }
 #pragma endregion
 
-private:
-    SESceneEditorApplication^ m_thApplication;
-
 private: 
-    System::Void openToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) 
+    void openToolStripMenuItem_Click(Object^ thSender, EventArgs^ thEvent) 
     {
         if( m_thApplication )
         {
-            m_thApplication->OnOpenToolStripMenuItemClick(sender, e);
+            m_thApplication->OnOpenToolStripMenuItemClick(thSender, thEvent);
         }
     }
+
+    void pictureBoxRendering_MouseDown(Object^ thSender, MouseEventArgs^ thEvent)
+    {
+        if( m_thApplication )
+        {
+            m_thApplication->OnWindowRenderingMouseDown(thSender, thEvent);
+        }
+    }
+
+    void pictureBoxRendering_MouseEnter(Object^ thSender, EventArgs^ thEvent)
+    {
+        // To ensure the mouse wheel event could be triggered, we focus the rendering window.
+        pictureBoxRendering->Focus();
+
+        if( m_thApplication )
+        {
+            m_thApplication->OnWindowRenderingMouseEnter(thSender, thEvent);
+        }
+    }
+
+    void pictureBoxRendering_MouseLeave(Object^ thSender, EventArgs^ thEvent)
+    {
+        if( m_thApplication )
+        {
+            m_thApplication->OnWindowRenderingMouseLeave(thSender, thEvent);
+        }
+    }
+
+    void pictureBoxRendering_MouseMove(Object^ thSender, MouseEventArgs^ thEvent)
+    {
+        if( m_thApplication )
+        {
+            m_thApplication->OnWindowRenderingMouseMove(thSender, thEvent);
+        }
+    }
+
+    void pictureBoxRendering_MouseUp(Object^ thSender, MouseEventArgs^ thEvent)
+    {
+        if( m_thApplication )
+        {
+            m_thApplication->OnWindowRenderingMouseUp(thSender, thEvent);
+        }
+    }
+
+    void pictureBoxRendering_MouseClick(Object^ thSender, MouseEventArgs^ thEvent)
+    {
+        if( m_thApplication )
+        {
+            m_thApplication->OnWindowRenderingMouseClick(thSender, thEvent);
+        }
+    }
+
+    void pictureBoxRendering_MouseWheel(Object^ thSender, MouseEventArgs^ thEvent)
+    {
+        if( m_thApplication )
+        {
+            m_thApplication->OnWindowRenderingMouseWheel(thSender, thEvent);
+        }
+    }
+
+    void exitToolStripMenuItem_Click(Object^, EventArgs^)
+    {
+        Application::Exit();
+    }
+
+private:
+    SESceneEditorApplication^ m_thApplication;
+
 };
 
 }}}

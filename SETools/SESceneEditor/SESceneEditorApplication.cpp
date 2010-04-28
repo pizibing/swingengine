@@ -29,7 +29,17 @@ using namespace Swing::Tools::SceneEditor;
 SESceneEditorApplication::SESceneEditorApplication(MainForm^ thForm)
 {
     m_thAppMainForm = thForm;
-    m_thAppMainForm->Application = this;
+    m_thAppMainForm->App = this;
+
+    m_bFirstEntering = true;
+    m_bAllowCameraTrn = true;
+    m_bAllowCameraRot = false;
+    m_bAllowCameraVHTrn = false;
+    m_bAllowCameraTrackBall = false;
+    m_fOrthogonalFactor = 2.0f;
+    m_fCameraRotSpeed = 0.01f;
+    m_fCameraTrnSpeed = 0.2f;
+    m_fCameraVHTrnSpeed = 0.01f;
 
     // Create main renderer.
     m_pMainRenderer = SE_NEW SEDX9Renderer(
@@ -61,14 +71,14 @@ SESceneEditorApplication::SESceneEditorApplication(MainForm^ thForm)
     // Create main camera.
     m_pMainCamera = SE_NEW SECamera;
     m_pMainRenderer->SetCamera(m_pMainCamera);
-    float fDMin = 1.0f;
+    float fDMin = 0.001f;
     float fDMax = 1000.0f;
     float fRMax = 0.55f * fDMin;
     float fRMin = -fRMax;
     float fUMax = 0.4125f * fDMin;
     float fUMin = -fUMax;
     m_pMainCamera->SetFrustum(fRMin, fRMax, fUMin, fUMax, fDMin, fDMax);
-    SEVector3f tempCLoc(0.0f, 1.0f, -5.0f);
+    SEVector3f tempCLoc(0.0f, 1.5f, 0.0f);
     SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
     SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
     SEVector3f tempCRight = tempCUp.Cross(tempCDir);
@@ -118,7 +128,7 @@ SESceneEditorApplication::~SESceneEditorApplication()
     SE_DELETE m_pMainRenderer;
     m_pMainRenderer = 0;
 
-    m_thAppMainForm->Application = nullptr;
+    m_thAppMainForm->App = nullptr;
 }
 //---------------------------------------------------------------------------
 MainForm^ SESceneEditorApplication::AppMainForm::get()
@@ -198,5 +208,138 @@ void SESceneEditorApplication::OnOpenToolStripMenuItemClick(Object^,
     thDialog->ShowDialog();
 
     LoadFile(thDialog->FileName);
+}
+//---------------------------------------------------------------------------
+void SESceneEditorApplication::OnWindowRenderingMouseDown(Object^, 
+    MouseEventArgs^ thEvent)
+{
+    if( thEvent->Button == MouseButtons::Middle )
+    {
+        m_bAllowCameraVHTrn = true;
+    }
+    else if( thEvent->Button == MouseButtons::Left )
+    {
+    }
+    else if( thEvent->Button == MouseButtons::Right )
+    {
+        m_bAllowCameraRot = true;
+    }
+}
+//---------------------------------------------------------------------------
+void SESceneEditorApplication::OnWindowRenderingMouseEnter(Object^, 
+    EventArgs^)
+{
+}
+//---------------------------------------------------------------------------
+void SESceneEditorApplication::OnWindowRenderingMouseLeave(Object^, 
+    EventArgs^)
+{
+    m_bFirstEntering = true;
+}
+//---------------------------------------------------------------------------
+void SESceneEditorApplication::OnWindowRenderingMouseMove(Object^, 
+    MouseEventArgs^ thEvent)
+{
+    if( m_bFirstEntering )
+    {
+        m_LastMousePos.X = thEvent->Location.X;
+        m_LastMousePos.Y = thEvent->Location.Y;
+        m_bFirstEntering = false;
+    }
+    else
+    {
+        int iDiffX = thEvent->Location.X - m_LastMousePos.X;
+        int iDiffY = thEvent->Location.Y - m_LastMousePos.Y;
+        m_LastMousePos = thEvent->Location;
+
+        if( m_bAllowCameraRot && !m_thAppMainForm->UsingPlanform )
+        {
+            // Camera rotation.
+
+            // Get current orientation of camera.
+            SEVector3f tempR = m_pMainCamera->GetRVector();
+            SEVector3f tempU = m_pMainCamera->GetUVector();
+            SEVector3f tempD = m_pMainCamera->GetDVector();
+
+            // 纵向更新当前摄像机RUD轴姿态.
+            SEMatrix3f tempM(tempR, iDiffY * m_fCameraRotSpeed);
+            tempR = tempR * tempM;
+            tempU = tempU * tempM;
+            tempD = tempD * tempM;
+
+            //// 横向更新当前摄像机RUD轴姿态.
+            tempM.FromAxisAngle(SEVector3f::UNIT_Y, iDiffX * m_fCameraRotSpeed);
+            tempR = tempR * tempM;
+            tempU = tempU * tempM;
+            tempD = tempD * tempM;
+            m_pMainCamera->SetAxes(tempR, tempU, tempD);
+        }
+        else if( m_bAllowCameraVHTrn )
+        {
+            // Camera translation.
+
+            if( !m_thAppMainForm->UsingPlanform )
+            {
+                // 3D视图摄像机.
+                SEVector3f tempLoc = m_pMainCamera->GetLocation();
+                SEVector3f tempR = m_pMainCamera->GetRVector();
+                tempR *= m_fCameraVHTrnSpeed * iDiffX;
+                tempLoc += tempR;
+
+                SEVector3f tempU = m_pMainCamera->GetUVector();
+                tempU *= -m_fCameraVHTrnSpeed * iDiffY;
+                tempLoc += tempU;
+                m_pMainCamera->SetLocation(tempLoc);
+            }
+            else
+            {
+            }
+        }
+        else if( m_bAllowCameraTrackBall )
+        {
+        }
+    }
+}
+//---------------------------------------------------------------------------
+void SESceneEditorApplication::OnWindowRenderingMouseUp(Object^, 
+    MouseEventArgs^ thEvent)
+{
+    if( thEvent->Button == MouseButtons::Middle )
+    {
+        m_bAllowCameraVHTrn = false;
+        m_bAllowCameraTrackBall = false;
+    }
+    else if( thEvent->Button == MouseButtons::Left )
+    {
+    }
+    else if( thEvent->Button == MouseButtons::Right )
+    {
+        m_bAllowCameraRot = false;
+    }
+}
+//---------------------------------------------------------------------------
+void SESceneEditorApplication::OnWindowRenderingMouseClick(Object^, 
+    MouseEventArgs^)
+{
+}
+//---------------------------------------------------------------------------
+void SESceneEditorApplication::OnWindowRenderingMouseWheel(Object^, 
+    MouseEventArgs^ thEvent)
+{
+    // Moving forward or backward of camera.
+    if( m_bAllowCameraTrn )
+    {
+        if( m_thAppMainForm->UsingPlanform )
+        {
+        }
+        else
+        {
+            SEVector3f tempLoc = m_pMainCamera->GetLocation();
+            SEVector3f tempD = m_pMainCamera->GetDVector();
+            tempD *= m_fCameraTrnSpeed * (thEvent->Delta / 120);
+            tempLoc += tempD;
+            m_pMainCamera->SetLocation(tempLoc);
+        }
+    }
 }
 //---------------------------------------------------------------------------

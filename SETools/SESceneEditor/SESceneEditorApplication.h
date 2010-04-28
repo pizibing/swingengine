@@ -21,6 +21,11 @@
 #pragma once
 
 using namespace System;
+using namespace System::ComponentModel;
+using namespace System::Collections;
+using namespace System::Windows::Forms;
+using namespace System::Data;
+using namespace System::Drawing;
 
 namespace Swing{ namespace Tools{ namespace SceneEditor{
 
@@ -65,6 +70,20 @@ public:
 
     void OnOpenToolStripMenuItemClick(Object^ thSender, EventArgs^ thEvent);
 
+    void OnWindowRenderingMouseDown(Object^ thSender, MouseEventArgs^ thEvent);
+
+    void OnWindowRenderingMouseEnter(Object^ thSender, EventArgs^ thEvent);
+
+    void OnWindowRenderingMouseLeave(Object^ thSender, EventArgs^ thEvent);
+
+    void OnWindowRenderingMouseMove(Object^ thSender, MouseEventArgs^ thEvent);
+
+    void OnWindowRenderingMouseUp(Object^ thSender, MouseEventArgs^ thEvent);
+
+    void OnWindowRenderingMouseClick(Object^ thSender, MouseEventArgs^ thEvent);
+
+    void OnWindowRenderingMouseWheel(Object^ thSender, MouseEventArgs^ thEvent);
+
     #pragma endregion
 
 private:
@@ -79,6 +98,18 @@ private:
 
     SENode* m_pSceneRoot;
     SEWireframeState* m_pWireframe;
+
+    // Main rendering window camera operation.
+    Point m_LastMousePos;
+    bool m_bFirstEntering;
+    bool m_bAllowCameraTrn;
+    bool m_bAllowCameraRot;
+    bool m_bAllowCameraVHTrn;
+    bool m_bAllowCameraTrackBall;
+    float m_fOrthogonalFactor;
+    float m_fCameraRotSpeed;
+    float m_fCameraTrnSpeed;
+    float m_fCameraVHTrnSpeed;
 
     #pragma endregion
 };
