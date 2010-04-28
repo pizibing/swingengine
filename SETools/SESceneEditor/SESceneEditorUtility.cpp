@@ -18,16 +18,34 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#pragma once
-
-#pragma unmanaged
-
-#include "SwingFoundation.h"
-#include "SwingDX9Renderer.h"
-
-#pragma managed
-
-#include "SESceneEditorApplication.h"
+#include "SESceneEditorPCH.h"
 #include "SESceneEditorUtility.h"
 
-using namespace System;
+using namespace Swing;
+using namespace Swing::Tools::SceneEditor;
+using namespace System::Runtime::InteropServices;
+
+//---------------------------------------------------------------------------
+const char* SESceneEditorUtility::StringToNativeCharBuffer(String^ thString)
+{
+    if( !thString )
+    {
+        return 0;
+    }
+
+    // Native heap resource is allocated here.
+    IntPtr pBuffer = Marshal::StringToHGlobalAnsi(thString);
+    return (const char*)(void*)pBuffer;
+}
+//---------------------------------------------------------------------------
+void SESceneEditorUtility::FreeNativeCharBuffer(const char* acBuffer)
+{
+    if( !acBuffer )
+    {
+        return;
+    }
+
+    // We've done with the native resource allocated by Marshal, free it.
+    Marshal::FreeHGlobal((IntPtr)(void*)acBuffer);
+}
+//---------------------------------------------------------------------------

@@ -68,7 +68,7 @@ SESceneEditorApplication::SESceneEditorApplication(MainForm^ thForm)
     float fUMax = 0.4125f * fDMin;
     float fUMin = -fUMax;
     m_pMainCamera->SetFrustum(fRMin, fRMax, fUMin, fUMax, fDMin, fDMax);
-    SEVector3f tempCLoc(0.0f, 5.0f, -30.0f);
+    SEVector3f tempCLoc(0.0f, 1.0f, -5.0f);
     SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
     SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
     SEVector3f tempCRight = tempCUp.Cross(tempCDir);
@@ -80,12 +80,15 @@ SESceneEditorApplication::SESceneEditorApplication(MainForm^ thForm)
 
     // Create scene root.
     m_pSceneRoot = SE_NEW SENode;
+    m_pWireframe = SE_NEW SEWireframeState;
+    m_pSceneRoot->AttachGlobalState(m_pWireframe);
 }
 //---------------------------------------------------------------------------
 SESceneEditorApplication::~SESceneEditorApplication()
 {
     // Release scene root.
     SE_DELETE m_pSceneRoot;
+    m_pWireframe = 0;
     m_pSceneRoot = 0;
 
     // Release main culler.
@@ -152,6 +155,35 @@ void SESceneEditorApplication::OnIdle(Object^, EventArgs^)
     m_pMainRenderer->DisplayBackBuffer();
 }
 //---------------------------------------------------------------------------
+void SESceneEditorApplication::LoadFile(String^ thFileName)
+{
+    if( thFileName == nullptr || thFileName == "" )
+    {
+        return;
+    }
+
+    const char* acFileName = SESceneEditorUtility::StringToNativeCharBuffer(
+        thFileName);
+
+    SEStream tempStream;
+    SENode* pSceneLoaded = 0;
+    bool bLoaded = false;
+
+    bLoaded = tempStream.Load(acFileName);
+    if( bLoaded )
+    {
+        pSceneLoaded = DynamicCast<SENode>(tempStream.GetObjectAt(0));
+        if( pSceneLoaded )
+        {
+            m_pSceneRoot->AttachChild(pSceneLoaded);
+            m_pSceneRoot->UpdateGS();
+            m_pSceneRoot->UpdateRS();
+        }
+    }
+
+    SESceneEditorUtility::FreeNativeCharBuffer(acFileName);
+}
+//---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
 // WinForm Event Callbacks
@@ -165,6 +197,6 @@ void SESceneEditorApplication::OnOpenToolStripMenuItemClick(Object^,
     thDialog->RestoreDirectory = true;
     thDialog->ShowDialog();
 
-    //LoadFile(dialog.FileName);
+    LoadFile(thDialog->FileName);
 }
 //---------------------------------------------------------------------------

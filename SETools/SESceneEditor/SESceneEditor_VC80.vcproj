@@ -260,6 +260,14 @@
 			RelativePath=".\SESceneEditorPCH.h"
 			>
 		</File>
+		<File
+			RelativePath=".\SESceneEditorUtility.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\SESceneEditorUtility.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

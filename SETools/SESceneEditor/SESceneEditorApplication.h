@@ -68,6 +68,8 @@ public:
     #pragma endregion
 
 private:
+    void LoadFile(String^ thFileName);
+
     #pragma region Data Members
 
     MainForm^ m_thAppMainForm;
@@ -76,6 +78,7 @@ private:
     SECuller* m_pMainCuller;
 
     SENode* m_pSceneRoot;
+    SEWireframeState* m_pWireframe;
 
     #pragma endregion
 };

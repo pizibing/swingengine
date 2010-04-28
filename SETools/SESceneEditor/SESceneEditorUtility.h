@@ -20,14 +20,22 @@
 
 #pragma once
 
-#pragma unmanaged
+namespace Swing{ namespace Tools{ namespace SceneEditor{
 
-#include "SwingFoundation.h"
-#include "SwingDX9Renderer.h"
+//----------------------------------------------------------------------------
+// Description:
+// Author:Sun Che
+// Date:20100428
+//----------------------------------------------------------------------------
+public ref class SESceneEditorUtility sealed
+{
+public:
+    // Allocate a native heap buffer and fill it with the CLI string object's
+    // content. You should call FreeNativeCharBuffer() function to deallocate 
+    // the native heap buffer when you have finished with it. 
+	// These two functions must be used in pairs.
+    static const char* StringToNativeCharBuffer(String^ thString);
+    static void FreeNativeCharBuffer(const char* acBuffer);
+};
 
-#pragma managed
-
-#include "SESceneEditorApplication.h"
-#include "SESceneEditorUtility.h"
-
-using namespace System;
+}}}
