@@ -61,6 +61,12 @@ public:
 
     void OnIdle(Object^ thSender, EventArgs^ thEvent);
 
+    #pragma region WinForm Event Callbacks
+
+    void OnOpenToolStripMenuItemClick(Object^ thSender, EventArgs^ thEvent);
+
+    #pragma endregion
+
 private:
     #pragma region Data Members
 

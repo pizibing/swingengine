@@ -29,6 +29,7 @@ using namespace Swing::Tools::SceneEditor;
 SESceneEditorApplication::SESceneEditorApplication(MainForm^ thForm)
 {
     m_thAppMainForm = thForm;
+    m_thAppMainForm->Application = this;
 
     // Create main renderer.
     m_pMainRenderer = SE_NEW SEDX9Renderer(
@@ -113,6 +114,8 @@ SESceneEditorApplication::~SESceneEditorApplication()
     // Release main renderer.
     SE_DELETE m_pMainRenderer;
     m_pMainRenderer = 0;
+
+    m_thAppMainForm->Application = nullptr;
 }
 //---------------------------------------------------------------------------
 MainForm^ SESceneEditorApplication::AppMainForm::get()
@@ -147,5 +150,21 @@ void SESceneEditorApplication::OnIdle(Object^, EventArgs^)
         m_pMainRenderer->EndScene();
     }
     m_pMainRenderer->DisplayBackBuffer();
+}
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+// WinForm Event Callbacks
+//---------------------------------------------------------------------------
+void SESceneEditorApplication::OnOpenToolStripMenuItemClick(Object^, 
+    EventArgs^)
+{
+    OpenFileDialog^ thDialog = gcnew OpenFileDialog;
+    thDialog->Filter = "seof|*.seof";
+    thDialog->FilterIndex = 1;
+    thDialog->RestoreDirectory = true;
+    thDialog->ShowDialog();
+
+    //LoadFile(dialog.FileName);
 }
 //---------------------------------------------------------------------------
