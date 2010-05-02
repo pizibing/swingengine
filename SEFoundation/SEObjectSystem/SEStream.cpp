@@ -189,7 +189,7 @@ bool SEStream::Load(char* pBuffer, int iSize)
     while( ppLink )
     {
         pObject = (*ppLink)->GetObject();  // 获取该对象当前内存地址
-        pObject->SELink(*this, *ppLink);     // 为该对象建立连接关系
+        pObject->SELink(*this, *ppLink);   // 为该对象建立连接关系
         m_Ordered.push_back(pObject);      // 此时的顺序为迭代hash表的访问顺序
         ppLink = m_Map.GetNext(&pObject);
     }
