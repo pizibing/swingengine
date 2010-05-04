@@ -62,6 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				IgnoreImportLibrary="true"
 				AdditionalDependencies="mscoree.lib msvcmrtd.lib msvcrtd.lib SEFoundation80d.lib SEDX9Renderer80d.lib SEToolsCommon80d.lib libcollada14dom20-sd80.lib libboost_filesystem-d.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib winmm.lib"
 				OutputFile="SceneEditor_VC80Dx9DebDyn.exe"
 				LinkIncremental="2"
