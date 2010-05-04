@@ -120,7 +120,7 @@ private:
         // 
         this->pictureBoxRendering->Location = System::Drawing::Point(12, 40);
         this->pictureBoxRendering->Name = L"pictureBoxRendering";
-        this->pictureBoxRendering->Size = System::Drawing::Size(1024, 768);
+        this->pictureBoxRendering->Size = System::Drawing::Size(800, 600);
         this->pictureBoxRendering->TabIndex = 0;
         this->pictureBoxRendering->TabStop = false;
         this->pictureBoxRendering->MouseLeave += gcnew System::EventHandler(this, &MainForm::pictureBoxRendering_MouseLeave);
@@ -150,20 +150,20 @@ private:
         // openToolStripMenuItem
         // 
         this->openToolStripMenuItem->Name = L"openToolStripMenuItem";
-        this->openToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+        this->openToolStripMenuItem->Size = System::Drawing::Size(108, 22);
         this->openToolStripMenuItem->Text = L"Open";
         this->openToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::openToolStripMenuItem_Click);
         // 
         // saveToolStripMenuItem
         // 
         this->saveToolStripMenuItem->Name = L"saveToolStripMenuItem";
-        this->saveToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+        this->saveToolStripMenuItem->Size = System::Drawing::Size(108, 22);
         this->saveToolStripMenuItem->Text = L"Save";
         // 
         // exitToolStripMenuItem
         // 
         this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
-        this->exitToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+        this->exitToolStripMenuItem->Size = System::Drawing::Size(108, 22);
         this->exitToolStripMenuItem->Text = L"Exit";
         this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::exitToolStripMenuItem_Click);
         // 
@@ -171,7 +171,7 @@ private:
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-        this->ClientSize = System::Drawing::Size(1160, 824);
+        this->ClientSize = System::Drawing::Size(1160, 673);
         this->Controls->Add(this->pictureBoxRendering);
         this->Controls->Add(this->menuStripMain);
         this->MainMenuStrip = this->menuStripMain;

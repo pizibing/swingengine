@@ -43,7 +43,7 @@ SESceneEditorApplication::SESceneEditorApplication(MainForm^ thForm)
 
     // Create main renderer.
     m_pMainRenderer = SE_NEW SEDX9Renderer(
-        (HWND)(int)(thForm->MainRenderingWindow->Handle), 
+        (HWND)(thForm->MainRenderingWindow->Handle.ToPointer()), 
         SEFrameBuffer::FT_FORMAT_RGBA, 
         SEFrameBuffer::DT_DEPTH_24,
         SEFrameBuffer::ST_STENCIL_8, 
