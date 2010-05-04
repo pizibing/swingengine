@@ -48,6 +48,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="SESceneEditorPCH.h"
 				WarningLevel="4"
+				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
 			<Tool
