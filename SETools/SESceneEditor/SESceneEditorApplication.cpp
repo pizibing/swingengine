@@ -180,23 +180,38 @@ void SESceneEditorApplication::LoadFile(String^ thFileName)
         return;
     }
 
+    // Get file extension.
+    array<String^>^ thSubItems = thFileName->Split('.');
+    String^ thExt = thSubItems[thSubItems->Length - 1];
+
     const char* acFileName = SESceneEditorUtility::StringToNativeCharBuffer(
         thFileName);
 
-    SEStream tempStream;
-    SENode* pSceneLoaded = 0;
-    bool bLoaded = false;
-
-    bLoaded = tempStream.Load(acFileName);
-    if( bLoaded )
+    if( thExt == "seof" )
     {
-        pSceneLoaded = DynamicCast<SENode>(tempStream.GetObjectAt(0));
-        if( pSceneLoaded )
+        // Load a Swing Engine Object File.
+
+        SEStream tempStream;
+        SENode* pSceneLoaded = 0;
+        bool bLoaded = false;
+
+        bLoaded = tempStream.Load(acFileName);
+        if( bLoaded )
         {
-            m_pSceneRoot->AttachChild(pSceneLoaded);
-            m_pSceneRoot->UpdateGS();
-            m_pSceneRoot->UpdateRS();
+            pSceneLoaded = DynamicCast<SENode>(tempStream.GetObjectAt(0));
+            if( pSceneLoaded )
+            {
+                m_pSceneRoot->AttachChild(pSceneLoaded);
+                m_pSceneRoot->UpdateGS();
+                m_pSceneRoot->UpdateRS();
+            }
         }
+    }
+    else if( thExt == "dae" )
+    {
+        // Load a COLLADA XML File.
+
+        m_pColladaScene->Load(acFileName);
     }
 
     SESceneEditorUtility::FreeNativeCharBuffer(acFileName);
@@ -210,7 +225,7 @@ void SESceneEditorApplication::OnOpenToolStripMenuItemClick(Object^,
     EventArgs^)
 {
     OpenFileDialog^ thDialog = gcnew OpenFileDialog;
-    thDialog->Filter = "seof|*.seof";
+    thDialog->Filter = "Swing Engine Object File|*.seof|COLLADA|*.dae";
     thDialog->FilterIndex = 1;
     thDialog->RestoreDirectory = true;
     thDialog->ShowDialog();
