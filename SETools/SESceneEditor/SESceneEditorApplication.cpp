@@ -92,10 +92,18 @@ SESceneEditorApplication::SESceneEditorApplication(MainForm^ thForm)
     m_pSceneRoot = SE_NEW SENode;
     m_pWireframe = SE_NEW SEWireframeState;
     m_pSceneRoot->AttachGlobalState(m_pWireframe);
+
+    // Create COLLADA importer.
+    m_pColladaScene = SE_NEW SEColladaScene(
+        ((SEDX9Renderer*)m_pMainRenderer)->GetDevice());
 }
 //---------------------------------------------------------------------------
 SESceneEditorApplication::~SESceneEditorApplication()
 {
+    // Release COLLADA importer.
+    SE_DELETE m_pColladaScene;
+    m_pColladaScene = 0;
+
     // Release scene root.
     SE_DELETE m_pSceneRoot;
     m_pWireframe = 0;

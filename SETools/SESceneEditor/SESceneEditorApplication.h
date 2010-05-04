@@ -91,10 +91,20 @@ private:
 
     #pragma region Data Members
 
+    // GUI stuff.
     MainForm^ m_thAppMainForm;
+
+    // Renderer stuff.
     SERenderer* m_pMainRenderer;
+
+    // Camera stuff.
     SECamera* m_pMainCamera;
+
+    // Culler stuff.
     SECuller* m_pMainCuller;
+
+    // COLLADA importer.
+    SEColladaScene* m_pColladaScene;
 
     SENode* m_pSceneRoot;
     SEWireframeState* m_pWireframe;

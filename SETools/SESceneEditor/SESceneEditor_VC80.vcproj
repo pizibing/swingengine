@@ -41,8 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\SDK\Include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS;SE_FOUNDATION_DLL_IMPORT;SE_RENDERER_DLL_IMPORT"
+				AdditionalIncludeDirectories="..\..\SDK\Include;..\..\ThirdPartyLibs\ColladaDOM\Include;..\..\ThirdPartyLibs\ColladaDOM\Include\1.4"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS;SE_FOUNDATION_DLL_IMPORT;SE_RENDERER_DLL_IMPORT;SE_TOOLS_COMMON_DLL_IMPORT"
 				ExceptionHandling="0"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -62,10 +62,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="mscoree.lib msvcmrtd.lib msvcrtd.lib SEFoundation80d.lib SEDX9Renderer80d.lib SEToolsCommon80d.lib"
+				AdditionalDependencies="mscoree.lib msvcmrtd.lib msvcrtd.lib SEFoundation80d.lib SEDX9Renderer80d.lib SEToolsCommon80d.lib libcollada14dom20-sd80.lib libboost_filesystem-d.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib winmm.lib"
 				OutputFile="SceneEditor_VC80Dx9DebDyn.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\SDK\Lib\DebugDLL"
+				AdditionalLibraryDirectories="..\..\SDK\Lib\DebugDLL;..\..\ThirdPartyLibs\ColladaDOM\Lib\Debug;..\..\ThirdPartyLibs\Boost\Lib\Debug;..\..\ThirdPartyLibs\LibXML2\Lib\Debug;..\..\ThirdPartyLibs\PCRE\Lib\Debug;..\..\ThirdPartyLibs\ZLib\Lib\Debug"
+				IgnoreDefaultLibraryNames="msvcrt"
 				ForceSymbolReferences="__DllMainCRTStartup@12"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
@@ -96,7 +97,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy /y ..\..\SDK\Lib\DebugDLL\SEFoundation80d.dll SEFoundation80d.dll&#x0D;&#x0A;copy /y ..\..\SDK\Lib\DebugDLL\SEDX9Renderer80d.dll SEDX9Renderer80d.dll&#x0D;&#x0A;copy /y ..\..\SDK\Lib\DebugDLL\SEToolsCommon80d.dll SEToolsCommon80d.dll"
+				CommandLine="copy /y ..\..\SDK\Lib\DebugDLL\SEFoundation80d.dll SEFoundation80d.dll&#x0D;&#x0A;copy /y ..\..\SDK\Lib\DebugDLL\SEDX9Renderer80d.dll SEDX9Renderer80d.dll&#x0D;&#x0A;copy /y ..\..\SDK\Lib\DebugDLL\SEToolsCommon80d.dll SEToolsCommon80d.dll&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration

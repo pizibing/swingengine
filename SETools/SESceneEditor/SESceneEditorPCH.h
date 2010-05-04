@@ -24,6 +24,7 @@
 
 #include "SwingFoundation.h"
 #include "SwingDX9Renderer.h"
+#include "SwingToolsCommon.h"
 
 #pragma managed
 
