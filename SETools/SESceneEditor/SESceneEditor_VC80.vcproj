@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="mscoree.lib msvcmrtd.lib msvcrtd.lib SEFoundation80d.lib SEDX9Renderer80d.lib"
+				AdditionalDependencies="mscoree.lib msvcmrtd.lib msvcrtd.lib SEFoundation80d.lib SEDX9Renderer80d.lib SEToolsCommon80d.lib"
 				OutputFile="SceneEditor_VC80Dx9DebDyn.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\DebugDLL"
@@ -96,7 +96,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy /y ..\..\SDK\Lib\DebugDLL\SEFoundation80d.dll SEFoundation80d.dll&#x0D;&#x0A;copy /y ..\..\SDK\Lib\DebugDLL\SEDX9Renderer80d.dll SEDX9Renderer80d.dll&#x0D;&#x0A;"
+				CommandLine="copy /y ..\..\SDK\Lib\DebugDLL\SEFoundation80d.dll SEFoundation80d.dll&#x0D;&#x0A;copy /y ..\..\SDK\Lib\DebugDLL\SEDX9Renderer80d.dll SEDX9Renderer80d.dll&#x0D;&#x0A;copy /y ..\..\SDK\Lib\DebugDLL\SEToolsCommon80d.dll SEToolsCommon80d.dll"
 			/>
 		</Configuration>
 		<Configuration
