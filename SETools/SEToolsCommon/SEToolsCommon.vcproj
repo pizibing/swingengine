@@ -198,6 +198,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				IgnoreImportLibrary="false"
 				AdditionalDependencies="SEFoundation80d.lib d3d9.lib d3dx9.lib libcollada14dom20-sd80.lib libboost_filesystem-d.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib winmm.lib"
 				OutputFile="..\..\SDK\Lib\DebugDLL\SEToolsCommon80d.dll"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\DebugDLL;..\..\ThirdPartyLibs\ColladaDOM\Lib\Debug;..\..\ThirdPartyLibs\Boost\Lib\Debug;..\..\ThirdPartyLibs\LibXML2\Lib\Debug;..\..\ThirdPartyLibs\PCRE\Lib\Debug;..\..\ThirdPartyLibs\ZLib\Lib\Debug"
