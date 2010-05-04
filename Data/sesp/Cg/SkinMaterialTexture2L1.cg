@@ -98,7 +98,7 @@ void p_SkinMaterialTexture2L1
 {
     // Fetch T0 color.
     float4 kT0Color = tex2D(T0Sampler, kBaseTCoord);
-    kT0Color.rgb *= 1.5f;
+    kT0Color.rgb *= 2.0f;
 
     // Fetch T1 color.
     float4 kT1Color = tex2D(T1Sampler, kBaseTCoord);
@@ -118,19 +118,18 @@ void p_SkinMaterialTexture2L1
     float fRdV = max(0.0f, dot(kReflection, kViewDirection));
     
     // Compute ambient component.
-    float3 kAmbient = Light0Ambient * kT0Color.rgb * 0.5f;
+    float3 kAmbient = Light0Ambient*kT0Color.rgb*kT1Color.rgb*0.65f;
     
     // Compute diffuse component.
     fNdL = max(0.0f, fNdL);
-    float3 kDiffuse = fNdL * Light0Diffuse * kT0Color.rgb * 0.3f;
+    float3 kDiffuse = fNdL*Light0Diffuse*kT0Color.rgb*kT1Color.rgb*0.15f;
     
     // Compute specular component.
-    float3 kSpecular = pow(fRdV, MaterialSpecular.a) * Light0Specular * 0.2f;
+    float3 kSpecular = pow(fRdV, MaterialSpecular.a) * Light0Specular * 0.05f;
     
     // Compute the sum of light0's components, and multiply it with computed
     // attenuation factor.
-    float3 kFinalColor = kWorldLight.w * (kAmbient + kDiffuse + 
-        kSpecular) * kT1Color;
+    float3 kFinalColor = kWorldLight.w * (kAmbient + kDiffuse + kSpecular);
 
     kPixelColor.rgb = kFinalColor;
     kPixelColor.a = kT0Color.a;
