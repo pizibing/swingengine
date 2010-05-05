@@ -259,7 +259,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\;.\SEImage;.\SECollada;.\SEToolSystem;..\..\SDK\Include"
+				AdditionalIncludeDirectories=".\;.\SEImage;.\SECollada;.\SEToolSystem;..\..\SDK\Include;..\..\ThirdPartyLibs\ColladaDOM\Include;..\..\ThirdPartyLibs\ColladaDOM\Include\1.4"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS;SE_FOUNDATION_DLL_IMPORT;SE_TOOLS_COMMON_DLL_EXPORT"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -280,9 +280,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80.lib d3d9.lib d3dx9.lib dxerr9.lib"
+				AdditionalDependencies="SEFoundation80.lib d3d9.lib d3dx9.lib libcollada14dom20-s80.lib libboost_filesystem.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib winmm.lib"
 				OutputFile="..\..\SDK\Lib\ReleaseDLL\SEToolsCommon80.dll"
-				AdditionalLibraryDirectories="..\..\SDK\Lib\ReleaseDLL"
+				AdditionalLibraryDirectories="..\..\SDK\Lib\ReleaseDLL;..\..\ThirdPartyLibs\ColladaDOM\Lib\Release;..\..\ThirdPartyLibs\Boost\Lib\Release;..\..\ThirdPartyLibs\LibXML2\Lib\Release;..\..\ThirdPartyLibs\PCRE\Lib\Release;..\..\ThirdPartyLibs\ZLib\Lib\Release"
+				IgnoreDefaultLibraryNames=""
 				ImportLibrary="..\..\SDK\Lib\ReleaseDLL\SEToolsCommon80.lib"
 			/>
 			<Tool
