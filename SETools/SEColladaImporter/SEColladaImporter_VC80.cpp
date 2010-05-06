@@ -64,11 +64,11 @@ int main(array<System::String^> ^)
     // 添加application所需资源目录.
     Swing::SESystem::SE_InsertDirectory(".");
     std::string tempDir;
-    tempDir = tempSEPath + std::string("\\Data\\sesp\\Cg");
+    tempDir = tempSEPath + std::string("/Data/sesp/Cg");
     Swing::SESystem::SE_InsertDirectory(tempDir.c_str());
 
     // 其它image文件的路径.
-    tempDir = tempSEPath + std::string("\\Data\\Image");
+    tempDir = tempSEPath + std::string("/Data/Image");
     Swing::SESystem::SE_InsertDirectory(tempDir.c_str());
 
     // 创建application主窗体.
