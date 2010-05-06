@@ -61,6 +61,7 @@ private:
     char m_acFilename[256];
 
     Swing::SEColladaScene* m_pColladaScene;
+    Swing::SEImageConverter* m_pImageConverter;
 };
 
 #endif

@@ -59,8 +59,9 @@ void ColladaImporterApp::CreateScene()
     AppCuller.SetCamera(AppCamera);
     AppCuller.ComputeUnculledSet(AppScene);
 
-    m_pColladaScene = SE_NEW SEColladaScene(
+    m_pImageConverter = SE_NEW SEImageConverter(
         ((SEDX9Renderer*)AppRenderer)->GetDevice());
+    m_pColladaScene = SE_NEW SEColladaScene(m_pImageConverter);
 }
 //----------------------------------------------------------------------------
 void ColladaImporterApp::DestroyScene()
@@ -70,6 +71,7 @@ void ColladaImporterApp::DestroyScene()
     AppWireframe = 0;
 
     SE_DELETE m_pColladaScene;
+    SE_DELETE m_pImageConverter;
 }
 //----------------------------------------------------------------------------
 void ColladaImporterApp::OnSave(const char* acFilename)
