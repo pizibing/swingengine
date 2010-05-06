@@ -73,7 +73,7 @@ public:
 class SE_TOOLS_COMMON_API SEColladaScene
 {
 public:
-    SEColladaScene(IDirect3DDevice9* pDevice);
+    SEColladaScene(SEImageConverter* pImageConverter);
     ~SEColladaScene(void);
 
     // Current coordinate frame orientation mode, depending on the DCC tools.

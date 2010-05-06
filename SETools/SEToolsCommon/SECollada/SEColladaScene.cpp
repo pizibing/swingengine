@@ -27,16 +27,15 @@ SEColladaScene::OrientationMode SEColladaScene::ms_eOrientationMode =
     SEColladaScene::OM_UNKNOWN;
 
 //----------------------------------------------------------------------------
-SEColladaScene::SEColladaScene(IDirect3DDevice9* pDevice)
+SEColladaScene::SEColladaScene(SEImageConverter* m_pImageConverter)
 {
     m_pDAE = SE_NEW DAE;
-    m_pImageConverter = SE_NEW SEImageConverter(pDevice);
+    m_pImageConverter = m_pImageConverter;
 }
 //----------------------------------------------------------------------------
 SEColladaScene::~SEColladaScene()
 {
     SE_DELETE m_pDAE;
-    SE_DELETE m_pImageConverter;
 }
 //----------------------------------------------------------------------------
 void SEColladaScene::Load(const char* acFilename)
