@@ -764,14 +764,7 @@ bool SESystem::SE_InsertDirectory(const char* pDirectory)
         SE_Initialize();
     }
 
-    std::string tempSeparator;
-#ifdef _WIN32
-    tempSeparator = "\\";
-#else
-    tempSeparator = "/";
-#endif
-
-    std::string NewDirectory = std::string(pDirectory) + tempSeparator;
+    std::string NewDirectory = std::string(pDirectory) + "/";
     for( int i = 0; i < (int)Directories->size(); i++ )
     {
         if( NewDirectory == (*Directories)[i] )
@@ -791,14 +784,7 @@ bool SESystem::SE_RemoveDirectory(const char* pDirectory)
         SE_Initialize();
     }
 
-    std::string tempSeparator;
-#ifdef _WIN32
-    tempSeparator = "\\";
-#else
-    tempSeparator = "/";
-#endif
-
-    std::string CurDirectory = std::string(pDirectory) + tempSeparator;
+    std::string CurDirectory = std::string(pDirectory) + "/";
     std::vector<std::string>::iterator Iter = Directories->begin();
     for( /**/; Iter != Directories->end(); Iter++ )
     {

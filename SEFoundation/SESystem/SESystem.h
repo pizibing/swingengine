@@ -126,7 +126,7 @@ public:
         pFileName);
 
     // 维护一个目录列表,供应用程序查询,列表初始为空,
-    // 由应用程序插入若干期望目录,目录名不能用目录分隔符结尾(比如"/"或"\\"),
+    // 由应用程序插入若干期望目录,目录名不能用目录分隔符结尾(比如"/"),
     // SE_InsertDirectory和SE_RemoveDirectory将会自动管理该字符
     static void SE_Initialize(void);
     static void SE_Terminate(void);
