@@ -183,7 +183,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy /y ..\..\SDK\Lib\ReleaseDLL\SEFoundation80.dll SEFoundation80.dll&#x0D;&#x0A;copy /y ..\..\SDK\Lib\ReleaseDLL\SEDX9Renderer80.dll SEDX9Renderer80.dll&#x0D;&#x0A;copy /y ..\..\SDK\Lib\ReleaseDLL\SEToolsCommon80.dll SEToolsCommon80.dll"
+				CommandLine="copy /y ..\..\SDK\Lib\ReleaseDLL\SEFoundation80.dll SEFoundation80.dll&#x0D;&#x0A;copy /y ..\..\SDK\Lib\ReleaseDLL\SEDX9Renderer80.dll SEDX9Renderer80.dll&#x0D;&#x0A;copy /y ..\..\SDK\Lib\ReleaseDLL\SEToolsCommon80.dll SEToolsCommon80.dll&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
