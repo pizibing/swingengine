@@ -22,7 +22,7 @@
 #define Swing_Platforms_H
 
 //----------------------------------------------------------------------------
-// Microsoft Windows 2000/XP platform
+// Microsoft Windows 2000/XP/Vista/7 platform
 //----------------------------------------------------------------------------
 #if defined(_WIN32)
 
