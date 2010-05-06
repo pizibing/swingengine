@@ -215,6 +215,14 @@ void SESceneEditorApplication::LoadFile(String^ thFileName)
         // Load a COLLADA XML File.
 
         m_pColladaScene->Load(acFileName);
+        SENode* pSceneLoaded = 0;
+        pSceneLoaded = m_pColladaScene->GetScene();
+        if( pSceneLoaded )
+        {
+            m_pSceneRoot->AttachChild(pSceneLoaded);
+            m_pSceneRoot->UpdateGS();
+            m_pSceneRoot->UpdateRS();
+        }
     }
 
     SESceneEditorUtility::FreeNativeCharBuffer(acFileName);
