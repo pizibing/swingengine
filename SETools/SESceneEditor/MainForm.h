@@ -176,6 +176,7 @@ private:
         this->Controls->Add(this->menuStripMain);
         this->MainMenuStrip = this->menuStripMain;
         this->Name = L"MainForm";
+        this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
         this->Text = L"Swing Engine Scene Editor";
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBoxRendering))->EndInit();
         this->menuStripMain->ResumeLayout(false);

@@ -103,8 +103,9 @@ private:
     // Culler stuff.
     SECuller* m_pMainCuller;
 
-    // COLLADA importer.
+    // Importers.
     SEColladaScene* m_pColladaScene;
+    SEImageConverter* m_pImageConverter;
 
     SENode* m_pSceneRoot;
     SEWireframeState* m_pWireframe;
