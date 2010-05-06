@@ -48,32 +48,32 @@ int main(array<System::String^>^)
 
     // scene graph文件的路径.
     std::string tempDir;
-    tempDir = tempSEPath + std::string("\\Data\\seof");
+    tempDir = tempSEPath + std::string("/Data/seof");
     SESystem::SE_InsertDirectory(tempDir.c_str());
 
     // texture image文件的路径.
-    tempDir = tempSEPath + std::string("\\Data\\seif");
+    tempDir = tempSEPath + std::string("/Data/seif");
     SESystem::SE_InsertDirectory(tempDir.c_str());
 
     // shader program文件的路径.
-    tempDir = tempSEPath + std::string("\\Data\\sesp\\Cg");
+    tempDir = tempSEPath + std::string("/Data/sesp/Cg");
     SESystem::SE_InsertDirectory(tempDir.c_str());
 
     // 其它image文件的路径.
-    tempDir = tempSEPath + std::string("\\Data\\Image");
+    tempDir = tempSEPath + std::string("/Data/Image");
     SESystem::SE_InsertDirectory(tempDir.c_str());
 
     // COLLADA文件的路径.
-    tempDir = tempSEPath + std::string("\\Data\\dae");
+    tempDir = tempSEPath + std::string("/Data/dae");
     SESystem::SE_InsertDirectory(tempDir.c_str());
 
     // If you want to deploy your application, then add your resource
     // directories to system searching list as you choose.
-    SESystem::SE_InsertDirectory(".\\Data\\seif");
-    SESystem::SE_InsertDirectory(".\\Data\\seof");
-    SESystem::SE_InsertDirectory(".\\Data\\sesp\\Cg");
-    SESystem::SE_InsertDirectory(".\\Data\\Image");
-    SESystem::SE_InsertDirectory(".\\Data\\dae");
+    SESystem::SE_InsertDirectory("./Data/seif");
+    SESystem::SE_InsertDirectory("./Data/seof");
+    SESystem::SE_InsertDirectory("./Data/sesp/Cg");
+    SESystem::SE_InsertDirectory("./Data/Image");
+    SESystem::SE_InsertDirectory("./Data/dae");
 
     // Create scene editor application.
     MainForm^ thAppMainForm = gcnew MainForm();
