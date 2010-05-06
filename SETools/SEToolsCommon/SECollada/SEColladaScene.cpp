@@ -27,10 +27,11 @@ SEColladaScene::OrientationMode SEColladaScene::ms_eOrientationMode =
     SEColladaScene::OM_UNKNOWN;
 
 //----------------------------------------------------------------------------
-SEColladaScene::SEColladaScene(SEImageConverter* m_pImageConverter)
+SEColladaScene::SEColladaScene(SEImageConverter* pImageConverter)
 {
+    SE_ASSERT( pImageConverter );
     m_pDAE = SE_NEW DAE;
-    m_pImageConverter = m_pImageConverter;
+    m_pImageConverter = pImageConverter;
 }
 //----------------------------------------------------------------------------
 SEColladaScene::~SEColladaScene()

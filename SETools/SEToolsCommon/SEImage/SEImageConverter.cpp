@@ -19,6 +19,7 @@ using namespace Swing;
 SEImageConverter::SEImageConverter(IDirect3DDevice9* pDevice)
 {
     SE_ASSERT( pDevice );
+    pDevice->AddRef();
     m_pDXDevice = pDevice;
 }
 //----------------------------------------------------------------------------
@@ -28,6 +29,8 @@ SEImageConverter::SEImageConverter()
 //----------------------------------------------------------------------------
 SEImageConverter::~SEImageConverter()
 {
+    m_pDXDevice->Release();
+    m_pDXDevice = 0;
 }
 //----------------------------------------------------------------------------
 SEImage* SEImageConverter::CreateImageFromFile(const char* acFilename)
