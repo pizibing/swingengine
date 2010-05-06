@@ -188,8 +188,3 @@ shader program×ÊÔ´»á±»ÊÍ·Å,µ±Ç°´ıÊ¹ÓÃRendererËùÊ¹ÓÃµÄdeviceµÄshader program×ÊÔ´»
 
 2010 0325 1643
 Ò»¶¨ÒªÈ·±£Àà³ÉÔ±µÄÕıÈ·³õÊ¼»¯(ÔÚ¹¹Ôìº¯ÊıÖĞ),Ä³Ğ©debugºÍrelease°æ³ÌĞòÔËĞĞ½á¹û²»Ò»ÖÂµÄÎÊÌâ,ºÜÓĞ¿ÉÄÜÊÇÓÉÎ´ÄÜ³õÊ¼»¯µÄÀà³ÉÔ±±äÁ¿Ôì³ÉµÄ.
-
-2010 0505 1353
-¹ØÓÚÎÄ¼şÄ¿Â¼·Ö¸ô·û,WindowsÏÂµÄC±ê×¼¿âÖ§³Ö´«Í³Unix·ç¸ñµÄ'/',Í¬Ê±Ò²Ö§³ÖWindows·ç¸ñµÄ'\',µ«SEImageConverterÖĞÊ¹ÓÃµÄD3DX¿âÖĞµÄD3DXCreateTextureFromFileº¯ÊıËÆºõÖ»ÄÜ
-Ö§³ÖWindows·ç¸ñµÄ'\',±ÈÈç"D:\Work\SwingEngine\Data\Image\somefile.jpg".Òò´ËĞŞ¸ÄSESystem::SE_InsertDirectoryºÍSESystem::SE_RemoveDirectoryº¯Êı,Ê¹ÆäÔÚ
-Windows»·¾³ÏÂÖ§³Ö'\'.
