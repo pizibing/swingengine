@@ -96,23 +96,26 @@ SEImage* SEColladaScene::LoadImage(domImageRef spDomImage)
     if( pDomImage )
     {
         xsAnyURI tempImageFileURI = pDomImage->getInit_from()->getValue();
-        std::string strImageFileName;
-        strImageFileName = cdom::uriToFilePath(tempImageFileURI.str());
+        const char* acOriginalFileName = 
+            (const char*)tempImageFileURI.getOriginalURI();
+        const char* acFileName = SESystem::SE_GetPath(acOriginalFileName,
+            SESystem::SM_READ);
+        SE_ASSERT( acFileName );
 
         // Load the actual image by image file name.
-        // TODO:
-        // This is the working dir of the running application.
-        pImage = m_pImageConverter->CreateImageFromFile(
-            strImageFileName.c_str());
-
-        if( pImage )
+        if( acFileName )
         {
-            std::string tempImageName = (const char*)strImageID;
-            tempImageName += ".seif";
-            pImage->SetName(tempImageName);
-            m_Images.push_back(pImage);
+            pImage = m_pImageConverter->CreateImageFromFile(acFileName);
 
-            return pImage;
+            if( pImage )
+            {
+                std::string tempImageName = (const char*)strImageID;
+                tempImageName += ".seif";
+                pImage->SetName(tempImageName);
+                m_Images.push_back(pImage);
+
+                return pImage;
+            }
         }
     }
 
