@@ -140,7 +140,7 @@
 #include "SEAlphaState.h"
 #include "SEMaterialState.h"
 #include "SEWireframeState.h"
-#include "SEZbufferState.h"
+#include "SEZBufferState.h"
 #include "SEStencilState.h"
 #include "SECullState.h"
 #include "SEPolygonOffsetState.h"
@@ -167,7 +167,7 @@
 
 // Controllers
 #include "SEController.h"
-#include "SEKeyFrameController.h"
+#include "SEKeyframeController.h"
 #include "SESkinController.h"
 #include "SEParticleController.h"
 
