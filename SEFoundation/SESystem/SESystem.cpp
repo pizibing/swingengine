@@ -676,6 +676,8 @@ const char* SESystem::SE_GetPath(const char* pDirectory,
     CFRelease(tempBundleURL);
     CFRelease(tempFSPath);
 
+    // Application bundle is the working directory we want to go.
+#if 0
     // which directory we want to go?
     // 0 ${ApplicationPath}/build/Default/executableFile
     // 1 ${ApplicationPath}/build/Default
@@ -690,6 +692,8 @@ const char* SESystem::SE_GetPath(const char* pDirectory,
             *pEnd = '\0';
         }
     }
+#endif
+
     int iRes = chdir(Path);
     SE_ASSERT( iRes == 0 );
     (void)iRes;
