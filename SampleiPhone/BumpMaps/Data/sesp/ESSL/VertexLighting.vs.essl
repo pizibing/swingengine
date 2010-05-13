@@ -1,0 +1,146 @@
+#define PI 3.14159265
+#define MAX_LIGHT_COUNT 8
+
+struct Light
+{
+    // Light's renderer constants.
+    vec4 ModelPosition;
+    vec4 ModelDirection;
+    vec3 Ambient;
+    vec3 Diffuse;
+    vec3 Specular;
+    vec4 SpotCutoff;
+    vec4 Attenuation;
+};
+
+const float c_zero = 0.0;
+const float c_one = 1.0;
+
+// Renderer constants.
+uniform mat4  WVPMatrix;
+uniform vec3  CameraModelPosition;
+uniform vec3  MaterialEmissive;
+uniform vec3  MaterialAmbient;
+uniform vec4  MaterialDiffuse;
+uniform vec4  MaterialSpecular;
+uniform Light LightArray[MAX_LIGHT_COUNT];
+uniform float LightCount;
+
+// Vertex shader input variables.
+attribute vec4 SE_ModelPosition;
+attribute vec3 SE_ModelNormal;
+
+// Vertex shader output variables. 
+varying vec4 kVertexColor;
+
+//----------------------------------------------------------------------------
+vec3 LightingEquation(int i)
+{
+    vec3 kRes = vec3(c_zero, c_zero, c_zero);
+    vec3 kH, kVPpli, kView;
+    float fNdL, fNdH, fAttFactor;
+    
+    fAttFactor = c_one;
+    if( LightArray[i].ModelPosition.w != c_zero )
+    {
+        // This is a point or spot light.
+        
+        float fSpotFactor;
+        vec3 kAttDist;
+        
+        kVPpli = LightArray[i].ModelPosition.xyz - SE_ModelPosition.xyz;
+        
+        // Compute distance attenuation.
+        kAttDist.x = c_one;
+        kAttDist.z = dot(kVPpli, kVPpli);
+        kAttDist.y = sqrt(kAttDist.z);
+        fAttFactor = c_one / dot(kAttDist, LightArray[i].Attenuation.xyz);
+        
+        kVPpli = normalize(kVPpli);
+        
+        if( LightArray[i].SpotCutoff.x < PI )
+        {
+            // Compute spot factor.
+            fSpotFactor = dot(-kVPpli, LightArray[i].ModelDirection.xyz);
+            if( fSpotFactor >= LightArray[i].SpotCutoff.y )
+            {
+                fSpotFactor = pow(fSpotFactor, LightArray[i].SpotCutoff.w);
+            }
+            else
+            {
+                fSpotFactor = c_zero;
+            }
+            
+            fAttFactor *= fSpotFactor;
+        }
+    }
+    else
+    {
+        // This is a directional light.
+        kVPpli = -LightArray[i].ModelDirection.xyz;
+    }
+    
+    if( fAttFactor > c_zero )
+    {
+        // Process lighting equation --> compute the light color.
+        
+        // Compute ambient component.
+        kRes += LightArray[i].Ambient * MaterialAmbient;
+        
+        // Compute diffuse component.
+        fNdL = max(c_zero, dot(SE_ModelNormal, kVPpli));
+        kRes += (fNdL * LightArray[i].Diffuse * MaterialDiffuse.xyz);
+        
+        // Compute specular component.
+        kView = normalize(CameraModelPosition - SE_ModelPosition.xyz);
+        kH = normalize(kVPpli + kView);
+        fNdH = dot(SE_ModelNormal, kH);
+        if( fNdH > c_zero )
+        {
+            kRes += (pow(fNdH, MaterialSpecular.w) * MaterialSpecular.xyz *
+                LightArray[i].Specular);
+        }
+        
+        // Multiply color with computed attenuation factor *
+        // computed spot factor.
+        kRes *= fAttFactor;
+    }
+    
+    return kRes;
+}
+//----------------------------------------------------------------------------
+vec4 DoLighting()
+{
+    vec3 kColor;
+    vec4 kRes;
+    int i;
+    float j;
+   
+    kColor = MaterialEmissive;
+    j = c_zero;
+    for( i = 0; i < MAX_LIGHT_COUNT; i++ )
+    {
+        if( j >= LightCount )
+        {
+            break;
+        }
+        
+        j += 1.0;
+        kColor += LightingEquation(i);
+    }
+    
+    kRes.rgb = kColor.rgb;
+    kRes.a = MaterialDiffuse.a;
+    
+    return kRes;
+}
+//----------------------------------------------------------------------------
+void main()
+{
+    // Get vertex color by lighting calculation.
+    kVertexColor = DoLighting();
+   
+    // Transform the position from model space to clip space.
+    gl_Position = WVPMatrix*SE_ModelPosition;
+}
+//----------------------------------------------------------------------------

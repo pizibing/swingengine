@@ -1,0 +1,11 @@
+attribute highp vec4 SE_ModelPosition;
+
+uniform highp mat4 WVPMatrix;
+
+//----------------------------------------------------------------------------
+void main()
+{
+    // Transform the position from model space to clip space.
+    gl_Position = WVPMatrix*SE_ModelPosition;
+}
+//----------------------------------------------------------------------------

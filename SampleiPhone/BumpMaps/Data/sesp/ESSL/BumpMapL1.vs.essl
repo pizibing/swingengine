@@ -1,0 +1,67 @@
+// Vertex shader input variables.
+attribute vec4 SE_ModelPosition;
+attribute vec3 SE_ModelNormal;
+attribute vec2 SE_TexCoord0;
+attribute vec3 SE_TexCoord1; // tangent
+attribute vec3 SE_TexCoord2; // bitangent
+
+// Vertex shader output variables. 
+varying vec2 kBaseTCoord;
+varying vec3 kViewDirectionTBN;
+varying vec4 kLightDirectionTBN; // w component is attenuation factor.
+
+const float c_zero = 0.0;
+const float c_one = 1.0;
+
+// Renderer constants.
+uniform mat4 WVPMatrix;
+uniform vec3 CameraModelPosition;
+uniform vec4 Light0ModelPosition;
+uniform vec4 Light0ModelDirection;
+uniform vec4 Light0Attenuation;
+
+//----------------------------------------------------------------------------
+void main()
+{
+    // Compute model space view direction vector.
+    vec3 kViewDirectionM = CameraModelPosition - SE_ModelPosition.xyz;
+    
+    // Compute model space light0 direction vector and attenuation factor.
+    vec3 kLightDirectionM;
+    float fAttFactor = c_one;
+    if( Light0ModelPosition.w != c_zero )
+    {
+        // This is a point or spot light.
+        
+        kLightDirectionM = Light0ModelPosition.xyz - SE_ModelPosition.xyz;
+        
+        vec3 kAttDist;
+        kAttDist.x = c_one;
+        kAttDist.z = dot(kLightDirectionM, kLightDirectionM);
+        kAttDist.y = sqrt(kAttDist.z);
+        fAttFactor = Light0Attenuation.w/dot(kAttDist, Light0Attenuation.xyz);
+    }
+    else
+    {
+        // This is a directional light.
+        
+        kLightDirectionM = -Light0ModelDirection.xyz;
+    }
+    
+    // Create the TBN matrix.
+    // CAUTION: this is a COLUMN major ordered matrix.
+    mat3 kMatTBN = mat3(SE_TexCoord1, SE_TexCoord2, SE_ModelNormal);
+    
+    // Transform the view and light0 vectors from model space to TBN space,
+    // and store the attenuation factor in kLightDirectionTBN.w.
+    kViewDirectionTBN = kViewDirectionM*kMatTBN;
+    vec3 kTempLightDirection = kLightDirectionM*kMatTBN;
+    kLightDirectionTBN = vec4(kTempLightDirection, fAttFactor);
+    
+    // Transform the position from model space to clip space.
+    gl_Position = WVPMatrix*SE_ModelPosition;
+    
+    // Pass through the texture coord.
+    kBaseTCoord = SE_TexCoord0;
+}
+//----------------------------------------------------------------------------

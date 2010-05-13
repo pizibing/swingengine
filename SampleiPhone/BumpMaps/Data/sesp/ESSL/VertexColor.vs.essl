@@ -1,0 +1,20 @@
+// Vertex shader input variables.
+attribute vec4 SE_ModelPosition;
+attribute vec3 SE_Color;
+
+// Vertex shader output variables. 
+varying vec3 kVertexColor;
+
+// Renderer constants.
+uniform mat4 WVPMatrix;
+
+//----------------------------------------------------------------------------
+void main()
+{
+    // Transform the position from model space to clip space.
+    gl_Position = WVPMatrix*SE_ModelPosition;
+
+    // Pass through the vertex color.
+    kVertexColor = SE_Color;
+}
+//----------------------------------------------------------------------------

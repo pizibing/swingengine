@@ -1,0 +1,11 @@
+precision mediump float;
+
+// Vertex shader output variables. 
+varying vec4 kVertexColor;
+
+//----------------------------------------------------------------------------
+void main()
+{
+    gl_FragColor = kVertexColor;
+}
+//----------------------------------------------------------------------------

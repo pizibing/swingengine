@@ -30,12 +30,18 @@ BumpMaps::BumpMaps()
     SEWindowApplication3("BumpMaps", 0, 0, 320, 480, 
         SEColorRGBA(0.5f, 0.5f, 0.5f, 1.0f))
 {
+    // If you want to deploy your application, then add your resource
+    // directories to system searching list as you choose.
+    SESystem::SE_InsertDirectory("./Data/seif");
+    SESystem::SE_InsertDirectory("./Data/seof");
+    SESystem::SE_InsertDirectory("./Data/sesp/ESSL");
+	
     m_fLight0Height = 4.0f;
     m_Light0Color = SEColorRGB::SE_RGB_WHITE;
 }
 //----------------------------------------------------------------------------
 bool BumpMaps::OnInitialize()
-{
+{	
     if( !SEWindowApplication3::OnInitialize() )
     {
         return false;

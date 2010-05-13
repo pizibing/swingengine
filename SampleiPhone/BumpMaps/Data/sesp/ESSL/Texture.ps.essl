@@ -1,0 +1,12 @@
+precision mediump float;
+
+varying mediump vec2 kBaseTCoord;
+
+uniform sampler2D p_BaseSampler;
+
+//----------------------------------------------------------------------------
+void main()
+{
+    gl_FragColor = texture2D(p_BaseSampler, kBaseTCoord);
+}
+//----------------------------------------------------------------------------
