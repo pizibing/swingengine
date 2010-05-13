@@ -7,6 +7,68 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD9CF063119BE94D00804F1A /* SEEAGL2View.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC894910A1B4AA00C6F03F /* SEEAGL2View.h */; };
+		DD9CF064119BE94D00804F1A /* SEiPhoneOES2Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC894B10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.h */; };
+		DD9CF065119BE94D00804F1A /* SEOGLES2BitmapFont.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC894E10A1B4AA00C6F03F /* SEOGLES2BitmapFont.h */; };
+		DD9CF066119BE94D00804F1A /* SEOGLES2FrameBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC895410A1B4AA00C6F03F /* SEOGLES2FrameBuffer.h */; };
+		DD9CF067119BE94D00804F1A /* SEOGLES2Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC895710A1B4AA00C6F03F /* SEOGLES2Renderer.h */; };
+		DD9CF068119BE94D00804F1A /* SEOGLES2Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC895810A1B4AA00C6F03F /* SEOGLES2Resources.h */; };
+		DD9CF069119BE94D00804F1A /* SEOGLES2Program.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC89A410A1B55500C6F03F /* SEOGLES2Program.h */; };
+		DD9CF06A119BE94D00804F1A /* SEOGLES2RendererLIB.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC89AF10A1BE6E00C6F03F /* SEOGLES2RendererLIB.h */; };
+		DD9CF06B119BE94D00804F1A /* SEOGLES2RendererPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC89B110A1BE6E00C6F03F /* SEOGLES2RendererPCH.h */; };
+		DD9CF06C119BE94D00804F1A /* SEOGLES2RendererRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC89B310A1BE6E00C6F03F /* SEOGLES2RendererRegister.h */; };
+		DD9CF06D119BE94D00804F1A /* SwingOGLES2Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC89B410A1BE6E00C6F03F /* SwingOGLES2Renderer.h */; };
+		DD9CF06E119BE95F00804F1A /* SEEAGL2View.m in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894A10A1B4AA00C6F03F /* SEEAGL2View.m */; };
+		DD9CF06F119BE95F00804F1A /* SEiPhoneOES2Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894C10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.mm */; };
+		DD9CF070119BE95F00804F1A /* SEOGLES2AlphaState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894D10A1B4AA00C6F03F /* SEOGLES2AlphaState.cpp */; };
+		DD9CF071119BE95F00804F1A /* SEOGLES2CullState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894F10A1B4AA00C6F03F /* SEOGLES2CullState.cpp */; };
+		DD9CF072119BE95F00804F1A /* SEOGLES2DrawBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895010A1B4AA00C6F03F /* SEOGLES2DrawBuffer.cpp */; };
+		DD9CF073119BE95F00804F1A /* SEOGLES2DrawElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895110A1B4AA00C6F03F /* SEOGLES2DrawElements.cpp */; };
+		DD9CF074119BE95F00804F1A /* SEOGLES2DrawText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895210A1B4AA00C6F03F /* SEOGLES2DrawText.cpp */; };
+		DD9CF075119BE95F00804F1A /* SEOGLES2FrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895310A1B4AA00C6F03F /* SEOGLES2FrameBuffer.cpp */; };
+		DD9CF076119BE95F00804F1A /* SEOGLES2PolygonOffsetState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895510A1B4AA00C6F03F /* SEOGLES2PolygonOffsetState.cpp */; };
+		DD9CF077119BE95F00804F1A /* SEOGLES2Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895610A1B4AA00C6F03F /* SEOGLES2Renderer.cpp */; };
+		DD9CF078119BE95F00804F1A /* SEOGLES2ResourcesED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895910A1B4AA00C6F03F /* SEOGLES2ResourcesED.cpp */; };
+		DD9CF079119BE95F00804F1A /* SEOGLES2ResourcesLR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895A10A1B4AA00C6F03F /* SEOGLES2ResourcesLR.cpp */; };
+		DD9CF07A119BE95F00804F1A /* SEOGLES2StencilState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895B10A1B4AA00C6F03F /* SEOGLES2StencilState.cpp */; };
+		DD9CF07B119BE95F00804F1A /* SEOGLES2Transformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895C10A1B4AA00C6F03F /* SEOGLES2Transformation.cpp */; };
+		DD9CF07C119BE95F00804F1A /* SEOGLES2UserResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895D10A1B4AA00C6F03F /* SEOGLES2UserResources.cpp */; };
+		DD9CF07D119BE95F00804F1A /* SEOGLES2WireframeState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895E10A1B4AA00C6F03F /* SEOGLES2WireframeState.cpp */; };
+		DD9CF07E119BE95F00804F1A /* SEOGLES2ZBufferState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895F10A1B4AA00C6F03F /* SEOGLES2ZBufferState.cpp */; };
+		DD9CF07F119BE95F00804F1A /* SEOGLES2Program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC89A310A1B55500C6F03F /* SEOGLES2Program.cpp */; };
+		DD9CF080119BE95F00804F1A /* SEOGLES2RendererPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC89B010A1BE6E00C6F03F /* SEOGLES2RendererPCH.cpp */; };
+		DD9CF081119BE95F00804F1A /* SEOGLES2RendererRegister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC89B210A1BE6E00C6F03F /* SEOGLES2RendererRegister.cpp */; };
+		DD9CF083119BE99800804F1A /* SEEAGL2View.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC894910A1B4AA00C6F03F /* SEEAGL2View.h */; };
+		DD9CF084119BE99800804F1A /* SEiPhoneOES2Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC894B10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.h */; };
+		DD9CF085119BE99800804F1A /* SEOGLES2BitmapFont.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC894E10A1B4AA00C6F03F /* SEOGLES2BitmapFont.h */; };
+		DD9CF086119BE99800804F1A /* SEOGLES2FrameBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC895410A1B4AA00C6F03F /* SEOGLES2FrameBuffer.h */; };
+		DD9CF087119BE99800804F1A /* SEOGLES2Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC895710A1B4AA00C6F03F /* SEOGLES2Renderer.h */; };
+		DD9CF088119BE99800804F1A /* SEOGLES2Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC895810A1B4AA00C6F03F /* SEOGLES2Resources.h */; };
+		DD9CF089119BE99800804F1A /* SEOGLES2Program.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC89A410A1B55500C6F03F /* SEOGLES2Program.h */; };
+		DD9CF08A119BE99800804F1A /* SEOGLES2RendererLIB.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC89AF10A1BE6E00C6F03F /* SEOGLES2RendererLIB.h */; };
+		DD9CF08B119BE99800804F1A /* SEOGLES2RendererPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC89B110A1BE6E00C6F03F /* SEOGLES2RendererPCH.h */; };
+		DD9CF08C119BE99800804F1A /* SEOGLES2RendererRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC89B310A1BE6E00C6F03F /* SEOGLES2RendererRegister.h */; };
+		DD9CF08D119BE99800804F1A /* SwingOGLES2Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC89B410A1BE6E00C6F03F /* SwingOGLES2Renderer.h */; };
+		DD9CF08E119BE9C300804F1A /* SEEAGL2View.m in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894A10A1B4AA00C6F03F /* SEEAGL2View.m */; };
+		DD9CF08F119BE9C300804F1A /* SEiPhoneOES2Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894C10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.mm */; };
+		DD9CF090119BE9C300804F1A /* SEOGLES2AlphaState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894D10A1B4AA00C6F03F /* SEOGLES2AlphaState.cpp */; };
+		DD9CF091119BE9C300804F1A /* SEOGLES2CullState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894F10A1B4AA00C6F03F /* SEOGLES2CullState.cpp */; };
+		DD9CF092119BE9C300804F1A /* SEOGLES2DrawBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895010A1B4AA00C6F03F /* SEOGLES2DrawBuffer.cpp */; };
+		DD9CF093119BE9C300804F1A /* SEOGLES2DrawElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895110A1B4AA00C6F03F /* SEOGLES2DrawElements.cpp */; };
+		DD9CF094119BE9C300804F1A /* SEOGLES2DrawText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895210A1B4AA00C6F03F /* SEOGLES2DrawText.cpp */; };
+		DD9CF095119BE9C300804F1A /* SEOGLES2FrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895310A1B4AA00C6F03F /* SEOGLES2FrameBuffer.cpp */; };
+		DD9CF096119BE9C300804F1A /* SEOGLES2PolygonOffsetState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895510A1B4AA00C6F03F /* SEOGLES2PolygonOffsetState.cpp */; };
+		DD9CF097119BE9C300804F1A /* SEOGLES2Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895610A1B4AA00C6F03F /* SEOGLES2Renderer.cpp */; };
+		DD9CF098119BE9C300804F1A /* SEOGLES2ResourcesED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895910A1B4AA00C6F03F /* SEOGLES2ResourcesED.cpp */; };
+		DD9CF099119BE9C300804F1A /* SEOGLES2ResourcesLR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895A10A1B4AA00C6F03F /* SEOGLES2ResourcesLR.cpp */; };
+		DD9CF09A119BE9C300804F1A /* SEOGLES2StencilState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895B10A1B4AA00C6F03F /* SEOGLES2StencilState.cpp */; };
+		DD9CF09B119BE9C300804F1A /* SEOGLES2Transformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895C10A1B4AA00C6F03F /* SEOGLES2Transformation.cpp */; };
+		DD9CF09C119BE9C300804F1A /* SEOGLES2UserResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895D10A1B4AA00C6F03F /* SEOGLES2UserResources.cpp */; };
+		DD9CF09D119BE9C300804F1A /* SEOGLES2WireframeState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895E10A1B4AA00C6F03F /* SEOGLES2WireframeState.cpp */; };
+		DD9CF09E119BE9C300804F1A /* SEOGLES2ZBufferState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC895F10A1B4AA00C6F03F /* SEOGLES2ZBufferState.cpp */; };
+		DD9CF09F119BE9C300804F1A /* SEOGLES2Program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC89A310A1B55500C6F03F /* SEOGLES2Program.cpp */; };
+		DD9CF0A0119BE9C300804F1A /* SEOGLES2RendererPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC89B010A1BE6E00C6F03F /* SEOGLES2RendererPCH.cpp */; };
+		DD9CF0A1119BE9C300804F1A /* SEOGLES2RendererRegister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFC89B210A1BE6E00C6F03F /* SEOGLES2RendererRegister.cpp */; };
 		DDFC896210A1B4AA00C6F03F /* SEEAGL2View.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC894910A1B4AA00C6F03F /* SEEAGL2View.h */; };
 		DDFC896310A1B4AA00C6F03F /* SEEAGL2View.m in Sources */ = {isa = PBXBuildFile; fileRef = DDFC894A10A1B4AA00C6F03F /* SEEAGL2View.m */; };
 		DDFC896410A1B4AA00C6F03F /* SEiPhoneOES2Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFC894B10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.h */; };
@@ -78,6 +140,8 @@
 		DD7B92A3109A82D100BF166C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		DD7B92A7109A830E00BF166C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DD7B92A9109A830E00BF166C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DD9CF056119BE90100804F1A /* libSEiPhoneOES2Rendererd_iPhoneDev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOES2Rendererd_iPhoneDev.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD9CF05D119BE92200804F1A /* libSEiPhoneOES2Renderer_iPhoneDev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOES2Renderer_iPhoneDev.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDFC894910A1B4AA00C6F03F /* SEEAGL2View.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEEAGL2View.h; path = SEOGLES2Rendering/SEEAGL2View.h; sourceTree = "<group>"; };
 		DDFC894A10A1B4AA00C6F03F /* SEEAGL2View.m */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.objc; name = SEEAGL2View.m; path = SEOGLES2Rendering/SEEAGL2View.m; sourceTree = "<group>"; };
 		DDFC894B10A1B4AA00C6F03F /* SEiPhoneOES2Renderer.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEiPhoneOES2Renderer.h; path = SEOGLES2Rendering/SEiPhoneOES2Renderer.h; sourceTree = "<group>"; };
@@ -126,6 +190,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DD9CF054119BE90100804F1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD9CF05B119BE92200804F1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -143,6 +221,8 @@
 			children = (
 				528989660E9DB4E7000BBA95 /* libSEiPhoneOES2Rendererd_iPhoneSim.a */,
 				5289896F0E9DB4FD000BBA95 /* libSEiPhoneOES2Renderer_iPhoneSim.a */,
+				DD9CF056119BE90100804F1A /* libSEiPhoneOES2Rendererd_iPhoneDev.a */,
+				DD9CF05D119BE92200804F1A /* libSEiPhoneOES2Renderer_iPhoneDev.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -251,6 +331,42 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DD9CF052119BE90100804F1A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD9CF063119BE94D00804F1A /* SEEAGL2View.h in Headers */,
+				DD9CF064119BE94D00804F1A /* SEiPhoneOES2Renderer.h in Headers */,
+				DD9CF065119BE94D00804F1A /* SEOGLES2BitmapFont.h in Headers */,
+				DD9CF066119BE94D00804F1A /* SEOGLES2FrameBuffer.h in Headers */,
+				DD9CF067119BE94D00804F1A /* SEOGLES2Renderer.h in Headers */,
+				DD9CF068119BE94D00804F1A /* SEOGLES2Resources.h in Headers */,
+				DD9CF069119BE94D00804F1A /* SEOGLES2Program.h in Headers */,
+				DD9CF06A119BE94D00804F1A /* SEOGLES2RendererLIB.h in Headers */,
+				DD9CF06B119BE94D00804F1A /* SEOGLES2RendererPCH.h in Headers */,
+				DD9CF06C119BE94D00804F1A /* SEOGLES2RendererRegister.h in Headers */,
+				DD9CF06D119BE94D00804F1A /* SwingOGLES2Renderer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD9CF059119BE92200804F1A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD9CF083119BE99800804F1A /* SEEAGL2View.h in Headers */,
+				DD9CF084119BE99800804F1A /* SEiPhoneOES2Renderer.h in Headers */,
+				DD9CF085119BE99800804F1A /* SEOGLES2BitmapFont.h in Headers */,
+				DD9CF086119BE99800804F1A /* SEOGLES2FrameBuffer.h in Headers */,
+				DD9CF087119BE99800804F1A /* SEOGLES2Renderer.h in Headers */,
+				DD9CF088119BE99800804F1A /* SEOGLES2Resources.h in Headers */,
+				DD9CF089119BE99800804F1A /* SEOGLES2Program.h in Headers */,
+				DD9CF08A119BE99800804F1A /* SEOGLES2RendererLIB.h in Headers */,
+				DD9CF08B119BE99800804F1A /* SEOGLES2RendererPCH.h in Headers */,
+				DD9CF08C119BE99800804F1A /* SEOGLES2RendererRegister.h in Headers */,
+				DD9CF08D119BE99800804F1A /* SwingOGLES2Renderer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -290,6 +406,42 @@
 			productReference = 5289896F0E9DB4FD000BBA95 /* libSEiPhoneOES2Renderer_iPhoneSim.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		DD9CF055119BE90100804F1A /* Debug iPhoneDev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD9CF058119BE92000804F1A /* Build configuration list for PBXNativeTarget "Debug iPhoneDev" */;
+			buildPhases = (
+				DD9CF052119BE90100804F1A /* Headers */,
+				DD9CF053119BE90100804F1A /* Sources */,
+				DD9CF054119BE90100804F1A /* Frameworks */,
+				DD9CF060119BE93300804F1A /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Debug iPhoneDev";
+			productName = "Debug iPhoneDev";
+			productReference = DD9CF056119BE90100804F1A /* libSEiPhoneOES2Rendererd_iPhoneDev.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		DD9CF05C119BE92200804F1A /* Release iPhoneDev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD9CF082119BE97D00804F1A /* Build configuration list for PBXNativeTarget "Release iPhoneDev" */;
+			buildPhases = (
+				DD9CF059119BE92200804F1A /* Headers */,
+				DD9CF05A119BE92200804F1A /* Sources */,
+				DD9CF05B119BE92200804F1A /* Frameworks */,
+				DD9CF062119BE93A00804F1A /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Release iPhoneDev";
+			productName = "Release iPhoneDev";
+			productReference = DD9CF05D119BE92200804F1A /* libSEiPhoneOES2Renderer_iPhoneDev.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -305,6 +457,8 @@
 			targets = (
 				528989650E9DB4E7000BBA95 /* Debug iPhoneSim */,
 				5289896E0E9DB4FD000BBA95 /* Release iPhoneSim */,
+				DD9CF055119BE90100804F1A /* Debug iPhoneDev */,
+				DD9CF05C119BE92200804F1A /* Release iPhoneDev */,
 			);
 		};
 /* End PBXProject section */
@@ -335,6 +489,32 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = ./CopySdkRelease_iPhoneSim.sh;
+		};
+		DD9CF060119BE93300804F1A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkDebug_iPhoneDev.sh;
+		};
+		DD9CF062119BE93A00804F1A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkRelease_iPhoneDev.sh;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -390,6 +570,60 @@
 				DDFC89A710A1B55500C6F03F /* SEOGLES2Program.cpp in Sources */,
 				DDFC89BC10A1BE6E00C6F03F /* SEOGLES2RendererPCH.cpp in Sources */,
 				DDFC89BE10A1BE6E00C6F03F /* SEOGLES2RendererRegister.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD9CF053119BE90100804F1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD9CF06E119BE95F00804F1A /* SEEAGL2View.m in Sources */,
+				DD9CF06F119BE95F00804F1A /* SEiPhoneOES2Renderer.mm in Sources */,
+				DD9CF070119BE95F00804F1A /* SEOGLES2AlphaState.cpp in Sources */,
+				DD9CF071119BE95F00804F1A /* SEOGLES2CullState.cpp in Sources */,
+				DD9CF072119BE95F00804F1A /* SEOGLES2DrawBuffer.cpp in Sources */,
+				DD9CF073119BE95F00804F1A /* SEOGLES2DrawElements.cpp in Sources */,
+				DD9CF074119BE95F00804F1A /* SEOGLES2DrawText.cpp in Sources */,
+				DD9CF075119BE95F00804F1A /* SEOGLES2FrameBuffer.cpp in Sources */,
+				DD9CF076119BE95F00804F1A /* SEOGLES2PolygonOffsetState.cpp in Sources */,
+				DD9CF077119BE95F00804F1A /* SEOGLES2Renderer.cpp in Sources */,
+				DD9CF078119BE95F00804F1A /* SEOGLES2ResourcesED.cpp in Sources */,
+				DD9CF079119BE95F00804F1A /* SEOGLES2ResourcesLR.cpp in Sources */,
+				DD9CF07A119BE95F00804F1A /* SEOGLES2StencilState.cpp in Sources */,
+				DD9CF07B119BE95F00804F1A /* SEOGLES2Transformation.cpp in Sources */,
+				DD9CF07C119BE95F00804F1A /* SEOGLES2UserResources.cpp in Sources */,
+				DD9CF07D119BE95F00804F1A /* SEOGLES2WireframeState.cpp in Sources */,
+				DD9CF07E119BE95F00804F1A /* SEOGLES2ZBufferState.cpp in Sources */,
+				DD9CF07F119BE95F00804F1A /* SEOGLES2Program.cpp in Sources */,
+				DD9CF080119BE95F00804F1A /* SEOGLES2RendererPCH.cpp in Sources */,
+				DD9CF081119BE95F00804F1A /* SEOGLES2RendererRegister.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD9CF05A119BE92200804F1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD9CF08E119BE9C300804F1A /* SEEAGL2View.m in Sources */,
+				DD9CF08F119BE9C300804F1A /* SEiPhoneOES2Renderer.mm in Sources */,
+				DD9CF090119BE9C300804F1A /* SEOGLES2AlphaState.cpp in Sources */,
+				DD9CF091119BE9C300804F1A /* SEOGLES2CullState.cpp in Sources */,
+				DD9CF092119BE9C300804F1A /* SEOGLES2DrawBuffer.cpp in Sources */,
+				DD9CF093119BE9C300804F1A /* SEOGLES2DrawElements.cpp in Sources */,
+				DD9CF094119BE9C300804F1A /* SEOGLES2DrawText.cpp in Sources */,
+				DD9CF095119BE9C300804F1A /* SEOGLES2FrameBuffer.cpp in Sources */,
+				DD9CF096119BE9C300804F1A /* SEOGLES2PolygonOffsetState.cpp in Sources */,
+				DD9CF097119BE9C300804F1A /* SEOGLES2Renderer.cpp in Sources */,
+				DD9CF098119BE9C300804F1A /* SEOGLES2ResourcesED.cpp in Sources */,
+				DD9CF099119BE9C300804F1A /* SEOGLES2ResourcesLR.cpp in Sources */,
+				DD9CF09A119BE9C300804F1A /* SEOGLES2StencilState.cpp in Sources */,
+				DD9CF09B119BE9C300804F1A /* SEOGLES2Transformation.cpp in Sources */,
+				DD9CF09C119BE9C300804F1A /* SEOGLES2UserResources.cpp in Sources */,
+				DD9CF09D119BE9C300804F1A /* SEOGLES2WireframeState.cpp in Sources */,
+				DD9CF09E119BE9C300804F1A /* SEOGLES2ZBufferState.cpp in Sources */,
+				DD9CF09F119BE9C300804F1A /* SEOGLES2Program.cpp in Sources */,
+				DD9CF0A0119BE9C300804F1A /* SEOGLES2RendererPCH.cpp in Sources */,
+				DD9CF0A1119BE9C300804F1A /* SEOGLES2RendererRegister.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +719,70 @@
 			};
 			name = Default;
 		};
+		DD9CF057119BE90200804F1A /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)";
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEOGLES2RendererPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
+				LIBRARY_STYLE = STATIC;
+				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
+				PREBINDING = NO;
+				PRODUCT_NAME = SEiPhoneOES2Rendererd_iPhoneDev;
+				SDKROOT = iphoneos3.0;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Debug_iPhoneDev";
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		DD9CF05E119BE92300804F1A /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)";
+				DEAD_CODE_STRIPPING = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEOGLES2RendererPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
+				LIBRARY_STYLE = STATIC;
+				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
+				PREBINDING = NO;
+				PRODUCT_NAME = SEiPhoneOES2Renderer_iPhoneDev;
+				SDKROOT = iphoneos3.0;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Release_iPhoneDev";
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -508,6 +806,22 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				528989700E9DB4FD000BBA95 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DD9CF058119BE92000804F1A /* Build configuration list for PBXNativeTarget "Debug iPhoneDev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD9CF057119BE90200804F1A /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DD9CF082119BE97D00804F1A /* Build configuration list for PBXNativeTarget "Release iPhoneDev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD9CF05E119BE92300804F1A /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;
