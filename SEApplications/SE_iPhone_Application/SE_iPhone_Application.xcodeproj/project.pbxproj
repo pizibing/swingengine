@@ -35,6 +35,34 @@
 		529EB7240FD8C5A500EAF517 /* SEWindowApplication2.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7080FD8C5A500EAF517 /* SEWindowApplication2.h */; };
 		529EB7250FD8C5A500EAF517 /* SEWindowApplication3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7090FD8C5A500EAF517 /* SEWindowApplication3.cpp */; };
 		529EB7260FD8C5A500EAF517 /* SEWindowApplication3.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB70A0FD8C5A500EAF517 /* SEWindowApplication3.h */; };
+		DD9CF0DE119BF29D00804F1A /* SEiPhoneApplicationPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB6F70FD8C58D00EAF517 /* SEiPhoneApplicationPCH.h */; };
+		DD9CF0DF119BF29D00804F1A /* SEApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB6FD0FD8C5A500EAF517 /* SEApplication.h */; };
+		DD9CF0E0119BF29D00804F1A /* SEApplicationMCR.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7000FD8C5A500EAF517 /* SEApplicationMCR.h */; };
+		DD9CF0E1119BF29D00804F1A /* SEConsoleApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7020FD8C5A500EAF517 /* SEConsoleApplication.h */; };
+		DD9CF0E2119BF29D00804F1A /* SEWindowApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7050FD8C5A500EAF517 /* SEWindowApplication.h */; };
+		DD9CF0E3119BF29D00804F1A /* SEWindowApplication2.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7080FD8C5A500EAF517 /* SEWindowApplication2.h */; };
+		DD9CF0E4119BF29D00804F1A /* SEWindowApplication3.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB70A0FD8C5A500EAF517 /* SEWindowApplication3.h */; };
+		DD9CF0E5119BF2B300804F1A /* SEiPhoneApplicationPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB6F60FD8C58D00EAF517 /* SEiPhoneApplicationPCH.cpp */; };
+		DD9CF0E6119BF2B300804F1A /* SEApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB6FC0FD8C5A500EAF517 /* SEApplication.cpp */; };
+		DD9CF0E7119BF2B300804F1A /* SEConsoleApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7010FD8C5A500EAF517 /* SEConsoleApplication.cpp */; };
+		DD9CF0E8119BF2B300804F1A /* SEiPhoneApplication.mm in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7030FD8C5A500EAF517 /* SEiPhoneApplication.mm */; };
+		DD9CF0E9119BF2B300804F1A /* SEWindowApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7040FD8C5A500EAF517 /* SEWindowApplication.cpp */; };
+		DD9CF0EA119BF2B300804F1A /* SEWindowApplication2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7070FD8C5A500EAF517 /* SEWindowApplication2.cpp */; };
+		DD9CF0EB119BF2B300804F1A /* SEWindowApplication3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7090FD8C5A500EAF517 /* SEWindowApplication3.cpp */; };
+		DD9CF0F0119BF2E000804F1A /* SEiPhoneApplicationPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB6F70FD8C58D00EAF517 /* SEiPhoneApplicationPCH.h */; };
+		DD9CF0F1119BF2E000804F1A /* SEApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB6FD0FD8C5A500EAF517 /* SEApplication.h */; };
+		DD9CF0F2119BF2E000804F1A /* SEApplicationMCR.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7000FD8C5A500EAF517 /* SEApplicationMCR.h */; };
+		DD9CF0F3119BF2E000804F1A /* SEConsoleApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7020FD8C5A500EAF517 /* SEConsoleApplication.h */; };
+		DD9CF0F4119BF2E000804F1A /* SEWindowApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7050FD8C5A500EAF517 /* SEWindowApplication.h */; };
+		DD9CF0F5119BF2E000804F1A /* SEWindowApplication2.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7080FD8C5A500EAF517 /* SEWindowApplication2.h */; };
+		DD9CF0F6119BF2E000804F1A /* SEWindowApplication3.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB70A0FD8C5A500EAF517 /* SEWindowApplication3.h */; };
+		DD9CF0F7119BF2EE00804F1A /* SEiPhoneApplicationPCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB6F60FD8C58D00EAF517 /* SEiPhoneApplicationPCH.cpp */; };
+		DD9CF0F8119BF2EE00804F1A /* SEApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB6FC0FD8C5A500EAF517 /* SEApplication.cpp */; };
+		DD9CF0F9119BF2EE00804F1A /* SEConsoleApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7010FD8C5A500EAF517 /* SEConsoleApplication.cpp */; };
+		DD9CF0FA119BF2EE00804F1A /* SEiPhoneApplication.mm in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7030FD8C5A500EAF517 /* SEiPhoneApplication.mm */; };
+		DD9CF0FB119BF2EE00804F1A /* SEWindowApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7040FD8C5A500EAF517 /* SEWindowApplication.cpp */; };
+		DD9CF0FC119BF2EE00804F1A /* SEWindowApplication2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7070FD8C5A500EAF517 /* SEWindowApplication2.cpp */; };
+		DD9CF0FD119BF2EE00804F1A /* SEWindowApplication3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529EB7090FD8C5A500EAF517 /* SEWindowApplication3.cpp */; };
 		DDA6222610A2A476005C8483 /* SEiPhoneApplicationPCH.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB6F70FD8C58D00EAF517 /* SEiPhoneApplicationPCH.h */; };
 		DDA6222710A2A476005C8483 /* SEApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB6FD0FD8C5A500EAF517 /* SEApplication.h */; };
 		DDA6222810A2A476005C8483 /* SEApplicationMCR.h in Headers */ = {isa = PBXBuildFile; fileRef = 529EB7000FD8C5A500EAF517 /* SEApplicationMCR.h */; };
@@ -88,6 +116,8 @@
 		DD7B92EB109A84D300BF166C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DD7B92ED109A84D300BF166C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DD884BDF10BD11F500C8F20A /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		DD9CF0D2119BF25C00804F1A /* libSEiPhoneOES2Applicationd_iPhoneDev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOES2Applicationd_iPhoneDev.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD9CF0DB119BF27D00804F1A /* libSEiPhoneOES2Application_iPhoneDev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOES2Application_iPhoneDev.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA6221910A2A408005C8483 /* libSEiPhoneOES2Applicationd_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOES2Applicationd_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA6222010A2A43B005C8483 /* libSEiPhoneOES2Application_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOES2Application_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -101,6 +131,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		528240FF0E9E487A00629212 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD9CF0D0119BF25C00804F1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD9CF0D9119BF27D00804F1A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -140,6 +184,8 @@
 				528241010E9E487A00629212 /* libSEiPhoneOES1Application_iPhoneSim.a */,
 				DDA6221910A2A408005C8483 /* libSEiPhoneOES2Applicationd_iPhoneSim.a */,
 				DDA6222010A2A43B005C8483 /* libSEiPhoneOES2Application_iPhoneSim.a */,
+				DD9CF0D2119BF25C00804F1A /* libSEiPhoneOES2Applicationd_iPhoneDev.a */,
+				DD9CF0DB119BF27D00804F1A /* libSEiPhoneOES2Application_iPhoneDev.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -217,6 +263,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DD9CF0CE119BF25C00804F1A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD9CF0DE119BF29D00804F1A /* SEiPhoneApplicationPCH.h in Headers */,
+				DD9CF0DF119BF29D00804F1A /* SEApplication.h in Headers */,
+				DD9CF0E0119BF29D00804F1A /* SEApplicationMCR.h in Headers */,
+				DD9CF0E1119BF29D00804F1A /* SEConsoleApplication.h in Headers */,
+				DD9CF0E2119BF29D00804F1A /* SEWindowApplication.h in Headers */,
+				DD9CF0E3119BF29D00804F1A /* SEWindowApplication2.h in Headers */,
+				DD9CF0E4119BF29D00804F1A /* SEWindowApplication3.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD9CF0D7119BF27D00804F1A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD9CF0F0119BF2E000804F1A /* SEiPhoneApplicationPCH.h in Headers */,
+				DD9CF0F1119BF2E000804F1A /* SEApplication.h in Headers */,
+				DD9CF0F2119BF2E000804F1A /* SEApplicationMCR.h in Headers */,
+				DD9CF0F3119BF2E000804F1A /* SEConsoleApplication.h in Headers */,
+				DD9CF0F4119BF2E000804F1A /* SEWindowApplication.h in Headers */,
+				DD9CF0F5119BF2E000804F1A /* SEWindowApplication2.h in Headers */,
+				DD9CF0F6119BF2E000804F1A /* SEWindowApplication3.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DDA6221510A2A408005C8483 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -284,6 +358,42 @@
 			productReference = 528241010E9E487A00629212 /* libSEiPhoneOES1Application_iPhoneSim.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		DD9CF0D1119BF25C00804F1A /* Debug OES2 iPhoneDev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD9CF0D4119BF27A00804F1A /* Build configuration list for PBXNativeTarget "Debug OES2 iPhoneDev" */;
+			buildPhases = (
+				DD9CF0CE119BF25C00804F1A /* Headers */,
+				DD9CF0CF119BF25C00804F1A /* Sources */,
+				DD9CF0D0119BF25C00804F1A /* Frameworks */,
+				DD9CF0ED119BF2CC00804F1A /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Debug OES2 iPhoneDev";
+			productName = "Debug OES2 iPhoneDev";
+			productReference = DD9CF0D2119BF25C00804F1A /* libSEiPhoneOES2Applicationd_iPhoneDev.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		DD9CF0DA119BF27D00804F1A /* Release OES2 iPhoneDev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD9CF0DD119BF29B00804F1A /* Build configuration list for PBXNativeTarget "Release OES2 iPhoneDev" */;
+			buildPhases = (
+				DD9CF0D7119BF27D00804F1A /* Headers */,
+				DD9CF0D8119BF27D00804F1A /* Sources */,
+				DD9CF0D9119BF27D00804F1A /* Frameworks */,
+				DD9CF0EF119BF2D300804F1A /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Release OES2 iPhoneDev";
+			productName = "Release OES2 iPhoneDev";
+			productReference = DD9CF0DB119BF27D00804F1A /* libSEiPhoneOES2Application_iPhoneDev.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		DDA6221810A2A408005C8483 /* Debug OES2 iPhoneSim */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DDA6221B10A2A427005C8483 /* Build configuration list for PBXNativeTarget "Debug OES2 iPhoneSim" */;
@@ -337,6 +447,8 @@
 				528241000E9E487A00629212 /* Release OES1 iPhoneSim */,
 				DDA6221810A2A408005C8483 /* Debug OES2 iPhoneSim */,
 				DDA6221F10A2A43B005C8483 /* Release OES2 iPhoneSim */,
+				DD9CF0D1119BF25C00804F1A /* Debug OES2 iPhoneDev */,
+				DD9CF0DA119BF27D00804F1A /* Release OES2 iPhoneDev */,
 			);
 		};
 /* End PBXProject section */
@@ -367,6 +479,32 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = ./CopySdkRelease_OES1_iPhoneSim.sh;
+		};
+		DD9CF0ED119BF2CC00804F1A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkDebug_OES2_iPhoneDev.sh;
+		};
+		DD9CF0EF119BF2D300804F1A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./CopySdkRelease_OES2_iPhoneDev.sh;
 		};
 		DDA6222310A2A44D005C8483 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -422,6 +560,34 @@
 				529EB7210FD8C5A500EAF517 /* SEWindowApplication.cpp in Sources */,
 				529EB7230FD8C5A500EAF517 /* SEWindowApplication2.cpp in Sources */,
 				529EB7250FD8C5A500EAF517 /* SEWindowApplication3.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD9CF0CF119BF25C00804F1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD9CF0E5119BF2B300804F1A /* SEiPhoneApplicationPCH.cpp in Sources */,
+				DD9CF0E6119BF2B300804F1A /* SEApplication.cpp in Sources */,
+				DD9CF0E7119BF2B300804F1A /* SEConsoleApplication.cpp in Sources */,
+				DD9CF0E8119BF2B300804F1A /* SEiPhoneApplication.mm in Sources */,
+				DD9CF0E9119BF2B300804F1A /* SEWindowApplication.cpp in Sources */,
+				DD9CF0EA119BF2B300804F1A /* SEWindowApplication2.cpp in Sources */,
+				DD9CF0EB119BF2B300804F1A /* SEWindowApplication3.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD9CF0D8119BF27D00804F1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD9CF0F7119BF2EE00804F1A /* SEiPhoneApplicationPCH.cpp in Sources */,
+				DD9CF0F8119BF2EE00804F1A /* SEApplication.cpp in Sources */,
+				DD9CF0F9119BF2EE00804F1A /* SEConsoleApplication.cpp in Sources */,
+				DD9CF0FA119BF2EE00804F1A /* SEiPhoneApplication.mm in Sources */,
+				DD9CF0FB119BF2EE00804F1A /* SEWindowApplication.cpp in Sources */,
+				DD9CF0FC119BF2EE00804F1A /* SEWindowApplication2.cpp in Sources */,
+				DD9CF0FD119BF2EE00804F1A /* SEWindowApplication3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,6 +708,76 @@
 			};
 			name = Default;
 		};
+		DD9CF0D3119BF25C00804F1A /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)";
+				DEAD_CODE_STRIPPING = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEiPhoneApplicationPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_DEBUG,
+					SE_USING_OES2,
+				);
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
+				LIBRARY_STYLE = STATIC;
+				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
+				PREBINDING = NO;
+				PRODUCT_NAME = SEiPhoneOES2Applicationd_iPhoneDev;
+				SDKROOT = iphoneos3.0;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Debug_iPhoneDev";
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		DD9CF0DC119BF27D00804F1A /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)";
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SEiPhoneApplicationPCH.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					SE_USING_OES2,
+				);
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../SDK/Include";
+				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
+				LIBRARY_STYLE = STATIC;
+				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
+				PREBINDING = NO;
+				PRODUCT_NAME = SEiPhoneOES2Application_iPhoneDev;
+				SDKROOT = iphoneos3.0;
+				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Release_iPhoneDev";
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
 		DDA6221A10A2A409005C8483 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -629,6 +865,22 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				528241020E9E487A00629212 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DD9CF0D4119BF27A00804F1A /* Build configuration list for PBXNativeTarget "Debug OES2 iPhoneDev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD9CF0D3119BF25C00804F1A /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DD9CF0DD119BF29B00804F1A /* Build configuration list for PBXNativeTarget "Release OES2 iPhoneDev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD9CF0DC119BF27D00804F1A /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;
