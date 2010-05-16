@@ -81,7 +81,7 @@ SEColladaEffect* SEColladaScene::LoadEffect(domEffectRef spDomEffect)
     if( pDomEffect )
     {
         // CAUTION 1: effect element could have images.
-        // Get all images in effect.
+        // Get all images in this effect.
         int iEffectImageCount = (int)pDomEffect->getImage_array().getCount();
         for( int i = 0; i < iEffectImageCount; i++ )
         {

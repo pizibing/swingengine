@@ -77,6 +77,32 @@ public:
     ~SEColladaScene(void);
 
     // Current coordinate frame orientation mode, depending on the DCC tools.
+    // All of them are right-handed system.
+    //
+    // Y_UP:
+    //           | Y
+    //           |
+    //           |      X
+    //           O--------
+    //          /
+    //       Z /
+    //
+    // Z_UP:
+    //           | Z
+    //           |  /
+    //           | / Y
+    //           |/
+    //           O--------
+    //                  X
+    //
+    // X_UP:
+    //           | X
+    //           |
+    //      Y    |
+    //    -------O
+    //          /
+    //         / Z
+    //
     enum OrientationMode
     {
         OM_Y_UP,
@@ -95,7 +121,7 @@ public:
 
     // Load a COLLADA DOM file, then create a Swing Engine scene graph base on
     // COLLADA runtime scene graph.
-    void Load(const char* acFilename);
+    bool Load(const char* acFilename);
 
     // Get scene graph root node.
     SENode* GetScene(void);
@@ -187,7 +213,7 @@ private:
         domPolylist* pDomPolylist);
     void Triangulate(DAE* pDAE);
 
-    // SENode stuff.
+    // Node stuff.
     SENode* LoadNode(domNodeRef spDomNode, SENode* pParentNode);
     void GetLocalTransSequence(SENode* pNode, domNodeRef spDomNode, 
         std::vector<SEColladaTransformation*>& rColladaTransSequence);
@@ -211,7 +237,7 @@ private:
     SETriMesh* BuildTriangles(domTriangles* pDomTriangles);
     void ParseGeometry(SENode*& rpMeshRoot, domGeometry* pDomGeometry);
 
-    // SEImage stuff.
+    // Image stuff.
     bool LoadImageLibrary(domLibrary_imagesRef spLib);
     SEImage* LoadImage(domImageRef spDomImage);
 
@@ -221,7 +247,7 @@ private:
     SEColladaInstanceMaterial* LoadInstanceMaterial(
         domInstance_materialRef spLib);
 
-    // SEEffect stuff.
+    // Effect stuff.
     bool LoadEffectLibrary(domLibrary_effectsRef spLib);
     SEColladaEffect* LoadEffect(domEffectRef spDomEffect);
     SEColorRGB GetColor(domCommon_color_or_texture_type_complexType* pParam);
@@ -241,7 +267,7 @@ private:
     void BuildKeyFrameController(SENode* pNode,
         std::vector<SEColladaTransformation*>& rColladaTransSequence);
 
-    // SELight stuff.
+    // Light stuff.
     SELight* LoadLight(domLightRef spDomLight);
     SEColladaInstanceLight* LoadInstanceLight(SENode* pParentNode, 
         domInstance_lightRef spDomInstanceLight);
@@ -259,7 +285,7 @@ private:
         domProfile_COMMON::domTechnique::domBlinn* pDomblinn);
     void ProcessLights(void);
 
-    // SECamera stuff.
+    // Camera stuff.
     SECamera* LoadCamera(domCameraRef spDomCamera);
     SEColladaInstanceCamera* LoadInstanceCamera(SENode* pParentNode, 
         domInstance_cameraRef spDomInstanceCamera);

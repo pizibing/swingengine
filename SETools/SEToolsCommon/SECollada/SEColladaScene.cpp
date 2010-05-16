@@ -23,7 +23,7 @@
 
 using namespace Swing;
 
-SEColladaScene::OrientationMode SEColladaScene::ms_eOrientationMode = 
+SEColladaScene::OrientationMode SEColladaScene::ms_eOrientationMode =
     SEColladaScene::OM_UNKNOWN;
 
 //----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ SEColladaScene::~SEColladaScene()
     SE_DELETE m_pDAE;
 }
 //----------------------------------------------------------------------------
-void SEColladaScene::Load(const char* acFilename)
+bool SEColladaScene::Load(const char* acFilename)
 {
     ToolSystem::SE_DebugOutput("COLLADA DOM loading process started" );
 
@@ -49,7 +49,7 @@ void SEColladaScene::Load(const char* acFilename)
     {
         ToolSystem::SE_DebugOutput("The COLLADA file %s is illegal", 
             acFilename);
-        return;
+        return false;
     }
 
     // Get the DOM interface for later use.
@@ -85,6 +85,7 @@ void SEColladaScene::Load(const char* acFilename)
             break; 
         }
     }
+    SE_ASSERT( ms_eOrientationMode != OM_UNKNOWN );
 
     // Load all the image libraries.
     int iImageLibCount = (int)pDom->getLibrary_images_array().getCount();
@@ -133,6 +134,10 @@ void SEColladaScene::Load(const char* acFilename)
     {
         LoadScene((domVisual_scene*)pDefaultScene);
     }
+    else
+    {
+        return false;
+    }
 
     // Deferred processing of lights.
     ProcessLights();
@@ -144,6 +149,8 @@ void SEColladaScene::Load(const char* acFilename)
     // TODO:
     // Impliment controller option.
     ProcessControllers();
+
+    return true;
 }
 //----------------------------------------------------------------------------
 SENode* SEColladaScene::GetScene()
