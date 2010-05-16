@@ -35,7 +35,7 @@ namespace Swing
 class SE_TOOLS_COMMON_API ToolSystem
 {
 public:
-    static void SE_DebugOutput(const char* acFormat, ...);
+    static void DebugOutput(const char* acFormat, ...);
 };
 
 }

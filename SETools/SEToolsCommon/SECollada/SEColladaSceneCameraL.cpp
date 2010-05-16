@@ -57,7 +57,7 @@ SECamera* SEColladaScene::LoadCamera(domCameraRef spDomCamera)
         return pCamera;
     }
 
-    ToolSystem::SE_DebugOutput("Add new camera %s", (const char*)strCameraID);
+    ToolSystem::DebugOutput("Add new camera %s", (const char*)strCameraID);
 
     domCamera* pDomCamera = (domCamera*)(domElement*)spDomCamera;
     if( pDomCamera )
@@ -197,7 +197,7 @@ SEColladaInstanceCamera* SEColladaScene::LoadInstanceCamera(SENode*
     if( !pDomElement )
     {
         // This instance camera is not found, skip to the next one.
-        ToolSystem::SE_DebugOutput("Can't find this camera:%s", 
+        ToolSystem::DebugOutput("Can't find this camera:%s", 
             rUrlType.getURI());
 
         return 0;

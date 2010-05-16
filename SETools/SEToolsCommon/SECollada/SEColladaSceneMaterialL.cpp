@@ -63,7 +63,7 @@ SEColladaInstanceMaterial* SEColladaScene::GetInstanceMaterial(const char*
 //----------------------------------------------------------------------------
 bool SEColladaScene::LoadMaterialLibrary(domLibrary_materialsRef spLib)
 {
-    ToolSystem::SE_DebugOutput("SEColladaScene::Loading Material Library");
+    ToolSystem::DebugOutput("SEColladaScene::Loading Material Library");
 
     int iMaterialCount = (int)spLib->getMaterial_array().getCount();
     for( int i = 0; i < iMaterialCount; i++ )
@@ -94,7 +94,7 @@ SEColladaMaterial* SEColladaScene::LoadMaterial(domMaterialRef spDomMaterial)
         return pMaterial;
     }
 
-    ToolSystem::SE_DebugOutput("Add new material %s", strMaterialID);
+    ToolSystem::DebugOutput("Add new material %s", strMaterialID);
 
     domMaterial* pDomMaterial = (domMaterial*)spDomMaterial;
     if( pDomMaterial ) 
@@ -118,7 +118,7 @@ SEColladaMaterial* SEColladaScene::LoadMaterial(domMaterialRef spDomMaterial)
         {
             SEColladaMaterial* pMaterial = SE_NEW SEColladaMaterial(pEffect);
             pMaterial->SetName(strMaterialID);
-            ToolSystem::SE_DebugOutput(
+            ToolSystem::DebugOutput(
                 "Attaching effect %s to material %s \n", pEffect->GetName(), 
                 pMaterial->GetName()); 
             m_Materials.push_back(pMaterial);
@@ -131,7 +131,7 @@ SEColladaMaterial* SEColladaScene::LoadMaterial(domMaterialRef spDomMaterial)
             strOutput += "(no problem if there is a cfx version of this ";
             strOutput += "material)";
 
-            ToolSystem::SE_DebugOutput(strOutput.c_str(), 
+            ToolSystem::DebugOutput(strOutput.c_str(), 
                 pDomElement->getID(), strMaterialID);
 
             return 0;
@@ -163,7 +163,7 @@ SEColladaInstanceMaterial* SEColladaScene::LoadInstanceMaterial(
         }
         else
         {
-            ToolSystem::SE_DebugOutput("Couldn't find target material:%s",
+            ToolSystem::DebugOutput("Couldn't find target material:%s",
                 pInstanceMaterial->TargetName.c_str());
         }
     }

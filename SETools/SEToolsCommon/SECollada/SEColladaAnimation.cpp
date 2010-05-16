@@ -52,7 +52,7 @@ SEColladaAnimation::~SEColladaAnimation()
 //----------------------------------------------------------------------------
 void SEColladaAnimation::GenerateKeys()
 {
-    ToolSystem::SE_DebugOutput("Generating Keys for Animation Channel %s", 
+    ToolSystem::DebugOutput("Generating Keys for Animation Channel %s", 
         GetName().c_str());
 
     // Allocating for generic key channels.

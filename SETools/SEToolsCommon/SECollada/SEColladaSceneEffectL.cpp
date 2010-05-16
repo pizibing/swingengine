@@ -44,7 +44,7 @@ SEColladaEffect* SEColladaScene::GetEffect(const char* acName)
 //----------------------------------------------------------------------------
 bool SEColladaScene::LoadEffectLibrary(domLibrary_effectsRef spLib)
 {
-    ToolSystem::SE_DebugOutput("SEColladaScene::Loading SEEffect Library" );
+    ToolSystem::DebugOutput("SEColladaScene::Loading SEEffect Library" );
 
     int iEffectCount = (int)spLib->getEffect_array().getCount();
     for( int i = 0; i < iEffectCount; i++ )
@@ -75,7 +75,7 @@ SEColladaEffect* SEColladaScene::LoadEffect(domEffectRef spDomEffect)
         return pEffect;
     }
 
-    ToolSystem::SE_DebugOutput("Add new effect %s", strEffectID);
+    ToolSystem::DebugOutput("Add new effect %s", strEffectID);
     
     domEffect* pDomEffect = (domEffect*)spDomEffect;
     if( pDomEffect )
@@ -194,7 +194,7 @@ SEColladaEffect* SEColladaScene::LoadEffect(domEffectRef spDomEffect)
             } 
             else 
             {
-                ToolSystem::SE_DebugOutput("%s is not supported yet", 
+                ToolSystem::DebugOutput("%s is not supported yet", 
                     acTypeName);
             }
         }

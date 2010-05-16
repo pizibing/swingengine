@@ -25,7 +25,7 @@
 using namespace Swing;
 
 //----------------------------------------------------------------------------
-void ToolSystem::SE_DebugOutput(const char* acFormat, ...)
+void ToolSystem::DebugOutput(const char* acFormat, ...)
 {
 #if defined(_DEBUG)
     //va_list tempArgs;

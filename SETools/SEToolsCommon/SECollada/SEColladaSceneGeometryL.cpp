@@ -375,7 +375,7 @@ SENode* SEColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
         return pMeshRoot;
     }
 
-    ToolSystem::SE_DebugOutput("Add new geometry %s", strGeometryID);
+    ToolSystem::DebugOutput("Add new geometry %s", strGeometryID);
 
     // See what kind of data is in the geometry (there can be only one).
     domAsset* pDomAsset = spDomGeometry->getAsset();
@@ -386,22 +386,22 @@ SENode* SEColladaScene::LoadGeometry(domGeometryRef spDomGeometry)
 
     if( pDomAsset )
     {
-        ToolSystem::SE_DebugOutput("<asset>:%s, not support, skipped it", 
+        ToolSystem::DebugOutput("<asset>:%s, not support, skipped it", 
             strGeometryID);
     }
     else if( pDomConvexMesh )
     {
-        ToolSystem::SE_DebugOutput("<convex_mesh>:%s, not support, skipped it", 
+        ToolSystem::DebugOutput("<convex_mesh>:%s, not support, skipped it", 
             strGeometryID);
     }
     else if( rDomExtraArray.getCount() )
     {
-        ToolSystem::SE_DebugOutput("<extra>:%s, not support, skipped it", 
+        ToolSystem::DebugOutput("<extra>:%s, not support, skipped it", 
             strGeometryID);
     }
     else if( pDomSpline )
     {
-        ToolSystem::SE_DebugOutput("<spline>:%s, not support, skipped it", 
+        ToolSystem::DebugOutput("<spline>:%s, not support, skipped it", 
             strGeometryID);
     }
 

@@ -41,13 +41,13 @@ SEColladaScene::~SEColladaScene()
 //----------------------------------------------------------------------------
 bool SEColladaScene::Load(const char* acFilename)
 {
-    ToolSystem::SE_DebugOutput("COLLADA DOM loading process started" );
+    ToolSystem::DebugOutput("COLLADA DOM loading process started" );
 
     // Load a .dae file from disk, and set up DAE runtime automatically.
     daeInt iRes = m_pDAE->load(acFilename);
     if( iRes != DAE_OK )
     {
-        ToolSystem::SE_DebugOutput("The COLLADA file %s is illegal", 
+        ToolSystem::DebugOutput("The COLLADA file %s is illegal", 
             acFilename);
         return false;
     }
@@ -56,28 +56,30 @@ bool SEColladaScene::Load(const char* acFilename)
     domCOLLADA* pDom = m_pDAE->getDom(acFilename);
 
     // Do triangulation work unconditionally at the very beginning.
-    ToolSystem::SE_DebugOutput("Begin conditioning of triangulation");
+    ToolSystem::DebugOutput("Begin conditioning of triangulation");
     Triangulate(m_pDAE);
-    ToolSystem::SE_DebugOutput("Finish conditioning of triangulation");
+    ToolSystem::DebugOutput("Finish conditioning of triangulation");
 
     // Get current coordinate frame orientation.
+    // The default is positive Y-axis.
+    ms_eOrientationMode = OM_Y_UP;
     if( pDom->getAsset()->getUp_axis() )
     {
         domAsset::domUp_axis* pUp = pDom->getAsset()->getUp_axis();
         switch( pUp->getValue() )
         {
         case UPAXISTYPE_X_UP:
-            ToolSystem::SE_DebugOutput("Right-handed system with X upward");
+            ToolSystem::DebugOutput("Right-handed system with X upward");
             ms_eOrientationMode = OM_X_UP;
             break;
 
         case UPAXISTYPE_Y_UP:
-            ToolSystem::SE_DebugOutput("Right-handed system with Y upward");
+            ToolSystem::DebugOutput("Right-handed system with Y upward");
             ms_eOrientationMode = OM_Y_UP;
             break;
 
         case UPAXISTYPE_Z_UP:
-            ToolSystem::SE_DebugOutput("Right-handed system with Z upward");
+            ToolSystem::DebugOutput("Right-handed system with Z upward");
             ms_eOrientationMode = OM_Z_UP;
             break;
 
@@ -85,7 +87,6 @@ bool SEColladaScene::Load(const char* acFilename)
             break; 
         }
     }
-    SE_ASSERT( ms_eOrientationMode != OM_UNKNOWN );
 
     // Load all the image libraries.
     int iImageLibCount = (int)pDom->getLibrary_images_array().getCount();
@@ -400,7 +401,7 @@ bool SEColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
     xsNCName strSceneName = spDomVisualScene->getName();
     m_spSceneRoot->SetName(strSceneName);
 
-    ToolSystem::SE_DebugOutput("SEColladaScene::Loading Collada Scene %s", 
+    ToolSystem::DebugOutput("SEColladaScene::Loading Collada Scene %s", 
         (const char*)strSceneName);
 
     // Recurse through the scene, load and add nodes.

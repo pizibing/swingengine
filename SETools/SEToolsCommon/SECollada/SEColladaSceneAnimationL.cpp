@@ -28,7 +28,7 @@ using namespace std;
 //----------------------------------------------------------------------------
 bool SEColladaScene::LoadAnimationLibrary(domLibrary_animationsRef spLib)
 {
-    ToolSystem::SE_DebugOutput("SEColladaScene::Loading Animation Library");
+    ToolSystem::DebugOutput("SEColladaScene::Loading Animation Library");
 
     int iAnimationCount = (int)spLib->getAnimation_array().getCount();
     for( int i = 0; i < iAnimationCount; i++ )
@@ -74,7 +74,7 @@ SEColladaAnimationSource* SEColladaScene::LoadAnimationSource(
     }
     else 
     {
-        ToolSystem::SE_DebugOutput("Animation source %s is not support", 
+        ToolSystem::DebugOutput("Animation source %s is not support", 
             strSourceID);
     }
 
@@ -193,7 +193,7 @@ SEColladaAnimationChannel* SEColladaScene::LoadAnimationChannel(
     pDomElement = tempDomSIDResolver.getElement();
     if( !pDomElement )
     {
-        ToolSystem::SE_DebugOutput("Animation target = %s not found", 
+        ToolSystem::DebugOutput("Animation target = %s not found", 
             acTargetName);
         SE_DELETE pChannel;
 
@@ -235,7 +235,7 @@ SEColladaAnimationChannel* SEColladaScene::LoadAnimationChannel(
         break;
 
     default:
-        ToolSystem::SE_DebugOutput("Animation target = %s not supported", 
+        ToolSystem::DebugOutput("Animation target = %s not supported", 
             acTargetName);
         SE_DELETE pChannel;
         return 0;
@@ -312,7 +312,7 @@ SEColladaAnimation* SEColladaScene::LoadAnimation(domAnimationRef
 
     xsID strAnimationID = spDomAnimation->getId();
 
-    ToolSystem::SE_DebugOutput("Add new Animation %s", strAnimationID);
+    ToolSystem::DebugOutput("Add new Animation %s", strAnimationID);
 
     domAnimation* pDomAnimation = (domAnimation*)spDomAnimation;
     if( pDomAnimation )
@@ -371,7 +371,7 @@ SEColladaAnimation* SEColladaScene::LoadAnimation(domAnimationRef
         }
         else
         {
-            ToolSystem::SE_DebugOutput("No Channel found in this animation");
+            ToolSystem::DebugOutput("No Channel found in this animation");
             SE_DELETE pAnimation;
 
             return 0;

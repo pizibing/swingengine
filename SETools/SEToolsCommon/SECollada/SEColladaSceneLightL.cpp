@@ -57,7 +57,7 @@ SELight* SEColladaScene::LoadLight(domLightRef spDomLight)
         return pLight;
     }
 
-    ToolSystem::SE_DebugOutput("Add new light:%s", (const char*)strLightID);
+    ToolSystem::DebugOutput("Add new light:%s", (const char*)strLightID);
 
     domLight* pDomLight = (domLight*)(domLight*)spDomLight;
 
@@ -182,7 +182,7 @@ SEColladaInstanceLight* SEColladaScene::LoadInstanceLight(SENode* pParentNode,
     if( !pDomElement )
     {
         // This instance light is not found, skip to the next one.
-        ToolSystem::SE_DebugOutput("Can't find this light:%s", 
+        ToolSystem::DebugOutput("Can't find this light:%s", 
             (const char*)rUrlType.getURI());
 
         return 0;

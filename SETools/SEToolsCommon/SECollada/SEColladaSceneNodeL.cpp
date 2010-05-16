@@ -252,7 +252,7 @@ SENode* SEColladaScene::LoadNode(domNodeRef spDomNode, SENode* pParentNode)
         return pNode;
     }
 
-    ToolSystem::SE_DebugOutput("SEColladaScene::Loading Scene SENode %s", 
+    ToolSystem::DebugOutput("SEColladaScene::Loading Scene SENode %s", 
         acNodeID);
 
     // Create a Swing Engine node to handle the COLLADA node's information.

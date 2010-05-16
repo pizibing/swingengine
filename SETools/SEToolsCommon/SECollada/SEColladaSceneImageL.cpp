@@ -59,7 +59,7 @@ SEImage* SEColladaScene::GetImage(int i)
 //----------------------------------------------------------------------------
 bool SEColladaScene::LoadImageLibrary(domLibrary_imagesRef spLib)
 {
-    ToolSystem::SE_DebugOutput("SEColladaScene::Loading SEImage Library" );
+    ToolSystem::DebugOutput("SEColladaScene::Loading SEImage Library" );
 
     int iImageCount = (int)spLib->getImage_array().getCount();
     for( int i = 0; i < iImageCount; i++ )
@@ -90,7 +90,7 @@ SEImage* SEColladaScene::LoadImage(domImageRef spDomImage)
         return pImage;
     }
 
-    ToolSystem::SE_DebugOutput("Add new image %s", strImageID);
+    ToolSystem::DebugOutput("Add new image %s", strImageID);
 
     domImage* pDomImage = (domImage*)spDomImage;
     if( pDomImage )

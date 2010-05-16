@@ -141,7 +141,7 @@ SENode* SEColladaScene::LoadInstanceController(domInstance_controllerRef
     domNode* pDomSkeletonRoot = 0;
     if( rDomSkeletonArray.getCount() > 1 )
     {
-        ToolSystem::SE_DebugOutput("There are more than one skeleton");
+        ToolSystem::DebugOutput("There are more than one skeleton");
     }
     if( rDomSkeletonArray.getCount() > 0 )
     {
