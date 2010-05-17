@@ -131,6 +131,7 @@ void SEColladaScene::GetLocalTransSequence(SENode* pNode, domNodeRef spDomNode,
             {
                 // TODO:
                 // Support this transformation.
+                ToolSystem::DebugOutput("TT_MATRIX is not supported yet" );
                 SE_ASSERT( false );
             }
             break;
@@ -139,6 +140,7 @@ void SEColladaScene::GetLocalTransSequence(SENode* pNode, domNodeRef spDomNode,
             {
                 // TODO:
                 // Support this transformation.
+                ToolSystem::DebugOutput("TT_LOOKAT is not supported yet" );
                 SE_ASSERT( false );
             }
             break;
@@ -147,6 +149,7 @@ void SEColladaScene::GetLocalTransSequence(SENode* pNode, domNodeRef spDomNode,
             {
                 // TODO:
                 // Support this transformation.
+                ToolSystem::DebugOutput("TT_SKEW is not supported yet" );
                 SE_ASSERT( false );
             }
             break;
@@ -189,7 +192,7 @@ void SEColladaScene::GetLocalTransSequence(SENode* pNode, domNodeRef spDomNode,
                     }
                 }
             }
-            if (bFoundTarget)
+            if( bFoundTarget )
             {
                 break;
             }
@@ -252,7 +255,7 @@ SENode* SEColladaScene::LoadNode(domNodeRef spDomNode, SENode* pParentNode)
         return pNode;
     }
 
-    ToolSystem::DebugOutput("SEColladaScene::Loading Scene SENode %s", 
+    ToolSystem::DebugOutput("SEColladaScene::Loading Scene Node %s", 
         acNodeID);
 
     // Create a Swing Engine node to handle the COLLADA node's information.
@@ -265,6 +268,7 @@ SENode* SEColladaScene::LoadNode(domNodeRef spDomNode, SENode* pParentNode)
 
     // Get node's combined local transformation base on local transformation 
     // sequence at animation's start time(if there is any).
+    // The default start time is 0.0f.
     pNode->Local = GetLocalTransformation(tempColladaTransSequence, 0.0f);
 
     // Process keyframe animation.

@@ -60,7 +60,7 @@ public:
     // This will be used to store scale, rotation axis, or translation.
     SEVector4f SRTData;
 
-    // SETransformation can be affected by a COLLADA animation object.
+    // Transformation can be affected by a COLLADA animation object.
     SEColladaAnimation* Animation;
 
     // Channel access.

@@ -366,7 +366,7 @@ SEVector3f SEColladaScene::GetTransformedVector(float fX, float fY, float fZ)
     // COLLADA uses right-handed based system, now we only have these three 
     // situations to deal with. The result vector is a left-handed based 
     // Swing Engine vector.
-    switch(ms_eOrientationMode)
+    switch( ms_eOrientationMode )
     {
     case OM_Y_UP:
         vec3fRes.X = fX;
