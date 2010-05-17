@@ -272,9 +272,10 @@ SENode* SEColladaScene::LoadNode(domNodeRef spDomNode, SENode* pParentNode)
     pNode->Local = GetLocalTransformation(tempColladaTransSequence, 0.0f);
 
     // Process keyframe animation.
-    // TODO:
-    // Support keyframe animation option.
-    BuildKeyFrameController(pNode, tempColladaTransSequence);
+    if( EnableKeyFrameController )
+    {
+        BuildKeyFrameController(pNode, tempColladaTransSequence);
+    }
 
     // Release the local transformation sequence.
     for( int i = 0; i < (int)tempColladaTransSequence.size(); i++ )
@@ -286,8 +287,11 @@ SENode* SEColladaScene::LoadNode(domNodeRef spDomNode, SENode* pParentNode)
     domNodeType eNodeType = spDomNode->getType();
     if( eNodeType == NODETYPE_JOINT )
     {
-        //SETriMesh* pJointMesh = CreateJointMesh(acNodeID);
-        //pNode->AttachChild(pJointMesh);
+        if( EnableJointMesh )
+        {
+            SETriMesh* pJointMesh = CreateJointMesh(acNodeID);
+            pNode->AttachChild(pJointMesh);
+        }
 
         Bone tempBone;
         tempBone.BoneNode = pNode;

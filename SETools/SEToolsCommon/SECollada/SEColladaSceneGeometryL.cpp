@@ -96,7 +96,7 @@ void SEColladaScene::PackVertices(SEColladaUnimaterialMesh* pUniMesh,
 
     // Build sub-mesh index buffer for faces of vertices.
     // For each triangle, we swap COLLADA counter-clockwise order to
-    // Swing Engine clockwise order. Say, V0,V1,V2 to V0, V2, V1.
+    // Swing Engine clockwise order. Say, V0, V1, V2 to V0, V2, V1.
     pUniMesh->FCount() = iIndexCount/3;
     pUniMesh->Face() = SE_NEW int[iIndexCount];
     for( int i = 0; i < pUniMesh->FCount(); i++ )
@@ -261,9 +261,7 @@ SETriMesh* SEColladaScene::BuildTriangles(domTriangles* pDomTriangles)
     // Then impliment importer option.
 
     // Pack texture coordinate data for the mesh.
-    // TODO:
-    // Impliment importer option.
-    if( iTCoordOffset > -1 )
+    if( EnableTCoord && iTCoordOffset > -1 )
     {
         PackTextures(pSubMesh, pDomTCoordData, rDomIndexData, iIndexCount, 
             iStride, iTCoordOffset);

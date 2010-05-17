@@ -32,6 +32,10 @@ SEColladaScene::SEColladaScene(SEImageConverter* pImageConverter)
     SE_ASSERT( pImageConverter );
     m_pDAE = SE_NEW DAE;
     m_pImageConverter = pImageConverter;
+
+    EnableKeyFrameController = true;
+    EnableJointMesh = false;
+    EnableTCoord = true;
 }
 //----------------------------------------------------------------------------
 SEColladaScene::~SEColladaScene()

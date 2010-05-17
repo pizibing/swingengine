@@ -138,6 +138,11 @@ public:
     SELight* GetLight(const char* acName);
     SECamera* GetCamera(const char* acName);
 
+    // Import options.
+    bool EnableKeyFrameController;  // Default: true
+    bool EnableJointMesh;           // Default: false
+    bool EnableTCoord;              // Default: true
+
 private:
     // This helper class represents a specific type of transformation
     // happened at a specific time.
