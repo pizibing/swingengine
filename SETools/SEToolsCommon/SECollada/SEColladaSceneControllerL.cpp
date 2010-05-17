@@ -56,7 +56,7 @@ SENode* SEColladaScene::LoadInstanceController(domInstance_controllerRef
         }
     }
 
-    // Create a instance controller to hold the relationship between the 
+    // Create an instance controller to hold the relationship between the 
     // geometry and the controller.
     SEColladaInstanceController* pIController = 0;
     SEColladaInstanceController::ControllerType eControllerType = 
@@ -689,5 +689,6 @@ void SEColladaScene::ProcessSkin(SEColladaInstanceController* pIController)
 //----------------------------------------------------------------------------
 void SEColladaScene::ProcessMorph(SEColladaInstanceController*)
 {
+    // TODO:
 }
 //----------------------------------------------------------------------------

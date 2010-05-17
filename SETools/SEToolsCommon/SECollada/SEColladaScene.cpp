@@ -36,6 +36,7 @@ SEColladaScene::SEColladaScene(SEImageConverter* pImageConverter)
     EnableKeyFrameController = true;
     EnableJointMesh = false;
     EnableTCoord = true;
+    EnableControllers = true;
 }
 //----------------------------------------------------------------------------
 SEColladaScene::~SEColladaScene()
@@ -151,9 +152,10 @@ bool SEColladaScene::Load(const char* acFilename)
     ProcessCameras();
 
     // Deferred processing of controllers.
-    // TODO:
-    // Impliment controller option.
-    ProcessControllers();
+    if( EnableControllers )
+    {
+        ProcessControllers();
+    }
 
     return true;
 }

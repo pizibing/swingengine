@@ -339,7 +339,6 @@ SENode* SEColladaScene::LoadNode(domNodeRef spDomNode, SENode* pParentNode)
         m_Geometries.push_back(pMeshRoot);
     }
 
-
     // Process instance lights.
     // We should set orientation(position,direction) for spot light, and set 
     // position for point light base on their parent node's orientation. But 
