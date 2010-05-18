@@ -328,6 +328,11 @@ public:
     // from a right-handed based system to Swing Engine left-handed based
     // system.
     static SEVector3f GetTransformedVector(float fX, float fY, float fZ);
+
+    // Generate Swing Engine inverse binding transformation object base on 
+    // DCC inverse binding matrix.
+    static void GetInverseBindingTransformation(SETransformation& 
+        rDstTransformation, domListOfFloats* pSrcMatrix, int iSrcBase);
 };
 
 }

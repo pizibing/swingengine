@@ -399,6 +399,86 @@ SEVector3f SEColladaScene::GetTransformedVector(float fX, float fY, float fZ)
     return vec3fRes;
 }
 //----------------------------------------------------------------------------
+void SEColladaScene::GetInverseBindingTransformation(SETransformation& 
+    rDstTransformation, domListOfFloats* pSrcMatrix, int iSrcBase)
+{
+    // Given a COLLADA homogeneous inverse binding matrix M:
+    // m00  m01  m02  t1
+    // m10  m11  m12  t2
+    // m20  m21  m22  t3
+    //   0    0    0   1
+    // in column major order.
+    //
+    // Given a Swing Engine homogeneous vector V:
+    // x
+    // y 
+    // z 
+    // w
+    // in column major order.
+    //
+    // We should construct a homogeneous matrix that could finish the 
+    // following operations:
+    // (1) Transform V back to the original DCC right-handed system,
+    //     say, V0, by using a homogeneous matrix M0:
+    //
+    // Y_UP:         Z_UP:         X_UP:
+    // 1  0  0  0    1  0  0  0    0  1  0  0
+    // 0  1  0  0    0  0  1  0   -1  0  0  0
+    // 0  0 -1  0    0  1  0  0    0  0 -1  0
+    // 0  0  0  1    0  0  0  1    0  0  0  1
+    // in column major order.
+    //
+    // (2) Transform V0 into the COLLADA binding joint's local right-
+    //     handed system, say, V1, by using M.
+    //
+    // (3) Transform V1 back to the Swing Engine binding joint's local
+    //     left-handed system, say, V2, by using a homogeneous matrix M1:
+    //
+    // Y_UP:         Z_UP:         X_UP:
+    // 1  0  0  0    1  0  0  0    0 -1  0  0
+    // 0  1  0  0    0  0  1  0    1  0  0  0
+    // 0  0 -1  0    0  1  0  0    0  0 -1  0
+    // 0  0  0  1    0  0  0  1    0  0  0  1
+    // in column major order.
+    //
+    // The final combination of these three operations will be:
+    // V2 = M1*M*M0*V.
+    // So M1*M*M0 is the matrix we want:
+    //
+    //  Y_UP:                Z_UP:                X_UP:
+    //  m00  m01 -m02  t1    m00  m02  m01  t1    m11 -m10  m12 -t2
+    //  m10  m11 -m12  t2    m20  m22  m21  t3   -m01  m00 -m02  t1
+    // -m20 -m21  m22 -t3    m10  m12  m11  t2    m21 -m20  m22 -t3
+    //    0    0    0   1      0    0    0   1      0    0    0   1
+    // in column major order.
+
+    float fM00, fM01, fM02, fM10, fM11, fM12, fM20, fM21, fM22;
+    fM00 = (float)(*pSrcMatrix)[iSrcBase     ];
+    fM01 = (float)(*pSrcMatrix)[iSrcBase +  1];
+    fM02 = (float)(*pSrcMatrix)[iSrcBase +  2];
+    fM10 = (float)(*pSrcMatrix)[iSrcBase +  4];
+    fM11 = (float)(*pSrcMatrix)[iSrcBase +  5];
+    fM12 = (float)(*pSrcMatrix)[iSrcBase +  6];
+    fM20 = (float)(*pSrcMatrix)[iSrcBase +  8];
+    fM21 = (float)(*pSrcMatrix)[iSrcBase +  9];
+    fM22 = (float)(*pSrcMatrix)[iSrcBase + 10];
+
+    SEVector3f vec3fRow0(fM00, fM01, -fM02);
+    SEVector3f vec3fRow1(fM10, fM11, -fM12);
+    SEVector3f vec3fRow2(-fM20, -fM21, fM22);
+    SEMatrix3f mat3fM(vec3fRow0, vec3fRow1, vec3fRow2, false);
+
+    float fT0, fT1, fT2;
+    fT0 = (float)(*pSrcMatrix)[iSrcBase +  3];
+    fT1 = (float)(*pSrcMatrix)[iSrcBase +  7];
+    fT2 = (float)(*pSrcMatrix)[iSrcBase + 11];
+    SEVector3f vec3fT(fT0, fT1, -fT2);
+
+    // Maybe MT form is enough for our usage.
+    rDstTransformation.SetMatrix(mat3fM);
+    rDstTransformation.SetTranslate(vec3fT);
+}
+//----------------------------------------------------------------------------
 bool SEColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
 {
     // Create Swing Engine scene graph's root.
