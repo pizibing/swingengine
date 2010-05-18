@@ -403,9 +403,9 @@ void SEColladaScene::GetInverseBindingTransformation(SETransformation&
     rDstTransformation, domListOfFloats* pSrcMatrix, int iSrcBase)
 {
     // Given a COLLADA homogeneous inverse binding matrix M:
-    // m00  m01  m02  t1
-    // m10  m11  m12  t2
-    // m20  m21  m22  t3
+    // m00  m01  m02  t0
+    // m10  m11  m12  t1
+    // m20  m21  m22  t2
     //   0    0    0   1
     // in column major order.
     //
@@ -446,13 +446,15 @@ void SEColladaScene::GetInverseBindingTransformation(SETransformation&
     // So M1*M*M0 is the matrix we want:
     //
     //  Y_UP:                Z_UP:                X_UP:
-    //  m00  m01 -m02  t1    m00  m02  m01  t1    m11 -m10  m12 -t2
-    //  m10  m11 -m12  t2    m20  m22  m21  t3   -m01  m00 -m02  t1
-    // -m20 -m21  m22 -t3    m10  m12  m11  t2    m21 -m20  m22 -t3
+    //  m00  m01 -m02  t0    m00  m02  m01  t0    m11 -m10  m12 -t1
+    //  m10  m11 -m12  t1    m20  m22  m21  t2   -m01  m00 -m02  t0
+    // -m20 -m21  m22 -t2    m10  m12  m11  t1    m21 -m20  m22 -t2
     //    0    0    0   1      0    0    0   1      0    0    0   1
     // in column major order.
 
     float fM00, fM01, fM02, fM10, fM11, fM12, fM20, fM21, fM22;
+    float fT0, fT1, fT2;
+
     fM00 = (float)(*pSrcMatrix)[iSrcBase     ];
     fM01 = (float)(*pSrcMatrix)[iSrcBase +  1];
     fM02 = (float)(*pSrcMatrix)[iSrcBase +  2];
@@ -462,21 +464,56 @@ void SEColladaScene::GetInverseBindingTransformation(SETransformation&
     fM20 = (float)(*pSrcMatrix)[iSrcBase +  8];
     fM21 = (float)(*pSrcMatrix)[iSrcBase +  9];
     fM22 = (float)(*pSrcMatrix)[iSrcBase + 10];
-
-    SEVector3f vec3fRow0(fM00, fM01, -fM02);
-    SEVector3f vec3fRow1(fM10, fM11, -fM12);
-    SEVector3f vec3fRow2(-fM20, -fM21, fM22);
-    SEMatrix3f mat3fM(vec3fRow0, vec3fRow1, vec3fRow2, false);
-
-    float fT0, fT1, fT2;
     fT0 = (float)(*pSrcMatrix)[iSrcBase +  3];
     fT1 = (float)(*pSrcMatrix)[iSrcBase +  7];
     fT2 = (float)(*pSrcMatrix)[iSrcBase + 11];
-    SEVector3f vec3fT(fT0, fT1, -fT2);
 
-    // Maybe MT form is enough for our usage.
-    rDstTransformation.SetMatrix(mat3fM);
-    rDstTransformation.SetTranslate(vec3fT);
+    // MT form is enough for our usage.
+    switch( ms_eOrientationMode )
+    {
+    case OM_Y_UP:
+        {
+            SEVector3f vec3fRow0(fM00, fM01, -fM02);
+            SEVector3f vec3fRow1(fM10, fM11, -fM12);
+            SEVector3f vec3fRow2(-fM20, -fM21, fM22);
+            SEMatrix3f mat3fM(vec3fRow0, vec3fRow1, vec3fRow2, false);
+            SEVector3f vec3fT(fT0, fT1, -fT2);
+
+            rDstTransformation.SetMatrix(mat3fM);
+            rDstTransformation.SetTranslate(vec3fT);
+        }
+        break;
+
+    case OM_Z_UP:
+        {
+            SEVector3f vec3fRow0(fM00, fM02, fM01);
+            SEVector3f vec3fRow1(fM20, fM22, fM21);
+            SEVector3f vec3fRow2(fM10, fM12, fM11);
+            SEMatrix3f mat3fM(vec3fRow0, vec3fRow1, vec3fRow2, false);
+            SEVector3f vec3fT(fT0, fT2, fT1);
+
+            rDstTransformation.SetMatrix(mat3fM);
+            rDstTransformation.SetTranslate(vec3fT);
+        }
+        break;
+
+    case OM_X_UP:
+        {
+            SEVector3f vec3fRow0(fM11, -fM10, fM12);
+            SEVector3f vec3fRow1(-fM01, fM00, -fM02);
+            SEVector3f vec3fRow2(fM21, -fM20, fM22);
+            SEMatrix3f mat3fM(vec3fRow0, vec3fRow1, vec3fRow2, false);
+            SEVector3f vec3fT(-fT1, fT0, -fT2);
+
+            rDstTransformation.SetMatrix(mat3fM);
+            rDstTransformation.SetTranslate(vec3fT);
+        }
+        break;
+
+    default:
+        SE_ASSERT( false );
+        break;
+    }
 }
 //----------------------------------------------------------------------------
 bool SEColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
