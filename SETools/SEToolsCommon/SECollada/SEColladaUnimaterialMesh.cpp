@@ -320,9 +320,8 @@ SETriMesh* SEColladaUnimaterialMesh::ToTriMesh()
         }
         else
         {
-            pSEEffect = SE_NEW SEMaterialEffect();
+            pSEEffect = SE_NEW SEDefaultShaderEffect;
 
-            SE_ASSERT( !m_aTexture );
             if( m_aTexture )
             {
                 SE_DELETE[] m_aTexture;
