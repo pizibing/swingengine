@@ -39,7 +39,8 @@ public:
     SEImageConverter(IDirect3DDevice9* pDevice);
     ~SEImageConverter(void);
 
-    SEImage* CreateImageFromFile(const char* acFilename);
+    SEImage* CreateImageFromFile(const char* acFilename, 
+        const char* acImageName = 0, bool bInsert = false);
 
 private:
     SEImageConverter(void);

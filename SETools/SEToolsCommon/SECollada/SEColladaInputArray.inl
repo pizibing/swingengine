@@ -39,6 +39,21 @@ inline int SEColladaInputArray::GetTCoordOffset() const
     return m_iTCoord;
 }
 //----------------------------------------------------------------------------
+inline int SEColladaInputArray::GetPositionStride() const
+{
+    return m_iPositionStride;
+}
+//----------------------------------------------------------------------------
+inline int SEColladaInputArray::GetNormalStride() const
+{
+    return m_iNormalStride;
+}
+//----------------------------------------------------------------------------
+inline int SEColladaInputArray::GetTCoordStride() const
+{
+    return m_iTCoordStride;
+}
+//----------------------------------------------------------------------------
 inline domListOfFloats* SEColladaInputArray::GetPositionData()
 {
     return m_pDomPositionData;

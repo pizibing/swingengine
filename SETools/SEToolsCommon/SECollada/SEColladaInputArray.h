@@ -44,6 +44,10 @@ public:
     inline int GetNormalOffset(void) const;
     inline int GetTCoordOffset(void) const;
 
+    inline int GetPositionStride(void) const;
+    inline int GetNormalStride(void) const;
+    inline int GetTCoordStride(void) const;
+
     inline domListOfFloats* GetPositionData(void);
     inline domListOfFloats* GetNormalData(void);
     inline domListOfFloats* GetTCoordData(void);
@@ -58,6 +62,10 @@ private:
     int m_iPosition;
     int m_iNormal;
     int m_iTCoord;
+
+    int m_iPositionStride;  // Default: 3
+    int m_iNormalStride;    // Default: 3
+    int m_iTCoordStride;    // Default: 2
 
     domListOfFloats* m_pDomPositionData;
     domListOfFloats* m_pDomNormalData;

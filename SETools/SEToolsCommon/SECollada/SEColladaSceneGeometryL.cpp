@@ -45,8 +45,9 @@ SENode* SEColladaScene::GetGeometry(const char* acName)
 }
 //----------------------------------------------------------------------------
 void SEColladaScene::PackVertices(SEColladaUnimaterialMesh* pUniMesh,
-    domListOfFloats* pDomPositionData, domListOfUInts& rDomIndexData, 
-    int iIndexCount, int iStride, int iPositionOffset, SEVector3f* aNormal)
+    domListOfFloats* pDomPositionData, int iPositionStride, domListOfUInts& 
+    rDomIndexData, int iIndexCount, int iStride, int iPositionOffset, 
+    SEVector3f* aNormal)
 {
     // 当前部分所使用的顶点索引,set确保顶点唯一性.
     set<int> tempVIndexSet;
@@ -82,9 +83,9 @@ void SEColladaScene::PackVertices(SEColladaUnimaterialMesh* pUniMesh,
         int j = *tempIter;
         aiVMap[j] = i;
 
-        float fX = (float)(*pDomPositionData)[3*j    ];
-        float fY = (float)(*pDomPositionData)[3*j + 1];
-        float fZ = (float)(*pDomPositionData)[3*j + 2];
+        float fX = (float)(*pDomPositionData)[iPositionStride*j    ];
+        float fY = (float)(*pDomPositionData)[iPositionStride*j + 1];
+        float fZ = (float)(*pDomPositionData)[iPositionStride*j + 2];
         SEVector3f vec3fPosition = GetTransformedVector(fX, fY, fZ);
         pUniMesh->Vertex()[i].X = vec3fPosition.X;
         pUniMesh->Vertex()[i].Y = vec3fPosition.Y;
@@ -120,8 +121,8 @@ void SEColladaScene::PackVertices(SEColladaUnimaterialMesh* pUniMesh,
 }
 //----------------------------------------------------------------------------
 void SEColladaScene::PackTextures(SEColladaUnimaterialMesh* pUniMesh,
-    domListOfFloats* pDomTCoordData, domListOfUInts& rDomIndexData, 
-    int iIndexCount, int iStride, int iTCoordOffset)
+    domListOfFloats* pDomTCoordData, int iTCoordStride, domListOfUInts& 
+    rDomIndexData, int iIndexCount, int iStride, int iTCoordOffset)
 {
     // 当前部分所使用的纹理坐标索引,set确保纹理坐标唯一性.
     set<int> tempTIndexSet;
@@ -157,8 +158,8 @@ void SEColladaScene::PackTextures(SEColladaUnimaterialMesh* pUniMesh,
         int j = *tempIter;
         aiTMap[j] = i;
 
-        float fX = (float)(*pDomTCoordData)[2*j    ];
-        float fY = (float)(*pDomTCoordData)[2*j + 1];
+        float fX = (float)(*pDomTCoordData)[iTCoordStride*j    ];
+        float fY = (float)(*pDomTCoordData)[iTCoordStride*j + 1];
         pUniMesh->SETexture()[i].X = fX;
         pUniMesh->SETexture()[i].Y = 1.0f - fY;
     }
@@ -217,7 +218,10 @@ SETriMesh* SEColladaScene::BuildTriangles(domTriangles* pDomTriangles)
     domListOfFloats* pDomPositionData = tempOffsets.GetPositionData();
     domListOfFloats* pDomNormalData = tempOffsets.GetNormalData();
     domListOfFloats* pDomTCoordData = tempOffsets.GetTCoordData();
-    int iVCount = (int)pDomPositionData->getCount()/3;
+    int iPositionStride = tempOffsets.GetPositionStride();
+    int iNormalStride = tempOffsets.GetNormalStride();
+    int iTCoordStride = tempOffsets.GetTCoordStride();
+    int iVCount = (int)pDomPositionData->getCount()/iPositionStride;
     int iStride = tempOffsets.GetMaxOffset();
     int iPositionOffset = tempOffsets.GetPositionOffset();
     int iNormalOffset = tempOffsets.GetNormalOffset();
@@ -242,9 +246,9 @@ SETriMesh* SEColladaScene::BuildTriangles(domTriangles* pDomTriangles)
             iNIndex = (int)rDomIndexData[iBase + iNormalOffset];
 
             // Get a normal from normal source.
-            fX = (float)(*pDomNormalData)[3*iNIndex    ];
-            fY = (float)(*pDomNormalData)[3*iNIndex + 1];
-            fZ = (float)(*pDomNormalData)[3*iNIndex + 2];
+            fX = (float)(*pDomNormalData)[iNormalStride*iNIndex    ];
+            fY = (float)(*pDomNormalData)[iNormalStride*iNIndex + 1];
+            fZ = (float)(*pDomNormalData)[iNormalStride*iNIndex + 2];
 
             // Get a Swing Engine normal vector and do averaging by using it.
             SEVector3f vec3fNormal = GetTransformedVector(fX, fY, fZ);
@@ -253,8 +257,8 @@ SETriMesh* SEColladaScene::BuildTriangles(domTriangles* pDomTriangles)
     }
 
     // Pack vertex data for the mesh.
-    PackVertices(pSubMesh, pDomPositionData, rDomIndexData, iIndexCount, 
-        iStride, iPositionOffset, aNormal);
+    PackVertices(pSubMesh, pDomPositionData, iPositionStride, rDomIndexData, 
+        iIndexCount, iStride, iPositionOffset, aNormal);
 
     // TODO:
     // if DCC has vertex color data for the mesh, maybe we should pack it.
@@ -263,8 +267,8 @@ SETriMesh* SEColladaScene::BuildTriangles(domTriangles* pDomTriangles)
     // Pack texture coordinate data for the mesh.
     if( EnableTCoord && iTCoordOffset > -1 )
     {
-        PackTextures(pSubMesh, pDomTCoordData, rDomIndexData, iIndexCount, 
-            iStride, iTCoordOffset);
+        PackTextures(pSubMesh, pDomTCoordData, iTCoordStride, rDomIndexData, 
+            iIndexCount, iStride, iTCoordOffset);
     }
 
     // Generate the final uni-material sub-mesh before calling ToTriMesh().

@@ -33,7 +33,8 @@ SEImageConverter::~SEImageConverter()
     m_pDXDevice = 0;
 }
 //----------------------------------------------------------------------------
-SEImage* SEImageConverter::CreateImageFromFile(const char* acFilename)
+SEImage* SEImageConverter::CreateImageFromFile(const char* acFilename, 
+    const char* acImageName, bool bInsert)
 {
     if( !acFilename )
     {
@@ -161,8 +162,16 @@ SEImage* SEImageConverter::CreateImageFromFile(const char* acFilename)
     SE_ASSERT( SUCCEEDED(hResult) );
     pDXTex->Release();
 
-    pImage = SE_NEW SEImage((SEImage::FormatMode)eFormat, iWidth, iHeight, 
-        aucDst, acFilename, false);
+    if( acImageName )
+    {
+        pImage = SE_NEW SEImage((SEImage::FormatMode)eFormat, iWidth, iHeight, 
+            aucDst, acImageName, bInsert);
+    }
+    else
+    {
+        pImage = SE_NEW SEImage((SEImage::FormatMode)eFormat, iWidth, iHeight, 
+            aucDst, acFilename, bInsert);
+    }
     SE_ASSERT( pImage );
 
     return pImage;

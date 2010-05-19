@@ -31,6 +31,9 @@ SEColladaInputArray::SEColladaInputArray(domInputLocalOffset_Array&
     m_iPosition = -1;
     m_iNormal = -1;
     m_iTCoord = -1;
+    m_iPositionStride = 3;
+    m_iNormalStride = 3;
+    m_iTCoordStride = 2;
     m_pDomPositionData = 0;
     m_pDomNormalData = 0;
     m_pDomTCoordData = 0;
@@ -65,11 +68,15 @@ void SEColladaInputArray::SetInputs(domInputLocalOffset_Array& rDomInputs)
         {
             m_iNormal = iCurrentOffset;
             m_pDomNormalData = &pDomSource->getFloat_array()->getValue();
+            m_iNormalStride = (int)pDomSource->getTechnique_common(
+                )->getAccessor()->getStride();
         } 
         else if( strcmp("TEXCOORD", strSemantic) == 0 )
         {
             m_iTCoord = iCurrentOffset;
             m_pDomTCoordData = &pDomSource->getFloat_array()->getValue();
+            m_iTCoordStride = (int)pDomSource->getTechnique_common(
+                )->getAccessor()->getStride();
         }
     }
     m_iMaxOffset += 1;
@@ -90,16 +97,22 @@ void SEColladaInputArray::SetInputs(domInputLocalOffset_Array& rDomInputs)
         if( strcmp("POSITION", strSemantic) == 0 )
         {
             m_pDomPositionData = &pDomSource->getFloat_array()->getValue();
-        } 
+            m_iPositionStride = (int)pDomSource->getTechnique_common(
+                )->getAccessor()->getStride();
+        }
         else if( strcmp("NORMAL", strSemantic) == 0 )
         {
             m_pDomNormalData = &pDomSource->getFloat_array()->getValue();
             m_iNormal = m_iPosition;
-        } 
+            m_iNormalStride = (int)pDomSource->getTechnique_common(
+                )->getAccessor()->getStride();
+        }
         else if( strcmp("TEXCOORD", strSemantic) == 0 )
         {
             m_pDomTCoordData = &pDomSource->getFloat_array()->getValue();
             m_iTCoord = m_iPosition;
+            m_iTCoordStride = (int)pDomSource->getTechnique_common(
+                )->getAccessor()->getStride();
         }
     }
 }

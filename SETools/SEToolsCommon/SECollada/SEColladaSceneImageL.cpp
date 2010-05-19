@@ -105,7 +105,8 @@ SEImage* SEColladaScene::LoadImage(domImageRef spDomImage)
         // Load the actual image by image file name.
         if( acFileName )
         {
-            pImage = m_pImageConverter->CreateImageFromFile(acFileName);
+            pImage = m_pImageConverter->CreateImageFromFile(acFileName, 
+                acOriginalFileName, true);
 
             if( pImage )
             {

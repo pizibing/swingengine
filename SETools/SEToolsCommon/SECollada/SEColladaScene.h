@@ -234,12 +234,13 @@ private:
     SENode* LoadGeometry(domGeometryRef spDomGeometry);
     SENode* LoadInstanceGeometry(domInstance_geometryRef spLib);
     void PackVertices(SEColladaUnimaterialMesh* pUniMesh,
-        domListOfFloats* pDomPositionData, domListOfUInts& rDomIndexData, 
-        int iIndexCount, int iStride, int iPositionOffset, 
-        SEVector3f* aNormal);
+        domListOfFloats* pDomPositionData, int iPositionStride, 
+        domListOfUInts& rDomIndexData, int iIndexCount, int iStride, 
+        int iPositionOffset, SEVector3f* aNormal);
     void PackTextures(SEColladaUnimaterialMesh* pUniMesh,
-        domListOfFloats* pDomTCoordData, domListOfUInts& rDomIndexData, 
-        int iIndexCount, int iStride, int iTCoordOffset);
+        domListOfFloats* pDomTCoordData, int iTCoordStride, 
+        domListOfUInts& rDomIndexData, int iIndexCount, int iStride, 
+        int iTCoordOffset);
     SETriMesh* BuildTriangles(domTriangles* pDomTriangles);
     void ParseGeometry(SENode*& rpMeshRoot, domGeometry* pDomGeometry);
 
