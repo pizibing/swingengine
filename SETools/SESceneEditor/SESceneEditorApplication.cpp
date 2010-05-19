@@ -190,7 +190,7 @@ void SESceneEditorApplication::LoadFile(String^ thFileName)
     const char* acFileName = SESceneEditorUtility::StringToNativeCharBuffer(
         thFileName);
 
-    if( thExt == "seof" )
+    if( thExt == "seof" || thExt == "SEOF" )
     {
         // Load a Swing Engine Object File.
 
@@ -210,7 +210,7 @@ void SESceneEditorApplication::LoadFile(String^ thFileName)
             }
         }
     }
-    else if( thExt == "dae" )
+    else if( thExt == "dae" || thExt == "DAE" )
     {
         // Load a COLLADA XML File.
 
