@@ -78,7 +78,7 @@ SESceneEditorApplication::SESceneEditorApplication(MainForm^ thForm)
     float fUMax = 0.4125f * fDMin;
     float fUMin = -fUMax;
     m_pMainCamera->SetFrustum(fRMin, fRMax, fUMin, fUMax, fDMin, fDMax);
-    SEVector3f tempCLoc(0.0f, 1.5f, 0.0f);
+    SEVector3f tempCLoc(0.0f, 1.5f, -5.0f);
     SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
     SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
     SEVector3f tempCRight = tempCUp.Cross(tempCDir);
