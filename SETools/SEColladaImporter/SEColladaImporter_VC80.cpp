@@ -55,7 +55,7 @@ int main(array<System::String^> ^)
     Swing::SE_DX9Renderer_Register();
 
     // Swing Engine initialize.
-    Swing::ToolSystem::SE_DebugOutput("Swing Engine initialized");
+    Swing::ToolSystem::DebugOutput("Swing Engine initialized");
     Swing::SESystem::SE_Initialize();
     assert( Swing::SESystem::SE_PATH[0] );
     std::string tempSEPath(Swing::SESystem::SE_PATH);
@@ -133,7 +133,7 @@ int main(array<System::String^> ^)
     g_ColladaImporterApp.AppRenderer = 0;
 
     // Swing Engine terminate.
-    Swing::ToolSystem::SE_DebugOutput("Swing Engine terminated");
+    Swing::ToolSystem::DebugOutput("Swing Engine terminated");
     Swing::SEMain::Terminate();
     Swing::SESystem::SE_Terminate();
 
