@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="SEToolsCommon"
+	Name="SEToolsCommon_VC80"
 	ProjectGUID="{435521FA-5A41-4593-87F6-0937BABBDF45}"
 	RootNamespace="SEToolsCommon"
 	Keyword="ManagedCProj"
