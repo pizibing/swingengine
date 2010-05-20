@@ -65,7 +65,7 @@ protected:
         SEProgram* pPProgram, SEProgram* pGProgram);
     virtual void OnPreApplyEffect(SERenderer* pRenderer, bool bPrimaryEffect);
 
-    int m_iBoneCount;          // bc
+    int m_iBoneCount;            // bc
     SENode** m_apBones;          // bones[bc]
     SETransformation* m_aOffset; // offset[bc]
 

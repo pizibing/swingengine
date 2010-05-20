@@ -30,8 +30,6 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(SESkinMaterialTexture2L1Effect, SESkinEffect);
 
 //SE_REGISTER_STREAM(SESkinMaterialTexture2L1Effect);
 
-bool SESkinMaterialTexture2L1Effect::ms_bUCInitialized = false;
-
 //----------------------------------------------------------------------------
 SESkinMaterialTexture2L1Effect::SESkinMaterialTexture2L1Effect(
     const std::string& rT0, const std::string& rT1, int iBoneCount, 
@@ -60,10 +58,6 @@ SESkinMaterialTexture2L1Effect::~SESkinMaterialTexture2L1Effect()
 void SESkinMaterialTexture2L1Effect::OnLoadPrograms(int, SEProgram* pVProgram,
     SEProgram*, SEProgram*)
 {
-    if( !ms_bUCInitialized )
-    {
-        InitializeUserConstants(pVProgram);
-        ms_bUCInitialized = true;
-    }
+    InitializeUserConstants(pVProgram);
 }
 //----------------------------------------------------------------------------

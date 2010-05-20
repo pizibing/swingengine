@@ -30,8 +30,6 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(SESkinMaterialEffect, SESkinEffect);
 
 //SE_REGISTER_STREAM(SESkinMaterialEffect);
 
-bool SESkinMaterialEffect::ms_bUCInitialized = false;
-
 //----------------------------------------------------------------------------
 SESkinMaterialEffect::SESkinMaterialEffect(int iBoneCount, SENode** apBones, 
     SETransformation* aOffset)
@@ -53,10 +51,6 @@ SESkinMaterialEffect::~SESkinMaterialEffect()
 void SESkinMaterialEffect::OnLoadPrograms(int, SEProgram* pVProgram, 
     SEProgram*, SEProgram*)
 {
-    if( !ms_bUCInitialized )
-    {
-        InitializeUserConstants(pVProgram);
-        ms_bUCInitialized = true;
-    }
+    InitializeUserConstants(pVProgram);
 }
 //----------------------------------------------------------------------------

@@ -49,8 +49,6 @@ protected:
 
     virtual void OnLoadPrograms(int iPass, SEProgram* pVProgram,
         SEProgram* pPProgram, SEProgram* pGProgram);
-
-    static bool ms_bUCInitialized;
 };
 
 typedef SESmartPointer<SESkinMaterialTextureEffect> 
