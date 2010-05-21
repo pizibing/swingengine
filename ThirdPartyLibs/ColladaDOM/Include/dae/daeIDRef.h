@@ -1,15 +1,10 @@
 /*
- * Copyright 2006 Sony Computer Entertainment Inc.
- *
- * Licensed under the SCEA Shared Source License, Version 1.0 (the "License"); you may not use this 
- * file except in compliance with the License. You may obtain a copy of the License at:
- * http://research.scea.com/scea_shared_source_license.html
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License 
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or 
- * implied. See the License for the specific language governing permissions and limitations under the 
- * License. 
- */
+* Copyright 2006 Sony Computer Entertainment Inc.
+*
+* Licensed under the MIT Open Source License, for details please see license.txt or the website
+* http://www.opensource.org/licenses/mit-license.php
+*
+*/ 
 
 #ifndef __DAE_IDREF_H__
 #define __DAE_IDREF_H__
@@ -63,9 +58,6 @@ private:
 	/** ID used to refer to another element */
 	std::string id;
 
-	/** Reference to the actual element the ID refers to */
-	mutable daeElement* element;
-
 	/** Element that owns this ID (if any) */
 	daeElement* container;
 
@@ -111,19 +103,6 @@ public:
 	 * @return Returns a ref to the element.
 	 */
 	daeElement* getElement() const;
-
-	/** 
-	 * Sets the element that this URI resolves to in memory.
-	 * @param newref A ref to the element.
-	 */
-	void setElement(daeElement* newref);
-
-	/**
-	 * Gets the resolve state of the URI.
-	 * @return Returns the current state.
-	 * @note This will be removed when daeURI starts managing its state internally.
-	 */
-	ResolveState getState() const;
 
 	/**
 	 * Gets a pointer to the @c daeElement that contains this URI.
@@ -173,10 +152,8 @@ public:
 	void resolveID(); // Never should have existed. No alternative.
 	void validate(); // Never should have existed. No alternative.
 	void copyFrom(const daeIDRef& from); // Use the assignment operator instead.
+	ResolveState getState() const; // Never should have existed. No alternative.
 };
-
-class daeIDRefResolver;
-typedef daeTArray<daeIDRefResolver*> daeIDRefResolverPtrArray;
 
 /**
  * The @c daeIDRefResolver class is the plugin point for @c daeIDRef resolution.
@@ -199,13 +176,11 @@ public:
 	/**
 	 * Provides an abstract interface to convert a @c daeIDRef into a @c daeElement.
 	 * @param id The ID of the element to find.
-	 * @param docURI The URI of the document containing the element.
-	 * @param result A ResolveState value indicating the result.
+	 * @param doc The document containing the element.
 	 * @return Returns a daeElement with matching ID, if one is found.
 	 */
-	virtual daeElement* resolveElement(daeString id,
-	                                   daeString docURI,
-	                                   daeIDRef::ResolveState* result = NULL) = 0;
+	virtual daeElement* resolveElement(const std::string& id, daeDocument* doc) = 0;
+	                                   
 
 	/**
 	 * Gets the name of this resolver.
@@ -225,33 +200,15 @@ protected:
 class DLLSPEC daeDefaultIDRefResolver : public daeIDRefResolver
 {
 public:
-	/**
-	 * Constructor
-	 * @param dae @c dae for this implementation.
-	 */
 	daeDefaultIDRefResolver(DAE& dae);
-
-	/**
-	 * Destructor
-	 */
 	~daeDefaultIDRefResolver();
-
-	/*
-	 * Implements base class abstract routine from @c daeIDRefResolver.
-	 */
-	virtual daeElement* resolveElement(daeString id,
-	                                   daeString docURI,
-	                                   daeIDRef::ResolveState* result = NULL);
-	
-	/*
-	 * Implements base class abstract routine from @c daeIDRefResolver.
-	 */
+	virtual daeElement* resolveElement(const std::string& id, daeDocument* doc);
 	virtual daeString getName();
 };
 
 
 // This is a container class for storing a modifiable list of daeIDRefResolver objects.
-class daeIDRefResolverList {
+class DLLSPEC daeIDRefResolverList {
 public:
 	daeIDRefResolverList();
 	~daeIDRefResolverList();
@@ -259,9 +216,7 @@ public:
 	void addResolver(daeIDRefResolver* resolver);
 	void removeResolver(daeIDRefResolver* resolver);
 
-	daeElement* resolveElement(daeString id,
-	                           daeString docURI,
-	                           daeIDRef::ResolveState* result = NULL);
+	daeElement* resolveElement(const std::string& id, daeDocument* doc);
 
 private:
 	// Disabled copy constructor/assignment operator

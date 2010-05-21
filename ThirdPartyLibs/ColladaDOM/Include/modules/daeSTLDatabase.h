@@ -1,15 +1,10 @@
 /*
- * Copyright 2006 Sony Computer Entertainment Inc.
- *
- * Licensed under the SCEA Shared Source License, Version 1.0 (the "License"); you may not use this 
- * file except in compliance with the License. You may obtain a copy of the License at:
- * http://research.scea.com/scea_shared_source_license.html
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License 
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or 
- * implied. See the License for the specific language governing permissions and limitations under the 
- * License. 
- */
+* Copyright 2006 Sony Computer Entertainment Inc.
+*
+* Licensed under the MIT Open Source License, for details please see license.txt or the website
+* http://www.opensource.org/licenses/mit-license.php
+*
+*/ 
 
 #ifndef __DAE_STLDATABASE__
 #define __DAE_STLDATABASE__
@@ -48,16 +43,16 @@ public:
 	virtual daeInt setMeta(daeMetaElement *_topMeta);
 
 	// Documents
-	virtual daeInt insertDocument(daeString name, daeElement* dom, daeDocument** document = NULL);
+	virtual daeInt insertDocument(daeString name, daeElement* dom, daeDocument** document = NULL, bool zaeRootDocument = false, const std::string& extractedFileURI = "");
 	virtual daeInt insertDocument(daeString name, daeDocument** document = NULL);
-	virtual daeInt createDocument(daeString name, daeElement* dom, daeDocument** document = NULL);
+	virtual daeInt createDocument(daeString name, daeElement* dom, daeDocument** document = NULL, bool zaeRootDocument = false, const std::string& extractedFileURI = "");
 	virtual daeInt createDocument(daeString name, daeDocument** document = NULL);
 	virtual daeInt insertDocument( daeDocument *c );
 
 	virtual daeInt removeDocument(daeDocument* document);
 	virtual daeUInt getDocumentCount();
 	virtual daeDocument* getDocument(daeUInt index);
-	virtual daeDocument* getDocument(daeString name);
+	virtual daeDocument* getDocument(daeString name, bool skipUriNormalization = false);
 	virtual daeString getDocumentName(daeUInt index);
 	virtual daeBool isDocumentLoaded(daeString name);
 

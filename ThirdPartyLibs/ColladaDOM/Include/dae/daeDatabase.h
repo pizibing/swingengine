@@ -1,19 +1,15 @@
 /*
- * Copyright 2006 Sony Computer Entertainment Inc.
- *
- * Licensed under the SCEA Shared Source License, Version 1.0 (the "License"); you may not use this 
- * file except in compliance with the License. You may obtain a copy of the License at:
- * http://research.scea.com/scea_shared_source_license.html
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License 
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or 
- * implied. See the License for the specific language governing permissions and limitations under the 
- * License. 
- */
+* Copyright 2006 Sony Computer Entertainment Inc.
+*
+* Licensed under the MIT Open Source License, for details please see license.txt or the website
+* http://www.opensource.org/licenses/mit-license.php
+*
+*/ 
 
 #ifndef __DAE_DATABASE__
 #define __DAE_DATABASE__
 
+#include <memory>
 #include <vector>
 #include <dae.h>
 #include <dae/daeTypes.h>
@@ -49,11 +45,13 @@ public:
 	* @param name Name of the new document, must be a valid URI.
 	* @param dom Existing @c domCOLLADA root element of the document
 	* @param document Pointer to a @c daeDocument pointer that receives the document created 
+    * @param zaeRootDocument Indicates if the new document is the root document of a ZAE archive.
+    * @param extractedFileURI URI to extracted dae file.
 	* @return Returns @c DAE_OK if the document was created successfully, otherwise returns a negative value as defined in daeError.h.
 	* @note The @c daeElement passed in as <tt><i>dom</i></tt> should always be a @c domCOLLADA object, the API may enforce this in the future.
 	* @deprecated This function will be removed in future versions. Please use createDocument.
 	*/
-	virtual daeInt insertDocument(daeString name, daeElement* dom, daeDocument** document = NULL) = 0;
+	virtual daeInt insertDocument(daeString name, daeElement* dom, daeDocument** document = NULL, bool zaeRootDocument = false, const std::string& extractedFileURI = "") = 0;
 	/**
 	* Creates a new @c domCOLLADA root element and a new document; returns an error if the document name already exists.
 	* @param name Name of the new document, must be a valid URI.
@@ -67,10 +65,12 @@ public:
 	* @param name Name of the new document, must be a valid URI.
 	* @param dom Existing @c domCOLLADA root element of the document
 	* @param document Pointer to a @c daeDocument pointer that receives the document created 
+    * @param zaeRootDocument Indicates if the new document is the root document of a ZAE archive.
+    * @param extractedFileURI URI to extracted dae file.
 	* @return Returns @c DAE_OK if the document was created successfully, otherwise returns a negative value as defined in daeError.h.
 	* @note The @c daeElement passed in as <tt><i>dom</i></tt> should always be a @c domCOLLADA object, the API may enforce this in the future.
 	*/
-	virtual daeInt createDocument(daeString name, daeElement* dom, daeDocument** document = NULL) = 0;
+	virtual daeInt createDocument(daeString name, daeElement* dom, daeDocument** document = NULL, bool zaeRootDocument = false, const std::string& extractedFileURI = "") = 0;
 	/**
 	* Creates a new @c domCOLLADA root element and a new document; returns an error if the document name already exists.
 	* @param name Name of the new document, must be a valid URI.
@@ -112,10 +112,12 @@ public:
 	/**
 	* Gets a document based on the document name.
 	* @param name The name of the document as a URI.
+	* @param skipUriNormalization Use the document name as is; don't normalize it first.
+	*   This is mostly for improved performance.
 	* @return Returns a pointer to the document, or NULL if not found. 
 	* @note If the URI contains a fragment, the fragment is stripped off.
 	*/
-	virtual daeDocument* getDocument(daeString name) = 0;
+	virtual daeDocument* getDocument(daeString name, bool skipUriNormalization = false) = 0;
 	/**
 	* Gets a document name.
 	* @param index Index of the document to get.

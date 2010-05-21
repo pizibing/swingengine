@@ -1,18 +1,35 @@
 /*
- * Copyright 2006 Sony Computer Entertainment Inc.
- *
- * Licensed under the SCEA Shared Source License, Version 1.0 (the "License"); you may not use this 
- * file except in compliance with the License. You may obtain a copy of the License at:
- * http://research.scea.com/scea_shared_source_license.html
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License 
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or 
- * implied. See the License for the specific language governing permissions and limitations under the 
- * License. 
- */
+* Copyright 2006 Sony Computer Entertainment Inc.
+*
+* Licensed under the MIT Open Source License, for details please see license.txt or the website
+* http://www.opensource.org/licenses/mit-license.php
+*
+*/ 
 
 #ifndef __DAE__
 #define __DAE__
+
+// We use the boost filesystem library for cross-platform file system support. You'll need
+// to have boost on your machine for this to work. For the Windows build boost is provided
+// in the external-libs folder, but for Linux it's expected that you'll install a boost
+// obtained via your distro's package manager. For example on Debian/Ubuntu, you can run
+//   apt-get install libboost-filesystem-dev
+// to install the boost filesystem library on your machine.
+//
+// Disable the warnings we get from Boost
+// warning C4180: qualifier applied to function type has no meaning; ignored
+// warning C4245: 'argument' : conversion from 'int' to 'boost::filesystem::system_error_type', 
+//   signed/unsigned mismatch
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4180 4245)
+#endif
+#ifndef NO_BOOST
+#include <boost/filesystem/convenience.hpp>
+#endif
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #include <dae/daeTypes.h>
 #include <dae/daeError.h>
@@ -23,6 +40,8 @@
 #include <dae/daeIDRef.h>
 #include <dae/daeURI.h>
 #include <dae/daeUtils.h>
+#include <dae/daeRawResolver.h>
+#include <dae/daeSIDResolver.h>
 
 class domCOLLADA;
 typedef daeSmartRef<domCOLLADA> domCOLLADARef;
@@ -58,6 +77,7 @@ public:
 
 	// Release all memory used by the DOM. You never need to call this explicitly. It's
 	// called automatically when all DAE objects go out of scope.
+    // Deletes directory returned by cdom::getSafeTmpDir().
 	static void cleanup();
 	
 public:
@@ -124,6 +144,10 @@ public:
 	// resolvers.
 	daeIDRefResolverList& getIDRefResolvers();
 
+	// Meant for internal DOM use only.
+	daeRawRefCache& getRawRefCache();
+	daeSidRefCache& getSidRefCache();
+
 	// These functions specify the client's character encoding for the DOM. The
 	// default is Utf8, but if you specify Latin1 then the DOM will use libxml's
 	// character conversion functions to convert to Utf8 when writing data and
@@ -183,6 +207,8 @@ private:
 	daeURI baseUri;
 	daeURIResolverList uriResolvers;
 	daeIDRefResolverList idRefResolvers;
+	daeRawRefCache rawRefCache;
+	daeSidRefCache sidRefCache;
 
 	std::auto_ptr<charEncoding> localCharEncoding;
 	static charEncoding globalCharEncoding;
