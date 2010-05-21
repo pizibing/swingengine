@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\SDK\Include;..\..\ThirdPartyLibs\ColladaDOM\Include;..\..\ThirdPartyLibs\ColladaDOM\Include\1.4"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS;SE_FOUNDATION_DLL_IMPORT;SE_RENDERER_DLL_IMPORT;SE_TOOLS_COMMON_DLL_IMPORT"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS;SE_FOUNDATION_DLL_IMPORT;SE_RENDERER_DLL_IMPORT;SE_TOOLS_COMMON_DLL_IMPORT;NO_BOOST"
 				ExceptionHandling="0"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -63,10 +63,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="mscoree.lib msvcmrtd.lib msvcrtd.lib SEFoundation80d.lib SEDX9Renderer80d.lib SEToolsCommon80d.lib libcollada14dom20-sd80.lib libboost_filesystem-d80.lib pcrecpp-d80.lib pcre-d80.lib libxml2_a.lib zlib.lib wsock32.lib winmm.lib"
+				AdditionalDependencies="mscoree.lib msvcmrtd.lib msvcrtd.lib SEFoundation80d.lib SEDX9Renderer80d.lib SEToolsCommon80d.lib libcollada14dom21-sd80.lib libboost_system-d80.lib libboost_filesystem-d80.lib pcrecpp-d80.lib pcre-d80.lib libxml2_a.lib zlib.lib minizip-d.lib wsock32.lib winmm.lib"
 				OutputFile="SceneEditor_VC80Dx9DebDyn.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\SDK\Lib\DebugDLL;..\..\ThirdPartyLibs\ColladaDOM\Lib\Debug;..\..\ThirdPartyLibs\Boost\Lib\Debug;..\..\ThirdPartyLibs\LibXML2\Lib\Debug;..\..\ThirdPartyLibs\PCRE\Lib\Debug;..\..\ThirdPartyLibs\ZLib\Lib\Debug"
+				AdditionalLibraryDirectories="..\..\SDK\Lib\DebugDLL;..\..\ThirdPartyLibs\ColladaDOM\Lib\Debug;..\..\ThirdPartyLibs\Boost\Lib\Debug;..\..\ThirdPartyLibs\LibXML2\Lib\Debug;..\..\ThirdPartyLibs\PCRE\Lib\Debug;..\..\ThirdPartyLibs\ZLib\Lib\Debug;..\..\ThirdPartyLibs\Minizip\Lib\Debug"
 				IgnoreDefaultLibraryNames="msvcrt"
 				ForceSymbolReferences="__DllMainCRTStartup@12"
 				GenerateDebugInformation="true"
@@ -128,7 +128,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\SDK\Include;..\..\ThirdPartyLibs\ColladaDOM\Include;..\..\ThirdPartyLibs\ColladaDOM\Include\1.4"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS;SE_FOUNDATION_DLL_IMPORT;SE_RENDERER_DLL_IMPORT"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS;SE_FOUNDATION_DLL_IMPORT;SE_RENDERER_DLL_IMPORT;NO_BOOST"
 				ExceptionHandling="0"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -148,10 +148,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="mscoree.lib msvcmrt.lib msvcrt.lib SEFoundation80.lib SEDX9Renderer80.lib SEToolsCommon80.lib libcollada14dom20-s80.lib libboost_filesystem80.lib pcrecpp80.lib pcre80.lib libxml2_a.lib zlib.lib wsock32.lib winmm.lib"
+				AdditionalDependencies="mscoree.lib msvcmrt.lib msvcrt.lib SEFoundation80.lib SEDX9Renderer80.lib SEToolsCommon80.lib libcollada14dom21-s80.lib libboost_system80.lib libboost_filesystem80.lib pcrecpp80.lib pcre80.lib libxml2_a.lib zlib.lib minizip.lib wsock32.lib winmm.lib"
 				OutputFile="SceneEditor_VC80Dx9RelDyn.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\SDK\Lib\ReleaseDLL;..\..\ThirdPartyLibs\ColladaDOM\Lib\Release;..\..\ThirdPartyLibs\Boost\Lib\Release;..\..\ThirdPartyLibs\LibXML2\Lib\Release;..\..\ThirdPartyLibs\PCRE\Lib\Release;..\..\ThirdPartyLibs\ZLib\Lib\Release"
+				AdditionalLibraryDirectories="..\..\SDK\Lib\ReleaseDLL;..\..\ThirdPartyLibs\ColladaDOM\Lib\Release;..\..\ThirdPartyLibs\Boost\Lib\Release;..\..\ThirdPartyLibs\LibXML2\Lib\Release;..\..\ThirdPartyLibs\PCRE\Lib\Release;..\..\ThirdPartyLibs\ZLib\Lib\Release;..\..\ThirdPartyLibs\Minizip\Lib\Release"
 				ForceSymbolReferences="__DllMainCRTStartup@12"
 				GenerateDebugInformation="true"
 				SubSystem="2"
