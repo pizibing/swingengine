@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SESceneEditor_VC90", "SESceneEditor_VC90.vcproj", "{26F5F32A-4CAD-4BEC-920C-605A8A0D42B8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug DLL|Win32 = Debug DLL|Win32
+		Release DLL|Win32 = Release DLL|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26F5F32A-4CAD-4BEC-920C-605A8A0D42B8}.Debug DLL|Win32.ActiveCfg = Debug DLL|Win32
+		{26F5F32A-4CAD-4BEC-920C-605A8A0D42B8}.Debug DLL|Win32.Build.0 = Debug DLL|Win32
+		{26F5F32A-4CAD-4BEC-920C-605A8A0D42B8}.Release DLL|Win32.ActiveCfg = Release DLL|Win32
+		{26F5F32A-4CAD-4BEC-920C-605A8A0D42B8}.Release DLL|Win32.Build.0 = Release DLL|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
