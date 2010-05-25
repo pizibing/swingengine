@@ -97,14 +97,14 @@ private:
         // 
         this->treeViewStringTree->Location = System::Drawing::Point(12, 12);
         this->treeViewStringTree->Name = L"treeViewStringTree";
-        this->treeViewStringTree->Size = System::Drawing::Size(600, 418);
+        this->treeViewStringTree->Size = System::Drawing::Size(760, 538);
         this->treeViewStringTree->TabIndex = 0;
         // 
         // StringTreeForm
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-        this->ClientSize = System::Drawing::Size(624, 442);
+        this->ClientSize = System::Drawing::Size(784, 562);
         this->Controls->Add(this->treeViewStringTree);
         this->Name = L"StringTreeForm";
         this->Text = L"Scene Graph String Tree";
@@ -112,6 +112,15 @@ private:
 
     }
     #pragma endregion
+
+    enum class NodeType
+    {
+        NT_CLASS,
+        NT_SUBCLASS,
+        NT_DATA
+    };
+
+    void CreateTreeRecursive(TreeNode^ thParent, SEStringTree* pTree, NodeType eType);
 
 private:
     SESceneEditorApplication^ m_thApplication;

@@ -411,7 +411,6 @@ void SESceneEditorApplication::OnButtonStringTreeClick(Object^ thSender,
 {
     m_thStringTreeForm = gcnew StringTreeForm();
     m_thStringTreeForm->App = this;
-    m_thStringTreeForm->ShowDialog();
 
     if( m_pStringTree )
     {
@@ -419,5 +418,7 @@ void SESceneEditorApplication::OnButtonStringTreeClick(Object^ thSender,
     }
     m_pStringTree = m_pSceneRoot->SaveStrings();
     m_thStringTreeForm->CreateStringTree(m_pStringTree);
+
+    m_thStringTreeForm->ShowDialog();
 }
 //---------------------------------------------------------------------------

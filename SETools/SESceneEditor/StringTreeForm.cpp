@@ -27,5 +27,143 @@ using namespace Swing::Tools::SceneEditor;
 //----------------------------------------------------------------------------
 void StringTreeForm::CreateStringTree(SEStringTree* pTree)
 {
+    // Don't paint the TreeView object until all the nodes have been created.
+    treeViewStringTree->BeginUpdate();
+
+    // Clear the TreeView object of any current nodes.
+    treeViewStringTree->Nodes->Clear();
+
+    if( pTree )
+    {
+        TreeNode^ thRoot = gcnew TreeNode();
+        thRoot->Text = gcnew String("Root");
+        treeViewStringTree->Nodes->Add(thRoot);
+        CreateTreeRecursive(thRoot, pTree, NodeType::NT_CLASS);
+    }
+
+    // Now paint the TreeView object.
+    treeViewStringTree->EndUpdate();
+}
+//----------------------------------------------------------------------------
+void StringTreeForm::CreateTreeRecursive(TreeNode^ thParent, SEStringTree* 
+    pTree, NodeType eType)
+{
+    TreeNode^ thCurNode = gcnew TreeNode();
+    thParent->Nodes->Add(thCurNode);
+
+    if( pTree->GetStringCount() <= 0 )
+    {
+        throw gcnew Exception("String count is zero.");
+    }
+
+    if( strncmp(pTree->GetString(0), "Swing", 5) == 0 )
+    {
+        // String tree rooted at an Object-derived object.
+
+        // Add object.  Strip off the "Swing." prefix (the "+ 6" term).
+        char* acName = pTree->GetString(0) + 6;
+        thCurNode->Text = gcnew String(acName);
+
+        if( eType == NodeType::NT_CLASS )
+        {
+            // TODO:
+            // Set images for the node.
+        }
+        else if( eType == NodeType::NT_SUBCLASS )
+        {
+            // TODO:
+            // Set images for the node.
+        }
+        else
+        {
+            throw gcnew Exception("Unknown node type is found.");
+        }
+
+        // Add subclass of object.
+        int iStart;
+        if( strncmp(pTree->GetString(0), "Swing.SEObject", 14) != 0)
+        {
+            CreateTreeRecursive(thCurNode, pTree->GetChild(0), 
+                NodeType::NT_SUBCLASS);
+            iStart = 1;
+        }
+        else
+        {
+            iStart = 0;
+        }
+
+        // Add strings.
+        int i;
+        for( i = 1; i < pTree->GetStringCount(); i++ )
+        {
+            TreeNode^ thCurStringNode = gcnew TreeNode();
+            thCurStringNode->Text = gcnew String(pTree->GetString(i));
+            // TODO:
+            // Set images for the node.
+            thCurNode->Nodes->Add(thCurStringNode);
+        }
+
+        // Add children.
+        for( i = iStart; i < pTree->GetChildCount(); i++ )
+        {
+            SEStringTree* pCTree = pTree->GetChild(i);
+            if( pCTree->GetStringCount() <= 0 )
+            {
+                throw gcnew Exception("String count is zero.");
+            }
+
+            if( strncmp(pCTree->GetString(0), "Swing", 5) == 0 )
+            {
+                eType = NodeType::NT_CLASS;
+            }
+            else
+            {
+                eType = NodeType::NT_DATA;
+            }
+
+            CreateTreeRecursive(thCurNode, pCTree, eType);
+        }
+    }
+    else
+    {
+        // String tree represents a native type (for example, an array).
+
+        // Add object.
+        thCurNode->Text = gcnew String(pTree->GetString(0));
+        // TODO:
+        // Set images for the node.
+
+        // Add strings.
+        int i;
+        for( i = 1; i < pTree->GetStringCount(); i++ )
+        {
+            TreeNode^ thCurStringNode = gcnew TreeNode();
+            thCurStringNode->Text = gcnew String(pTree->GetString(i));
+            // TODO:
+            // Set images for the node.
+            thCurNode->Nodes->Add(thCurStringNode);
+        }
+
+        // Add children.
+        for( i = 0; i < pTree->GetChildCount(); i++ )
+        {
+            SEStringTree* pCTree = pTree->GetChild(i);
+            if( pCTree->GetStringCount() <= 0 )
+            {
+                throw gcnew Exception("String count is zero.");
+            }
+
+            if( strncmp(pCTree->GetString(0), "Swing", 5) == 0 )
+            {
+                eType = NodeType::NT_CLASS;
+            }
+            else
+            {
+                eType = NodeType::NT_DATA;
+            }
+
+            CreateTreeRecursive(thCurNode, pCTree, eType);
+        }
+    }
 }
 //----------------------------------------------------------------------------
