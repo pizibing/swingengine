@@ -102,8 +102,11 @@ private:
         // 
         // treeViewStringTree
         // 
+        this->treeViewStringTree->ImageIndex = 0;
+        this->treeViewStringTree->ImageList = this->imageListStringTree;
         this->treeViewStringTree->Location = System::Drawing::Point(12, 12);
         this->treeViewStringTree->Name = L"treeViewStringTree";
+        this->treeViewStringTree->SelectedImageIndex = 0;
         this->treeViewStringTree->Size = System::Drawing::Size(760, 538);
         this->treeViewStringTree->TabIndex = 0;
         // 

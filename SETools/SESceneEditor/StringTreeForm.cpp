@@ -66,11 +66,13 @@ void StringTreeForm::CreateTreeRecursive(TreeNode^ thParent, SEStringTree*
 
         if( eType == NodeType::NT_CLASS )
         {
-            //thCurNode->ImageIndex = 0;
+            thCurNode->ImageIndex = 0;
+            thCurNode->SelectedImageIndex = 0;
         }
         else if( eType == NodeType::NT_SUBCLASS )
         {
-            //thCurNode->ImageIndex = 0;
+            thCurNode->ImageIndex = 0;
+            thCurNode->SelectedImageIndex = 0;
         }
         else
         {
@@ -96,7 +98,8 @@ void StringTreeForm::CreateTreeRecursive(TreeNode^ thParent, SEStringTree*
         {
             TreeNode^ thCurStringNode = gcnew TreeNode();
             thCurStringNode->Text = gcnew String(pTree->GetString(i));
-            //thCurStringNode->ImageIndex = 1;
+            thCurStringNode->ImageIndex = 1;
+            thCurStringNode->SelectedImageIndex = 1;
             thCurNode->Nodes->Add(thCurStringNode);
         }
 
@@ -127,8 +130,8 @@ void StringTreeForm::CreateTreeRecursive(TreeNode^ thParent, SEStringTree*
 
         // Add object.
         thCurNode->Text = gcnew String(pTree->GetString(0));
-        // TODO:
-        // Set images for the node.
+        thCurNode->ImageIndex = 0;
+        thCurNode->SelectedImageIndex = 0;
 
         // Add strings.
         int i;
@@ -136,8 +139,8 @@ void StringTreeForm::CreateTreeRecursive(TreeNode^ thParent, SEStringTree*
         {
             TreeNode^ thCurStringNode = gcnew TreeNode();
             thCurStringNode->Text = gcnew String(pTree->GetString(i));
-            // TODO:
-            // Set images for the node.
+            thCurStringNode->ImageIndex = 1;
+            thCurStringNode->SelectedImageIndex = 1;
             thCurNode->Nodes->Add(thCurStringNode);
         }
 

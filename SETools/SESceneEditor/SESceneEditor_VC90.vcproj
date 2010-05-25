@@ -54,6 +54,7 @@
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
+				ResourceFileName="$(IntDir)\Swing.Tools.SceneEditor.$(InputName).resources"
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
@@ -288,14 +289,6 @@
 				RelativePath=".\StringTreeForm.resx"
 				SubType="Designer"
 				>
-				<FileConfiguration
-					Name="Debug DLL|Win32"
-					>
-					<Tool
-						Name="VCManagedResourceCompilerTool"
-						ResourceFileName="$(IntDir)\$(RootNamespace).$(InputName).resources"
-					/>
-				</FileConfiguration>
 			</File>
 		</File>
 	</Files>
