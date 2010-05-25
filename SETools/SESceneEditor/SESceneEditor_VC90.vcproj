@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug DLL|Win32"
-			OutputDirectory="DebugDLL\VC80"
-			IntermediateDirectory="DebugDLL\VC80"
+			OutputDirectory="DebugDLL\VC90"
+			IntermediateDirectory="DebugDLL\VC90"
 			ConfigurationType="1"
 			CharacterSet="2"
 			ManagedExtensions="1"
@@ -103,8 +103,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release DLL|Win32"
-			OutputDirectory="ReleaseDLL\VC80"
-			IntermediateDirectory="ReleaseDLL\VC80"
+			OutputDirectory="ReleaseDLL\VC90"
+			IntermediateDirectory="ReleaseDLL\VC90"
 			ConfigurationType="1"
 			CharacterSet="2"
 			ManagedExtensions="1"
