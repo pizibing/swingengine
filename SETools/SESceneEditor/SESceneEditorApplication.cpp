@@ -21,6 +21,7 @@
 #include "SESceneEditorPCH.h"
 #include "SESceneEditorApplication.h"
 #include "MainForm.h"
+#include "StringTreeForm.h"
 
 using namespace Swing;
 using namespace Swing::Tools::SceneEditor;
@@ -30,6 +31,9 @@ SESceneEditorApplication::SESceneEditorApplication(MainForm^ thForm)
 {
     m_thAppMainForm = thForm;
     m_thAppMainForm->App = this;
+
+    m_thStringTreeForm = nullptr;
+    m_pStringTree = 0;
 
     m_bFirstEntering = true;
     m_bAllowCameraTrn = true;
@@ -101,6 +105,12 @@ SESceneEditorApplication::SESceneEditorApplication(MainForm^ thForm)
 //---------------------------------------------------------------------------
 SESceneEditorApplication::~SESceneEditorApplication()
 {
+    if( m_pStringTree )
+    {
+        SE_DELETE m_pStringTree;
+        m_pStringTree = 0;
+    }
+
     // Release importers.
     SE_DELETE m_pColladaScene;
     m_pColladaScene = 0;
@@ -394,5 +404,20 @@ void SESceneEditorApplication::OnCheckBoxWireframeClick(Object^ thSender,
 {
     CheckBox^ thBox = (CheckBox^)thSender;
     m_pWireframe->Enabled = thBox->Checked;
+}
+//---------------------------------------------------------------------------
+void SESceneEditorApplication::OnButtonStringTreeClick(Object^ thSender, 
+    EventArgs^ thEvent)
+{
+    m_thStringTreeForm = gcnew StringTreeForm();
+    m_thStringTreeForm->App = this;
+    m_thStringTreeForm->ShowDialog();
+
+    if( m_pStringTree )
+    {
+        SE_DELETE m_pStringTree;
+    }
+    m_pStringTree = m_pSceneRoot->SaveStrings();
+    m_thStringTreeForm->CreateStringTree(m_pStringTree);
 }
 //---------------------------------------------------------------------------

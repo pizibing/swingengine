@@ -276,6 +276,19 @@
 			RelativePath=".\SESceneEditorUtility.h"
 			>
 		</File>
+		<File
+			RelativePath=".\StringTreeForm.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\StringTreeForm.h"
+			FileType="3"
+			>
+			<File
+				RelativePath=".\StringTreeForm.resx"
+				>
+			</File>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

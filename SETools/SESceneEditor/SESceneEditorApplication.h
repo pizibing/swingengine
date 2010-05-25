@@ -30,6 +30,7 @@ using namespace System::Drawing;
 namespace Swing{ namespace Tools{ namespace SceneEditor{
 
 ref class MainForm;
+ref class StringTreeForm;
 
 //----------------------------------------------------------------------------
 // Description:
@@ -88,6 +89,8 @@ public:
 
     void OnCheckBoxWireframeClick(Object^ thSender, EventArgs^ thEvent);
 
+    void OnButtonStringTreeClick(Object^ thSender, EventArgs^ thEvent);
+
     #pragma endregion
 
 private:
@@ -97,6 +100,8 @@ private:
 
     // GUI stuff.
     MainForm^ m_thAppMainForm;
+    StringTreeForm^ m_thStringTreeForm;
+    SEStringTree* m_pStringTree;
 
     // Renderer stuff.
     SERenderer* m_pMainRenderer;

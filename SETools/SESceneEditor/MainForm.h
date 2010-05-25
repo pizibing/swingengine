@@ -104,6 +104,7 @@ private: System::Windows::Forms::GroupBox^  groupBoxAnimation;
 private: System::Windows::Forms::RadioButton^  radioButtonPlay;
 private: System::Windows::Forms::RadioButton^  radioButtonStop;
 private: System::Windows::Forms::CheckBox^  checkBoxWireframe;
+private: System::Windows::Forms::Button^  buttonStringTree;
 
 
 
@@ -134,6 +135,7 @@ private:
         this->radioButtonStop = (gcnew System::Windows::Forms::RadioButton());
         this->radioButtonPlay = (gcnew System::Windows::Forms::RadioButton());
         this->checkBoxWireframe = (gcnew System::Windows::Forms::CheckBox());
+        this->buttonStringTree = (gcnew System::Windows::Forms::Button());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBoxRendering))->BeginInit();
         this->menuStripMain->SuspendLayout();
         this->groupBoxCOLLADA->SuspendLayout();
@@ -258,11 +260,22 @@ private:
         this->checkBoxWireframe->UseVisualStyleBackColor = true;
         this->checkBoxWireframe->Click += gcnew System::EventHandler(this, &MainForm::checkBoxWireframe_Click);
         // 
+        // buttonStringTree
+        // 
+        this->buttonStringTree->Location = System::Drawing::Point(818, 254);
+        this->buttonStringTree->Name = L"buttonStringTree";
+        this->buttonStringTree->Size = System::Drawing::Size(114, 23);
+        this->buttonStringTree->TabIndex = 5;
+        this->buttonStringTree->Text = L"String Tree";
+        this->buttonStringTree->UseVisualStyleBackColor = true;
+        this->buttonStringTree->Click += gcnew System::EventHandler(this, &MainForm::buttonStringTree_Click);
+        // 
         // MainForm
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
         this->ClientSize = System::Drawing::Size(1160, 673);
+        this->Controls->Add(this->buttonStringTree);
         this->Controls->Add(this->checkBoxWireframe);
         this->Controls->Add(this->groupBoxAnimation);
         this->Controls->Add(this->groupBoxCOLLADA);
@@ -371,6 +384,14 @@ private:
         if( m_thApplication )
         {
             m_thApplication->OnCheckBoxWireframeClick(thSender, thEvent);
+        }
+    }
+
+    void buttonStringTree_Click(Object^ thSender, EventArgs^ thEvent)
+    {
+        if( m_thApplication )
+        {
+            m_thApplication->OnButtonStringTreeClick(thSender, thEvent);
         }
     }
 
