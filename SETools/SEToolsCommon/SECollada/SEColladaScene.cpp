@@ -46,6 +46,10 @@ SEColladaScene::~SEColladaScene()
 //----------------------------------------------------------------------------
 bool SEColladaScene::Load(const char* acFilename)
 {
+    // Clean the scene out of date.
+    CleanUp();
+    m_pDAE->clear();
+
     ToolSystem::DebugOutput("COLLADA DOM loading process started" );
 
     // Load a .dae file from disk, and set up DAE runtime automatically.
@@ -548,5 +552,24 @@ bool SEColladaScene::LoadScene(domVisual_sceneRef spDomVisualScene)
     m_spSceneRoot->UpdateGS();
 
     return true;
+}
+//----------------------------------------------------------------------------
+void SEColladaScene::CleanUp()
+{
+    m_spSceneRoot = 0;
+
+    m_Images.clear();
+    m_Effects.clear();
+    m_Materials.clear();
+    m_InstanceMaterials.clear();
+    m_InstanceLights.clear();
+    m_InstanceCameras.clear();
+    m_Animations.clear();
+    m_Nodes.clear();
+    m_Geometries.clear();
+    m_Lights.clear();
+    m_Cameras.clear();
+    m_InstanceControllers.clear();
+    m_Bones.clear();
 }
 //----------------------------------------------------------------------------

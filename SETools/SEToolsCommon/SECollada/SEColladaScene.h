@@ -304,6 +304,9 @@ private:
     void ProcessSkin(SEColladaInstanceController* pIController);
     void ProcessMorph(SEColladaInstanceController* pIController);
 
+    // Clean the runtime before loading a new scene.
+    void CleanUp(void);
+
     DAE* m_pDAE;
     SEImageConverter* m_pImageConverter;
     SENodePtr m_spSceneRoot;
