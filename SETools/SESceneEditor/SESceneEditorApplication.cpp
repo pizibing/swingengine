@@ -164,6 +164,11 @@ SECuller* SESceneEditorApplication::MainCuller::get()
 //---------------------------------------------------------------------------
 void SESceneEditorApplication::OnIdle(Object^, EventArgs^)
 {
+    if( m_thAppMainForm->AllowAnimation )
+    {
+        m_pSceneRoot->UpdateGS(SESystem::SE_GetTime());
+    }
+
     m_pMainCuller->ComputeUnculledSet(m_pSceneRoot);
 
     m_pMainRenderer->ClearBuffers();
@@ -375,5 +380,19 @@ void SESceneEditorApplication::OnWindowRenderingMouseWheel(Object^,
             m_pMainCamera->SetLocation(tempLoc);
         }
     }
+}
+//---------------------------------------------------------------------------
+void SESceneEditorApplication::OnCheckBoxCreateJointMeshClick(Object^ 
+    thSender, EventArgs^)
+{
+    CheckBox^ thBox = (CheckBox^)thSender;
+    m_pColladaScene->EnableJointMesh = thBox->Checked;
+}
+//---------------------------------------------------------------------------
+void SESceneEditorApplication::OnCheckBoxWireframeClick(Object^ thSender, 
+    EventArgs^ thEvent)
+{
+    CheckBox^ thBox = (CheckBox^)thSender;
+    m_pWireframe->Enabled = thBox->Checked;
 }
 //---------------------------------------------------------------------------

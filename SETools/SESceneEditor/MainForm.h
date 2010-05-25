@@ -74,6 +74,13 @@ public:
             return false;
         }
     }
+    property bool AllowAnimation
+    {
+        bool get(void)
+        {
+            return radioButtonPlay->Checked;
+        }
+    }
 
     #pragma endregion
 
@@ -91,6 +98,15 @@ private: System::Windows::Forms::ToolStripMenuItem^  fileToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^  openToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^  saveToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^  exitToolStripMenuItem;
+private: System::Windows::Forms::GroupBox^  groupBoxCOLLADA;
+private: System::Windows::Forms::CheckBox^  checkBoxCreateJointMesh;
+private: System::Windows::Forms::GroupBox^  groupBoxAnimation;
+private: System::Windows::Forms::RadioButton^  radioButtonPlay;
+private: System::Windows::Forms::RadioButton^  radioButtonStop;
+private: System::Windows::Forms::CheckBox^  checkBoxWireframe;
+
+
+
 protected: 
 
 private:
@@ -112,8 +128,16 @@ private:
         this->openToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
         this->saveToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
         this->exitToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+        this->groupBoxCOLLADA = (gcnew System::Windows::Forms::GroupBox());
+        this->checkBoxCreateJointMesh = (gcnew System::Windows::Forms::CheckBox());
+        this->groupBoxAnimation = (gcnew System::Windows::Forms::GroupBox());
+        this->radioButtonStop = (gcnew System::Windows::Forms::RadioButton());
+        this->radioButtonPlay = (gcnew System::Windows::Forms::RadioButton());
+        this->checkBoxWireframe = (gcnew System::Windows::Forms::CheckBox());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBoxRendering))->BeginInit();
         this->menuStripMain->SuspendLayout();
+        this->groupBoxCOLLADA->SuspendLayout();
+        this->groupBoxAnimation->SuspendLayout();
         this->SuspendLayout();
         // 
         // pictureBoxRendering
@@ -167,11 +191,81 @@ private:
         this->exitToolStripMenuItem->Text = L"Exit";
         this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::exitToolStripMenuItem_Click);
         // 
+        // groupBoxCOLLADA
+        // 
+        this->groupBoxCOLLADA->Controls->Add(this->checkBoxCreateJointMesh);
+        this->groupBoxCOLLADA->Location = System::Drawing::Point(818, 40);
+        this->groupBoxCOLLADA->Name = L"groupBoxCOLLADA";
+        this->groupBoxCOLLADA->Size = System::Drawing::Size(200, 100);
+        this->groupBoxCOLLADA->TabIndex = 2;
+        this->groupBoxCOLLADA->TabStop = false;
+        this->groupBoxCOLLADA->Text = L"COLLADA:";
+        // 
+        // checkBoxCreateJointMesh
+        // 
+        this->checkBoxCreateJointMesh->AutoSize = true;
+        this->checkBoxCreateJointMesh->Location = System::Drawing::Point(6, 20);
+        this->checkBoxCreateJointMesh->Name = L"checkBoxCreateJointMesh";
+        this->checkBoxCreateJointMesh->Size = System::Drawing::Size(126, 16);
+        this->checkBoxCreateJointMesh->TabIndex = 1;
+        this->checkBoxCreateJointMesh->Text = L"Create joint mesh";
+        this->checkBoxCreateJointMesh->UseVisualStyleBackColor = true;
+        this->checkBoxCreateJointMesh->Click += gcnew System::EventHandler(this, &MainForm::checkBoxCreateJointMesh_Click);
+        // 
+        // groupBoxAnimation
+        // 
+        this->groupBoxAnimation->Controls->Add(this->radioButtonStop);
+        this->groupBoxAnimation->Controls->Add(this->radioButtonPlay);
+        this->groupBoxAnimation->Location = System::Drawing::Point(818, 146);
+        this->groupBoxAnimation->Name = L"groupBoxAnimation";
+        this->groupBoxAnimation->Size = System::Drawing::Size(200, 65);
+        this->groupBoxAnimation->TabIndex = 3;
+        this->groupBoxAnimation->TabStop = false;
+        this->groupBoxAnimation->Text = L"Animation:";
+        // 
+        // radioButtonStop
+        // 
+        this->radioButtonStop->Appearance = System::Windows::Forms::Appearance::Button;
+        this->radioButtonStop->AutoSize = true;
+        this->radioButtonStop->Location = System::Drawing::Point(62, 32);
+        this->radioButtonStop->Name = L"radioButtonStop";
+        this->radioButtonStop->Size = System::Drawing::Size(39, 22);
+        this->radioButtonStop->TabIndex = 1;
+        this->radioButtonStop->TabStop = true;
+        this->radioButtonStop->Text = L"Stop";
+        this->radioButtonStop->UseVisualStyleBackColor = true;
+        // 
+        // radioButtonPlay
+        // 
+        this->radioButtonPlay->Appearance = System::Windows::Forms::Appearance::Button;
+        this->radioButtonPlay->AutoSize = true;
+        this->radioButtonPlay->Location = System::Drawing::Point(17, 32);
+        this->radioButtonPlay->Name = L"radioButtonPlay";
+        this->radioButtonPlay->Size = System::Drawing::Size(39, 22);
+        this->radioButtonPlay->TabIndex = 0;
+        this->radioButtonPlay->TabStop = true;
+        this->radioButtonPlay->Text = L"Play";
+        this->radioButtonPlay->UseVisualStyleBackColor = true;
+        // 
+        // checkBoxWireframe
+        // 
+        this->checkBoxWireframe->AutoSize = true;
+        this->checkBoxWireframe->Location = System::Drawing::Point(818, 217);
+        this->checkBoxWireframe->Name = L"checkBoxWireframe";
+        this->checkBoxWireframe->Size = System::Drawing::Size(78, 16);
+        this->checkBoxWireframe->TabIndex = 4;
+        this->checkBoxWireframe->Text = L"Wireframe";
+        this->checkBoxWireframe->UseVisualStyleBackColor = true;
+        this->checkBoxWireframe->Click += gcnew System::EventHandler(this, &MainForm::checkBoxWireframe_Click);
+        // 
         // MainForm
         // 
         this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
         this->ClientSize = System::Drawing::Size(1160, 673);
+        this->Controls->Add(this->checkBoxWireframe);
+        this->Controls->Add(this->groupBoxAnimation);
+        this->Controls->Add(this->groupBoxCOLLADA);
         this->Controls->Add(this->pictureBoxRendering);
         this->Controls->Add(this->menuStripMain);
         this->MainMenuStrip = this->menuStripMain;
@@ -181,6 +275,10 @@ private:
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBoxRendering))->EndInit();
         this->menuStripMain->ResumeLayout(false);
         this->menuStripMain->PerformLayout();
+        this->groupBoxCOLLADA->ResumeLayout(false);
+        this->groupBoxCOLLADA->PerformLayout();
+        this->groupBoxAnimation->ResumeLayout(false);
+        this->groupBoxAnimation->PerformLayout();
         this->ResumeLayout(false);
         this->PerformLayout();
 
@@ -260,9 +358,24 @@ private:
         Application::Exit();
     }
 
+    void checkBoxCreateJointMesh_Click(Object^ thSender, EventArgs^ thEvent)
+    {
+        if( m_thApplication )
+        {
+            m_thApplication->OnCheckBoxCreateJointMeshClick(thSender, thEvent);
+        }
+    }
+
+    void checkBoxWireframe_Click(Object^ thSender, EventArgs^ thEvent)
+    {
+        if( m_thApplication )
+        {
+            m_thApplication->OnCheckBoxWireframeClick(thSender, thEvent);
+        }
+    }
+
 private:
     SESceneEditorApplication^ m_thApplication;
-
 };
 
 }}}

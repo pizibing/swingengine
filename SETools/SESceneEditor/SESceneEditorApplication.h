@@ -84,6 +84,10 @@ public:
 
     void OnWindowRenderingMouseWheel(Object^ thSender, MouseEventArgs^ thEvent);
 
+    void OnCheckBoxCreateJointMeshClick(Object^ thSender, EventArgs^ thEvent);
+
+    void OnCheckBoxWireframeClick(Object^ thSender, EventArgs^ thEvent);
+
     #pragma endregion
 
 private:
