@@ -219,6 +219,7 @@ void SESceneEditorApplication::LoadFile(String^ thFileName)
             pSceneLoaded = DynamicCast<SENode>(tempStream.GetObjectAt(0));
             if( pSceneLoaded )
             {
+                m_pSceneRoot->DetachChildAt(0);
                 m_pSceneRoot->AttachChild(pSceneLoaded);
                 m_pSceneRoot->UpdateGS();
                 m_pSceneRoot->UpdateRS();
@@ -234,6 +235,7 @@ void SESceneEditorApplication::LoadFile(String^ thFileName)
         pSceneLoaded = m_pColladaScene->GetScene();
         if( pSceneLoaded )
         {
+            m_pSceneRoot->DetachChildAt(0);
             m_pSceneRoot->AttachChild(pSceneLoaded);
             m_pSceneRoot->UpdateGS();
             m_pSceneRoot->UpdateRS();
