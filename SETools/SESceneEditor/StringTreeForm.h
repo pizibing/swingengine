@@ -75,13 +75,17 @@ protected:
 		}
 	}
 private: System::Windows::Forms::TreeView^  treeViewStringTree;
+private: System::Windows::Forms::ImageList^  imageListStringTree;
+
+
+private: System::ComponentModel::IContainer^  components;
 protected: 
 
 private:
 	/// <summary>
 	/// Required designer variable.
 	/// </summary>
-	System::ComponentModel::Container ^components;
+
 
     #pragma region Windows Form Designer generated code
 	/// <summary>
@@ -90,7 +94,10 @@ private:
 	/// </summary>
 	void InitializeComponent(void)
 	{
+        this->components = (gcnew System::ComponentModel::Container());
+        System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(StringTreeForm::typeid));
         this->treeViewStringTree = (gcnew System::Windows::Forms::TreeView());
+        this->imageListStringTree = (gcnew System::Windows::Forms::ImageList(this->components));
         this->SuspendLayout();
         // 
         // treeViewStringTree
@@ -99,6 +106,13 @@ private:
         this->treeViewStringTree->Name = L"treeViewStringTree";
         this->treeViewStringTree->Size = System::Drawing::Size(760, 538);
         this->treeViewStringTree->TabIndex = 0;
+        // 
+        // imageListStringTree
+        // 
+        this->imageListStringTree->ImageStream = (cli::safe_cast<System::Windows::Forms::ImageListStreamer^  >(resources->GetObject(L"imageListStringTree.ImageStream")));
+        this->imageListStringTree->TransparentColor = System::Drawing::Color::Transparent;
+        this->imageListStringTree->Images->SetKeyName(0, L"0.bmp");
+        this->imageListStringTree->Images->SetKeyName(1, L"1.bmp");
         // 
         // StringTreeForm
         // 

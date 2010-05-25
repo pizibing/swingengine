@@ -107,6 +107,9 @@ private: System::Windows::Forms::CheckBox^  checkBoxWireframe;
 private: System::Windows::Forms::Button^  buttonStringTree;
 
 
+private: System::ComponentModel::IContainer^  components;
+
+
 
 protected: 
 
@@ -114,7 +117,7 @@ private:
     /// <summary>
     /// 必需的设计器变量。
     /// </summary>
-    System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
     /// <summary>
