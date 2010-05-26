@@ -188,3 +188,34 @@ shader program×ÊÔ´»á±»ÊÍ·Å,µ±Ç°´ıÊ¹ÓÃRendererËùÊ¹ÓÃµÄdeviceµÄshader program×ÊÔ´»
 
 2010 0325 1643
 Ò»¶¨ÒªÈ·±£Àà³ÉÔ±µÄÕıÈ·³õÊ¼»¯(ÔÚ¹¹Ôìº¯ÊıÖĞ),Ä³Ğ©debugºÍrelease°æ³ÌĞòÔËĞĞ½á¹û²»Ò»ÖÂµÄÎÊÌâ,ºÜÓĞ¿ÉÄÜÊÇÓÉÎ´ÄÜ³õÊ¼»¯µÄÀà³ÉÔ±±äÁ¿Ôì³ÉµÄ.
+
+2010 0526 0950
+ÔÚdot netÓ¦ÓÃ³ÌĞòÖĞ,ĞÂ½¨Ò»¸öFormÊ±,Èç¹û¸ü¸ÄÁË¸ÃFormµÄÀàÃû(±ÈÈç¸ü¸ÄÁËÄ¬ÈÏÃüÃû¿Õ¼ä),ÔòÓ¦¸ÃÍ¬Ê±¸ü¸Ä¸ÃFormµÄ.resxÎÄ¼şÖĞµÄResource File Name.
+±ÈÈç:
+ÏµÍ³Ä¬ÈÏ´´½¨µÄFormÀà:
+namespace RootNamespace(Õâ¸öÊÇÏµÍ³¸ù¾İµ±Ç°ÏîÄ¿Ãû³ÆÄ¬ÈÏÊ¹ÓÃµÄÃüÃû¿Õ¼ä,ÔÚC++ÏîÄ¿ÖĞÄ¿Ç°²»ÖªµÀÈçºÎ¸ü¸ÄÕâ¸öÖµ)
+{
+public ref class SomeForm : public Form
+{
+...
+};
+
+}
+ÎÒÃÇ°Ñ¸ÃÀà¸ü¸ÄÈçÏÂ:
+namespace MyNamespace(Õâ¸öÊÇÎÒÃÇËùÆÚÍûµÄ¸ÃÀàËùÊôÃüÃû¿Õ¼ä)
+{
+public ref class SomeForm : public Form
+{
+...
+};
+
+}
+´ËÊ±ÎÊÌâ¾ÍÀ´ÁË,¹Û²ìSomeFormËùÊôµÄ.resxÎÄ¼şµÄÊôĞÔÒ³Ãæ,Managed Resources->General->Resource File NameµÄÖµ,´ËÊ±ÒÀÈ»ÎªÏµÍ³Ä¬ÈÏµÄ
+$(IntDir)\$(RootNamespace).$(InputName).resources
+¾ßÌåº¬ÒåÊÇ,µ±±àÒëÆ÷±àÒë¸ÃForm´úÂëÄ£¿éºó,»á¸ù¾İÕâ¸öÖµÉú³É¶ÔÓ¦µÄÄ£¿é×ÊÔ´ÎÄ¼şRootNamespace.SomeForm.resources,
+¶ø²¢Ã»ÓĞÉú³ÉÎÒÃÇËùÆÚÍûµÄMyNamespace.SomeForm.resources,Ö®ºóÔÚÁ´½Ó½×¶Î,±àÒëÆ÷¾ÍÎŞ·¨½«¸Ã×ÊÔ´ÎÄ¼şÀïµÄÄÚÈİĞ´Èë×îÖÕµÄAssemblyÄ£¿é,
+´Ó¶øµ±³ÌĞòÔÚÔËĞĞ½×¶Î,Ñ°ÕÒ¸Ã×ÊÔ´ÎÄ¼şÀïµÄÄÚÈİÊ±,²úÉúÔËĞĞÊ±Òì³£.
+½â¾ö°ì·¨ÊÇ,ĞŞ¸Ä.resxÎÄ¼şµÄÊôĞÔÒ³Ãæ,Managed Resources->General->Resource File NameµÄÖµ,´ÓÄ¬ÈÏµÄ$(IntDir)\$(RootNamespace).$(InputName).resources
+¸ÄÎª¸ÃÀàµÄÊµ¼ÊÃû³Æ,¶ÔÓ¦ÎÒÃÇÉÏÃæµÄÀı×Ó,ÔòÓ¦¸ÄÎª$(IntDir)\MyNamespace.$(InputName).resources
+Èç¹ûÕû¸öÏîÄ¿¶¼Ê¹ÓÃÍ¬ÑùµÄNamespace,Ôò¿ÉÒÔÖ±½ÓÔÚÏîÄ¿ÊôĞÔÒ³ÃæµÄManaged Resources->General->Resource File NameÏîÀï,Í³Ò»¸ü¸ÄÎª
+$(IntDir)\MyNamespace.$(InputName).resources,È»ºóÈÃËùÓĞFormÀàµÄ.resxÎÄ¼ş¶¼¼Ì³Ğ¸ÃÏîÄ¿ÅäÖÃ
