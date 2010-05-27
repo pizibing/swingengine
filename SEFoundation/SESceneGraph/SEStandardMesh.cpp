@@ -285,7 +285,8 @@ SETriMesh* SEStandardMesh::Disk(int iShellSamples, int iRadialSamples,
     return pMesh;
 }
 //----------------------------------------------------------------------------
-SETriMesh* SEStandardMesh::Box(float fXExtent, float fYExtent, float fZExtent)
+SETriMesh* SEStandardMesh::Box(float fXExtent, float fYExtent, float fZExtent,
+    float fXOffset, float fYOffset, float fZOffset)
 {
     int iVCount = 24;
     int iTCount = 12;
@@ -293,30 +294,55 @@ SETriMesh* SEStandardMesh::Box(float fXExtent, float fYExtent, float fZExtent)
     SEIndexBuffer* pIB = SE_NEW SEIndexBuffer(3 * iTCount);
 
     // Éú³Égeometry.
-    pVB->Position3(0) = SEVector3f(-fXExtent, -fYExtent, -fZExtent);
-    pVB->Position3(1) = SEVector3f(-fXExtent, -fYExtent, -fZExtent);
-    pVB->Position3(2) = SEVector3f(-fXExtent, -fYExtent, -fZExtent);
-    pVB->Position3(3) = SEVector3f(+fXExtent, -fYExtent, -fZExtent);
-    pVB->Position3(4) = SEVector3f(+fXExtent, -fYExtent, -fZExtent);
-    pVB->Position3(5) = SEVector3f(+fXExtent, -fYExtent, -fZExtent);
-    pVB->Position3(6) = SEVector3f(+fXExtent, +fYExtent, -fZExtent);
-    pVB->Position3(7) = SEVector3f(+fXExtent, +fYExtent, -fZExtent);
-    pVB->Position3(8) = SEVector3f(+fXExtent, +fYExtent, -fZExtent);
-    pVB->Position3(9) = SEVector3f(-fXExtent, +fYExtent, -fZExtent);
-    pVB->Position3(10) = SEVector3f(-fXExtent, +fYExtent, -fZExtent);
-    pVB->Position3(11) = SEVector3f(-fXExtent, +fYExtent, -fZExtent);
-    pVB->Position3(12) = SEVector3f(-fXExtent, -fYExtent, +fZExtent);
-    pVB->Position3(13) = SEVector3f(-fXExtent, -fYExtent, +fZExtent);
-    pVB->Position3(14) = SEVector3f(-fXExtent, -fYExtent, +fZExtent);
-    pVB->Position3(15) = SEVector3f(+fXExtent, -fYExtent, +fZExtent);
-    pVB->Position3(16) = SEVector3f(+fXExtent, -fYExtent, +fZExtent);
-    pVB->Position3(17) = SEVector3f(+fXExtent, -fYExtent, +fZExtent);
-    pVB->Position3(18) = SEVector3f(+fXExtent, +fYExtent, +fZExtent);
-    pVB->Position3(19) = SEVector3f(+fXExtent, +fYExtent, +fZExtent);
-    pVB->Position3(20) = SEVector3f(+fXExtent, +fYExtent, +fZExtent);
-    pVB->Position3(21) = SEVector3f(-fXExtent, +fYExtent, +fZExtent);
-    pVB->Position3(22) = SEVector3f(-fXExtent, +fYExtent, +fZExtent);
-    pVB->Position3(23) = SEVector3f(-fXExtent, +fYExtent, +fZExtent);
+    SEVector3f vec3fOffset(fXOffset, fYOffset, fZOffset);
+    pVB->Position3(0) = SEVector3f(-fXExtent, -fYExtent, -fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(1) = SEVector3f(-fXExtent, -fYExtent, -fZExtent) +
+        vec3fOffset;
+    pVB->Position3(2) = SEVector3f(-fXExtent, -fYExtent, -fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(3) = SEVector3f(+fXExtent, -fYExtent, -fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(4) = SEVector3f(+fXExtent, -fYExtent, -fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(5) = SEVector3f(+fXExtent, -fYExtent, -fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(6) = SEVector3f(+fXExtent, +fYExtent, -fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(7) = SEVector3f(+fXExtent, +fYExtent, -fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(8) = SEVector3f(+fXExtent, +fYExtent, -fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(9) = SEVector3f(-fXExtent, +fYExtent, -fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(10) = SEVector3f(-fXExtent, +fYExtent, -fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(11) = SEVector3f(-fXExtent, +fYExtent, -fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(12) = SEVector3f(-fXExtent, -fYExtent, +fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(13) = SEVector3f(-fXExtent, -fYExtent, +fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(14) = SEVector3f(-fXExtent, -fYExtent, +fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(15) = SEVector3f(+fXExtent, -fYExtent, +fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(16) = SEVector3f(+fXExtent, -fYExtent, +fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(17) = SEVector3f(+fXExtent, -fYExtent, +fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(18) = SEVector3f(+fXExtent, +fYExtent, +fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(19) = SEVector3f(+fXExtent, +fYExtent, +fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(20) = SEVector3f(+fXExtent, +fYExtent, +fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(21) = SEVector3f(-fXExtent, +fYExtent, +fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(22) = SEVector3f(-fXExtent, +fYExtent, +fZExtent) + 
+        vec3fOffset;
+    pVB->Position3(23) = SEVector3f(-fXExtent, +fYExtent, +fZExtent) + 
+        vec3fOffset;
 
     if( m_Attr.GetMaxTCoords() > 0 )
     {

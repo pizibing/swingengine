@@ -51,7 +51,8 @@ public:
 
     SETriMesh* Disk(int iShellSamples, int iRadialSamples, float fRadius);
 
-    SETriMesh* Box(float fXExtent, float fYExtent, float fZExtent);
+    SETriMesh* Box(float fXExtent, float fYExtent, float fZExtent, 
+        float fXOffset = 0.0f, float fYOffset = 0.0f, float fZOffset = 0.0f);
 
     SETriMesh* Cylinder(int iAxisSamples, int iRadialSamples, float fRadius,
         float fHeight, bool bOpen);
