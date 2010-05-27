@@ -89,6 +89,8 @@ public:
 
     void OnCheckBoxWireframeClick(Object^ thSender, EventArgs^ thEvent);
 
+    void OnCheckBoxCreateKFCClick(Object^ thSender, EventArgs^ thEvent);
+
     void OnButtonStringTreeClick(Object^ thSender, EventArgs^ thEvent);
 
     #pragma endregion

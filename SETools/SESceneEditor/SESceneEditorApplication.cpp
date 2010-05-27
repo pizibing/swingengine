@@ -82,7 +82,7 @@ SESceneEditorApplication::SESceneEditorApplication(MainForm^ thForm)
     float fUMax = 0.4125f * fDMin;
     float fUMin = -fUMax;
     m_pMainCamera->SetFrustum(fRMin, fRMax, fUMin, fUMax, fDMin, fDMax);
-    SEVector3f tempCLoc(0.0f, 1.5f, -5.0f);
+    SEVector3f tempCLoc(0.0f, 20.0f, -80.0f);
     SEVector3f tempCDir(0.0f, 0.0f, 1.0f);
     SEVector3f tempCUp(0.0f, 1.0f, 0.0f);
     SEVector3f tempCRight = tempCUp.Cross(tempCDir);
@@ -101,6 +101,7 @@ SESceneEditorApplication::SESceneEditorApplication(MainForm^ thForm)
     m_pImageConverter = SE_NEW SEImageConverter(
         ((SEDX9Renderer*)m_pMainRenderer)->GetDevice());
     m_pColladaScene = SE_NEW SEColladaScene(m_pImageConverter);
+    m_pColladaScene->EnableKeyFrameController = false;
 }
 //---------------------------------------------------------------------------
 SESceneEditorApplication::~SESceneEditorApplication()
@@ -402,10 +403,17 @@ void SESceneEditorApplication::OnCheckBoxCreateJointMeshClick(Object^
 }
 //---------------------------------------------------------------------------
 void SESceneEditorApplication::OnCheckBoxWireframeClick(Object^ thSender, 
-    EventArgs^ thEvent)
+    EventArgs^)
 {
     CheckBox^ thBox = (CheckBox^)thSender;
     m_pWireframe->Enabled = thBox->Checked;
+}
+//---------------------------------------------------------------------------
+void SESceneEditorApplication::OnCheckBoxCreateKFCClick(Object^ thSender, 
+    EventArgs^)
+{
+    CheckBox^ thBox = (CheckBox^)thSender;
+    m_pColladaScene->EnableKeyFrameController = thBox->Checked;
 }
 //---------------------------------------------------------------------------
 void SESceneEditorApplication::OnButtonStringTreeClick(Object^ thSender, 

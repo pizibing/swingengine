@@ -105,6 +105,7 @@ private: System::Windows::Forms::RadioButton^  radioButtonPlay;
 private: System::Windows::Forms::RadioButton^  radioButtonStop;
 private: System::Windows::Forms::CheckBox^  checkBoxWireframe;
 private: System::Windows::Forms::Button^  buttonStringTree;
+private: System::Windows::Forms::CheckBox^  checkBoxCreateKFC;
 
 
 private: System::ComponentModel::IContainer^  components;
@@ -139,6 +140,7 @@ private:
         this->radioButtonPlay = (gcnew System::Windows::Forms::RadioButton());
         this->checkBoxWireframe = (gcnew System::Windows::Forms::CheckBox());
         this->buttonStringTree = (gcnew System::Windows::Forms::Button());
+        this->checkBoxCreateKFC = (gcnew System::Windows::Forms::CheckBox());
         (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBoxRendering))->BeginInit();
         this->menuStripMain->SuspendLayout();
         this->groupBoxCOLLADA->SuspendLayout();
@@ -198,6 +200,7 @@ private:
         // 
         // groupBoxCOLLADA
         // 
+        this->groupBoxCOLLADA->Controls->Add(this->checkBoxCreateKFC);
         this->groupBoxCOLLADA->Controls->Add(this->checkBoxCreateJointMesh);
         this->groupBoxCOLLADA->Location = System::Drawing::Point(818, 40);
         this->groupBoxCOLLADA->Name = L"groupBoxCOLLADA";
@@ -272,6 +275,17 @@ private:
         this->buttonStringTree->Text = L"String Tree";
         this->buttonStringTree->UseVisualStyleBackColor = true;
         this->buttonStringTree->Click += gcnew System::EventHandler(this, &MainForm::buttonStringTree_Click);
+        // 
+        // checkBoxCreateKFC
+        // 
+        this->checkBoxCreateKFC->AutoSize = true;
+        this->checkBoxCreateKFC->Location = System::Drawing::Point(6, 42);
+        this->checkBoxCreateKFC->Name = L"checkBoxCreateKFC";
+        this->checkBoxCreateKFC->Size = System::Drawing::Size(180, 16);
+        this->checkBoxCreateKFC->TabIndex = 2;
+        this->checkBoxCreateKFC->Text = L"Create keyframe controller";
+        this->checkBoxCreateKFC->UseVisualStyleBackColor = true;
+        this->checkBoxCreateKFC->Click += gcnew System::EventHandler(this, &MainForm::checkBoxCreateKFC_Click);
         // 
         // MainForm
         // 
@@ -387,6 +401,14 @@ private:
         if( m_thApplication )
         {
             m_thApplication->OnCheckBoxWireframeClick(thSender, thEvent);
+        }
+    }
+
+    void checkBoxCreateKFC_Click(Object^ thSender, EventArgs^ thEvent)
+    {
+        if( m_thApplication )
+        {
+            m_thApplication->OnCheckBoxCreateKFCClick(thSender, thEvent);
         }
     }
 
