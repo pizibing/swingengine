@@ -436,7 +436,8 @@ SETriMesh* SEColladaScene::CreateJointMesh(const char* acJointName, float
     SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     SEStandardMesh tempSM(tempAttr);
-    SETriMesh* pJointMesh = tempSM.Box(4.0f*fSize, fSize, fSize, 4.0f*fSize);
+    SETriMesh* pJointMesh = tempSM.Box(4.0f*fSize, fSize, 0.5f*fSize, 
+        4.0f*fSize);
     pJointMesh->SetName(strJointName);
     pJointMesh->AttachEffect(SE_NEW SEDefaultShaderEffect);
 
