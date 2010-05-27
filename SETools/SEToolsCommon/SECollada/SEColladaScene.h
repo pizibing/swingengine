@@ -226,7 +226,7 @@ private:
     SETransformation GetLocalTransformation(
         std::vector<SEColladaTransformation*>& rColladaTransSequence,
         float fTime = 0.0f);
-    SETriMesh* CreateJointMesh(const char* acJointName, float fSize = 0.25f);
+    SETriMesh* CreateJointMesh(const char* acJointName, float fSize = 2.0f);
     domNode* GetDomNodeBySID(domNodeRef spDomNode, xsNCName strSID);
     SENode* GetBoneNodeByDomNode(domNode* pDomNode);
 

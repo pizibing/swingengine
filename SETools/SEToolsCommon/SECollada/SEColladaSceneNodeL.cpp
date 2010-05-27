@@ -233,7 +233,9 @@ SETransformation SEColladaScene::GetLocalTransformation(
         SETransformation tempTransform = 
             rColladaTransSequence[i]->ToTransformation();
 
-        tempRes.Product(tempRes, tempTransform);
+        SETransformation tempP;
+        tempP.Product(tempRes, tempTransform);
+        tempRes = tempP;
     }
 
     return tempRes;
@@ -269,7 +271,7 @@ SENode* SEColladaScene::LoadNode(domNodeRef spDomNode, SENode* pParentNode)
     // Get node's combined local transformation base on local transformation 
     // sequence at animation's start time(if there is any).
     // The default start time is 0.0f.
-    pNode->Local = GetLocalTransformation(tempColladaTransSequence, 0.0f);
+    pNode->Local = GetLocalTransformation(tempColladaTransSequence, 0.5f);
 
     // Process keyframe animation.
     if( EnableKeyFrameController )
@@ -434,7 +436,7 @@ SETriMesh* SEColladaScene::CreateJointMesh(const char* acJointName, float
     SEAttributes tempAttr;
     tempAttr.SetPositionChannels(3);
     SEStandardMesh tempSM(tempAttr);
-    SETriMesh* pJointMesh = tempSM.Box(fSize, fSize, fSize);
+    SETriMesh* pJointMesh = tempSM.Box(4.0f*fSize, fSize, fSize, 4.0f*fSize);
     pJointMesh->SetName(strJointName);
     pJointMesh->AttachEffect(SE_NEW SEDefaultShaderEffect);
 
