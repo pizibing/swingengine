@@ -34,8 +34,6 @@
 namespace Swing
 {
 
-class SEController;
-
 //----------------------------------------------------------------------------
 // Description:
 // Author:Sun Che
@@ -45,11 +43,12 @@ class SE_FOUNDATION_API SEObject
 {
 public:
     virtual ~SEObject(void);
+
 protected:
-    // 禁止被实例化,虚基类
+    // Abstract base class.
     SEObject(void);
 
-// RTTI系统
+// RTTI system.
 public:
     static const SERTTI TYPE;
     virtual const SERTTI& GetType(void) const;
@@ -58,23 +57,12 @@ public:
     inline bool IsExactlyTypeOf(const SEObject* pObject) const;
     inline bool IsDerivedTypeOf(const SEObject* pObject) const;
 
-// Controller系统
-public:
-    int GetControllerCount(void) const;
-    SEController* GetController(int i) const;
-    void AttachController(SEController* pController);
-    void DetachController(SEController* pController);
-    void DetachAllControllers(void);
-    bool UpdateControllers(double dAppTime);
-private:
-    std::vector< SESmartPointer<SEObject> > m_Controllers;
-
-// Copying系统
+// Copying system.
 public:
     SESmartPointer<SEObject> Copy(bool bUniqueNames = true) const;
     static char NameAppend;
 
-// Name-ID系统
+// Name-ID system.
 public:
     inline void SetName(const std::string& rName);
     inline const std::string& GetName(void) const;
@@ -84,12 +72,13 @@ public:
     virtual void GetAllObjectsByName(const std::string& rName, 
         std::vector<SEObject*>& rObjects);
     virtual SEObject* GetObjectByID(unsigned int uiID);
+
 private:
     std::string m_Name;
     unsigned int m_uiID;
     static unsigned int ms_uiNextID;
 
-// Smart pointer系统
+// Smart pointer system.
 public:
     inline void IncrementReferences(void);
     void DecrementReferences(void);
@@ -97,10 +86,11 @@ public:
     // SEObject级的内存泄漏跟踪使用此hash表
     static SEHashTable<unsigned int, SEObject*>* InUse;
     static void PrintInUse(const char* pFileName, const char* pMessage);
+
 private:
     int m_iReferences;
 
-// Streaming系统
+// Streaming system.
 // 内部使用
 public:
     enum { FACTORY_MAP_SIZE = 256 };
@@ -115,6 +105,7 @@ public:
     virtual void Save(SEStream& rStream) const;
     virtual int GetDiskUsed(const SEStreamVersion& rVersion) const;
     virtual SEStringTree* SaveStrings(const char* pTitle = 0);
+
 private:
     static bool ms_bStreamRegistered;
 };

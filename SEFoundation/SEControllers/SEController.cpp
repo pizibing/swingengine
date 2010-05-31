@@ -20,6 +20,7 @@
 
 #include "SEFoundationPCH.h"
 #include "SEController.h"
+#include "SEAdvancedObject.h"
 #include "SEMath.h"
 
 using namespace Swing;
@@ -149,7 +150,7 @@ void SEController::SELink(SEStream& rStream, SEStream::SELink* pLink)
     SEObject::SELink(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
-    m_pObject = rStream.GetFromMap(pLinkID);
+    m_pObject = (SEAdvancedObject*)rStream.GetFromMap(pLinkID);
 }
 //----------------------------------------------------------------------------
 bool SEController::Register(SEStream& rStream) const
@@ -215,7 +216,7 @@ SEStringTree* SEController::SaveStrings(const char*)
     // children
     pTree->Append(SEObject::SaveStrings());
 
-    // SEObject will iterate over controllers to save strings
+    // SEAdvancedObject will iterate over controllers to save strings
     return pTree;
 }
 //----------------------------------------------------------------------------

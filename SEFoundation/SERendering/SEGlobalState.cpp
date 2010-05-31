@@ -23,10 +23,10 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, SEGlobalState, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEGlobalState, SEAdvancedObject);
 SE_IMPLEMENT_ABSTRACT_STREAM(SEGlobalState);
-SE_IMPLEMENT_DEFAULT_STREAM(SEGlobalState, SEObject);
-SE_IMPLEMENT_DEFAULT_NAME_ID(SEGlobalState, SEObject);
+SE_IMPLEMENT_DEFAULT_STREAM(SEGlobalState, SEAdvancedObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEGlobalState, SEAdvancedObject);
 
 //SE_REGISTER_STREAM(SEGlobalState);
 

@@ -133,7 +133,9 @@ void Swing::SE_Foundation_Register()
 {
     // Object System
     SE_REGISTER_STREAM(SEObject);
+    SE_REGISTER_STREAM(SEAdvancedObject);
     SE_INVOKE_STREAM(SEObject);
+    SE_INVOKE_STREAM(SEAdvancedObject);
 
     // Scene Graph
     SE_REGISTER_STREAM(SEBoundingVolume);

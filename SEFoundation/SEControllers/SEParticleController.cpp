@@ -87,7 +87,7 @@ void SEParticleController::Reallocate(int iLCount)
     }
 }
 //----------------------------------------------------------------------------
-void SEParticleController::SetObject(SEObject* pObject)
+void SEParticleController::SetObject(SEAdvancedObject* pObject)
 {
     SEController::SetObject(pObject);
 

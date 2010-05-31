@@ -26,10 +26,10 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, SEEffect, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SEEffect, SEAdvancedObject);
 SE_IMPLEMENT_STREAM(SEEffect);
-SE_IMPLEMENT_DEFAULT_STREAM(SEEffect, SEObject);
-SE_IMPLEMENT_DEFAULT_NAME_ID(SEEffect, SEObject);
+SE_IMPLEMENT_DEFAULT_STREAM(SEEffect, SEAdvancedObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEEffect, SEAdvancedObject);
 
 //SE_REGISTER_STREAM(SEEffect);
 

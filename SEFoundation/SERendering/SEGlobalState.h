@@ -23,7 +23,7 @@
 
 #include "SEFoundationLIB.h"
 #include "SEPlatforms.h"
-#include "SEObject.h"
+#include "SEAdvancedObject.h"
 
 namespace Swing
 {
@@ -33,7 +33,7 @@ namespace Swing
 // Author:Sun Che
 // Date:20080701
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API SEGlobalState : public SEObject
+class SE_FOUNDATION_API SEGlobalState : public SEAdvancedObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;

@@ -24,9 +24,9 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, SELight, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SELight, SEAdvancedObject);
 SE_IMPLEMENT_STREAM(SELight);
-SE_IMPLEMENT_DEFAULT_NAME_ID(SELight, SEObject);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SELight, SEAdvancedObject);
 
 //SE_REGISTER_STREAM(SELight);
 
@@ -104,7 +104,7 @@ void SELight::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    SEObject::Load(rStream, pLink);
+    SEAdvancedObject::Load(rStream, pLink);
 
     // native data
     rStream.Read((int&)Type);
@@ -129,19 +129,19 @@ void SELight::Load(SEStream& rStream, SEStream::SELink* pLink)
 //----------------------------------------------------------------------------
 void SELight::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream, pLink);
+    SEAdvancedObject::SELink(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SELight::Register(SEStream& rStream) const
 {
-    return SEObject::Register(rStream);
+    return SEAdvancedObject::Register(rStream);
 }
 //----------------------------------------------------------------------------
 void SELight::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    SEObject::Save(rStream);
+    SEAdvancedObject::Save(rStream);
 
     // native data
     rStream.Write((int)Type);
@@ -166,7 +166,7 @@ void SELight::Save(SEStream& rStream) const
 //----------------------------------------------------------------------------
 int SELight::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return SEObject::GetDiskUsed(rVersion) +
+    return SEAdvancedObject::GetDiskUsed(rVersion) +
         sizeof(Type) +
         sizeof(Position) +
         sizeof(RVector) +
@@ -207,7 +207,7 @@ SEStringTree* SELight::SaveStrings(const char*)
     pTree->Append(Format("exponent =", Exponent));
 
     // children
-    pTree->Append(SEObject::SaveStrings());
+    pTree->Append(SEAdvancedObject::SaveStrings());
 
     return pTree;
 }

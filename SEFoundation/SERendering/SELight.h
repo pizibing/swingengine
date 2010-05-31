@@ -23,7 +23,7 @@
 
 #include "SEFoundationLIB.h"
 #include "SEPlatforms.h"
-#include "SEObject.h"
+#include "SEAdvancedObject.h"
 #include "SEColorRGB.h"
 #include "SEVector3.h"
 
@@ -35,7 +35,7 @@ namespace Swing
 // Author:Sun Che
 // Date:20080702
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API SELight : public SEObject
+class SE_FOUNDATION_API SELight : public SEAdvancedObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;

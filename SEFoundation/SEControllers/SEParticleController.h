@@ -67,7 +67,7 @@ protected:
 
     // 用于延迟分配point motion arrays.
     void Reallocate(int iVertexCount);
-    virtual void SetObject(SEObject* pObject);
+    virtual void SetObject(SEAdvancedObject* pObject);
 
     // 更新motion参数,派生类可重载.
     virtual void UpdateSystemMotion(float fCtrlTime);

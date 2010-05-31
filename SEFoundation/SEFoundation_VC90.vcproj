@@ -4,6 +4,7 @@
 	Version="9.00"
 	Name="SEFoundation_VC90"
 	ProjectGUID="{89A5147A-4380-441F-A167-89AE9DBB11BD}"
+	RootNamespace="SEFoundation_VC90"
 	Keyword="MakeFileProj"
 	TargetFrameworkVersion="131072"
 	>
@@ -862,6 +863,14 @@
 		<Filter
 			Name="SEObjectSystem"
 			>
+			<File
+				RelativePath=".\SEObjectSystem\SEAdvancedObject.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEObjectSystem\SEAdvancedObject.h"
+				>
+			</File>
 			<File
 				RelativePath=".\SEObjectSystem\SEImageVersion.cpp"
 				>

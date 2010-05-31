@@ -28,6 +28,8 @@
 namespace Swing
 {
 
+class SEAdvancedObject;
+
 //----------------------------------------------------------------------------
 // Description:
 // Author:Sun Che
@@ -43,7 +45,7 @@ public:
     virtual ~SEController(void);
 
     // 获取被控制的对象
-    inline SEObject* GetObject(void) const;
+    inline SEAdvancedObject* GetObject(void) const;
 
     // 派生类需实现此函数
     virtual bool Update(double dAppTime);
@@ -67,9 +69,9 @@ protected:
     // 虚基类
     SEController(void);
 
-    friend class SEObject;
+    friend class SEAdvancedObject;
     // 重载后,派生类可对其所期望的被控制对象进行类型识别.
-    virtual void SetObject(SEObject* pObject);
+    virtual void SetObject(SEAdvancedObject* pObject);
 
     // 从application时间单位到controller时间单位的转换.
     // 派生类在其update函数中可以使用这个函数.
@@ -77,7 +79,7 @@ protected:
 
     // 常规指针指向被控制的object,避免object和controller的smart pointer
     // 互指问题.
-    SEObject* m_pObject;
+    SEAdvancedObject* m_pObject;
 
     double m_dLastAppTime;
 

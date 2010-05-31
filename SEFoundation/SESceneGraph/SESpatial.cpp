@@ -26,7 +26,7 @@
 
 using namespace Swing;
 
-SE_IMPLEMENT_RTTI(Swing, SESpatial, SEObject);
+SE_IMPLEMENT_RTTI(Swing, SESpatial, SEAdvancedObject);
 SE_IMPLEMENT_ABSTRACT_STREAM(SESpatial);
 
 //SE_REGISTER_STREAM(SESpatial);
@@ -92,7 +92,7 @@ void SESpatial::UpdateWorldData(double dAppTime)
 
     for( i = 0; i < (int)m_Lights.size(); i++ )
     {
-        m_Lights[i]->UpdateControllers(dAppTime);
+        ((SELight*)(SEObject*)m_Lights[i])->UpdateControllers(dAppTime);
     }
 
     for( i = 0; i < (int)m_Effects.size(); i++ )
@@ -402,7 +402,7 @@ SESpatial::SEPickRecord* SESpatial::GetClosest(PickArray& rResults)
 //----------------------------------------------------------------------------
 SEObject* SESpatial::GetObjectByName(const std::string& rName)
 {
-    SEObject* pFound = SEObject::GetObjectByName(rName);
+    SEObject* pFound = SEAdvancedObject::GetObjectByName(rName);
     if( pFound )
     {
         return pFound;
@@ -460,7 +460,7 @@ SEObject* SESpatial::GetObjectByName(const std::string& rName)
 void SESpatial::GetAllObjectsByName(const std::string& rName,
     std::vector<SEObject*>& rObjects)
 {
-    SEObject::GetAllObjectsByName(rName, rObjects);
+    SEAdvancedObject::GetAllObjectsByName(rName, rObjects);
 
     if( WorldBound )
     {
@@ -495,7 +495,7 @@ void SESpatial::GetAllObjectsByName(const std::string& rName,
 //----------------------------------------------------------------------------
 SEObject* SESpatial::GetObjectByID(unsigned int uiID)
 {
-    SEObject* pFound = SEObject::GetObjectByID(uiID);
+    SEObject* pFound = SEAdvancedObject::GetObjectByID(uiID);
     if( pFound )
     {
         return pFound;
@@ -558,7 +558,7 @@ void SESpatial::Load(SEStream& rStream, SEStream::SELink* pLink)
 {
     SE_BEGIN_DEBUG_STREAM_LOAD;
 
-    SEObject::Load(rStream, pLink);
+    SEAdvancedObject::Load(rStream, pLink);
 
     // native data
     rStream.Read(Local);
@@ -608,7 +608,7 @@ void SESpatial::Load(SEStream& rStream, SEStream::SELink* pLink)
 //----------------------------------------------------------------------------
 void SESpatial::SELink(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream, pLink);
+    SEAdvancedObject::SELink(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     WorldBound = (SEBoundingVolume*)rStream.GetFromMap(pLinkID);
@@ -635,7 +635,7 @@ void SESpatial::SELink(SEStream& rStream, SEStream::SELink* pLink)
 //----------------------------------------------------------------------------
 bool SESpatial::Register(SEStream& rStream) const
 {
-    if( !SEObject::Register(rStream) )
+    if( !SEAdvancedObject::Register(rStream) )
     {
         return false;
     }
@@ -680,7 +680,7 @@ void SESpatial::Save(SEStream& rStream) const
 {
     SE_BEGIN_DEBUG_STREAM_SAVE;
 
-    SEObject::Save(rStream);
+    SEAdvancedObject::Save(rStream);
 
     // native data
     rStream.Write(Local);
@@ -722,7 +722,7 @@ void SESpatial::Save(SEStream& rStream) const
 //----------------------------------------------------------------------------
 int SESpatial::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    int iSize = SEObject::GetDiskUsed(rVersion) +
+    int iSize = SEAdvancedObject::GetDiskUsed(rVersion) +
         SETransformation::DISK_USED +  // Local
         SETransformation::DISK_USED +  // World
         sizeof(char) + // WorldIsCurrent
@@ -792,7 +792,7 @@ SEStringTree* SESpatial::SaveStrings(const char*)
     pTree->Append(Format("effect count =", (int)m_Effects.size()));
 
     // children
-    pTree->Append(SEObject::SaveStrings());
+    pTree->Append(SEAdvancedObject::SaveStrings());
 
     int iCount = (int)m_GlobalStates.size();
     int i;

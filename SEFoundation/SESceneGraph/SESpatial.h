@@ -23,7 +23,7 @@
 
 #include "SEFoundationLIB.h"
 #include "SEPlatforms.h"
-#include "SEObject.h"
+#include "SEAdvancedObject.h"
 #include "SEBoundingVolume.h"
 #include "SEEffect.h"
 #include "SEGlobalState.h"
@@ -40,7 +40,7 @@ class SELight;
 // Author:Sun Che
 // Date:20080707
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API SESpatial : public SEObject
+class SE_FOUNDATION_API SESpatial : public SEAdvancedObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;

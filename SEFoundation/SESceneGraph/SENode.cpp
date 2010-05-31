@@ -465,6 +465,7 @@ SEStringTree* SENode::SaveStrings(const char*)
 
     // children
     pTree->Append(SESpatial::SaveStrings());
+
     for( int i = 0; i < (int)m_Child.size(); i++ )
     {
         SESpatial* pChild = m_Child[i];

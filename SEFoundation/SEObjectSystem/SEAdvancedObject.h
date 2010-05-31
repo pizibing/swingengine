@@ -18,57 +18,49 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#ifndef Swing_Effect_H
-#define Swing_Effect_H
+#ifndef Swing_AdvancedObject_H
+#define Swing_AdvancedObject_H
 
 #include "SEFoundationLIB.h"
-#include "SEPlatforms.h"
-#include "SEAdvancedObject.h"
+#include "SEObject.h"
 
 namespace Swing
 {
 
-class SESpatial;
-class SEGeometry;
-class SERenderer;
-class SEUnculledObject;
+class SEController;
 
 //----------------------------------------------------------------------------
 // Description:
 // Author:Sun Che
-// Date:20080702
+// Date:20100531
 //----------------------------------------------------------------------------
-class SE_FOUNDATION_API SEEffect : public SEAdvancedObject
+class SE_FOUNDATION_API SEAdvancedObject : public SEObject
 {
     SE_DECLARE_RTTI;
     SE_DECLARE_NAME_ID;
     SE_DECLARE_STREAM;
 
 public:
-    // 虚基类
-    virtual ~SEEffect(void);
-
-    // 重载这个函数从而可获得effect派生类的自定义渲染行为.
-    // 默认情况下是依次渲染pVisibleSet中的geometry对象.
-    virtual void Draw(SERenderer* pRenderer, SESpatial* pGlobalObject,
-        int iMin, int iMax, SEUnculledObject* pVisibleSet);
-
-    // 重载这个函数从而可以更新effect派生类所需的自定义数据.
-    virtual void OnUpdateData(void* pUserData);
-
-    // 重载这些函数从而可获得effect派生类的自定义资源装载.
-    // 默认情况下什么都不做.
-    // 这些函数被SERenderer::LoadResources和SERenderer::ReleaseResources调用,
-    // 用于geometry和effect对象.
-    virtual void LoadResources(SERenderer* pRenderer, SEGeometry* pGeometry);
-    virtual void ReleaseResources(SERenderer* pRenderer, 
-        SEGeometry* pGeometry);
+    ~SEAdvancedObject(void);
 
 protected:
-    SEEffect(void);
+    // Abstract base class.
+    SEAdvancedObject(void);
+
+// Controller system.
+public:
+    int GetControllerCount(void) const;
+    SEController* GetController(int i) const;
+    void AttachController(SEController* pController);
+    void DetachController(SEController* pController);
+    void DetachAllControllers(void);
+    bool UpdateControllers(double dAppTime);
+
+private:
+    std::vector<SEObjectPtr> m_Controllers;
 };
 
-typedef SESmartPointer<SEEffect> SEEffectPtr;
+typedef SESmartPointer<SEAdvancedObject> SEAdvancedObjectPtr;
 
 }
 
