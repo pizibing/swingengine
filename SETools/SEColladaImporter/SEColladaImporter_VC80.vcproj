@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories=".\;..\..\SDK\Include;.\SEColladaImporter;..\..\ThirdPartyLibs\ColladaDOM\Include;..\..\ThirdPartyLibs\ColladaDOM\Include\1.4"
-				PreprocessorDefinitions="WIN32;_DEBUG"
+				PreprocessorDefinitions="WIN32;_DEBUG;NO_BOOST"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
 				WarningLevel="4"
@@ -60,9 +60,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80d.lib SEDX9Renderer80d.lib SEToolsCommon80d.lib cg.lib cgD3D9.lib libcollada14dom20-sd80.lib libboost_filesystem-d80.lib pcrecpp-d80.lib pcre-d80.lib libxml2_a.lib zlib.lib wsock32.lib winmm.lib"
+				AdditionalDependencies="SEFoundation80d.lib SEDX9Renderer80d.lib SEToolsCommon80d.lib cg.lib cgD3D9.lib libcollada14dom21-sd80.lib libboost_system-d80.lib libboost_filesystem-d80.lib pcrecpp-d80.lib pcre-d80.lib libxml2_a.lib zlib.lib minizip-d.lib wsock32.lib winmm.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug;..\..\ThirdPartyLibs\ColladaDOM\Lib\Debug;..\..\ThirdPartyLibs\Boost\Lib\Debug;..\..\ThirdPartyLibs\LibXML2\Lib\Debug;..\..\ThirdPartyLibs\PCRE\Lib\Debug;..\..\ThirdPartyLibs\ZLib\Lib\Debug"
+				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug;..\..\ThirdPartyLibs\ColladaDOM\Lib\Debug;..\..\ThirdPartyLibs\Boost\Lib\Debug;..\..\ThirdPartyLibs\LibXML2\Lib\Debug;..\..\ThirdPartyLibs\PCRE\Lib\Debug;..\..\ThirdPartyLibs\ZLib\Lib\Debug;..\..\ThirdPartyLibs\Minizip\Lib\Debug"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
