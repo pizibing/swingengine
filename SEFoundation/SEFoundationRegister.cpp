@@ -23,6 +23,7 @@
 
 // Object System
 #include "SEObject.h"
+#include "SEAdvancedObject.h"
 // Scene Graph
 #include "SEBoundingVolume.h"
 #include "SEBoxBV.h"

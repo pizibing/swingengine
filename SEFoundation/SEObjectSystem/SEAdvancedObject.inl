@@ -18,52 +18,16 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#ifndef Swing_AdvancedObject_H
-#define Swing_AdvancedObject_H
-
-#include "SEFoundationLIB.h"
-#include "SEObject.h"
-
-namespace Swing
-{
-
-class SEController;
-
 //----------------------------------------------------------------------------
-// Description:
-// Author:Sun Che
-// Date:20100531
-//----------------------------------------------------------------------------
-class SE_FOUNDATION_API SEAdvancedObject : public SEObject
+inline int SEAdvancedObject::GetControllerCount() const
 {
-    SE_DECLARE_RTTI;
-    SE_DECLARE_NAME_ID;
-    SE_DECLARE_STREAM;
-
-public:
-    ~SEAdvancedObject(void);
-
-protected:
-    // Abstract base class.
-    SEAdvancedObject(void);
-
-// Controller system.
-public:
-    inline int GetControllerCount(void) const;
-    inline SEController* GetController(int i) const;
-    void AttachController(SEController* pController);
-    void DetachController(SEController* pController);
-    void DetachAllControllers(void);
-    bool UpdateControllers(double dAppTime);
-
-private:
-    std::vector<SEObjectPtr> m_Controllers;
-};
-
-typedef SESmartPointer<SEAdvancedObject> SEAdvancedObjectPtr;
-
-#include "SEAdvancedObject.inl"
-
+    return (int)m_Controllers.size();
 }
+//----------------------------------------------------------------------------
+inline SEController* SEAdvancedObject::GetController(int i) const
+{
+    SE_ASSERT( 0 <= i && i < (int)m_Controllers.size() );
 
-#endif
+    return StaticCast<SEController>(m_Controllers[i]);
+}
+//----------------------------------------------------------------------------

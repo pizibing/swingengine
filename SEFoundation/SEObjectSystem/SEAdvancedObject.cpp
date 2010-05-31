@@ -43,18 +43,6 @@ SEAdvancedObject::~SEAdvancedObject()
 //----------------------------------------------------------------------------
 // Controller
 //----------------------------------------------------------------------------
-int SEAdvancedObject::GetControllerCount() const
-{
-    return (int)m_Controllers.size();
-}
-//----------------------------------------------------------------------------
-SEController* SEAdvancedObject::GetController(int i) const
-{
-    SE_ASSERT( 0 <= i && i < (int)m_Controllers.size() );
-
-    return StaticCast<SEController>(m_Controllers[i]);
-}
-//----------------------------------------------------------------------------
 void SEAdvancedObject::AttachController(SEController* pController)
 {
     // controller本身不允许被施加controller,从而避免复杂的对象图关系,
