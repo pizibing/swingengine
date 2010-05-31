@@ -1434,6 +1434,18 @@
 		DD8E79871108072100F89120 /* SEAxisAlignedBox2.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8E79771108072100F89120 /* SEAxisAlignedBox2.h */; };
 		DD8E79881108072100F89120 /* SEAxisAlignedBox3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8E79781108072100F89120 /* SEAxisAlignedBox3.cpp */; };
 		DD8E79891108072100F89120 /* SEAxisAlignedBox3.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8E79791108072100F89120 /* SEAxisAlignedBox3.h */; };
+		DD90E58C11B3B27F003380A6 /* SEAdvancedObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD90E58911B3B27F003380A6 /* SEAdvancedObject.cpp */; };
+		DD90E58D11B3B27F003380A6 /* SEAdvancedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = DD90E58A11B3B27F003380A6 /* SEAdvancedObject.h */; };
+		DD90E58E11B3B27F003380A6 /* SEAdvancedObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD90E58911B3B27F003380A6 /* SEAdvancedObject.cpp */; };
+		DD90E58F11B3B27F003380A6 /* SEAdvancedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = DD90E58A11B3B27F003380A6 /* SEAdvancedObject.h */; };
+		DD90E59011B3B27F003380A6 /* SEAdvancedObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD90E58911B3B27F003380A6 /* SEAdvancedObject.cpp */; };
+		DD90E59111B3B27F003380A6 /* SEAdvancedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = DD90E58A11B3B27F003380A6 /* SEAdvancedObject.h */; };
+		DD90E59211B3B27F003380A6 /* SEAdvancedObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD90E58911B3B27F003380A6 /* SEAdvancedObject.cpp */; };
+		DD90E59311B3B27F003380A6 /* SEAdvancedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = DD90E58A11B3B27F003380A6 /* SEAdvancedObject.h */; };
+		DD90E59411B3B27F003380A6 /* SEAdvancedObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD90E58911B3B27F003380A6 /* SEAdvancedObject.cpp */; };
+		DD90E59511B3B27F003380A6 /* SEAdvancedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = DD90E58A11B3B27F003380A6 /* SEAdvancedObject.h */; };
+		DD90E59611B3B27F003380A6 /* SEAdvancedObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD90E58911B3B27F003380A6 /* SEAdvancedObject.cpp */; };
+		DD90E59711B3B27F003380A6 /* SEAdvancedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = DD90E58A11B3B27F003380A6 /* SEAdvancedObject.h */; };
 		DD97754110A006970070FC01 /* SEIntersector.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC11D30E9C87DF003AD3C4 /* SEIntersector.h */; };
 		DD97754210A006970070FC01 /* SEIntrRay3Sphere3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC11D50E9C87DF003AD3C4 /* SEIntrRay3Sphere3.h */; };
 		DD97754310A006970070FC01 /* SEIntrRay3Triangle3.h in Headers */ = {isa = PBXBuildFile; fileRef = 52EC11D70E9C87DF003AD3C4 /* SEIntrRay3Triangle3.h */; };
@@ -3478,6 +3490,9 @@
 		DD8E79771108072100F89120 /* SEAxisAlignedBox2.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEAxisAlignedBox2.h; path = SEMath/SEAxisAlignedBox2.h; sourceTree = "<group>"; };
 		DD8E79781108072100F89120 /* SEAxisAlignedBox3.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SEAxisAlignedBox3.cpp; path = SEMath/SEAxisAlignedBox3.cpp; sourceTree = "<group>"; };
 		DD8E79791108072100F89120 /* SEAxisAlignedBox3.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEAxisAlignedBox3.h; path = SEMath/SEAxisAlignedBox3.h; sourceTree = "<group>"; };
+		DD90E58911B3B27F003380A6 /* SEAdvancedObject.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SEAdvancedObject.cpp; path = SEObjectSystem/SEAdvancedObject.cpp; sourceTree = "<group>"; };
+		DD90E58A11B3B27F003380A6 /* SEAdvancedObject.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEAdvancedObject.h; path = SEObjectSystem/SEAdvancedObject.h; sourceTree = "<group>"; };
+		DD90E58B11B3B27F003380A6 /* SEAdvancedObject.inl */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = text; name = SEAdvancedObject.inl; path = SEObjectSystem/SEAdvancedObject.inl; sourceTree = "<group>"; };
 		DD97753E10A006510070FC01 /* libSEFoundation_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEFoundation_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD9B9A9D115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SEMaterialTexture2L1Effect.cpp; path = SEEffects/SEMaterialTexture2L1Effect.cpp; sourceTree = "<group>"; };
 		DD9B9A9E115EFA1300DD80A9 /* SEMaterialTexture2L1Effect.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEMaterialTexture2L1Effect.h; path = SEEffects/SEMaterialTexture2L1Effect.h; sourceTree = "<group>"; };
@@ -4166,6 +4181,9 @@
 		52EC11CC0E9C866F003AD3C4 /* SEObjectSystem */ = {
 			isa = PBXGroup;
 			children = (
+				DD90E58911B3B27F003380A6 /* SEAdvancedObject.cpp */,
+				DD90E58A11B3B27F003380A6 /* SEAdvancedObject.h */,
+				DD90E58B11B3B27F003380A6 /* SEAdvancedObject.inl */,
 				52EC13570E9C8D62003AD3C4 /* SEImageVersion.cpp */,
 				52EC13580E9C8D62003AD3C4 /* SEImageVersion.h */,
 				52EC13590E9C8D62003AD3C4 /* SEMain.cpp */,
@@ -4591,6 +4609,7 @@
 				DD9B9ABC115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h in Headers */,
 				DD9B9ABE115EFA1300DD80A9 /* SETextureTileEffect.h in Headers */,
 				DD9B9AC0115EFA1300DD80A9 /* SETextureTileL1Effect.h in Headers */,
+				DD90E58F11B3B27F003380A6 /* SEAdvancedObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4854,6 +4873,7 @@
 				DD9B9AB0115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h in Headers */,
 				DD9B9AB2115EFA1300DD80A9 /* SETextureTileEffect.h in Headers */,
 				DD9B9AB4115EFA1300DD80A9 /* SETextureTileL1Effect.h in Headers */,
+				DD90E58D11B3B27F003380A6 /* SEAdvancedObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5117,6 +5137,7 @@
 				DD9B9AC8115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h in Headers */,
 				DD9B9ACA115EFA1300DD80A9 /* SETextureTileEffect.h in Headers */,
 				DD9B9ACC115EFA1300DD80A9 /* SETextureTileL1Effect.h in Headers */,
+				DD90E59111B3B27F003380A6 /* SEAdvancedObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5380,6 +5401,7 @@
 				DD9B9AD4115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.h in Headers */,
 				DD9B9AD6115EFA1300DD80A9 /* SETextureTileEffect.h in Headers */,
 				DD9B9AD8115EFA1300DD80A9 /* SETextureTileL1Effect.h in Headers */,
+				DD90E59311B3B27F003380A6 /* SEAdvancedObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5643,6 +5665,7 @@
 				DD9CECD5119B96F800804F1A /* SESkinMaterialTextureL1Effect.h in Headers */,
 				DD9CECD6119B96F800804F1A /* SETextureTileEffect.h in Headers */,
 				DD9CECD7119B96F800804F1A /* SETextureTileL1Effect.h in Headers */,
+				DD90E59511B3B27F003380A6 /* SEAdvancedObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5906,6 +5929,7 @@
 				DD9CEDF4119BA1BA00804F1A /* SESkinMaterialTextureL1Effect.h in Headers */,
 				DD9CEDF5119BA1BA00804F1A /* SETextureTileEffect.h in Headers */,
 				DD9CEDF6119BA1BA00804F1A /* SETextureTileL1Effect.h in Headers */,
+				DD90E59711B3B27F003380A6 /* SEAdvancedObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6358,6 +6382,7 @@
 				DD9B9ABB115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp in Sources */,
 				DD9B9ABD115EFA1300DD80A9 /* SETextureTileEffect.cpp in Sources */,
 				DD9B9ABF115EFA1300DD80A9 /* SETextureTileL1Effect.cpp in Sources */,
+				DD90E58E11B3B27F003380A6 /* SEAdvancedObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6594,6 +6619,7 @@
 				DD9B9AAF115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp in Sources */,
 				DD9B9AB1115EFA1300DD80A9 /* SETextureTileEffect.cpp in Sources */,
 				DD9B9AB3115EFA1300DD80A9 /* SETextureTileL1Effect.cpp in Sources */,
+				DD90E58C11B3B27F003380A6 /* SEAdvancedObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6830,6 +6856,7 @@
 				DD9B9AC7115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp in Sources */,
 				DD9B9AC9115EFA1300DD80A9 /* SETextureTileEffect.cpp in Sources */,
 				DD9B9ACB115EFA1300DD80A9 /* SETextureTileL1Effect.cpp in Sources */,
+				DD90E59011B3B27F003380A6 /* SEAdvancedObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7066,6 +7093,7 @@
 				DD9B9AD3115EFA1300DD80A9 /* SESkinMaterialTextureL1Effect.cpp in Sources */,
 				DD9B9AD5115EFA1300DD80A9 /* SETextureTileEffect.cpp in Sources */,
 				DD9B9AD7115EFA1300DD80A9 /* SETextureTileL1Effect.cpp in Sources */,
+				DD90E59211B3B27F003380A6 /* SEAdvancedObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7302,6 +7330,7 @@
 				DD9CEBD5119B96A400804F1A /* SESkinMaterialTextureL1Effect.cpp in Sources */,
 				DD9CEBD6119B96A400804F1A /* SETextureTileEffect.cpp in Sources */,
 				DD9CEBD7119B96A400804F1A /* SETextureTileL1Effect.cpp in Sources */,
+				DD90E59411B3B27F003380A6 /* SEAdvancedObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7538,6 +7567,7 @@
 				DD9CEED9119BA1E600804F1A /* SESkinMaterialTextureL1Effect.cpp in Sources */,
 				DD9CEEDA119BA1E600804F1A /* SETextureTileEffect.cpp in Sources */,
 				DD9CEEDB119BA1E600804F1A /* SETextureTileL1Effect.cpp in Sources */,
+				DD90E59611B3B27F003380A6 /* SEAdvancedObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
