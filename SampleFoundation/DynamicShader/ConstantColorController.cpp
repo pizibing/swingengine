@@ -59,7 +59,7 @@ bool ConstantColorController::Update(double dAppTime)
     return true;
 }
 //----------------------------------------------------------------------------
-void ConstantColorController::SetObject(SEObject* pObject)
+void ConstantColorController::SetObject(SEAdvancedObject* pObject)
 {
     if( pObject )
     {

@@ -40,7 +40,7 @@ public:
     virtual bool Update(double dAppTime);
 
 protected:
-    virtual void SetObject(SEObject* pObject);
+    virtual void SetObject(SEAdvancedObject* pObject);
 };
 
 typedef SESmartPointer<ConstantColorController> ConstantColorControllerPtr;
