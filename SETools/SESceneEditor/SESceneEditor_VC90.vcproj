@@ -4,7 +4,7 @@
 	Version="9.00"
 	Name="SESceneEditor_VC90"
 	ProjectGUID="{26F5F32A-4CAD-4BEC-920C-605A8A0D42B8}"
-	RootNamespace="SESceneEditor"
+	RootNamespace="Swing.Tools.SceneEditor"
 	Keyword="ManagedCProj"
 	TargetFrameworkVersion="131072"
 	>
@@ -54,7 +54,7 @@
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
-				ResourceFileName="$(IntDir)\Swing.Tools.SceneEditor.$(InputName).resources"
+				ResourceFileName="$(IntDir)\$(RootNamespace).$(InputName).resources"
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
