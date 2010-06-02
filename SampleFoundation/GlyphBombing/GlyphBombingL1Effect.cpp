@@ -180,9 +180,9 @@ void GlyphBombingL1Effect::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(GlyphBombingL1Effect);
 }
 //----------------------------------------------------------------------------
-void GlyphBombingL1Effect::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void GlyphBombingL1Effect::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEShaderEffect::SELink(rStream, pLink);
+    SEShaderEffect::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool GlyphBombingL1Effect::Register(SEStream& rStream) const
