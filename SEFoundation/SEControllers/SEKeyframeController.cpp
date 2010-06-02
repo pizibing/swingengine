@@ -458,9 +458,9 @@ void SEKeyframeController::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEKeyframeController);
 }
 //----------------------------------------------------------------------------
-void SEKeyframeController::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEKeyframeController::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEController::SELink(rStream, pLink);
+    SEController::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     TranslationTimes = (SEFloatArray*)rStream.GetFromMap(pLinkID);

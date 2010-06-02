@@ -606,9 +606,9 @@ void SESpatial::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SESpatial);
 }
 //----------------------------------------------------------------------------
-void SESpatial::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SESpatial::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEAdvancedObject::SELink(rStream, pLink);
+    SEAdvancedObject::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     WorldBound = (SEBoundingVolume*)rStream.GetFromMap(pLinkID);

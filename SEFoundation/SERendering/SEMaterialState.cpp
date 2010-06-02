@@ -80,9 +80,9 @@ void SEMaterialState::Load (SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEMaterialState);
 }
 //----------------------------------------------------------------------------
-void SEMaterialState::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEMaterialState::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEGlobalState::SELink(rStream, pLink);
+    SEGlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEMaterialState::Register(SEStream& rStream) const

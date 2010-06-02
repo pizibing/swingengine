@@ -393,9 +393,9 @@ void SENode::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SENode);
 }
 //----------------------------------------------------------------------------
-void SENode::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SENode::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SESpatial::SELink(rStream, pLink);
+    SESpatial::Link(rStream, pLink);
 
     for( int i = 0; i < (int)m_Child.size(); i++ )
     {

@@ -218,9 +218,9 @@ void SESkinEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SESkinEffect);
 }
 //----------------------------------------------------------------------------
-void SESkinEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SESkinEffect::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEShaderEffect::SELink(rStream, pLink);
+    SEShaderEffect::Link(rStream, pLink);
 
     m_apBones = SE_NEW SENode*[m_iBoneCount];
     for( int i = 0; i < m_iBoneCount; i++ )

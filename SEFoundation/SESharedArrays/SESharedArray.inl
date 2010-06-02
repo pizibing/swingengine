@@ -173,9 +173,9 @@ void SESharedArray<T>::Load(SEStream& rStream, SEStream::SELink* pLink)
 }
 //----------------------------------------------------------------------------
 template <class T>
-void SESharedArray<T>::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SESharedArray<T>::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream,pLink);
+    SEObject::Link(rStream,pLink);
 }
 //----------------------------------------------------------------------------
 template <class T>

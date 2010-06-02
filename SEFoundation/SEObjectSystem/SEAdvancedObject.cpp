@@ -204,9 +204,9 @@ void SEAdvancedObject::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEAdvancedObject);
 }
 //----------------------------------------------------------------------------
-void SEAdvancedObject::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEAdvancedObject::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 
     for( int i = 0; i < (int)m_Controllers.size(); i++ )
     {

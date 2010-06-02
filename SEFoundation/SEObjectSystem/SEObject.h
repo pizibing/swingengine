@@ -100,7 +100,7 @@ public:
     static void TerminateFactory(void);
     static SEObject* Factory(SEStream& rStream);
     virtual void Load(SEStream& rStream, SEStream::SELink* pLink);
-    virtual void SELink(SEStream& rStream, SEStream::SELink* pLink);
+    virtual void Link(SEStream& rStream, SEStream::SELink* pLink);
     virtual bool Register(SEStream& rStream) const;
     virtual void Save(SEStream& rStream) const;
     virtual int GetDiskUsed(const SEStreamVersion& rVersion) const;

@@ -219,7 +219,7 @@ void SEObject::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEObject);
 }
 //----------------------------------------------------------------------------
-void SEObject::SELink(SEStream&, SEStream::SELink*)
+void SEObject::Link(SEStream&, SEStream::SELink*)
 {
     // Stub for derived classes.
 }

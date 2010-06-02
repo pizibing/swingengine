@@ -77,9 +77,9 @@ void SEPolygonOffsetState::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEPolygonOffsetState);
 }
 //----------------------------------------------------------------------------
-void SEPolygonOffsetState::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEPolygonOffsetState::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEGlobalState::SELink(rStream, pLink);
+    SEGlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEPolygonOffsetState::Register(SEStream& rStream) const

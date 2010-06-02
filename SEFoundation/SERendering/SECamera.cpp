@@ -368,9 +368,9 @@ void SECamera::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SECamera);
 }
 //----------------------------------------------------------------------------
-void SECamera::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SECamera::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SECamera::Register(SEStream& rStream) const

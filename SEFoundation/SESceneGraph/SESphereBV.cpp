@@ -164,9 +164,9 @@ void SESphereBV::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SESphereBV);
 }
 //----------------------------------------------------------------------------
-void SESphereBV::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SESphereBV::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEBoundingVolume::SELink(rStream, pLink);
+    SEBoundingVolume::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SESphereBV::Register(SEStream& rStream) const

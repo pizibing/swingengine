@@ -134,9 +134,9 @@ void SESkinController::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SESkinController);
 }
 //----------------------------------------------------------------------------
-void SESkinController::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SESkinController::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEController::SELink(rStream, pLink);
+    SEController::Link(rStream, pLink);
 
     m_apBones = SE_NEW SENode*[m_iBoneCount];
     for( int i = 0; i < m_iBoneCount; i++ )

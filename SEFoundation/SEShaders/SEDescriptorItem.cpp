@@ -111,9 +111,9 @@ void SEDescriptorItem::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEDescriptorItem);
 }
 //----------------------------------------------------------------------------
-void SEDescriptorItem::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEDescriptorItem::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEDescriptorItem::Register(SEStream& rStream) const

@@ -81,9 +81,9 @@ void SEIndexBuffer::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEIndexBuffer);
 }
 //----------------------------------------------------------------------------
-void SEIndexBuffer::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEIndexBuffer::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEIndexBuffer::Register(SEStream& rStream) const

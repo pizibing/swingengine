@@ -262,9 +262,9 @@ void SEParticles::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEParticles);
 }
 //----------------------------------------------------------------------------
-void SEParticles::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEParticles::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SETriMesh::SELink(rStream, pLink);
+    SETriMesh::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     Locations = (SEVector3fArray*)rStream.GetFromMap(pLinkID);

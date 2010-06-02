@@ -334,9 +334,9 @@ void SEShadowMapEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEShadowMapEffect);
 }
 //----------------------------------------------------------------------------
-void SEShadowMapEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEShadowMapEffect::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEEffect::SELink(rStream, pLink);
+    SEEffect::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     m_spProjector = (SECamera*)rStream.GetFromMap(pLinkID);

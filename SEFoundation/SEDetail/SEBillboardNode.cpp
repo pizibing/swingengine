@@ -146,9 +146,9 @@ void SEBillboardNode::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEBillboardNode);
 }
 //----------------------------------------------------------------------------
-void SEBillboardNode::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEBillboardNode::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SENode::SELink(rStream, pLink);
+    SENode::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     m_spCamera = (SECamera*)rStream.GetFromMap(pLinkID);

@@ -90,9 +90,9 @@ void SEPolypoint::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEPolypoint);
 }
 //----------------------------------------------------------------------------
-void SEPolypoint::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEPolypoint::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEGeometry::SELink(rStream, pLink);
+    SEGeometry::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEPolypoint::Register(SEStream& rStream) const

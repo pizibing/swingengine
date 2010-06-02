@@ -28,7 +28,7 @@ public: \
     static void InitializeFactory(void); \
     static SEObject* Factory(SEStream& rStream); \
     virtual void Load(SEStream& rStream, SEStream::SELink* pLink); \
-    virtual void SELink(SEStream& rStream, SEStream::SELink* pLink); \
+    virtual void Link(SEStream& rStream, SEStream::SELink* pLink); \
     virtual bool Register(SEStream& rStream) const; \
     virtual void Save(SEStream& rStream) const; \
     virtual int GetDiskUsed(const SEStreamVersion& rVersion) const; \
@@ -42,7 +42,7 @@ public: \
     static void InitializeFactory(void); \
     static SEObject* Factory(SEStream& rStream); \
     virtual void Load(SEStream& rStream, SEStream::SELink* pLink); \
-    virtual void SELink(SEStream& rStream, SEStream::SELink* pLink); \
+    virtual void Link(SEStream& rStream, SEStream::SELink* pLink); \
     virtual bool Register(SEStream& rStream) const; \
     virtual void Save(SEStream& rStream) const; \
     virtual int GetDiskUsed(const SEStreamVersion& rVersion) const; \
@@ -122,9 +122,9 @@ void classname::Load(SEStream& rStream, SEStream::SELink* pLink) \
     SE_END_DEBUG_STREAM_LOAD(classname); \
 } \
 \
-void classname::SELink(SEStream& rStream, SEStream::SELink* pLink) \
+void classname::Link(SEStream& rStream, SEStream::SELink* pLink) \
 { \
-    baseclassname::SELink(rStream, pLink); \
+    baseclassname::Link(rStream, pLink); \
 } \
 \
 bool classname::Register(SEStream& rStream) const \

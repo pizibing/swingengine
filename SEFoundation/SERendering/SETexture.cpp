@@ -133,9 +133,9 @@ void SETexture::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SETexture);
 }
 //----------------------------------------------------------------------------
-void SETexture::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SETexture::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SETexture::Register(SEStream& rStream) const

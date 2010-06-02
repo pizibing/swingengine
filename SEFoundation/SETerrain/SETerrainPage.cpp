@@ -193,9 +193,9 @@ void SETerrainPage::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SETerrainPage);
 }
 //----------------------------------------------------------------------------
-void SETerrainPage::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SETerrainPage::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SETriMesh::SELink(rStream, pLink);
+    SETriMesh::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SETerrainPage::Register(SEStream& rStream) const

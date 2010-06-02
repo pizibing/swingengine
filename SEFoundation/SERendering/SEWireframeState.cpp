@@ -69,9 +69,9 @@ void SEWireframeState::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEWireframeState);
 }
 //----------------------------------------------------------------------------
-void SEWireframeState::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEWireframeState::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEGlobalState::SELink(rStream, pLink);
+    SEGlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEWireframeState::Register(SEStream& rStream) const

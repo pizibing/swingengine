@@ -110,9 +110,9 @@ void SEStencilState::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEStencilState);
 }
 //----------------------------------------------------------------------------
-void SEStencilState::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEStencilState::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEGlobalState::SELink(rStream, pLink);
+    SEGlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEStencilState::Register(SEStream& rStream) const

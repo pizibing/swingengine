@@ -151,9 +151,9 @@ void SEProgram::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEProgram);
 }
 //----------------------------------------------------------------------------
-void SEProgram::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEProgram::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEProgram::Register(SEStream& rStream) const

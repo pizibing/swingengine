@@ -145,9 +145,9 @@ void SELightNode::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SELightNode);
 }
 //----------------------------------------------------------------------------
-void SELightNode::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SELightNode::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SENode::SELink(rStream, pLink);
+    SENode::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     m_spLight = (SELight*)rStream.GetFromMap(pLinkID);

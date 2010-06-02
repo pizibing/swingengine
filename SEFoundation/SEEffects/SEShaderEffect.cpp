@@ -923,9 +923,9 @@ void SEShaderEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEShaderEffect);
 }
 //----------------------------------------------------------------------------
-void SEShaderEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEShaderEffect::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEEffect::SELink(rStream, pLink);
+    SEEffect::Link(rStream, pLink);
 
     SEObject* pLinkID;
     for( int iPass = 0; iPass < m_iPassCount; iPass++ )

@@ -160,9 +160,9 @@ void SEPolyline::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEPolyline);
 }
 //----------------------------------------------------------------------------
-void SEPolyline::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEPolyline::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEGeometry::SELink(rStream,pLink);
+    SEGeometry::Link(rStream,pLink);
 }
 //----------------------------------------------------------------------------
 bool SEPolyline::Register(SEStream& rStream) const

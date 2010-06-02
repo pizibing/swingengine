@@ -97,9 +97,9 @@ void SETextureTileEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SETextureTileEffect);
 }
 //----------------------------------------------------------------------------
-void SETextureTileEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SETextureTileEffect::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEShaderEffect::SELink(rStream, pLink);
+    SEShaderEffect::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SETextureTileEffect::Register(SEStream& rStream) const

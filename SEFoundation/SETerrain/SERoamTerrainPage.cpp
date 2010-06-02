@@ -619,9 +619,9 @@ void SERoamTerrainPage::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SERoamTerrainPage);
 }
 //----------------------------------------------------------------------------
-void SERoamTerrainPage::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SERoamTerrainPage::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SETriMesh::SELink(rStream, pLink);
+    SETriMesh::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SERoamTerrainPage::Register(SEStream& rStream) const

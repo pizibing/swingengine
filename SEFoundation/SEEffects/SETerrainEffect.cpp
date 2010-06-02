@@ -99,9 +99,9 @@ void SETerrainEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SETerrainEffect);
 }
 //----------------------------------------------------------------------------
-void SETerrainEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SETerrainEffect::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEShaderEffect::SELink(rStream, pLink);
+    SEShaderEffect::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SETerrainEffect::Register(SEStream& rStream) const

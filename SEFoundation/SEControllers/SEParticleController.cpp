@@ -187,9 +187,9 @@ void SEParticleController::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEParticleController);
 }
 //----------------------------------------------------------------------------
-void SEParticleController::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEParticleController::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEController::SELink(rStream, pLink);
+    SEController::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEParticleController::Register(SEStream& rStream) const

@@ -145,9 +145,9 @@ void SEController::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEController);
 }
 //----------------------------------------------------------------------------
-void SEController::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEController::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     m_pObject = (SEAdvancedObject*)rStream.GetFromMap(pLinkID);

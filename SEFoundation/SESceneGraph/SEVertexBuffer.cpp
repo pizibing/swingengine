@@ -555,9 +555,9 @@ void SEVertexBuffer::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEVertexBuffer);
 }
 //----------------------------------------------------------------------------
-void SEVertexBuffer::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEVertexBuffer::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEVertexBuffer::Register(SEStream& rStream) const

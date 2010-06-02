@@ -88,9 +88,9 @@ void SECullState::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SECullState);
 }
 //----------------------------------------------------------------------------
-void SECullState::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SECullState::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEGlobalState::SELink(rStream, pLink);
+    SEGlobalState::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SECullState::Register(SEStream& rStream) const

@@ -173,9 +173,9 @@ void SEBoxBV::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEBoxBV);
 }
 //----------------------------------------------------------------------------
-void SEBoxBV::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEBoxBV::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEBoundingVolume::SELink(rStream, pLink);
+    SEBoundingVolume::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEBoxBV::Register(SEStream& rStream) const

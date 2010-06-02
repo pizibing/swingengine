@@ -127,9 +127,9 @@ void SELight::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SELight);
 }
 //----------------------------------------------------------------------------
-void SELight::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SELight::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEAdvancedObject::SELink(rStream, pLink);
+    SEAdvancedObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SELight::Register(SEStream& rStream) const

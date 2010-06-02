@@ -114,9 +114,9 @@ void SEInterfaceDescriptor::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEInterfaceDescriptor);
 }
 //----------------------------------------------------------------------------
-void SEInterfaceDescriptor::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEInterfaceDescriptor::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 
     for( int i = 0; i < (int)m_DescriptorItems.size(); i++ )
     {

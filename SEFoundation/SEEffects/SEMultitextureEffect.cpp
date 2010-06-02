@@ -153,9 +153,9 @@ void SEMultitextureEffect::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEMultitextureEffect);
 }
 //----------------------------------------------------------------------------
-void SEMultitextureEffect::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEMultitextureEffect::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEShaderEffect::SELink(rStream, pLink);
+    SEShaderEffect::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEMultitextureEffect::Register(SEStream& rStream) const
