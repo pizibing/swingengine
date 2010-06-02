@@ -450,6 +450,18 @@
 		<Filter
 			Name="SEFont"
 			>
+			<File
+				RelativePath=".\SEFont\SEBMFont.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEFont\SEBMFont.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEFont\SEBMFontTypes.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\SEGuiLIB.h"

@@ -27,6 +27,8 @@
 #include "SEGuiRegister.h"
 
 // Font
+#include "SEBMFontTypes.h"
+#include "SEBMFont.h"
 
 #endif
 
