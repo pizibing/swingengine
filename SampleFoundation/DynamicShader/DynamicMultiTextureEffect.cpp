@@ -154,10 +154,10 @@ void DynamicMultiTextureEffect::Load(SEStream& rStream, SEStream::SELink*
     SE_END_DEBUG_STREAM_LOAD(DynamicMultiTextureEffect);
 }
 //----------------------------------------------------------------------------
-void DynamicMultiTextureEffect::SELink(SEStream& rStream, SEStream::SELink* 
+void DynamicMultiTextureEffect::Link(SEStream& rStream, SEStream::SELink* 
     pLink)
 {
-    SEShaderEffect::SELink(rStream, pLink);
+    SEShaderEffect::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool DynamicMultiTextureEffect::Register(SEStream& rStream) const
