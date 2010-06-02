@@ -78,9 +78,9 @@ void BloodCellController::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(BloodCellController);
 }
 //----------------------------------------------------------------------------
-void BloodCellController::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void BloodCellController::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEParticleController::SELink(rStream, pLink);
+    SEParticleController::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool BloodCellController::Register(SEStream& rStream) const
