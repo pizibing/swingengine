@@ -219,3 +219,6 @@ $(IntDir)\$(RootNamespace).$(InputName).resources
 改为该类的实际名称,对应我们上面的例子,则应改为$(IntDir)\MyNamespace.$(InputName).resources
 如果整个项目都使用同样的Namespace,则可以直接在项目属性页面的Managed Resources->General->Resource File Name项里,统一更改为
 $(IntDir)\MyNamespace.$(InputName).resources,然后让所有Form类的.resx文件都继承该项目配置
+
+2010 0602 1107
+更改VC项目RootNamespace的方法:用文本编辑器打开SomeProject.vcproj文件,找到RootNamespace="XXX"条目,编辑修改该值.
