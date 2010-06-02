@@ -150,9 +150,9 @@ void SESoundBuffer::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SESoundBuffer);
 }
 //----------------------------------------------------------------------------
-void SESoundBuffer::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SESoundBuffer::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 
     for( int i = 0; i < (int)m_Waves.size(); i++ )
     {

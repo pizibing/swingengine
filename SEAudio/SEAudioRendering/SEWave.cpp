@@ -263,9 +263,9 @@ void SEWave::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEWave);
 }
 //----------------------------------------------------------------------------
-void SEWave::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEWave::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEWave::Register(SEStream& rStream) const

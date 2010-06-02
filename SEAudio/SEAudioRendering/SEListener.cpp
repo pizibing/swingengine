@@ -111,9 +111,9 @@ void SEListener::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SEListener);
 }
 //----------------------------------------------------------------------------
-void SEListener::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SEListener::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SEObject::SELink(rStream, pLink);
+    SEObject::Link(rStream, pLink);
 }
 //----------------------------------------------------------------------------
 bool SEListener::Register(SEStream& rStream) const

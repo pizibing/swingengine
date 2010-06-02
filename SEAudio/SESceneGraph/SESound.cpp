@@ -194,9 +194,9 @@ void SESound::Load(SEStream& rStream, SEStream::SELink* pLink)
     SE_END_DEBUG_STREAM_LOAD(SESound);
 }
 //----------------------------------------------------------------------------
-void SESound::SELink(SEStream& rStream, SEStream::SELink* pLink)
+void SESound::Link(SEStream& rStream, SEStream::SELink* pLink)
 {
-    SESpatial::SELink(rStream, pLink);
+    SESpatial::Link(rStream, pLink);
 
     SEObject* pLinkID = pLink->GetLinkID();
     ModelBound = (SEBoundingVolume*)rStream.GetFromMap(pLinkID);
