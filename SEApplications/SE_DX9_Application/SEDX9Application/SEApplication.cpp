@@ -119,6 +119,10 @@ int main(int iArgCount, char* apcArgument[])
         tempDir = tempSEPath + std::string("/Data/sewf");
         SESystem::SE_InsertDirectory(tempDir.c_str());
 
+        // font文件的路径.
+        tempDir = tempSEPath + std::string("/Data/fnt");
+        SESystem::SE_InsertDirectory(tempDir.c_str());
+
         // 其他image文件路径.
         tempDir = tempSEPath + std::string("/Data/Im");
         SESystem::SE_InsertDirectory(tempDir.c_str());
