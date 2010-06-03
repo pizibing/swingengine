@@ -122,5 +122,8 @@ void Label::CreateScene()
     m_spScene = SE_NEW SENode;
     m_spWireframe = SE_NEW SEWireframeState;
     m_spScene->AttachGlobalState(m_spWireframe);
+
+    SEBMFont* pFontImpact48 = SEBMFont::Load("Impact48");
+    SE_DELETE pFontImpact48;
 }
 //----------------------------------------------------------------------------
