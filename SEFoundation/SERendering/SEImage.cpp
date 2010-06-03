@@ -247,7 +247,7 @@ SEImage* SEImage::Load(const char* pImageName)
     bool bLoaded = SESystem::SE_Load(pDecorated, acBuffer, iSize);
     if( !bLoaded )
     {
-        // 文件不存在
+        // 文件读取失败
         return 0;
     }
     if( iSize < SEImageVersion::LENGTH )
