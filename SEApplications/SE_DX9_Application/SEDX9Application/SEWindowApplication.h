@@ -24,6 +24,7 @@
 #include "SEApplication.h"
 #include "SwingDX9Renderer.h"
 #include "SwingAudio.h"
+#include "SwingGui.h"
 
 namespace Swing
 {
