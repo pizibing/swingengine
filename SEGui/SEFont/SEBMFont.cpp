@@ -89,9 +89,29 @@ SEBMFont::~SEBMFont()
     SE_DELETE[] m_pKerningPair;
 }
 //----------------------------------------------------------------------------
-SEBMFont* SEBMFont::Load(const char*)
+SEBMFont* SEBMFont::Load(const char* acBMFontName)
 {
-    return 0;
+    SE_ASSERT( acBMFontName );
+
+    std::string strFileName = std::string(acBMFontName) + std::string(".fnt");
+    const char* pDecorated = SESystem::SE_GetPath(strFileName.c_str(), 
+        SESystem::SM_READ);
+    if( !pDecorated )
+    {
+        return 0;
+    }
+
+    char* acBuffer;
+    int iSize;
+    bool bLoaded = SESystem::SE_Load(pDecorated, acBuffer, iSize);
+    if( !bLoaded )
+    {
+        // ÎÄ¼þ¶ÁÈ¡Ê§°Ü.
+        return 0;
+    }
+
+    SEBMFont* pBMFont = SE_NEW SEBMFont(acBuffer, iSize);
+    return pBMFont;
 }
 //----------------------------------------------------------------------------
 void SEBMFont::Initialize(char* pRawData, int iDataSize)
