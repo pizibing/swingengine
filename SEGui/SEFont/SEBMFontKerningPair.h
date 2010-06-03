@@ -62,6 +62,11 @@ namespace Swing
 //----------------------------------------------------------------------------
 class SE_GUI_API SEBMFontKerningPair
 {
+    // first  : The first character id. 
+    // second : The second character id. 
+    // amount : How much the x position should be adjusted when drawing the 
+    //          second character immediately following the first. 
+
 public:
     SEBMFontKerningPair(void);
     ~SEBMFontKerningPair(void);

@@ -61,6 +61,21 @@ namespace Swing
 //----------------------------------------------------------------------------
 class SE_GUI_API SEBMFontCharInfo
 {
+    // id       : The character id. 
+    // x        : The left position of the character image in the texture. 
+    // y        : The top position of the character image in the texture. 
+    // width    : The width of the character image in the texture. 
+    // height   : The height of the character image in the texture. 
+    // xoffset  : How much the current position should be offset when copying 
+    //            the image from the texture to the screen. 
+    // yoffset  : How much the current position should be offset when copying 
+    //            the image from the texture to the screen. 
+    // xadvance : How much the current position should be advanced after 
+    //            drawing the character. 
+    // page     : The texture page where the character image is found. 
+    // chnl     : The texture channel where the character image is found 
+    //            (1 = blue, 2 = green, 4 = red, 8 = alpha, 15 = all channels). 
+
 public:
     SEBMFontCharInfo(void);
     ~SEBMFontCharInfo(void);
