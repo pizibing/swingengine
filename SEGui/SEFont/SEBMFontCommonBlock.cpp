@@ -45,14 +45,26 @@
 // andreas@angelcode.com
 //----------------------------------------------------------------------------
 
-#ifndef Swing_BMFontTypes_H
-#define Swing_BMFontTypes_H
+#include "SEGuiPCH.h"
+#include "SEBMFontCommonBlock.h"
 
-#include "SEGuiLIB.h"
+using namespace Swing;
 
-namespace Swing
+//----------------------------------------------------------------------------
+SEBMFontCommonBlock::SEBMFontCommonBlock()
 {
-
+    LineHeight = 0;
+    Base = 0;
+    ScaleW = 0;
+    ScaleH = 0;
+    Pages = 0;
+    BitField = 0;
+    RedChnl = 0;
+    GreenChnl = 0;
+    BlueChnl = 0;
 }
-
-#endif
+//----------------------------------------------------------------------------
+SEBMFontCommonBlock::~SEBMFontCommonBlock()
+{
+}
+//----------------------------------------------------------------------------

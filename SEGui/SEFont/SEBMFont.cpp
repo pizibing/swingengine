@@ -57,15 +57,21 @@ SE_IMPLEMENT_DEFAULT_NAME_ID(SEBMFont, SEObject);
 //SE_REGISTER_STREAM(SEBMFont);
 
 //----------------------------------------------------------------------------
-SEBMFont::SEBMFont(unsigned char* pRawData, int iDataSize)
+SEBMFont::SEBMFont(char* pRawData, int iDataSize)
 {
+    m_pInfoBlock = 0;
+    m_pCommonBlock = 0;
+    m_pCharInfo = 0;
+    m_iCharInfoCount = 0;
+    m_pKerningPair = 0;
+    m_ikerningPairCount = 0;
+    m_iTexturePageCount = 0;
+
     Initialize(pRawData, iDataSize);
 }
 //----------------------------------------------------------------------------
 SEBMFont::SEBMFont()
 {
-    m_pData = 0;
-    m_iDataSize = 0;
     m_pInfoBlock = 0;
     m_pCommonBlock = 0;
     m_pCharInfo = 0;
@@ -77,7 +83,6 @@ SEBMFont::SEBMFont()
 //----------------------------------------------------------------------------
 SEBMFont::~SEBMFont()
 {
-    SE_DELETE[] m_pData;
 }
 //----------------------------------------------------------------------------
 SEBMFont* SEBMFont::Load(const char*)
@@ -85,77 +90,83 @@ SEBMFont* SEBMFont::Load(const char*)
     return 0;
 }
 //----------------------------------------------------------------------------
-void SEBMFont::Initialize(unsigned char* pRawData, int iDataSize)
+void SEBMFont::Initialize(char* pRawData, int iDataSize)
 {
     SE_ASSERT( pRawData && iDataSize > 0 );
 
-    m_pData = pRawData;
-    m_iDataSize = iDataSize;
-    unsigned char* pData = m_pData;
+    char* pCurrent = pRawData;
 
-    if( pData[0] == 'B' && pData[1] == 'M' && pData[2] == 'F' && 
-        pData[3] == 3 )
+    if( pCurrent[0] != 'B' || pCurrent[1] != 'M' || pCurrent[2] != 'F' || 
+        pCurrent[3] != 3 )
     {
-        // Skip "BMP2".
-        pData += 4;
+        SE_DELETE[] pRawData;
 
-        while( pData != (m_pData + iDataSize) )
+        return;
+    }
+
+    // Skip "BMF3".
+    pCurrent += 4;
+
+    while( pCurrent < (pRawData + iDataSize) )
+    {
+        // Get current block type.
+        unsigned char ucBlockType = *pCurrent++;
+
+        // Get current block length.
+        int iBlockLength;
+        pCurrent += SESystem::SE_Read4le(pCurrent, 1, &iBlockLength);
+
+        // Process current block.
+        switch( ucBlockType )
         {
-            // Get block type.
-            unsigned char ucBlockType = *pData++;
-            int iBlockLength = *(int*)pData;
-            pData += 4;
+        case 1:
+            SE_ASSERT( !m_pInfoBlock );
+            m_pInfoBlock = SE_NEW SEBMFontInfoBlock;
 
-            // Process each block.
-            switch( ucBlockType )
+            break;
+
+        case 2:
+            m_pCommonBlock = (SEBMFontCommonBlock*)(pCurrent);
+            break;
+
+        case 3:
+            SE_ASSERT( m_pCommonBlock );
+
+            if( m_pCommonBlock )
             {
-            case 1:
-                m_pInfoBlock = (SEBMFontInfoBlock*)(pData);
-                break;
+                m_iTexturePageCount = m_pCommonBlock->Pages;
 
-            case 2:
-                m_pCommonBlock = (SEBMFontCommonBlock*)(pData);
-                break;
-
-            case 3:
-                SE_ASSERT( m_pCommonBlock );
-
-                if( m_pCommonBlock )
+                char* acTextureName = (char*)pCurrent;
+                for( int i = 0; i < m_pCommonBlock->Pages; i++ )
                 {
-                    m_iTexturePageCount = m_pCommonBlock->Pages;
-
-                    char* acTextureName = (char*)pData;
-                    for( int i = 0; i < m_pCommonBlock->Pages; i++ )
-                    {
-                        m_aTextureNames[i] = acTextureName;
-                        acTextureName += strlen(acTextureName) + 1;
-                    }
+                    m_aTextureNames[i] = acTextureName;
+                    acTextureName += strlen(acTextureName) + 1;
                 }
-
-                // Manual update pointers as this block does not move data 
-                // about.
-                pData += iBlockLength;
-                iBlockLength = 0;
-                break;
-
-            case 4:
-                m_iCharInfoCount = iBlockLength / sizeof(SEBMFontCharInfo);
-                m_pCharInfo = (SEBMFontCharInfo*)(pData);
-                break;
-
-            case 5:
-                m_ikerningPairCount = iBlockLength / 
-                    sizeof(SEBMFontKerningPair);
-                m_pKerningPair = (SEBMFontKerningPair*)(pData);
-                break;
-
-            default:
-                SE_ASSERT( false );
-                break;
             }
 
-            pData += iBlockLength;
+            // Manual update pointers as this block does not move data 
+            // about.
+            pCurrent += iBlockLength;
+            iBlockLength = 0;
+            break;
+
+        case 4:
+            m_iCharInfoCount = iBlockLength / sizeof(SEBMFontCharInfo);
+            m_pCharInfo = (SEBMFontCharInfo*)(pCurrent);
+            break;
+
+        case 5:
+            m_ikerningPairCount = iBlockLength / 
+                sizeof(SEBMFontKerningPair);
+            m_pKerningPair = (SEBMFontKerningPair*)(pCurrent);
+            break;
+
+        default:
+            SE_ASSERT( false );
+            break;
         }
+
+        pCurrent += iBlockLength;
     }
 }
 //----------------------------------------------------------------------------

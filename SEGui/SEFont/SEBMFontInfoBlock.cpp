@@ -45,14 +45,30 @@
 // andreas@angelcode.com
 //----------------------------------------------------------------------------
 
-#ifndef Swing_BMFontTypes_H
-#define Swing_BMFontTypes_H
+#include "SEGuiPCH.h"
+#include "SEBMFontInfoBlock.h"
 
-#include "SEGuiLIB.h"
+using namespace Swing;
 
-namespace Swing
+//----------------------------------------------------------------------------
+SEBMFontInfoBlock::SEBMFontInfoBlock()
 {
-
+    FontSize = 0;
+    BitField = 0;
+    CharSet = 0;
+    StretchH = 0;
+    AA = 0;
+    PaddingUp = 0;
+    PaddingRight = 0;
+    PaddingDown = 0;
+    PaddingLeft = 0;
+    SpacingHoriz = 0;
+    SpacingVert = 0;
+    Outline = 0;
+    acFontName = 0;
 }
-
-#endif
+//----------------------------------------------------------------------------
+SEBMFontInfoBlock::~SEBMFontInfoBlock()
+{
+}
+//----------------------------------------------------------------------------

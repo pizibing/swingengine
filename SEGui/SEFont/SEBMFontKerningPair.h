@@ -45,13 +45,31 @@
 // andreas@angelcode.com
 //----------------------------------------------------------------------------
 
-#ifndef Swing_BMFontTypes_H
-#define Swing_BMFontTypes_H
+#ifndef Swing_BMFontKerningPair_H
+#define Swing_BMFontKerningPair_H
 
 #include "SEGuiLIB.h"
 
 namespace Swing
 {
+
+//----------------------------------------------------------------------------
+// Description:The kerning information is used to adjust the distance between 
+//     certain characters, e.g. some characters should be placed closer to 
+//     each other than others.
+// Author:Sun Che
+// Date:20100603
+//----------------------------------------------------------------------------
+class SE_GUI_API SEBMFontKerningPair
+{
+public:
+    SEBMFontKerningPair(void);
+    ~SEBMFontKerningPair(void);
+
+    unsigned short First;
+    unsigned short Second;
+    short          Amount;
+};
 
 }
 

@@ -45,14 +45,20 @@
 // andreas@angelcode.com
 //----------------------------------------------------------------------------
 
-#ifndef Swing_BMFontTypes_H
-#define Swing_BMFontTypes_H
+#include "SEGuiPCH.h"
+#include "SEBMFontKerningPair.h"
 
-#include "SEGuiLIB.h"
+using namespace Swing;
 
-namespace Swing
+//----------------------------------------------------------------------------
+SEBMFontKerningPair::SEBMFontKerningPair()
 {
-
+    First = 0;
+    Second = 0;
+    Amount = 0;
 }
-
-#endif
+//----------------------------------------------------------------------------
+SEBMFontKerningPair::~SEBMFontKerningPair()
+{
+}
+//----------------------------------------------------------------------------

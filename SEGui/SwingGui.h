@@ -25,7 +25,10 @@
 #include "SEGuiRegister.h"
 
 // Font
-#include "SEBMFontTypes.h"
+#include "SEBMFontInfoBlock.h"
+#include "SEBMFontCommonBlock.h"
+#include "SEBMFontCharInfo.h"
+#include "SEBMFontKerningPair.h"
 #include "SEBMFont.h"
 
 #endif

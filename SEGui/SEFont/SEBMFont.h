@@ -51,7 +51,10 @@
 #include "SEGuiLIB.h"
 #include "SEObject.h"
 #include "SETexture.h"
-#include "SEBMFontTypes.h"
+#include "SEBMFontInfoBlock.h"
+#include "SEBMFontCharInfo.h"
+#include "SEBMFontCommonBlock.h"
+#include "SEBMFontKerningPair.h"
 
 namespace Swing
 {
@@ -68,7 +71,7 @@ class SE_GUI_API SEBMFont : public SEObject
     SE_DECLARE_STREAM;
 
 public:
-    SEBMFont(unsigned char* pRawData, int iDataSize);
+    SEBMFont(char* pRawData, int iDataSize);
     virtual ~SEBMFont(void);
 
     static SEBMFont* Load(const char* acBMFontName);
@@ -77,9 +80,7 @@ protected:
     // support for streaming.
     SEBMFont(void);
 
-    void Initialize(unsigned char* pRawData, int iDataSize);
-    unsigned char* m_pData;
-    int m_iDataSize;
+    void Initialize(char* pRawData, int iDataSize);
 
     SEBMFontInfoBlock* m_pInfoBlock;
     SEBMFontCommonBlock* m_pCommonBlock;

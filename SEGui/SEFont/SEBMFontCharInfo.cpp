@@ -45,14 +45,27 @@
 // andreas@angelcode.com
 //----------------------------------------------------------------------------
 
-#ifndef Swing_BMFontTypes_H
-#define Swing_BMFontTypes_H
+#include "SEGuiPCH.h"
+#include "SEBMFontCharInfo.h"
 
-#include "SEGuiLIB.h"
+using namespace Swing;
 
-namespace Swing
+//----------------------------------------------------------------------------
+SEBMFontCharInfo::SEBMFontCharInfo()
 {
-
+    ID = 0;
+    X = 0;
+    Y = 0;
+    Width = 0;
+    Height = 0;
+    XOffset = 0;
+    YOffset = 0;
+    XAdvance = 0;
+    Page = 0;
+    Chnl = 0;
 }
-
-#endif
+//----------------------------------------------------------------------------
+SEBMFontCharInfo::~SEBMFontCharInfo()
+{
+}
+//----------------------------------------------------------------------------

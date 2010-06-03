@@ -45,13 +45,36 @@
 // andreas@angelcode.com
 //----------------------------------------------------------------------------
 
-#ifndef Swing_BMFontTypes_H
-#define Swing_BMFontTypes_H
+#ifndef Swing_BMFontCommonBlock_H
+#define Swing_BMFontCommonBlock_H
 
 #include "SEGuiLIB.h"
 
 namespace Swing
 {
+
+//----------------------------------------------------------------------------
+// Description:This class holds information common to all characters.
+// Author:Sun Che
+// Date:20100603
+//----------------------------------------------------------------------------
+class SE_GUI_API SEBMFontCommonBlock
+{
+public:
+    SEBMFontCommonBlock(void);
+    ~SEBMFontCommonBlock(void);
+
+    unsigned short LineHeight;
+    unsigned short Base;
+    unsigned short ScaleW;
+    unsigned short ScaleH;
+    unsigned short Pages;
+    unsigned char  BitField; // bits 0-6: reserved, bit 7: packed
+    unsigned char  AlphaChnl;
+    unsigned char  RedChnl;
+    unsigned char  GreenChnl;
+    unsigned char  BlueChnl;
+};
 
 }
 

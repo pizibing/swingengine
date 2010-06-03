@@ -45,13 +45,37 @@
 // andreas@angelcode.com
 //----------------------------------------------------------------------------
 
-#ifndef Swing_BMFontTypes_H
-#define Swing_BMFontTypes_H
+#ifndef Swing_BMFontCharInfo_H
+#define Swing_BMFontCharInfo_H
 
 #include "SEGuiLIB.h"
 
 namespace Swing
 {
+
+//----------------------------------------------------------------------------
+// Description:This class describes on character in the font. There is one for
+//     each included character in the font.
+// Author:Sun Che
+// Date:20100603
+//----------------------------------------------------------------------------
+class SE_GUI_API SEBMFontCharInfo
+{
+public:
+    SEBMFontCharInfo(void);
+    ~SEBMFontCharInfo(void);
+
+    unsigned int   ID;
+    unsigned short X;
+    unsigned short Y;
+    unsigned short Width;
+    unsigned short Height;
+    short          XOffset;
+    short          YOffset;
+    unsigned char  XAdvance;
+    unsigned char  Page;
+    unsigned char  Chnl;
+};
 
 }
 

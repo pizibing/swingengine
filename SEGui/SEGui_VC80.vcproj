@@ -459,7 +459,35 @@
 				>
 			</File>
 			<File
-				RelativePath=".\SEFont\SEBMFontTypes.h"
+				RelativePath=".\SEFont\SEBMFontCharInfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEFont\SEBMFontCharInfo.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEFont\SEBMFontCommonBlock.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEFont\SEBMFontCommonBlock.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEFont\SEBMFontInfoBlock.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEFont\SEBMFontInfoBlock.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEFont\SEBMFontKerningPair.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEFont\SEBMFontKerningPair.h"
 				>
 			</File>
 		</Filter>

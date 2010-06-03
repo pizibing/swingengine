@@ -45,13 +45,53 @@
 // andreas@angelcode.com
 //----------------------------------------------------------------------------
 
-#ifndef Swing_BMFontTypes_H
-#define Swing_BMFontTypes_H
+#ifndef Swing_BMFontInfoBlock_H
+#define Swing_BMFontInfoBlock_H
 
 #include "SEGuiLIB.h"
 
 namespace Swing
 {
+
+//----------------------------------------------------------------------------
+// Description:This class holds information on how the font was generated.
+// Author:Sun Che
+// Date:20100603
+//----------------------------------------------------------------------------
+class SE_GUI_API SEBMFontInfoBlock
+{ 
+    // face     : This is the name of the true type font. 
+    // size     : The size of the true type font. 
+    // bold     : The font is bold. 
+    // italic   : The font is italic. 
+    // charset  : The name of the OEM charset used (when not unicode). 
+    // unicode  : Set to 1 if it is the unicode charset. 
+    // stretchH : The font height stretch in percentage. 100% means no stretch. 
+    // smooth   : Set to 1 if smoothing was turned on. 
+    // aa       : The supersampling level used. 1 means no supersampling was 
+    //            used. 
+    // padding  : The padding for each character (up, right, down, left). 
+    // spacing  : The spacing for each character (horizontal, vertical). 
+    // outline  : The outline thickness for the characters. 
+
+public:
+    SEBMFontInfoBlock(void);
+    ~SEBMFontInfoBlock(void);
+
+    unsigned short FontSize;
+    unsigned char  BitField;
+    unsigned char  CharSet;
+    unsigned short StretchH;
+    unsigned char  AA;
+    unsigned char  PaddingUp;
+    unsigned char  PaddingRight;
+    unsigned char  PaddingDown;
+    unsigned char  PaddingLeft;
+    unsigned char  SpacingHoriz;
+    unsigned char  SpacingVert;
+    unsigned char  Outline;
+    char*          acFontName;
+};
 
 }
 
