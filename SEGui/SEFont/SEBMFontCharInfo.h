@@ -87,7 +87,7 @@ public:
     unsigned short Height;
     short          XOffset;
     short          YOffset;
-    unsigned char  XAdvance;
+    short          XAdvance;
     unsigned char  Page;
     unsigned char  Chnl;
 };

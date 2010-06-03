@@ -71,9 +71,9 @@ public:
     SEBMFontKerningPair(void);
     ~SEBMFontKerningPair(void);
 
-    unsigned short First;
-    unsigned short Second;
-    short          Amount;
+    unsigned int First;
+    unsigned int Second;
+    short        Amount;
 };
 
 }

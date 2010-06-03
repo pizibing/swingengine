@@ -49,6 +49,7 @@
 #define Swing_BMFontInfoBlock_H
 
 #include "SEGuiLIB.h"
+#include <string>
 
 namespace Swing
 {
@@ -90,7 +91,7 @@ public:
     unsigned char  SpacingHoriz;
     unsigned char  SpacingVert;
     unsigned char  Outline;
-    char*          acFontName;
+    std::string    FontName;
 };
 
 }

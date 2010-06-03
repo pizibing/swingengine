@@ -83,6 +83,10 @@ SEBMFont::SEBMFont()
 //----------------------------------------------------------------------------
 SEBMFont::~SEBMFont()
 {
+    SE_DELETE m_pInfoBlock;
+    SE_DELETE m_pCommonBlock;
+    SE_DELETE[] m_pCharInfo;
+    SE_DELETE[] m_pKerningPair;
 }
 //----------------------------------------------------------------------------
 SEBMFont* SEBMFont::Load(const char*)
@@ -104,13 +108,15 @@ void SEBMFont::Initialize(char* pRawData, int iDataSize)
         return;
     }
 
-    // Skip "BMF3".
+    // Skip "BMF3", which is the current newest verson of BMFont file.
     pCurrent += 4;
 
-    while( pCurrent < (pRawData + iDataSize) )
+    char* pEnd = pRawData + iDataSize;
+    while( pCurrent < pEnd )
     {
         // Get current block type.
-        unsigned char ucBlockType = *pCurrent++;
+        unsigned char ucBlockType;
+        pCurrent += SESystem::SE_Read1(pCurrent, 1, &ucBlockType);
 
         // Get current block length.
         int iBlockLength;
@@ -123,10 +129,81 @@ void SEBMFont::Initialize(char* pRawData, int iDataSize)
             SE_ASSERT( !m_pInfoBlock );
             m_pInfoBlock = SE_NEW SEBMFontInfoBlock;
 
+            pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                &m_pInfoBlock->FontSize);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pInfoBlock->BitField);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pInfoBlock->CharSet);
+
+            pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                &m_pInfoBlock->StretchH);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pInfoBlock->AA);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pInfoBlock->PaddingUp);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pInfoBlock->PaddingRight);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pInfoBlock->PaddingDown);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pInfoBlock->PaddingLeft);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pInfoBlock->SpacingHoriz);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pInfoBlock->SpacingVert);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pInfoBlock->Outline);
+
+            m_pInfoBlock->FontName = pCurrent;
+            pCurrent += m_pInfoBlock->FontName.length() + 1;
+
             break;
 
         case 2:
-            m_pCommonBlock = (SEBMFontCommonBlock*)(pCurrent);
+            SE_ASSERT( !m_pCommonBlock );
+            m_pCommonBlock = SE_NEW SEBMFontCommonBlock;
+            
+            pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                &m_pCommonBlock->LineHeight);
+
+            pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                &m_pCommonBlock->Base);
+
+            pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                &m_pCommonBlock->ScaleW);
+
+            pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                &m_pCommonBlock->ScaleH);
+
+            pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                &m_pCommonBlock->Pages);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pCommonBlock->BitField);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pCommonBlock->AlphaChnl);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pCommonBlock->RedChnl);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pCommonBlock->GreenChnl);
+
+            pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                &m_pCommonBlock->BlueChnl);
+
             break;
 
         case 3:
@@ -144,29 +221,72 @@ void SEBMFont::Initialize(char* pRawData, int iDataSize)
                 }
             }
 
-            // Manual update pointers as this block does not move data 
-            // about.
             pCurrent += iBlockLength;
-            iBlockLength = 0;
             break;
 
         case 4:
-            m_iCharInfoCount = iBlockLength / sizeof(SEBMFontCharInfo);
-            m_pCharInfo = (SEBMFontCharInfo*)(pCurrent);
+            m_iCharInfoCount = iBlockLength / 20;
+            m_pCharInfo = SE_NEW SEBMFontCharInfo[m_iCharInfoCount];
+
+            for( int i = 0; i < m_iCharInfoCount; i++ )
+            {
+                pCurrent += SESystem::SE_Read4le(pCurrent, 1, 
+                    &m_pCharInfo[i].ID);
+
+                pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                    &m_pCharInfo[i].X);
+
+                pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                    &m_pCharInfo[i].Y);
+
+                pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                    &m_pCharInfo[i].Width);
+
+                pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                    &m_pCharInfo[i].Height);
+
+                pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                    &m_pCharInfo[i].XOffset);
+
+                pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                    &m_pCharInfo[i].YOffset);
+
+                pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                    &m_pCharInfo[i].XAdvance);
+
+                pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                    &m_pCharInfo[i].Page);
+
+                pCurrent += SESystem::SE_Read1(pCurrent, 1, 
+                    &m_pCharInfo[i].Chnl);
+            }
+
             break;
 
         case 5:
-            m_ikerningPairCount = iBlockLength / 
-                sizeof(SEBMFontKerningPair);
-            m_pKerningPair = (SEBMFontKerningPair*)(pCurrent);
+            m_ikerningPairCount = iBlockLength / 10;
+            m_pKerningPair = SE_NEW SEBMFontKerningPair[m_ikerningPairCount];
+
+            for( int i = 0; i < m_ikerningPairCount; i++ )
+            {
+                pCurrent += SESystem::SE_Read4le(pCurrent, 1, 
+                    &m_pKerningPair[i].First);
+
+                pCurrent += SESystem::SE_Read4le(pCurrent, 1, 
+                    &m_pKerningPair[i].Second);
+
+                pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
+                    &m_pKerningPair[i].Amount);
+            }
+
             break;
 
         default:
             SE_ASSERT( false );
             break;
         }
-
-        pCurrent += iBlockLength;
     }
+
+    SE_DELETE[] pRawData;
 }
 //----------------------------------------------------------------------------

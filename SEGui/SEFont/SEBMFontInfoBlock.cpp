@@ -65,7 +65,6 @@ SEBMFontInfoBlock::SEBMFontInfoBlock()
     SpacingHoriz = 0;
     SpacingVert = 0;
     Outline = 0;
-    acFontName = 0;
 }
 //----------------------------------------------------------------------------
 SEBMFontInfoBlock::~SEBMFontInfoBlock()
