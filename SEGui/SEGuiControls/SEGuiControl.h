@@ -18,25 +18,37 @@
 // the location:
 // http://www.gnu.org/copyleft/lgpl.html
 
-#include "SEGuiPCH.h"
-#include "SEGuiRegister.h"
+#ifndef Swing_GuiControl_H
+#define Swing_GuiControl_H
 
-// Font
-#include "SEBMFont.h"
-// Gui Controls
-#include "SEGuiControl.h"
+#include "SEGuiLIB.h"
+#include "SENode.h"
 
-using namespace Swing;
-
-//----------------------------------------------------------------------------
-void Swing::SE_Gui_Register()
+namespace Swing
 {
-    // Font
-    SE_REGISTER_STREAM(SEBMFont);
-    SE_INVOKE_STREAM(SEBMFont);
 
-    // Gui Controls
-    SE_REGISTER_STREAM(SEGuiControl);
-    SE_INVOKE_STREAM(SEGuiControl);
-}
 //----------------------------------------------------------------------------
+// Description:
+// Author:Sun Che
+// Date:20100604
+//----------------------------------------------------------------------------
+class SE_GUI_API SEGuiControl : public SENode
+{
+    SE_DECLARE_RTTI;
+    SE_DECLARE_NAME_ID;
+    SE_DECLARE_STREAM;
+
+public:
+    // Abstract base class.
+    virtual ~SEGuiControl(void);
+
+protected:
+    SEGuiControl(void);
+
+};
+
+typedef SESmartPointer<SEGuiControl> SEGuiControlPtr;
+
+}
+
+#endif

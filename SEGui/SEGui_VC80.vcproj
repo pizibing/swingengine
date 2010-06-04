@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\;.\SEFont;..\SDK\Include"
+				AdditionalIncludeDirectories=".\;.\SEFont;.\SEGuiControls;..\SDK\Include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -80,7 +80,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy /y SEFont\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEFont\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;"
+				CommandLine="copy /y SEFont\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEFont\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEGuiControls\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEGuiControls\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -108,7 +108,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\;.\SEFont;..\SDK\Include"
+				AdditionalIncludeDirectories=".\;.\SEFont;.\SEGuiControls;..\SDK\Include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS"
 				MinimalRebuild="false"
 				RuntimeLibrary="2"
@@ -146,7 +146,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy /y SEFont\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEFont\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;"
+				CommandLine="copy /y SEFont\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEFont\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEGuiControls\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEGuiControls\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -175,7 +175,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\;.\SEFont;..\SDK\Include"
+				AdditionalIncludeDirectories=".\;.\SEFont;.\SEGuiControls;..\SDK\Include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS;SE_FOUNDATION_DLL_IMPORT;SE_GUI_DLL_EXPORT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -228,7 +228,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy /y SEFont\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEFont\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;"
+				CommandLine="copy /y SEFont\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEFont\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEGuiControls\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEGuiControls\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -256,7 +256,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\;.\SEFont;..\SDK\Include"
+				AdditionalIncludeDirectories=".\;.\SEFont;.\SEGuiControls;..\SDK\Include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS;SE_FOUNDATION_DLL_IMPORT;SE_GUI_DLL_EXPORT"
 				MinimalRebuild="false"
 				RuntimeLibrary="2"
@@ -306,7 +306,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy /y SEFont\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEFont\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;"
+				CommandLine="copy /y SEFont\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEFont\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEGuiControls\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEGuiControls\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -335,7 +335,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\;.\SEFont;..\SDK\Include"
+				AdditionalIncludeDirectories=".\;.\SEFont;.\SEGuiControls;..\SDK\Include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS;SE_MEMORY_MANAGER"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -374,7 +374,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy /y SEFont\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEFont\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;"
+				CommandLine="copy /y SEFont\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEFont\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEGuiControls\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEGuiControls\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -402,7 +402,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\;.\SEFont;..\SDK\Include"
+				AdditionalIncludeDirectories=".\;.\SEFont;.\SEGuiControls;..\SDK\Include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;SE_USE_PRECOMPILED_HEADERS;SE_MEMORY_MANAGER"
 				MinimalRebuild="false"
 				RuntimeLibrary="2"
@@ -440,7 +440,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy /y SEFont\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEFont\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;"
+				CommandLine="copy /y SEFont\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEFont\*.inl ..\SDK\Include&#x0D;&#x0A;copy /y SEGuiControls\*.h ..\SDK\Include&#x0D;&#x0A;copy /y SEGuiControls\*.inl ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;copy /y *.h ..\SDK\Include&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -496,6 +496,18 @@
 			</File>
 			<File
 				RelativePath=".\SEFont\SEBMFontKerningPair.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="SEGuiControls"
+			>
+			<File
+				RelativePath=".\SEGuiControls\SEGuiControl.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEGuiControls\SEGuiControl.h"
 				>
 			</File>
 		</Filter>

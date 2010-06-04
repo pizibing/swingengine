@@ -31,4 +31,7 @@
 #include "SEBMFontKerningPair.h"
 #include "SEBMFont.h"
 
+// Gui Controls
+#include "SEGuiControl.h"
+
 #endif
