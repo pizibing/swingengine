@@ -475,11 +475,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SEFont\SEBMFontCommonBlock.inl"
+				>
+			</File>
+			<File
 				RelativePath=".\SEFont\SEBMFontInfoBlock.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\SEFont\SEBMFontInfoBlock.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SEFont\SEBMFontInfoBlock.inl"
 				>
 			</File>
 			<File

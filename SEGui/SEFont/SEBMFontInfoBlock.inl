@@ -45,66 +45,29 @@
 // andreas@angelcode.com
 //----------------------------------------------------------------------------
 
-#ifndef Swing_BMFontInfoBlock_H
-#define Swing_BMFontInfoBlock_H
-
-#include "SEGuiLIB.h"
-#include <string>
-
-namespace Swing
+//----------------------------------------------------------------------------
+inline bool SEBMFontInfoBlock::IsSmooth() const
 {
-
-//----------------------------------------------------------------------------
-// Description:This class holds information on how the font was generated.
-// Author:Sun Che
-// Date:20100603
-//----------------------------------------------------------------------------
-class SE_GUI_API SEBMFontInfoBlock
-{ 
-    // face     : This is the name of the true type font. 
-    // size     : The size of the true type font. 
-    // bold     : The font is bold. 
-    // italic   : The font is italic. 
-    // charset  : The name of the OEM charset used (when not unicode). 
-    // unicode  : Set to 1 if it is the unicode charset. 
-    // stretchH : The font height stretch in percentage. 100% means no stretch. 
-    // smooth   : Set to 1 if smoothing was turned on. 
-    // aa       : The supersampling level used. 1 means no supersampling was 
-    //            used. 
-    // padding  : The padding for each character (up, right, down, left). 
-    // spacing  : The spacing for each character (horizontal, vertical). 
-    // outline  : The outline thickness for the characters. 
-
-public:
-    SEBMFontInfoBlock(void);
-    ~SEBMFontInfoBlock(void);
-
-    // BitField layout.
-    // bit 0: smooth, bit 1: unicode, bit 2: italic, bit 3: bold, 
-    // bit 4: fixedHeigth, bits 5-7: reserved
-    inline bool IsSmooth(void) const;
-    inline bool IsUnicode(void) const;
-    inline bool IsItalic(void) const;
-    inline bool IsBold(void) const;
-    inline bool IsFixedHeigth(void) const;
-
-    unsigned short FontSize;
-    unsigned char  BitField;
-    unsigned char  CharSet;
-    unsigned short StretchH;
-    unsigned char  AA;
-    unsigned char  PaddingUp;
-    unsigned char  PaddingRight;
-    unsigned char  PaddingDown;
-    unsigned char  PaddingLeft;
-    unsigned char  SpacingHoriz;
-    unsigned char  SpacingVert;
-    unsigned char  Outline;
-    std::string    FontName;
-};
-
-#include "SEBMFontInfoBlock.inl"
-
+    return (BitField & 0x01) != 0;
 }
-
-#endif
+//----------------------------------------------------------------------------
+inline bool SEBMFontInfoBlock::IsUnicode() const
+{
+    return (BitField & 0x02) != 0;
+}
+//----------------------------------------------------------------------------
+inline bool SEBMFontInfoBlock::IsItalic() const
+{
+    return (BitField & 0x04) != 0;
+}
+//----------------------------------------------------------------------------
+inline bool SEBMFontInfoBlock::IsBold() const
+{
+    return (BitField & 0x08) != 0;
+}
+//----------------------------------------------------------------------------
+inline bool SEBMFontInfoBlock::IsFixedHeigth() const
+{
+    return (BitField & 0x10) != 0;
+}
+//----------------------------------------------------------------------------

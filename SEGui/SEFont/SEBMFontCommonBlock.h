@@ -88,17 +88,23 @@ public:
     SEBMFontCommonBlock(void);
     ~SEBMFontCommonBlock(void);
 
+    // BitField layout.
+    // bits 0-6: reserved, bit 7: packed
+    inline bool IsPacked(void) const;
+
     unsigned short LineHeight;
     unsigned short Base;
     unsigned short ScaleW;
     unsigned short ScaleH;
     unsigned short Pages;
-    unsigned char  BitField; // bits 0-6: reserved, bit 7: packed
+    unsigned char  BitField;
     unsigned char  AlphaChnl;
     unsigned char  RedChnl;
     unsigned char  GreenChnl;
     unsigned char  BlueChnl;
 };
+
+#include "SEBMFontCommonBlock.inl"
 
 }
 
