@@ -24,8 +24,9 @@
 using namespace Swing;
 
 SE_IMPLEMENT_RTTI(Swing, SEGuiControl, SENode);
-SE_IMPLEMENT_DEFAULT_NAME_ID(SEGuiControl, SENode);
 SE_IMPLEMENT_ABSTRACT_STREAM(SEGuiControl);
+SE_IMPLEMENT_DEFAULT_STREAM(SEGuiControl, SENode);
+SE_IMPLEMENT_DEFAULT_NAME_ID(SEGuiControl, SENode);
 
 //SE_REGISTER_STREAM(SEGuiControl);
 
@@ -36,60 +37,5 @@ SEGuiControl::SEGuiControl()
 //----------------------------------------------------------------------------
 SEGuiControl::~SEGuiControl()
 {
-}
-//----------------------------------------------------------------------------
-
-//----------------------------------------------------------------------------
-// streaming
-//----------------------------------------------------------------------------
-void SEGuiControl::Load(SEStream& rStream, SEStream::SELink* pLink)
-{
-    SE_BEGIN_DEBUG_STREAM_LOAD;
-
-    SENode::Load(rStream, pLink);
-
-    SE_END_DEBUG_STREAM_LOAD(SEGuiControl);
-}
-//----------------------------------------------------------------------------
-void SEGuiControl::Link(SEStream& rStream, SEStream::SELink* pLink)
-{
-    SENode::Link(rStream, pLink);
-}
-//----------------------------------------------------------------------------
-bool SEGuiControl::Register(SEStream& rStream) const
-{
-    if( !SENode::Register(rStream) )
-    {
-        return false;
-    }
-
-    return true;
-}
-//----------------------------------------------------------------------------
-void SEGuiControl::Save(SEStream& rStream) const
-{
-    SE_BEGIN_DEBUG_STREAM_SAVE;
-
-    SENode::Save(rStream);
-
-    SE_END_DEBUG_STREAM_SAVE(SEGuiControl);
-}
-//----------------------------------------------------------------------------
-int SEGuiControl::GetDiskUsed(const SEStreamVersion& rVersion) const
-{
-    return SENode::GetDiskUsed(rVersion);
-}
-//----------------------------------------------------------------------------
-SEStringTree* SEGuiControl::SaveStrings(const char*)
-{
-    SEStringTree* pTree = SE_NEW SEStringTree;
-
-    // strings
-    pTree->Append(Format(&TYPE, GetName().c_str()));
-
-    // children
-    pTree->Append(SENode::SaveStrings());
-
-    return pTree;
 }
 //----------------------------------------------------------------------------

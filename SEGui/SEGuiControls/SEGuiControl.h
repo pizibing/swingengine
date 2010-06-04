@@ -42,6 +42,17 @@ public:
     // Abstract base class.
     virtual ~SEGuiControl(void);
 
+    enum ControlType
+    {
+        CT_LABEL,
+        CT_SPRITE,
+        CT_BUTTON,
+        CT_CHECKBOX,
+        CT_MAX_COUNT
+    };
+
+    virtual ControlType GetControlType(void) const = 0;
+
 protected:
     SEGuiControl(void);
 
