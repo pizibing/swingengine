@@ -74,6 +74,26 @@ public:
     SEBMFont(char* pRawData, int iDataSize);
     virtual ~SEBMFont(void);
 
+    // Block access.
+    SEBMFontInfoBlock* GetInfoBlock(void);
+    SEBMFontCommonBlock* GetCommonBlock(void);
+
+    // CharInfo access.
+    int GetCharInfoCount(void) const;
+    SEBMFontCharInfo* GetCharInfo(int i);
+    SEBMFontCharInfo* GetCharInfo(wchar_t wcChar);
+
+    // KerningPair access.
+    int GetKerningPairCount(void) const;
+    SEBMFontKerningPair* GetKerningPair(int i);
+    SEBMFontKerningPair* GetKerningPair(wchar_t wcFirst, wchar_t wcSecond);
+
+    // Texture page access.
+    int GetTexturePageCount(void) const;
+    const std::string& GetTexturePageName(int i) const;
+    void SetTexturePage(int i, SETexture* pTexture);
+    SETexture* GetTexturePage(int i);
+
     static SEBMFont* Load(const char* acBMFontName);
 
 protected:
@@ -85,16 +105,16 @@ protected:
     SEBMFontInfoBlock* m_pInfoBlock;
     SEBMFontCommonBlock* m_pCommonBlock;
 
-    SEBMFontCharInfo* m_pCharInfo;
+    SEBMFontCharInfo* m_aCharInfo;
     int m_iCharInfoCount;
 
-    SEBMFontKerningPair* m_pKerningPair;
+    SEBMFontKerningPair* m_aKerningPair;
     int	m_ikerningPairCount;
 
-    enum { FONT_MAX_TEXTUREPAGES = 256 };
+    enum { MAX_TEXTUREPAGES = 8 };
 
-    std::string m_aTextureNames[FONT_MAX_TEXTUREPAGES];
-    SETexturePtr m_aspTextures[FONT_MAX_TEXTUREPAGES];
+    std::string m_aTextureNames[MAX_TEXTUREPAGES];
+    SETexturePtr m_aspTextures[MAX_TEXTUREPAGES];
     int m_iTexturePageCount;
 };
 

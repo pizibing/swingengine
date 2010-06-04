@@ -61,9 +61,9 @@ SEBMFont::SEBMFont(char* pRawData, int iDataSize)
 {
     m_pInfoBlock = 0;
     m_pCommonBlock = 0;
-    m_pCharInfo = 0;
+    m_aCharInfo = 0;
     m_iCharInfoCount = 0;
-    m_pKerningPair = 0;
+    m_aKerningPair = 0;
     m_ikerningPairCount = 0;
     m_iTexturePageCount = 0;
 
@@ -74,9 +74,9 @@ SEBMFont::SEBMFont()
 {
     m_pInfoBlock = 0;
     m_pCommonBlock = 0;
-    m_pCharInfo = 0;
+    m_aCharInfo = 0;
     m_iCharInfoCount = 0;
-    m_pKerningPair = 0;
+    m_aKerningPair = 0;
     m_ikerningPairCount = 0;
     m_iTexturePageCount = 0;
 }
@@ -85,8 +85,104 @@ SEBMFont::~SEBMFont()
 {
     SE_DELETE m_pInfoBlock;
     SE_DELETE m_pCommonBlock;
-    SE_DELETE[] m_pCharInfo;
-    SE_DELETE[] m_pKerningPair;
+    SE_DELETE[] m_aCharInfo;
+    SE_DELETE[] m_aKerningPair;
+}
+//----------------------------------------------------------------------------
+SEBMFontInfoBlock* SEBMFont::GetInfoBlock()
+{
+    return m_pInfoBlock;
+}
+//----------------------------------------------------------------------------
+SEBMFontCommonBlock* SEBMFont::GetCommonBlock()
+{
+    return m_pCommonBlock;
+}
+//----------------------------------------------------------------------------
+int SEBMFont::GetCharInfoCount() const
+{
+    return m_iCharInfoCount;
+}
+//----------------------------------------------------------------------------
+SEBMFontCharInfo* SEBMFont::GetCharInfo(int i)
+{
+    SE_ASSERT( 0 <= i && i < m_iCharInfoCount );
+    SE_ASSERT( m_aCharInfo );
+
+    return &m_aCharInfo[i];
+}
+//----------------------------------------------------------------------------
+SEBMFontCharInfo* SEBMFont::GetCharInfo(wchar_t wcChar)
+{
+    SE_ASSERT( m_aCharInfo );
+
+    for( int i = 0; i < m_iCharInfoCount; i++ )
+    {
+        SEBMFontCharInfo* pCharInfo = &m_aCharInfo[i];
+        if( pCharInfo->ID == wcChar )
+        {
+            return pCharInfo;
+        }
+    }
+
+    return 0;
+}
+//----------------------------------------------------------------------------
+int SEBMFont::GetKerningPairCount() const
+{
+    return m_ikerningPairCount;
+}
+//----------------------------------------------------------------------------
+SEBMFontKerningPair* SEBMFont::GetKerningPair(int i)
+{
+    SE_ASSERT( 0 <= i && i < m_ikerningPairCount );
+    SE_ASSERT( m_aKerningPair );
+
+    return &m_aKerningPair[i];
+}
+//----------------------------------------------------------------------------
+SEBMFontKerningPair* SEBMFont::GetKerningPair(wchar_t wcFirst, wchar_t 
+    wcSecond)
+{
+    SE_ASSERT( m_aKerningPair );
+
+    for( int i = 0; i < m_ikerningPairCount; i++ )
+    {
+        SEBMFontKerningPair* pKerningPair = &m_aKerningPair[i];
+        if( pKerningPair->First == wcFirst && 
+            pKerningPair->Second == wcSecond )
+        {
+            return pKerningPair;
+        }
+    }
+
+    return 0;
+}
+//----------------------------------------------------------------------------
+int SEBMFont::GetTexturePageCount() const
+{
+    return m_iTexturePageCount;
+}
+//----------------------------------------------------------------------------
+const std::string& SEBMFont::GetTexturePageName(int i) const
+{
+    SE_ASSERT( 0 <= i && i < m_iTexturePageCount );
+
+    return m_aTextureNames[i];
+}
+//----------------------------------------------------------------------------
+void SEBMFont::SetTexturePage(int i, SETexture* pTexture)
+{
+    SE_ASSERT( 0 <= i && i < m_iTexturePageCount );
+
+    m_aspTextures[i] = pTexture;
+}
+//----------------------------------------------------------------------------
+SETexture* SEBMFont::GetTexturePage(int i)
+{
+    SE_ASSERT( 0 <= i && i < m_iTexturePageCount );
+
+    return m_aspTextures[i];
 }
 //----------------------------------------------------------------------------
 SEBMFont* SEBMFont::Load(const char* acBMFontName)
@@ -232,6 +328,7 @@ void SEBMFont::Initialize(char* pRawData, int iDataSize)
             if( m_pCommonBlock )
             {
                 m_iTexturePageCount = m_pCommonBlock->Pages;
+                SE_ASSERT( m_iTexturePageCount <= MAX_TEXTUREPAGES );
 
                 char* acTextureName = (char*)pCurrent;
                 for( int i = 0; i < m_pCommonBlock->Pages; i++ )
@@ -246,57 +343,57 @@ void SEBMFont::Initialize(char* pRawData, int iDataSize)
 
         case 4:
             m_iCharInfoCount = iBlockLength / 20;
-            m_pCharInfo = SE_NEW SEBMFontCharInfo[m_iCharInfoCount];
+            m_aCharInfo = SE_NEW SEBMFontCharInfo[m_iCharInfoCount];
 
             for( int i = 0; i < m_iCharInfoCount; i++ )
             {
                 pCurrent += SESystem::SE_Read4le(pCurrent, 1, 
-                    &m_pCharInfo[i].ID);
+                    &m_aCharInfo[i].ID);
 
                 pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
-                    &m_pCharInfo[i].X);
+                    &m_aCharInfo[i].X);
 
                 pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
-                    &m_pCharInfo[i].Y);
+                    &m_aCharInfo[i].Y);
 
                 pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
-                    &m_pCharInfo[i].Width);
+                    &m_aCharInfo[i].Width);
 
                 pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
-                    &m_pCharInfo[i].Height);
+                    &m_aCharInfo[i].Height);
 
                 pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
-                    &m_pCharInfo[i].XOffset);
+                    &m_aCharInfo[i].XOffset);
 
                 pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
-                    &m_pCharInfo[i].YOffset);
+                    &m_aCharInfo[i].YOffset);
 
                 pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
-                    &m_pCharInfo[i].XAdvance);
+                    &m_aCharInfo[i].XAdvance);
 
                 pCurrent += SESystem::SE_Read1(pCurrent, 1, 
-                    &m_pCharInfo[i].Page);
+                    &m_aCharInfo[i].Page);
 
                 pCurrent += SESystem::SE_Read1(pCurrent, 1, 
-                    &m_pCharInfo[i].Chnl);
+                    &m_aCharInfo[i].Chnl);
             }
 
             break;
 
         case 5:
             m_ikerningPairCount = iBlockLength / 10;
-            m_pKerningPair = SE_NEW SEBMFontKerningPair[m_ikerningPairCount];
+            m_aKerningPair = SE_NEW SEBMFontKerningPair[m_ikerningPairCount];
 
             for( int i = 0; i < m_ikerningPairCount; i++ )
             {
                 pCurrent += SESystem::SE_Read4le(pCurrent, 1, 
-                    &m_pKerningPair[i].First);
+                    &m_aKerningPair[i].First);
 
                 pCurrent += SESystem::SE_Read4le(pCurrent, 1, 
-                    &m_pKerningPair[i].Second);
+                    &m_aKerningPair[i].Second);
 
                 pCurrent += SESystem::SE_Read2le(pCurrent, 1, 
-                    &m_pKerningPair[i].Amount);
+                    &m_aKerningPair[i].Amount);
             }
 
             break;
