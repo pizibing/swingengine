@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="ScreenSpaceAO_VC80"
 	ProjectGUID="{5F6970D9-60B5-4047-A91D-C01FE6361540}"
+	RootNamespace="ScreenSpaceAO_VC80"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -61,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80d.lib SEDX9Renderer80d.lib SEDX9Application80d.lib SEPhysics80d.lib cg.lib cgD3D9.lib SEAudio80d.lib SEWalRenderer80d.lib"
+				AdditionalDependencies="SEFoundation80d.lib SEDX9Renderer80d.lib SEDX9Application80d.lib SEPhysics80d.lib cg.lib cgD3D9.lib SEAudio80d.lib SEWalRenderer80d.lib SEGui80d.lib"
 				OutputFile="ScreenSpaceAO_VC80Dx9DebSta.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug"
@@ -140,7 +141,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80.lib SEDX9Renderer80.lib SEDX9Application80.lib SEPhysics80.lib cg.lib cgD3D9.lib SEAudio80.lib SEWalRenderer80.lib"
+				AdditionalDependencies="SEFoundation80.lib SEDX9Renderer80.lib SEDX9Application80.lib SEPhysics80.lib cg.lib cgD3D9.lib SEAudio80.lib SEWalRenderer80.lib SEGui80.lib"
 				OutputFile="ScreenSpaceAO_VC80Dx9RelSta.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\Release"
@@ -224,7 +225,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80d.lib SEWglRenderer80d.lib SEWglApplication80d.lib SEPhysics80d.lib cg.lib cgGL.lib SEAudio80d.lib SEWalRenderer80d.lib"
+				AdditionalDependencies="SEFoundation80d.lib SEWglRenderer80d.lib SEWglApplication80d.lib SEPhysics80d.lib cg.lib cgGL.lib SEAudio80d.lib SEWalRenderer80d.lib SEGui80d.lib"
 				OutputFile="ScreenSpaceAO_VC80WglDebSta.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\Debug"
@@ -303,7 +304,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80.lib SEWglRenderer80.lib SEWglApplication80.lib SEPhysics80.lib cg.lib cgGL.lib SEAudio80.lib SEWalRenderer80.lib"
+				AdditionalDependencies="SEFoundation80.lib SEWglRenderer80.lib SEWglApplication80.lib SEPhysics80.lib cg.lib cgGL.lib SEAudio80.lib SEWalRenderer80.lib SEGui80.lib"
 				OutputFile="ScreenSpaceAO_VC80WglRelSta.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\Release"
@@ -387,7 +388,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80d.lib SEDX9Renderer80d.lib SEDX9Application80d.lib SEPhysics80d.lib cg.lib cgD3D9.lib SEAudio80d.lib SEWalRenderer80d.lib"
+				AdditionalDependencies="SEFoundation80d.lib SEDX9Renderer80d.lib SEDX9Application80d.lib SEPhysics80d.lib cg.lib cgD3D9.lib SEAudio80d.lib SEWalRenderer80d.lib SEGui80d.lib"
 				OutputFile="ScreenSpaceAO_VC80Dx9DebDyn.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\DebugDLL"
@@ -466,7 +467,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80.lib SEDX9Renderer80.lib SEDX9Application80.lib SEPhysics80.lib cg.lib cgD3D9.lib SEAudio80.lib SEWalRenderer80.lib"
+				AdditionalDependencies="SEFoundation80.lib SEDX9Renderer80.lib SEDX9Application80.lib SEPhysics80.lib cg.lib cgD3D9.lib SEAudio80.lib SEWalRenderer80.lib SEGui80.lib"
 				OutputFile="ScreenSpaceAO_VC80Dx9RelDyn.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\ReleaseDLL"
@@ -550,7 +551,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80d.lib SEWglRenderer80d.lib SEWglApplication80d.lib SEPhysics80d.lib cg.lib cgGL.lib SEAudio80d.lib SEWalRenderer80d.lib"
+				AdditionalDependencies="SEFoundation80d.lib SEWglRenderer80d.lib SEWglApplication80d.lib SEPhysics80d.lib cg.lib cgGL.lib SEAudio80d.lib SEWalRenderer80d.lib SEGui80d.lib"
 				OutputFile="ScreenSpaceAO_VC80WglDebDyn.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\DebugDLL"
@@ -629,7 +630,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80.lib SEWglRenderer80.lib SEWglApplication80.lib SEPhysics80.lib cg.lib cgGL.lib SEAudio80.lib SEWalRenderer80.lib"
+				AdditionalDependencies="SEFoundation80.lib SEWglRenderer80.lib SEWglApplication80.lib SEPhysics80.lib cg.lib cgGL.lib SEAudio80.lib SEWalRenderer80.lib SEGui80.lib"
 				OutputFile="ScreenSpaceAO_VC80WglRelDyn.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\ReleaseDLL"
@@ -713,7 +714,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80d.lib SEDX9Renderer80d.lib SEDX9Application80d.lib SEPhysics80d.lib cg.lib cgD3D9.lib SEAudio80d.lib SEWalRenderer80d.lib"
+				AdditionalDependencies="SEFoundation80d.lib SEDX9Renderer80d.lib SEDX9Application80d.lib SEPhysics80d.lib cg.lib cgD3D9.lib SEAudio80d.lib SEWalRenderer80d.lib SEGui80d.lib"
 				OutputFile="ScreenSpaceAO_VC80Dx9DebMem.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\DebugMemory"
@@ -792,7 +793,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80.lib SEDX9Renderer80.lib SEDX9Application80.lib SEPhysics80.lib cg.lib cgD3D9.lib SEAudio80.lib SEWalRenderer80.lib"
+				AdditionalDependencies="SEFoundation80.lib SEDX9Renderer80.lib SEDX9Application80.lib SEPhysics80.lib cg.lib cgD3D9.lib SEAudio80.lib SEWalRenderer80.lib SEGui80.lib"
 				OutputFile="ScreenSpaceAO_VC80Dx9RelMem.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\ReleaseMemory"
@@ -876,7 +877,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80d.lib SEWglRenderer80d.lib SEWglApplication80d.lib SEPhysics80d.lib cg.lib cgGL.lib SEAudio80d.lib SEWalRenderer80d.lib"
+				AdditionalDependencies="SEFoundation80d.lib SEWglRenderer80d.lib SEWglApplication80d.lib SEPhysics80d.lib cg.lib cgGL.lib SEAudio80d.lib SEWalRenderer80d.lib SEGui80d.lib"
 				OutputFile="ScreenSpaceAO_VC80WglDebMem.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\DebugMemory"
@@ -955,7 +956,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SEFoundation80.lib SEWglRenderer80.lib SEWglApplication80.lib SEPhysics80.lib cg.lib cgGL.lib SEAudio80.lib SEWalRenderer80.lib"
+				AdditionalDependencies="SEFoundation80.lib SEWglRenderer80.lib SEWglApplication80.lib SEPhysics80.lib cg.lib cgGL.lib SEAudio80.lib SEWalRenderer80.lib SEGui80.lib"
 				OutputFile="ScreenSpaceAO_VC80WglRelMem.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\SDK\Lib\ReleaseMemory"
