@@ -48,8 +48,9 @@
 #ifndef Swing_BMFontInfoBlock_H
 #define Swing_BMFontInfoBlock_H
 
-#include "SEGuiLIB.h"
 #include <string>
+
+#include "SEGuiLIB.h"
 
 namespace Swing
 {

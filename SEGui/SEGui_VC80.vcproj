@@ -510,6 +510,14 @@
 				RelativePath=".\SEGuiControls\SEGuiControl.h"
 				>
 			</File>
+			<File
+				RelativePath=".\SEGuiControls\SEGuiLabel.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SEGuiControls\SEGuiLabel.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\SEGuiLIB.h"
