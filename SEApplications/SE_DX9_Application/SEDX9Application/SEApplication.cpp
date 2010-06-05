@@ -22,7 +22,6 @@
 #include "SEApplication.h"
 #include "SEDX9RendererRegister.h"
 #include "SEAudioRegister.h"
-#include "SEGuiRegister.h"
 #include "SEOpenALRendererRegister.h"
 
 using namespace Swing;
@@ -85,7 +84,6 @@ int main(int iArgCount, char* apcArgument[])
     // ‘À––Register.
     SE_Foundation_Register();
     SE_Audio_Register();
-    SE_Gui_Register();
     SE_DX9Renderer_Register();
     SE_OpenALRenderer_Register();
 
