@@ -289,7 +289,7 @@ void SEShader::Save(SEStream& rStream) const
 int SEShader::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     int iSize = SEObject::GetDiskUsed(rVersion) +
-        sizeof(int) + (int)m_ShaderName.length() + sizeof(m_spInterfaces);
+        sizeof(int) + (int)m_ShaderName.length() + SE_PTRSIZE(m_spInterfaces);
 
     int iCount = (int)m_ImageNames.size();
     iSize += sizeof(int);
@@ -300,7 +300,7 @@ int SEShader::GetDiskUsed(const SEStreamVersion& rVersion) const
     }
 
     iCount = (int)m_Textures.size();
-    iSize += sizeof(int) + iCount*sizeof(m_Textures[0]);
+    iSize += sizeof(int) + iCount*SE_PTRSIZE(m_Textures[0]);
 
     return iSize;
 }

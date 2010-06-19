@@ -109,7 +109,7 @@ void SERenderStateBlock::Save(SEStream& rStream) const
 int SERenderStateBlock::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SEObject::GetDiskUsed(rVersion) +
-        SEGlobalState::MAX_STATE_TYPE*sizeof(States[0]);
+        SEGlobalState::MAX_STATE_TYPE*SE_PTRSIZE(States[0]);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SERenderStateBlock::SaveStrings(const char*)

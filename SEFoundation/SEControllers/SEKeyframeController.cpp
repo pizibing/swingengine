@@ -541,12 +541,12 @@ void SEKeyframeController::Save(SEStream& rStream) const
 int SEKeyframeController::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SEController::GetDiskUsed(rVersion) +
-        sizeof(TranslationTimes) +
-        sizeof(TranslationData) +
-        sizeof(RotationTimes) +
-        sizeof(RotationData) +
-        sizeof(ScaleTimes) +
-        sizeof(ScaleData);
+        SE_PTRSIZE(TranslationTimes) +
+        SE_PTRSIZE(TranslationData) +
+        SE_PTRSIZE(RotationTimes) +
+        SE_PTRSIZE(RotationData) +
+        SE_PTRSIZE(ScaleTimes) +
+        SE_PTRSIZE(ScaleData);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SEKeyframeController::SaveStrings(const char*)

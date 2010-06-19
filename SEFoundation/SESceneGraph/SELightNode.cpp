@@ -182,7 +182,7 @@ void SELightNode::Save(SEStream& rStream) const
 //----------------------------------------------------------------------------
 int SELightNode::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return SENode::GetDiskUsed(rVersion) + sizeof(m_spLight);
+    return SENode::GetDiskUsed(rVersion) + SE_PTRSIZE(m_spLight);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SELightNode::SaveStrings(const char*)

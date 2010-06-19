@@ -183,7 +183,7 @@ void SECameraNode::Save(SEStream& rStream) const
 //----------------------------------------------------------------------------
 int SECameraNode::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return SENode::GetDiskUsed(rVersion) + sizeof(m_spCamera);
+    return SENode::GetDiskUsed(rVersion) + SE_PTRSIZE(m_spCamera);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SECameraNode::SaveStrings(const char*)

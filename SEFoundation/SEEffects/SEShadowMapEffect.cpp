@@ -400,10 +400,10 @@ int SEShadowMapEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SEEffect::GetDiskUsed(rVersion) +
         sizeof(m_afDepthBias[0]) +
-        sizeof(m_spProjector) +
-        sizeof(m_spDepthEffect) +
-        sizeof(m_spDepthImage) +
-        sizeof(m_spShadowEffect);
+        SE_PTRSIZE(m_spProjector) +
+        SE_PTRSIZE(m_spDepthEffect) +
+        SE_PTRSIZE(m_spDepthImage) +
+        SE_PTRSIZE(m_spShadowEffect);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SEShadowMapEffect::SaveStrings(const char*)

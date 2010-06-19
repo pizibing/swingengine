@@ -199,7 +199,8 @@ void SESharedArray<T>::Save(SEStream& rStream) const
 template <class T>
 int SESharedArray<T>::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
-    return SEObject::GetDiskUsed(rVersion) + sizeof(m_iCount) + m_iCount*sizeof(T);
+    return SEObject::GetDiskUsed(rVersion) + sizeof(m_iCount) + 
+        m_iCount*sizeof(T);
 }
 //----------------------------------------------------------------------------
 template <class T>

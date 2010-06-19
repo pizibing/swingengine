@@ -1015,11 +1015,11 @@ int SEShaderEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SEEffect::GetDiskUsed(rVersion) +
         sizeof(m_iPassCount) +
-        m_iPassCount*sizeof(m_VShader[0]) +
-        m_iPassCount*sizeof(m_GShader[0]) +
-        m_iPassCount*sizeof(m_PShader[0]) +
+        m_iPassCount*SE_PTRSIZE(m_VShader[0]) +
+        m_iPassCount*SE_PTRSIZE(m_GShader[0]) +
+        m_iPassCount*SE_PTRSIZE(m_PShader[0]) +
         sizeof(int) +
-        ((int)m_RStateBlocks.size())*sizeof(m_RStateBlocks[0]);
+        ((int)m_RStateBlocks.size())*SE_PTRSIZE(m_RStateBlocks[0]);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SEShaderEffect::SaveStrings(const char*)

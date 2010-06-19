@@ -452,7 +452,7 @@ int SENode::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SESpatial::GetDiskUsed(rVersion) +
         3*sizeof(int) +  // m_Child maxcount, growby, count
-        ((int)m_Child.size())*sizeof(m_Child[0]);
+        ((int)m_Child.size())*SE_PTRSIZE(m_Child[0]);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SENode::SaveStrings(const char*)

@@ -727,14 +727,15 @@ int SESpatial::GetDiskUsed(const SEStreamVersion& rVersion) const
         SETransformation::DISK_USED +  // World
         sizeof(char) + // WorldIsCurrent
         sizeof(char) + // WorldBoundIsCurrent
-        sizeof(WorldBound);
+        SE_PTRSIZE(WorldBound);
 
     iSize += sizeof(int); // Culling
 
     iSize +=
-        sizeof(int) + ((int)m_GlobalStates.size())*sizeof(SEGlobalStatePtr) +
-        sizeof(int) + ((int)m_Lights.size())*sizeof(SELightPtr) +
-        sizeof(int) + ((int)m_Effects.size())*sizeof(SEEffectPtr);
+        sizeof(int) + ((int)m_GlobalStates.size())*
+        SE_PTRSIZE(SEGlobalStatePtr) +
+        sizeof(int) + ((int)m_Lights.size())*SE_PTRSIZE(SELightPtr) +
+        sizeof(int) + ((int)m_Effects.size())*SE_PTRSIZE(SEEffectPtr);
 
     return iSize;
 }

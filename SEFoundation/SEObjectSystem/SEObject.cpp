@@ -259,7 +259,7 @@ void SEObject::Save(SEStream& rStream) const
 int SEObject::GetDiskUsed(const SEStreamVersion&) const
 {
     int iUsed = GetType().GetDiskUsed();
-    iUsed += sizeof(this);
+    iUsed += SE_PTRSIZE(this);
     iUsed += sizeof(int) + (int)m_Name.length();
 
     return iUsed;

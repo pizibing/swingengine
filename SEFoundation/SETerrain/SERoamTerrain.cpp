@@ -454,8 +454,8 @@ int SERoamTerrain::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(m_iCameraCol) +
         sizeof(m_fUVBias) +
         sizeof(m_BorderColor) +
-        sizeof(m_spCamera) +
-        m_iRows*m_iCols*sizeof(m_Pages[0][0]);
+        SE_PTRSIZE(m_spCamera) +
+        m_iRows*m_iCols*SE_PTRSIZE(m_Pages[0][0]);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SERoamTerrain::SaveStrings(const char*)

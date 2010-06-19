@@ -278,7 +278,7 @@ int SESkinEffect::GetDiskUsed(const SEStreamVersion& rVersion) const
     return SEShaderEffect::GetDiskUsed(rVersion) +
         sizeof(m_iBoneCount) + 
         m_iBoneCount*SETransformation::DISK_USED +
-        m_iBoneCount*sizeof(m_apBones[0]);
+        m_iBoneCount*SE_PTRSIZE(m_apBones[0]);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SESkinEffect::SaveStrings(const char*)

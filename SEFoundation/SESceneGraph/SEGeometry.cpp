@@ -401,10 +401,10 @@ int SEGeometry::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SESpatial::GetDiskUsed(rVersion) +
         sizeof(LightingMode) +
-        sizeof(ModelBound) +
-        sizeof(VBuffer) +
-        sizeof(IBuffer) +
-        sizeof(m_spLEffect);
+        SE_PTRSIZE(ModelBound) +
+        SE_PTRSIZE(VBuffer) +
+        SE_PTRSIZE(IBuffer) +
+        SE_PTRSIZE(m_spLEffect);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SEGeometry::SaveStrings(const char*)

@@ -315,8 +315,8 @@ int SEParticles::GetDiskUsed(const SEStreamVersion& rVersion) const
     return SETriMesh::GetDiskUsed(rVersion) +
         sizeof(SizeAdjust) +
         sizeof(m_iActiveCount) +
-        sizeof(Locations) +
-        sizeof(Sizes);
+        SE_PTRSIZE(Locations) +
+        SE_PTRSIZE(Sizes);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SEParticles::SaveStrings(const char*)

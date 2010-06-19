@@ -198,7 +198,7 @@ int SESkinController::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(m_iBoneCount) +
         m_iVertexCount*m_iBoneCount*sizeof(m_aafWeight[0][0]) +
         m_iVertexCount*m_iBoneCount*sizeof(m_aaOffset[0][0]) +
-        m_iBoneCount*sizeof(m_apBones[0]);
+        m_iBoneCount*SE_PTRSIZE(m_apBones[0]);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SESkinController::SaveStrings(const char*)

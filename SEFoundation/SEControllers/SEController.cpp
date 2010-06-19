@@ -197,7 +197,7 @@ int SEController::GetDiskUsed(const SEStreamVersion& rVersion) const
         sizeof(Phase) +
         sizeof(Frequency) +
         sizeof(char) +  // Active
-        sizeof(m_pObject);
+        SE_PTRSIZE(m_pObject);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SEController::SaveStrings(const char*)

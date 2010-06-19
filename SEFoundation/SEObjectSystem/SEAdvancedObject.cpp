@@ -253,7 +253,8 @@ void SEAdvancedObject::Save(SEStream& rStream) const
 int SEAdvancedObject::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     int iSize = SEObject::GetDiskUsed(rVersion);
-    iSize += sizeof(int) + ((int)m_Controllers.size())*sizeof(SEControllerPtr);
+    iSize += sizeof(int) + ((int)m_Controllers.size())*
+        SE_PTRSIZE(SEControllerPtr);
 
     return iSize;
 }

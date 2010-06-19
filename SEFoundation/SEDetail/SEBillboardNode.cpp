@@ -184,7 +184,7 @@ void SEBillboardNode::Save(SEStream& rStream) const
 int SEBillboardNode::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SENode::GetDiskUsed(rVersion) +
-        sizeof(m_spCamera);
+        SE_PTRSIZE(m_spCamera);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SEBillboardNode::SaveStrings(const char*)

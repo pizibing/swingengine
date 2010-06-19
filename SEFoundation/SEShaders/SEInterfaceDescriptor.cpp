@@ -166,7 +166,7 @@ int SEInterfaceDescriptor::GetDiskUsed(const SEStreamVersion& rVersion) const
     int iSize = SEObject::GetDiskUsed(rVersion);
 
     int iCount = (int)m_DescriptorItems.size();
-    iSize += sizeof(int) + iCount*sizeof(m_DescriptorItems[0]);
+    iSize += sizeof(int) + iCount*SE_PTRSIZE(m_DescriptorItems[0]);
 
     return iSize;
 }
