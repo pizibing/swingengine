@@ -194,5 +194,11 @@ static bool gs_bStreamRegistered_##classname = \
 #define SE_END_DEBUG_STREAM_SAVE(classname)
 #endif
 //----------------------------------------------------------------------------
+// The SE_PTRSIZE macro is used only by GetDiskUsed.  A pointer is written
+// to 8 bytes on disk, whether running on a 32-bit or 64-bit system.  This
+// change was required to support 64-bit platforms, where pointers are
+// potentially 8 bytes in size.
+#define SE_PTRSIZE(value) 8
+//----------------------------------------------------------------------------
 
 #endif
