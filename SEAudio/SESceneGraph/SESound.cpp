@@ -248,7 +248,7 @@ int SESound::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SESpatial::GetDiskUsed(rVersion) +
         sizeof(Pitch) + sizeof(Gain) + sizeof(RollOffRate) + sizeof(Looping) +
-        sizeof(ModelBound) + sizeof(SBuffer);
+        SE_PTRSIZE(ModelBound) + SE_PTRSIZE(SBuffer);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SESound::SaveStrings(const char*)

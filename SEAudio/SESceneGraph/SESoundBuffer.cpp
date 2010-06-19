@@ -199,7 +199,7 @@ void SESoundBuffer::Save(SEStream& rStream) const
 int SESoundBuffer::GetDiskUsed(const SEStreamVersion& rVersion) const
 {
     return SEObject::GetDiskUsed(rVersion) +
-        sizeof(int) + (int)m_Waves.size()*sizeof(m_Waves[0]);
+        sizeof(int) + (int)m_Waves.size()*SE_PTRSIZE(m_Waves[0]);
 }
 //----------------------------------------------------------------------------
 SEStringTree* SESoundBuffer::SaveStrings(const char*)
