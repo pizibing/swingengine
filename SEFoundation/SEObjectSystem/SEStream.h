@@ -151,7 +151,6 @@ public:
     inline int GetBufferNext(void) const;
 
     void Read(SEObject*& rpValue);
-    void Read(int iCount, SEObject** ppValue);
     void Read(bool& rValue);
     void Read(int iCount, bool* pValue);
     void Read(char& rValue);
@@ -201,9 +200,6 @@ public:
     void Read(int iCount, SETransformation* pValue);
 
     void Write(const SEObject* pValue);
-    void Write(int iCount, SEObject** const ppValue);
-    void Write(const SESmartPointer<SEObject>& rspValue);
-    void Write(int iCount, const SESmartPointer<SEObject>* pspValue);
     void Write(bool bValue);
     void Write(int iCount, const bool* pValue);
     void Write(char cValue);

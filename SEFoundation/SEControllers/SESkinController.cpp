@@ -186,7 +186,10 @@ void SESkinController::Save(SEStream& rStream) const
     }
 
     // link data
-    rStream.Write(m_iBoneCount, (SEObject**)m_apBones);
+    for( i = 0; i < m_iBoneCount; i++ )
+    {
+        rStream.Write(m_apBones[i]);
+    }
 
     SE_END_DEBUG_STREAM_SAVE(SESkinController);
 }

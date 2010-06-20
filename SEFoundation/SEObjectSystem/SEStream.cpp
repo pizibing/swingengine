@@ -436,18 +436,18 @@ SEObject* SEStream::SELink::GetLinkID()
 //----------------------------------------------------------------------------
 void SEStream::Read(SEObject*& rpValue)
 {
-    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, 1, 
-        &rpValue);
+    // To support 32-bit and 64-bit systems.
+    char acTemp[8];
 
+    m_iBufferNext += SESystem::SE_Read8le(m_pBuffer+m_iBufferNext, 1, 
+        &acTemp);
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
-}
-//----------------------------------------------------------------------------
-void SEStream::Read(int iCount, SEObject** ppValue)
-{
-    m_iBufferNext += SESystem::SE_Read4le(m_pBuffer+m_iBufferNext, iCount,
-        ppValue);
 
-    SE_ASSERT( m_iBufferNext <= m_iBufferSize );
+#ifdef SE_BIG_ENDIAN
+    memcpy(&rpValue, acTemp+8-sizeof(SEObject*), sizeof(SEObject*));
+#else
+    memcpy(&rpValue, acTemp, sizeof(SEObject*));
+#endif
 }
 //----------------------------------------------------------------------------
 void SEStream::Read(bool& rValue)
@@ -853,32 +853,11 @@ void SEStream::Read(int iCount, SETransformation* pValue)
 //----------------------------------------------------------------------------
 void SEStream::Write(const SEObject* pValue)
 {
-    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, 
-        &pValue);
-
-    SE_ASSERT( m_iBufferNext <= m_iBufferSize );
-}
-//----------------------------------------------------------------------------
-void SEStream::Write(int iCount, SEObject** const ppValue)
-{
-    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
-        ppValue);
-
-    SE_ASSERT( m_iBufferNext <= m_iBufferSize );
-}
-//----------------------------------------------------------------------------
-void SEStream::Write(const SESmartPointer<SEObject>& rspValue)
-{
-    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, 1, 
-        &rspValue);
-
-    SE_ASSERT( m_iBufferNext <= m_iBufferSize );
-}
-//----------------------------------------------------------------------------
-void SEStream::Write(int iCount, const SESmartPointer<SEObject>* pspValue)
-{
-    m_iBufferNext += SESystem::SE_Write4le(m_pBuffer+m_iBufferNext, iCount, 
-        pspValue);
+    // To support 32-bit and 64-bit systems.
+    char acTemp[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    memcpy(acTemp, &pValue, sizeof(SEObject*));
+    m_iBufferNext += SESystem::SE_Write8le(m_pBuffer+m_iBufferNext, 1, 
+        &acTemp);
 
     SE_ASSERT( m_iBufferNext <= m_iBufferSize );
 }
