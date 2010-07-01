@@ -84,7 +84,7 @@ public:
     };
     virtual int GetType(void) const = 0;
 
-    // SECamera access.
+    // Camera access.
     void SetCamera(SECamera* pCamera);
     inline SECamera* GetCamera(void) const;
 
