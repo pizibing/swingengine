@@ -65,6 +65,11 @@ SENode* ManagedUtility::CloneNode(SENode* pSrcNode)
         pClonedObject->AttachController(pSrcNode->GetController(i));
     }
 
+    for( int i = 0; i < pSrcNode->GetGlobalStateCount(); i++ )
+    {
+        pClonedObject->AttachGlobalState(pSrcNode->GetGlobalState(i));
+    }
+
     for( int i = 0; i < pSrcNode->GetCount(); i++ )
     {
         SESpatial* pChild = pSrcNode->GetChild(i);
@@ -110,6 +115,11 @@ SETriMesh* ManagedUtility::CloneTriMesh(SETriMesh* pSrcTriMesh)
     for( int i = 0; i < pSrcTriMesh->GetControllerCount(); i++ )
     {
         pClonedObject->AttachController(pSrcTriMesh->GetController(i));
+    }
+
+    for( int i = 0; i < pSrcTriMesh->GetGlobalStateCount(); i++ )
+    {
+        pClonedObject->AttachGlobalState(pSrcTriMesh->GetGlobalState(i));
     }
 
     for( int i = 0; i < pSrcTriMesh->GetEffectCount(); i++ )
