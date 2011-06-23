@@ -50,7 +50,8 @@ int SEImage::ms_BytesPerPixel[SEImage::IT_COUNT] =
     8,  // IT_RGBA16
     2,  // IT_RGB565
     2,  // IT_RGBA5551
-    2   // IT_RGBA4444
+    2,  // IT_RGBA4444
+    0   // IT_PVRTC
 };
 
 std::string SEImage::ms_FormatName[SEImage::IT_COUNT] =
@@ -71,7 +72,8 @@ std::string SEImage::ms_FormatName[SEImage::IT_COUNT] =
     "IT_RGBA16",
     "IT_RGB565",
     "IT_RGBA5551",
-    "IT_RGBA4444"
+    "IT_RGBA4444",
+    "IT_PVRTC"
 };
 
 //----------------------------------------------------------------------------

@@ -64,6 +64,7 @@ public:
         IT_RGB565,   // (high)   B G R (low)
         IT_RGBA5551, // (high) A B G R (low)
         IT_RGBA4444, // (high) A B G R (low)
+        IT_PVRTC,
         IT_COUNT
     };
 
