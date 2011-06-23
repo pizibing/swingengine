@@ -380,7 +380,11 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "SEPhysics" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 08FB7794FE84155DC02AAC07 /* SEPhysics */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -573,7 +577,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = SEPhysicsd;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Debug";
 				SKIP_INSTALL = YES;
 				WARNING_CFLAGS = (
@@ -592,7 +596,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = YES;
 				SDKROOT = "";
 			};
@@ -625,7 +629,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = SEPhysics;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Release";
 				SKIP_INSTALL = YES;
 				WARNING_CFLAGS = (
@@ -658,13 +662,14 @@
 				HEADER_SEARCH_PATHS = "${SRCROOT}/../SDK/Include";
 				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
 				LIBRARY_STYLE = STATIC;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEPhysicsd_iPhoneSim;
-				SDKROOT = iphonesimulator3.0;
+				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Debug_iPhoneSim";
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -694,13 +699,15 @@
 				HEADER_SEARCH_PATHS = "${SRCROOT}/../SDK/Include";
 				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
 				LIBRARY_STYLE = STATIC;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = YES;
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEPhysics_iPhoneSim;
-				SDKROOT = iphonesimulator3.0;
+				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Release_iPhoneSim";
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Default;
 		};
@@ -730,9 +737,10 @@
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEPhysicsd_iPhoneDev;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Debug_iPhoneDev";
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -767,9 +775,10 @@
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEPhysics_iPhoneDev;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Release_iPhoneDev";
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",

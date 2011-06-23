@@ -90,7 +90,6 @@
 		52AFFA520FF8AE940008BD07 /* SEOpenALRendererRegister.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = SEOpenALRendererRegister.cpp; sourceTree = "<group>"; };
 		52AFFA530FF8AE940008BD07 /* SEOpenALRendererRegister.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SEOpenALRendererRegister.h; sourceTree = "<group>"; };
 		52AFFA540FF8AE940008BD07 /* SwingOpenALRenderer.h */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.c.h; path = SwingOpenALRenderer.h; sourceTree = "<group>"; };
-		DD884B6610BCE25500C8F20A /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.0.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		DD884BEA10BD144300C8F20A /* SEiPhoneOpenALRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; name = SEiPhoneOpenALRenderer.cpp; path = SEOpenALRendering/SEiPhoneOpenALRenderer.cpp; sourceTree = "<group>"; };
 		DD884BEB10BD144300C8F20A /* SEiPhoneOpenALRenderer.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEiPhoneOpenALRenderer.h; path = SEOpenALRendering/SEiPhoneOpenALRenderer.h; sourceTree = "<group>"; };
 		DD9CEFDF119BC29300804F1A /* libSEiPhoneOpenALRendererd_iPhoneDev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOpenALRendererd_iPhoneDev.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,7 +132,6 @@
 			isa = PBXGroup;
 			children = (
 				52898A450E9DB7FB000BBA95 /* Sources */,
-				52898A460E9DB80F000BBA95 /* Frameworks */,
 				528989670E9DB4E7000BBA95 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -161,14 +159,6 @@
 				52AFFA540FF8AE940008BD07 /* SwingOpenALRenderer.h */,
 			);
 			name = Sources;
-			sourceTree = "<group>";
-		};
-		52898A460E9DB80F000BBA95 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DD884B6610BCE25500C8F20A /* OpenAL.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		52898A550E9DB968000BBA95 /* SEOpenALRendering */ = {
@@ -329,7 +319,11 @@
 			isa = PBXProject;
 			buildConfigurationList = 528989540E9DB486000BBA95 /* Build configuration list for PBXProject "SE_iPhoneOpenAL_Renderer" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 5289894F0E9DB486000BBA95;
 			productRefGroup = 528989670E9DB4E7000BBA95 /* Products */;
 			projectDirPath = "";
@@ -470,7 +464,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
-				SDKROOT = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Default;
 		};
@@ -506,7 +501,7 @@
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEiPhoneOpenALRendererd_iPhoneSim;
-				SDKROOT = iphonesimulator3.0;
+				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Debug";
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
@@ -548,7 +543,7 @@
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEiPhoneOpenALRenderer_iPhoneSim;
-				SDKROOT = iphonesimulator3.0;
+				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Release";
 				SKIP_INSTALL = YES;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
@@ -586,7 +581,7 @@
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEiPhoneOpenALRendererd_iPhoneDev;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Debug_iPhoneDev";
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 				WARNING_CFLAGS = (
@@ -621,7 +616,7 @@
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEiPhoneOpenALRenderer_iPhoneDev;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Release_iPhoneDev";
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 				WARNING_CFLAGS = (

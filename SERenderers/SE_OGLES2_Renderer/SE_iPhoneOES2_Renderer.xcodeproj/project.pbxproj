@@ -136,10 +136,6 @@
 /* Begin PBXFileReference section */
 		528989660E9DB4E7000BBA95 /* libSEiPhoneOES2Rendererd_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOES2Rendererd_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5289896F0E9DB4FD000BBA95 /* libSEiPhoneOES2Renderer_iPhoneSim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOES2Renderer_iPhoneSim.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD7B929F109A828800BF166C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		DD7B92A3109A82D100BF166C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		DD7B92A7109A830E00BF166C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		DD7B92A9109A830E00BF166C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DD9CF056119BE90100804F1A /* libSEiPhoneOES2Rendererd_iPhoneDev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOES2Rendererd_iPhoneDev.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD9CF05D119BE92200804F1A /* libSEiPhoneOES2Renderer_iPhoneDev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEiPhoneOES2Renderer_iPhoneDev.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDFC894910A1B4AA00C6F03F /* SEEAGL2View.h */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.c.h; name = SEEAGL2View.h; path = SEOGLES2Rendering/SEEAGL2View.h; sourceTree = "<group>"; };
@@ -211,7 +207,6 @@
 			isa = PBXGroup;
 			children = (
 				52898A450E9DB7FB000BBA95 /* Sources */,
-				52898A460E9DB80F000BBA95 /* Frameworks */,
 				528989670E9DB4E7000BBA95 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -240,17 +235,6 @@
 				DDFC89B410A1BE6E00C6F03F /* SwingOGLES2Renderer.h */,
 			);
 			name = Sources;
-			sourceTree = "<group>";
-		};
-		52898A460E9DB80F000BBA95 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DD7B929F109A828800BF166C /* Foundation.framework */,
-				DD7B92A3109A82D100BF166C /* OpenGLES.framework */,
-				DD7B92A7109A830E00BF166C /* QuartzCore.framework */,
-				DD7B92A9109A830E00BF166C /* UIKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		52898A550E9DB968000BBA95 /* SEOGLES2Rendering */ = {
@@ -449,7 +433,11 @@
 			isa = PBXProject;
 			buildConfigurationList = 528989540E9DB486000BBA95 /* Build configuration list for PBXProject "SE_iPhoneOES2_Renderer" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 5289894F0E9DB486000BBA95;
 			productRefGroup = 528989670E9DB4E7000BBA95 /* Products */;
 			projectDirPath = "";
@@ -633,12 +621,12 @@
 		528989520E9DB486000BBA95 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				ARCHS = "$(ONLY_ACTIVE_ARCH_PRE_XCODE_3_1)";
 				COPY_PHASE_STRIP = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
-				ONLY_ACTIVE_ARCH = NO;
-				SDKROOT = iphonesimulator3.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Default;
 		};
@@ -665,7 +653,7 @@
 				INSTALL_PATH = /usr/local/lib;
 				LD_MAP_FILE_PATH = "$(TARGET_TEMP_DIR)/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt";
 				LIBRARY_STYLE = STATIC;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEiPhoneOES2Rendererd_iPhoneSim;
@@ -704,7 +692,7 @@
 				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_STYLE = STATIC;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEiPhoneOES2Renderer_iPhoneSim;
@@ -740,7 +728,7 @@
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEiPhoneOES2Rendererd_iPhoneDev;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Debug_iPhoneDev";
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 				WARNING_CFLAGS = (
@@ -772,7 +760,7 @@
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PREBINDING = NO;
 				PRODUCT_NAME = SEiPhoneOES2Renderer_iPhoneDev;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/$(CONFIGURATION)/Release_iPhoneDev";
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 				WARNING_CFLAGS = (
