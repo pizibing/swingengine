@@ -1,0 +1,38 @@
+//----------------------------------------------------------------------------
+void v_Distortion
+(
+    in float4        kModelPosition : POSITION,
+    in float2        kInBaseTCoord  : TEXCOORD0,
+    out float4       kClipPosition  : POSITION,
+    out float2       kOutBaseTCoord : TEXCOORD0,
+    out float4       kOutDistortionTCoord : TEXCOORD1,
+    uniform float4x4 WVPMatrix
+)
+{
+    kClipPosition = mul(kModelPosition,WVPMatrix);
+
+    kOutBaseTCoord = kInBaseTCoord;
+    kOutDistortionTCoord = kClipPosition;
+}
+//----------------------------------------------------------------------------
+void p_Distortion
+(
+    in float2         kBaseTCoord : TEXCOORD0,
+    in float4         kDistortionTCoord : TEXCOORD1,
+    out float4        kPixelColor : COLOR0,
+    uniform sampler2D BaseSampler,
+    uniform sampler2D DistortionSampler
+)
+{
+    float2 tempUV;
+    tempUV = kDistortionTCoord.xy / kDistortionTCoord.w;
+    tempUV = (tempUV + 1.0f)*0.5f;
+    tempUV.y = 1.0f - tempUV.y;
+
+    float2 tempDis = tex2D(DistortionSampler, kBaseTCoord).rg*0.01f;
+    float2 tempD = tempDis;
+
+    kPixelColor = tex2D(BaseSampler, tempUV + tempD);
+    //kPixelColor.r = 1.0f;
+}
+//----------------------------------------------------------------------------
